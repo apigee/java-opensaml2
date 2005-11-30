@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.opensaml.org/opensaml-config" xmlns:os="http://www.opensaml.org/opensaml-config">
+    <element name="OpenSAML">
+        <complexType>
+            <sequence>
+                <element name="identity-provider" type="os:IdentityProviderType"/>
+                <element name="element-providers">
+                    <complexType>
+                        <sequence>
+                            <element name="element-provider" type="os:ElementProviderType"/>
+                        </sequence>
+                    </complexType>
+                </element>
+                <element name="binding-providers">
+                    <complexType>
+                        <sequence>
+                            <element name="binding-provider" type="os:BindingProviderType"/>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+            
+            <attribute name="clock-skew" type="long"/>
+        </complexType>
+    </element>
+
+    <complexType name="ElementProviderType">
+        <sequence>
+            <element name="Implementation-Class" type="string"/>
+            <element name="Builder-Class" type="string"/>
+            <element name="Marshalling-Class" type="string"/>
+            <element name="Unmarshalling-Class" type="string"/>
+        </sequence>
+        
+        <attribute name="qualified-name" type="QName"/>
+    </complexType>
+
+    <complexType name="BindingProviderType">
+        <sequence>
+            <element name="Implementation-Class" type="string"/>
+        </sequence>
+    </complexType>
+    
+    <complexType name="IdentityProviderType">
+        <sequence>
+            <element name="Implementation-Class" type="string"/>
+        </sequence>
+    </complexType>
+
+</schema>
