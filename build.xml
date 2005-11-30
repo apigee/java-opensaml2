@@ -111,8 +111,13 @@
 					</classpath>
 				</java>
 
-				<echo message="Remember, you must include the retroweaver-1.1-rt.jar file, located in the lib directory, 
-					along with the opensaml-${version}-jdk-${jdk.target}.jar on your classpath in order to use this with JDK 1.4" />
+				<echo message="**************************************************************"/>
+				<echo message="***  Remember, you must include the retroweaver-1.1-rt.jar ***"/>
+				<echo message="***  file, located in the lib directory, along with the    ***"/>
+			    <echo message="***  opensaml-${version}-jdk-${jdk.target}.jar on your     ***"/> 
+			    <echo message="***  classpath in order to use this with JDK 1.4           ***" />
+				<echo message="**************************************************************"/>
+
 			</then>
 		</if>
 
@@ -146,7 +151,7 @@
 
 	<!-- Create TGZ binary distribution -->
 	<target name="tgz-bin-dist" depends="package, javadoc, test">
-		<tar tarfile="${build.dir}/opensaml-{$version}-jdk-${target.jdk}-bin.tar" compression="gzip" basedir="${basedir}">
+		<tar tarfile="${build.dir}/opensaml-${version}-jdk-${target.jdk}-bin.tgz" compression="gzip" basedir="${basedir}">
 			<tarfileset dir="${basedir}">
 				<include name="${doc.dir}" />
 				<include name="${lib.dir}" />
@@ -156,15 +161,11 @@
 				<exclude name="${test-results.dir}" />
 			</tarfileset>
 		</tar>
-
-		<zip zipfile="opensaml-{$version}-jdk-${target.jdk}-bin.tgz" includesfile="${build.dir}/opensaml-{$version}-jdk-${target.jdk}-bin.tar" whenempty="fail" />
-
-		<delete file="${build.dir}/opensaml-{$version}-jdk-${target.jdk}-bin.tar" />
 	</target>
 
 	<!-- Create ZIP source distribution -->
 	<target name="zip-src-dist" depends="package, javadoc, test">
-		<zip zipfile="opensaml-{$version}-jdk-${target.jdk}-src.zip" whenempty="fail" basedir="${basedir}">
+		<zip zipfile="opensaml-${version}-jdk-${target.jdk}-src.zip" whenempty="fail" basedir="${basedir}">
 			<zipfileset dir="${basedir}">
 				<include name="${build-lib.dir}" />
 				<include name="${doc.dir}" />
@@ -182,7 +183,7 @@
 
 	<!-- Create ZIP binary distribution -->
 	<target name="zip-bin-dist" depends="package, javadoc, test">
-		<zip zipfile="opensaml-{$version}-jdk-${target.jdk}-bin.zip" whenempty="fail" basedir="${basedir}">
+		<zip zipfile="opensaml-${version}-jdk-${target.jdk}-bin.zip" whenempty="fail" basedir="${basedir}">
 			<zipfileset dir="${basedir}">
 				<include name="${doc.dir}" />
 				<include name="${lib.dir}" />
