@@ -3,18 +3,18 @@
     <element name="OpenSAML">
         <complexType>
             <sequence>
-                <element name="identity-provider" type="os:IdentityProviderType"/>
-                <element name="element-providers">
+                <element name="IdentityProvider" type="os:IdentityProviderType"/>
+                <element name="ObjectProviders">
                     <complexType>
                         <sequence>
-                            <element name="element-provider" type="os:ElementProviderType"/>
+                            <element name="ObjectProvider" type="os:ObjectProviderType"/>
                         </sequence>
                     </complexType>
                 </element>
-                <element name="binding-providers">
+                <element name="BindingProviders">
                     <complexType>
                         <sequence>
-                            <element name="binding-provider" type="os:BindingProviderType"/>
+                            <element name="BindingProvider" type="os:BindingProviderType"/>
                         </sequence>
                     </complexType>
                 </element>
@@ -24,15 +24,13 @@
         </complexType>
     </element>
 
-    <complexType name="ElementProviderType">
-        <sequence>
-            <element name="Implementation-Class" type="string"/>
-            <element name="Builder-Class" type="string"/>
-            <element name="Marshalling-Class" type="string"/>
-            <element name="Unmarshalling-Class" type="string"/>
-        </sequence>
+    <complexType name="ObjectProviderType">
         
-        <attribute name="qualified-name" type="QName"/>
+        <attribute name="qualifiedName" type="QName" use="required"/>
+        <attribute name="implementationClass" type="string" use="required"/>
+        <attribute name="builderClass" type="string" use="required"/>
+        <attribute name="marshallingClass" type="string" use="required"/>
+        <attribute name="unmarshallingClass" type="string" use="required"/>
     </complexType>
 
     <complexType name="BindingProviderType">
