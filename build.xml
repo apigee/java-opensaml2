@@ -53,15 +53,19 @@
 			<fileset dir="${schema.dir}" />
 		</copy>
 	</target>
+    
+    <!-- Compile OpenSAML unit test classes -->
+    <target name="compile-test" depends="compile-core">
+        <mkdir dir="${test-classes.dir}" />
+        
+        <javac srcdir="${test-src.dir}" destdir="${test-classes.dir}" includes="**/*.java" debug="on" source="1.5">
+            <classpath refid="test-path" />
+        </javac>
+    </target>
 
 	<!-- Compile and run OpenSAML unit tests -->
 	<target name="test" depends="compile-core">
-		<mkdir dir="${test-classes.dir}" />
 		<mkdir dir="${test-results.dir}" />
-
-		<javac srcdir="${test-src.dir}" destdir="${test-classes.dir}" includes="**/*.java" debug="on" source="1.5">
-			<classpath refid="test-path" />
-		</javac>
 
 		<junit printsummary="off" fork="yes" haltonerror="true" haltonfailure="true" dir="${basedir}">
 			<classpath refid="test-path" />
@@ -158,7 +162,7 @@
 				<include name="${dist.dir}" />
 
 				<!-- Don't want to include the results of our jUnit tests -->
-				<exclude name="${test-results.dir}" />
+				<exclude name="${test-results.dir}" />        
 			</tarfileset>
 		</tar>
 	</target>
