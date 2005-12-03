@@ -22,14 +22,14 @@ import org.opensaml.common.SAMLObject;
 /**
  * A builder of {@link org.opensaml.saml2.metadata.impl.EntitiesDescriptorImpl} objects.
  */
-public class EntitiesDescriptorImplBuilder implements SAMLObjectBuilder {
+public class EntitiesDescriptorBuilder implements SAMLObjectBuilder {
     
     /**
      * 
      * Constructor
      *
      */
-    public EntitiesDescriptorImplBuilder(){
+    public EntitiesDescriptorBuilder(){
 
     }
 
