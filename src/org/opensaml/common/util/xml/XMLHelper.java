@@ -23,7 +23,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.FactoryConfigurationError;
 
-import org.opensaml.common.util.StringHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -51,20 +50,6 @@ public class XMLHelper {
         }
         
         return dataTypeFactory;
-    }
-    
-    /**
-     *  Shortcut for checking a DOM element node's namespace and local name
-     *
-     * @param  e            An element to compare against
-     * @param  ns           An XML namespace to compare
-     * @param  localName    A local name to compare
-     * @return              true iff the element's local name and namespace match the
-     *                          parameters
-     */
-    //TODO
-    public static boolean isElementNamed(Element e, String ns, String localName) {
-        return (e != null && StringHelper.safeEquals(ns, e.getNamespaceURI()) && StringHelper.safeEquals(localName, e.getLocalName()));
     }
     
     /**
@@ -125,6 +110,27 @@ public class XMLHelper {
         }
         
         return null;
+    }
+    
+    /**
+     * Constructs a QName from an attributes value.
+     * 
+     * @param attribute the attribute with a QName value
+     * 
+     * @return a QName from an attributes value, or null if the given attribute is null
+     */
+    public static QName getAttributeValueAsQName(Attr attribute){
+        if(attribute == null){
+            return null;
+        }
+        
+        String attributeValue = attribute.getTextContent();
+        String[] valueComponents = attributeValue.split(":");
+        if(valueComponents.length == 1){
+            return new QName(attribute.lookupNamespaceURI(null), valueComponents[0]);
+        }else{
+            return new QName(attribute.lookupNamespaceURI(valueComponents[0]), valueComponents[1], valueComponents[0]);
+        }
     }
     
     /**

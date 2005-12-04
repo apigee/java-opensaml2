@@ -20,8 +20,17 @@ package org.opensaml.common.util.xml;
  * XML related constants.
  */
 public class XMLConstants {
+    //****************************
+    // OpenSAML 2
+    //****************************
+    /** Directory, on the classpath, schemas are located in */
+    private final static String SCHEMA_DIR = "/schema/";
+    
     /**  OpenSAML XML namespace */
-    public final static String OPENSAML_NS = "http://www.opensaml.org";
+    public final static String OPENSAML_CONFIG_NS = "http://www.opensaml.org/opensaml2-config";
+    
+    /** OpenSAML configuration schema system Id */
+    public final static String OPENSAML_CONFIG_SCHEMA_LOCATION = SCHEMA_DIR + "opensaml2-config.xsd";
     
     //****************************
     //    Core XML
@@ -30,7 +39,7 @@ public class XMLConstants {
     public final static String XML_NS = "http://www.w3.org/XML/1998/namespace";
     
     /** XML core schema system Id */
-    public final static String XML_SCHEMA_ID = "xml.xsd";
+    public final static String XML_SCHEMA_LOCATION = SCHEMA_DIR + "xml.xsd";
 
     /**  XML namespace for xmlns attributes */
     public final static String XMLNS_NS = "http://www.w3.org/2000/xmlns/";
@@ -51,13 +60,16 @@ public class XMLConstants {
     public final static String XSI_PREFIX ="xsi";
     
     /**  XML Signature schema Id */
-    public final static String XMLSIG_SCHEMA_ID = "xmldsig-core-schema.xsd";
+    public final static String XMLSIG_SCHEMA_LOCATION = SCHEMA_DIR + "xmldsig-core-schema.xsd";
     
     /**  XML Signature namespace */
     public final static String XMLSIG_NS = "http://www.w3.org/2000/09/xmldsig#";
     
     /**  XML Signature QName prefix */
     public final static String XMLSIG_PREFIX = "ds";
+    
+    /** XML Encryption schema Id */
+    public final static String XMLENC_SCHEMA_LOCATION = SCHEMA_DIR + "xenc-schema.xsd";
     
     /**  XML Encryption namespace */
     public final static String XMLENC_NS = "http://www.w3.org/2001/04/xmlenc#";
@@ -69,7 +81,7 @@ public class XMLConstants {
     //    SOAP
     //****************************
     /**  SOAP 1.1 schema Id */
-    public final static String SOAP11ENV_SCHEMA_ID = "soap-envelope.xsd";
+    public final static String SOAP11ENV_SCHEMA_LOCATION = SCHEMA_DIR + SCHEMA_DIR + "soap-envelope.xsd";
     
     /**  SOAP 1.1 Envelope XML namespace */
     public final static String SOAP11ENV_NS = "http://schemas.xmlsoap.org/soap/envelope/";
@@ -87,19 +99,19 @@ public class XMLConstants {
     //    SAML 1.X
     //****************************
     /** SAML 1.0 Assertion schema system Id */
-    public final static String SAML10_SCHEMA_ID = "cs-sstc-schema-assertion-01.xsd";
+    public final static String SAML10_SCHEMA_LOCATION = SCHEMA_DIR + "cs-sstc-schema-assertion-01.xsd";
     
     /** SAML 1.1 Assertion schema system Id */
-    public final static String SAML11_SCHEMA_ID = "cs-sstc-schema-assertion-1.1.xsd";
+    public final static String SAML11_SCHEMA_LOCATION = SCHEMA_DIR + "cs-sstc-schema-assertion-1.1.xsd";
     
     /**  SAML 1.X XML namespace */
     public final static String SAML1_NS = "urn:oasis:names:tc:SAML:1.0:assertion";
     
     /** SAML 1.0 Protocol schema system Id */
-    public final static String  SAML10P_SCHEMA_ID = "cs-sstc-schema-protocol-01.xsd";
+    public final static String  SAML10P_SCHEMA_LOCATION = SCHEMA_DIR + "cs-sstc-schema-protocol-01.xsd";
     
     /** SAML 1.1 Protocol schema system Id */
-    public final static String SAML11P_SCHEMA_ID = "cs-sstc-schema-protocol-1.1.xsd";
+    public final static String SAML11P_SCHEMA_LOCATION = SCHEMA_DIR + "cs-sstc-schema-protocol-1.1.xsd";
 
     /**  SAML 1.X protocol XML namespace */
     public final static String SAMLP1_NS = "urn:oasis:names:tc:SAML:1.0:protocol";
@@ -113,7 +125,7 @@ public class XMLConstants {
     //    SAML 2.0
     //****************************
     /** SAML 2.0 Assertion schema Id */
-    public final static String SAML20_SCHEMA_ID = "saml-schema-assertion-2.0.xsd";
+    public final static String SAML20_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-assertion-2.0.xsd";
     
     /** SAML 2.0 Assertion XML Namespace */
     public final static String SAML20_NS = "urn:oasis:names:tc:SAML:2.0:assertion";
@@ -122,7 +134,7 @@ public class XMLConstants {
     public final static String SAML20_PREFIX ="saml";
     
     /** SAML 2.0 Protocol schema Id */
-    public final static String SAML20P_SCHEMA_ID = "saml-schema-protocol-2.0.xsd";
+    public final static String SAML20P_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-protocol-2.0.xsd";
     
     /** SAML 2.0 Protocol XML Namespace */
     public final static String SAML20P_NS = "urn:oasis:names:tc:SAML:2.0:protocol";
@@ -131,7 +143,7 @@ public class XMLConstants {
     public final static String SAML20P_PREFIX ="samlp";
     
     /** SAML 2.0 Metadata schema Id */
-    public final static String SAML20MD_SCHEMA_ID = "saml-schema-metadata-2.0.xsd";
+    public final static String SAML20MD_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-metadata-2.0.xsd";
     
     /** SAML 2.0 Metadata XML Namespace */
     public final static String SAML20MD_NS ="urn:oasis:names:tc:SAML:2.0:metadata";
@@ -140,7 +152,7 @@ public class XMLConstants {
     public final static String SAML20MD_PREFIX = "md";
     
     /** SAML 2.0 Authentication Context schema Id */
-    public final static String SAML20AC_SCHEMA_ID = "saml-schema-authn-context-2.0.xsd";
+    public final static String SAML20AC_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-authn-context-2.0.xsd";
     
     /** SAML 2.0 Authentication Context XML Namespace */
     public final static String SAML20AC_NS ="urn:oasis:names:tc:SAML:2.0:ac";
@@ -149,7 +161,7 @@ public class XMLConstants {
     public final static String SAML20AC_PREFIX = "ac";
     
     /** SAML 2.0 Enhanced Client/Proxy SSO Profile schema Id */
-    public final static String SAML20ECP_SCHEMA_ID = "saml-schema-ecp-2.0.xsd";
+    public final static String SAML20ECP_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-ecp-2.0.xsd";
     
     /** SAML 2.0 Enhanced Client/Proxy SSO Profile XML Namespace */
     public final static String SAML20ECP_NS = "urn:oasis:names:tc:SAML:2.0:profiles:SSO:ecp";
@@ -158,7 +170,7 @@ public class XMLConstants {
     public final static String SAML20ECP_PREFIX = "ecp";
     
     /** SAML 2.0 DCE PAC Attribute Profile schema Id */
-    public final static String SAML20DCE_SCHEMA_ID = "saml-schema-dce-2.0.xsd";
+    public final static String SAML20DCE_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-dce-2.0.xsd";
     
     /** SAML 2.0 DCE PAC Attribute Profile XML Namespace */
     public final static String SAML20DCE_NS = "urn:oasis:names:tc:SAML:2.0:profiles:attribute:DCE";
@@ -167,7 +179,7 @@ public class XMLConstants {
     public final static String SAML20DCE_PREFIX = "DCE";
     
     /** SAML 2.0 X.500 Attribute Profile schema Id */
-    public final static String SAML20X500_SCHEMA_ID = "saml-schema-x500-2.0.xsd";
+    public final static String SAML20X500_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-x500-2.0.xsd";
     
     /** SAML 2.0 X.500 Attribute Profile XML Namespace */
     public final static String SAML20X500_NS = "urn:oasis:names:tc:SAML:2.0:profiles:attribute:X500";
@@ -176,7 +188,7 @@ public class XMLConstants {
     public final static String SAML20X500_PREFIX = "x500";
     
     /** SAML 2.0 XACML Attribute Profile schema Id */
-    public final static String SAML20XACML_SCHEMA_ID = "saml-schema-xacml-2.0.xsd";
+    public final static String SAML20XACML_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-xacml-2.0.xsd";
     
     /** SAML 2.0 XACML Attribute Profile XML Namespace */
     public final static String SAML20XACML_NS = "urn:oasis:names:tc:SAML:2.0:profiles:attribute:XACML";

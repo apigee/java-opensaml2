@@ -15,11 +15,11 @@
  */
 package org.opensaml.common;
 
-
 /**
  * An interface for the creation of SAMLElements implementations. Builders are
  * unique to a particular SAML element and can be retrieved by element QName
- * from the {@link org.opensaml.saml2.common.SAMLObjectBuilderFactory}.
+ * from the {@link org.opensaml.common.SAMLObjectBuilderFactory}.  Implementations 
+ * of this interface MUST be stateless.
  */
 public interface SAMLObjectBuilder {
 

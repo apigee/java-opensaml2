@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSAML xmlns="http://www.opensaml.org/opensaml2-config" 
+    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <ObjectProviders>
+
+        <!-- EntitiesDescriptor provider -->
+        <ObjectProvider qualifiedName="md:EntitiesDescriptor">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorUnmarshaller" />
+        </ObjectProvider>
+
+        <!-- EntityDescriptor provider -->
+        <ObjectProvider qualifiedName="md:EntityDescriptor">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.EntityDescriptorBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.EntityDescriptorMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EntityDescriptorUnmarshaller" />
+        </ObjectProvider>
+
+    </ObjectProviders>
+
+</OpenSAML>
