@@ -22,10 +22,8 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.util.xml.XMLConstants;
-import org.opensaml.common.util.xml.XMLParserException;
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
-import org.opensaml.saml2.metadata.impl.EntitiesDescriptorUnmarshaller;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
@@ -37,6 +35,9 @@ import org.w3c.dom.Element;
  */
 public class UnmarshallerFactory {
 
+    /** Logger */
+    private final static Logger log = Logger.getLogger(UnmarshallerFactory.class);
+    
     /** Singleton instance */
     private static UnmarshallerFactory instance = new UnmarshallerFactory();
 
@@ -45,18 +46,9 @@ public class UnmarshallerFactory {
 
     /**
      * Constructor
-     * 
-     * @throws XMLParserException
      */
     private UnmarshallerFactory() {
         unmarshallers = new HashMap<QName, Unmarshaller>();
-
-        // TODO replace with dynamic configuration
-        try {
-            unmarshallers.put(EntitiesDescriptor.QNAME, new EntitiesDescriptorUnmarshaller());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -127,6 +119,10 @@ public class UnmarshallerFactory {
      * @param unmarshaller the Unmarshaller
      */
     public void registerUnmarshaller(QName qname, Unmarshaller unmarshaller) {
+        if (log.isDebugEnabled()) {
+            log.debug("Registering unmarshaller, " + unmarshaller.getClass().getCanonicalName() + ", for object type "
+                    + qname);
+        }
         synchronized (unmarshallers) {
             unmarshallers.put(qname, unmarshaller);
         }
@@ -140,6 +136,9 @@ public class UnmarshallerFactory {
      * @return the Unmarshaller previously registered or null
      */
     public Unmarshaller deregisterUnmarshaller(QName qname) {
+        if (log.isDebugEnabled()) {
+            log.debug("Deregistering marshaller for object type " + qname);
+        }
         synchronized (unmarshallers) {
             return unmarshallers.remove(qname);
         }

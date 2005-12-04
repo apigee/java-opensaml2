@@ -22,17 +22,19 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
-import org.opensaml.saml2.metadata.impl.EntitiesDescriptorMarshaller;
 
 /**
  * This thread-safe factory creates {@link org.opensaml.common.io.Marshaller}s that can be used to convert
  * {@link org.opensaml.common.SAMLObject}s into W3C DOM elements. Marshallers are registered and retrived by a QName.
  * This QName may either refer to the schema type, as stipulated by the xsi:type attribute on the DOM element, or the
- * element name. 
+ * element name.
  */
 public class MarshallerFactory {
+
+    /** Logger */
+    private final static Logger log = Logger.getLogger(MarshallerFactory.class);
 
     /** Singleton instance */
     private static MarshallerFactory instance = new MarshallerFactory();
@@ -45,13 +47,6 @@ public class MarshallerFactory {
      */
     private MarshallerFactory() {
         marshallers = new HashMap<QName, Marshaller>();
-
-        // TODO replace with dynamic configuration
-        try {
-            marshallers.put(EntitiesDescriptor.QNAME, new EntitiesDescriptorMarshaller());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -62,21 +57,20 @@ public class MarshallerFactory {
     public static MarshallerFactory getInstance() {
         return instance;
     }
-    
+
     /**
-     * Gets the marshaller for a given SAML element.  If the element 
-     * has a specified type the type QName is used to retrieve the marshaller
-     * if it does not have a specified type the elements QName is used.
+     * Gets the marshaller for a given SAML element. If the element has a specified type the type QName is used to
+     * retrieve the marshaller if it does not have a specified type the elements QName is used.
      * 
      * @param samlElement the SAML element
      * 
      * @return the marshaller for the element
      */
     public Marshaller getMarshaller(SAMLObject samlElement) {
-        if(samlElement.getSchemaType() != null) {
+        if (samlElement.getSchemaType() != null) {
             return getMarshaller(samlElement.getSchemaType());
         }
-        
+
         return getMarshaller(samlElement.getElementQName());
     }
 
@@ -121,6 +115,10 @@ public class MarshallerFactory {
      * @param marshaller the Marshaller
      */
     public void registerMarshaller(QName qname, Marshaller marshaller) {
+        if (log.isDebugEnabled()) {
+            log.debug("Registering marshaller, " + marshaller.getClass().getCanonicalName() + ", for object type "
+                    + qname);
+        }
         synchronized (marshallers) {
             marshallers.put(qname, marshaller);
         }
@@ -134,6 +132,9 @@ public class MarshallerFactory {
      * @return the Marshaller previously registered or null
      */
     public Marshaller deregisterMarshaller(QName qname) {
+        if (log.isDebugEnabled()) {
+            log.debug("Deregistering marshaller for object type " + qname);
+        }
         synchronized (marshallers) {
             return marshallers.remove(qname);
         }

@@ -21,13 +21,13 @@ import javax.xml.namespace.QName;
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilderFactory;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallerFactory;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.util.NamespaceComparator;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.common.util.xml.XMLHelper;
-import org.opensaml.saml2.common.SAMLObjectBuilderFactory;
 import org.opensaml.saml2.common.impl.AbstractSAMLObject;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -85,7 +85,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
             if(log.isDebugEnabled()) {
                 log.debug("DOM element " + domElement.getLocalName() + " is of type " + type + " retrieving builder based on that type.");
             }
-            elemBuilder = SAMLObjectBuilderFactory.getInstance().newBuilder(type);
+            elemBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(type);
             samlElement = (AbstractSAMLObject) elemBuilder.buildObject();
             samlElement.setSchemaType(type);
         }else {
@@ -99,7 +99,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
                         ".  This unmarshaller only operations on DOM element " + target.getNamespaceURI() + ":" + target.getLocalPart());
             }
             
-            elemBuilder = SAMLObjectBuilderFactory.getInstance().newBuilder(XMLHelper.getElementQName(domElement));
+            elemBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(XMLHelper.getElementQName(domElement));
             samlElement = (AbstractSAMLObject) elemBuilder.buildObject();
         }
         
