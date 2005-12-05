@@ -16,10 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.saml2.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.Endpoint;
 
 /**
@@ -34,14 +34,14 @@ public class EndpointUnmarshaller extends AbstractUnmarshaller implements Unmars
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(AbstractSAMLObject parentElement, AbstractSAMLObject childElement){
+    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement){
         //Doesn't have any children, do nothing
     }
     
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
      */
-    protected void processAttribute(AbstractSAMLObject samlElement, String attributeName, String attributeValue) throws UnmarshallingException{
+    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue) throws UnmarshallingException{
         Endpoint endpoint = (Endpoint)samlElement;
         if(attributeName.equals(Endpoint.BINDING_ATTRIB_NAME)) {
             endpoint.setBinding(attributeValue);

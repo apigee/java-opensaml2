@@ -21,12 +21,12 @@ import java.util.StringTokenizer;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.Extensions;
@@ -54,7 +54,7 @@ public class RoleDescriptorUnmarshaller extends AbstractUnmarshaller implements 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement, org.opensaml.saml2.common.impl.AbstractSAMLElement)
      */
-    protected void processChildElement(AbstractSAMLObject parentElement, AbstractSAMLObject childElement) throws UnmarshallingException{
+    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException{
         RoleDescriptor roleDescriptor = (RoleDescriptor)parentElement;
         try {
             if(childElement instanceof Extensions) {
@@ -75,7 +75,7 @@ public class RoleDescriptorUnmarshaller extends AbstractUnmarshaller implements 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement, java.lang.String, java.lang.String)
      */
-    protected void processAttribute(AbstractSAMLObject samlElement, String attributeName, String attributeValue){
+    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue){
         RoleDescriptor roleDescriptor = (RoleDescriptor)samlElement;
         
         if(attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {

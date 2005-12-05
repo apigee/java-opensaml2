@@ -17,12 +17,12 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.IllegalAddException;
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
@@ -48,7 +48,7 @@ public class EntityDescriptorUnmarshaller extends AbstractUnmarshaller implement
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement, org.opensaml.saml2.common.impl.AbstractSAMLElement)
      */
-    protected void processChildElement(AbstractSAMLObject parentElement, AbstractSAMLObject childElement)
+    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException {
         EntityDescriptor entityDescriptor = (EntityDescriptor)parentElement;
         
@@ -78,7 +78,7 @@ public class EntityDescriptorUnmarshaller extends AbstractUnmarshaller implement
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement, java.lang.String, java.lang.String)
      */
     @Override
-    protected void processAttribute(AbstractSAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException {
         EntityDescriptor entityDescriptor = (EntityDescriptor)samlElement;
         

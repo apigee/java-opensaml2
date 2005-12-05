@@ -19,13 +19,13 @@ package org.opensaml.saml2.metadata.impl;
 import javax.xml.datatype.DatatypeFactory;
 
 import org.opensaml.common.IllegalAddException;
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
 import org.opensaml.common.util.xml.XMLParserException;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -50,7 +50,7 @@ public class EntitiesDescriptorUnmarshaller extends AbstractUnmarshaller impleme
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(AbstractSAMLObject parentElement, AbstractSAMLObject childElement) throws UnmarshallingException{
+    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException{
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor)parentElement;
         try {
             if(childElement instanceof Extensions) {
@@ -71,7 +71,7 @@ public class EntitiesDescriptorUnmarshaller extends AbstractUnmarshaller impleme
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
      */
-    protected void processAttribute(AbstractSAMLObject samlElement, String attributeName, String attributeValue) throws UnmarshallingException{
+    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue) throws UnmarshallingException{
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor)samlElement;
         
         if(attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {

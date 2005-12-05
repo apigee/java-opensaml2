@@ -16,10 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.saml2.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 
 /**
@@ -37,7 +37,7 @@ public class AdditionalMetadataLocationUnmarshaller extends AbstractUnmarshaller
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement, org.opensaml.saml2.common.impl.AbstractSAMLElement)
      */
-    protected void processChildElement(AbstractSAMLObject parentElement, AbstractSAMLObject childElement)
+    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException {
         //No children elements
     }
@@ -45,7 +45,7 @@ public class AdditionalMetadataLocationUnmarshaller extends AbstractUnmarshaller
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement, java.lang.String, java.lang.String)
      */
-    protected void processAttribute(AbstractSAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException {
         if(attributeName.equals(AdditionalMetadataLocation.NAMESPACE_ATTRIB_NAME)) {
             AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;
@@ -58,7 +58,7 @@ public class AdditionalMetadataLocationUnmarshaller extends AbstractUnmarshaller
     /**
      * Sets the DOM element content as the location URI of the AdditionaMetadataLocation object.
      */
-    protected void processElementContent(AbstractSAMLObject samlElement, String elementContent) {
+    protected void processElementContent(SAMLObject samlElement, String elementContent) {
         super.processElementContent(samlElement, elementContent);
         
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;

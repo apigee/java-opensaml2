@@ -147,7 +147,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * 
      * @throws UnmarshallingException thrown if the given attribute is not an allowable attribute on this SAML element
      */
-    protected void processAttribute(AbstractSAMLObject rootElement, Attr attribute) throws UnmarshallingException {
+    protected void processAttribute(SAMLObject rootElement, Attr attribute) throws UnmarshallingException {
         if(log.isDebugEnabled()) {
             log.debug("Processing attribute " + attribute.getName());
         }
@@ -177,7 +177,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * 
      * @throws UnmarshallingException thrown if the child element is not a valid child of the parent
      */
-    protected abstract void processChildElement(AbstractSAMLObject parentElement, AbstractSAMLObject childElement) throws UnmarshallingException;
+    protected abstract void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException;
     
     /**
      * Called after this unmarshaller has unmarshalled an attribute in order to add it to the SAML element
@@ -188,7 +188,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * 
      * @throws UnmarshallingException thrown if the given attribute is not a valid attribute for this SAML element
      */
-    protected abstract void processAttribute(AbstractSAMLObject samlElement, String attributeName, String attributeValue) throws UnmarshallingException;
+    protected abstract void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue) throws UnmarshallingException;
     
     /**
      * Called to process the content of a DOM element
@@ -196,7 +196,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * @param samlElement SAML object the content will be given to
      * @param elementContent the DOM element content
      */
-    protected void processElementContent(AbstractSAMLObject samlElement, String elementContent) {
+    protected void processElementContent(SAMLObject samlElement, String elementContent) {
         //Vast majority of elements don't have textual content, let the few that do override this.
     }
 
