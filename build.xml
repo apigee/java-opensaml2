@@ -33,6 +33,7 @@
 	<!-- Classpath for testing OpenSAML classes-->
 	<path id="test-path">
 		<path refid="build-path" />
+        <pathelement location="${core-classes.dir}"/>   
 		<pathelement location="${test-classes.dir}" />
 	</path>
 
@@ -64,7 +65,7 @@
     </target>
 
 	<!-- Compile and run OpenSAML unit tests -->
-	<target name="test" depends="compile-core">
+	<target name="test" depends="compile-core, compile-test">
 		<mkdir dir="${test-results.dir}" />
 
 		<junit printsummary="off" fork="yes" haltonerror="true" haltonfailure="true" dir="${basedir}">
