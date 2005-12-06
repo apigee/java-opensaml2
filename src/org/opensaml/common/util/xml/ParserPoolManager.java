@@ -45,7 +45,7 @@ public class ParserPoolManager {
     private final static Logger LOG = Logger.getLogger(ParserPoolManager.class);
 
     /** Instance of this pool manager */
-    private static ParserPoolManager instance;
+    private static ParserPoolManager instance = new ParserPoolManager();
 
     /** Extension Schems to the base XML and SAML schemas */
     private TreeMap<String, EntityResolver> schemaExtensions;
@@ -73,10 +73,6 @@ public class ParserPoolManager {
      * @return the instance of this manager
      */
     public static ParserPoolManager getInstance() {
-        if (instance == null) {
-            instance = new ParserPoolManager();
-        }
-
         return instance;
     }
 
