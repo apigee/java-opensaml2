@@ -17,6 +17,8 @@
 		<sequence>
 			<element ref="os:ObjectProvider" maxOccurs="unbounded"/>
 		</sequence>
+		
+		<attribute name="drop-unknown-elements" type="boolean" use="optional" default="true"/>
 	</complexType>
 
 	<element name="ObjectProvider" type="os:ObjectProviderType" />
