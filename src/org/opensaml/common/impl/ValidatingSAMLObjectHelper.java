@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.common.impl;
+package org.opensaml.common.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;

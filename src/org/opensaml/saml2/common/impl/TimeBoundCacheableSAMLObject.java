@@ -18,6 +18,7 @@ package org.opensaml.saml2.common.impl;
 
 import java.util.GregorianCalendar;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 

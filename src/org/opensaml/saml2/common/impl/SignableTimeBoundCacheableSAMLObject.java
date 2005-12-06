@@ -22,6 +22,7 @@ import javax.security.cert.X509Certificate;
 
 import org.opensaml.common.SignableObject;
 import org.opensaml.common.SigningContext;
+import org.opensaml.common.impl.SignableSAMLObjectHelper;
 
 /**
  * Abstract SAML object handling Signing, validUntil, and cacheDuration functions

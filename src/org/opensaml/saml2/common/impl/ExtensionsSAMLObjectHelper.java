@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.Extensions;
 
 /**

@@ -19,6 +19,7 @@ package org.opensaml.saml2.common.impl;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.util.xml.XMLHelper;
 
 /**

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.common.impl;
+package org.opensaml.common.impl;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +28,6 @@ import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.ValidatingObject;
 import org.opensaml.common.ValidationException;
 import org.opensaml.common.Validator;
-import org.opensaml.common.impl.DOMCachingSAMLObject;
 import org.opensaml.common.util.NamespaceComparator;
 import org.w3c.dom.Element;
 

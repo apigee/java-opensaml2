@@ -20,7 +20,7 @@ import java.util.Set;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.util.StringHelper;
-import org.opensaml.saml2.common.impl.AbstractSAMLObject;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.Endpoint;
 
 /**

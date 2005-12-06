@@ -18,6 +18,8 @@ package org.opensaml.saml2.common.impl;
 
 import java.io.Serializable;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
+
 /**
  * A helper for SAMLElements that implement the {@link org.opensaml.saml2.common.CacheableSAMLObject} interface.
  * This helper is <strong>NOT</strong> thread safe.
