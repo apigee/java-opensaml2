@@ -32,6 +32,8 @@ public class XMLConstants {
     /** OpenSAML configuration schema system Id */
     public final static String OPENSAML_CONFIG_SCHEMA_LOCATION = SCHEMA_DIR + "opensaml2-config.xsd";
     
+    public final static String OPENSAML_CONFIG_PREFIX = "os2";
+    
     //****************************
     //    Core XML
     //****************************
