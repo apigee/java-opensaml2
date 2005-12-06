@@ -22,13 +22,13 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilderFactory;
+import org.opensaml.common.impl.DOMCachingSAMLObject;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallerFactory;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.util.NamespaceComparator;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.common.util.xml.XMLHelper;
-import org.opensaml.saml2.common.impl.AbstractSAMLObject;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,7 +36,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * An thread safe abstract unmarshaller.  This abstract marshaller only works with 
- * {@link org.opensaml.saml2.common.impl.AbstractSAMLObject}.
+ * {@link org.opensaml.common.impl.AbstractSAMLObject}.
  */
 public abstract class AbstractUnmarshaller implements Unmarshaller {
     
@@ -72,7 +72,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
         }
         
         SAMLObjectBuilder elemBuilder;
-        AbstractSAMLObject samlElement;
+        SAMLObject samlElement;
         QName type = XMLHelper.getXSIType(domElement);
         
         //Check to make sure the given element type or QName matches the given target QName
@@ -86,7 +86,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
                 log.debug("DOM element " + domElement.getLocalName() + " is of type " + type + " retrieving builder based on that type.");
             }
             elemBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(type);
-            samlElement = (AbstractSAMLObject) elemBuilder.buildObject();
+            samlElement = elemBuilder.buildObject();
             samlElement.setSchemaType(type);
         }else {
             if(log.isDebugEnabled()) {
@@ -100,7 +100,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
             }
             
             elemBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(XMLHelper.getElementQName(domElement));
-            samlElement = (AbstractSAMLObject) elemBuilder.buildObject();
+            samlElement = elemBuilder.buildObject();
         }
         
         samlElement.setElementNamespaceAndPrefix(domElement.getNamespaceURI(), domElement.getPrefix());
@@ -128,12 +128,14 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
                         log.debug("Child element " + childElement.getTagName() + " being unmarshalled and added to SAML element");
                     }
                     unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(childElement);
-                    processChildElement(samlElement, (AbstractSAMLObject) unmarshaller.unmarshall(childElement));
+                    processChildElement(samlElement, unmarshaller.unmarshall(childElement));
                 }
             }
         }
         
-        samlElement.setDOM(domElement);
+        if(samlElement instanceof DOMCachingSAMLObject) {
+            ((DOMCachingSAMLObject)samlElement).setDOM(domElement);
+        }
         return samlElement;
     }
     
