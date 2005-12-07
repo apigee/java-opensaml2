@@ -29,6 +29,7 @@ import org.opensaml.common.ValidatingObject;
 import org.opensaml.common.ValidationException;
 import org.opensaml.common.Validator;
 import org.opensaml.common.util.NamespaceComparator;
+import org.opensaml.common.util.StringHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -108,7 +109,11 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      * @see org.opensaml.common.SAMLObject#setNamespaceAndPrefix(java.lang.String, java.lang.String)
      */
     public void setElementNamespaceAndPrefix(String namespaceURI, String prefix){
-        elementQname = new QName(namespaceURI, elementQname.getLocalPart(), prefix);
+        if(StringHelper.isEmpty(prefix)){
+            elementQname = new QName(namespaceURI, elementQname.getLocalPart());
+        }else{
+            elementQname = new QName(namespaceURI, elementQname.getLocalPart(), prefix);
+        }
     }
     
     /*

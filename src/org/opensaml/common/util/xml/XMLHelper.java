@@ -23,6 +23,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.FactoryConfigurationError;
 
+import org.opensaml.common.util.StringHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -106,7 +107,11 @@ public class XMLHelper {
      */
     public static QName getElementQName(Element e) {
         if(e != null) {
-            return new QName(e.getNamespaceURI(), e.getLocalName(), e.getPrefix());
+            if(StringHelper.isEmpty(e.getPrefix())){
+                return new QName(e.getNamespaceURI(), e.getLocalName());
+            }else{
+                return new QName(e.getNamespaceURI(), e.getLocalName(), e.getPrefix());
+            }
         }
         
         return null;

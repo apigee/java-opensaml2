@@ -23,6 +23,7 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
+import org.opensaml.common.util.StringHelper;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -75,7 +76,11 @@ public class UnmarshallerFactory {
             return getUnmarshaller(new QName(type.getNamespaceURI(), type.getLocalName(), type.getPrefix()));
         }
         
-        return getUnmarshaller(new QName(domElement.getNamespaceURI(), domElement.getLocalName(), domElement.getPrefix()));
+        if(StringHelper.isEmpty(domElement.getPrefix())){
+            return getUnmarshaller(new QName(domElement.getNamespaceURI(), domElement.getLocalName()));
+        }else{
+            return getUnmarshaller(new QName(domElement.getNamespaceURI(), domElement.getLocalName(), domElement.getPrefix()));
+        }
     }
     
     /**
