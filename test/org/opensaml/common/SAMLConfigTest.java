@@ -35,6 +35,8 @@ public class SAMLConfigTest extends TestCase {
         SAMLConfig.initializeOpenSAML();
         
         assertTrue("Library should be initialized but isInitialized() returned false", SAMLConfig.isInitialized());
+        assertFalse("ignoreUnknownAttributes was set to false but configuration reports true", SAMLConfig.ignoreUnknownAttributes());
+        assertTrue("ingoreUnknownElements was set to true but configuration reports false", SAMLConfig.ignoreUnknownElements());
     }
 
     /*
