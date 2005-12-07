@@ -16,15 +16,21 @@
 
 package org.opensaml.common;
 
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import junit.framework.TestCase;
 
-public class SAMLConfigTest extends BaseTestCase {
+/**
+ * Base test case for all OpenSAML tests
+ */
+public class BaseTestCase extends TestCase {
 
     /*
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
+        if(!SAMLConfig.isInitialized()){
+            SAMLConfig.initializeOpenSAML();
+        }
     }
 
     /*
@@ -34,19 +40,4 @@ public class SAMLConfigTest extends BaseTestCase {
         super.tearDown();
     }
 
-    /**
-     * Test that the library initialization worked
-     */
-    public void testInitializeOpenSAML() {
-        assertTrue("Library should be initialized but isInitialized() returned false", SAMLConfig.isInitialized());
-        
-        assertFalse("ignoreUnknownAttributes was set to false but configuration reports true", SAMLConfig
-                .ignoreUnknownAttributes());
-        assertTrue("ingoreUnknownElements was set to true but configuration reports false", SAMLConfig
-                .ignoreUnknownElements());
-
-        assertNotNull(
-                "Object provider configuration for md:EntitiesDescriptor was provided in configuration file but was not available though getObjectProviderConfiguration(QName)",
-                SAMLConfig.getObjectProviderConfiguration(EntitiesDescriptor.QNAME));
-    }
 }
