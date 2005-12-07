@@ -16,6 +16,9 @@
 
 package org.opensaml.common.saml2.metadata.impl;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.io.UnknownAttributeException;
 import org.opensaml.common.io.UnknownElementException;
@@ -55,7 +58,12 @@ public class EntitiesDescriptorTest extends BaseTestCase {
             String name = entitiesDescriptorObj.getName();
             assertEquals("Name attribute has a value of " + name + ", expected a value of eDescName", name, "eDescName");
             
-            //TODO add other attributes and check them too
+            long duration = entitiesDescriptorObj.getCacheDuration().longValue();
+            assertEquals("cacheDuration attribute has a value of " + duration + ", expected a value of 90000", duration, 90000);
+            
+            GregorianCalendar expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
+            GregorianCalendar validUntil = entitiesDescriptorObj.getValidUntil();
+            assertEquals("validUntil attribute value did not match expected value", 0, expectedValidUntil.compareTo(validUntil));
             
         } catch (XMLParserException e) {
             fail("Unable to parse file containing single EntitiesDescriptor element");
