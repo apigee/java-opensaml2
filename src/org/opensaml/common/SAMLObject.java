@@ -20,6 +20,8 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.util.xml.Namespace;
+
 /**
  * A base interface for all SAML elements.
  */
@@ -56,21 +58,21 @@ public interface SAMLObject extends Serializable {
      * 
      * @return the namespaces that are scoped to this element
      */
-    public Set<QName> getNamespaces();
+    public Set<Namespace> getNamespaces();
     
     /**
      * Adds a namespace to the ones already scoped to this element
      * 
      * @param namespace the namespace to add
      */
-    public void addNamespace(QName namespace);
+    public void addNamespace(Namespace namespace);
     
     /**
      * Removes a namespace from this element
      * 
      * @param namespace the namespace to remove
      */
-    public void removeNamespace(QName namespace);
+    public void removeNamespace(Namespace namespace);
     
     /**
      * Gets the XML schema type of this element.  This translates to contents the xsi:type

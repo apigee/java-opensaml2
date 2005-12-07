@@ -27,6 +27,7 @@ import org.opensaml.common.util.StringHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * A helper class for working with W3C DOM objects.
@@ -99,24 +100,20 @@ public class XMLHelper {
     }
     
     /**
-     * Gets the QName for the given element.
+     * Gets the QName for the given DOM node.
      * 
-     * @param e the element
+     * @param domNode the DOM node
      * 
      * @return the QName for the element or null if the element was null
      */
-    public static QName getElementQName(Element e) {
-        if(e != null) {
-            if(StringHelper.isEmpty(e.getPrefix())){
-                return new QName(e.getNamespaceURI(), e.getLocalName());
-            }else{
-                return new QName(e.getNamespaceURI(), e.getLocalName(), e.getPrefix());
-            }
+    public static QName getNodeQName(Node domNode) {
+        if(domNode != null) {
+            return constructQName(domNode.getNamespaceURI(), domNode.getLocalName(), domNode.getPrefix());
         }
         
         return null;
     }
-    
+        
     /**
      * Constructs a QName from an attributes value.
      * 
@@ -132,10 +129,27 @@ public class XMLHelper {
         String attributeValue = attribute.getTextContent();
         String[] valueComponents = attributeValue.split(":");
         if(valueComponents.length == 1){
-            return new QName(attribute.lookupNamespaceURI(null), valueComponents[0]);
+            return constructQName(attribute.lookupNamespaceURI(null), valueComponents[0], null);
         }else{
-            return new QName(attribute.lookupNamespaceURI(valueComponents[0]), valueComponents[1], valueComponents[0]);
+            return constructQName(attribute.lookupNamespaceURI(valueComponents[0]), valueComponents[1], valueComponents[0]);
         }
+    }
+    
+    /**
+     * Constructs a QName
+     * 
+     * @param namespaceURI the namespace of the QName
+     * @param localName the local name of the QName
+     * @param prefix the prefix of the QName, may be null
+     * 
+     * @return the QName
+     */
+    public static QName constructQName(String namespaceURI, String localName, String prefix) {
+        if(StringHelper.isEmpty(prefix)) {
+            return new QName(namespaceURI, localName);
+        }
+        
+        return new QName(namespaceURI, localName, prefix);
     }
     
     /**

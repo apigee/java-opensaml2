@@ -29,7 +29,7 @@ import org.opensaml.common.impl.DOMCachingSAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallerFactory;
 import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.util.NamespaceComparator;
+import org.opensaml.common.util.xml.Namespace;
 import org.opensaml.common.util.xml.ParserPoolManager;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.common.util.xml.XMLHelper;
@@ -57,8 +57,6 @@ public abstract class AbstractMarshaller implements Marshaller {
      */
     private static Logger log = Logger.getLogger(AbstractMarshaller.class);
     
-    /** Compartor for Namespaces */
-    private static final NamespaceComparator nsCompare = new NamespaceComparator();
 
     /**
      * QName of the type or element QName this unmarshaller is for
@@ -99,13 +97,14 @@ public abstract class AbstractMarshaller implements Marshaller {
         //Check to make sure the element to be marshalled is or the right type or 
         // has the correct element QName
         if(type != null) {
-            if(nsCompare.compare(type, target) != 0) {
+            if (!type.getNamespaceURI().equals(target.getNamespaceURI()) || 
+                    !type.getLocalPart().equals(target.getLocalPart())){
                 throw new MarshallingException("Can not marshall DOM element of type " + type.getNamespaceURI() + ":" + type.getLocalPart() + 
                         ".  This marshaller only operations on DOM elements of type " + target.getNamespaceURI() + ":" + target.getLocalPart());
             }
         }else {
             if (!samlElementNamespace.equals(target.getNamespaceURI())
-                    && !samlElementLocalName.equals(target.getLocalPart())) {
+                    || !samlElementLocalName.equals(target.getLocalPart())) {
                 throw new MarshallingException("Can not marshall SAMLElement " + samlElementNamespace + ":"
                         + samlElementLocalName + ".  This marshaller only operates on SAMLElements "
                         + target.getNamespaceURI() + ":" + target.getLocalPart());
@@ -267,7 +266,7 @@ public abstract class AbstractMarshaller implements Marshaller {
             }
 
             domElement.setAttributeNS(XMLConstants.XSI_NS, XMLConstants.XSI_PREFIX + ":type", typePrefix + ":" + typeLocalName);
-            samlElement.addNamespace(new QName(XMLConstants.XSI_NS, "", XMLConstants.XSI_PREFIX));
+            samlElement.addNamespace(new Namespace(XMLConstants.XSI_NS, XMLConstants.XSI_PREFIX));
         }
     }
     
@@ -278,9 +277,9 @@ public abstract class AbstractMarshaller implements Marshaller {
      * @param domElement the DOM element the namespaces will be added to
      */
     protected void marshallNamespaces(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        Set<QName> namespaces = samlElement.getNamespaces();
-        for(QName namespace: namespaces){
-            domElement.setAttribute(XMLConstants.XMLNS_PREFIX + ":" + namespace.getPrefix(), namespace.getNamespaceURI());
+        Set<Namespace> namespaces = samlElement.getNamespaces();
+        for(Namespace namespace: namespaces){
+            domElement.setAttribute(XMLConstants.XMLNS_PREFIX + ":" + namespace.getNamespacePrefix(), namespace.getNamespaceURI());
         }
     }
     

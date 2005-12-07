@@ -17,9 +17,9 @@
 package org.opensaml.common.impl;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.xml.namespace.QName;
 
@@ -28,8 +28,8 @@ import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.ValidatingObject;
 import org.opensaml.common.ValidationException;
 import org.opensaml.common.Validator;
-import org.opensaml.common.util.NamespaceComparator;
 import org.opensaml.common.util.StringHelper;
+import org.opensaml.common.util.xml.Namespace;
 import org.w3c.dom.Element;
 
 /**
@@ -53,7 +53,7 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
     private QName typeQname;
     
     /** Namespaces declared on this element */
-    private Set<QName> namespaces = new TreeSet<QName>(new NamespaceComparator());
+    private Set<Namespace> namespaces = new HashSet<Namespace>();
     
     private ValidatingSAMLObjectHelper validationHelper;
     
@@ -133,21 +133,23 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
     /*
      * @see org.opensaml.common.SAMLObject#getNamespaces()
      */
-    public Set<QName> getNamespaces() {
+    public Set<Namespace> getNamespaces() {
         return Collections.unmodifiableSet(namespaces);
     }
     
     /*
      * @see org.opensaml.common.SAMLObject#addNamespace(javax.xml.namespace.QName)
      */
-    public void addNamespace(QName namespace) {
-        namespaces.add(namespace);
+    public void addNamespace(Namespace namespace) {
+        if(namespace != null) {
+            namespaces.add(namespace);
+        }
     }
     
     /*
      * @see org.opensaml.common.SAMLObject#removeNamespace(javax.xml.namespace.QName)
      */
-    public void removeNamespace(QName namespace) {
+    public void removeNamespace(Namespace namespace) {
         namespaces.remove(namespace);
     }
     

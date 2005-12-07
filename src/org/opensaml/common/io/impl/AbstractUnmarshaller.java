@@ -19,17 +19,18 @@ package org.opensaml.common.io.impl;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObjectBuilderFactory;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.impl.DOMCachingSAMLObject;
 import org.opensaml.common.io.UnknownAttributeException;
 import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallerFactory;
 import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.util.NamespaceComparator;
 import org.opensaml.common.util.StringHelper;
+import org.opensaml.common.util.xml.Namespace;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.common.util.xml.XMLHelper;
 import org.w3c.dom.Attr;
@@ -48,9 +49,6 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * Logger
      */
     private static Logger log = Logger.getLogger(AbstractUnmarshaller.class);
-
-    /** Compartor for Namespaces */
-    private static final NamespaceComparator nsCompare = new NamespaceComparator();
 
     /**
      * QName of the element this unmarshaller is for
@@ -83,7 +81,8 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
         // Check to make sure the given element type or QName matches the given target QName
         // If so, create the SAML element everything will be unmarshalled in to
         if (type != null) {
-            if (nsCompare.compare(type, target) != 0) {
+            if (!type.getNamespaceURI().equals(target.getNamespaceURI()) || 
+                    !type.getLocalPart().equals(target.getLocalPart())){
                 throw new UnmarshallingException("Can not unmarshall DOM element of type " + type.getNamespaceURI()
                         + ":" + type.getLocalPart() + ".  This unmarshaller only operations on DOM elements of type "
                         + target.getNamespaceURI() + ":" + target.getLocalPart());
@@ -103,13 +102,13 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
             String domElementNamespace = domElement.getNamespaceURI();
             String domElementLocalName = domElement.getLocalName();
             if (!domElementNamespace.equals(target.getNamespaceURI())
-                    && !domElementLocalName.equals(target.getLocalPart())) {
+                    || !domElementLocalName.equals(target.getLocalPart())) {
                 throw new UnmarshallingException("Can not unmarshall DOM element " + domElementNamespace + ":"
                         + domElementLocalName + ".  This unmarshaller only operations on DOM element "
                         + target.getNamespaceURI() + ":" + target.getLocalPart());
             }
 
-            elemBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(XMLHelper.getElementQName(domElement));
+            elemBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(XMLHelper.getNodeQName(domElement));
             samlElement = elemBuilder.buildObject();
         }
 
@@ -166,13 +165,13 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * given element, if it is an xsi:type it is ingored, anything is passed to the
      * {@link #processAttribute(AbstractSAMLObject, String, String)} to be added to the given element.
      * 
-     * @param rootElement the SAML element that will recieve information from the DOM attribute
+     * @param samlObject the SAML element that will recieve information from the DOM attribute
      * @param attribute the DOM attribute
      * 
      * @throws UnmarshallingException thrown if the given attribute is not an allowable attribute on this SAML element
      * @throws UnknownAttributeException thrown if an attribute that the unmarshaller does not understand is encountered
      */
-    protected void processAttribute(SAMLObject rootElement, Attr attribute) throws UnmarshallingException,
+    protected void processAttribute(SAMLObject samlObject, Attr attribute) throws UnmarshallingException,
             UnknownAttributeException {
         if (log.isDebugEnabled()) {
             log.debug("Processing attribute " + attribute.getName());
@@ -184,7 +183,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
                             + " is a namespace declaration, adding it to the list of namespaces on the SAML element");
                 }
                 // Attribute is a namespace
-                rootElement.addNamespace(new QName(attribute.getValue(), "", attribute.getPrefix()));
+                samlObject.addNamespace(new Namespace(attribute.getValue(), attribute.getLocalName()));
                 return;
             } else if (attribute.getNamespaceURI().equals(XMLConstants.XSI_NS) && attribute.getLocalName().equals("type")) {
                 // Attribute is an XSI type, we've already handled this above
@@ -197,7 +196,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
         }
         
         // Attribute is an element specific attribute
-        processAttribute(rootElement, attribute.getLocalName(), attribute.getValue());
+        processAttribute(samlObject, attribute.getLocalName(), attribute.getValue());
     }
 
     /**
