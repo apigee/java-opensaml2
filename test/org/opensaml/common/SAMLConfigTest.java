@@ -18,6 +18,9 @@ package org.opensaml.common;
 
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 
+/**
+ * Test case for OpenSAML library initialization and property access.
+ */
 public class SAMLConfigTest extends BaseTestCase {
 
     /*
