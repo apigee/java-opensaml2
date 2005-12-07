@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.io.UnknownAttributeException;
+import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
@@ -38,21 +41,27 @@ public class AdditionalMetadataLocationUnmarshaller extends AbstractUnmarshaller
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement, org.opensaml.saml2.common.impl.AbstractSAMLElement)
      */
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException {
-        //No children elements
+            throws UnknownElementException {
+        //Shouldn't have children elements
+        
+        if(!SAMLConfig.ignoreUnknownElements()){
+            throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for AdditionalMetadataLocation objects");
+        }
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement, java.lang.String, java.lang.String)
      */
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException {
+            throws UnmarshallingException, UnknownAttributeException {
         if(attributeName.equals(AdditionalMetadataLocation.NAMESPACE_ATTRIB_NAME)) {
             AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;
             aml.setNamespaceURI(attributeValue);
+        }else{
+            if(!SAMLConfig.ignoreUnknownAttributes()){
+                throw new UnknownAttributeException(attributeName + " is not a supported attributed for AdditionalMetadataLocation objects");
+            }
         }
-        
-        throw new UnmarshallingException(attributeName + " is not a supported attributed for AdditionalMetadataLocation objects");
     }
     
     /**

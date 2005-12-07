@@ -29,6 +29,7 @@ import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallerFactory;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallerFactory;
+import org.opensaml.common.util.StringHelper;
 import org.opensaml.common.util.xml.NoOpEntityResolver;
 import org.opensaml.common.util.xml.ParserPoolManager;
 import org.opensaml.common.util.xml.XMLConstants;
@@ -54,6 +55,12 @@ public class SAMLConfig {
     
     /** Whether the library has been intialized or not */
     private static boolean initialized = false;
+    
+    /** Whether to ignore unknown attributes when they are encountered */
+    private static boolean ignoreUnknownAttributes = true;
+    
+    /** Whether to ignore unknown elements when they are ecnountered */
+    private static boolean ignoreUnknownElements = true;
     
     /** Object provider configuration elements indexed by QName */
     private static HashMap<QName, Element> configuredObjectProviders = new HashMap<QName, Element>();
@@ -137,6 +144,20 @@ public class SAMLConfig {
     }
     
     /**
+     * Checks if, during the unmarshalling process, attributes that are not expected by the unmarshaller should be ignored.
+     * If they are not ignored a 
+     * 
+     * @return true if unexpected attributes should be ignored, false if not
+     */
+    public static boolean ignoreUnknownAttributes(){
+        return ignoreUnknownAttributes;
+    }
+    
+    public static boolean ignoreUnknownElements(){
+        return ignoreUnknownElements;
+    }
+    
+    /**
      * Gets a clone of the configuration element for a qualified element.  Note that this configuration 
      * reflects that state of things as they were when the library was initialized, applications may have 
      * programmatically removed builder, marshallers, and unmarshallers during runtime.
@@ -156,13 +177,25 @@ public class SAMLConfig {
      * @throws InitializationException
      */
     private static void initializeObjectProviders(Element objectProviders) throws InitializationException{
+        
+        String ignoreAttributesAttr = objectProviders.getAttributeNS(null, "ignoreUnknownAttributes");
+        if(!StringHelper.isEmpty(ignoreAttributesAttr)){
+            ignoreUnknownAttributes = Boolean.parseBoolean(ignoreAttributesAttr);
+        }
+        
+        String ignoreElementsAttr = objectProviders.getAttributeNS(null, "ignoreUnknownElements");
+        if(!StringHelper.isEmpty(ignoreElementsAttr)){
+            ignoreUnknownElements = Boolean.parseBoolean(ignoreElementsAttr);
+        }
+        
+        // Process ObjectProvider child elements
         Element objectProvider;
         Attr qNameAttrib;
         QName objectProviderName;
         Element builderConfiguration;
         Element marshallerConfiguration;
         Element unmarshallerConfiguration;
-
+        
         NodeList providerList = objectProviders.getElementsByTagNameNS(XMLConstants.OPENSAML_CONFIG_NS, "ObjectProvider");
         for(int i = 0; i < providerList.getLength(); i++){
             objectProvider = (Element) providerList.item(i);

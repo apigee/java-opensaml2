@@ -23,6 +23,8 @@ import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilderFactory;
 import org.opensaml.common.impl.DOMCachingSAMLObject;
+import org.opensaml.common.io.UnknownAttributeException;
+import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallerFactory;
 import org.opensaml.common.io.UnmarshallingException;
@@ -66,7 +68,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
     /*
      * @see org.opensaml.common.io.Unmarshaller#unmarshall(org.w3c.dom.Element)
      */
-    public SAMLObject unmarshall(Element domElement) throws UnmarshallingException{
+    public SAMLObject unmarshall(Element domElement) throws UnmarshallingException, UnknownAttributeException, UnknownElementException{
         if(log.isDebugEnabled()) {
             log.debug("Staring to log DOM element " + domElement.getLocalName());
         }
@@ -148,8 +150,9 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * @param attribute the DOM attribute
      * 
      * @throws UnmarshallingException thrown if the given attribute is not an allowable attribute on this SAML element
+     * @throws UnknownAttributeException thrown if an attribute that the unmarshaller does not understand is encountered
      */
-    protected void processAttribute(SAMLObject rootElement, Attr attribute) throws UnmarshallingException {
+    protected void processAttribute(SAMLObject rootElement, Attr attribute) throws UnmarshallingException, UnknownAttributeException {
         if(log.isDebugEnabled()) {
             log.debug("Processing attribute " + attribute.getName());
         }
@@ -178,8 +181,9 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * @param childElement the child element
      * 
      * @throws UnmarshallingException thrown if the child element is not a valid child of the parent
+     * @throws UnknownElementException thrown if an element that the unmarshaller does not understand is encountered
      */
-    protected abstract void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException;
+    protected abstract void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException, UnknownElementException;
     
     /**
      * Called after this unmarshaller has unmarshalled an attribute in order to add it to the SAML element
@@ -189,8 +193,9 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * @param attributeValue the attributes value
      * 
      * @throws UnmarshallingException thrown if the given attribute is not a valid attribute for this SAML element
+     * @throws UnknownAttributeException thrown if an attribute that the unmarshaller does not understand is encountered
      */
-    protected abstract void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue) throws UnmarshallingException;
+    protected abstract void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue) throws UnmarshallingException, UnknownAttributeException;
     
     /**
      * Called to process the content of a DOM element

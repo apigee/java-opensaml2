@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.io.UnknownAttributeException;
+import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
@@ -34,8 +37,12 @@ public class EndpointUnmarshaller extends AbstractUnmarshaller implements Unmars
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement){
-        //Doesn't have any children, do nothing
+    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnknownElementException{
+        //Doesn't have any children
+        
+        if(!SAMLConfig.ignoreUnknownElements()){
+            throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for Endpoint objects");
+        }
     }
     
     /*
@@ -50,7 +57,9 @@ public class EndpointUnmarshaller extends AbstractUnmarshaller implements Unmars
         }else if(attributeName.equals(Endpoint.RESPONSE_LOCATION_ATTRIB_NAME)) {
             endpoint.setResponseLocation(attributeValue);
         }else {
-            throw new UnmarshallingException("Attribute " + attributeName + " is not a valid attribute for an Endpoint");
+            if(!SAMLConfig.ignoreUnknownAttributes()){
+                throw new UnknownAttributeException(attributeName + " is not a supported attributed for Endpoint objects");
+            }
         }
     }
 

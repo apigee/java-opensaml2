@@ -17,7 +17,10 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.IllegalAddException;
+import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.io.UnknownAttributeException;
+import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
@@ -66,7 +69,9 @@ public class EntityDescriptorUnmarshaller extends AbstractUnmarshaller implement
             }else if(childElement instanceof AdditionalMetadataLocation) {
                 entityDescriptor.addAdditionalMetadataLocation((AdditionalMetadataLocation) childElement);
             }else {
-                throw new UnmarshallingException(childElement.getElementQName().getLocalPart() + " is not a valid EntityDescriptor child element");
+                if(!SAMLConfig.ignoreUnknownElements()){
+                    throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for EntityDescriptor objects");
+                }
             }
         }catch(IllegalAddException e){
             //This should never happen, but just in case
@@ -87,7 +92,9 @@ public class EntityDescriptorUnmarshaller extends AbstractUnmarshaller implement
         }else if(attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entityDescriptor.setCacheDuration(new Long(Long.parseLong(attributeValue)));
         }else {
-            throw new UnmarshallingException("Attribute " + attributeName + " is not a valid attribute for an EntityDescriptor");
+            if(!SAMLConfig.ignoreUnknownAttributes()){
+                throw new UnknownAttributeException(attributeName + " is not a supported attributed for AdditionalMetadataLocation objects");
+            }
         }
     }
 

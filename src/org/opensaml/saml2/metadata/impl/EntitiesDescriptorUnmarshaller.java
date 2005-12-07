@@ -19,7 +19,10 @@ package org.opensaml.saml2.metadata.impl;
 import javax.xml.datatype.DatatypeFactory;
 
 import org.opensaml.common.IllegalAddException;
+import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.io.UnknownAttributeException;
+import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
@@ -60,7 +63,9 @@ public class EntitiesDescriptorUnmarshaller extends AbstractUnmarshaller impleme
             }else if(childElement instanceof EntityDescriptor) {
                 entitiesDescriptor.addEntityDescriptor((EntityDescriptor) childElement);
             }else {
-                throw new UnmarshallingException(childElement.getElementQName().getLocalPart() + " is not a valid EntitiesDescriptor child element");
+                if(!SAMLConfig.ignoreUnknownElements()){
+                    throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for EntitiesDescriptor objects");
+                }
             }
         }catch(IllegalAddException e){
             //This should never happen
@@ -81,7 +86,9 @@ public class EntitiesDescriptorUnmarshaller extends AbstractUnmarshaller impleme
         }else if(attributeName.equals(EntitiesDescriptor.NAME_ATTRIB_NAME)) {
             entitiesDescriptor.setName(attributeValue);
         }else {
-            throw new UnmarshallingException("Attribute " + attributeName + " is not a valid attribute for an EntitiesDescriptor");
+            if(!SAMLConfig.ignoreUnknownAttributes()){
+                throw new UnknownAttributeException(attributeName + " is not a supported attributed for EntitiesDescriptor objects");
+            }
         }
     }
 }

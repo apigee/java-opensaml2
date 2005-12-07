@@ -33,6 +33,8 @@ public interface Unmarshaller {
 	 * @return the unmarshalled SAML element
      * 
      * @throws UnmarshallingException thrown if an error occurs unmarshalling the DOM element into the SAMLElement
+     * @throws UnknownAttributeException thrown if an attribute that the unmarshaller does not understand is encountered
+     * @throws UnknownElementException thrown if an element that the unmarshaller does not understand is encountered
 	 */
-	public SAMLObject unmarshall(Element element) throws UnmarshallingException;
+	public SAMLObject unmarshall(Element element) throws UnmarshallingException, UnknownAttributeException, UnknownElementException;
 }

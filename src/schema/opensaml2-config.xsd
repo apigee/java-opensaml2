@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema"
-	xmlns:os="http://www.opensaml.org/opensaml2-config"
-	targetNamespace="http://www.opensaml.org/opensaml2-config">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+    xmlns:os="http://www.opensaml.org/opensaml2-config"
+    targetNamespace="http://www.opensaml.org/opensaml2-config">
 
-	<element name="OpenSAML" type="os:OpenSAMLType" />
-	<complexType name="OpenSAMLType">
-		<sequence>
-			<element ref="os:ObjectProviders" />
-		</sequence>
+    <element name="OpenSAML" type="os:OpenSAMLType" />
+    <complexType name="OpenSAMLType">
+        <sequence>
+            <element ref="os:ObjectProviders" />
+        </sequence>
 
-		<attribute name="clock-skew" type="long" use="optional" />
-	</complexType>
+        <attribute name="clock-skew" type="long" use="optional" />
+    </complexType>
 
-	<element name="ObjectProviders" type="os:ObjectProvidersType" />
-	<complexType name="ObjectProvidersType">
-		<sequence>
-			<element ref="os:ObjectProvider" maxOccurs="unbounded"/>
-		</sequence>
-		
-		<attribute name="drop-unknown-elements" type="boolean" use="optional" default="true"/>
-	</complexType>
+    <element name="ObjectProviders" type="os:ObjectProvidersType" />
+    <complexType name="ObjectProvidersType">
+        <sequence>
+            <element ref="os:ObjectProvider" maxOccurs="unbounded" />
+        </sequence>
 
-	<element name="ObjectProvider" type="os:ObjectProviderType" />
-	<complexType name="ObjectProviderType">
-		<sequence>
-			<element ref="os:BuilderClass" />
-			<element ref="os:MarshallingClass" />
-			<element ref="os:UnmarshallingClass" />
-			<any namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
-		</sequence>
-		
-		<attribute name="qualifiedName" type="QName" use="required" />
-		<anyAttribute namespace="##other" />
-	</complexType>
+        <attribute name="ignoreUnknownAttributes" type="boolean" use="optional" />
+        <attribute name="ignoreUnknownElements" type="boolean" use="optional" default="false"/>
+    </complexType>
 
-	<element name="BuilderClass" type="os:ClassType" />
-	<element name="MarshallingClass" type="os:ClassType" />
-	<element name="UnmarshallingClass" type="os:ClassType" />
-	<complexType name="ClassType">
-		<sequence>
-			<any namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
-		</sequence>
-		
-		<attribute name="className" type="string" use="required" />
-		<anyAttribute namespace="##other" />
-	</complexType>
+    <element name="ObjectProvider" type="os:ObjectProviderType" />
+    <complexType name="ObjectProviderType">
+        <sequence>
+            <element ref="os:BuilderClass" />
+            <element ref="os:MarshallingClass" />
+            <element ref="os:UnmarshallingClass" />
+            <any namespace="##other" minOccurs="0" maxOccurs="unbounded" />
+        </sequence>
+
+        <attribute name="qualifiedName" type="QName" use="required" />
+        <anyAttribute namespace="##other" />
+    </complexType>
+
+    <element name="BuilderClass" type="os:ClassType" />
+    <element name="MarshallingClass" type="os:ClassType" />
+    <element name="UnmarshallingClass" type="os:ClassType" />
+    <complexType name="ClassType">
+        <sequence>
+            <any namespace="##other" minOccurs="0" maxOccurs="unbounded" />
+        </sequence>
+
+        <attribute name="className" type="string" use="required" />
+        <anyAttribute namespace="##other" />
+    </complexType>
 
 </schema>
