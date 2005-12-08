@@ -17,8 +17,12 @@
 package org.opensaml.saml2.common.impl;
 
 import java.io.Serializable;
+import java.util.GregorianCalendar;
+
+import javax.xml.datatype.Duration;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.util.xml.XMLHelper;
 
 /**
  * A helper for SAMLElements that implement the {@link org.opensaml.saml2.common.CacheableSAMLObject} interface.
@@ -76,5 +80,29 @@ public class CacheableSAMLObjectHelper implements Serializable{
 
         containingElement.releaseThisandParentDOM();
         cacheDuration = duration;
+    }
+    
+    /**
+     * Converts a lexical duration, as defined by XML Schema 1.0, into milliseconds.
+     *
+     * @param duration lexical duration representation
+     *
+     * @return duration in milliseconds
+     */
+    public static long durationToLong(String duration) {
+        Duration xmlDuration = XMLHelper.getDataTypeFactory().newDuration(duration);
+        return xmlDuration.getTimeInMillis(new GregorianCalendar());
+    }
+
+    /**
+     * Converts a duration in milliseconds to a lexical duration, as defined by XML Schema 1.0.
+     *
+     * @param duration the duration
+     *
+     * @return the lexical representation
+     */
+    public static String longToDuration(long duration) {
+        Duration xmlDuration = XMLHelper.getDataTypeFactory().newDuration(duration);
+        return xmlDuration.toString();
     }
 }
