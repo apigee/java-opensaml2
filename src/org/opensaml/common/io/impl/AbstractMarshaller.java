@@ -185,7 +185,7 @@ public abstract class AbstractMarshaller implements Marshaller {
         QName childType;
         Marshaller marshaller;
         Set<SAMLObject> childElements = samlElement.getOrderedChildren();
-        if (childElements != null) {
+        if (childElements != null && childElements.size() > 0) {
             for (SAMLObject childElement : childElements) {
                 childType = null;
                 marshaller = null;

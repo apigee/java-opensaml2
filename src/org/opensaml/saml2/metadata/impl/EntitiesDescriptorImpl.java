@@ -242,8 +242,13 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
      */
     public Set<SAMLObject> getOrderedChildren(){
         Set<SAMLObject> children = new LinkedHashSet<SAMLObject>();
-        children.add(getExtensions());
+        
+        if(getExtensions() != null){
+            children.add(getExtensions());
+        }
+        
         children.addAll(getOrderedChildDescriptors());
+        
         return children;
     }
 
