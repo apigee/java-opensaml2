@@ -56,7 +56,8 @@ public class EntitiesDescriptorTest extends BaseTestCase {
     /** Expected validUntil value */
     private GregorianCalendar expectedValidUntil;
     
-    protected void setUp(){
+    protected void setUp() throws Exception{
+        super.setUp();
         expectedName = "eDescName";
         expectedCacheDuration = 90000;
         expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
