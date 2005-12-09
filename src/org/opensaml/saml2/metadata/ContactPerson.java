@@ -39,7 +39,7 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
     public final static String CONTACT_TYPE_ATTRIB_NAME = "affiliationOwnerID";
     
     /** "contactType" attribute's QName */
-    public final static QName CONTACT_YTPE_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, CONTACT_TYPE_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
+    public final static QName CONTACT_TYPE_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, CONTACT_TYPE_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
 
     /**
      * Gets the type of contact this person.
