@@ -17,23 +17,26 @@
 package org.opensaml.common;
 
 import java.security.Key;
-import java.util.Collection;
+import java.security.cert.X509Certificate;
+import java.util.Set;
 
-import javax.security.cert.X509Certificate;
+import org.apache.xml.security.signature.XMLSignature;
 
 /**
- * A data construct for information needed to digitally sign an XML Node.
+ * A data construct for information needed to digitally sign an XML Node.  By default the 
+ * HMAC-SHA1 will be used to create the message digest and RSA-SHA1 will be used to create 
+ * the signature.
  */
 public class SigningContext {
     /**
      * The signature algorithim
      */
-    private String signatureAlgorithim;
+    private String signatureAlgorithim = XMLSignature.ALGO_ID_SIGNATURE_RSA_SHA1;
 
     /**
      * The digest algorithim
      */
-    private String digestAlgorithim;
+    private String digestAlgorithim = XMLSignature.ALGO_ID_MAC_HMAC_SHA1;
 
     /**
      * The signing key
@@ -43,41 +46,17 @@ public class SigningContext {
     /**
      * The certificates to be included with the signature
      */
-    private Collection <X509Certificate> certs;
+    private Set<X509Certificate> certs;
 
     /**
-     * 
      * Constructor
      *
-     */
-    public SigningContext() {
-
-    }
-
-    /**
-     * 
-     * Constructor
-     *
-     * @param signatureAlgo the signature algorithim
      * @param signingKey the signing key
-     * @param certificates the certificates to be included with the signature
      */
-    public SigningContext(String signatureAlgo, Key signingKey, Collection<X509Certificate> certificates) {
-
-    }
-
-    /**
-     * 
-     * Constructor
-     *
-     * @param signatureAlgo the signature algorithim
-     * @param digestAlgo the digest algorithim
-     * @param signingKey the signing key
-     * @param certificates the certificates to be included with the signature
-     */
-    public SigningContext(String signatureAlgo, String digestAlgo, Key signingKey,
-            Collection<X509Certificate> certificates) {
-
+    public SigningContext(Key signingKey) {
+        if(signingKey != null){
+            this.signingKey = signingKey;
+        }
     }
 
     /**
@@ -85,7 +64,7 @@ public class SigningContext {
      * 
      * @return the certificates to be included with the signature
      */
-    public Collection getCerts() {
+    public Set<X509Certificate> getCerts() {
         return certs;
     }
 
@@ -94,7 +73,7 @@ public class SigningContext {
      * 
      * @param certs the certificates to be included with the signature
      */
-    public void setCerts(Collection<X509Certificate> certs) {
+    public void setCerts(Set<X509Certificate> certs) {
         this.certs = certs;
     }
 

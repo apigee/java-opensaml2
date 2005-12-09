@@ -17,11 +17,19 @@
 package org.opensaml.common.io.impl;
 
 import java.security.SignatureException;
+import java.security.cert.X509Certificate;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
+import org.apache.xml.security.c14n.Canonicalizer;
+import org.apache.xml.security.exceptions.XMLSecurityException;
+import org.apache.xml.security.keys.content.X509Data;
+import org.apache.xml.security.signature.XMLSignature;
+import org.apache.xml.security.transforms.Transforms;
+import org.apache.xml.security.transforms.params.InclusiveNamespaces;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableObject;
 import org.opensaml.common.SigningContext;
@@ -92,7 +100,46 @@ public abstract class AbstractMarshaller implements Marshaller {
     public Element marshall(SAMLObject samlElement, Document document) throws MarshallingException {
         String samlElementNamespace = samlElement.getElementQName().getNamespaceURI();
         String samlElementLocalName = samlElement.getElementQName().getLocalPart();
-        QName type = samlElement.getSchemaType();
+
+        if (log.isDebugEnabled()) {
+            log.debug("Creating DOM element for SAMLElement " + samlElementLocalName);
+        }
+        Element domElement = document.createElementNS(samlElementNamespace, samlElementLocalName);
+        domElement.setPrefix(samlElement.getElementQName().getPrefix());
+        
+        marshallNamespaces(samlElement, domElement);
+
+        if (log.isDebugEnabled()) {
+            log.debug("Marshalling attributes for SAMLElement " + samlElementLocalName);
+        }
+        marshallAttributes(samlElement, domElement);
+
+        marshallChildElements(samlElement, domElement);
+        
+        if (log.isDebugEnabled()) {
+            log.debug("Marshalling element content for SAMLElement " + samlElementLocalName);
+        }
+        marshallElementContent(samlElement, domElement);
+    
+        marshallElementType(samlElement, domElement);
+        
+        signElement(samlElement, domElement);
+        
+        if(samlElement instanceof DOMCachingSAMLObject){
+            ((DOMCachingSAMLObject)samlElement).setDOM(domElement);
+        }
+        
+        return domElement;
+    }
+    
+    /**
+     * Checks to make sure the given SAMLObject is
+     * @param samlObject
+     */
+    protected void checkSAMLObjectIsTarget(SAMLObject samlObject) throws MarshallingException{
+        String samlElementNamespace = samlObject.getElementQName().getNamespaceURI();
+        String samlElementLocalName = samlObject.getElementQName().getLocalPart();
+        QName type = samlObject.getSchemaType();
         
         //Check to make sure the element to be marshalled is or the right type or 
         // has the correct element QName
@@ -110,53 +157,6 @@ public abstract class AbstractMarshaller implements Marshaller {
                         + target.getNamespaceURI() + ":" + target.getLocalPart());
             }
         }
-
-        if (log.isDebugEnabled()) {
-            log.debug("Creating DOM element for SAMLElement " + samlElementLocalName);
-        }
-        Element domElement = document.createElementNS(samlElementNamespace, samlElementLocalName);
-        domElement.setPrefix(samlElement.getElementQName().getPrefix());
-        
-        if(log.isDebugEnabled()){
-            log.debug("Marshalling namespace for SAMLObject " + samlElementLocalName);
-        }
-        marshallNamespaces(samlElement, domElement);
-
-        if (log.isDebugEnabled()) {
-            log.debug("Marshalling attributes for SAMLElement " + samlElementLocalName);
-        }
-        marshallAttributes(samlElement, domElement);
-
-        if (log.isDebugEnabled()) {
-            log.debug("Marshalling child elements for SAMLElement " + samlElementLocalName);
-        }
-        marshallChildElements(samlElement, domElement);
-        
-        marshallElementContent(samlElement, domElement);
-
-        if (samlElement.getSchemaType() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Setting xsi:type attribute with for SAMLElement " + samlElementLocalName);
-            }
-
-            marshallElementType(samlElement, domElement);
-        }
-
-        if (samlElement instanceof SignableObject) {
-            SigningContext dsigCtx = ((SignableObject) samlElement).getSigningContext();
-            if (dsigCtx != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Signing SAMLElement " + samlElementLocalName);
-                }
-                signElement(domElement, dsigCtx);
-            }
-        }
-
-        if(samlElement instanceof DOMCachingSAMLObject){
-            ((DOMCachingSAMLObject)samlElement).setDOM(domElement);
-        }
-        
-        return domElement;
     }
 
     /**
@@ -182,6 +182,11 @@ public abstract class AbstractMarshaller implements Marshaller {
      */
     protected void marshallChildElements(SAMLObject samlElement, Element domElement)
             throws MarshallingException {
+        
+        if (log.isDebugEnabled()) {
+            log.debug("Marshalling child elements for SAMLElement " + samlElement.getElementQName());
+        }
+        
         QName childType;
         Marshaller marshaller;
         Set<SAMLObject> childElements = samlElement.getOrderedChildren();
@@ -190,14 +195,16 @@ public abstract class AbstractMarshaller implements Marshaller {
                 childType = null;
                 marshaller = null;
                 if(childElement instanceof DOMCachingSAMLObject){
-                    if (((DOMCachingSAMLObject)childElement).getDOM() != null) {
+                    DOMCachingSAMLObject domCachingChildElement = (DOMCachingSAMLObject)childElement;
+                    if (domCachingChildElement.getDOM() != null) {
                         if (log.isDebugEnabled()) {
                             log.debug("Child element " + childElement.getElementQName()
                                     + " was previously marshalled, using cached DOM");
                         }
-                        XMLHelper.appendChildElement(domElement, ((DOMCachingSAMLObject)childElement).getDOM());
+                        XMLHelper.appendChildElement(domElement, domCachingChildElement.getDOM());
                     }
                 } else {
+                    //TODO consider refactoring this to use getMarshaller(Element) or creating a convience method on the MarshallerFactory
                     childType = childElement.getSchemaType();
                     if (childType != null) {
                         if (log.isDebugEnabled()) {
@@ -216,7 +223,7 @@ public abstract class AbstractMarshaller implements Marshaller {
                             log.debug("Marshalling child element " + childElement.getElementQName() + ", child of "
                                     + samlElement.getElementQName());
                         }
-                        marshaller = MarshallerFactory.getInstance().getMarshaller(childElement.getElementQName());
+                        marshaller = MarshallerFactory.getInstance().getMarshaller(childElement);
                         if (marshaller == null) {
                             log.error("No marshaller was available to marshall " + childElement.getElementQName());
                             throw new MarshallingException(childElement.getElementQName()
@@ -247,6 +254,9 @@ public abstract class AbstractMarshaller implements Marshaller {
     protected void marshallElementType(SAMLObject samlElement, Element domElement) throws MarshallingException {
         QName type = samlElement.getSchemaType();
         if (type != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Setting xsi:type attribute with for SAMLElement " + samlElement.getElementQName());
+            }
             String typeLocalName = type.getLocalPart();
             String typePrefix = type.getPrefix();
 
@@ -277,6 +287,9 @@ public abstract class AbstractMarshaller implements Marshaller {
      * @param domElement the DOM element the namespaces will be added to
      */
     protected void marshallNamespaces(SAMLObject samlElement, Element domElement) throws MarshallingException {
+        if(log.isDebugEnabled()){
+            log.debug("Marshalling namespace for SAMLObject " + samlElement.getElementQName());
+        }
         Set<Namespace> namespaces = samlElement.getNamespaces();
         for(Namespace namespace: namespaces){
             domElement.setAttribute(XMLConstants.XMLNS_PREFIX + ":" + namespace.getNamespacePrefix(), namespace.getNamespaceURI());
@@ -298,10 +311,57 @@ public abstract class AbstractMarshaller implements Marshaller {
      * 
      * @param domElement the element to be signed
      * @param dsigCtx information needed to create the signature
+     * @param inclusiveNamespacePrefixes namespace prefixes to include in the digital signature, even if they don't appear to be used by the signer
      * 
      * @throws SignatureException thrown if there is a problem creating the digital signature
      */
-    protected void signElement(Element domElement, SigningContext dsigCtx) throws MarshallingException {
-        // TODO
+    protected void signElement(SAMLObject samlObject, Element domElement) throws MarshallingException {
+        if(samlObject instanceof SignableObject){
+            SignableObject signableSAMLObject = (SignableObject) samlObject;
+            if(signableSAMLObject.getSigningContext() != null){
+                if (log.isDebugEnabled()) {
+                    log.debug("Signing SAMLElement " + samlObject.getElementQName());
+                }
+                
+                //TODO normalize namespaces
+                
+                try {
+                    SigningContext dsigCtx = signableSAMLObject.getSigningContext();
+                    String elementId = domElement.getAttributeNS("", "ID");
+                    
+                    XMLSignature dsig = new XMLSignature(domElement.getOwnerDocument(), "", dsigCtx.getSignatureAlgorithim(), Canonicalizer.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
+                    domElement.appendChild(dsig.getElement());
+                    
+                    // Create the transformations the element will go through to prepare for signing
+                    Transforms dsigTransforms = new Transforms(dsig.getDocument());
+                    dsigTransforms.addTransform(Transforms.TRANSFORM_ENVELOPED_SIGNATURE);
+                    dsigTransforms.addTransform(Transforms.TRANSFORM_C14N_EXCL_OMIT_COMMENTS);
+                    
+                    // Normally namespaces that aren't directly used, such as those used in QName attribute values, would 
+                    // be stripped out by exclusive canonicalization.  Need to make sure they don't by explicitly telling
+                    // the transformer about them.
+                    Set<String> inclusiveNamespacePrefixes = new HashSet<String>();
+                    for(Namespace namespace : samlObject.getNamespaces()){
+                        inclusiveNamespacePrefixes.add(namespace.getNamespacePrefix());
+                    }
+                    InclusiveNamespaces inclusiveNamespaces = new InclusiveNamespaces(domElement.getOwnerDocument(), inclusiveNamespacePrefixes);
+                    Element transformElem = dsigTransforms.item(1).getElement();
+                    transformElem.appendChild(inclusiveNamespaces.getElement());
+                    
+                    dsig.addDocument("#" + elementId, dsigTransforms, dsigCtx.getDigestAlgorithim());
+                    
+                    X509Data x509Data = new X509Data(domElement, "");
+                    for(X509Certificate cert : dsigCtx.getCerts()){
+                        x509Data.addCertificate(cert);
+                    }
+                    
+                    dsig.sign(dsigCtx.getSigningKey());
+                    
+                } catch (XMLSecurityException e) {
+                    log.error("Failed to sign DOM element " + domElement.getLocalName() + ", encountered the following exception", e);
+                    throw new MarshallingException("Failed to sign DOM element " + domElement.getLocalName() + ", encountered the following exception", e);
+                }
+            }
+        }
     }
 }
