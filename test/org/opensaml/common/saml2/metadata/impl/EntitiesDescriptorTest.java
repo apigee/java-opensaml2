@@ -19,7 +19,6 @@ package org.opensaml.common.saml2.metadata.impl;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.apache.xerces.util.DOMInputSource;
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObjectBuilderFactory;
