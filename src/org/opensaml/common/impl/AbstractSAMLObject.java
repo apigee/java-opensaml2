@@ -221,7 +221,7 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      * A convience method that is equal to calling {@link #releaseDOM()} then 
      * {@link #releaseChildrenDOM(boolean)} with the release being propogated.
      */
-    public void releaseThisAndChildreanDOM(){
+    public void releaseThisAndChildrenDOM(){
         if(getDOM() != null){
             releaseDOM();
             releaseChildrenDOM(true);
@@ -261,5 +261,28 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      */
     public void validateElement(boolean validateChildren) throws ValidationException{
         validationHelper.validateElement(this, validateChildren);
+    }
+    
+    /**
+     * A helper function for derived classes.  This 'nornmalizes' newString and then
+     * if it is different from oldString invalidates the DOM.  It returns the normalized
+     * value so subclasses just have to go.
+     *   this.foo = assignString(this.foo, foo);
+     *
+     * @param oldValue - the current value  
+     * @param newString - the new value
+     * @return
+     */
+    
+    public final String assignString(String oldValue, String newValue)
+    {
+        String newString = StringHelper.safeTrimOrNullString(newValue);
+        
+        if (!StringHelper.safeEquals(oldValue, newString)) {
+
+            releaseThisandParentDOM();
+        }
+        
+        return newString;
     }
 }

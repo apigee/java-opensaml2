@@ -99,12 +99,7 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
      * @see org.opensaml.saml2.metadata.Endpoint#setResponseLocation(java.net.URI)
      */
     public void setResponseLocation(String location) {
-        if(StringHelper.safeEquals(responseLocation, location)) {
-            return;
-        }
-        
-        responseLocation = StringHelper.safeTrimOrNullString(location);
-        releaseThisandParentDOM();
+        responseLocation = assignString(responseLocation, location);
     }
 
     /*

@@ -128,11 +128,8 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
      * @see org.opensaml.saml2.metadata.RoleDescriptor#setErrorURL(java.lang.String)
      */
     public void setErrorURL(String errorURL) {
-        errorURL = StringHelper.safeTrimOrNullString(errorURL);
-        if(!StringHelper.safeEquals(this.errorURL, errorURL)) {
-            releaseThisandParentDOM();
-            this.errorURL = errorURL;
-        }
+        
+        this.errorURL = assignString(this.errorURL, errorURL);
     }
 
     /*

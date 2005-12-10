@@ -87,13 +87,7 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#setName(java.lang.String)
      */
     public void setName(String newName) {
-        String newGivenName = StringHelper.safeTrimOrNullString(newName);
-        if(!StringHelper.safeEquals(newGivenName, this.name)){
-            releaseThisandParentDOM();
-            this.name = newGivenName;
-        }
-        
-        //Name didn't really change, don't do anything
+        this.name = assignString(this.name, newName);
     }
 
     /*

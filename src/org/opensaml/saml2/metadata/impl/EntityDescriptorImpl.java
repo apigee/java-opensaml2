@@ -91,11 +91,8 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      * @see org.opensaml.saml2.metadata.EntityDescriptor#setEntityID(java.lang.String)
      */
     public void setEntityID(String id) {
-        String newId = StringHelper.safeTrimOrNullString(id);
-        if (!StringHelper.safeEquals(entityID, newId)) {
-            releaseThisandParentDOM();
-            entityID = newId;
-        }
+        
+        entityID = assignString(entityID, id);
     }
 
     /*
