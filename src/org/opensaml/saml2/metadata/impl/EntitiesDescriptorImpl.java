@@ -25,7 +25,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.StringHelper;
 import org.opensaml.saml2.common.impl.ExtensionsSAMLObjectHelper;
 import org.opensaml.saml2.common.impl.SignableTimeBoundCacheableSAMLObject;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
