@@ -327,9 +327,10 @@ public abstract class AbstractMarshaller implements Marshaller {
                 
                 try {
                     SigningContext dsigCtx = signableSAMLObject.getSigningContext();
-                    String elementId = domElement.getAttributeNS("", "ID");
+                    String idAttribute = dsigCtx.getIdentifierGenerator().generateIdentifier();
                     
                     XMLSignature dsig = new XMLSignature(domElement.getOwnerDocument(), "", dsigCtx.getSignatureAlgorithim(), Canonicalizer.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
+                    dsig.setId(idAttribute);
                     domElement.appendChild(dsig.getElement());
                     
                     // Create the transformations the element will go through to prepare for signing
@@ -337,22 +338,26 @@ public abstract class AbstractMarshaller implements Marshaller {
                     dsigTransforms.addTransform(Transforms.TRANSFORM_ENVELOPED_SIGNATURE);
                     dsigTransforms.addTransform(Transforms.TRANSFORM_C14N_EXCL_OMIT_COMMENTS);
                     
-                    // Normally namespaces that aren't directly used, such as those used in QName attribute values, would 
-                    // be stripped out by exclusive canonicalization.  Need to make sure they don't by explicitly telling
+                    // Namespaces that aren't visibly used, such as those used in QName attribute values, would 
+                    // be stripped out by exclusive canonicalization.  Need to make sure they aren't by explicitly telling
                     // the transformer about them.
                     Set<String> inclusiveNamespacePrefixes = new HashSet<String>();
                     for(Namespace namespace : samlObject.getNamespaces()){
                         inclusiveNamespacePrefixes.add(namespace.getNamespacePrefix());
                     }
-                    InclusiveNamespaces inclusiveNamespaces = new InclusiveNamespaces(domElement.getOwnerDocument(), inclusiveNamespacePrefixes);
-                    Element transformElem = dsigTransforms.item(1).getElement();
-                    transformElem.appendChild(inclusiveNamespaces.getElement());
+                    if(inclusiveNamespacePrefixes != null && inclusiveNamespacePrefixes.size() > 0){
+                        InclusiveNamespaces inclusiveNamespaces = new InclusiveNamespaces(domElement.getOwnerDocument(), inclusiveNamespacePrefixes);
+                        Element transformElem = dsigTransforms.item(1).getElement();
+                        transformElem.appendChild(inclusiveNamespaces.getElement());
+                    }
                     
-                    dsig.addDocument("#" + elementId, dsigTransforms, dsigCtx.getDigestAlgorithim());
+                    dsig.addDocument("#" + idAttribute, dsigTransforms, dsigCtx.getDigestAlgorithim());
                     
-                    X509Data x509Data = new X509Data(domElement, "");
-                    for(X509Certificate cert : dsigCtx.getCerts()){
-                        x509Data.addCertificate(cert);
+                    X509Data x509Data = new X509Data(domElement.getOwnerDocument());
+                    if(dsigCtx.getCerts() != null){
+                        for(X509Certificate cert : dsigCtx.getCerts()){
+                            x509Data.addCertificate(cert);
+                        }
                     }
                     
                     dsig.sign(dsigCtx.getSigningKey());

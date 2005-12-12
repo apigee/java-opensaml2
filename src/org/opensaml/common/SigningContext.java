@@ -20,12 +20,12 @@ import java.security.Key;
 import java.security.cert.X509Certificate;
 import java.util.Set;
 
+import org.apache.xml.security.algorithms.MessageDigestAlgorithm;
 import org.apache.xml.security.signature.XMLSignature;
 
 /**
- * A data construct for information needed to digitally sign an XML Node.  By default the 
- * HMAC-SHA1 will be used to create the message digest and RSA-SHA1 will be used to create 
- * the signature.
+ * A data construct for information needed to digitally sign an XML Node. By default the HMAC-SHA1 will be used to
+ * create the message digest and RSA-SHA1 will be used to create the signature.
  */
 public class SigningContext {
     /**
@@ -36,12 +36,15 @@ public class SigningContext {
     /**
      * The digest algorithim
      */
-    private String digestAlgorithim = XMLSignature.ALGO_ID_MAC_HMAC_SHA1;
+    private String digestAlgorithim = MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA1;
 
     /**
      * The signing key
      */
     private Key signingKey;
+
+    /** Generator used to generate the digital signature ID attribute */
+    private IdentifierGenerator idgen;
 
     /**
      * The certificates to be included with the signature
@@ -50,13 +53,13 @@ public class SigningContext {
 
     /**
      * Constructor
-     *
+     * 
      * @param signingKey the signing key
      */
-    public SigningContext(Key signingKey) {
-        if(signingKey != null){
-            this.signingKey = signingKey;
-        }
+    public SigningContext(Key signingKey, IdentifierGenerator idGenerator) {
+        this.signingKey = signingKey;
+        idgen = idGenerator;
+
     }
 
     /**
@@ -129,5 +132,23 @@ public class SigningContext {
      */
     public void setSigningKey(Key signingKey) {
         this.signingKey = signingKey;
+    }
+    
+    /**
+     * Gets the generator used to generate the ID used in the digitial signature.
+     * 
+     * @return the generator used to generate the ID used in the digitial signature
+     */
+    public IdentifierGenerator getIdentifierGenerator(){
+        return idgen;
+    }
+    
+    /**
+     * Sets the generator used to generate the ID used in the digitial signature.
+     * 
+     * @param idGenerator the generator used to generate the ID used in the digitial signature
+     */
+    public void setIdentifierGenerator(IdentifierGenerator idGenerator){
+        idgen = idGenerator;
     }
 }

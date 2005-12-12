@@ -25,6 +25,7 @@ import java.util.TreeMap;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
+import org.apache.xml.security.Init;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallerFactory;
 import org.opensaml.common.io.Unmarshaller;
@@ -87,6 +88,11 @@ public class SAMLConfig {
         try{
             Document configuration = xmlParserPool.parse(new InputSource(configInputStream));
             initializeOpenSAML(configuration);
+            
+            if(log.isDebugEnabled()){
+                log.debug("Initializing XML security library");
+            }
+            Init.init();
         }catch(XMLParserException xpe){
             log.fatal("Unable to parse OpenSAML configuration file", xpe);
             throw new InitializationException("Unable to parse OpenSAML configuration file:", xpe);

@@ -56,11 +56,17 @@ public class EntitiesDescriptorTest extends BaseTestCase {
     /** Expected validUntil value */
     private GregorianCalendar expectedValidUntil;
     
+    /** The expected result of a marshalled single EntitiesDescriptor element serialized */
+    private String expectedSerializedMarshalledDOM;
+    
     protected void setUp() throws Exception{
         super.setUp();
         expectedName = "eDescName";
         expectedCacheDuration = 90000;
         expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
+        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+        Document doc = ppMgr.parse(new InputSource(EntitiesDescriptorTest.class.getResourceAsStream(singleElementFile)));
+        expectedSerializedMarshalledDOM = ElementSerializer.serialize(doc.getDocumentElement());
     }
     
     /**
@@ -113,7 +119,9 @@ public class EntitiesDescriptorTest extends BaseTestCase {
         Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(entitiesDescriptor);
         try{
             Element dom = marshaller.marshall(entitiesDescriptor);
-            System.out.println(ElementSerializer.serialize(dom));
+            String seralizedDOM = ElementSerializer.serialize(dom);
+            //TODO this doesn't work because attributes can be in any order, would need to c14n this before compare
+            //assertEquals("Result of marshalling EntitiesDescriptor does not match expected results", expectedSerializedMarshalledDOM, seralizedDOM);
         }catch(MarshallingException e){
             fail("Marshalling failed with the following error: " + e);
         } catch (SerializationException e) {
