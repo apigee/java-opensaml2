@@ -16,6 +16,7 @@
 
 package org.opensaml.common.io;
 
+import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -37,8 +38,10 @@ public interface Marshaller {
      * 
      * @throws MarshallingException thrown if a Document can not be created to root this element in
      * or the given SAML element can not be marshalled, or if child elements can not be signed
+     * @throws UnknownElementException thrown if the SAMLObject contains a child SAMLObject for which there is no marshaller and 
+     * {@link SAMLConfig#ignoreUnknownElements()} is true
      */
-	public Element marshall(SAMLObject samlElement) throws MarshallingException;
+	public Element marshall(SAMLObject samlElement) throws MarshallingException, UnknownElementException;
 	
 	/**
 	 * Marshall this element, and its children, into a W3C DOM element rooted in the given document.
@@ -50,6 +53,8 @@ public interface Marshaller {
 	 * 
 	 * @throws MarshallingException thrown if the given SAML element can not be marshalled, or if 
      * child elements can not be signed
+     * @throws UnknownElementException thrown if the SAMLObject contains a child SAMLObject for which there is no marshaller and 
+     * {@link SAMLConfig#ignoreUnknownElements()} is true
 	 */
-	public Element marshall(SAMLObject samlElement, Document document) throws MarshallingException;
+	public Element marshall(SAMLObject samlElement, Document document) throws MarshallingException, UnknownElementException;
 }
