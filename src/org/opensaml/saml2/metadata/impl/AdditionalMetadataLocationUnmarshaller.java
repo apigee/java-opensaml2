@@ -67,8 +67,8 @@ public class AdditionalMetadataLocationUnmarshaller extends AbstractUnmarshaller
     /**
      * Sets the DOM element content as the location URI of the AdditionaMetadataLocation object.
      */
-    protected void processElementContent(SAMLObject samlElement, String elementContent) {
-        super.processElementContent(samlElement, elementContent);
+    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
+        super.unmarshallElementContent(samlElement, elementContent);
         
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;
         aml.setLocationURI(elementContent);

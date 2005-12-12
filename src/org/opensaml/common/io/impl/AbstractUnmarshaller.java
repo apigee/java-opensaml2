@@ -19,6 +19,7 @@ package org.opensaml.common.io.impl;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
+import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObjectBuilderFactory;
@@ -71,99 +72,100 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
     public SAMLObject unmarshall(Element domElement) throws UnmarshallingException, UnknownAttributeException,
             UnknownElementException {
         if (log.isDebugEnabled()) {
-            log.debug("Staring to log DOM element " + domElement.getLocalName());
+            log.debug("Starting to unmarshall DOM element " + domElement.getLocalName());
         }
 
-        SAMLObjectBuilder elemBuilder;
-        SAMLObject samlElement;
+        checkElementIsTarget(domElement);
+
+        SAMLObject samlObject = buildSAMLObject(domElement);
+
+        unmarshallAttributes(domElement, samlObject);
+
+        unmarshallElementContent(samlObject, domElement.getTextContent());
+
+        unmarshallChildElements(domElement, samlObject);
+
+        if (samlObject instanceof DOMCachingSAMLObject) {
+            ((DOMCachingSAMLObject) samlObject).setDOM(domElement);
+        }
+        return samlObject;
+    }
+
+    /**
+     * Checks that the given DOM Element's XSI type or namespace qualified element name matches the target QName of this
+     * unmarshaller.
+     * 
+     * @param domElement the DOM element to check
+     * 
+     * @throws UnmarshallingException thrown if the DOM Element does not match the target of this unmarshaller
+     */
+    protected void checkElementIsTarget(Element domElement) throws UnmarshallingException {
+        String domElementNamespace = domElement.getNamespaceURI();
+        String domElementLocalName = domElement.getLocalName();
         QName type = XMLHelper.getXSIType(domElement);
 
-        // Check to make sure the given element type or QName matches the given target QName
-        // If so, create the SAML element everything will be unmarshalled in to
         if (type != null) {
-            if (!type.getNamespaceURI().equals(target.getNamespaceURI()) || 
-                    !type.getLocalPart().equals(target.getLocalPart())){
+            if (!type.getNamespaceURI().equals(target.getNamespaceURI())
+                    || !type.getLocalPart().equals(target.getLocalPart())) {
                 throw new UnmarshallingException("Can not unmarshall DOM element of type " + type.getNamespaceURI()
                         + ":" + type.getLocalPart() + ".  This unmarshaller only operations on DOM elements of type "
                         + target.getNamespaceURI() + ":" + target.getLocalPart());
             }
-            if (log.isDebugEnabled()) {
-                log.debug("DOM element " + domElement.getLocalName() + " is of type " + type
-                        + " retrieving builder based on that type.");
-            }
-            elemBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(type);
-            samlElement = elemBuilder.buildObject();
-            samlElement.setSchemaType(type);
         } else {
-            if (log.isDebugEnabled()) {
-                log.debug("DOM element " + domElement.getLocalName()
-                        + " does not have an explicit type retrieving builder based on element qname.");
-            }
-            String domElementNamespace = domElement.getNamespaceURI();
-            String domElementLocalName = domElement.getLocalName();
             if (!domElementNamespace.equals(target.getNamespaceURI())
                     || !domElementLocalName.equals(target.getLocalPart())) {
                 throw new UnmarshallingException("Can not unmarshall DOM element " + domElementNamespace + ":"
                         + domElementLocalName + ".  This unmarshaller only operations on DOM element "
                         + target.getNamespaceURI() + ":" + target.getLocalPart());
             }
-
-            elemBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(XMLHelper.getNodeQName(domElement));
-            samlElement = elemBuilder.buildObject();
         }
-
-        samlElement.setElementNamespaceAndPrefix(domElement.getNamespaceURI(), domElement.getPrefix());
-
-        if (log.isDebugEnabled()) {
-            log
-                    .debug("Empty SAML element object created based on builder.  Processing DOM attributes and child elements.");
-        }
-
-        // Process attributes
-        NamedNodeMap attributes = domElement.getAttributes();
-        Node childNode;
-        Attr attribute;
-        if(attributes != null){
-            for(int i = 0; i < attributes.getLength(); i++){
-                childNode = attributes.item(i);
-                // This should always be an attribute, but just in case
-                if(childNode.getNodeType() == Node.ATTRIBUTE_NODE){
-                    attribute = (Attr)childNode;
-                    processAttribute(samlElement, attribute);
-                }
-            }
-        }
-
-        // Process child elements
-        NodeList childNodes = domElement.getChildNodes();
-        Element childElement;
-        Unmarshaller unmarshaller;
-        if (childNodes != null) {
-            for (int i = 0; i < childNodes.getLength(); i++) {
-                childNode = childNodes.item(i);
-                if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                    childElement = (Element) childNode;
-
-                    if (log.isDebugEnabled()) {
-                        log.debug("Child element " + childElement.getTagName()
-                                + " being unmarshalled and added to SAML element");
-                    }
-                    unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(childElement);
-                    processChildElement(samlElement, unmarshaller.unmarshall(childElement));
-                }
-            }
-        }
-
-        if (samlElement instanceof DOMCachingSAMLObject) {
-            ((DOMCachingSAMLObject) samlElement).setDOM(domElement);
-        }
-        return samlElement;
     }
 
     /**
-     * Pre-process the given attribute. If the attribute is an XML namespace declaration the namespace is added to the
-     * given element, if it is an xsi:type it is ingored, anything is passed to the
-     * {@link #processAttribute(AbstractSAMLObject, String, String)} to be added to the given element.
+     * Constructs the SAMLObject that the given DOM Element will be unmarshalled into. The returned object has the XSI
+     * schema type declared and namespace and prefix, declared by the given DOM Element, already set.
+     * 
+     * @param domElement the DOM Element the created SAMLObject will represent
+     * 
+     * @return the SAMLObject
+     * 
+     * @throws UnmarshallingException thrown if there is now SAMLObjectBuilder registered for the given DOM Element
+     */
+    protected SAMLObject buildSAMLObject(Element domElement) throws UnmarshallingException {
+        SAMLObjectBuilder samlObjectBuilder;
+        SAMLObject samlObject;
+        QName type = XMLHelper.getXSIType(domElement);
+
+        if (type != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("DOM element " + domElement.getLocalName() + " is of type " + type
+                        + " retrieving builder based on that type.");
+            }
+            samlObjectBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(type);
+        } else {
+            if (log.isDebugEnabled()) {
+                log.debug("DOM element " + domElement.getLocalName()
+                        + " does not have an explicit type retrieving builder based on element qname.");
+            }
+            samlObjectBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(XMLHelper.getNodeQName(domElement));
+        }
+
+        if (samlObjectBuilder == null) {
+            throw new UnmarshallingException("No SAMLObjectBuilder was registered for element "
+                    + domElement.getLocalName());
+        }
+
+        samlObject = samlObjectBuilder.buildObject();
+        samlObject.setSchemaType(type);
+        samlObject.setElementNamespaceAndPrefix(domElement.getNamespaceURI(), domElement.getPrefix());
+        return samlObject;
+    }
+
+    /**
+     * Unmarshalls the attributes from the given DOM Element into the given SAMLObject. If the attribute is an XML
+     * namespace declaration the namespace is added to the given element, if it is an xsi:type it is ingored, anything
+     * else is passed to the {@link #processAttribute(AbstractSAMLObject, String, String)} to be added to the given
+     * element.
      * 
      * @param samlObject the SAML element that will recieve information from the DOM attribute
      * @param attribute the DOM attribute
@@ -171,32 +173,105 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * @throws UnmarshallingException thrown if the given attribute is not an allowable attribute on this SAML element
      * @throws UnknownAttributeException thrown if an attribute that the unmarshaller does not understand is encountered
      */
-    protected void processAttribute(SAMLObject samlObject, Attr attribute) throws UnmarshallingException,
+    protected void unmarshallAttributes(Element domElement, SAMLObject samlObject) throws UnmarshallingException,
             UnknownAttributeException {
         if (log.isDebugEnabled()) {
-            log.debug("Processing attribute " + attribute.getName());
+            log.debug("Unmarshalling attributes for DOM Element " + domElement.getLocalName());
         }
-        if(!StringHelper.isEmpty(attribute.getNamespaceURI())){
-            if (attribute.getNamespaceURI().equals(XMLConstants.XMLNS_NS)) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Attribute " + attribute.getName()
-                            + " is a namespace declaration, adding it to the list of namespaces on the SAML element");
+
+        NamedNodeMap attributes = domElement.getAttributes();
+        Node childNode;
+        Attr attribute;
+        if (attributes == null) {
+            return;
+        }
+        for (int i = 0; i < attributes.getLength(); i++) {
+            childNode = attributes.item(i);
+
+            // The child node should always be an attribute, but just in case
+            if (childNode.getNodeType() != Node.ATTRIBUTE_NODE) {
+                continue;
+            }
+
+            attribute = (Attr) childNode;
+            if (!StringHelper.isEmpty(attribute.getNamespaceURI())) {
+                if (attribute.getNamespaceURI().equals(XMLConstants.XMLNS_NS)) {
+                    if (log.isDebugEnabled()) {
+                        log
+                                .debug("Attribute "
+                                        + attribute.getName()
+                                        + " is a namespace declaration, adding it to the list of namespaces on the SAML element");
+                    }
+
+                    samlObject.addNamespace(new Namespace(attribute.getValue(), attribute.getLocalName()));
+                    continue;
+                } else if (attribute.getNamespaceURI().equals(XMLConstants.XSI_NS)
+                        && attribute.getLocalName().equals("type")) {
+
+                    if (log.isDebugEnabled()) {
+                        log.debug("Attribute " + attribute.getName()
+                                + " is an xsi:type, this has already been dealth with, ignoring attribute");
+                    }
+                    continue;
                 }
-                // Attribute is a namespace
-                samlObject.addNamespace(new Namespace(attribute.getValue(), attribute.getLocalName()));
-                return;
-            } else if (attribute.getNamespaceURI().equals(XMLConstants.XSI_NS) && attribute.getLocalName().equals("type")) {
-                // Attribute is an XSI type, we've already handled this above
-                if (log.isDebugEnabled()) {
-                    log.debug("Attribute " + attribute.getName()
-                            + " is an xsi:type, this has already been dealth with, ignoring attribute");
+            }
+
+            // Attribute is an element specific attribute
+            processAttribute(samlObject, attribute.getLocalName(), attribute.getValue());
+        }
+    }
+
+    /**
+     * Unmarshalls the child elements, of the given DOM Element, into the given SAMLObject. Each child element is
+     * unmarshalled into it's own SAMLObject and then the given SAMLObject and the child are passed to
+     * {@link #processChildElement(SAMLObject, SAMLObject)} so that the child element may be added to the parent object.
+     * 
+     * @param domElement the DOM Element whose children will be unmarshalled
+     * @param samlObject the parent object of the unmarshalled children
+     * 
+     * @throws UnmarshallingException thrown if there
+     * @throws UnknownElementException
+     */
+    protected void unmarshallChildElements(Element domElement, SAMLObject samlObject) throws UnmarshallingException,
+            UnknownElementException {
+        if (log.isDebugEnabled()) {
+            log.debug("Unmarshalling child elements of DOM Element " + domElement.getLocalName());
+        }
+        NodeList childNodes = domElement.getChildNodes();
+        Node childNode;
+        Element childElement;
+        Unmarshaller unmarshaller;
+        if (childNodes == null || childNodes.getLength() == 0) {
+            return;
+        }
+
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            childNode = childNodes.item(i);
+            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+                childElement = (Element) childNode;
+                unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(childElement);
+                
+                if (unmarshaller == null) {
+                    if (!SAMLConfig.ignoreUnknownElements()) {
+                        log.error("No unmarshaller registered for child element, "
+                                + childElement.getLocalName() + ", of DOM element " + domElement.getLocalName());
+                        throw new UnknownElementException("No unmarshaller registered for child element, "
+                                + childElement.getLocalName() + ", of DOM element " + domElement.getLocalName());
+                    } else {
+                        if (log.isDebugEnabled()) {
+                            log.debug("Ingored child element, " + childElement.getLocalName() + ", of element "
+                                    + domElement.getLocalName() + " because it had no registered unmarshaller.");
+                        }
+                    }
+                } else {
+                    if (log.isDebugEnabled()) {
+                        log.debug("Child element " + childElement.getTagName()
+                                + " being unmarshalled and added to SAML Object");
+                    }
+                    processChildElement(samlObject, unmarshaller.unmarshall(childElement));
                 }
-                return;
             }
         }
-        
-        // Attribute is an element specific attribute
-        processAttribute(samlObject, attribute.getLocalName(), attribute.getValue());
     }
 
     /**
@@ -230,7 +305,7 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
      * @param samlElement SAML object the content will be given to
      * @param elementContent the DOM element content
      */
-    protected void processElementContent(SAMLObject samlElement, String elementContent) {
+    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
         // Vast majority of elements don't have textual content, let the few that do override this.
     }
 
