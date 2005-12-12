@@ -30,6 +30,7 @@ import org.apache.xml.security.keys.content.X509Data;
 import org.apache.xml.security.signature.XMLSignature;
 import org.apache.xml.security.transforms.Transforms;
 import org.apache.xml.security.transforms.params.InclusiveNamespaces;
+import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableObject;
 import org.opensaml.common.SigningContext;
@@ -37,6 +38,7 @@ import org.opensaml.common.impl.DOMCachingSAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallerFactory;
 import org.opensaml.common.io.MarshallingException;
+import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.util.xml.Namespace;
 import org.opensaml.common.util.xml.ParserPoolManager;
 import org.opensaml.common.util.xml.XMLConstants;
@@ -96,7 +98,7 @@ public abstract class AbstractMarshaller implements Marshaller {
      * @see org.opensaml.common.io.Marshaller#marshall(org.opensaml.common.SAMLElement, org.w3c.dom.Document,
      *      org.opensaml.common.SigningContext)
      */
-    public Element marshall(SAMLObject samlElement, Document document) throws MarshallingException {
+    public Element marshall(SAMLObject samlElement, Document document) throws MarshallingException, UnknownElementException {
         String samlElementNamespace = samlElement.getElementQName().getNamespaceURI();
         String samlElementLocalName = samlElement.getElementQName().getLocalPart();
 
@@ -108,16 +110,10 @@ public abstract class AbstractMarshaller implements Marshaller {
 
         marshallNamespaces(samlElement, domElement);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Marshalling attributes for SAMLElement " + samlElementLocalName);
-        }
         marshallAttributes(samlElement, domElement);
 
         marshallChildElements(samlElement, domElement);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Marshalling element content for SAMLElement " + samlElementLocalName);
-        }
         marshallElementContent(samlElement, domElement);
 
         marshallElementType(samlElement, domElement);
@@ -179,8 +175,10 @@ public abstract class AbstractMarshaller implements Marshaller {
      * @param domElement the DOM element that will recieved the marshalled children
      * 
      * @throws MarshallingException thrown if there is a problem marshalling a child element
+     * @throws UnknownElementException thrown if the SAMLObject contains a child SAMLObject for which there is no marshaller and 
+     * {@link SAMLConfig#ignoreUnknownElements()} is true
      */
-    protected void marshallChildElements(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallChildElements(SAMLObject samlElement, Element domElement) throws MarshallingException, UnknownElementException {
 
         if (log.isDebugEnabled()) {
             log.debug("Marshalling child elements for SAMLElement " + samlElement.getElementQName());
@@ -189,7 +187,7 @@ public abstract class AbstractMarshaller implements Marshaller {
         Set<SAMLObject> childElements = samlElement.getOrderedChildren();
         if (childElements != null && childElements.size() > 0) {
             for (SAMLObject childElement : childElements) {
-                
+
                 if (childElement instanceof DOMCachingSAMLObject) {
                     DOMCachingSAMLObject domCachingChildElement = (DOMCachingSAMLObject) childElement;
                     if (domCachingChildElement.getDOM() != null) {
@@ -198,11 +196,29 @@ public abstract class AbstractMarshaller implements Marshaller {
                                     + " was previously marshalled, using cached DOM");
                         }
                         XMLHelper.appendChildElement(domElement, domCachingChildElement.getDOM());
-                        continue;  //no need to go futher, DOM was cached and does not need to be constructed
+                        continue; // no need to go futher, DOM was cached and does not need to be constructed
                     }
                 }
 
-                domElement.appendChild(MarshallerFactory.marshallSAMLObject(childElement, domElement.getOwnerDocument()));
+                Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(samlElement);
+                if (marshaller == null) {
+                    if (!SAMLConfig.ignoreUnknownElements()) {
+                        log.error("No marshaller registered for child SAMLObject, "
+                                + childElement.getElementQName().getLocalPart() + ", of SAMLObject "
+                                + samlElement.getElementQName().getLocalPart());
+                        throw new UnknownElementException("No marshaller registered for child SAMLObject, "
+                                + childElement.getElementQName().getLocalPart() + ", of SAMLObject "
+                                + samlElement.getElementQName().getLocalPart());
+                    } else {
+                        if (log.isDebugEnabled()) {
+                            log.debug("Ingored child SAMLObject, " + childElement.getElementQName().getLocalPart()
+                                    + ", of SAMLObject " + samlElement.getElementQName().getLocalPart()
+                                    + " because it had no registered marshaller.");
+                        }
+                    }
+                } else {
+                    domElement.appendChild(marshaller.marshall(childElement, domElement.getOwnerDocument()));
+                }
             }
         } else {
             if (log.isDebugEnabled()) {
