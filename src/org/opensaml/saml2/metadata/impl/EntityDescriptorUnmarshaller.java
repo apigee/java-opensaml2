@@ -82,18 +82,19 @@ public class EntityDescriptorUnmarshaller extends AbstractUnmarshaller implement
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement, java.lang.String, java.lang.String)
      */
-    @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException {
         EntityDescriptor entityDescriptor = (EntityDescriptor)samlElement;
         
-        if(attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
+        if(attributeName.equals(EntityDescriptor.ENTITY_ID_ATTRIB_NAME)) {
+            entityDescriptor.setEntityID(attributeValue);
+        }else if(attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
             entityDescriptor.setValidUntil(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
         }else if(attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entityDescriptor.setCacheDuration(new Long(Long.parseLong(attributeValue)));
         }else {
             if(!SAMLConfig.ignoreUnknownAttributes()){
-                throw new UnknownAttributeException(attributeName + " is not a supported attributed for AdditionalMetadataLocation objects");
+                throw new UnknownAttributeException(attributeName + " is not a supported attributed for EntityDescriptor objects");
             }
         }
     }

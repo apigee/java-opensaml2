@@ -38,6 +38,12 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
 	
 	/** QName for this element */
 	public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
+    
+    /** "Name" attribute name */
+    public final static String ENTITY_ID_ATTRIB_NAME = "entityID";
+    
+    /** "Name" attribute's QName */
+    public final static QName ENTITY_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, ENTITY_ID_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
 
     /**
      * Gets the entity ID for this entity descriptor.

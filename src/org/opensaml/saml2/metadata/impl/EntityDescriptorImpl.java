@@ -76,7 +76,7 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
 
     public EntityDescriptorImpl() {
         super();
-
+        setQName(EntityDescriptor.QNAME);
         extensionHelper = new ExtensionsSAMLObjectHelper(this);
     }
 

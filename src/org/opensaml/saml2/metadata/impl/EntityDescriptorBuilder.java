@@ -35,6 +35,6 @@ public class EntityDescriptorBuilder implements SAMLObjectBuilder {
      * @see org.opensaml.common.ElementBuilder#buildElement()
      */
     public SAMLObject buildObject() {
-        return new EntitiesDescriptorImpl();
+        return new EntityDescriptorImpl();
     }
 }
