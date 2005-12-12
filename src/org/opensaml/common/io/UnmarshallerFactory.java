@@ -71,9 +71,14 @@ public class UnmarshallerFactory {
      * @return the unmarshaller for the element
      */
     public Unmarshaller getUnmarshaller(Element domElement) {
+        Unmarshaller unmarshaller;
+        
         Attr type = domElement.getAttributeNodeNS(XMLConstants.XSI_NS, "type");
         if(type != null) {
-            return getUnmarshaller(new QName(type.getNamespaceURI(), type.getLocalName(), type.getPrefix()));
+            unmarshaller = getUnmarshaller(new QName(type.getNamespaceURI(), type.getLocalName(), type.getPrefix()));
+            if(unmarshaller != null) {
+                return unmarshaller;
+            }
         }
         
         if(StringHelper.isEmpty(domElement.getPrefix())){
