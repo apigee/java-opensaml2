@@ -24,6 +24,8 @@ import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * This thread-safe factory creates {@link org.opensaml.common.io.Marshaller}s that can be used to convert
@@ -57,6 +59,37 @@ public class MarshallerFactory {
     public static MarshallerFactory getInstance() {
         return instance;
     }
+    
+    /**
+     * Convience method equivalent to getting an instance of this factory, getting 
+     * a marshaller based on the given object and then invoking marshall().
+     * 
+     * @param samlObject the object to marshall
+     * 
+     * @return the DOM element from the marshalling
+     * 
+     * @throws MarshallingException thrown if there is a problem marshalling the SAMLObject
+     */
+    public static Element marshallSAMLObject(SAMLObject samlObject) throws MarshallingException {
+        Marshaller marshaller = getInstance().getMarshaller(samlObject);
+        return marshaller.marshall(samlObject);
+    }
+    
+    /**
+     * Convience method equivalent to getting an instance of this factory, getting 
+     * a marshaller based on the given object and then invoking marshall().
+     * 
+     * @param samlObject the object to marshall
+     * @param document the document the element will be rooted in
+     * 
+     * @return the DOM element from the marshalling
+     * 
+     * @throws MarshallingException thrown if there is a problem marshalling the SAMLObject
+     */
+    public static Element marshallSAMLObject(SAMLObject samlObject, Document document) throws MarshallingException {
+        Marshaller marshaller = getInstance().getMarshaller(samlObject);
+        return marshaller.marshall(samlObject, document);
+    }
 
     /**
      * Gets the marshaller for a given SAML element. If the element has a specified type the type QName is used to
@@ -67,8 +100,13 @@ public class MarshallerFactory {
      * @return the marshaller for the element
      */
     public Marshaller getMarshaller(SAMLObject samlElement) {
+        Marshaller marshaller;
+        
         if (samlElement.getSchemaType() != null) {
-            return getMarshaller(samlElement.getSchemaType());
+            marshaller = getMarshaller(samlElement.getSchemaType());
+            if(marshaller != null) {
+                return marshaller;
+            }
         }
 
         return getMarshaller(samlElement.getElementQName());
