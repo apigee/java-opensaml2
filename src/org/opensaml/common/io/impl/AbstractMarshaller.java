@@ -17,19 +17,12 @@
 package org.opensaml.common.io.impl;
 
 import java.security.SignatureException;
-import java.security.cert.X509Certificate;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
-import org.apache.xml.security.c14n.Canonicalizer;
-import org.apache.xml.security.exceptions.XMLSecurityException;
-import org.apache.xml.security.keys.content.X509Data;
-import org.apache.xml.security.signature.XMLSignature;
-import org.apache.xml.security.transforms.Transforms;
-import org.apache.xml.security.transforms.params.InclusiveNamespaces;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableObject;
@@ -39,6 +32,7 @@ import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallerFactory;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.UnknownElementException;
+import org.opensaml.common.util.xml.DigitalSignatureHelper;
 import org.opensaml.common.util.xml.Namespace;
 import org.opensaml.common.util.xml.ParserPoolManager;
 import org.opensaml.common.util.xml.XMLConstants;
@@ -98,30 +92,40 @@ public abstract class AbstractMarshaller implements Marshaller {
      * @see org.opensaml.common.io.Marshaller#marshall(org.opensaml.common.SAMLElement, org.w3c.dom.Document,
      *      org.opensaml.common.SigningContext)
      */
-    public Element marshall(SAMLObject samlElement, Document document) throws MarshallingException, UnknownElementException {
-        String samlElementNamespace = samlElement.getElementQName().getNamespaceURI();
-        String samlElementLocalName = samlElement.getElementQName().getLocalPart();
+    public Element marshall(SAMLObject samlObject, Document document) throws MarshallingException, UnknownElementException {
+        String samlElementNamespace = samlObject.getElementQName().getNamespaceURI();
+        String samlElementLocalName = samlObject.getElementQName().getLocalPart();
 
         if (log.isDebugEnabled()) {
             log.debug("Creating DOM element for SAMLElement " + samlElementLocalName);
         }
         Element domElement = document.createElementNS(samlElementNamespace, samlElementLocalName);
-        domElement.setPrefix(samlElement.getElementQName().getPrefix());
+        domElement.setPrefix(samlObject.getElementQName().getPrefix());
+        
+        // Plant the element as the document root if this SAMLObject is at the top of tree
+        if(samlObject.getParent() == null) {
+            Element docElement = document.getDocumentElement();
+            if(document.getDocumentElement() != null) {
+                document.replaceChild(domElement, docElement);
+            }else {
+                document.appendChild(domElement);
+            }
+        }
 
-        marshallNamespaces(samlElement, domElement);
+        marshallNamespaces(samlObject, domElement);
 
-        marshallAttributes(samlElement, domElement);
+        marshallAttributes(samlObject, domElement);
 
-        marshallChildElements(samlElement, domElement);
+        marshallChildElements(samlObject, domElement);
 
-        marshallElementContent(samlElement, domElement);
+        marshallElementContent(samlObject, domElement);
 
-        marshallElementType(samlElement, domElement);
+        marshallElementType(samlObject, domElement);
 
-        signElement(samlElement, domElement);
+        signElement(samlObject, domElement);
 
-        if (samlElement instanceof DOMCachingSAMLObject) {
-            ((DOMCachingSAMLObject) samlElement).setDOM(domElement);
+        if (samlObject instanceof DOMCachingSAMLObject) {
+            ((DOMCachingSAMLObject) samlObject).setDOM(domElement);
         }
 
         return domElement;
@@ -155,7 +159,7 @@ public abstract class AbstractMarshaller implements Marshaller {
             }
         }
     }
-
+    
     /**
      * Marshalls a given SAMLElement into a W3C Element. The given signing context should be blindly passed to the
      * marshaller for child elements. The SAMLElement passed to this method is guaranteed to be of the target name
@@ -311,54 +315,19 @@ public abstract class AbstractMarshaller implements Marshaller {
                 if (log.isDebugEnabled()) {
                     log.debug("Signing SAMLElement " + samlObject.getElementQName());
                 }
-
-                // TODO normalize namespaces
-
+                
+                SigningContext dsigCtx = signableSAMLObject.getSigningContext();
+                
+                Set<String> inclusiveNamespacePrefixes = new HashSet<String>();
+                for (Namespace namespace : samlObject.getNamespaces()) {
+                    inclusiveNamespacePrefixes.add(namespace.getNamespacePrefix());
+                }
+                
                 try {
-                    SigningContext dsigCtx = signableSAMLObject.getSigningContext();
-                    String idAttribute = dsigCtx.getIdentifierGenerator().generateIdentifier();
-
-                    XMLSignature dsig = new XMLSignature(domElement.getOwnerDocument(), "", dsigCtx
-                            .getSignatureAlgorithim(), Canonicalizer.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
-                    dsig.setId(idAttribute);
-                    domElement.appendChild(dsig.getElement());
-
-                    // Create the transformations the element will go through to prepare for signing
-                    Transforms dsigTransforms = new Transforms(dsig.getDocument());
-                    dsigTransforms.addTransform(Transforms.TRANSFORM_ENVELOPED_SIGNATURE);
-                    dsigTransforms.addTransform(Transforms.TRANSFORM_C14N_EXCL_OMIT_COMMENTS);
-
-                    // Namespaces that aren't visibly used, such as those used in QName attribute values, would
-                    // be stripped out by exclusive canonicalization. Need to make sure they aren't by explicitly
-                    // telling
-                    // the transformer about them.
-                    Set<String> inclusiveNamespacePrefixes = new HashSet<String>();
-                    for (Namespace namespace : samlObject.getNamespaces()) {
-                        inclusiveNamespacePrefixes.add(namespace.getNamespacePrefix());
-                    }
-                    if (inclusiveNamespacePrefixes != null && inclusiveNamespacePrefixes.size() > 0) {
-                        InclusiveNamespaces inclusiveNamespaces = new InclusiveNamespaces(
-                                domElement.getOwnerDocument(), inclusiveNamespacePrefixes);
-                        Element transformElem = dsigTransforms.item(1).getElement();
-                        transformElem.appendChild(inclusiveNamespaces.getElement());
-                    }
-
-                    dsig.addDocument("#" + idAttribute, dsigTransforms, dsigCtx.getDigestAlgorithim());
-
-                    X509Data x509Data = new X509Data(domElement.getOwnerDocument());
-                    if (dsigCtx.getCerts() != null) {
-                        for (X509Certificate cert : dsigCtx.getCerts()) {
-                            x509Data.addCertificate(cert);
-                        }
-                    }
-
-                    dsig.sign(dsigCtx.getSigningKey());
-
-                } catch (XMLSecurityException e) {
-                    log.error("Failed to sign DOM element " + domElement.getLocalName()
-                            + ", encountered the following exception", e);
-                    throw new MarshallingException("Failed to sign DOM element " + domElement.getLocalName()
-                            + ", encountered the following exception", e);
+                    DigitalSignatureHelper.signElement(domElement, dsigCtx, inclusiveNamespacePrefixes);
+                } catch (SignatureException e) {
+                    log.error("Error encountered signing SAMLObject " + domElement.getLocalName(), e);
+                    throw new MarshallingException("Error encountered signing SAMLObject " + domElement.getLocalName(), e);
                 }
             }
         }

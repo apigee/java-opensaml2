@@ -16,9 +16,6 @@
 
 package org.opensaml.common;
 
-import java.util.List;
-
-import javax.security.cert.X509Certificate;
 
 /**
  * A functional interface for SAML elements which can be signed.
@@ -27,7 +24,10 @@ import javax.security.cert.X509Certificate;
  * remove an existing signature before changing a SAML element.
  */
 public interface SignableObject extends SAMLObject {
-
+   
+    /** ID attribute name */
+    public static final String ID_ATTRIB_NAME = "ID";
+    
     /**
      * Gets the ID of the signed element.
      * 
@@ -41,27 +41,6 @@ public interface SignableObject extends SAMLObject {
      * @return true if this element is signed, false if not
      */
     public boolean isSigned();
-
-    /**
-     * Gets the algorithim used to get the message digest.
-     * 
-     * @return the algorithim used to get the message digest
-     */
-    public String getDigestAlgorithm();
-    
-    /**
-     * Gets the signing algorithim used to create the signature.
-     * 
-     * @return the signing algorithim used to create the signature
-     */
-    public String getSignatureAlgorithm();
-   
-    /**
-     * Gets the list of X.509 certificates included with the signature.
-     * 
-     * @return the list of X.509 certificates included with the signature
-     */
-    public List<X509Certificate> getX509Certificates();
         
     /**
      * Removes an existing signature from this SAML element.  If the is no 

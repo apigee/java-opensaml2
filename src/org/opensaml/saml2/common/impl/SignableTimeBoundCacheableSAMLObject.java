@@ -16,10 +16,6 @@
 
 package org.opensaml.saml2.common.impl;
 
-import java.util.List;
-
-import javax.security.cert.X509Certificate;
-
 import org.opensaml.common.SignableObject;
 import org.opensaml.common.SigningContext;
 import org.opensaml.common.impl.SignableSAMLObjectHelper;
@@ -42,49 +38,28 @@ public abstract class SignableTimeBoundCacheableSAMLObject extends TimeBoundCach
      */
     public SignableTimeBoundCacheableSAMLObject(){
         super();
-        signingHelper = new SignableSAMLObjectHelper();
+        signingHelper = new SignableSAMLObjectHelper(this);
     }
 
     /*
      * @see org.opensaml.common.SignableElement#getId()
      */
     public String getId() {
-        return SignableSAMLObjectHelper.getId(this);
+        return signingHelper.getId();
     }
 
     /*
      * @see org.opensaml.common.SignableElement#isSigned()
      */
     public boolean isSigned() {
-        return SignableSAMLObjectHelper.isSigned(this);
-    }
-
-    /*
-     * @see org.opensaml.common.SignableElement#getDigestAlgorithm()
-     */
-    public String getDigestAlgorithm() {
-        return SignableSAMLObjectHelper.getDigestAlgorithm(this);
-    }
-
-    /*
-     * @see org.opensaml.common.SignableElement#getSignatureAlgorithm()
-     */
-    public String getSignatureAlgorithm() {
-        return SignableSAMLObjectHelper.getSignatureAlgorithm(this);
-    }
-
-    /*
-     * @see org.opensaml.common.SignableElement#getX509Certificates()
-     */
-    public List<X509Certificate> getX509Certificates() {
-        return SignableSAMLObjectHelper.getX509Certificates(this);
+        return signingHelper.isSigned();
     }
 
     /*
      * @see org.opensaml.common.SignableElement#removeSignature()
      */
     public void removeSignature() {
-        SignableSAMLObjectHelper.removeSignature(this);
+        signingHelper.removeSignature();
     }
     
     /*

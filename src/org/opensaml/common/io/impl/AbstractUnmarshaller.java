@@ -23,6 +23,7 @@ import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObjectBuilderFactory;
+import org.opensaml.common.SignableObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.impl.DOMCachingSAMLObject;
 import org.opensaml.common.io.UnknownAttributeException;
@@ -31,6 +32,7 @@ import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallerFactory;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.util.StringHelper;
+import org.opensaml.common.util.xml.DigitalSignatureHelper;
 import org.opensaml.common.util.xml.Namespace;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.common.util.xml.XMLHelper;
@@ -84,6 +86,8 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
         unmarshallElementContent(samlObject, domElement.getTextContent());
 
         unmarshallChildElements(domElement, samlObject);
+        
+        unmarshallDigitalSignature(domElement, samlObject);
 
         if (samlObject instanceof DOMCachingSAMLObject) {
             ((DOMCachingSAMLObject) samlObject).setDOM(domElement);
@@ -271,6 +275,18 @@ public abstract class AbstractUnmarshaller implements Unmarshaller {
                     processChildElement(samlObject, unmarshaller.unmarshall(childElement));
                 }
             }
+        }
+    }
+    
+    /**
+     * Unmarshalls the digital signature, if present, into a SigningContext and adds it to the SAMLObject.
+     * 
+     * @param domElement the DOM element that may contain a signature
+     * @param samlObject the SAMLObject that will recieve the SigningContext
+     */
+    protected void unmarshallDigitalSignature(Element domElement, SAMLObject samlObject) {
+        if(samlObject instanceof SignableObject) {
+            ((SignableObject)samlObject).setSigningContext(DigitalSignatureHelper.buildFromSignature(domElement));
         }
     }
 

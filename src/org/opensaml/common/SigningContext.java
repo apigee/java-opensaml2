@@ -16,7 +16,8 @@
 
 package org.opensaml.common;
 
-import java.security.Key;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.util.Set;
 
@@ -28,6 +29,10 @@ import org.apache.xml.security.signature.XMLSignature;
  * create the message digest and RSA-SHA1 will be used to create the signature.
  */
 public class SigningContext {
+
+    /** ID attribute used as reference by digital signature */
+    private String id;
+
     /**
      * The signature algorithim
      */
@@ -41,10 +46,17 @@ public class SigningContext {
     /**
      * The signing key
      */
-    private Key signingKey;
+    private PrivateKey signingKey;
 
-    /** Generator used to generate the digital signature ID attribute */
-    private IdentifierGenerator idgen;
+    /**
+     * Public key to validate signature with
+     */
+    private PublicKey publicKey;
+
+    /**
+     * Certificate containing the public key to validate signature with
+     */
+    private X509Certificate publicKeyCert;
 
     /**
      * The certificates to be included with the signature
@@ -54,12 +66,19 @@ public class SigningContext {
     /**
      * Constructor
      * 
-     * @param signingKey the signing key
+     * @param id ID attribute value used a base reference for the signature
      */
-    public SigningContext(Key signingKey, IdentifierGenerator idGenerator) {
-        this.signingKey = signingKey;
-        idgen = idGenerator;
+    public SigningContext(String id) {
+        this.id = id;
+    }
 
+    /**
+     * Gets the ID attribute value used for the digital signature.
+     * 
+     * @return the ID attribute value used for the digital signature
+     */
+    public String getId() {
+        return id;
     }
 
     /**
@@ -121,34 +140,52 @@ public class SigningContext {
      * 
      * @return the signing key used to create the signature
      */
-    public Key getSigningKey() {
+    public PrivateKey getSigningKey() {
         return signingKey;
     }
 
     /**
      * Sets the signing key used to create the signature.
      * 
-     * @param signingKey the signing key used to create the signature
+     * @param key the signing key used to create the signature
      */
-    public void setSigningKey(Key signingKey) {
-        this.signingKey = signingKey;
+    public void setSigningKey(PrivateKey key) {
+        signingKey = key;
     }
-    
+
     /**
-     * Gets the generator used to generate the ID used in the digitial signature.
+     * Gets the public key used to validate the signature.
      * 
-     * @return the generator used to generate the ID used in the digitial signature
+     * @return the public key used to validate the signature
      */
-    public IdentifierGenerator getIdentifierGenerator(){
-        return idgen;
+    public PublicKey getPublicKey() {
+        return publicKey;
     }
-    
+
     /**
-     * Sets the generator used to generate the ID used in the digitial signature.
+     * Sets the public key used to validate the signature.
      * 
-     * @param idGenerator the generator used to generate the ID used in the digitial signature
+     * @param key the public key used to validate the signature
      */
-    public void setIdentifierGenerator(IdentifierGenerator idGenerator){
-        idgen = idGenerator;
+    public void setPublicKey(PublicKey key) {
+        publicKey = key;
+    }
+
+    /**
+     * Gets the certificate containing the public key used to validate the signature.
+     * 
+     * @return certificate containing the public key used to validate the signature
+     */
+    public X509Certificate getPublicKeyCertificate() {
+        return publicKeyCert;
+    }
+
+    /**
+     * Sets the certificate containing the public key used to validate the signature.
+     * 
+     * @param cert the certificate containing the public key used to validate the signature
+     */
+    public void setPublicKeyCertificate(X509Certificate cert) {
+        publicKeyCert = cert;
     }
 }
