@@ -3,7 +3,7 @@
     xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     
-    <ObjectProviders ignoreUnknownAttributes="false">
+    <ObjectProviders>
 
         <!-- EntitiesDescriptor provider -->
         <ObjectProvider qualifiedName="md:EntitiesDescriptor">

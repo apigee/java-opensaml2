@@ -16,24 +16,37 @@
 
 package org.opensaml.common;
 
-import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SignatureException;
 
 import org.opensaml.common.impl.SecureRandomIdentifierGenerator;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallerFactory;
 import org.opensaml.common.io.MarshallingException;
+import org.opensaml.common.io.Unmarshaller;
+import org.opensaml.common.io.UnmarshallerFactory;
 import org.opensaml.common.util.ElementSerializer;
 import org.opensaml.common.util.SerializationException;
+import org.opensaml.common.util.xml.DigitalSignatureHelper;
+import org.opensaml.common.util.xml.ParserPoolManager;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 
 public class SAMLObjectSigningTest extends BaseTestCase {
 
+    private static String signedElementFile = "/data/signedElement.xml";
+
     /** Signing key */
-    private Key signingKey;
-    
+    private PrivateKey signingKey;
+
+    /** Public key sed to validate signature */
+    private PublicKey publicKey;
+
     /*
      * @see junit.framework.TestCase#setUp()
      */
@@ -42,29 +55,50 @@ public class SAMLObjectSigningTest extends BaseTestCase {
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
         KeyPair keyPair = keyGen.generateKeyPair();
         signingKey = keyPair.getPrivate();
+        publicKey = keyPair.getPublic();
     }
-    
+
     /**
      * Tests that a SAML object can be signed and have it's signature validated.
+     * @throws SerializationException 
      */
-    public void testSAMLObjectSigning(){
+    public void testSAMLObjectSigning() throws SerializationException {
         SAMLObjectBuilder edBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(EntitiesDescriptor.QNAME);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) edBuilder.buildObject();
-        
-        SigningContext dsigCtx = new SigningContext(signingKey, new SecureRandomIdentifierGenerator());
+
+        IdentifierGenerator idGen = new SecureRandomIdentifierGenerator();
+        SigningContext dsigCtx = new SigningContext(idGen.generateIdentifier());
+        dsigCtx.setSigningKey(signingKey);
+        dsigCtx.setPublicKey(publicKey);
         entitiesDescriptor.setSigningContext(dsigCtx);
-        
+
         Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(entitiesDescriptor);
-        try{
+        try {
             Element dom = marshaller.marshall(entitiesDescriptor);
             
-            //TODO validate signature once validation code is done
-            String seralizedDOM = ElementSerializer.serialize(dom);
-            System.out.println(seralizedDOM);
-        }catch(MarshallingException e){
+            System.out.println(ElementSerializer.serialize(dom));
+
+            DigitalSignatureHelper.verifySignature(dom);
+        } catch (MarshallingException e) {
             fail("Marshalling failed with the following error: " + e);
-        } catch (SerializationException e) {
-            fail("Unable to serialize resulting DOM document due to: " + e);
+        } catch (SignatureException e) {
+            fail("XML Digital Signature did not validate: " + e);
         }
+    }
+
+    public void testUnmarshallingSignedObject() throws Exception {
+        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+        Document doc = ppMgr.parse(new InputSource(SAMLObjectSigningTest.class.getResourceAsStream(signedElementFile)));
+        
+        Element signedElement = doc.getDocumentElement();
+        Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(signedElement);
+        if (unmarshaller == null) {
+            fail("Unable to retrieve unmarshaller by DOM Element");
+        }
+
+        SignableObject signableSAMLObject = (SignableObject) unmarshaller.unmarshall(signedElement);
+        
+        assertNotNull(signableSAMLObject.getId());
+        assertNotNull(signableSAMLObject.getSigningContext());
     }
 }
