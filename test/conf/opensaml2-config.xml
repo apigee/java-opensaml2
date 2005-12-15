@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSAML xmlns="http://www.opensaml.org/opensaml2-config" 
     xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+    xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" 
+    xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     
     <ObjectProviders>
@@ -18,6 +20,31 @@
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.EntityDescriptorMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EntityDescriptorUnmarshaller" />
         </ObjectProvider>
+
+	   <!--
+	          SAML1.1   entities
+	     -->
+
+       <!-- Response -->
+        <ObjectProvider qualifiedName="samlp:Response">
+            <BuilderClass className="org.opensaml.saml1.core.impl.ResponseBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.ResponseMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.ResponseUnmarshaller" />
+        </ObjectProvider>
+        
+        <ObjectProvider qualifiedName="samlp:Status">
+            <BuilderClass className="org.opensaml.saml1.core.impl.StatusBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.StatusMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.StatusUnmarshaller" />
+        </ObjectProvider>
+
+        <ObjectProvider qualifiedName="samlp:StatusCode">
+            <BuilderClass className="org.opensaml.saml1.core.impl.StatusCodeBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.StatusCodeMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.StatusCodeUnmarshaller" />
+        </ObjectProvider>
+        
+
 
     </ObjectProviders>
 

@@ -65,7 +65,7 @@ public class XMLConstants {
     public final static String XMLSIG_SCHEMA_LOCATION = SCHEMA_DIR + "xmldsig-core-schema.xsd";
     
     /**  XML Signature namespace */
-    public final static String XMLSIG_NS = "http://www.w3.org/2000/09/xmldsig#";
+    public final static String XMLSIG_NS = "http://www.w3.org/2001/04/xmlenc#";
     
     /**  XML Signature QName prefix */
     public final static String XMLSIG_PREFIX = "ds";
@@ -117,6 +117,12 @@ public class XMLConstants {
 
     /**  SAML 1.X protocol XML namespace */
     public final static String SAMLP1_NS = "urn:oasis:names:tc:SAML:1.0:protocol";
+    
+    /** SAML 1.X Protocol QName prefix */
+    public final static String SAMLP1_PREFIX ="samlp";
+
+    /** SAML 1.X Assertion QName prefix */
+    public final static String SAML1_PREFIX ="saml";
 
     /**  SAML 1.X Metadata Profile protocol indicators and namespace */
     public final static String SAML10_PROTOCOL_ENUM = SAMLP1_NS;

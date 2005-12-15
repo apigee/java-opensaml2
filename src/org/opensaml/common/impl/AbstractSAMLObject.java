@@ -23,6 +23,7 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.ValidatingObject;
@@ -284,5 +285,56 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
         }
         
         return newString;
+    }
+  
+    /**
+     * A helper function for derived classes, similar to assihnString, but for 
+     * (singleton) SAML objects.
+     * 
+     * @param oldvalue - current value
+     * @param newValue - proposed new value
+     * @param contents 
+     * @return
+     * @throws IllegalAddException 
+     */
+    
+    protected final SAMLObject assignSAMLObject(SAMLObject oldvalue, SAMLObject newValue, Set<SAMLObject> contents) throws IllegalAddException {
+        
+        if (newValue != null && newValue.hasParent()) {
+            throw new IllegalAddException("The StatusCode cannot be added - it is already the child of another SAML Object");
+        }
+
+        if (oldvalue == null) {
+            
+            if (newValue != null) {
+                
+                if (contents != null) {
+                    
+                    contents.add(newValue);
+                }
+                
+                releaseThisandParentDOM();
+                newValue.setParent(this);
+                return newValue;
+
+            } else {
+                
+                return null;
+            }
+        }
+        
+        if (!oldvalue.equals(newValue)) {
+            
+            if (contents != null) {
+                contents.remove(oldvalue);
+                contents.add(newValue);
+            }
+            
+            oldvalue.setParent(null);
+            releaseThisandParentDOM();
+            newValue.setParent(this);
+         } 
+        
+        return newValue;
     }
 }
