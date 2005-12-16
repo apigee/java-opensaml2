@@ -204,10 +204,13 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      * @see org.opensaml.common.SAMLElement#releaseChildrenDOM(boolean)
      */
     public void releaseChildrenDOM(boolean propagateRelease) {
-        for(SAMLObject childElement : getOrderedChildren()) {
-            ((DOMCachingSAMLObject)childElement).releaseDOM();
-            if(propagateRelease) {
-                ((DOMCachingSAMLObject)childElement).releaseChildrenDOM(propagateRelease);
+        
+        if (getOrderedChildren() != null) {
+            for(SAMLObject childElement : getOrderedChildren()) {
+                ((DOMCachingSAMLObject)childElement).releaseDOM();
+                if(propagateRelease) {
+                    ((DOMCachingSAMLObject)childElement).releaseChildrenDOM(propagateRelease);
+                }
             }
         }
     }
@@ -280,7 +283,7 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      * @return
      */
     
-    public final String assignString(String oldValue, String newValue)
+    protected final String assignString(String oldValue, String newValue)
     {
         String newString = StringHelper.safeTrimOrNullString(newValue);
         
@@ -303,13 +306,14 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      * @throws IllegalAddException 
      */
     
-    protected final <T extends SAMLObject> T assignSAMLObject(T oldvalue, T newValue) throws IllegalAddException {
+    protected final <T extends SAMLObject> T assignSAMLObject(T oldValue, T newValue) throws IllegalAddException {
         
         if (newValue != null && newValue.hasParent()) {
-            throw new IllegalAddException("The StatusCode cannot be added - it is already the child of another SAML Object");
+            
+            throw new IllegalAddException("The " + newValue.getClass().getName() + " cannot be added - it is already the child of another SAML Object");
         }
 
-        if (oldvalue == null) {
+        if (oldValue == null) {
             
             if (newValue != null) {
                 
@@ -325,12 +329,12 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
             }
         }
         
-        if (!oldvalue.equals(newValue)) {
+        if (!oldValue.equals(newValue)) {
             
-            orderedDescriptors.remove(oldvalue);
+            orderedDescriptors.remove(oldValue);
             orderedDescriptors.add(newValue);
             
-            oldvalue.setParent(null);
+            oldValue.setParent(null);
             releaseThisandParentDOM();
             newValue.setParent(this);
          } 
@@ -338,12 +342,12 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
         return newValue;
     }   
     
-    protected <T extends SAMLObject> void addObject(Set<T> set, T samlObject) throws IllegalAddException 
+    protected <T extends SAMLObject> void addSAMLObject(Set<T> set, T samlObject) throws IllegalAddException 
     {
         if (!set.contains(samlObject)) {
             
             if (samlObject.hasParent()) {
-                throw new IllegalAddException("The assertion cannot be added - it is already the child of another SAML Object");
+                throw new IllegalAddException("The " + samlObject.getClass().getName() + " cannot be added - it is already the child of another SAML Object");
             }
             samlObject.setParent(this);
             releaseThisandParentDOM();
@@ -362,10 +366,10 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
         }
     }
     
-    protected <T extends SAMLObject> void removeSAMLObjects(Set<T> set)
+    protected <T extends SAMLObject> void removeSAMLObjects(Set<T> containingSet, Set<T> contentsSet)
     {
-        for (T member : set) {
-            removeSAMLObject(set, member);
+        for (T member : contentsSet) {
+            removeSAMLObject(containingSet, member);
         }
     }
 

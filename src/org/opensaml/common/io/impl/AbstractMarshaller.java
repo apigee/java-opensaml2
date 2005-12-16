@@ -204,7 +204,7 @@ public abstract class AbstractMarshaller implements Marshaller {
                     }
                 }
 
-                Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(samlElement);
+                Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(childElement);
                 if (marshaller == null) {
                     if (!SAMLConfig.ignoreUnknownElements()) {
                         log.error("No marshaller registered for child SAMLObject, "
