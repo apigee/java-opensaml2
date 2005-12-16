@@ -16,6 +16,9 @@
 
 package org.opensaml.saml1.core;
 
+import java.util.Date;
+import java.util.Set;
+
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
@@ -28,9 +31,44 @@ public interface Assertion extends SAMLObject{
     /** QName for this element */
     public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
 
-    //
-    // TODO flesh out
-    //
+    public int getMinorVersion();
+
+    public void setMinorVersion(int version);
     
     public String getId();
+    
+    public void setId(String Id);
+    
+    public String getIssuer();
+    
+    public void setIssuer(String Issuer);
+    
+    public Date getIssueInstant();
+    
+    public void setIssueInstant(Date issueInstant);
+    
+    
+    public Conditions getConditions();
+    
+    public void setConditions(Conditions conditions);
+    
+    public Advice getAdvice();
+    
+    public void setAdvice(Advice advice);
+    
+    public Set<Statement> getStatements();
+    
+    public void addStatement(Statement statement);
+    
+    public void removeStatement(Statement statement);
+    
+    public void removeStatements(Set<Statement> statements);
+    
+    public void removeAllStatements();
+
+    //
+    // TODO Add SubjectStatement, AuthenticationStatement, AuthenticationDecisionStatement
+    // TODO Add AttributeStatement
+    //
+        
 }

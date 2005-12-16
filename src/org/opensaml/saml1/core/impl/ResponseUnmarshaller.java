@@ -62,7 +62,7 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
         try {
             if (childElement instanceof Assertion) {
                 
-                response.addAssertion((Assertion)childElement);
+                response.setAssertion((Assertion)childElement);
             
             } else if (childElement instanceof Status) {
                 

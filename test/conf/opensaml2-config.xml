@@ -44,7 +44,11 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.StatusCodeUnmarshaller" />
         </ObjectProvider>
         
-
+        <ObjectProvider qualifiedName="samlp:StatusMessage">
+            <BuilderClass className="org.opensaml.saml1.core.impl.StatusMessageBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.StatusMessageMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.StatusMessageUnmarshaller" />
+        </ObjectProvider>
 
     </ObjectProviders>
 

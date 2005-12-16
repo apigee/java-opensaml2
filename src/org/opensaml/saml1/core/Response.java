@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.Set;
 import java.util.Date;
 
 import javax.xml.namespace.QName;
@@ -75,16 +74,10 @@ public interface Response extends SAMLObject
 
     void setStatus(Status status) throws IllegalAddException;
 
-    Set <Assertion> getAssertions();
+    Assertion getAssertion();
 
-    void addAssertion(Assertion assertion) throws IllegalAddException;
+    void setAssertion(Assertion assertion) throws IllegalAddException;
     
-    void removeAssertion(Assertion assertion);
-    
-    void removeAssertions(Set <Assertion> assertion);
-
-    void removeAllAssertions();
-
     //
     // Signature is dealt with in the layers below
     //

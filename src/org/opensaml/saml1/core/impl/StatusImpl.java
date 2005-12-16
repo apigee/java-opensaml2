@@ -66,7 +66,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public void setStatusMessage(StatusMessage statusMessage) throws IllegalAddException {
 
-        this.statusMessage = (StatusMessage) assignSAMLObject(this.statusMessage, statusMessage, null);
+        this.statusMessage = assignSAMLObject(this.statusMessage, statusMessage);
     }
 
     /*
@@ -82,7 +82,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public void setStatusCode(StatusCode statusCode) throws IllegalAddException {
         
-        this.statusCode = (StatusCode) assignSAMLObject(this.statusCode, statusCode, null);
+        this.statusCode = assignSAMLObject(this.statusCode, statusCode);
     }
 
     /*
@@ -98,7 +98,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public void setStatusDetail(SAMLObject statusDetail) throws IllegalAddException {
 
-        this.statusDetail = assignSAMLObject(this.statusDetail, statusDetail, null);
+        this.statusDetail = assignSAMLObject(this.statusDetail, statusDetail);
     }
 
     /*

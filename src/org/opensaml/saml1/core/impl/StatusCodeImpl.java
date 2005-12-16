@@ -78,7 +78,7 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
      */
     public void setStatusCode(StatusCode statusCode) throws IllegalAddException {
 
-        childStatusCode = (StatusCode) assignSAMLObject(childStatusCode, statusCode, null);
+        childStatusCode = assignSAMLObject(childStatusCode, statusCode);
     }
 
     /*

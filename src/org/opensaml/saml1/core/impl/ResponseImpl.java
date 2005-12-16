@@ -48,8 +48,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
     private Date issueInstant = null;
     private String recipient = null;
     private Status status = null;
-    private final Set<Assertion> assertions = new LinkedHashSet<Assertion>();
-    private final Set<SAMLObject> orderedDescriptors = new LinkedHashSet<SAMLObject>();
+    private Assertion assertion = null;
 
     protected ResponseImpl() {
         super();
@@ -162,64 +161,27 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      */
     public void setStatus(Status status) throws IllegalAddException {
         
-        this.status = (Status) assignSAMLObject(this.status, status, orderedDescriptors);
+        this.status = assignSAMLObject(this.status, status);
     }
 
     /*
      * @see org.opensaml.saml1.core.Response#getAssertions()
      */
-    public Set<Assertion> getAssertions() {
+    public Assertion getAssertion() {
 
-        return assertions;
+        return assertion;    
     }
 
     /*
      * @see org.opensaml.saml1.core.Response#addAssertion(org.opensaml.saml1.core.Assertion)
      */
-    public void addAssertion(Assertion assertion) throws IllegalAddException {
-     
-        if (!assertions.contains(assertion)) {
-            
-            if (assertion.hasParent()) {
-                throw new IllegalAddException("The assertion cannot be added - it is already the child of another SAML Object");
-            }
-            assertion.setParent(this);
-            releaseThisandParentDOM();
-            assertions.add(assertion);
-            orderedDescriptors.add(assertion);
-        }
+    public void setAssertion(Assertion assertion) throws IllegalAddException {
+        this.assertion = assignSAMLObject(this.assertion, assertion) ;
     }
 
     /*
      * @see org.opensaml.saml1.core.Response#removeAssertion(org.opensaml.saml1.core.Assertion)
      */
-    public void removeAssertion(Assertion assertion) {
-        
-        if (assertion != null && assertions.contains(assertion)) {
-            assertion.setParent(null);
-            releaseThisandParentDOM();
-            assertions.remove(assertion);
-            orderedDescriptors.remove(assertion);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#removeAssertions(java.util.Set)
-     */
-    public void removeAssertions(Set<Assertion> assertionSet) {
-        for (Assertion assertion : assertionSet) {
-            removeAssertion(assertion);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#removeAllAssertions()
-     */
-    public void removeAllAssertions() {
-        for (Assertion assertion : assertions) {
-            removeAssertion(assertion);
-        }
-    }
 
     public boolean equals(SAMLObject element) {
         if (element instanceof ResponseImpl){
@@ -231,13 +193,4 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
         
         return false;
     }
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getOrderedChildDescriptors()
-     */
-
-    public Set<SAMLObject> getOrderedChildren() {
-
-        return Collections.unmodifiableSet(orderedDescriptors);
-
-    }
-}
+ }

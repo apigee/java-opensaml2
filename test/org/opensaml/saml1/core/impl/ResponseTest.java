@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallerFactory;
 import org.opensaml.common.io.MarshallingException;
@@ -104,6 +105,15 @@ public class ResponseTest extends BaseTestCase {
             fail("Unknown element exception thrown but example element does not contain any child elements");
         } catch (Exception e) {
             fail("Marshalling test setup failed with the following error:"  + e);
+        }
+        
+        if (response instanceof AbstractSAMLObject) {
+            AbstractSAMLObject abstractSAMLObject = (AbstractSAMLObject) response;
+            
+            abstractSAMLObject.releaseThisandParentDOM();
+        
+        } else {
+            fail("Response was not an Abstract SamlObject");
         }
 
         if (response != null) {

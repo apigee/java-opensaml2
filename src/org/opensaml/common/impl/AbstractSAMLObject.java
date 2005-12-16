@@ -18,6 +18,7 @@ package org.opensaml.common.impl;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -57,7 +58,11 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
     private Set<Namespace> namespaces = new HashSet<Namespace>();
     
     private ValidatingSAMLObjectHelper validationHelper;
+
+    /** Subelements */
     
+    private final Set<SAMLObject> orderedDescriptors = new LinkedHashSet<SAMLObject>();
+
     /**
      * Constructor
      */
@@ -298,7 +303,7 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      * @throws IllegalAddException 
      */
     
-    protected final SAMLObject assignSAMLObject(SAMLObject oldvalue, SAMLObject newValue, Set<SAMLObject> contents) throws IllegalAddException {
+    protected final <T extends SAMLObject> T assignSAMLObject(T oldvalue, T newValue) throws IllegalAddException {
         
         if (newValue != null && newValue.hasParent()) {
             throw new IllegalAddException("The StatusCode cannot be added - it is already the child of another SAML Object");
@@ -308,10 +313,7 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
             
             if (newValue != null) {
                 
-                if (contents != null) {
-                    
-                    contents.add(newValue);
-                }
+                orderedDescriptors.add(newValue);
                 
                 releaseThisandParentDOM();
                 newValue.setParent(this);
@@ -325,10 +327,8 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
         
         if (!oldvalue.equals(newValue)) {
             
-            if (contents != null) {
-                contents.remove(oldvalue);
-                contents.add(newValue);
-            }
+            orderedDescriptors.remove(oldvalue);
+            orderedDescriptors.add(newValue);
             
             oldvalue.setParent(null);
             releaseThisandParentDOM();
@@ -336,5 +336,46 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
          } 
         
         return newValue;
+    }   
+    
+    protected <T extends SAMLObject> void addObject(Set<T> set, T samlObject) throws IllegalAddException 
+    {
+        if (!set.contains(samlObject)) {
+            
+            if (samlObject.hasParent()) {
+                throw new IllegalAddException("The assertion cannot be added - it is already the child of another SAML Object");
+            }
+            samlObject.setParent(this);
+            releaseThisandParentDOM();
+            set.add(samlObject);
+            orderedDescriptors.add(samlObject);
+        }
+    }
+    
+    protected <T extends SAMLObject> void removeSAMLObject(Set<T> set, T samlObject)
+    {
+        if (samlObject != null && set.contains(samlObject)) {
+            samlObject.setParent(null);
+            releaseThisandParentDOM();
+            set.remove(samlObject);
+            orderedDescriptors.remove(samlObject);
+        }
+    }
+    
+    protected <T extends SAMLObject> void removeSAMLObjects(Set<T> set)
+    {
+        for (T member : set) {
+            removeSAMLObject(set, member);
+        }
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getOrderedChildDescriptors()
+     */
+
+    public Set<SAMLObject> getOrderedChildren() {
+
+        return Collections.unmodifiableSet(orderedDescriptors);
+
     }
 }

@@ -16,8 +16,9 @@ dfsdfsdf
     <StatusCode Value="samlp:Success">
       <StatusCode Value="nibble, a happy warthog"/>
     </StatusCode>
+    <StatusMessage>A Status Message</StatusMessage>
   </Status>
-<!--  <Assertion xmlns="urn:oasis:names:tc:SAML:1.0:assertion" 
+<Assertion xmlns="urn:oasis:names:tc:SAML:1.0:assertion" 
              AssertionID="_183f1c108f031314d924cf9d8e11ec47"
              IssueInstant="2005-12-09T09:27:55.124Z" 
              Issuer="urn:mace:ac.uk:sdss.ac.uk:provider:identity:idp.iay.org.uk" 
@@ -132,5 +133,4 @@ dfsdfsdf
       </Attribute>
     </AttributeStatement>
   </Assertion>
-  -->
 </Response>
