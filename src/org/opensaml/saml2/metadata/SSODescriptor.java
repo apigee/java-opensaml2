@@ -16,10 +16,11 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 
@@ -39,7 +40,7 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * 
      * @return list of artifact resolution {@link Endpoint}s for this service
      */
-	public Set /*<Endpoint>*/ getArtifactResolutionServices();
+	public UnmodifiableOrderedSet<Endpoint> getArtifactResolutionServices();
     
     /**
      * Adds an artifact resolution {@link Endpoint} for this service.
@@ -47,13 +48,6 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * @param service an artifact resolution {@link Endpoint} for this service
      */
     public void addArtifactResolutionService(Endpoint service);
-    
-    /**
-     * Adds a list of artifact resolution {@link Endpoint}s for this service.
-     * 
-     * @param services a list of artifact resolution {@link Endpoint}s for this service
-     */
-    public void addArtifactResolutionServices(Set /*<Endpoint>*/ services);
     
     /**
      * Removes an artifact resolution {@link Endpoint} for this service.
@@ -67,7 +61,7 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * 
      * @param services a list of artifact resolution {@link Endpoint}s for this service
      */
-    public void removeArtifactResolutionServices(Set /*<Endpoint>*/ services);
+    public void removeArtifactResolutionServices(Collection<Endpoint> services);
     
     /**
      * Removes all the artifact resolution {@link Endpoint}s for this service.
@@ -79,7 +73,7 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * 
      * @return list of single logout {@link Endpoint}s for this service
      */
-	public Set /*<Endpoint>*/ getSingleLogoutServices();
+	public UnmodifiableOrderedSet<Endpoint> getSingleLogoutServices();
     
     /**
      * Adds a single logout {@link Endpoint} for this service.
@@ -87,13 +81,6 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * @param service a single logout {@link Endpoint} for this service
      */
     public void addSingleLogoutService(Endpoint service);
-    
-    /**
-     * Adds a list of single logout {@link Endpoint}s for this service.
-     * 
-     * @param services a list of single logout {@link Endpoint}s for this service
-     */
-    public void addSingleLogoutServices(Set /*<Endpoint>*/ services);
     
     /**
      * Removes a single logout {@link Endpoint} for this service.
@@ -107,7 +94,7 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * 
      * @param services a list of single logout {@link Endpoint}s for this service
      */
-    public void removeSingleLogoutServices(Set /*<Endpoint>*/ services);
+    public void removeSingleLogoutServices(Collection<Endpoint> services);
     
     /**
      * Removes all the single logout {@link Endpoint}s for this service.
@@ -119,7 +106,7 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * 
      * @return list of manage NameId {@link Endpoint}s for this service
      */
-	public Set /*<Endpoint>*/ getManageNameIDServices();
+	public UnmodifiableOrderedSet<Endpoint> getManageNameIDServices();
     
     /**
      * Adds a manage NameId {@link Endpoint} for this service.
@@ -127,13 +114,6 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * @param service a manage NameId {@link Endpoint} for this service
      */
     public void addManageNameIDService(Endpoint service);
-    
-    /**
-     * Adds a list of manage NameId {@link Endpoint}s for this service.
-     * 
-     * @param services a list of manage NameId {@link Endpoint}s for this service
-     */
-    public void addManageNameIDServices(Set /*<Endpoint>*/ services);
     
     /**
      * Removes a manage NameId {@link Endpoint} for this service.
@@ -147,7 +127,7 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * 
      * @param services a list of manage NameId {@link Endpoint}s for this service
      */
-    public void removeManageNameIDServices(Set /*<Endpoint>*/ services);
+    public void removeManageNameIDServices(Collection<Endpoint> services);
     
     /**
      * Removes all the manage NameId {@link Endpoint}s for this service.

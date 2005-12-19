@@ -17,13 +17,13 @@
 package org.opensaml.saml2.common.impl;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.metadata.Extensions;
 
 /**
@@ -66,7 +66,7 @@ public class ExtensionsSAMLObjectHelper implements Serializable{
     /*
      * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements()
      */
-    public Set<SAMLObject> getExtensionElements() {
+    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements() {
         if(extensions == null){
             return null;
         }
@@ -77,7 +77,7 @@ public class ExtensionsSAMLObjectHelper implements Serializable{
     /*
      * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements(javax.xml.namespace.QName)
      */
-    public Set<SAMLObject> getExtensionElements(QName elementName) {
+    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements(QName elementName) {
         if(extensions == null){
             return null;
         }

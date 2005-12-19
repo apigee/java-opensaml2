@@ -16,7 +16,9 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
+
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 
 /**
  * A functional interface RoleDescriptors may use to deal with "NameIDFormat" elements.
@@ -38,7 +40,7 @@ public interface NameIDFormatDescriptorComp {
      * 
      * @return list of NameID formats supported by this authority
      */
-    public Set<NameIDFormat> getNameIDFormats();
+    public UnmodifiableOrderedSet<NameIDFormat> getNameIDFormats();
 
     /**
      * Adds a NameID format supported by this authority.
@@ -59,7 +61,7 @@ public interface NameIDFormatDescriptorComp {
      * 
      * @param formats the list of formats
      */
-    public void removeNameIDFormats(Set<NameIDFormat> formats);
+    public void removeNameIDFormats(Collection<NameIDFormat> formats);
 
     /**
      * Removes all the NameID formats supported by this authority.

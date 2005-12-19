@@ -17,17 +17,16 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.OrderedSet;
 import org.opensaml.common.util.StringHelper;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.common.impl.ExtensionsSAMLObjectHelper;
 import org.opensaml.saml2.common.impl.SignableTimeBoundCacheableSAMLObject;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
@@ -52,10 +51,10 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     private String entityID;
 
     /** Role descriptors for this entity */
-    private Set<RoleDescriptor> roleDescriptors = new LinkedHashSet<RoleDescriptor>();
+    private OrderedSet<RoleDescriptor> roleDescriptors = new OrderedSet<RoleDescriptor>();
 
     /** Index of role descriptors by type */
-    private Map<QName, Set<RoleDescriptor>> typeIndexedRoleDescriptors;
+    private Map<QName, OrderedSet<RoleDescriptor>> typeIndexedRoleDescriptors;
 
     /** Affiliatition descriptor for this entity */
     private AffiliationDescriptor affiliationDescriptor;
@@ -64,10 +63,10 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     private Organization organization;
 
     /** Contact persons for this entity */
-    private Set<ContactPerson> contactPersons = new LinkedHashSet<ContactPerson>();
+    private OrderedSet<ContactPerson> contactPersons = new OrderedSet<ContactPerson>();
 
     /** Additional metadata locations for this entity */
-    private Set<AdditionalMetadataLocation> additionalMetadata = new LinkedHashSet<AdditionalMetadataLocation>();
+    private OrderedSet<AdditionalMetadataLocation> additionalMetadata = new OrderedSet<AdditionalMetadataLocation>();
 
     /**
      * Helper for dealing ExtensionsExtensibleElement interface methods
@@ -98,15 +97,15 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors()
      */
-    public Set<RoleDescriptor> getRoleDescriptors() {
-        return Collections.unmodifiableSet(roleDescriptors);
+    public UnmodifiableOrderedSet<RoleDescriptor> getRoleDescriptors() {
+        return new UnmodifiableOrderedSet<RoleDescriptor>(roleDescriptors);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName)
      */
-    public Set<RoleDescriptor> getRoleDescriptors(QName type) {
-        return Collections.unmodifiableSet(typeIndexedRoleDescriptors.get(type));
+    public UnmodifiableOrderedSet<RoleDescriptor> getRoleDescriptors(QName type) {
+        return new UnmodifiableOrderedSet<RoleDescriptor>(typeIndexedRoleDescriptors.get(type));
     }
 
     /*
@@ -138,9 +137,9 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
             releaseThisandParentDOM();
             descriptor.setParent(this);
             roleDescriptors.add(descriptor);
-            Set<RoleDescriptor> typedRoleDescriptors = typeIndexedRoleDescriptors.get(descriptor.getSchemaType());
+            OrderedSet<RoleDescriptor> typedRoleDescriptors = typeIndexedRoleDescriptors.get(descriptor.getSchemaType());
             if (typedRoleDescriptors == null) {
-                typedRoleDescriptors = new HashSet<RoleDescriptor>();
+                typedRoleDescriptors = new OrderedSet<RoleDescriptor>();
                 typeIndexedRoleDescriptors.put(descriptor.getSchemaType(), typedRoleDescriptors);
             }
             typedRoleDescriptors.add(descriptor);
@@ -162,7 +161,7 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeRoleDescriptors(java.util.Set)
      */
-    public void removeRoleDescriptors(Set<RoleDescriptor> descriptors) {
+    public void removeRoleDescriptors(Collection<RoleDescriptor> descriptors) {
         for (RoleDescriptor descriptor : descriptors) {
             removeRoleDescriptor(descriptor);
         }
@@ -246,8 +245,8 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getContactPersons()
      */
-    public Set<ContactPerson> getContactPersons() {
-        return Collections.unmodifiableSet(contactPersons);
+    public UnmodifiableOrderedSet<ContactPerson> getContactPersons() {
+        return new UnmodifiableOrderedSet<ContactPerson>(contactPersons);
     }
 
     /*
@@ -279,7 +278,7 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPersons(java.util.Set)
      */
-    public void removeContactPersons(Set<ContactPerson> persons) {
+    public void removeContactPersons(Collection<ContactPerson> persons) {
         for (ContactPerson person : persons) {
             removeContactPerson(person);
         }
@@ -297,8 +296,8 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAdditionalMetadataLocations()
      */
-    public Set<AdditionalMetadataLocation> getAdditionalMetadataLocations() {
-        return Collections.unmodifiableSet(additionalMetadata);
+    public UnmodifiableOrderedSet<AdditionalMetadataLocation> getAdditionalMetadataLocations() {
+        return new UnmodifiableOrderedSet<AdditionalMetadataLocation>(additionalMetadata);
     }
 
     /*
@@ -333,7 +332,7 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAdditionalMetadataLocations(java.util.Set)
      */
-    public void removeAdditionalMetadataLocations(Set<AdditionalMetadataLocation> locations) {
+    public void removeAdditionalMetadataLocations(Collection<AdditionalMetadataLocation> locations) {
         for (AdditionalMetadataLocation location : locations) {
             removeAdditionalMetadataLocation(location);
         }
@@ -358,14 +357,14 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements()
      */
-    public Set<SAMLObject> getExtensionElements() {
+    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements() {
         return extensionHelper.getExtensionElements();
     }
 
     /*
      * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements(javax.xml.namespace.QName)
      */
-    public Set<SAMLObject> getExtensionElements(QName elementName) {
+    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements(QName elementName) {
         return extensionHelper.getExtensionElements(elementName);
     }
 
@@ -388,8 +387,8 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.common.impl.AbstractSAMLElement#getOrderedChildren()
      */
-    public Set<SAMLObject> getOrderedChildren() {
-        Set<SAMLObject> children = new LinkedHashSet<SAMLObject>();
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
+        OrderedSet<SAMLObject> children = new OrderedSet<SAMLObject>();
         
         children.add(getExtensions());
         
@@ -409,7 +408,7 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
             children.add(location);
         }
 
-        return children;
+        return new UnmodifiableOrderedSet<SAMLObject>(children);
     }
 
     /**

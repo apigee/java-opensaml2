@@ -16,12 +16,11 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
-
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.ValidatingObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -42,7 +41,7 @@ public interface Extensions extends ValidatingObject {
 	 *  
 	 * @return an ordered list of the all the child element in this element
 	 */
-	public Set<SAMLObject> getExtensionElements();
+	public UnmodifiableOrderedSet<SAMLObject> getExtensionElements();
 	
 	/**
 	 * Gets all the child elements, with a given name, in this element.
@@ -51,7 +50,7 @@ public interface Extensions extends ValidatingObject {
 	 * 
 	 * @return all the child elements, with a given name, in this element
 	 */
-	public Set<SAMLObject> getExtensionElements(QName elementName);
+	public UnmodifiableOrderedSet<SAMLObject> getExtensionElements(QName elementName);
 	
 	/**
 	 * Gets the first child element, with a given name, in this element.

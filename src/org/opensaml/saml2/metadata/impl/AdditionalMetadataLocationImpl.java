@@ -16,11 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import java.util.Set;
-
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.StringHelper;
 import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.util.StringHelper;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 
 /**
@@ -85,7 +84,7 @@ public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implement
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public Set<SAMLObject> getOrderedChildren() {
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
         // No children for this element
         return null;
     }

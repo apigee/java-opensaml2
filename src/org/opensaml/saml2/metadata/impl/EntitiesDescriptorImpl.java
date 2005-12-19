@@ -17,14 +17,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.OrderedSet;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.common.impl.ExtensionsSAMLObjectHelper;
 import org.opensaml.saml2.common.impl.SignableTimeBoundCacheableSAMLObject;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
@@ -49,17 +49,17 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
     /**
      * Ordered set of child Entity/Entities Descriptors
      */
-    private Set<SAMLObject> orderedDescriptors = new LinkedHashSet<SAMLObject>();
+    private OrderedSet<SAMLObject> orderedDescriptors = new OrderedSet<SAMLObject>();
     
     /**
      * Ordered set of EntitiesDescriptors
      */
-    private Set<EntitiesDescriptor> entitiesDescriptors = new LinkedHashSet<EntitiesDescriptor>();
+    private OrderedSet<EntitiesDescriptor> entitiesDescriptors = new OrderedSet<EntitiesDescriptor>();
     
     /**
      * Ordered set of EntityDescriptors
      */
-    private Set<EntityDescriptor> entityDescriptors = new LinkedHashSet<EntityDescriptor>();
+    private OrderedSet<EntityDescriptor> entityDescriptors = new OrderedSet<EntityDescriptor>();
     
     /**
      * Helper for dealing ExtensionsExtensibleElement interface methods
@@ -92,8 +92,8 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
     /*
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getEntitiesDescriptors()
      */
-    public Set<EntitiesDescriptor> getEntitiesDescriptors() {
-        return Collections.unmodifiableSet(entitiesDescriptors);
+    public UnmodifiableOrderedSet<EntitiesDescriptor> getEntitiesDescriptors() {
+        return new UnmodifiableOrderedSet<EntitiesDescriptor>(entitiesDescriptors);
     }
 
     /*
@@ -126,7 +126,7 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
     /*
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeEntitiesDescriptors(java.util.List)
      */
-    public void removeEntitiesDescriptors(Set<EntitiesDescriptor> desciptors) {
+    public void removeEntitiesDescriptors(Collection<EntitiesDescriptor> desciptors) {
         for(EntitiesDescriptor descriptor : desciptors) {
             removeEntitiesDescriptor(descriptor);
         }
@@ -144,8 +144,8 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
     /*
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getEntityDescriptors()
      */
-    public Set<EntityDescriptor> getEntityDescriptors() {
-        return Collections.unmodifiableSet(entityDescriptors);
+    public UnmodifiableOrderedSet<EntityDescriptor> getEntityDescriptors() {
+        return new UnmodifiableOrderedSet<EntityDescriptor>(entityDescriptors);
     }
 
     /*
@@ -178,7 +178,7 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
     /*
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeEntityDescriptors(java.util.List)
      */
-    public void removeEntityDescriptors(Set<EntityDescriptor> descriptors) {
+    public void removeEntityDescriptors(Collection<EntityDescriptor> descriptors) {
         for(EntityDescriptor descriptor : descriptors) {
             removeEntityDescriptor(descriptor);
         }
@@ -203,14 +203,14 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
     /*
      * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements()
      */
-    public Set<SAMLObject> getExtensionElements() {
+    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements() {
         return extensionHelper.getExtensionElements();
     }
 
     /*
      * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements(javax.xml.namespace.QName)
      */
-    public Set<SAMLObject> getExtensionElements(QName elementName) {
+    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements(QName elementName) {
         return extensionHelper.getExtensionElements(elementName);
     }
 
@@ -233,8 +233,8 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
     /*
      * @see org.opensaml.saml2.common.impl.AbstractSAMLElement#getOrderedChildren()
      */
-    public Set<SAMLObject> getOrderedChildren(){
-        Set<SAMLObject> children = new LinkedHashSet<SAMLObject>();
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren(){
+        OrderedSet<SAMLObject> children = new OrderedSet<SAMLObject>();
         
         if(getExtensions() != null){
             children.add(getExtensions());
@@ -242,7 +242,7 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
         
         children.addAll(getOrderedChildDescriptors());
         
-        return children;
+        return new UnmodifiableOrderedSet<SAMLObject>(children);
     }
 
     /**
@@ -265,7 +265,7 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
     /*
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getOrderedChildDescriptors()
      */
-    public Set<SAMLObject> getOrderedChildDescriptors(){
-        return Collections.unmodifiableSet(orderedDescriptors);
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildDescriptors(){
+        return new UnmodifiableOrderedSet<SAMLObject>(orderedDescriptors);
     }
 }

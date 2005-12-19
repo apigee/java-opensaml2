@@ -16,11 +16,12 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
 
@@ -101,7 +102,7 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
      * 
      * @return list of email addresses for this person
      */
-	public Set /* <String> */getEmailAddresses();
+	public UnmodifiableOrderedSet<String> getEmailAddresses();
     
     /**
      * Adds an email address to this person.
@@ -109,13 +110,6 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
      * @param address email address to add
      */
     public void addEmailAddress(String address);
-    
-    /**
-     * Adds a list of email addresses to this person.
-     * 
-     * @param addresses email addresses to add
-     */
-    public void addEmailAddresses(Set /*<String>*/ addresses);
     
     /**
      * Removes an email address to this person.
@@ -129,7 +123,7 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
      * 
      * @param addresses email addresses to remove
      */
-    public void removeEmailAddresses(Set /*<String>*/ addresses);
+    public void removeEmailAddresses(Collection<String> addresses);
     
     /**
      * Removes all the email addresses for this person.
@@ -141,7 +135,7 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
      * 
      * @return list of telephone numbers for this person
      */
-	public Set /* <String> */getTelephoneNumbers();
+	public UnmodifiableOrderedSet<String> getTelephoneNumbers();
     
     /**
      * Adds a telephone number to this person.
@@ -149,13 +143,6 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
      * @param number telephone number to add
      */
     public void addTelephoneNumber(String number);
-    
-    /**
-     * Adds a list of telephone numbers to this person.
-     * 
-     * @param numbers telephone numbers to add
-     */
-    public void addTelephoneNumbers(Set /*<String>*/ numbers);
     
     /**
      * Removes a telephone number to this person.
@@ -169,7 +156,7 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
      * 
      * @param numbers telephone numbers to remove
      */
-    public void removeTelephoneNumbers(Set /*<String>*/ numbers);
+    public void removeTelephoneNumbers(Collection<String> numbers);
     
     /**
      * Removes all the telephone numbers for this person.

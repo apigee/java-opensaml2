@@ -17,13 +17,14 @@
 package org.opensaml.saml2.metadata;
 
 import java.net.URI;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
@@ -57,7 +58,7 @@ public interface RoleDescriptor extends SAMLObject, SignableObject, TimeBoundSAM
      * 
      * @return list of protocol {@link URI}s supported by this role
      */
-	public Set<String> getSupportedProtocols();
+	public UnmodifiableOrderedSet<String> getSupportedProtocols();
 
     /**
      * Chckes to see if the given protocol is supported by this role.
@@ -87,7 +88,7 @@ public interface RoleDescriptor extends SAMLObject, SignableObject, TimeBoundSAM
      * 
      * @param protocols the protocol
      */
-    public void removeSupportedProtocols(Set<String> protocols);
+    public void removeSupportedProtocols(Collection<String> protocols);
     
     /**
      * Removes all the supported protocols from this role.
@@ -130,7 +131,7 @@ public interface RoleDescriptor extends SAMLObject, SignableObject, TimeBoundSAM
      * 
      * @return list of {@link ContactPerson}s for this role
      */
-    public Set<ContactPerson> getContactPersons();
+    public UnmodifiableOrderedSet<ContactPerson> getContactPersons();
     
     /**
      * Adds a contact person to the list of contact people for this role.
@@ -153,7 +154,7 @@ public interface RoleDescriptor extends SAMLObject, SignableObject, TimeBoundSAM
      * 
      * @param persons the list of contact persons
      */
-    public void removeContactPersons(Set<ContactPerson> persons);
+    public void removeContactPersons(Collection<ContactPerson> persons);
     
     /**
      * Removes all the contact persons from this role.

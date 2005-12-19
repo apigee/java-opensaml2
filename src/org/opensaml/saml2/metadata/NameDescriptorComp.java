@@ -16,7 +16,9 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
+
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 
 /**
  * A functional interface RoleDescriptors may use to deal with "Name" elements.
@@ -29,7 +31,7 @@ public interface NameDescriptorComp {
      * 
      * @return list of names
      */
-    public Set /* <LocalizedString> */getNames();
+    public UnmodifiableOrderedSet<LocalizedString> getNames();
 
     /**
      * Gets the localized name of this service in a given language.
@@ -57,14 +59,6 @@ public interface NameDescriptorComp {
     public void addName(LocalizedString name);
 
     /**
-     * Adds a list of localized name for this services. If a localized name in the same language is already present it
-     * is replaced.
-     * 
-     * @param names the names
-     */
-    public void addNames(Set /* <LocalizedString> */names);
-
-    /**
      * Removes a localized name for this services.
      * 
      * @param name the name
@@ -76,7 +70,7 @@ public interface NameDescriptorComp {
      * 
      * @param names the names
      */
-    public void removeNames(Set /* <LocalizedString> */names);
+    public void removeNames(Collection<LocalizedString> names);
 
     /**
      * Removes all the localized name for this service.

@@ -16,7 +16,9 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
+
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 
 /**
  * A functional interface RoleDescriptors may use to deal with "KeyDescriptor" elements.
@@ -29,7 +31,7 @@ public interface KeyDescriptorDescriptorComp {
      * 
      * @return list of {@link KeyDescriptor}s for this affiliation
      */
-    public Set /* <KeyDescriptor> */getKeyDescriptors();
+    public UnmodifiableOrderedSet<KeyDescriptor> getKeyDescriptors();
 
     /**
      * Adds a {@link KeyDescriptor} to the list of descriptors for this affiliation.
@@ -37,13 +39,6 @@ public interface KeyDescriptorDescriptorComp {
      * @param keyDescriptor the descriptor
      */
     public void addKeyDescriptor(KeyDescriptor keyDescriptor);
-
-    /**
-     * Adds a list of {@link KeyDescriptor}s to descriptors for this affiliation.
-     * 
-     * @param keyDescriptors the descriptors
-     */
-    public void addKeyDescriptors(Set /*<KeyDescriptor>*/keyDescriptors);
 
     /**
      * Removes a {@link KeyDescriptor} from the list of descriptors for this affiliation.
@@ -57,7 +52,7 @@ public interface KeyDescriptorDescriptorComp {
      * 
      * @param keyDescriptors the descriptors
      */
-    public void removeKeyDescriptors(Set /*<KeyDescriptor>*/keyDescriptors);
+    public void removeKeyDescriptors(Collection<KeyDescriptor> keyDescriptors);
 
     /**
      * Removes all the {@link KeyDescriptor}s from this affiliation.

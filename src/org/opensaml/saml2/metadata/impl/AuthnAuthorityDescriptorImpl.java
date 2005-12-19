@@ -16,13 +16,12 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.Collection;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.OrderedSet;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.NameIDFormat;
@@ -38,13 +37,13 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     private static final long serialVersionUID = 422459752889774280L;
 
     /** AuthnQueryService endpoints */
-    private Set<Endpoint> authnQueryEndpoints = new LinkedHashSet<Endpoint>();
+    private OrderedSet<Endpoint> authnQueryEndpoints = new OrderedSet<Endpoint>();
     
     /** AuthnQueryService endpoints */
-    private Set<Endpoint> assertionIDRequestEndpoints = new LinkedHashSet<Endpoint>();
+    private OrderedSet<Endpoint> assertionIDRequestEndpoints = new OrderedSet<Endpoint>();
     
     /** NameID formats supported by this descriptor */
-    private Set<NameIDFormat> nameIDFormats= new HashSet<NameIDFormat>();
+    private OrderedSet<NameIDFormat> nameIDFormats= new OrderedSet<NameIDFormat>();
     
     /**
      * Constrcutor
@@ -56,8 +55,8 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#getAuthnQueryServices()
      */
-    public Set<Endpoint> getAuthnQueryServices() {
-        return Collections.unmodifiableSet(authnQueryEndpoints);
+    public UnmodifiableOrderedSet<Endpoint> getAuthnQueryServices() {
+        return new UnmodifiableOrderedSet<Endpoint>(authnQueryEndpoints);
     }
 
     /*
@@ -89,7 +88,7 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#removeAuthnQueryServices(java.util.Set)
      */
-    public void removeAuthnQueryServices(Set<Endpoint> services) {
+    public void removeAuthnQueryServices(Collection<Endpoint> services) {
         if(services != null) {
             for(Endpoint service : services) {
                 removeAuthnQueryService(service);
@@ -109,8 +108,8 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#getAssertionIDRequestServices()
      */
-    public Set<Endpoint> getAssertionIDRequestServices() {
-        return Collections.unmodifiableSet(assertionIDRequestEndpoints);
+    public UnmodifiableOrderedSet<Endpoint> getAssertionIDRequestServices() {
+        return new UnmodifiableOrderedSet<Endpoint>(assertionIDRequestEndpoints);
     }
 
     /*
@@ -142,7 +141,7 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#removeAssertionIDRequestServices(java.util.Set)
      */
-    public void removeAssertionIDRequestServices(Set<Endpoint> services) {
+    public void removeAssertionIDRequestServices(Collection<Endpoint> services) {
         if(services != null) {
             for(Endpoint service : services) {
                 removeAssertionIDRequestService(service);
@@ -169,8 +168,8 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#getNameIDFormats()
      */
-    public Set<NameIDFormat> getNameIDFormats() {
-        return Collections.unmodifiableSet(nameIDFormats);
+    public UnmodifiableOrderedSet<NameIDFormat> getNameIDFormats() {
+        return new UnmodifiableOrderedSet<NameIDFormat>(nameIDFormats);
     }
 
     /*
@@ -198,7 +197,7 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#removeNameIDFormats(java.util.Set)
      */
-    public void removeNameIDFormats(Set<NameIDFormat> formats) {
+    public void removeNameIDFormats(Collection<NameIDFormat> formats) {
         if(formats != null) {
             for(NameIDFormat format : formats) {
                 removeNameIDFormat(format);
@@ -218,8 +217,10 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public Set<SAMLObject> getOrderedChildren(){
-        Set<SAMLObject> children = super.getOrderedChildren();
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren(){
+        OrderedSet<SAMLObject> children = new OrderedSet<SAMLObject>();
+        
+        children.addAll(super.getOrderedChildren());
         
         for(Endpoint service : authnQueryEndpoints) {
             children.add(service);
@@ -233,7 +234,7 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
             children.add(nameIDFormat);
         }
         
-        return children;
+        return new UnmodifiableOrderedSet<SAMLObject>(children);
     }
     
     /*

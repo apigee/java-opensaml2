@@ -17,12 +17,12 @@
 package org.opensaml.saml2.metadata;
 
 
-import java.net.URI;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -41,16 +41,7 @@ public interface AttributeAuthorityDescriptor extends SAMLObject, RoleDescriptor
      * 
      * @return list of attributes services
      */
-    public Set /*<Endpoint>*/getAttributeServices();
-
-    /**
-     * Gets an immutable list of attribute request {@link Endpoint}s that support the given binding.
-     * 
-     * @param bindingURI the binding URI
-     * 
-     * @return list of {@link Endpoint}s that support the given binding
-     */
-    public Set /*<Endpoint>*/getAttributeServicesByBinding(URI bindingURI);
+    public UnmodifiableOrderedSet<Endpoint> getAttributeServices();
 
     /**
      * Adds an attribute service {@link Endpoint} for this authority.
@@ -58,13 +49,6 @@ public interface AttributeAuthorityDescriptor extends SAMLObject, RoleDescriptor
      * @param service the attribute service
      */
     public void addAttributeService(Endpoint service);
-
-    /**
-     * Adds a list of attribute service {@link Endpoint}s for this authority.
-     * 
-     * @param services the list of attribute service
-     */
-    public void addAttributeServices(Set /*<Endpoint>*/services);
 
     /**
      * Removes an attribute service {@link Endpoint} for this authority.
@@ -78,7 +62,7 @@ public interface AttributeAuthorityDescriptor extends SAMLObject, RoleDescriptor
      * 
      * @param services the list of attribute service
      */
-    public void removeAttributeServices(Set /*<Endpoint>*/services);
+    public void removeAttributeServices(Collection<Endpoint> services);
 
     /**
      * Removes all the attribute service {@link Endpoint}s for this authority.

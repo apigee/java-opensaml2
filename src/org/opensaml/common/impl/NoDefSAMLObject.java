@@ -16,11 +16,10 @@
 
 package org.opensaml.common.impl;
 
-import java.util.Set;
-
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -39,7 +38,7 @@ public class NoDefSAMLObject extends AbstractSAMLObject implements SAMLObject {
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public Set<SAMLObject> getOrderedChildren() {
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
         // Does not allow children
         return null;
     }

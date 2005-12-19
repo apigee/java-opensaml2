@@ -16,12 +16,13 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -40,7 +41,7 @@ public interface AuthnAuthorityDescriptor extends SAMLObject, RoleDescriptor, As
      * 
      * @return list of authentication query services
      */
-	public Set<Endpoint> getAuthnQueryServices();
+	public UnmodifiableOrderedSet<Endpoint> getAuthnQueryServices();
     
     /**
      * Adds an authentication query service {@link Endpoint} for this authority.
@@ -63,7 +64,7 @@ public interface AuthnAuthorityDescriptor extends SAMLObject, RoleDescriptor, As
      * 
      * @param services the list of authentication query service
      */
-    public void removeAuthnQueryServices(Set<Endpoint> services);
+    public void removeAuthnQueryServices(Collection<Endpoint> services);
     
     /**
      * Removes all the authentication query service {@link Endpoint}s for this authority.

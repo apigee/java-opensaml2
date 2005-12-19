@@ -16,10 +16,11 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -38,7 +39,7 @@ public interface PDPDescriptor extends RoleDescriptor, AssertionIDRequestDescrip
      * 
      * @return list of authz service {@link Endpoint}s for this service
      */
-	public Set /*<Endpoint>*/ getAuthzServices();
+	public UnmodifiableOrderedSet<Endpoint> getAuthzServices();
     
     /**
      * Adds an authz service {@link Endpoint} for this service.
@@ -46,13 +47,6 @@ public interface PDPDescriptor extends RoleDescriptor, AssertionIDRequestDescrip
      * @param service the service endpoint
      */
 	public void addAuthzService(Endpoint service);
-    
-    /**
-     * Adds a list of authz service {@link Endpoint}s for this service.
-     * 
-     * @param services the service endpoints
-     */
-    public void addAuthzServices(Set /*<Endpoint>*/ services);
     
     /**
      * Removes an authz service {@link Endpoint} for this service.
@@ -66,7 +60,7 @@ public interface PDPDescriptor extends RoleDescriptor, AssertionIDRequestDescrip
      * 
      * @param services the service endpoint
      */
-    public void removeAuthzServices(Set /*<Endpoint>*/ services);
+    public void removeAuthzServices(Collection<Endpoint> services);
     
     /**
      * Removes all the authz service endpoints from this service.

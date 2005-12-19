@@ -16,11 +16,12 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -79,7 +80,7 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
      * 
      * @return list of descriptions
      */
-    public Set /* <LocalizedString> */getDescriptions();
+    public UnmodifiableOrderedSet<LocalizedString> getDescriptions();
 
     /**
      * Gets the localized description of this service in a given language.
@@ -107,14 +108,6 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
     public void addDescription(LocalizedString description);
 
     /**
-     * Adds a list of localized description for this services. If a localized description in the same language is
-     * already present it is replaced.
-     * 
-     * @param descriptions the list of descriptions
-     */
-    public void addDescriptions(Set /* <LocalizedString> */descriptions);
-
-    /**
      * Removes a localized description for this services.
      * 
      * @param description the description
@@ -126,7 +119,7 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
      * 
      * @param descriptions the list descriptions
      */
-    public void removeDescriptions(Set /* <LocalizedString> */descriptions);
+    public void removeDescriptions(Collection<LocalizedString> descriptions);
 
     /**
      * Removes all the localized description for this services.
@@ -155,7 +148,7 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
      * 
      * @return list of attributes requested by this service
      */
-    public Set /* <RequestedAttribute> */getRequestedAttributes();
+    public UnmodifiableOrderedSet<RequestedAttribute> getRequestedAttributes();
 
     /**
      * Adds an attribute to the list of attributes requested by this service.
@@ -163,13 +156,6 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
      * @param attribute the attribute
      */
     public void addRequestedAttribute(RequestedAttribute attribute);
-
-    /**
-     * Adds a list of attribute to the list of attributes requested by this service.
-     * 
-     * @param attributes the attribute
-     */
-    public void addRequestedAttributes(Set /* <RequestedAttribute> */attributes);
 
     /**
      * Removes an attribute from the list of attributes requested by this service.
@@ -183,7 +169,7 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
      * 
      * @param attributes the attribute
      */
-    public void removeRequestedAttributes(Set /* <RequestedAttribute> */attributes);
+    public void removeRequestedAttributes(Collection<RequestedAttribute> attributes);
 
     /**
      * Removes all the attribute from the list of attributes requested by this service.

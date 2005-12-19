@@ -16,12 +16,11 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.net.URI;
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -54,23 +53,13 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
      * @param wantSigned true if request should be signed, false if not
      */
     public void setWantAuthnRequestSigned(boolean wantSigned);
-
     
     /**
      * Gets the list of single sign on service {@link Endpoint}s for this IDP.
      * 
      * @return list of single sign on service {@link Endpoint}s
      */
-	public Set /*<Endpoint>*/ getSingleSignOnServices();
-    
-    /**
-     * Gets list of single sign on service {@link Endpoint}s for a particular binding for this IDP.
-     * 
-     * @param binding the binding
-     * 
-     * @return list of single sign on service {@link Endpoint}s
-     */
-    public Set /*<Endpoint>*/ getSignleSignOnServicesByBinding(URI binding);
+	public UnmodifiableOrderedSet<Endpoint> getSingleSignOnServices();
     
     /**
      * Adds an endpoint to the list of single sign on service {@link Endpoint}s.
@@ -78,13 +67,6 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
      * @param endpoint the endpoint
      */
     public void addSingleSignOnService(Endpoint endpoint);
-    
-    /**
-     * Adds a list of endpoints to the list of single sign on service {@link Endpoint}s.
-     * 
-     * @param endpoints the endpoints
-     */
-    public void addSingleSignOnServices(Set /*<Endpoint>*/ endpoints);
     
     /**
      * Removes an endpoint from the list of single sign on service {@link Endpoint}s.
@@ -98,7 +80,7 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
      * 
      * @param endpoints the endpoints
      */
-    public void removeSingleSignOnServices(Set /*<Endpoint>*/ endpoints);
+    public void removeSingleSignOnServices(Collection<Endpoint> endpoints);
     
     /**
      * Removes all the single sign on endpoints.
@@ -110,16 +92,7 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
      *  
      * @return the list of NameID mapping service {@link Endpoint}s for this service
      */
-	public Set /*<Endpoint>*/ getNameIDMappingServices();
-    
-    /**
-     * Gets list of NameID mapping service {@link Endpoint}s for a particular binding for this IDP.
-     * 
-     * @param binding the binding
-     * 
-     * @return list of single sign on service {@link Endpoint}s
-     */
-    public List /*<Endpoint>*/ getNameIdMappingServicesByBinding(URI binding);
+	public UnmodifiableOrderedSet<Endpoint> getNameIDMappingServices();
     
     /**
      * Adds an endpoint to the list of NameID mapping service {@link Endpoint}s.
@@ -127,13 +100,6 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
      * @param endpoint the endpoint
      */
 	public void addNameIDMappingService(Endpoint endpoint);
-    
-    /**
-     * Adds a list of endpoint to the list of NameID mapping service {@link Endpoint}s.
-     * 
-     * @param endpoints the endpoints
-     */
-    public void addNameIDMappingServices(Set /*<Endpoint>*/ endpoints);
     
     /**
      * Removes an endpoint from the list of NameID mapping service {@link Endpoint}s.
@@ -147,7 +113,7 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
      * 
      * @param endpoints the endpoints
      */
-    public void removeNameIDMappingServices(Set /*<Endpoint>*/ endpoints);
+    public void removeNameIDMappingServices(Collection<Endpoint> endpoints);
     
     /**
      * Removes all the NameID mapping endpoints.

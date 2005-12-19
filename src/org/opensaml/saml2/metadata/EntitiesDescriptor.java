@@ -16,7 +16,7 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
@@ -24,6 +24,7 @@ import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableObject;
 import org.opensaml.common.ValidatingObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
@@ -67,7 +68,7 @@ public interface EntitiesDescriptor extends SignableObject, TimeBoundSAMLObject,
      * 
      * @return list of descriptors
      */
-    public Set<EntitiesDescriptor> getEntitiesDescriptors();
+    public UnmodifiableOrderedSet<EntitiesDescriptor> getEntitiesDescriptors();
     
     /**
      * Adds the given descriptor to the list of child {@link EntitiesDescriptor}s for this descriptor.
@@ -90,7 +91,7 @@ public interface EntitiesDescriptor extends SignableObject, TimeBoundSAMLObject,
      * 
      * @param descriptors the child descriptors
      */
-    public void removeEntitiesDescriptors(Set<EntitiesDescriptor> descriptors);
+    public void removeEntitiesDescriptors(Collection<EntitiesDescriptor> descriptors);
     
     /**
      * Removes all the {@link EntitiesDescriptor}s from this descriptor.
@@ -102,7 +103,7 @@ public interface EntitiesDescriptor extends SignableObject, TimeBoundSAMLObject,
      * 
      * @return list of child descriptors
      */
-	public Set<EntityDescriptor> getEntityDescriptors();
+	public UnmodifiableOrderedSet<EntityDescriptor> getEntityDescriptors();
     
     /**
      * Adds the given descriptor to the list of child {@link EntityDescriptor}s for this descriptor.
@@ -125,7 +126,7 @@ public interface EntitiesDescriptor extends SignableObject, TimeBoundSAMLObject,
      * 
      * @param descriptors the child descriptors
      */
-    public void removeEntityDescriptors(Set<EntityDescriptor> descriptors);
+    public void removeEntityDescriptors(Collection<EntityDescriptor> descriptors);
     
     /**
      * Removes all the child {@link EntityDescriptor}s from this descriptor.
@@ -139,5 +140,5 @@ public interface EntitiesDescriptor extends SignableObject, TimeBoundSAMLObject,
      * @return the {@link EntitiesDescriptor} and {@link EntityDescriptor}s as a single bag in the 
      * order that they were added to this descriptor
      */
-    public Set<SAMLObject> getOrderedChildDescriptors();
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildDescriptors();
 }

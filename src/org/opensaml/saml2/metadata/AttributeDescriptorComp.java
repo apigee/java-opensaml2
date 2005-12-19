@@ -16,8 +16,9 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.core.Attribute;
 
 /**
@@ -38,7 +39,7 @@ public interface AttributeDescriptorComp {
      * 
      * @return list of the {@link Attribute}s
      */
-    public Set /* <Attribute> */getAttributes();
+    public UnmodifiableOrderedSet<Attribute> getAttributes();
 
     /**
      * Adds an {@link Attribute} supported by this authority.
@@ -46,13 +47,6 @@ public interface AttributeDescriptorComp {
      * @param attribute the attribute
      */
     public void addAttribute(Attribute attribute);
-
-    /**
-     * Adds a list of {@link Attribute}s supported by this authority.
-     * 
-     * @param attributes the list of attributes
-     */
-    public void addAttributes(Set /*<Attribute>*/attributes);
 
     /**
      * Removes an {@link Attribute} supported by this authority.
@@ -66,7 +60,7 @@ public interface AttributeDescriptorComp {
      * 
      * @param attributes the list attributes
      */
-    public void removeAttributes(Set /*<Attribute>*/attributes);
+    public void removeAttributes(Collection<Attribute> attributes);
 
     /**
      * Removes all the attributes supported by this authority.

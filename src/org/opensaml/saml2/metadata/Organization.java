@@ -16,11 +16,12 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
 
@@ -40,7 +41,7 @@ public interface Organization extends SAMLObject, ExtensionsExtensibleSAMLObject
      * 
      * @return list of names
      */
-	public Set /*<LocaledString>*/ getDisplayName();
+	public UnmodifiableOrderedSet<LocalizedString> getDisplayName();
 
     /**
      * Gets the localized display name in a given language.
@@ -68,14 +69,6 @@ public interface Organization extends SAMLObject, ExtensionsExtensibleSAMLObject
     public void addDisplayName(LocalizedString name);
     
     /**
-     * Adds a list of localized display name. If a localized name in the same language is already present it
-     * is replaced.
-     * 
-     * @param names the names
-     */
-    public void addDisplayNames(Set /*<LocalizedString>*/ names);
-    
-    /**
      * Removes a localized display name.
      * 
      * @param name the name
@@ -87,7 +80,7 @@ public interface Organization extends SAMLObject, ExtensionsExtensibleSAMLObject
      * 
      * @param names the names
      */
-    public void removeDisplayNames(Set /*<LocalizedString>*/ names);
+    public void removeDisplayNames(Collection<LocalizedString> names);
     
     /**
      * Removes all the localized display names.
@@ -99,7 +92,7 @@ public interface Organization extends SAMLObject, ExtensionsExtensibleSAMLObject
      * 
      * @return list of URLs, {@link LocalizedString}s, for this organization
      */
-	public Set /*<LocalizedString>*/ getURLs();
+	public UnmodifiableOrderedSet<LocalizedString> getURLs();
 
     /**
      * Gets the URL for the given language.
@@ -127,13 +120,6 @@ public interface Organization extends SAMLObject, ExtensionsExtensibleSAMLObject
 	public void addURL(LocalizedString url);
     
     /**
-     * Adds a list of URL to this organization.
-     * 
-     * @param urls the URLs
-     */
-    public void addURLs(Set /*<LocalizedString>*/ urls);
-    
-    /**
      * Removes a URL from this organization.
      * 
      * @param url the URL
@@ -145,7 +131,7 @@ public interface Organization extends SAMLObject, ExtensionsExtensibleSAMLObject
      * 
      * @param urls the URLs
      */
-    public void removeURLs(Set /*<LocalizedString>*/ urls);
+    public void removeURLs(Collection<LocalizedString> urls);
     
     /**
      * Removes all the URLs from this organizaition.

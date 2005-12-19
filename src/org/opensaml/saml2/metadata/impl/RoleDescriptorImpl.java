@@ -16,16 +16,15 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.OrderedSet;
 import org.opensaml.common.util.StringHelper;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.common.impl.ExtensionsSAMLObjectHelper;
 import org.opensaml.saml2.common.impl.SignableTimeBoundCacheableSAMLObject;
 import org.opensaml.saml2.metadata.ContactPerson;
@@ -40,7 +39,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLObject implements RoleDescriptor {
 
     /** Set of supported protocols */
-    private Set<String> supportedProtocols = new HashSet<String>();
+    private OrderedSet<String> supportedProtocols = new OrderedSet<String>();
     
     /** Error URL */
     private String errorURL;
@@ -49,7 +48,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     private Organization organization;
     
     /** Contact persons for this role */
-    private Set<ContactPerson> contactPersons = new LinkedHashSet<ContactPerson>();
+    private OrderedSet<ContactPerson> contactPersons = new OrderedSet<ContactPerson>();
     
     /**
      * Helper for dealing ExtensionsExtensibleElement interface methods
@@ -66,8 +65,8 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#getSupportedProtocols()
      */
-    public Set<String> getSupportedProtocols() {
-        return Collections.unmodifiableSet(supportedProtocols);
+    public UnmodifiableOrderedSet<String> getSupportedProtocols() {
+        return new UnmodifiableOrderedSet<String>(supportedProtocols);
     }
 
     /*
@@ -102,7 +101,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#removeProtocols(java.util.Set)
      */
-    public void removeSupportedProtocols(Set<String> protocols) {
+    public void removeSupportedProtocols(Collection<String> protocols) {
        for(String protocol : protocols) {
            removeSupportedProtocol(protocol);
        }
@@ -165,8 +164,8 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getContactPersons()
      */
-    public Set<ContactPerson> getContactPersons() {
-        return Collections.unmodifiableSet(contactPersons);
+    public UnmodifiableOrderedSet<ContactPerson> getContactPersons() {
+        return new UnmodifiableOrderedSet<ContactPerson>(contactPersons);
     }
 
     /*
@@ -198,7 +197,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPersons(java.util.Set)
      */
-    public void removeContactPersons(Set<ContactPerson> persons) {
+    public void removeContactPersons(Collection<ContactPerson> persons) {
         for (ContactPerson person : persons) {
             removeContactPerson(person);
         }
@@ -223,14 +222,14 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements()
      */
-    public Set<SAMLObject> getExtensionElements() {
+    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements() {
         return extensionHelper.getExtensionElements();
     }
 
     /*
      * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements(javax.xml.namespace.QName)
      */
-    public Set<SAMLObject> getExtensionElements(QName elementName) {
+    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements(QName elementName) {
         return extensionHelper.getExtensionElements(elementName);
     }
 
@@ -253,7 +252,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#getKeyDescriptors()
      */
-    public Set<KeyDescriptor> getKeyDescriptors() {
+    public UnmodifiableOrderedSet<KeyDescriptor> getKeyDescriptors() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -269,7 +268,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#addKeyDescriptors(java.util.Set)
      */
-    public void addKeyDescriptors(Set keyDescriptors) {
+    public void addKeyDescriptors(Collection keyDescriptors) {
         // TODO Auto-generated method stub
 
     }
@@ -285,7 +284,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptors(java.util.Set)
      */
-    public void removeKeyDescriptors(Set keyDescriptors) {
+    public void removeKeyDescriptors(Collection keyDescriptors) {
         // TODO Auto-generated method stub
 
     }
@@ -301,8 +300,8 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public Set<SAMLObject> getOrderedChildren() {
-        Set<SAMLObject> children = new LinkedHashSet<SAMLObject>();
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
+        OrderedSet<SAMLObject> children = new OrderedSet<SAMLObject>();
         
         children.add(getExtensions());
         
@@ -317,6 +316,6 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
             children.add(person);
         }
         
-        return children;
+        return new UnmodifiableOrderedSet<SAMLObject>(children);
     }
 }

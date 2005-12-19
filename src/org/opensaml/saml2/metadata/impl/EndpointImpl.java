@@ -16,11 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import java.util.Set;
-
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.StringHelper;
 import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.util.StringHelper;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.metadata.Endpoint;
 
 /**
@@ -105,7 +104,7 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
     /*
      * @see org.opensaml.saml2.common.impl.AbstractSAMLElement#getOrderedChildren()
      */
-    public Set<SAMLObject> getOrderedChildren(){
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren(){
         return null; //Endpoints don't have child elements
     }
     

@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.Namespace;
 
 /**
@@ -116,7 +117,7 @@ public interface SAMLObject extends Serializable {
      * 
      * @return ordered list of child elements
      */
-    public Set<SAMLObject> getOrderedChildren();
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren();
     
     /**
      * Checks to see if the given element is equal to this one.  What it means for 

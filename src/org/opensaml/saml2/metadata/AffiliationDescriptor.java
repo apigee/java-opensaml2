@@ -17,13 +17,14 @@
 package org.opensaml.saml2.metadata;
 
 import java.net.URI;
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableObject;
 import org.opensaml.common.ValidatingObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
@@ -74,7 +75,7 @@ public interface AffiliationDescriptor extends SAMLObject, SignableObject, TimeB
      * 
      * @return a list of URIs
      */
-	public Set<String> getMembers();
+	public UnmodifiableOrderedSet<String> getMembers();
 	
 	/**
 	 * Adds a member to this affiliation.
@@ -82,13 +83,6 @@ public interface AffiliationDescriptor extends SAMLObject, SignableObject, TimeB
 	 * @param member member's ID
 	 */
 	public void addMember(String member);
-	
-	/**
-	 * Adds a list of member {@link URI}s to this affiliation.
-	 * 
-	 * @param members the list of members to add
-	 */
-	public void addMemebers(Set<String> members);
 	
 	/**
 	 * Removes the given member from this affiliation.
@@ -102,7 +96,7 @@ public interface AffiliationDescriptor extends SAMLObject, SignableObject, TimeB
 	 * 
 	 * @param members the list of members to be removed
 	 */
-	public void removeMemebers(Set<String> members);
+	public void removeMemebers(Collection<String> members);
 	
 	/**
 	 * Removes all the members from this Affiliation.

@@ -16,13 +16,14 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
@@ -64,7 +65,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @return the role descriptors for this entity descriptor
      */
-	public Set<RoleDescriptor> getRoleDescriptors();
+	public UnmodifiableOrderedSet<RoleDescriptor> getRoleDescriptors();
 
     /**
      * Gets all the role descriptors of a certain type.
@@ -73,7 +74,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @return the role descriptors of a certain type
      */
-	public Set<RoleDescriptor> getRoleDescriptors(QName type);
+	public UnmodifiableOrderedSet<RoleDescriptor> getRoleDescriptors(QName type);
     
     /**
      * Gets the role descriptors of a certain type that support the given protocol.
@@ -110,7 +111,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @param descriptors the descriptors
      */
-    public void removeRoleDescriptors(Set<RoleDescriptor> descriptors);
+    public void removeRoleDescriptors(Collection<RoleDescriptor> descriptors);
     
     /**
      * Removes all the role descriptors.
@@ -155,7 +156,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @return the contact people for this entity
      */
-	public Set<ContactPerson> getContactPersons();
+	public UnmodifiableOrderedSet<ContactPerson> getContactPersons();
     
     /**
      * Adds a contact person to this entity.
@@ -179,7 +180,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @param persons the contact people
      */
-    public void removeContactPersons(Set<ContactPerson> persons);
+    public void removeContactPersons(Collection<ContactPerson> persons);
     
     /**
      * Removes all the contact people from this entity.
@@ -191,7 +192,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @return the additional metadata locations for this entity
      */
-	public Set<AdditionalMetadataLocation> getAdditionalMetadataLocations();
+	public UnmodifiableOrderedSet<AdditionalMetadataLocation> getAdditionalMetadataLocations();
     
     /**
      * Adds an additional metadata locations for this entity.
@@ -214,7 +215,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @param locations the location to remove
      */
-    public void removeAdditionalMetadataLocations(Set<AdditionalMetadataLocation> locations);
+    public void removeAdditionalMetadataLocations(Collection<AdditionalMetadataLocation> locations);
     
     /**
      * Removes all the additional metadata locations from this entity.

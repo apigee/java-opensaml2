@@ -16,10 +16,11 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Set;
+import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -77,7 +78,7 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @return list of assertion consumer service {@link Endpoint}s for this service
      */
-    public Set /*<Endpoint>*/ getAssertionConsumerServices();
+    public UnmodifiableOrderedSet<Endpoint> getAssertionConsumerServices();
     
     /**
      * Adds an assertion consumer service {@link Endpoint} for this service.
@@ -85,13 +86,6 @@ public interface SPSSODescriptor extends SSODescriptor {
      * @param service the service endpoint
      */
     public void addAssertionConsumerService(Endpoint service);
-    
-    /**
-     * Adds a list of assertion consumer service {@link Endpoint}s for this service.
-     * 
-     * @param services the service endpoints
-     */
-    public void addAssertionConsumerServices(Set /*<Endpoint>*/ services);
     
     /**
      * Removes an assertion consumer service {@link Endpoint} for this service.
@@ -105,7 +99,7 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @param services the service endpoint
      */
-    public void removeAssertionConsumerServices(Set /*<Endpoint>*/ services);
+    public void removeAssertionConsumerServices(Collection<Endpoint> services);
     
     /**
      * Removes all the assertion consumer service endpoints from this service.
@@ -118,7 +112,7 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @return list of attribute consuming service {@link Endpoint}s for this service
      */
-    public Set /*<Endpoint>*/ getAttributeConsumingServices();
+    public UnmodifiableOrderedSet<Endpoint> getAttributeConsumingServices();
     
     /**
      * Adds an attribute consuming service {@link Endpoint} for this service.
@@ -126,13 +120,6 @@ public interface SPSSODescriptor extends SSODescriptor {
      * @param service the service endpoint
      */
     public void addAttributeConsumingService(Endpoint service);
-    
-    /**
-     * Adds a list of attribute consuming service {@link Endpoint}s for this service.
-     * 
-     * @param services the service endpoints
-     */
-    public void addAttributeConsumingServices(Set /*<Endpoint>*/ services);
     
     /**
      * Removes an attribute consuming service {@link Endpoint} for this service.
@@ -146,7 +133,7 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @param services the service endpoint
      */
-    public void removeAttributeConsumingServices(Set /*<Endpoint>*/ services);
+    public void removeAttributeConsumingServices(Collection<Endpoint> services);
     
     /**
      * Removes all the attribute consuming service endpoints from this service.
