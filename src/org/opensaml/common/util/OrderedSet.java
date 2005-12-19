@@ -28,6 +28,22 @@ public class OrderedSet<E> extends LinkedHashSet<E> implements Set<E> {
      * Serial version UID
      */
     private static final long serialVersionUID = 4543090575469111692L;
+    
+    /**
+     * Constructor
+     */
+    public OrderedSet() {
+        
+    }
+    
+    /**
+     * Copy constructor
+     *
+     * @param set set to copy
+     */
+    public OrderedSet(OrderedSet<? extends E> set) {
+        super(set);
+    }
 
     /**
      * Adds the given element to the collection.
@@ -39,11 +55,11 @@ public class OrderedSet<E> extends LinkedHashSet<E> implements Set<E> {
      * @throws ClassCastException if the class of the specified element prevents it from being added to this collection
      * @throws IllegalArgumentException if some aspect of this element prevents it from being added to this collection
      */
-    public boolean add(E element) throws ClassCastException, IllegalArgumentException{
-        if(element == null) {
+    public boolean add(E element) throws ClassCastException, IllegalArgumentException {
+        if (element == null) {
             return false;
         }
-        
+
         return super.add(element);
     }
 }
