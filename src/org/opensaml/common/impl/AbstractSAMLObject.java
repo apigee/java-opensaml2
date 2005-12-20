@@ -342,19 +342,23 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      * @param set The set to which the SAMLObject is to be added.
      * @param samlObject The object to add
      * 
+     * @return true if the given set was modified, false if not
+     * 
      * @throws IllegalAddException if the element already has a parent
      */
-    protected <T extends SAMLObject> void addSAMLObject(OrderedSet<T> set, T samlObject) throws IllegalAddException {
-        if (!set.contains(samlObject)) {
-
-            if (samlObject.hasParent()) {
-                throw new IllegalAddException(samlObject.getClass().getName()
-                        + " cannot be added - it is already the child of another SAML Object");
-            }
-            samlObject.setParent(this);
-            releaseThisandParentDOM();
-            set.add(samlObject);
+    protected <T extends SAMLObject> boolean addSAMLObject(OrderedSet<T> set, T samlObject) throws IllegalAddException {
+        if (set.contains(samlObject)) {
+            return false;
         }
+
+        if (samlObject.hasParent()) {
+            throw new IllegalAddException(samlObject.getClass().getName()
+                    + " cannot be added - it is already the child of another SAML Object");
+        }
+        samlObject.setParent(this);
+        releaseThisandParentDOM();
+        set.add(samlObject);
+        return true;
     }
 
     /**
@@ -364,13 +368,18 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      * @param <T> The type of the SAMLObject being removed
      * @param set The set from which the SAMLObject is to be removed.
      * @param samlObject The object to remove
+     * 
+     * @return true if the given set was modified, false if not
      */
-    protected <T extends SAMLObject> void removeSAMLObject(OrderedSet<T> set, T samlObject) {
+    protected <T extends SAMLObject> boolean removeSAMLObject(OrderedSet<T> set, T samlObject) {
         if (samlObject != null && set.contains(samlObject)) {
             samlObject.setParent(null);
             releaseThisandParentDOM();
             set.remove(samlObject);
+            return true;
         }
+        
+        return false;
     }
 
     /**
@@ -378,15 +387,20 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
      * SAMLObjects which multipl subelements.
      * 
      * @param <T> The type of the SAMLObject being removed
-     * @param set The set from which the SAMLObject is to be removed.
-     * @param samlObject The set of SAMLObject to be removed.
+     * @param containingSet The set from which the SAMLObject is to be removed.
+     * @param contentsSet The set of SAMLObject to be removed.
      * 
-     * NOTE This class need not be copied into any superclasses so long as they implement removeSAMLObject if needed.
+     * @return true if the containingSet was modified, false if not
      * 
      */
-    protected <T extends SAMLObject> void removeSAMLObjects(OrderedSet<T> containingSet, Collection<T> contentsSet) {
+    protected <T extends SAMLObject> boolean removeSAMLObjects(OrderedSet<T> containingSet, Collection<T> contentsSet) {
+        boolean setModified = false;
         for (T member : contentsSet) {
-            removeSAMLObject(containingSet, member);
+            if(removeSAMLObject(containingSet, member) && !setModified) {
+                setModified = true;
+            }
         }
+        
+        return setModified;
     }
 }

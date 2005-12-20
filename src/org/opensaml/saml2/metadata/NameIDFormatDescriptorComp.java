@@ -18,6 +18,7 @@ package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.util.UnmodifiableOrderedSet;
 
 /**
@@ -46,8 +47,10 @@ public interface NameIDFormatDescriptorComp {
      * Adds a NameID format supported by this authority.
      * 
      * @param format the format to add
+     * 
+     * @throws IllegalAddException thrown if the given format is alread owned by another SAMLObject
      */
-    public void addNameIDFormat(NameIDFormat format);
+    public void addNameIDFormat(NameIDFormat format) throws IllegalAddException;
 
     /**
      * Removes a NameID format supported by this authority.

@@ -91,7 +91,7 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      */
     public void setEntityID(String id) {
         
-        entityID = assignString(entityID, id);
+        entityID = prepareForAssignment(entityID, id);
     }
 
     /*
@@ -125,18 +125,7 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      * @see org.opensaml.saml2.metadata.EntityDescriptor#addRoleDescriptor(org.opensaml.saml2.metadata.RoleDescriptor)
      */
     public void addRoleDescriptor(RoleDescriptor descriptor) throws IllegalAddException {
-        if (getAffiliationDescriptor() != null) {
-            throw new IllegalAddException(
-                    "Can not add a role descritptor to an entity that contains an affiliation descriptor");
-        }
-
-        if (descriptor != null && !roleDescriptors.contains(descriptor)) {
-            if (descriptor.hasParent()) {
-                throw new IllegalAddException("Can not add a role descriptor owned by another entity to this entity.");
-            }
-            releaseThisandParentDOM();
-            descriptor.setParent(this);
-            roleDescriptors.add(descriptor);
+        if(addSAMLObject(roleDescriptors, descriptor)) {
             OrderedSet<RoleDescriptor> typedRoleDescriptors = typeIndexedRoleDescriptors.get(descriptor.getSchemaType());
             if (typedRoleDescriptors == null) {
                 typedRoleDescriptors = new OrderedSet<RoleDescriptor>();
@@ -150,11 +139,8 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeRoleDescriptor(org.opensaml.saml2.metadata.RoleDescriptor)
      */
     public void removeRoleDescriptor(RoleDescriptor descriptor) {
-        if (descriptor != null && roleDescriptors.contains(descriptor)) {
-            releaseThisandParentDOM();
-            roleDescriptors.remove(descriptor);
+        if(removeSAMLObject(roleDescriptors, descriptor)) {
             typeIndexedRoleDescriptors.remove(descriptor.getSchemaType());
-            descriptor.setParent(null);
         }
     }
 
@@ -187,23 +173,7 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      * @see org.opensaml.saml2.metadata.EntityDescriptor#setAffiliationDescriptor(org.opensaml.saml2.metadata.AffiliationDescriptor)
      */
     public void setAffiliationDescriptor(AffiliationDescriptor descriptor) throws IllegalAddException {
-        if(descriptor == null) {
-            return;
-        }
-        
-        if (descriptor.hasParent()) {
-            throw new IllegalAddException(
-                    "Can not add an affiliation descriptor owned by another entity to this entity.");
-        }
-
-        if (getRoleDescriptors() != null) {
-            throw new IllegalAddException(
-                    "Can not add an affiliation descritptor to an entity that contains role descriptors");
-        }
-
-        releaseThisandParentDOM();
-        descriptor.setParent(this);
-        affiliationDescriptor = descriptor;
+        affiliationDescriptor = prepareForAssignment(affiliationDescriptor, descriptor);
     }
 
     /*
@@ -217,29 +187,7 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      * @see org.opensaml.saml2.metadata.EntityDescriptor#setOrganization(org.opensaml.saml2.metadata.Organization)
      */
     public void setOrganization(Organization organization) throws IllegalAddException {
-        if(organization == null) {
-            if(this.organization == null) {
-                return;
-            }
-            // Removing current organization
-            this.organization.setParent(null);
-            this.organization = null;
-            releaseThisandParentDOM();
-        }else {
-            if(this.organization.equals(organization)) {
-                return;
-            }
-            
-            if (organization.hasParent()) {
-                throw new IllegalAddException("Can not add an organization owned by another entity.");
-            }
-            
-            //Replace existing organization
-            this.organization.setParent(null);
-            organization.setParent(this);
-            this.organization = organization;
-            releaseThisandParentDOM();
-        }        
+        organization = prepareForAssignment(this.organization, organization);
     }
 
     /*
@@ -253,35 +201,21 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      * @see org.opensaml.saml2.metadata.EntityDescriptor#addContactPerson(org.opensaml.saml2.metadata.ContactPerson)
      */
     public void addContactPerson(ContactPerson person) throws IllegalAddException {
-        if (person != null && !contactPersons.contains(person)) {
-            if (person.hasParent()) {
-                throw new IllegalAddException("Can not add a contact person owned by another entity to this entity.");
-            }
-
-            releaseThisandParentDOM();
-            person.setParent(this);
-            contactPersons.add(person);
-        }
+        addSAMLObject(contactPersons, person);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPerson(org.opensaml.saml2.metadata.ContactPerson)
      */
     public void removeContactPerson(ContactPerson person) {
-        if (person != null && contactPersons.contains(person)) {
-            releaseThisandParentDOM();
-            person.setParent(null);
-            contactPersons.remove(person);
-        }
+        removeSAMLObject(contactPersons, person);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPersons(java.util.Set)
      */
     public void removeContactPersons(Collection<ContactPerson> persons) {
-        for (ContactPerson person : persons) {
-            removeContactPerson(person);
-        }
+        removeSAMLObjects(contactPersons, persons);
     }
 
     /*
@@ -304,38 +238,21 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      * @see org.opensaml.saml2.metadata.EntityDescriptor#addAdditionalMetadataLocation(org.opensaml.saml2.metadata.AdditionalMetadataLocation)
      */
     public void addAdditionalMetadataLocation(AdditionalMetadataLocation location) throws IllegalAddException {
-        if (location != null && !additionalMetadata.contains(location)) {
-            if (location.hasParent()) {
-                throw new IllegalAddException(
-                        "Can not add an additional metadata location owned by another entity to this entity.");
-            }
-
-            releaseThisandParentDOM();
-            location.setParent(this);
-            additionalMetadata.add(location);
-        }
-
+        addSAMLObject(additionalMetadata, location);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAdditionalMetadataLocation(org.opensaml.saml2.metadata.AdditionalMetadataLocation)
      */
     public void removeAdditionalMetadataLocation(AdditionalMetadataLocation location) {
-        if (location != null && additionalMetadata.contains(location)) {
-            releaseThisandParentDOM();
-            location.setParent(null);
-            additionalMetadata.remove(location);
-        }
-
+        removeSAMLObject(additionalMetadata, location);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAdditionalMetadataLocations(java.util.Set)
      */
     public void removeAdditionalMetadataLocations(Collection<AdditionalMetadataLocation> locations) {
-        for (AdditionalMetadataLocation location : locations) {
-            removeAdditionalMetadataLocation(location);
-        }
+        removeSAMLObjects(additionalMetadata, locations);
     }
 
     /*

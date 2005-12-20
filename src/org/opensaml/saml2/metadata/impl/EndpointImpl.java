@@ -18,7 +18,6 @@ package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.StringHelper;
 import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.metadata.Endpoint;
 
@@ -60,12 +59,7 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
      * @see org.opensaml.saml2.metadata.Endpoint#setBinding(java.net.URI)
      */
     public void setBinding(String binding) {
-        if(StringHelper.safeEquals(bindingId, binding)) {
-            return;
-        }
-        
-        bindingId = binding;
-        releaseThisandParentDOM();
+        bindingId = prepareForAssignment(bindingId, binding);
     }
 
     /*
@@ -79,12 +73,7 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
      * @see org.opensaml.saml2.metadata.Endpoint#setLocation(java.net.URI)
      */
     public void setLocation(String location) {
-        if(StringHelper.safeEquals(this.location, location)) {
-            return;
-        }
-        
-        this.location = location;
-        releaseThisandParentDOM();
+        this.location = prepareForAssignment(this.location, location);
     }
 
     /*
@@ -98,7 +87,7 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
      * @see org.opensaml.saml2.metadata.Endpoint#setResponseLocation(java.net.URI)
      */
     public void setResponseLocation(String location) {
-        responseLocation = assignString(responseLocation, location);
+        responseLocation = prepareForAssignment(responseLocation, location);
     }
 
     /*

@@ -18,6 +18,7 @@ package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.util.UnmodifiableOrderedSet;
 
 /**
@@ -37,8 +38,10 @@ public interface KeyDescriptorDescriptorComp {
      * Adds a {@link KeyDescriptor} to the list of descriptors for this affiliation.
      * 
      * @param keyDescriptor the descriptor
+     * 
+     * @throws IllegalAddException thrown if the given descriptor is already the child of another SAMLObject
      */
-    public void addKeyDescriptor(KeyDescriptor keyDescriptor);
+    public void addKeyDescriptor(KeyDescriptor keyDescriptor) throws IllegalAddException;
 
     /**
      * Removes a {@link KeyDescriptor} from the list of descriptors for this affiliation.

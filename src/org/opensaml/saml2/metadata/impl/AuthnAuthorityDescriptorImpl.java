@@ -63,37 +63,21 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#addAuthnQueryService(org.opensaml.saml2.metadata.Endpoint)
      */
     public void addAuthnQueryService(Endpoint service) throws IllegalAddException {
-        if(service != null && !authnQueryEndpoints.contains(service)) {
-            if(service.hasParent()) {
-                throw new IllegalAddException("Can not add an endpoint owned by another element");
-            }
-
-            releaseThisandParentDOM();
-            service.setParent(this);
-            authnQueryEndpoints.add(service);                
-        }
+        addSAMLObject(authnQueryEndpoints, service);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#removeAuthnQueryService(org.opensaml.saml2.metadata.Endpoint)
      */
     public void removeAuthnQueryService(Endpoint service) {
-        if(service != null && authnQueryEndpoints.contains(service)) {
-            releaseThisandParentDOM();
-            authnQueryEndpoints.remove(service);
-            service.setParent(null);
-    }
+        removeSAMLObject(authnQueryEndpoints, service);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#removeAuthnQueryServices(java.util.Set)
      */
     public void removeAuthnQueryServices(Collection<Endpoint> services) {
-        if(services != null) {
-            for(Endpoint service : services) {
-                removeAuthnQueryService(service);
-            }
-        }
+        removeSAMLObjects(authnQueryEndpoints, services);
     }
 
     /*
@@ -116,37 +100,21 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#addAssertionIDRequestService(org.opensaml.saml2.metadata.Endpoint)
      */
     public void addAssertionIDRequestService(Endpoint service) throws IllegalAddException {
-        if(service != null && !assertionIDRequestEndpoints.contains(service)) {
-            if(service.hasParent()) {
-                throw new IllegalAddException("Can not add an endpoint owned by another element");
-            }
-        
-            releaseThisandParentDOM();
-            service.setParent(this);
-            assertionIDRequestEndpoints.add(service);
-        }
+        addSAMLObject(assertionIDRequestEndpoints, service);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#removeAssertionIDRequestService(org.opensaml.saml2.metadata.Endpoint)
      */
     public void removeAssertionIDRequestService(Endpoint service) {
-        if(service != null && assertionIDRequestEndpoints.contains(service)) {
-            releaseThisandParentDOM();
-            assertionIDRequestEndpoints.remove(service);
-            service.setParent(null);
-        }
+        removeSAMLObject(assertionIDRequestEndpoints, service);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#removeAssertionIDRequestServices(java.util.Set)
      */
     public void removeAssertionIDRequestServices(Collection<Endpoint> services) {
-        if(services != null) {
-            for(Endpoint service : services) {
-                removeAssertionIDRequestService(service);
-            }
-        }
+        removeSAMLObjects(assertionIDRequestEndpoints, services);
     }
 
     /*
@@ -175,34 +143,22 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#addNameIDFormat(java.lang.String)
      */
-    public void addNameIDFormat(NameIDFormat format) {
-        if(!nameIDFormats.contains(format)) {
-            releaseThisandParentDOM();
-            format.setParent(this);
-            nameIDFormats.add(format);
-        }
+    public void addNameIDFormat(NameIDFormat format) throws IllegalAddException{
+        addSAMLObject(nameIDFormats, format);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#removeNameIDFormat(java.lang.String)
      */
     public void removeNameIDFormat(NameIDFormat format) {
-        if(format != null && nameIDFormats.contains(format)) {
-            releaseThisandParentDOM();
-            nameIDFormats.remove(format);
-            format.setParent(null);
-        }
+        removeSAMLObject(nameIDFormats, format);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#removeNameIDFormats(java.util.Set)
      */
     public void removeNameIDFormats(Collection<NameIDFormat> formats) {
-        if(formats != null) {
-            for(NameIDFormat format : formats) {
-                removeNameIDFormat(format);
-            }
-        }
+        removeSAMLObjects(nameIDFormats, formats);
     }
 
     /*

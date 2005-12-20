@@ -54,12 +54,7 @@ public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implement
      * @see org.opensaml.saml2.metadata.AdditionalMetadataLocation#setLocationURI(java.lang.String)
      */
     public void setLocationURI(String locationURI) {
-        if (StringHelper.safeEquals(locationURI, location)) {
-            return;
-        }
-
-        location = locationURI;
-        releaseThisandParentDOM();
+        location = prepareForAssignment(location, locationURI);
     }
 
     /*
@@ -73,12 +68,7 @@ public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implement
      * @see org.opensaml.saml2.metadata.AdditionalMetadataLocation#setNamespaceURI(java.lang.String)
      */
     public void setNamespaceURI(String namespaceURI) {
-        if (StringHelper.safeEquals(namespaceURI, namespace)) {
-            return;
-        }
-
-        namespace = namespaceURI;
-        releaseThisandParentDOM();
+        namespace = prepareForAssignment(namespace, namespaceURI);
     }
 
     /*

@@ -86,7 +86,7 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#setName(java.lang.String)
      */
     public void setName(String newName) {
-        this.name = assignString(this.name, newName);
+        this.name = prepareForAssignment(this.name, newName);
     }
 
     /*
@@ -100,14 +100,8 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#addEntitiesDescriptor(org.opensaml.saml2.metadata.EntitiesDescriptor)
      */
     public void addEntitiesDescriptor(EntitiesDescriptor descriptor) throws IllegalAddException{
-        if(!entitiesDescriptors.contains(descriptor)){
-            if(descriptor.hasParent()) {
-                throw new IllegalAddException("The given EntitiesDescriptor element is already a descendant of another SAMLElement");
-            }
-            releaseThisandParentDOM();
-            descriptor.setParent(this);
+        if(addSAMLObject(entitiesDescriptors, descriptor)) {
             orderedDescriptors.add(descriptor);
-            entitiesDescriptors.add(descriptor);
         }
     }
 
@@ -115,11 +109,8 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeEntitiesDescriptor(org.opensaml.saml2.metadata.EntitiesDescriptor)
      */
     public void removeEntitiesDescriptor(EntitiesDescriptor descriptor) {
-        if(entitiesDescriptors.contains(descriptor)){
-            releaseThisandParentDOM();
-            descriptor.setParent(null);
+        if(removeSAMLObject(entitiesDescriptors, descriptor)){
             orderedDescriptors.remove(descriptor);
-            entitiesDescriptors.remove(descriptor);
         }
     }
 
@@ -152,14 +143,8 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#addEntityDescriptor(org.opensaml.saml2.metadata.EntityDescriptor)
      */
     public void addEntityDescriptor(EntityDescriptor descriptor) throws IllegalAddException{
-        if(!entityDescriptors.contains(descriptor)){
-            if(descriptor.hasParent()) {
-                throw new IllegalAddException("The given EntityDescriptor element is already a descendant of another SAMLElement");
-            }
-            releaseThisandParentDOM();
-            descriptor.setParent(this);
+        if(addSAMLObject(entityDescriptors, descriptor)) {
             orderedDescriptors.add(descriptor);
-            entityDescriptors.add(descriptor);
         }
     }
 
@@ -167,11 +152,8 @@ public class EntitiesDescriptorImpl extends SignableTimeBoundCacheableSAMLObject
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeEntityDescriptor(org.opensaml.saml2.metadata.EntityDescriptor)
      */
     public void removeEntityDescriptor(EntityDescriptor descriptor){
-        if(entityDescriptors.contains(descriptor)){
-            releaseThisandParentDOM();
-            descriptor.setParent(null);
+        if(removeSAMLObject(entityDescriptors, descriptor)) {
             orderedDescriptors.remove(descriptor);
-            entityDescriptors.remove(descriptor);
         }
     }
 

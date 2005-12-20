@@ -50,6 +50,9 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /** Contact persons for this role */
     private OrderedSet<ContactPerson> contactPersons = new OrderedSet<ContactPerson>();
     
+    /** Key descriptors for this role */
+    private OrderedSet<KeyDescriptor> keyDescriptors = new OrderedSet<KeyDescriptor>();
+    
     /**
      * Helper for dealing ExtensionsExtensibleElement interface methods
      */
@@ -128,7 +131,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
      */
     public void setErrorURL(String errorURL) {
         
-        this.errorURL = assignString(this.errorURL, errorURL);
+        this.errorURL = prepareForAssignment(this.errorURL, errorURL);
     }
 
     /*
@@ -142,23 +145,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
      * @see org.opensaml.saml2.metadata.RoleDescriptor#setOrganization(org.opensaml.saml2.metadata.Organization)
      */
     public void setOrganization(Organization organization) throws IllegalAddException{
-        if (organization.hasParent()) {
-            throw new IllegalAddException("Can not add an organization owned by another role.");
-        }
-        
-        if(this.organization == null) {
-            if(organization == null) {
-                return;
-            }
-        }else {
-            if(this.organization.equals(organization)) {
-                return;
-            }
-        }
-        
-        releaseThisandParentDOM();
-        organization.setParent(this);
-        this.organization = organization;
+        this.organization = prepareForAssignment(this.organization, organization);
     }
 
     /*
@@ -172,35 +159,21 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
      * @see org.opensaml.saml2.metadata.EntityDescriptor#addContactPerson(org.opensaml.saml2.metadata.ContactPerson)
      */
     public void addContactPerson(ContactPerson person) throws IllegalAddException {
-        if(contactPersons != null && !contactPersons.contains(person)) {
-            if (person.hasParent()) {
-                throw new IllegalAddException("Can not add a contact person owned by another entity to this entity.");
-            }
-
-            releaseThisandParentDOM();
-            person.setParent(this);
-            contactPersons.add(person);
-        }
+        addSAMLObject(contactPersons, person);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPerson(org.opensaml.saml2.metadata.ContactPerson)
      */
     public void removeContactPerson(ContactPerson person) {
-        if (person != null && contactPersons.contains(person)) {
-            releaseThisandParentDOM();
-            contactPersons.remove(person);
-            person.setParent(null);
-        }
+        removeSAMLObject(contactPersons, person);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPersons(java.util.Set)
      */
     public void removeContactPersons(Collection<ContactPerson> persons) {
-        for (ContactPerson person : persons) {
-            removeContactPerson(person);
-        }
+        removeSAMLObjects(contactPersons, persons);
     }
 
     /*
@@ -253,48 +226,37 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#getKeyDescriptors()
      */
     public UnmodifiableOrderedSet<KeyDescriptor> getKeyDescriptors() {
-        // TODO Auto-generated method stub
-        return null;
+        return new UnmodifiableOrderedSet<KeyDescriptor>(keyDescriptors);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#addKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
      */
-    public void addKeyDescriptor(KeyDescriptor keyDescriptor) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#addKeyDescriptors(java.util.Set)
-     */
-    public void addKeyDescriptors(Collection keyDescriptors) {
-        // TODO Auto-generated method stub
-
+    public void addKeyDescriptor(KeyDescriptor keyDescriptor) throws IllegalAddException {
+        addSAMLObject(keyDescriptors, keyDescriptor);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
      */
     public void removeKeyDescriptor(KeyDescriptor keyDescriptor) {
-        // TODO Auto-generated method stub
-
+        removeSAMLObject(keyDescriptors, keyDescriptor);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptors(java.util.Set)
      */
-    public void removeKeyDescriptors(Collection keyDescriptors) {
-        // TODO Auto-generated method stub
-
+    public void removeKeyDescriptors(Collection<KeyDescriptor> keyDescriptors) {
+        removeSAMLObjects(this.keyDescriptors, keyDescriptors);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeAllKeyDescriptors()
      */
     public void removeAllKeyDescriptors() {
-        // TODO Auto-generated method stub
-
+        for(KeyDescriptor keyDescriptor : keyDescriptors) {
+            removeKeyDescriptor(keyDescriptor);
+        }
     }
     
     /*
