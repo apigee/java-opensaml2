@@ -25,15 +25,19 @@ package org.opensaml.common;
  */
 public interface SignableObject extends SAMLObject {
    
-    /** ID attribute name */
-    public static final String ID_ATTRIB_NAME = "ID";
+    /**
+     * Gets the name of the ID attribute of the signed element.
+     * 
+     * @return the name of the ID attribute of the signed element
+     */
+    public String getIdAttributeName();
     
     /**
      * Gets the ID of the signed element.
      * 
      * @return the ID of the signed element
      */
-    public String getId();
+    public String getIdAttributeValue();
         
     /**
      * Checks to see if the element has been signed.

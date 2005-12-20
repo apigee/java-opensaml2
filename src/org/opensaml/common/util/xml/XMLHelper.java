@@ -27,33 +27,34 @@ import org.opensaml.common.util.StringHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 /**
  * A helper class for working with W3C DOM objects.
  */
 public class XMLHelper {
-    
+
     /** JAXP DatatypeFactory */
     private static DatatypeFactory dataTypeFactory;
-    
+
     /**
      * Gets a static instance of a JAXP DatatypeFactory.
      * 
      * @return the factory or null if the factory could not be created
      */
     public static DatatypeFactory getDataTypeFactory() {
-        if(dataTypeFactory == null) {
+        if (dataTypeFactory == null) {
             try {
                 dataTypeFactory = DatatypeFactory.newInstance();
             } catch (DatatypeConfigurationException e) {
-                //do nothing
+                // do nothing
             }
         }
-        
+
         return dataTypeFactory;
     }
-    
+
     /**
      * Checks if the given element has an xsi:type defined for it
      * 
@@ -62,16 +63,15 @@ public class XMLHelper {
      * @return true if there is a type, false if not
      */
     public static boolean hasXSIType(Element e) {
-        if(e != null) {
-            if(e.getAttributeNodeNS(XMLConstants.XSI_NS, "type") != null) {
+        if (e != null) {
+            if (e.getAttributeNodeNS(XMLConstants.XSI_NS, "type") != null) {
                 return true;
             }
         }
-        
+
         return false;
-        
     }
-    
+
     /**
      * Gets the XSI type for a given element if it has one.
      * 
@@ -80,25 +80,49 @@ public class XMLHelper {
      * @return the type or null
      */
     public static QName getXSIType(Element e) {
-        if(hasXSIType(e)){
+        if (hasXSIType(e)) {
             Attr attribute = e.getAttributeNodeNS(XMLConstants.XSI_NS, "type");
             String attributeValue = attribute.getTextContent().trim();
             StringTokenizer tokenizer = new StringTokenizer(attributeValue, ":");
             String prefix = null;
             String localPart;
-            if(tokenizer.countTokens() > 1) {
+            if (tokenizer.countTokens() > 1) {
                 prefix = tokenizer.nextToken();
                 localPart = tokenizer.nextToken();
-            }else{
-               localPart = tokenizer.nextToken(); 
+            } else {
+                localPart = tokenizer.nextToken();
             }
-            
+
             return new QName(e.lookupNamespaceURI(prefix), localPart, prefix);
+        }
+
+        return null;
+    }
+    
+    /**
+     * Gets the ID attribute of a DOM element.
+     * 
+     * @param domElement the DOM element
+     * 
+     * @return the ID attribute or null if there isn't one
+     */
+    public static Attr getIdAttribute(Element domElement) {
+        if(!domElement.hasAttributes()) {
+            return null;
+        }
+        
+        NamedNodeMap attributes = domElement.getAttributes();
+        Attr attribute;
+        for(int i = 0; i < attributes.getLength(); i++) {
+            attribute = (Attr) attributes.item(i);
+            if(attribute.isId()) {
+                return attribute;
+            }
         }
         
         return null;
     }
-    
+
     /**
      * Gets the QName for the given DOM node.
      * 
@@ -107,13 +131,13 @@ public class XMLHelper {
      * @return the QName for the element or null if the element was null
      */
     public static QName getNodeQName(Node domNode) {
-        if(domNode != null) {
+        if (domNode != null) {
             return constructQName(domNode.getNamespaceURI(), domNode.getLocalName(), domNode.getPrefix());
         }
-        
+
         return null;
     }
-        
+
     /**
      * Constructs a QName from an attributes value.
      * 
@@ -121,20 +145,21 @@ public class XMLHelper {
      * 
      * @return a QName from an attributes value, or null if the given attribute is null
      */
-    public static QName getAttributeValueAsQName(Attr attribute){
-        if(attribute == null){
+    public static QName getAttributeValueAsQName(Attr attribute) {
+        if (attribute == null) {
             return null;
         }
-        
+
         String attributeValue = attribute.getTextContent();
         String[] valueComponents = attributeValue.split(":");
-        if(valueComponents.length == 1){
+        if (valueComponents.length == 1) {
             return constructQName(attribute.lookupNamespaceURI(null), valueComponents[0], null);
-        }else{
-            return constructQName(attribute.lookupNamespaceURI(valueComponents[0]), valueComponents[1], valueComponents[0]);
+        } else {
+            return constructQName(attribute.lookupNamespaceURI(valueComponents[0]), valueComponents[1],
+                    valueComponents[0]);
         }
     }
-    
+
     /**
      * Constructs a QName
      * 
@@ -145,13 +170,13 @@ public class XMLHelper {
      * @return the QName
      */
     public static QName constructQName(String namespaceURI, String localName, String prefix) {
-        if(StringHelper.isEmpty(prefix)) {
+        if (StringHelper.isEmpty(prefix)) {
             return new QName(namespaceURI, localName);
         }
-        
+
         return new QName(namespaceURI, localName, prefix);
     }
-    
+
     /**
      * Appends the child Element to the parent Element, adopting the child Element into the parent's Document if needed.
      * 
@@ -160,21 +185,21 @@ public class XMLHelper {
      */
     public static void appendChildElement(Element parentElement, Element childElement) {
         Document parentDocument = parentElement.getOwnerDocument();
-        if(!(childElement.getOwnerDocument().equals(parentDocument))) {
+        if (!(childElement.getOwnerDocument().equals(parentDocument))) {
             parentDocument.adoptNode(childElement);
         }
-        
+
         parentElement.appendChild(childElement);
     }
-    
+
     /**
      * Verifies that the XML parser used by the JVM supports DOM level 3 and JAXP 1.3.
      */
     public static void verifyUsableXmlParser() {
         try {
             Class.forName("javax.xml.validation.SchemaFactory");
-            Element.class.getDeclaredMethod("setIdAttributeNS", new Class[]{String.class, String.class,
-                    java.lang.Boolean.TYPE});
+            Element.class.getDeclaredMethod("setIdAttributeNS", new Class[] { String.class, String.class,
+                    java.lang.Boolean.TYPE });
         } catch (NoSuchMethodException e) {
             throw new FactoryConfigurationError("OpenSAML requires an xml parser that supports DOM3 calls. "
                     + "Sun JAXP 1.3 has been included with this release and is strongly recommended. "

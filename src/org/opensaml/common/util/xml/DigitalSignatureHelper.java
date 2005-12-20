@@ -28,17 +28,59 @@ import org.apache.xml.security.keys.content.X509Data;
 import org.apache.xml.security.signature.XMLSignature;
 import org.apache.xml.security.transforms.Transforms;
 import org.apache.xml.security.transforms.params.InclusiveNamespaces;
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableObject;
 import org.opensaml.common.SigningContext;
+import org.opensaml.common.impl.DOMCachingSAMLObject;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class DigitalSignatureHelper {
-    
+
     /** Signature element name */
     public static final String SIGNATURE_ELEMENT_NAME = "Signature";
+
+    /**
+     * Checks to see if a given SAMLObject is signed. A SAMLObject can only be signed if it's an instance of
+     * {@link SignableObject} and {@link DOMCachingSAMLObject}, it has a cached DOM, that is
+     * {@link DOMCachingSAMLObject#getDOM()} does not return null, and that DOM contains a signature element. Note that
+     * the validity of the signature is not checked.
+     * 
+     * @param samlObject the SAML object to check
+     * 
+     * @return true if the object is signed, false if not
+     */
+    public static boolean isSigned(SAMLObject samlObject) {
+        if (samlObject instanceof SignableObject && samlObject instanceof DOMCachingSAMLObject) {
+            DOMCachingSAMLObject domCachingSAMLObject = (DOMCachingSAMLObject) samlObject;
+            return isSigned(domCachingSAMLObject.getDOM());
+        }
+
+        return false;
+    }
     
+    /**
+     * Checks to see if the given DOM element is signed.  Note that
+     * the validity of the signature is not checked.
+     * 
+     * @param domElement the DOM element to check
+     * 
+     * @return true if the element is signed, false if not
+     */
+    public static boolean isSigned(Element domElement) {
+        if(domElement == null) {
+            return false;
+        }
+        
+        if (getSignatureElement(domElement) != null) {
+            return true;
+        }
+        
+        return false;
+    }
+
     /**
      * Gets the Signature element for this DOM Element, or null if the it does not contain a Signature element.
      * 
@@ -47,6 +89,10 @@ public class DigitalSignatureHelper {
      * @return the Signature element
      */
     public static Element getSignatureElement(Element domElement) {
+        if (domElement == null) {
+            return null;
+        }
+
         NodeList children = domElement.getChildNodes();
         Element childElement;
         for (int i = 0; i < children.getLength(); i++) {
@@ -62,7 +108,7 @@ public class DigitalSignatureHelper {
         }
         return null;
     }
-    
+
     /**
      * Signs a DOM element.
      * 
@@ -72,23 +118,25 @@ public class DigitalSignatureHelper {
      * 
      * @throws SignatureException thrown if there is a problem creating the signature
      */
-    public static void signElement(Element domElement, SigningContext signatureContext, Set<String> inclusiveNamespacePrefixes) throws SignatureException{
+    public static void signElement(Element domElement, SigningContext signatureContext,
+            Set<String> inclusiveNamespacePrefixes) throws SignatureException {
         try {
-            String idAttribute = signatureContext.getId();
-            
-            domElement.setAttributeNS(null, SignableObject.ID_ATTRIB_NAME, idAttribute);
-            domElement.setIdAttributeNS(null, SignableObject.ID_ATTRIB_NAME, true);
+            String idAttributeName = signatureContext.getIdAttributeName();
+            String idAttributeValue = signatureContext.getIdAttributeValue();
+
+            domElement.setAttributeNS(null, idAttributeName, idAttributeValue);
+            domElement.setIdAttributeNS(null, idAttributeName, true);
 
             XMLSignature dsig = new XMLSignature(domElement.getOwnerDocument(), "", signatureContext
                     .getSignatureAlgorithim(), Canonicalizer.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
-            
-            if(signatureContext.getPublicKeyCertificate() != null) {
+
+            if (signatureContext.getPublicKeyCertificate() != null) {
                 dsig.addKeyInfo(signatureContext.getPublicKeyCertificate());
             }
-            if(signatureContext.getPublicKey() != null) {
+            if (signatureContext.getPublicKey() != null) {
                 dsig.addKeyInfo(signatureContext.getPublicKey());
             }
-            
+
             domElement.appendChild(dsig.getElement());
 
             // Create the transformations the element will go through to prepare for signing
@@ -100,13 +148,13 @@ public class DigitalSignatureHelper {
             // be stripped out by exclusive canonicalization. Need to make sure they aren't by explicitly
             // telling the transformer about them.
             if (inclusiveNamespacePrefixes != null && inclusiveNamespacePrefixes.size() > 0) {
-                InclusiveNamespaces inclusiveNamespaces = new InclusiveNamespaces(
-                        domElement.getOwnerDocument(), inclusiveNamespacePrefixes);
+                InclusiveNamespaces inclusiveNamespaces = new InclusiveNamespaces(domElement.getOwnerDocument(),
+                        inclusiveNamespacePrefixes);
                 Element transformElem = dsigTransforms.item(1).getElement();
                 transformElem.appendChild(inclusiveNamespaces.getElement());
             }
 
-           dsig.addDocument("#" + idAttribute, dsigTransforms, signatureContext.getDigestAlgorithim());
+            dsig.addDocument("#" + idAttributeValue, dsigTransforms, signatureContext.getDigestAlgorithim());
 
             X509Data x509Data = new X509Data(domElement.getOwnerDocument());
             if (signatureContext.getCerts() != null) {
@@ -121,82 +169,127 @@ public class DigitalSignatureHelper {
             throw new SignatureException("Unable to sign Element " + domElement.getLocalName(), e);
         }
     }
-    
+
     /**
-     * Validates the digital signature of the given Element.  The element must contain either the public key 
-     * that will be used to validate the signature or a certificate that contains the public key.
+     * Removes the digital signature, including the associated {@link SigningContext}, from the given SAMLObject.  If
+     * the SAMLObject is not signed nothing happens.
      * 
-     * @param domElement the Element 
-     * 
-     * @throws SignatureException thrown if the Element is not signed, the signature can not be validated, or the signature is not valid
+     * @param samlObject the SAMLObject to remove the signature from
      */
-    public static void verifySignature(Element domElement) throws SignatureException{
-        try {
-            Element signatureElement = getSignatureElement(domElement);
-            if(signatureElement == null) {
-                throw new SignatureException("Element " + domElement.getLocalName() + " is not signed.");
-                
-            }
-            XMLSignature signature = new XMLSignature(signatureElement, "");
+    public static void removeSignature(SAMLObject samlObject) {
+        if (samlObject instanceof SignableObject && samlObject instanceof DOMCachingSAMLObject) {
+            DOMCachingSAMLObject domCachingSAMLObject = (DOMCachingSAMLObject) samlObject;
+            removeSignature(domCachingSAMLObject.getDOM());
             
-            KeyInfo keyInfo = signature.getKeyInfo();
-            if(keyInfo == null) {
-                throw new SignatureException("Unable to validate digital signature for Element " + domElement.getLocalName()+ ", no key info present within Signatue element");
-            }
-            
-            X509Certificate cert = keyInfo.getX509Certificate();
-            if(cert != null) {
-                if(!signature.checkSignatureValue(cert)){
-                    throw new SignatureException("Digital signature for Element " + domElement.getLocalName() + " was not valid.");
-                }
-                
-                return;
-            }
-            
-            PublicKey publicKey = keyInfo.getPublicKey();
-            if(publicKey != null){
-                if(!signature.checkSignatureValue(publicKey)){
-                    throw new SignatureException("Digital signature for Element " + domElement.getLocalName() + " was not valid.");
-                }
-                
-                return;
-            }
-            
-            throw new SecurityException("Element " + domElement.getLocalName() + " did not contain a public key or certificate that could be used to validate digital signature");
-        }catch (XMLSecurityException e) {
-            throw new SignatureException("Unable to validate digital signature for Element " + domElement.getLocalName(), e);
+            SignableObject signableSAMLObject = (SignableObject)samlObject;
+            signableSAMLObject.setSigningContext(null);
         }
     }
-    
+
     /**
-     * Constructs a signing context from the information located a signed DOM Element.  This information
-     * does NOT contain the private signing key or the digest method.
+     * Removes the digital signature from the given DOM element.  If the DOM element is not signed nothing happens.
+     * 
+     * @param domElement the DOM element to remove the signature from
+     */
+    public static void removeSignature(Element domElement) {
+        if(domElement == null) {
+            return;
+        }
+        
+        Element signatureElement = getSignatureElement(domElement);
+        if(signatureElement == null) {
+            return;
+        }
+        
+        domElement.removeChild(signatureElement);
+    }
+
+    /**
+     * Validates the digital signature of the given Element. The element must contain either the public key that will be
+     * used to validate the signature or a certificate that contains the public key.
+     * 
+     * @param domElement the Element
+     * 
+     * @throws SignatureException thrown if the Element is not signed, the signature can not be validated, or the
+     *             signature is not valid
+     */
+    public static void verifySignature(Element domElement) throws SignatureException {
+        try {
+            Element signatureElement = getSignatureElement(domElement);
+            if (signatureElement == null) {
+                throw new SignatureException("Element " + domElement.getLocalName() + " is not signed.");
+
+            }
+            XMLSignature signature = new XMLSignature(signatureElement, "");
+
+            KeyInfo keyInfo = signature.getKeyInfo();
+            if (keyInfo == null) {
+                throw new SignatureException("Unable to validate digital signature for Element "
+                        + domElement.getLocalName() + ", no key info present within Signatue element");
+            }
+
+            X509Certificate cert = keyInfo.getX509Certificate();
+            if (cert != null) {
+                if (!signature.checkSignatureValue(cert)) {
+                    throw new SignatureException("Digital signature for Element " + domElement.getLocalName()
+                            + " was not valid.");
+                }
+
+                return;
+            }
+
+            PublicKey publicKey = keyInfo.getPublicKey();
+            if (publicKey != null) {
+                if (!signature.checkSignatureValue(publicKey)) {
+                    throw new SignatureException("Digital signature for Element " + domElement.getLocalName()
+                            + " was not valid.");
+                }
+
+                return;
+            }
+
+            throw new SecurityException("Element " + domElement.getLocalName()
+                    + " did not contain a public key or certificate that could be used to validate digital signature");
+        } catch (XMLSecurityException e) {
+            throw new SignatureException("Unable to validate digital signature for Element "
+                    + domElement.getLocalName(), e);
+        }
+    }
+
+    /**
+     * Constructs a signing context from the information located a signed DOM Element. This information does NOT contain
+     * the private signing key or the digest method.
      * 
      * @param domElement the signed DOM element
      * 
-     * @return the SigningContext populated with information from the digital signature or null if the element is not signed
+     * @return the SigningContext populated with information from the digital signature or null if the element is not
+     *         signed
      */
     public static SigningContext buildFromSignature(Element domElement) {
         try {
             Element signatureElement = getSignatureElement(domElement);
-            if(signatureElement == null) {
+            if (signatureElement == null) {
                 return null;
             }
-            String idAttribute = domElement.getAttributeNS(null, SignableObject.ID_ATTRIB_NAME);
-            SigningContext signatureContext = new SigningContext(idAttribute);
-            
+            Attr idAttribute = XMLHelper.getIdAttribute(domElement);
+            if (idAttribute == null) {
+                return null;
+            }
+
+            SigningContext signatureContext = new SigningContext(idAttribute.getLocalName(), idAttribute.getValue());
+
             XMLSignature signature = new XMLSignature(signatureElement, "");
-            
+
             signatureContext.setSignatureAlgorithim(signature.getSignedInfo().getSignatureMethodURI());
-            
+
             KeyInfo keyInfo = signature.getKeyInfo();
-            if(keyInfo != null) {
+            if (keyInfo != null) {
                 signatureContext.setPublicKeyCertificate(keyInfo.getX509Certificate());
                 signatureContext.setPublicKey(keyInfo.getPublicKey());
             }
-            
+
             return signatureContext;
-        }catch (XMLSecurityException e) {
+        } catch (XMLSecurityException e) {
             return null;
         }
     }

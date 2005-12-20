@@ -18,18 +18,18 @@ package org.opensaml.saml2.common.impl;
 
 import org.opensaml.common.SignableObject;
 import org.opensaml.common.SigningContext;
-import org.opensaml.common.impl.SignableSAMLObjectHelper;
+import org.opensaml.common.util.xml.DigitalSignatureHelper;
 
 /**
  * Abstract SAML object handling Signing, validUntil, and cacheDuration functions
  */
 public abstract class SignableTimeBoundCacheableSAMLObject extends TimeBoundCacheableSAMLObject
         implements SignableObject {
-
+    
     /**
      * Helper for dealing with SignableElement infterface methods
      */
-    private SignableSAMLObjectHelper signingHelper;
+    private SigningContext signingContext;
     
     /**
      * 
@@ -38,41 +38,55 @@ public abstract class SignableTimeBoundCacheableSAMLObject extends TimeBoundCach
      */
     public SignableTimeBoundCacheableSAMLObject(){
         super();
-        signingHelper = new SignableSAMLObjectHelper(this);
     }
 
     /*
-     * @see org.opensaml.common.SignableElement#getId()
+     * @see org.opensaml.common.SignableObject#getIdAttributeName()
      */
-    public String getId() {
-        return signingHelper.getId();
+    public String getIdAttributeName() {
+        if(signingContext == null) {
+            return null;
+        }
+        
+        return signingContext.getIdAttributeName();
+    }
+    
+    /*
+     * @see org.opensaml.common.SignableObject#getIdAttributeValue()
+     */
+    public String getIdAttributeValue() {
+        if(signingContext == null) {
+            return null;
+        }
+        
+        return signingContext.getIdAttributeValue();
     }
 
     /*
      * @see org.opensaml.common.SignableElement#isSigned()
      */
     public boolean isSigned() {
-        return signingHelper.isSigned();
+        return DigitalSignatureHelper.isSigned(this);
     }
 
     /*
      * @see org.opensaml.common.SignableElement#removeSignature()
      */
     public void removeSignature() {
-        signingHelper.removeSignature();
+        DigitalSignatureHelper.removeSignature(this);
     }
     
     /*
      * @see org.opensaml.common.SignableElement#getSigningContext()
      */
     public SigningContext getSigningContext(){
-        return signingHelper.getSigningContext();
+        return signingContext;
     }
     
     /*
      * @see org.opensaml.common.SignableElement#setSigningContext(SigningContext)
      */
     public void setSigningContext(SigningContext signingContext){
-        signingHelper.setSigningContext(signingContext);
+        this.signingContext = signingContext;
     }
 }
