@@ -46,11 +46,18 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EndpointUnmarshaller" />
         </ObjectProvider>
         
-        <!-- Endpoint provider -->
+        <!-- AffiliationDescriptor provider -->
         <ObjectProvider qualifiedName="md:AffiliationDescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorBuilder" />
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- AffiliateMember provider -->
+        <ObjectProvider qualifiedName="md:AffiliateMember">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.AffiliateMemberBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliateMemberMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliateMemberUnmarshaller" />
         </ObjectProvider>
 
 	   <!-- ************************************* -->
