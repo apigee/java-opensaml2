@@ -65,7 +65,7 @@ public class EntitiesDescriptorMarshaller extends AbstractMarshaller implements 
                 log.debug("Writting validUntil attribute to EntitiesDescriptor DOM element");
             }
             String validUntilStr = TimeBoundSAMLObjectHelper.calendarToString(entitiesDescriptor.getValidUntil());
-            domElement.setAttribute(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
+            domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         
         // Set the cacheDuration attribute
@@ -74,7 +74,7 @@ public class EntitiesDescriptorMarshaller extends AbstractMarshaller implements 
                 log.debug("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
             }
             String cacheDuration = CacheableSAMLObjectHelper.longToDuration(entitiesDescriptor.getCacheDuration());
-            domElement.setAttribute(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
+            domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
         
         // Set the Name attribute
@@ -82,7 +82,7 @@ public class EntitiesDescriptorMarshaller extends AbstractMarshaller implements 
             if(log.isDebugEnabled()){
                 log.debug("Writting Name attribute to EntitiesDescriptor DOM element");
             }
-            domElement.setAttribute(EntitiesDescriptor.NAME_ATTRIB_NAME, entitiesDescriptor.getName());
+            domElement.setAttributeNS(null, EntitiesDescriptor.NAME_ATTRIB_NAME, entitiesDescriptor.getName());
         }
     }
 }

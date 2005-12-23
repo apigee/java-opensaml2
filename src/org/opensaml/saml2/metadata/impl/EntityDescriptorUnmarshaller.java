@@ -26,6 +26,7 @@ import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
+import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
 import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
@@ -91,7 +92,7 @@ public class EntityDescriptorUnmarshaller extends AbstractUnmarshaller implement
         }else if(attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
             entityDescriptor.setValidUntil(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
         }else if(attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
-            entityDescriptor.setCacheDuration(new Long(Long.parseLong(attributeValue)));
+            entityDescriptor.setCacheDuration(CacheableSAMLObjectHelper.durationToLong(attributeValue));
         }else {
             if(!SAMLConfig.ignoreUnknownAttributes()){
                 throw new UnknownAttributeException(attributeName + " is not a supported attributed for EntityDescriptor objects");

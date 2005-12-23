@@ -41,7 +41,7 @@ public class AdditionalMetadataLocationMarshaller extends AbstractMarshaller imp
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;
         
-        domElement.setAttribute(AdditionalMetadataLocation.NAMESPACE_ATTRIB_NAME, aml.getNamespaceURI());
+        domElement.setAttributeNS(null, AdditionalMetadataLocation.NAMESPACE_ATTRIB_NAME, aml.getNamespaceURI());
     }
     
     /**

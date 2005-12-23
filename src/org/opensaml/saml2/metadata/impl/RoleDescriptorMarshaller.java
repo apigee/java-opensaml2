@@ -65,7 +65,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
                 log.debug("Writting validUntil attribute to RoleDescriptor DOM element");
             }
             String validUntilStr = TimeBoundSAMLObjectHelper.calendarToString(roleDescriptor.getValidUntil());
-            domElement.setAttribute(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
+            domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         
         // Set the cacheDuration attribute
@@ -74,7 +74,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
                 log.debug("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
             }
             String cacheDuration = CacheableSAMLObjectHelper.longToDuration(roleDescriptor.getCacheDuration());
-            domElement.setAttribute(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
+            domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
         
         // Set the protocolSupportEnumeration attribute
@@ -90,7 +90,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
                 builder.append(" ");
             }
             
-            domElement.setAttribute(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME, builder.toString().trim());
+            domElement.setAttributeNS(null, RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME, builder.toString().trim());
         }
         
         // Set errorURL attribute
@@ -98,7 +98,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
             if(log.isDebugEnabled()){
                 log.debug("Writting errorURL attribute to RoleDescriptor DOM element");
             }
-            domElement.setAttribute(RoleDescriptor.ERROR_URL_ATTRIB_NAME, roleDescriptor.getErrorURL());
+            domElement.setAttributeNS(null, RoleDescriptor.ERROR_URL_ATTRIB_NAME, roleDescriptor.getErrorURL());
         }
     }
 }

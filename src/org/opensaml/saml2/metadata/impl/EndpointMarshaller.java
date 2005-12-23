@@ -44,11 +44,11 @@ public class EndpointMarshaller extends AbstractMarshaller implements Marshaller
     public void marshallAttributes(SAMLObject samlElement, Element domElement){
         Endpoint endpoint = (Endpoint)samlElement;
         
-        domElement.setAttribute(Endpoint.BINDING_ATTRIB_NAME, endpoint.getBinding().toString());
-        domElement.setAttribute(Endpoint.LOCATION_ATTRIB_NAME, endpoint.getLocation().toString());
+        domElement.setAttributeNS(null, Endpoint.BINDING_ATTRIB_NAME, endpoint.getBinding().toString());
+        domElement.setAttributeNS(null, Endpoint.LOCATION_ATTRIB_NAME, endpoint.getLocation().toString());
         
         if(endpoint.getResponseLocation() != null){
-            domElement.setAttribute(Endpoint.RESPONSE_LOCATION_ATTRIB_NAME, endpoint.getResponseLocation().toString());
+            domElement.setAttributeNS(null, Endpoint.RESPONSE_LOCATION_ATTRIB_NAME, endpoint.getResponseLocation().toString());
         }
     }
 }
