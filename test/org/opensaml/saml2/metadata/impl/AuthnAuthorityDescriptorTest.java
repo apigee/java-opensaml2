@@ -47,8 +47,8 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
     public AuthnAuthorityDescriptorTest() {
-        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/singleAuthnAuthorityDescriptor.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/singleAuthnAuthorityDescriptorOptionalAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AuthnAuthorityDescriptor.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/AuthnAuthorityDescriptorOptionalAttributes.xml";
     }
 
     /*

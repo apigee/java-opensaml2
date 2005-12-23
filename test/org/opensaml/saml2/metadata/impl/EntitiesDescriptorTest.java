@@ -41,8 +41,8 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
     public EntitiesDescriptorTest() {
-        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/singleEntitiesDescriptor.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/singleEntitiesDescriptorOptionalAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/EntitiesDescriptor.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/EntitiesDescriptorOptionalAttributes.xml";
     }
 
     /*

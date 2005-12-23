@@ -46,6 +46,9 @@ public class EndpointMarshaller extends AbstractMarshaller implements Marshaller
         
         domElement.setAttribute(Endpoint.BINDING_ATTRIB_NAME, endpoint.getBinding().toString());
         domElement.setAttribute(Endpoint.LOCATION_ATTRIB_NAME, endpoint.getLocation().toString());
-        domElement.setAttribute(Endpoint.RESPONSE_LOCATION_ATTRIB_NAME, endpoint.getResponseLocation().toString());
+        
+        if(endpoint.getResponseLocation() != null){
+            domElement.setAttribute(Endpoint.RESPONSE_LOCATION_ATTRIB_NAME, endpoint.getResponseLocation().toString());
+        }
     }
 }

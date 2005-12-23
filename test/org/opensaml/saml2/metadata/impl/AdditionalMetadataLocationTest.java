@@ -35,7 +35,7 @@ public class AdditionalMetadataLocationTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
     public AdditionalMetadataLocationTest() {
-        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/singleAdditionalMetadataLocation.xml";
+        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AdditionalMetadataLocation.xml";
     }
 
     /*
