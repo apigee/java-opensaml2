@@ -50,6 +50,7 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
      */
     public AuthnAuthorityDescriptorImpl() {
         super();
+        setQName(AuthnAuthorityDescriptor.QNAME);
     }
     
     /*

@@ -27,6 +27,7 @@ import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
+import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
 import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.Extensions;
@@ -81,7 +82,7 @@ public class RoleDescriptorUnmarshaller extends AbstractUnmarshaller implements 
         if(attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
             roleDescriptor.setValidUntil(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
         }else if(attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
-            roleDescriptor.setCacheDuration(new Long(Long.parseLong(attributeValue)));
+            roleDescriptor.setCacheDuration(CacheableSAMLObjectHelper.durationToLong(attributeValue));
         }else if(attributeName.equals(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME)) {
             StringTokenizer protocolTokenizer = new StringTokenizer(attributeValue, " ");           
             while(protocolTokenizer.hasMoreTokens()) {

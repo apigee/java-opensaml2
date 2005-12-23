@@ -34,6 +34,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
+/**
+ * Test case for creating, marshalling, and unmarshalling
+ * {@link org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationImpl}.
+ */
 public class AdditionalMetadataLocationTest extends BaseTestCase {
     
     /** Location of file containing a single EntitiesDescriptor element with NO optional attributes*/
@@ -48,12 +52,15 @@ public class AdditionalMetadataLocationTest extends BaseTestCase {
     /** The expected result of a marshalled single EntitiesDescriptor element with no optional attributes */
     private Document expectedDOM;
     
+    /*
+     * @see junit.framework.TestCase#setUp()
+     */
     protected void setUp() throws Exception {
         super.setUp();
         
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         expectedDOM = ppMgr
-                .parse(new InputSource(EntitiesDescriptorTest.class.getResourceAsStream(singleElementFile)));
+                .parse(new InputSource(AdditionalMetadataLocationTest.class.getResourceAsStream(singleElementFile)));
     }
     
     /**
@@ -92,9 +99,8 @@ public class AdditionalMetadataLocationTest extends BaseTestCase {
     
     /**
      * Tests marshalling the contents of a single EntitiesDescriptor element to a DOM document.
-     * @throws Exception 
      */
-    public void testSingleElementMarshall() throws Exception {
+    public void testSingleElementMarshall(){
         SAMLObjectBuilder objectBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(AdditionalMetadataLocation.QNAME);
         AdditionalMetadataLocation location = (AdditionalMetadataLocation) objectBuilder.buildObject();
         location.setLocationURI(expectedContent);

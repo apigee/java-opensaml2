@@ -27,6 +27,7 @@ import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
+import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
 import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.w3c.dom.Element;
@@ -70,9 +71,9 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
         // Set the cacheDuration attribute
         if(roleDescriptor.getCacheDuration() != null){
             if(log.isDebugEnabled()){
-                log.debug("Writting cacheDuration attribute to RoleDescriptor DOM element");
+                log.debug("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
             }
-            String cacheDuration = roleDescriptor.getCacheDuration().toString();
+            String cacheDuration = CacheableSAMLObjectHelper.longToDuration(roleDescriptor.getCacheDuration());
             domElement.setAttribute(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
         
@@ -89,7 +90,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
                 builder.append(" ");
             }
             
-            domElement.setAttribute(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME, builder.toString());
+            domElement.setAttribute(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME, builder.toString().trim());
         }
         
         // Set errorURL attribute

@@ -63,6 +63,8 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
      */
     protected RoleDescriptorImpl() {
         super();
+        
+        extensionHelper = new ExtensionsSAMLObjectHelper(this);
     }
     
     /*

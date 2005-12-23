@@ -18,6 +18,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Set;
 
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLObjectBuilder;
@@ -30,37 +31,41 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallerFactory;
 import org.opensaml.common.io.UnmarshallingException;
+import org.opensaml.common.util.OrderedSet;
 import org.opensaml.common.util.xml.ParserPoolManager;
+import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.common.util.xml.XMLParserException;
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
- * {@link org.opensaml.saml2.metadata.impl.EntitiesDescriptorImpl}.
+ * {@link org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorImpl}.
  */
-public class EntitiesDescriptorTest extends BaseTestCase {
+public class AuthnAuthorityDescriptorTest extends BaseTestCase {
 
-    /** Location of file containing a single EntitiesDescriptor element with NO optional attributes*/
-    private static String singleElementFile = "/data/org/opensaml/saml2/metadata/impl/singleEntitiesDescriptor.xml";
-    
+    /** Location of file containing a single EntitiesDescriptor element with NO optional attributes */
+    private static String singleElementFile = "/data/org/opensaml/saml2/metadata/impl/singleAuthnAuthorityDescriptor.xml";
+
     /** Location of file containing a single EntitiesDescriptor element with all optional attributes */
-    private static String singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/singleEntitiesDescriptorOptionalAttributes.xml";
+    private static String singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/singleAuthnAuthorityDescriptorOptionalAttributes.xml";
 
-    /** Expected Name attribute value */
-    private String expectedName;
-
+    /** Expected supported protocol enumeration */
+    private Set<String> expectedSupportedProtocols;
+    
     /** Expected cacheDuration value in miliseconds */
     private long expectedCacheDuration;
 
     /** Expected validUntil value */
     private GregorianCalendar expectedValidUntil;
 
+    private String expectedErrorURL;
+
     /** The expected result of a marshalled single EntitiesDescriptor element with no optional attributes */
     private Document expectedDOM;
-    
+
     /** The expected result of a marshalled single EntitiesDescriptor element with all optional attributes */
     private Document expectedOptionalAttributesDOM;
 
@@ -69,42 +74,50 @@ public class EntitiesDescriptorTest extends BaseTestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        expectedName = "eDescName";
+
+        expectedSupportedProtocols = new OrderedSet<String>();
+        expectedSupportedProtocols.add(XMLConstants.SAML20P_NS);
         expectedCacheDuration = 90000;
         expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
+        expectedErrorURL = "http://example.org";
+
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-        expectedDOM = ppMgr
-                .parse(new InputSource(EntitiesDescriptorTest.class.getResourceAsStream(singleElementFile)));
-        expectedOptionalAttributesDOM = ppMgr
-        .parse(new InputSource(EntitiesDescriptorTest.class.getResourceAsStream(singleElementOptionalAttributesFile)));
+        expectedDOM = ppMgr.parse(new InputSource(AuthnAuthorityDescriptorTest.class
+                .getResourceAsStream(singleElementFile)));
+        expectedOptionalAttributesDOM = ppMgr.parse(new InputSource(AuthnAuthorityDescriptorTest.class
+                .getResourceAsStream(singleElementOptionalAttributesFile)));
     }
-    
+
     /**
-     * Tests unmarshalling a document that contains a single EntitiesDescriptor element (no children) with no optional attributes.
+     * Tests unmarshalling a document that contains a single AuthnAuthorityDescriptor element (no children) with no
+     * optional attributes.
      */
     public void testSingleElementUnmarshall() {
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         try {
             Document doc = ppMgr.parse(new InputSource(EntitiesDescriptorTest.class
                     .getResourceAsStream(singleElementFile)));
-            Element entitiesDescriptorElem = doc.getDocumentElement();
+            Element authnAuthorityElem = doc.getDocumentElement();
 
-            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(entitiesDescriptorElem);
+            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(authnAuthorityElem);
             if (unmarshaller == null) {
                 fail("Unable to retrieve unmarshaller by DOM Element");
             }
 
-            EntitiesDescriptor entitiesDescriptorObj = (EntitiesDescriptor) unmarshaller
-                    .unmarshall(entitiesDescriptorElem);
+            AuthnAuthorityDescriptor authnAuthorityObj = (AuthnAuthorityDescriptor) unmarshaller
+                    .unmarshall(authnAuthorityElem);
 
-            String name = entitiesDescriptorObj.getName();
-            assertNull("Name attribute has a value of " + name + ", expected no value", name);
+            Set<String> protoEnum = authnAuthorityObj.getSupportedProtocols();
+            assertEquals("Supported protocol enumeration was not equal to expected enumeration", expectedSupportedProtocols, protoEnum);
 
-            Long duration = entitiesDescriptorObj.getCacheDuration();
+            Long duration = authnAuthorityObj.getCacheDuration();
             assertNull("cacheDuration attribute has a value of " + duration + ", expected no value", duration);
 
-            GregorianCalendar validUntil = entitiesDescriptorObj.getValidUntil();
+            GregorianCalendar validUntil = authnAuthorityObj.getValidUntil();
             assertNull("validUntil attribute has a value of " + validUntil + ", expected no value", validUntil);
+            
+            String errorURL = authnAuthorityObj.getErrorURL();
+            assertNull("errorURL attribute has a value of " + errorURL + ", expected no value", errorURL);
 
         } catch (XMLParserException e) {
             fail("Unable to parse file containing single EntitiesDescriptor element");
@@ -118,34 +131,38 @@ public class EntitiesDescriptorTest extends BaseTestCase {
     }
 
     /**
-     * Tests unmarshalling a document that contains a single EntitiesDescriptor element (no children) with all optional attributes.
+     * Tests unmarshalling a document that contains a single AuthnAuthorityDescriptor element (no children) with all
+     * optional attributes.
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         try {
             Document doc = ppMgr.parse(new InputSource(EntitiesDescriptorTest.class
                     .getResourceAsStream(singleElementOptionalAttributesFile)));
-            Element entitiesDescriptorElem = doc.getDocumentElement();
+            Element authnAuthorityElem = doc.getDocumentElement();
 
-            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(entitiesDescriptorElem);
+            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(authnAuthorityElem);
             if (unmarshaller == null) {
                 fail("Unable to retrieve unmarshaller by DOM Element");
             }
 
-            EntitiesDescriptor entitiesDescriptorObj = (EntitiesDescriptor) unmarshaller
-                    .unmarshall(entitiesDescriptorElem);
+            AuthnAuthorityDescriptor authnAuthorityObj = (AuthnAuthorityDescriptor) unmarshaller
+                    .unmarshall(authnAuthorityElem);
 
-            String name = entitiesDescriptorObj.getName();
-            assertEquals("Name attribute has a value of " + name + ", expected a value of " + expectedName,
-                    expectedName, name);
+            Set<String> protoEnum = authnAuthorityObj.getSupportedProtocols();
+            assertEquals("Supported protocol enumeration was not equal to expected enumeration", expectedSupportedProtocols, protoEnum);
 
-            long duration = entitiesDescriptorObj.getCacheDuration().longValue();
+            long duration = authnAuthorityObj.getCacheDuration().longValue();
             assertEquals("cacheDuration attribute has a value of " + duration + ", expected a value of "
                     + expectedCacheDuration, expectedCacheDuration, duration);
 
-            GregorianCalendar validUntil = entitiesDescriptorObj.getValidUntil();
+            GregorianCalendar validUntil = authnAuthorityObj.getValidUntil();
             assertEquals("validUntil attribute value did not match expected value", 0, expectedValidUntil
                     .compareTo(validUntil));
+            
+            String errorURL = authnAuthorityObj.getErrorURL();
+            assertEquals("errorURL attribute has a value of " + errorURL + ", expected a value of "
+                    + expectedErrorURL, expectedErrorURL, errorURL);
 
         } catch (XMLParserException e) {
             fail("Unable to parse file containing single EntitiesDescriptor element");
@@ -157,38 +174,46 @@ public class EntitiesDescriptorTest extends BaseTestCase {
             fail("Unmarshalling failed with the following error:" + e);
         }
     }
-    
+
     /**
-     * Tests marshalling the contents of a single EntitiesDescriptor element to a DOM document.
+     * Tests marshalling the contents of a single AuthnAuthorityDescriptor element to a DOM document.
      */
     public void testSingleElementMarshall() {
-        SAMLObjectBuilder edBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(EntitiesDescriptor.QNAME);
-        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) edBuilder.buildObject();
+        SAMLObjectBuilder objectBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(
+                AuthnAuthorityDescriptor.QNAME);
+        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) objectBuilder.buildObject();
 
-        Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(entitiesDescriptor);
+        descriptor.addSupportedProtocol(XMLConstants.SAML20P_NS);
+
+        Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(descriptor);
         try {
-            Element generatedDOM = marshaller.marshall(entitiesDescriptor);
-            assertXMLEqual("Marshalled DOM with optional attributes was not the same as the expected DOM", expectedDOM, generatedDOM.getOwnerDocument());
+            Element generatedDOM = marshaller.marshall(descriptor);
+            assertXMLEqual("Marshalled DOM was not the same as the expected DOM", expectedDOM, generatedDOM
+                    .getOwnerDocument());
         } catch (MarshallingException e) {
             fail("Marshalling failed with the following error: " + e);
         }
     }
 
     /**
-     * Tests marshalling the contents of a single EntitiesDescriptor element to a DOM document.
+     * Tests marshalling the contents of a single AuthnAuthorityDescriptor element with optional attributes to a DOM
+     * document.
      */
-    public void testSingleElementOptionalAttributesMarshall() {
-        SAMLObjectBuilder edBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(EntitiesDescriptor.QNAME);
-        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) edBuilder.buildObject();
+    public void testSingleElementOptionalAttributesMarshall() throws Exception {
+        SAMLObjectBuilder objectBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(
+                AuthnAuthorityDescriptor.QNAME);
+        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) objectBuilder.buildObject();
 
-        entitiesDescriptor.setName(expectedName);
-        entitiesDescriptor.setCacheDuration(new Long(expectedCacheDuration));
-        entitiesDescriptor.setValidUntil(expectedValidUntil);
+        descriptor.addSupportedProtocol(XMLConstants.SAML20P_NS);
+        descriptor.setValidUntil(expectedValidUntil);
+        descriptor.setCacheDuration(expectedCacheDuration);
+        descriptor.setErrorURL(expectedErrorURL);
 
-        Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(entitiesDescriptor);
+        Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(descriptor);
         try {
-            Element generatedDOM = marshaller.marshall(entitiesDescriptor);
-            assertXMLEqual("Marshalled DOM with optional attributes was not the same as the expected DOM", expectedOptionalAttributesDOM, generatedDOM.getOwnerDocument());
+            Element generatedDOM = marshaller.marshall(descriptor);
+            assertXMLEqual("Marshalled DOM with optional attributes was not the same as the expected DOM",
+                    expectedOptionalAttributesDOM, generatedDOM.getOwnerDocument());
         } catch (MarshallingException e) {
             fail("Marshalling failed with the following error: " + e);
         }
