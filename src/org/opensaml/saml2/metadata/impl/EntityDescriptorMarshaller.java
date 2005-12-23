@@ -29,8 +29,6 @@ import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.EntityDescriptor} objects.
- * 
- * Note, this only works with {@link org.opensaml.saml2.metadata.EntityDescriptor} implementations that extend {@link org.opensaml.saml2.common.impl.AbstractSAMLObject}.
  */
 public class EntityDescriptorMarshaller extends AbstractMarshaller implements Marshaller {
 

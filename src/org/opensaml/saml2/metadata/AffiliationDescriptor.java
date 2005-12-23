@@ -21,6 +21,7 @@ import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableObject;
 import org.opensaml.common.ValidatingObject;
@@ -75,28 +76,49 @@ public interface AffiliationDescriptor extends SAMLObject, SignableObject, TimeB
      * 
      * @return a list of URIs
      */
-	public UnmodifiableOrderedSet<String> getMembers();
+	public UnmodifiableOrderedSet<AffiliateMember> getMembers();
 	
+    /**
+     * Adds a member to this affiliation.
+     * 
+     * @param member the member to add
+     * 
+     * @throws IllegalAddException thrown if the given member is already a child of another SAMLObject
+     */
+    public void addMember(AffiliateMember member) throws IllegalAddException;
+    
 	/**
-	 * Adds a member to this affiliation.
+	 * Convience method for adding a member to this affiliation.  This is the same as creating a new 
+     * {@link AffiliateMember} object, calling {@link AffiliateMember#setID(String)}, and then adding 
+     * it to this descriptor with {@link #addMember(AffiliateMember)}.
 	 * 
-	 * @param member member's ID
+	 * @param memberID member's ID
+     * 
+     * @throws IllegalArgumentException thrown if the given memberID is over 1024 characters long
 	 */
-	public void addMember(String member);
+	public void addMember(String memberID) throws IllegalArgumentException;
 	
 	/**
 	 * Removes the given member from this affiliation.
 	 * 
-	 * @param member the member's ID
+	 * @param member the member to remove
 	 */
-	public void removeMember(String member);
-	
+    public void removeMember(AffiliateMember member);
+    
+    /**
+     * Convience method for removing a member from this affiliation.  This is the same as calling {@link #removeMember(AffiliateMember)}
+     * where the given {@link AffiliateMember} has the given member ID;
+     * 
+     * @param memberID the ID of the member to remove
+     */
+	public void removeMember(String memberID);
+    
 	/**
 	 * Removes the given list of member {@link URI}s from this affiliation.
 	 * 
 	 * @param members the list of members to be removed
 	 */
-	public void removeMemebers(Collection<String> members);
+    public void removeMemebers(Collection<AffiliateMember> members);
 	
 	/**
 	 * Removes all the members from this Affiliation.

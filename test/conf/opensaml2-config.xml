@@ -45,6 +45,13 @@
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.EndpointMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EndpointUnmarshaller" />
         </ObjectProvider>
+        
+        <!-- Endpoint provider -->
+        <ObjectProvider qualifiedName="md:AffiliationDescriptor">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorUnmarshaller" />
+        </ObjectProvider>
 
 	   <!-- ************************************* -->
        <!--       SAML 1.X Providers              -->
