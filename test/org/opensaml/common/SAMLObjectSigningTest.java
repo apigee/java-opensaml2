@@ -67,7 +67,7 @@ public class SAMLObjectSigningTest extends BaseTestCase {
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) edBuilder.buildObject();
 
         IdentifierGenerator idGen = new SecureRandomIdentifierGenerator();
-        SigningContext dsigCtx = new SigningContext(idGen.generateIdentifier());
+        SigningContext dsigCtx = new SigningContext("ID", idGen.generateIdentifier());
         dsigCtx.setSigningKey(signingKey);
         dsigCtx.setPublicKey(publicKey);
         entitiesDescriptor.setSigningContext(dsigCtx);
@@ -98,7 +98,7 @@ public class SAMLObjectSigningTest extends BaseTestCase {
 
         SignableObject signableSAMLObject = (SignableObject) unmarshaller.unmarshall(signedElement);
         
-        assertNotNull(signableSAMLObject.getId());
+        assertNotNull(signableSAMLObject.getIdAttributeValue());
         assertNotNull(signableSAMLObject.getSigningContext());
     }
 }
