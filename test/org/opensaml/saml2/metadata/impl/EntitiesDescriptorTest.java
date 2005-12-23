@@ -43,8 +43,11 @@ import org.xml.sax.InputSource;
  */
 public class EntitiesDescriptorTest extends BaseTestCase {
 
-    /** Location of file containing a single EntitiesDescriptor element */
+    /** Location of file containing a single EntitiesDescriptor element with NO optional attributes*/
     private static String singleElementFile = "/data/org/opensaml/saml2/metadata/impl/singleEntitiesDescriptor.xml";
+    
+    /** Location of file containing a single EntitiesDescriptor element with all optional attributes */
+    private static String singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/singleEntitiesDescriptorOptionalAttributes.xml";
 
     /** Expected Name attribute value */
     private String expectedName;
@@ -55,8 +58,11 @@ public class EntitiesDescriptorTest extends BaseTestCase {
     /** Expected validUntil value */
     private GregorianCalendar expectedValidUntil;
 
-    /** The expected result of a marshalled single EntitiesDescriptor element serialized */
+    /** The expected result of a marshalled single EntitiesDescriptor element with no optional attributes */
     private Document expectedDOM;
+    
+    /** The expected result of a marshalled single EntitiesDescriptor element with all optional attributes */
+    private Document expectedOptionalAttributesDOM;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -66,16 +72,56 @@ public class EntitiesDescriptorTest extends BaseTestCase {
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         expectedDOM = ppMgr
                 .parse(new InputSource(EntitiesDescriptorTest.class.getResourceAsStream(singleElementFile)));
+        expectedOptionalAttributesDOM = ppMgr
+        .parse(new InputSource(EntitiesDescriptorTest.class.getResourceAsStream(singleElementOptionalAttributesFile)));
     }
-
+    
     /**
-     * Tests unmarshalling a document that contains a single EntitiesDescriptor element, with no children.
+     * Tests unmarshalling a document that contains a single EntitiesDescriptor element (no children) with no optional attributes.
      */
     public void testSingleElementUnmarshall() {
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         try {
             Document doc = ppMgr.parse(new InputSource(EntitiesDescriptorTest.class
                     .getResourceAsStream(singleElementFile)));
+            Element entitiesDescriptorElem = doc.getDocumentElement();
+
+            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(entitiesDescriptorElem);
+            if (unmarshaller == null) {
+                fail("Unable to retrieve unmarshaller by DOM Element");
+            }
+
+            EntitiesDescriptor entitiesDescriptorObj = (EntitiesDescriptor) unmarshaller
+                    .unmarshall(entitiesDescriptorElem);
+
+            String name = entitiesDescriptorObj.getName();
+            assertNull("Name attribute has a value of " + name + ", expected no value", name);
+
+            Long duration = entitiesDescriptorObj.getCacheDuration();
+            assertNull("cacheDuration attribute has a value of " + duration + ", expected no value", duration);
+
+            GregorianCalendar validUntil = entitiesDescriptorObj.getValidUntil();
+            assertNull("validUntil attribute has a value of " + validUntil + ", expected no value", validUntil);
+
+        } catch (XMLParserException e) {
+            fail("Unable to parse file containing single EntitiesDescriptor element");
+        } catch (UnknownAttributeException e) {
+            fail("Unknown attribute exception thrown but example element does not contain any unknown attributes: " + e);
+        } catch (UnknownElementException e) {
+            fail("Unknown element exception thrown but example element does not contain any child elements");
+        } catch (UnmarshallingException e) {
+            fail("Unmarshalling failed with the following error:" + e);
+        }
+    }
+
+    /**
+     * Tests unmarshalling a document that contains a single EntitiesDescriptor element (no children) with all optional attributes.
+     */
+    public void testSingleElementOptionalAttributesUnmarshall() {
+        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+        try {
+            Document doc = ppMgr.parse(new InputSource(EntitiesDescriptorTest.class
+                    .getResourceAsStream(singleElementOptionalAttributesFile)));
             Element entitiesDescriptorElem = doc.getDocumentElement();
 
             Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(entitiesDescriptorElem);
@@ -108,11 +154,27 @@ public class EntitiesDescriptorTest extends BaseTestCase {
             fail("Unmarshalling failed with the following error:" + e);
         }
     }
-
+    
     /**
      * Tests marshalling the contents of a single EntitiesDescriptor element to a DOM document.
      */
     public void testSingleElementMarshall() {
+        SAMLObjectBuilder edBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(EntitiesDescriptor.QNAME);
+        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) edBuilder.buildObject();
+
+        Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(entitiesDescriptor);
+        try {
+            Element generatedDOM = marshaller.marshall(entitiesDescriptor);
+            assertXMLEqual("Marshalled DOM with optional attributes was not the same as the expected DOM", expectedDOM, generatedDOM.getOwnerDocument());
+        } catch (MarshallingException e) {
+            fail("Marshalling failed with the following error: " + e);
+        }
+    }
+
+    /**
+     * Tests marshalling the contents of a single EntitiesDescriptor element to a DOM document.
+     */
+    public void testSingleElementOptionalAttributesMarshall() {
         SAMLObjectBuilder edBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(EntitiesDescriptor.QNAME);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) edBuilder.buildObject();
 
@@ -123,7 +185,7 @@ public class EntitiesDescriptorTest extends BaseTestCase {
         Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(entitiesDescriptor);
         try {
             Element generatedDOM = marshaller.marshall(entitiesDescriptor);
-            assertXMLEqual("Marshalled DOM was not the same as the expected DOM", expectedDOM, generatedDOM.getOwnerDocument());
+            assertXMLEqual("Marshalled DOM with optional attributes was not the same as the expected DOM", expectedOptionalAttributesDOM, generatedDOM.getOwnerDocument());
         } catch (MarshallingException e) {
             fail("Marshalling failed with the following error: " + e);
         }
