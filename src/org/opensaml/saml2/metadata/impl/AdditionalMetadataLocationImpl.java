@@ -40,7 +40,8 @@ public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implement
      * Constructor
      */
     public AdditionalMetadataLocationImpl() {
-
+        super();
+        setQName(AdditionalMetadataLocation.QNAME);
     }
 
     /*
