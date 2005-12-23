@@ -26,17 +26,24 @@ import org.opensaml.common.impl.SecureRandomIdentifierGenerator;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallerFactory;
 import org.opensaml.common.io.MarshallingException;
+import org.opensaml.common.io.UnknownAttributeException;
+import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallerFactory;
+import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.util.ElementSerializer;
 import org.opensaml.common.util.SerializationException;
 import org.opensaml.common.util.xml.DigitalSignatureHelper;
 import org.opensaml.common.util.xml.ParserPoolManager;
+import org.opensaml.common.util.xml.XMLParserException;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
+/**
+ * Testing SAML object signing and singature verification functionality.
+ */
 public class SAMLObjectSigningTest extends BaseTestCase {
 
     private static String signedElementFile = "/data/org/opensaml/common/signedElement.xml";
@@ -60,7 +67,8 @@ public class SAMLObjectSigningTest extends BaseTestCase {
 
     /**
      * Tests that a SAML object can be signed and have it's signature validated.
-     * @throws SerializationException 
+     * 
+     * @throws SerializationException
      */
     public void testSAMLObjectSigning() throws SerializationException {
         SAMLObjectBuilder edBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(EntitiesDescriptor.QNAME);
@@ -75,7 +83,7 @@ public class SAMLObjectSigningTest extends BaseTestCase {
         Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(entitiesDescriptor);
         try {
             Element dom = marshaller.marshall(entitiesDescriptor);
-            
+
             System.out.println(ElementSerializer.serialize(dom));
 
             DigitalSignatureHelper.verifySignature(dom);
@@ -86,19 +94,32 @@ public class SAMLObjectSigningTest extends BaseTestCase {
         }
     }
 
-    public void testUnmarshallingSignedObject() throws Exception {
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-        Document doc = ppMgr.parse(new InputSource(SAMLObjectSigningTest.class.getResourceAsStream(signedElementFile)));
-        
-        Element signedElement = doc.getDocumentElement();
-        Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(signedElement);
-        if (unmarshaller == null) {
-            fail("Unable to retrieve unmarshaller by DOM Element");
-        }
+    /**
+     * Tests unmarshalling an element and verifying the signature on it.
+     */
+    public void testUnmarshallingSignedObject(){
+        try {
+            ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+            Document doc = ppMgr.parse(new InputSource(SAMLObjectSigningTest.class.getResourceAsStream(signedElementFile)));
+            
+            Element signedElement = doc.getDocumentElement();
+            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(signedElement);
+            if (unmarshaller == null) {
+                fail("Unable to retrieve unmarshaller by DOM Element");
+            }
 
-        SignableObject signableSAMLObject = (SignableObject) unmarshaller.unmarshall(signedElement);
-        
-        assertNotNull(signableSAMLObject.getIdAttributeValue());
-        assertNotNull(signableSAMLObject.getSigningContext());
+            SignableObject signableSAMLObject = (SignableObject) unmarshaller.unmarshall(signedElement);
+
+            assertNotNull(signableSAMLObject.getIdAttributeValue());
+            assertNotNull(signableSAMLObject.getSigningContext());
+        } catch (XMLParserException e) {
+            fail("Unable to parse file containing single EntitiesDescriptor element");
+        } catch (UnknownAttributeException e) {
+            fail("Unknown attribute exception thrown but example element does not contain any unknown attributes: " + e);
+        } catch (UnknownElementException e) {
+            fail("Unknown element exception thrown but example element does not contain any child elements");
+        } catch (UnmarshallingException e) {
+            fail("Unmarshalling failed with the following error:" + e);
+        }
     }
 }

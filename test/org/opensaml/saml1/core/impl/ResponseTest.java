@@ -16,7 +16,7 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.BaseTestCase;
+import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.io.Marshaller;
@@ -35,7 +35,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
-public class ResponseTest extends BaseTestCase {
+public class ResponseTest extends SAMLObjectBaseTestCase {
 
     private final String TEST_FILE = "/data/TestResponse.xml";
     

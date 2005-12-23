@@ -28,7 +28,7 @@ public class BaseTestCase extends XMLTestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        if(!SAMLConfig.isInitialized()){
+        if (!SAMLConfig.isInitialized()) {
             SAMLConfig.initializeOpenSAML();
         }
     }
@@ -39,5 +39,4 @@ public class BaseTestCase extends XMLTestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-
 }
