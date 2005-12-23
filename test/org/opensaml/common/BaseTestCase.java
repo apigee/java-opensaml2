@@ -16,12 +16,12 @@
 
 package org.opensaml.common;
 
-import junit.framework.TestCase;
+import org.custommonkey.xmlunit.XMLTestCase;
 
 /**
  * Base test case for all OpenSAML tests
  */
-public class BaseTestCase extends TestCase {
+public class BaseTestCase extends XMLTestCase {
 
     /*
      * @see junit.framework.TestCase#setUp()

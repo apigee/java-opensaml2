@@ -39,7 +39,7 @@ import org.xml.sax.InputSource;
 
 public class SAMLObjectSigningTest extends BaseTestCase {
 
-    private static String signedElementFile = "/data/signedElement.xml";
+    private static String signedElementFile = "/data/org/opensaml/common/signedElement.xml";
 
     /** Signing key */
     private PrivateKey signingKey;

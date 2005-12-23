@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.common.saml2.metadata.impl;
+package org.opensaml.saml2.metadata.impl;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -30,7 +30,6 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallerFactory;
 import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.util.ElementSerializer;
 import org.opensaml.common.util.xml.ParserPoolManager;
 import org.opensaml.common.util.xml.XMLParserException;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
@@ -45,7 +44,7 @@ import org.xml.sax.InputSource;
 public class EntitiesDescriptorTest extends BaseTestCase {
 
     /** Location of file containing a single EntitiesDescriptor element */
-    private static String singleElementFile = "/data/singleEntitiesDescriptor.xml";
+    private static String singleElementFile = "/data/org/opensaml/saml2/metadata/impl/singleEntitiesDescriptor.xml";
 
     /** Expected Name attribute value */
     private String expectedName;
@@ -57,7 +56,7 @@ public class EntitiesDescriptorTest extends BaseTestCase {
     private GregorianCalendar expectedValidUntil;
 
     /** The expected result of a marshalled single EntitiesDescriptor element serialized */
-    private String expectedSerializedMarshalledDOM;
+    private Document expectedDOM;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -65,9 +64,8 @@ public class EntitiesDescriptorTest extends BaseTestCase {
         expectedCacheDuration = 90000;
         expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-        Document doc = ppMgr
+        expectedDOM = ppMgr
                 .parse(new InputSource(EntitiesDescriptorTest.class.getResourceAsStream(singleElementFile)));
-        expectedSerializedMarshalledDOM = ElementSerializer.serialize(doc.getDocumentElement());
     }
 
     /**
@@ -124,11 +122,8 @@ public class EntitiesDescriptorTest extends BaseTestCase {
 
         Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(entitiesDescriptor);
         try {
-            Element dom = marshaller.marshall(entitiesDescriptor);
-
-            // TODO this doesn't work because attributes can be in any order, would need to c14n this before compare
-            // assertEquals("Result of marshalling EntitiesDescriptor does not match expected results",
-            // expectedSerializedMarshalledDOM, seralizedDOM);
+            Element generatedDOM = marshaller.marshall(entitiesDescriptor);
+            assertXMLEqual("Marshalled DOM was not the same as the expected DOM", expectedDOM, generatedDOM.getOwnerDocument());
         } catch (MarshallingException e) {
             fail("Marshalling failed with the following error: " + e);
         }
