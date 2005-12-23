@@ -27,7 +27,7 @@ import org.opensaml.saml1.core.Status;
 import org.w3c.dom.Element;
 
 /**
- *
+ *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Status} objects.
  */
 public class StatusMarshaller extends AbstractMarshaller implements Marshaller {
 

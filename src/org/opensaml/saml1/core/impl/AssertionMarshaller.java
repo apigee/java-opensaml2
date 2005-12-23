@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.text.DateFormat;
@@ -26,20 +23,19 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.saml1.core.Response;
+import org.opensaml.saml1.core.Assertion;
 import org.w3c.dom.Element;
 
 /**
- *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Response} objects.
+ *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
  */
-public class ResponseMarshaller extends AbstractMarshaller implements Marshaller {
+public class AssertionMarshaller extends AbstractMarshaller implements Marshaller {
 
     /**
      * Constructor
-     *
      */
-    public ResponseMarshaller() {
-        super(Response.QNAME);
+    public AssertionMarshaller() {
+        super(Assertion.QNAME);
     }
 
     /*
@@ -47,40 +43,34 @@ public class ResponseMarshaller extends AbstractMarshaller implements Marshaller
      */
     @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+
+        Assertion assertion = (Assertion) samlElement;
         
-        Response response = (Response) samlElement;
-        
-        if (response.getInResponseTo() != null){
+        if (assertion.getId() != null){
             
-           domElement.setAttribute(Response.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
+           domElement.setAttribute(Assertion.ASSERTIONID_ATTRIB_NAME, assertion.getId());
         }
         
-        if (response.getIssueInstant() != null) {
+        if (assertion.getIssuer() != null){
+            
+           domElement.setAttribute(Assertion.ISSUER_ATTRIB_NAME, assertion.getIssuer());
+        }
+        
+        if (assertion.getIssueInstant() != null) {
             
             DateFormat formatter;
 
             formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
             
-            String date = formatter.format(response.getIssueInstant());
+            String date = formatter.format(assertion.getIssueInstant());
             
-            domElement.setAttribute(Response.ISSUEINSTANT_ATTRIB_NAME, date);
+            domElement.setAttribute(Assertion.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
-        String minorVersion = Integer.toString(response.getMinorVersion());
-
-        domElement.setAttribute(Response.MINORVERSION_ATTRIB_NAME, minorVersion);
-        domElement.setAttribute(Response.MAJORVERSION_ATTRIB_NAME, "1");
-        
-        if (response.getRecipient() != null) {
+        assertion.getMinorVersion();
+        String minorVersion = Integer.toString(assertion.getMinorVersion());
             
-            domElement.setAttribute(Response.RECIPIENT_ATTRIB_NAME, response.getRecipient());
-        }
-        
-        if (response.getResponseID() != null) {
-            
-            domElement.setAttribute(Response.RESPONSEID_ATTRIB_NAME, response.getResponseID());
-        }
-
+        domElement.setAttribute(Assertion.MINORVERSION_ATTRIB_NAME, minorVersion);
+        domElement.setAttribute(Assertion.MAJORVERSION_ATTRIB_NAME, "1");        
     }
-
 }

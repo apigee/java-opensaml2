@@ -19,34 +19,39 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.util.OrderedSet;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.saml1.core.StatusMessage;
 
 /**
- *
+ * Concrete Implementation {@link org.opensaml.saml1.core.Status}
  */
 public class StatusImpl extends AbstractSAMLObject implements Status {
 
     /**
-     * 
+     *  Serial version UID.
      */
-    private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = -1094107132600772671L;
+    
+    /** Representation of the StatusMessage element. */
+    
     private StatusMessage statusMessage;
+    
+    /** Representation of the StatusCode element. */
+        
     private StatusCode statusCode;
+
+    /** Representation of the StatusDetail element. */
+    
     private SAMLObject statusDetail;
     
     /**
-     * Constructor
-     *
+     * Constructor.
      */
     public StatusImpl() {
         super();
@@ -66,7 +71,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public void setStatusMessage(StatusMessage statusMessage) throws IllegalAddException {
 
-        this.statusMessage = assignSAMLObject(this.statusMessage, statusMessage);
+        this.statusMessage = prepareForAssignment(this.statusMessage, statusMessage);
     }
 
     /*
@@ -82,7 +87,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public void setStatusCode(StatusCode statusCode) throws IllegalAddException {
         
-        this.statusCode = assignSAMLObject(this.statusCode, statusCode);
+        this.statusCode = prepareForAssignment(this.statusCode, statusCode);
     }
 
     /*
@@ -98,14 +103,14 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public void setStatusDetail(SAMLObject statusDetail) throws IllegalAddException {
 
-        this.statusDetail = assignSAMLObject(this.statusDetail, statusDetail);
+        this.statusDetail = prepareForAssignment(this.statusDetail, statusDetail);
     }
 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public Set<SAMLObject> getOrderedChildren() {
-        Set <SAMLObject> set = new LinkedHashSet<SAMLObject>(3);
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
+        OrderedSet<SAMLObject> set = new OrderedSet<SAMLObject>(3);
         
         if (statusCode != null) {
             set.add(statusCode);
@@ -119,7 +124,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
             set.add(statusDetail);
         }
         
-        return Collections.unmodifiableSet(set);
+        return new UnmodifiableOrderedSet<SAMLObject>(set);
     }
 
     /*
@@ -133,7 +138,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
         }
         
         //
-        // TODO what are equal statuses and why would we care
+        // TODO what are equal statuses and why would we care?
         //
         
         Status status = (Status) element;

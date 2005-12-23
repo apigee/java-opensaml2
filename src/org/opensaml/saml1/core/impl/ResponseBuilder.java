@@ -23,16 +23,9 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- *
+ *Class whose sole jobe is the creation of a {@link ResponseImpl} object 
  */
 public class ResponseBuilder implements SAMLObjectBuilder {
-
-    /**
-     * Constructor
-     *
-     */
-    public ResponseBuilder() {
-    }
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()

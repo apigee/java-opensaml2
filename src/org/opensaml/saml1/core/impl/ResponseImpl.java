@@ -19,37 +19,58 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.util.OrderedSet;
 import org.opensaml.common.util.StringHelper;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
 /**
- *
+ * Implementation of the {@link org.opensaml.saml1.core.Response} Object
  */
 public class ResponseImpl extends AbstractSAMLObject implements Response {
 
+    /**
+     * Serial version UID.
+     */
     private static final long serialVersionUID = 6224869049066163659L;
 
-    /*
-     * Local state
-     */
+    /** xs:ID of this response. */
     
     private String responseID = null;
+    
+    /** Contents of the InResponseTo attribute */
+    
     private String inResponseTo = null;
+    
+    /** Minor Version of this element */
+    
     private int minorVersion = 0;
+    
+    /** Contents of the Date attribute */
+    
     private Date issueInstant = null;
+    
+    /** Contents of the recipient attribute */
+    
     private String recipient = null;
+    
+    /** Status associated with this element */
+    
     private Status status = null;
+    
+    /** Assertion associated with this element */
+
     private Assertion assertion = null;
 
+    /**
+     * Constructor
+     *
+     */
     protected ResponseImpl() {
         super();
         setQName(Response.QNAME);
@@ -68,8 +89,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      */
     public void setResponseID(String responseID) {
 
-        
-        this.responseID = assignString(this.responseID, responseID);
+        this.responseID = prepareForAssignment(this.responseID, responseID);
         
     }
 
@@ -86,7 +106,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      */
     public void setInResponseTo(String inResponseTo) {
 
-        this.inResponseTo = assignString(this.inResponseTo, inResponseTo);
+        this.inResponseTo = prepareForAssignment(this.inResponseTo, inResponseTo);
     }
 
     /*
@@ -145,7 +165,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      */
     public void setRecipient(String recipient) {
       
-        this.recipient = assignString(this.recipient, recipient);
+        this.recipient = prepareForAssignment(this.recipient, recipient);
     }
 
     /*
@@ -161,7 +181,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      */
     public void setStatus(Status status) throws IllegalAddException {
         
-        this.status = assignSAMLObject(this.status, status);
+        this.status = prepareForAssignment(this.status, status);
     }
 
     /*
@@ -176,7 +196,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      * @see org.opensaml.saml1.core.Response#addAssertion(org.opensaml.saml1.core.Assertion)
      */
     public void setAssertion(Assertion assertion) throws IllegalAddException {
-        this.assertion = assignSAMLObject(this.assertion, assertion) ;
+        this.assertion = prepareForAssignment(this.assertion, assertion) ;
     }
 
     /*
@@ -192,5 +212,20 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
         }
         
         return false;
+    }
+
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
+
+        OrderedSet <SAMLObject> set = new OrderedSet<SAMLObject>(2);
+        
+        if (assertion != null) {
+            set.add(assertion);
+        }
+        
+        if (status != null) {
+            set.add(status);
+        }
+        
+        return new UnmodifiableOrderedSet<SAMLObject>(set);
     }
  }

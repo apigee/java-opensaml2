@@ -384,7 +384,7 @@ public abstract class AbstractSAMLObject implements DOMCachingSAMLObject, Valida
 
     /**
      * This helper function removes a series of SAMLObjects from the containing set. Again it is targetted at
-     * SAMLObjects which multipl subelements.
+     * SAMLObjects which multiple subelements.
      * 
      * @param <T> The type of the SAMLObject being removed
      * @param containingSet The set from which the SAMLObject is to be removed.

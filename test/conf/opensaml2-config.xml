@@ -26,6 +26,12 @@
 	     -->
 
        <!-- Response -->
+        <ObjectProvider qualifiedName="saml:Assertion">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AssertionBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AssertionMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AssertionUnmarshaller" />
+        </ObjectProvider>
+        
         <ObjectProvider qualifiedName="samlp:Response">
             <BuilderClass className="org.opensaml.saml1.core.impl.ResponseBuilder" />
             <MarshallingClass className="org.opensaml.saml1.core.impl.ResponseMarshaller" />

@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -32,20 +30,26 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.saml1.core.AuthenticationStatement;
+import org.opensaml.saml1.core.AuthorizationDecisionStatement;
+import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Response;
-import org.opensaml.saml1.core.Status;
+import org.opensaml.saml1.core.Statement;
+import org.opensaml.saml1.core.SubjectStatement;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Response} objects.
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
  */
-public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class AssertionUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
 
     /**
      * Constructor
      */
-    public ResponseUnmarshaller() {
-        super(Response.QNAME);
+    public AssertionUnmarshaller() {
+        super(Assertion.QNAME);
     }
 
     /*
@@ -54,18 +58,38 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
     @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
-        
-        Response response = (Response) parentElement;
+
+        Assertion assertion = (Assertion) parentElement;
         
         try {
-            if (childElement instanceof Assertion) {
+            if (childElement instanceof Conditions) {
                 
-                response.setAssertion((Assertion)childElement);
+                assertion.setConditions((Conditions)childElement);
             
-            } else if (childElement instanceof Status) {
+            } else if (childElement instanceof Advice) {
                 
-                response.setStatus((Status) childElement);
+                assertion.setAdvice((Advice) childElement);
+                
+            } else if (childElement instanceof Statement) {
+                
+                assertion.addStatement((Statement) childElement);
+
+            } else if (childElement instanceof SubjectStatement) {
+                
+                assertion.addSubjectStatement((SubjectStatement)childElement);
             
+            } else if (childElement instanceof AuthenticationStatement) {
+                
+                assertion.addAuthenticationStatement((AuthenticationStatement)childElement);
+                
+            } else if (childElement instanceof AuthorizationDecisionStatement) {
+                
+                assertion.addAuthenticationStatement((AuthenticationStatement)childElement);
+                
+            } else if (childElement instanceof AttributeStatement) {
+                
+                assertion.addAttributeStatement((AttributeStatement)childElement);
+                
             } else { 
                 if(!SAMLConfig.ignoreUnknownElements()){
                     throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for Response objects");
@@ -76,7 +100,8 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
         
             throw new UnmarshallingException(e);
         }
-    }    
+
+    }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
@@ -85,13 +110,13 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        Response response = (Response) samlElement; 
+        Assertion assertion = (Assertion) samlElement; 
+        
+        if (attributeName.equals(Assertion.ASSERTIONID_ATTRIB_NAME)) {
             
-        if (attributeName.equals(Response.INRESPONSETO_ATTRIB_NAME)) {
+            assertion.setId(attributeValue);
             
-            response.setInResponseTo(attributeValue);
-            
-        } else if (attributeName.equals(Response.ISSUEINSTANT_ATTRIB_NAME)) {
+        } else if (attributeName.equals(Assertion.ISSUEINSTANT_ATTRIB_NAME)) {
             
             // TODO Does this work?
             DateFormat formatter;
@@ -106,7 +131,7 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
             formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
             
             try {
-                response.setIssueInstant(formatter.parse(attributeValue));
+                assertion.setIssueInstant(formatter.parse(attributeValue));
             } 
             catch (ParseException p) {
                 
@@ -123,27 +148,15 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
             catch (NumberFormatException n) {
                 throw new UnmarshallingException(n);
             }
-            
+
         } else if (attributeName.equals(Response.MINORVERSION_ATTRIB_NAME)) {
-            
             try {
-                int newVersion = Integer.parseInt(attributeValue); 
-    
-                response.setMinorVersion(newVersion);
-              
+                assertion.setMinorVersion(Integer.parseInt(attributeValue));
             } 
             catch (NumberFormatException n) {
                 throw new UnmarshallingException(n);
             }
-    
-        } else if (attributeName.equals(Response.RECIPIENT_ATTRIB_NAME)) {
-            
-            response.setRecipient(attributeValue);
-    
-        } else if (attributeName.equals(Response.RESPONSEID_ATTRIB_NAME)) {
-            
-            response.setResponseID(attributeValue);
-           
+                        
         } else {
             if(!SAMLConfig.ignoreUnknownAttributes()){
                 throw new UnknownAttributeException(attributeName + " is not a supported attributed for Response objects");

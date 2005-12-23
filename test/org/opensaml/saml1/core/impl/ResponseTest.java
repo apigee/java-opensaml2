@@ -75,6 +75,7 @@ public class ResponseTest extends BaseTestCase {
         } catch (UnmarshallingException e) {
             fail("Unmarshalling failed with the following error:"  + e);
         } catch (Exception e) {
+            e.printStackTrace();
             fail("Unmarshall test failed with the following error:"  + e);
         }
         
@@ -104,12 +105,14 @@ public class ResponseTest extends BaseTestCase {
         } catch (UnknownElementException e) {
             fail("Unknown element exception thrown but example element does not contain any child elements");
         } catch (Exception e) {
+            e.printStackTrace();
             fail("Marshalling test setup failed with the following error:"  + e);
         }
         
         if (response instanceof AbstractSAMLObject) {
             AbstractSAMLObject abstractSAMLObject = (AbstractSAMLObject) response;
             
+            abstractSAMLObject.releaseThisAndChildrenDOM();
             abstractSAMLObject.releaseThisandParentDOM();
         
         } else {
@@ -127,9 +130,10 @@ public class ResponseTest extends BaseTestCase {
             } catch (SerializationException e) {
                 fail("Unable to serialize resulting DOM document due to: " + e);
             } catch (Exception e) {
+
+                e.printStackTrace();
                 fail("Marshalling test failed with the following error:"  + e);
-            }
-            
+            } 
         } else {
             fail("Marshalling test failed - response not setup");
         }

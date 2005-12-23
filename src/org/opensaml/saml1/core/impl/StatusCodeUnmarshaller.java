@@ -30,14 +30,12 @@ import org.opensaml.common.io.impl.AbstractUnmarshaller;
 import org.opensaml.saml1.core.StatusCode;
 
 /**
- *
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.StatusCode} objects.
  */
 public class StatusCodeUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
 
     /**
      * Constructor
-     *
-     * @param target
      */
     public StatusCodeUnmarshaller() {
         super(StatusCode.QNAME);

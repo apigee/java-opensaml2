@@ -33,7 +33,7 @@ import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.saml1.core.StatusMessage;
 
 /**
- *
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Status} objects.
  */
 public class StatusUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
 

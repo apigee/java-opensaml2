@@ -23,7 +23,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- *
+ * Class whose sole jobe is the creation of a {@link StatusMessageImpl} object 
  */
 public class StatusMessageBuilder implements SAMLObjectBuilder {
 

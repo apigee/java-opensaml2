@@ -23,19 +23,16 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.StatusMessage;
 import org.w3c.dom.Element;
 
 /**
- *
+ *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.StatusMessage} objects.
  */
 public class StatusMessageMarshaller extends AbstractMarshaller implements Marshaller {
 
     /**
      * Constructor
-     *
-     * @param target
      */
     public StatusMessageMarshaller() {
         super(StatusMessage.QNAME);
@@ -49,6 +46,9 @@ public class StatusMessageMarshaller extends AbstractMarshaller implements Marsh
         // Nothing
     }
 
+    /*
+     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallElementContent(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     */
     protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
         
         StatusMessage statusMessage = (StatusMessage) samlObject;

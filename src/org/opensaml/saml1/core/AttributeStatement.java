@@ -14,21 +14,25 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-package org.opensaml.saml1.core.impl;
+package org.opensaml.saml1.core;
+
+import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.common.util.xml.XMLConstants;
 
 /**
- *Class whose sole jobe is the creation of a {@link StatusCodeImpl} object 
+ * This interface defines how the object representing a SAML 1 <code> AttributeStatement </code> element behaves. 
  */
-public class StatusCodeBuilder implements SAMLObjectBuilder {
+public interface AttributeStatement extends SAMLObject {
+    
+    /** Element name, no namespace. */
 
-     public SAMLObject buildObject() {
-        return new StatusCodeImpl();
-    }
+    public final static String LOCAL_NAME = "AttributeStatement";
+    
+    /** QName for this element. */
+    
+    public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
 
+    // TODO fill out
 }

@@ -27,14 +27,12 @@ import org.opensaml.saml1.core.StatusCode;
 import org.w3c.dom.Element;
 
 /**
- *
+ *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.StatusCode} objects.
  */
 public class StatusCodeMarshaller extends AbstractMarshaller implements Marshaller {
 
     /**
      * Constructor
-     *
-     * @param target
      */
     public StatusCodeMarshaller() {
         super(StatusCode.QNAME);

@@ -45,6 +45,10 @@ public class OrderedSet<E> extends LinkedHashSet<E> implements Set<E> {
         super(set);
     }
 
+    public OrderedSet(int count) {
+        super(count);
+    }
+
     /**
      * Adds the given element to the collection.
      * 

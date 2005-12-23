@@ -19,27 +19,30 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import java.util.Set;
-
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.util.OrderedSet;
 import org.opensaml.common.util.StringHelper;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml1.core.StatusMessage;
 
 /**
- *
+ * Concrete implementation of org.opensaml.saml1.core StatusMessage object
  */
 public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessage {
 
     /**
-     * 
+     * Serial version UID.
      */
-    private static final long serialVersionUID = 12345L;
+    private static final long serialVersionUID = -766167197012104173L;
+    
+    /**
+     * Contents of the element
+     */
     private String message;
     
     /**
      * Constructor
-     *
      */
     public StatusMessageImpl() {
         super();
@@ -59,14 +62,14 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
      */
     public void setMessage(String message) {
      
-        this.message = assignString(this.message, message);
+        this.message = prepareForAssignment(this.message, message);
     }
 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public Set<SAMLObject> getOrderedChildren() {
-        return null;
+    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
+        return new UnmodifiableOrderedSet<SAMLObject>(new OrderedSet<SAMLObject>());
     }
 
     /*

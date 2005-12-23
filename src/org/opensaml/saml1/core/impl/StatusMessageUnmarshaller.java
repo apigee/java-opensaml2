@@ -29,18 +29,15 @@ import org.opensaml.common.io.impl.AbstractUnmarshaller;
 import org.opensaml.saml1.core.StatusMessage;
 
 /**
- *
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.StatusMessage} objects.
  */
 public class StatusMessageUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
 
     /**
      * Constructor
-     *
-     * @param target
      */
     public StatusMessageUnmarshaller() {
         super(StatusMessage.QNAME);
-        // TODO Auto-generated constructor stub
     }
 
     /*
@@ -67,6 +64,9 @@ public class StatusMessageUnmarshaller extends AbstractUnmarshaller implements U
         }
     }
     
+    /*
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject, java.lang.String)
+     */
     protected void unmarshallElementContent(SAMLObject samlElement, String elementContent)
     {
         StatusMessage statusMessage = (StatusMessage) samlElement;
