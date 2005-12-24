@@ -41,7 +41,7 @@ public interface AuthnAuthorityDescriptor extends SAMLObject, RoleDescriptor, As
      * 
      * @return list of authentication query services
      */
-	public UnmodifiableOrderedSet<Endpoint> getAuthnQueryServices();
+	public UnmodifiableOrderedSet<AuthnQueryService> getAuthnQueryServices();
     
     /**
      * Adds an authentication query service {@link Endpoint} for this authority.
@@ -50,21 +50,21 @@ public interface AuthnAuthorityDescriptor extends SAMLObject, RoleDescriptor, As
      * 
      * @throws IllegalAddException thrown if the given endpoint is owned by another object
      */
-    public void addAuthnQueryService(Endpoint service) throws IllegalAddException;
+    public void addAuthnQueryService(AuthnQueryService service) throws IllegalAddException;
         
     /**
      * Removes an authentication query service {@link Endpoint} for this authority.
      * 
      * @param service the authentication query service
      */
-    public void removeAuthnQueryService(Endpoint service);
+    public void removeAuthnQueryService(AuthnQueryService service);
     
     /**
      * Removes a list of authentication query service {@link Endpoint} for this authority.
      * 
      * @param services the list of authentication query service
      */
-    public void removeAuthnQueryServices(Collection<Endpoint> services);
+    public void removeAuthnQueryServices(Collection<AuthnQueryService> services);
     
     /**
      * Removes all the authentication query service {@link Endpoint}s for this authority.

@@ -45,7 +45,6 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
      */
     public EndpointImpl() {
         super();
-        setQName(Endpoint.QNAME);
     }
 
     /*

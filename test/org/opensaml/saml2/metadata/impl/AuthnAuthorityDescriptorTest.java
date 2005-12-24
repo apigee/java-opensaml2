@@ -19,6 +19,7 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.util.OrderedSet;
@@ -61,6 +62,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         expectedSupportedProtocols.add(XMLConstants.SAML20P_NS);
         expectedCacheDuration = 90000;
         expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
+        expectedValidUntil.setTimeZone(TimeZone.getTimeZone("Universal"));
         expectedErrorURL = "http://example.org";
     }
 

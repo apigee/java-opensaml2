@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.UnknownAttributeException;
@@ -30,8 +32,8 @@ import org.opensaml.saml2.metadata.Endpoint;
  */
 public class EndpointUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
 
-    public EndpointUnmarshaller() {
-        super(Endpoint.QNAME);
+    public EndpointUnmarshaller(QName target) {
+        super(target);
     }
     
     /*

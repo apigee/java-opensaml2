@@ -22,15 +22,9 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
- * SAML 2.0 Metadata Endpoint
+ * SAML 2.0 Metadata Endpoint data type interface
  */
 public interface Endpoint extends SAMLObject{
-
-    /** Element name, no namespace */
-    public final static String LOCAL_NAME = "Endpoint";
-    
-    /** QName for this element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
     
     /** "Binding" attribute name */
     public final static String BINDING_ATTRIB_NAME = "Binding";

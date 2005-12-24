@@ -20,10 +20,13 @@ import java.util.Collection;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.common.SAMLObjectBuilderFactory;
 import org.opensaml.common.util.OrderedSet;
 import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
-import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.saml2.metadata.AuthnQueryService;
 import org.opensaml.saml2.metadata.NameIDFormat;
 
 /**
@@ -37,10 +40,10 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     private static final long serialVersionUID = 422459752889774280L;
 
     /** AuthnQueryService endpoints */
-    private OrderedSet<Endpoint> authnQueryEndpoints = new OrderedSet<Endpoint>();
+    private OrderedSet<AuthnQueryService> authnQueryServices = new OrderedSet<AuthnQueryService>();
     
     /** AuthnQueryService endpoints */
-    private OrderedSet<Endpoint> assertionIDRequestEndpoints = new OrderedSet<Endpoint>();
+    private OrderedSet<AssertionIDRequestService> assertionIDRequestServices = new OrderedSet<AssertionIDRequestService>();
     
     /** NameID formats supported by this descriptor */
     private OrderedSet<NameIDFormat> nameIDFormats= new OrderedSet<NameIDFormat>();
@@ -56,36 +59,36 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#getAuthnQueryServices()
      */
-    public UnmodifiableOrderedSet<Endpoint> getAuthnQueryServices() {
-        return new UnmodifiableOrderedSet<Endpoint>(authnQueryEndpoints);
+    public UnmodifiableOrderedSet<AuthnQueryService> getAuthnQueryServices() {
+        return new UnmodifiableOrderedSet<AuthnQueryService>(authnQueryServices);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#addAuthnQueryService(org.opensaml.saml2.metadata.Endpoint)
      */
-    public void addAuthnQueryService(Endpoint service) throws IllegalAddException {
-        addSAMLObject(authnQueryEndpoints, service);
+    public void addAuthnQueryService(AuthnQueryService service) throws IllegalAddException {
+        addSAMLObject(authnQueryServices, service);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#removeAuthnQueryService(org.opensaml.saml2.metadata.Endpoint)
      */
-    public void removeAuthnQueryService(Endpoint service) {
-        removeSAMLObject(authnQueryEndpoints, service);
+    public void removeAuthnQueryService(AuthnQueryService service) {
+        removeSAMLObject(authnQueryServices, service);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#removeAuthnQueryServices(java.util.Set)
      */
-    public void removeAuthnQueryServices(Collection<Endpoint> services) {
-        removeSAMLObjects(authnQueryEndpoints, services);
+    public void removeAuthnQueryServices(Collection<AuthnQueryService> services) {
+        removeSAMLObjects(authnQueryServices, services);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#removeAllAuthnQueryServices()
      */
     public void removeAllAuthnQueryServices() {
-        for(Endpoint service : authnQueryEndpoints) {
+        for(AuthnQueryService service : authnQueryServices) {
             removeAuthnQueryService(service);
         }
     }
@@ -93,45 +96,52 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /*
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#getAssertionIDRequestServices()
      */
-    public UnmodifiableOrderedSet<Endpoint> getAssertionIDRequestServices() {
-        return new UnmodifiableOrderedSet<Endpoint>(assertionIDRequestEndpoints);
+    public UnmodifiableOrderedSet<AssertionIDRequestService> getAssertionIDRequestServices() {
+        return new UnmodifiableOrderedSet<AssertionIDRequestService>(assertionIDRequestServices);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#addAssertionIDRequestService(org.opensaml.saml2.metadata.Endpoint)
      */
-    public void addAssertionIDRequestService(Endpoint service) throws IllegalAddException {
-        addSAMLObject(assertionIDRequestEndpoints, service);
+    public void addAssertionIDRequestService(AssertionIDRequestService service) throws IllegalAddException {
+        addSAMLObject(assertionIDRequestServices, service);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#removeAssertionIDRequestService(org.opensaml.saml2.metadata.Endpoint)
      */
-    public void removeAssertionIDRequestService(Endpoint service) {
-        removeSAMLObject(assertionIDRequestEndpoints, service);
+    public void removeAssertionIDRequestService(AssertionIDRequestService service) {
+        removeSAMLObject(assertionIDRequestServices, service);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#removeAssertionIDRequestServices(java.util.Set)
      */
-    public void removeAssertionIDRequestServices(Collection<Endpoint> services) {
-        removeSAMLObjects(assertionIDRequestEndpoints, services);
+    public void removeAssertionIDRequestServices(Collection<AssertionIDRequestService> services) {
+        removeSAMLObjects(assertionIDRequestServices, services);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#removeAllAssertionIDRequestServices()
      */
     public void removeAllAssertionIDRequestServices() {
-        for(Endpoint service : assertionIDRequestEndpoints) {
+        for(AssertionIDRequestService service : assertionIDRequestServices) {
             removeAssertionIDRequestService(service);
         }
     }
 
     /*
+     * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#isSupportedNameIDFormat(org.opensaml.saml2.metadata.NameIDFormat)
+     */
+    public boolean isSupportedNameIDFormat(NameIDFormat format) {
+        return nameIDFormats.contains(format);
+    }
+    
+    /*
      * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#isSupportedNameIDFormat(java.lang.String)
      */
     public boolean isSupportedNameIDFormat(String format) {
-        return nameIDFormats.contains(format);
+        return isSupportedNameIDFormat(buildNameIDFormat(format));
     }
 
     /*
@@ -147,12 +157,30 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     public void addNameIDFormat(NameIDFormat format) throws IllegalAddException{
         addSAMLObject(nameIDFormats, format);
     }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#addNameIDFormat(java.lang.String)
+     */
+    public void addNameIDFormat(String format){
+        try {
+            addNameIDFormat(buildNameIDFormat(format));
+        } catch (IllegalAddException e) {
+            //unreachable
+        }
+    }
 
     /*
      * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#removeNameIDFormat(java.lang.String)
      */
     public void removeNameIDFormat(NameIDFormat format) {
         removeSAMLObject(nameIDFormats, format);
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#removeNameIDFormat(java.lang.String)
+     */
+    public void removeNameIDFormat(String format) {
+        removeNameIDFormat(buildNameIDFormat(format));
     }
 
     /*
@@ -178,18 +206,9 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
         OrderedSet<SAMLObject> children = new OrderedSet<SAMLObject>();
         
         children.addAll(super.getOrderedChildren());
-        
-        for(Endpoint service : authnQueryEndpoints) {
-            children.add(service);
-        }
-        
-        for(Endpoint service : assertionIDRequestEndpoints) {
-            children.add(service);
-        }
-        
-        for(NameIDFormat nameIDFormat : nameIDFormats) {
-            children.add(nameIDFormat);
-        }
+        children.addAll(authnQueryServices);
+        children.addAll(assertionIDRequestServices);
+        children.addAll(nameIDFormats);
         
         return new UnmodifiableOrderedSet<SAMLObject>(children);
     }
@@ -200,5 +219,20 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     public boolean equals(SAMLObject obj) {
         //TODO
         return false;
+    }
+    
+    /**
+     * Convience method for creating NameIDFormat objects with a given format.
+     * 
+     * @param format the format
+     * 
+     * @return the NameIDFormat object with the given format
+     */
+    protected NameIDFormat buildNameIDFormat(String format){
+        SAMLObjectBuilder builder = SAMLObjectBuilderFactory.getInstance().getBuilder(NameIDFormat.QNAME);
+        NameIDFormat nameFormat = (NameIDFormat) builder.buildObject();
+        nameFormat.setFormat(format);
+        
+        return nameFormat;
     }
 }

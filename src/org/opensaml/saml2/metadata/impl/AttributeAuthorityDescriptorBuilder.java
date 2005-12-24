@@ -14,28 +14,30 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * a {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.metadata.impl.EndpointImpl} objects.
+ * Builder for {@link org.opensaml.saml2.metadata.impl.AttributeAuthorityDescriptorImpl}s.
  */
-public class EndpointBuilder implements SAMLObjectBuilder {
+public class AttributeAuthorityDescriptorBuilder implements SAMLObjectBuilder {
 
     /**
      * Constructor
      */
-    public EndpointBuilder() {
+    public AttributeAuthorityDescriptorBuilder(){
         
     }
     
     /*
-     * @see org.opensaml.common.ElementBuilder#buildElement()
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
     public SAMLObject buildObject() {
-        return new EndpointImpl();
+        return new AttributeAuthorityDescriptorImpl();
     }
-
 }

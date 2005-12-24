@@ -16,11 +16,20 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.IllegalAddException;
+import org.opensaml.common.SAMLConfig;
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
+import org.opensaml.common.io.UnmarshallingException;
+import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
+import org.opensaml.saml2.metadata.AuthnQueryService;
+import org.opensaml.saml2.metadata.NameIDFormat;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} objects.
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
+ * {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} objects.
  */
 public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarshaller implements Unmarshaller {
 
@@ -29,5 +38,34 @@ public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarsha
      */
     public AuthnAuthorityDescriptorUnmarshaller() {
         super(AuthnAuthorityDescriptor.QNAME);
+    }
+
+    /*
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
+     *      org.opensaml.common.SAMLObject)
+     */
+    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+            throws UnmarshallingException, UnknownElementException {
+        super.processChildElement(parentElement, childElement);
+
+        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) parentElement;
+
+        try {
+            if (childElement instanceof AuthnQueryService) {
+                descriptor.addAuthnQueryService((AuthnQueryService) childElement);
+            } else if (childElement instanceof AssertionIDRequestService) {
+                descriptor.addAssertionIDRequestService((AssertionIDRequestService) childElement);
+            } else if (childElement instanceof NameIDFormat) {
+                descriptor.addNameIDFormat((NameIDFormat) childElement);
+            } else {
+                if (!SAMLConfig.ignoreUnknownElements()) {
+                    throw new UnknownElementException(childElement.getElementQName()
+                            + " is an unknown child element of " + parentElement.getElementQName());
+                }
+            }
+        } catch (IllegalAddException e) {
+            // should never get here, but just in case
+            throw new UnmarshallingException(e);
+        }
     }
 }

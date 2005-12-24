@@ -16,57 +16,80 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.net.URI;
 import java.util.Collection;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.util.UnmodifiableOrderedSet;
 
 /**
  * A functional interface RoleDescriptors may use to deal with "AttributeProfile" elements.
- *
  */
 public interface AttributeProfileDescriptorComp {
 
     /**
      * Checks if the given attribute profile is supported by this authority.
      * 
-     * @param format the attribute profile
+     * @param profileURI the attribute profileURI
      * 
      * @return true if the given attribute profile is supported, false if not
      */
     public boolean isSupportedAttributeProfile(String profileURI);
+    
+    /**
+     * Checks if the given attribute profile is supported by this authority.
+     * 
+     * @param profile the attribute profile
+     * 
+     * @return true if the given attribute profile is supported, false if not
+     */
+    public boolean isSupportedAttributeProfile(AttributeProfile profile);
 
     /**
      * Gets an immutable list of attribute profile URIs supported by this authority.
      * 
-     * @return list of NameID format {@link URI}s
+     * @return the list of supported {@link AttributeProfile}s
      */
-    public UnmodifiableOrderedSet<String> getAttributeProfiles();
+    public UnmodifiableOrderedSet<AttributeProfile> getAttributeProfiles();
 
     /**
      * Adds an attribute profile URIs supported by this authority.
      * 
-     * @param profile an attribute profile
+     * @param profileURI an attribute profile URI
      */
     public void addAttributeProfile(String profileURI);
+    
+    /**
+     * Adds an attribute profile URIs supported by this authority.
+     * 
+     * @param profile an attribute profile
+     * 
+     * @throws IllegalAddException thrown if the given profile is already a child of another SAMLObject
+     */
+    public void addAttributeProfile(AttributeProfile profile) throws IllegalAddException;
 
+    /**
+     * Removes an attribute profile URIs supported by this authority.
+     * 
+     * @param profileURI an attribute profile URI
+     */
+    public void removeAttributeProfile(String profileURI);
+    
     /**
      * Removes an attribute profile URIs supported by this authority.
      * 
      * @param profile an attribute profile
      */
-    public void removeAttributeProfile(String profileURI);
+    public void removeAttributeProfile(AttributeProfile profile);
 
     /**
      * Removes a list of attribute profile URIs supported by this authority.
      * 
      * @param profiles a list attribute profiles
      */
-    public void removeAttributeProfiles(Collection<String> profileURIs);
+    public void removeAttributeProfiles(Collection<AttributeProfile> profiles);
 
     /**
      * Removes all the attribute profiles supported by this authority.
      */
     public void removeAllAttributeProfiles();
-
 }

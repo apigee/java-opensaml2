@@ -35,6 +35,15 @@ public interface NameIDFormatDescriptorComp {
      * @return true if the given NameID format is supported, false if not
      */
     public boolean isSupportedNameIDFormat(String format);
+    
+    /**
+     * Checks if the given NameID format is supported by this authority.
+     * 
+     * @param format the NameID format
+     * 
+     * @return true if the given NameID format is supported, false if not
+     */
+    public boolean isSupportedNameIDFormat(NameIDFormat format);
 
     /**
      * Gets an immutable list of NameID formats supported by this authority.
@@ -51,6 +60,15 @@ public interface NameIDFormatDescriptorComp {
      * @throws IllegalAddException thrown if the given format is alread owned by another SAMLObject
      */
     public void addNameIDFormat(NameIDFormat format) throws IllegalAddException;
+    
+    /**
+     * Adds a NameID format supported by this authority.
+     * 
+     * @param format the format to add
+     * 
+     * @throws IllegalAddException thrown if the given format is alread owned by another SAMLObject
+     */
+    public void addNameIDFormat(String format) throws IllegalAddException;
 
     /**
      * Removes a NameID format supported by this authority.
@@ -58,6 +76,13 @@ public interface NameIDFormatDescriptorComp {
      * @param format the format
      */
     public void removeNameIDFormat(NameIDFormat format);
+    
+    /**
+     * Removes a NameID format supported by this authority.
+     * 
+     * @param format the format
+     */
+    public void removeNameIDFormat(String format);
 
     /**
      * Removes a list of NameID formats supported by this authority.

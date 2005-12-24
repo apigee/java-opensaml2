@@ -18,6 +18,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
@@ -47,6 +48,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
         expectedOwnerID = "urn:example.org";
         expectedCacheDuration = 90000;
         expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
+        expectedValidUntil.setTimeZone(TimeZone.getTimeZone("Universal"));
     }
 
     /*

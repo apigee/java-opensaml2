@@ -18,6 +18,7 @@ package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.core.Attribute;
 
@@ -45,8 +46,10 @@ public interface AttributeDescriptorComp {
      * Adds an {@link Attribute} supported by this authority.
      * 
      * @param attribute the attribute
+     * 
+     * @throws IllegalAddException thrown if the given attribute is already the child of another SAMLObject
      */
-    public void addAttribute(Attribute attribute);
+    public void addAttribute(Attribute attribute) throws IllegalAddException;
 
     /**
      * Removes an {@link Attribute} supported by this authority.

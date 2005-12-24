@@ -37,8 +37,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.RoleDescriptor}
- * objects. <strong>NOTE</strong> this Unmarshaller will only work that are derived from
- * {@link org.opensaml.saml2.common.impl.AbstractSAMLObject}.
+ * objects.
  */
 public class RoleDescriptorUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
 
@@ -51,44 +50,46 @@ public class RoleDescriptorUnmarshaller extends AbstractUnmarshaller implements 
     protected RoleDescriptorUnmarshaller(QName target) {
         super(target);
     }
-    
+
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement, org.opensaml.saml2.common.impl.AbstractSAMLElement)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement,
+     *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException{
-        RoleDescriptor roleDescriptor = (RoleDescriptor)parentElement;
+    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException {
+        RoleDescriptor roleDescriptor = (RoleDescriptor) parentElement;
         try {
-            if(childElement instanceof Extensions) {
+            if (childElement instanceof Extensions) {
                 roleDescriptor.setExtensions((Extensions) childElement);
-            }else if(childElement instanceof KeyDescriptor) {
+            } else if (childElement instanceof KeyDescriptor) {
                 roleDescriptor.addKeyDescriptor((KeyDescriptor) childElement);
-            }else if(childElement instanceof Organization) {
+            } else if (childElement instanceof Organization) {
                 roleDescriptor.setOrganization((Organization) childElement);
-            }else if(childElement instanceof ContactPerson) {
+            } else if (childElement instanceof ContactPerson) {
                 roleDescriptor.addContactPerson((ContactPerson) childElement);
             }
-        }catch(IllegalAddException e){
-            //This should never happen
+        } catch (IllegalAddException e) {
+            // This should never happen
             throw new UnmarshallingException(e);
         }
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement, java.lang.String, java.lang.String)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement,
+     *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue){
-        RoleDescriptor roleDescriptor = (RoleDescriptor)samlElement;
-        
-        if(attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
+    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue) {
+        RoleDescriptor roleDescriptor = (RoleDescriptor) samlElement;
+
+        if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
             roleDescriptor.setValidUntil(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
-        }else if(attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
+        } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             roleDescriptor.setCacheDuration(CacheableSAMLObjectHelper.durationToLong(attributeValue));
-        }else if(attributeName.equals(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME)) {
-            StringTokenizer protocolTokenizer = new StringTokenizer(attributeValue, " ");           
-            while(protocolTokenizer.hasMoreTokens()) {
+        } else if (attributeName.equals(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME)) {
+            StringTokenizer protocolTokenizer = new StringTokenizer(attributeValue, " ");
+            while (protocolTokenizer.hasMoreTokens()) {
                 roleDescriptor.addSupportedProtocol(protocolTokenizer.nextToken());
             }
-        }else if(attributeName.equals(RoleDescriptor.ERROR_URL_ATTRIB_NAME)) {
+        } else if (attributeName.equals(RoleDescriptor.ERROR_URL_ATTRIB_NAME)) {
             roleDescriptor.setErrorURL(attributeValue);
         }
     }

@@ -39,13 +39,6 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorUnmarshaller" />
         </ObjectProvider>
         
-        <!-- Endpoint provider -->
-        <ObjectProvider qualifiedName="md:Endpoint">
-            <BuilderClass className="org.opensaml.saml2.metadata.impl.EndpointBuilder" />
-            <MarshallingClass className="org.opensaml.saml2.metadata.impl.EndpointMarshaller" />
-            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EndpointUnmarshaller" />
-        </ObjectProvider>
-        
         <!-- AffiliationDescriptor provider -->
         <ObjectProvider qualifiedName="md:AffiliationDescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorBuilder" />

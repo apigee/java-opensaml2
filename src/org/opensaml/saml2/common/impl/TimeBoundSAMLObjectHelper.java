@@ -19,6 +19,8 @@ package org.opensaml.saml2.common.impl;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 
+import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.util.xml.XMLHelper;
 
@@ -99,7 +101,10 @@ public class TimeBoundSAMLObjectHelper implements Serializable {
      * @return the gregorian calendar
      */
     public static GregorianCalendar stringToCalendar(String s){
-        return XMLHelper.getDataTypeFactory().newXMLGregorianCalendar(s).toGregorianCalendar();
+        XMLGregorianCalendar calendar = XMLHelper.getDataTypeFactory().newXMLGregorianCalendar(s);
+        calendar.normalize();
+        calendar.setTimezone(0);
+        return calendar.toGregorianCalendar();
     }
 
     /**
@@ -111,7 +116,10 @@ public class TimeBoundSAMLObjectHelper implements Serializable {
      */
     public static String calendarToString(GregorianCalendar validUntil) {
         if (validUntil != null) {
-            return XMLHelper.getDataTypeFactory().newXMLGregorianCalendar(validUntil).toXMLFormat();
+            XMLGregorianCalendar calendar = XMLHelper.getDataTypeFactory().newXMLGregorianCalendar(validUntil);
+            calendar.normalize();
+            calendar.setTimezone(0);
+            return calendar.toXMLFormat();
         }
 
         return null;

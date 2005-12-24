@@ -21,6 +21,7 @@ import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
@@ -41,28 +42,30 @@ public interface AttributeAuthorityDescriptor extends SAMLObject, RoleDescriptor
      * 
      * @return list of attributes services
      */
-    public UnmodifiableOrderedSet<Endpoint> getAttributeServices();
+    public UnmodifiableOrderedSet<AttributeService> getAttributeServices();
 
     /**
      * Adds an attribute service {@link Endpoint} for this authority.
      * 
      * @param service the attribute service
+     * 
+     * @throws IllegalAddException thrown if the given endpoint is already a child of another element
      */
-    public void addAttributeService(Endpoint service);
+    public void addAttributeService(AttributeService service) throws IllegalAddException;
 
     /**
      * Removes an attribute service {@link Endpoint} for this authority.
      * 
      * @param service the attribute service
      */
-    public void removeAttributeService(Endpoint service);
+    public void removeAttributeService(AttributeService service);
 
     /**
      * Removes a list of attribute service {@link Endpoint} for this authority.
      * 
      * @param services the list of attribute service
      */
-    public void removeAttributeServices(Collection<Endpoint> services);
+    public void removeAttributeServices(Collection<AttributeService> services);
 
     /**
      * Removes all the attribute service {@link Endpoint}s for this authority.

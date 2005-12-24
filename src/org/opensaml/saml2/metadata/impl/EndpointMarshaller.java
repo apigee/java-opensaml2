@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.impl.AbstractMarshaller;
@@ -34,8 +36,8 @@ public class EndpointMarshaller extends AbstractMarshaller implements Marshaller
      *
      * @throws XMLParserException thrown when an JAXP DatatypeFactory can not be created
      */
-    public EndpointMarshaller(){
-        super(Endpoint.QNAME);
+    public EndpointMarshaller(QName target){
+        super(target);
     }
 
     /*

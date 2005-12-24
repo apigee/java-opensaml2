@@ -32,7 +32,7 @@ public interface AssertionIDRequestDescriptorComp {
      * 
      * @return list of assertion request services
      */
-    public UnmodifiableOrderedSet<Endpoint> getAssertionIDRequestServices();
+    public UnmodifiableOrderedSet<AssertionIDRequestService> getAssertionIDRequestServices();
 
     /**
      * Adds an assertion request service {@link Endpoint} for this authority.
@@ -41,21 +41,21 @@ public interface AssertionIDRequestDescriptorComp {
      * 
      * @throws IllegalAddException thrown if the given endpoint is owned by another element
      */
-    public void addAssertionIDRequestService(Endpoint service) throws IllegalAddException;
+    public void addAssertionIDRequestService(AssertionIDRequestService service) throws IllegalAddException;
 
     /**
      * Removes an assertion request service {@link Endpoint} for this authority.
      * 
      * @param service the assertion request service
      */
-    public void removeAssertionIDRequestService(Endpoint service);
+    public void removeAssertionIDRequestService(AssertionIDRequestService service);
 
     /**
      * Removes a list of assertion request service {@link Endpoint} for this authority.
      * 
      * @param services the assertion request services
      */
-    public void removeAssertionIDRequestServices(Collection<Endpoint> services);
+    public void removeAssertionIDRequestServices(Collection<AssertionIDRequestService> services);
 
     /**
      * Removes all the assertion request services for this authority.
