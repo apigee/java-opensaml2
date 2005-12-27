@@ -17,12 +17,8 @@
 /**
  * 
  */
-package org.opensaml.saml1.core.impl;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
+package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
@@ -35,6 +31,7 @@ import org.opensaml.common.io.impl.AbstractUnmarshaller;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Response} objects.
@@ -49,104 +46,83 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
+     *      org.opensaml.common.SAMLObject)
      */
     @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
-        
+
         Response response = (Response) parentElement;
-        
+
         try {
             if (childElement instanceof Assertion) {
-                
-                response.setAssertion((Assertion)childElement);
-            
+
+                response.setAssertion((Assertion) childElement);
+
             } else if (childElement instanceof Status) {
-                
+
                 response.setStatus((Status) childElement);
-            
-            } else { 
-                if(!SAMLConfig.ignoreUnknownElements()){
-                    throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for Response objects");
+
+            } else {
+                if (!SAMLConfig.ignoreUnknownElements()) {
+                    throw new UnknownElementException(childElement.getElementQName()
+                            + " is not a supported element for Response objects");
                 }
             }
-        }
-        catch(IllegalAddException e){
-        
+        } catch (IllegalAddException e) {
+
             throw new UnmarshallingException(e);
         }
-    }    
+    }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
+     *      java.lang.String, java.lang.String)
      */
     @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        Response response = (Response) samlElement; 
-            
+        Response response = (Response) samlElement;
+
         if (attributeName.equals(Response.INRESPONSETO_ATTRIB_NAME)) {
-            
+
             response.setInResponseTo(attributeValue);
-            
+
         } else if (attributeName.equals(Response.ISSUEINSTANT_ATTRIB_NAME)) {
-            
-            // TODO Does this work?
-            DateFormat formatter;
-            
-            int dot = attributeValue.indexOf('.');
-            if (dot > 0) {
-                formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            }
-            else {
-                formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-            }
-            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-            
-            try {
-                response.setIssueInstant(formatter.parse(attributeValue));
-            } 
-            catch (ParseException p) {
-                
-                throw new UnmarshallingException(p);
-            }
-    
+
+            response.setIssueInstant(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
+
         } else if (attributeName.equals(Response.MAJORVERSION_ATTRIB_NAME)) {
-            
+
             try {
                 if (Integer.parseInt(attributeValue) != 1) {
                     throw new UnmarshallingException("SAML version must be 1");
                 }
-            } 
-            catch (NumberFormatException n) {
+            } catch (NumberFormatException n) {
                 throw new UnmarshallingException(n);
             }
-            
+
         } else if (attributeName.equals(Response.MINORVERSION_ATTRIB_NAME)) {
-            
+
             try {
-                int newVersion = Integer.parseInt(attributeValue); 
-    
+                int newVersion = Integer.parseInt(attributeValue);
+
                 response.setMinorVersion(newVersion);
-              
-            } 
-            catch (NumberFormatException n) {
+
+            } catch (NumberFormatException n) {
                 throw new UnmarshallingException(n);
             }
-    
+
         } else if (attributeName.equals(Response.RECIPIENT_ATTRIB_NAME)) {
-            
+
             response.setRecipient(attributeValue);
-    
-        } else if (attributeName.equals(Response.RESPONSEID_ATTRIB_NAME)) {
-            
-            response.setResponseID(attributeValue);
-           
+
         } else {
-            if(!SAMLConfig.ignoreUnknownAttributes()){
-                throw new UnknownAttributeException(attributeName + " is not a supported attributed for Response objects");
+            if (!SAMLConfig.ignoreUnknownAttributes()) {
+                throw new UnknownAttributeException(attributeName
+                        + " is not a supported attributed for Response objects");
             }
         }
     }

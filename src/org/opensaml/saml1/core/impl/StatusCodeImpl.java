@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.IllegalAddException;
@@ -36,15 +37,15 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
      *  Serial version UID.
      */
     private static final long serialVersionUID = 194338125141975180L;
-    
+
     /** Contents of the Value attribute */
-    
+
     private String value;
-    
+
     /** The child StatusCode sub element */
-    
+
     private StatusCode childStatusCode;
-    
+
     /**
      * Constructor
      */
@@ -90,8 +91,8 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
     public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
 
         OrderedSet<SAMLObject> contents = new OrderedSet<SAMLObject>(1);
-        
-        if (childStatusCode !=  null) {
+
+        if (childStatusCode != null) {
             contents.add(childStatusCode);
         }
         return new UnmodifiableOrderedSet<SAMLObject>(contents);
@@ -102,20 +103,20 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
      * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
      */
     public boolean equals(SAMLObject element) {
-        
+
         if (element instanceof StatusCode) {
             StatusCode statusCode = (StatusCode) element;
 
             if (!StringHelper.safeEquals(this.value, statusCode.getValue())) {
                 return false;
             }
-            
+
             if (childStatusCode == null) {
                 return (statusCode.getStatusCode() == null);
             }
-            
+
             return childStatusCode.equals(element);
-        
+
         } else {
             return false;
         }

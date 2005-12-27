@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
@@ -28,7 +29,7 @@ import org.opensaml.common.SAMLObjectBuilder;
 public class StatusMessageBuilder implements SAMLObjectBuilder {
 
     public SAMLObject buildObject() {
-        
+
         return new StatusMessageImpl();
     }
 

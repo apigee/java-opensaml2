@@ -25,7 +25,7 @@ public interface SubjectStatement extends SAMLObject {
 
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "SubjectStatement";
-    
+
     /** QName for this element. */
     public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
 

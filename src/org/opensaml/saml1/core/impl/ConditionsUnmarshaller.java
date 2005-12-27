@@ -20,11 +20,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
@@ -27,13 +28,13 @@ import org.opensaml.saml1.core.Status;
 import org.w3c.dom.Element;
 
 /**
- *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Status} objects.
+ * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Status} objects.
  */
 public class StatusMarshaller extends AbstractMarshaller implements Marshaller {
 
     /**
      * Constructor
-     *
+     * 
      * @param target
      */
     public StatusMarshaller() {
@@ -41,7 +42,8 @@ public class StatusMarshaller extends AbstractMarshaller implements Marshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     *      org.w3c.dom.Element)
      */
     @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
@@ -50,12 +51,12 @@ public class StatusMessageMarshaller extends AbstractMarshaller implements Marsh
      * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallElementContent(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
     protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        
+
         StatusMessage statusMessage = (StatusMessage) samlObject;
-        
-        if (statusMessage.getMessage() != null){
-            
+
+        if (statusMessage.getMessage() != null) {
+
             domElement.setTextContent(statusMessage.getMessage());
-         }
+        }
     }
 }

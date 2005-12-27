@@ -16,14 +16,12 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
 import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -45,32 +43,23 @@ public class AssertionMarshaller extends AbstractMarshaller implements Marshalle
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
 
         Assertion assertion = (Assertion) samlElement;
-        
-        if (assertion.getId() != null){
-            
-           domElement.setAttribute(Assertion.ASSERTIONID_ATTRIB_NAME, assertion.getId());
-        }
-        
-        if (assertion.getIssuer() != null){
-            
-           domElement.setAttribute(Assertion.ISSUER_ATTRIB_NAME, assertion.getIssuer());
-        }
-        
-        if (assertion.getIssueInstant() != null) {
-            
-            DateFormat formatter;
 
-            formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            
-            String date = formatter.format(assertion.getIssueInstant());
-            
+        if (assertion.getIssuer() != null) {
+
+            domElement.setAttribute(Assertion.ISSUER_ATTRIB_NAME, assertion.getIssuer());
+        }
+
+        if (assertion.getIssueInstant() != null) {
+
+            String date = TimeBoundSAMLObjectHelper.calendarToString(assertion.getIssueInstant());
+
             domElement.setAttribute(Assertion.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
         assertion.getMinorVersion();
         String minorVersion = Integer.toString(assertion.getMinorVersion());
-            
+
         domElement.setAttribute(Assertion.MINORVERSION_ATTRIB_NAME, minorVersion);
-        domElement.setAttribute(Assertion.MAJORVERSION_ATTRIB_NAME, "1");        
+        domElement.setAttribute(Assertion.MAJORVERSION_ATTRIB_NAME, "1");
     }
 }

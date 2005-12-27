@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLConfig;
@@ -41,36 +42,39 @@ public class StatusMessageUnmarshaller extends AbstractUnmarshaller implements U
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
+     *      org.opensaml.common.SAMLObject)
      */
     @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
-        if(!SAMLConfig.ignoreUnknownElements()){
-            throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for StatusCode objects");
+        if (!SAMLConfig.ignoreUnknownElements()) {
+            throw new UnknownElementException(childElement.getElementQName()
+                    + " is not a supported element for StatusCode objects");
         }
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
+     *      java.lang.String, java.lang.String)
      */
     @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
-        
-        if(!SAMLConfig.ignoreUnknownAttributes()){
+
+        if (!SAMLConfig.ignoreUnknownAttributes()) {
             throw new UnknownAttributeException(attributeName + " is not a supported attributed for Response objects");
         }
     }
-    
+
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject, java.lang.String)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+     *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent)
-    {
+    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
         StatusMessage statusMessage = (StatusMessage) samlElement;
-        
+
         statusMessage.setMessage(elementContent);
     }
 

@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.util.xml.XMLConstants;
+
 /**
  * This interface defines how the object representing a SAML 1 <code> Advice </code> element behaves. 
  */
@@ -27,9 +28,8 @@ public interface Advice extends SAMLObject {
 
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "Advice";
-    
+
     /** QName for this element. */
     public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
-
 
 }

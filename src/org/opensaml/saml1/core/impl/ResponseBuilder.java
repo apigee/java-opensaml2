@@ -17,13 +17,14 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- *Class whose sole jobe is the creation of a {@link ResponseImpl} object 
+ * Class whose sole jobe is the creation of a {@link ResponseImpl} object
  */
 public class ResponseBuilder implements SAMLObjectBuilder {
 

@@ -17,52 +17,48 @@
 /**
  * 
  */
-package org.opensaml.saml1.core.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
 import org.opensaml.saml1.core.Response;
+import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.w3c.dom.Element;
 
 /**
- *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Response} objects.
+ * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Response} objects.
  */
 public class ResponseMarshaller extends AbstractMarshaller implements Marshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ResponseMarshaller() {
         super(Response.QNAME);
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     *      org.w3c.dom.Element)
      */
     @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        
-        Response response = (Response) samlElement;
-        
-        if (response.getInResponseTo() != null){
-            
-           domElement.setAttribute(Response.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
-        }
-        
-        if (response.getIssueInstant() != null) {
-            
-            DateFormat formatter;
 
-            formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-            
-            String date = formatter.format(response.getIssueInstant());
-            
+        Response response = (Response) samlElement;
+
+        if (response.getInResponseTo() != null) {
+
+            domElement.setAttribute(Response.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
+        }
+
+        if (response.getIssueInstant() != null) {
+
+            String date = TimeBoundSAMLObjectHelper.calendarToString(response.getIssueInstant());
+
             domElement.setAttribute(Response.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
@@ -70,17 +66,10 @@ public class ResponseMarshaller extends AbstractMarshaller implements Marshaller
 
         domElement.setAttribute(Response.MINORVERSION_ATTRIB_NAME, minorVersion);
         domElement.setAttribute(Response.MAJORVERSION_ATTRIB_NAME, "1");
-        
+
         if (response.getRecipient() != null) {
-            
+
             domElement.setAttribute(Response.RECIPIENT_ATTRIB_NAME, response.getRecipient());
         }
-        
-        if (response.getResponseID() != null) {
-            
-            domElement.setAttribute(Response.RESPONSEID_ATTRIB_NAME, response.getResponseID());
-        }
-
     }
-
 }

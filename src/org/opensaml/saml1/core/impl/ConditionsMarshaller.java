@@ -20,9 +20,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;

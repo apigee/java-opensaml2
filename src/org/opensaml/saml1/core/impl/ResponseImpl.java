@@ -17,80 +17,62 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.util.OrderedSet;
 import org.opensaml.common.util.StringHelper;
 import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
+
 /**
  * Implementation of the {@link org.opensaml.saml1.core.Response} Object
  */
-public class ResponseImpl extends AbstractSAMLObject implements Response {
+public class ResponseImpl extends AbstractSignableSAMLObject implements Response {
 
     /**
      * Serial version UID.
      */
     private static final long serialVersionUID = 6224869049066163659L;
 
-    /** xs:ID of this response. */
-    
-    private String responseID = null;
-    
     /** Contents of the InResponseTo attribute */
-    
+
     private String inResponseTo = null;
-    
+
     /** Minor Version of this element */
-    
+
     private int minorVersion = 0;
-    
+
     /** Contents of the Date attribute */
-    
-    private Date issueInstant = null;
-    
+
+    private GregorianCalendar issueInstant = null;
+
     /** Contents of the recipient attribute */
-    
+
     private String recipient = null;
-    
+
     /** Status associated with this element */
-    
+
     private Status status = null;
-    
+
     /** Assertion associated with this element */
 
     private Assertion assertion = null;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected ResponseImpl() {
         super();
         setQName(Response.QNAME);
-    }
-    
-    /*
-     * @see org.opensaml.saml1.core.Response#getResponseID()
-     */
-    public String getResponseID() {
-        
-        return responseID;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#setResponseID(java.lang.String)
-     */
-    public void setResponseID(String responseID) {
-
-        this.responseID = prepareForAssignment(this.responseID, responseID);
-        
     }
 
     /*
@@ -113,7 +95,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      * @see org.opensaml.saml1.core.Response#getMinorVersion()
      */
     public int getMinorVersion() {
-        
+
         return minorVersion;
     }
 
@@ -121,7 +103,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      * @see org.opensaml.saml1.core.Response#setMinorVersion(int)
      */
     public void setMinorVersion(int version) {
-        
+
         if (version != minorVersion) {
             releaseThisandParentDOM();
             minorVersion = version;
@@ -131,21 +113,21 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
     /*
      * @see org.opensaml.saml1.core.Response#getIssueInstant()
      */
-    public Date getIssueInstant() {
-        
+    public GregorianCalendar getIssueInstant() {
+
         return issueInstant;
     }
 
     /*
      * @see org.opensaml.saml1.core.Response#setIssueInstant(java.util.Date)
      */
-    public void setIssueInstant(Date date) {
+    public void setIssueInstant(GregorianCalendar date) {
 
         if (issueInstant == null && date == null) {
             // no change - return
             return;
         }
-        
+
         if (issueInstant == null || !issueInstant.equals(date)) {
             releaseThisandParentDOM();
             issueInstant = date;
@@ -164,7 +146,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      * @see org.opensaml.saml1.core.Response#setRecipient(java.lang.String)
      */
     public void setRecipient(String recipient) {
-      
+
         this.recipient = prepareForAssignment(this.recipient, recipient);
     }
 
@@ -180,7 +162,7 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      * @see org.opensaml.saml1.core.Response#getStatus(org.opensaml.saml1.core.Status)
      */
     public void setStatus(Status status) throws IllegalAddException {
-        
+
         this.status = prepareForAssignment(this.status, status);
     }
 
@@ -189,14 +171,14 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      */
     public Assertion getAssertion() {
 
-        return assertion;    
+        return assertion;
     }
 
     /*
      * @see org.opensaml.saml1.core.Response#addAssertion(org.opensaml.saml1.core.Assertion)
      */
     public void setAssertion(Assertion assertion) throws IllegalAddException {
-        this.assertion = prepareForAssignment(this.assertion, assertion) ;
+        this.assertion = prepareForAssignment(this.assertion, assertion);
     }
 
     /*
@@ -204,28 +186,31 @@ public class ResponseImpl extends AbstractSAMLObject implements Response {
      */
 
     public boolean equals(SAMLObject element) {
-        if (element instanceof ResponseImpl){
-            
-            Response other = (ResponseImpl)element;
-            
-            return StringHelper.safeEquals(other.getResponseID(), this.responseID);
+        if (element instanceof ResponseImpl) {
+            // TODO implement equals
+            /*Response other = (ResponseImpl) element;
+
+            String myId = getSigningContext().getIdAttributeValue();
+            String otherId = other.getSigningContext().getIdAttributeValue();
+
+            return StringHelper.safeEquals(myId, otherId); */
         }
-        
+
         return false;
     }
 
     public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
 
-        OrderedSet <SAMLObject> set = new OrderedSet<SAMLObject>(2);
-        
+        OrderedSet<SAMLObject> set = new OrderedSet<SAMLObject>(2);
+
         if (assertion != null) {
             set.add(assertion);
         }
-        
+
         if (status != null) {
             set.add(status);
         }
-        
+
         return new UnmodifiableOrderedSet<SAMLObject>(set);
     }
- }
+}

@@ -17,8 +17,8 @@
 /**
  * 
  */
-package org.opensaml.saml1.core.impl;
 
+package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
@@ -40,7 +40,7 @@ public class StatusUnmarshaller extends AbstractUnmarshaller implements Unmarsha
     /**
      * Constructor
      */
-    
+
     public StatusUnmarshaller() {
         super(Status.QNAME);
 
@@ -52,29 +52,30 @@ public class StatusUnmarshaller extends AbstractUnmarshaller implements Unmarsha
     @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
-        
+
         Status status = (Status) parentElement;
-        
+
         try {
             if (childElement instanceof StatusCode) {
-            
-                status.setStatusCode((StatusCode)childElement);
-        
+
+                status.setStatusCode((StatusCode) childElement);
+
             } else if (childElement instanceof StatusMessage) {
-                
+
                 status.setStatusMessage((StatusMessage) childElement);
-                
+
             } else if (childElement instanceof SAMLObject) {
-                
+
                 //
                 // TODO - more magicke
                 //
-                
+
                 status.setStatusDetail(childElement);
-            
-            } else { 
-                if(!SAMLConfig.ignoreUnknownElements()){
-                    throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for Response objects");
+
+            } else {
+                if (!SAMLConfig.ignoreUnknownElements()) {
+                    throw new UnknownElementException(childElement.getElementQName()
+                            + " is not a supported element for Response objects");
                 }
             }
         } catch (IllegalAddException e) {
@@ -89,7 +90,7 @@ public class StatusUnmarshaller extends AbstractUnmarshaller implements Unmarsha
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        if(!SAMLConfig.ignoreUnknownAttributes()){
+        if (!SAMLConfig.ignoreUnknownAttributes()) {
             throw new UnknownAttributeException(attributeName + " is not a supported attributed for Status objects");
         }
     }

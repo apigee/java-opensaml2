@@ -17,23 +17,22 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- *Class whose sole jobe is the creation of a {@link StatusImpl} object 
+ * Class whose sole jobe is the creation of a {@link StatusImpl} object
  */
 public class StatusBuilder implements SAMLObjectBuilder {
-
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
     public SAMLObject buildObject() {
-        
+
         return new StatusImpl();
     }
-
 }

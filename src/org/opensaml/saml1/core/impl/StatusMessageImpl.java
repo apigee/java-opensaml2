@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
@@ -35,12 +36,12 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
      * Serial version UID.
      */
     private static final long serialVersionUID = -766167197012104173L;
-    
+
     /**
      * Contents of the element
      */
     private String message;
-    
+
     /**
      * Constructor
      */
@@ -53,7 +54,7 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
      * @see org.opensaml.saml1.core.StatusMessage#getMessage()
      */
     public String getMessage() {
-        
+
         return message;
     }
 
@@ -61,7 +62,7 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
      * @see org.opensaml.saml1.core.StatusMessage#setMessage(java.lang.String)
      */
     public void setMessage(String message) {
-     
+
         this.message = prepareForAssignment(this.message, message);
     }
 
@@ -80,9 +81,9 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
         if (!(element instanceof StatusMessage)) {
             return false;
         }
-        
+
         StatusMessage statusMessage = (StatusMessage) element;
-        
+
         return StringHelper.safeEquals(this.message, statusMessage.getMessage());
     }
 

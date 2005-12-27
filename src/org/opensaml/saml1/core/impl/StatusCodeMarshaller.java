@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
@@ -43,12 +44,12 @@ public class StatusCodeMarshaller extends AbstractMarshaller implements Marshall
      */
     @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        
+
         StatusCode statusCode = (StatusCode) samlElement;
-        
-        if (statusCode .getValue() != null){
-        
-        domElement.setAttribute(StatusCode.VALUE_ATTRIB_NAME, statusCode.getValue());
+
+        if (statusCode.getValue() != null) {
+
+            domElement.setAttribute(StatusCode.VALUE_ATTRIB_NAME, statusCode.getValue());
         }
     }
 }

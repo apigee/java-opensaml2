@@ -30,7 +30,7 @@ public interface Status extends SAMLObject {
     /** Element name, no namespace. */
 
     public final static String LOCAL_NAME = "Status";
-    
+
     /** QName for this element. */
 
     public final static QName QNAME = new QName(XMLConstants.SAMLP1_NS, LOCAL_NAME, XMLConstants.SAMLP1_PREFIX);
@@ -38,15 +38,15 @@ public interface Status extends SAMLObject {
     /** Return the object representing the <code>StatusMessage<code> (element). */
 
     StatusMessage getStatusMessage();
-   
+
     /** Set the object representing the <code>StatusMessage<code> (element). */
 
     void setStatusMessage(StatusMessage statusMessage) throws IllegalAddException;
-   
+
     /** Return the object representing the <code>StatusCode<code> (element). */
 
     StatusCode getStatusCode();
-   
+
     /** Set the object representing the <code>StatusCode<code> (element). */
 
     void setStatusCode(StatusCode statusCode) throws IllegalAddException;
@@ -54,7 +54,7 @@ public interface Status extends SAMLObject {
     /** Return the object representing the <code>StatusDetail<code> (element). */
 
     SAMLObject getStatusDetail();
-   
+
     /** Set the object representing the <code>StatusDetail<code> (element). */
 
     void setStatusDetail(SAMLObject statusDetail) throws IllegalAddException;

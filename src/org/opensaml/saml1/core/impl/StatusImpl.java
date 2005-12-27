@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.IllegalAddException;
@@ -37,19 +38,19 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      *  Serial version UID.
      */
     private static final long serialVersionUID = -1094107132600772671L;
-    
+
     /** Representation of the StatusMessage element. */
-    
+
     private StatusMessage statusMessage;
-    
+
     /** Representation of the StatusCode element. */
-        
+
     private StatusCode statusCode;
 
     /** Representation of the StatusDetail element. */
-    
+
     private SAMLObject statusDetail;
-    
+
     /**
      * Constructor.
      */
@@ -79,14 +80,14 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public StatusCode getStatusCode() {
 
-        return statusCode;    
+        return statusCode;
     }
 
     /*
      * @see org.opensaml.saml1.core.Status#getStatusCode(org.opensaml.saml1.core.StatusCode)
      */
     public void setStatusCode(StatusCode statusCode) throws IllegalAddException {
-        
+
         this.statusCode = prepareForAssignment(this.statusCode, statusCode);
     }
 
@@ -111,19 +112,19 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
         OrderedSet<SAMLObject> set = new OrderedSet<SAMLObject>(3);
-        
+
         if (statusCode != null) {
             set.add(statusCode);
         }
-        
+
         if (statusMessage != null) {
             set.add(statusMessage);
         }
-        
+
         if (statusDetail != null) {
             set.add(statusDetail);
         }
-        
+
         return new UnmodifiableOrderedSet<SAMLObject>(set);
     }
 
@@ -133,24 +134,24 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
     public boolean equals(SAMLObject element) {
 
         if (!(element instanceof Status)) {
-            
+
             return false;
         }
-        
+
         //
         // TODO what are equal statuses and why would we care?
         //
-        
+
         Status status = (Status) element;
-         
+
         if (statusCode == null && status.getStatusCode() == null) {
             return true;
         }
-        
+
         if (statusCode != null) {
             return statusCode.equals(status.getStatusCode());
         }
-        
+
         return false;
     }
 

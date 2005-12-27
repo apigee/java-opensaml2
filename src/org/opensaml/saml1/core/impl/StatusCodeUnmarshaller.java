@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.IllegalAddException;
@@ -49,19 +50,19 @@ public class StatusCodeUnmarshaller extends AbstractUnmarshaller implements Unma
             throws UnmarshallingException, UnknownElementException {
 
         StatusCode statusCode = (StatusCode) parentElement;
-        
+
         if (childElement instanceof StatusCode) {
-                
+
             try {
                 statusCode.setStatusCode((StatusCode) childElement);
-            }
-            catch(IllegalAddException e){
+            } catch (IllegalAddException e) {
                 throw new UnmarshallingException(e);
             }
-                
-        } else { 
-            if(!SAMLConfig.ignoreUnknownElements()){
-                throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for StatusCode objects");
+
+        } else {
+            if (!SAMLConfig.ignoreUnknownElements()) {
+                throw new UnknownElementException(childElement.getElementQName()
+                        + " is not a supported element for StatusCode objects");
             }
         }
 
@@ -75,14 +76,15 @@ public class StatusCodeUnmarshaller extends AbstractUnmarshaller implements Unma
             throws UnmarshallingException, UnknownAttributeException {
 
         StatusCode statusCode = (StatusCode) samlElement;
-        
+
         if (attributeName.equals(StatusCode.VALUE_ATTRIB_NAME)) {
-            
+
             statusCode.setValue(attributeValue);
-           
+
         } else {
-            if(!SAMLConfig.ignoreUnknownAttributes()){
-                throw new UnknownAttributeException(attributeName + " is not a supported attributed for Response objects");
+            if (!SAMLConfig.ignoreUnknownAttributes()) {
+                throw new UnknownAttributeException(attributeName
+                        + " is not a supported attributed for Response objects");
             }
         }
     }
