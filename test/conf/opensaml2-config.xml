@@ -88,6 +88,12 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.StatusMessageUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:Conditions">
+            <BuilderClass className="org.opensaml.saml1.core.impl.ConditionsBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.ConditionsMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.ConditionsUnmarshaller" />
+        </ObjectProvider>
+
     </ObjectProviders>
 
 </OpenSAML>
