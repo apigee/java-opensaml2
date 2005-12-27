@@ -25,10 +25,10 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.w3c.dom.Element;
 
@@ -64,7 +64,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to RoleDescriptor DOM element");
             }
-            String validUntilStr = TimeBoundSAMLObjectHelper.calendarToString(roleDescriptor.getValidUntil());
+            String validUntilStr = XMLHelper.calendarToString(roleDescriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         

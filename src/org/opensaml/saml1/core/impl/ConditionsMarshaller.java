@@ -24,8 +24,8 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml1.core.Conditions;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -50,14 +50,14 @@ public class ConditionsMarshaller extends AbstractMarshaller implements Marshall
 
         if (conditions.getNotBefore() != null) {
 
-            String date = TimeBoundSAMLObjectHelper.calendarToString(conditions.getNotBefore());
+            String date = XMLHelper.calendarToString(conditions.getNotBefore());
 
             domElement.setAttribute(Conditions.NOTBEFORE_ATTRIB_NAME, date);
         }
 
         if (conditions.getNotOnOrAfter() != null) {
 
-            String date = TimeBoundSAMLObjectHelper.calendarToString(conditions.getNotOnOrAfter());
+            String date = XMLHelper.calendarToString(conditions.getNotOnOrAfter());
 
             domElement.setAttribute(Conditions.NOTONORAFTER_ATTRIB_NAME, date);
         }

@@ -19,10 +19,8 @@ package org.opensaml.saml2.common.impl;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 
-import javax.xml.datatype.XMLGregorianCalendar;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.xml.XMLHelper;
 
 /**
  * A helper for SAMLElements that implement the {@link org.opensaml.saml2.common.TimeBoundSAMLObject} interface. This
@@ -91,37 +89,5 @@ public class TimeBoundSAMLObjectHelper implements Serializable {
         
         containingElement.releaseThisandParentDOM();
         validUntilDate = validUntil;
-    }
-    
-    /**
-     * Converts a given string into a GregorianCalendar
-     * 
-     * @param s the string
-     * 
-     * @return the gregorian calendar
-     */
-    public static GregorianCalendar stringToCalendar(String s){
-        XMLGregorianCalendar calendar = XMLHelper.getDataTypeFactory().newXMLGregorianCalendar(s);
-        calendar.normalize();
-        calendar.setTimezone(0);
-        return calendar.toGregorianCalendar();
-    }
-
-    /**
-     * Converts an SAMLElement "validUntil" attribute into a String for use in XML documents
-     * 
-     * @param validUntil "validUntil" attribute
-     * 
-     * @return the String representation of the calendar
-     */
-    public static String calendarToString(GregorianCalendar validUntil) {
-        if (validUntil != null) {
-            XMLGregorianCalendar calendar = XMLHelper.getDataTypeFactory().newXMLGregorianCalendar(validUntil);
-            calendar.normalize();
-            calendar.setTimezone(0);
-            return calendar.toXMLFormat();
-        }
-
-        return null;
     }
 }

@@ -28,11 +28,11 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.DoNotCacheCondition;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 
 /**
  * 
@@ -91,11 +91,11 @@ public class ConditionsUnmarshaller extends AbstractUnmarshaller implements Unma
         
         if (Conditions.NOTBEFORE_ATTRIB_NAME.equals(attributeName)) {
 
-            conditions.setNotBefore(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
+            conditions.setNotBefore(XMLHelper.stringToCalendar(attributeValue));
             
         } else if (Conditions.NOTONORAFTER_ATTRIB_NAME.equals(attributeName)) {
            
-            conditions.setNotOnOrAfter(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
+            conditions.setNotOnOrAfter(XMLHelper.stringToCalendar(attributeValue));
             
         } else if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName

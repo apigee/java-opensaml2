@@ -24,8 +24,8 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml1.core.Response;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -57,7 +57,7 @@ public class ResponseMarshaller extends AbstractMarshaller implements Marshaller
 
         if (response.getIssueInstant() != null) {
 
-            String date = TimeBoundSAMLObjectHelper.calendarToString(response.getIssueInstant());
+            String date = XMLHelper.calendarToString(response.getIssueInstant());
 
             domElement.setAttribute(Response.ISSUEINSTANT_ATTRIB_NAME, date);
         }

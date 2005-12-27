@@ -24,6 +24,7 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AttributeStatement;
@@ -33,7 +34,6 @@ import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Statement;
 import org.opensaml.saml1.core.SubjectStatement;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
@@ -111,7 +111,7 @@ public class AssertionUnmarshaller extends AbstractUnmarshaller implements Unmar
 
         if (attributeName.equals(Assertion.ISSUEINSTANT_ATTRIB_NAME)) {
 
-            assertion.setIssueInstant(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
+            assertion.setIssueInstant(XMLHelper.stringToCalendar(attributeValue));
 
         } else if (attributeName.equals(Response.MAJORVERSION_ATTRIB_NAME)) {
 

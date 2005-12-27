@@ -24,10 +24,10 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.w3c.dom.Element;
 
@@ -61,7 +61,7 @@ public class AffiliationDescriptorMarshaller extends AbstractMarshaller implemen
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to AffiliationDescriptor DOM element");
             }
-            String validUntilStr = TimeBoundSAMLObjectHelper.calendarToString(descriptor.getValidUntil());
+            String validUntilStr = XMLHelper.calendarToString(descriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         

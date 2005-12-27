@@ -26,11 +26,11 @@ import java.util.GregorianCalendar;
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.util.xml.ParserPoolManager;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.DoNotCacheCondition;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -118,10 +118,10 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         conditions = (Conditions) unmarshallElement(singleElementOptionalAttributesFile);
 
         GregorianCalendar date = conditions.getNotBefore();
-        assertEquals("NotBefore attribute ", TimeBoundSAMLObjectHelper.calendarToString(notBeforeDate),TimeBoundSAMLObjectHelper.calendarToString(date));
+        assertEquals("NotBefore attribute ", XMLHelper.calendarToString(notBeforeDate),XMLHelper.calendarToString(date));
 
         date = conditions.getNotOnOrAfter();
-        assertEquals("NotOnOrAfter attribute ", TimeBoundSAMLObjectHelper.calendarToString(notOnOfAfter), TimeBoundSAMLObjectHelper.calendarToString(date));
+        assertEquals("NotOnOrAfter attribute ", XMLHelper.calendarToString(notOnOfAfter), XMLHelper.calendarToString(date));
     }
 
     /*

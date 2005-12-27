@@ -16,10 +16,12 @@
 
 package org.opensaml.common.util.xml;
 
+import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.FactoryConfigurationError;
 
@@ -213,5 +215,37 @@ public class XMLHelper {
                     + "Standards Override Mechanism for this parser "
                     + "(see http://java.sun.com/j2se/1.4.2/docs/guide/standards/ for details).");
         }
+    }
+
+    /**
+     * Converts an SAMLElement "validUntil" attribute into a String for use in XML documents
+     * 
+     * @param validUntil "validUntil" attribute
+     * 
+     * @return the String representation of the calendar
+     */
+    public static String calendarToString(GregorianCalendar validUntil) {
+        if (validUntil != null) {
+            XMLGregorianCalendar calendar = getDataTypeFactory().newXMLGregorianCalendar(validUntil);
+            calendar.normalize();
+            calendar.setTimezone(0);
+            return calendar.toXMLFormat();
+        }
+    
+        return null;
+    }
+
+    /**
+     * Converts a given string into a GregorianCalendar
+     * 
+     * @param s the string
+     * 
+     * @return the gregorian calendar
+     */
+    public static GregorianCalendar stringToCalendar(String s){
+        XMLGregorianCalendar calendar = getDataTypeFactory().newXMLGregorianCalendar(s);
+        calendar.normalize();
+        calendar.setTimezone(0);
+        return calendar.toGregorianCalendar();
     }
 }

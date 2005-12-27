@@ -20,8 +20,8 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml1.core.Assertion;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -51,7 +51,7 @@ public class AssertionMarshaller extends AbstractMarshaller implements Marshalle
 
         if (assertion.getIssueInstant() != null) {
 
-            String date = TimeBoundSAMLObjectHelper.calendarToString(assertion.getIssueInstant());
+            String date = XMLHelper.calendarToString(assertion.getIssueInstant());
 
             domElement.setAttribute(Assertion.ISSUEINSTANT_ATTRIB_NAME, date);
         }

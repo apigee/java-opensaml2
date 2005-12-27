@@ -26,11 +26,11 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.common.util.xml.XMLParserException;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.Extensions;
@@ -81,7 +81,7 @@ public class EntitiesDescriptorUnmarshaller extends AbstractUnmarshaller impleme
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor)samlElement;
         
         if(attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            entitiesDescriptor.setValidUntil(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
+            entitiesDescriptor.setValidUntil(XMLHelper.stringToCalendar(attributeValue));
         }else if(attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entitiesDescriptor.setCacheDuration(new Long(CacheableSAMLObjectHelper.durationToLong(attributeValue)));
         }else if(attributeName.equals(EntitiesDescriptor.NAME_ATTRIB_NAME)) {

@@ -24,10 +24,10 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.saml2.metadata.Extensions;
@@ -83,7 +83,7 @@ public class AffiliationDescriptorUnmarshaller extends AbstractUnmarshaller impl
         if (attributeName.equals(AffiliationDescriptor.OWNER_ID_ATTRIB_NAME)) {
             descriptor.setOwnerID(attributeValue);
         } else if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            descriptor.setValidUntil(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
+            descriptor.setValidUntil(XMLHelper.stringToCalendar(attributeValue));
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             descriptor.setCacheDuration(CacheableSAMLObjectHelper.durationToLong(attributeValue));
         } else {

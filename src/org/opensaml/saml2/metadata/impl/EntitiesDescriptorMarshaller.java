@@ -22,11 +22,11 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.common.util.xml.XMLParserException;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.w3c.dom.Element;
 
@@ -64,7 +64,7 @@ public class EntitiesDescriptorMarshaller extends AbstractMarshaller implements 
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to EntitiesDescriptor DOM element");
             }
-            String validUntilStr = TimeBoundSAMLObjectHelper.calendarToString(entitiesDescriptor.getValidUntil());
+            String validUntilStr = XMLHelper.calendarToString(entitiesDescriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         

@@ -26,10 +26,10 @@ import java.util.GregorianCalendar;
 import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.util.xml.ParserPoolManager;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -97,7 +97,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
 
         GregorianCalendar date = response.getIssueInstant();
         assertNull("IssueInstant attribute has a value of " + 
-                            TimeBoundSAMLObjectHelper.calendarToString(date) + 
+                            XMLHelper.calendarToString(date) + 
                             ", expected no value", date);
         
         Assertion assertion;
@@ -119,7 +119,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         response = (Response) unmarshallElement(singleElementOptionalAttributesFile);
 
         GregorianCalendar date = response.getIssueInstant();
-        assertEquals("IssueInstant attribute ", TimeBoundSAMLObjectHelper.calendarToString(issueInstant), TimeBoundSAMLObjectHelper.calendarToString(date));
+        assertEquals("IssueInstant attribute ", XMLHelper.calendarToString(issueInstant), XMLHelper.calendarToString(date));
         
         String string = response.getInResponseTo();
         assertEquals("InResponseTo attribute ", inResponseTo, string);

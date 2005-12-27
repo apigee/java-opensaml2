@@ -28,10 +28,10 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
-import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Response} objects.
@@ -92,7 +92,7 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
 
         } else if (attributeName.equals(Response.ISSUEINSTANT_ATTRIB_NAME)) {
 
-            response.setIssueInstant(TimeBoundSAMLObjectHelper.stringToCalendar(attributeValue));
+            response.setIssueInstant(XMLHelper.stringToCalendar(attributeValue));
 
         } else if (attributeName.equals(Response.MAJORVERSION_ATTRIB_NAME)) {
 
