@@ -136,9 +136,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      */
 
     public void testFullElementsUnmarshall() {
-        Response response;
-
-        response = (Response) unmarshallElement(fullElementsFile);
+        Response response = (Response) unmarshallElement(fullElementsFile);
 
         Assertion assertion;
         assertion = response.getAssertion();
