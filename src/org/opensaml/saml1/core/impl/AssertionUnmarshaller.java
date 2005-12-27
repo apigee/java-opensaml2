@@ -109,7 +109,11 @@ public class AssertionUnmarshaller extends AbstractUnmarshaller implements Unmar
 
         Assertion assertion = (Assertion) samlElement;
 
-        if (attributeName.equals(Assertion.ISSUEINSTANT_ATTRIB_NAME)) {
+        if (attributeName.equals(Assertion.ISSUER_ATTRIB_NAME)) {
+
+            assertion.setIssuer(attributeValue);
+
+        } if (attributeName.equals(Assertion.ISSUEINSTANT_ATTRIB_NAME)) {
 
             assertion.setIssueInstant(XMLHelper.stringToCalendar(attributeValue));
 

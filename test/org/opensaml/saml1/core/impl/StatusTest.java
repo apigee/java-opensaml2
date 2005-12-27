@@ -27,7 +27,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 /**
- *
+ * org.opensaml.saml1.core.Status
  */
 public class StatusTest extends SAMLObjectBaseTestCase {
 

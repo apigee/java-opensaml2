@@ -164,6 +164,10 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, conditions);
     }
 
+    /**
+     * Test an XML file with Children
+     */
+    
     public void testFullElementsMarshall() {
         Conditions conditions = (Conditions) buildSAMLObject(Conditions.QNAME);
 

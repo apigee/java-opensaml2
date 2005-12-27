@@ -23,7 +23,7 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.saml1.core.StatusMessage;
 
 /**
- *
+ * Test for org.opensaml.saml1.core.StatusMessage 
  */
 public class StatusMessageTest extends SAMLObjectBaseTestCase {
 
