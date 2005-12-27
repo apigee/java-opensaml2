@@ -56,10 +56,12 @@ public class AssertionMarshaller extends AbstractMarshaller implements Marshalle
             domElement.setAttribute(Assertion.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
-        assertion.getMinorVersion();
-        String minorVersion = Integer.toString(assertion.getMinorVersion());
-
-        domElement.setAttribute(Assertion.MINORVERSION_ATTRIB_NAME, minorVersion);
-        domElement.setAttribute(Assertion.MAJORVERSION_ATTRIB_NAME, "1");
+        
+        if (assertion.getMinorVersion() != 0) {
+            String minorVersion = Integer.toString(assertion.getMinorVersion());
+    
+            domElement.setAttribute(Assertion.MINORVERSION_ATTRIB_NAME, minorVersion);
+            domElement.setAttribute(Assertion.MAJORVERSION_ATTRIB_NAME, "1");
+        }
     }
 }
