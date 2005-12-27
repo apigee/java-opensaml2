@@ -16,156 +16,106 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.IllegalAddException;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallerFactory;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallerFactory;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.util.ElementSerializer;
-import org.opensaml.common.util.SerializationException;
+import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.util.xml.ParserPoolManager;
-import org.opensaml.common.util.xml.XMLParserException;
-import org.opensaml.saml1.core.Response;
-import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.StatusCode;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
+/**
+ * Test class for org.opensaml.saml1.core.StatusCode
+ */
 public class StatusCodeTest extends SAMLObjectBaseTestCase {
 
-    private final String TEST_FILE = "/data/TestResponse.xml";
-    private final String FIRST_STATUS = "samlp:Success";
-    private final String SECOND_STATUS = "nibble, a happy warthog";
+    /** A file with a Conditions with kids */
 
-    public void testUnarshallStatusCode() {
+    private final String fullElementsFile;
 
-        Response response; 
+    /** The expected result of a marshalled multiple element */
 
-        try {
-            ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-            Document doc;
-            doc = ppMgr.parse(new InputSource(StatusCodeTest.class.getResourceAsStream(TEST_FILE)));
-      
-            Element entitiesDescriptorElem = doc.getDocumentElement();
-            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(entitiesDescriptorElem);
+    private Document expectedFullDOM;
+    
+    /** The expected value for the value attribute */
+    
+    private final String value; 
+    
+    /** The expected value for the value attribute okf the child element */
+    
+    private final String childValue; 
 
-            response = (Response) unmarshaller.unmarshall(entitiesDescriptorElem);
-            
-        } catch (XMLParserException e) {
-            fail("XML Parsing failed: " + e);
-            return;
-        }
-        catch (UnknownAttributeException e) {
-            fail("Unknown attribute exception thrown but example element does not contain any unknown attributes: " + e);
-            return;
-        } catch (UnknownElementException e) {
-            fail("Unknown element exception thrown but example element does not contain any child elements");
-            return;
-        }
-        catch (UnmarshallingException e) {
-            fail("Could not unmarshall:" + e);
-            return;
-        }
-
-        SAMLObject object = response.getStatus();
-        
-        if (object == null) {
-            fail("Not <Status> found");
-            return;
-        }
-        
-        if (!(object instanceof Status)) {
-            fail("Object returned from getStatus was not Status");
-            return;
-        }
- 
-        Status status = (Status) object; 
-        
-        object = status.getStatusCode();
-        
-        if (object == null) {
-            fail("No <StatusCode> found");
-            return;
-        }
-        
-        if (!(object instanceof StatusCode)) {
-            fail("Object returned from getStatusCode was not StatusCode");
-            return;
-        }
- 
-        StatusCode statusCode = (StatusCode) object;
-        
-        assertEquals("First StatusCode value not the same", statusCode.getValue(), FIRST_STATUS);
-        
-        object = statusCode.getStatusCode();
-        if (object == null) {
-            fail("No child <StatusCode> found");
-            return;
-        }
-        
-        if (!(object instanceof StatusCode)) {
-            fail("Object returned from StatusCode.getStatusCode was not StatusCode");
-            return;
-        }
- 
-        statusCode = (StatusCode) object;
-        
-        assertEquals("second StatusCode value not the same", statusCode.getValue(), SECOND_STATUS);
-        
-        object = statusCode.getStatusCode();
-        
-        assertNull("Third child should be null", statusCode.getStatusCode());
+    /**
+     * Constructor
+     *
+     */
+    public StatusCodeTest() {
+        fullElementsFile = "/data/org/opensaml/saml1/FullStatusCode.xml";
+        singleElementFile = "/data/org/opensaml/saml1/singleStatusCode.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleStatusCode.xml";
+        value = "samlp:Success";
+        childValue = "samlp:VersionMismatch";
     }
     
-    public void testMarshallStatusCode() {
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+
+        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
+                .getResourceAsStream(fullElementsFile)));
+    }
+
+    @Override
+    public void testSingleElementUnmarshall() {
+
+        StatusCode code = (StatusCode) unmarshallElement(singleElementFile); 
         
-        StatusCode statusCode = new StatusCodeImpl();
-        StatusCode statusCode2 = new StatusCodeImpl();
-        StatusCode statusCode3 = new StatusCodeImpl();
+        assertEquals("Single Element Value wrong", value, code.getValue());
+    }
+
+    @Override
+    public void testSingleElementOptionalAttributesUnmarshall() {
+       // Nothing to test
+    }
+    
+    /*
+     * Test an Response file with children
+     */
+
+    public void testFullElementsUnmarshall() {
+
+        StatusCode code = (StatusCode) unmarshallElement(fullElementsFile);
         
-        statusCode.setValue("Top");
-        statusCode2.setValue("Two");
-        statusCode3.setValue("Three");
+        assertNotNull("Child StatusCode", code.getStatusCode());
+    }
+
+    @Override
+    public void testSingleElementMarshall() {
+        StatusCode code = new StatusCodeImpl();
+        
+        code.setValue(value);
+        
+        assertEquals(expectedDOM, code);
+    }
+
+    @Override
+    public void testSingleElementOptionalAttributesMarshall() {
+        // Nothing to test
+    }
+
+    public void testFullElementsMarshall() {
+
+        StatusCode code = new StatusCodeImpl();
+        
+        code.setValue(value);
         
         try {
-            statusCode.setStatusCode(statusCode2);
+            code.setStatusCode(new StatusCodeImpl());
         } catch (IllegalAddException e) {
-            fail("SetStatusCode threw exception"); 
+            fail("threw IllegalAddException");
         }
+        code.getStatusCode().setValue(childValue);
         
-        boolean threw = false;
-        
-        try {
-            statusCode3.setStatusCode(statusCode2);
-        } catch (IllegalAddException e) {
-           threw = true;
-        }        
-        
-        assertTrue("Second set of parent not caught", threw);
-        
-        try {
-            statusCode2.setStatusCode(statusCode3);
-        } catch (IllegalAddException e) {
-            fail("Thrid SetStatusCode threw exception");
-        }
-        
-        Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(statusCode);
-        
-        Element dom;
-        try {
-            dom = marshaller.marshall(statusCode);
-            System.out.println(ElementSerializer.serialize(dom));
-        } catch (MarshallingException e) {
-            fail("marshall() call threw exception: " + e);
-        } catch (SerializationException e) {
-            fail("Couldn't serialize of the DOM:" + e);
-        }
+        assertEquals(expectedFullDOM, code);
     }
 }

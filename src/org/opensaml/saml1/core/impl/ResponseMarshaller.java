@@ -62,10 +62,12 @@ public class ResponseMarshaller extends AbstractMarshaller implements Marshaller
             domElement.setAttribute(Response.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
-        String minorVersion = Integer.toString(response.getMinorVersion());
-
-        domElement.setAttribute(Response.MINORVERSION_ATTRIB_NAME, minorVersion);
-        domElement.setAttribute(Response.MAJORVERSION_ATTRIB_NAME, "1");
+        if (response.getMinorVersion() != 0) {
+            String minorVersion = Integer.toString(response.getMinorVersion());
+    
+            domElement.setAttribute(Response.MINORVERSION_ATTRIB_NAME, minorVersion);
+            domElement.setAttribute(Response.MAJORVERSION_ATTRIB_NAME, "1");
+        }
 
         if (response.getRecipient() != null) {
 

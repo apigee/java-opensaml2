@@ -14,128 +14,184 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
+
 package org.opensaml.saml1.core.impl;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallerFactory;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallerFactory;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.util.ElementSerializer;
-import org.opensaml.common.util.SerializationException;
 import org.opensaml.common.util.xml.ParserPoolManager;
+import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
+import org.opensaml.saml1.core.Status;
+import org.opensaml.saml2.common.impl.TimeBoundSAMLObjectHelper;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
+/**
+ * Test class for org.opensaml.saml1.core.Response
+ */
 public class ResponseTest extends SAMLObjectBaseTestCase {
 
-    private final String TEST_FILE = "/data/TestResponse.xml";
+    /** A file with a Conditions with kids */
+
+    private final String fullElementsFile;
+
+    /** The expected result of a marshalled multiple element */
+
+    private Document expectedFullDOM;
+
+    /**
+     * Representation of NotIssueInstant in test file.
+     */
+
+    private final GregorianCalendar issueInstant;
     
-    private final int MINOR_VERSION = 1;
-    
-    Element entitiesDescriptorElem;
-    
+    private final String inResponseTo;
+    private final int minorVersion;
+    private final String recipient;
+
+    /**
+     * Constructor
+     * 
+     */
+    public ResponseTest() {
+        singleElementFile = "/data/org/opensaml/saml1/singleResponse.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleResponseAttributes.xml";
+        fullElementsFile = "/data/org/opensaml/saml1/ResponseWithChildren.xml";
+        //
+        // IssueInstant="1970-01-01T00:00:00.100Z"
+        //
+        issueInstant = new GregorianCalendar(1970,0,1, 0,0,0);
+        issueInstant.set(Calendar.MILLISECOND, 100);
+        
+        inResponseTo="inresponseto";
+        minorVersion=1;
+        recipient="recipient";
+    }
+
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
     protected void setUp() throws Exception {
         super.setUp();
+
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-        Document doc = ppMgr.parse(new InputSource(this.getClass().getResourceAsStream(TEST_FILE)));
-        entitiesDescriptorElem = doc.getDocumentElement();
-    }   
 
-    public void testUnmarshallResponse(){
+        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
+                .getResourceAsStream(fullElementsFile)));
+    }
 
-        Response response = null;
+    /**
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
+     */
+    @Override
+    public void testSingleElementUnmarshall() {
         
-        try {
-            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(entitiesDescriptorElem);
-            
-            if(unmarshaller == null){
-                
-                fail("Unable to retrieve unmarshaller by DOM Element");
-            }
-            
-            SAMLObject object = unmarshaller.unmarshall(entitiesDescriptorElem);
-            
-            assertTrue("Returned type wrong", object instanceof Response);
-            
-            response = (Response) object;
-            
-        } catch (UnknownAttributeException e) {
-            fail("Unknown attribute exception thrown but example element does not contain any unknown attributes: " + e);
-        } catch (UnknownElementException e) {
-            fail("Unknown element exception thrown but example element does not contain any child elements");
-        } catch (UnmarshallingException e) {
-            fail("Unmarshalling failed with the following error:"  + e);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Unmarshall test failed with the following error:"  + e);
-        }
+        Response response = (Response) unmarshallElement(singleElementFile);
+
+        GregorianCalendar date = response.getIssueInstant();
+        assertNull("IssueInstant attribute has a value of " + 
+                            TimeBoundSAMLObjectHelper.calendarToString(date) + 
+                            ", expected no value", date);
         
-        if (response != null) {
-            assertEquals("Minor version wrong", response.getMinorVersion(), MINOR_VERSION);
-        } else {
-            fail("Unmarshall test fails - reponse not initialized");
-        }
+        Assertion assertion;
+        assertion = response.getAssertion();
+        assertNull("Assertion element has a value of " + assertion + ", expected no value", assertion);
+
+        Status status;
+        status= response.getStatus();
+        assertNull("Status element has a value of " + status + ", expected no value", status);
+    }
+
+    /**
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
+     */
+    @Override
+    public void testSingleElementOptionalAttributesUnmarshall() {
+        Response response;
+
+        response = (Response) unmarshallElement(singleElementOptionalAttributesFile);
+
+        GregorianCalendar date = response.getIssueInstant();
+        assertEquals("IssueInstant attribute ", TimeBoundSAMLObjectHelper.calendarToString(issueInstant), TimeBoundSAMLObjectHelper.calendarToString(date));
+        
+        String string = response.getInResponseTo();
+        assertEquals("InResponseTo attribute ", inResponseTo, string);
+
+        string = response.getRecipient();
+        assertEquals("Recipient attribute ", recipient, string);
+        
+        int i = response.getMinorVersion();
+        assertEquals("MinorVersion attribute ", minorVersion, i);
+    }
+
+    /**
+     * Test an Response file with children
+     */
+
+    public void testFullElementsUnmarshall() {
+        Response response;
+
+        response = (Response) unmarshallElement(fullElementsFile);
+
+        Assertion assertion;
+        assertion = response.getAssertion();
+        assertNotNull("No Assertion element found", assertion);
+
+        Status status;
+        status= response.getStatus();
+        assertNotNull("No Status element found", status);
+    }
+
+    /**
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
+     */
+    @Override
+    public void testSingleElementMarshall() {
+
+        Response response = (Response) buildSAMLObject(Response.QNAME);
+
+        assertEquals(expectedDOM, response);
+    }
+
+    /**
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
+     */
+    @Override
+    public void testSingleElementOptionalAttributesMarshall() {
+        Response response = (Response) buildSAMLObject(Response.QNAME);
+
+        response.setInResponseTo(inResponseTo);
+        response.setIssueInstant(issueInstant);
+        response.setRecipient(recipient);
+        response.setMinorVersion(minorVersion);
+
+        assertEquals(expectedOptionalAttributesDOM, response);
     }
     
-    public void testMarshallResponse() {
-        
-        Response response = null;
-        
+    /**
+     * Test Marshalling up a file with children
+     *
+     */
+
+    public void testFullElementsMarshall() {
+        Response response = (Response) buildSAMLObject(Response.QNAME);
+
         try {
-            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(entitiesDescriptorElem);
-                
-            if(unmarshaller == null){
-                    
-                fail("Unable to retrieve unmarshaller by DOM Element");
-            }
-                
-            response = (Response) unmarshaller.unmarshall(entitiesDescriptorElem);
-
-        } catch (UnknownAttributeException e) {
-            fail("Unknown attribute exception thrown but example element does not contain any unknown attributes: " + e);
-        } catch (UnknownElementException e) {
-            fail("Unknown element exception thrown but example element does not contain any child elements");
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Marshalling test setup failed with the following error:"  + e);
+            response.setAssertion(new AssertionImpl());
+            response.setStatus(new StatusImpl());
+        } catch (IllegalAddException e) {
+            fail("Threw IllegalAddException");
         }
         
-        if (response instanceof AbstractSAMLObject) {
-            AbstractSAMLObject abstractSAMLObject = (AbstractSAMLObject) response;
-            
-            abstractSAMLObject.releaseThisAndChildrenDOM();
-            abstractSAMLObject.releaseThisandParentDOM();
-        
-        } else {
-            fail("Response was not an Abstract SamlObject");
-        }
+        assertEquals(expectedFullDOM, response);
 
-        if (response != null) {
-            Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(response);
-            
-            try{
-                Element dom = marshaller.marshall(response);
-                System.out.println(ElementSerializer.serialize(dom));
-            }catch(MarshallingException e){
-                fail("Marshalling failed with the following error: " + e);
-            } catch (SerializationException e) {
-                fail("Unable to serialize resulting DOM document due to: " + e);
-            } catch (Exception e) {
-
-                e.printStackTrace();
-                fail("Marshalling test failed with the following error:"  + e);
-            } 
-        } else {
-            fail("Marshalling test failed - response not setup");
-        }
     }
+
 }

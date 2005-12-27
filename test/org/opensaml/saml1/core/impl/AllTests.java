@@ -26,6 +26,7 @@ public class AllTests {
         //$JUnit-BEGIN$
         suite.addTestSuite(ResponseTest.class);
         suite.addTestSuite(StatusCodeTest.class);
+        suite.addTestSuite(ConditionsTest.class);
         //$JUnit-END$
         return suite;
     }
