@@ -189,7 +189,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
             // conditions.addDoNotCacheCondition(doNotCacheCondition);
             // conditions.addAudienceRestrictionCondition(audienceRestrictionCondition);
         } catch (IllegalAddException e) {
-            fail("Exception " + e + "while adding members");
+            fail("Exception " + e + " while adding members");
             e.printStackTrace();
         }
 

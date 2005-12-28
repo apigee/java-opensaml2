@@ -19,6 +19,7 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 
@@ -86,11 +87,15 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
         AudienceRestrictionCondition audienceRestrictionCondition;
         
         audienceRestrictionCondition = new AudienceRestrictionConditionImpl();
-        //audienceRestrictionCondition.addAudience(new AudienceImpl());
-        //audienceRestrictionCondition.addAudience(new AudienceImpl());        
+        try {
+            audienceRestrictionCondition.addAudience(new AudienceImpl());
+            audienceRestrictionCondition.addAudience(new AudienceImpl());        
+        } catch (IllegalAddException e) {
+            fail("Threw IllegalAddException");
+           e.printStackTrace();
+        }
         
         assertEquals(expectedOptionalAttributesDOM, audienceRestrictionCondition);
-
     }
 
 }

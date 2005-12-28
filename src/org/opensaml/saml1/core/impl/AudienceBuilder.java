@@ -14,26 +14,24 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
+
 package org.opensaml.saml1.core.impl;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 
-public class AllTests {
+/**
+ * Class whose only job is to create {@link org.opensaml.saml1.coreimpl.AudienceImpl} objects
+ */
+public class AudienceBuilder implements SAMLObjectBuilder {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite("Test for org.opensaml.saml1.core.impl");
-        //$JUnit-BEGIN$
-        suite.addTestSuite(AssertionTest.class);
-        suite.addTestSuite(AudienceRestrictionConditionTest.class);
-        suite.addTestSuite(AudienceTest.class);
-        suite.addTestSuite(ConditionsTest.class);
-        suite.addTestSuite(ResponseTest.class);
-        suite.addTestSuite(StatusMessageTest.class);
-        suite.addTestSuite(StatusCodeTest.class);
-        suite.addTestSuite(StatusTest.class);
-        //$JUnit-END$
-        return suite;
+    /*
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     */
+    public SAMLObject buildObject() {
+        return new AudienceImpl();
     }
-
 }

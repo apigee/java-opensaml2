@@ -24,40 +24,38 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.Marshaller;
 import org.opensaml.common.io.MarshallingException;
 import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.saml1.core.StatusMessage;
+import org.opensaml.saml1.core.Audience;
 import org.w3c.dom.Element;
 
 /**
- *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.StatusMessage} objects.
+ * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Audience} objects.
  */
-public class StatusMessageMarshaller extends AbstractMarshaller implements Marshaller {
+public class AudienceMarshaller extends AbstractMarshaller implements Marshaller {
 
     /**
      * Constructor
      */
-    public StatusMessageMarshaller() {
-        super(StatusMessage.QNAME);
+    public AudienceMarshaller() {
+        super(Audience.QNAME);
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     *      org.w3c.dom.Element)
      */
     @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        // Nothing
+        // No attributes - do nothing
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallElementContent(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
+     *      org.w3c.dom.Element)
      */
     @Override
     protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+        Audience audience = (Audience) samlObject;
 
-        StatusMessage statusMessage = (StatusMessage) samlObject;
-
-        if (statusMessage.getMessage() != null) {
-
-            domElement.setTextContent(statusMessage.getMessage());
-        }
+        domElement.setTextContent(audience.getUri());
     }
 }

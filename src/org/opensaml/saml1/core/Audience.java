@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core;
 
 import javax.xml.namespace.QName;
@@ -37,4 +38,10 @@ public interface Audience extends SAMLObject {
 
     public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
 
+    /** Return the URI which makes up the Body */
+
+    public String getUri();
+
+    /** Set the Uri which makes up the body text */
+    public void setUri(String uri);
 }
