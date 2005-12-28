@@ -39,7 +39,7 @@ import org.xml.sax.InputSource;
  */
 public class ConditionsTest extends SAMLObjectBaseTestCase {
 
-    /** A file with a Conditions with kids */
+    /** A file with an Conditions object with kids */
 
     private final String fullElementsFile;
 
@@ -176,9 +176,10 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         Condition condition = null;
 
         try {
-            conditions.addAudienceRestrictionCondition(audienceRestrictionCondition);
-            conditions.addDoNotCacheCondition(doNotCacheCondition);
-            conditions.addCondition(condition);
+            throw new IllegalAddException();
+            //conditions.addAudienceRestrictionCondition(audienceRestrictionCondition);
+            //conditions.addDoNotCacheCondition(doNotCacheCondition);
+            //conditions.addCondition(condition);
 
             // conditions.addAudienceRestrictionCondition(audienceRestrictionCondition);
             // conditions.addDoNotCacheCondition(doNotCacheCondition);

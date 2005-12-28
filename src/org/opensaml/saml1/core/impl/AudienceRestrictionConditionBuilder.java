@@ -17,21 +17,22 @@
 /**
  * 
  */
-
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * Class to generate Conditions elements
+ * Class to generate AudienceResttictyionCondition Objects
  */
-public class ConditionsBuilder implements SAMLObjectBuilder {
+public class AudienceRestrictionConditionBuilder implements SAMLObjectBuilder {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
     public SAMLObject buildObject() {
-        return new ConditionsImpl();
+        // TODO Auto-generated method stub
+        return new AudienceRestrictionConditionImpl();
     }
+
 }

@@ -17,21 +17,24 @@
 /**
  * 
  */
+package org.opensaml.saml1.core;
 
-package org.opensaml.saml1.core.impl;
+import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.common.util.xml.XMLConstants;
 
 /**
- * Class to generate Conditions elements
+ * This interface describes how ab object representing a SAML1 <code>Audience</code> element will behave.
  */
-public class ConditionsBuilder implements SAMLObjectBuilder {
+public interface Audience extends SAMLObject {
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
-     */
-    public SAMLObject buildObject() {
-        return new ConditionsImpl();
-    }
+    /** Element name, no namespace. */
+
+    public final static String LOCAL_NAME = "Audience";
+
+    /** QName for this element */
+
+    public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
+
 }

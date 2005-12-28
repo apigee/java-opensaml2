@@ -120,8 +120,6 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         //
         // Now intialized all the Sets.
         //
-        // TODO, if I read the spec correctly only one of the sets will have members, but
-        // do we want to police it?
 
         statements = new OrderedSet<Statement>();
         subjectStatements = new OrderedSet<SubjectStatement>();

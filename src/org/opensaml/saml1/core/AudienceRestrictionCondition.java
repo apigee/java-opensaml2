@@ -16,9 +16,13 @@
 
 package org.opensaml.saml1.core;
 
+import java.util.Set;
+
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -34,5 +38,24 @@ public interface AudienceRestrictionCondition extends SAMLObject {
 
     public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
 
-    // TODO fill out
+    /** Return all the audience elements */
+    
+    public UnmodifiableOrderedSet<Audience> getAudiences();
+    
+    /** Add new Audience element to the elements 
+     * @throws IllegalAddException */
+    
+    public void addAudience(Audience audience) throws IllegalAddException;
+   
+    /** Remove a single Audience element */
+    
+    public void removeAudience(Audience audience);
+    
+    /** Remove several Audience elements */
+    
+    public void removeAudiences(Set<Audience> audiences);
+    
+    /** Remove all audience elements from this object */
+    
+    public void removeAllAudiences();
 }

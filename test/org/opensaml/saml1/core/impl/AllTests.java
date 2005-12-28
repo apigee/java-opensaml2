@@ -24,9 +24,12 @@ public class AllTests {
     public static Test suite() {
         TestSuite suite = new TestSuite("Test for org.opensaml.saml1.core.impl");
         //$JUnit-BEGIN$
-        suite.addTestSuite(ResponseTest.class);
-        suite.addTestSuite(StatusCodeTest.class);
+        suite.addTestSuite(AssertionTest.class);
         suite.addTestSuite(ConditionsTest.class);
+        suite.addTestSuite(ResponseTest.class);
+        suite.addTestSuite(StatusMessageTest.class);
+        suite.addTestSuite(StatusCodeTest.class);
+        suite.addTestSuite(StatusTest.class);
         //$JUnit-END$
         return suite;
     }

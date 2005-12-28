@@ -94,6 +94,12 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.ConditionsUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:AudienceRestrictionCondition">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AudienceRestrictionConditionBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AudienceRestrictionConditionMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AudienceRestrictionConditionUnmarshaller" />
+        </ObjectProvider>
+
     </ObjectProviders>
 
 </OpenSAML>
