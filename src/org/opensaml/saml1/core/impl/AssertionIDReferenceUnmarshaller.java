@@ -17,10 +17,10 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.io.UnknownAttributeException;
@@ -28,25 +28,24 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.saml1.core.Audience;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.saml1.core.AssertionIDReference;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.AudienceRestrictionCondition} objects.
+ *  A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.AssertionIDReference} Objects
  */
-public class AudienceRestrictionConditionUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class AssertionIDReferenceUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+
+    /**
+     * Logger
+     */
+    private static Logger log = Logger.getLogger(AssertionIDReferenceUnmarshaller.class);
 
     /**
      * Constructor
      */
-    public AudienceRestrictionConditionUnmarshaller() {
-        super(AudienceRestrictionCondition.QNAME);
+    public AssertionIDReferenceUnmarshaller() {
+        super(AssertionIDReference.QNAME);
     }
-    
-    /**
-     * Logger
-     */
-    private static Logger log = Logger.getLogger(AudienceRestrictionConditionUnmarshaller.class);
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
@@ -55,23 +54,15 @@ public class AudienceRestrictionConditionUnmarshaller extends AbstractUnmarshall
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
-        AudienceRestrictionCondition audienceRestrictionCondition;
-        
-        audienceRestrictionCondition = (AudienceRestrictionCondition) parentElement;
-        
-        if (childElement instanceof Audience) {
-
-            try {
-                audienceRestrictionCondition.addAudience((Audience) childElement);
-            } catch (IllegalAddException e) {
-                log.warn("couldnt add elements", e);
-                throw new UnmarshallingException(e);
-            }
-
-        } else if (!SAMLConfig.ignoreUnknownElements()) {
-                throw new UnknownElementException(childElement.getElementQName()
-                        + " is not a supported element for Response objects");
+        // 
+        // No child elements
+        //
+        log.error(childElement.getElementQName() + " is not a supported element for AssertionIDReference objects");
+        if (!SAMLConfig.ignoreUnknownElements()) {
+            throw new UnknownElementException(childElement.getElementQName()
+                    + " is not a supported element for AssertionIDReference objects");
         }
+
     }
 
     /*
@@ -80,10 +71,26 @@ public class AudienceRestrictionConditionUnmarshaller extends AbstractUnmarshall
     @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
+        //
+        // No attributes
+        //
+
+        log.error(attributeName + " is not a supported attributed for AssertionIDReference objects");
         if (!SAMLConfig.ignoreUnknownAttributes()) {
+
             throw new UnknownAttributeException(attributeName
-                    + " is not a supported attributed for Response objects");
+                    + " is not a supported attributed for AssertionIDReference objects");
         }
+
     }
 
+    /*
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+     *      java.lang.String)
+     */
+    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
+        AssertionIDReference assertionIDReference = (AssertionIDReference) samlElement;
+
+        assertionIDReference.setNCName(elementContent);
+    }
 }

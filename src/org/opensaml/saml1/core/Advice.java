@@ -16,9 +16,13 @@
 
 package org.opensaml.saml1.core;
 
+import java.util.Set;
+
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.common.util.xml.XMLConstants;
 
 /**
@@ -32,4 +36,54 @@ public interface Advice extends SAMLObject {
     /** QName for this element. */
     public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
 
+    /** Get the AssertionIdReferences.
+     * @return The AssertionIdReferences in order
+     */
+    public UnmodifiableOrderedSet<AssertionIDReference> getAssertionIDReferences();
+    
+    /** Add an AssertionIDReference.    
+     * @param assertionIDReference what to add
+     * @throws IllegalAddException if the element is already added somewhere
+     */
+    public void addAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalAddException;
+    
+    /** Remove a single AssertionIDReference.
+     * @param assertionIDReference what to remove
+     */
+    public void removeAssertionIDReference(AssertionIDReference assertionIDReference);
+    
+    /** Remove several AssertionIDReferences.
+     * @param assertionIDReferences what to remove
+     */
+    public void removeAssertionIDReferences(Set<AssertionIDReference> assertionIDReferences);
+
+    /** Remove all AssertionIDReferences */
+
+    public void removeAllAssertionIDReferences();
+    
+
+    /** Get the Assertions.
+     * @return the assertions (in order)
+     */
+    public UnmodifiableOrderedSet<Assertion> getAssertions();
+
+    /** Add an Assertion.
+     * @param assertion what to add
+     * @throws IllegalAddException if the element is already added somewhere
+     */
+    public void addAssertion(Assertion assertion)  throws IllegalAddException;
+    
+    /** Remove a single Assertion */
+    
+    public void removeAssertion(Assertion assertion);
+    
+    /** Remove several Assertions */
+    
+    public void removeAssertions(Set<Assertion> assertions);
+
+    /** Remove all Assertions */
+
+    public void removeAllAssertions();
+    
+    // TODO How to cope with the extra information ?
 }

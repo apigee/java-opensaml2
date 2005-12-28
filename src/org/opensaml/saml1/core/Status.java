@@ -52,7 +52,7 @@ public interface Status extends SAMLObject {
     void setStatusCode(StatusCode statusCode) throws IllegalAddException;
 
     /** Return the object representing the <code>StatusDetail<code> (element). */
-
+    // TODO how to deal with status detail
     SAMLObject getStatusDetail();
 
     /** Set the object representing the <code>StatusDetail<code> (element). */

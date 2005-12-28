@@ -112,6 +112,17 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.DoNotCacheConditionUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:AssertionIDReference">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AssertionIDReferenceBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AssertionIDReferenceMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AssertionIDReferenceUnmarshaller" />
+        </ObjectProvider>
+
+        <ObjectProvider qualifiedName="saml:Advice">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AdviceBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AdviceMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AdviceUnmarshaller" />
+        </ObjectProvider>
 
     </ObjectProviders>
 

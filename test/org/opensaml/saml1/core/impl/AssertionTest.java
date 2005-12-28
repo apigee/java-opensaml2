@@ -31,7 +31,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 /**
- * Test for org.opensaml.saml1.core.Assertion
+ * Test for {@link org.opensaml.saml1.core.impl.Assertion}
  */
 public class AssertionTest extends SAMLObjectBaseTestCase {
 
@@ -63,6 +63,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
     /*
      * @see junit.framework.TestCase#setUp()
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -114,7 +115,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertEquals("AuthorizationDecisionStatements element count", 0, assertion.getAuthorizationDecisionStatements().size());
     }
 
-    /*
+    /**
      * Test an XML file with children
      */
 
@@ -167,7 +168,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
 
         try {
             assertion.setConditions(new ConditionsImpl());
-            //assertion.setAdvice(new AdviceImpl());
+            assertion.setAdvice(new AdviceImpl());
             //assertion.addStatement(new StatementImpl());
             //assertion.addSubjectStatement(new SubjectStatementImpl());
             //assertion.addAuthenticationStatement(new AuthenticationStatementImpl());

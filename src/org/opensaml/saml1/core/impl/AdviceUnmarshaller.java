@@ -28,25 +28,26 @@ import org.opensaml.common.io.UnknownElementException;
 import org.opensaml.common.io.Unmarshaller;
 import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.saml1.core.Audience;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.saml1.core.Advice;
+import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.AssertionIDReference;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.AudienceRestrictionCondition} objects.
- */
-public class AudienceRestrictionConditionUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Advice} objects.
+  */
+public class AdviceUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
 
     /**
      * Constructor
      */
-    public AudienceRestrictionConditionUnmarshaller() {
-        super(AudienceRestrictionCondition.QNAME);
+    public AdviceUnmarshaller() {
+        super(Advice.QNAME);
     }
-    
+
     /**
      * Logger
      */
-    private static Logger log = Logger.getLogger(AudienceRestrictionConditionUnmarshaller.class);
+    private static Logger log = Logger.getLogger(AdviceUnmarshaller.class);
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
@@ -54,23 +55,30 @@ public class AudienceRestrictionConditionUnmarshaller extends AbstractUnmarshall
     @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
-
-        AudienceRestrictionCondition audienceRestrictionCondition;
         
-        audienceRestrictionCondition = (AudienceRestrictionCondition) parentElement;
+        Advice advice = (Advice) parentElement;
         
-        if (childElement instanceof Audience) {
+        try {
+            if (childElement instanceof Assertion) {
+                
+                advice.addAssertion((Assertion) childElement);
+                
+            } else if (childElement instanceof AssertionIDReference) {
 
-            try {
-                audienceRestrictionCondition.addAudience((Audience) childElement);
-            } catch (IllegalAddException e) {
-                log.warn("couldnt add elements", e);
-                throw new UnmarshallingException(e);
-            }
-
-        } else if (!SAMLConfig.ignoreUnknownElements()) {
+                advice.addAssertionIDReference((AssertionIDReference) childElement);
+                
+            } else if (!SAMLConfig.ignoreUnknownElements()) {
+                
+                log.error(childElement.getElementQName()
+                        + " is not a supported element for Response objects");
+                
                 throw new UnknownElementException(childElement.getElementQName()
                         + " is not a supported element for Response objects");
+            }
+            
+        } catch (IllegalAddException e) {
+            log.error("Couldn't add " + childElement, e);
+            throw new UnmarshallingException(e);
         }
     }
 
@@ -80,10 +88,16 @@ public class AudienceRestrictionConditionUnmarshaller extends AbstractUnmarshall
     @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
+        // 
+        // No Attributes
+        //
+
+        log.error(attributeName
+                + " is not a supported attributed for Response objects");
+        
         if (!SAMLConfig.ignoreUnknownAttributes()) {
             throw new UnknownAttributeException(attributeName
                     + " is not a supported attributed for Response objects");
         }
     }
-
 }

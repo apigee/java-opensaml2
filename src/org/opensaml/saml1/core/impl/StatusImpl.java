@@ -103,7 +103,9 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      * @see org.opensaml.saml1.core.Status#setStatusDetail(org.opensaml.common.SAMLObject)
      */
     public void setStatusDetail(SAMLObject statusDetail) throws IllegalAddException {
-
+        //
+        // TODO - What about status detail ?
+        //
         this.statusDetail = prepareForAssignment(this.statusDetail, statusDetail);
     }
 

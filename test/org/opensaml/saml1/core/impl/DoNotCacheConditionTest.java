@@ -41,10 +41,9 @@ public class DoNotCacheConditionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementUnmarshall() {
-        DoNotCacheCondition doNotCacheCondition;
+        @SuppressWarnings("unused") DoNotCacheCondition doNotCacheCondition;
         
         doNotCacheCondition = (DoNotCacheCondition) unmarshallElement(singleElementFile);
-
     }
 
     /*
