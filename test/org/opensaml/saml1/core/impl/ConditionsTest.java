@@ -27,10 +27,7 @@ import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.util.xml.ParserPoolManager;
 import org.opensaml.common.util.xml.XMLHelper;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
-import org.opensaml.saml1.core.DoNotCacheCondition;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -105,7 +102,6 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         date = conditions.getNotOnOrAfter();
         assertNull("NotOnOrAfter attribute has a value of " + date + ", expected no value", date);
         
-        
     }
 
     /*
@@ -135,8 +131,8 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
 
         assertEquals("Number of AudienceRestrictionCondition elements", 3, conditions
                 .getAudienceRestrictionConditions().size());
-        assertEquals("Number of DoNotCacheCondition children", 2, conditions.getDoNotCacheConditions().size());
-        assertEquals("Wrong number of Condition children", 1, conditions.getConditions().size());
+        assertEquals("Number of DoNotCacheCondition children", 1, conditions.getDoNotCacheConditions().size());
+        assertEquals("Wrong number of Condition children", 2, conditions.getConditions().size());
     }
 
     /*
@@ -171,23 +167,16 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     public void testFullElementsMarshall() {
         Conditions conditions = (Conditions) buildSAMLObject(Conditions.QNAME);
 
-        AudienceRestrictionCondition audienceRestrictionCondition = null;
-        DoNotCacheCondition doNotCacheCondition = null;
-        Condition condition = null;
-
         try {
-            throw new IllegalAddException();
-            //conditions.addAudienceRestrictionCondition(audienceRestrictionCondition);
-            //conditions.addDoNotCacheCondition(doNotCacheCondition);
+            conditions.addAudienceRestrictionCondition(new AudienceRestrictionConditionImpl());
+            conditions.addDoNotCacheCondition(new DoNotCacheConditionImpl());
             //conditions.addCondition(condition);
 
-            // conditions.addAudienceRestrictionCondition(audienceRestrictionCondition);
-            // conditions.addDoNotCacheCondition(doNotCacheCondition);
+            conditions.addAudienceRestrictionCondition(new AudienceRestrictionConditionImpl());
             // conditions.addCondition(condition);
             //           
-            // conditions.addAudienceRestrictionCondition(audienceRestrictionCondition);
-            // conditions.addDoNotCacheCondition(doNotCacheCondition);
-            // conditions.addAudienceRestrictionCondition(audienceRestrictionCondition);
+            conditions.addAudienceRestrictionCondition(new AudienceRestrictionConditionImpl());
+
         } catch (IllegalAddException e) {
             fail("Exception " + e + " while adding members");
             e.printStackTrace();

@@ -35,7 +35,6 @@ public class ResponseMarshaller extends AbstractMarshaller implements Marshaller
 
     /**
      * Constructor
-     * 
      */
     public ResponseMarshaller() {
         super(Response.QNAME);

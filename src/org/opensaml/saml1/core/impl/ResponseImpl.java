@@ -28,6 +28,7 @@ import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.util.OrderedSet;
 import org.opensaml.common.util.StringHelper;
 import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.util.xml.XMLHelper;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
@@ -186,17 +187,56 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      */
 
     public boolean equals(SAMLObject element) {
-        if (element instanceof ResponseImpl) {
-            // TODO implement equals
-            /*Response other = (ResponseImpl) element;
 
-            String myId = getSigningContext().getIdAttributeValue();
-            String otherId = other.getSigningContext().getIdAttributeValue();
+        if (!(element instanceof ResponseImpl)) {
+            
+            return false;
+        }            
+        Response other = (ResponseImpl) element;
 
-            return StringHelper.safeEquals(myId, otherId); */
+        if (minorVersion != other.getMinorVersion()) {
+            return false;
+        }
+        
+        if (!StringHelper.safeEquals(inResponseTo, other.getInResponseTo())) {
+            return false;
+        }
+        
+        if (!StringHelper.safeEquals(recipient, other.getRecipient())) {
+            return false;
+        }
+        
+        String myIssueInstant = null;
+        if (issueInstant != null) {
+            myIssueInstant = XMLHelper.calendarToString(issueInstant);
+        }
+        
+        String otherIssueInsant = null;
+        if (other.getIssueInstant() != null) {
+            otherIssueInsant = XMLHelper.calendarToString(other.getIssueInstant());
+        }
+        
+        if (!StringHelper.safeEquals(myIssueInstant, otherIssueInsant)) {
+            return false;
         }
 
-        return false;
+        if (status == null) {
+            if (other.getStatus() != null) {
+                return false;
+            }
+        } else if (!status.equals(other.getStatus())) {
+            return false;
+        }
+
+        //
+        // Everything is the same - it remains to test the Assertion
+        //
+        
+        if (assertion == null) {
+            return other.getAssertion() == null;
+        }
+        
+        return assertion.equals(other.getAssertion());
     }
 
     public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {

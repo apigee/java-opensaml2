@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.core;
-
-import javax.xml.namespace.QName;
+/**
+ * 
+ */
+package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.xml.XMLConstants;
+import org.opensaml.common.SAMLObjectBuilder;
+
 /**
- * This interface describes how ab object representing a SAML1 <code> DoNotCacheCondition </code> element will behave.
+ * A class whose only job is to create {@link org.opensaml.saml1.core.impl.DoNotCacheConditionImpl} objects
  */
-public interface DoNotCacheCondition extends SAMLObject {
+public class DoNotCacheConditionBuilder implements SAMLObjectBuilder {
 
-    /** Element name, no namespace. */
+    /*
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     */
+    public SAMLObject buildObject() {
+        return new DoNotCacheConditionImpl();
+    }
 
-    public final static String LOCAL_NAME = "DoNotCacheCondition";
-
-    /** QName for this element */
-
-    public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
-
-    // No sub elements or members
 }

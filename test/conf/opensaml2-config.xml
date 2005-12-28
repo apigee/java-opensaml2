@@ -105,6 +105,14 @@
             <MarshallingClass className="org.opensaml.saml1.core.impl.AudienceMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.AudienceUnmarshaller" />
         </ObjectProvider>
+
+        <ObjectProvider qualifiedName="saml:DoNotCacheCondition">
+            <BuilderClass className="org.opensaml.saml1.core.impl.DoNotCacheConditionBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.DoNotCacheConditionMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.DoNotCacheConditionUnmarshaller" />
+        </ObjectProvider>
+
+
     </ObjectProviders>
 
 </OpenSAML>

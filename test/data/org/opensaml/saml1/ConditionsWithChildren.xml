@@ -1,1 +1,2 @@
-<saml:Conditions xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" ><saml:AudienceRestrictionCondition /><saml:DoNotCacheCondition /><saml:Condition /><saml:AudienceRestrictionCondition /><saml:DoNotCacheCondition /><saml:AudienceRestrictionCondition /></saml:Conditions>
+<saml:Conditions xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion"
+><saml:AudienceRestrictionCondition /><saml:DoNotCacheCondition /><saml:Condition /><saml:AudienceRestrictionCondition /><saml:Condition /><saml:AudienceRestrictionCondition /></saml:Conditions>
