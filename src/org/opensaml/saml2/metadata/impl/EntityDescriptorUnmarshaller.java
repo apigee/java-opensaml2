@@ -16,35 +16,34 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
+import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.Extensions;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.EntityDescriptor}s.
  */
-public class EntityDescriptorUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     /**
      * Constructor
      */
     public EntityDescriptorUnmarshaller() {
-        super(EntityDescriptor.QNAME);
+        super(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME);
     }
 
     /*
@@ -90,9 +89,9 @@ public class EntityDescriptorUnmarshaller extends AbstractUnmarshaller implement
         if (attributeName.equals(EntityDescriptor.ENTITY_ID_ATTRIB_NAME)) {
             entityDescriptor.setEntityID(attributeValue);
         } else if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            entityDescriptor.setValidUntil(XMLHelper.stringToCalendar(attributeValue));
+            entityDescriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, 0));
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
-            entityDescriptor.setCacheDuration(CacheableSAMLObjectHelper.durationToLong(attributeValue));
+            entityDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
         } else {
             if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName

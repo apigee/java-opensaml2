@@ -17,13 +17,10 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
+import java.util.List;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * SAML 2.0 Metadata AuthnAuthorityDescriptor
@@ -33,15 +30,12 @@ public interface AuthnAuthorityDescriptor extends SAMLObject, RoleDescriptor, As
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "AuthnAuthorityDescriptor";
     
-    /** QName for this element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /**
      * Gets an immutable list of authentication query service {@link Endpoint}s for this authority.
      * 
      * @return list of authentication query services
      */
-	public UnmodifiableOrderedSet<AuthnQueryService> getAuthnQueryServices();
+	public List<AuthnQueryService> getAuthnQueryServices();
     
     /**
      * Adds an authentication query service {@link Endpoint} for this authority.

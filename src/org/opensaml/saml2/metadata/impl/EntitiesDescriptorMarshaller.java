@@ -20,22 +20,21 @@ import javax.xml.datatype.DatatypeFactory;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
-import org.opensaml.common.util.xml.XMLParserException;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.EntitiesDescriptor} objects.
  * 
- * Note, this only works with {@link org.opensaml.saml2.metadata.EntitiesDescriptor} implementations that extend {@link org.opensaml.saml2.common.impl.AbstractSAMLObject}.
+ * Note, this only works with {@link org.opensaml.saml2.metadata.EntitiesDescriptor} implementations that extend {@link org.opensaml.saml2.common.impl.AbstractXMLObject}.
  */
-public class EntitiesDescriptorMarshaller extends AbstractMarshaller implements Marshaller {
+public class EntitiesDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Logger
@@ -49,7 +48,7 @@ public class EntitiesDescriptorMarshaller extends AbstractMarshaller implements 
      * @throws XMLParserException thrown if this Marshaller is unable to create a {@link DatatypeFactory}
      */
     public EntitiesDescriptorMarshaller(){
-        super(EntitiesDescriptor.QNAME);
+        super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME);
     }
     
     /*
@@ -64,7 +63,7 @@ public class EntitiesDescriptorMarshaller extends AbstractMarshaller implements 
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to EntitiesDescriptor DOM element");
             }
-            String validUntilStr = XMLHelper.calendarToString(entitiesDescriptor.getValidUntil());
+            String validUntilStr = DatatypeHelper.calendarToString(entitiesDescriptor.getValidUntil(), 0);
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         
@@ -73,7 +72,7 @@ public class EntitiesDescriptorMarshaller extends AbstractMarshaller implements 
             if(log.isDebugEnabled()){
                 log.debug("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
             }
-            String cacheDuration = CacheableSAMLObjectHelper.longToDuration(entitiesDescriptor.getCacheDuration());
+            String cacheDuration = DatatypeHelper.longToDuration(entitiesDescriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
         

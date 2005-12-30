@@ -16,24 +16,21 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.Endpoint} objects.
  */
-public class EndpointUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class EndpointUnmarshaller extends AbstractSAMLObjectUnmarshaller  {
 
-    public EndpointUnmarshaller(QName target) {
-        super(target);
+    public EndpointUnmarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
     
     /*

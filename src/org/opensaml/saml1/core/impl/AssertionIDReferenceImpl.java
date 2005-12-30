@@ -20,11 +20,11 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.StringHelper;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionIDReference;
 
 /**
@@ -32,21 +32,15 @@ import org.opensaml.saml1.core.AssertionIDReference;
  */
 public class AssertionIDReferenceImpl extends AbstractSAMLObject implements AssertionIDReference {
 
-    /**
-     * Serialization UID.
-     */
-    private static final long serialVersionUID = 922710305837491058L;
-
     /** String to contain the NCName */
-
     private String NCName;
 
     /**
      * Constructor
      */
     public AssertionIDReferenceImpl() {
-        super();
-        setQName(AssertionIDReference.QNAME);
+        super(AssertionIDReference.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -66,24 +60,7 @@ public class AssertionIDReferenceImpl extends AbstractSAMLObject implements Asse
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-
-        // No children
-
-        return new UnmodifiableOrderedSet<SAMLObject>(new OrderedSet<SAMLObject>());
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject element) {
-
-        if (element instanceof AssertionIDReferenceImpl) {
-            AssertionIDReferenceImpl assertionIDReferenceImpl = (AssertionIDReferenceImpl) element;
-            
-            return StringHelper.safeEquals(NCName, assertionIDReferenceImpl.getNCName());
-        }
-        
-        return false;
+    public List<SAMLObject> getOrderedChildren() {
+        return null;
     }
 }

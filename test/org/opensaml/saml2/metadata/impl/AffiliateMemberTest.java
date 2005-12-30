@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
 
 public class AffiliateMemberTest extends SAMLObjectBaseTestCase {
@@ -57,7 +60,8 @@ public class AffiliateMemberTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        AffiliateMember member = (AffiliateMember) buildSAMLObject(AffiliateMember.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        AffiliateMember member = (AffiliateMember) buildSAMLObject(qname);
         
         member.setID(expectedMemberID);
         

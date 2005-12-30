@@ -20,7 +20,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 
 public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
@@ -91,7 +94,8 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildSAMLObject(AffiliationDescriptor.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildSAMLObject(qname);
         
         descriptor.setOwnerID(expectedOwnerID);
         
@@ -102,7 +106,8 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildSAMLObject(AffiliationDescriptor.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildSAMLObject(qname);
         
         descriptor.setOwnerID(expectedOwnerID);
         descriptor.setValidUntil(expectedValidUntil);

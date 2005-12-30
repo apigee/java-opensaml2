@@ -21,55 +21,49 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Response;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Response} objects.
  */
-public class ResponseMarshaller extends AbstractMarshaller implements Marshaller {
+public class ResponseMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
      */
     public ResponseMarshaller() {
-        super(Response.QNAME);
+        super(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
-    @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
 
         Response response = (Response) samlElement;
 
         if (response.getInResponseTo() != null) {
-
             domElement.setAttribute(Response.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
         }
 
         if (response.getIssueInstant() != null) {
-
-            String date = XMLHelper.calendarToString(response.getIssueInstant());
-
+            String date = DatatypeHelper.calendarToString(response.getIssueInstant(), 0);
             domElement.setAttribute(Response.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
         if (response.getMinorVersion() != 0) {
             String minorVersion = Integer.toString(response.getMinorVersion());
-    
             domElement.setAttribute(Response.MINORVERSION_ATTRIB_NAME, minorVersion);
             domElement.setAttribute(Response.MAJORVERSION_ATTRIB_NAME, "1");
         }
 
         if (response.getRecipient() != null) {
-
             domElement.setAttribute(Response.RECIPIENT_ATTRIB_NAME, response.getRecipient());
         }
     }

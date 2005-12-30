@@ -16,10 +16,7 @@
 
 package org.opensaml.saml2.metadata;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.xml.XMLConstants;
 
 /**
  * SAML 2.0 Metadata AffiliateMember
@@ -27,9 +24,6 @@ import org.opensaml.common.util.xml.XMLConstants;
 public interface AffiliateMember extends SAMLObject {
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "AffiliateMember";
-    
-    /** QName for this element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
     
     /**
      * Gets the member's entity ID.

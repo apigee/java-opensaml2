@@ -17,9 +17,9 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
+import java.util.List;
 
-import org.opensaml.common.IllegalAddException;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * A functional interface RoleDescriptors may use to deal with "AssertionIdRequestService" elements.
@@ -32,7 +32,7 @@ public interface AssertionIDRequestDescriptorComp {
      * 
      * @return list of assertion request services
      */
-    public UnmodifiableOrderedSet<AssertionIDRequestService> getAssertionIDRequestServices();
+    public List<AssertionIDRequestService> getAssertionIDRequestServices();
 
     /**
      * Adds an assertion request service {@link Endpoint} for this authority.

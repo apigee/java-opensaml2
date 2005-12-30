@@ -20,23 +20,17 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.StringHelper;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 
 /**
  * Concrete class implementation of org.opensaml.saml1.core.Audience  
  */
 public class AudienceImpl extends AbstractSAMLObject implements Audience {
-
-    /**
-     * Serialization GUID
-     */
-    private static final long serialVersionUID = 1277136971012634435L;
-
     /** String to hold the URI */
     private String uri;
 
@@ -44,8 +38,8 @@ public class AudienceImpl extends AbstractSAMLObject implements Audience {
      * Constructor
      */
     public AudienceImpl() {
-        super();
-        setQName(Audience.QNAME);
+        super(Audience.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -66,21 +60,7 @@ public class AudienceImpl extends AbstractSAMLObject implements Audience {
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-        return new UnmodifiableOrderedSet<SAMLObject>(new OrderedSet<SAMLObject>(0));
+    public List<SAMLObject> getOrderedChildren() {
+        return null;
     }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject element) {
-
-        if (!(element instanceof Audience)) {
-            return false;
-        }
-        Audience other = (Audience) element;
-
-        return StringHelper.safeEquals(uri, other.getUri());
-    }
-
 }

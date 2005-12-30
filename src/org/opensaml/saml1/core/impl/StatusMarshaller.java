@@ -21,16 +21,16 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Status} objects.
  */
-public class StatusMarshaller extends AbstractMarshaller implements Marshaller {
+public class StatusMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
@@ -38,16 +38,14 @@ public class StatusMarshaller extends AbstractMarshaller implements Marshaller {
      * @param target
      */
     public StatusMarshaller() {
-        super(Status.QNAME);
+        super(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
-    @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
         // No attributes, no work
     }
-
 }

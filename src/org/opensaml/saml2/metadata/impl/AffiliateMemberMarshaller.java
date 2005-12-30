@@ -17,23 +17,23 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
+import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.AffiliateMember}
  * objects.
  */
-public class AffiliateMemberMarshaller extends AbstractMarshaller implements Marshaller {
+public class AffiliateMemberMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
      */
     public AffiliateMemberMarshaller() {
-        super(AffiliateMember.QNAME);
+        super(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME);
     }
 
     /*

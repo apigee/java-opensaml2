@@ -20,56 +20,46 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.Advice} Object
  */
 public class AdviceImpl extends AbstractSAMLObject implements Advice {
 
-    /**
-     * Seralization GUID
-     */
-    private static final long serialVersionUID = 716943356771050436L;
-
     /** Contains all the AssertionIDReference objects (in order) */
-
-    private final OrderedSet<AssertionIDReference> assertionIDReferences;
+    private final ArrayList<AssertionIDReference> assertionIDReferences = new ArrayList<AssertionIDReference>();
 
     /** Contains all the Assertion child objects (in order) */
-
-    private final OrderedSet<Assertion> assertions;
+    private final ArrayList<Assertion> assertions = new ArrayList<Assertion>();
 
     /** Contains all the SAML objects we have added */
-
-    private final OrderedSet<SAMLObject> orderedChildren;
+    private final ArrayList<SAMLObject> orderedChildren = new ArrayList<SAMLObject>();
 
     /**
      * Constructor
      */
     public AdviceImpl() {
-        super();
-        assertionIDReferences = new OrderedSet<AssertionIDReference>();
-        assertions = new OrderedSet<Assertion>();
-        orderedChildren = new OrderedSet<SAMLObject>();
-        setQName(Advice.QNAME);
+        super(Advice.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.saml1.core.Advice#getAssertionIDReferences()
      */
-    public UnmodifiableOrderedSet<AssertionIDReference> getAssertionIDReferences() {
-        return new UnmodifiableOrderedSet<AssertionIDReference>(assertionIDReferences);
+    public List<AssertionIDReference> getAssertionIDReferences() {
+        return Collections.unmodifiableList(assertionIDReferences);
     }
 
     /*
@@ -77,7 +67,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      */
     public void addAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalAddException {
 
-        if (addSAMLObject(assertionIDReferences, assertionIDReference)) {
+        if (addXMLObject(assertionIDReferences, assertionIDReference)) {
             orderedChildren.add(assertionIDReference);
         }
     }
@@ -86,7 +76,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      * @see org.opensaml.saml1.core.Advice#removeAssertionIDReference(org.opensaml.saml1.core.AssertionIDReference)
      */
     public void removeAssertionIDReference(AssertionIDReference assertionIDReference) {
-        if (removeSAMLObject(assertionIDReferences, assertionIDReference)) {
+        if (removeXMLObject(assertionIDReferences, assertionIDReference)) {
             orderedChildren.remove(assertionIDReference);
         }
     }
@@ -109,15 +99,15 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         }
     }
 
-    public UnmodifiableOrderedSet<Assertion> getAssertions() {
-        return new UnmodifiableOrderedSet<Assertion>(assertions);
+    public List<Assertion> getAssertions() {
+        return Collections.unmodifiableList(assertions);
     }
 
     /*
      * @see org.opensaml.saml1.core.Advice#addAssertion(org.opensaml.saml1.core.Assertion)
      */
     public void addAssertion(Assertion assertion) throws IllegalAddException {
-        if (addSAMLObject(assertions, assertion)) {
+        if (addXMLObject(assertions, assertion)) {
             orderedChildren.add(assertion);
         }
     }
@@ -126,7 +116,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      * @see org.opensaml.saml1.core.Advice#removeAssertion(org.opensaml.saml1.core.Assertion)
      */
     public void removeAssertion(Assertion assertion) {
-        if (removeSAMLObject(assertions, assertion)) {
+        if (removeXMLObject(assertions, assertion)) {
             orderedChildren.remove(assertion);
         }
     }
@@ -152,39 +142,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-
-        return new UnmodifiableOrderedSet<SAMLObject>(orderedChildren);
+    public List<SAMLObject> getOrderedChildren() {
+        return Collections.unmodifiableList(orderedChildren);
     }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject element) {
-        
-        if (!(element instanceof Advice)) {
-            return false;
-        }
-        
-        Advice advice = (Advice) element;
-        
-        if (assertionIDReferences.size() != advice.getAssertionIDReferences().size()) {
-            return false;
-        }
-        
-        if (assertions.size() != advice.getAssertions().size()) {
-            return false;
-        }
-        
-        Iterator<SAMLObject> children = advice.getOrderedChildren().iterator();
-        
-        for (SAMLObject object : orderedChildren) {
-            if (!object.equals(children.next())) {
-                return false;
-            }
-        }
-        return true;
-        // TODO - what about the other namespace elements
-    }
-
 }

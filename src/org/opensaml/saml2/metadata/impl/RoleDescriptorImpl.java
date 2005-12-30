@@ -16,62 +16,60 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.StringHelper;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.saml2.common.impl.ExtensionsSAMLObjectHelper;
-import org.opensaml.saml2.common.impl.SignableTimeBoundCacheableSAMLObject;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.ContactPerson;
-import org.opensaml.saml2.metadata.Extensions;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * Concretate implementation of {@link org.opensaml.saml2.metadata.RoleDescriptor}
  */
-public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLObject implements RoleDescriptor {
+public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject implements RoleDescriptor {
 
     /** Set of supported protocols */
-    private OrderedSet<String> supportedProtocols = new OrderedSet<String>();
+    private ArrayList<String> supportedProtocols = new ArrayList<String>();
     
     /** Error URL */
     private String errorURL;
+    
+    /** Extensions child */
+    private Extensions extensions;
     
     /** Organization administering this role */
     private Organization organization;
     
     /** Contact persons for this role */
-    private OrderedSet<ContactPerson> contactPersons = new OrderedSet<ContactPerson>();
+    private ArrayList<ContactPerson> contactPersons = new ArrayList<ContactPerson>();
     
     /** Key descriptors for this role */
-    private OrderedSet<KeyDescriptor> keyDescriptors = new OrderedSet<KeyDescriptor>();
-    
-    /**
-     * Helper for dealing ExtensionsExtensibleElement interface methods
-     */
-    private ExtensionsSAMLObjectHelper extensionHelper;
+    private ArrayList<KeyDescriptor> keyDescriptors = new ArrayList<KeyDescriptor>();
     
     /**
      * Constructor
+     * 
+     * @param localName the local name of the element this SAML object represents
      */
-    protected RoleDescriptorImpl() {
-        super();
-        
-        extensionHelper = new ExtensionsSAMLObjectHelper(this);
+    public RoleDescriptorImpl(String localName) {
+        super(localName);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
     }
     
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#getSupportedProtocols()
      */
-    public UnmodifiableOrderedSet<String> getSupportedProtocols() {
-        return new UnmodifiableOrderedSet<String>(supportedProtocols);
+    public List<String> getSupportedProtocols() {
+        return Collections.unmodifiableList(supportedProtocols);
     }
 
     /*
@@ -85,7 +83,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
      * @see org.opensaml.saml2.metadata.RoleDescriptor#addSupportedProtocol(java.lang.String)
      */
     public void addSupportedProtocol(String protocol) {
-        protocol = StringHelper.safeTrimOrNullString(protocol);
+        protocol = DatatypeHelper.safeTrimOrNullString(protocol);
         if(protocol != null && !supportedProtocols.contains(protocol)) {
             releaseThisandParentDOM();
             supportedProtocols.add(protocol);
@@ -96,7 +94,7 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
      * @see org.opensaml.saml2.metadata.RoleDescriptor#removeProtocol(java.net.URI)
      */
     public void removeSupportedProtocol(String protocol) {
-        protocol = StringHelper.safeTrimOrNullString(protocol);
+        protocol = DatatypeHelper.safeTrimOrNullString(protocol);
         if(protocol != null && supportedProtocols.contains(protocol)) {
             releaseThisandParentDOM();
             supportedProtocols.remove(protocol);
@@ -135,6 +133,21 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
         
         this.errorURL = prepareForAssignment(this.errorURL, errorURL);
     }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.RoleDescriptor#getExtensions()
+     */
+    public Extensions getExtensions() {
+        return extensions;
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.RoleDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
+     */
+    public void setExtensions(Extensions extensions) throws IllegalAddException {
+        this.extensions = prepareForAssignment(this.extensions, extensions);
+    }
+
 
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#getOrganization()
@@ -153,29 +166,29 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getContactPersons()
      */
-    public UnmodifiableOrderedSet<ContactPerson> getContactPersons() {
-        return new UnmodifiableOrderedSet<ContactPerson>(contactPersons);
+    public List<ContactPerson> getContactPersons() {
+        return Collections.unmodifiableList(contactPersons);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#addContactPerson(org.opensaml.saml2.metadata.ContactPerson)
      */
     public void addContactPerson(ContactPerson person) throws IllegalAddException {
-        addSAMLObject(contactPersons, person);
+        addXMLObject(contactPersons, person);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPerson(org.opensaml.saml2.metadata.ContactPerson)
      */
     public void removeContactPerson(ContactPerson person) {
-        removeSAMLObject(contactPersons, person);
+        removeXMLObject(contactPersons, person);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPersons(java.util.Set)
      */
     public void removeContactPersons(Collection<ContactPerson> persons) {
-        removeSAMLObjects(contactPersons, persons);
+        removeXMLObjects(contactPersons, persons);
     }
 
     /*
@@ -186,70 +199,33 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
             removeContactPerson(person);
         }
     }
-    
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensions()
-     */
-    public Extensions getExtensions() {
-        return extensionHelper.getExtensions();
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements()
-     */
-    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements() {
-        return extensionHelper.getExtensionElements();
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements(javax.xml.namespace.QName)
-     */
-    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements(QName elementName) {
-        return extensionHelper.getExtensionElements(elementName);
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElement(javax.xml.namespace.QName)
-     */
-    public SAMLObject getExtensionElement(QName elementName) {
-        return extensionHelper.getExtensionElement(elementName);
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#setExtensions(org.opensaml.saml2.metadata.Extensions)
-     */
-    public void setExtensions(Extensions extensions) throws IllegalAddException {
-        if (!(extensions.equals(extensionHelper.getExtensions()))) {
-            extensionHelper.setExtensions(extensions);
-        }
-    }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#getKeyDescriptors()
      */
-    public UnmodifiableOrderedSet<KeyDescriptor> getKeyDescriptors() {
-        return new UnmodifiableOrderedSet<KeyDescriptor>(keyDescriptors);
+    public List<KeyDescriptor> getKeyDescriptors() {
+        return Collections.unmodifiableList(keyDescriptors);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#addKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
      */
     public void addKeyDescriptor(KeyDescriptor keyDescriptor) throws IllegalAddException {
-        addSAMLObject(keyDescriptors, keyDescriptor);
+        addXMLObject(keyDescriptors, keyDescriptor);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
      */
     public void removeKeyDescriptor(KeyDescriptor keyDescriptor) {
-        removeSAMLObject(keyDescriptors, keyDescriptor);
+        removeXMLObject(keyDescriptors, keyDescriptor);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptors(java.util.Set)
      */
     public void removeKeyDescriptors(Collection<KeyDescriptor> keyDescriptors) {
-        removeSAMLObjects(this.keyDescriptors, keyDescriptors);
+        removeXMLObjects(this.keyDescriptors, keyDescriptors);
     }
 
     /*
@@ -264,22 +240,14 @@ public abstract class RoleDescriptorImpl extends SignableTimeBoundCacheableSAMLO
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-        OrderedSet<SAMLObject> children = new OrderedSet<SAMLObject>();
+    public List<SAMLObject> getOrderedChildren() {
+        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
         
         children.add(getExtensions());
-        
-        for(KeyDescriptor descriptor : getKeyDescriptors()) {
-            children.add(descriptor);
-        }
-
-        
+        children.addAll(getKeyDescriptors());        
         children.add(getOrganization());
+        children.addAll(getContactPersons());
         
-        for (ContactPerson person : getContactPersons()) {
-            children.add(person);
-        }
-        
-        return new UnmodifiableOrderedSet<SAMLObject>(children);
+        return Collections.unmodifiableList(children);
     }
 }

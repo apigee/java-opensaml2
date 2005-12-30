@@ -16,14 +16,16 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Set;
+import java.util.List;
 import java.util.TimeZone;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 
 /**
@@ -33,7 +35,7 @@ import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
 
     /** Expected supported protocol enumeration */
-    protected Set<String> expectedSupportedProtocols;
+    protected List<String> expectedSupportedProtocols;
 
     /** Expected cacheDuration value in miliseconds */
     protected long expectedCacheDuration;
@@ -58,8 +60,8 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        expectedSupportedProtocols = new OrderedSet<String>();
-        expectedSupportedProtocols.add(XMLConstants.SAML20P_NS);
+        expectedSupportedProtocols = new ArrayList<String>();
+        expectedSupportedProtocols.add(SAMLConstants.SAML20P_NS);
         expectedCacheDuration = 90000;
         expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
         expectedValidUntil.setTimeZone(TimeZone.getTimeZone("Universal"));
@@ -72,7 +74,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         AuthnAuthorityDescriptor authnAuthorityObj = (AuthnAuthorityDescriptor) unmarshallElement(singleElementFile);
 
-        Set<String> protoEnum = authnAuthorityObj.getSupportedProtocols();
+        List<String> protoEnum = authnAuthorityObj.getSupportedProtocols();
         assertEquals("Supported protocol enumeration was not equal to expected enumeration",
                 expectedSupportedProtocols, protoEnum);
 
@@ -92,7 +94,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthnAuthorityDescriptor authnAuthorityObj = (AuthnAuthorityDescriptor) unmarshallElement(singleElementOptionalAttributesFile);
 
-        Set<String> protoEnum = authnAuthorityObj.getSupportedProtocols();
+        List<String> protoEnum = authnAuthorityObj.getSupportedProtocols();
         assertEquals("Supported protocol enumeration was not equal to expected enumeration",
                 expectedSupportedProtocols, protoEnum);
 
@@ -113,9 +115,10 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildSAMLObject(AuthnAuthorityDescriptor.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildSAMLObject(qname);
 
-        descriptor.addSupportedProtocol(XMLConstants.SAML20P_NS);
+        descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
 
         assertEquals(expectedDOM, descriptor);
     }
@@ -124,9 +127,10 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildSAMLObject(AuthnAuthorityDescriptor.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildSAMLObject(qname);
 
-        descriptor.addSupportedProtocol(XMLConstants.SAML20P_NS);
+        descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
         descriptor.setValidUntil(expectedValidUntil);
         descriptor.setCacheDuration(expectedCacheDuration);
         descriptor.setErrorURL(expectedErrorURL);

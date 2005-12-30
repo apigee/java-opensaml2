@@ -18,19 +18,18 @@ package org.opensaml.saml2.metadata.impl;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.EntityDescriptor} objects.
  */
-public class EntityDescriptorMarshaller extends AbstractMarshaller implements Marshaller {
+public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Logger
@@ -41,7 +40,7 @@ public class EntityDescriptorMarshaller extends AbstractMarshaller implements Ma
      * Constructor
      */
     public EntityDescriptorMarshaller() {
-        super(EntityDescriptor.QNAME);
+        super(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME);
     }
     
     /*
@@ -58,7 +57,7 @@ public class EntityDescriptorMarshaller extends AbstractMarshaller implements Ma
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to EntityDescriptor DOM element");
             }
-            String validUntilStr = XMLHelper.calendarToString(entityDescriptor.getValidUntil());
+            String validUntilStr = DatatypeHelper.calendarToString(entityDescriptor.getValidUntil(), 0);
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         
@@ -67,7 +66,7 @@ public class EntityDescriptorMarshaller extends AbstractMarshaller implements Ma
             if(log.isDebugEnabled()){
                 log.debug("Writting cacheDuration attribute to EntityDescriptor DOM element");
             }
-            String cacheDuration = CacheableSAMLObjectHelper.longToDuration(entityDescriptor.getCacheDuration());
+            String cacheDuration = DatatypeHelper.longToDuration(entityDescriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
     }

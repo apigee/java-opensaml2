@@ -18,28 +18,24 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.StringTokenizer;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
+import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.ContactPerson;
-import org.opensaml.saml2.metadata.Extensions;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.RoleDescriptor}
  * objects.
  */
-public class RoleDescriptorUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * 
@@ -47,8 +43,8 @@ public class RoleDescriptorUnmarshaller extends AbstractUnmarshaller implements 
      * 
      * @param target the QName of the type or elment this unmarshaller operates on
      */
-    protected RoleDescriptorUnmarshaller(QName target) {
-        super(target);
+    protected RoleDescriptorUnmarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /*
@@ -81,9 +77,9 @@ public class RoleDescriptorUnmarshaller extends AbstractUnmarshaller implements 
         RoleDescriptor roleDescriptor = (RoleDescriptor) samlElement;
 
         if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            roleDescriptor.setValidUntil(XMLHelper.stringToCalendar(attributeValue));
+            roleDescriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, 0));
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
-            roleDescriptor.setCacheDuration(CacheableSAMLObjectHelper.durationToLong(attributeValue));
+            roleDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
         } else if (attributeName.equals(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME)) {
             StringTokenizer protocolTokenizer = new StringTokenizer(attributeValue, " ");
             while (protocolTokenizer.hasMoreTokens()) {
@@ -93,5 +89,4 @@ public class RoleDescriptorUnmarshaller extends AbstractUnmarshaller implements 
             roleDescriptor.setErrorURL(attributeValue);
         }
     }
-
 }

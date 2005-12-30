@@ -14,78 +14,45 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
 package org.opensaml.common.impl;
 
-import org.opensaml.common.SignableObject;
-import org.opensaml.common.SigningContext;
-import org.opensaml.common.util.xml.DigitalSignatureHelper;
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLVersion;
+import org.opensaml.xml.AbstractValidatingSignableXMLObject;
 
 /**
- * Abstract SAML object handling Signing fucntions
+ * Abstract SAMLObject implementation that also implements {@link org.opensaml.xml.SignableXMLObject}
  */
-public abstract class AbstractSignableSAMLObject extends AbstractSAMLObject implements SignableObject {
-    
+public abstract class AbstractSignableSAMLObject extends AbstractValidatingSignableXMLObject implements SAMLObject {
+
+    /** SAML version of this object */
+    private SAMLVersion version;
+
     /**
-     * Helper for dealing with SignableElement infterface methods
-     */
-    private SigningContext signingContext;
-    
-    /**
-     * 
      * Constructor
-     *
+     * 
+     * @param localName the local name of the SAML element this object represents
      */
-    public AbstractSignableSAMLObject(){
-        super();
+    protected AbstractSignableSAMLObject(String localName) {
+        super(localName);
     }
 
     /*
-     * @see org.opensaml.common.SignableObject#getIdAttributeName()
+     * @see org.opensaml.common.SAMLObject#getVersion()
      */
-    public String getIdAttributeName() {
-        if(signingContext == null) {
-            return null;
-        }
-        
-        return signingContext.getIdAttributeName();
-    }
-    
-    /*
-     * @see org.opensaml.common.SignableObject#getIdAttributeValue()
-     */
-    public String getIdAttributeValue() {
-        if(signingContext == null) {
-            return null;
-        }
-        
-        return signingContext.getIdAttributeValue();
+    public SAMLVersion getVersion() {
+        return version;
     }
 
-    /*
-     * @see org.opensaml.common.SignableElement#isSigned()
+    /**
+     * Sets the SAML version for this object.
+     * 
+     * @param version the SAML version for this object
      */
-    public boolean isSigned() {
-        return DigitalSignatureHelper.isSigned(this);
-    }
-
-    /*
-     * @see org.opensaml.common.SignableElement#removeSignature()
-     */
-    public void removeSignature() {
-        DigitalSignatureHelper.removeSignature(this);
-    }
-    
-    /*
-     * @see org.opensaml.common.SignableElement#getSigningContext()
-     */
-    public SigningContext getSigningContext(){
-        return signingContext;
-    }
-    
-    /*
-     * @see org.opensaml.common.SignableElement#setSigningContext(SigningContext)
-     */
-    public void setSigningContext(SigningContext signingContext){
-        this.signingContext = signingContext;
+    protected void setSAMLVersion(SAMLVersion version) {
+        this.version = version;
     }
 }

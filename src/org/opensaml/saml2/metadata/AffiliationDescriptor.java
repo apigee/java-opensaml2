@@ -18,35 +18,25 @@ package org.opensaml.saml2.metadata;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SignableObject;
-import org.opensaml.common.ValidatingObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
-import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.SignableXMLObject;
 
 /**
  * SAML 2.0 Metadata AffiliationDescriptorType
  */
-public interface AffiliationDescriptor extends SAMLObject, SignableObject, TimeBoundSAMLObject, CacheableSAMLObject, ExtensionsExtensibleSAMLObject, ValidatingObject, KeyDescriptorDescriptorComp{
+public interface AffiliationDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject, KeyDescriptorDescriptorComp{
 	
 	/** Element name, no namespace */
 	public final static String LOCAL_NAME = "AffiliationDescriptor";
 	
-	/** QName for this element */
-	public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-	
 	/** "affiliationOwnerID" attribute's local name */
 	public final static String OWNER_ID_ATTRIB_NAME = "affiliationOwnerID";
-	
-	/** "affiliationOwnerID" attribute's QName */
-	public final static QName OWNER_ID_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, OWNER_ID_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
 
 	/**
 	 * Gets the ID of the owner of this affiliation.  The owner may, or may not, be a memeber of the affiliation.
@@ -55,6 +45,22 @@ public interface AffiliationDescriptor extends SAMLObject, SignableObject, TimeB
 	 */
 	public String getOwnerID();
 
+    /**
+     * Gets the Extensions child of this object.
+     * 
+     * @return the Extensions child of this object
+     */
+    public Extensions getExtensions();
+    
+    /**
+     * Sets the Extensions child of this object.
+     * 
+     * @param extensions the Extensions child of this object
+     * 
+     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     */
+    public void setExtensions(Extensions extensions) throws IllegalAddException;
+    
 	/**
 	 * Sets the ID of the owner of this affiliation.
 	 * 
@@ -72,11 +78,11 @@ public interface AffiliationDescriptor extends SAMLObject, SignableObject, TimeB
 	public boolean isMember(String id);
 	
     /**
-     * Gets an immutable list of the members of this affiliation.  Member IDs are URIs of no more than 1024 characters.
+     * Gets an immutable list of the members of this affiliation.
      * 
-     * @return a list of URIs
+     * @return a list of affiliate members
      */
-	public UnmodifiableOrderedSet<AffiliateMember> getMembers();
+	public List<AffiliateMember> getMembers();
 	
     /**
      * Adds a member to this affiliation.
@@ -86,17 +92,6 @@ public interface AffiliationDescriptor extends SAMLObject, SignableObject, TimeB
      * @throws IllegalAddException thrown if the given member is already a child of another SAMLObject
      */
     public void addMember(AffiliateMember member) throws IllegalAddException;
-    
-	/**
-	 * Convience method for adding a member to this affiliation.  This is the same as creating a new 
-     * {@link AffiliateMember} object, calling {@link AffiliateMember#setID(String)}, and then adding 
-     * it to this descriptor with {@link #addMember(AffiliateMember)}.
-	 * 
-	 * @param memberID member's ID
-     * 
-     * @throws IllegalArgumentException thrown if the given memberID is over 1024 characters long
-	 */
-	public void addMember(String memberID) throws IllegalArgumentException;
 	
 	/**
 	 * Removes the given member from this affiliation.
@@ -104,14 +99,6 @@ public interface AffiliationDescriptor extends SAMLObject, SignableObject, TimeB
 	 * @param member the member to remove
 	 */
     public void removeMember(AffiliateMember member);
-    
-    /**
-     * Convience method for removing a member from this affiliation.  This is the same as calling {@link #removeMember(AffiliateMember)}
-     * where the given {@link AffiliateMember} has the given member ID;
-     * 
-     * @param memberID the ID of the member to remove
-     */
-	public void removeMember(String memberID);
     
 	/**
 	 * Removes the given list of member {@link URI}s from this affiliation.

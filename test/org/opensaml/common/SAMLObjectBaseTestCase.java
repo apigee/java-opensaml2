@@ -18,16 +18,12 @@ package org.opensaml.common;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallerFactory;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallerFactory;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.util.xml.ParserPoolManager;
-import org.opensaml.common.util.xml.XMLParserException;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
@@ -94,7 +90,7 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
      * @param samlObject the SAMLObject to be marshalled and compared against the expected DOM
      */
     public void assertEquals(String failMessage, Document expectedDOM, SAMLObject samlObject) {
-        Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(samlObject);
+        SAMLObjectMarshaller marshaller = SAMLObjectManager.getMarshaller(samlObject);
         try {
             Element generatedDOM = marshaller.marshall(samlObject);
             assertXMLEqual(failMessage, expectedDOM, generatedDOM.getOwnerDocument());
@@ -111,7 +107,7 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
      * @return the empty SAMLObject
      */
     public SAMLObject buildSAMLObject(QName objectQName) {
-        SAMLObjectBuilder objectBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(objectQName);
+        SAMLObjectBuilder objectBuilder = SAMLObjectManager.getBuilder(objectQName);
         if (objectBuilder == null) {
             fail("No object build available for object with QName of " + objectQName);
         }
@@ -129,7 +125,7 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
             Document doc = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class.getResourceAsStream(elementFile)));
             Element samlElement = doc.getDocumentElement();
 
-            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(samlElement);
+            SAMLObjectUnmarshaller unmarshaller = SAMLObjectManager.getUnmarshaller(samlElement);
             if (unmarshaller == null) {
                 fail("Unable to retrieve unmarshaller by DOM Element");
             }

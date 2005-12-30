@@ -16,46 +16,35 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.Set;
+import java.util.List;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.IllegalAddException;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
+import org.opensaml.xml.IllegalAddException;
 
 /**
- * This interface describes how ab object representing a SAML1 <code> AudienceRestrictionCondition </code> element will behave.
+ * This interface describes how ab object representing a SAML1 <code> AudienceRestrictionCondition </code> element will
+ * behave.
  */
-public interface AudienceRestrictionCondition extends SAMLObject {
+public interface AudienceRestrictionCondition extends Condition {
 
     /** Element name, no namespace. */
-
     public final static String LOCAL_NAME = "AudienceRestrictionCondition";
 
-    /** QName for this element */
-
-    public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
-
     /** Return all the audience elements */
-    
-    public UnmodifiableOrderedSet<Audience> getAudiences();
-    
-    /** Add new Audience element to the elements 
-     * @throws IllegalAddException */
-    
+    public List<Audience> getAudiences();
+
+    /**
+     * Add new Audience element to the elements
+     * 
+     * @throws IllegalAddException
+     */
     public void addAudience(Audience audience) throws IllegalAddException;
-   
+
     /** Remove a single Audience element */
-    
     public void removeAudience(Audience audience);
-    
+
     /** Remove several Audience elements */
-    
-    public void removeAudiences(Set<Audience> audiences);
-    
+    public void removeAudiences(List<Audience> audiences);
+
     /** Remove all audience elements from this object */
-    
     public void removeAllAudiences();
 }

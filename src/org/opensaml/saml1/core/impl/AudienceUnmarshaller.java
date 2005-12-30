@@ -22,30 +22,29 @@ package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Audience} objects.
  */
-public class AudienceUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class AudienceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
      */
     public AudienceUnmarshaller() {
-        super(Audience.QNAME);
+        super(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
@@ -59,7 +58,6 @@ public class AudienceUnmarshaller extends AbstractUnmarshaller implements Unmars
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
@@ -72,11 +70,9 @@ public class AudienceUnmarshaller extends AbstractUnmarshaller implements Unmars
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */
-    @Override
     protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
         Audience audience = (Audience) samlElement;
 
         audience.setUri(elementContent);
     }
-
 }

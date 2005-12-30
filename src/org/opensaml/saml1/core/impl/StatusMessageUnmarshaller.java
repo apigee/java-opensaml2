@@ -23,17 +23,17 @@ package org.opensaml.saml1.core.impl;
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusMessage;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.StatusMessage} objects.
  */
-public class StatusMessageUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class StatusMessageUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Logger
@@ -44,19 +44,17 @@ public class StatusMessageUnmarshaller extends AbstractUnmarshaller implements U
      * Constructor
      */
     public StatusMessageUnmarshaller() {
-        super(StatusMessage.QNAME);
+        super(SAMLConstants.SAML1P_NS, StatusMessage.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
-        log.error(childElement.getElementQName()
-                + " is not a supported element for StatusMessage objects");
+        log.error(childElement.getElementQName() + " is not a supported element for StatusMessage objects");
         if (!SAMLConfig.ignoreUnknownElements()) {
             throw new UnknownElementException(childElement.getElementQName()
                     + " is not a supported element for StatusMessage objects");
@@ -67,14 +65,14 @@ public class StatusMessageUnmarshaller extends AbstractUnmarshaller implements U
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
         log.error(attributeName + " is not a supported attributed for StatusMessage objects");
         if (!SAMLConfig.ignoreUnknownAttributes()) {
-            
-            throw new UnknownAttributeException(attributeName + " is not a supported attributed for StatusMessage objects");
+
+            throw new UnknownAttributeException(attributeName
+                    + " is not a supported attributed for StatusMessage objects");
         }
     }
 
@@ -87,5 +85,4 @@ public class StatusMessageUnmarshaller extends AbstractUnmarshaller implements U
 
         statusMessage.setMessage(elementContent);
     }
-
 }

@@ -21,44 +21,40 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Conditions;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
- *
+ * 
  */
-public class ConditionsMarshaller extends AbstractMarshaller implements Marshaller {
+public class ConditionsMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
      */
     public ConditionsMarshaller() {
-        super(Conditions.QNAME);
+        super(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     *      org.w3c.dom.Element)
      */
-    @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
 
         Conditions conditions = (Conditions) samlElement;
 
         if (conditions.getNotBefore() != null) {
-
-            String date = XMLHelper.calendarToString(conditions.getNotBefore());
-
+            String date = DatatypeHelper.calendarToString(conditions.getNotBefore(), 0);
             domElement.setAttribute(Conditions.NOTBEFORE_ATTRIB_NAME, date);
         }
 
         if (conditions.getNotOnOrAfter() != null) {
-
-            String date = XMLHelper.calendarToString(conditions.getNotOnOrAfter());
-
+            String date = DatatypeHelper.calendarToString(conditions.getNotOnOrAfter(), 0);
             domElement.setAttribute(Conditions.NOTONORAFTER_ATTRIB_NAME, date);
         }
     }

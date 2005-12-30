@@ -26,16 +26,12 @@ import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.apache.xml.security.Init;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallerFactory;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallerFactory;
-import org.opensaml.common.util.StringHelper;
-import org.opensaml.common.util.xml.NoOpEntityResolver;
-import org.opensaml.common.util.xml.ParserPoolManager;
-import org.opensaml.common.util.xml.XMLConstants;
-import org.opensaml.common.util.xml.XMLHelper;
-import org.opensaml.common.util.xml.XMLParserException;
+import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.parse.NoOpEntityResolver;
+import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -126,7 +122,7 @@ public class SAMLConfig {
             if(log.isDebugEnabled()){
                 log.debug("Configuring Object providers");
             }
-            NodeList objectProviders = rootElement.getElementsByTagNameNS(XMLConstants.OPENSAML_CONFIG_NS, "ObjectProviders");
+            NodeList objectProviders = rootElement.getElementsByTagNameNS(SAMLConstants.OPENSAML_CONFIG_NS, "ObjectProviders");
             initializeObjectProviders((Element) objectProviders.item(0));
             if(log.isDebugEnabled()){
                 log.debug("Completed configuring all object providers");
@@ -185,12 +181,12 @@ public class SAMLConfig {
     private static void initializeObjectProviders(Element objectProviders) throws InitializationException{
         
         String ignoreAttributesAttr = objectProviders.getAttributeNS(null, "ignoreUnknownAttributes");
-        if(!StringHelper.isEmpty(ignoreAttributesAttr)){
+        if(!DatatypeHelper.isEmpty(ignoreAttributesAttr)){
             ignoreUnknownAttributes = Boolean.parseBoolean(ignoreAttributesAttr);
         }
         
         String ignoreElementsAttr = objectProviders.getAttributeNS(null, "ignoreUnknownElements");
-        if(!StringHelper.isEmpty(ignoreElementsAttr)){
+        if(!DatatypeHelper.isEmpty(ignoreElementsAttr)){
             ignoreUnknownElements = Boolean.parseBoolean(ignoreElementsAttr);
         }
         
@@ -202,7 +198,7 @@ public class SAMLConfig {
         Element marshallerConfiguration;
         Element unmarshallerConfiguration;
         
-        NodeList providerList = objectProviders.getElementsByTagNameNS(XMLConstants.OPENSAML_CONFIG_NS, "ObjectProvider");
+        NodeList providerList = objectProviders.getElementsByTagNameNS(SAMLConstants.OPENSAML_CONFIG_NS, "ObjectProvider");
         for(int i = 0; i < providerList.getLength(); i++){
             objectProvider = (Element) providerList.item(i);
             
@@ -215,13 +211,13 @@ public class SAMLConfig {
             }
             
             try{
-                builderConfiguration = (Element) objectProvider.getElementsByTagNameNS(XMLConstants.OPENSAML_CONFIG_NS, "BuilderClass").item(0);
+                builderConfiguration = (Element) objectProvider.getElementsByTagNameNS(SAMLConstants.OPENSAML_CONFIG_NS, "BuilderClass").item(0);
                 initalizeObjectProviderBuilderClass(objectProviderName, builderConfiguration);
                 
-                marshallerConfiguration = (Element) objectProvider.getElementsByTagNameNS(XMLConstants.OPENSAML_CONFIG_NS, "MarshallingClass").item(0);
+                marshallerConfiguration = (Element) objectProvider.getElementsByTagNameNS(SAMLConstants.OPENSAML_CONFIG_NS, "MarshallingClass").item(0);
                 initalizeObjectProviderMarshallerClass(objectProviderName, marshallerConfiguration);
                 
-                unmarshallerConfiguration = (Element) objectProvider.getElementsByTagNameNS(XMLConstants.OPENSAML_CONFIG_NS, "UnmarshallingClass").item(0);
+                unmarshallerConfiguration = (Element) objectProvider.getElementsByTagNameNS(SAMLConstants.OPENSAML_CONFIG_NS, "UnmarshallingClass").item(0);
                 initalizeObjectProviderUnmarshallerClass(objectProviderName, unmarshallerConfiguration);
                 
                 configuredObjectProviders.put(objectProviderName, objectProvider);
@@ -254,7 +250,7 @@ public class SAMLConfig {
 
         try {
             SAMLObjectBuilder objectBuilder = (SAMLObjectBuilder) createClassInstance(builderClassName);
-            SAMLObjectBuilderFactory.getInstance().registerBuilder(objectProviderName, objectBuilder);
+            SAMLObjectManager.getInstance().registerBuilder(objectProviderName, objectBuilder);
         } catch (InstantiationException e) {
             log.fatal("Unable to create instance of builder class " + builderClassName + " for object provider " + objectProviderName);
             throw new InitializationException("Unable to create instance of builder class " + builderClassName + " for object provider " + objectProviderName, e);
@@ -276,8 +272,8 @@ public class SAMLConfig {
         }
         
         try{
-            Marshaller objectMarshaller = (Marshaller) createClassInstance(marshallerClassName);
-            MarshallerFactory.getInstance().registerMarshaller(objectProviderName, objectMarshaller);
+            SAMLObjectMarshaller objectMarshaller = (SAMLObjectMarshaller) createClassInstance(marshallerClassName);
+            SAMLObjectManager.getInstance().registerMarshaller(objectProviderName, objectMarshaller);
         } catch (InstantiationException e) {
             log.fatal("Unable to create instance of marshaller class " + marshallerClassName + " for object provider " + objectProviderName);
             throw new InitializationException("Unable to create instance of unmarshaller class " + marshallerClassName + " for object provider " + objectProviderName, e);
@@ -299,8 +295,8 @@ public class SAMLConfig {
         }
         
         try{
-            Unmarshaller objectUnmarshaller = (Unmarshaller) createClassInstance(unmarshallerClassName);
-            UnmarshallerFactory.getInstance().registerUnmarshaller(objectProviderName, objectUnmarshaller);
+            SAMLObjectUnmarshaller objectUnmarshaller = (SAMLObjectUnmarshaller) createClassInstance(unmarshallerClassName);
+            SAMLObjectManager.getInstance().registerUnmarshaller(objectProviderName, objectUnmarshaller);
         } catch (InstantiationException e) {
             log.fatal("Unable to create instance of unmarshaller class " + unmarshallerClassName + " for object provider " + objectProviderName);
             throw new InitializationException("Unable to create instance of unmarshaller class " + unmarshallerClassName + " for object provider " + objectProviderName, e);
@@ -315,9 +311,9 @@ public class SAMLConfig {
      * @param objectProviderName the name of the object provider to remove from the system
      */
     private static void deregisterObjectProvider(QName objectProviderName){
-        SAMLObjectBuilderFactory.getInstance().deregisterBuilder(objectProviderName);
-        MarshallerFactory.getInstance().deregisterMarshaller(objectProviderName);
-        UnmarshallerFactory.getInstance().deregisterUnmarshaller(objectProviderName);
+        SAMLObjectManager.getInstance().deregisterBuilder(objectProviderName);
+        SAMLObjectManager.getInstance().deregisterMarshaller(objectProviderName);
+        SAMLObjectManager.getInstance().deregisterUnmarshaller(objectProviderName);
         configuredObjectProviders.remove(objectProviderName);
     }
     
@@ -334,7 +330,7 @@ public class SAMLConfig {
         }
         ParserPoolManager xmlParserPool = ParserPoolManager.getInstance();
         TreeMap<String, EntityResolver> configSchemaInfo = new TreeMap<String, EntityResolver>();
-        configSchemaInfo.put(XMLConstants.OPENSAML_CONFIG_SCHEMA_LOCATION, new NoOpEntityResolver());
+        configSchemaInfo.put(SAMLConstants.OPENSAML_CONFIG_SCHEMA_LOCATION, new NoOpEntityResolver());
         xmlParserPool.registerSchemas(configSchemaInfo);
         xmlParserPool.validate(configuration);
     }

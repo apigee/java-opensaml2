@@ -16,9 +16,6 @@
 
 package org.opensaml.saml2.metadata;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.core.Attribute;
 
 /**
@@ -30,14 +27,8 @@ public interface RequestedAttribute extends Attribute {
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "RequestedAttribute";
     
-    /** QName for element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "isRequired" attribute's local name */
     public final static String IS_REQUIRED_ATTRIB_NAME = "index";
-    
-    /** "isRequired" attribute's QName */
-    public final static QName IS_REQUIRED_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, IS_REQUIRED_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
     
     /**
      * Checks to see if this requested attribute is also required.

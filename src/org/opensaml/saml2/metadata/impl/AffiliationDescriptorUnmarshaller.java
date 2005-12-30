@@ -16,33 +16,32 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
+import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
-import org.opensaml.saml2.metadata.Extensions;
 import org.opensaml.saml2.metadata.KeyDescriptor;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.AffiliationDescriptor}s.
  */
-public class AffiliationDescriptorUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class AffiliationDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
      */
     public AffiliationDescriptorUnmarshaller() {
-        super(AffiliationDescriptor.QNAME);
+        super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME);
     }
 
     /*
@@ -83,9 +82,9 @@ public class AffiliationDescriptorUnmarshaller extends AbstractUnmarshaller impl
         if (attributeName.equals(AffiliationDescriptor.OWNER_ID_ATTRIB_NAME)) {
             descriptor.setOwnerID(attributeValue);
         } else if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            descriptor.setValidUntil(XMLHelper.stringToCalendar(attributeValue));
+            descriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, 0));
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
-            descriptor.setCacheDuration(CacheableSAMLObjectHelper.durationToLong(attributeValue));
+            descriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
         } else {
             if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName

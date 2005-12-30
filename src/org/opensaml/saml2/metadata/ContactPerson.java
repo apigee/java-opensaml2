@@ -17,30 +17,24 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
-
-import javax.xml.namespace.QName;
+import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
-import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * SAML 2.0 Metadata ContactPerson
+ * 
+ * TODO make all String get* method return SAMLObjects
  */
-public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObject{
+public interface ContactPerson extends SAMLObject{
 
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "ContactPerson";
     
-    /** QName for this element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "contactType" attribute's local name */
     public final static String CONTACT_TYPE_ATTRIB_NAME = "affiliationOwnerID";
-    
-    /** "contactType" attribute's QName */
-    public final static QName CONTACT_TYPE_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, CONTACT_TYPE_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
 
     /**
      * Gets the type of contact this person.
@@ -55,6 +49,22 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
      * @param type the type of contact this person
      */
     public void setType(ContactPersonType type);
+    
+    /**
+     * Gets the Extensions child of this object.
+     * 
+     * @return the Extensions child of this object
+     */
+    public Extensions getExtensions();
+    
+    /**
+     * Sets the Extensions child of this object.
+     * 
+     * @param extensions the Extensions child of this object
+     * 
+     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     */
+    public void setExtensions(Extensions extensions) throws IllegalAddException;
 
     /**
      * Gets the company this contact person is associated with.
@@ -102,7 +112,7 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
      * 
      * @return list of email addresses for this person
      */
-	public UnmodifiableOrderedSet<String> getEmailAddresses();
+	public List<String> getEmailAddresses();
     
     /**
      * Adds an email address to this person.
@@ -135,7 +145,7 @@ public interface ContactPerson extends SAMLObject, ExtensionsExtensibleSAMLObjec
      * 
      * @return list of telephone numbers for this person
      */
-	public UnmodifiableOrderedSet<String> getTelephoneNumbers();
+	public List<String> getTelephoneNumbers();
     
     /**
      * Adds a telephone number to this person.

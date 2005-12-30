@@ -20,73 +20,50 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Set;
 
-import org.opensaml.common.IllegalAddException;
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.impl.TypeNameIndexedSAMLObjectList;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.DoNotCacheCondition;
-
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * This is a concrete implementation of the {@link org.opensaml.saml1.core.Conditions} interface.
  */
 public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
 
-    /**
-     * Serialization GUID
-     */
-    private static final long serialVersionUID = 6517532051958214553L;
-
     /** Value saved in the NotBefore attribute */
-
     private GregorianCalendar notBefore;
 
     /** Value saved in the NotOnOrAfter attribute */
-
     private GregorianCalendar notOnOrAfter;
 
-    /** Set containing all the AudienceRestrictionConditions */
-
-    private final OrderedSet<AudienceRestrictionCondition> audienceRestrictionConditions;
-
-    /** Set containing all the DoNotCacheConditions */
-
-    private final OrderedSet<DoNotCacheCondition> doNotCacheConditions;
-
     /** Set containing all the Conditions */
-
-    private final OrderedSet<Condition> conditions;
-
-    /** Ordered Set of all subelements */
-
-    private final OrderedSet<SAMLObject> orderedChildren;
+    private final TypeNameIndexedSAMLObjectList<Condition> conditions = new TypeNameIndexedSAMLObjectList<Condition>();
 
     /**
      * Constructor
      */
     public ConditionsImpl() {
-        super();
-        notBefore = null;
-        notOnOrAfter = null;
-        audienceRestrictionConditions = new OrderedSet<AudienceRestrictionCondition>();
-        doNotCacheConditions = new OrderedSet<DoNotCacheCondition>();
-        conditions = new OrderedSet<Condition>();
-        orderedChildren = new OrderedSet<SAMLObject>();
-        setQName(Conditions.QNAME);
+        super(Condition.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#getNotBefore()
      */
     public GregorianCalendar getNotBefore() {
-
         return notBefore;
     }
 
@@ -94,23 +71,13 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml1.core.Conditions#setNotBefore()
      */
     public void setNotBefore(GregorianCalendar notBefore) {
-
-        if (notBefore == null && this.notBefore == null) {
-            // no change - return
-            return;
-        }
-
-        if (this.notBefore == null || !this.notBefore.equals(notBefore)) {
-            releaseThisandParentDOM();
-            this.notBefore = notBefore;
-        }
+        this.notBefore = prepareForAssignment(this.notBefore, notBefore);
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#getNotOnOrAfter()
      */
     public GregorianCalendar getNotOnOrAfter() {
-
         return notOnOrAfter;
     }
 
@@ -118,143 +85,48 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml1.core.Conditions#setNotOnOrAfter()
      */
     public void setNotOnOrAfter(GregorianCalendar notOnOrAfter) {
-        if (notOnOrAfter == null && this.notOnOrAfter == null) {
-            // no change - return
-            return;
-        }
-
-        if (this.notOnOrAfter == null || !this.notOnOrAfter.equals(notOnOrAfter)) {
-            releaseThisandParentDOM();
-            this.notOnOrAfter = notOnOrAfter;
-        }
-
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#getAudienceRestrictionConditions()
-     */
-    public UnmodifiableOrderedSet<AudienceRestrictionCondition> getAudienceRestrictionConditions() {
-        return new UnmodifiableOrderedSet<AudienceRestrictionCondition>(audienceRestrictionConditions);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#addAudienceRestrictionCondition(org.opensaml.saml1.core.AudienceRestrictionCondition)
-     */
-    public void addAudienceRestrictionCondition(AudienceRestrictionCondition audienceRestrictionCondition)
-            throws IllegalAddException {
-
-        if (addSAMLObject(audienceRestrictionConditions, audienceRestrictionCondition)) {
-            orderedChildren.add(audienceRestrictionCondition);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeAudienceRestrictionCondition(org.opensaml.saml1.core.AudienceRestrictionCondition)
-     */
-    public void removeAudienceRestrictionCondition(AudienceRestrictionCondition audienceRestrictionCondition) {
-
-        if (removeSAMLObject(audienceRestrictionConditions, audienceRestrictionCondition)) {
-            orderedChildren.remove(audienceRestrictionCondition);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeAudienceRestrictionConditions(java.util.Set)
-     */
-    public void removeAudienceRestrictionConditions(Set<AudienceRestrictionCondition> audienceRestrictionConditions) {
-        
-        for (AudienceRestrictionCondition audienceRestrictionCondition : audienceRestrictionConditions) {
-            removeAudienceRestrictionCondition(audienceRestrictionCondition);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeAllAudienceRestrictionConditions()
-     */
-    public void removeAllAudienceRestrictionConditions() {
-        
-        for (AudienceRestrictionCondition audienceRestrictionCondition : audienceRestrictionConditions) {
-            removeAudienceRestrictionCondition(audienceRestrictionCondition);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#getDoNotCacheConditions()
-     */
-    public UnmodifiableOrderedSet<DoNotCacheCondition> getDoNotCacheConditions() {
-
-        return new UnmodifiableOrderedSet<DoNotCacheCondition>(doNotCacheConditions);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#addAudienceRestrictionCondition(org.opensaml.saml1.core.DoNotCacheCondition)
-     */
-    public void addDoNotCacheCondition(DoNotCacheCondition doNotCacheCondition) throws IllegalAddException {
-        
-        if (addSAMLObject(doNotCacheConditions, doNotCacheCondition)) {
-            orderedChildren.add(doNotCacheCondition);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeDoNotCacheCondition(org.opensaml.saml1.core.DoNotCacheCondition)
-     */
-    public void removeDoNotCacheCondition(DoNotCacheCondition doNotCacheCondition) {
- 
-       if (removeSAMLObject(doNotCacheConditions, doNotCacheCondition)) {
-           orderedChildren.remove(doNotCacheCondition);
-       }
-   }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeDoNotCacheConditions(java.util.Set)
-     */
-    public void removeDoNotCacheConditions(Set<DoNotCacheCondition> doNotCacheConditions) {
-        for (DoNotCacheCondition doNotCacheCondition : doNotCacheConditions) {
-            removeDoNotCacheCondition(doNotCacheCondition);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeAllDoNotCacheConditions()
-     */
-    public void removeAllDoNotCacheConditions() {
-        for (DoNotCacheCondition doNotCacheCondition : doNotCacheConditions) {
-            removeDoNotCacheCondition(doNotCacheCondition);
-        }
+        this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, notOnOrAfter);
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#getConditions()
      */
-    public UnmodifiableOrderedSet<Condition> getConditions() {
-       
-        return new UnmodifiableOrderedSet<Condition>(conditions);
+    public List<Condition> getConditions() {
+        return Collections.unmodifiableList(conditions);
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.Conditions#getConditions(javax.xml.namespace.QName)
+     */
+    public List<Condition> getConditions(QName typeOrName) {
+        return Collections.unmodifiableList(conditions.get(typeOrName));
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#addAudienceRestrictionCondition(org.opensaml.saml1.core.Condition)
      */
     public void addCondition(Condition condition) throws IllegalAddException {
-        if (addSAMLObject(conditions, condition)) {
-            orderedChildren.add(condition);
-        }
+        addXMLObject(conditions, condition);
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.Conditions#removeConditions(java.util.List)
+     */
+    public void removeConditions(List<Condition> conditions) {
+        removeXMLObjects(this.conditions, conditions);
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#removeCondition(org.opensaml.saml1.core.Condition)
      */
     public void removeCondition(Condition condition) {
-        if (removeSAMLObject(conditions, condition)) {
-            orderedChildren.remove(condition);
-        }
+        removeXMLObject(conditions, condition);
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#removeConditions(java.util.Set)
      */
     public void removeConditions(Set<Condition> conditions) {
-        
         for (Condition condition : conditions) {
             removeCondition(condition);
         }
@@ -264,26 +136,42 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml1.core.Conditions#removeAllConditions()
      */
     public void removeAllConditions() {
-
         for (Condition condition : conditions) {
             removeCondition(condition);
         }
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.saml1.core.Conditions#removeAllConditions(javax.xml.namespace.QName)
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-
-        return new UnmodifiableOrderedSet<SAMLObject>(orderedChildren);
+    public void removeAllConditions(QName typeOrName) {
+        for (Condition condition : conditions.get(typeOrName)) {
+            removeCondition(condition);
+        }
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
+     * @see org.opensaml.saml1.core.Conditions#getAudienceRestrictionConditions()
      */
-    public boolean equals(SAMLObject element) {
-        // TODO Implement equals
-        return false;
+    public List<Condition> getAudienceRestrictionConditions() {
+        QName conditionQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
+        return Collections.unmodifiableList(conditions.get(conditionQName));
     }
 
+    /*
+     * @see org.opensaml.saml1.core.Conditions#getDoNotCacheConditions()
+     */
+    public List<Condition> getDoNotCacheConditions() {
+        QName conditionQName = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
+        return Collections.unmodifiableList(conditions.get(conditionQName));
+    }
+
+    /*
+     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     */
+    public List<SAMLObject> getOrderedChildren() {
+        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+        children.addAll(conditions);
+        return Collections.unmodifiableList(children);
+    }
 }

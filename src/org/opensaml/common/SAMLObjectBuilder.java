@@ -15,18 +15,18 @@
  */
 package org.opensaml.common;
 
+import org.opensaml.xml.XMLObjectBuilder;
+
 /**
  * An interface for the creation of SAMLElements implementations. Builders are
  * unique to a particular SAML element and can be retrieved by element QName
  * from the {@link org.opensaml.common.SAMLObjectBuilderFactory}.  Implementations 
  * of this interface MUST be stateless.
  */
-public interface SAMLObjectBuilder {
+public interface SAMLObjectBuilder<T extends SAMLObject> extends XMLObjectBuilder<T> {
 
-	/**
-	 * Creates a SAMLElement.
-	 * 
-	 * @return the SAMLElement
-	 */
-	public SAMLObject buildObject();
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public T buildObject();
 }

@@ -20,10 +20,7 @@
 
 package org.opensaml.saml1.core;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.xml.XMLConstants;
 
 /**
  * This interface describes how ab object representing a SAML1 <code>Audience</code> element will behave.
@@ -31,15 +28,9 @@ import org.opensaml.common.util.xml.XMLConstants;
 public interface Audience extends SAMLObject {
 
     /** Element name, no namespace. */
-
     public final static String LOCAL_NAME = "Audience";
 
-    /** QName for this element */
-
-    public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
-
     /** Return the URI which makes up the Body */
-
     public String getUri();
 
     /** Set the Uri which makes up the body text */

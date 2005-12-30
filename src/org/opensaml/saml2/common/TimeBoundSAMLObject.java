@@ -21,7 +21,7 @@ import java.util.GregorianCalendar;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.xml.XMLConstants;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * A functional interface for SAMLElements that are bounded with a 
@@ -33,7 +33,7 @@ public interface TimeBoundSAMLObject extends SAMLObject{
 	public final static String VALID_UNTIL_ATTRIB_NAME = "validUntil";
 	
 	/** "validUntil" attribute's QName */
-	public final static QName VALID_UNTIL_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, VALID_UNTIL_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
+	public final static QName VALID_UNTIL_ATTRIB_QNAME = new QName(SAMLConstants.SAML20MD_NS, VALID_UNTIL_ATTRIB_NAME, SAMLConstants.SAML20MD_PREFIX);
 	
 	/**
 	 * Checks to see if the current time is past the validUntil time.

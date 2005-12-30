@@ -16,20 +16,17 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AffiliateMember}.
  */
 public class AffiliateMemberImpl extends AbstractSAMLObject implements AffiliateMember {
-
-    /**
-     * Serial version UID
-     */
-    private static final long serialVersionUID = 1415387001339761386L;
 
     /** ID of this member */
     private String id;
@@ -38,8 +35,8 @@ public class AffiliateMemberImpl extends AbstractSAMLObject implements Affiliate
      * Constructor
      */
     public AffiliateMemberImpl() {
-        super();
-        setQName(AffiliateMember.QNAME);
+        super(AffiliateMember.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
@@ -61,22 +58,10 @@ public class AffiliateMemberImpl extends AbstractSAMLObject implements Affiliate
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
+    public List<SAMLObject> getOrderedChildren() {
         // No children
         return null;
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject samlObject) {
-        if (samlObject instanceof AffiliateMember) {
-            AffiliateMember otherObject = (AffiliateMember) samlObject;
-            return getID().equals(otherObject.getID());
-        }
-
-        return false;
     }
 }

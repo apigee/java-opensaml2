@@ -17,65 +17,56 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Advice} objects.
-  */
-public class AdviceUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+ */
+public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+
+    /** Logger */
+    private static Logger log = Logger.getLogger(AdviceUnmarshaller.class);
 
     /**
      * Constructor
      */
     public AdviceUnmarshaller() {
-        super(Advice.QNAME);
+        super(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME);
     }
 
-    /**
-     * Logger
-     */
-    private static Logger log = Logger.getLogger(AdviceUnmarshaller.class);
-
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
+     *      org.opensaml.common.SAMLObject)
      */
-    @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
-        
+
         Advice advice = (Advice) parentElement;
-        
+
         try {
             if (childElement instanceof Assertion) {
-                
                 advice.addAssertion((Assertion) childElement);
-                
             } else if (childElement instanceof AssertionIDReference) {
-
                 advice.addAssertionIDReference((AssertionIDReference) childElement);
-                
             } else if (!SAMLConfig.ignoreUnknownElements()) {
-                
-                log.error(childElement.getElementQName()
-                        + " is not a supported element for Response objects");
-                
+                log.error(childElement.getElementQName() + " is not a supported element for Response objects");
                 throw new UnknownElementException(childElement.getElementQName()
                         + " is not a supported element for Response objects");
             }
-            
         } catch (IllegalAddException e) {
             log.error("Couldn't add " + childElement, e);
             throw new UnmarshallingException(e);
@@ -83,21 +74,19 @@ public class AdviceUnmarshaller extends AbstractUnmarshaller implements Unmarsha
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
+     *      java.lang.String, java.lang.String)
      */
-    @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
         // 
         // No Attributes
         //
 
-        log.error(attributeName
-                + " is not a supported attributed for Response objects");
-        
+        log.error(attributeName + " is not a supported attributed for Response objects");
+
         if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName
-                    + " is not a supported attributed for Response objects");
+            throw new UnknownAttributeException(attributeName + " is not a supported attributed for Response objects");
         }
     }
 }

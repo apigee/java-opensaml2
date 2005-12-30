@@ -19,10 +19,10 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.util.xml.ParserPoolManager;
+import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 

@@ -18,29 +18,28 @@ package org.opensaml.saml2.metadata.impl;
 
 import javax.xml.datatype.DatatypeFactory;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
-import org.opensaml.common.util.xml.XMLParserException;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
+import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.Extensions;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.EntitiesDescriptor}
  * objects. <strong>NOTE</strong> this Unmarshaller will only work that are derived from
- * {@link org.opensaml.saml2.common.impl.AbstractSAMLObject}.
+ * {@link org.opensaml.saml2.common.impl.AbstractXMLObject}.
  */
-public class EntitiesDescriptorUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
@@ -48,7 +47,7 @@ public class EntitiesDescriptorUnmarshaller extends AbstractUnmarshaller impleme
      * @throws XMLParserException thrown if this Marshaller is unable to create a {@link DatatypeFactory}
      */
     public EntitiesDescriptorUnmarshaller(){
-        super(EntitiesDescriptor.QNAME);
+        super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME);
     }
     
     /*
@@ -81,9 +80,9 @@ public class EntitiesDescriptorUnmarshaller extends AbstractUnmarshaller impleme
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor)samlElement;
         
         if(attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            entitiesDescriptor.setValidUntil(XMLHelper.stringToCalendar(attributeValue));
+            entitiesDescriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, 0));
         }else if(attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
-            entitiesDescriptor.setCacheDuration(new Long(CacheableSAMLObjectHelper.durationToLong(attributeValue)));
+            entitiesDescriptor.setCacheDuration(new Long(DatatypeHelper.durationToLong(attributeValue)));
         }else if(attributeName.equals(EntitiesDescriptor.NAME_ATTRIB_NAME)) {
             entitiesDescriptor.setName(attributeValue);
         }else {

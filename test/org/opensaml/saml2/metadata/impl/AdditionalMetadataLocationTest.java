@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 
 /**
@@ -65,7 +68,8 @@ public class AdditionalMetadataLocationTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        AdditionalMetadataLocation location = (AdditionalMetadataLocation) buildSAMLObject(AdditionalMetadataLocation.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        AdditionalMetadataLocation location = (AdditionalMetadataLocation) buildSAMLObject(qname);
         location.setLocationURI(expectedContent);
         location.setNamespaceURI(expectedNamespace);
 

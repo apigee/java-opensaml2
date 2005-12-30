@@ -17,9 +17,9 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
+import java.util.List;
 
-import org.opensaml.common.IllegalAddException;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * A functional interface RoleDescriptors may use to deal with "KeyDescriptor" elements.
@@ -32,7 +32,7 @@ public interface KeyDescriptorDescriptorComp {
      * 
      * @return list of {@link KeyDescriptor}s for this affiliation
      */
-    public UnmodifiableOrderedSet<KeyDescriptor> getKeyDescriptors();
+    public List<KeyDescriptor> getKeyDescriptors();
 
     /**
      * Adds a {@link KeyDescriptor} to the list of descriptors for this affiliation.

@@ -21,20 +21,19 @@ package org.opensaml.saml2.metadata.impl;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.AffiliationDescriptor} objects.
  */
-public class AffiliationDescriptorMarshaller extends AbstractMarshaller implements Marshaller {
+public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
     /**
      * Logger
      */
@@ -44,7 +43,7 @@ public class AffiliationDescriptorMarshaller extends AbstractMarshaller implemen
      * Constructor
      */
     public AffiliationDescriptorMarshaller(){
-        super(AffiliationDescriptor.QNAME);
+        super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME);
     }
     
     /*
@@ -61,7 +60,7 @@ public class AffiliationDescriptorMarshaller extends AbstractMarshaller implemen
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to AffiliationDescriptor DOM element");
             }
-            String validUntilStr = XMLHelper.calendarToString(descriptor.getValidUntil());
+            String validUntilStr = DatatypeHelper.calendarToString(descriptor.getValidUntil(), 0);
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         
@@ -70,7 +69,7 @@ public class AffiliationDescriptorMarshaller extends AbstractMarshaller implemen
             if(log.isDebugEnabled()){
                 log.debug("Writting cacheDuration attribute to AffiliationDescriptor DOM element");
             }
-            String cacheDuration = CacheableSAMLObjectHelper.longToDuration(descriptor.getCacheDuration());
+            String cacheDuration = DatatypeHelper.longToDuration(descriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
     }

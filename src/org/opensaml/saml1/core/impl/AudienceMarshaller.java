@@ -21,29 +21,28 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
+import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Audience} objects.
  */
-public class AudienceMarshaller extends AbstractMarshaller implements Marshaller {
+public class AudienceMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
      */
     public AudienceMarshaller() {
-        super(Audience.QNAME);
+        super(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
-    @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
         // No attributes - do nothing
     }
@@ -52,7 +51,6 @@ public class AudienceMarshaller extends AbstractMarshaller implements Marshaller
      * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
-    @Override
     protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
         Audience audience = (Audience) samlObject;
 

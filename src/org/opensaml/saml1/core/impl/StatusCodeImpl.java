@@ -20,45 +20,39 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.IllegalAddException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.StringHelper;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.xml.IllegalAddException;
 
 /**
- * Concrete implementation of  {@link org.opensaml.saml1.core.StatusCode} Object
+ * Concrete implementation of {@link org.opensaml.saml1.core.StatusCode} Object
  */
 public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
 
-    /**
-     *  Serial version UID.
-     */
-    private static final long serialVersionUID = 194338125141975180L;
-
     /** Contents of the Value attribute */
-
     private String value;
 
     /** The child StatusCode sub element */
-
     private StatusCode childStatusCode;
 
     /**
      * Constructor
      */
     public StatusCodeImpl() {
-        super();
-        setQName(StatusCode.QNAME);
+        super(StatusCode.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML1P_NS, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
      * @see org.opensaml.saml1.core.StatusCode#getValue()
      */
     public String getValue() {
-
         return value;
     }
 
@@ -66,7 +60,6 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
      * @see org.opensaml.saml1.core.StatusCode#setValue(java.lang.String)
      */
     public void setValue(String value) {
-
         this.value = prepareForAssignment(this.value, value);
     }
 
@@ -81,44 +74,19 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
      * @see org.opensaml.saml1.core.StatusCode#setStatusCode(org.opensaml.saml1.core.StatusCode)
      */
     public void setStatusCode(StatusCode statusCode) throws IllegalAddException {
-
         childStatusCode = prepareForAssignment(childStatusCode, statusCode);
     }
 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-
-        OrderedSet<SAMLObject> contents = new OrderedSet<SAMLObject>(1);
+    public List<SAMLObject> getOrderedChildren() {
+        ArrayList<SAMLObject> contents = new ArrayList<SAMLObject>(1);
 
         if (childStatusCode != null) {
             contents.add(childStatusCode);
         }
-        return new UnmodifiableOrderedSet<SAMLObject>(contents);
+        return Collections.unmodifiableList(contents);
 
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject element) {
-
-        if (element instanceof StatusCode) {
-            StatusCode statusCode = (StatusCode) element;
-
-            if (!StringHelper.safeEquals(this.value, statusCode.getValue())) {
-                return false;
-            }
-
-            if (childStatusCode == null) {
-                return (statusCode.getStatusCode() == null);
-            }
-
-            return childStatusCode.equals(element);
-
-        } else {
-            return false;
-        }
     }
 }

@@ -17,10 +17,10 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
+import java.util.List;
 
-import org.opensaml.common.IllegalAddException;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
 import org.opensaml.saml2.core.Attribute;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * A functional interface RoleDescriptors may use to deal with "Attribute" elements.
@@ -40,7 +40,7 @@ public interface AttributeDescriptorComp {
      * 
      * @return list of the {@link Attribute}s
      */
-    public UnmodifiableOrderedSet<Attribute> getAttributes();
+    public List<Attribute> getAttributes();
 
     /**
      * Adds an {@link Attribute} supported by this authority.

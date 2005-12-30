@@ -22,11 +22,11 @@ package org.opensaml.saml1.core.impl;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.util.xml.ParserPoolManager;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Assertion;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -102,7 +102,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         Assertion assertion = (Assertion) unmarshallElement(singleElementOptionalAttributesFile);
         
         assertEquals("Issuer attribute", issuer, assertion.getIssuer());
-        assertEquals("IssueInstant attribute", XMLHelper.calendarToString(issueInstant), XMLHelper.calendarToString(assertion.getIssueInstant()));
+        assertEquals("IssueInstant attribute", DatatypeHelper.calendarToString(issueInstant, 0), DatatypeHelper.calendarToString(assertion.getIssueInstant(),0));
         assertEquals("Issuer minorVersion", minorVersion, assertion.getMinorVersion());
         
         assertNull("Conditions element", assertion.getConditions());

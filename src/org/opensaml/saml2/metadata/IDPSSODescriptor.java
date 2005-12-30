@@ -17,11 +17,7 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
-
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
+import java.util.List;
 
 /**
  * SAML 2.0 Metadata IDPSSODescriptorType
@@ -31,14 +27,8 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "IDPSSODescriptor";
     
-    /** QName for element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "Name" attribute name */
     public final static String WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME = "WantAuthnRequestSigned";
-    
-    /** "Name" attribute's QName */
-    public final static QName WANT_AUTHN_REQ_SIGNED_QNAME = new QName(XMLConstants.SAML20MD_NS, WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
     
     /**
      * Checks if the IDP SSO service wants authentication requests signed.
@@ -59,7 +49,7 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
      * 
      * @return list of single sign on service {@link Endpoint}s
      */
-	public UnmodifiableOrderedSet<Endpoint> getSingleSignOnServices();
+	public List<Endpoint> getSingleSignOnServices();
     
     /**
      * Adds an endpoint to the list of single sign on service {@link Endpoint}s.
@@ -92,7 +82,7 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
      *  
      * @return the list of NameID mapping service {@link Endpoint}s for this service
      */
-	public UnmodifiableOrderedSet<Endpoint> getNameIDMappingServices();
+	public List<Endpoint> getNameIDMappingServices();
     
     /**
      * Adds an endpoint to the list of NameID mapping service {@link Endpoint}s.

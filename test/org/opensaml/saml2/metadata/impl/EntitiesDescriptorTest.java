@@ -20,8 +20,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.util.ElementSerializer;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 
 /**
@@ -98,7 +100,8 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(EntitiesDescriptor.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(qname);
 
         assertEquals(expectedDOM, entitiesDescriptor);
     }
@@ -107,16 +110,13 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(EntitiesDescriptor.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(qname);
 
         entitiesDescriptor.setName(expectedName);
         entitiesDescriptor.setCacheDuration(new Long(expectedCacheDuration));
         entitiesDescriptor.setValidUntil(expectedValidUntil);
 
-        try{
-            System.out.println(ElementSerializer.serialize(entitiesDescriptor));
-        }catch(Exception e){
-        }
-        //assertEquals(expectedOptionalAttributesDOM, entitiesDescriptor);
+        assertEquals(expectedOptionalAttributesDOM, entitiesDescriptor);
     }
 }

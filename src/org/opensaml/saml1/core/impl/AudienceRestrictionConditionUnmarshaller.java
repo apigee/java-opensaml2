@@ -17,73 +17,69 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.AudienceRestrictionCondition} objects.
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
+ * {@link org.opensaml.saml1.core.AudienceRestrictionCondition} objects.
  */
-public class AudienceRestrictionConditionUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class AudienceRestrictionConditionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+
+    /** Logger */
+    private static Logger log = Logger.getLogger(AudienceRestrictionConditionUnmarshaller.class);
 
     /**
      * Constructor
      */
     public AudienceRestrictionConditionUnmarshaller() {
-        super(AudienceRestrictionCondition.QNAME);
+        super(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
     }
-    
-    /**
-     * Logger
-     */
-    private static Logger log = Logger.getLogger(AudienceRestrictionConditionUnmarshaller.class);
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
+     *      org.opensaml.common.SAMLObject)
      */
-    @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
         AudienceRestrictionCondition audienceRestrictionCondition;
-        
-        audienceRestrictionCondition = (AudienceRestrictionCondition) parentElement;
-        
-        if (childElement instanceof Audience) {
 
+        audienceRestrictionCondition = (AudienceRestrictionCondition) parentElement;
+
+        if (childElement instanceof Audience) {
             try {
                 audienceRestrictionCondition.addAudience((Audience) childElement);
             } catch (IllegalAddException e) {
                 log.warn("couldnt add elements", e);
                 throw new UnmarshallingException(e);
             }
-
         } else if (!SAMLConfig.ignoreUnknownElements()) {
-                throw new UnknownElementException(childElement.getElementQName()
-                        + " is not a supported element for Response objects");
+            throw new UnknownElementException(childElement.getElementQName()
+                    + " is not a supported element for Response objects");
         }
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
+     *      java.lang.String, java.lang.String)
      */
-    @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
         if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName
-                    + " is not a supported attributed for Response objects");
+            throw new UnknownAttributeException(attributeName + " is not a supported attributed for Response objects");
         }
     }
-
 }

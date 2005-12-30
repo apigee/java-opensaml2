@@ -20,36 +20,35 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Response} objects.
  */
-public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
      */
     public ResponseUnmarshaller() {
-        super(Response.QNAME);
+        super(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
@@ -57,13 +56,9 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
 
         try {
             if (childElement instanceof Assertion) {
-
                 response.setAssertion((Assertion) childElement);
-
             } else if (childElement instanceof Status) {
-
                 response.setStatus((Status) childElement);
-
             } else {
                 if (!SAMLConfig.ignoreUnknownElements()) {
                     throw new UnknownElementException(childElement.getElementQName()
@@ -71,7 +66,6 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
                 }
             }
         } catch (IllegalAddException e) {
-
             throw new UnmarshallingException(e);
         }
     }
@@ -80,22 +74,16 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
         Response response = (Response) samlElement;
 
         if (attributeName.equals(Response.INRESPONSETO_ATTRIB_NAME)) {
-
             response.setInResponseTo(attributeValue);
-
         } else if (attributeName.equals(Response.ISSUEINSTANT_ATTRIB_NAME)) {
-
-            response.setIssueInstant(XMLHelper.stringToCalendar(attributeValue));
-
+            response.setIssueInstant(DatatypeHelper.stringToCalendar(attributeValue, 0));
         } else if (attributeName.equals(Response.MAJORVERSION_ATTRIB_NAME)) {
-
             try {
                 if (Integer.parseInt(attributeValue) != 1) {
                     throw new UnmarshallingException("SAML version must be 1");
@@ -103,22 +91,15 @@ public class ResponseUnmarshaller extends AbstractUnmarshaller implements Unmars
             } catch (NumberFormatException n) {
                 throw new UnmarshallingException(n);
             }
-
         } else if (attributeName.equals(Response.MINORVERSION_ATTRIB_NAME)) {
-
             try {
                 int newVersion = Integer.parseInt(attributeValue);
-
                 response.setMinorVersion(newVersion);
-
             } catch (NumberFormatException n) {
                 throw new UnmarshallingException(n);
             }
-
         } else if (attributeName.equals(Response.RECIPIENT_ATTRIB_NAME)) {
-
             response.setRecipient(attributeValue);
-
         } else {
             if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName

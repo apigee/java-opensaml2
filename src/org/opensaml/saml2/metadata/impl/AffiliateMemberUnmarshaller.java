@@ -17,23 +17,24 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.SAMLObjectUnmarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.AffiliateMember}s.
  */
-public class AffiliateMemberUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class AffiliateMemberUnmarshaller extends AbstractSAMLObjectUnmarshaller implements SAMLObjectUnmarshaller {
 
     /**
      * Constructor
      */
     public AffiliateMemberUnmarshaller() {
-        super(AffiliateMember.QNAME);
+        super(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME);
     }
 
     /*

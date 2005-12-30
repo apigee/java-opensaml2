@@ -17,34 +17,27 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SignableObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
-import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.SignableXMLObject;
 
 /**
  * SAML 2.0 Metadata EntityDescriptor
  */
-public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, CacheableSAMLObject, SignableObject, ExtensionsExtensibleSAMLObject{
+public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, CacheableSAMLObject, SignableXMLObject{
 	
 	/** Element name, no namespace */
 	public final static String LOCAL_NAME = "EntityDescriptor";
-	
-	/** QName for this element */
-	public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
     
     /** "Name" attribute name */
     public final static String ENTITY_ID_ATTRIB_NAME = "entityID";
-    
-    /** "Name" attribute's QName */
-    public final static QName ENTITY_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, ENTITY_ID_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
 
     /**
      * Gets the entity ID for this entity descriptor.
@@ -59,13 +52,29 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * @param id the entity ID for this entity descriptor
      */
     public void setEntityID(String id);
+
+    /**
+     * Gets the Extensions child of this object.
+     * 
+     * @return the Extensions child of this object
+     */
+    public Extensions getExtensions();
+    
+    /**
+     * Sets the Extensions child of this object.
+     * 
+     * @param extensions the Extensions child of this object
+     * 
+     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     */
+    public void setExtensions(Extensions extensions) throws IllegalAddException;
     
     /**
      * Gets all the role descriptors for this entity descriptor.
      * 
      * @return the role descriptors for this entity descriptor
      */
-	public UnmodifiableOrderedSet<RoleDescriptor> getRoleDescriptors();
+	public List<RoleDescriptor> getRoleDescriptors();
 
     /**
      * Gets all the role descriptors of a certain type.
@@ -74,7 +83,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @return the role descriptors of a certain type
      */
-	public UnmodifiableOrderedSet<RoleDescriptor> getRoleDescriptors(QName type);
+	public List<RoleDescriptor> getRoleDescriptors(QName type);
     
     /**
      * Gets the role descriptors of a certain type that support the given protocol.
@@ -117,7 +126,49 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * Removes all the role descriptors.
      */
     public void removeAllRoleDescriptors();
-
+    
+    /**
+     * Removes all the role descriptors with the given schema type or element name.
+     * 
+     * @param the schema type or element name
+     */
+    public void removeAllRoleDescriptors(QName typeOrName);
+    
+    /**
+     * Gets all the {@link IDPSSODescriptor}s role descriptor for this entity.
+     * 
+     * @return the {@link IDPSSODescriptor}s role descriptor for this entity
+     */
+    public List<RoleDescriptor> getIDPSSODescriptor();
+    
+    /**
+     * Gets all the {@link SPSSODescriptor}s role descriptor for this entity.
+     * 
+     * @return the {@link SPSSODescriptor}s role descriptor for this entity
+     */
+    public List<RoleDescriptor> getSPSSODescriptor();
+    
+    /**
+     * Gets all the {@link AuthnAuthorityDescriptor}s role descriptor for this entity.
+     * 
+     * @return the {@link AuthnAuthorityDescriptor}s role descriptor for this entity
+     */
+    public List<RoleDescriptor> getAuthnAuthorityDescriptor();
+    
+    /**
+     * Gets all the {@link AttributeAuthorityDescriptor}s role descriptor for this entity.
+     * 
+     * @return the {@link AttributeAuthorityDescriptor}s role descriptor for this entity
+     */
+    public List<RoleDescriptor> getAttributeAuthorityDescriptor();
+    
+    /**
+     * Gets all the {@link PDPDescriptor}s role descriptor for this entity.
+     * 
+     * @return the {@link PDPDescriptor}s role descriptor for this entity
+     */
+    public List<RoleDescriptor> getPDPDescriptor();
+    
     /**
      * Gets the affiliation descriptor for this entity.
      * 
@@ -156,7 +207,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @return the contact people for this entity
      */
-	public UnmodifiableOrderedSet<ContactPerson> getContactPersons();
+	public List<ContactPerson> getContactPersons();
     
     /**
      * Adds a contact person to this entity.
@@ -192,7 +243,7 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @return the additional metadata locations for this entity
      */
-	public UnmodifiableOrderedSet<AdditionalMetadataLocation> getAdditionalMetadataLocations();
+	public List<AdditionalMetadataLocation> getAdditionalMetadataLocations();
     
     /**
      * Adds an additional metadata locations for this entity.

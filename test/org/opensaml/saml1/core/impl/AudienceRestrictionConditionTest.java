@@ -19,9 +19,9 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * Test class for data.org.opensaml.saml1.AudienceRestrictionCondition

@@ -18,13 +18,10 @@ package org.opensaml.saml2.metadata;
 
 
 import java.util.Collection;
+import java.util.List;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * SAML 2.0 Metadata AttributeAuthorityDescriptor
@@ -33,16 +30,13 @@ public interface AttributeAuthorityDescriptor extends SAMLObject, RoleDescriptor
 	
 	/** Element name, no namespace */
 	public final static String LOCAL_NAME = "AttributeAuthorityDescriptor";
-	
-	/** QName for this element */
-	public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
 
     /**
      * Gets an immutable list of attribute service {@link Endpoint}s for this authority.
      * 
      * @return list of attributes services
      */
-    public UnmodifiableOrderedSet<AttributeService> getAttributeServices();
+    public List<AttributeService> getAttributeServices();
 
     /**
      * Adds an attribute service {@link Endpoint} for this authority.

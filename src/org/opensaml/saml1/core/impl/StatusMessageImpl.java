@@ -20,22 +20,17 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.StringHelper;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusMessage;
 
 /**
  * Concrete implementation of org.opensaml.saml1.core StatusMessage object
  */
 public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessage {
-
-    /**
-     * Serial version UID.
-     */
-    private static final long serialVersionUID = -766167197012104173L;
 
     /**
      * Contents of the element
@@ -46,15 +41,14 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
      * Constructor
      */
     public StatusMessageImpl() {
-        super();
-        setQName(StatusMessage.QNAME);
+        super(StatusMessage.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML1P_NS, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
      * @see org.opensaml.saml1.core.StatusMessage#getMessage()
      */
     public String getMessage() {
-
         return message;
     }
 
@@ -62,29 +56,13 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
      * @see org.opensaml.saml1.core.StatusMessage#setMessage(java.lang.String)
      */
     public void setMessage(String message) {
-
         this.message = prepareForAssignment(this.message, message);
     }
 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-        return new UnmodifiableOrderedSet<SAMLObject>(new OrderedSet<SAMLObject>());
+    public List<SAMLObject> getOrderedChildren() {
+        return null;
     }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject element) {
-
-        if (!(element instanceof StatusMessage)) {
-            return false;
-        }
-
-        StatusMessage statusMessage = (StatusMessage) element;
-
-        return StringHelper.safeEquals(this.message, statusMessage.getMessage());
-    }
-
 }

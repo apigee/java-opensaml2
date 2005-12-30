@@ -20,45 +20,43 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.StatusCode} objects.
  */
-public class StatusCodeUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
      */
     public StatusCodeUnmarshaller() {
-        super(StatusCode.QNAME);
+        super(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME);
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
+     *      org.opensaml.common.SAMLObject)
      */
-    @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
         StatusCode statusCode = (StatusCode) parentElement;
 
         if (childElement instanceof StatusCode) {
-
             try {
                 statusCode.setStatusCode((StatusCode) childElement);
             } catch (IllegalAddException e) {
                 throw new UnmarshallingException(e);
             }
-
         } else {
             if (!SAMLConfig.ignoreUnknownElements()) {
                 throw new UnknownElementException(childElement.getElementQName()
@@ -69,18 +67,16 @@ public class StatusCodeUnmarshaller extends AbstractUnmarshaller implements Unma
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
+     *      java.lang.String, java.lang.String)
      */
-    @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
         StatusCode statusCode = (StatusCode) samlElement;
 
         if (attributeName.equals(StatusCode.VALUE_ATTRIB_NAME)) {
-
             statusCode.setValue(attributeValue);
-
         } else {
             if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName

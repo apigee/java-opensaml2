@@ -20,51 +20,40 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.GregorianCalendar;
+import java.util.List;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.StringHelper;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * Implementation of the {@link org.opensaml.saml1.core.Response} Object
  */
 public class ResponseImpl extends AbstractSignableSAMLObject implements Response {
 
-    /**
-     * Serial version UID.
-     */
-    private static final long serialVersionUID = 6224869049066163659L;
-
     /** Contents of the InResponseTo attribute */
-
     private String inResponseTo = null;
 
     /** Minor Version of this element */
-
     private int minorVersion = 0;
 
     /** Contents of the Date attribute */
-
     private GregorianCalendar issueInstant = null;
 
     /** Contents of the recipient attribute */
-
     private String recipient = null;
 
     /** Status associated with this element */
-
     private Status status = null;
 
     /** Assertion associated with this element */
-
     private Assertion assertion = null;
 
     /**
@@ -72,15 +61,14 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * 
      */
     protected ResponseImpl() {
-        super();
-        setQName(Response.QNAME);
+        super(Response.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML1P_NS, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.saml1.core.Response#getInResponseTo()
      */
     public String getInResponseTo() {
-
         return inResponseTo;
     }
 
@@ -88,7 +76,6 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * @see org.opensaml.saml1.core.Response#setInResponseTo(java.lang.String)
      */
     public void setInResponseTo(String inResponseTo) {
-
         this.inResponseTo = prepareForAssignment(this.inResponseTo, inResponseTo);
     }
 
@@ -96,7 +83,6 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * @see org.opensaml.saml1.core.Response#getMinorVersion()
      */
     public int getMinorVersion() {
-
         return minorVersion;
     }
 
@@ -104,7 +90,6 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * @see org.opensaml.saml1.core.Response#setMinorVersion(int)
      */
     public void setMinorVersion(int version) {
-
         if (version != minorVersion) {
             releaseThisandParentDOM();
             minorVersion = version;
@@ -123,7 +108,6 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * @see org.opensaml.saml1.core.Response#setIssueInstant(java.util.Date)
      */
     public void setIssueInstant(GregorianCalendar date) {
-
         if (issueInstant == null && date == null) {
             // no change - return
             return;
@@ -139,7 +123,6 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * @see org.opensaml.saml1.core.Response#getRecipient()
      */
     public String getRecipient() {
-
         return recipient;
     }
 
@@ -147,7 +130,6 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * @see org.opensaml.saml1.core.Response#setRecipient(java.lang.String)
      */
     public void setRecipient(String recipient) {
-
         this.recipient = prepareForAssignment(this.recipient, recipient);
     }
 
@@ -155,7 +137,6 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * @see org.opensaml.saml1.core.Response#getStatus()
      */
     public Status getStatus() {
-
         return status;
     }
 
@@ -163,7 +144,6 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * @see org.opensaml.saml1.core.Response#getStatus(org.opensaml.saml1.core.Status)
      */
     public void setStatus(Status status) throws IllegalAddException {
-
         this.status = prepareForAssignment(this.status, status);
     }
 
@@ -171,7 +151,6 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * @see org.opensaml.saml1.core.Response#getAssertions()
      */
     public Assertion getAssertion() {
-
         return assertion;
     }
 
@@ -182,75 +161,17 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
         this.assertion = prepareForAssignment(this.assertion, assertion);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#removeAssertion(org.opensaml.saml1.core.Assertion)
-     */
-
-    public boolean equals(SAMLObject element) {
-
-        if (!(element instanceof ResponseImpl)) {
-            
-            return false;
-        }            
-        Response other = (ResponseImpl) element;
-
-        if (minorVersion != other.getMinorVersion()) {
-            return false;
-        }
-        
-        if (!StringHelper.safeEquals(inResponseTo, other.getInResponseTo())) {
-            return false;
-        }
-        
-        if (!StringHelper.safeEquals(recipient, other.getRecipient())) {
-            return false;
-        }
-        
-        String myIssueInstant = null;
-        if (issueInstant != null) {
-            myIssueInstant = XMLHelper.calendarToString(issueInstant);
-        }
-        
-        String otherIssueInsant = null;
-        if (other.getIssueInstant() != null) {
-            otherIssueInsant = XMLHelper.calendarToString(other.getIssueInstant());
-        }
-        
-        if (!StringHelper.safeEquals(myIssueInstant, otherIssueInsant)) {
-            return false;
-        }
-
-        if (status == null) {
-            if (other.getStatus() != null) {
-                return false;
-            }
-        } else if (!status.equals(other.getStatus())) {
-            return false;
-        }
-
-        //
-        // Everything is the same - it remains to test the Assertion
-        //
-        
-        if (assertion == null) {
-            return other.getAssertion() == null;
-        }
-        
-        return assertion.equals(other.getAssertion());
-    }
-
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-
-        OrderedSet<SAMLObject> set = new OrderedSet<SAMLObject>(2);
+    public List<SAMLObject> getOrderedChildren() {
+        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>(2);
 
         if (assertion != null) {
-            set.add(assertion);
+            children.add(assertion);
         }
 
         if (status != null) {
-            set.add(status);
+            children.add(status);
         }
 
-        return new UnmodifiableOrderedSet<SAMLObject>(set);
+        return Collections.unmodifiableList(children);
     }
 }

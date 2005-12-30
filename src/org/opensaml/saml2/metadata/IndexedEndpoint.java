@@ -16,21 +16,14 @@
 
 package org.opensaml.saml2.metadata;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.xml.XMLConstants;
 
 /**
  * SAML 2.0 Metadata IndexedEndpoint
  */
-public interface IndexedEndpoint extends SAMLObject, Endpoint {
+public interface IndexedEndpoint extends Endpoint {
 
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "IndexedEndpoint";
-    
-    /** QName for element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
     
     /**
      * Gets the index of the endpoint.

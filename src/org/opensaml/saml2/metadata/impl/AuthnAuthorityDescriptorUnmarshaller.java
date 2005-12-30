@@ -16,28 +16,28 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AuthnQueryService;
 import org.opensaml.saml2.metadata.NameIDFormat;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
  * {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} objects.
  */
-public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarshaller implements Unmarshaller {
+public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
 
     /**
      * Constructor
      */
     public AuthnAuthorityDescriptorUnmarshaller() {
-        super(AuthnAuthorityDescriptor.QNAME);
+        super(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
     }
 
     /*

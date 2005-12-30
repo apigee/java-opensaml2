@@ -16,6 +16,9 @@
 
 package org.opensaml.common;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 
 /**
@@ -48,8 +51,9 @@ public class SAMLConfigTest extends BaseTestCase {
         assertTrue("ingoreUnknownElements was set to true but configuration reports false", SAMLConfig
                 .ignoreUnknownElements());
 
+        QName entitiesDescriptorQName = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         assertNotNull(
                 "Object provider configuration for md:EntitiesDescriptor was provided in configuration file but was not available though getObjectProviderConfiguration(QName)",
-                SAMLConfig.getObjectProviderConfiguration(EntitiesDescriptor.QNAME));
+                SAMLConfig.getObjectProviderConfiguration(entitiesDescriptorQName));
     }
 }

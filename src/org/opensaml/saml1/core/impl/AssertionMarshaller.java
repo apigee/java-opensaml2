@@ -17,27 +17,28 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
- *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
+ * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
  */
-public class AssertionMarshaller extends AbstractMarshaller implements Marshaller {
+public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
      */
     public AssertionMarshaller() {
-        super(Assertion.QNAME);
+        super(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME);
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     *      org.w3c.dom.Element)
      */
     @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
@@ -51,15 +52,14 @@ public class AssertionMarshaller extends AbstractMarshaller implements Marshalle
 
         if (assertion.getIssueInstant() != null) {
 
-            String date = XMLHelper.calendarToString(assertion.getIssueInstant());
+            String date = DatatypeHelper.calendarToString(assertion.getIssueInstant(), 0);
 
             domElement.setAttribute(Assertion.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
-        
         if (assertion.getMinorVersion() != 0) {
             String minorVersion = Integer.toString(assertion.getMinorVersion());
-    
+
             domElement.setAttribute(Assertion.MINORVERSION_ATTRIB_NAME, minorVersion);
             domElement.setAttribute(Assertion.MAJORVERSION_ATTRIB_NAME, "1");
         }

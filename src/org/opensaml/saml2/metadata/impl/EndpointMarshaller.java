@@ -16,19 +16,16 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.common.util.xml.XMLParserException;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.Endpoint} objects.
  */
-public class EndpointMarshaller extends AbstractMarshaller implements Marshaller {
+public class EndpointMarshaller extends AbstractSAMLObjectMarshaller {
     
     /**
      * 
@@ -36,8 +33,8 @@ public class EndpointMarshaller extends AbstractMarshaller implements Marshaller
      *
      * @throws XMLParserException thrown when an JAXP DatatypeFactory can not be created
      */
-    public EndpointMarshaller(QName target){
-        super(target);
+    public EndpointMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /*

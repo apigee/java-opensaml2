@@ -17,11 +17,7 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
-
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
+import java.util.List;
 
 /**
  * SAML 2.0 Metadata PDPDescriptor
@@ -30,16 +26,13 @@ public interface PDPDescriptor extends RoleDescriptor, AssertionIDRequestDescrip
     
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "PDPDescriptor";
-    
-    /** QName for element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
 
     /**
      * Gets an immutable list of authz service {@link Endpoint}s for this service.
      * 
      * @return list of authz service {@link Endpoint}s for this service
      */
-	public UnmodifiableOrderedSet<Endpoint> getAuthzServices();
+	public List<Endpoint> getAuthzServices();
     
     /**
      * Adds an authz service {@link Endpoint} for this service.

@@ -18,47 +18,35 @@ package org.opensaml.saml2.metadata;
 
 import java.net.URI;
 import java.util.Collection;
+import java.util.List;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SignableObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
-import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.SignableXMLObject;
 
 /**
  * SAML 2.0 Metadata RoleDescriptor
  */
-public interface RoleDescriptor extends SAMLObject, SignableObject, TimeBoundSAMLObject, CacheableSAMLObject, ExtensionsExtensibleSAMLObject, KeyDescriptorDescriptorComp{
+public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject, KeyDescriptorDescriptorComp{
     
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "RoleDescriptor";
     
-    /** QName for this element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "protocolEnumeration" attribute's local name */
     public final static String PROTOCOL_ENUMERATION_ATTRIB_NAME = "protocolEnumeration";
     
-    /** "protocolEnumeration" attribute's QName */
-    public final static QName PROTOCOL_ENUMERATION_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, PROTOCOL_ENUMERATION_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "errorURL" attribute's local name */
     public final static String ERROR_URL_ATTRIB_NAME = "errorURL";
-    
-    /** "errorURL" attribute's QName */
-    public final static QName ERROR_URL_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, ERROR_URL_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
     
     /**
      * Gets an immutable list of protocol {@link URI}s supported by this role.
      * 
      * @return list of protocol {@link URI}s supported by this role
      */
-	public UnmodifiableOrderedSet<String> getSupportedProtocols();
+	public List<String> getSupportedProtocols();
 
     /**
      * Chckes to see if the given protocol is supported by this role.
@@ -109,6 +97,22 @@ public interface RoleDescriptor extends SAMLObject, SignableObject, TimeBoundSAM
      * @param errorURL the URI users should be sent to in the event of an error
      */
     public void setErrorURL(String errorURL);
+    
+    /**
+     * Gets the Extensions child of this object.
+     * 
+     * @return the Extensions child of this object
+     */
+    public Extensions getExtensions();
+    
+    /**
+     * Sets the Extensions child of this object.
+     * 
+     * @param extensions the Extensions child of this object
+     * 
+     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     */
+    public void setExtensions(Extensions extensions) throws IllegalAddException;
 
     /**
      * Gets the organization responsible for this role.
@@ -131,7 +135,7 @@ public interface RoleDescriptor extends SAMLObject, SignableObject, TimeBoundSAM
      * 
      * @return list of {@link ContactPerson}s for this role
      */
-    public UnmodifiableOrderedSet<ContactPerson> getContactPersons();
+    public List<ContactPerson> getContactPersons();
     
     /**
      * Adds a contact person to the list of contact people for this role.

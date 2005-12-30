@@ -16,28 +16,24 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import java.util.Set;
-
-import javax.xml.namespace.QName;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.common.impl.CacheableSAMLObjectHelper;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.RoleDescriptor} objects.
  * 
- * Note, this only works with {@link org.opensaml.saml2.metadata.RoleDescriptor} implementations that extend {@link org.opensaml.saml2.common.impl.AbstractSAMLObject}.
+ * Note, this only works with {@link org.opensaml.saml2.metadata.RoleDescriptor} implementations that extend {@link org.opensaml.saml2.common.impl.AbstractXMLObject}.
  */
-public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implements Marshaller {
+public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Logger
@@ -47,10 +43,10 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
     /**
      * Constructor
      * 
-     * @param target the QName of the elment or type this marshaller operates on
+     * @param localName the Qname of the local
      */
-    protected RoleDescriptorMarshaller(QName target) {
-        super(target);
+    protected RoleDescriptorMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
     
     /*
@@ -64,7 +60,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to RoleDescriptor DOM element");
             }
-            String validUntilStr = XMLHelper.calendarToString(roleDescriptor.getValidUntil());
+            String validUntilStr = DatatypeHelper.calendarToString(roleDescriptor.getValidUntil(), 0);
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         
@@ -73,12 +69,12 @@ public abstract class RoleDescriptorMarshaller extends AbstractMarshaller implem
             if(log.isDebugEnabled()){
                 log.debug("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
             }
-            String cacheDuration = CacheableSAMLObjectHelper.longToDuration(roleDescriptor.getCacheDuration());
+            String cacheDuration = DatatypeHelper.longToDuration(roleDescriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
         
         // Set the protocolSupportEnumeration attribute
-        Set<String> supportedProtocols = roleDescriptor.getSupportedProtocols();
+        List<String> supportedProtocols = roleDescriptor.getSupportedProtocols();
         if(supportedProtocols != null && supportedProtocols.size() > 0) {
             if(log.isDebugEnabled()){
                 log.debug("Writting protocolSupportEnumberation attribute to RoleDescriptor DOM element");

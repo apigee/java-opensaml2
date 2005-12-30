@@ -17,31 +17,42 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
-
-import javax.xml.namespace.QName;
+import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
-import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * SAML 2.0 Metadata Organization
  */
-public interface Organization extends SAMLObject, ExtensionsExtensibleSAMLObject, NameDescriptorComp{
+public interface Organization extends SAMLObject, NameDescriptorComp{
     
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "Organization";
     
-    /** QName for element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
+    /**
+     * Gets the Extensions child of this object.
+     * 
+     * @return the Extensions child of this object
+     */
+    public Extensions getExtensions();
+    
+    /**
+     * Sets the Extensions child of this object.
+     * 
+     * @param extensions the Extensions child of this object
+     * 
+     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     */
+    public void setExtensions(Extensions extensions) throws IllegalAddException;
 
     /**
      * Gets an immutable list of diaply names, {@link LocalizedString}s, for this service.
      * 
      * @return list of names
      */
-	public UnmodifiableOrderedSet<LocalizedString> getDisplayName();
+	public List<LocalizedString> getDisplayName();
 
     /**
      * Gets the localized display name in a given language.
@@ -92,7 +103,7 @@ public interface Organization extends SAMLObject, ExtensionsExtensibleSAMLObject
      * 
      * @return list of URLs, {@link LocalizedString}s, for this organization
      */
-	public UnmodifiableOrderedSet<LocalizedString> getURLs();
+	public List<LocalizedString> getURLs();
 
     /**
      * Gets the URL for the given language.

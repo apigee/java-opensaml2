@@ -23,13 +23,16 @@ package org.opensaml.saml1.core.impl;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.opensaml.common.IllegalAddException;
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.util.xml.ParserPoolManager;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -97,7 +100,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
 
         GregorianCalendar date = response.getIssueInstant();
         assertNull("IssueInstant attribute has a value of " + 
-                            XMLHelper.calendarToString(date) + 
+                DatatypeHelper.calendarToString(date, 0) + 
                             ", expected no value", date);
         
         Assertion assertion;
@@ -119,7 +122,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         response = (Response) unmarshallElement(singleElementOptionalAttributesFile);
 
         GregorianCalendar date = response.getIssueInstant();
-        assertEquals("IssueInstant attribute ", XMLHelper.calendarToString(issueInstant), XMLHelper.calendarToString(date));
+        assertEquals("IssueInstant attribute ", DatatypeHelper.calendarToString(issueInstant, 0), DatatypeHelper.calendarToString(date, 0));
         
         String string = response.getInResponseTo();
         assertEquals("InResponseTo attribute ", inResponseTo, string);
@@ -152,8 +155,8 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-
-        Response response = (Response) buildSAMLObject(Response.QNAME);
+        QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
+        Response response = (Response) buildSAMLObject(qname);
 
         assertEquals(expectedDOM, response);
     }
@@ -163,7 +166,8 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        Response response = (Response) buildSAMLObject(Response.QNAME);
+        QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
+        Response response = (Response) buildSAMLObject(qname);
 
         response.setInResponseTo(inResponseTo);
         response.setIssueInstant(issueInstant);
@@ -179,7 +183,8 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      */
 
     public void testFullElementsMarshall() {
-        Response response = (Response) buildSAMLObject(Response.QNAME);
+        QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
+        Response response = (Response) buildSAMLObject(qname);
 
         try {
             response.setAssertion(new AssertionImpl());

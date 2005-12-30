@@ -22,21 +22,22 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SignatureException;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.SecureRandomIdentifierGenerator;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallerFactory;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallerFactory;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.util.ElementSerializer;
-import org.opensaml.common.util.SerializationException;
-import org.opensaml.common.util.xml.DigitalSignatureHelper;
-import org.opensaml.common.util.xml.ParserPoolManager;
-import org.opensaml.common.util.xml.XMLParserException;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.xml.SignableXMLObject;
+import org.opensaml.xml.SigningContext;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.io.Unmarshaller;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.util.DigitalSignatureHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
@@ -70,8 +71,9 @@ public class SAMLObjectSigningTest extends BaseTestCase {
      * 
      * @throws SerializationException
      */
-    public void testSAMLObjectSigning() throws SerializationException {
-        SAMLObjectBuilder edBuilder = SAMLObjectBuilderFactory.getInstance().getBuilder(EntitiesDescriptor.QNAME);
+    public void testSAMLObjectSigning(){
+        QName entitiesDescriptorQName = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        SAMLObjectBuilder edBuilder = SAMLObjectManager.getBuilder(entitiesDescriptorQName);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) edBuilder.buildObject();
 
         IdentifierGenerator idGen = new SecureRandomIdentifierGenerator();
@@ -80,12 +82,9 @@ public class SAMLObjectSigningTest extends BaseTestCase {
         dsigCtx.setPublicKey(publicKey);
         entitiesDescriptor.setSigningContext(dsigCtx);
 
-        Marshaller marshaller = MarshallerFactory.getInstance().getMarshaller(entitiesDescriptor);
+        Marshaller marshaller = SAMLObjectManager.getMarshaller(entitiesDescriptor);
         try {
             Element dom = marshaller.marshall(entitiesDescriptor);
-
-            System.out.println(ElementSerializer.serialize(dom));
-
             DigitalSignatureHelper.verifySignature(dom);
         } catch (MarshallingException e) {
             fail("Marshalling failed with the following error: " + e);
@@ -103,15 +102,15 @@ public class SAMLObjectSigningTest extends BaseTestCase {
             Document doc = ppMgr.parse(new InputSource(SAMLObjectSigningTest.class.getResourceAsStream(signedElementFile)));
             
             Element signedElement = doc.getDocumentElement();
-            Unmarshaller unmarshaller = UnmarshallerFactory.getInstance().getUnmarshaller(signedElement);
+            Unmarshaller unmarshaller = SAMLObjectManager.getUnmarshaller(signedElement);
             if (unmarshaller == null) {
                 fail("Unable to retrieve unmarshaller by DOM Element");
             }
 
-            SignableObject signableSAMLObject = (SignableObject) unmarshaller.unmarshall(signedElement);
+            SignableXMLObject signableSAMLObject = (SignableXMLObject) unmarshaller.unmarshall(signedElement);
 
-            assertNotNull(signableSAMLObject.getIdAttributeValue());
             assertNotNull(signableSAMLObject.getSigningContext());
+            assertNotNull(signableSAMLObject.getSigningContext().getIdAttributeValue());
         } catch (XMLParserException e) {
             fail("Unable to parse file containing single EntitiesDescriptor element");
         } catch (UnknownAttributeException e) {

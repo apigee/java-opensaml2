@@ -16,20 +16,17 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.Endpoint;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.metadata.Endpoint}
  */
 public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
-
-    /**
-     * Serial version UID
-     */
-    private static final long serialVersionUID = 4651342129482524863L;
 
     /** Binding URI */
     private String bindingId;
@@ -42,9 +39,12 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
     
     /**
      * Constructor
+     * 
+     * @param localName the local name of the element this SAML object represents
      */
-    public EndpointImpl() {
-        super();
+    public EndpointImpl(String localName) {
+        super(localName);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
@@ -90,22 +90,9 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
     }
 
     /*
-     * @see org.opensaml.saml2.common.impl.AbstractSAMLElement#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren(){
+    public List<SAMLObject> getOrderedChildren(){
         return null; //Endpoints don't have child elements
-    }
-    
-    /*
-     * @see org.opensaml.common.SAMLElement#equals(org.opensaml.common.SAMLElement)
-     */
-    public boolean equals(SAMLObject element) {
-        if (element != null && element instanceof Endpoint) {
-            Endpoint otherEndpoint = (Endpoint) element;
-            return getBinding().equals(otherEndpoint.getBinding()) && getLocation().equals(otherEndpoint.getLocation())
-                    && getResponseLocation().equals(otherEndpoint.getResponseLocation());
-        }
-
-        return false;
     }
 }

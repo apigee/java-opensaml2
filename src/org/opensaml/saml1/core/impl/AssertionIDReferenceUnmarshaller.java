@@ -23,17 +23,17 @@ package org.opensaml.saml1.core.impl;
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  *  A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.AssertionIDReference} Objects
  */
-public class AssertionIDReferenceUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class AssertionIDReferenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Logger
@@ -44,13 +44,12 @@ public class AssertionIDReferenceUnmarshaller extends AbstractUnmarshaller imple
      * Constructor
      */
     public AssertionIDReferenceUnmarshaller() {
-        super(AssertionIDReference.QNAME);
+        super(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
      */
-    @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
@@ -68,7 +67,6 @@ public class AssertionIDReferenceUnmarshaller extends AbstractUnmarshaller imple
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
      */
-    @Override
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
         //

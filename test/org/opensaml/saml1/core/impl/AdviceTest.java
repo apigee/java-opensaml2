@@ -19,10 +19,10 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.util.xml.ParserPoolManager;
+import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Advice;
+import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -48,7 +48,6 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     /*
      * @see junit.framework.TestCase#setUp()
      */
-    @Override
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -62,7 +61,6 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
-    @Override
     public void testSingleElementUnmarshall() {
         Advice advice = (Advice) unmarshallElement(singleElementFile);
         
@@ -73,7 +71,6 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         // No attributes
     }
@@ -81,7 +78,6 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     /**
      * Test an XML file with children
      */
-
     public void testFullElementsUnmarshall() {
         Advice advice = (Advice) unmarshallElement(fullElementsFile);
         
@@ -92,7 +88,6 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
-    @Override
     public void testSingleElementMarshall() {
         Advice advice = new AdviceImpl();
         
@@ -102,7 +97,6 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesMarshall() {
         // No attributes
     }

@@ -23,11 +23,14 @@ package org.opensaml.saml1.core.impl;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import org.opensaml.common.IllegalAddException;
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.util.xml.ParserPoolManager;
-import org.opensaml.common.util.xml.XMLHelper;
+import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Conditions;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -114,16 +117,15 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         conditions = (Conditions) unmarshallElement(singleElementOptionalAttributesFile);
 
         GregorianCalendar date = conditions.getNotBefore();
-        assertEquals("NotBefore attribute ", XMLHelper.calendarToString(notBeforeDate),XMLHelper.calendarToString(date));
+        assertEquals("NotBefore attribute ", DatatypeHelper.calendarToString(notBeforeDate,0),DatatypeHelper.calendarToString(date, 0));
 
         date = conditions.getNotOnOrAfter();
-        assertEquals("NotOnOrAfter attribute ", XMLHelper.calendarToString(notOnOfAfter), XMLHelper.calendarToString(date));
+        assertEquals("NotOnOrAfter attribute ", DatatypeHelper.calendarToString(notOnOfAfter, 0), DatatypeHelper.calendarToString(date, 0));
     }
 
     /*
      * Test an XML file with children
      */
-
     public void testFullElementsUnmarshall() {
         Conditions conditions;
 
@@ -138,10 +140,9 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
-    @Override
     public void testSingleElementMarshall() {
-
-        Conditions conditions = (Conditions) buildSAMLObject(Conditions.QNAME);
+        QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
+        Conditions conditions = (Conditions) buildSAMLObject(qname);
 
         assertEquals(expectedDOM, conditions);
 
@@ -150,9 +151,9 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        Conditions conditions = (Conditions) buildSAMLObject(Conditions.QNAME);
+        QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
+        Conditions conditions = (Conditions) buildSAMLObject(qname);
 
         conditions.setNotBefore(notBeforeDate);
         conditions.setNotOnOrAfter(notOnOfAfter);
@@ -163,19 +164,19 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     /**
      * Test an XML file with Children
      */
-    
     public void testFullElementsMarshall() {
-        Conditions conditions = (Conditions) buildSAMLObject(Conditions.QNAME);
+        QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
+        Conditions conditions = (Conditions) buildSAMLObject(qname);
 
         try {
-            conditions.addAudienceRestrictionCondition(new AudienceRestrictionConditionImpl());
-            conditions.addDoNotCacheCondition(new DoNotCacheConditionImpl());
+            conditions.addCondition(new AudienceRestrictionConditionImpl());
+            conditions.addCondition(new DoNotCacheConditionImpl());
             //conditions.addCondition(condition);
 
-            conditions.addAudienceRestrictionCondition(new AudienceRestrictionConditionImpl());
+            conditions.addCondition(new AudienceRestrictionConditionImpl());
             // conditions.addCondition(condition);
             //           
-            conditions.addAudienceRestrictionCondition(new AudienceRestrictionConditionImpl());
+            conditions.addCondition(new AudienceRestrictionConditionImpl());
 
         } catch (IllegalAddException e) {
             fail("Exception " + e + " while adding members");

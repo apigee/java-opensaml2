@@ -19,7 +19,7 @@ package org.opensaml.saml2.common;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.xml.XMLConstants;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * A functional interface for SAMLElements that provide cache duration information.
@@ -31,7 +31,7 @@ public interface CacheableSAMLObject extends SAMLObject{
 	public final static String CACHE_DURATION_ATTRIB_NAME = "cacheDuration";
 	
 	/** "cacheDuration" attribute's QName */
-	public final static QName CACHE_DURATION_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, CACHE_DURATION_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
+	public final static QName CACHE_DURATION_ATTRIB_QNAME = new QName(SAMLConstants.SAML20MD_NS, CACHE_DURATION_ATTRIB_NAME, SAMLConstants.SAML20MD_PREFIX);
 	
 	/**
 	 * Gets the maximum time, in milliseconds, that this descriptor should be cached.

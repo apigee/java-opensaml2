@@ -17,23 +17,14 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
+import java.util.List;
 
-import org.opensaml.common.IllegalAddException;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * A functional interface RoleDescriptors may use to deal with "AttributeProfile" elements.
  */
 public interface AttributeProfileDescriptorComp {
-
-    /**
-     * Checks if the given attribute profile is supported by this authority.
-     * 
-     * @param profileURI the attribute profileURI
-     * 
-     * @return true if the given attribute profile is supported, false if not
-     */
-    public boolean isSupportedAttributeProfile(String profileURI);
     
     /**
      * Checks if the given attribute profile is supported by this authority.
@@ -49,14 +40,7 @@ public interface AttributeProfileDescriptorComp {
      * 
      * @return the list of supported {@link AttributeProfile}s
      */
-    public UnmodifiableOrderedSet<AttributeProfile> getAttributeProfiles();
-
-    /**
-     * Adds an attribute profile URIs supported by this authority.
-     * 
-     * @param profileURI an attribute profile URI
-     */
-    public void addAttributeProfile(String profileURI);
+    public List<AttributeProfile> getAttributeProfiles();
     
     /**
      * Adds an attribute profile URIs supported by this authority.
@@ -66,13 +50,6 @@ public interface AttributeProfileDescriptorComp {
      * @throws IllegalAddException thrown if the given profile is already a child of another SAMLObject
      */
     public void addAttributeProfile(AttributeProfile profile) throws IllegalAddException;
-
-    /**
-     * Removes an attribute profile URIs supported by this authority.
-     * 
-     * @param profileURI an attribute profile URI
-     */
-    public void removeAttributeProfile(String profileURI);
     
     /**
      * Removes an attribute profile URIs supported by this authority.

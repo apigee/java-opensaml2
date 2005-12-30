@@ -16,19 +16,17 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.StringHelper;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 
 /**
  * Concreate implementation of {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation}
  */
 public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implements AdditionalMetadataLocation {
-
-    /** Serial version UID */
-    private static final long serialVersionUID = -4495936981418416245L;
 
     /** The metadata location */
     private String location;
@@ -40,8 +38,8 @@ public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implement
      * Constructor
      */
     public AdditionalMetadataLocationImpl() {
-        super();
-        setQName(AdditionalMetadataLocation.QNAME);
+        super(AdditionalMetadataLocation.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
@@ -73,24 +71,10 @@ public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implement
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
+    public List<SAMLObject> getOrderedChildren() {
         // No children for this element
         return null;
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject element) {
-        if (element instanceof AdditionalMetadataLocation) {
-            AdditionalMetadataLocation aml = (AdditionalMetadataLocation) element;
-
-            return StringHelper.safeEquals(location, aml.getLocationURI())
-                    && StringHelper.safeEquals(namespace, aml.getNamespaceURI());
-        }
-
-        return false;
     }
 }

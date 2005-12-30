@@ -17,11 +17,7 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
-
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
+import java.util.List;
 
 
 /**
@@ -32,15 +28,12 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "SSODescriptor";
     
-    /** QName for this element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /**
      * Gets an immutable list of artifact resolution {@link Endpoint}s for this service.
      * 
      * @return list of artifact resolution {@link Endpoint}s for this service
      */
-	public UnmodifiableOrderedSet<Endpoint> getArtifactResolutionServices();
+	public List<Endpoint> getArtifactResolutionServices();
     
     /**
      * Adds an artifact resolution {@link Endpoint} for this service.
@@ -73,7 +66,7 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * 
      * @return list of single logout {@link Endpoint}s for this service
      */
-	public UnmodifiableOrderedSet<Endpoint> getSingleLogoutServices();
+	public List<Endpoint> getSingleLogoutServices();
     
     /**
      * Adds a single logout {@link Endpoint} for this service.
@@ -106,7 +99,7 @@ public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorCom
      * 
      * @return list of manage NameId {@link Endpoint}s for this service
      */
-	public UnmodifiableOrderedSet<Endpoint> getManageNameIDServices();
+	public List<Endpoint> getManageNameIDServices();
     
     /**
      * Adds a manage NameId {@link Endpoint} for this service.

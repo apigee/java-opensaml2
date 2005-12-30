@@ -20,37 +20,34 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.UnknownAttributeException;
-import org.opensaml.common.io.UnknownElementException;
-import org.opensaml.common.io.Unmarshaller;
-import org.opensaml.common.io.UnmarshallingException;
-import org.opensaml.common.io.impl.AbstractUnmarshaller;
-import org.opensaml.common.util.xml.XMLHelper;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
-import org.opensaml.saml1.core.DoNotCacheCondition;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * 
  */
-public class ConditionsUnmarshaller extends AbstractUnmarshaller implements Unmarshaller {
+public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
      */
     public ConditionsUnmarshaller() {
-        super(Conditions.QNAME);
+        super(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
@@ -58,23 +55,13 @@ public class ConditionsUnmarshaller extends AbstractUnmarshaller implements Unma
 
         try {
 
-            if (childElement instanceof AudienceRestrictionCondition) {
-
-                conditions.addAudienceRestrictionCondition((AudienceRestrictionCondition) childElement);
-
-            } else if (childElement instanceof DoNotCacheCondition) {
-
-                conditions.addDoNotCacheCondition((DoNotCacheCondition) childElement);
-                
-            } else if (childElement instanceof Condition) {
-                
-                conditions.addCondition((Condition)childElement);
+            if (childElement instanceof Condition) {
+                conditions.addCondition((Condition) childElement);
             } else if (!SAMLConfig.ignoreUnknownElements()) {
                     throw new UnknownElementException(childElement.getElementQName()
                             + " is not a supported element for Response objects");
             }
         } catch (IllegalAddException e) {
-
             throw new UnmarshallingException(e);
         }
     }
@@ -83,20 +70,16 @@ public class ConditionsUnmarshaller extends AbstractUnmarshaller implements Unma
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    @Override
+
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
         Conditions conditions = (Conditions) samlElement;
         
         if (Conditions.NOTBEFORE_ATTRIB_NAME.equals(attributeName)) {
-
-            conditions.setNotBefore(XMLHelper.stringToCalendar(attributeValue));
-            
+            conditions.setNotBefore(DatatypeHelper.stringToCalendar(attributeValue, 0));
         } else if (Conditions.NOTONORAFTER_ATTRIB_NAME.equals(attributeName)) {
-           
-            conditions.setNotOnOrAfter(XMLHelper.stringToCalendar(attributeValue));
-            
+            conditions.setNotOnOrAfter(DatatypeHelper.stringToCalendar(attributeValue, 0));
         } else if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName
                         + " is not a supported attributed for Response objects");

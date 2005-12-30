@@ -16,10 +16,7 @@
 
 package org.opensaml.saml1.core;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.xml.XMLConstants;
 
 /**
  * This interface defines how the object representing a SAML1 <code> Statement </code> element behaves. 
@@ -27,10 +24,5 @@ import org.opensaml.common.util.xml.XMLConstants;
 public interface Statement extends SAMLObject {
 
     /** Element name, no namespace. */
-
     public final static String LOCAL_NAME = "Statement";
-
-    /** QName for this element. */
-    public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
-
 }

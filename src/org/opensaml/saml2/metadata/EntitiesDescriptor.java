@@ -17,37 +17,27 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
+import java.util.List;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SignableObject;
-import org.opensaml.common.ValidatingObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
-import org.opensaml.saml2.common.ExtensionsExtensibleSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.SignableXMLObject;
 
 /**
  * SAML 2.0 Metadata EntitiesDescriptor.
  * 
  * @author Chad La Joie
  */
-public interface EntitiesDescriptor extends SignableObject, TimeBoundSAMLObject, CacheableSAMLObject, ExtensionsExtensibleSAMLObject, ValidatingObject{
+public interface EntitiesDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject{
     
 	/** Element name, no namespace */
 	public final static String LOCAL_NAME = "EntitiesDescriptor";
 	
-	/** QName for this element */
-	public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-	
 	/** "Name" attribute name */
 	public final static String NAME_ATTRIB_NAME = "Name";
-	
-	/** "Name" attribute's QName */
-	public final static QName NAME_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, NAME_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
 	
 	/**
 	 * Gets the name of this entity group.
@@ -62,13 +52,29 @@ public interface EntitiesDescriptor extends SignableObject, TimeBoundSAMLObject,
 	 * @param name the name of this entity group
 	 */
 	public void setName(String name);
+    
+    /**
+     * Gets the Extensions child of this object.
+     * 
+     * @return the Extensions child of this object
+     */
+    public Extensions getExtensions();
+    
+    /**
+     * Sets the Extensions child of this object.
+     * 
+     * @param extensions the Extensions child of this object
+     * 
+     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     */
+    public void setExtensions(Extensions extensions) throws IllegalAddException;
 	
 	/**
      * Gets an immutable list of child {@link EntitiesDescriptor}s.
      * 
      * @return list of descriptors
      */
-    public UnmodifiableOrderedSet<EntitiesDescriptor> getEntitiesDescriptors();
+    public List<EntitiesDescriptor> getEntitiesDescriptors();
     
     /**
      * Adds the given descriptor to the list of child {@link EntitiesDescriptor}s for this descriptor.
@@ -103,7 +109,7 @@ public interface EntitiesDescriptor extends SignableObject, TimeBoundSAMLObject,
      * 
      * @return list of child descriptors
      */
-	public UnmodifiableOrderedSet<EntityDescriptor> getEntityDescriptors();
+	public List<EntityDescriptor> getEntityDescriptors();
     
     /**
      * Adds the given descriptor to the list of child {@link EntityDescriptor}s for this descriptor.
@@ -140,5 +146,5 @@ public interface EntitiesDescriptor extends SignableObject, TimeBoundSAMLObject,
      * @return the {@link EntitiesDescriptor} and {@link EntityDescriptor}s as a single bag in the 
      * order that they were added to this descriptor
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildDescriptors();
+    public List<SAMLObject> getOrderedChildDescriptors();
 }

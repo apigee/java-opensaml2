@@ -17,25 +17,18 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.xml.XMLConstants;
 
 /**
  * This interface describes how ab object representing a SAML1 <code> Condition </code> element will behave.
  */
 public interface Condition extends SAMLObject {
-    /** Element name, no namespace. */
 
+    /** Element name, no namespace. */
     public final static String LOCAL_NAME = "Condition";
 
-    /** QName for this element */
-
-    public final static QName QNAME = new QName(XMLConstants.SAML1_NS, LOCAL_NAME, XMLConstants.SAML1_PREFIX);
-
     // TODO fill out
-
 }

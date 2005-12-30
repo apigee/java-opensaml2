@@ -16,10 +16,7 @@
 
 package org.opensaml.saml2.metadata;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.xml.XMLConstants;
 
 /**
  * SAML 2.0 Metadata Endpoint data type interface
@@ -29,20 +26,11 @@ public interface Endpoint extends SAMLObject{
     /** "Binding" attribute name */
     public final static String BINDING_ATTRIB_NAME = "Binding";
     
-    /** "Binding" attribute's QName */
-    public final static QName BINDING_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, BINDING_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "Location" attribute name */
     public final static String LOCATION_ATTRIB_NAME = "Location";
     
-    /** "Location" attribute's QName */
-    public final static QName LOCATION_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, LOCATION_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "ResponseLocation" attribute name */
     public final static String RESPONSE_LOCATION_ATTRIB_NAME = "ResponseLocation";
-    
-    /** "ResponseLocation" attribute's QName */
-    public final static QName RESPONSE_LOCATION_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, RESPONSE_LOCATION_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
     
     /**
      * Gets the URI identifier for the binding supported by this Endpoint.

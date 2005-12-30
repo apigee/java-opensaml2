@@ -17,61 +17,58 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.xml.IllegalAddException;
 
 /**
- * Concrete implementation of the org.opensaml.saml1.core.AudienceRestrictionCondition 
+ * Concrete implementation of the org.opensaml.saml1.core.AudienceRestrictionCondition
  */
-public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject implements AudienceRestrictionCondition {
+public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject implements
+        AudienceRestrictionCondition {
 
-    /**
-     * Serialization GUID
-     */
-    private static final long serialVersionUID = 6866037911405940543L;
+    private final ArrayList<Audience> audiences = new ArrayList<Audience>();
 
-    private final OrderedSet<Audience> audiences = new OrderedSet<Audience>();
-    
     public AudienceRestrictionConditionImpl() {
-        setQName(AudienceRestrictionCondition.QNAME);
+        super(AudienceRestrictionCondition.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
     }
-    
+
     /*
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#getAudiences()
      */
-    public UnmodifiableOrderedSet<Audience> getAudiences() {
-        return new UnmodifiableOrderedSet<Audience>(audiences);
+    public List<Audience> getAudiences() {
+        return Collections.unmodifiableList(audiences);
     }
 
     /*
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#addAudience(org.opensaml.saml1.core.Audience)
      */
     public void addAudience(Audience audience) throws IllegalAddException {
-        addSAMLObject(audiences, audience);
+        addXMLObject(audiences, audience);
     }
 
     /*
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#removeAudience(org.opensaml.saml1.core.Audience)
      */
     public void removeAudience(Audience audience) {
-        removeSAMLObject(audiences, audience);
+        removeXMLObject(audiences, audience);
     }
 
     /*
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#removeAudiences(java.util.Set)
      */
-    public void removeAudiences(Set<Audience> audiences) {
-
+    public void removeAudiences(List<Audience> audiences) {
         for (Audience audience : audiences) {
             removeAudience(audience);
         }
@@ -90,36 +87,8 @@ public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-        OrderedSet<SAMLObject> set = new OrderedSet<SAMLObject>(audiences);
-        return new UnmodifiableOrderedSet<SAMLObject>(set);
+    public List<SAMLObject> getOrderedChildren() {
+        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>(audiences);
+        return Collections.unmodifiableList(children);
     }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject element) {
-        
-        if (!(element instanceof AudienceRestrictionCondition)) {
-            return false;
-            
-        }
-        
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) element;
-        
-        if (audienceRestrictionCondition.getAudiences().size() != audiences.size()) {
-            return false;
-        }
-        
-        Iterator<Audience> it = audienceRestrictionCondition.getAudiences().iterator();
-        
-        for (Audience audience : audiences) {
-            
-            if (!audience.equals(it.next())) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 }

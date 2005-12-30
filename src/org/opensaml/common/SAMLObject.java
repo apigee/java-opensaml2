@@ -15,18 +15,14 @@
  */
 package org.opensaml.common;
 
-import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.Namespace;
+import org.opensaml.xml.ValidatingXMLObject;
 
 /**
- * A base interface for all SAML elements.
+ * A base interface for all SAML Objects.
  */
-public interface SAMLObject extends Serializable {
+public interface SAMLObject extends ValidatingXMLObject {
 
     /**
      * Gets the SAML version for this object.
@@ -35,98 +31,5 @@ public interface SAMLObject extends Serializable {
      */
     public SAMLVersion getVersion();
     
-	/**
-	 * Gets the QName for this element.  This QName <strong>MUST</strong> 
-	 * contain the namespace URI, namespace prefix, and local element name.
-     * Changes made to the returned QName are not reflected by the QName held 
-     * by this element, that is, the returned QName is a copy of the internal 
-     * QName member of this class.
-	 * 
-	 * @return the QName for this attribute
-	 */
-    public QName getElementQName();
-    
-    /**
-     * Sets the namespace URI and namespace prefix for this element.
-     * 
-     * @param namespaceURI the namespace URI for this element
-     * @param prefix the prefix for this element
-     */
-    public void setElementNamespaceAndPrefix(String namespaceURI, String prefix);
-    
-    /**
-     * Gets the namespaces, represented by QNames, that are scoped to this element
-     * 
-     * @return the namespaces that are scoped to this element
-     */
-    public Set<Namespace> getNamespaces();
-    
-    /**
-     * Adds a namespace to the ones already scoped to this element
-     * 
-     * @param namespace the namespace to add
-     */
-    public void addNamespace(Namespace namespace);
-    
-    /**
-     * Removes a namespace from this element
-     * 
-     * @param namespace the namespace to remove
-     */
-    public void removeNamespace(Namespace namespace);
-    
-    /**
-     * Gets the XML schema type of this element.  This translates to contents the xsi:type
-     * attribute for the element.
-     * 
-     * @return XML schema type of this element
-     */
-    public QName getSchemaType();
-    
-    /**
-     * Sets the XML schema type of this element.  This translates to contents the xsi:type
-     * attribute for the element.
-     * 
-     * @param type XML schema type of this element
-     */
-    public void setSchemaType(QName type);
-    
-    /**
-     * Checks to see if this object has a parent.
-     * 
-     * @return true if the object has a parent, false if not
-     */
-    public boolean hasParent();
-    
-    /**
-     * Gets the parent of this element or null if there is no parent.
-     * 
-     * @return the parent of this element or null
-     */
-    public SAMLObject getParent();
-    
-    /**
-     * Sets the parent of this element.
-     * 
-     * @param parent the parent of this element
-     */
-    public void setParent(SAMLObject parent);
-    
-    /**
-     * Gets a list of child elements in the order that they will appear in the DOM.
-     * 
-     * @return ordered list of child elements
-     */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren();
-    
-    /**
-     * Checks to see if the given element is equal to this one.  What it means for 
-     * one element to be equal to another is left up to the implementor and will vary
-     * from element to element.
-     *  
-     * @param element the other element compared to this one
-     * 
-     * @return true if the given element is the same as this one, false if not
-     */
-    public boolean equals(SAMLObject element);
+    public List<SAMLObject> getOrderedChildren();
 }

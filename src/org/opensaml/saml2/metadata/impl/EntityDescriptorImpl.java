@@ -17,44 +17,52 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
+import java.util.Collections;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.IllegalAddException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.StringHelper;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.saml2.common.impl.ExtensionsSAMLObjectHelper;
-import org.opensaml.saml2.common.impl.SignableTimeBoundCacheableSAMLObject;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
+import org.opensaml.common.impl.TypeNameIndexedSAMLObjectList;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
+import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
+import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.Extensions;
+import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.Organization;
+import org.opensaml.saml2.metadata.PDPDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * Concretate implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}
  */
-public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject implements EntityDescriptor {
-
-    /**
-     * Serial version UID
-     */
-    private static final long serialVersionUID = 1378835031535483784L;
+public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements EntityDescriptor {
 
     /** Entity ID of this Entity */
     private String entityID;
+    
+    /** validUntil attribute */
+    private GregorianCalendar validUntil;
+    
+    /** cacheDurection attribute */
+    private Long cacheDuration;
+    
+    /** Extensions child */
+    private Extensions extensions;
 
     /** Role descriptors for this entity */
-    private OrderedSet<RoleDescriptor> roleDescriptors = new OrderedSet<RoleDescriptor>();
-
-    /** Index of role descriptors by type */
-    private Map<QName, OrderedSet<RoleDescriptor>> typeIndexedRoleDescriptors;
+    private TypeNameIndexedSAMLObjectList<RoleDescriptor> roleDescriptors = new TypeNameIndexedSAMLObjectList<RoleDescriptor>();
 
     /** Affiliatition descriptor for this entity */
     private AffiliationDescriptor affiliationDescriptor;
@@ -63,20 +71,14 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     private Organization organization;
 
     /** Contact persons for this entity */
-    private OrderedSet<ContactPerson> contactPersons = new OrderedSet<ContactPerson>();
+    private ArrayList<ContactPerson> contactPersons = new ArrayList<ContactPerson>();
 
     /** Additional metadata locations for this entity */
-    private OrderedSet<AdditionalMetadataLocation> additionalMetadata = new OrderedSet<AdditionalMetadataLocation>();
-
-    /**
-     * Helper for dealing ExtensionsExtensibleElement interface methods
-     */
-    private ExtensionsSAMLObjectHelper extensionHelper;
+    private ArrayList<AdditionalMetadataLocation> additionalMetadata = new ArrayList<AdditionalMetadataLocation>();
 
     public EntityDescriptorImpl() {
-        super();
-        setQName(EntityDescriptor.QNAME);
-        extensionHelper = new ExtensionsSAMLObjectHelper(this);
+        super(EntityDescriptor.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
@@ -90,22 +92,69 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      * @see org.opensaml.saml2.metadata.EntityDescriptor#setEntityID(java.lang.String)
      */
     public void setEntityID(String id) {
-        
         entityID = prepareForAssignment(entityID, id);
+    }
+    /*
+     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
+     */
+    public boolean isValid() {
+        return validUntil.before(GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC")));
+    }
+    
+    /*
+     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
+     */
+    public GregorianCalendar getValidUntil() {
+        return validUntil;
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
+     */
+    public void setValidUntil(GregorianCalendar validUntil) {
+        this.validUntil = prepareForAssignment(this.validUntil, validUntil);
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.CacheableSAMLObject#getCacheDuration()
+     */
+    public Long getCacheDuration() {
+        return cacheDuration;
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.CacheableSAMLObject#setCacheDuration(java.lang.Long)
+     */
+    public void setCacheDuration(Long duration) {
+        cacheDuration = prepareForAssignment(cacheDuration, duration);
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#getExtensions()
+     */
+    public Extensions getExtensions() {
+        return extensions;
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
+     */
+    public void setExtensions(Extensions extensions) throws IllegalAddException {
+        this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors()
      */
-    public UnmodifiableOrderedSet<RoleDescriptor> getRoleDescriptors() {
-        return new UnmodifiableOrderedSet<RoleDescriptor>(roleDescriptors);
+    public List<RoleDescriptor> getRoleDescriptors() {
+        return Collections.unmodifiableList(roleDescriptors);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName)
      */
-    public UnmodifiableOrderedSet<RoleDescriptor> getRoleDescriptors(QName type) {
-        return new UnmodifiableOrderedSet<RoleDescriptor>(typeIndexedRoleDescriptors.get(type));
+    public List<RoleDescriptor> getRoleDescriptors(QName type) {
+        return Collections.unmodifiableList(roleDescriptors.get(type));
     }
 
     /*
@@ -125,23 +174,14 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
      * @see org.opensaml.saml2.metadata.EntityDescriptor#addRoleDescriptor(org.opensaml.saml2.metadata.RoleDescriptor)
      */
     public void addRoleDescriptor(RoleDescriptor descriptor) throws IllegalAddException {
-        if(addSAMLObject(roleDescriptors, descriptor)) {
-            OrderedSet<RoleDescriptor> typedRoleDescriptors = typeIndexedRoleDescriptors.get(descriptor.getSchemaType());
-            if (typedRoleDescriptors == null) {
-                typedRoleDescriptors = new OrderedSet<RoleDescriptor>();
-                typeIndexedRoleDescriptors.put(descriptor.getSchemaType(), typedRoleDescriptors);
-            }
-            typedRoleDescriptors.add(descriptor);
-        }
+        addXMLObject(roleDescriptors, descriptor);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeRoleDescriptor(org.opensaml.saml2.metadata.RoleDescriptor)
      */
     public void removeRoleDescriptor(RoleDescriptor descriptor) {
-        if(removeSAMLObject(roleDescriptors, descriptor)) {
-            typeIndexedRoleDescriptors.remove(descriptor.getSchemaType());
-        }
+        removeXMLObject(roleDescriptors, descriptor);
     }
 
     /*
@@ -160,6 +200,55 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
         for (RoleDescriptor descriptor : roleDescriptors) {
             removeRoleDescriptor(descriptor);
         }
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAllRoleDescriptors(javax.xml.namespace.QName)
+     */
+    public void removeAllRoleDescriptors(QName typeOrName){
+        for (RoleDescriptor descriptor : roleDescriptors.get(typeOrName)) {
+            removeRoleDescriptor(descriptor);
+        }
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#getIDPSSODescriptor()
+     */
+    public List<RoleDescriptor> getIDPSSODescriptor(){
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME);
+        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#getSPSSODescriptor()
+     */
+    public List<RoleDescriptor> getSPSSODescriptor(){
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME);
+        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#getAuthnAuthorityDescriptor()
+     */
+    public List<RoleDescriptor> getAuthnAuthorityDescriptor(){
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
+        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#getAttributeAuthorityDescriptor()
+     */
+    public List<RoleDescriptor> getAttributeAuthorityDescriptor(){
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
+        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#getPDPDescriptor()
+     */
+    public List<RoleDescriptor> getPDPDescriptor(){
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME);
+        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
     }
 
     /*
@@ -193,29 +282,29 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getContactPersons()
      */
-    public UnmodifiableOrderedSet<ContactPerson> getContactPersons() {
-        return new UnmodifiableOrderedSet<ContactPerson>(contactPersons);
+    public List<ContactPerson> getContactPersons() {
+        return Collections.unmodifiableList(contactPersons);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#addContactPerson(org.opensaml.saml2.metadata.ContactPerson)
      */
     public void addContactPerson(ContactPerson person) throws IllegalAddException {
-        addSAMLObject(contactPersons, person);
+        addXMLObject(contactPersons, person);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPerson(org.opensaml.saml2.metadata.ContactPerson)
      */
     public void removeContactPerson(ContactPerson person) {
-        removeSAMLObject(contactPersons, person);
+        removeXMLObject(contactPersons, person);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPersons(java.util.Set)
      */
     public void removeContactPersons(Collection<ContactPerson> persons) {
-        removeSAMLObjects(contactPersons, persons);
+        removeXMLObjects(contactPersons, persons);
     }
 
     /*
@@ -230,29 +319,29 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAdditionalMetadataLocations()
      */
-    public UnmodifiableOrderedSet<AdditionalMetadataLocation> getAdditionalMetadataLocations() {
-        return new UnmodifiableOrderedSet<AdditionalMetadataLocation>(additionalMetadata);
+    public List<AdditionalMetadataLocation> getAdditionalMetadataLocations() {
+        return Collections.unmodifiableList(additionalMetadata);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#addAdditionalMetadataLocation(org.opensaml.saml2.metadata.AdditionalMetadataLocation)
      */
     public void addAdditionalMetadataLocation(AdditionalMetadataLocation location) throws IllegalAddException {
-        addSAMLObject(additionalMetadata, location);
+        addXMLObject(additionalMetadata, location);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAdditionalMetadataLocation(org.opensaml.saml2.metadata.AdditionalMetadataLocation)
      */
     public void removeAdditionalMetadataLocation(AdditionalMetadataLocation location) {
-        removeSAMLObject(additionalMetadata, location);
+        removeXMLObject(additionalMetadata, location);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAdditionalMetadataLocations(java.util.Set)
      */
     public void removeAdditionalMetadataLocations(Collection<AdditionalMetadataLocation> locations) {
-        removeSAMLObjects(additionalMetadata, locations);
+        removeXMLObjects(additionalMetadata, locations);
     }
 
     /*
@@ -265,78 +354,18 @@ public class EntityDescriptorImpl extends SignableTimeBoundCacheableSAMLObject i
     }
 
     /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensions()
-     */
-    public Extensions getExtensions() {
-        return extensionHelper.getExtensions();
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements()
-     */
-    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements() {
-        return extensionHelper.getExtensionElements();
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements(javax.xml.namespace.QName)
-     */
-    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements(QName elementName) {
-        return extensionHelper.getExtensionElements(elementName);
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElement(javax.xml.namespace.QName)
-     */
-    public SAMLObject getExtensionElement(QName elementName) {
-        return extensionHelper.getExtensionElement(elementName);
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#setExtensions(org.opensaml.saml2.metadata.Extensions)
-     */
-    public void setExtensions(Extensions extensions) throws IllegalAddException {
-        if (!(extensions.equals(extensionHelper.getExtensions()))) {
-            extensionHelper.setExtensions(extensions);
-        }
-    }
-
-    /*
      * @see org.opensaml.saml2.common.impl.AbstractSAMLElement#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-        OrderedSet<SAMLObject> children = new OrderedSet<SAMLObject>();
+    public List<SAMLObject> getOrderedChildren() {
+        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
         
         children.add(getExtensions());
-        
-        for (RoleDescriptor descriptor : roleDescriptors) {
-            children.add(descriptor);
-        }
-        
+        children.addAll(roleDescriptors);
         children.add(getAffiliationDescriptor());
-        
         children.add(getOrganization());
-        
-        for (ContactPerson person : contactPersons) {
-            children.add(person);
-        }
-        
-        for (AdditionalMetadataLocation location : additionalMetadata) {
-            children.add(location);
-        }
+        children.addAll(contactPersons);
+        children.addAll(additionalMetadata);
 
-        return new UnmodifiableOrderedSet<SAMLObject>(children);
-    }
-
-    /**
-     * Checks to see if a given SAML object is equal to this object. The given object is equal to this one if it is of
-     * type {@link EntityDescriptor} and has the same entity ID.
-     */
-    public boolean equals(SAMLObject element) {
-        if (element instanceof EntityDescriptor) {
-            return StringHelper.safeEquals(entityID, ((EntityDescriptor) element).getEntityID());
-        }
-
-        return false;
+        return Collections.unmodifiableList(children);
     }
 }

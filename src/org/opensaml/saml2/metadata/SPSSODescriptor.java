@@ -17,11 +17,7 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
-
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
+import java.util.List;
 
 /**
  * SAML 2.0 Metadata SPSSODescriptorType
@@ -30,20 +26,11 @@ public interface SPSSODescriptor extends SSODescriptor {
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "SPSSODescriptor";
     
-    /** QName for this element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "AuthnRequestsSigned" attribute's local name */
     public final static String AUTH_REQUETS_SIGNED_ATTRIB_NAME = "AuthnRequestsSigned";
     
-    /** "AuthnRequestsSigned" attribute's QName */
-    public final static QName AUTH_REQUETS_SIGNED_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, AUTH_REQUETS_SIGNED_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "WantAssertionsSigned" attribute's local name */
     public final static String WANT_ASSERTIONS_SIGNED_ATTRIB_NAME = "WantAssertionsSigned";
-    
-    /** "WantAssertionsSigned" attribute's QName */
-    public final static QName WANT_ASSERTIONS_SIGNED_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, WANT_ASSERTIONS_SIGNED_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
     
     /**
      * Gets whether this service signs AuthN requests.
@@ -78,7 +65,7 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @return list of assertion consumer service {@link Endpoint}s for this service
      */
-    public UnmodifiableOrderedSet<Endpoint> getAssertionConsumerServices();
+    public List<Endpoint> getAssertionConsumerServices();
     
     /**
      * Adds an assertion consumer service {@link Endpoint} for this service.
@@ -112,7 +99,7 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @return list of attribute consuming service {@link Endpoint}s for this service
      */
-    public UnmodifiableOrderedSet<Endpoint> getAttributeConsumingServices();
+    public List<Endpoint> getAttributeConsumingServices();
     
     /**
      * Adds an attribute consuming service {@link Endpoint} for this service.

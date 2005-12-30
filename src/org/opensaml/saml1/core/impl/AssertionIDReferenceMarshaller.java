@@ -21,30 +21,29 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
  * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.impl.AssertionIDReference}
  * objects
  */
-public class AssertionIDReferenceMarshaller extends AbstractMarshaller implements Marshaller {
+public class AssertionIDReferenceMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
      */
     public AssertionIDReferenceMarshaller() {
-        super(AssertionIDReference.QNAME);
+        super(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
-    @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
 
         // No attributes
@@ -54,13 +53,9 @@ public class AssertionIDReferenceMarshaller extends AbstractMarshaller implement
      * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
-    @Override
     protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
-
         AssertionIDReference assertionIDReference = (AssertionIDReference) samlObject;
-
         if (assertionIDReference.getNCName() != null) {
-
             domElement.setTextContent(assertionIDReference.getNCName());
         }
     }

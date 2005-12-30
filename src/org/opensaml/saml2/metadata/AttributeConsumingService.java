@@ -17,12 +17,9 @@
 package org.opensaml.saml2.metadata;
 
 import java.util.Collection;
-
-import javax.xml.namespace.QName;
+import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.common.util.xml.XMLConstants;
 
 /**
  * SAML 2.0 Metadata AttributeAuthorityDescriptor
@@ -32,20 +29,11 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "AttributeConsumingService";
     
-    /** QName for this element */
-    public final static QName QNAME = new QName(XMLConstants.SAML20MD_NS, LOCAL_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "index" attribute's local name */
     public final static String INDEX_ATTRIB_NAME = "index";
     
-    /** "index" attribute's QName */
-    public final static QName INDEX_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, INDEX_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
-    
     /** "isDefault" attribute's local name */
     public final static String IS_DEFAULT_ATTRIB_NAME = "affiliationOwnerID";
-    
-    /** "isDefault" attribute's QName */
-    public final static QName IS_DEFAULT_ATTRIB_QNAME = new QName(XMLConstants.SAML20MD_NS, IS_DEFAULT_ATTRIB_NAME, XMLConstants.SAML20MD_PREFIX);
 
     /**
      * Gets the index for this service.
@@ -80,7 +68,7 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
      * 
      * @return list of descriptions
      */
-    public UnmodifiableOrderedSet<LocalizedString> getDescriptions();
+    public List<LocalizedString> getDescriptions();
 
     /**
      * Gets the localized description of this service in a given language.
@@ -148,7 +136,7 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
      * 
      * @return list of attributes requested by this service
      */
-    public UnmodifiableOrderedSet<RequestedAttribute> getRequestedAttributes();
+    public List<RequestedAttribute> getRequestedAttributes();
 
     /**
      * Adds an attribute to the list of attributes requested by this service.

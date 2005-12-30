@@ -19,51 +19,51 @@
  */
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.TimeZone;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.IllegalAddException;
-import org.opensaml.common.SAMLException;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.common.SAMLObjectBuilderFactory;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
-import org.opensaml.saml2.common.impl.ExtensionsSAMLObjectHelper;
-import org.opensaml.saml2.common.impl.SignableTimeBoundCacheableSAMLObject;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
-import org.opensaml.saml2.metadata.Extensions;
 import org.opensaml.saml2.metadata.KeyDescriptor;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AffiliationDescriptor}.
  */
-public class AffiliationDescriptorImpl extends SignableTimeBoundCacheableSAMLObject implements AffiliationDescriptor {
-    
+public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implements AffiliationDescriptor {
+
     /** ID of the owner of this affiliation */
     private String ownerID;
     
+    /** validUntil attribute */
+    private GregorianCalendar validUntil;
+    
+    /** cacheDurection attribute */
+    private Long cacheDuration;
+    
+    /** Extensions child */
+    private Extensions extensions;
+    
     /** Members of this affiliation */
-    private OrderedSet<AffiliateMember> members = new OrderedSet<AffiliateMember>();
+    private ArrayList<AffiliateMember> members = new ArrayList<AffiliateMember>();
     
     /** Key descriptors for this role */
-    private OrderedSet<KeyDescriptor> keyDescriptors = new OrderedSet<KeyDescriptor>();
-    
-    /**
-     * Helper for dealing ExtensionsExtensibleElement interface methods
-     */
-    private ExtensionsSAMLObjectHelper extensionHelper;
+    private ArrayList<KeyDescriptor> keyDescriptors = new ArrayList<KeyDescriptor>();
     
     /**
      * Constructor
      */
     public AffiliationDescriptorImpl(){
-        super();
-        setQName(AffiliationDescriptor.QNAME);
-        
-        extensionHelper = new ExtensionsSAMLObjectHelper(this);
+        super(AffiliationDescriptor.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
@@ -79,6 +79,55 @@ public class AffiliationDescriptorImpl extends SignableTimeBoundCacheableSAMLObj
     public void setOwnerID(String newOwnerID) {
         ownerID = prepareForAssignment(ownerID, newOwnerID);
     }
+    
+    /*
+     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
+     */
+    public boolean isValid() {
+        return validUntil.before(GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC")));
+    }
+    
+    /*
+     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
+     */
+    public GregorianCalendar getValidUntil() {
+        return validUntil;
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
+     */
+    public void setValidUntil(GregorianCalendar validUntil) {
+        this.validUntil = prepareForAssignment(this.validUntil, validUntil);
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.CacheableSAMLObject#getCacheDuration()
+     */
+    public Long getCacheDuration() {
+        return cacheDuration;
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.CacheableSAMLObject#setCacheDuration(java.lang.Long)
+     */
+    public void setCacheDuration(Long duration) {
+        cacheDuration = prepareForAssignment(cacheDuration, duration);
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#getExtensions()
+     */
+    public Extensions getExtensions() {
+        return extensions;
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
+     */
+    public void setExtensions(Extensions extensions) throws IllegalAddException {
+        this.extensions = prepareForAssignment(this.extensions, extensions);
+    }
 
     /*
      * @see org.opensaml.saml2.metadata.AffiliationDescriptor#isMember(java.lang.String)
@@ -90,47 +139,22 @@ public class AffiliationDescriptorImpl extends SignableTimeBoundCacheableSAMLObj
     /*
      * @see org.opensaml.saml2.metadata.AffiliationDescriptor#getMembers()
      */
-    public UnmodifiableOrderedSet<AffiliateMember> getMembers() {
-        return new UnmodifiableOrderedSet<AffiliateMember>(members);
+    public List<AffiliateMember> getMembers() {
+        return Collections.unmodifiableList(members);
     }
     
     /*
      * @see org.opensaml.saml2.metadata.AffiliationDescriptor#addMember(java.lang.String)
      */
     public void addMember(AffiliateMember member) throws IllegalAddException {
-        addSAMLObject(members, member);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#addMember(java.lang.String)
-     */
-    public void addMember(String memberID) throws IllegalArgumentException {
-        SAMLObjectBuilder builder = SAMLObjectBuilderFactory.getInstance().getBuilder(AffiliateMember.QNAME);
-        AffiliateMember member = (AffiliateMember) builder.buildObject();
-        member.setID(memberID);
-        
-        try{
-            addMember(member);
-        }catch(SAMLException e){
-            //DO NOTHING, unreachable at this point
-        }
+        addXMLObject(members, member);
     }
     
     /*
      * @see org.opensaml.saml2.metadata.AffiliationDescriptor#removeMember(org.opensaml.saml2.metadata.AffiliateMember)
      */
     public void removeMember(AffiliateMember member) {
-        removeSAMLObject(members, member);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#removeMember(java.lang.String)
-     */
-    public void removeMember(String memberID) {
-        SAMLObjectBuilder builder = SAMLObjectBuilderFactory.getInstance().getBuilder(AffiliateMember.QNAME);
-        AffiliateMember member = (AffiliateMember) builder.buildObject();
-        member.setID(memberID);
-        removeMember(member);
+        removeXMLObject(members, member);
     }
 
     /*
@@ -154,68 +178,31 @@ public class AffiliationDescriptorImpl extends SignableTimeBoundCacheableSAMLObj
     }
 
     /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensions()
-     */
-    public Extensions getExtensions() {
-        return extensionHelper.getExtensions();
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements()
-     */
-    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements() {
-        return extensionHelper.getExtensionElements();
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElements(javax.xml.namespace.QName)
-     */
-    public UnmodifiableOrderedSet<SAMLObject> getExtensionElements(QName elementName) {
-        return extensionHelper.getExtensionElements(elementName);
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#getExtensionElement(javax.xml.namespace.QName)
-     */
-    public SAMLObject getExtensionElement(QName elementName) {
-        return extensionHelper.getExtensionElement(elementName);
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.ExtensionsExtensibleElement#setExtensions(org.opensaml.saml2.metadata.Extensions)
-     */
-    public void setExtensions(Extensions extensions) throws IllegalAddException {
-        if (!(extensions.equals(extensionHelper.getExtensions()))) {
-            extensionHelper.setExtensions(extensions);
-        }
-    }
-
-    /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#getKeyDescriptors()
      */
-    public UnmodifiableOrderedSet<KeyDescriptor> getKeyDescriptors() {
-        return new UnmodifiableOrderedSet<KeyDescriptor>(keyDescriptors);
+    public List<KeyDescriptor> getKeyDescriptors() {
+        return Collections.unmodifiableList(keyDescriptors);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#addKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
      */
     public void addKeyDescriptor(KeyDescriptor keyDescriptor) throws IllegalAddException {
-        addSAMLObject(keyDescriptors, keyDescriptor);
+        addXMLObject(keyDescriptors, keyDescriptor);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
      */
     public void removeKeyDescriptor(KeyDescriptor keyDescriptor) {
-        removeSAMLObject(keyDescriptors, keyDescriptor);
+        removeXMLObject(keyDescriptors, keyDescriptor);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptors(java.util.Set)
      */
     public void removeKeyDescriptors(Collection<KeyDescriptor> keyDescriptors) {
-        removeSAMLObjects(this.keyDescriptors, keyDescriptors);
+        removeXMLObjects(this.keyDescriptors, keyDescriptors);
     }
 
     /*
@@ -230,8 +217,8 @@ public class AffiliationDescriptorImpl extends SignableTimeBoundCacheableSAMLObj
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-        OrderedSet<SAMLObject> children = new OrderedSet<SAMLObject>();
+    public List<SAMLObject> getOrderedChildren() {
+        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
         
         children.add(getExtensions());
 
@@ -239,14 +226,6 @@ public class AffiliationDescriptorImpl extends SignableTimeBoundCacheableSAMLObj
         
         children.addAll(getKeyDescriptors());
         
-        return new UnmodifiableOrderedSet<SAMLObject>(children);
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject element) {
-        // TODO Auto-generated method stub
-        return false;
+        return Collections.unmodifiableList(children);
     }
 }

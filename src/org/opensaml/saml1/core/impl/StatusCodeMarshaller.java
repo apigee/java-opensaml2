@@ -21,34 +21,31 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.io.Marshaller;
-import org.opensaml.common.io.MarshallingException;
-import org.opensaml.common.io.impl.AbstractMarshaller;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
  *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.StatusCode} objects.
  */
-public class StatusCodeMarshaller extends AbstractMarshaller implements Marshaller {
+public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
      */
     public StatusCodeMarshaller() {
-        super(StatusCode.QNAME);
+        super(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
-    @Override
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-
         StatusCode statusCode = (StatusCode) samlElement;
 
         if (statusCode.getValue() != null) {
-
             domElement.setAttribute(StatusCode.VALUE_ATTRIB_NAME, statusCode.getValue());
         }
     }

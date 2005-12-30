@@ -17,12 +17,14 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
+
+import java.util.List;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.util.OrderedSet;
-import org.opensaml.common.util.UnmodifiableOrderedSet;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.DoNotCacheCondition;
 
 /**
@@ -30,40 +32,19 @@ import org.opensaml.saml1.core.DoNotCacheCondition;
  */
 public class DoNotCacheConditionImpl extends AbstractSAMLObject implements DoNotCacheCondition {
 
-    /*
-     * This is a marker elelment only, no contents
-     */
-    
-    /**
-     * Serialization GUID
-     */
-    private static final long serialVersionUID = -1795979542699952541L;
-
     /**
      * Constructor
-     *
+     * 
      */
     public DoNotCacheConditionImpl() {
-        setQName(DoNotCacheCondition.QNAME);
+        super(DoNotCacheCondition.LOCAL_NAME);
+        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public UnmodifiableOrderedSet<SAMLObject> getOrderedChildren() {
-        return new UnmodifiableOrderedSet<SAMLObject>(new OrderedSet<SAMLObject>(0));
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#equals(org.opensaml.common.SAMLObject)
-     */
-    public boolean equals(SAMLObject element) {
-        //
-        // true iff the other object is a DoNotCacheCondition object
-        //
-        if (element instanceof DoNotCacheCondition) {
-            return true;
-        }
-        return false;
+    public List<SAMLObject> getOrderedChildren() {
+        return null;
     }
 }

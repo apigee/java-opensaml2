@@ -20,7 +20,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 
 /**
@@ -97,7 +100,8 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        EntityDescriptor descriptor = (EntityDescriptor) buildSAMLObject(EntityDescriptor.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        EntityDescriptor descriptor = (EntityDescriptor) buildSAMLObject(qname);
         
         descriptor.setEntityID(expectedEntityID);
         
@@ -108,7 +112,8 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        EntityDescriptor descriptor = (EntityDescriptor) buildSAMLObject(EntityDescriptor.QNAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        EntityDescriptor descriptor = (EntityDescriptor) buildSAMLObject(qname);
         
         descriptor.setEntityID(expectedEntityID);
         descriptor.setValidUntil(expectedValidUntil);

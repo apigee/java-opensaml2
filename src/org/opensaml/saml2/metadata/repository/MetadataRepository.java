@@ -16,10 +16,10 @@
 
 package org.opensaml.saml2.metadata.repository;
 
-import org.opensaml.common.io.UnmarshallingException;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.resolver.MetadataResolverFactory;
 import org.opensaml.saml2.metadata.resolver.ResolutionException;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A metadata respository is used to cache and maintain metadata 
