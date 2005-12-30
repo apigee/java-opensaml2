@@ -43,8 +43,8 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
      * @param localName the local name of the element this SAML object represents
      */
     public EndpointImpl(String localName) {
-        super(localName);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
+        super(SAMLConstants.SAML20MD_NS, localName);
+        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

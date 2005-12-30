@@ -30,10 +30,11 @@ public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXML
     /**
      * Constructor
      * 
-     * @param localName the local name of the SAML element this object represents
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
      */
-    protected AbstractSAMLObject(String localName) {
-        super(localName);
+    protected AbstractSAMLObject(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /*

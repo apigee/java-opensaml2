@@ -34,10 +34,11 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
     /**
      * Constructor
      * 
-     * @param localName the local name of the SAML element this object represents
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
      */
-    protected AbstractSignableSAMLObject(String localName) {
-        super(localName);
+    protected AbstractSignableSAMLObject(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /*

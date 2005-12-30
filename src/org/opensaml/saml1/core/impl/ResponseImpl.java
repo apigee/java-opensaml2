@@ -61,8 +61,8 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      * 
      */
     protected ResponseImpl() {
-        super(Response.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1P_NS, SAMLConstants.SAML1_PREFIX);
+        super(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
     }
 
     /*

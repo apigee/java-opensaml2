@@ -45,8 +45,8 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
      * Constructor
      */
     public StatusCodeImpl() {
-        super(StatusCode.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1P_NS, SAMLConstants.SAML1P_PREFIX);
+        super(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
     }
 
     /*

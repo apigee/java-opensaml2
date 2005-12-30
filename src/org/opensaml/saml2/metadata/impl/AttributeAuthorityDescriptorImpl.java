@@ -67,7 +67,7 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
      */
     public AttributeAuthorityDescriptorImpl(){
         super(AttributeAuthorityDescriptor.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
+        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
     }
     
     /*

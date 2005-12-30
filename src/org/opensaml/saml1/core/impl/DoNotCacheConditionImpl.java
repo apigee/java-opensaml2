@@ -37,8 +37,8 @@ public class DoNotCacheConditionImpl extends AbstractSAMLObject implements DoNot
      * 
      */
     public DoNotCacheConditionImpl() {
-        super(DoNotCacheCondition.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
+        super(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
     }
 
     /*

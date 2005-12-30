@@ -40,8 +40,8 @@ public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject
     private final ArrayList<Audience> audiences = new ArrayList<Audience>();
 
     public AudienceRestrictionConditionImpl() {
-        super(AudienceRestrictionCondition.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
+        super(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
     }
 
     /*

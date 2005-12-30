@@ -69,8 +69,8 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * Constructor
      */
     public AssertionImpl() {
-        super(Assertion.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
+        super(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
     }
 
     /*

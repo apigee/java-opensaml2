@@ -41,8 +41,8 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
      * Constructor
      */
     public StatusMessageImpl() {
-        super(StatusMessage.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1P_NS, SAMLConstants.SAML1P_PREFIX);
+        super(SAMLConstants.SAML1P_NS, StatusMessage.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
     }
 
     /*

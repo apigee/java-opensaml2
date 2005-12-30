@@ -23,8 +23,6 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.util.DatatypeHelper;
-
 /**
  * An abstract implementation of XMLObject.
  */
@@ -45,10 +43,11 @@ public abstract class AbstractXMLObject implements XMLObject {
     /**
      * Constructor
      * 
+     * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
      */
-    protected AbstractXMLObject(String elementLocalName) {
-        elementQname = new QName(elementLocalName);
+    protected AbstractXMLObject(String namespaceURI, String elementLocalName) {
+        elementQname = new QName(namespaceURI, elementLocalName);
     }
     
     /*
@@ -61,11 +60,11 @@ public abstract class AbstractXMLObject implements XMLObject {
     /*
      * @see org.opensaml.common.SAMLObject#setNamespaceAndPrefix(java.lang.String, java.lang.String)
      */
-    public void setElementNamespaceAndPrefix(String namespaceURI, String prefix) {
-        if (DatatypeHelper.isEmpty(prefix)) {
-            elementQname = new QName(namespaceURI, elementQname.getLocalPart());
-        } else {
-            elementQname = new QName(namespaceURI, elementQname.getLocalPart(), prefix);
+    public void setElementNamespacePrefix(String prefix) {
+        if(prefix == null){
+            elementQname = new QName(elementQname.getNamespaceURI(), elementQname.getLocalPart());
+        }else{
+            elementQname = new QName(elementQname.getNamespaceURI(), elementQname.getLocalPart(), prefix);
         }
     }
     

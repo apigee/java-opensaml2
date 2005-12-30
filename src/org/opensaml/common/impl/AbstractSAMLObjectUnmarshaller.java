@@ -155,7 +155,7 @@ public abstract class AbstractSAMLObjectUnmarshaller implements SAMLObjectUnmars
 
         samlObject = samlObjectBuilder.buildObject();
         samlObject.setSchemaType(type);
-        samlObject.setElementNamespaceAndPrefix(domElement.getNamespaceURI(), domElement.getPrefix());
+        samlObject.setElementNamespacePrefix(domElement.getPrefix());
         return samlObject;
     }
 

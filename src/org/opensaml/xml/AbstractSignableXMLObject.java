@@ -32,10 +32,11 @@ public abstract class AbstractSignableXMLObject extends AbstractDOMCachingXMLObj
     /**
      * Constructor
      * 
+     * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
      */
-    protected AbstractSignableXMLObject(String elementLocalName) {
-        super(elementLocalName);
+    protected AbstractSignableXMLObject(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
     
     /*

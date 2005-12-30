@@ -35,8 +35,8 @@ public class AffiliateMemberImpl extends AbstractSAMLObject implements Affiliate
      * Constructor
      */
     public AffiliateMemberImpl() {
-        super(AffiliateMember.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
+        super(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

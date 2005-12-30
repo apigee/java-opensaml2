@@ -38,8 +38,8 @@ public class AudienceImpl extends AbstractSAMLObject implements Audience {
      * Constructor
      */
     public AudienceImpl() {
-        super(Audience.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
+        super(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
     }
 
     /*

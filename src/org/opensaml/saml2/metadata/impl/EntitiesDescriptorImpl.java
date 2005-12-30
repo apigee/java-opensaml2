@@ -67,8 +67,8 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
      * Constructor
      */
     public EntitiesDescriptorImpl() {
-        super(EntitiesDescriptor.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
+        super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

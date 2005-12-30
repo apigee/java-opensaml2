@@ -36,10 +36,11 @@ public abstract class AbstractValidatingDOMCachingXMLObject extends AbstractDOMC
     /**
      * Constructor
      * 
+     * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
      */
-    protected AbstractValidatingDOMCachingXMLObject(String elementLocalName) {
-        super(elementLocalName);
+    protected AbstractValidatingDOMCachingXMLObject(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /*

@@ -50,8 +50,8 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      * Constructor.
      */
     public StatusImpl() {
-        super(Status.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1P_NS, SAMLConstants.SAML1P_PREFIX);
+        super(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
     }
 
     /*

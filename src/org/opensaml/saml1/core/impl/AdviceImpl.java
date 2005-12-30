@@ -51,8 +51,8 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      * Constructor
      */
     public AdviceImpl() {
-        super(Advice.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
+        super(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
     }
 
     /*

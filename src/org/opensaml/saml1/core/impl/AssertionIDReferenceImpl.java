@@ -39,8 +39,8 @@ public class AssertionIDReferenceImpl extends AbstractSAMLObject implements Asse
      * Constructor
      */
     public AssertionIDReferenceImpl() {
-        super(AssertionIDReference.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML1_NS, SAMLConstants.SAML1_PREFIX);
+        super(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
     }
 
     /*

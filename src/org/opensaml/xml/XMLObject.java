@@ -40,12 +40,11 @@ public interface XMLObject {
     public QName getElementQName();
     
     /**
-     * Sets the namespace URI and namespace prefix for this element.
+     * Sets the namespace prefix for this element.
      * 
-     * @param namespaceURI the namespace URI for this element
      * @param prefix the prefix for this element
      */
-    public void setElementNamespaceAndPrefix(String namespaceURI, String prefix);
+    public void setElementNamespacePrefix(String prefix);
     
     /**
      * Gets the namespaces that are scoped to this element

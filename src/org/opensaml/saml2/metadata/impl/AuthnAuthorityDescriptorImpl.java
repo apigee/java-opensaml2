@@ -56,7 +56,7 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
      */
     public AuthnAuthorityDescriptorImpl() {
         super(AuthnAuthorityDescriptor.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
+        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
     }
     
     /*

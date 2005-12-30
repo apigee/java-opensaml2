@@ -77,8 +77,8 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     private ArrayList<AdditionalMetadataLocation> additionalMetadata = new ArrayList<AdditionalMetadataLocation>();
 
     public EntityDescriptorImpl() {
-        super(EntityDescriptor.LOCAL_NAME);
-        setElementNamespaceAndPrefix(SAMLConstants.SAML20MD_NS, SAMLConstants.SAML20MD_PREFIX);
+        super(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
