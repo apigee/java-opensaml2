@@ -23,7 +23,7 @@ package org.opensaml.saml1.core;
 import org.opensaml.common.SAMLObject;
 
 /**
- * This interface describes how ab object representing a SAML1 <code> Condition </code> element will behave.
+ * This interface describes how a object representing a SAML1 <code> Condition </code> element will behave.
  */
 public interface Condition extends SAMLObject {
 
