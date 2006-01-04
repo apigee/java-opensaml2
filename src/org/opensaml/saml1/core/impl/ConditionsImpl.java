@@ -56,7 +56,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * Constructor
      */
     public ConditionsImpl() {
-        super(SAMLConstants.SAML1_NS, Condition.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
     }
 
