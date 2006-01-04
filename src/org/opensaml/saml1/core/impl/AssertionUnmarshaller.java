@@ -87,10 +87,9 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (attributeName.equals(Assertion.ISSUER_ATTRIB_NAME)) {
             assertion.setIssuer(attributeValue);
-        }
-        if (attributeName.equals(Assertion.ISSUEINSTANT_ATTRIB_NAME)) {
+        } else if (attributeName.equals(Assertion.ISSUEINSTANT_ATTRIB_NAME)) {
             assertion.setIssueInstant(DatatypeHelper.stringToCalendar(attributeValue, 0));
-        } else if (attributeName.equals(Response.MAJORVERSION_ATTRIB_NAME)) {
+        } else if (attributeName.equals(Assertion.MAJORVERSION_ATTRIB_NAME)) {
             try {
                 if (Integer.parseInt(attributeValue) != 1) {
                     log.error("SAML version must be 1");
@@ -100,7 +99,7 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 log.error("Error when checking MajorVersion attribute", n);
                 throw new UnmarshallingException(n);
             }
-        } else if (attributeName.equals(Response.MINORVERSION_ATTRIB_NAME)) {
+        } else if (attributeName.equals(Assertion.MINORVERSION_ATTRIB_NAME)) {
             try {
                 assertion.setMinorVersion(Integer.parseInt(attributeValue));
             } catch (NumberFormatException n) {
