@@ -20,6 +20,7 @@
 
 package org.opensaml.saml1.core.impl;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -38,9 +39,10 @@ import org.opensaml.xml.util.DatatypeHelper;
  */
 public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Constructor
-     */
+    /** Logger */
+    private static Logger log = Logger.getLogger(ResponseUnmarshaller.class);
+
+    /** Constructor */
     public ResponseUnmarshaller() {
         super(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
     }
@@ -60,6 +62,8 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             } else if (childElement instanceof Status) {
                 response.setStatus((Status) childElement);
             } else {
+                log.error(childElement.getElementQName()
+                        + " is not a supported element for Response objects");
                 if (!SAMLConfig.ignoreUnknownElements()) {
                     throw new UnknownElementException(childElement.getElementQName()
                             + " is not a supported element for Response objects");
@@ -86,9 +90,11 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (attributeName.equals(Response.MAJORVERSION_ATTRIB_NAME)) {
             try {
                 if (Integer.parseInt(attributeValue) != 1) {
+                    log.error("SAML version must be 1");
                     throw new UnmarshallingException("SAML version must be 1");
                 }
             } catch (NumberFormatException n) {
+                log.error("Parsing major version ", n);
                 throw new UnmarshallingException(n);
             }
         } else if (attributeName.equals(Response.MINORVERSION_ATTRIB_NAME)) {
@@ -96,11 +102,14 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 int newVersion = Integer.parseInt(attributeValue);
                 response.setMinorVersion(newVersion);
             } catch (NumberFormatException n) {
+                log.error("Parsing minor version ", n);
                 throw new UnmarshallingException(n);
             }
         } else if (attributeName.equals(Response.RECIPIENT_ATTRIB_NAME)) {
             response.setRecipient(attributeValue);
         } else {
+            log.error(attributeName
+                        + " is not a supported attributed for Response objects");
             if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName
                         + " is not a supported attributed for Response objects");

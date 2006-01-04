@@ -35,14 +35,10 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class StatusMessageUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Logger
-     */
+    /** Logger */
     private static Logger log = Logger.getLogger(StatusMessageUnmarshaller.class);
 
-    /**
-     * Constructor
-     */
+    /** Constructor */
     public StatusMessageUnmarshaller() {
         super(SAMLConstants.SAML1P_NS, StatusMessage.LOCAL_NAME);
     }

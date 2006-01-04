@@ -16,6 +16,7 @@
 
 package org.opensaml.saml1.core.impl;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -43,6 +44,10 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME);
     }
 
+    /** Logger */
+    private static Logger log = Logger.getLogger(AssertionUnmarshaller.class);
+
+
     /*
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
@@ -60,9 +65,10 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             } else if (childElement instanceof Statement) {
                 assertion.addStatement((Statement) childElement);
             } else {
+                log.error(childElement.getElementQName() + " is not a supported element for Assertion objects");
                 if (!SAMLConfig.ignoreUnknownElements()) {
                     throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for Response objects");
+                            + " is not a supported element for Assertion objects");
                 }
             }
         } catch (IllegalAddException e) {
@@ -87,21 +93,25 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (attributeName.equals(Response.MAJORVERSION_ATTRIB_NAME)) {
             try {
                 if (Integer.parseInt(attributeValue) != 1) {
+                    log.error("SAML version must be 1");
                     throw new UnmarshallingException("SAML version must be 1");
                 }
             } catch (NumberFormatException n) {
+                log.error("Error when checking MajorVersion attribute", n);
                 throw new UnmarshallingException(n);
             }
         } else if (attributeName.equals(Response.MINORVERSION_ATTRIB_NAME)) {
             try {
                 assertion.setMinorVersion(Integer.parseInt(attributeValue));
             } catch (NumberFormatException n) {
+                log.error("Error when checking MinorVersion attribute", n);
                 throw new UnmarshallingException(n);
             }
         } else {
+            log.error(attributeName + " is not a supported attributed for Assertion objects");
             if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for Response objects");
+                        + " is not a supported attributed for Assertion objects");
             }
         }
     }

@@ -20,6 +20,7 @@
 
 package org.opensaml.saml1.core.impl;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -37,7 +38,10 @@ import org.opensaml.xml.util.DatatypeHelper;
  */
 public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
+    /** Logger */
+    private static Logger log = Logger.getLogger(ConditionsUnmarshaller.class);
+    
+   /**
      * Constructor
      */
     public ConditionsUnmarshaller() {
@@ -57,9 +61,13 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
             if (childElement instanceof Condition) {
                 conditions.addCondition((Condition) childElement);
-            } else if (!SAMLConfig.ignoreUnknownElements()) {
+            } else {
+                log.error(childElement.getElementQName()
+                        + " is not a supported element for Conditions objects");
+                if (!SAMLConfig.ignoreUnknownElements()) {
                     throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for Response objects");
+                            + " is not a supported element for Conditions objects");
+                }
             }
         } catch (IllegalAddException e) {
             throw new UnmarshallingException(e);
@@ -80,9 +88,13 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             conditions.setNotBefore(DatatypeHelper.stringToCalendar(attributeValue, 0));
         } else if (Conditions.NOTONORAFTER_ATTRIB_NAME.equals(attributeName)) {
             conditions.setNotOnOrAfter(DatatypeHelper.stringToCalendar(attributeValue, 0));
-        } else if (!SAMLConfig.ignoreUnknownAttributes()) {
+        } else {
+            log.error(attributeName
+                    + " is not a supported attributed for Conditions objects");
+            if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for Response objects");
+                        + " is not a supported attributed for Conditions objects");
+            }
         }
     }
 }

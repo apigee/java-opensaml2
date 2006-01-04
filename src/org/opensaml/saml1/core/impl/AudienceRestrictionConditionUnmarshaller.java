@@ -63,12 +63,16 @@ public class AudienceRestrictionConditionUnmarshaller extends AbstractSAMLObject
             try {
                 audienceRestrictionCondition.addAudience((Audience) childElement);
             } catch (IllegalAddException e) {
-                log.warn("couldnt add elements", e);
+                log.error("couldnt add elements", e);
                 throw new UnmarshallingException(e);
             }
-        } else if (!SAMLConfig.ignoreUnknownElements()) {
-            throw new UnknownElementException(childElement.getElementQName()
-                    + " is not a supported element for Response objects");
+        } else {
+            log.error(childElement.getElementQName()
+                        + " is not a supported element for AudienceRestrictionCondition objects");
+            if (!SAMLConfig.ignoreUnknownElements()) {
+                throw new UnknownElementException(childElement.getElementQName()
+                        + " is not a supported element for AudienceRestrictionCondition objects");
+            }
         }
     }
 
@@ -78,8 +82,12 @@ public class AudienceRestrictionConditionUnmarshaller extends AbstractSAMLObject
      */
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
+
+        log.error(attributeName
+                + " is not a supported attributed for AudienceRestrictionCondition objects");
         if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName + " is not a supported attributed for Response objects");
+            throw new UnknownAttributeException(attributeName
+                    + " is not a supported attributed for AudienceRestrictionCondition objects");
         }
     }
 }

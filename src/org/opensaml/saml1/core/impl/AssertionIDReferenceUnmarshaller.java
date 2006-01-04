@@ -35,9 +35,7 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class AssertionIDReferenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Logger
-     */
+    /** Logger */
     private static Logger log = Logger.getLogger(AssertionIDReferenceUnmarshaller.class);
 
     /**

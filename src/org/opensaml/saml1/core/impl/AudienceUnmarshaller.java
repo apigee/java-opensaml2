@@ -20,6 +20,7 @@
 
 package org.opensaml.saml1.core.impl;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -33,6 +34,9 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Audience} objects.
  */
 public class AudienceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+
+    /** Logger */
+    private static Logger log = Logger.getLogger(AudienceUnmarshaller.class);
 
     /**
      * Constructor
@@ -48,9 +52,11 @@ public class AudienceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
+        log.error(childElement.getElementQName()
+                    + " is not a supported element for Audience objects");
         if (!SAMLConfig.ignoreUnknownElements()) {
             throw new UnknownElementException(childElement.getElementQName()
-                    + " is not a supported element for StatusCode objects");
+                    + " is not a supported element for Audience objects");
         }
     }
 
@@ -61,8 +67,11 @@ public class AudienceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
+        log.error(attributeName 
+                + " is not a supported attributed for Audience objects");
         if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName + " is not a supported attributed for Response objects");
+            throw new UnknownAttributeException(attributeName 
+                    + " is not a supported attributed for Audience objects");
         }
     }
 

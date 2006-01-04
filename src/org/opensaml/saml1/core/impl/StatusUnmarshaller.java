@@ -20,6 +20,7 @@
 
 package org.opensaml.saml1.core.impl;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -37,10 +38,11 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Constructor
-     */
-    public StatusUnmarshaller() {
+    /** Logger */
+    private static Logger log = Logger.getLogger(StatusUnmarshaller.class);
+
+    /** Constructor */
+   public StatusUnmarshaller() {
         super(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME);
 
     }
@@ -67,9 +69,11 @@ public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 status.setStatusDetail(childElement);
 
             } else {
+                log.error(childElement.getElementQName()
+                        + " is not a supported element for Status objects");
                 if (!SAMLConfig.ignoreUnknownElements()) {
                     throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for Response objects");
+                            + " is not a supported element for Status objects");
                 }
             }
         } catch (IllegalAddException e) {
@@ -83,8 +87,11 @@ public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
+        log.error(attributeName
+                + " is not a supported attributed for Status objects");
         if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName + " is not a supported attributed for Status objects");
+            throw new UnknownAttributeException(attributeName
+                        + " is not a supported attributed for Status objects");
         }
     }
 }

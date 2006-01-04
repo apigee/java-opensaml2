@@ -20,6 +20,7 @@
 
 package org.opensaml.saml1.core.impl;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -35,9 +36,10 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class DoNotCacheConditionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Constructor
-     */
+    /** Logger */
+    private static Logger log = Logger.getLogger(DoNotCacheConditionUnmarshaller.class);
+
+    /** Constructor */
     public DoNotCacheConditionUnmarshaller() {
         super(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
     }
@@ -51,6 +53,8 @@ public class DoNotCacheConditionUnmarshaller extends AbstractSAMLObjectUnmarshal
         // 
         // There are no children
         //
+        log.error(childElement.getElementQName()
+                + " is not a supported element for DoNotCacheCondition objects");
         if (!SAMLConfig.ignoreUnknownElements()) {
             throw new UnknownElementException(childElement.getElementQName()
                     + " is not a supported element for DoNotCacheCondition objects");
@@ -66,6 +70,8 @@ public class DoNotCacheConditionUnmarshaller extends AbstractSAMLObjectUnmarshal
         //
         // There are no attributes
         //
+        log.error(attributeName
+                + " is not a supported attributed for DoNotCacheCondition objects");
         if (!SAMLConfig.ignoreUnknownAttributes()) {
             throw new UnknownAttributeException(attributeName
                     + " is not a supported attributed for DoNotCacheCondition objects");

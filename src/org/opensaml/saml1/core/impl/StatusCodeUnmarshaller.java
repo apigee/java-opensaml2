@@ -20,6 +20,7 @@
 
 package org.opensaml.saml1.core.impl;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -35,9 +36,10 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Constructor
-     */
+    /** Logger */
+    private static Logger log = Logger.getLogger(StatusCodeUnmarshaller.class);
+
+    /** Constructor */
     public StatusCodeUnmarshaller() {
         super(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME);
     }
@@ -58,6 +60,8 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 throw new UnmarshallingException(e);
             }
         } else {
+            log.error(childElement.getElementQName()
+                        + " is not a supported element for StatusCode objects");
             if (!SAMLConfig.ignoreUnknownElements()) {
                 throw new UnknownElementException(childElement.getElementQName()
                         + " is not a supported element for StatusCode objects");
@@ -78,9 +82,11 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         if (attributeName.equals(StatusCode.VALUE_ATTRIB_NAME)) {
             statusCode.setValue(attributeValue);
         } else {
+            log.error(attributeName
+                        + " is not a supported attributed for StatusCode objects");
             if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for Response objects");
+                        + " is not a supported attributed for StatusCode objects");
             }
         }
     }
