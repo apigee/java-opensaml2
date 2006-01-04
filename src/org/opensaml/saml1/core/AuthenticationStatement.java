@@ -21,7 +21,7 @@ import org.opensaml.common.SAMLObject;
 /**
  * This interface defines how the object representing a SAML1 <code> AuthenticationStatment </code> element behaves.
  */
-public interface AuthenticationStatement extends SAMLObject {
+public interface AuthenticationStatement extends SAMLObject, Statement {
 
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "AuthenticationStatement";

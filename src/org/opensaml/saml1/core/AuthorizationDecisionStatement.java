@@ -22,7 +22,7 @@ import org.opensaml.common.SAMLObject;
  * This interface defines how the object representing a SAML1 <code> AuthorizationDecisionStatement </code> element
  * behaves.
  */
-public interface AuthorizationDecisionStatement extends SAMLObject {
+public interface AuthorizationDecisionStatement extends SAMLObject, Statement {
 
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "AuthorizationDecisionStatement";
