@@ -107,7 +107,7 @@ public class TypeNameIndexedSAMLObjectList<ElementType extends SAMLObject> exten
      * @param element element to be stored at the specified position
      */
     public void add(int index, ElementType element) {
-        super.add(index, element);
+        objects.add(element);
         indexElement(element);
     }
 
