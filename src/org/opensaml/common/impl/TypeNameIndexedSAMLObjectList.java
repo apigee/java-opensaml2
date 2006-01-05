@@ -94,7 +94,7 @@ public class TypeNameIndexedSAMLObjectList<ElementType extends SAMLObject> exten
      * @return the element previously at the specified position
      */
     public ElementType set(int index, ElementType element) {
-        ElementType returnValue = super.set(index, element);
+        ElementType returnValue = objects.set(index, element);
         indexElement(element);
         return returnValue;
     }
@@ -118,7 +118,7 @@ public class TypeNameIndexedSAMLObjectList<ElementType extends SAMLObject> exten
      * @param index the index of the element to remove
      */
     public ElementType remove(int index) {
-        ElementType returnValue = super.remove(index);
+        ElementType returnValue = objects.remove(index);
 
         ArrayList<ElementType> objects;
         QName type = returnValue.getSchemaType();

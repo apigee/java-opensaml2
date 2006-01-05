@@ -16,6 +16,8 @@
 
 package org.opensaml.common;
 
+import javax.xml.namespace.QName;
+
 import org.custommonkey.xmlunit.XMLTestCase;
 
 /**
@@ -38,5 +40,21 @@ public class BaseTestCase extends XMLTestCase {
      */
     protected void tearDown() throws Exception {
         super.tearDown();
+    }
+    
+
+    /**
+     * Builds an empty object for a given QName
+     * 
+     * @param objectQName the objects QName
+     * 
+     * @return the empty SAMLObject
+     */
+    public SAMLObject buildSAMLObject(QName objectQName) {
+        SAMLObjectBuilder objectBuilder = SAMLObjectManager.getBuilder(objectQName);
+        if (objectBuilder == null) {
+            fail("No object build available for object with QName of " + objectQName);
+        }
+        return objectBuilder.buildObject();
     }
 }

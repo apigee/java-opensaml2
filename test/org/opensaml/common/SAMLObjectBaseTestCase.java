@@ -16,8 +16,6 @@
 
 package org.opensaml.common;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.ParserPoolManager;
@@ -97,21 +95,6 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
         } catch (MarshallingException e) {
             fail("Marshalling failed with the following error: " + e);
         }
-    }
-
-    /**
-     * Builds an empty object for a given QName
-     * 
-     * @param objectQName the objects QName
-     * 
-     * @return the empty SAMLObject
-     */
-    public SAMLObject buildSAMLObject(QName objectQName) {
-        SAMLObjectBuilder objectBuilder = SAMLObjectManager.getBuilder(objectQName);
-        if (objectBuilder == null) {
-            fail("No object build available for object with QName of " + objectQName);
-        }
-        return objectBuilder.buildObject();
     }
 
     /**
