@@ -134,7 +134,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals("Number of AudienceRestrictionCondition elements", 3, conditions
                 .getAudienceRestrictionConditions().size());
         assertEquals("Number of DoNotCacheCondition children", 1, conditions.getDoNotCacheConditions().size());
-        assertEquals("Wrong number of Condition children", 2, conditions.getConditions().size());
+        assertEquals("Wrong number of Condition children", 4, conditions.getConditions().size());
     }
 
     /*
