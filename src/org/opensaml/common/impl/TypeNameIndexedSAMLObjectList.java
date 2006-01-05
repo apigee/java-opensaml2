@@ -14,12 +14,9 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.common.impl;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -30,16 +27,13 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObject;
 
 /**
- * A list which indexes SAMLObjects by there schema type and element QName for quick retrival based on those items.
- * 
- * TODO make sure that only the namespace URI and local part of the QName are used to do the index
+ * A list which indexes SAMLObjects by their schema type and element QName for quick retrival based on those items. This
+ * list does not allow null elements and is <strong>not</strong> synchronized.
  */
-public class TypeNameIndexedSAMLObjectList<ElementType extends SAMLObject> extends ArrayList<ElementType> {
+public class TypeNameIndexedSAMLObjectList<ElementType extends SAMLObject> extends AbstractList<ElementType> {
 
-    /**
-     * Serial version UID
-     */
-    private static final long serialVersionUID = 7145902574662339911L;
+    /** List of objects */
+    private ArrayList<ElementType> objects = new ArrayList<ElementType>();
 
     /** Index of objects by type and name */
     private HashMap<QName, ArrayList<ElementType>> objectIndex = new HashMap<QName, ArrayList<ElementType>>();
@@ -57,7 +51,27 @@ public class TypeNameIndexedSAMLObjectList<ElementType extends SAMLObject> exten
      * @param col collection to add to this list
      */
     public TypeNameIndexedSAMLObjectList(Collection<ElementType> col) {
-        super(col);
+        addAll(col);
+    }
+
+    /**
+     * Returns the number of elements in this list.
+     * 
+     * @return the number of elements in this list
+     */
+    public int size() {
+        return objects.size();
+    }
+
+    /**
+     * Returns the SAMLObject at the specified position in this list.
+     * 
+     * @param index the given index
+     * 
+     * @return the SAMLObject at the given index
+     */
+    public ElementType get(int index) {
+        return objects.get(index);
     }
 
     /**
@@ -68,7 +82,7 @@ public class TypeNameIndexedSAMLObjectList<ElementType extends SAMLObject> exten
      * @return list of SAMLObjects that have given schema type or element name or null
      */
     public List<ElementType> get(QName typeOrName) {
-        return objectIndex.get(typeOrName);
+        return objectIndex.get(new QName(typeOrName.getNamespaceURI(), typeOrName.getLocalPart()));
     }
 
     /**
@@ -105,14 +119,14 @@ public class TypeNameIndexedSAMLObjectList<ElementType extends SAMLObject> exten
      */
     public ElementType remove(int index) {
         ElementType returnValue = super.remove(index);
-        
+
         ArrayList<ElementType> objects;
         QName type = returnValue.getSchemaType();
         if (type != null) {
             objects = objectIndex.get(type);
             objects.remove(returnValue);
         }
-        
+
         objects = objectIndex.get(returnValue.getElementQName());
         objects.remove(returnValue);
 
