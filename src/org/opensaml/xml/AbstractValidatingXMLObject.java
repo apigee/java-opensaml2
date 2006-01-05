@@ -24,11 +24,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 
 /**
  * Extension of {@link org.opensaml.xml.AbstractXMLObject} that implements {@link org.opensaml.xml.ValidatingXMLObject}
  */
 public abstract class AbstractValidatingXMLObject extends AbstractXMLObject implements ValidatingXMLObject {
+    
+    /** Logger */
+    private final Logger log = Logger.getLogger(AbstractValidatingXMLObject.class);
 
     /** Validators used to validate this XMLObject */
     private ArrayList<Validator> validators = new ArrayList<Validator>();
@@ -75,10 +80,19 @@ public abstract class AbstractValidatingXMLObject extends AbstractXMLObject impl
      */
     public void validate(boolean validateDescendants) throws ValidationException {
         for (Validator validator : validators) {
+            if (log.isDebugEnabled()) {
+                log.debug("Validating " + getElementQName() + " using Validator class"
+                                + validator.getClass().getName());
+            }
             validator.validate(this);
         }
-        
-        validateChildren(this);
+
+        if (validateDescendants) {
+            if (log.isDebugEnabled()) {
+                log.debug("Validating descendants of " + getElementQName());
+            }
+            validateChildren(this);
+        }
     }
 
     /**
@@ -93,9 +107,13 @@ public abstract class AbstractValidatingXMLObject extends AbstractXMLObject impl
         for (XMLObject childObject : xmlObject.getOrderedChildren()) {
             if (childObject instanceof ValidatingXMLObject) {
                 ((ValidatingXMLObject) childObject).validate(false);
+            } else {
+                if (log.isDebugEnabled()) {
+                    log.debug(childObject.getElementQName() + " does not implement ValidatingXMLObject, ignoring it.");
+                }
             }
-            
-            if(childObject.hasChildren()){
+
+            if (childObject.hasChildren()) {
                 validateChildren(childObject);
             }
         }

@@ -23,6 +23,7 @@ package org.opensaml.xml;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
@@ -30,6 +31,9 @@ import org.w3c.dom.Element;
  * Extension of {@link org.opensaml.xml.AbstractXMLObject} that implements {@link org.opensaml.xml.DOMCachingXMLObject}.
  */
 public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject implements DOMCachingXMLObject {
+    
+    /** Logger */
+    private final Logger log = Logger.getLogger(AbstractDOMCachingXMLObject.class);
 
     /** DOM Element representation of this object */
     private Element dom;
@@ -62,6 +66,10 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
      * @see org.opensaml.common.SAMLElement#releaseDOM()
      */
     public void releaseDOM() {
+        if(log.isDebugEnabled()){
+            log.debug("Releasing cached DOM reprsentation for " + getElementQName());
+        }
+        
         setDOM(null);
     }
 
@@ -69,6 +77,10 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
      * @see org.opensaml.common.SAMLElement#releaseParentDOM(boolean)
      */
     public void releaseParentDOM(boolean propagateRelease) {
+        if(log.isDebugEnabled()){
+            log.debug("Releasing cached DOM reprsentation for parent of " + getElementQName() + " with propagation set to " + propagateRelease);
+        }
+
         XMLObject parentElement = getParent();
         if (parentElement != null && parentElement instanceof DOMCachingXMLObject) {
             DOMCachingXMLObject domCachingParent = (DOMCachingXMLObject) parentElement;
@@ -83,7 +95,10 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
      * @see org.opensaml.common.SAMLElement#releaseChildrenDOM(boolean)
      */
     public void releaseChildrenDOM(boolean propagateRelease) {
-
+        if(log.isDebugEnabled()){
+            log.debug("Releasing cached DOM reprsentation for children of " + getElementQName() + " with propagation set to " + propagateRelease);
+        }
+        
         if (getOrderedChildren() != null) {
             for (XMLObject childElement : getOrderedChildren()) {
                 if (childElement instanceof DOMCachingXMLObject) {
@@ -132,7 +147,6 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
         String newString = DatatypeHelper.safeTrimOrNullString(newValue);
 
         if (!DatatypeHelper.safeEquals(oldValue, newString)) {
-
             releaseThisandParentDOM();
         }
 
@@ -155,14 +169,10 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
      */
     protected <T extends Object> T prepareForAssignment(T oldValue, T newValue) {
         if (oldValue == null) {
-
             if (newValue != null) {
-
                 releaseThisandParentDOM();
                 return newValue;
-
             } else {
-
                 return null;
             }
         }
@@ -192,27 +202,22 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
     protected <T extends XMLObject> T prepareForAssignment(T oldValue, T newValue) throws IllegalAddException {
 
         if (newValue != null && newValue.hasParent()) {
-
             throw new IllegalAddException(newValue.getClass().getName()
                     + " cannot be added - it is already the child of another SAML Object");
         }
 
         if (oldValue == null) {
-
             if (newValue != null) {
-
                 releaseThisandParentDOM();
                 newValue.setParent(this);
                 return newValue;
 
             } else {
-
                 return null;
             }
         }
 
         if (!oldValue.equals(newValue)) {
-
             oldValue.setParent(null);
             releaseThisandParentDOM();
             newValue.setParent(this);
