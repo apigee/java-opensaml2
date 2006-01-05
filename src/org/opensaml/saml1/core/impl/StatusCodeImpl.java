@@ -81,12 +81,12 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> contents = new ArrayList<SAMLObject>(1);
-
         if (childStatusCode != null) {
+            ArrayList<SAMLObject> contents = new ArrayList<SAMLObject>(1);
             contents.add(childStatusCode);
+            return Collections.unmodifiableList(contents);
+        } else {
+            return null;
         }
-        return Collections.unmodifiableList(contents);
-
     }
 }

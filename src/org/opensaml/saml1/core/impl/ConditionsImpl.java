@@ -92,6 +92,9 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml1.core.Conditions#getConditions()
      */
     public List<Condition> getConditions() {
+        if (conditions.size() == 0) {
+            return null;
+        }
         return Collections.unmodifiableList(conditions);
     }
 
@@ -99,7 +102,12 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml1.core.Conditions#getConditions(javax.xml.namespace.QName)
      */
     public List<Condition> getConditions(QName typeOrName) {
-        return Collections.unmodifiableList(conditions.get(typeOrName));
+        
+        List<Condition> list = conditions.get(typeOrName);
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+        return Collections.unmodifiableList(list);
     }
 
     /*
@@ -155,7 +163,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      */
     public List<Condition> getAudienceRestrictionConditions() {
         QName conditionQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
-        return Collections.unmodifiableList(conditions.get(conditionQName));
+        return getConditions(conditionQName);
     }
 
     /*
@@ -163,13 +171,16 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      */
     public List<Condition> getDoNotCacheConditions() {
         QName conditionQName = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
-        return Collections.unmodifiableList(conditions.get(conditionQName));
+        return getConditions(conditionQName);
     }
 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
+        if (conditions.size() == 0) {
+            return null;
+        }
         ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
         children.addAll(conditions);
         return Collections.unmodifiableList(children);

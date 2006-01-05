@@ -59,6 +59,9 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      * @see org.opensaml.saml1.core.Advice#getAssertionIDReferences()
      */
     public List<AssertionIDReference> getAssertionIDReferences() {
+        if (assertionIDReferences.size() == 0) {
+            return null;
+        } 
         return Collections.unmodifiableList(assertionIDReferences);
     }
 
@@ -100,6 +103,9 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     }
 
     public List<Assertion> getAssertions() {
+        if (assertions.size() == 0) {
+            return null;
+        }
         return Collections.unmodifiableList(assertions);
     }
 
@@ -143,6 +149,9 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
+        if (orderedChildren.size() == 0) {
+            return null;
+        }
         return Collections.unmodifiableList(orderedChildren);
     }
 }

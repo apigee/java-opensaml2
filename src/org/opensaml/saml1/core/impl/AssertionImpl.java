@@ -159,6 +159,9 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml1.core.Assertion#getStatements()
      */
     public List<Statement> getStatements() {
+        if (statements.size() == 0) {
+            return null;
+        } 
         return Collections.unmodifiableList(statements);
     }
 
@@ -166,7 +169,13 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml1.core.Assertion#getStatements(javax.xml.namespace.QName)
      */
     public List<Statement> getStatements(QName typeOrName) {
-        return Collections.unmodifiableList(statements.get(typeOrName));
+        
+        List <Statement> list = statements.get(typeOrName);
+        
+        if (list == null || list.size() == 0) {
+            return null;
+        }
+        return Collections.unmodifiableList(list);
     }
 
     /*
@@ -213,7 +222,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      */
     public List<Statement> getSubjectStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, SubjectStatement.LOCAL_NAME);
-        return Collections.unmodifiableList(statements.get(statementQName));
+        return getStatements(statementQName);
     }
 
     /*
@@ -221,7 +230,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      */
     public List<Statement> getAuthenticationStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME);
-        return Collections.unmodifiableList(statements.get(statementQName));
+        return getStatements(statementQName);
     }
 
     /*
@@ -229,15 +238,15 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      */
     public List<Statement> getAuthorizationDecisionStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME);
-        return Collections.unmodifiableList(statements.get(statementQName));
+        return getStatements(statementQName);
     }
-
+    
     /*
      * @see org.opensaml.saml1.core.Assertion#getAttributeStatements()
      */
     public List<Statement> getAttributeStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME);
-        return Collections.unmodifiableList(statements.get(statementQName));
+        return getStatements(statementQName);
     }
 
     /*
@@ -256,7 +265,10 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         }
 
         children.addAll(statements);
-
+        
+        if (children.size() == 0) {
+            return null;
+        }
         return Collections.unmodifiableList(children);
     }
 }

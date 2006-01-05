@@ -172,6 +172,10 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
             children.add(status);
         }
 
+        if (children.size() == 0) {
+            return null;
+        }
+        
         return Collections.unmodifiableList(children);
     }
 }

@@ -117,6 +117,10 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
             children.add(statusDetail);
         }
 
+        if (children.size() == 0) {
+            return null;
+        }
+        
         return Collections.unmodifiableList(children);
     }
 }

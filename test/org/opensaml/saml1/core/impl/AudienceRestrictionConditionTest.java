@@ -47,7 +47,7 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
         
         audienceRestrictionCondition = (AudienceRestrictionCondition) unmarshallElement(singleElementFile);
         
-        assertEquals("Count of child Audience elements", 0, audienceRestrictionCondition.getAudiences().size());
+        assertNull("Count of child Audience elements !=0", audienceRestrictionCondition.getAudiences());
     }
 
     /*

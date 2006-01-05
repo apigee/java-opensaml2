@@ -48,6 +48,9 @@ public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#getAudiences()
      */
     public List<Audience> getAudiences() {
+        if (audiences.size() == 0) {
+            return null;
+        }
         return Collections.unmodifiableList(audiences);
     }
 
@@ -88,6 +91,10 @@ public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
+        
+        if (audiences.size() == 0){
+            return null;
+        }
         ArrayList<SAMLObject> children = new ArrayList<SAMLObject>(audiences);
         return Collections.unmodifiableList(children);
     }
