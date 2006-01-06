@@ -133,6 +133,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         
         assertNotNull("Conditions element null", assertion.getConditions());
         assertNotNull("Advice element null", assertion.getAdvice());
+        // TODO
         /*
         assertEquals("AttributeStatements element count", 3, assertion.getAttributeStatements().size());
         assertEquals("AuthenticationStatements element count", 2, assertion.getAuthenticationStatements().size());
@@ -174,6 +175,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         try {
             assertion.setConditions(new ConditionsImpl());
             assertion.setAdvice(new AdviceImpl());
+            // TODO
             //assertion.addStatement(new StatementImpl());
             //assertion.addSubjectStatement(new SubjectStatementImpl());
             //assertion.addAuthenticationStatement(new AuthenticationStatementImpl());

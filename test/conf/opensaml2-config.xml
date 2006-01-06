@@ -131,6 +131,13 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.AdviceUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:Subject">
+            <BuilderClass className="org.opensaml.saml1.core.impl.SubjectBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.SubjectMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.SubjectUnmarshaller" />
+        </ObjectProvider>
+
+
     </ObjectProviders>
 
 </OpenSAML>

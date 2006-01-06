@@ -29,6 +29,7 @@ import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.saml1.core.StatusDetail;
 import org.opensaml.saml1.core.StatusMessage;
 import org.opensaml.xml.IllegalAddException;
 
@@ -44,7 +45,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
     private StatusCode statusCode;
 
     /** Representation of the StatusDetail element. */
-    private SAMLObject statusDetail;
+    private StatusDetail statusDetail;
 
     /**
      * Constructor.
@@ -85,14 +86,14 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
     /*
      * @see org.opensaml.saml1.core.Status#getStatusDetail()
      */
-    public SAMLObject getStatusDetail() {
+    public StatusDetail getStatusDetail() {
         return statusDetail;
     }
 
     /*
      * @see org.opensaml.saml1.core.Status#setStatusDetail(org.opensaml.common.SAMLObject)
      */
-    public void setStatusDetail(SAMLObject statusDetail) throws IllegalAddException {
+    public void setStatusDetail(StatusDetail statusDetail) throws IllegalAddException {
         //
         // TODO - What about status detail ?
         //

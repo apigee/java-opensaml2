@@ -27,25 +27,25 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Advice;
-import org.opensaml.saml1.core.Assertion;
-import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.saml1.core.NameIdentifier;
+import org.opensaml.saml1.core.Subject;
+import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Advice} objects.
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Subject} objects.
  */
-public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Logger */
-    private static Logger log = Logger.getLogger(AdviceUnmarshaller.class);
+    private static Logger log = Logger.getLogger(SubjectUnmarshaller.class);
 
     /**
      * Constructor
      */
-    public AdviceUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME);
+    public SubjectUnmarshaller() {
+        super(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME);
     }
 
     /*
@@ -55,17 +55,17 @@ public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
-        Advice advice = (Advice) parentElement;
+        Subject subject = (Subject) parentElement;
 
         try {
-            if (childElement instanceof Assertion) {
-                advice.addAssertion((Assertion) childElement);
-            } else if (childElement instanceof AssertionIDReference) {
-                advice.addAssertionIDReference((AssertionIDReference) childElement);
+            if (childElement instanceof NameIdentifier) {
+                subject.setNameIdentifier((NameIdentifier) childElement);
+            } else if (childElement instanceof SubjectConfirmation) {
+                subject.setSubjectConfirmation((SubjectConfirmation) childElement);
             } else if (!SAMLConfig.ignoreUnknownElements()) {
-                log.error(childElement.getElementQName() + " is not a supported element for Advice objects");
+                log.error(childElement.getElementQName() + " is not a supported element for Subject objects");
                 throw new UnknownElementException(childElement.getElementQName()
-                        + " is not a supported element for Advice objects");
+                        + " is not a supported element for Subject objects");
             }
         } catch (IllegalAddException e) {
             log.error("Couldn't add " + childElement, e);
@@ -83,10 +83,10 @@ public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         // No Attributes
         //
 
-        log.error(attributeName + " is not a supported attributed for Advuice  objects");
+        log.error(attributeName + " is not a supported attributed for Subject objects");
 
         if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName + " is not a supported attributed for Advice objects");
+            throw new UnknownAttributeException(attributeName + " is not a supported attributed for Response objects");
         }
     }
 }

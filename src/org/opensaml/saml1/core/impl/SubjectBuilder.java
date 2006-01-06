@@ -23,15 +23,15 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * Class to generate AudienceResttictyionCondition Objects
+ * A class to create SubjectImp Objects 
  */
-public class AudienceRestrictionConditionBuilder implements SAMLObjectBuilder {
+public class SubjectBuilder implements SAMLObjectBuilder {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
     public SAMLObject buildObject() {
-        return new AudienceRestrictionConditionImpl();
+        return new SubjectImpl();
     }
 
 }

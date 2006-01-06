@@ -29,6 +29,7 @@ import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.saml1.core.StatusDetail;
 import org.opensaml.saml1.core.StatusMessage;
 import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -60,13 +61,13 @@ public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 status.setStatusCode((StatusCode) childElement);
             } else if (childElement instanceof StatusMessage) {
                 status.setStatusMessage((StatusMessage) childElement);
-            } else if (childElement instanceof SAMLObject) {
+            } else if (childElement instanceof StatusDetail) {
 
                 //
                 // TODO - more magicke
                 //
 
-                status.setStatusDetail(childElement);
+                status.setStatusDetail((StatusDetail)childElement);
 
             } else {
                 log.error(childElement.getElementQName()
