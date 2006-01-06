@@ -21,6 +21,7 @@ package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.xml.IllegalAddException;
@@ -83,11 +84,10 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         // TODO Add in when ConfirmationMethod &  SubjectConfirmationData done
 
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) unmarshallElement(fullElementsFile);
-        /*
+
         assertNotNull("Zero child ConfirmationMethods elements", subjectConfirmation.getConfirmationMethods());
         assertEquals("Number of ConfirmationMethods", 2, subjectConfirmation.getConfirmationMethods().size());
         assertNotNull("Zero child SubjectConfirmationData elements", subjectConfirmation.getSubjectConfirmationData());
-        // */
     }
     
     /*
@@ -115,14 +115,13 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         
         SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl();
               
-        /*
         try {
-            subject.setNameIdentifier(new NameIdentifierImpl());
-        //    subject.setSubjectConfirmation(new SubjectConfirmationImpl());
+            subjectConfirmation.addConfirmationMethod(new ConfirmationMethodImpl());
+            subjectConfirmation.addConfirmationMethod(new ConfirmationMethodImpl());
+            subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl());
         } catch (IllegalAddException e) {
             fail("Threw a IllegalAddException ");
         }
-        //assertEquals(expectedFullDOM, subject);
-        */
+        assertEquals(expectedFullDOM, subjectConfirmation);
     }
 }
