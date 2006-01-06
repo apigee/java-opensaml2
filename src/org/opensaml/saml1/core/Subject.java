@@ -14,18 +14,27 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
 package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.IllegalAddException;
 
 /**
- * This interface defines how the object representing a SAML 1 <code> AttributeStatement </code> element behaves.
+ * Interface to describe how the <code> Subject </code> elements work.
  */
-public interface AttributeStatement extends SAMLObject, SubjectStatement {
-
+public interface Subject extends SAMLObject {
     /** Element name, no namespace. */
-
-    public final static String LOCAL_NAME = "AttributeStatement";
-
-    // TODO fill out
+    public final static String LOCAL_NAME = "Subject";
+    
+    public NameIdentifier getNameIdentifier();
+    
+    public void setNameIdentifier(NameIdentifier nameIdentifier) throws IllegalAddException;
+    
+    public SubjectConfirmation getSubjectConfirmation();
+    
+    public void setSubjectConfirmation(SubjectConfirmation subjectConfirmation) throws IllegalAddException;
+    
 }

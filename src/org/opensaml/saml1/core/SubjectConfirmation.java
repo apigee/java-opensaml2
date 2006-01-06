@@ -14,18 +14,31 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
 package org.opensaml.saml1.core;
 
+import org.apache.xml.security.keys.KeyInfo;
 import org.opensaml.common.SAMLObject;
 
 /**
- * This interface defines how the object representing a SAML 1 <code> AttributeStatement </code> element behaves.
+ * Interface to define how a <code> SubjectConfirmation  <\code> element behaves
  */
-public interface AttributeStatement extends SAMLObject, SubjectStatement {
-
+public interface SubjectConfirmation extends SAMLObject {
     /** Element name, no namespace. */
+    public final static String LOCAL_NAME = "SubjectConfirmation ";
 
-    public final static String LOCAL_NAME = "AttributeStatement";
-
-    // TODO fill out
+    
+    public ConfirmationMethod getConfirmationMethod();
+    
+    public void setConfirmationMethod(ConfirmationMethod confirmationMethod);
+    
+    public SubjectConfirmationData getSubjectConfirmationData();
+    
+    public void setSubjectConfirmationData(SubjectConfirmationData subjectConfirmationData);
+    
+    public KeyInfo getKeyInfo();
+    
+    public void setKeyInfo(KeyInfo keyInfo);
 }

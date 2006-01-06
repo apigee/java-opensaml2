@@ -40,9 +40,9 @@ public interface Status extends SAMLObject {
     void setStatusCode(StatusCode statusCode) throws IllegalAddException;
 
     /** Return the object representing the <code>StatusDetail<code> (element). */
-    // TODO how to deal with status detail
-    SAMLObject getStatusDetail();
+
+    StatusDetail getStatusDetail();
 
     /** Set the object representing the <code>StatusDetail<code> (element). */
-    void setStatusDetail(SAMLObject statusDetail) throws IllegalAddException;
+    void setStatusDetail(StatusDetail statusDetail) throws IllegalAddException;
 }

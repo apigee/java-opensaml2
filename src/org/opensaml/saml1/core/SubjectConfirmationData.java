@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
 package org.opensaml.saml1.core;
 
-import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * This interface defines how the object representing a SAML 1 <code> AttributeStatement </code> element behaves.
+ * This interface defines how the object representing a SAML1 <code> SubjectConfirmationData </code> element behaves.
  */
-public interface AttributeStatement extends SAMLObject, SubjectStatement {
-
+public interface SubjectConfirmationData extends SAMLObjectBuilder {
     /** Element name, no namespace. */
-
-    public final static String LOCAL_NAME = "AttributeStatement";
-
-    // TODO fill out
+    public final static String LOCAL_NAME = "SubjectConfirmationData";
+    
+    public String getConfirmationData();
+    
+    public void setConfirmationData(String confirmationData);
 }

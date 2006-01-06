@@ -18,10 +18,15 @@ package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
 
-public interface SubjectStatement extends SAMLObject {
+/**
+ * Interface to descibe how the anchor point SubjectStatement would work.
+ */
+public interface SubjectStatement extends SAMLObject, Statement {
 
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "SubjectStatement";
-
-    // TODO flesh out
+    
+    public Subject getSubject();
+    
+    public void setSubject(Subject subject);
 }

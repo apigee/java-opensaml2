@@ -14,18 +14,30 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
 package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
 
 /**
- * This interface defines how the object representing a SAML 1 <code> AttributeStatement </code> element behaves.
+ * Interface to define how a <code> NameIdentifier <\code> element behaves
  */
-public interface AttributeStatement extends SAMLObject, SubjectStatement {
-
+public interface NameIdentifier extends SAMLObject {
+ 
     /** Element name, no namespace. */
-
-    public final static String LOCAL_NAME = "AttributeStatement";
-
-    // TODO fill out
+    public final static String LOCAL_NAME = "NameIdentifier";
+    
+    public String getNameQualifier();
+    
+    public void setNameQualifier();
+    
+    public String getFormat();
+    
+    public void setFormat();
+    
+    public String getNameIdentifier();
+    
+    public void setNameIdentifier();
 }
