@@ -19,12 +19,12 @@
  */
 package org.opensaml.saml1.core;
 
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.common.SAMLObject;
 
 /**
  * This interface defines how the object representing a SAML1 <code> SubjectConfirmationData </code> element behaves.
  */
-public interface SubjectConfirmationData extends SAMLObjectBuilder {
+public interface SubjectConfirmationData extends SAMLObject {
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "SubjectConfirmationData";
     

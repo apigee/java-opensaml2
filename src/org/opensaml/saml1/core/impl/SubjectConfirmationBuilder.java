@@ -17,18 +17,20 @@
 /**
  * 
  */
-package org.opensaml.saml1.core;
+package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * This interface defines how the object representing a SAML1 <code> ConfirmationMethod </code> element behaves.
+ * A class whose whole job is to create a SubiectConfirmationImpl
  */
-public interface ConfirmationMethod extends SAMLObject {
-    /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "ConfirmationMethod";
-    
-    public String getConfirmationMethod();
-    
-    public void setConfirmationMethod(String confirmationMethod);
+public class SubjectConfirmationBuilder implements SAMLObjectBuilder {
+    /*
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     */
+    public SAMLObject buildObject() {
+        return new SubjectConfirmationImpl();
+    }
+
 }

@@ -143,6 +143,12 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.NameIdentifierUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:SubjectConfirmation">
+            <BuilderClass className="org.opensaml.saml1.core.impl.SubjectConfirmationBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.SubjectConfirmationMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.SubjectConfirmationUnmarshaller" />
+        </ObjectProvider>
+
     </ObjectProviders>
 
 </OpenSAML>

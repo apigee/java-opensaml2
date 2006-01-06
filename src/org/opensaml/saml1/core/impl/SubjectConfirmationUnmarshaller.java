@@ -27,25 +27,25 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.NameIdentifier;
-import org.opensaml.saml1.core.Subject;
+import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
+import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Subject} objects.
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectConfirmation} objects.
  */
-public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Logger */
-    private static Logger log = Logger.getLogger(SubjectUnmarshaller.class);
+    private static Logger log = Logger.getLogger(SubjectConfirmationUnmarshaller.class);
 
     /**
      * Constructor
      */
-    public SubjectUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME);
+    public SubjectConfirmationUnmarshaller() {
+        super(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME);
     }
 
     /*
@@ -55,18 +55,18 @@ public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
-        Subject subject = (Subject) parentElement;
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) parentElement;
 
         try {
-            if (childElement instanceof NameIdentifier) {
-                subject.setNameIdentifier((NameIdentifier) childElement);
-            } else if (childElement instanceof SubjectConfirmation) {
-                subject.setSubjectConfirmation((SubjectConfirmation) childElement);
+            if (childElement instanceof ConfirmationMethod) {
+                subjectConfirmation.addConfirmationMethod((ConfirmationMethod) childElement);
+            } else if (childElement instanceof SubjectConfirmationData) {
+                subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) childElement);
             } else {
-                log.error(childElement.getElementQName() + " is not a supported element for Subject objects");
+                log.error(childElement.getElementQName() + " is not a supported element for SubjectConfirmation objects");
                 if (!SAMLConfig.ignoreUnknownElements()) {
                     throw new UnknownElementException(childElement.getElementQName()
-                        + " is not a supported element for Subject objects");
+                            + " is not a supported element for SubjectConfirmation objects");
                 }
             }
         } catch (IllegalAddException e) {
@@ -85,10 +85,10 @@ public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         // No Attributes
         //
 
-        log.error(attributeName + " is not a supported attributed for Subject objects");
+        log.error(attributeName + " is not a supported attributed for SubjectConfirmation objects");
 
         if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName + " is not a supported attributed for Subject objects");
+            throw new UnknownAttributeException(attributeName + " is not a supported attributed for SubjectConfirmation objects");
         }
     }
 }
