@@ -16,8 +16,8 @@
 
 package org.opensaml.saml1.core;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.IllegalAddException;
@@ -58,7 +58,7 @@ public interface Advice extends SAMLObject {
      * 
      * @param assertionIDReferences what to remove
      */
-    public void removeAssertionIDReferences(Set<AssertionIDReference> assertionIDReferences);
+    public void removeAssertionIDReferences(Collection<AssertionIDReference> assertionIDReferences);
 
     /** Remove all AssertionIDReferences */
     public void removeAllAssertionIDReferences();
@@ -83,7 +83,7 @@ public interface Advice extends SAMLObject {
     public void removeAssertion(Assertion assertion);
 
     /** Remove several Assertions */
-    public void removeAssertions(Set<Assertion> assertions);
+    public void removeAssertions(Collection<Assertion> assertions);
 
     /** Remove all Assertions */
     public void removeAllAssertions();

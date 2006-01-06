@@ -21,6 +21,7 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -195,7 +196,10 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     /*
      * @see org.opensaml.saml1.core.Assertion#removeStatements(java.util.Set)
      */
-    public void removeStatements(List<Statement> statements) {
+    public void removeStatements(Collection<Statement> statements) {
+        if (statements == null) {
+            return;
+        }
         removeXMLObjects(this.statements, statements);
     }
 

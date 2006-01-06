@@ -21,6 +21,7 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -71,7 +72,10 @@ public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject
     /*
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#removeAudiences(java.util.Set)
      */
-    public void removeAudiences(List<Audience> audiences) {
+    public void removeAudiences(Collection<Audience> audiences) {
+        if (audiences == null) {
+            return;
+        }
         for (Audience audience : audiences) {
             removeAudience(audience);
         }

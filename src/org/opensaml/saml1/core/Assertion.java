@@ -16,6 +16,7 @@
 
 package org.opensaml.saml1.core;
 
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -166,7 +167,7 @@ public interface Assertion extends SAMLObject, SignableXMLObject {
      * 
      * @param statements which statements to remove
      */
-    public void removeStatements(List<Statement> statements);
+    public void removeStatements(Collection<Statement> statements);
 
     /**
      * Remove the all the statements from the List.

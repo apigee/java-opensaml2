@@ -16,6 +16,7 @@
 
 package org.opensaml.saml1.core;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.xml.IllegalAddException;
@@ -43,7 +44,7 @@ public interface AudienceRestrictionCondition extends Condition {
     public void removeAudience(Audience audience);
 
     /** Remove several Audience elements */
-    public void removeAudiences(List<Audience> audiences);
+    public void removeAudiences(Collection<Audience> audiences);
 
     /** Remove all audience elements from this object */
     public void removeAllAudiences();

@@ -21,10 +21,9 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
@@ -87,7 +86,12 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     /*
      * @see org.opensaml.saml1.core.Advice#removeAssertionIDReferences(java.util.Set)
      */
-    public void removeAssertionIDReferences(Set<AssertionIDReference> assertionIDReferences) {
+    public void removeAssertionIDReferences(Collection<AssertionIDReference> assertionIDReferences) {
+        
+        if (assertionIDReferences == null) {
+            return;
+        }
+        
         for (AssertionIDReference assertionIDReference : assertionIDReferences) {
             removeAssertionIDReference(assertionIDReference);
         }
@@ -130,7 +134,12 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     /*
      * @see org.opensaml.saml1.core.Advice#removeAssertions(java.util.Set)
      */
-    public void removeAssertions(Set<Assertion> assertions) {
+    public void removeAssertions(Collection<Assertion> assertions) {
+        
+        if (assertions == null) {
+            return;
+        }
+        
         for (Assertion assertion : assertions) {
             removeAssertion(assertion);
         }
