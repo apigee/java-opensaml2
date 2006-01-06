@@ -29,15 +29,21 @@ public interface NameIdentifier extends SAMLObject {
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "NameIdentifier";
     
+    /** Name for the attribute which defines Name Qualifier */
+    public final static String NAMEQUALIFIER_ATTRIB_NAME = "NameQualifier";
+    
+    /** Name for the attribute which defines Name Qualifier */
+    public final static String FORMAT_ATTRIB_NAME = "Format";
+    
     public String getNameQualifier();
     
-    public void setNameQualifier();
+    public void setNameQualifier(String nameQualifier);
     
     public String getFormat();
     
-    public void setFormat();
+    public void setFormat(String format);
     
     public String getNameIdentifier();
     
-    public void setNameIdentifier();
+    public void setNameIdentifier(String nameIdentifier);
 }

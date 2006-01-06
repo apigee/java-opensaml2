@@ -59,7 +59,6 @@ public class AssertionIDReferenceUnmarshaller extends AbstractSAMLObjectUnmarsha
             throw new UnknownElementException(childElement.getElementQName()
                     + " is not a supported element for AssertionIDReference objects");
         }
-
     }
 
     /*

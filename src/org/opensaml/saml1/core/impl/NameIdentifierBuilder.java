@@ -23,15 +23,15 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * A class to create SubjectImpl Objects 
+ * A class to create NameIdentifierImpl Objects 
  */
-public class SubjectBuilder implements SAMLObjectBuilder {
+public class NameIdentifierBuilder implements SAMLObjectBuilder {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
     public SAMLObject buildObject() {
-        return new SubjectImpl();
+        return new NameIdentifierImpl();
     }
 
 }

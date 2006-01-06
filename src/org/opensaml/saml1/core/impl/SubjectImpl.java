@@ -32,7 +32,7 @@ import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.xml.IllegalAddException;
 
 /**
- * Complete implementation of {@link org.opensaml.saml1.core.subject}
+ * Complete implementation of {@link org.opensaml.saml1.core.Subject}
  */
 public class SubjectImpl extends AbstractSAMLObject implements Subject {
 
@@ -44,7 +44,6 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
     
     /**
      * Constructor
-     *
      */
     public SubjectImpl() {
         super(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME);

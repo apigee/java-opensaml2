@@ -137,6 +137,11 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.SubjectUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:NameIdentifier">
+            <BuilderClass className="org.opensaml.saml1.core.impl.NameIdentifierBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.NameIdentifierMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.NameIdentifierUnmarshaller" />
+        </ObjectProvider>
 
     </ObjectProviders>
 
