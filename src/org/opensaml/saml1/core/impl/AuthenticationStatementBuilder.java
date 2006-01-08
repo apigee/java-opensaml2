@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.core;
+/**
+ * 
+ */
+
+package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
+import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * Interface to descibe how the anchor point SubjectStatement would work.
+ * Class to create {@link org.opensaml.saml1.core.impl.AuthenticationStatementImpl} elements
  */
-public interface SubjectStatement extends SAMLObject, Statement {
+public class AuthenticationStatementBuilder implements SAMLObjectBuilder {
 
-    /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "SubjectStatement";
-    
-    public Subject getSubject();
-    
-    public void setSubject(Subject subject) throws IllegalAddException;
+    /*
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     */
+    public SAMLObject buildObject() {
+        return new AuthenticationStatementImpl();
+    }
+
 }

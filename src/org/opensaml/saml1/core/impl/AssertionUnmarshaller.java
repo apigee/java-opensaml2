@@ -71,6 +71,7 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 }
             }
         } catch (IllegalAddException e) {
+            log.error("Couldn't add " + childElement + " to Assertion", e);
             throw new UnmarshallingException(e);
         }
     }
@@ -84,11 +85,11 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         Assertion assertion = (Assertion) samlElement;
 
-        if (attributeName.equals(Assertion.ISSUER_ATTRIB_NAME)) {
+        if (Assertion.ISSUER_ATTRIB_NAME.equals(attributeName)) {
             assertion.setIssuer(attributeValue);
-        } else if (attributeName.equals(Assertion.ISSUEINSTANT_ATTRIB_NAME)) {
+        } else if (Assertion.ISSUEINSTANT_ATTRIB_NAME.equals(attributeName)) {
             assertion.setIssueInstant(DatatypeHelper.stringToCalendar(attributeValue, 0));
-        } else if (attributeName.equals(Assertion.MAJORVERSION_ATTRIB_NAME)) {
+        } else if (Assertion.MAJORVERSION_ATTRIB_NAME.endsWith(attributeName)) {
             try {
                 if (Integer.parseInt(attributeValue) != 1) {
                     log.error("SAML version must be 1");
@@ -98,7 +99,7 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 log.error("Error when checking MajorVersion attribute", n);
                 throw new UnmarshallingException(n);
             }
-        } else if (attributeName.equals(Assertion.MINORVERSION_ATTRIB_NAME)) {
+        } else if (Assertion.MINORVERSION_ATTRIB_NAME.equals(attributeName)) {
             try {
                 assertion.setMinorVersion(Integer.parseInt(attributeValue));
             } catch (NumberFormatException n) {

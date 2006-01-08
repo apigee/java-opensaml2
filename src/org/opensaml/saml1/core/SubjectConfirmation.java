@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core;
 
 import java.util.Collection;
@@ -30,25 +31,25 @@ import org.opensaml.xml.IllegalAddException;
  * Interface to define how a <code> SubjectConfirmation  <\code> element behaves
  */
 public interface SubjectConfirmation extends SAMLObject {
+
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "SubjectConfirmation";
 
-    
     public void addConfirmationMethod(ConfirmationMethod confirmationMethod) throws IllegalAddException;
-    
-    public List <ConfirmationMethod> getConfirmationMethods();
-    
+
+    public List<ConfirmationMethod> getConfirmationMethods();
+
     public void removeConfirmationMethod(ConfirmationMethod confirmationMethod);
-    
-    public void removeConfirmationMethods(Collection <ConfirmationMethod> confirmationMethods);
-    
+
+    public void removeConfirmationMethods(Collection<ConfirmationMethod> confirmationMethods);
+
     public void removeAllConfirmationMethods();
-    
+
     public void setSubjectConfirmationData(SubjectConfirmationData subjectConfirmationData) throws IllegalAddException;
-    
+
     public SubjectConfirmationData getSubjectConfirmationData();
 
     public KeyInfo getKeyInfo();
-    
+
     public void setKeyInfo(KeyInfo keyInfo);
 }

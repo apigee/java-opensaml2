@@ -161,6 +161,11 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.SubjectConfirmationDataUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:AuthenticationStatement">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AuthenticationStatementBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AuthenticationStatementMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AuthenticationStatementUnmarshaller" />
+        </ObjectProvider>
 
     </ObjectProviders>
 

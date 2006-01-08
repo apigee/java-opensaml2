@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
+
 package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
- * Interface to descibe how the anchor point SubjectStatement would work.
+ * Interface to define how a <code> AuthorityBinding  <\code> element behaves
  */
-public interface SubjectStatement extends SAMLObject, Statement {
+public interface AuthorityBinding extends SAMLObject {
 
     /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "SubjectStatement";
-    
-    public Subject getSubject();
-    
-    public void setSubject(Subject subject) throws IllegalAddException;
+    public final static String LOCAL_NAME = "AuthorityBinding";
+
 }
