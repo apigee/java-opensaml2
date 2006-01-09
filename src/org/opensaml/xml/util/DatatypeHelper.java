@@ -23,7 +23,14 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+/**
+ * Helper class for working with various datatypes.
+ */
 public class DatatypeHelper {
+    
+    /** Constant representing the UTC Timezone */
+    public final static int UTC_TIMEZONE = 0;
+    
     /** JAXP DatatypeFactory */
     private static DatatypeFactory dataTypeFactory;
 
@@ -124,7 +131,7 @@ public class DatatypeHelper {
         if (date != null) {
             XMLGregorianCalendar calendar = getDataTypeFactory().newXMLGregorianCalendar(date);
             calendar.normalize();
-            calendar.setTimezone(0);
+            calendar.setTimezone(timezone);
             return calendar.toXMLFormat();
         }
     
@@ -142,7 +149,7 @@ public class DatatypeHelper {
     public static GregorianCalendar stringToCalendar(String s, int timezone){
         XMLGregorianCalendar calendar = getDataTypeFactory().newXMLGregorianCalendar(s);
         calendar.normalize();
-        calendar.setTimezone(0);
+        calendar.setTimezone(timezone);
         return calendar.toGregorianCalendar();
     }
     
