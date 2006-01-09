@@ -25,6 +25,7 @@ import java.util.GregorianCalendar;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.AuthenticationStatement;
+import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
@@ -116,11 +117,17 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         
         assertNotNull("<Subject> element not present", authenticationStatement.getSubject());
         
-        // TODO 
-        /*
         assertNotNull("<SubjectLocality> element not present", authenticationStatement.getSubjectLocality());
         assertNotNull("<AuthorityBinding> elements not present", authenticationStatement.getAuthorityBindings());
         assertEquals("count of <AuthorityBinding> elements", 2, authenticationStatement.getAuthorityBindings().size());
+        
+        AuthorityBinding authorityBinding = authenticationStatement.getAuthorityBindings().get(0);
+        authenticationStatement.removeAuthorityBinding(authorityBinding);
+        assertEquals("count of <AuthorityBinding> elements", 1, authenticationStatement.getAuthorityBindings().size());
+        // TODO
+        /*
+        authenticationStatement.removeAllAuthorityBindings();
+        assertNull("<AuthorityBinding> not all rmeoved", authenticationStatement.getAuthorityBindings());
         */
     }
     /*
@@ -153,16 +160,14 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         
         try {
             authenticationStatement.setSubject(new SubjectImpl());
-            // TODO
-            /*
+            
             authenticationStatement.setSubjectLocality(new SubjectLocalityImpl());
-            authenticationStatement.addAuthorityBinding(new AuthorityBindingimpl());
-            authenticationStatement.addAuthorityBinding(new AuthorityBindingimpl());
-            */
+            authenticationStatement.addAuthorityBinding(new AuthorityBindingImpl());
+            authenticationStatement.addAuthorityBinding(new AuthorityBindingImpl());
         } catch (IllegalAddException e) {
             fail("threw IllegalAddException");
         }
-        //TODO assertEquals(expectedFullDOM, authenticationStatement);
+        assertEquals(expectedFullDOM, authenticationStatement);
     }
 }
 

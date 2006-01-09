@@ -234,6 +234,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      */
     public List<Statement> getAuthenticationStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME);
+
         return getStatements(statementQName);
     }
 
