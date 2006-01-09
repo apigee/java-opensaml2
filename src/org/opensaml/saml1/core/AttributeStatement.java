@@ -16,6 +16,9 @@
 
 package org.opensaml.saml1.core;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 
 /**
@@ -27,5 +30,18 @@ public interface AttributeStatement extends SAMLObject, SubjectStatement {
 
     public final static String LOCAL_NAME = "AttributeStatement";
 
-    // TODO fill out
+    /** Get all the subsiduary Attribute elements */
+    public List <Attribute> getAttributes();
+
+    /** Add an Attribute */
+    public void addAttribute(Attribute attribute);
+    
+    /** Remove an attribute */
+    public void removeAttribute(Attribute attribute);
+    
+    /** Remove several attributes */
+    public void removeAttributes(Collection<Attribute> attributes);
+    
+    /** Remove all attributes */
+    public void removeAllAttributes();
 }

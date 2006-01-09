@@ -167,6 +167,18 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.AuthenticationStatementUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:SubjectLocality">
+            <BuilderClass className="org.opensaml.saml1.core.impl.SubjectLocalityBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.SubjectLocalityMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.SubjectLocalityUnmarshaller" />
+        </ObjectProvider>
+
+        <ObjectProvider qualifiedName="saml:AuthorityBinding">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AuthorityBindingBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AuthorityBindingMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AuthorityBindingUnmarshaller" />
+        </ObjectProvider>
+
     </ObjectProviders>
 
 </OpenSAML>

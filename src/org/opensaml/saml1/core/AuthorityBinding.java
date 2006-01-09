@@ -29,5 +29,34 @@ public interface AuthorityBinding extends SAMLObject {
 
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "AuthorityBinding";
+    
+    /** Name for the AuthorityKind attribute  */
+    public final static String AUTHORITYKIND_ATTRIB_NAME = "AuthorityKind";
+    
+    /** Name for the Location attribute  */
+    public final static String LOCATION_ATTRIB_NAME = "Location";
+
+    /** Name for the Binding attribute  */
+    public final static String BINDING_ATTRIB_NAME = "Binding";
+
+    /** Getter for AuthorityKind */
+    public String getAuthorityKind();
+
+    /** Setter for AuthorityKind */
+    public void setAuthorityKind(String authorityKind);
+    
+    /** Getter for Location */
+    public String getLocation();
+
+    /** Setter for Location */
+    public void setLocation(String location);
+    
+    /** Getter for Binding */
+    public String getBinding();
+
+    /** Setter for Binding */
+    public void setBinding(String binding);
+    
+
 
 }

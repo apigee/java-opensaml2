@@ -77,7 +77,7 @@ public class AuthenticationStatementUnmarshaller extends AbstractSAMLObjectUnmar
                 }
             } 
         } catch (IllegalAddException e) {
-            log.error("Couldn't add " + childElement + " to Assertion", e);
+            log.error("Couldn't add " + childElement.getElementQName() + " to Assertion", e);
             throw new UnmarshallingException(e);
         }
     }

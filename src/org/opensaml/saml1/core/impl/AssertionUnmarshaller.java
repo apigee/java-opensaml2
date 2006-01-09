@@ -46,7 +46,6 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     /** Logger */
     private static Logger log = Logger.getLogger(AssertionUnmarshaller.class);
 
-
     /*
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
@@ -107,7 +106,7 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 throw new UnmarshallingException(n);
             }
         } else {
-            log.error(attributeName + " is not a supported attributed for Assertion objects");
+            log.error(attributeName + " is not a supported attribute for Assertion objects");
             if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName
                         + " is not a supported attributed for Assertion objects");

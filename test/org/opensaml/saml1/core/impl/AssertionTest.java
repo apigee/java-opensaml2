@@ -43,7 +43,6 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
     
     /**
      * Constructor
-     *
      */
     public AssertionTest() {
         super();

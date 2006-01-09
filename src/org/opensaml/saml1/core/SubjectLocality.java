@@ -30,4 +30,21 @@ public interface SubjectLocality extends SAMLObject {
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "SubjectLocality";
 
+    /** Name for the IPAddress attribute  */
+    public final static String IPADDRESS_ATTRIB_NAME = "IPAddress";
+
+    /** Name for the DNSAddress attribute  */
+    public final static String DNSADDRESS_ATTRIB_NAME = "DNSAddress";
+    
+    /** Getter for IPAddress */
+    public String getIPAddress();
+
+    /** Setter for IPAddress */
+    public void setIPAddress(String address);
+
+    /** Getter for DNSAddress */
+    public String getDNSAddress();
+
+    /** Setter for DNSAddress */
+    public void setDNSAddress(String address);
 }
