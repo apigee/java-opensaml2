@@ -185,6 +185,12 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.AttributeUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:AttributeValue">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AttributeValueBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AttributeValueMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AttributeValueUnmarshaller" />
+        </ObjectProvider>
+
     </ObjectProviders>
 
 </OpenSAML>

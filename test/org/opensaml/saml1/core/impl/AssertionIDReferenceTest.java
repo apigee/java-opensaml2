@@ -24,7 +24,7 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.saml1.core.AssertionIDReference;
 
 /**
- * 
+ * Test case for {@link org.opensaml.saml1.core.impl.AssertionIDReferenceImpl}
  */
 public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
 
