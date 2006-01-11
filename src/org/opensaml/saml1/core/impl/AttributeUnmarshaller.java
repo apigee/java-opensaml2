@@ -30,7 +30,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeValue;
-import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 

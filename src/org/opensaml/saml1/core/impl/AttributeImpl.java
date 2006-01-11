@@ -29,7 +29,6 @@ import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
-import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.IllegalAddException;
 
 /**

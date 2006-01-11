@@ -19,9 +19,12 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import java.util.ArrayList;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Attribute;
+import org.opensaml.saml1.core.AttributeStatement;
 import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -29,30 +32,22 @@ import org.xml.sax.InputSource;
 /**
  *
  */
-public class AttributeTest extends SAMLObjectBaseTestCase {
+public class AttributeStatementTest extends SAMLObjectBaseTestCase {
 
-    /** A file with sub elements */
+    /** File with the AuthenticationStatementMethod with children */ 
     private String fullElementsFile;
     
-    /** The DOM of an element with subelements */
+    /** The DOM to hold the AuthenticationStatementMethod with children */ 
     private Document expectedFullDOM;
-    
-    /** Value from test file */
-    private final String expectedAttributeName;
-    
-    /** Value from test file */
-    private final String expectedAttributeNamespace;
     
     /**
      * Constructor
      */
-    public AttributeTest() {
+    public AttributeStatementTest() {
         super();
-        singleElementFile = "/data/org/opensaml/saml1/singleAttribute.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AttributeWithChildren.xml";
-        expectedAttributeName = "AttributeName";
-        expectedAttributeNamespace = "namespace";
+        singleElementFile = "/data/org/opensaml/saml1/singleAttributeStatement.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeStatement.xml";
+        fullElementsFile = "/data/org/opensaml/saml1/AttributeStatementWithChildren.xml";
     }
 
     /*
@@ -73,11 +68,10 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementUnmarshall() {
-        Attribute attribute = (Attribute) unmarshallElement(singleElementFile);
-
-        assertNull("AttributeName", attribute.getAttributeName());
-        assertNull("AttributeNamespace", attribute.getAttributeNamespace());
-        assertNull("<AttributeValue> subelement found", attribute.getAttributeValues());
+        AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(singleElementFile);
+        
+        assertNull("<Subject> element present", attributeStatement.getSubject());
+        assertNull("Non zero count of <Attribute> elements", attributeStatement.getAttributes());
     }
 
     /*
@@ -85,10 +79,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
-        Attribute attribute = (Attribute) unmarshallElement(singleElementOptionalAttributesFile);
-
-        assertEquals("AttributeName", expectedAttributeName, attribute.getAttributeName());
-        assertEquals("AttributeNamespace", expectedAttributeNamespace, attribute.getAttributeNamespace());
+        // No Attributes
     }
 
     /**
@@ -96,18 +87,31 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
 
     public void testFullElementsUnmarshall() {
-        Attribute attribute = (Attribute) unmarshallElement(fullElementsFile);
+        AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(fullElementsFile);
         
-        assertNotNull("<AttributeValue> subelement not found", attribute.getAttributeValues());
-        assertEquals("Number of <AttributeValue> subelement not found", 4, attribute.getAttributeValues().size());
-        // TODO RemoveAllXXX
+        assertNotNull("<Subject> element not present", attributeStatement.getSubject());
+        assertNotNull("<AuthorityBinding> elements not present", attributeStatement.getAttributes());
+        assertEquals("count of <AuthorityBinding> elements", 5, attributeStatement.getAttributes().size());
+        
+        Attribute attribute = attributeStatement.getAttributes().get(0);
+        attributeStatement.removeAttribute(attribute);
+        assertEquals("count of <AttributeStatement> elements after single remove", 4, attributeStatement.getAttributes().size());
+
+        ArrayList <Attribute> list = new ArrayList<Attribute>(2);
+
+        list.add(attributeStatement.getAttributes().get(0));
+        list.add(attributeStatement.getAttributes().get(2));
+
+        attributeStatement.removeAttributes(list);
+
+        assertEquals("count of <AttributeStatement> elements after double remove", 2, attributeStatement.getAttributes().size());
     }
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AttributeImpl());
+        assertEquals(expectedDOM, new AttributeStatementImpl());
     }
 
     /*
@@ -115,30 +119,28 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-       Attribute attribute = new AttributeImpl();
-       
-       attribute.setAttributeName(expectedAttributeName);
-       attribute.setAttributeNamespace(expectedAttributeNamespace);
-       assertEquals(expectedOptionalAttributesDOM, attribute);
+        // No attributes
     }
-
+    
     /**
      * Test an XML file with Children
      */
     
     public void testFullElementsMarshall() {
-        Attribute attribute = new AttributeImpl();
-        
+
+        AttributeStatement attributeStatement = new AttributeStatementImpl();
+
         try {
-            attribute.addAttributeValue(new AttributeValueImpl());
-            attribute.addAttributeValue(new AttributeValueImpl());
-            attribute.addAttributeValue(new AttributeValueImpl());
-            attribute.addAttributeValue(new AttributeValueImpl());
+            attributeStatement.setSubject(new SubjectImpl());
+        
+            for (int i = 0; i < 5; i++) {
+                attributeStatement.addAttribute(new AttributeImpl());
+            }
         } catch (IllegalAddException e) {
-            fail("threw IllegalAddException");
+            fail("IllegaleAddException thrown");
         }
-
-        // TODO assertEquals(expectedFullDOM, assertion);
+        assertEquals(expectedFullDOM, attributeStatement);
     }
-
 }
+
+    

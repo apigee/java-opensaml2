@@ -124,7 +124,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         AuthorityBinding authorityBinding = authenticationStatement.getAuthorityBindings().get(0);
         authenticationStatement.removeAuthorityBinding(authorityBinding);
         assertEquals("count of <AuthorityBinding> elements", 1, authenticationStatement.getAuthorityBindings().size());
-        // TODO
+        // TODO RemoveAllXXX
         /*
         authenticationStatement.removeAllAuthorityBindings();
         assertNull("<AuthorityBinding> not all rmeoved", authenticationStatement.getAuthorityBindings());

@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * This interface defines how the object representing a SAML 1 <code> AttributeStatement </code> element behaves.
@@ -27,14 +28,14 @@ import org.opensaml.common.SAMLObject;
 public interface AttributeStatement extends SAMLObject, SubjectStatement {
 
     /** Element name, no namespace. */
-
     public final static String LOCAL_NAME = "AttributeStatement";
 
     /** Get all the subsiduary Attribute elements */
     public List <Attribute> getAttributes();
 
-    /** Add an Attribute */
-    public void addAttribute(Attribute attribute);
+    /** Add an Attribute 
+     * @throws IllegalAddException */
+    public void addAttribute(Attribute attribute) throws IllegalAddException;
     
     /** Remove an attribute */
     public void removeAttribute(Attribute attribute);

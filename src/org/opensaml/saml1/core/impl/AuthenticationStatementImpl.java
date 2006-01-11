@@ -38,7 +38,7 @@ import org.opensaml.xml.IllegalAddException;
 /**
  * A Concrete implementation of the {@link org.opensaml.saml1.core.AuthenticationStatement} Interface
  */
-public class AuthenticationStatementImpl extends AbstractSAMLObject implements AuthenticationStatement {
+public class AuthenticationStatementImpl extends SubjectStatementImpl implements AuthenticationStatement {
 
     /** Contains the AuthenticationMethod attribute contents */
     private String authenticationMethod;
@@ -51,9 +51,6 @@ public class AuthenticationStatementImpl extends AbstractSAMLObject implements A
 
     /** Contains the AuthorityBinding subelements */
     private final List<AuthorityBinding> authorityBindings;
-
-    /** Contains the Subject subelement */
-    private Subject subject;
 
     /**
      * Constructor
@@ -94,24 +91,6 @@ public class AuthenticationStatementImpl extends AbstractSAMLObject implements A
      */
     public void setAuthenticationInstant(GregorianCalendar authenticationInstant) {
         this.authenticationInstant = prepareForAssignment(this.authenticationInstant, authenticationInstant);
-    }
-
-    //
-    // Inherited Elements
-    //
-
-    /*
-     * @see org.opensaml.saml1.core.SubjectStatement#getSubject()
-     */
-    public Subject getSubject() {
-        return subject;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.SubjectStatement#setSubject(org.opensaml.saml1.core.Subject)
-     */
-    public void setSubject(Subject subject) throws IllegalAddException {
-        this.subject = prepareForAssignment(this.subject, subject);
     }
 
     //
@@ -181,8 +160,8 @@ public class AuthenticationStatementImpl extends AbstractSAMLObject implements A
     public List<SAMLObject> getOrderedChildren() {
         List<SAMLObject> list = new ArrayList<SAMLObject>(authorityBindings.size() + 2);
 
-        if (subject != null) {
-            list.add(subject);
+        if (getSubject() != null) {
+            list.add(getSubject());
         }
 
         if (subjectLocality != null) {

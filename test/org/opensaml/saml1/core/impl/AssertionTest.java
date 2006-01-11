@@ -129,12 +129,10 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         
         assertNotNull("No Authentication Statements", assertion.getAuthenticationStatements());
         assertEquals("AuthenticationStatements element count", 2, assertion.getAuthenticationStatements().size());
-        
-        // TODO AttributeStatements
- /*       
+               
         assertNotNull("No Attribute Statements", assertion.getAttributeStatements());
         assertEquals("AttributeStatements element count", 3, assertion.getAttributeStatements().size());
- */       
+       
         //      TODO AuthorizationDecisionStatements
  /*       
         assertNotNull("No AuthorizationDecisionStatements ",  assertion.getAuthorizationDecisionStatements());
@@ -176,16 +174,16 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         try {
             assertion.setConditions(new ConditionsImpl());
             assertion.setAdvice(new AdviceImpl());
-            // TODO AuthorizationDecisionStatements AttributeStatements
+            // TODO AuthorizationDecisionStatement
 
             assertion.addStatement(new AuthenticationStatementImpl());
             //assertion.addAuthorizationDecisionStatement(new AuthorizationDecisionStatementImpl());
-            //assertion.addAttributeStatement(new AttributeStatementImpl());
+            assertion.addStatement(new AttributeStatementImpl());
             assertion.addStatement(new AuthenticationStatementImpl());
             //assertion.addAuthorizationDecisionStatement(new AuthorizationDecisionStatementImpl());
-            //assertion.addAttributeStatement(new AttributeStatementImpl());
+            assertion.addStatement(new AttributeStatementImpl());
             //assertion.addAuthorizationDecisionStatement(new AuthorizationDecisionStatementImpl());
-           // assertion.addAttributeStatement(new AttributeStatementImpl());
+            assertion.addStatement(new AttributeStatementImpl());
         } catch (IllegalAddException e) {
             fail("threw IllegalAddException");
         }
