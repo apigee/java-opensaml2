@@ -21,7 +21,7 @@ import org.opensaml.common.SAMLObject;
 /**
  * This interface defines how the object representing a SAML 1 <code> AttributeValue </code> element behaves.
  */
-public interface AttributeValue extends SAMLObject {
+public interface AttributeValue extends SAMLObject  {
 
     /** Element name, no namespace. */
 

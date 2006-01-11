@@ -37,14 +37,22 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     /** The DOM of an element with subelements */
     private Document expectedFullDOM;
     
+    /** Value from test file */
+    private final String expectedAttributeName;
+    
+    /** Value from test file */
+    private final String expectedAttributeNamespace;
+    
     /**
      * Constructor
      */
     public AttributeTest() {
         super();
         singleElementFile = "/data/org/opensaml/saml1/singleAttribute.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttribute.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeAttributes.xml";
         fullElementsFile = "/data/org/opensaml/saml1/AttributeWithChildren.xml";
+        expectedAttributeName = "AttributeName";
+        expectedAttributeNamespace = "namespace";
     }
 
     /*
@@ -66,8 +74,9 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementUnmarshall() {
         Attribute attribute = (Attribute) unmarshallElement(singleElementFile);
-        
-        assertNull("<Subject> subelement found", attribute.getSubject());
+
+        assertNull("AttributeName", attribute.getAttributeName());
+        assertNull("AttributeNamespace", attribute.getAttributeNamespace());
         assertNull("<AttributeValue> subelement found", attribute.getAttributeValues());
     }
 
@@ -76,7 +85,10 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
-        // No attributes to test
+        Attribute attribute = (Attribute) unmarshallElement(singleElementOptionalAttributesFile);
+
+        assertEquals("AttributeName", expectedAttributeName, attribute.getAttributeName());
+        assertEquals("AttributeNamespace", expectedAttributeNamespace, attribute.getAttributeNamespace());
     }
 
     /**
@@ -86,12 +98,9 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     public void testFullElementsUnmarshall() {
         Attribute attribute = (Attribute) unmarshallElement(fullElementsFile);
         
-        assertNotNull("<Subject> subelement not found", attribute.getSubject());
-        //TODO
-        /*
         assertNotNull("<AttributeValue> subelement not found", attribute.getAttributeValues());
-        assertEquals("Number of <AttributeValue> subelement not found", 4, attribute.getAttributeValues());
-        */
+        assertEquals("Number of <AttributeValue> subelement not found", 4, attribute.getAttributeValues().size());
+        // TODO Add some delete tests
     }
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
@@ -106,7 +115,11 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        // No attributes
+       Attribute attribute = new AttributeImpl();
+       
+       attribute.setAttributeName(expectedAttributeName);
+       attribute.setAttributeNamespace(expectedAttributeNamespace);
+       assertEquals(expectedOptionalAttributesDOM, attribute);
     }
 
     /**
@@ -117,14 +130,10 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         Attribute attribute = new AttributeImpl();
         
         try {
-            attribute.setSubject(new SubjectImpl());
-            // TODO
-            /*
             attribute.addAttributeValue(new AttributeValueImpl());
             attribute.addAttributeValue(new AttributeValueImpl());
             attribute.addAttributeValue(new AttributeValueImpl());
             attribute.addAttributeValue(new AttributeValueImpl());
-            */
         } catch (IllegalAddException e) {
             fail("threw IllegalAddException");
         }

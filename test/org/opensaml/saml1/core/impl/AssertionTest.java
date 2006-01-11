@@ -126,11 +126,20 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         
         assertNotNull("Conditions element null", assertion.getConditions());
         assertNotNull("Advice element null", assertion.getAdvice());
-        // TODO
         
-        //assertEquals("AttributeStatements element count", 3, assertion.getAttributeStatements().size());
+        assertNotNull("No Authentication Statements", assertion.getAuthenticationStatements());
         assertEquals("AuthenticationStatements element count", 2, assertion.getAuthenticationStatements().size());
-        //assertEquals("AuthorizationDecisionStatements element count", 3, assertion.getAuthorizationDecisionStatements().size());
+        
+        // TODO AttributeStatements
+ /*       
+        assertNotNull("No Attribute Statements", assertion.getAttributeStatements());
+        assertEquals("AttributeStatements element count", 3, assertion.getAttributeStatements().size());
+ */       
+        //      TODO AuthorizationDecisionStatements
+ /*       
+        assertNotNull("No AuthorizationDecisionStatements ",  assertion.getAuthorizationDecisionStatements());
+        assertEquals("AuthorizationDecisionStatements element count", 3, assertion.getAuthorizationDecisionStatements().size());
+        */
     }
     
     /*
@@ -167,18 +176,16 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         try {
             assertion.setConditions(new ConditionsImpl());
             assertion.setAdvice(new AdviceImpl());
-            // TODO
-            //assertion.addStatement(new StatementImpl());
-            //assertion.addSubjectStatement(new SubjectStatementImpl());
+            // TODO AuthorizationDecisionStatements AttributeStatements
+
             assertion.addStatement(new AuthenticationStatementImpl());
             //assertion.addAuthorizationDecisionStatement(new AuthorizationDecisionStatementImpl());
             //assertion.addAttributeStatement(new AttributeStatementImpl());
-            //assertion.addSubjectStatement(new SubjectStatementImpl());
             assertion.addStatement(new AuthenticationStatementImpl());
             //assertion.addAuthorizationDecisionStatement(new AuthorizationDecisionStatementImpl());
             //assertion.addAttributeStatement(new AttributeStatementImpl());
             //assertion.addAuthorizationDecisionStatement(new AuthorizationDecisionStatementImpl());
-            //assertion.addAttributeStatement(new AttributeStatementImpl());
+           // assertion.addAttributeStatement(new AttributeStatementImpl());
         } catch (IllegalAddException e) {
             fail("threw IllegalAddException");
         }

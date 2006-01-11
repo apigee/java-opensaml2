@@ -26,7 +26,7 @@ import org.opensaml.xml.IllegalAddException;
 /**
  * This interface defines how the object representing a SAML 1 <code> Attribute </code> element behaves.
  */
-public interface Attribute extends SAMLObject, SubjectStatement {
+public interface Attribute extends SAMLObject, AttributeDesignator {
 
     /** Element name, no namespace. */
 

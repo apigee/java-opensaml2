@@ -23,6 +23,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
+import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
@@ -42,6 +43,14 @@ public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
      * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        // No attributes
+        Attribute attribute = (Attribute) samlElement;
+        
+        if (attribute.getAttributeName() != null) {
+            domElement.setAttribute(AttributeDesignator.ATTRIBUTENAME_ATTRIB_NAME, attribute.getAttributeName());
+        }
+        
+        if (attribute.getAttributeNamespace() != null) {
+            domElement.setAttribute(AttributeDesignator.ATTRIBUTENAMESPACE_ATTRIB_NAME, attribute.getAttributeNamespace());
+        }
     }
 }

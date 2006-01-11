@@ -21,7 +21,9 @@ package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
+import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -79,13 +81,10 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      * Test an XML file with children
      */
     public void testFullElementsUnmarshall() {
-        // TODO Add in when NameIdentifier &  SubjectConfirmation done
-
         Subject subject = (Subject) unmarshallElement(fullElementsFile);
         
         assertNotNull("Zero child NameIdentifier elements", subject.getNameIdentifier());
-        /*assertEquals("Zero child SubjectConfirmation elements", subject.getSubjectConfirmation());
-        */
+        assertNotNull("Zero child SubjectConfirmation elements", subject.getSubjectConfirmation());
     }
     
     /*
@@ -109,17 +108,14 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      */
     
     public void testFullElementsMarshall() {
-        // TODO Add in when SubjectConfirmation done
-        
         Subject subject = new SubjectImpl();
               
         try {
             subject.setNameIdentifier(new NameIdentifierImpl());
-        //    subject.setSubjectConfirmation(new SubjectConfirmationImpl());
+            subject.setSubjectConfirmation(new SubjectConfirmationImpl());
         } catch (IllegalAddException e) {
             fail("Threw a IllegalAddException ");
         }
-        //assertEquals(expectedFullDOM, subject);
-        
+        assertEquals(expectedFullDOM, subject);
     }
 }

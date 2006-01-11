@@ -44,4 +44,5 @@ public interface AttributeStatement extends SAMLObject, SubjectStatement {
     
     /** Remove all attributes */
     public void removeAllAttributes();
+    
 }

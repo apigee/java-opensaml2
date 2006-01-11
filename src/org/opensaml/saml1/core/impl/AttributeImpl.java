@@ -39,9 +39,16 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
 
     /** Contains the AttributeValues */
     private final List <AttributeValue> attributeValues;
+   
+    /** Contains the AttributeName */
+    private String attributeName;
+    
+    /** Contains the AttributeNamespace */
+    private String attributeNamespace;
+    
     
     /** Contains the Subject subelement */
-    private Subject subject;
+    //private Subject subject;
 
    /**
      * Constructor
@@ -52,6 +59,30 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
         attributeValues = new ArrayList<AttributeValue>();
     }
 
+    //
+    // ATTRIBUTES
+    //
+    
+    public String getAttributeName() {
+        return attributeName;
+    }
+
+    public void setAttributeName(String attributeName) {
+        this.attributeName = prepareForAssignment(this.attributeName, attributeName);
+    }
+
+    public String getAttributeNamespace() {
+        return attributeNamespace;
+    }
+
+    public void setAttributeNamespace(String attributeNamespace) {
+        this.attributeNamespace = prepareForAssignment(this.attributeNamespace, attributeNamespace);
+    }
+
+    //
+    // ELEMENTS
+    //
+    
     /*
      * @see org.opensaml.saml1.core.Attribute#getAttributeValues()
      */
@@ -93,34 +124,20 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
             removeXMLObject(attributeValues, attributeValue);
         }
     }
-    /*
-     * @see org.opensaml.saml1.core.SubjectStatement#getSubject()
-     */
-    public Subject getSubject() {
-        return subject;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.SubjectStatement#setSubject(org.opensaml.saml1.core.Subject)
-     */
-    public void setSubject(Subject subject) throws IllegalAddException {
-        this.subject = prepareForAssignment(this.subject, subject);
-    }
 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
 
-        List<SAMLObject> list = new ArrayList<SAMLObject>(attributeValues.size() + 1);
-        if (subject != null) {
-            list.add(subject);
-        }
-        list.addAll(attributeValues);
-        if (list.size() == 0) {
+        if (attributeValues.size() == 0) {
             return null;
         }
+
+        List<SAMLObject> list = new ArrayList<SAMLObject>(attributeValues.size() + 1);
+        list.addAll(attributeValues);
         return Collections.unmodifiableList(list);
     }
+
 
 }

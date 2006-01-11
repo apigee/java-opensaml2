@@ -79,8 +79,6 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
      * Test an XML file with children
      */
     public void testFullElementsUnmarshall() {
-        // TODO Add in when ConfirmationMethod &  SubjectConfirmationData done
-
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) unmarshallElement(fullElementsFile);
 
         assertNotNull("Zero child ConfirmationMethods elements", subjectConfirmation.getConfirmationMethods());
@@ -109,8 +107,6 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
      */
     
     public void testFullElementsMarshall() {
-        // TODO Add in when ConfirmationMethod &  SubjectConfirmationData done
-        
         SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl();
               
         try {

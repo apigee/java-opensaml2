@@ -28,6 +28,7 @@ import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
+import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeValue;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.IllegalAddException;
@@ -61,9 +62,7 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         attribute = (Attribute) parentElement;
 
         try {
-            if (childElement instanceof Subject) {
-                attribute.setSubject((Subject) childElement);
-            } else if (childElement instanceof AttributeValue) {
+            if (childElement instanceof AttributeValue) {
                 attribute.addAttributeValue((AttributeValue) childElement);
             } else {
                 log.error(childElement.getElementQName()
@@ -86,11 +85,19 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        log.error(attributeName
-                + " is not a supported attributed for Attribute objects");
-        if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName
+        Attribute attribute = (Attribute) samlElement;
+        
+        if (AttributeDesignator.ATTRIBUTENAME_ATTRIB_NAME.equals(attributeName)) {
+            attribute.setAttributeName(attributeValue);
+        } else if (AttributeDesignator.ATTRIBUTENAMESPACE_ATTRIB_NAME.equals(attributeName)) {
+            attribute.setAttributeNamespace(attributeValue);
+        } else {
+            log.error(attributeName
                     + " is not a supported attributed for Attribute objects");
+            if (!SAMLConfig.ignoreUnknownAttributes()) {
+                throw new UnknownAttributeException(attributeName
+                        + " is not a supported attributed for Attribute objects");
+            }
         }
     }
 }
