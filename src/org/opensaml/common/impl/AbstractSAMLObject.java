@@ -52,4 +52,11 @@ public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXML
     protected void setSAMLVersion(SAMLVersion version) {
         this.version = version;
     }
+    
+    /*
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    public final boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }
