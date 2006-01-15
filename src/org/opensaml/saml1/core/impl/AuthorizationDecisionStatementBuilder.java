@@ -17,17 +17,21 @@
 /**
  * 
  */
-
-package org.opensaml.saml1.core;
+package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * This interface describes how a object representing a SAML1 <code> Condition </code> element will behave.
+ * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.AuthorizationDecisionStatementImpl} Object 
  */
-public interface Condition extends SAMLObject {
+public class AuthorizationDecisionStatementBuilder implements SAMLObjectBuilder {
 
-    /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "Condition";
+    /*
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     */
+    public SAMLObject buildObject() {
+        return new AuthorizationDecisionStatementImpl();
+    }
 
 }

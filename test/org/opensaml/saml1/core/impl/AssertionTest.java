@@ -133,11 +133,8 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertNotNull("No Attribute Statements", assertion.getAttributeStatements());
         assertEquals("AttributeStatements element count", 3, assertion.getAttributeStatements().size());
        
-        //      TODO AuthorizationDecisionStatements
- /*       
         assertNotNull("No AuthorizationDecisionStatements ",  assertion.getAuthorizationDecisionStatements());
         assertEquals("AuthorizationDecisionStatements element count", 3, assertion.getAuthorizationDecisionStatements().size());
-        */
     }
     
     /*
@@ -174,20 +171,19 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         try {
             assertion.setConditions(new ConditionsImpl());
             assertion.setAdvice(new AdviceImpl());
-            // TODO AuthorizationDecisionStatement
 
             assertion.addStatement(new AuthenticationStatementImpl());
-            //assertion.addAuthorizationDecisionStatement(new AuthorizationDecisionStatementImpl());
+            assertion.addStatement(new AuthorizationDecisionStatementImpl());
             assertion.addStatement(new AttributeStatementImpl());
             assertion.addStatement(new AuthenticationStatementImpl());
-            //assertion.addAuthorizationDecisionStatement(new AuthorizationDecisionStatementImpl());
+            assertion.addStatement(new AuthorizationDecisionStatementImpl());
             assertion.addStatement(new AttributeStatementImpl());
-            //assertion.addAuthorizationDecisionStatement(new AuthorizationDecisionStatementImpl());
+            assertion.addStatement(new AuthorizationDecisionStatementImpl());
             assertion.addStatement(new AttributeStatementImpl());
         } catch (IllegalAddException e) {
             fail("threw IllegalAddException");
         }
 
-        // TODO assertEquals(expectedFullDOM, assertion);
+        assertEquals(expectedFullDOM, assertion);
     }   
 }

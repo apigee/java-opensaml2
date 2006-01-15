@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.SubjectStatement;
 import org.opensaml.xml.IllegalAddException;
 
 /**
- *
+ * Abstract type to implement SubjectStatementType
  */
 public abstract class SubjectStatementImpl extends AbstractSAMLObject implements SubjectStatement {
 

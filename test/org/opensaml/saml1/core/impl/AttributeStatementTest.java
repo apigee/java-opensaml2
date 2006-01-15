@@ -137,7 +137,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
                 attributeStatement.addAttribute(new AttributeImpl());
             }
         } catch (IllegalAddException e) {
-            fail("IllegaleAddException thrown");
+            fail("Illegale AddException thrown");
         }
         assertEquals(expectedFullDOM, attributeStatement);
     }

@@ -17,17 +17,17 @@
 /**
  * 
  */
-
 package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
 
 /**
- * This interface describes how a object representing a SAML1 <code> Condition </code> element will behave.
+ * Interface describing how a SAML1.1 <code> Evidence </code> element behaves
  */
-public interface Condition extends SAMLObject {
+public interface Evidence extends SAMLObject {
 
     /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "Condition";
+    public final static String LOCAL_NAME = "Evidence";
+
 
 }

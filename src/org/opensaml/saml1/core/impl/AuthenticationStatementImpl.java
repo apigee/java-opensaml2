@@ -27,11 +27,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
-import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectLocality;
 import org.opensaml.xml.IllegalAddException;
 

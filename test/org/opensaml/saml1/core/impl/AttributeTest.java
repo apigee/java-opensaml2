@@ -138,7 +138,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
             fail("threw IllegalAddException");
         }
 
-        // TODO assertEquals(expectedFullDOM, assertion);
+        assertEquals(expectedFullDOM, attribute);
     }
 
 }

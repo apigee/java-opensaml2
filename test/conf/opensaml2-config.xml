@@ -205,6 +205,12 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.AttributeStatementUnmarshaller" />
         </ObjectProvider>
 
+        <ObjectProvider qualifiedName="saml:AuthorizationDecisionStatement">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AuthorizationDecisionStatementBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AuthorizationDecisionStatementMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AuthorizationDecisionStatementUnmarshaller" />
+        </ObjectProvider>
+
     </ObjectProviders>
 
 </OpenSAML>

@@ -35,7 +35,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
- * {@link org.opensaml.saml1.core.Attribute} objects.
+ * {@link org.opensaml.saml1.core.impl.AttributeImpl} objects.
  */
 public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -72,7 +72,7 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 }
             }
         } catch (IllegalAddException e) {
-            log.error("couldnt add elements", e);
+            log.error("Couldn't add element " + childElement.getElementQName(), e);
             throw new UnmarshallingException(e);
         }
     }
