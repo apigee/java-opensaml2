@@ -17,31 +17,21 @@
 /**
  * 
  */
-package org.opensaml.saml1.core;
+package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * Interface describing how a SAML1.1 <code> Action </code> element behaves
+ * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.ActionImpl} Object 
  */
-public interface Action extends SAMLObject {
+public class ActionBuilder implements SAMLObjectBuilder {
 
-    /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "Action";
+    /*
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     */
+    public SAMLObject buildObject() {
+        return new ActionImpl();
+    }
 
-    /** Name for the Namespace attribute */
-    public final static String NAMESPACEATTRIB_NAME = "Namespace";
-    
-    /** Return the value of Namespace */
-    public String getNamespace();
-    
-    /** Set the value of Namespace */
-    public void setNamespace(String namespace);
-    
-    /** Return the contents */
-    public String getContents();
-    
-    /** Set the contents */
-    public void setContents(String contents);
-    
 }

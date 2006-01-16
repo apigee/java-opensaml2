@@ -26,23 +26,23 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.SubjectLocality;
+import org.opensaml.saml1.core.Action;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectLocality} objects.
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Action} objects.
  */
-public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+    
+    /** Logger */
+    private static Logger log = Logger.getLogger(ActionUnmarshaller.class);
 
     /**
      * Constructor
      */
-    public SubjectLocalityUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, SubjectLocality.LOCAL_NAME);
+    public ActionUnmarshaller() {
+        super(SAMLConstants.SAML1_NS, Action.LOCAL_NAME);
     }
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(SubjectLocalityUnmarshaller.class);
 
     /*
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
@@ -50,11 +50,11 @@ public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller 
     @Override
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
-
-        log.error(childElement.getElementQName() + " is not a supported element for SubjectLocality objects");
+        
+        log.error(childElement.getElementQName() + " is not a supported element for Action objects");
         if (!SAMLConfig.ignoreUnknownElements()) {
             throw new UnknownElementException(childElement.getElementQName()
-                    + " is not a supported element for SubjectLocality objects");
+                    + " is not a supported element for Action objects");
         }
     }
 
@@ -65,19 +65,24 @@ public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller 
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        SubjectLocality subjectLocality = (SubjectLocality) samlElement;
-        
-        if (SubjectLocality.DNSADDRESS_ATTRIB_NAME.equals(attributeName)) {
-            subjectLocality.setDNSAddress(attributeValue);
-        } else if (SubjectLocality.IPADDRESS_ATTRIB_NAME.equals(attributeName)) {
-            subjectLocality.setIPAddress(attributeValue);
+        if (Action.NAMESPACEATTRIB_NAME.equals(attributeName)) {
+            Action action = (Action) samlElement;
+            action.setNamespace(attributeValue);
         } else {
-            log.error(attributeName + " is not supported attribute for SubjectLocalilty");
+            log.error(attributeName + " is not a supported attribute for Action objects");
             if (!SAMLConfig.ignoreUnknownAttributes()) {
                 throw new UnknownAttributeException(attributeName
-                        + " is not a supported attribute for SubjectLocalilty objects");
+                        + " is not a supported attributed for Action objects");
             }
         }
     }
 
+    /*
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+     *      java.lang.String)
+     */
+    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
+        Action action = (Action) samlElement;
+        action.setContents(elementContent);
+    }
 }

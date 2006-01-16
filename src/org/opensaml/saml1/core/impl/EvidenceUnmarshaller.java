@@ -26,23 +26,26 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.SubjectLocality;
+import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.saml1.core.Evidence;
+import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectLocality} objects.
+ * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Evidence} objects.
  */
-public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+
+    /** Logger */
+    private static Logger log = Logger.getLogger(EvidenceUnmarshaller.class);
 
     /**
      * Constructor
      */
-    public SubjectLocalityUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, SubjectLocality.LOCAL_NAME);
+    public EvidenceUnmarshaller() {
+        super(SAMLConstants.SAML1_NS, Evidence.LOCAL_NAME);
     }
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(SubjectLocalityUnmarshaller.class);
 
     /*
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
@@ -51,10 +54,22 @@ public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller 
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
 
-        log.error(childElement.getElementQName() + " is not a supported element for SubjectLocality objects");
-        if (!SAMLConfig.ignoreUnknownElements()) {
-            throw new UnknownElementException(childElement.getElementQName()
-                    + " is not a supported element for SubjectLocality objects");
+        Evidence evidence = (Evidence) parentElement;
+        try {
+            if (childElement instanceof AssertionIDReference) {
+                evidence.setAssertionIDReference((AssertionIDReference) childElement);
+            } else if (childElement instanceof Assertion) {
+                evidence.setAssertion((Assertion) childElement);
+            } else {
+                log.error(childElement.getElementQName() + " is not a supported element for Evidence objects");
+                if (!SAMLConfig.ignoreUnknownElements()) {
+                    throw new UnknownElementException(childElement.getElementQName()
+                            + " is not a supported element for Evidence objects");
+                }
+            }
+        } catch (IllegalAddException e) {
+            log.error("Could not add " + childElement.getElementQName() + " to Evidence");
+            throw new UnmarshallingException("Could not add " + childElement.getElementQName() + " to Evidence", e);
         }
     }
 
@@ -65,19 +80,12 @@ public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller 
     protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        SubjectLocality subjectLocality = (SubjectLocality) samlElement;
-        
-        if (SubjectLocality.DNSADDRESS_ATTRIB_NAME.equals(attributeName)) {
-            subjectLocality.setDNSAddress(attributeValue);
-        } else if (SubjectLocality.IPADDRESS_ATTRIB_NAME.equals(attributeName)) {
-            subjectLocality.setIPAddress(attributeValue);
-        } else {
-            log.error(attributeName + " is not supported attribute for SubjectLocalilty");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attribute for SubjectLocalilty objects");
-            }
+        // No attributes
+
+        log.error(attributeName + " is not a supported attribute for Evidence objects");
+        if (!SAMLConfig.ignoreUnknownAttributes()) {
+            throw new UnknownAttributeException(attributeName
+                    + " is not a supported attributed for Evidence objects");
         }
     }
-
 }

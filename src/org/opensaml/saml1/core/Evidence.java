@@ -20,6 +20,7 @@
 package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.IllegalAddException;
 
 /**
  * Interface describing how a SAML1.1 <code> Evidence </code> element behaves
@@ -29,5 +30,19 @@ public interface Evidence extends SAMLObject {
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "Evidence";
 
-
+    /** Get the AssertionIdReference */
+    public AssertionIDReference getAssertionIDReference();
+    
+    /** Set the AssertionIdReference 
+     * @throws IllegalAddException */
+    public void setAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalAddException;
+    
+    /** Get the Assertion */
+    public Assertion getAssertion();
+    
+    /** Set the Assertion 
+     * @throws IllegalAddException */
+    public void setAssertion(Assertion assertion) throws IllegalAddException;
+    
+    
 }
