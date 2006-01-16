@@ -31,7 +31,7 @@ import org.opensaml.saml1.core.DoNotCacheCondition;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.DoNotCacheCondition}
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.DoNotCacheCondition}
  * objects.
  */
 public class DoNotCacheConditionUnmarshaller extends AbstractSAMLObjectUnmarshaller {

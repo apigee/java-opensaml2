@@ -23,7 +23,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.EvidenceImpl} Object 
+ * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.EvidenceImpl} Object 
  */
 public class EvidenceBuilder implements SAMLObjectBuilder {
 

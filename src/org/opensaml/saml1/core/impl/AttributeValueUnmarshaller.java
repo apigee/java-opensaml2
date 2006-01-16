@@ -31,7 +31,7 @@ import org.opensaml.saml1.core.AttributeValue;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- *  A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.AttributeValue} Objects
+ *  A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AttributeValue} Objects
  */
 public class AttributeValueUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

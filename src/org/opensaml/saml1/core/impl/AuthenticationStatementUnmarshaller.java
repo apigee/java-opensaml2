@@ -38,7 +38,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
- *A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthenticationStatement} objects.
+ *A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthenticationStatement} objects.
  */
 public class AuthenticationStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

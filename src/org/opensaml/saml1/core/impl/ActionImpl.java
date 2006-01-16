@@ -27,7 +27,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 
 /**
- * Concrete implementation of {@list org.opensaml.saml1.core.Action}
+ * Concrete implementation of {@link org.opensaml.saml1.core.Action}
  */
 public class ActionImpl extends AbstractSAMLObject implements Action {
 

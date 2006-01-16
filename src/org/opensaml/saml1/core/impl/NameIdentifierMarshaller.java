@@ -56,7 +56,7 @@ public class NameIdentifierMarshaller extends AbstractSAMLObjectMarshaller {
     }
     
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
     protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {

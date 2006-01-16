@@ -23,7 +23,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * Class which just exists to create {@link org.opensaml.saml1.core.impl.AttributeValue} objects
+ * Class which just exists to create {@link org.opensaml.saml1.core.impl.AttributeValueImpl} objects
  */
 public class AttributeValueBuilder implements SAMLObjectBuilder {
 

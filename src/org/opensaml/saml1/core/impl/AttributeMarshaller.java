@@ -28,7 +28,7 @@ import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Attribute} objects.
+ * A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.Attribute} objects.
  */
 public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -40,7 +40,7 @@ public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
         Attribute attribute = (Attribute) samlElement;

@@ -24,7 +24,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * Class whose only job is to create {@link org.opensaml.saml1.coreimpl.AudienceImpl} objects
+ * Class whose only job is to create {@link org.opensaml.saml1.core.impl.AudienceImpl} objects
  */
 public class AudienceBuilder implements SAMLObjectBuilder {
 

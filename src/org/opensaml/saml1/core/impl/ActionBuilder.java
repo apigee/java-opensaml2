@@ -23,7 +23,8 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.ActionImpl} Object 
+ * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.ActionImpl} 
+ * object 
  */
 public class ActionBuilder implements SAMLObjectBuilder {
 

@@ -31,7 +31,7 @@ import org.opensaml.saml1.core.Audience;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Audience} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Audience} objects.
  */
 public class AudienceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

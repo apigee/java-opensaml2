@@ -30,7 +30,7 @@ import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- *  A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthorityBinding} objects.
+ *  A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthorityBinding} objects.
  */
 public class AuthorityBindingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

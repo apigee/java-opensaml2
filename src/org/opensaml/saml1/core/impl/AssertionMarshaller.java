@@ -25,7 +25,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
+ * A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
  */
 public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -37,7 +37,7 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
     @Override

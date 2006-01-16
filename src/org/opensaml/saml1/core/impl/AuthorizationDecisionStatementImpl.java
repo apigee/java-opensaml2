@@ -33,7 +33,7 @@ import org.opensaml.saml1.core.Evidence;
 import org.opensaml.xml.IllegalAddException;
 
 /**
- * A concrete implementation of {@link org.opensaml.saml1.core.AuthoriztionDecisionStatement} 
+ * A concrete implementation of {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} 
  */
 public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl implements AuthorizationDecisionStatement {
 

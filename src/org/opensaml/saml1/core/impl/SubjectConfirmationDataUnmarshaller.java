@@ -31,7 +31,7 @@ import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectConfirmationData} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectConfirmationData} objects.
  */
 public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

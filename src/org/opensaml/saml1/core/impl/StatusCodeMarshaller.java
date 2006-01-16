@@ -28,7 +28,7 @@ import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- *  A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.StatusCode} objects.
+ *  A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.StatusCode} objects.
  */
 public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -40,7 +40,7 @@ public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
         StatusCode statusCode = (StatusCode) samlElement;

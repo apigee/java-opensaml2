@@ -27,7 +27,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
 
 /**
- * Complete implementation of {@link org.opensaml.saml1.core.NameIdentifierImpl}
+ * Complete implementation of {@link org.opensaml.saml1.core.impl.NameIdentifierImpl}
  */
 
 public class NameIdentifierImpl extends AbstractSAMLObject implements NameIdentifier {

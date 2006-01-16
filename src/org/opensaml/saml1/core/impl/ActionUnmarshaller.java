@@ -30,7 +30,7 @@ import org.opensaml.saml1.core.Action;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.Action} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Action} objects.
  */
 public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     

@@ -31,7 +31,7 @@ import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- *  A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.AssertionIDReference} Objects
+ *  A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AssertionIDReference} Objects
  */
 public class AssertionIDReferenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

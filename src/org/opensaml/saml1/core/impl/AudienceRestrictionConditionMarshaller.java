@@ -27,7 +27,7 @@ import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml1.core.AudienceRestrictionCondition} objects.
+ * A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.AudienceRestrictionCondition} objects.
  */
 public class AudienceRestrictionConditionMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -39,7 +39,7 @@ public class AudienceRestrictionConditionMarshaller extends AbstractSAMLObjectMa
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
     protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
         // No attributes

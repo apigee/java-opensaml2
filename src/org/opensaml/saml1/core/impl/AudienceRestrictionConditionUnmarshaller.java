@@ -33,7 +33,7 @@ import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for
  * {@link org.opensaml.saml1.core.AudienceRestrictionCondition} objects.
  */
 public class AudienceRestrictionConditionUnmarshaller extends AbstractSAMLObjectUnmarshaller {

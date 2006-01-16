@@ -31,7 +31,7 @@ import org.opensaml.saml1.core.StatusMessage;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml1.core.StatusMessage} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.StatusMessage} objects.
  */
 public class StatusMessageUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
