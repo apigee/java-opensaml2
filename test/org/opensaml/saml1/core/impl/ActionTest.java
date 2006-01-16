@@ -20,39 +20,36 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.saml1.core.SubjectLocality;
+import org.opensaml.saml1.core.Action;
 
 /**
- * Test for {@link org.opensaml.saml1.core.impl.SubjectLocalityImpl}
+ * Test for {@link org.opensaml.saml1.core.impl.ActionImpl}
  */
-public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
+public class ActionTest extends SAMLObjectBaseTestCase {
 
-    /** Value of IPAddress in test file */
-    private final String expectedIPAddress;
-    
-    /** Value of DNSAddress in test file */
-    private final String expectedDNSAddress;
+    private final String expectedContents;
+    private final String expectedNamespace;
     
     /**
      * Constructor
      */
-    public SubjectLocalityTest() {
+    public ActionTest() {
         super();
-        expectedIPAddress = "207.75.164.30";
-        expectedDNSAddress = "shibboleth.internet2.edu";
-        singleElementFile = "/data/org/opensaml/saml1/singleSubjectLocality.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleSubjectLocalityAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml1/singleAction.xml";
+        singleElementOptionalAttributesFile  = "/data/org/opensaml/saml1/singleActionAttributes.xml";    
+        expectedNamespace = "namespace";
+        expectedContents = "Action Contents";
     }
+    
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     @Override
     public void testSingleElementUnmarshall() {
-        SubjectLocality subjectLocality = (SubjectLocality) unmarshallElement(singleElementFile);
-        
-        assertNull("IPAddress present", subjectLocality.getIPAddress());
-        assertNull("DNSAddress present", subjectLocality.getDNSAddress());
+        Action action = (Action) unmarshallElement(singleElementFile);
+        assertNull("namespace attribute present", action.getNamespace());
+        assertNull("Contents present", action.getContents());
     }
 
     /*
@@ -60,10 +57,9 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
-        SubjectLocality subjectLocality = (SubjectLocality) unmarshallElement(singleElementOptionalAttributesFile);
-        
-        assertEquals("IPAddress", expectedIPAddress, subjectLocality.getIPAddress());
-        assertEquals("DNSAddress", expectedDNSAddress, subjectLocality.getDNSAddress());
+        Action action = (Action) unmarshallElement(singleElementOptionalAttributesFile);
+        assertEquals("namespace attribute ", expectedNamespace, action.getNamespace());
+        assertEquals("Contents ", expectedContents, action.getContents());
     }
 
     /*
@@ -71,7 +67,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new SubjectLocalityImpl());
+        assertEquals(expectedDOM, new ActionImpl());
     }
 
     /*
@@ -79,12 +75,9 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        SubjectLocality subjectLocality = new SubjectLocalityImpl();
-        
-        subjectLocality.setDNSAddress(expectedDNSAddress);
-        subjectLocality.setIPAddress(expectedIPAddress);
-        assertEquals(expectedOptionalAttributesDOM, subjectLocality);
-
+        Action action = new ActionImpl();
+        action.setNamespace(expectedNamespace);
+        action.setContents(expectedContents);
+        assertEquals(expectedOptionalAttributesDOM, action);
     }
-
 }

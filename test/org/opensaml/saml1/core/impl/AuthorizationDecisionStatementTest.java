@@ -130,11 +130,9 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         authorizationDecisionStatement = (AuthorizationDecisionStatement) unmarshallElement(fullElementsFile);
         
         assertNotNull("<Subject> element not present", authorizationDecisionStatement.getSubject());
-        // TODO EvidenceImp
-//        assertNotNull("<Evidence> element not present", authorizationDecisionStatement.getEvidence());
-        // TODO ActionImp
-        //assertNotNull("<Action> elements not present", authorizationDecisionStatement.getActions());
-        //assertEquals("Count of <Action> elements ", 3, authorizationDecisionStatement.getActions().size());
+        assertNotNull("<Evidence> element not present", authorizationDecisionStatement.getEvidence());
+        assertNotNull("<Action> elements not present", authorizationDecisionStatement.getActions());
+        assertEquals("Count of <Action> elements ", 3, authorizationDecisionStatement.getActions().size());
     }
     
     
@@ -170,19 +168,16 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         authorizationDecisionStatement = new AuthorizationDecisionStatementImpl();
         try {
             authorizationDecisionStatement.setSubject(new SubjectImpl());
-            // TODO Action type
-            /*        authorizationDecisionStatement.addAction(new ActionImpl());
-                    authorizationDecisionStatement.addAction(new ActionImpl());
-                    authorizationDecisionStatement.addAction(new ActionImpl());
-                    authorizationDecisionStatement.setEvidence(new EvidenceImpl());
-                     */
-            // TODO Evidence type
-            // authorizationDecisionStatement.setEvidence(new EvidenceImpl());
+            authorizationDecisionStatement.addAction(new ActionImpl());
+            authorizationDecisionStatement.addAction(new ActionImpl());
+            authorizationDecisionStatement.addAction(new ActionImpl());
+            authorizationDecisionStatement.setEvidence(new EvidenceImpl());
+
+            authorizationDecisionStatement.setEvidence(new EvidenceImpl());
         } catch (IllegalAddException e) {
             fail("Illegal AddException thrown");
         }
-        // TODO 
-        // assertEquals(expectedFullDOM, attributeStatement);
+        assertEquals(expectedFullDOM, authorizationDecisionStatement);
     }
 
 

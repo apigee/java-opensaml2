@@ -1,14 +1,15 @@
-<Response xmlns="urn:oasis:names:tc:SAML:1.0:protocol" 
-          InResponseTo="_aa3cde13c0963b75651196e0e9c2095f" 
-          IssueInstant="2005-12-09T09:27:55.124Z" 
-          MajorVersion="1" 
-          MinorVersion="1" 
-          ResponseID="_e75ba05f107c1f21feb6aa984f050c4d" 
-          xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" 
-          xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" 
-          xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-          xmlns:ds="http://www.w3.org/2001/04/xmlenc#" 
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Response xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="urn:oasis:names:tc:SAML:1.0:protocol ../../../../../src/schema/cs-sstc-schema-assertion-1.1.xsd"
+ xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol"
+ xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion"
+ xmlns:ds="http://www.w3.org/2001/04/xmlenc#"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns="urn:oasis:names:tc:SAML:1.0:protocol"
+ InResponseTo="_aa3cde13c0963b75651196e0e9c2095f"
+ IssueInstant="2005-12-09T09:27:55.124Z"
+ MajorVersion="1"
+ MinorVersion="1"
+ ResponseID="_e75ba05f107c1f21feb6aa984f050c4d">
 <ds:Signature>
 dfsdfsdf
 </ds:Signature>
