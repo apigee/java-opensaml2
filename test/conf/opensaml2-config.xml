@@ -68,6 +68,12 @@
             <MarshallingClass className="org.opensaml.saml2.core.impl.AttributeMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.AttributeUnmarshaller" />
         </ObjectProvider>
+        
+        <ObjectProvider qualifiedName="saml2:AttributeValue">
+            <BuilderClass className="org.opensaml.saml2.core.impl.AttributeValueBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.AttributeValueMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.AttributeValueUnmarshaller" />
+        </ObjectProvider>
 
 	   <!-- ************************************* -->
        <!--       SAML 1.X Providers              -->

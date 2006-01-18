@@ -14,29 +14,30 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.core;
+/**
+ * 
+ */
+
+package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * SAML 2.0 Core AttributeValue
+ * A {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.core.impl.AttributeValueImpl} objects.
  */
-public interface AttributeValue extends SAMLObject {
-    /** Localname of the AttributeValue */
-    public static final String LOCAL_NAME = "AttributeValue";
+public class AttributeValueBuilder implements SAMLObjectBuilder {
 
-    /**
-     * Gets the name of this attribute.
-     * 
-     * @return AttibuteValue name
-     */
-    public String getValue();
+    /** Constructor */
+    public AttributeValueBuilder() {
 
-    /**
-     * Sets the name of this value.
-     * 
-     * @param newValue the name of this attribute
+    }
+
+    /*
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public void setValue(String newValue);
+    public SAMLObject buildObject() {
+        return new AttributeValueImpl();
+    }
 
 }
