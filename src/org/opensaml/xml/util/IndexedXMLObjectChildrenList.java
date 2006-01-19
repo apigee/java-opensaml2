@@ -16,7 +16,6 @@
 
 package org.opensaml.xml.util;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,10 +30,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * A list which indexes XMLObjects by their schema type and element QName for quick retrival based on those items. This
  * list does not allow null elements and is <strong>not</strong> synchronized.
  */
-public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends AbstractList<ElementType> {
-
-    /** List of objects */
-    private XMLObjectChildrenList<ElementType> objects;;
+public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends XMLObjectChildrenList<ElementType> {
 
     /** Index of objects by type and name */
     private HashMap<QName, ArrayList<ElementType>> objectIndex;
@@ -43,8 +39,7 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * Constructor
      */
     public IndexedXMLObjectChildrenList(XMLObject parent) {
-        super();
-        objects = new XMLObjectChildrenList<ElementType>(parent);
+        super(parent);
         objectIndex = new HashMap<QName, ArrayList<ElementType>>();
     }
 
@@ -54,29 +49,9 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * @param col collection to add to this list
      */
     public IndexedXMLObjectChildrenList(XMLObject parent, Collection<ElementType> col) {
-        objects = new XMLObjectChildrenList<ElementType>(parent);
+        super(parent);
         objectIndex = new HashMap<QName, ArrayList<ElementType>>();
         addAll(col);
-    }
-
-    /**
-     * Returns the number of elements in this list.
-     * 
-     * @return the number of elements in this list
-     */
-    public int size() {
-        return objects.size();
-    }
-
-    /**
-     * Returns the SAMLObject at the specified position in this list.
-     * 
-     * @param index the given index
-     * 
-     * @return the SAMLObject at the given index
-     */
-    public ElementType get(int index) {
-        return objects.get(index);
     }
 
     /**
@@ -99,7 +74,10 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * @return the element previously at the specified position
      */
     public ElementType set(int index, ElementType element) {
-        ElementType returnValue = objects.set(index, element);
+        ElementType returnValue = super.set(index, element);
+        
+        removeElementFromIndex(returnValue);
+        
         indexElement(element);
         return returnValue;
     }
@@ -112,7 +90,7 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * @param element element to be stored at the specified position
      */
     public void add(int index, ElementType element) {
-        objects.add(element);
+        super.add(index, element);
         indexElement(element);
     }
 
@@ -123,17 +101,9 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * @param index the index of the element to remove
      */
     public ElementType remove(int index) {
-        ElementType returnValue = objects.remove(index);
+        ElementType returnValue = super.remove(index);
 
-        ArrayList<ElementType> objects;
-        QName type = returnValue.getSchemaType();
-        if (type != null) {
-            objects = objectIndex.get(type);
-            objects.remove(returnValue);
-        }
-
-        objects = objectIndex.get(returnValue.getElementQName());
-        objects.remove(returnValue);
+        removeElementFromIndex(returnValue);
 
         return returnValue;
     }
@@ -144,6 +114,10 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * @param element the SAMLObject to index
      */
     protected void indexElement(ElementType element) {
+        if(element == null) {
+            return;
+        }
+        
         QName type = element.getSchemaType();
         if (type != null) {
             indexElement(type, element);
@@ -167,5 +141,36 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
         }
 
         objects.add(element);
+    }
+    
+    /**
+     * Removes the given element from the schema type and element qname index.
+     * 
+     * @param element the element to remove from the index
+     */
+    protected void removeElementFromIndex(ElementType element) {
+        if(element == null) {
+            return;
+        }
+        
+        QName type = element.getSchemaType();
+        if(type != null) {
+            objectIndex.remove(type);
+        }
+        
+        objectIndex.remove(element.getElementQName());
+    }
+    
+    /**
+     * Removes an object from the given index id.
+     * 
+     * @param index the id of the index
+     * @param element the element to be removed from that index
+     */
+    protected void removeElementFromIndex(QName index, ElementType element) {
+        ArrayList<ElementType> objects = objectIndex.get(index);
+        if (objects != null) {
+            objects.remove(element);
+        }
     }
 }
