@@ -110,7 +110,13 @@ public class XMLObjectChildrenList<ElementType extends XMLObject> extends Abstra
 
         setParent(element);
 
-        return elements.set(index, element);
+        ElementType removedElement = elements.set(index, element);
+        if(removedElement != null) {
+            removedElement.setParent(null);
+        }
+        
+        modCount++;
+        return removedElement; 
     }
     
     /**
@@ -129,6 +135,7 @@ public class XMLObjectChildrenList<ElementType extends XMLObject> extends Abstra
 
         setParent(element);
 
+        modCount++;
         elements.add(index, element);
     }
 
@@ -145,6 +152,7 @@ public class XMLObjectChildrenList<ElementType extends XMLObject> extends Abstra
             element.setParent(null);
         }
 
+        modCount++;
         return element;
     }
 
