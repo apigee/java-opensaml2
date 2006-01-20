@@ -18,8 +18,6 @@ package org.opensaml.xml;
 /**
  * Exception thrown when an XMLObject, that is already the child of an XMLObject, is 
  * added as a child to a second XMLObject
- * 
- * @deprecated Use XMLObjectChildrenList which will thrown IllegalArgumentException in this case
  */
 public class IllegalAddException extends Exception {
     
