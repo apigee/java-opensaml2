@@ -37,6 +37,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * Helper class for working with digital signatures.
+ */
 public class DigitalSignatureHelper {
 
     /** Signature element name */
