@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
@@ -26,7 +25,7 @@ import org.opensaml.xml.IllegalAddException;
 /**
  * SAML 2.0 Metadata Organization
  */
-public interface Organization extends SAMLObject, NameDescriptorComp{
+public interface Organization extends SAMLObject{
     
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "Organization";
@@ -46,107 +45,25 @@ public interface Organization extends SAMLObject, NameDescriptorComp{
      * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
      */
     public void setExtensions(Extensions extensions) throws IllegalAddException;
+    
+    /**
+     * Gets the list of names for this organization.
+     * 
+     * @return names for this organization
+     */
+    public List<OrganizationName> getOrganizationNames();
 
     /**
-     * Gets an immutable list of diaply names, {@link LocalizedString}s, for this service.
+     * Gets a list of diaplay names for this organization.
      * 
      * @return list of names
      */
-	public List<LocalizedString> getDisplayName();
+	public List<OrganizationDisplayName> getDisplayNames();
 
     /**
-     * Gets the localized display name in a given language.
+     * Gets a list of URLs for this organization.
      * 
-     * @param language the language
-     * @return the name for this service localized to the given language
+     * @return list of URLs for this organization
      */
-	public LocalizedString getDisplayName(String language);
-    
-    /**
-     * Convience method for get the localized string of the display name in a given language. This is the same
-     * as calling this.getDisplayName(String).getLocalString().
-     * 
-     * @param language the language of the name
-     * @return the name for this service localized to the given language
-     */
-    public String getDisplayNameAsString(String language);
-    
-    /**
-     * Adds a localized display name. If a localized name in the same language is already present it is
-     * replaced.
-     * 
-     * @param name the name
-     */
-    public void addDisplayName(LocalizedString name);
-    
-    /**
-     * Removes a localized display name.
-     * 
-     * @param name the name
-     */
-    public void removeDisplayName(LocalizedString name);
-    
-    /**
-     * Removes a list of localized display names.
-     * 
-     * @param names the names
-     */
-    public void removeDisplayNames(Collection<LocalizedString> names);
-    
-    /**
-     * Removes all the localized display names.
-     */
-    public void removeAllDisplayNames();
-
-    /**
-     * Gets an immutable list of URLs, {@link LocalizedString}s, for this organization.
-     * 
-     * @return list of URLs, {@link LocalizedString}s, for this organization
-     */
-	public List<LocalizedString> getURLs();
-
-    /**
-     * Gets the URL for the given language.
-     * 
-     * @param language the language
-     * 
-     * @return the URL for this organization
-     */
-	public LocalizedString getURL(String language);
-    
-    /**
-     * Gets the URL for the given language as a string.
-     * 
-     * @param language the language
-     * 
-     * @return the URL for this organization
-     */
-    public String getURLAsString(String language);
-    
-    /**
-     * Adds a URL to this organization.
-     * 
-     * @param url the URL
-     */
-	public void addURL(LocalizedString url);
-    
-    /**
-     * Removes a URL from this organization.
-     * 
-     * @param url the URL
-     */
-    public void removeURL(LocalizedString url);
-    
-    /**
-     * Removes a list of URLs from this organization.
-     * 
-     * @param urls the URLs
-     */
-    public void removeURLs(Collection<LocalizedString> urls);
-    
-    /**
-     * Removes all the URLs from this organizaition.
-     *
-     */
-    public void removeAllURLs();
+	public List<OrganizationURL> getURLs();
 }

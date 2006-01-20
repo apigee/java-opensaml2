@@ -16,114 +16,42 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
 
 
 /**
  * SAML 2.0 Metadata SSODescriptor
  */
-public interface SSODescriptor extends RoleDescriptor, NameIDFormatDescriptorComp {
+public interface SSODescriptor extends RoleDescriptor {
 
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "SSODescriptor";
     
     /**
-     * Gets an immutable list of artifact resolution {@link Endpoint}s for this service.
+     * Gets a list of artifact resolution services for this service.
      * 
-     * @return list of artifact resolution {@link Endpoint}s for this service
+     * @return list of artifact resolution services for this service
      */
-	public List<Endpoint> getArtifactResolutionServices();
-    
-    /**
-     * Adds an artifact resolution {@link Endpoint} for this service.
-     * 
-     * @param service an artifact resolution {@link Endpoint} for this service
-     */
-    public void addArtifactResolutionService(Endpoint service);
-    
-    /**
-     * Removes an artifact resolution {@link Endpoint} for this service.
-     * 
-     * @param service an artifact resolution {@link Endpoint} for this service
-     */
-    public void removeArtifactResolutionService(Endpoint service);
-    
-    /**
-     * Removes a list of artifact resolution {@link Endpoint}s for this service.
-     * 
-     * @param services a list of artifact resolution {@link Endpoint}s for this service
-     */
-    public void removeArtifactResolutionServices(Collection<Endpoint> services);
-    
-    /**
-     * Removes all the artifact resolution {@link Endpoint}s for this service.
-     */
-    public void removeAllArtifactResolutionServices();
+	public List<ArtifactResolutionService> getArtifactResolutionServices();
 
     /**
-     * Gets an immutable list of single logout {@link Endpoint}s for this service.
+     * Gets a list of single logout services for this service.
      * 
-     * @return list of single logout {@link Endpoint}s for this service
+     * @return list of single logout services for this service
      */
-	public List<Endpoint> getSingleLogoutServices();
-    
-    /**
-     * Adds a single logout {@link Endpoint} for this service.
-     * 
-     * @param service a single logout {@link Endpoint} for this service
-     */
-    public void addSingleLogoutService(Endpoint service);
-    
-    /**
-     * Removes a single logout {@link Endpoint} for this service.
-     * 
-     * @param service a single logout {@link Endpoint} for this service
-     */
-    public void removeSingleLogoutService(Endpoint service);
-    
-    /**
-     * Removes a list of single logout {@link Endpoint}s for this service.
-     * 
-     * @param services a list of single logout {@link Endpoint}s for this service
-     */
-    public void removeSingleLogoutServices(Collection<Endpoint> services);
-    
-    /**
-     * Removes all the single logout {@link Endpoint}s for this service.
-     */
-    public void removeAllSingleLogoutServices();
+	public List<SingleLogoutService> getSingleLogoutServices();
 
     /**
-     * Gets an immutable list of manage NameId {@link Endpoint}s for this service.
+     * Gets a list of manage NameId services for this service.
      * 
-     * @return list of manage NameId {@link Endpoint}s for this service
+     * @return list of manage NameId services for this service
      */
-	public List<Endpoint> getManageNameIDServices();
+	public List<ManageNameIDService> getManageNameIDServices();
     
     /**
-     * Adds a manage NameId {@link Endpoint} for this service.
+     * Gets the list of NameID formats this service supports.
      * 
-     * @param service a manage NameId {@link Endpoint} for this service
+     * @return NameID formats this service supports
      */
-    public void addManageNameIDService(Endpoint service);
-    
-    /**
-     * Removes a manage NameId {@link Endpoint} for this service.
-     * 
-     * @param service a manage NameId {@link Endpoint} for this service
-     */
-    public void removeManageNameIDService(Endpoint service);
-    
-    /**
-     * Removes a list of manage NameId {@link Endpoint}s for this service.
-     * 
-     * @param services a list of manage NameId {@link Endpoint}s for this service
-     */
-    public void removeManageNameIDServices(Collection<Endpoint> services);
-    
-    /**
-     * Removes all the manage NameId {@link Endpoint}s for this service.
-     */
-    public void removeAllManageNameIDServices();
+    public List<NameIDFormat> getNameIDFormats();
 }

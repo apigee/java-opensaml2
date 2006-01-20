@@ -16,8 +16,6 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.net.URI;
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
@@ -30,7 +28,7 @@ import org.opensaml.xml.SignableXMLObject;
 /**
  * SAML 2.0 Metadata AffiliationDescriptorType
  */
-public interface AffiliationDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject, KeyDescriptorDescriptorComp{
+public interface AffiliationDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject {
 	
 	/** Element name, no namespace */
 	public final static String LOCAL_NAME = "AffiliationDescriptor";
@@ -67,48 +65,18 @@ public interface AffiliationDescriptor extends SAMLObject, SignableXMLObject, Ti
 	 * @param ownerID the ID of the owner of this affiliation
 	 */
 	public void setOwnerID(String ownerID);
-
-	/**
-	 * Checks to see if a given entity is a member of this affiliation.
-	 * 
-	 * @param id the entity's id
-	 * 
-	 * @return true if the entity is a member, false if not
-	 */
-	public boolean isMember(String id);
 	
     /**
-     * Gets an immutable list of the members of this affiliation.
+     * Gets a list of the members of this affiliation.
      * 
      * @return a list of affiliate members
      */
 	public List<AffiliateMember> getMembers();
-	
-    /**
-     * Adds a member to this affiliation.
-     * 
-     * @param member the member to add
-     * 
-     * @throws IllegalAddException thrown if the given member is already a child of another SAMLObject
-     */
-    public void addMember(AffiliateMember member) throws IllegalAddException;
-	
-	/**
-	 * Removes the given member from this affiliation.
-	 * 
-	 * @param member the member to remove
-	 */
-    public void removeMember(AffiliateMember member);
     
-	/**
-	 * Removes the given list of member {@link URI}s from this affiliation.
-	 * 
-	 * @param members the list of members to be removed
-	 */
-    public void removeMemebers(Collection<AffiliateMember> members);
-	
-	/**
-	 * Removes all the members from this Affiliation.
-	 */
-	public void removeAllMembers();
+    /**
+     * Gets an immutable list of KeyDescriptors for this affiliation.
+     * 
+     * @return list of {@link KeyDescriptor}s for this affiliation
+     */
+    public List<KeyDescriptor> getKeyDescriptors();
 }

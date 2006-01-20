@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
@@ -24,7 +23,7 @@ import org.opensaml.common.SAMLObject;
 /**
  * SAML 2.0 Metadata AttributeAuthorityDescriptor
  */
-public interface AttributeConsumingService extends SAMLObject, NameDescriptorComp {
+public interface AttributeConsumingService extends SAMLObject {
     
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "AttributeConsumingService";
@@ -64,103 +63,23 @@ public interface AttributeConsumingService extends SAMLObject, NameDescriptorCom
     public void setIsDefault(boolean isDefault);
     
     /**
-     * Gets an immutable list of the descriptions, {@link LocalizedString}s, for this service.
+     * Gets the list of names this service has.
      * 
-     * @return list of descriptions
+     * @return list of names this service has
      */
-    public List<LocalizedString> getDescriptions();
-
+    public List<ServiceName> getNames();
+    
     /**
-     * Gets the localized description of this service in a given language.
+     * Gets the descriptions for this service.
      * 
-     * @param language the language
-     * @return the description for this service localized to the given language
+     * @return descriptions for this service
      */
-    public LocalizedString getDescription(String language);
-
+    public List<ServiceDescription> getDescriptions();
+    
     /**
-     * Convience method for get the localized string of the description for this service in a given language. This is
-     * the same as calling this.getDescription(String).getLocalString().
+     * Gets the attributes this service requests.
      * 
-     * @param language the language of the name
-     * @return the description for this service localized to the given language
+     * @return attributes this service requests
      */
-    public String getDescriptionAsString(String language);
-
-    /**
-     * Adds a localized description for this services. If a localized description in the same language is already
-     * present it is replaced.
-     * 
-     * @param description the description
-     */
-    public void addDescription(LocalizedString description);
-
-    /**
-     * Removes a localized description for this services.
-     * 
-     * @param description the description
-     */
-    public void removeDescription(LocalizedString description);
-
-    /**
-     * Removes a list of localized description for this services.
-     * 
-     * @param descriptions the list descriptions
-     */
-    public void removeDescriptions(Collection<LocalizedString> descriptions);
-
-    /**
-     * Removes all the localized description for this services.
-     */
-    public void removeAllDescriptions();
-
-    /**
-     * Checks to see if the attribute is requested by this service.
-     * 
-     * @param attribute the attribute
-     * @return true if the attribute is in the list of requested attribute for this service false if not
-     */
-    public boolean isRequestedAttributes(RequestedAttribute attribute);
-
-    /**
-     * Checks to see if the attribute is requested and required by this service.
-     * 
-     * @param attribute the attribute
-     * @return true if the attribute is in the list of requested attribute for this service and is marked as required
-     *         false if not
-     */
-    public boolean isRequiredAttribute(RequestedAttribute attribute);
-
-    /**
-     * Gets an immutable list of attributes requested by this service.
-     * 
-     * @return list of attributes requested by this service
-     */
-    public List<RequestedAttribute> getRequestedAttributes();
-
-    /**
-     * Adds an attribute to the list of attributes requested by this service.
-     * 
-     * @param attribute the attribute
-     */
-    public void addRequestedAttribute(RequestedAttribute attribute);
-
-    /**
-     * Removes an attribute from the list of attributes requested by this service.
-     * 
-     * @param attribute the attribute
-     */
-    public void removeRequestedAttribute(RequestedAttribute attribute);
-
-    /**
-     * Removes a list of attribute from the list of attributes requested by this service.
-     * 
-     * @param attributes the attribute
-     */
-    public void removeRequestedAttributes(Collection<RequestedAttribute> attributes);
-
-    /**
-     * Removes all the attribute from the list of attributes requested by this service.
-     */
-    public void removeAllRequestedAttributes();
+    public List<RequestedAttribute> getRequestAttributes();
 }

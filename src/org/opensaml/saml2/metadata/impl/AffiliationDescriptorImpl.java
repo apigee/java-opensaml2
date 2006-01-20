@@ -20,7 +20,6 @@
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -34,6 +33,7 @@ import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AffiliationDescriptor}.
@@ -53,10 +53,10 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
     private Extensions extensions;
     
     /** Members of this affiliation */
-    private ArrayList<AffiliateMember> members = new ArrayList<AffiliateMember>();
+    private XMLObjectChildrenList<AffiliateMember> members;
     
     /** Key descriptors for this role */
-    private ArrayList<KeyDescriptor> keyDescriptors = new ArrayList<KeyDescriptor>();
+    private XMLObjectChildrenList<KeyDescriptor> keyDescriptors;
     
     /**
      * Constructor
@@ -64,6 +64,8 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
     public AffiliationDescriptorImpl(){
         super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+        members = new XMLObjectChildrenList<AffiliateMember>(this);
+        keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
 
     /*
@@ -130,88 +132,17 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
     }
 
     /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#isMember(java.lang.String)
-     */
-    public boolean isMember(String id) {
-        return members.contains(id);
-    }
-
-    /*
      * @see org.opensaml.saml2.metadata.AffiliationDescriptor#getMembers()
      */
     public List<AffiliateMember> getMembers() {
-        return Collections.unmodifiableList(members);
-    }
-    
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#addMember(java.lang.String)
-     */
-    public void addMember(AffiliateMember member) throws IllegalAddException {
-        addXMLObject(members, member);
-    }
-    
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#removeMember(org.opensaml.saml2.metadata.AffiliateMember)
-     */
-    public void removeMember(AffiliateMember member) {
-        removeXMLObject(members, member);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#removeMemebers(java.util.Collection)
-     */
-    public void removeMemebers(Collection<AffiliateMember> members) {
-        if(members != null){
-            for(AffiliateMember member : members){
-                removeMember(member);
-            }
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#removeAllMembers()
-     */
-    public void removeAllMembers() {
-        for(AffiliateMember member : members){
-            removeMember(member);
-        }
+        return members;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#getKeyDescriptors()
      */
     public List<KeyDescriptor> getKeyDescriptors() {
-        return Collections.unmodifiableList(keyDescriptors);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#addKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
-     */
-    public void addKeyDescriptor(KeyDescriptor keyDescriptor) throws IllegalAddException {
-        addXMLObject(keyDescriptors, keyDescriptor);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
-     */
-    public void removeKeyDescriptor(KeyDescriptor keyDescriptor) {
-        removeXMLObject(keyDescriptors, keyDescriptor);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptors(java.util.Set)
-     */
-    public void removeKeyDescriptors(Collection<KeyDescriptor> keyDescriptors) {
-        removeXMLObjects(this.keyDescriptors, keyDescriptors);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeAllKeyDescriptors()
-     */
-    public void removeAllKeyDescriptors() {
-        for(KeyDescriptor keyDescriptor : keyDescriptors) {
-            removeKeyDescriptor(keyDescriptor);
-        }
+        return keyDescriptors;
     }
     
     /*

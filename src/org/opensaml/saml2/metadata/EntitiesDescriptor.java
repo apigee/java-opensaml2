@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
@@ -70,74 +69,18 @@ public interface EntitiesDescriptor extends SAMLObject, SignableXMLObject, TimeB
     public void setExtensions(Extensions extensions) throws IllegalAddException;
 	
 	/**
-     * Gets an immutable list of child {@link EntitiesDescriptor}s.
+     * Gets a list of child {@link EntitiesDescriptor}s.
      * 
      * @return list of descriptors
      */
     public List<EntitiesDescriptor> getEntitiesDescriptors();
-    
-    /**
-     * Adds the given descriptor to the list of child {@link EntitiesDescriptor}s for this descriptor.
-     * 
-     * @param descriptor the child descriptor
-     * 
-     * @throws IllegalAddException thrown if the given descriptor is already a descendant of another descriptor
-     */
-    public void addEntitiesDescriptor(EntitiesDescriptor descriptor) throws IllegalAddException;
-    
-    /**
-     * Removes the given descriptor from the list of child {@link EntitiesDescriptor}s for this descriptor.
-     * 
-     * @param descriptor the child descriptor
-     */
-    public void removeEntitiesDescriptor(EntitiesDescriptor descriptor);
-    
-    /**
-     * Removes the given list of {@link EntitiesDescriptor}s for this descriptor.
-     * 
-     * @param descriptors the child descriptors
-     */
-    public void removeEntitiesDescriptors(Collection<EntitiesDescriptor> descriptors);
-    
-    /**
-     * Removes all the {@link EntitiesDescriptor}s from this descriptor.
-     */
-    public void removeAllEntitiesDescriptors();
 
     /**
-     * Gets an immutable list of child {@link EntityDescriptor}s.
+     * Gets a list of child {@link EntityDescriptor}s.
      * 
      * @return list of child descriptors
      */
 	public List<EntityDescriptor> getEntityDescriptors();
-    
-    /**
-     * Adds the given descriptor to the list of child {@link EntityDescriptor}s for this descriptor.
-     * 
-     * @param descriptor the child descriptors
-     * 
-     * @throws IllegalAddException thrown if the given descriptor is already a descendant of another descriptor
-     */
-    public void addEntityDescriptor(EntityDescriptor descriptor) throws IllegalAddException;
-    
-    /**
-     * Removes the given descriptor to the list of child {@link EntityDescriptor}s for this descriptor.
-     * 
-     * @param descriptor the child descriptors
-     */
-    public void removeEntityDescriptor(EntityDescriptor descriptor);
-    
-    /**
-     * Adds the list of {@link EntityDescriptor}s from this descriptor.
-     * 
-     * @param descriptors the child descriptors
-     */
-    public void removeEntityDescriptors(Collection<EntityDescriptor> descriptors);
-    
-    /**
-     * Removes all the child {@link EntityDescriptor}s from this descriptor.
-     */
-    public void removeAllEntityDescriptors();
     
     /**
      * Gets the {@link EntitiesDescriptor} and {@link EntityDescriptor}s as a single bag in the 

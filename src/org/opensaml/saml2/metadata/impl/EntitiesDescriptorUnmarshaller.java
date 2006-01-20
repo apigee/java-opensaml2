@@ -59,9 +59,9 @@ public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshall
             if(childElement instanceof Extensions) {
                 entitiesDescriptor.setExtensions((Extensions) childElement);
             }else if(childElement instanceof EntitiesDescriptor) {
-                entitiesDescriptor.addEntitiesDescriptor((EntitiesDescriptor) childElement);
+                entitiesDescriptor.getEntitiesDescriptors().add((EntitiesDescriptor) childElement);
             }else if(childElement instanceof EntityDescriptor) {
-                entitiesDescriptor.addEntityDescriptor((EntityDescriptor) childElement);
+                entitiesDescriptor.getEntityDescriptors().add((EntityDescriptor) childElement);
             }else {
                 if(!SAMLConfig.ignoreUnknownElements()){
                     throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for EntitiesDescriptor objects");

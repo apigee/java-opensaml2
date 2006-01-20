@@ -21,9 +21,8 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AttributeValue;
 import org.opensaml.saml2.core.Attribute;
-import org.opensaml.xml.IllegalAddException;
+import org.opensaml.saml2.core.AttributeValue;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
@@ -47,12 +46,8 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         Attribute attribute = (Attribute) parentElement;
 
-        try {
-            if (childElement instanceof AttributeValue) {
-                attribute.addAttributeValue((AttributeValue) childElement);
-            }
-        } catch (IllegalAddException e) {
-            // DO NOTHING
+        if (childElement instanceof AttributeValue) {
+            attribute.getAttributeValues().add((AttributeValue) childElement);
         }
 
     }
@@ -68,9 +63,9 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (attributeName.equals(Attribute.NAME_ATTTRIB_NAME)) {
             attribute.setName(attributeValue);
-        }else if(attributeName.equals(Attribute.NAME_FORMAT_ATTRIB_NAME)) {
+        } else if (attributeName.equals(Attribute.NAME_FORMAT_ATTRIB_NAME)) {
             attribute.setNameFormat(attributeValue);
-        }else if(attributeName.equals(Attribute.FRIENDLY_NAME_ATTRIB_NAME)) {
+        } else if (attributeName.equals(Attribute.FRIENDLY_NAME_ATTRIB_NAME)) {
             attribute.setFriendlyName(attributeValue);
         }
     }

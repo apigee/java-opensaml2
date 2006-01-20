@@ -56,9 +56,9 @@ public class AffiliationDescriptorUnmarshaller extends AbstractSAMLObjectUnmarsh
             if (childElement instanceof Extensions) {
                 descriptor.setExtensions((Extensions) childElement);
             } else if (childElement instanceof AffiliateMember) {
-                descriptor.addMember((AffiliateMember) childElement);
+                descriptor.getMembers().add((AffiliateMember) childElement);
             } else if (childElement instanceof KeyDescriptor) {
-                descriptor.addKeyDescriptor((KeyDescriptor) childElement);
+                descriptor.getKeyDescriptors().add((KeyDescriptor) childElement);
             } else {
                 if (!SAMLConfig.ignoreUnknownElements()) {
                     throw new UnknownElementException(childElement.getElementQName()

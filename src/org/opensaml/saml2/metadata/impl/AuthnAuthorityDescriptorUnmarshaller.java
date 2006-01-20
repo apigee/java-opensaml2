@@ -24,7 +24,6 @@ import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AuthnQueryService;
 import org.opensaml.saml2.metadata.NameIDFormat;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
@@ -50,22 +49,17 @@ public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarsha
 
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) parentElement;
 
-        try {
-            if (childElement instanceof AuthnQueryService) {
-                descriptor.addAuthnQueryService((AuthnQueryService) childElement);
-            } else if (childElement instanceof AssertionIDRequestService) {
-                descriptor.addAssertionIDRequestService((AssertionIDRequestService) childElement);
-            } else if (childElement instanceof NameIDFormat) {
-                descriptor.addNameIDFormat((NameIDFormat) childElement);
-            } else {
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is an unknown child element of " + parentElement.getElementQName());
-                }
+        if (childElement instanceof AuthnQueryService) {
+            descriptor.getAuthnQueryServices().add((AuthnQueryService) childElement);
+        } else if (childElement instanceof AssertionIDRequestService) {
+            descriptor.getAssertionIDRequestServices().add((AssertionIDRequestService) childElement);
+        } else if (childElement instanceof NameIDFormat) {
+            descriptor.getNameIDFormats().add((NameIDFormat) childElement);
+        } else {
+            if (!SAMLConfig.ignoreUnknownElements()) {
+                throw new UnknownElementException(childElement.getElementQName() + " is an unknown child element of "
+                        + parentElement.getElementQName());
             }
-        } catch (IllegalAddException e) {
-            // should never get here, but just in case
-            throw new UnmarshallingException(e);
         }
     }
 }

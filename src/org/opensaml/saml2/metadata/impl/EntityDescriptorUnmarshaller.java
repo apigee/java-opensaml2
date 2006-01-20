@@ -57,15 +57,15 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
             if (childElement instanceof Extensions) {
                 entityDescriptor.setExtensions((Extensions) childElement);
             } else if (childElement instanceof RoleDescriptor) {
-                entityDescriptor.addRoleDescriptor((RoleDescriptor) childElement);
+                entityDescriptor.getRoleDescriptors().add((RoleDescriptor) childElement);
             } else if (childElement instanceof AffiliationDescriptor) {
                 entityDescriptor.setAffiliationDescriptor((AffiliationDescriptor) childElement);
             } else if (childElement instanceof Organization) {
                 entityDescriptor.setOrganization((Organization) childElement);
             } else if (childElement instanceof ContactPerson) {
-                entityDescriptor.addContactPerson((ContactPerson) childElement);
+                entityDescriptor.getContactPersons().add((ContactPerson) childElement);
             } else if (childElement instanceof AdditionalMetadataLocation) {
-                entityDescriptor.addAdditionalMetadataLocation((AdditionalMetadataLocation) childElement);
+                entityDescriptor.getAdditionalMetadataLocations().add((AdditionalMetadataLocation) childElement);
             } else {
                 if (!SAMLConfig.ignoreUnknownElements()) {
                     throw new UnknownElementException(childElement.getElementQName()

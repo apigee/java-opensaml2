@@ -57,11 +57,11 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             if (childElement instanceof Extensions) {
                 roleDescriptor.setExtensions((Extensions) childElement);
             } else if (childElement instanceof KeyDescriptor) {
-                roleDescriptor.addKeyDescriptor((KeyDescriptor) childElement);
+                roleDescriptor.getKeyDescriptors().add((KeyDescriptor) childElement);
             } else if (childElement instanceof Organization) {
                 roleDescriptor.setOrganization((Organization) childElement);
             } else if (childElement instanceof ContactPerson) {
-                roleDescriptor.addContactPerson((ContactPerson) childElement);
+                roleDescriptor.getContactPersons().add((ContactPerson) childElement);
             }
         } catch (IllegalAddException e) {
             // This should never happen

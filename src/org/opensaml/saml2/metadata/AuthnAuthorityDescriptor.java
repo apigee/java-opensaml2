@@ -16,52 +16,36 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * SAML 2.0 Metadata AuthnAuthorityDescriptor
  */
-public interface AuthnAuthorityDescriptor extends SAMLObject, RoleDescriptor, AssertionIDRequestDescriptorComp, NameIDFormatDescriptorComp {
+public interface AuthnAuthorityDescriptor extends SAMLObject, RoleDescriptor {
 
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "AuthnAuthorityDescriptor";
     
     /**
-     * Gets an immutable list of authentication query service {@link Endpoint}s for this authority.
+     * Gets the list of authentication query services for this authority.
      * 
      * @return list of authentication query services
      */
 	public List<AuthnQueryService> getAuthnQueryServices();
     
     /**
-     * Adds an authentication query service {@link Endpoint} for this authority.
+     * Gets the list of assertion ID request services for this authority.
      * 
-     * @param service the authentication query service
-     * 
-     * @throws IllegalAddException thrown if the given endpoint is owned by another object
+     * @return assertion ID request services for this authority
      */
-    public void addAuthnQueryService(AuthnQueryService service) throws IllegalAddException;
-        
-    /**
-     * Removes an authentication query service {@link Endpoint} for this authority.
-     * 
-     * @param service the authentication query service
-     */
-    public void removeAuthnQueryService(AuthnQueryService service);
+    public List<AssertionIDRequestService> getAssertionIDRequestServices();
     
     /**
-     * Removes a list of authentication query service {@link Endpoint} for this authority.
+     * Gets the list of supported name ID formats for this authority.
      * 
-     * @param services the list of authentication query service
+     * @return supported name ID formats for this authority
      */
-    public void removeAuthnQueryServices(Collection<AuthnQueryService> services);
-    
-    /**
-     * Removes all the authentication query service {@link Endpoint}s for this authority.
-     */
-    public void removeAllAuthnQueryServices();
+    public List<NameIDFormat> getNameIDFormats();
 }

@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
@@ -71,105 +70,53 @@ public interface ContactPerson extends SAMLObject{
      * 
      * @return the company this contact person is associated with
      */
-	public String getCompany();
+	public Company getCompany();
     
     /**
      * Sets the company this contact person is associated with.
      * 
      * @param company the company this contact person is associated with
      */
-    public void setCompany(String company);
+    public void setCompany(Company company);
 
     /**
      * Gets the given name for this person.
      * 
      * @return the given name for this person
      */
-	public String getGivenName();
+	public GivenName getGivenName();
     
     /**
      * Sets the given name for this person.
      * 
      * @param name the given name for this person
      */
-    public void setGivenName(String name);
+    public void setGivenName(GivenName name);
 
 	/**
      * Gets the surname for this person.
      *  
      * @return the surname for this person
 	 */
-    public String getSurName();
+    public SurName getSurName();
     
     /**
      * Sets the surname for this person.
      * @param name the surname for this person
      */
-    public void setSurName(String name);
+    public void setSurName(SurName name);
 
     /**
-     * Gets an immutable list of email addresses for this person.
+     * Gets a list of email addresses for this person.
      * 
      * @return list of email addresses for this person
      */
-	public List<String> getEmailAddresses();
-    
-    /**
-     * Adds an email address to this person.
-     * 
-     * @param address email address to add
-     */
-    public void addEmailAddress(String address);
-    
-    /**
-     * Removes an email address to this person.
-     * 
-     * @param address email address to remove
-     */
-    public void removeEmailAddress(String address);
-    
-    /**
-     * Removes a list of email addresses to this person.
-     * 
-     * @param addresses email addresses to remove
-     */
-    public void removeEmailAddresses(Collection<String> addresses);
-    
-    /**
-     * Removes all the email addresses for this person.
-     */
-    public void removeAllEmailAddresses();
+	public List<EmailAddress> getEmailAddresses();
     
     /**
      * Gets an immutable list of telephone numbers for this person.
      * 
      * @return list of telephone numbers for this person
      */
-	public List<String> getTelephoneNumbers();
-    
-    /**
-     * Adds a telephone number to this person.
-     * 
-     * @param number telephone number to add
-     */
-    public void addTelephoneNumber(String number);
-    
-    /**
-     * Removes a telephone number to this person.
-     * 
-     * @param number telephone number to remove
-     */
-    public void removeTelephoneNumber(String number);
-    
-    /**
-     * Removes a list of telephone numbers to this person.
-     * 
-     * @param numbers telephone numbers to remove
-     */
-    public void removeTelephoneNumbers(Collection<String> numbers);
-    
-    /**
-     * Removes all the telephone numbers for this person.
-     */
-    public void removeAllTelephoneNumbers();
+	public List<TelephoneNumber> getTelephoneNumbers();
 }

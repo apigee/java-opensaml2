@@ -17,52 +17,51 @@
 package org.opensaml.saml2.metadata;
 
 
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
+import org.opensaml.saml2.core.Attribute;
 
 /**
  * SAML 2.0 Metadata AttributeAuthorityDescriptor
  */
-public interface AttributeAuthorityDescriptor extends SAMLObject, RoleDescriptor, AssertionIDRequestDescriptorComp, NameIDFormatDescriptorComp, AttributeProfileDescriptorComp, AttributeDescriptorComp {
+public interface AttributeAuthorityDescriptor extends SAMLObject, RoleDescriptor {
 	
 	/** Element name, no namespace */
 	public final static String LOCAL_NAME = "AttributeAuthorityDescriptor";
 
     /**
-     * Gets an immutable list of attribute service {@link Endpoint}s for this authority.
+     * Gets a list of attribute service {@link Endpoint}s for this authority.
      * 
      * @return list of attributes services
      */
     public List<AttributeService> getAttributeServices();
-
+    
     /**
-     * Adds an attribute service {@link Endpoint} for this authority.
+     * Gets a list of Assertion ID request services.
      * 
-     * @param service the attribute service
-     * 
-     * @throws IllegalAddException thrown if the given endpoint is already a child of another element
+     * @return list of Assertion ID request services
      */
-    public void addAttributeService(AttributeService service) throws IllegalAddException;
-
+    public List<AssertionIDRequestService> getAssertionIDRequestServices();
+    
     /**
-     * Removes an attribute service {@link Endpoint} for this authority.
+     * Gets a list of NameID formats supported by this authority.
      * 
-     * @param service the attribute service
+     * @return list of NameID formats supported by this authority
      */
-    public void removeAttributeService(AttributeService service);
-
+    public List<NameIDFormat> getNameIDFormats();
+    
     /**
-     * Removes a list of attribute service {@link Endpoint} for this authority.
+     * Gets a list of Attribute profiles supported by this authority.
      * 
-     * @param services the list of attribute service
+     * @return list of Attribute profiles supported by this authority
      */
-    public void removeAttributeServices(Collection<AttributeService> services);
-
+    public List<AttributeProfile> getAttributeProfiles();
+    
     /**
-     * Removes all the attribute service {@link Endpoint}s for this authority.
+     * Gets the list of attribute available from this authority.
+     * 
+     * @return list of attribute available from this authority
      */
-    public void removeAllAttributeServices();
+    public List<Attribute> getAttributes();
 }

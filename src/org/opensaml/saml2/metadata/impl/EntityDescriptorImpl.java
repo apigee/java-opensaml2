@@ -18,7 +18,6 @@
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -28,7 +27,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.impl.TypeNameIndexedSAMLObjectList;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
@@ -43,6 +41,8 @@ import org.opensaml.saml2.metadata.PDPDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concretate implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}
@@ -62,7 +62,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     private Extensions extensions;
 
     /** Role descriptors for this entity */
-    private TypeNameIndexedSAMLObjectList<RoleDescriptor> roleDescriptors = new TypeNameIndexedSAMLObjectList<RoleDescriptor>();
+    private IndexedXMLObjectChildrenList<RoleDescriptor> roleDescriptors;
 
     /** Affiliatition descriptor for this entity */
     private AffiliationDescriptor affiliationDescriptor;
@@ -71,14 +71,18 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     private Organization organization;
 
     /** Contact persons for this entity */
-    private ArrayList<ContactPerson> contactPersons = new ArrayList<ContactPerson>();
+    private XMLObjectChildrenList<ContactPerson> contactPersons;
 
     /** Additional metadata locations for this entity */
-    private ArrayList<AdditionalMetadataLocation> additionalMetadata = new ArrayList<AdditionalMetadataLocation>();
+    private XMLObjectChildrenList<AdditionalMetadataLocation> additionalMetadata;
 
     public EntityDescriptorImpl() {
         super(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+        
+        roleDescriptors = new IndexedXMLObjectChildrenList<RoleDescriptor>(this);
+        contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
+        additionalMetadata = new XMLObjectChildrenList<AdditionalMetadataLocation>(this);
     }
 
     /*
@@ -154,7 +158,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName)
      */
     public List<RoleDescriptor> getRoleDescriptors(QName type) {
-        return Collections.unmodifiableList(roleDescriptors.get(type));
+        return roleDescriptors.get(type);
     }
 
     /*
@@ -170,46 +174,6 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return null;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#addRoleDescriptor(org.opensaml.saml2.metadata.RoleDescriptor)
-     */
-    public void addRoleDescriptor(RoleDescriptor descriptor) throws IllegalAddException {
-        addXMLObject(roleDescriptors, descriptor);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeRoleDescriptor(org.opensaml.saml2.metadata.RoleDescriptor)
-     */
-    public void removeRoleDescriptor(RoleDescriptor descriptor) {
-        removeXMLObject(roleDescriptors, descriptor);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeRoleDescriptors(java.util.Set)
-     */
-    public void removeRoleDescriptors(Collection<RoleDescriptor> descriptors) {
-        for (RoleDescriptor descriptor : descriptors) {
-            removeRoleDescriptor(descriptor);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAllRoleDescriptors()
-     */
-    public void removeAllRoleDescriptors() {
-        for (RoleDescriptor descriptor : roleDescriptors) {
-            removeRoleDescriptor(descriptor);
-        }
-    }
-    
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAllRoleDescriptors(javax.xml.namespace.QName)
-     */
-    public void removeAllRoleDescriptors(QName typeOrName){
-        for (RoleDescriptor descriptor : roleDescriptors.get(typeOrName)) {
-            removeRoleDescriptor(descriptor);
-        }
-    }
     
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getIDPSSODescriptor()
@@ -283,74 +247,14 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getContactPersons()
      */
     public List<ContactPerson> getContactPersons() {
-        return Collections.unmodifiableList(contactPersons);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#addContactPerson(org.opensaml.saml2.metadata.ContactPerson)
-     */
-    public void addContactPerson(ContactPerson person) throws IllegalAddException {
-        addXMLObject(contactPersons, person);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPerson(org.opensaml.saml2.metadata.ContactPerson)
-     */
-    public void removeContactPerson(ContactPerson person) {
-        removeXMLObject(contactPersons, person);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPersons(java.util.Set)
-     */
-    public void removeContactPersons(Collection<ContactPerson> persons) {
-        removeXMLObjects(contactPersons, persons);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAllContactPersons()
-     */
-    public void removeAllContactPersons() {
-        for (ContactPerson person : contactPersons) {
-            removeContactPerson(person);
-        }
+        return contactPersons;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAdditionalMetadataLocations()
      */
     public List<AdditionalMetadataLocation> getAdditionalMetadataLocations() {
-        return Collections.unmodifiableList(additionalMetadata);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#addAdditionalMetadataLocation(org.opensaml.saml2.metadata.AdditionalMetadataLocation)
-     */
-    public void addAdditionalMetadataLocation(AdditionalMetadataLocation location) throws IllegalAddException {
-        addXMLObject(additionalMetadata, location);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAdditionalMetadataLocation(org.opensaml.saml2.metadata.AdditionalMetadataLocation)
-     */
-    public void removeAdditionalMetadataLocation(AdditionalMetadataLocation location) {
-        removeXMLObject(additionalMetadata, location);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAdditionalMetadataLocations(java.util.Set)
-     */
-    public void removeAdditionalMetadataLocations(Collection<AdditionalMetadataLocation> locations) {
-        removeXMLObjects(additionalMetadata, locations);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAllAdditionalMetadataLocation()
-     */
-    public void removeAllAdditionalMetadataLocation() {
-        for (AdditionalMetadataLocation location : additionalMetadata) {
-            removeAdditionalMetadataLocation(location);
-        }
+        return additionalMetadata;
     }
 
     /*

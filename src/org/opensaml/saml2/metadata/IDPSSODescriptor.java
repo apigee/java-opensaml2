@@ -16,13 +16,14 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
+
+import org.opensaml.saml2.core.Attribute;
 
 /**
  * SAML 2.0 Metadata IDPSSODescriptorType
  */
-public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescriptorComp, AttributeDescriptorComp, NameIDFormatDescriptorComp, AttributeProfileDescriptorComp {
+public interface IDPSSODescriptor extends SSODescriptor{
 
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "IDPSSODescriptor";
@@ -45,69 +46,37 @@ public interface IDPSSODescriptor extends SSODescriptor, AssertionIDRequestDescr
     public void setWantAuthnRequestSigned(boolean wantSigned);
     
     /**
-     * Gets the list of single sign on service {@link Endpoint}s for this IDP.
+     * Gets the list of single sign on services for this IDP.
      * 
-     * @return list of single sign on service {@link Endpoint}s
+     * @return list of single sign on services
      */
-	public List<Endpoint> getSingleSignOnServices();
-    
-    /**
-     * Adds an endpoint to the list of single sign on service {@link Endpoint}s.
-     * 
-     * @param endpoint the endpoint
-     */
-    public void addSingleSignOnService(Endpoint endpoint);
-    
-    /**
-     * Removes an endpoint from the list of single sign on service {@link Endpoint}s.
-     * 
-     * @param endpoint the endpoint
-     */
-    public void removeSingleSignOnService(Endpoint endpoint);
-    
-    /**
-     * Removes a list of endpoint from the list of single sign on service {@link Endpoint}s.
-     * 
-     * @param endpoints the endpoints
-     */
-    public void removeSingleSignOnServices(Collection<Endpoint> endpoints);
-    
-    /**
-     * Removes all the single sign on endpoints.
-     */
-    public void removeAllSingleSignOnServices();
+	public List<SingleSignOnService> getSingleSignOnServices();
 
     /**
-     * Gets the list of NameID mapping service {@link Endpoint}s for this service.
+     * Gets the list of NameID mapping services for this service.
      *  
-     * @return the list of NameID mapping service {@link Endpoint}s for this service
+     * @return the list of NameID mapping services for this service
      */
-	public List<Endpoint> getNameIDMappingServices();
-    
+	public List<NameIDMappingService> getNameIDMappingServices();
+
     /**
-     * Adds an endpoint to the list of NameID mapping service {@link Endpoint}s.
+     * Gets the list of assertion ID request services.
      * 
-     * @param endpoint the endpoint
+     * @return assertion ID request services
      */
-	public void addNameIDMappingService(Endpoint endpoint);
+    public List<AssertionIDRequestService> getAssertionIDRequestServices();
     
     /**
-     * Removes an endpoint from the list of NameID mapping service {@link Endpoint}s.
+     * Gets the list of attribute profiles supported by this IdP.
      * 
-     * @param endpoint the endpoint
+     * @return attribute profiles supported by this IdP
      */
-    public void removeNameIDMappingService(Endpoint endpoint);
+    public List<AttributeProfile> getAttributeProfiles();
     
     /**
-     * Removes a list of endpoints from the list of NameID mapping service {@link Endpoint}s.
+     * Gets the list of attributes supported by this IdP.
      * 
-     * @param endpoints the endpoints
+     * @return attributes supported by this IdP
      */
-    public void removeNameIDMappingServices(Collection<Endpoint> endpoints);
-    
-    /**
-     * Removes all the NameID mapping endpoints.
-     *
-     */
-    public void removeAllNameIDMappingServices();
+    public List<Attribute> getAttributes();
 }

@@ -31,6 +31,7 @@ import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concretate implementation of {@link org.opensaml.saml2.metadata.RoleDescriptor}
@@ -50,10 +51,10 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     private Organization organization;
     
     /** Contact persons for this role */
-    private ArrayList<ContactPerson> contactPersons = new ArrayList<ContactPerson>();
+    private XMLObjectChildrenList<ContactPerson> contactPersons;
     
     /** Key descriptors for this role */
-    private ArrayList<KeyDescriptor> keyDescriptors = new ArrayList<KeyDescriptor>();
+    private XMLObjectChildrenList<KeyDescriptor> keyDescriptors;
     
     /**
      * Constructor
@@ -63,6 +64,8 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     public RoleDescriptorImpl(String localName) {
         super(SAMLConstants.SAML20MD_NS, localName);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+        contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
+        keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
     
     /*
@@ -167,74 +170,14 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getContactPersons()
      */
     public List<ContactPerson> getContactPersons() {
-        return Collections.unmodifiableList(contactPersons);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#addContactPerson(org.opensaml.saml2.metadata.ContactPerson)
-     */
-    public void addContactPerson(ContactPerson person) throws IllegalAddException {
-        addXMLObject(contactPersons, person);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPerson(org.opensaml.saml2.metadata.ContactPerson)
-     */
-    public void removeContactPerson(ContactPerson person) {
-        removeXMLObject(contactPersons, person);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeContactPersons(java.util.Set)
-     */
-    public void removeContactPersons(Collection<ContactPerson> persons) {
-        removeXMLObjects(contactPersons, persons);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#removeAllContactPersons()
-     */
-    public void removeAllContactPersons() {
-        for (ContactPerson person : contactPersons) {
-            removeContactPerson(person);
-        }
+        return contactPersons;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#getKeyDescriptors()
      */
     public List<KeyDescriptor> getKeyDescriptors() {
-        return Collections.unmodifiableList(keyDescriptors);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#addKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
-     */
-    public void addKeyDescriptor(KeyDescriptor keyDescriptor) throws IllegalAddException {
-        addXMLObject(keyDescriptors, keyDescriptor);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptor(org.opensaml.saml2.metadata.KeyDescriptor)
-     */
-    public void removeKeyDescriptor(KeyDescriptor keyDescriptor) {
-        removeXMLObject(keyDescriptors, keyDescriptor);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeKeyDescriptors(java.util.Set)
-     */
-    public void removeKeyDescriptors(Collection<KeyDescriptor> keyDescriptors) {
-        removeXMLObjects(this.keyDescriptors, keyDescriptors);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#removeAllKeyDescriptors()
-     */
-    public void removeAllKeyDescriptors() {
-        for(KeyDescriptor keyDescriptor : keyDescriptors) {
-            removeKeyDescriptor(keyDescriptor);
-        }
+        return keyDescriptors;
     }
     
     /*

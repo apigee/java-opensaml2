@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -84,55 +83,6 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * @return the role descriptors of a certain type
      */
 	public List<RoleDescriptor> getRoleDescriptors(QName type);
-    
-    /**
-     * Gets the role descriptors of a certain type that support the given protocol.
-     * 
-     * @param type the xsi:type of role descriptor
-     * @param protocol the protocol that must be supported
-     * 
-     * @return the role descriptor or null
-     */
-    public RoleDescriptor getRoleDescriptors(QName type, String protocol);
-    
-    /**
-     * Adds a role descriptor
-     * 
-     * @param descriptor the descriptor
-     * 
-     * @throws IllegalAddException thrown if the given descriptor is owned by another EntityDescriptor, if 
-     * its supported protocols overlap with an existing descriptor, or if this entity descriptor has an 
-     * AffiliationDescriptor
-     */
-    public void addRoleDescriptor(RoleDescriptor descriptor) throws IllegalAddException;
-    
-    /**
-     * Removes a role descriptor.  If the given role descriptor is not 
-     * currently a member of this entity descriptor this operation simply returns.
-     * 
-     * @param descriptor the role descriptor
-     */
-    public void removeRoleDescriptor(RoleDescriptor descriptor);
-    
-    /**
-     * Removes a set of role descriptors.  If any of the given role descriptors are not 
-     * currently a member of this entity descriptor they are simply skipped.
-     * 
-     * @param descriptors the descriptors
-     */
-    public void removeRoleDescriptors(Collection<RoleDescriptor> descriptors);
-    
-    /**
-     * Removes all the role descriptors.
-     */
-    public void removeAllRoleDescriptors();
-    
-    /**
-     * Removes all the role descriptors with the given schema type or element name.
-     * 
-     * @param the schema type or element name
-     */
-    public void removeAllRoleDescriptors(QName typeOrName);
     
     /**
      * Gets all the {@link IDPSSODescriptor}s role descriptor for this entity.
@@ -208,35 +158,6 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * @return the contact people for this entity
      */
 	public List<ContactPerson> getContactPersons();
-    
-    /**
-     * Adds a contact person to this entity.
-     * 
-     * @param person the contact person
-     * 
-     * @throws IllegalAddException thrown if given contact person belongs to another entity
-     */
-    public void addContactPerson(ContactPerson person)  throws IllegalAddException;
-    
-    /**
-     * Removes a contact person from this entity, if they are associated with it.
-     * 
-     * @param person the person to remove
-     */
-    public void removeContactPerson(ContactPerson person);
-    
-    /**
-     * Removes a set of contact people from this entity, if a contact person is not 
-     * associated with this entity it is simply skipped.
-     * 
-     * @param persons the contact people
-     */
-    public void removeContactPersons(Collection<ContactPerson> persons);
-    
-    /**
-     * Removes all the contact people from this entity.
-     */
-    public void removeAllContactPersons();
 
     /**
      * Gets the additional metadata locations for this entity.
@@ -244,32 +165,4 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * @return the additional metadata locations for this entity
      */
 	public List<AdditionalMetadataLocation> getAdditionalMetadataLocations();
-    
-    /**
-     * Adds an additional metadata locations for this entity.
-     * 
-     * @param location the location to add
-     * 
-     * @throws IllegalAddException thrown if this location is owned by another entity
-     */
-    public void addAdditionalMetadataLocation(AdditionalMetadataLocation location) throws IllegalAddException;
-    
-    /**
-     * Removes an additional metadata location from this entity if it exist.
-     * 
-     * @param location the location to remove
-     */
-    public void removeAdditionalMetadataLocation(AdditionalMetadataLocation location);
-    
-    /**
-     * Removes the additional metadata locations from this entity if they exist.
-     * 
-     * @param locations the location to remove
-     */
-    public void removeAdditionalMetadataLocations(Collection<AdditionalMetadataLocation> locations);
-    
-    /**
-     * Removes all the additional metadata locations from this entity.
-     */
-    public void removeAllAdditionalMetadataLocation();
 }

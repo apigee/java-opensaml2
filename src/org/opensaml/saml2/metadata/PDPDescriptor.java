@@ -16,48 +16,34 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
  * SAML 2.0 Metadata PDPDescriptor
  */
-public interface PDPDescriptor extends RoleDescriptor, AssertionIDRequestDescriptorComp, NameIDFormatDescriptorComp {
+public interface PDPDescriptor extends RoleDescriptor {
     
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "PDPDescriptor";
 
     /**
-     * Gets an immutable list of authz service {@link Endpoint}s for this service.
+     * Gets an list of authz services for this service.
      * 
-     * @return list of authz service {@link Endpoint}s for this service
+     * @return list of authz services for this service
      */
-	public List<Endpoint> getAuthzServices();
+	public List<AuthzService> getAuthzServices();
     
     /**
-     * Adds an authz service {@link Endpoint} for this service.
+     * Gets the list of assertion ID request services for this PDP.
      * 
-     * @param service the service endpoint
+     * @return list of assertion ID request services for this PDP
      */
-	public void addAuthzService(Endpoint service);
+    public List<AssertionIDRequestService> getAssertionIDRequestService();
     
     /**
-     * Removes an authz service {@link Endpoint} for this service.
+     * Gets the list of NameID formats this service supports.
      * 
-     * @param service the service endpoint
+     * @return NameID formats this service supports
      */
-    public void removeAuthzService(Endpoint service);
-    
-    /**
-     * Removes a list of authz service {@link Endpoint}s for this service.
-     * 
-     * @param services the service endpoint
-     */
-    public void removeAuthzServices(Collection<Endpoint> services);
-    
-    /**
-     * Removes all the authz service endpoints from this service.
-     *
-     */
-    public void removeAllAuthzServices();
+    public List<NameIDFormat> getNameIDFormats();
 }

@@ -30,7 +30,7 @@ import org.opensaml.xml.SignableXMLObject;
 /**
  * SAML 2.0 Metadata RoleDescriptor
  */
-public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject, KeyDescriptorDescriptorComp{
+public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject {
     
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "RoleDescriptor";
@@ -113,6 +113,13 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
      * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
      */
     public void setExtensions(Extensions extensions) throws IllegalAddException;
+    
+    /**
+     * Gets the key descriptors for this role.
+     * 
+     * @return the key descriptors for this role
+     */
+    public List<KeyDescriptor> getKeyDescriptors();
 
     /**
      * Gets the organization responsible for this role.
@@ -136,32 +143,4 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
      * @return list of {@link ContactPerson}s for this role
      */
     public List<ContactPerson> getContactPersons();
-    
-    /**
-     * Adds a contact person to the list of contact people for this role.
-     * 
-     * @param person the contact person
-     * 
-     * @throws IllegalAddException thrown if the given contact person is owned by another element
-     */
-    public void addContactPerson(ContactPerson person) throws IllegalAddException;
-    
-    /**
-     * Removes a contact person from the list of contact people for this role.
-     * 
-     * @param person the contact person
-     */
-    public void removeContactPerson(ContactPerson person);
-    
-    /**
-     * Removes a list of contact persons from the list of contact people for this role.
-     * 
-     * @param persons the list of contact persons
-     */
-    public void removeContactPersons(Collection<ContactPerson> persons);
-    
-    /**
-     * Removes all the contact persons from this role.
-     */
-    public void removeAllContactPersons();
 }

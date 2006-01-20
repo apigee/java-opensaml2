@@ -30,7 +30,6 @@ import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AttributeProfile;
 import org.opensaml.saml2.metadata.AttributeService;
 import org.opensaml.saml2.metadata.NameIDFormat;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
@@ -56,26 +55,21 @@ public class AttributeAuthorityDescriptorUnmarshaller extends RoleDescriptorUnma
 
         AttributeAuthorityDescriptor descriptor = (AttributeAuthorityDescriptor) parentElement;
 
-        try {
-            if (childElement instanceof AttributeService) {
-                descriptor.addAttributeService((AttributeService) childElement);
-            } else if (childElement instanceof AssertionIDRequestService) {
-                descriptor.addAssertionIDRequestService((AssertionIDRequestService) childElement);
-            } else if (childElement instanceof NameIDFormat) {
-                descriptor.addNameIDFormat((NameIDFormat) childElement);
-            } else if (childElement instanceof AttributeProfile) {
-                descriptor.addAttributeProfile((AttributeProfile) childElement);
-            } else if (childElement instanceof Attribute) {
-                descriptor.addAttribute((Attribute) childElement);
-            } else {
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is an unknown child element of " + parentElement.getElementQName());
-                }
+        if (childElement instanceof AttributeService) {
+            descriptor.getAttributeServices().add((AttributeService) childElement);
+        } else if (childElement instanceof AssertionIDRequestService) {
+            descriptor.getAssertionIDRequestServices().add((AssertionIDRequestService) childElement);
+        } else if (childElement instanceof NameIDFormat) {
+            descriptor.getNameIDFormats().add((NameIDFormat) childElement);
+        } else if (childElement instanceof AttributeProfile) {
+            descriptor.getAttributeProfiles().add((AttributeProfile) childElement);
+        } else if (childElement instanceof Attribute) {
+            descriptor.getAttributes().add((Attribute) childElement);
+        } else {
+            if (!SAMLConfig.ignoreUnknownElements()) {
+                throw new UnknownElementException(childElement.getElementQName() + " is an unknown child element of "
+                        + parentElement.getElementQName());
             }
-        } catch (IllegalAddException e) {
-            // should never get here, but just in case
-            throw new UnmarshallingException(e);
         }
     }
 }

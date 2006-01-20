@@ -17,7 +17,6 @@
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -30,6 +29,7 @@ import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.IllegalAddException;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}.
@@ -56,12 +56,12 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     /**
      * Ordered set of EntitiesDescriptors
      */
-    private ArrayList<EntitiesDescriptor> entitiesDescriptors = new ArrayList<EntitiesDescriptor>();
+    private XMLObjectChildrenList<EntitiesDescriptor> entitiesDescriptors;
 
     /**
      * Ordered set of EntityDescriptors
      */
-    private ArrayList<EntityDescriptor> entityDescriptors = new ArrayList<EntityDescriptor>();
+    private XMLObjectChildrenList<EntityDescriptor> entityDescriptors;
 
     /**
      * Constructor
@@ -69,6 +69,10 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     public EntitiesDescriptorImpl() {
         super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+        
+        orderedDescriptors = new ArrayList<SAMLObject>();
+        entitiesDescriptors = new XMLObjectChildrenList<EntitiesDescriptor>(this);
+        entityDescriptors = new XMLObjectChildrenList<EntityDescriptor>(this);
     }
 
     /*
@@ -138,86 +142,14 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getEntitiesDescriptors()
      */
     public List<EntitiesDescriptor> getEntitiesDescriptors() {
-        return Collections.unmodifiableList(entitiesDescriptors);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#addEntitiesDescriptor(org.opensaml.saml2.metadata.EntitiesDescriptor)
-     */
-    public void addEntitiesDescriptor(EntitiesDescriptor descriptor) throws IllegalAddException {
-        if (addXMLObject(entitiesDescriptors, descriptor)) {
-            orderedDescriptors.add(descriptor);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeEntitiesDescriptor(org.opensaml.saml2.metadata.EntitiesDescriptor)
-     */
-    public void removeEntitiesDescriptor(EntitiesDescriptor descriptor) {
-        if (removeXMLObject(entitiesDescriptors, descriptor)) {
-            orderedDescriptors.remove(descriptor);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeEntitiesDescriptors(java.util.List)
-     */
-    public void removeEntitiesDescriptors(Collection<EntitiesDescriptor> desciptors) {
-        for (EntitiesDescriptor descriptor : desciptors) {
-            removeEntitiesDescriptor(descriptor);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeAllEntitiesDescriptors()
-     */
-    public void removeAllEntitiesDescriptors() {
-        for (EntitiesDescriptor descriptor : entitiesDescriptors) {
-            removeEntitiesDescriptor(descriptor);
-        }
+        return entitiesDescriptors;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getEntityDescriptors()
      */
     public List<EntityDescriptor> getEntityDescriptors() {
-        return Collections.unmodifiableList(entityDescriptors);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#addEntityDescriptor(org.opensaml.saml2.metadata.EntityDescriptor)
-     */
-    public void addEntityDescriptor(EntityDescriptor descriptor) throws IllegalAddException {
-        if (addXMLObject(entityDescriptors, descriptor)) {
-            orderedDescriptors.add(descriptor);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeEntityDescriptor(org.opensaml.saml2.metadata.EntityDescriptor)
-     */
-    public void removeEntityDescriptor(EntityDescriptor descriptor) {
-        if (removeXMLObject(entityDescriptors, descriptor)) {
-            orderedDescriptors.remove(descriptor);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeEntityDescriptors(java.util.List)
-     */
-    public void removeEntityDescriptors(Collection<EntityDescriptor> descriptors) {
-        for (EntityDescriptor descriptor : descriptors) {
-            removeEntityDescriptor(descriptor);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#removeAllEntityDescriptors()
-     */
-    public void removeAllEntityDescriptors() {
-        for (EntityDescriptor descriptor : entityDescriptors) {
-            removeEntityDescriptor(descriptor);
-        }
+        return entityDescriptors;
     }
 
     /*
@@ -227,7 +159,6 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
         ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
 
         children.add(getExtensions());
-
         children.addAll(getOrderedChildDescriptors());
 
         return Collections.unmodifiableList(children);

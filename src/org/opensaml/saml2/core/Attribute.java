@@ -16,11 +16,9 @@
 
 package org.opensaml.saml2.core;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * SAML 2.0 Core Attribute
@@ -82,37 +80,9 @@ public interface Attribute extends SAMLObject {
     public void setFriendlyName(String friendlyName);
 
     /**
-     * Gets the immutable list of attribute values for this attribute.
+     * Gets the list of attribute values for this attribute.
      * 
      * @return the list of attribute values for this attribute
      */
     public List<AttributeValue> getAttributeValues();
-
-    /**
-     * Adds an attribute value to the list of values for this attribute.
-     * 
-     * @param value the value to add
-     * 
-     * @throws IllegalAddException thrown if the given value is already the child of another SAMLObject
-     */
-    public void addAttributeValue(AttributeValue value) throws IllegalAddException;
-
-    /**
-     * Removes the value from the list of values for this attribute.
-     * 
-     * @param value the value to be removed
-     */
-    public void removeAttributeValue(AttributeValue value);
-
-    /**
-     * Removes the collection of values from the list of values for this attribute.
-     * 
-     * @param values the collection of values to be removed
-     */
-    public void removeAttributeValues(Collection<AttributeValue> values);
-
-    /**
-     * Removes all the values from the list of values for this attribute.
-     */
-    public void removeAllAttributeValues();
 }
