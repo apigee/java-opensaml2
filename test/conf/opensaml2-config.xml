@@ -2,7 +2,7 @@
 <OpenSAML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.opensaml.org/opensaml2-config ../../src/schema/opensaml2-config.xsd"
  xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
- xmlns:md="urn:oasis:names:tc:saml1:2.0:metadata"
+ xmlns:saml2md="urn:oasis:names:tc:SAML:2.0:metadata"
  xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol"
  xmlns:saml1="urn:oasis:names:tc:SAML:1.0:assertion"
  xmlns="http://www.opensaml.org/opensaml2-config">
@@ -14,49 +14,49 @@
         <!-- ************************************* -->
         
         <!-- EntitiesDescriptor provider -->
-        <ObjectProvider qualifiedName="md:EntitiesDescriptor">
+        <ObjectProvider qualifiedName="saml2md:EntitiesDescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorBuilder" />
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorUnmarshaller" />
         </ObjectProvider>
 
         <!-- EntityDescriptor provider -->
-        <ObjectProvider qualifiedName="md:EntityDescriptor">
+        <ObjectProvider qualifiedName="saml2md:EntityDescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.EntityDescriptorBuilder" />
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.EntityDescriptorMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EntityDescriptorUnmarshaller" />
         </ObjectProvider>
         
         <!-- AdditionalMetdataLocation provider -->
-        <ObjectProvider qualifiedName="md:AdditionalMetadataLocation">
+        <ObjectProvider qualifiedName="saml2md:AdditionalMetadataLocation">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationBuilder" />
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationUnmarshaller" />
         </ObjectProvider>
         
         <!-- AuthnAuthorityDescriptor provider -->
-        <ObjectProvider qualifiedName="md:AuthnAuthorityDescriptor">
+        <ObjectProvider qualifiedName="saml2md:AuthnAuthorityDescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorBuilder" />
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorUnmarshaller" />
         </ObjectProvider>
         
         <!-- AffiliationDescriptor provider -->
-        <ObjectProvider qualifiedName="md:AffiliationDescriptor">
+        <ObjectProvider qualifiedName="saml2md:AffiliationDescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorBuilder" />
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliationDescriptorUnmarshaller" />
         </ObjectProvider>
         
         <!-- AffiliateMember provider -->
-        <ObjectProvider qualifiedName="md:AffiliateMember">
+        <ObjectProvider qualifiedName="saml2md:AffiliateMember">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AffiliateMemberBuilder" />
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliateMemberMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AffiliateMemberUnmarshaller" />
         </ObjectProvider>
         
         <!-- AttributeProfile provider -->
-        <ObjectProvider qualifiedName="md:AttributeProfile">
+        <ObjectProvider qualifiedName="saml2md:AttributeProfile">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AttributeProfileBuilder" />
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.AttributeProfileMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AttributeProfileUnmarshaller" />
