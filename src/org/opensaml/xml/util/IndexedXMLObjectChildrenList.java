@@ -62,7 +62,7 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * @return list of SAMLObjects that have given schema type or element name or null
      */
     public List<ElementType> get(QName typeOrName) {
-        return objectIndex.get(new QName(typeOrName.getNamespaceURI(), typeOrName.getLocalPart()));
+        return objectIndex.get(typeOrName);
     }
 
     /**
@@ -133,11 +133,10 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * @param element the element to be indexed
      */
     protected void indexElement(QName index, ElementType element) {
-        QName safeIndex = new QName(index.getNamespaceURI(), index.getLocalPart());
-        ArrayList<ElementType> objects = objectIndex.get(safeIndex);
+        ArrayList<ElementType> objects = objectIndex.get(index);
         if (objects == null) {
             objects = new ArrayList<ElementType>();
-            objectIndex.put(safeIndex, objects);
+            objectIndex.put(index, objects);
         }
 
         objects.add(element);
