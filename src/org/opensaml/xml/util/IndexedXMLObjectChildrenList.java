@@ -75,9 +75,9 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      */
     public ElementType set(int index, ElementType element) {
         ElementType returnValue = super.set(index, element);
-        
+
         removeElementFromIndex(returnValue);
-        
+
         indexElement(element);
         return returnValue;
     }
@@ -114,10 +114,10 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * @param element the SAMLObject to index
      */
     protected void indexElement(ElementType element) {
-        if(element == null) {
+        if (element == null) {
             return;
         }
-        
+
         QName type = element.getSchemaType();
         if (type != null) {
             indexElement(type, element);
@@ -142,25 +142,25 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
 
         objects.add(element);
     }
-    
+
     /**
      * Removes the given element from the schema type and element qname index.
      * 
      * @param element the element to remove from the index
      */
     protected void removeElementFromIndex(ElementType element) {
-        if(element == null) {
+        if (element == null) {
             return;
         }
-        
+
         QName type = element.getSchemaType();
-        if(type != null) {
-            objectIndex.remove(type);
+        if (type != null) {
+            removeElementFromIndex(type, element);
         }
-        
-        objectIndex.remove(element.getElementQName());
+
+        removeElementFromIndex(element.getElementQName(), element);
     }
-    
+
     /**
      * Removes an object from the given index id.
      * 
@@ -171,6 +171,10 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
         ArrayList<ElementType> objects = objectIndex.get(index);
         if (objects != null) {
             objects.remove(element);
+        }
+
+        if (objects.size() == 0) {
+            objectIndex.remove(index);
         }
     }
 }
