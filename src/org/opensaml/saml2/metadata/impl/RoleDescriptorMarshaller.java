@@ -38,12 +38,13 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
     /**
      * Logger
      */
-    private static Logger log = Logger.getLogger(EntityDescriptorMarshaller.class);
+    private static Logger log = Logger.getLogger(RoleDescriptorMarshaller.class);
     
     /**
      * Constructor
      * 
-     * @param localName the Qname of the local
+     * @param targetNamespaceURI the namespaceURI of the SAMLObject this marshaller operates on
+     * @param localName the local name of the SAMLObject this marshaller operates on
      */
     protected RoleDescriptorMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);

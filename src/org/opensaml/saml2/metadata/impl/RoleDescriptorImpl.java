@@ -19,7 +19,9 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
@@ -37,6 +39,12 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * Concretate implementation of {@link org.opensaml.saml2.metadata.RoleDescriptor}
  */
 public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject implements RoleDescriptor {
+    
+    /** validUntil attribute */
+    private GregorianCalendar validUntil;
+
+    /** cacheDurection attribute */
+    private Long cacheDuration;
 
     /** Set of supported protocols */
     private ArrayList<String> supportedProtocols = new ArrayList<String>();
@@ -59,13 +67,49 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     /**
      * Constructor
      * 
+     * @param namespaceURI the namespace URI of the element this saml object represents
      * @param localName the local name of the element this SAML object represents
      */
-    public RoleDescriptorImpl(String localName) {
+    public RoleDescriptorImpl(String namespaceURI, String localName) {
         super(SAMLConstants.SAML20MD_NS, localName);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
         contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
+    }
+    
+    /*
+     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
+     */
+    public boolean isValid() {
+        return validUntil.before(GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC")));
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
+     */
+    public GregorianCalendar getValidUntil() {
+        return validUntil;
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
+     */
+    public void setValidUntil(GregorianCalendar validUntil) {
+        this.validUntil = prepareForAssignment(this.validUntil, validUntil);
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.CacheableSAMLObject#getCacheDuration()
+     */
+    public Long getCacheDuration() {
+        return cacheDuration;
+    }
+
+    /*
+     * @see org.opensaml.saml2.common.CacheableSAMLObject#setCacheDuration(java.lang.Long)
+     */
+    public void setCacheDuration(Long duration) {
+        cacheDuration = prepareForAssignment(cacheDuration, duration);
     }
     
     /*

@@ -54,7 +54,7 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
      * Constrcutor
      */
     public AuthnAuthorityDescriptorImpl() {
-        super(AuthnAuthorityDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
         
         authnQueryServices = new XMLObjectChildrenList<AuthnQueryService>(this);

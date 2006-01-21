@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
@@ -45,8 +44,6 @@ public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarsha
      */
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
             throws UnmarshallingException, UnknownElementException {
-        super.processChildElement(parentElement, childElement);
-
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) parentElement;
 
         if (childElement instanceof AuthnQueryService) {
@@ -56,10 +53,7 @@ public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarsha
         } else if (childElement instanceof NameIDFormat) {
             descriptor.getNameIDFormats().add((NameIDFormat) childElement);
         } else {
-            if (!SAMLConfig.ignoreUnknownElements()) {
-                throw new UnknownElementException(childElement.getElementQName() + " is an unknown child element of "
-                        + parentElement.getElementQName());
-            }
+            super.processChildElement(parentElement, childElement);
         }
     }
 }

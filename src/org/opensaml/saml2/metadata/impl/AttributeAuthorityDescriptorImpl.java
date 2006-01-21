@@ -62,7 +62,7 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
      * Constructor
      */
     public AttributeAuthorityDescriptorImpl(){
-        super(AttributeAuthorityDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
         
         attributeServices = new XMLObjectChildrenList<AttributeService>(this);

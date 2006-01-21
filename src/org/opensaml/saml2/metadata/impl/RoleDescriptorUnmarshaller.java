@@ -38,10 +38,10 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * 
      * Constructor
      * 
-     * @param target the QName of the type or elment this unmarshaller operates on
+     * @param targetNamespaceURI the namespaceURI of the SAMLObject this unmarshaller operates on
+     * @param localName the local name of the SAMLObject this unmarshaller operates on
      */
     protected RoleDescriptorUnmarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
