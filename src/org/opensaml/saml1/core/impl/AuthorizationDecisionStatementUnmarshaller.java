@@ -17,10 +17,10 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -31,7 +31,6 @@ import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
 import org.opensaml.saml1.core.Evidence;
 import org.opensaml.saml1.core.Subject;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
@@ -43,7 +42,6 @@ public class AuthorizationDecisionStatementUnmarshaller extends AbstractSAMLObje
     /** Logger */
     private static Logger log = Logger.getLogger(AuthorizationDecisionStatementUnmarshaller.class);
 
-
     /**
      * Constructor
      */
@@ -52,49 +50,39 @@ public class AuthorizationDecisionStatementUnmarshaller extends AbstractSAMLObje
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
+     *      org.opensaml.common.SAMLObject)
      */
-    @Override
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
-        
+
         AuthorizationDecisionStatement authorizationDecisionStatement;
-        authorizationDecisionStatement = (AuthorizationDecisionStatement) parentElement;
-        
-        try {
-            if (childElement instanceof Action) {
-                authorizationDecisionStatement.addAction((Action) childElement);
-            } else if (childElement instanceof Evidence) {
-                authorizationDecisionStatement.setEvidence((Evidence) childElement);
-            } else if (childElement instanceof Subject) {
-                authorizationDecisionStatement.setSubject((Subject) childElement);
-            } else {
-                log.error(childElement.getElementQName()
-                        + " is not a supported element for AuthorizationDecisionStatement");
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for AuthorizationDecisionStatement");
-                }
-            }
-        } catch (IllegalAddException e) {
-            log.error("Couldn't add element " + childElement.getElementQName(), e);
-            throw new UnmarshallingException(e);
+        authorizationDecisionStatement = (AuthorizationDecisionStatement) parentSAMLObject;
+
+        if (childSAMLObject instanceof Action) {
+            authorizationDecisionStatement.addAction((Action) childSAMLObject);
+        } else if (childSAMLObject instanceof Evidence) {
+            authorizationDecisionStatement.setEvidence((Evidence) childSAMLObject);
+        } else if (childSAMLObject instanceof Subject) {
+            authorizationDecisionStatement.setSubject((Subject) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
+     *      java.lang.String, java.lang.String)
      */
-    @Override
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
         AuthorizationDecisionStatement authorizationDecisionStatement;
-        authorizationDecisionStatement = (AuthorizationDecisionStatement) samlElement;
-        
+        authorizationDecisionStatement = (AuthorizationDecisionStatement) samlObject;
+
         if (AuthorizationDecisionStatement.DECISION_ATTRIB_NAME.equals(attributeName)) {
             DecisionType decision;
-            
+
             try {
                 decision = Enum.valueOf(DecisionType.class, attributeValue);
             } catch (IllegalArgumentException e) {
@@ -102,16 +90,11 @@ public class AuthorizationDecisionStatementUnmarshaller extends AbstractSAMLObje
                 throw new UnmarshallingException("Unknown type for DecisionType " + attributeValue, e);
             }
             authorizationDecisionStatement.setDecision(decision);
-            
+
         } else if (AuthorizationDecisionStatement.RESOURCE_ATTRIB_NAME.equals(attributeName)) {
             authorizationDecisionStatement.setResource(attributeValue);
         } else {
-            log.error(attributeName
-                    + " is not a supported attributed for AuthorizationDecisionStatement objects");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for AuthorizationDecisionStatement objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

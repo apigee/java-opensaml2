@@ -22,7 +22,6 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * This interface defines how the object representing a SAML1 <code> Conditions</code> element behaves.
@@ -67,9 +66,9 @@ public interface Conditions extends SAMLObject {
      * 
      * @param Condition what to add
      * 
-     * @throws IllegalAddException if the object has already been put into an SAMLObject
+     * @throws IllegalArgumentException if the object has already been put into an SAMLObject
      */
-    public void addCondition(Condition condition) throws IllegalAddException;
+    public void addCondition(Condition condition) throws IllegalArgumentException;
 
     /**
      * Remove a single <code> Conditions</code> from the List.

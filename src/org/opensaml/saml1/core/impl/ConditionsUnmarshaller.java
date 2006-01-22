@@ -20,8 +20,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -29,7 +27,6 @@ import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -38,10 +35,7 @@ import org.opensaml.xml.util.DatatypeHelper;
  */
 public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Logger */
-    private static Logger log = Logger.getLogger(ConditionsUnmarshaller.class);
-    
-   /**
+    /**
      * Constructor
      */
     public ConditionsUnmarshaller() {
@@ -52,25 +46,14 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
-
-        Conditions conditions = (Conditions) parentElement;
-
-        try {
-
-            if (childElement instanceof Condition) {
-                conditions.addCondition((Condition) childElement);
-            } else {
-                log.error(childElement.getElementQName()
-                        + " is not a supported element for Conditions objects");
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for Conditions objects");
-                }
-            }
-        } catch (IllegalAddException e) {
-            throw new UnmarshallingException(e);
+        Conditions conditions = (Conditions) parentSAMLObject;
+        
+        if (childSAMLObject instanceof Condition) {
+            conditions.addCondition((Condition) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 
@@ -79,22 +62,17 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      *      java.lang.String, java.lang.String)
      */
 
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        Conditions conditions = (Conditions) samlElement;
-        
+        Conditions conditions = (Conditions) samlObject;
+
         if (Conditions.NOTBEFORE_ATTRIB_NAME.equals(attributeName)) {
             conditions.setNotBefore(DatatypeHelper.stringToCalendar(attributeValue, 0));
         } else if (Conditions.NOTONORAFTER_ATTRIB_NAME.equals(attributeName)) {
             conditions.setNotOnOrAfter(DatatypeHelper.stringToCalendar(attributeValue, 0));
         } else {
-            log.error(attributeName
-                    + " is not a supported attributed for Conditions objects");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for Conditions objects");
-            }
+            processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

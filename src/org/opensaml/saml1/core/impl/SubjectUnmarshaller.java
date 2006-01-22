@@ -21,16 +21,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectConfirmation;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
@@ -52,43 +49,17 @@ public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
-        Subject subject = (Subject) parentElement;
+        Subject subject = (Subject) parentSAMLObject;
 
-        try {
-            if (childElement instanceof NameIdentifier) {
-                subject.setNameIdentifier((NameIdentifier) childElement);
-            } else if (childElement instanceof SubjectConfirmation) {
-                subject.setSubjectConfirmation((SubjectConfirmation) childElement);
-            } else {
-                log.error(childElement.getElementQName() + " is not a supported element for Subject objects");
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                        + " is not a supported element for Subject objects");
-                }
-            }
-        } catch (IllegalAddException e) {
-            log.error("Couldn't add " + childElement, e);
-            throw new UnmarshallingException(e);
-        }
-    }
-
-    /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
-     */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-        // 
-        // No Attributes
-        //
-
-        log.error(attributeName + " is not a supported attributed for Subject objects");
-
-        if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName + " is not a supported attributed for Subject objects");
+        if (childSAMLObject instanceof NameIdentifier) {
+            subject.setNameIdentifier((NameIdentifier) childSAMLObject);
+        } else if (childSAMLObject instanceof SubjectConfirmation) {
+            subject.setSubjectConfirmation((SubjectConfirmation) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 }

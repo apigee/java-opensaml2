@@ -41,7 +41,6 @@ import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Statement;
 import org.opensaml.saml1.core.SubjectStatement;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * This class implements the SAML 1 <code> Assertion </code> statement.
@@ -138,7 +137,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     /*
      * @see org.opensaml.saml1.core.Assertion#setConditions(org.opensaml.saml1.core.Conditions)
      */
-    public void setConditions(Conditions conditions) throws IllegalAddException {
+    public void setConditions(Conditions conditions) throws IllegalArgumentException {
         this.conditions = prepareForAssignment(this.conditions, conditions);
     }
 
@@ -152,7 +151,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     /*
      * @see org.opensaml.saml1.core.Assertion#setAdvice(org.opensaml.saml1.core.Advice)
      */
-    public void setAdvice(Advice advice) throws IllegalAddException {
+    public void setAdvice(Advice advice) throws IllegalArgumentException {
         this.advice = prepareForAssignment(this.advice, advice);
     }
 
@@ -182,7 +181,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     /*
      * @see org.opensaml.saml1.core.Assertion#addStatement(org.opensaml.saml1.core.Statement)
      */
-    public void addStatement(Statement statement) throws IllegalAddException {
+    public void addStatement(Statement statement) throws IllegalArgumentException {
         addXMLObject(this.statements, statement);
     }
 

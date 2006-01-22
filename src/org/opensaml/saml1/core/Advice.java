@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * This interface defines how the object representing a SAML 1 <code> Advice </code> element behaves.
@@ -42,9 +41,9 @@ public interface Advice extends SAMLObject {
      * 
      * @param assertionIDReference what to add
      * 
-     * @throws IllegalAddException if the element is already added somewhere
+     * @throws IllegalArgumentException if the element is already added somewhere
      */
-    public void addAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalAddException;
+    public void addAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalArgumentException;
 
     /**
      * Remove a single AssertionIDReference.
@@ -75,9 +74,9 @@ public interface Advice extends SAMLObject {
      * 
      * @param assertion what to add
      * 
-     * @throws IllegalAddException if the element is already added somewhere
+     * @throws IllegalArgumentException if the element is already added somewhere
      */
-    public void addAssertion(Assertion assertion) throws IllegalAddException;
+    public void addAssertion(Assertion assertion) throws IllegalArgumentException;
 
     /** Remove a single Assertion */
     public void removeAssertion(Assertion assertion);

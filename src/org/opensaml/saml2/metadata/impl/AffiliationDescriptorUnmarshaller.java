@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -28,12 +27,12 @@ import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.saml2.metadata.KeyDescriptor;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.AffiliationDescriptor}s.
+ * A thread safe {@link org.opensaml.common.io.Unmarshaller} for
+ * {@link org.opensaml.saml2.metadata.AffiliationDescriptor}s.
  */
 public class AffiliationDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -48,26 +47,18 @@ public class AffiliationDescriptorUnmarshaller extends AbstractSAMLObjectUnmarsh
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
-        AffiliationDescriptor descriptor = (AffiliationDescriptor) parentElement;
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) parentSAMLObject;
 
-        try {
-            if (childElement instanceof Extensions) {
-                descriptor.setExtensions((Extensions) childElement);
-            } else if (childElement instanceof AffiliateMember) {
-                descriptor.getMembers().add((AffiliateMember) childElement);
-            } else if (childElement instanceof KeyDescriptor) {
-                descriptor.getKeyDescriptors().add((KeyDescriptor) childElement);
-            } else {
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for EntityDescriptor objects");
-                }
-            }
-        } catch (IllegalAddException e) {
-            // This should never happen, but just in case
-            throw new UnmarshallingException(e);
+        if (childSAMLObject instanceof Extensions) {
+            descriptor.setExtensions((Extensions) childSAMLObject);
+        } else if (childSAMLObject instanceof AffiliateMember) {
+            descriptor.getMembers().add((AffiliateMember) childSAMLObject);
+        } else if (childSAMLObject instanceof KeyDescriptor) {
+            descriptor.getKeyDescriptors().add((KeyDescriptor) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 
@@ -75,9 +66,9 @@ public class AffiliationDescriptorUnmarshaller extends AbstractSAMLObjectUnmarsh
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
-        AffiliationDescriptor descriptor = (AffiliationDescriptor) samlElement;
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) samlObject;
 
         if (attributeName.equals(AffiliationDescriptor.OWNER_ID_ATTRIB_NAME)) {
             descriptor.setOwnerID(attributeValue);
@@ -86,10 +77,7 @@ public class AffiliationDescriptorUnmarshaller extends AbstractSAMLObjectUnmarsh
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             descriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
         } else {
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for EntityDescriptor objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

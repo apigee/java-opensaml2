@@ -87,9 +87,13 @@ public abstract class AbstractSAMLObjectUnmarshaller implements SAMLObjectUnmars
 
         SAMLObject samlObject = buildSAMLObject(domElement);
 
-        unmarshallAttributes(domElement, samlObject);
+        if(domElement.hasAttributes()){
+            unmarshallAttributes(domElement, samlObject);
+        }
 
-        unmarshallElementContent(samlObject, domElement.getTextContent());
+        if(domElement.getTextContent() != null){
+            unmarshallElementContent(samlObject, domElement.getTextContent());
+        }
 
         unmarshallChildElements(domElement, samlObject);
         
@@ -287,35 +291,54 @@ public abstract class AbstractSAMLObjectUnmarshaller implements SAMLObjectUnmars
     /**
      * Called after this unmarshaller has unmarshalled a child element in order to add that child to the parent element.
      * 
-     * @param parentElement the parent element
-     * @param childElement the child element
+     * @param parentSAMLObject the parent element
+     * @param childSAMLObject the child element
      * 
      * @throws UnmarshallingException thrown if the child element is not a valid child of the parent
      * @throws UnknownElementException thrown if an element that the unmarshaller does not understand is encountered
      */
-    protected abstract void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException;
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
+            throws UnmarshallingException, UnknownElementException{
+        if (SAMLConfig.ignoreUnknownElements()) {
+            if(log.isDebugEnabled()){
+                log.debug("Ignoring unknown element " + childSAMLObject.getElementQName());
+            }
+        }else{
+            throw new UnknownElementException(childSAMLObject.getElementQName()
+                    + " is not an element supported by this unmarshaller");
+        }
+    }
 
     /**
      * Called after this unmarshaller has unmarshalled an attribute in order to add it to the SAML element
      * 
-     * @param samlElement the SAML element
+     * @param samlObject the SAML element
      * @param attributeName the attributes name
      * @param attributeValue the attributes value
      * 
      * @throws UnmarshallingException thrown if the given attribute is not a valid attribute for this SAML element
      * @throws UnknownAttributeException thrown if an attribute that the unmarshaller does not understand is encountered
      */
-    protected abstract void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException;
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
+            throws UnmarshallingException, UnknownAttributeException{
+        if(SAMLConfig.ignoreUnknownAttributes()){
+            if(log.isDebugEnabled()){
+                log.debug("Ignorning unknown attribute " + attributeName);
+            }
+        }else{
+            throw new UnknownAttributeException(attributeName + " is not an attribute supported by this attribute");
+        }
+    }
 
     /**
      * Called to process the content of a DOM element
      * 
-     * @param samlElement SAML object the content will be given to
+     * @param samlObject SAML object the content will be given to
      * @param elementContent the DOM element content
      */
-    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
-        // Vast majority of elements don't have textual content, let the few that do override this.
+    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+        if(log.isDebugEnabled()){
+            log.debug("Ignoring element content " + elementContent);
+        }
     }
 }

@@ -21,20 +21,18 @@
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.saml1.core.SubjectConfirmationData;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectConfirmation} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectConfirmation}
+ * objects.
  */
 public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -52,43 +50,17 @@ public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshal
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) parentElement;
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) parentSAMLObject;
 
-        try {
-            if (childElement instanceof ConfirmationMethod) {
-                subjectConfirmation.addConfirmationMethod((ConfirmationMethod) childElement);
-            } else if (childElement instanceof SubjectConfirmationData) {
-                subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) childElement);
-            } else {
-                log.error(childElement.getElementQName() + " is not a supported element for SubjectConfirmation objects");
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for SubjectConfirmation objects");
-                }
-            }
-        } catch (IllegalAddException e) {
-            log.error("Couldn't add " + childElement, e);
-            throw new UnmarshallingException(e);
-        }
-    }
-
-    /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
-     */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-        // 
-        // No Attributes
-        //
-
-        log.error(attributeName + " is not a supported attributed for SubjectConfirmation objects");
-
-        if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName + " is not a supported attributed for SubjectConfirmation objects");
+        if (childSAMLObject instanceof ConfirmationMethod) {
+            subjectConfirmation.addConfirmationMethod((ConfirmationMethod) childSAMLObject);
+        } else if (childSAMLObject instanceof SubjectConfirmationData) {
+            subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 }

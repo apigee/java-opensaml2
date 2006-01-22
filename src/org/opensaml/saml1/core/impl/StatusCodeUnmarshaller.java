@@ -20,24 +20,18 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.StatusCode} objects.
  */
 public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(StatusCodeUnmarshaller.class);
 
     /** Constructor */
     public StatusCodeUnmarshaller() {
@@ -48,24 +42,15 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
-        StatusCode statusCode = (StatusCode) parentElement;
+        StatusCode statusCode = (StatusCode) parentSAMLObject;
 
-        if (childElement instanceof StatusCode) {
-            try {
-                statusCode.setStatusCode((StatusCode) childElement);
-            } catch (IllegalAddException e) {
-                throw new UnmarshallingException(e);
-            }
+        if (childSAMLObject instanceof StatusCode) {
+            statusCode.setStatusCode((StatusCode) childSAMLObject);
         } else {
-            log.error(childElement.getElementQName()
-                        + " is not a supported element for StatusCode objects");
-            if (!SAMLConfig.ignoreUnknownElements()) {
-                throw new UnknownElementException(childElement.getElementQName()
-                        + " is not a supported element for StatusCode objects");
-            }
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
 
     }
@@ -74,20 +59,15 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        StatusCode statusCode = (StatusCode) samlElement;
+        StatusCode statusCode = (StatusCode) samlObject;
 
         if (attributeName.equals(StatusCode.VALUE_ATTRIB_NAME)) {
             statusCode.setValue(attributeValue);
         } else {
-            log.error(attributeName
-                        + " is not a supported attributed for StatusCode objects");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for StatusCode objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

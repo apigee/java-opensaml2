@@ -23,7 +23,6 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.SignableXMLObject;
 
 /**
@@ -108,9 +107,9 @@ public interface Assertion extends SAMLObject, SignableXMLObject {
      * 
      * @param conditions the condition to List
      * 
-     * @throws IllegalAddException if the condition has already been List into another object
+     * @throws IllegalArgumentException if the condition has already been List into another object
      */
-    public void setConditions(Conditions conditions) throws IllegalAddException;
+    public void setConditions(Conditions conditions) throws IllegalArgumentException;
 
     /**
      * advice is a (singleton) Object, representing the <code> Advice </code> sub element
@@ -124,9 +123,9 @@ public interface Assertion extends SAMLObject, SignableXMLObject {
      * 
      * @param advice the object to List
      * 
-     * @throws IllegalAddException if the object has already been put into another SAMLObject
+     * @throws IllegalArgumentException if the object has already been put into another SAMLObject
      */
-    public void setAdvice(Advice advice) throws IllegalAddException;
+    public void setAdvice(Advice advice) throws IllegalArgumentException;
 
     /* Multiple Elements */
 
@@ -151,9 +150,9 @@ public interface Assertion extends SAMLObject, SignableXMLObject {
      * 
      * @param statement what to add
      * 
-     * @throws IllegalAddException if the object has already been put into an SAMLObject
+     * @throws IllegalArgumentException if the object has already been put into an SAMLObject
      */
-    public void addStatement(Statement statement) throws IllegalAddException;
+    public void addStatement(Statement statement) throws IllegalArgumentException;
 
     /**
      * Remove a single <code> Statement </code> from the List.

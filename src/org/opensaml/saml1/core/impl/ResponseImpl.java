@@ -31,7 +31,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Implementation of the {@link org.opensaml.saml1.core.Response} Object
@@ -143,7 +142,7 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
     /*
      * @see org.opensaml.saml1.core.Response#getStatus(org.opensaml.saml1.core.Status)
      */
-    public void setStatus(Status status) throws IllegalAddException {
+    public void setStatus(Status status) throws IllegalArgumentException {
         this.status = prepareForAssignment(this.status, status);
     }
 
@@ -157,7 +156,7 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
     /*
      * @see org.opensaml.saml1.core.Response#addAssertion(org.opensaml.saml1.core.Assertion)
      */
-    public void setAssertion(Assertion assertion) throws IllegalAddException {
+    public void setAssertion(Assertion assertion) throws IllegalArgumentException {
         this.assertion = prepareForAssignment(this.assertion, assertion);
     }
 

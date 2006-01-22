@@ -31,7 +31,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.saml1.core.SubjectLocality;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * A Concrete implementation of the {@link org.opensaml.saml1.core.AuthenticationStatement} Interface
@@ -105,14 +104,14 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     /*
      * @see org.opensaml.saml1.core.AuthenticationStatement#setSubjectLocality(org.opensaml.saml1.core.SubjectLocality)
      */
-    public void setSubjectLocality(SubjectLocality subjectLocality) throws IllegalAddException {
+    public void setSubjectLocality(SubjectLocality subjectLocality) throws IllegalArgumentException {
         this.subjectLocality = prepareForAssignment(this.subjectLocality, subjectLocality);
     }
 
     /*
      * @see org.opensaml.saml1.core.AuthenticationStatement#addAuthorityBinding(org.opensaml.saml1.core.AuthorityBinding)
      */
-    public void addAuthorityBinding(AuthorityBinding authorityBinding) throws IllegalAddException {
+    public void addAuthorityBinding(AuthorityBinding authorityBinding) throws IllegalArgumentException {
         addXMLObject(authorityBindings, authorityBinding);
     }
 

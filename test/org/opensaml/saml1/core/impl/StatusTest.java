@@ -17,12 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Status;
-import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -32,11 +32,12 @@ import org.xml.sax.InputSource;
 public class StatusTest extends SAMLObjectBaseTestCase {
 
     private final String fullElementsFile;
+
     private Document expectedFullDOM;
 
     /**
      * Constructor
-     *
+     * 
      */
     public StatusTest() {
         super();
@@ -57,8 +58,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                 .getResourceAsStream(fullElementsFile)));
     }
-    
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
@@ -90,7 +90,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         assertNotNull("StatusCode", status.getStatusCode());
         assertNotNull("StatusMessage", status.getStatusMessage());
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
@@ -98,13 +98,10 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         Status status = new StatusImpl();
 
-        try {
-            status.setStatusCode(new StatusCodeImpl());
-        } catch (IllegalAddException e) {
-            fail("Threw IllegalAddException");
-        }
+        status.setStatusCode(new StatusCodeImpl());
+
         status.getStatusCode().setValue("samlp:Sucess");
-        
+
         assertEquals(expectedDOM, status);
     }
 
@@ -115,18 +112,15 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         // Nothing
     }
-   
+
     public void testFullElementsMarshall() {
         Status status = new StatusImpl();
-        
-        try {
-            status.setStatusCode(new StatusCodeImpl());
-            status.setStatusMessage(new StatusMessageImpl());
-        } catch (IllegalAddException e) {
-            fail("Threw IllegalAddException");
-        }
+
+        status.setStatusCode(new StatusCodeImpl());
+        status.setStatusMessage(new StatusMessageImpl());
+
         status.getStatusCode().setValue("samlp:Sucess");
-        
+
         assertEquals(expectedFullDOM, status);
     }
 }

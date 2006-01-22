@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Interface to descibe how the anchor point SubjectStatement would work.
@@ -29,5 +28,5 @@ public interface SubjectStatement extends SAMLObject, Statement {
     
     public Subject getSubject();
     
-    public void setSubject(Subject subject) throws IllegalAddException;
+    public void setSubject(Subject subject) throws IllegalArgumentException;
 }

@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * This interface defines how the object representing a SAML 1 <code> StatusCode</code> element behaves. 
@@ -40,5 +39,5 @@ public interface StatusCode extends SAMLObject {
     StatusCode getStatusCode();
 
     /** Set the object representing the <code>StatusCode <code> (child element). */
-    void setStatusCode(StatusCode statusCode) throws IllegalAddException;
+    void setStatusCode(StatusCode statusCode) throws IllegalArgumentException;
 }

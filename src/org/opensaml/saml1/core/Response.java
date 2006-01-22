@@ -19,7 +19,6 @@ package org.opensaml.saml1.core;
 import java.util.GregorianCalendar;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.SignableXMLObject;
 
 /**
@@ -75,11 +74,11 @@ public interface Response extends SAMLObject, SignableXMLObject {
     Status getStatus();
 
     /** Set the object representing the <code> Status <code> (element). */
-    void setStatus(Status status) throws IllegalAddException;
+    void setStatus(Status status) throws IllegalArgumentException;
 
     /** Return the object representing the <code>Assertion<code> (element). */
     Assertion getAssertion();
 
     /** Set the object representing the <code>Assertion<code> (element). */
-    void setAssertion(Assertion assertion) throws IllegalAddException;
+    void setAssertion(Assertion assertion) throws IllegalArgumentException;
 }

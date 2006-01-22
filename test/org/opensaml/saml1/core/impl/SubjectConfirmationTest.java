@@ -17,12 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.SubjectConfirmation;
-import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -32,8 +32,9 @@ import org.xml.sax.InputSource;
 public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
 
     private String fullElementsFile;
+
     private Document expectedFullDOM;
-      
+
     /**
      * Constructor
      */
@@ -41,7 +42,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         super();
 
         singleElementFile = "/data/org/opensaml/saml1/singleSubjectConfirmation.xml";
-        singleElementOptionalAttributesFile  = "/data/org/opensaml/saml1/singleSubjectConfirmation.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleSubjectConfirmation.xml";
         fullElementsFile = "/data/org/opensaml/saml1/SubjectConfirmationWithChildren.xml";
     }
 
@@ -57,15 +58,16 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
                 .getResourceAsStream(fullElementsFile)));
     }
 
-
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) unmarshallElement(singleElementFile);
-        
-        assertNull("Non zero number of child ConfirmationMethods elements", subjectConfirmation.getConfirmationMethods());
-        assertNull("Non zero number of child SubjectConfirmationData elements", subjectConfirmation.getSubjectConfirmationData());
+
+        assertNull("Non zero number of child ConfirmationMethods elements", subjectConfirmation
+                .getConfirmationMethods());
+        assertNull("Non zero number of child SubjectConfirmationData elements", subjectConfirmation
+                .getSubjectConfirmationData());
     }
 
     /*
@@ -85,13 +87,13 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         assertEquals("Number of ConfirmationMethods", 2, subjectConfirmation.getConfirmationMethods().size());
         assertNotNull("Zero child SubjectConfirmationData elements", subjectConfirmation.getSubjectConfirmationData());
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl();
-        
+
         assertEquals(expectedDOM, subjectConfirmation);
     }
 
@@ -105,17 +107,14 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
     /*
      * Generate an subject with contents
      */
-    
+
     public void testFullElementsMarshall() {
         SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl();
-              
-        try {
-            subjectConfirmation.addConfirmationMethod(new ConfirmationMethodImpl());
-            subjectConfirmation.addConfirmationMethod(new ConfirmationMethodImpl());
-            subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl());
-        } catch (IllegalAddException e) {
-            fail("Threw a IllegalAddException ");
-        }
+
+        subjectConfirmation.addConfirmationMethod(new ConfirmationMethodImpl());
+        subjectConfirmation.addConfirmationMethod(new ConfirmationMethodImpl());
+        subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl());
+
         assertEquals(expectedFullDOM, subjectConfirmation);
     }
 }

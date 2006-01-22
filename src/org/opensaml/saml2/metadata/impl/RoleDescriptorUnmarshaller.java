@@ -27,7 +27,6 @@ import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -51,21 +50,20 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement,
      *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException {
-        RoleDescriptor roleDescriptor = (RoleDescriptor) parentElement;
-        try {
-            if (childElement instanceof Extensions) {
-                roleDescriptor.setExtensions((Extensions) childElement);
-            } else if (childElement instanceof KeyDescriptor) {
-                roleDescriptor.getKeyDescriptors().add((KeyDescriptor) childElement);
-            } else if (childElement instanceof Organization) {
-                roleDescriptor.setOrganization((Organization) childElement);
-            } else if (childElement instanceof ContactPerson) {
-                roleDescriptor.getContactPersons().add((ContactPerson) childElement);
-            }
-        } catch (IllegalAddException e) {
-            // This should never happen
-            throw new UnmarshallingException(e);
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
+            throws UnmarshallingException {
+        RoleDescriptor roleDescriptor = (RoleDescriptor) parentSAMLObject;
+
+        if (childSAMLObject instanceof Extensions) {
+            roleDescriptor.setExtensions((Extensions) childSAMLObject);
+        } else if (childSAMLObject instanceof KeyDescriptor) {
+            roleDescriptor.getKeyDescriptors().add((KeyDescriptor) childSAMLObject);
+        } else if (childSAMLObject instanceof Organization) {
+            roleDescriptor.setOrganization((Organization) childSAMLObject);
+        } else if (childSAMLObject instanceof ContactPerson) {
+            roleDescriptor.getContactPersons().add((ContactPerson) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 
@@ -73,8 +71,9 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement,
      *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue) {
-        RoleDescriptor roleDescriptor = (RoleDescriptor) samlElement;
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
+            throws UnmarshallingException {
+        RoleDescriptor roleDescriptor = (RoleDescriptor) samlObject;
 
         if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
             roleDescriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, 0));
@@ -87,6 +86,8 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             }
         } else if (attributeName.equals(RoleDescriptor.ERROR_URL_ATTRIB_NAME)) {
             roleDescriptor.setErrorURL(attributeValue);
+        } else {
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

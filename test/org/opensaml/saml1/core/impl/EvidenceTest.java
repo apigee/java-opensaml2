@@ -17,12 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Evidence;
-import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -35,13 +35,12 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
 
-    /** File to contain an Evidence element with children*/
+    /** File to contain an Evidence element with children */
     private final String fullElementsFile;
-    
-    /** Dom to contain an Evidence element with children*/
+
+    /** Dom to contain an Evidence element with children */
     private Document expectedFullDOM;
 
-    
     public EvidenceTest() {
         super();
         singleElementFile = "/data/org/opensaml/saml1/singleEvidence.xml";
@@ -68,7 +67,7 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementUnmarshall() {
         Evidence evidence = (Evidence) unmarshallElement(singleElementFile);
-        
+
         assertNull("AssertionIDReference element present", evidence.getAssertionIDReference());
         assertNull("Assertion element present", evidence.getAssertion());
     }
@@ -80,18 +79,18 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesUnmarshall() {
         // No attributes, no test
     }
-    
+
     /**
      * Test an XML file with children
      */
 
     public void testFullElementsUnmarshall() {
         Evidence evidence = (Evidence) unmarshallElement(fullElementsFile);
-        
+
         assertNotNull("AssertionIDReference element not present", evidence.getAssertionIDReference());
         assertNotNull("Assertion element not present", evidence.getAssertion());
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
@@ -106,12 +105,10 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
         Evidence evidence = new EvidenceImpl();
-        try {
-            evidence.setAssertion(new AssertionImpl());
-            evidence.setAssertionIDReference(new AssertionIDReferenceImpl());
-        } catch (IllegalAddException e) {
-            fail("adding subelements threw " + e);
-        }
+
+        evidence.setAssertion(new AssertionImpl());
+        evidence.setAssertionIDReference(new AssertionIDReferenceImpl());
+
         assertEquals(expectedFullDOM, evidence);
     }
 }

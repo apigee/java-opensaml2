@@ -41,25 +41,26 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
-        Attribute attribute = (Attribute) parentElement;
+        Attribute attribute = (Attribute) parentSAMLObject;
 
-        if (childElement instanceof AttributeValue) {
-            attribute.getAttributeValues().add((AttributeValue) childElement);
+        if (childSAMLObject instanceof AttributeValue) {
+            attribute.getAttributeValues().add((AttributeValue) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
-
     }
 
     /*
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        Attribute attribute = (Attribute) samlElement;
+        Attribute attribute = (Attribute) samlObject;
 
         if (attributeName.equals(Attribute.NAME_ATTTRIB_NAME)) {
             attribute.setName(attributeValue);
@@ -67,6 +68,8 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             attribute.setNameFormat(attributeValue);
         } else if (attributeName.equals(Attribute.FRIENDLY_NAME_ATTRIB_NAME)) {
             attribute.setFriendlyName(attributeValue);
+        } else {
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

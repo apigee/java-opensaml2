@@ -24,7 +24,6 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.core.Extensions;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.SignableXMLObject;
 
 /**
@@ -64,9 +63,9 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @param extensions the Extensions child of this object
      * 
-     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     * @throws IllegalArgumentException thrown if the given extensions Object is already a child of another SAMLObject 
      */
-    public void setExtensions(Extensions extensions) throws IllegalAddException;
+    public void setExtensions(Extensions extensions) throws IllegalArgumentException;
     
     /**
      * Gets all the role descriptors for this entity descriptor.
@@ -131,10 +130,10 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @param descriptor the affiliation descriptor for this entity
      * 
-     * @throws IllegalAddException thrown if the descriptor is owned by another entity or if this entity 
+     * @throws IllegalArgumentException thrown if the descriptor is owned by another entity or if this entity 
      * already has one or more role descriptors associated with it
      */
-    public void setAffiliationDescriptor(AffiliationDescriptor descriptor) throws IllegalAddException;
+    public void setAffiliationDescriptor(AffiliationDescriptor descriptor) throws IllegalArgumentException;
 
     /**
      * Gets the organization for this entity.
@@ -148,9 +147,9 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @param organization the organization for this entity
      * 
-     * @throws IllegalAddException thrown if this organization belongs to another entity
+     * @throws IllegalArgumentException thrown if this organization belongs to another entity
      */
-    public void setOrganization(Organization organization)  throws IllegalAddException;
+    public void setOrganization(Organization organization)  throws IllegalArgumentException;
 
     /**
      * Get the contact people for this entity.

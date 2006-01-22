@@ -31,7 +31,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.saml1.core.SubjectConfirmationData;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Concrete implementation of a <code> SubjectConfirmation </code> object 
@@ -59,7 +58,7 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
     /*
      * @see org.opensaml.saml1.core.SubjectConfirmation#addConfirmationMethod(org.opensaml.saml1.core.ConfirmationMethod)
      */
-    public void addConfirmationMethod(ConfirmationMethod confirmationMethod) throws IllegalAddException {
+    public void addConfirmationMethod(ConfirmationMethod confirmationMethod) throws IllegalArgumentException {
         addXMLObject(confirmationMethods, confirmationMethod);
     }
 
@@ -106,7 +105,7 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
     /*
      * @see org.opensaml.saml1.core.SubjectConfirmation#setSubjectConfirmationData(org.opensaml.saml1.core.SubjectConfirmationData)
      */
-    public void setSubjectConfirmationData(SubjectConfirmationData subjectConfirmationData) throws IllegalAddException {
+    public void setSubjectConfirmationData(SubjectConfirmationData subjectConfirmationData) throws IllegalArgumentException {
 
         this.subjectConfirmationData = prepareForAssignment(this.subjectConfirmationData, subjectConfirmationData);
     }

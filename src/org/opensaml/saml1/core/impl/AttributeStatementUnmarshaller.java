@@ -17,71 +17,49 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
 import org.opensaml.saml1.core.Subject;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- *
+ * 
  */
 public class AttributeStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
+    /** Logger */
+    private static Logger log = Logger.getLogger(AttributeStatementUnmarshaller.class);
+
     /**
      * Constructor
-     *
      */
     public AttributeStatementUnmarshaller() {
         super(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME);
     }
 
-    /** Logger */
-    private static Logger log = Logger.getLogger(AttributeStatementUnmarshaller.class);
-
-   /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+    /*
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
+     *      org.opensaml.common.SAMLObject)
      */
-    @Override
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
-        AttributeStatement attributeStatement = (AttributeStatement) parentElement;
-            
-        try {
-            if (childElement instanceof Subject) {
-                attributeStatement.setSubject((Subject) childElement);
-            } else if (childElement instanceof Attribute) {
-                attributeStatement.addAttribute((Attribute) childElement);
-            } else {
-                log.error(childElement.getElementQName() + " is not a supported element for AttributeStatement objects");
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for AttributeStatement objects");
-                }
-            }
-        } catch (IllegalAddException e) {
-            log.error("Couldn't add " + childElement.getElementQName() + " to AttributeStatement", e);
-            throw new UnmarshallingException(e);
+        AttributeStatement attributeStatement = (AttributeStatement) parentSAMLObject;
+
+        if (childSAMLObject instanceof Subject) {
+            attributeStatement.setSubject((Subject) childSAMLObject);
+        } else if (childSAMLObject instanceof Attribute) {
+            attributeStatement.addAttribute((Attribute) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
-     */
-    @Override
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-        // No attributes
-    }
-
 }

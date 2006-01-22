@@ -19,8 +19,6 @@ package org.opensaml.saml1.core;
 import java.util.Collection;
 import java.util.List;
 
-import org.opensaml.xml.IllegalAddException;
-
 /**
  * This interface describes how ab object representing a SAML1 <code> AudienceRestrictionCondition </code> element will
  * behave.
@@ -36,9 +34,9 @@ public interface AudienceRestrictionCondition extends Condition {
     /**
      * Add new Audience element to the elements
      * 
-     * @throws IllegalAddException
+     * @throws IllegalArgumentException
      */
-    public void addAudience(Audience audience) throws IllegalAddException;
+    public void addAudience(Audience audience) throws IllegalArgumentException;
 
     /** Remove a single Audience element */
     public void removeAudience(Audience audience);

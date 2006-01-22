@@ -29,7 +29,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Evidence;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Concrete implementation of the {@link org.opensaml.saml1.core.Evidence} interface
@@ -60,7 +59,7 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
     /*
      * @see org.opensaml.saml1.core.Evidence#setAssertionIDReference(org.opensaml.saml1.core.AssertionIDReference)
      */
-    public void setAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalAddException {
+    public void setAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalArgumentException {
         this.assertionIDReference = prepareForAssignment(this.assertionIDReference, assertionIDReference);
     }
 
@@ -74,7 +73,7 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
     /*
      * @see org.opensaml.saml1.core.Evidence#setAssertion(org.opensaml.saml1.core.Assertion)
      */
-    public void setAssertion(Assertion assertion) throws IllegalAddException {
+    public void setAssertion(Assertion assertion) throws IllegalArgumentException {
         this.assertion = prepareForAssignment(this.assertion, assertion);
     }
 

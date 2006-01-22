@@ -36,7 +36,6 @@ import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.DoNotCacheCondition;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * This is a concrete implementation of the {@link org.opensaml.saml1.core.Conditions} interface.
@@ -113,7 +112,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
     /*
      * @see org.opensaml.saml1.core.Conditions#addAudienceRestrictionCondition(org.opensaml.saml1.core.Condition)
      */
-    public void addCondition(Condition condition) throws IllegalAddException {
+    public void addCondition(Condition condition) throws IllegalArgumentException {
         addXMLObject(conditions, condition);
     }
 

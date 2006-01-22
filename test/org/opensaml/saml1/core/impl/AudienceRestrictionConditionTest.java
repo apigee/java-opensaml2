@@ -17,25 +17,23 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Test class for data.org.opensaml.saml1.AudienceRestrictionCondition
  */
 public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
 
-
     /**
      * Constructor
      */
     public AudienceRestrictionConditionTest() {
         singleElementFile = "/data/org/opensaml/saml1/singleAudienceRestrictionCondition.xml";
-        singleElementOptionalAttributesFile =
-            "/data/org/opensaml/saml1/AudienceRestrictionConditionWithChildren.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/AudienceRestrictionConditionWithChildren.xml";
     }
 
     /*
@@ -44,9 +42,9 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementUnmarshall() {
         AudienceRestrictionCondition audienceRestrictionCondition;
-        
+
         audienceRestrictionCondition = (AudienceRestrictionCondition) unmarshallElement(singleElementFile);
-        
+
         assertNull("Count of child Audience elements !=0", audienceRestrictionCondition.getAudiences());
     }
 
@@ -59,9 +57,9 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesUnmarshall() {
 
         AudienceRestrictionCondition audienceRestrictionCondition;
-        
+
         audienceRestrictionCondition = (AudienceRestrictionCondition) unmarshallElement(singleElementOptionalAttributesFile);
-        
+
         assertEquals("Count of child Audience elements", 2, audienceRestrictionCondition.getAudiences().size());
 
     }
@@ -73,9 +71,9 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
 
         AudienceRestrictionCondition audienceRestrictionCondition;
-        
+
         audienceRestrictionCondition = new AudienceRestrictionConditionImpl();
-        
+
         assertEquals(expectedDOM, audienceRestrictionCondition);
     }
 
@@ -85,16 +83,12 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
         AudienceRestrictionCondition audienceRestrictionCondition;
-        
+
         audienceRestrictionCondition = new AudienceRestrictionConditionImpl();
-        try {
-            audienceRestrictionCondition.addAudience(new AudienceImpl());
-            audienceRestrictionCondition.addAudience(new AudienceImpl());        
-        } catch (IllegalAddException e) {
-            fail("Threw IllegalAddException");
-           e.printStackTrace();
-        }
-        
+
+        audienceRestrictionCondition.addAudience(new AudienceImpl());
+        audienceRestrictionCondition.addAudience(new AudienceImpl());
+
         assertEquals(expectedOptionalAttributesDOM, audienceRestrictionCondition);
     }
 

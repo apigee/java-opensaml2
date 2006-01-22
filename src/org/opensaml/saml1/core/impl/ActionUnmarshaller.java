@@ -17,14 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -33,9 +31,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Action} objects.
  */
 public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-    
-    /** Logger */
-    private static Logger log = Logger.getLogger(ActionUnmarshaller.class);
 
     /**
      * Constructor
@@ -45,35 +40,17 @@ public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
+     *      java.lang.String, java.lang.String)
      */
-    @Override
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
-        
-        log.error(childElement.getElementQName() + " is not a supported element for Action objects");
-        if (!SAMLConfig.ignoreUnknownElements()) {
-            throw new UnknownElementException(childElement.getElementQName()
-                    + " is not a supported element for Action objects");
-        }
-    }
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
-     */
-    @Override
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
         if (Action.NAMESPACEATTRIB_NAME.equals(attributeName)) {
-            Action action = (Action) samlElement;
+            Action action = (Action) samlObject;
             action.setNamespace(attributeValue);
         } else {
-            log.error(attributeName + " is not a supported attribute for Action objects");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for Action objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 
@@ -81,8 +58,8 @@ public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
-        Action action = (Action) samlElement;
+    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+        Action action = (Action) samlObject;
         action.setContents(elementContent);
     }
 }

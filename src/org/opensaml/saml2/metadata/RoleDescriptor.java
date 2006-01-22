@@ -24,7 +24,6 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.core.Extensions;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.SignableXMLObject;
 
 /**
@@ -110,9 +109,9 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
      * 
      * @param extensions the Extensions child of this object
      * 
-     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     * @throws IllegalArgumentException thrown if the given extensions Object is already a child of another SAMLObject 
      */
-    public void setExtensions(Extensions extensions) throws IllegalAddException;
+    public void setExtensions(Extensions extensions) throws IllegalArgumentException;
     
     /**
      * Gets the key descriptors for this role.
@@ -133,9 +132,9 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
      * 
      * @param organization the organization responsible for this role
      * 
-     * @throws IllegalAddException thrown if the given organization is owned by another element
+     * @throws IllegalArgumentException thrown if the given organization is owned by another element
      */
-    public void setOrganization(Organization organization) throws IllegalAddException;
+    public void setOrganization(Organization organization) throws IllegalArgumentException;
     
     /**
      * Gets an immutable list of {@link ContactPerson}s for this role.

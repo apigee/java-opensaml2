@@ -40,7 +40,6 @@ import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.PDPDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
@@ -143,7 +142,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
      */
-    public void setExtensions(Extensions extensions) throws IllegalAddException {
+    public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
@@ -225,7 +224,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#setAffiliationDescriptor(org.opensaml.saml2.metadata.AffiliationDescriptor)
      */
-    public void setAffiliationDescriptor(AffiliationDescriptor descriptor) throws IllegalAddException {
+    public void setAffiliationDescriptor(AffiliationDescriptor descriptor) throws IllegalArgumentException {
         affiliationDescriptor = prepareForAssignment(affiliationDescriptor, descriptor);
     }
 
@@ -239,7 +238,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#setOrganization(org.opensaml.saml2.metadata.Organization)
      */
-    public void setOrganization(Organization organization) throws IllegalAddException {
+    public void setOrganization(Organization organization) throws IllegalArgumentException {
         organization = prepareForAssignment(this.organization, organization);
     }
 

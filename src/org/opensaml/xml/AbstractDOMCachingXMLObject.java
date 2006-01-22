@@ -197,12 +197,12 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
      * @param newValue - proposed new value
      * @return The value to assign to the saved Object.
      * 
-     * @throws IllegalAddException if the child already has a parent.
+     * @throws IllegalArgumentException if the child already has a parent.
      */
-    protected <T extends XMLObject> T prepareForAssignment(T oldValue, T newValue) throws IllegalAddException {
+    protected <T extends XMLObject> T prepareForAssignment(T oldValue, T newValue) throws IllegalArgumentException {
 
         if (newValue != null && newValue.hasParent()) {
-            throw new IllegalAddException(newValue.getClass().getName()
+            throw new IllegalArgumentException(newValue.getClass().getName()
                     + " cannot be added - it is already the child of another SAML Object");
         }
 
@@ -236,15 +236,17 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
      * 
      * @return true if the given set was modified, false if not
      * 
-     * @throws IllegalAddException if the element already has a parent
+     * @throws IllegalArgumentException if the element already has a parent
+     * 
+     * @deprecated
      */
-    protected <T extends XMLObject> boolean addXMLObject(List<T> objectList, T samlObject) throws IllegalAddException {
+    protected <T extends XMLObject> boolean addXMLObject(List<T> objectList, T samlObject) throws IllegalArgumentException {
         if (objectList.contains(samlObject)) {
             return false;
         }
 
         if (samlObject.hasParent()) {
-            throw new IllegalAddException(samlObject.getClass().getName()
+            throw new IllegalArgumentException(samlObject.getClass().getName()
                     + " cannot be added - it is already the child of another SAML Object");
         }
         samlObject.setParent(this);
@@ -262,6 +264,8 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
      * @param samlObject The object to remove
      * 
      * @return true if the given set was modified, false if not
+     * 
+     * @deprecated
      */
     protected <T extends XMLObject> boolean removeXMLObject(List<T> objectList, T samlObject) {
         if (samlObject != null && objectList.contains(samlObject)) {
@@ -284,6 +288,7 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
      * 
      * @return true if the containingSet was modified, false if not
      * 
+     * @deprecated
      */
     protected <T extends XMLObject> boolean removeXMLObjects(List<T> containingList, Collection<T> contentsSet) {
         boolean setModified = false;

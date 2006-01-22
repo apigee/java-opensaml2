@@ -30,7 +30,6 @@ import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
 import org.opensaml.saml1.core.Evidence;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} 
@@ -99,7 +98,7 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
     /*
      * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#addAction(org.opensaml.saml1.core.Action)
      */
-    public void addAction(Action action) throws IllegalAddException {
+    public void addAction(Action action) throws IllegalArgumentException {
         addXMLObject(actions, action);
     }
 
@@ -137,7 +136,7 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
     /*
      * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#setEvidence(org.opensaml.saml1.core.Evidence)
      */
-    public void setEvidence(Evidence evidence) throws IllegalAddException {
+    public void setEvidence(Evidence evidence) throws IllegalArgumentException {
         this.evidence = prepareForAssignment(this.evidence, evidence);
     }
 

@@ -17,12 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Advice;
-import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -32,8 +32,9 @@ import org.xml.sax.InputSource;
 public class AdviceTest extends SAMLObjectBaseTestCase {
 
     private String fullElementsFile;
+
     private Document expectedFullDOM;
-      
+
     /**
      * Constructor
      */
@@ -41,7 +42,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         super();
 
         singleElementFile = "/data/org/opensaml/saml1/singleAdvice.xml";
-        singleElementOptionalAttributesFile  = "/data/org/opensaml/saml1/singleAdvice.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAdvice.xml";
         fullElementsFile = "/data/org/opensaml/saml1/AdviceWithChildren.xml";
     }
 
@@ -57,13 +58,12 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
                 .getResourceAsStream(fullElementsFile)));
     }
 
-
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         Advice advice = (Advice) unmarshallElement(singleElementFile);
-        
+
         assertNull("Non zero number of child AssertIDReference elements", advice.getAssertionIDReferences());
         assertNull("Non zero number of child Assertion elements", advice.getAssertions());
     }
@@ -80,17 +80,17 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
      */
     public void testFullElementsUnmarshall() {
         Advice advice = (Advice) unmarshallElement(fullElementsFile);
-        
+
         assertEquals("Number of child AssertIDReference elements", 2, advice.getAssertionIDReferences().size());
         assertEquals("Number of child Assertion elements", 1, advice.getAssertions().size());
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         Advice advice = new AdviceImpl();
-        
+
         assertEquals(expectedDOM, advice);
     }
 
@@ -104,17 +104,14 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     /*
      * Generate an advice with contents
      */
-    
+
     public void testFullElementsMarshall() {
         Advice advice = new AdviceImpl();
-        
-        try {
-            advice.addAssertionIDReference(new AssertionIDReferenceImpl());
-            advice.addAssertion(new AssertionImpl());
-            advice.addAssertionIDReference(new AssertionIDReferenceImpl());
-        } catch (IllegalAddException e) {
-            fail("Threw a IllegalAddException ");
-        }
+
+        advice.addAssertionIDReference(new AssertionIDReferenceImpl());
+        advice.addAssertion(new AssertionImpl());
+        advice.addAssertionIDReference(new AssertionIDReferenceImpl());
+
         assertEquals(expectedFullDOM, advice);
     }
 }

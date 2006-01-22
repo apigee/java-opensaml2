@@ -18,11 +18,8 @@ package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AttributeValue;
-import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.AttributeValue} objects.
@@ -38,34 +35,11 @@ public class AttributeValueUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /*
      * 
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
-     */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
-        // do nothing
-
-    }
-
-    /*
-     * 
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
-     */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-        // do nothing
-
-    }
-
-    /*
-     * 
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
-        AttributeValue attributeValue = (AttributeValue) samlElement;
+    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+        AttributeValue attributeValue = (AttributeValue) samlObject;
         attributeValue.setValue(elementContent);
     }
-
 }

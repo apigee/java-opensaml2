@@ -29,7 +29,6 @@ import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * A Concrete implementation of the {@link org.opensaml.saml1.core.Attribute} Interface
@@ -95,7 +94,7 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
     /*
      * @see org.opensaml.saml1.core.Attribute#addAttributeValue(org.opensaml.saml1.core.AttributeValue)
      */
-    public void addAttributeValue(AttributeValue attributeValue) throws IllegalAddException {
+    public void addAttributeValue(AttributeValue attributeValue) throws IllegalArgumentException {
         addXMLObject(attributeValues, attributeValue);
     }
 

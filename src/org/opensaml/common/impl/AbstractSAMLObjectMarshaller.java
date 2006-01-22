@@ -69,7 +69,8 @@ public abstract class AbstractSAMLObjectMarshaller implements SAMLObjectMarshall
     /**
      * Constructor
      * 
-     * @param target the QName of the elment or type this marshaller operates on
+     * @param targetNamespaceURI the namespaceURI of elements that this marshaller operates on
+     * @param targetLocalName the local name of elements that this marshaller operates on
      */
     protected AbstractSAMLObjectMarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException{
         if(DatatypeHelper.isEmpty(targetNamespaceURI)){
@@ -147,9 +148,10 @@ public abstract class AbstractSAMLObjectMarshaller implements SAMLObjectMarshall
     }
 
     /**
-     * Checks to make sure the given SAMLObject is
+     * Checks to make sure the given SAMLObject's schema type or element QName matches the target parameters given at 
+     * marshaller construction time.
      * 
-     * @param samlObject
+     * @param samlObject the SAMLObject to marshall
      */
     protected void checkSAMLObjectIsTarget(SAMLObject samlObject) throws MarshallingException {
         String samlElementNamespace = samlObject.getElementQName().getNamespaceURI();
@@ -180,30 +182,30 @@ public abstract class AbstractSAMLObjectMarshaller implements SAMLObjectMarshall
      * marshaller for child elements. The SAMLElement passed to this method is guaranteed to be of the target name
      * specified during this unmarshaller's construction.
      * 
-     * @param samlElement the element to marshall
+     * @param samlObject the element to marshall
      * @param domElement the W3C DOM element
      * 
      * @throws MarshallingException thrown if there is a problem marshalling the element
      */
-    protected abstract void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException;
+    protected abstract void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException;
 
     /**
      * Marshalls the child elements of the given SAML element.
      * 
-     * @param samlElement the SAML element whose children will be marshalled
+     * @param samlObject the SAML element whose children will be marshalled
      * @param domElement the DOM element that will recieved the marshalled children
      * 
      * @throws MarshallingException thrown if there is a problem marshalling a child element
      * @throws UnknownElementException thrown if the SAMLObject contains a child SAMLObject for which there is no marshaller and 
      * {@link SAMLConfig#ignoreUnknownElements()} is true
      */
-    protected void marshallChildElements(SAMLObject samlElement, Element domElement) throws MarshallingException, UnknownElementException {
+    protected void marshallChildElements(SAMLObject samlObject, Element domElement) throws MarshallingException, UnknownElementException {
 
         if (log.isDebugEnabled()) {
-            log.debug("Marshalling child elements for SAMLElement " + samlElement.getElementQName());
+            log.debug("Marshalling child elements for SAMLElement " + samlObject.getElementQName());
         }
 
-        List<SAMLObject> childElements = samlElement.getOrderedChildren();
+        List<SAMLObject> childElements = samlObject.getOrderedChildren();
         if (childElements != null && childElements.size() > 0) {
             for (SAMLObject childElement : childElements) {
                 if(childElement == null){
@@ -227,14 +229,14 @@ public abstract class AbstractSAMLObjectMarshaller implements SAMLObjectMarshall
                     if (!SAMLConfig.ignoreUnknownElements()) {
                         log.error("No marshaller registered for child SAMLObject, "
                                 + childElement.getElementQName().getLocalPart() + ", of SAMLObject "
-                                + samlElement.getElementQName().getLocalPart());
+                                + samlObject.getElementQName().getLocalPart());
                         throw new UnknownElementException("No marshaller registered for child SAMLObject, "
                                 + childElement.getElementQName().getLocalPart() + ", of SAMLObject "
-                                + samlElement.getElementQName().getLocalPart());
+                                + samlObject.getElementQName().getLocalPart());
                     } else {
                         if (log.isDebugEnabled()) {
                             log.debug("Ingored child SAMLObject, " + childElement.getElementQName().getLocalPart()
-                                    + ", of SAMLObject " + samlElement.getElementQName().getLocalPart()
+                                    + ", of SAMLObject " + samlObject.getElementQName().getLocalPart()
                                     + " because it had no registered marshaller.");
                         }
                     }
@@ -245,7 +247,7 @@ public abstract class AbstractSAMLObjectMarshaller implements SAMLObjectMarshall
         } else {
             if (log.isDebugEnabled()) {
                 log.debug("No child elements to marshall for SAMLElement "
-                        + samlElement.getElementQName().getLocalPart());
+                        + samlObject.getElementQName().getLocalPart());
             }
         }
     }
@@ -253,53 +255,53 @@ public abstract class AbstractSAMLObjectMarshaller implements SAMLObjectMarshall
     /**
      * Creates an xsi:type attribute, corresponding to the given type of the SAML element, on the DOM element.
      * 
-     * @param samlElement the SAML element
+     * @param samlObject the SAML element
      * @param domElement the DOM element
      * 
      * @throws MarshallingException thrown if the type on the SAML element is does contain a local name, local name
      *             prefix, and namespace URI
      */
-    protected void marshallElementType(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        QName type = samlElement.getSchemaType();
+    protected void marshallElementType(SAMLObject samlObject, Element domElement) throws MarshallingException {
+        QName type = samlObject.getSchemaType();
         if (type != null) {
             if (log.isDebugEnabled()) {
-                log.debug("Setting xsi:type attribute with for SAMLElement " + samlElement.getElementQName());
+                log.debug("Setting xsi:type attribute with for SAMLElement " + samlObject.getElementQName());
             }
             String typeLocalName = type.getLocalPart();
             String typePrefix = type.getPrefix();
 
             if (typeLocalName == null) {
                 throw new MarshallingException("The type QName on SAMLElement "
-                        + samlElement.getElementQName().getLocalPart() + " may not have a null local name");
+                        + samlObject.getElementQName().getLocalPart() + " may not have a null local name");
             }
 
             if (typePrefix == null) {
                 throw new MarshallingException("The type QName on SAMLElement "
-                        + samlElement.getElementQName().getLocalPart() + " may not have a null prefix");
+                        + samlObject.getElementQName().getLocalPart() + " may not have a null prefix");
             }
 
             if (type.getNamespaceURI() == null) {
                 throw new MarshallingException("The type URI QName on SAMLElement "
-                        + samlElement.getElementQName().getLocalPart() + " may not have a null namespace URI");
+                        + samlObject.getElementQName().getLocalPart() + " may not have a null namespace URI");
             }
 
             domElement.setAttributeNS(SAMLConstants.XSI_NS, SAMLConstants.XSI_PREFIX + ":type", typePrefix + ":"
                     + typeLocalName);
-            samlElement.addNamespace(new Namespace(SAMLConstants.XSI_NS, SAMLConstants.XSI_PREFIX));
+            samlObject.addNamespace(new Namespace(SAMLConstants.XSI_NS, SAMLConstants.XSI_PREFIX));
         }
     }
 
     /**
      * Creates the xmlns attributes for any namespaces set on the given SAML object.
      * 
-     * @param samlElement the saml object
+     * @param samlObject the saml object
      * @param domElement the DOM element the namespaces will be added to
      */
-    protected void marshallNamespaces(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallNamespaces(SAMLObject samlObject, Element domElement) throws MarshallingException {
         if (log.isDebugEnabled()) {
-            log.debug("Marshalling namespace for SAMLObject " + samlElement.getElementQName());
+            log.debug("Marshalling namespace for SAMLObject " + samlObject.getElementQName());
         }
-        Set<Namespace> namespaces = samlElement.getNamespaces();
+        Set<Namespace> namespaces = samlObject.getNamespaces();
         for (Namespace namespace : namespaces) {
             domElement.setAttribute(SAMLConstants.XMLNS_PREFIX + ":" + namespace.getNamespacePrefix(), namespace
                     .getNamespaceURI());
@@ -312,8 +314,8 @@ public abstract class AbstractSAMLObjectMarshaller implements SAMLObjectMarshall
      * @param samlObject the SAML object
      * @param domElement the DOM element recieving the content
      */
-    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // Vast majority of elements don't have textual content, let the few that do override this.
+    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException{
+        //DO NOTHING; most elements don't have content
     }
 
     /**

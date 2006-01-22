@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.core.Extensions;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * SAML 2.0 Metadata ContactPerson
@@ -61,9 +60,9 @@ public interface ContactPerson extends SAMLObject{
      * 
      * @param extensions the Extensions child of this object
      * 
-     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     * @throws IllegalArgumentException thrown if the given extensions Object is already a child of another SAMLObject 
      */
-    public void setExtensions(Extensions extensions) throws IllegalAddException;
+    public void setExtensions(Extensions extensions) throws IllegalArgumentException;
 
     /**
      * Gets the company this contact person is associated with.

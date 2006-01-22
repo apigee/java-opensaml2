@@ -17,13 +17,13 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Document;
@@ -31,25 +31,24 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 /**
- *
+ * 
  */
 public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
 
     /** Value for Resource attribute specified in test file with attributes */
     private final String expectedResource = "resource";
-    
+
     /** Value for Resource attribute specified in test file with attributes */
     private final DecisionType expectedDecision = DecisionType.Permit;
 
-    /** File with the AuthorizationDecisionStatement with children */ 
+    /** File with the AuthorizationDecisionStatement with children */
     private final String fullElementsFile;
-    
-    /** The DOM to hold the AuthorizationDecisionStatement with children */ 
+
+    /** The DOM to hold the AuthorizationDecisionStatement with children */
     private Document expectedFullDOM;
-    
-    /** File with the AuthorizationDecisionStatement with illegal Decision type */ 
+
+    /** File with the AuthorizationDecisionStatement with illegal Decision type */
     private String illegalAttributesFile;
-    
 
     /**
      * Constructor
@@ -61,7 +60,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         fullElementsFile = "/data/org/opensaml/saml1/AuthorizationDecisionStatementWithChildren.xml";
         illegalAttributesFile = "/data/org/opensaml/saml1/singleAuthorizationDecisionStatementAttributesInvalid.xml";
     }
-    
+
     /*
      * @see junit.framework.TestCase#setUp()
      */
@@ -80,10 +79,10 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementUnmarshall() {
-        
+
         AuthorizationDecisionStatement authorizationDecisionStatement;
         authorizationDecisionStatement = (AuthorizationDecisionStatement) unmarshallElement(singleElementFile);
-        
+
         assertNull("Decision attribute null", authorizationDecisionStatement.getDecision());
         assertNull("Resource attribute null", authorizationDecisionStatement.getResource());
         assertNull("<Actions> elements present", authorizationDecisionStatement.getActions());
@@ -95,21 +94,22 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
-        
+
         AuthorizationDecisionStatement authorizationDecisionStatement;
         authorizationDecisionStatement = (AuthorizationDecisionStatement) unmarshallElement(singleElementOptionalAttributesFile);
-        
+
         assertEquals("Resource attribute ", expectedResource, authorizationDecisionStatement.getResource());
         assertEquals("Decision attribute ", expectedDecision, authorizationDecisionStatement.getDecision());
-        
+
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
         try {
-            Document doc = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class.getResourceAsStream(illegalAttributesFile)));
+            Document doc = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
+                    .getResourceAsStream(illegalAttributesFile)));
             Element samlElement = doc.getDocumentElement();
-            
-            authorizationDecisionStatement = (AuthorizationDecisionStatement) 
-                new AuthorizationDecisionStatementUnmarshaller().unmarshall(samlElement);
+
+            authorizationDecisionStatement = (AuthorizationDecisionStatement) new AuthorizationDecisionStatementUnmarshaller()
+                    .unmarshall(samlElement);
 
             fail("illegal attribute successfully parsed");
         } catch (UnmarshallingException e) {
@@ -119,23 +119,22 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
             e.printStackTrace();
         }
     }
- 
+
     /**
      * Test an XML file with children
      */
 
     public void testFullElementsUnmarshall() {
-        AuthorizationDecisionStatement authorizationDecisionStatement; 
-            
+        AuthorizationDecisionStatement authorizationDecisionStatement;
+
         authorizationDecisionStatement = (AuthorizationDecisionStatement) unmarshallElement(fullElementsFile);
-        
+
         assertNotNull("<Subject> element not present", authorizationDecisionStatement.getSubject());
         assertNotNull("<Evidence> element not present", authorizationDecisionStatement.getEvidence());
         assertNotNull("<Action> elements not present", authorizationDecisionStatement.getActions());
         assertEquals("Count of <Action> elements ", 3, authorizationDecisionStatement.getActions().size());
     }
-    
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
@@ -150,35 +149,32 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
-        
-        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl(); 
+
+        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl();
         authorizationDecisionStatement.setDecision(expectedDecision);
         authorizationDecisionStatement.setResource(expectedResource);
-        
+
         assertEquals(expectedOptionalAttributesDOM, authorizationDecisionStatement);
     }
 
     /**
      * Test creating a DOM with child elements
      */
-    
+
     public void testFullElementsMarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
-        
-        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl();
-        try {
-            authorizationDecisionStatement.setSubject(new SubjectImpl());
-            authorizationDecisionStatement.addAction(new ActionImpl());
-            authorizationDecisionStatement.addAction(new ActionImpl());
-            authorizationDecisionStatement.addAction(new ActionImpl());
-            authorizationDecisionStatement.setEvidence(new EvidenceImpl());
 
-            authorizationDecisionStatement.setEvidence(new EvidenceImpl());
-        } catch (IllegalAddException e) {
-            fail("Illegal AddException thrown");
-        }
+        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl();
+
+        authorizationDecisionStatement.setSubject(new SubjectImpl());
+        authorizationDecisionStatement.addAction(new ActionImpl());
+        authorizationDecisionStatement.addAction(new ActionImpl());
+        authorizationDecisionStatement.addAction(new ActionImpl());
+        authorizationDecisionStatement.setEvidence(new EvidenceImpl());
+
+        authorizationDecisionStatement.setEvidence(new EvidenceImpl());
+
         assertEquals(expectedFullDOM, authorizationDecisionStatement);
     }
-
 
 }

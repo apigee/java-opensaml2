@@ -21,7 +21,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * This interface defines how the object representing a SAML1 <code> AuthenticationStatment </code> element behaves.
@@ -53,12 +52,12 @@ public interface AuthenticationStatement extends SAMLObject, SubjectStatement {
     public SubjectLocality getSubjectLocality();
 
     /** Get the (single) SubjectLocality child element 
-     * @throws IllegalAddException */
-    public void setSubjectLocality(SubjectLocality subjectLocality) throws IllegalAddException;
+     * @throws IllegalArgumentException */
+    public void setSubjectLocality(SubjectLocality subjectLocality) throws IllegalArgumentException;
 
     /** Add in an AuthorityBinding subelement 
-     * @throws IllegalAddException */
-    public void addAuthorityBinding(AuthorityBinding authorityBinding) throws IllegalAddException;
+     * @throws IllegalArgumentException */
+    public void addAuthorityBinding(AuthorityBinding authorityBinding) throws IllegalArgumentException;
 
     /** return all the AuthorityBinding subelement */
     public List<AuthorityBinding> getAuthorityBindings();

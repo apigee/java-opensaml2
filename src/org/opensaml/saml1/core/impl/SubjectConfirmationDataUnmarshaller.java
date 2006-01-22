@@ -20,23 +20,16 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectConfirmationData;
-import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectConfirmationData} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectConfirmationData}
+ * objects.
  */
 public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(SubjectConfirmationDataUnmarshaller.class);
 
     /**
      * Constructor
@@ -46,42 +39,11 @@ public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmar
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
-     */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
-
-        log.error(childElement.getElementQName()
-                    + " is not a supported element for SubjectConfirmationData objects");
-        if (!SAMLConfig.ignoreUnknownElements()) {
-            throw new UnknownElementException(childElement.getElementQName()
-                    + " is not a supported element for SubjectConfirmationData objects");
-        }
-    }
-
-    /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
-     */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-
-        log.error(attributeName 
-                + " is not a supported attributed for SubjectConfirmationData objects");
-        if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName 
-                    + " is not a supported attributed for SubjectConfirmationData objects");
-        }
-    }
-
-    /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
-        SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) samlElement;
-
+    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+        SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) samlObject;
         subjectConfirmationData.setConfirmationData(elementContent);
     }
 }

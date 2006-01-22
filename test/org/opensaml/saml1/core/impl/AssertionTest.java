@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import java.util.Calendar;
@@ -25,7 +26,6 @@ import java.util.GregorianCalendar;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Assertion;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -36,11 +36,15 @@ import org.xml.sax.InputSource;
 public class AssertionTest extends SAMLObjectBaseTestCase {
 
     private final int minorVersion;
+
     private final String issuer;
+
     private final GregorianCalendar issueInstant;
+
     private String fullElementsFile;
+
     private Document expectedFullDOM;
-    
+
     /**
      * Constructor
      */
@@ -53,7 +57,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         //
         issueInstant = new GregorianCalendar(1970, 0, 2, 1, 1, 2);
         issueInstant.set(Calendar.MILLISECOND, 100);
-        
+
         singleElementFile = "/data/org/opensaml/saml1/singleAssertion.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAssertionAttributes.xml";
         fullElementsFile = "/data/org/opensaml/saml1/AssertionWithChildren.xml";
@@ -79,13 +83,13 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
 
         Assertion assertion = (Assertion) unmarshallElement(singleElementFile);
-        
+
         assertNull("Issuer attribute", assertion.getIssuer());
         assertNull("IssueInstant attribute", assertion.getIssueInstant());
-        
+
         assertNull("Conditions element", assertion.getConditions());
         assertNull("Advice element", assertion.getAdvice());
-        
+
         assertNull("Statement element count", assertion.getStatements());
         assertNull("AttributeStatements element count", assertion.getAttributeStatements());
         assertNull("SubjectStatements element count", assertion.getSubjectStatements());
@@ -99,11 +103,12 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         Assertion assertion = (Assertion) unmarshallElement(singleElementOptionalAttributesFile);
-        
+
         assertEquals("Issuer attribute", issuer, assertion.getIssuer());
-        assertEquals("IssueInstant attribute", DatatypeHelper.calendarToString(issueInstant, 0), DatatypeHelper.calendarToString(assertion.getIssueInstant(),0));
+        assertEquals("IssueInstant attribute", DatatypeHelper.calendarToString(issueInstant, 0), DatatypeHelper
+                .calendarToString(assertion.getIssueInstant(), 0));
         assertEquals("Issuer minorVersion", minorVersion, assertion.getMinorVersion());
-        
+
         assertNull("Conditions element", assertion.getConditions());
         assertNull("Advice element", assertion.getAdvice());
 
@@ -120,23 +125,24 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
 
     public void testFullElementsUnmarshall() {
         Assertion assertion = (Assertion) unmarshallElement(fullElementsFile);
-        
+
         assertNull("Issuer attribute", assertion.getIssuer());
         assertNull("IssueInstant attribute", assertion.getIssueInstant());
-        
+
         assertNotNull("Conditions element null", assertion.getConditions());
         assertNotNull("Advice element null", assertion.getAdvice());
-        
+
         assertNotNull("No Authentication Statements", assertion.getAuthenticationStatements());
         assertEquals("AuthenticationStatements element count", 2, assertion.getAuthenticationStatements().size());
-               
+
         assertNotNull("No Attribute Statements", assertion.getAttributeStatements());
         assertEquals("AttributeStatements element count", 3, assertion.getAttributeStatements().size());
-       
-        assertNotNull("No AuthorizationDecisionStatements ",  assertion.getAuthorizationDecisionStatements());
-        assertEquals("AuthorizationDecisionStatements element count", 3, assertion.getAuthorizationDecisionStatements().size());
+
+        assertNotNull("No AuthorizationDecisionStatements ", assertion.getAuthorizationDecisionStatements());
+        assertEquals("AuthorizationDecisionStatements element count", 3, assertion.getAuthorizationDecisionStatements()
+                .size());
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
@@ -153,7 +159,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
         Assertion assertion = new AssertionImpl();
-        
+
         assertion.setIssueInstant(issueInstant);
         assertion.setIssuer(issuer);
         assertion.setMinorVersion(minorVersion);
@@ -164,26 +170,22 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
     /**
      * Test an XML file with Children
      */
-    
+
     public void testFullElementsMarshall() {
         Assertion assertion = new AssertionImpl();
 
-        try {
-            assertion.setConditions(new ConditionsImpl());
-            assertion.setAdvice(new AdviceImpl());
+        assertion.setConditions(new ConditionsImpl());
+        assertion.setAdvice(new AdviceImpl());
 
-            assertion.addStatement(new AuthenticationStatementImpl());
-            assertion.addStatement(new AuthorizationDecisionStatementImpl());
-            assertion.addStatement(new AttributeStatementImpl());
-            assertion.addStatement(new AuthenticationStatementImpl());
-            assertion.addStatement(new AuthorizationDecisionStatementImpl());
-            assertion.addStatement(new AttributeStatementImpl());
-            assertion.addStatement(new AuthorizationDecisionStatementImpl());
-            assertion.addStatement(new AttributeStatementImpl());
-        } catch (IllegalAddException e) {
-            fail("threw IllegalAddException");
-        }
+        assertion.addStatement(new AuthenticationStatementImpl());
+        assertion.addStatement(new AuthorizationDecisionStatementImpl());
+        assertion.addStatement(new AttributeStatementImpl());
+        assertion.addStatement(new AuthenticationStatementImpl());
+        assertion.addStatement(new AuthorizationDecisionStatementImpl());
+        assertion.addStatement(new AttributeStatementImpl());
+        assertion.addStatement(new AuthorizationDecisionStatementImpl());
+        assertion.addStatement(new AttributeStatementImpl());
 
         assertEquals(expectedFullDOM, assertion);
-    }   
+    }
 }

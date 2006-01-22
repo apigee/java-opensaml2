@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * This interface defines how the object representing a SAML1 <code> AuthorizationDecisionStatement </code> element
@@ -53,8 +52,8 @@ public interface AuthorizationDecisionStatement extends SAMLObject, SubjectState
     public List<Action> getActions();
     
     /** Add an Action Element 
-     * @throws IllegalAddException */
-    public void addAction(Action action) throws IllegalAddException;
+     * @throws IllegalArgumentException */
+    public void addAction(Action action) throws IllegalArgumentException;
     
     /** Remove an Action Element */
     public void removeAction(Action action);
@@ -69,7 +68,7 @@ public interface AuthorizationDecisionStatement extends SAMLObject, SubjectState
     public Evidence getEvidence();
     
     /** Set the Evidence element 
-     * @throws IllegalAddException */
-    public void setEvidence(Evidence evidence) throws IllegalAddException;
+     * @throws IllegalArgumentException */
+    public void setEvidence(Evidence evidence) throws IllegalArgumentException;
    
 }

@@ -36,14 +36,14 @@ public interface IDPSSODescriptor extends SSODescriptor{
      * 
      * @return true is signing is desired, false if not
      */
-	public boolean wantAuthnRequestsSigned();
+	public Boolean wantAuthnRequestsSigned();
     
     /**
      * Sets whether the IDP SSO service wants authentication requests signed.
      * 
      * @param wantSigned true if request should be signed, false if not
      */
-    public void setWantAuthnRequestSigned(boolean wantSigned);
+    public void setWantAuthnRequestSigned(Boolean wantSigned);
     
     /**
      * Gets the list of single sign on services for this IDP.

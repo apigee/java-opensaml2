@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -27,7 +26,6 @@ import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Statement;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -50,28 +48,19 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
-        Assertion assertion = (Assertion) parentElement;
+        Assertion assertion = (Assertion) parentSAMLObject;
 
-        try {
-            if (childElement instanceof Conditions) {
-                assertion.setConditions((Conditions) childElement);
-            } else if (childElement instanceof Advice) {
-                assertion.setAdvice((Advice) childElement);
-            } else if (childElement instanceof Statement) {
-                assertion.addStatement((Statement) childElement);
-            } else {
-                log.error(childElement.getElementQName() + " is not a supported element for Assertion objects");
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for Assertion objects");
-                }
-            }
-        } catch (IllegalAddException e) {
-            log.error("Couldn't add " + childElement + " to Assertion", e);
-            throw new UnmarshallingException(e);
+        if (childSAMLObject instanceof Conditions) {
+            assertion.setConditions((Conditions) childSAMLObject);
+        } else if (childSAMLObject instanceof Advice) {
+            assertion.setAdvice((Advice) childSAMLObject);
+        } else if (childSAMLObject instanceof Statement) {
+            assertion.addStatement((Statement) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 
@@ -79,10 +68,10 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        Assertion assertion = (Assertion) samlElement;
+        Assertion assertion = (Assertion) samlObject;
 
         if (Assertion.ISSUER_ATTRIB_NAME.equals(attributeName)) {
             assertion.setIssuer(attributeValue);
@@ -106,11 +95,7 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 throw new UnmarshallingException(n);
             }
         } else {
-            log.error(attributeName + " is not a supported attribute for Assertion objects");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for Assertion objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

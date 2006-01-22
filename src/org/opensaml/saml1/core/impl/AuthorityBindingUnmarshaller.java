@@ -17,20 +17,18 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- *  A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthorityBinding} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthorityBinding} objects.
  */
 public class AuthorityBindingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -41,48 +39,23 @@ public class AuthorityBindingUnmarshaller extends AbstractSAMLObjectUnmarshaller
         super(SAMLConstants.SAML1_NS, AuthorityBinding.LOCAL_NAME);
     }
 
-    /** Logger */
-    private static Logger log = Logger.getLogger(AuthorityBindingUnmarshaller.class);
-
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
+     *      java.lang.String, java.lang.String)
      */
-    @Override
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
-
-        // No Children
-        
-        log.error(childElement.getElementQName() + " is not a supported element for AuthorityBinding objects");
-        if (!SAMLConfig.ignoreUnknownElements()) {
-            throw new UnknownElementException(childElement.getElementQName()
-                    + " is not a supported element for AuthorityBinding objects");
-        }
-
-    }
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
-     */
-    @Override
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
-        
-        AuthorityBinding authorityBinding = (AuthorityBinding) samlElement;
-        
+
+        AuthorityBinding authorityBinding = (AuthorityBinding) samlObject;
+
         if (AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME.equals(attributeName)) {
             authorityBinding.setAuthorityKind(attributeValue);
         } else if (AuthorityBinding.LOCATION_ATTRIB_NAME.equals(attributeName)) {
             authorityBinding.setLocation(attributeValue);
-        } else if (AuthorityBinding.BINDING_ATTRIB_NAME.equals(attributeName)) { 
+        } else if (AuthorityBinding.BINDING_ATTRIB_NAME.equals(attributeName)) {
             authorityBinding.setBinding(attributeValue);
         } else {
-            log.error(attributeName + " is not supported attribute for AuthorityBinding");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attribute for AuthorityBinding objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
-
 }

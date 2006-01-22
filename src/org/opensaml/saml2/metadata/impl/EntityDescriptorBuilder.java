@@ -20,7 +20,7 @@ import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLObject;
 
 /**
- * An ElementBuilder for EntityDescriptor elements.
+ * An Builder for EntityDescriptor elements.
  */
 public class EntityDescriptorBuilder implements SAMLObjectBuilder {
     

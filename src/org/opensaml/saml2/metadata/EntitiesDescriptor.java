@@ -22,7 +22,6 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.core.Extensions;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.SignableXMLObject;
 
 /**
@@ -64,9 +63,9 @@ public interface EntitiesDescriptor extends SAMLObject, SignableXMLObject, TimeB
      * 
      * @param extensions the Extensions child of this object
      * 
-     * @throws IllegalAddException thrown if the given extensions Object is already a child of another SAMLObject 
+     * @throws IllegalArgumentException thrown if the given extensions Object is already a child of another SAMLObject 
      */
-    public void setExtensions(Extensions extensions) throws IllegalAddException;
+    public void setExtensions(Extensions extensions) throws IllegalArgumentException;
 	
 	/**
      * Gets a list of child {@link EntitiesDescriptor}s.

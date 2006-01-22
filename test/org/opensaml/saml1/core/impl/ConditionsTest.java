@@ -29,7 +29,6 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Conditions;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -104,7 +103,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
 
         date = conditions.getNotOnOrAfter();
         assertNull("NotOnOrAfter attribute has a value of " + date + ", expected no value", date);
-        
+
     }
 
     /*
@@ -117,10 +116,12 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         conditions = (Conditions) unmarshallElement(singleElementOptionalAttributesFile);
 
         GregorianCalendar date = conditions.getNotBefore();
-        assertEquals("NotBefore attribute ", DatatypeHelper.calendarToString(notBeforeDate,0),DatatypeHelper.calendarToString(date, 0));
+        assertEquals("NotBefore attribute ", DatatypeHelper.calendarToString(notBeforeDate, 0), DatatypeHelper
+                .calendarToString(date, 0));
 
         date = conditions.getNotOnOrAfter();
-        assertEquals("NotOnOrAfter attribute ", DatatypeHelper.calendarToString(notOnOfAfter, 0), DatatypeHelper.calendarToString(date, 0));
+        assertEquals("NotOnOrAfter attribute ", DatatypeHelper.calendarToString(notOnOfAfter, 0), DatatypeHelper
+                .calendarToString(date, 0));
     }
 
     /*
@@ -168,20 +169,14 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
         Conditions conditions = (Conditions) buildSAMLObject(qname);
 
-        try {
-            conditions.addCondition(new AudienceRestrictionConditionImpl());
-            conditions.addCondition(new DoNotCacheConditionImpl());
-            //conditions.addCondition(condition);
+        conditions.addCondition(new AudienceRestrictionConditionImpl());
+        conditions.addCondition(new DoNotCacheConditionImpl());
+        // conditions.addCondition(condition);
 
-            conditions.addCondition(new AudienceRestrictionConditionImpl());
-            // conditions.addCondition(condition);
-            //           
-            conditions.addCondition(new AudienceRestrictionConditionImpl());
-
-        } catch (IllegalAddException e) {
-            fail("Exception " + e + " while adding members");
-            e.printStackTrace();
-        }
+        conditions.addCondition(new AudienceRestrictionConditionImpl());
+        // conditions.addCondition(condition);
+        //           
+        conditions.addCondition(new AudienceRestrictionConditionImpl());
 
         assertEquals(expectedFullDOM, conditions);
 

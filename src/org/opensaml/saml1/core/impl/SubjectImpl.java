@@ -29,7 +29,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectConfirmation;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Complete implementation of {@link org.opensaml.saml1.core.Subject}
@@ -60,7 +59,7 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
     /*
      * @see org.opensaml.saml1.core.Subject#setNameIdentifier(org.opensaml.saml1.core.NameIdentifier)
      */
-    public void setNameIdentifier(NameIdentifier nameIdentifier) throws IllegalAddException {
+    public void setNameIdentifier(NameIdentifier nameIdentifier) throws IllegalArgumentException {
         this.nameIdentifier = prepareForAssignment(this.nameIdentifier, nameIdentifier);
     }
 
@@ -74,7 +73,7 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
     /*
      * @see org.opensaml.saml1.core.Subject#setSubjectConfirmation(org.opensaml.saml1.core.SubjectConfirmation)
      */
-    public void setSubjectConfirmation(SubjectConfirmation subjectConfirmation) throws IllegalAddException {
+    public void setSubjectConfirmation(SubjectConfirmation subjectConfirmation) throws IllegalArgumentException {
         this.subjectConfirmation = prepareForAssignment(this.subjectConfirmation, subjectConfirmation);
     }
 

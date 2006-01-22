@@ -31,7 +31,6 @@ import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
@@ -191,7 +190,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
      */
-    public void setExtensions(Extensions extensions) throws IllegalAddException {
+    public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
@@ -206,7 +205,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#setOrganization(org.opensaml.saml2.metadata.Organization)
      */
-    public void setOrganization(Organization organization) throws IllegalAddException{
+    public void setOrganization(Organization organization) throws IllegalArgumentException{
         this.organization = prepareForAssignment(this.organization, organization);
     }
 

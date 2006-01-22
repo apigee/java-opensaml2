@@ -32,7 +32,6 @@ import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.saml2.metadata.KeyDescriptor;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -127,7 +126,7 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
     /*
      * @see org.opensaml.saml2.metadata.AffiliationDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
      */
-    public void setExtensions(Extensions extensions) throws IllegalAddException {
+    public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import java.util.Calendar;
@@ -26,30 +27,30 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 /**
- *
+ * 
  */
 public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
 
     /** Expected value of AuthenticationMethod */
     private String expectedAuthenticationMethod;
-    
+
     /** Expected value of AuthenticationInstant */
     private GregorianCalendar expectedAuthenticationInstant;
+
     /** Expected value of AuthenticationInstant */
     private String expectedAuthenticationInstantAsString;
 
-    /** File with the AuthenticationStatementMethod with children */ 
+    /** File with the AuthenticationStatementMethod with children */
     private String fullElementsFile;
-    
-    /** The DOM to hold the AuthenticationStatementMethod with children */ 
+
+    /** The DOM to hold the AuthenticationStatementMethod with children */
     private Document expectedFullDOM;
-    
+
     /**
      * Constructor
      */
@@ -62,7 +63,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         expectedAuthenticationInstant = new GregorianCalendar(1970, 0, 2, 1, 1, 2);
         expectedAuthenticationInstant.set(Calendar.MILLISECOND, 123);
         expectedAuthenticationInstantAsString = DatatypeHelper.calendarToString(expectedAuthenticationInstant, 0);
-        
+
         singleElementFile = "/data/org/opensaml/saml1/singleAuthenticationStatement.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthenticationStatementAttributes.xml";
         fullElementsFile = "/data/org/opensaml/saml1/AuthenticationStatementWithChildren.xml";
@@ -87,10 +88,10 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementUnmarshall() {
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) unmarshallElement(singleElementFile);
-        
+
         assertNull("AuthenticationMethod attribute present", authenticationStatement.getAuthenticationMethod());
         assertNull("AuthenticationInstant attribute present", authenticationStatement.getAuthenticationInstant());
-        
+
         assertNull("<Subject> element present", authenticationStatement.getSubject());
         assertNull("<SubjectLocailty> element present", authenticationStatement.getSubjectLocality());
         assertNull("Non zero count of <AuthorityBinding> elements", authenticationStatement.getAuthorityBindings());
@@ -102,8 +103,9 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) unmarshallElement(singleElementOptionalAttributesFile);
-        
-        assertEquals("AuthenticationMethod", expectedAuthenticationMethod, authenticationStatement.getAuthenticationMethod());
+
+        assertEquals("AuthenticationMethod", expectedAuthenticationMethod, authenticationStatement
+                .getAuthenticationMethod());
         String date = DatatypeHelper.calendarToString(authenticationStatement.getAuthenticationInstant(), 0);
         assertEquals("AuthenticationInstant", expectedAuthenticationInstantAsString, date);
     }
@@ -114,22 +116,23 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
 
     public void testFullElementsUnmarshall() {
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) unmarshallElement(fullElementsFile);
-        
+
         assertNotNull("<Subject> element not present", authenticationStatement.getSubject());
-        
+
         assertNotNull("<SubjectLocality> element not present", authenticationStatement.getSubjectLocality());
         assertNotNull("<AuthorityBinding> elements not present", authenticationStatement.getAuthorityBindings());
         assertEquals("count of <AuthorityBinding> elements", 2, authenticationStatement.getAuthorityBindings().size());
-        
+
         AuthorityBinding authorityBinding = authenticationStatement.getAuthorityBindings().get(0);
         authenticationStatement.removeAuthorityBinding(authorityBinding);
         assertEquals("count of <AuthorityBinding> elements", 1, authenticationStatement.getAuthorityBindings().size());
         // TODO RemoveAllXXX
         /*
-        authenticationStatement.removeAllAuthorityBindings();
-        assertNull("<AuthorityBinding> not all rmeoved", authenticationStatement.getAuthorityBindings());
-        */
+         * authenticationStatement.removeAllAuthorityBindings(); assertNull("<AuthorityBinding> not all rmeoved",
+         * authenticationStatement.getAuthorityBindings());
+         */
     }
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
@@ -144,31 +147,26 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
         AuthenticationStatement authenticationStatement = new AuthenticationStatementImpl();
-        
+
         authenticationStatement.setAuthenticationInstant(expectedAuthenticationInstant);
         authenticationStatement.setAuthenticationMethod(expectedAuthenticationMethod);
         assertEquals(expectedOptionalAttributesDOM, authenticationStatement);
     }
-    
+
     /**
      * Test an XML file with Children
      */
-    
+
     public void testFullElementsMarshall() {
 
         AuthenticationStatement authenticationStatement = new AuthenticationStatementImpl();
-        
-        try {
-            authenticationStatement.setSubject(new SubjectImpl());
-            
-            authenticationStatement.setSubjectLocality(new SubjectLocalityImpl());
-            authenticationStatement.addAuthorityBinding(new AuthorityBindingImpl());
-            authenticationStatement.addAuthorityBinding(new AuthorityBindingImpl());
-        } catch (IllegalAddException e) {
-            fail("threw IllegalAddException");
-        }
+
+        authenticationStatement.setSubject(new SubjectImpl());
+
+        authenticationStatement.setSubjectLocality(new SubjectLocalityImpl());
+        authenticationStatement.addAuthorityBinding(new AuthorityBindingImpl());
+        authenticationStatement.addAuthorityBinding(new AuthorityBindingImpl());
+
         assertEquals(expectedFullDOM, authenticationStatement);
     }
 }
-
-    

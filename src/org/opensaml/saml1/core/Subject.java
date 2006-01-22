@@ -20,7 +20,6 @@
 package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Interface to describe how the <code> Subject </code> elements work.
@@ -31,10 +30,10 @@ public interface Subject extends SAMLObject {
     
     public NameIdentifier getNameIdentifier();
     
-    public void setNameIdentifier(NameIdentifier nameIdentifier) throws IllegalAddException;
+    public void setNameIdentifier(NameIdentifier nameIdentifier) throws IllegalArgumentException;
     
     public SubjectConfirmation getSubjectConfirmation();
     
-    public void setSubjectConfirmation(SubjectConfirmation subjectConfirmation) throws IllegalAddException;
+    public void setSubjectConfirmation(SubjectConfirmation subjectConfirmation) throws IllegalArgumentException;
     
 }

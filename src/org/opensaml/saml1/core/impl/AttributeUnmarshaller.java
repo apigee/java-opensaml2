@@ -21,7 +21,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -30,12 +29,11 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeValue;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for
- * {@link org.opensaml.saml1.core.impl.AttributeImpl} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.impl.AttributeImpl}
+ * objects.
  */
 public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -53,27 +51,17 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
         Attribute attribute;
 
-        attribute = (Attribute) parentElement;
+        attribute = (Attribute) parentSAMLObject;
 
-        try {
-            if (childElement instanceof AttributeValue) {
-                attribute.addAttributeValue((AttributeValue) childElement);
-            } else {
-                log.error(childElement.getElementQName()
-                        + " is not a supported element for Attribute objects");
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                        + " is not a supported element for Attribute objects");
-                }
-            }
-        } catch (IllegalAddException e) {
-            log.error("Couldn't add element " + childElement.getElementQName(), e);
-            throw new UnmarshallingException(e);
+        if (childSAMLObject instanceof AttributeValue) {
+            attribute.addAttributeValue((AttributeValue) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 
@@ -81,22 +69,17 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        Attribute attribute = (Attribute) samlElement;
-        
+        Attribute attribute = (Attribute) samlObject;
+
         if (AttributeDesignator.ATTRIBUTENAME_ATTRIB_NAME.equals(attributeName)) {
             attribute.setAttributeName(attributeValue);
         } else if (AttributeDesignator.ATTRIBUTENAMESPACE_ATTRIB_NAME.equals(attributeName)) {
             attribute.setAttributeNamespace(attributeValue);
         } else {
-            log.error(attributeName
-                    + " is not a supported attributed for Attribute objects");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for Attribute objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

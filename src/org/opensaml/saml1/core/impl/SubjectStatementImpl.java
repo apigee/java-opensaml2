@@ -22,7 +22,6 @@ package org.opensaml.saml1.core.impl;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectStatement;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Abstract type to implement SubjectStatementType
@@ -52,7 +51,7 @@ public abstract class SubjectStatementImpl extends AbstractSAMLObject implements
     /*
      * @see org.opensaml.saml1.core.SubjectStatement#setSubject(org.opensaml.saml1.core.Subject)
      */
-    public void setSubject(Subject subject) throws IllegalAddException {
+    public void setSubject(Subject subject) throws IllegalArgumentException {
         this.subject = prepareForAssignment(this.subject, subject);
     }
 }

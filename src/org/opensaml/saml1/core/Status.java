@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * This interface defines how the object representing a SAML 1 <code> Status</code> element behaves.
@@ -31,18 +30,18 @@ public interface Status extends SAMLObject {
     StatusMessage getStatusMessage();
 
     /** Set the object representing the <code>StatusMessage<code> (element). */
-    void setStatusMessage(StatusMessage statusMessage) throws IllegalAddException;
+    void setStatusMessage(StatusMessage statusMessage) throws IllegalArgumentException;
 
     /** Return the object representing the <code>StatusCode<code> (element). */
     StatusCode getStatusCode();
 
     /** Set the object representing the <code>StatusCode<code> (element). */
-    void setStatusCode(StatusCode statusCode) throws IllegalAddException;
+    void setStatusCode(StatusCode statusCode) throws IllegalArgumentException;
 
     /** Return the object representing the <code>StatusDetail<code> (element). */
 
     StatusDetail getStatusDetail();
 
     /** Set the object representing the <code>StatusDetail<code> (element). */
-    void setStatusDetail(StatusDetail statusDetail) throws IllegalAddException;
+    void setStatusDetail(StatusDetail statusDetail) throws IllegalArgumentException;
 }

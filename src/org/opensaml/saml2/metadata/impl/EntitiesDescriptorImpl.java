@@ -28,7 +28,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -134,7 +133,7 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     /*
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
      */
-    public void setExtensions(Extensions extensions) throws IllegalAddException {
+    public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 

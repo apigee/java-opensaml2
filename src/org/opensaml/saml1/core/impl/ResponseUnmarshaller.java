@@ -21,7 +21,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -30,7 +29,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -51,26 +49,17 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
-        Response response = (Response) parentElement;
+        Response response = (Response) parentSAMLObject;
 
-        try {
-            if (childElement instanceof Assertion) {
-                response.setAssertion((Assertion) childElement);
-            } else if (childElement instanceof Status) {
-                response.setStatus((Status) childElement);
-            } else {
-                log.error(childElement.getElementQName()
-                        + " is not a supported element for Response objects");
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for Response objects");
-                }
-            }
-        } catch (IllegalAddException e) {
-            throw new UnmarshallingException(e);
+        if (childSAMLObject instanceof Assertion) {
+            response.setAssertion((Assertion) childSAMLObject);
+        } else if (childSAMLObject instanceof Status) {
+            response.setStatus((Status) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 
@@ -78,10 +67,10 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        Response response = (Response) samlElement;
+        Response response = (Response) samlObject;
 
         if (attributeName.equals(Response.INRESPONSETO_ATTRIB_NAME)) {
             response.setInResponseTo(attributeValue);
@@ -108,12 +97,7 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (attributeName.equals(Response.RECIPIENT_ATTRIB_NAME)) {
             response.setRecipient(attributeValue);
         } else {
-            log.error(attributeName
-                        + " is not a supported attributed for Response objects");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for Response objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

@@ -19,7 +19,6 @@ package org.opensaml.saml1.core.impl;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.StatusCode;
-import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -35,18 +34,18 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
     /** The expected result of a marshalled multiple element */
 
     private Document expectedFullDOM;
-    
+
     /** The expected value for the value attribute */
-    
-    private final String value; 
-    
+
+    private final String value;
+
     /** The expected value for the value attribute okf the child element */
-    
-    private final String childValue; 
+
+    private final String childValue;
 
     /**
      * Constructor
-     *
+     * 
      */
     public StatusCodeTest() {
         fullElementsFile = "/data/org/opensaml/saml1/FullStatusCode.xml";
@@ -55,7 +54,7 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         value = "samlp:Success";
         childValue = "samlp:VersionMismatch";
     }
-    
+
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -68,16 +67,16 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementUnmarshall() {
 
-        StatusCode code = (StatusCode) unmarshallElement(singleElementFile); 
-        
+        StatusCode code = (StatusCode) unmarshallElement(singleElementFile);
+
         assertEquals("Single Element Value wrong", value, code.getValue());
     }
 
     @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
-       // Nothing to test
+        // Nothing to test
     }
-    
+
     /*
      * Test an Response file with children
      */
@@ -85,16 +84,16 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
     public void testFullElementsUnmarshall() {
 
         StatusCode code = (StatusCode) unmarshallElement(fullElementsFile);
-        
+
         assertNotNull("Child StatusCode", code.getStatusCode());
     }
 
     @Override
     public void testSingleElementMarshall() {
         StatusCode code = new StatusCodeImpl();
-        
+
         code.setValue(value);
-        
+
         assertEquals(expectedDOM, code);
     }
 
@@ -106,16 +105,13 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
     public void testFullElementsMarshall() {
 
         StatusCode code = new StatusCodeImpl();
-        
+
         code.setValue(value);
-        
-        try {
-            code.setStatusCode(new StatusCodeImpl());
-        } catch (IllegalAddException e) {
-            fail("threw IllegalAddException");
-        }
+
+        code.setStatusCode(new StatusCodeImpl());
+
         code.getStatusCode().setValue(childValue);
-        
+
         assertEquals(expectedFullDOM, code);
     }
 }

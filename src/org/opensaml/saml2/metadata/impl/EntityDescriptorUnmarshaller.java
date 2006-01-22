@@ -16,11 +16,8 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
@@ -31,7 +28,6 @@ import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -50,31 +46,24 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement,
      *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException {
-        EntityDescriptor entityDescriptor = (EntityDescriptor) parentElement;
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
+            throws UnmarshallingException {
+        EntityDescriptor entityDescriptor = (EntityDescriptor) parentSAMLObject;
 
-        try {
-            if (childElement instanceof Extensions) {
-                entityDescriptor.setExtensions((Extensions) childElement);
-            } else if (childElement instanceof RoleDescriptor) {
-                entityDescriptor.getRoleDescriptors().add((RoleDescriptor) childElement);
-            } else if (childElement instanceof AffiliationDescriptor) {
-                entityDescriptor.setAffiliationDescriptor((AffiliationDescriptor) childElement);
-            } else if (childElement instanceof Organization) {
-                entityDescriptor.setOrganization((Organization) childElement);
-            } else if (childElement instanceof ContactPerson) {
-                entityDescriptor.getContactPersons().add((ContactPerson) childElement);
-            } else if (childElement instanceof AdditionalMetadataLocation) {
-                entityDescriptor.getAdditionalMetadataLocations().add((AdditionalMetadataLocation) childElement);
-            } else {
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for EntityDescriptor objects");
-                }
-            }
-        } catch (IllegalAddException e) {
-            // This should never happen, but just in case
-            throw new UnmarshallingException(e);
+        if (childSAMLObject instanceof Extensions) {
+            entityDescriptor.setExtensions((Extensions) childSAMLObject);
+        } else if (childSAMLObject instanceof RoleDescriptor) {
+            entityDescriptor.getRoleDescriptors().add((RoleDescriptor) childSAMLObject);
+        } else if (childSAMLObject instanceof AffiliationDescriptor) {
+            entityDescriptor.setAffiliationDescriptor((AffiliationDescriptor) childSAMLObject);
+        } else if (childSAMLObject instanceof Organization) {
+            entityDescriptor.setOrganization((Organization) childSAMLObject);
+        } else if (childSAMLObject instanceof ContactPerson) {
+            entityDescriptor.getContactPersons().add((ContactPerson) childSAMLObject);
+        } else if (childSAMLObject instanceof AdditionalMetadataLocation) {
+            entityDescriptor.getAdditionalMetadataLocations().add((AdditionalMetadataLocation) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 
@@ -82,9 +71,9 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement,
      *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException {
-        EntityDescriptor entityDescriptor = (EntityDescriptor) samlElement;
+        EntityDescriptor entityDescriptor = (EntityDescriptor) samlObject;
 
         if (attributeName.equals(EntityDescriptor.ENTITY_ID_ATTRIB_NAME)) {
             entityDescriptor.setEntityID(attributeValue);
@@ -93,11 +82,7 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entityDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
         } else {
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for EntityDescriptor objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
-
 }

@@ -31,7 +31,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
@@ -54,9 +53,11 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      */
 
     private final GregorianCalendar issueInstant;
-    
+
     private final String inResponseTo;
+
     private final int minorVersion;
+
     private final String recipient;
 
     /**
@@ -70,12 +71,12 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         //
         // IssueInstant="1970-01-01T00:00:00.100Z"
         //
-        issueInstant = new GregorianCalendar(1970,0,1, 0,0,0);
+        issueInstant = new GregorianCalendar(1970, 0, 1, 0, 0, 0);
         issueInstant.set(Calendar.MILLISECOND, 100);
-        
-        inResponseTo="inresponseto";
-        minorVersion=1;
-        recipient="recipient";
+
+        inResponseTo = "inresponseto";
+        minorVersion = 1;
+        recipient = "recipient";
     }
 
     /**
@@ -95,20 +96,19 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementUnmarshall() {
-        
+
         Response response = (Response) unmarshallElement(singleElementFile);
 
         GregorianCalendar date = response.getIssueInstant();
-        assertNull("IssueInstant attribute has a value of " + 
-                DatatypeHelper.calendarToString(date, 0) + 
-                            ", expected no value", date);
-        
+        assertNull("IssueInstant attribute has a value of " + DatatypeHelper.calendarToString(date, 0)
+                + ", expected no value", date);
+
         Assertion assertion;
         assertion = response.getAssertion();
         assertNull("Assertion element has a value of " + assertion + ", expected no value", assertion);
 
         Status status;
-        status= response.getStatus();
+        status = response.getStatus();
         assertNull("Status element has a value of " + status + ", expected no value", status);
     }
 
@@ -122,14 +122,15 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         response = (Response) unmarshallElement(singleElementOptionalAttributesFile);
 
         GregorianCalendar date = response.getIssueInstant();
-        assertEquals("IssueInstant attribute ", DatatypeHelper.calendarToString(issueInstant, 0), DatatypeHelper.calendarToString(date, 0));
-        
+        assertEquals("IssueInstant attribute ", DatatypeHelper.calendarToString(issueInstant, 0), DatatypeHelper
+                .calendarToString(date, 0));
+
         String string = response.getInResponseTo();
         assertEquals("InResponseTo attribute ", inResponseTo, string);
 
         string = response.getRecipient();
         assertEquals("Recipient attribute ", recipient, string);
-        
+
         int i = response.getMinorVersion();
         assertEquals("MinorVersion attribute ", minorVersion, i);
     }
@@ -146,7 +147,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         assertNotNull("No Assertion element found", assertion);
 
         Status status;
-        status= response.getStatus();
+        status = response.getStatus();
         assertNotNull("No Status element found", status);
     }
 
@@ -176,23 +177,19 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
 
         assertEquals(expectedOptionalAttributesDOM, response);
     }
-    
+
     /**
      * Test Marshalling up a file with children
-     *
+     * 
      */
 
     public void testFullElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
         Response response = (Response) buildSAMLObject(qname);
 
-        try {
-            response.setAssertion(new AssertionImpl());
-            response.setStatus(new StatusImpl());
-        } catch (IllegalAddException e) {
-            fail("Threw IllegalAddException");
-        }
-        
+        response.setAssertion(new AssertionImpl());
+        response.setStatus(new StatusImpl());
+
         assertEquals(expectedFullDOM, response);
 
     }

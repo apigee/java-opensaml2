@@ -30,7 +30,6 @@ import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Concrete implementation of the org.opensaml.saml1.core.AudienceRestrictionCondition
@@ -58,7 +57,7 @@ public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject
     /*
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#addAudience(org.opensaml.saml1.core.Audience)
      */
-    public void addAudience(Audience audience) throws IllegalAddException {
+    public void addAudience(Audience audience) throws IllegalArgumentException {
         addXMLObject(audiences, audience);
     }
 

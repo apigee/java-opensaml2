@@ -20,23 +20,15 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeValue;
-import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- *  A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AttributeValue} Objects
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AttributeValue} Objects
  */
 public class AttributeValueUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(AttributeValueUnmarshaller.class);
 
     /**
      * Constructor
@@ -46,45 +38,11 @@ public class AttributeValueUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
-     */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
-
-        // 
-        // No child elements
-        //
-        log.error(childElement.getElementQName() + " is not a supported element for AttributeValue objects");
-        if (!SAMLConfig.ignoreUnknownElements()) {
-            throw new UnknownElementException(childElement.getElementQName()
-                    + " is not a supported element for AttributeValue objects");
-        }
-    }
-
-    /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
-     */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-        //
-        // No attributes
-        //
-
-        log.error(attributeName + " is not a supported attributed for AttributeValue objects");
-        if (!SAMLConfig.ignoreUnknownAttributes()) {
-
-            throw new UnknownAttributeException(attributeName
-                    + " is not a supported attributed for AttributeValue objects");
-        }
-
-    }
-
-    /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
-        AttributeValue attributeValue = (AttributeValue) samlElement;
+    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+        AttributeValue attributeValue = (AttributeValue) samlObject;
 
         attributeValue.setAttributeValue(elementContent);
     }

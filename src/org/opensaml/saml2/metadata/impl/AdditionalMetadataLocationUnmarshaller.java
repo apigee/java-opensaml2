@@ -16,12 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectUnmarshaller;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -37,41 +35,25 @@ public class AdditionalMetadataLocationUnmarshaller extends AbstractSAMLObjectUn
     public AdditionalMetadataLocationUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME);
     }
-    
-    /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement, org.opensaml.saml2.common.impl.AbstractSAMLElement)
-     */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnknownElementException {
-        //Shouldn't have children elements
-        
-        if(!SAMLConfig.ignoreUnknownElements()){
-            throw new UnknownElementException(childElement.getElementQName() + " is not a supported element for AdditionalMetadataLocation objects");
-        }
-    }
 
     /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement, java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
         if(attributeName.equals(AdditionalMetadataLocation.NAMESPACE_ATTRIB_NAME)) {
-            AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;
+            AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlObject;
             aml.setNamespaceURI(attributeValue);
         }else{
-            if(!SAMLConfig.ignoreUnknownAttributes()){
-                throw new UnknownAttributeException(attributeName + " is not a supported attributed for AdditionalMetadataLocation objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
     
-    /**
-     * Sets the DOM element content as the location URI of the AdditionaMetadataLocation object.
+    /*
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject, java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
-        super.unmarshallElementContent(samlElement, elementContent);
-        
-        AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;
+    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+        AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlObject;
         aml.setLocationURI(elementContent);
     }
 }

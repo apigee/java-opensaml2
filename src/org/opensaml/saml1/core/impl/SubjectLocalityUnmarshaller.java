@@ -19,12 +19,9 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectLocality;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -33,7 +30,7 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectLocality} objects.
  */
 public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
+    
     /**
      * Constructor
      */
@@ -41,43 +38,20 @@ public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller 
         super(SAMLConstants.SAML1_NS, SubjectLocality.LOCAL_NAME);
     }
 
-    /** Logger */
-    private static Logger log = Logger.getLogger(SubjectLocalityUnmarshaller.class);
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
-     */
-    @Override
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
-
-        log.error(childElement.getElementQName() + " is not a supported element for SubjectLocality objects");
-        if (!SAMLConfig.ignoreUnknownElements()) {
-            throw new UnknownElementException(childElement.getElementQName()
-                    + " is not a supported element for SubjectLocality objects");
-        }
-    }
-
     /*
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
      */
-    @Override
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
 
-        SubjectLocality subjectLocality = (SubjectLocality) samlElement;
+        SubjectLocality subjectLocality = (SubjectLocality) samlObject;
         
         if (SubjectLocality.DNSADDRESS_ATTRIB_NAME.equals(attributeName)) {
             subjectLocality.setDNSAddress(attributeValue);
         } else if (SubjectLocality.IPADDRESS_ATTRIB_NAME.equals(attributeName)) {
             subjectLocality.setIPAddress(attributeValue);
         } else {
-            log.error(attributeName + " is not supported attribute for SubjectLocalilty");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attribute for SubjectLocalilty objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
-
 }

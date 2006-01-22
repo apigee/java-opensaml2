@@ -17,32 +17,32 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Attribute;
-import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 /**
- *
+ * 
  */
 public class AttributeTest extends SAMLObjectBaseTestCase {
 
     /** A file with sub elements */
     private String fullElementsFile;
-    
+
     /** The DOM of an element with subelements */
     private Document expectedFullDOM;
-    
+
     /** Value from test file */
     private final String expectedAttributeName;
-    
+
     /** Value from test file */
     private final String expectedAttributeNamespace;
-    
+
     /**
      * Constructor
      */
@@ -97,11 +97,12 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
 
     public void testFullElementsUnmarshall() {
         Attribute attribute = (Attribute) unmarshallElement(fullElementsFile);
-        
+
         assertNotNull("<AttributeValue> subelement not found", attribute.getAttributeValues());
         assertEquals("Number of <AttributeValue> subelement not found", 4, attribute.getAttributeValues().size());
         // TODO RemoveAllXXX
     }
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
@@ -115,28 +116,24 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-       Attribute attribute = new AttributeImpl();
-       
-       attribute.setAttributeName(expectedAttributeName);
-       attribute.setAttributeNamespace(expectedAttributeNamespace);
-       assertEquals(expectedOptionalAttributesDOM, attribute);
+        Attribute attribute = new AttributeImpl();
+
+        attribute.setAttributeName(expectedAttributeName);
+        attribute.setAttributeNamespace(expectedAttributeNamespace);
+        assertEquals(expectedOptionalAttributesDOM, attribute);
     }
 
     /**
      * Test an XML file with Children
      */
-    
+
     public void testFullElementsMarshall() {
         Attribute attribute = new AttributeImpl();
-        
-        try {
-            attribute.addAttributeValue(new AttributeValueImpl());
-            attribute.addAttributeValue(new AttributeValueImpl());
-            attribute.addAttributeValue(new AttributeValueImpl());
-            attribute.addAttributeValue(new AttributeValueImpl());
-        } catch (IllegalAddException e) {
-            fail("threw IllegalAddException");
-        }
+
+        attribute.addAttributeValue(new AttributeValueImpl());
+        attribute.addAttributeValue(new AttributeValueImpl());
+        attribute.addAttributeValue(new AttributeValueImpl());
+        attribute.addAttributeValue(new AttributeValueImpl());
 
         assertEquals(expectedFullDOM, attribute);
     }

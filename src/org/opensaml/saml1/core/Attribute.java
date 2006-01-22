@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * This interface defines how the object representing a SAML 1 <code> Attribute </code> element behaves.
@@ -37,9 +36,9 @@ public interface Attribute extends SAMLObject, AttributeDesignator {
     public List <AttributeValue> getAttributeValues();
     
     /** Add a single AttributeValue element 
-     * @throws IllegalAddException */
+     * @throws IllegalArgumentException */
 
-    public void addAttributeValue(AttributeValue attributeValue) throws IllegalAddException;
+    public void addAttributeValue(AttributeValue attributeValue) throws IllegalArgumentException;
     
     /** Remove a single AttributeValue element */
     

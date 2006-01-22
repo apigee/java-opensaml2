@@ -30,7 +30,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.Advice} Object
@@ -67,7 +66,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     /*
      * @see org.opensaml.saml1.core.Advice#addAssertionIDReference(org.opensaml.saml1.core.AssertionIDReference)
      */
-    public void addAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalAddException {
+    public void addAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalArgumentException {
 
         if (addXMLObject(assertionIDReferences, assertionIDReference)) {
             orderedChildren.add(assertionIDReference);
@@ -116,7 +115,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     /*
      * @see org.opensaml.saml1.core.Advice#addAssertion(org.opensaml.saml1.core.Assertion)
      */
-    public void addAssertion(Assertion assertion) throws IllegalAddException {
+    public void addAssertion(Assertion assertion) throws IllegalArgumentException {
         if (addXMLObject(assertions, assertion)) {
             orderedChildren.add(assertion);
         }

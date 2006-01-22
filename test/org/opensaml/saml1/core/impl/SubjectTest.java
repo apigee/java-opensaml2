@@ -17,14 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
-import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
-import org.opensaml.saml1.core.SubjectConfirmation;
-import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -34,8 +32,9 @@ import org.xml.sax.InputSource;
 public class SubjectTest extends SAMLObjectBaseTestCase {
 
     private String fullElementsFile;
+
     private Document expectedFullDOM;
-      
+
     /**
      * Constructor
      */
@@ -43,7 +42,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
         super();
 
         singleElementFile = "/data/org/opensaml/saml1/singleSubject.xml";
-        singleElementOptionalAttributesFile  = "/data/org/opensaml/saml1/singleSubject.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleSubject.xml";
         fullElementsFile = "/data/org/opensaml/saml1/SubjectWithChildren.xml";
     }
 
@@ -59,13 +58,12 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
                 .getResourceAsStream(fullElementsFile)));
     }
 
-
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         Subject subject = (Subject) unmarshallElement(singleElementFile);
-        
+
         assertNull("Non zero number of child NameIdentifier elements", subject.getNameIdentifier());
         assertNull("Non zero number of child SubjectConfirmation elements", subject.getSubjectConfirmation());
     }
@@ -82,17 +80,17 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      */
     public void testFullElementsUnmarshall() {
         Subject subject = (Subject) unmarshallElement(fullElementsFile);
-        
+
         assertNotNull("Zero child NameIdentifier elements", subject.getNameIdentifier());
         assertNotNull("Zero child SubjectConfirmation elements", subject.getSubjectConfirmation());
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         Subject subject = new SubjectImpl();
-        
+
         assertEquals(expectedDOM, subject);
     }
 
@@ -106,16 +104,13 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
     /*
      * Generate an subject with contents
      */
-    
+
     public void testFullElementsMarshall() {
         Subject subject = new SubjectImpl();
-              
-        try {
-            subject.setNameIdentifier(new NameIdentifierImpl());
-            subject.setSubjectConfirmation(new SubjectConfirmationImpl());
-        } catch (IllegalAddException e) {
-            fail("Threw a IllegalAddException ");
-        }
+
+        subject.setNameIdentifier(new NameIdentifierImpl());
+        subject.setSubjectConfirmation(new SubjectConfirmationImpl());
+
         assertEquals(expectedFullDOM, subject);
     }
 }

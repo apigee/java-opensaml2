@@ -31,7 +31,6 @@ import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.saml1.core.StatusDetail;
 import org.opensaml.saml1.core.StatusMessage;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Concrete Implementation {@link org.opensaml.saml1.core.Status}
@@ -65,7 +64,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
     /*
      * @see org.opensaml.saml1.core.Status#setStatusMessage(org.opensaml.saml1.core.StatusMessage)
      */
-    public void setStatusMessage(StatusMessage statusMessage) throws IllegalAddException {
+    public void setStatusMessage(StatusMessage statusMessage) throws IllegalArgumentException {
         this.statusMessage = prepareForAssignment(this.statusMessage, statusMessage);
     }
 
@@ -79,7 +78,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
     /*
      * @see org.opensaml.saml1.core.Status#getStatusCode(org.opensaml.saml1.core.StatusCode)
      */
-    public void setStatusCode(StatusCode statusCode) throws IllegalAddException {
+    public void setStatusCode(StatusCode statusCode) throws IllegalArgumentException {
         this.statusCode = prepareForAssignment(this.statusCode, statusCode);
     }
 
@@ -93,7 +92,7 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
     /*
      * @see org.opensaml.saml1.core.Status#setStatusDetail(org.opensaml.common.SAMLObject)
      */
-    public void setStatusDetail(StatusDetail statusDetail) throws IllegalAddException {
+    public void setStatusDetail(StatusDetail statusDetail) throws IllegalArgumentException {
         this.statusDetail = prepareForAssignment(this.statusDetail, statusDetail);
     }
 

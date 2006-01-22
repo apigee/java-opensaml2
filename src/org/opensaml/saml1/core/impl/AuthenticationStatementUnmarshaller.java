@@ -23,7 +23,6 @@ package org.opensaml.saml1.core.impl;
 import java.util.GregorianCalendar;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -33,14 +32,17 @@ import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectLocality;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
- *A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthenticationStatement} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthenticationStatement}
+ * objects.
  */
 public class AuthenticationStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+
+    /** Logger */
+    private static Logger log = Logger.getLogger(AuthenticationStatementUnmarshaller.class);
 
     /**
      * Constructor
@@ -49,57 +51,41 @@ public class AuthenticationStatementUnmarshaller extends AbstractSAMLObjectUnmar
         super(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME);
     }
 
-    /** Logger */
-    private static Logger log = Logger.getLogger(AuthenticationStatementUnmarshaller.class);
-
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
+     *      org.opensaml.common.SAMLObject)
      */
-@Override
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
-        AuthenticationStatement authenticationStatement = (AuthenticationStatement) parentElement;
-        
-        try {
+        AuthenticationStatement authenticationStatement = (AuthenticationStatement) parentSAMLObject;
 
-            if (childElement instanceof Subject) {
-                authenticationStatement.setSubject((Subject) childElement);
-            } else if (childElement instanceof SubjectLocality) {
-                authenticationStatement.setSubjectLocality((SubjectLocality) childElement);
-            } else if (childElement instanceof AuthorityBinding) {
-                authenticationStatement.addAuthorityBinding((AuthorityBinding) childElement);
-            } else {
-                log.error(childElement.getElementQName() + " is not a supported element for AuthenticationStatement objects");
-                if (!SAMLConfig.ignoreUnknownElements()) {
-                    throw new UnknownElementException(childElement.getElementQName()
-                            + " is not a supported element for AuthorityBinding objects");
-                }
-            } 
-        } catch (IllegalAddException e) {
-            log.error("Couldn't add " + childElement.getElementQName() + " to Assertion", e);
-            throw new UnmarshallingException(e);
+        if (childSAMLObject instanceof Subject) {
+            authenticationStatement.setSubject((Subject) childSAMLObject);
+        } else if (childSAMLObject instanceof SubjectLocality) {
+            authenticationStatement.setSubjectLocality((SubjectLocality) childSAMLObject);
+        } else if (childSAMLObject instanceof AuthorityBinding) {
+            authenticationStatement.addAuthorityBinding((AuthorityBinding) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
+
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
+     *      java.lang.String, java.lang.String)
      */
-    @Override
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
             throws UnmarshallingException, UnknownAttributeException {
-        AuthenticationStatement authenticationStatement = (AuthenticationStatement) samlElement;
-        
+        AuthenticationStatement authenticationStatement = (AuthenticationStatement) samlObject;
+
         if (AuthenticationStatement.AUTHENTICATIONINSTANT_ATTRIB_NAME.equals(attributeName)) {
             GregorianCalendar value = DatatypeHelper.stringToCalendar(attributeValue, 0);
             authenticationStatement.setAuthenticationInstant(value);
         } else if (AuthenticationStatement.AUTHENTICATIONMETHOD_ATTRIB_NAME.equals(attributeName)) {
             authenticationStatement.setAuthenticationMethod(attributeValue);
         } else {
-            log.error(attributeName + "is not a supported attribute for AuthenticationStatement");
-            if (!SAMLConfig.ignoreUnknownAttributes()) {
-                throw new UnknownAttributeException(attributeName
-                        + " is not a supported attributed for AuthenticationStatement objects");
-            }
+            super.processAttribute(samlObject, attributeName, attributeValue);
         }
     }
 }

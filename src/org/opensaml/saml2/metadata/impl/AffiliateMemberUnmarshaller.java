@@ -19,11 +19,8 @@ package org.opensaml.saml2.metadata.impl;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectUnmarshaller;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
-import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.AffiliateMember}s.
@@ -38,31 +35,11 @@ public class AffiliateMemberUnmarshaller extends AbstractSAMLObjectUnmarshaller 
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
-     */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
-        // DO NOTHING; no child elements
-    }
-
-    /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
-     */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-        // DO NOTHING; no attributes
-    }
-
-    /*
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlElement, String elementContent) {
-        super.unmarshallElementContent(samlElement, elementContent);
-
-        AffiliateMember member = (AffiliateMember) samlElement;
+    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+        AffiliateMember member = (AffiliateMember) samlObject;
         member.setID(elementContent);
     }
 }

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
@@ -25,21 +26,20 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
-import org.opensaml.xml.IllegalAddException;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 /**
- *
+ * 
  */
 public class AttributeStatementTest extends SAMLObjectBaseTestCase {
 
-    /** File with the AuthenticationStatementMethod with children */ 
+    /** File with the AuthenticationStatementMethod with children */
     private String fullElementsFile;
-    
-    /** The DOM to hold the AuthenticationStatementMethod with children */ 
+
+    /** The DOM to hold the AuthenticationStatementMethod with children */
     private Document expectedFullDOM;
-    
+
     /**
      * Constructor
      */
@@ -69,7 +69,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementUnmarshall() {
         AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(singleElementFile);
-        
+
         assertNull("<Subject> element present", attributeStatement.getSubject());
         assertNull("Non zero count of <Attribute> elements", attributeStatement.getAttributes());
     }
@@ -88,24 +88,27 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
 
     public void testFullElementsUnmarshall() {
         AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(fullElementsFile);
-        
+
         assertNotNull("<Subject> element not present", attributeStatement.getSubject());
         assertNotNull("<AuthorityBinding> elements not present", attributeStatement.getAttributes());
         assertEquals("count of <AuthorityBinding> elements", 5, attributeStatement.getAttributes().size());
-        
+
         Attribute attribute = attributeStatement.getAttributes().get(0);
         attributeStatement.removeAttribute(attribute);
-        assertEquals("count of <AttributeStatement> elements after single remove", 4, attributeStatement.getAttributes().size());
+        assertEquals("count of <AttributeStatement> elements after single remove", 4, attributeStatement
+                .getAttributes().size());
 
-        ArrayList <Attribute> list = new ArrayList<Attribute>(2);
+        ArrayList<Attribute> list = new ArrayList<Attribute>(2);
 
         list.add(attributeStatement.getAttributes().get(0));
         list.add(attributeStatement.getAttributes().get(2));
 
         attributeStatement.removeAttributes(list);
 
-        assertEquals("count of <AttributeStatement> elements after double remove", 2, attributeStatement.getAttributes().size());
+        assertEquals("count of <AttributeStatement> elements after double remove", 2, attributeStatement
+                .getAttributes().size());
     }
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
@@ -121,26 +124,21 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         // No attributes
     }
-    
+
     /**
      * Test an XML file with Children
      */
-    
+
     public void testFullElementsMarshall() {
 
         AttributeStatement attributeStatement = new AttributeStatementImpl();
 
-        try {
-            attributeStatement.setSubject(new SubjectImpl());
-        
-            for (int i = 0; i < 5; i++) {
-                attributeStatement.addAttribute(new AttributeImpl());
-            }
-        } catch (IllegalAddException e) {
-            fail("Illegale AddException thrown");
+        attributeStatement.setSubject(new SubjectImpl());
+
+        for (int i = 0; i < 5; i++) {
+            attributeStatement.addAttribute(new AttributeImpl());
         }
+
         assertEquals(expectedFullDOM, attributeStatement);
     }
 }
-
-    

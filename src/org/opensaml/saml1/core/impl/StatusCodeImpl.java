@@ -28,7 +28,6 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
-import org.opensaml.xml.IllegalAddException;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml1.core.StatusCode} Object
@@ -73,7 +72,7 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
     /*
      * @see org.opensaml.saml1.core.StatusCode#setStatusCode(org.opensaml.saml1.core.StatusCode)
      */
-    public void setStatusCode(StatusCode statusCode) throws IllegalAddException {
+    public void setStatusCode(StatusCode statusCode) throws IllegalArgumentException {
         childStatusCode = prepareForAssignment(childStatusCode, statusCode);
     }
 

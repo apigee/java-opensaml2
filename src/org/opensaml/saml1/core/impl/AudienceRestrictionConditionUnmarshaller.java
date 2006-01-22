@@ -21,15 +21,12 @@
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.xml.IllegalAddException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
@@ -52,42 +49,15 @@ public class AudienceRestrictionConditionUnmarshaller extends AbstractSAMLObject
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
             throws UnmarshallingException, UnknownElementException {
 
-        AudienceRestrictionCondition audienceRestrictionCondition;
+        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) parentSAMLObject;
 
-        audienceRestrictionCondition = (AudienceRestrictionCondition) parentElement;
-
-        if (childElement instanceof Audience) {
-            try {
-                audienceRestrictionCondition.addAudience((Audience) childElement);
-            } catch (IllegalAddException e) {
-                log.error("couldnt add elements", e);
-                throw new UnmarshallingException(e);
-            }
+        if (childSAMLObject instanceof Audience) {
+            audienceRestrictionCondition.addAudience((Audience) childSAMLObject);
         } else {
-            log.error(childElement.getElementQName()
-                        + " is not a supported element for AudienceRestrictionCondition objects");
-            if (!SAMLConfig.ignoreUnknownElements()) {
-                throw new UnknownElementException(childElement.getElementQName()
-                        + " is not a supported element for AudienceRestrictionCondition objects");
-            }
-        }
-    }
-
-    /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
-     */
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-
-        log.error(attributeName
-                + " is not a supported attributed for AudienceRestrictionCondition objects");
-        if (!SAMLConfig.ignoreUnknownAttributes()) {
-            throw new UnknownAttributeException(attributeName
-                    + " is not a supported attributed for AudienceRestrictionCondition objects");
+            super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 }
