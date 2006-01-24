@@ -2,7 +2,9 @@
 <OpenSAML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://www.opensaml.org/opensaml2-config ../../src/schema/opensaml2-config.xsd"
  xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion"
+ xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol"
  xmlns:saml2md="urn:oasis:names:tc:SAML:2.0:metadata"
+ xmlns:saml2ac="urn:oasis:names:tc:SAML:2.0:ac"
  xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol"
  xmlns:saml1="urn:oasis:names:tc:SAML:1.0:assertion"
  xmlns="http://www.opensaml.org/opensaml2-config">
