@@ -25,17 +25,37 @@ public interface IndexedEndpoint extends Endpoint {
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "IndexedEndpoint";
     
+    /** index attribute name */
+    public final static String INDEX_ATTRIB_NAME = "index";
+    
+    /** isDeault attribute name */
+    public final static String IS_DEFAULT_ATTRIB_NAME = "isDefault";
+    
     /**
      * Gets the index of the endpoint.
      * 
      * @return index of the endpoint
      */
-	public int getIndex();
+	public Integer getIndex();
     
     /**
      * Sets the index of the endpoint.
      * 
      * @param index index of the endpoint
      */
-    public void setIndex(int index);
+    public void setIndex(Integer index);
+    
+    /**
+     * Gets whether this is the default endpoint in a list.
+     * 
+     * @return whether this is the default endpoint in a list
+     */
+    public Boolean isDefault();
+    
+    /**
+     * Sets whether this is the default endpoint in a list.
+     * 
+     * @param isDefault whether this is the default endpoint in a list
+     */
+    public void setDefault(Boolean isDefault);
 }

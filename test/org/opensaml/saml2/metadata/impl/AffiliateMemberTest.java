@@ -22,6 +22,10 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
 
+/**
+ * Test case for creating, marshalling, and unmarshalling
+ * {@link org.opensaml.saml2.metadata.impl.AffiliateMemberImpl}.
+ */
 public class AffiliateMemberTest extends SAMLObjectBaseTestCase {
     
     protected String expectedMemberID;

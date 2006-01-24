@@ -26,7 +26,7 @@ import org.opensaml.saml2.metadata.Endpoint;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.metadata.Endpoint}
  */
-public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
+public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoint {
 
     /** Binding URI */
     private String bindingId;
@@ -40,10 +40,11 @@ public class EndpointImpl extends AbstractSAMLObject implements Endpoint {
     /**
      * Constructor
      * 
+     * @param namespaceURI the namespace URI for the element this SAML object represents
      * @param localName the local name of the element this SAML object represents
      */
-    public EndpointImpl(String localName) {
-        super(SAMLConstants.SAML20MD_NS, localName);
+    public EndpointImpl(String namespaceURI, String localName) {
+        super(namespaceURI, localName);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
     }
 

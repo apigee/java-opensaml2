@@ -22,6 +22,10 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeProfile;
 
+/**
+ * Test case for creating, marshalling, and unmarshalling
+ * {@link org.opensaml.saml2.metadata.impl.AttributeProfileImpl}.
+ */
 public class AttributeProfileTest extends SAMLObjectBaseTestCase {
     
     /** Expected ProfileURI */
@@ -34,6 +38,9 @@ public class AttributeProfileTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AttributeProfile.xml";
     }
     
+    /*
+     * @see junit.framework.TestCase#setUp()
+     */
     protected void setUp() throws Exception {
         super.setUp();
         

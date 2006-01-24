@@ -26,6 +26,10 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 
+/**
+ * Test case for creating, marshalling, and unmarshalling
+ * {@link org.opensaml.saml2.metadata.impl.AffiliationDescriptorImpl}.
+ */
 public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
 
     /** Expected affiliationOwnerID value */

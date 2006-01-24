@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -65,66 +64,12 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @return list of assertion consumer service {@link Endpoint}s for this service
      */
-    public List<Endpoint> getAssertionConsumerServices();
-    
-    /**
-     * Adds an assertion consumer service {@link Endpoint} for this service.
-     * 
-     * @param service the service endpoint
-     */
-    public void addAssertionConsumerService(Endpoint service);
-    
-    /**
-     * Removes an assertion consumer service {@link Endpoint} for this service.
-     * 
-     * @param service the service endpoint
-     */
-    public void removeAssertionConsumerService(Endpoint service);
-    
-    /**
-     * Removes a list of assertion consumer service {@link Endpoint}s for this service.
-     * 
-     * @param services the service endpoint
-     */
-    public void removeAssertionConsumerServices(Collection<Endpoint> services);
-    
-    /**
-     * Removes all the assertion consumer service endpoints from this service.
-     *
-     */
-    public void removeAllAssertionConsumerServices();
+    public List<AssertionConsumerService> getAssertionConsumerServices();
     
     /**
      * Gets an immutable list of attribute consuming service {@link Endpoint}s for this service.
      * 
      * @return list of attribute consuming service {@link Endpoint}s for this service
      */
-    public List<Endpoint> getAttributeConsumingServices();
-    
-    /**
-     * Adds an attribute consuming service {@link Endpoint} for this service.
-     * 
-     * @param service the service endpoint
-     */
-    public void addAttributeConsumingService(Endpoint service);
-    
-    /**
-     * Removes an attribute consuming service {@link Endpoint} for this service.
-     * 
-     * @param service the service endpoint
-     */
-    public void removeAttributeConsumingService(Endpoint service);
-    
-    /**
-     * Removes a list of attribute consuming service {@link Endpoint}s for this service.
-     * 
-     * @param services the service endpoint
-     */
-    public void removeAttributeConsumingServices(Collection<Endpoint> services);
-    
-    /**
-     * Removes all the attribute consuming service endpoints from this service.
-     *
-     */
-    public void removeAllAttributeConsumingServices();
+    public List<AttributeConsumingService> getAttributeConsumingServices();
 }
