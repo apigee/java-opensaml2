@@ -113,6 +113,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.ManageNameIDServiceUnmarshaller" />
         </ObjectProvider>
         
+        <!-- NameIDMappingService provider -->
+        <ObjectProvider qualifiedName="saml2md:NameIDMappingService">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.NameIDMappingServiceBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.NameIDMappingServiceMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.NameIDMappingServiceUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- Attribute provider -->
         <ObjectProvider qualifiedName="saml2:Attribute">
             <BuilderClass className="org.opensaml.saml2.core.impl.AttributeBuilder" />

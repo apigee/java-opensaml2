@@ -23,13 +23,13 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.AttributeService;
+import org.opensaml.saml2.metadata.NameIDMappingService;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
- * {@link org.opensaml.saml2.metadata.impl.AttributeServiceImpl}.
+ * {@link org.opensaml.saml2.metadata.impl.NameIDMappingServiceServiceImpl}.
  */
-public class AttributeServiceTest extends SAMLObjectBaseTestCase {
+public class NameIDMappingServiceTest extends SAMLObjectBaseTestCase {
     
     protected String expectedBinding;
     protected String expectedLocation;
@@ -38,9 +38,9 @@ public class AttributeServiceTest extends SAMLObjectBaseTestCase {
     /**
      * Constructor
      */
-    public AttributeServiceTest() {
-        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AttributeService.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/AttributeServiceOptionalAttributes.xml";
+    public NameIDMappingServiceTest() {
+        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/NameIDMappingService.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/NameIDMappingServiceOptionalAttributes.xml";
     }
     
     /*
@@ -58,7 +58,7 @@ public class AttributeServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
-        AttributeService service = (AttributeService) unmarshallElement(singleElementFile);
+        NameIDMappingService service = (NameIDMappingService) unmarshallElement(singleElementFile);
         
         assertEquals("Binding URI was not expected value", expectedBinding, service.getBinding());
         assertEquals("Location was not expected value", expectedLocation, service.getLocation());
@@ -68,7 +68,7 @@ public class AttributeServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
-        AttributeService service = (AttributeService) unmarshallElement(singleElementOptionalAttributesFile);
+        NameIDMappingService service = (NameIDMappingService) unmarshallElement(singleElementOptionalAttributesFile);
         
         assertEquals("Binding URI was not expected value", expectedBinding, service.getBinding());
         assertEquals("Location was not expected value", expectedLocation, service.getLocation());
@@ -79,8 +79,8 @@ public class AttributeServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME);
-        AttributeService service = (AttributeService) buildSAMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME);
+        NameIDMappingService service = (NameIDMappingService) buildSAMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);
@@ -92,8 +92,8 @@ public class AttributeServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME);
-        AttributeService service = (AttributeService) buildSAMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME);
+        NameIDMappingService service = (NameIDMappingService) buildSAMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);

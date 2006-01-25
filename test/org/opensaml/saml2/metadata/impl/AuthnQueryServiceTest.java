@@ -27,7 +27,7 @@ import org.opensaml.saml2.metadata.AuthnQueryService;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
- * {@link org.opensaml.saml2.metadata.impl.AssertionIDRequestServiceImpl}.
+ * {@link org.opensaml.saml2.metadata.impl.AuthnQueryServiceImpl}.
  */
 public class AuthnQueryServiceTest extends SAMLObjectBaseTestCase {
     
