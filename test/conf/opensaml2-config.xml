@@ -127,6 +127,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.SingleLogoutServiceUnmarshaller" />
         </ObjectProvider>
         
+        <!-- SingleSignOnService provider -->
+        <ObjectProvider qualifiedName="saml2md:SingleSignOnService">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.SingleSignOnServiceBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.SingleSignOnServiceMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.SingleSignOnServiceUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- Attribute provider -->
         <ObjectProvider qualifiedName="saml2:Attribute">
             <BuilderClass className="org.opensaml.saml2.core.impl.AttributeBuilder" />
