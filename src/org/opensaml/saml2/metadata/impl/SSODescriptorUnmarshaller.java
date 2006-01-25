@@ -24,6 +24,10 @@ import org.opensaml.saml2.metadata.SSODescriptor;
 import org.opensaml.saml2.metadata.SingleLogoutService;
 import org.opensaml.xml.io.UnmarshallingException;
 
+/**
+ * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.SSODescriptor}
+ * objects.
+ */
 public abstract class SSODescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
 
     /**
