@@ -92,6 +92,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AttributeServiceUnmarshaller" />
         </ObjectProvider>
         
+        <!-- AuthnQueryService provider -->
+        <ObjectProvider qualifiedName="saml2md:AuthnQueryService">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.AuthnQueryServiceBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.AuthnQueryServiceMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AuthnQueryServiceUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- Attribute provider -->
         <ObjectProvider qualifiedName="saml2:Attribute">
             <BuilderClass className="org.opensaml.saml2.core.impl.AttributeBuilder" />
