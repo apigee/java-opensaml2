@@ -23,26 +23,24 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.ArtifactResolutionService;
+import org.opensaml.saml2.metadata.AssertionIDRequestService;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
- * {@link org.opensaml.saml2.metadata.impl.ArtifactResolutionServiceImpl}.
+ * {@link org.opensaml.saml2.metadata.impl.AssertionIDRequestServiceImpl}.
  */
-public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
+public class AssertionIDRequestServiceTest extends SAMLObjectBaseTestCase {
     
     protected String expectedBinding;
     protected String expectedLocation;
     protected String expectedResponseLocation;
-    protected Integer expectedIndex;
-    protected Boolean expectedIsDefault;
     
     /**
      * Constructor
      */
-    public ArtifactResolutionServiceTest() {
-        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/ArtifactResolutionService.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/ArtifactResolutionServiceOptionalAttributes.xml";
+    public AssertionIDRequestServiceTest() {
+        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AssertionIDRequestService.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/AssertionIDRequestServiceOptionalAttributes.xml";
     }
     
     /*
@@ -54,44 +52,38 @@ public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
         expectedBinding = "urn:binding:foo";
         expectedLocation = "example.org";
         expectedResponseLocation = "example.org/response";
-        expectedIndex = new Integer(3);
-        expectedIsDefault = Boolean.TRUE;
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
-        ArtifactResolutionService service = (ArtifactResolutionService) unmarshallElement(singleElementFile);
+        AssertionIDRequestService service = (AssertionIDRequestService) unmarshallElement(singleElementFile);
         
         assertEquals("Binding URI was not expected value", expectedBinding, service.getBinding());
         assertEquals("Location was not expected value", expectedLocation, service.getLocation());
-        assertEquals("Index was not expected value", expectedIndex, service.getIndex());
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
-        ArtifactResolutionService service = (ArtifactResolutionService) unmarshallElement(singleElementOptionalAttributesFile);
+        AssertionIDRequestService service = (AssertionIDRequestService) unmarshallElement(singleElementOptionalAttributesFile);
         
         assertEquals("Binding URI was not expected value", expectedBinding, service.getBinding());
         assertEquals("Location was not expected value", expectedLocation, service.getLocation());
-        assertEquals("Index was not expected value", expectedIndex, service.getIndex());
-        assertEquals("ResponseLocation was not expected value", expectedResponseLocation, service.getResponseLocation());
-        assertEquals("isDefault was not expected value", expectedIsDefault, service.isDefault());
+        assertEquals("ResponseLocation was not expected value", expectedResponseLocation, service.getResponseLocation());;
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME);
-        ArtifactResolutionService service = (ArtifactResolutionService) buildSAMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME);
+        AssertionIDRequestService service = (AssertionIDRequestService) buildSAMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);
-        service.setIndex(expectedIndex);
 
         assertEquals(expectedDOM, service);
     }
@@ -100,14 +92,12 @@ public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME);
-        ArtifactResolutionService service = (ArtifactResolutionService) buildSAMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME);
+        AssertionIDRequestService service = (AssertionIDRequestService) buildSAMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);
-        service.setIndex(expectedIndex);
         service.setResponseLocation(expectedResponseLocation);
-        service.setDefault(expectedIsDefault);
 
         assertEquals(expectedOptionalAttributesDOM, service);
     }
