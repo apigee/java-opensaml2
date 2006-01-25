@@ -276,7 +276,7 @@ public class SAMLConfig {
             SAMLObjectManager.getInstance().registerMarshaller(objectProviderName, objectMarshaller);
         } catch (InstantiationException e) {
             log.fatal("Unable to create instance of marshaller class " + marshallerClassName + " for object provider " + objectProviderName);
-            throw new InitializationException("Unable to create instance of unmarshaller class " + marshallerClassName + " for object provider " + objectProviderName, e);
+            throw new InitializationException("Unable to create instance of marshaller class " + marshallerClassName + " for object provider " + objectProviderName, e);
         }
     }
     

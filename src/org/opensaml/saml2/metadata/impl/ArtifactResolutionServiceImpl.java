@@ -14,13 +14,25 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.metadata;
+/**
+ * 
+ */
+
+package org.opensaml.saml2.metadata.impl;
+
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.ArtifactResolutionService;
 
 /**
- * SAML 2.0 Metadata ArtifactResolutionService
+ * Concrete implementation of {@link org.opensaml.saml2.metadata.ArtifactResolutionService}
  */
-public interface ArtifactResolutionService extends IndexedEndpoint {
+public class ArtifactResolutionServiceImpl extends IndexedEndpointImpl implements ArtifactResolutionService {
 
-    /** Element local name */
-    public final static String LOCAL_NAME = "ArtifactResolutionService";
+    /**
+     * Constructor
+     */
+    public ArtifactResolutionServiceImpl() {
+        super(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    }
 }

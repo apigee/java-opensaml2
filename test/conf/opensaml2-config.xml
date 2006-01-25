@@ -71,6 +71,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AssertionConsumerServiceUnmarshaller" />
         </ObjectProvider>
         
+        <!-- ArtifactResolutionService provider -->
+        <ObjectProvider qualifiedName="saml2md:ArtifactResolutionService">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.ArtifactResolutionServiceBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.ArtifactResolutionServiceMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.ArtifactResolutionServiceUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- Attribute provider -->
         <ObjectProvider qualifiedName="saml2:Attribute">
             <BuilderClass className="org.opensaml.saml2.core.impl.AttributeBuilder" />
