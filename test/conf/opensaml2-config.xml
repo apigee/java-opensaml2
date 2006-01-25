@@ -134,6 +134,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.SingleSignOnServiceUnmarshaller" />
         </ObjectProvider>
         
+        <!-- AttributeConsumingService provider -->
+        <ObjectProvider qualifiedName="saml2md:AttributeConsumingService">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.AttributeConsumingServiceBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.AttributeConsumingServiceMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AttributeConsumingServiceUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- Attribute provider -->
         <ObjectProvider qualifiedName="saml2:Attribute">
             <BuilderClass className="org.opensaml.saml2.core.impl.AttributeBuilder" />

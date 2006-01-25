@@ -32,7 +32,7 @@ public interface AttributeConsumingService extends SAMLObject {
     public final static String INDEX_ATTRIB_NAME = "index";
     
     /** "isDefault" attribute's local name */
-    public final static String IS_DEFAULT_ATTRIB_NAME = "affiliationOwnerID";
+    public final static String IS_DEFAULT_ATTRIB_NAME = "isDefault";
 
     /**
      * Gets the index for this service.
@@ -53,14 +53,14 @@ public interface AttributeConsumingService extends SAMLObject {
      * 
      * @return true if this is the default service, false if not
      */
-    public boolean isDefault();
+    public Boolean isDefault();
     
     /**
      * Sets if this is the default service for the service provider.
      * 
      * @param isDefault true if this is the default service, false if not
      */
-    public void setIsDefault(boolean isDefault);
+    public void setIsDefault(Boolean isDefault);
     
     /**
      * Gets the list of names this service has.
