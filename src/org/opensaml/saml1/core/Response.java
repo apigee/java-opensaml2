@@ -16,59 +16,14 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.GregorianCalendar;
-
-import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.SignableXMLObject;
 
 /**
  * This interface defines how the object representing a SAML1 <code> Response </code> element behaves.
  */
-public interface Response extends SAMLObject, SignableXMLObject {
+public interface Response extends ResponseAbstractType {
+
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "Response";
-
-    /** Name for the attribute which defines the responseID. */
-    public final static String RESPONSEID_ATTRIB_NAME = "ResponseID";
-
-    /** Name for the attribute which defines the responseID. */
-    public final static String INRESPONSETO_ATTRIB_NAME = "InResponseTo";
-
-    /** Name for the attribute which defines the Major Version (which must be "1". */
-    public final static String MAJORVERSION_ATTRIB_NAME = "MajorVersion";
-
-    /** Name for the attribute which defines the Minor Version. */
-    public final static String MINORVERSION_ATTRIB_NAME = "MinorVersion";
-
-    /** Name for the attribute which defines the Issue Instant. */
-    public final static String ISSUEINSTANT_ATTRIB_NAME = "IssueInstant";
-
-    /** Name for the attribute which defines the Recipient. */
-    public final static String RECIPIENT_ATTRIB_NAME = "Recipient";
-
-    /** Return the InResponseTo (attribute). */
-    String getInResponseTo();
-
-    /** Set the InResponseTo (attribute). */
-    void setInResponseTo(String who);
-
-    /** Return the Minor Version (attribute). */
-    int getMinorVersion();
-
-    /** Set the Minor Version (attribute). */
-    void setMinorVersion(int version);
-
-    /** Return the Issue Instant (attribute). */
-    GregorianCalendar getIssueInstant();
-
-    /** Set the Issue Instant (attribute). */
-    void setIssueInstant(GregorianCalendar date);
-
-    /** Return the Recipient (attribute). */
-    String getRecipient();
-
-    /** Set the Recipient (attribute). */
-    void setRecipient(String recipient);
 
     /** Return the object representing the <code> Status <code> (element). */
     Status getStatus();

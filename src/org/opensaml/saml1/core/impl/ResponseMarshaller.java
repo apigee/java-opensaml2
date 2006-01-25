@@ -24,6 +24,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Response;
+import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
@@ -49,22 +50,22 @@ public class ResponseMarshaller extends AbstractSAMLObjectMarshaller {
         Response response = (Response) samlElement;
 
         if (response.getInResponseTo() != null) {
-            domElement.setAttribute(Response.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
+            domElement.setAttribute(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
         }
 
         if (response.getIssueInstant() != null) {
-            String date = DatatypeHelper.calendarToString(response.getIssueInstant(), 0);
-            domElement.setAttribute(Response.ISSUEINSTANT_ATTRIB_NAME, date);
+            String date = DatatypeHelper.calendarToString(response.getIssueInstant(), DatatypeHelper.UTC_TIMEZONE);
+            domElement.setAttribute(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
         if (response.getMinorVersion() != 0) {
             String minorVersion = Integer.toString(response.getMinorVersion());
-            domElement.setAttribute(Response.MINORVERSION_ATTRIB_NAME, minorVersion);
-            domElement.setAttribute(Response.MAJORVERSION_ATTRIB_NAME, "1");
+            domElement.setAttribute(ResponseAbstractType.MINORVERSION_ATTRIB_NAME, minorVersion);
         }
 
         if (response.getRecipient() != null) {
-            domElement.setAttribute(Response.RECIPIENT_ATTRIB_NAME, response.getRecipient());
+            domElement.setAttribute(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
+            domElement.setAttribute(ResponseAbstractType.RECIPIENT_ATTRIB_NAME, response.getRecipient());
         }
     }
 }

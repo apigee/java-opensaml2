@@ -22,7 +22,6 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
@@ -54,11 +53,9 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
 
     private final GregorianCalendar issueInstant;
 
-    private final String inResponseTo;
-
-    private final int minorVersion;
-
-    private final String recipient;
+    private final String expectedInResponseTo;
+    private final int expectedMinorVersion;
+    private final String expectedRecipient;
 
     /**
      * Constructor
@@ -74,9 +71,9 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         issueInstant = new GregorianCalendar(1970, 0, 1, 0, 0, 0);
         issueInstant.set(Calendar.MILLISECOND, 100);
 
-        inResponseTo = "inresponseto";
-        minorVersion = 1;
-        recipient = "recipient";
+        expectedInResponseTo="inresponseto";
+        expectedMinorVersion=1;
+        expectedRecipient="recipient";
     }
 
     /**
@@ -126,13 +123,13 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
                 .calendarToString(date, 0));
 
         String string = response.getInResponseTo();
-        assertEquals("InResponseTo attribute ", inResponseTo, string);
+        assertEquals("InResponseTo attribute ", expectedInResponseTo, string);
 
         string = response.getRecipient();
-        assertEquals("Recipient attribute ", recipient, string);
+        assertEquals("Recipient attribute ", expectedRecipient, string);
 
         int i = response.getMinorVersion();
-        assertEquals("MinorVersion attribute ", minorVersion, i);
+        assertEquals("MinorVersion attribute ", expectedMinorVersion, i);
     }
 
     /**
@@ -170,10 +167,10 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
         Response response = (Response) buildSAMLObject(qname);
 
-        response.setInResponseTo(inResponseTo);
+        response.setInResponseTo(expectedInResponseTo);
         response.setIssueInstant(issueInstant);
-        response.setRecipient(recipient);
-        response.setMinorVersion(minorVersion);
+        response.setRecipient(expectedRecipient);
+        response.setMinorVersion(expectedMinorVersion);
 
         assertEquals(expectedOptionalAttributesDOM, response);
     }

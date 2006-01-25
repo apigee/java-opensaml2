@@ -28,6 +28,7 @@ import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
+import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -72,11 +73,11 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         Response response = (Response) samlObject;
 
-        if (attributeName.equals(Response.INRESPONSETO_ATTRIB_NAME)) {
+        if (attributeName.equals(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME)) {
             response.setInResponseTo(attributeValue);
-        } else if (attributeName.equals(Response.ISSUEINSTANT_ATTRIB_NAME)) {
+        } else if (attributeName.equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)) {
             response.setIssueInstant(DatatypeHelper.stringToCalendar(attributeValue, 0));
-        } else if (attributeName.equals(Response.MAJORVERSION_ATTRIB_NAME)) {
+        } else if (attributeName.equals(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME)) {
             try {
                 if (Integer.parseInt(attributeValue) != 1) {
                     log.error("SAML version must be 1");
@@ -86,7 +87,7 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 log.error("Parsing major version ", n);
                 throw new UnmarshallingException(n);
             }
-        } else if (attributeName.equals(Response.MINORVERSION_ATTRIB_NAME)) {
+        } else if (attributeName.equals(ResponseAbstractType.MINORVERSION_ATTRIB_NAME)) {
             try {
                 int newVersion = Integer.parseInt(attributeValue);
                 response.setMinorVersion(newVersion);
@@ -94,7 +95,7 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 log.error("Parsing minor version ", n);
                 throw new UnmarshallingException(n);
             }
-        } else if (attributeName.equals(Response.RECIPIENT_ATTRIB_NAME)) {
+        } else if (attributeName.equals(ResponseAbstractType.RECIPIENT_ATTRIB_NAME)) {
             response.setRecipient(attributeValue);
         } else {
             super.processAttribute(samlObject, attributeName, attributeValue);

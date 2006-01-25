@@ -22,11 +22,9 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
@@ -35,19 +33,7 @@ import org.opensaml.saml1.core.Status;
 /**
  * Implementation of the {@link org.opensaml.saml1.core.Response} Object
  */
-public class ResponseImpl extends AbstractSignableSAMLObject implements Response {
-
-    /** Contents of the InResponseTo attribute */
-    private String inResponseTo = null;
-
-    /** Minor Version of this element */
-    private int minorVersion = 0;
-
-    /** Contents of the Date attribute */
-    private GregorianCalendar issueInstant = null;
-
-    /** Contents of the recipient attribute */
-    private String recipient = null;
+public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
 
     /** Status associated with this element */
     private Status status = null;
@@ -61,75 +47,7 @@ public class ResponseImpl extends AbstractSignableSAMLObject implements Response
      */
     protected ResponseImpl() {
         super(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#getInResponseTo()
-     */
-    public String getInResponseTo() {
-        return inResponseTo;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#setInResponseTo(java.lang.String)
-     */
-    public void setInResponseTo(String inResponseTo) {
-        this.inResponseTo = prepareForAssignment(this.inResponseTo, inResponseTo);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#getMinorVersion()
-     */
-    public int getMinorVersion() {
-        return minorVersion;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#setMinorVersion(int)
-     */
-    public void setMinorVersion(int version) {
-        if (version != minorVersion) {
-            releaseThisandParentDOM();
-            minorVersion = version;
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#getIssueInstant()
-     */
-    public GregorianCalendar getIssueInstant() {
-
-        return issueInstant;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#setIssueInstant(java.util.Date)
-     */
-    public void setIssueInstant(GregorianCalendar date) {
-        if (issueInstant == null && date == null) {
-            // no change - return
-            return;
-        }
-
-        if (issueInstant == null || !issueInstant.equals(date)) {
-            releaseThisandParentDOM();
-            issueInstant = date;
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#getRecipient()
-     */
-    public String getRecipient() {
-        return recipient;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#setRecipient(java.lang.String)
-     */
-    public void setRecipient(String recipient) {
-        this.recipient = prepareForAssignment(this.recipient, recipient);
+        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
