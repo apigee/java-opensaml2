@@ -106,6 +106,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AuthzServiceUnmarshaller" />
         </ObjectProvider>
         
+        <!-- ManageNameIDService provider -->
+        <ObjectProvider qualifiedName="saml2md:ManageNameIDService">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.ManageNameIDServiceBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.ManageNameIDServiceMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.ManageNameIDServiceUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- Attribute provider -->
         <ObjectProvider qualifiedName="saml2:Attribute">
             <BuilderClass className="org.opensaml.saml2.core.impl.AttributeBuilder" />
