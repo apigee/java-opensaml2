@@ -1,0 +1,2 @@
+<samlp:Request xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol"
+><samlp:AttributeQuery/></samlp:Request>

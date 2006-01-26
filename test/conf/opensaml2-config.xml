@@ -172,6 +172,13 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.ResponseUnmarshaller" />
         </ObjectProvider>
         
+        <!-- Request -->
+        <ObjectProvider qualifiedName="saml1p:Request">
+            <BuilderClass className="org.opensaml.saml1.core.impl.RequestBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.RequestMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.RequestUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- Status -->
         <ObjectProvider qualifiedName="saml1p:Status">
             <BuilderClass className="org.opensaml.saml1.core.impl.StatusBuilder" />

@@ -30,12 +30,12 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.impl.TypeNameIndexedSAMLObjectList;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.DoNotCacheCondition;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * This is a concrete implementation of the {@link org.opensaml.saml1.core.Conditions} interface.
@@ -49,7 +49,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
     private GregorianCalendar notOnOrAfter;
 
     /** Set containing all the Conditions */
-    private final TypeNameIndexedSAMLObjectList<Condition> conditions = new TypeNameIndexedSAMLObjectList<Condition>();
+    private final IndexedXMLObjectChildrenList<Condition> conditions = new IndexedXMLObjectChildrenList<Condition>(this);
 
     /**
      * Constructor
