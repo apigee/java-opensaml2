@@ -28,7 +28,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}.
@@ -50,17 +50,7 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     /**
      * Ordered set of child Entity/Entities Descriptors
      */
-    private ArrayList<SAMLObject> orderedDescriptors = new ArrayList<SAMLObject>();
-
-    /**
-     * Ordered set of EntitiesDescriptors
-     */
-    private XMLObjectChildrenList<EntitiesDescriptor> entitiesDescriptors;
-
-    /**
-     * Ordered set of EntityDescriptors
-     */
-    private XMLObjectChildrenList<EntityDescriptor> entityDescriptors;
+    private IndexedXMLObjectChildrenList<SAMLObject> orderedDescriptors;
 
     /**
      * Constructor
@@ -69,9 +59,7 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
         super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
         
-        orderedDescriptors = new ArrayList<SAMLObject>();
-        entitiesDescriptors = new XMLObjectChildrenList<EntitiesDescriptor>(this);
-        entityDescriptors = new XMLObjectChildrenList<EntityDescriptor>(this);
+        orderedDescriptors = new IndexedXMLObjectChildrenList<SAMLObject>(this);
     }
 
     /*
@@ -141,14 +129,14 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getEntitiesDescriptors()
      */
     public List<EntitiesDescriptor> getEntitiesDescriptors() {
-        return entitiesDescriptors;
+        return (List<EntitiesDescriptor>) orderedDescriptors.subList(EntitiesDescriptor.ELEMENT_QNAME);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getEntityDescriptors()
      */
     public List<EntityDescriptor> getEntityDescriptors() {
-        return entityDescriptors;
+        return (List<EntityDescriptor>) orderedDescriptors.subList(EntityDescriptor.ELEMENT_QNAME);
     }
 
     /*
@@ -158,15 +146,8 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
         ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
 
         children.add(getExtensions());
-        children.addAll(getOrderedChildDescriptors());
+        children.addAll(orderedDescriptors);
 
         return Collections.unmodifiableList(children);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getOrderedChildDescriptors()
-     */
-    public List<SAMLObject> getOrderedChildDescriptors() {
-        return Collections.unmodifiableList(orderedDescriptors);
     }
 }

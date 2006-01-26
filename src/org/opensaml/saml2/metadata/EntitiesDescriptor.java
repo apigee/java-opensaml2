@@ -18,7 +18,10 @@ package org.opensaml.saml2.metadata;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.core.Extensions;
@@ -33,6 +36,9 @@ public interface EntitiesDescriptor extends SAMLObject, SignableXMLObject, TimeB
     
 	/** Element name, no namespace */
 	public final static String LOCAL_NAME = "EntitiesDescriptor";
+    
+    /** Element QName, no prefix */
+    public final static QName ELEMENT_QNAME = new QName(SAMLConstants.SAML20MD_NS, LOCAL_NAME);
 	
 	/** "Name" attribute name */
 	public final static String NAME_ATTRIB_NAME = "Name";
@@ -80,13 +86,4 @@ public interface EntitiesDescriptor extends SAMLObject, SignableXMLObject, TimeB
      * @return list of child descriptors
      */
 	public List<EntityDescriptor> getEntityDescriptors();
-    
-    /**
-     * Gets the {@link EntitiesDescriptor} and {@link EntityDescriptor}s as a single bag in the 
-     * order that they were added to this descriptor.
-     * 
-     * @return the {@link EntitiesDescriptor} and {@link EntityDescriptor}s as a single bag in the 
-     * order that they were added to this descriptor
-     */
-    public List<SAMLObject> getOrderedChildDescriptors();
 }

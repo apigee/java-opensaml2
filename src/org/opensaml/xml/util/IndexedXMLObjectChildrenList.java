@@ -107,6 +107,19 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
 
         return returnValue;
     }
+    
+    /**
+     * Returns a view of the list that only contains elements stored under the given index.  The returned list is 
+     * backed by this list so and supports all optional operations, so changes made to the returned list are reflected 
+     * in this list.
+     * 
+     * @param index index of the elements returned in the list view
+     * 
+     * @return a view of this list that contains only the elements stored under the given index
+     */
+    public List<? extends ElementType> subList(QName index){
+        return null;
+    }
 
     /**
      * Indexes the given SAMLObject by type and element name.

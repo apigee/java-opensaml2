@@ -21,6 +21,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.core.Extensions;
@@ -33,6 +34,9 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
 	
 	/** Element name, no namespace */
 	public final static String LOCAL_NAME = "EntityDescriptor";
+    
+    /** Element QName, no prefix */
+    public final static QName ELEMENT_QNAME = new QName(SAMLConstants.SAML20MD_NS, LOCAL_NAME);
     
     /** "Name" attribute name */
     public final static String ENTITY_ID_ATTRIB_NAME = "entityID";
