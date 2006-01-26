@@ -34,7 +34,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  *
  */
-public class RequestImpl extends RequestAbstractTypeImpl implements org.opensaml.saml1.core.Request {
+public class RequestImpl extends RequestAbstractTypeImpl implements Request {
 
     /** Saves the query (one of Query, SubjectQuery, AuthenticationQuery, AttributeQuery, AuthorizationDecisionQuery */
     private Query query;

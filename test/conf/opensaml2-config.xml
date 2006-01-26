@@ -171,6 +171,13 @@
             <MarshallingClass className="org.opensaml.saml1.core.impl.ResponseMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.ResponseUnmarshaller" />
         </ObjectProvider>
+
+        <!-- AuthenticationQuery -->
+        <ObjectProvider qualifiedName="saml1p:AuthenticationQuery">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AuthenticationQueryBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AuthenticationQueryMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AuthenticationQueryUnmarshaller" />
+        </ObjectProvider>
         
         <!-- Request -->
         <ObjectProvider qualifiedName="saml1p:Request">

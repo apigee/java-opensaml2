@@ -19,13 +19,21 @@
  */
 package org.opensaml.saml1.core;
 
-
 /**
- * Encapsulation of the SAML1 DecisionType
+ * Description of the behaviour of the <code> AuthenticationQuery </code> element
  */
-public enum DecisionType {
+public interface AuthenticationQuery extends SubjectQuery {
 
-    Permit,
-    Deny,
-    Indeterminate;
+    /** Element name, no namespace. */
+    public final static String LOCAL_NAME = "AuthenticationQuery";
+    
+    /** AuthenticationMethod attribute name */
+    public final static String AUTHENTICATIONMETHOD_ATTRIB_NAME = "AuthenticationMethod"; 
+
+    /** Get AuthenticationMethod attribute */
+    public String getAuthenticationMethod();
+    
+    /** Set AuthenticationMethod attribute */
+    public void setAuthenticationMethod(String authenticationMethod);
+
 }

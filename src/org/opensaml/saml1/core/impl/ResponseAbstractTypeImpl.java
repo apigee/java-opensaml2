@@ -26,7 +26,7 @@ import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml1.core.ResponseAbstractType;
 
 /**
- * Implementation of the {@link org.opensaml.saml1.core.Response} Object
+ * Abstract implementation of the (abstract) {@link org.opensaml.saml1.core.ResponseAbstractType} Object
  */
 public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObject implements ResponseAbstractType {
 

@@ -17,15 +17,21 @@
 /**
  * 
  */
-package org.opensaml.saml1.core;
+package org.opensaml.saml1.core.impl;
 
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * Encapsulation of the SAML1 DecisionType
+ * Class which just exists to create {@link org.opensaml.saml1.core.impl.AuthenticationQueryImpl} objects
  */
-public enum DecisionType {
+public class AuthenticationQueryBuilder implements SAMLObjectBuilder {
 
-    Permit,
-    Deny,
-    Indeterminate;
+    /*
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     */
+    public SAMLObject buildObject() {
+        return new AuthenticationQueryImpl();
+    }
+
 }
