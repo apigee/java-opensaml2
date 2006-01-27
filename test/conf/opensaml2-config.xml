@@ -43,6 +43,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.CompanyUnmarshaller" />
         </ObjectProvider>
         
+        <!-- ContactPerson provider -->
+        <ObjectProvider qualifiedName="saml2md:ContactPerson">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.ContactPersonBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.ContactPersonMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.ContactPersonUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- AdditionalMetdataLocation provider -->
         <ObjectProvider qualifiedName="saml2md:AdditionalMetadataLocation">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationBuilder" />

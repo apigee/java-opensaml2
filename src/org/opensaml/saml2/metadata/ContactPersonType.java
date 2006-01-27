@@ -23,37 +23,37 @@ public final class ContactPersonType {
 
     /** "technical" contact type */
     public static final ContactPersonType TECHNICAL = new ContactPersonType("technical");
-    
+
     /** "support" contact type */
     public static final ContactPersonType SUPPORT = new ContactPersonType("support");
-    
+
     /** "administrative" contact type */
     public static final ContactPersonType ADMINISTRATIVE = new ContactPersonType("administrative");
-    
+
     /** "billing" contact type */
-    public static final ContactPersonType BILLING= new ContactPersonType("billing");
-    
+    public static final ContactPersonType BILLING = new ContactPersonType("billing");
+
     /** "other" contact type */
-    public static final ContactPersonType OTHER = new ContactPersonType ("other");
+    public static final ContactPersonType OTHER = new ContactPersonType("other");
 
     /** the contact type */
     private String type;
-    
+
     /**
      * Constructor
-     *
+     * 
      * @param type the contact type
      */
-    private ContactPersonType(String type){
+    private ContactPersonType(String type) {
         this.type = type;
     }
-    
+
     /**
      * Gets the contact type as a string.
      * 
      * @return the contact type
      */
-    public String toString(){
+    public String toString() {
         return type;
     }
 }

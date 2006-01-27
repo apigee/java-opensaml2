@@ -23,8 +23,6 @@ import org.opensaml.saml2.core.Extensions;
 
 /**
  * SAML 2.0 Metadata ContactPerson
- * 
- * TODO make all String get* method return SAMLObjects
  */
 public interface ContactPerson extends SAMLObject{
 
@@ -32,14 +30,14 @@ public interface ContactPerson extends SAMLObject{
     public final static String LOCAL_NAME = "ContactPerson";
     
     /** "contactType" attribute's local name */
-    public final static String CONTACT_TYPE_ATTRIB_NAME = "affiliationOwnerID";
+    public final static String CONTACT_TYPE_ATTRIB_NAME = "contactType";
 
     /**
      * Gets the type of contact this person.
      * 
      * @return the type of contact this person
      */
-	public ContactPersonType getContactPersonType();
+	public ContactPersonType getType();
     
     /**
      * Sets the type of contact this person.
