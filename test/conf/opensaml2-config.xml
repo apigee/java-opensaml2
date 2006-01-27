@@ -36,6 +36,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.IDPSSODescriptorUnmarshaller" />
         </ObjectProvider>
         
+        <!-- Company provider -->
+        <ObjectProvider qualifiedName="saml2md:Company">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.CompanyBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.CompanyMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.CompanyUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- AdditionalMetdataLocation provider -->
         <ObjectProvider qualifiedName="saml2md:AdditionalMetadataLocation">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationBuilder" />
