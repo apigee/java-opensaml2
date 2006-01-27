@@ -28,7 +28,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationQuery;
 
 /**
- * Concrete implementaion of the {@link org.opensaml.saml1.core.AuthenticationQuery} interface
+ * Concrete implementation of the {@link org.opensaml.saml1.core.AuthenticationQuery} interface
  */
 public class AuthenticationQueryImpl extends SubjectQueryImpl implements AuthenticationQuery {
 

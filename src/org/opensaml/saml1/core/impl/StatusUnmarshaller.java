@@ -56,10 +56,6 @@ public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             status.setStatusMessage((StatusMessage) childSAMLObject);
         } else if (childSAMLObject instanceof StatusDetail) {
 
-            //
-            // TODO - more magicke
-            //
-
             status.setStatusDetail((StatusDetail) childSAMLObject);
 
         } else {

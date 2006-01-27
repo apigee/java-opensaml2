@@ -35,9 +35,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Logger */
-    private static Logger log = Logger.getLogger(EvidenceUnmarshaller.class);
-
     /**
      * Constructor
      */

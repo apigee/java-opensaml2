@@ -29,6 +29,7 @@ import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -94,22 +95,17 @@ public class RequestTest extends SAMLObjectBaseTestCase {
     public void testSingleElementChildrenUnmarshall() {
         Request request; 
         
-        // TODO AssertionArtifacts
-        /*      
         request = (Request) unmarshallElement("/data/org/opensaml/saml1/RequestWithAssertionArtifact.xml");
         
         assertNull("Query is not null", request.getQuery());
         assertEquals("AssertionId count", 0, request.getAssertionIDReferences().size());
         assertEquals("AssertionArtifact count", 2, request.getAssertionArtifacts().size());
         
-        // TODO Queries
-
         request = (Request) unmarshallElement("/data/org/opensaml/saml1/RequestWithQuery.xml");
         
         assertNotNull("Query is not null", request.getQuery());
         assertEquals("AssertionId count", 0, request.getAssertionIDReferences().size());
         assertEquals("AssertionArtifact count", 0, request.getAssertionArtifacts().size());
-        */
         
         request = (Request) unmarshallElement("/data/org/opensaml/saml1/RequestWithAssertionIDReference.xml");
         assertNull("Query is not null", request.getQuery());
@@ -156,8 +152,6 @@ public class RequestTest extends SAMLObjectBaseTestCase {
                 
         
         try {
-            // TODO AssertionArtifacts
-            /*
             dom = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                         .getResourceAsStream("/data/org/opensaml/saml1/RequestWithAssertionArtifact.xml")));
             request = (Request) buildSAMLObject(qname); 
@@ -165,7 +159,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
             request.getAssertionArtifacts().add((AssertionArtifact) buildSAMLObject(oqname));
             request.getAssertionArtifacts().add((AssertionArtifact) buildSAMLObject(oqname));
             assertEquals(dom, request);
-            */
+          
             dom = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                     .getResourceAsStream("/data/org/opensaml/saml1/RequestWithAssertionIDReference.xml")));
             request = (Request) buildSAMLObject(qname); 
@@ -175,15 +169,13 @@ public class RequestTest extends SAMLObjectBaseTestCase {
             request.getAssertionIDReferences().add((AssertionIDReference) buildSAMLObject(oqname));
             assertEquals(dom, request);
 
-            // TODO Query
-            /*
             dom = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                     .getResourceAsStream("/data/org/opensaml/saml1/RequestWithQuery.xml")));
             request = (Request) buildSAMLObject(qname); 
             oqname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
             request.setQuery((AttributeQuery) buildSAMLObject(oqname));
             assertEquals(dom, request);
-            */
+
         } catch (XMLParserException e) {
             fail(e.toString());
         }

@@ -172,11 +172,32 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.ResponseUnmarshaller" />
         </ObjectProvider>
 
+        <!-- AssertionArtifact -->
+        <ObjectProvider qualifiedName="saml1p:AssertionArtifact">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AssertionArtifactBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AssertionArtifactMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AssertionArtifactUnmarshaller" />
+        </ObjectProvider>
+
         <!-- AuthenticationQuery -->
         <ObjectProvider qualifiedName="saml1p:AuthenticationQuery">
             <BuilderClass className="org.opensaml.saml1.core.impl.AuthenticationQueryBuilder" />
             <MarshallingClass className="org.opensaml.saml1.core.impl.AuthenticationQueryMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.AuthenticationQueryUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- AttributeQuery -->
+        <ObjectProvider qualifiedName="saml1p:AttributeQuery">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AttributeQueryBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AttributeQueryMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AttributeQueryUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- AuthorizationDecisionQuery -->
+        <ObjectProvider qualifiedName="saml1p:AuthorizationDecisionQuery">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AuthorizationDecisionQueryBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AuthorizationDecisionQueryMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AuthorizationDecisionQueryUnmarshaller" />
         </ObjectProvider>
         
         <!-- Request -->

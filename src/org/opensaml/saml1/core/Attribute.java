@@ -20,12 +20,10 @@ package org.opensaml.saml1.core;
 import java.util.Collection;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-
 /**
  * This interface defines how the object representing a SAML 1 <code> Attribute </code> element behaves.
  */
-public interface Attribute extends SAMLObject, AttributeDesignator {
+public interface Attribute extends AttributeDesignator {
 
     /** Element name, no namespace. */
 

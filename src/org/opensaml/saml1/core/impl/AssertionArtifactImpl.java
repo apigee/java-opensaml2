@@ -17,7 +17,6 @@
 /**
  * 
  */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
@@ -25,36 +24,34 @@ import java.util.List;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Audience;
+import org.opensaml.saml1.core.AssertionArtifact;
 
 /**
- * Concrete class implementation of {@link org.opensaml.saml1.core.Audience}  
+ * Concrete implementation if {@link org.opensaml.saml1.core.AssertionArtifact}
  */
-public class AudienceImpl extends AbstractSAMLObject implements Audience {
-    /** String to hold the URI */
-    private String uri;
+public class AssertionArtifactImpl extends AbstractSAMLObject implements AssertionArtifact {
 
+    private String assertionArtifact;
+    
     /**
      * Constructor
      */
-    public AudienceImpl() {
-        super(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    public AssertionArtifactImpl() {
+        super(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
     }
 
     /*
-     * @see org.opensaml.saml1.core.Audience#getUri()
+     * @see org.opensaml.saml1.core.AssertionArtifact#getAssertionArtifact()
      */
-    public String getUri() {
-        return uri;
+    public String getAssertionArtifact() {
+        return assertionArtifact;
     }
 
     /*
-     * @see org.opensaml.saml1.core.Audience#setUri()
+     * @see org.opensaml.saml1.core.AssertionArtifact#setAssertionArtifact(java.lang.String)
      */
-    public void setUri(String uri) {
-
-        this.uri = prepareForAssignment(this.uri, uri);
+    public void setAssertionArtifact(String assertionArtifact) {
+        this.assertionArtifact = prepareForAssignment(this.assertionArtifact, assertionArtifact);
     }
 
     /*
@@ -63,4 +60,5 @@ public class AudienceImpl extends AbstractSAMLObject implements Audience {
     public List<SAMLObject> getOrderedChildren() {
         return null;
     }
+
 }
