@@ -111,8 +111,8 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
     public void testFullElementsMarshall() {
         SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl();
 
-        subjectConfirmation.addConfirmationMethod(new ConfirmationMethodImpl());
-        subjectConfirmation.addConfirmationMethod(new ConfirmationMethodImpl());
+        subjectConfirmation.getConfirmationMethods().add(new ConfirmationMethodImpl());
+        subjectConfirmation.getConfirmationMethods().add(new ConfirmationMethodImpl());
         subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl());
 
         assertEquals(expectedFullDOM, subjectConfirmation);

@@ -90,7 +90,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertNull("Conditions element", assertion.getConditions());
         assertNull("Advice element", assertion.getAdvice());
 
-        assertNull("Statement element count", assertion.getStatements());
+        assertEquals("Statement element count", 0, assertion.getStatements().size());
         assertNull("AttributeStatements element count", assertion.getAttributeStatements());
         assertNull("SubjectStatements element count", assertion.getSubjectStatements());
         assertNull("AuthenticationStatements element count", assertion.getAuthenticationStatements());
@@ -112,7 +112,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertNull("Conditions element", assertion.getConditions());
         assertNull("Advice element", assertion.getAdvice());
 
-        assertNull("Statement element count", assertion.getStatements());
+        assertEquals("Statement element count", 0, assertion.getStatements().size());
         assertNull("AttributeStatements element count", assertion.getAttributeStatements());
         assertNull("SubjectStatements element count", assertion.getSubjectStatements());
         assertNull("AuthenticationStatements element count", assertion.getAuthenticationStatements());
@@ -177,14 +177,14 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertion.setConditions(new ConditionsImpl());
         assertion.setAdvice(new AdviceImpl());
 
-        assertion.addStatement(new AuthenticationStatementImpl());
-        assertion.addStatement(new AuthorizationDecisionStatementImpl());
-        assertion.addStatement(new AttributeStatementImpl());
-        assertion.addStatement(new AuthenticationStatementImpl());
-        assertion.addStatement(new AuthorizationDecisionStatementImpl());
-        assertion.addStatement(new AttributeStatementImpl());
-        assertion.addStatement(new AuthorizationDecisionStatementImpl());
-        assertion.addStatement(new AttributeStatementImpl());
+        assertion.getStatements().add(new AuthenticationStatementImpl());
+        assertion.getStatements().add(new AuthorizationDecisionStatementImpl());
+        assertion.getStatements().add(new AttributeStatementImpl());
+        assertion.getStatements().add(new AuthenticationStatementImpl());
+        assertion.getStatements().add(new AuthorizationDecisionStatementImpl());
+        assertion.getStatements().add(new AttributeStatementImpl());
+        assertion.getStatements().add(new AuthorizationDecisionStatementImpl());
+        assertion.getStatements().add(new AttributeStatementImpl());
 
         assertEquals(expectedFullDOM, assertion);
     }

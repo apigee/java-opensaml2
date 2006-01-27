@@ -21,7 +21,6 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +29,7 @@ import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of the org.opensaml.saml1.core.AudienceRestrictionCondition
@@ -37,7 +37,7 @@ import org.opensaml.saml1.core.AudienceRestrictionCondition;
 public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject implements
         AudienceRestrictionCondition {
 
-    private final ArrayList<Audience> audiences = new ArrayList<Audience>();
+    private final List<Audience> audiences = new XMLObjectChildrenList<Audience>(this);
 
     public AudienceRestrictionConditionImpl() {
         super(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
@@ -48,46 +48,8 @@ public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#getAudiences()
      */
     public List<Audience> getAudiences() {
-        if (audiences.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(audiences);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AudienceRestrictionCondition#addAudience(org.opensaml.saml1.core.Audience)
-     */
-    public void addAudience(Audience audience) throws IllegalArgumentException {
-        addXMLObject(audiences, audience);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AudienceRestrictionCondition#removeAudience(org.opensaml.saml1.core.Audience)
-     */
-    public void removeAudience(Audience audience) {
-        removeXMLObject(audiences, audience);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AudienceRestrictionCondition#removeAudiences(java.util.Set)
-     */
-    public void removeAudiences(Collection<Audience> audiences) {
-        if (audiences == null) {
-            return;
-        }
-        for (Audience audience : audiences) {
-            removeAudience(audience);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AudienceRestrictionCondition#removeAllAudiences()
-     */
-    public void removeAllAudiences() {
-
-        for (Audience audience : this.audiences) {
-            removeAudience(audience);
-        }
+        
+        return audiences;
     }
 
     /*

@@ -60,7 +60,7 @@ public class AuthorizationDecisionStatementUnmarshaller extends AbstractSAMLObje
         authorizationDecisionStatement = (AuthorizationDecisionStatement) parentSAMLObject;
 
         if (childSAMLObject instanceof Action) {
-            authorizationDecisionStatement.addAction((Action) childSAMLObject);
+            authorizationDecisionStatement.getActions().add((Action) childSAMLObject);
         } else if (childSAMLObject instanceof Evidence) {
             authorizationDecisionStatement.setEvidence((Evidence) childSAMLObject);
         } else if (childSAMLObject instanceof Subject) {

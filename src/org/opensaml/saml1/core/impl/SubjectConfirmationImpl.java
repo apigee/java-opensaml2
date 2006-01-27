@@ -20,7 +20,6 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +30,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.saml1.core.SubjectConfirmationData;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of a <code> SubjectConfirmation </code> object 
@@ -52,54 +52,14 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
     public SubjectConfirmationImpl() {
         super(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
-        confirmationMethods = new ArrayList<ConfirmationMethod>();
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.SubjectConfirmation#addConfirmationMethod(org.opensaml.saml1.core.ConfirmationMethod)
-     */
-    public void addConfirmationMethod(ConfirmationMethod confirmationMethod) throws IllegalArgumentException {
-        addXMLObject(confirmationMethods, confirmationMethod);
+        confirmationMethods = new XMLObjectChildrenList<ConfirmationMethod>(this);
     }
 
     /*
      * @see org.opensaml.saml1.core.SubjectConfirmation#getSubjectConfirmationMethods()
      */
     public List<ConfirmationMethod> getConfirmationMethods() {
-        if (confirmationMethods.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(confirmationMethods);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.SubjectConfirmation#removeConfirmationMethod(org.opensaml.saml1.core.ConfirmationMethod)
-     */
-    public void removeConfirmationMethod(ConfirmationMethod confirmationMethod) {
-        removeXMLObject(confirmationMethods, confirmationMethod);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.SubjectConfirmation#removeConfirmationMethods(java.util.List)
-     */
-    public void removeConfirmationMethods(Collection<ConfirmationMethod> confirmationMethods) {
-
-        if (confirmationMethods == null) {
-            return;
-        }
-
-        for (ConfirmationMethod confirmationMethod : confirmationMethods) {
-            removeConfirmationMethod(confirmationMethod);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.SubjectConfirmation#removeAllConfirmationMethods()
-     */
-    public void removeAllConfirmationMethods() {
-        for (ConfirmationMethod confirmationMethod : confirmationMethods) {
-            removeConfirmationMethod(confirmationMethod);
-        }
+        return confirmationMethods;
     }
 
     /*

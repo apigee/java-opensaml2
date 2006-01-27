@@ -20,7 +20,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownElementException;
@@ -34,9 +33,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * {@link org.opensaml.saml1.core.AudienceRestrictionCondition} objects.
  */
 public class AudienceRestrictionConditionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(AudienceRestrictionConditionUnmarshaller.class);
 
     /**
      * Constructor
@@ -55,7 +51,7 @@ public class AudienceRestrictionConditionUnmarshaller extends AbstractSAMLObject
         AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) parentSAMLObject;
 
         if (childSAMLObject instanceof Audience) {
-            audienceRestrictionCondition.addAudience((Audience) childSAMLObject);
+            audienceRestrictionCondition.getAudiences().add((Audience) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }

@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core;
 
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -32,21 +31,5 @@ public interface Attribute extends AttributeDesignator {
     /** Get all the subsiduary AttributeValue elements */
     
     public List <AttributeValue> getAttributeValues();
-    
-    /** Add a single AttributeValue element 
-     * @throws IllegalArgumentException */
-
-    public void addAttributeValue(AttributeValue attributeValue) throws IllegalArgumentException;
-    
-    /** Remove a single AttributeValue element */
-    
-    public void removeAttributeValue(AttributeValue attributeValue);
-    
-    /** Remove several AttributeValue elements */
-
-    public void removeAttributeValues(Collection<AttributeValue> attributeValues);
-    
-    /** Remove all AttributeValue elements */
-    public void removeAllAttributeValues();
     
 }

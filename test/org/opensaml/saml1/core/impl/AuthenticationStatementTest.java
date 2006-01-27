@@ -94,7 +94,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
 
         assertNull("<Subject> element present", authenticationStatement.getSubject());
         assertNull("<SubjectLocailty> element present", authenticationStatement.getSubjectLocality());
-        assertNull("Non zero count of <AuthorityBinding> elements", authenticationStatement.getAuthorityBindings());
+        assertEquals("Non zero count of <AuthorityBinding> elements", 0, authenticationStatement.getAuthorityBindings().size());
     }
 
     /*
@@ -124,13 +124,8 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         assertEquals("count of <AuthorityBinding> elements", 2, authenticationStatement.getAuthorityBindings().size());
 
         AuthorityBinding authorityBinding = authenticationStatement.getAuthorityBindings().get(0);
-        authenticationStatement.removeAuthorityBinding(authorityBinding);
+        authenticationStatement.getAuthorityBindings().remove(authorityBinding);
         assertEquals("count of <AuthorityBinding> elements", 1, authenticationStatement.getAuthorityBindings().size());
-        // TODO RemoveAllXXX
-        /*
-         * authenticationStatement.removeAllAuthorityBindings(); assertNull("<AuthorityBinding> not all rmeoved",
-         * authenticationStatement.getAuthorityBindings());
-         */
     }
 
     /*
@@ -164,8 +159,8 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         authenticationStatement.setSubject(new SubjectImpl());
 
         authenticationStatement.setSubjectLocality(new SubjectLocalityImpl());
-        authenticationStatement.addAuthorityBinding(new AuthorityBindingImpl());
-        authenticationStatement.addAuthorityBinding(new AuthorityBindingImpl());
+        authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl());
+        authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl());
 
         assertEquals(expectedFullDOM, authenticationStatement);
     }

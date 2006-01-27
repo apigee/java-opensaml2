@@ -22,7 +22,6 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.GregorianCalendar;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -40,9 +39,6 @@ import org.opensaml.xml.util.DatatypeHelper;
  * objects.
  */
 public class AuthenticationStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(AuthenticationStatementUnmarshaller.class);
 
     /**
      * Constructor
@@ -65,7 +61,7 @@ public class AuthenticationStatementUnmarshaller extends AbstractSAMLObjectUnmar
         } else if (childSAMLObject instanceof SubjectLocality) {
             authenticationStatement.setSubjectLocality((SubjectLocality) childSAMLObject);
         } else if (childSAMLObject instanceof AuthorityBinding) {
-            authenticationStatement.addAuthorityBinding((AuthorityBinding) childSAMLObject);
+            authenticationStatement.getAuthorityBindings().add((AuthorityBinding) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }

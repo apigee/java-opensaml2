@@ -71,7 +71,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
         AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(singleElementFile);
 
         assertNull("<Subject> element present", attributeStatement.getSubject());
-        assertNull("Non zero count of <Attribute> elements", attributeStatement.getAttributes());
+        assertEquals("Non zero count of <Attribute> elements", 0, attributeStatement.getAttributes().size());
     }
 
     /*
@@ -94,7 +94,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
         assertEquals("count of <AuthorityBinding> elements", 5, attributeStatement.getAttributes().size());
 
         Attribute attribute = attributeStatement.getAttributes().get(0);
-        attributeStatement.removeAttribute(attribute);
+        attributeStatement.getAttributes().remove(attribute);
         assertEquals("count of <AttributeStatement> elements after single remove", 4, attributeStatement
                 .getAttributes().size());
 
@@ -103,7 +103,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
         list.add(attributeStatement.getAttributes().get(0));
         list.add(attributeStatement.getAttributes().get(2));
 
-        attributeStatement.removeAttributes(list);
+        attributeStatement.getAttributes().removeAll(list);
 
         assertEquals("count of <AttributeStatement> elements after double remove", 2, attributeStatement
                 .getAttributes().size());
@@ -136,7 +136,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
         attributeStatement.setSubject(new SubjectImpl());
 
         for (int i = 0; i < 5; i++) {
-            attributeStatement.addAttribute(new AttributeImpl());
+            attributeStatement.getAttributes().add(new AttributeImpl());
         }
 
         assertEquals(expectedFullDOM, attributeStatement);

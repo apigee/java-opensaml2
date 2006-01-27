@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -55,19 +54,7 @@ public interface AuthenticationStatement extends SAMLObject, SubjectStatement {
      * @throws IllegalArgumentException */
     public void setSubjectLocality(SubjectLocality subjectLocality) throws IllegalArgumentException;
 
-    /** Add in an AuthorityBinding subelement 
-     * @throws IllegalArgumentException */
-    public void addAuthorityBinding(AuthorityBinding authorityBinding) throws IllegalArgumentException;
-
     /** return all the AuthorityBinding subelement */
     public List<AuthorityBinding> getAuthorityBindings();
 
-    /** remove a single AuthorityBinding subelement */
-    public void removeAuthorityBinding(AuthorityBinding authorityBinding);
-
-    /** remove several AuthorityBinding subelements */
-    public void removeAuthorityBindings(Collection<AuthorityBinding> authorityBindings);
-
-    /** remove all AuthorityBinding subelements */
-    public void removeAllAuthorityBindings();
 }

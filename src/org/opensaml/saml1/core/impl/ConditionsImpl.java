@@ -24,8 +24,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Set;
-
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
@@ -49,7 +47,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
     private GregorianCalendar notOnOrAfter;
 
     /** Set containing all the Conditions */
-    private final IndexedXMLObjectChildrenList<Condition> conditions = new IndexedXMLObjectChildrenList<Condition>(this);
+    private final IndexedXMLObjectChildrenList <Condition> conditions = new IndexedXMLObjectChildrenList<Condition>(this);
 
     /**
      * Constructor
@@ -91,10 +89,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml1.core.Conditions#getConditions()
      */
     public List<Condition> getConditions() {
-        if (conditions.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(conditions);
+        return conditions;
     }
 
     /*
@@ -107,54 +102,6 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
             return null;
         }
         return Collections.unmodifiableList(list);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#addAudienceRestrictionCondition(org.opensaml.saml1.core.Condition)
-     */
-    public void addCondition(Condition condition) throws IllegalArgumentException {
-        addXMLObject(conditions, condition);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeConditions(java.util.List)
-     */
-    public void removeConditions(List<Condition> conditions) {
-        removeXMLObjects(this.conditions, conditions);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeCondition(org.opensaml.saml1.core.Condition)
-     */
-    public void removeCondition(Condition condition) {
-        removeXMLObject(conditions, condition);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeConditions(java.util.Set)
-     */
-    public void removeConditions(Set<Condition> conditions) {
-        for (Condition condition : conditions) {
-            removeCondition(condition);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeAllConditions()
-     */
-    public void removeAllConditions() {
-        for (Condition condition : conditions) {
-            removeCondition(condition);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Conditions#removeAllConditions(javax.xml.namespace.QName)
-     */
-    public void removeAllConditions(QName typeOrName) {
-        for (Condition condition : conditions.get(typeOrName)) {
-            removeCondition(condition);
-        }
     }
 
     /*

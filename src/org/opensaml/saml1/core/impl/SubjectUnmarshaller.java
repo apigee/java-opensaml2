@@ -20,7 +20,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownElementException;
@@ -34,9 +33,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Subject} objects.
  */
 public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(SubjectUnmarshaller.class);
 
     /**
      * Constructor

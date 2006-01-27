@@ -20,7 +20,6 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.xml.security.keys.KeyInfo;
@@ -34,20 +33,17 @@ public interface SubjectConfirmation extends SAMLObject {
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "SubjectConfirmation";
 
-    public void addConfirmationMethod(ConfirmationMethod confirmationMethod) throws IllegalArgumentException;
-
+    /** Get the list with all the ConfirmationMethods.  This suitable for calls to add() */
     public List<ConfirmationMethod> getConfirmationMethods();
 
-    public void removeConfirmationMethod(ConfirmationMethod confirmationMethod);
-
-    public void removeConfirmationMethods(Collection<ConfirmationMethod> confirmationMethods);
-
-    public void removeAllConfirmationMethods();
-
+    /** Set the SubjectConfirmationData */
     public void setSubjectConfirmationData(SubjectConfirmationData subjectConfirmationData) throws IllegalArgumentException;
 
+    /** Return the SubjectConfirmationData */
     public SubjectConfirmationData getSubjectConfirmationData();
 
+    // TODO - how do we deal with KeyInfo
+    
     public KeyInfo getKeyInfo();
 
     public void setKeyInfo(KeyInfo keyInfo);

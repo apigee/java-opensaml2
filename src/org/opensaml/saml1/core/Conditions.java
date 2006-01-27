@@ -62,41 +62,6 @@ public interface Conditions extends SAMLObject {
     public List<Condition> getConditions(QName typeOrName);
 
     /**
-     * Add a single <code> Condition </code> to the List (if appropriate).
-     * 
-     * @param Condition what to add
-     * 
-     * @throws IllegalArgumentException if the object has already been put into an SAMLObject
-     */
-    public void addCondition(Condition condition) throws IllegalArgumentException;
-
-    /**
-     * Remove a single <code> Conditions</code> from the List.
-     * 
-     * @param condition what to remove
-     */
-    public void removeCondition(Condition condition);
-
-    /**
-     * Remove the presented Conditions from the List.
-     * 
-     * @param conditions which Conditions to remove
-     */
-    public void removeConditions(List<Condition> conditions);
-
-    /**
-     * Remove all the Conditions from the List.
-     */
-    public void removeAllConditions();
-    
-    /**
-     * Removes all the Conditions or the given schema type or element name.
-     * 
-     * @param typeOrName the schema type or element name
-     */
-    public void removeAllConditions(QName typeOrName);
-
-    /**
      * Return the List representing all the <code> AudienceRestrictionCondition </code> sub elements.
      */
     public List<Condition> getAudienceRestrictionConditions();

@@ -37,6 +37,7 @@ import org.opensaml.saml1.core.AssertionIDReference;
 public class AdviceImpl extends AbstractSAMLObject implements Advice {
 
     /** Contains all the AssertionIDReference objects (in order) */
+    // TODO use XMLObjectChildList
     private final ArrayList<AssertionIDReference> assertionIDReferences = new ArrayList<AssertionIDReference>();
 
     /** Contains all the Assertion child objects (in order) */

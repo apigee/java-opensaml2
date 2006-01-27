@@ -21,7 +21,6 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,6 +28,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * A Concrete implementation of the {@link org.opensaml.saml1.core.AttributeStatement} Interface
@@ -44,49 +44,15 @@ public class AttributeStatementImpl extends SubjectStatementImpl implements Attr
     public AttributeStatementImpl() {
         super(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
-        attributes = new ArrayList<Attribute>();
+        attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
     /*
      * @see org.opensaml.saml1.core.AttributeStatement#getAttributes()
      */
     public List<Attribute> getAttributes() {
-        if (attributes.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(attributes);
-    }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeStatement#addAttribute(org.opensaml.saml1.core.Attribute)
-     */
-    public void addAttribute(Attribute attribute) throws IllegalArgumentException {
-        addXMLObject(attributes, attribute);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AttributeStatement#removeAttribute(org.opensaml.saml1.core.Attribute)
-     */
-    public void removeAttribute(Attribute attribute) {
-        removeXMLObject(attributes, attribute);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AttributeStatement#removeAttributes(java.util.Collection)
-     */
-    public void removeAttributes(Collection<Attribute> attributes) {
-        for (Attribute attribute : attributes) {
-            removeXMLObject(this.attributes, attribute);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AttributeStatement#removeAllAttributes()
-     */
-    public void removeAllAttributes() {
-        for (Attribute attribute : this.attributes) {
-            removeXMLObject(this.attributes, attribute);
-        }
+        return attributes;
     }
 
     /*

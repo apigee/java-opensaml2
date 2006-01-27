@@ -77,7 +77,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
 
         assertNull("AttributeName", attribute.getAttributeName());
         assertNull("AttributeNamespace", attribute.getAttributeNamespace());
-        assertNull("<AttributeValue> subelement found", attribute.getAttributeValues());
+        assertEquals("<AttributeValue> subelement found", 0, attribute.getAttributeValues().size());
     }
 
     /*
@@ -130,10 +130,10 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     public void testFullElementsMarshall() {
         Attribute attribute = new AttributeImpl();
 
-        attribute.addAttributeValue(new AttributeValueImpl());
-        attribute.addAttributeValue(new AttributeValueImpl());
-        attribute.addAttributeValue(new AttributeValueImpl());
-        attribute.addAttributeValue(new AttributeValueImpl());
+        attribute.getAttributeValues().add(new AttributeValueImpl());
+        attribute.getAttributeValues().add(new AttributeValueImpl());
+        attribute.getAttributeValues().add(new AttributeValueImpl());
+        attribute.getAttributeValues().add(new AttributeValueImpl());
 
         assertEquals(expectedFullDOM, attribute);
     }

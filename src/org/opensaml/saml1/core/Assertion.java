@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -145,41 +144,6 @@ public interface Assertion extends SAMLObject, SignableXMLObject {
      */
     public List<Statement> getStatements(QName typeOrName);
 
-    /**
-     * Add a single <code> statement </code> to the List (if appropriate).
-     * 
-     * @param statement what to add
-     * 
-     * @throws IllegalArgumentException if the object has already been put into an SAMLObject
-     */
-    public void addStatement(Statement statement) throws IllegalArgumentException;
-
-    /**
-     * Remove a single <code> Statement </code> from the List.
-     * 
-     * @param statement what to remove
-     */
-    public void removeStatement(Statement statement);
-
-    /**
-     * Remove the presented statements from the List.
-     * 
-     * @param statements which statements to remove
-     */
-    public void removeStatements(Collection<Statement> statements);
-
-    /**
-     * Remove the all the statements from the List.
-     */
-    public void removeAllStatements();
-
-    /**
-     * Remove the all the statements that have the given schema type or name.
-     * 
-     * @param typeOrName the schema type or name of the statements to be removed
-     */
-    public void removeAllStatements(QName typeOrName);
-    
     /**
      * Return the List representing all the <code> SubjectStatement </code> sub elements.
      * 

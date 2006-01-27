@@ -20,7 +20,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -36,9 +35,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * objects.
  */
 public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(AttributeUnmarshaller.class);
 
     /**
      * Constructor
@@ -59,7 +55,7 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         attribute = (Attribute) parentSAMLObject;
 
         if (childSAMLObject instanceof AttributeValue) {
-            attribute.addAttributeValue((AttributeValue) childSAMLObject);
+            attribute.getAttributeValues().add((AttributeValue) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }

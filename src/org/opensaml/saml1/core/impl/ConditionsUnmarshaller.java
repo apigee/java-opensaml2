@@ -51,7 +51,7 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         Conditions conditions = (Conditions) parentSAMLObject;
         
         if (childSAMLObject instanceof Condition) {
-            conditions.addCondition((Condition) childSAMLObject);
+            conditions.getConditions().add((Condition) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }

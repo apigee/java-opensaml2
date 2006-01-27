@@ -52,6 +52,8 @@ public interface Advice extends SAMLObject {
      */
     public void removeAssertionIDReference(AssertionIDReference assertionIDReference);
 
+    //  TODO Use XMLObjectChildList
+    
     /**
      * Remove several AssertionIDReferences.
      * 
@@ -68,6 +70,8 @@ public interface Advice extends SAMLObject {
      * @return the assertions (in order)
      */
     public List<Assertion> getAssertions();
+
+    //  TODO Use XMLObjectChildList
 
     /**
      * Add an Assertion.

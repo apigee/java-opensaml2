@@ -85,7 +85,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
 
         assertNull("Decision attribute null", authorizationDecisionStatement.getDecision());
         assertNull("Resource attribute null", authorizationDecisionStatement.getResource());
-        assertNull("<Actions> elements present", authorizationDecisionStatement.getActions());
+        assertEquals("<Actions> elements present", 0, authorizationDecisionStatement.getActions().size());
         assertNull("<Evidence> element present", authorizationDecisionStatement.getEvidence());
     }
 
@@ -167,9 +167,9 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         authorizationDecisionStatement = new AuthorizationDecisionStatementImpl();
 
         authorizationDecisionStatement.setSubject(new SubjectImpl());
-        authorizationDecisionStatement.addAction(new ActionImpl());
-        authorizationDecisionStatement.addAction(new ActionImpl());
-        authorizationDecisionStatement.addAction(new ActionImpl());
+        authorizationDecisionStatement.getActions().add(new ActionImpl());
+        authorizationDecisionStatement.getActions().add(new ActionImpl());
+        authorizationDecisionStatement.getActions().add(new ActionImpl());
         authorizationDecisionStatement.setEvidence(new EvidenceImpl());
 
         authorizationDecisionStatement.setEvidence(new EvidenceImpl());

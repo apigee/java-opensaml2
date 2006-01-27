@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -30,20 +29,4 @@ public interface AudienceRestrictionCondition extends Condition {
 
     /** Return all the audience elements */
     public List<Audience> getAudiences();
-
-    /**
-     * Add new Audience element to the elements
-     * 
-     * @throws IllegalArgumentException
-     */
-    public void addAudience(Audience audience) throws IllegalArgumentException;
-
-    /** Remove a single Audience element */
-    public void removeAudience(Audience audience);
-
-    /** Remove several Audience elements */
-    public void removeAudiences(Collection<Audience> audiences);
-
-    /** Remove all audience elements from this object */
-    public void removeAllAudiences();
 }

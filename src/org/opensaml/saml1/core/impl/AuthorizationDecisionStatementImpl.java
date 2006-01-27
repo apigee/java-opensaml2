@@ -20,7 +20,6 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +29,7 @@ import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
 import org.opensaml.saml1.core.Evidence;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} 
@@ -54,7 +54,7 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
     public AuthorizationDecisionStatementImpl() {
         super(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
-        actions = new ArrayList<Action>();
+        actions = new XMLObjectChildrenList<Action>(this);
     }
 
     /*
@@ -89,42 +89,9 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
      * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#getActions()
      */
     public List<Action> getActions() {
-        if (actions.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(actions);
+        return actions;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#addAction(org.opensaml.saml1.core.Action)
-     */
-    public void addAction(Action action) throws IllegalArgumentException {
-        addXMLObject(actions, action);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#removeAction(org.opensaml.saml1.core.Action)
-     */
-    public void removeAction(Action action) {
-        removeXMLObject(actions, action);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#removeActions(java.util.Collection)
-     */
-    public void removeActions(Collection<Action> actions) {
-        if (actions == null) {
-            return;
-        }
-        removeXMLObjects(this.actions, actions);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#removeallActions()
-     */
-    public void removeallActions() {
-        // TODO add removeallActions
-    }
 
     /*
      * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#getEvidence()

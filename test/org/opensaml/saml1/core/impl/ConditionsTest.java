@@ -169,14 +169,14 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
         Conditions conditions = (Conditions) buildSAMLObject(qname);
 
-        conditions.addCondition(new AudienceRestrictionConditionImpl());
-        conditions.addCondition(new DoNotCacheConditionImpl());
+        conditions.getConditions().add(new AudienceRestrictionConditionImpl());
+        conditions.getConditions().add(new DoNotCacheConditionImpl());
         // conditions.addCondition(condition);
 
-        conditions.addCondition(new AudienceRestrictionConditionImpl());
+        conditions.getConditions().add(new AudienceRestrictionConditionImpl());
         // conditions.addCondition(condition);
         //           
-        conditions.addCondition(new AudienceRestrictionConditionImpl());
+        conditions.getConditions().add(new AudienceRestrictionConditionImpl());
 
         assertEquals(expectedFullDOM, conditions);
 

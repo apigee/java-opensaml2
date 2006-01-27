@@ -20,7 +20,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownElementException;
@@ -35,9 +34,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * objects.
  */
 public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(SubjectConfirmationUnmarshaller.class);
 
     /**
      * Constructor
@@ -56,7 +52,7 @@ public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshal
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) parentSAMLObject;
 
         if (childSAMLObject instanceof ConfirmationMethod) {
-            subjectConfirmation.addConfirmationMethod((ConfirmationMethod) childSAMLObject);
+            subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod) childSAMLObject);
         } else if (childSAMLObject instanceof SubjectConfirmationData) {
             subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) childSAMLObject);
         } else {

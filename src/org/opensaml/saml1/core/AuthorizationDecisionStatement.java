@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
@@ -50,19 +49,6 @@ public interface AuthorizationDecisionStatement extends SAMLObject, SubjectState
     
     /** Get the Action Elements */
     public List<Action> getActions();
-    
-    /** Add an Action Element 
-     * @throws IllegalArgumentException */
-    public void addAction(Action action) throws IllegalArgumentException;
-    
-    /** Remove an Action Element */
-    public void removeAction(Action action);
-    
-    /** Remove several Action elements */
-    public void removeActions(Collection<Action> actions);
-    
-    /** Remove all Action elements */
-    public void removeallActions();
     
     /** Return the Evidence element */
     public Evidence getEvidence();

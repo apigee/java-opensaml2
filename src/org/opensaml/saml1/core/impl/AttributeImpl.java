@@ -20,7 +20,6 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,6 +28,7 @@ import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * A Concrete implementation of the {@link org.opensaml.saml1.core.Attribute} Interface
@@ -54,7 +54,7 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
     public AttributeImpl() {
         super(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
-        attributeValues = new ArrayList<AttributeValue>();
+        attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
     }
 
     //
@@ -85,42 +85,7 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
      * @see org.opensaml.saml1.core.Attribute#getAttributeValues()
      */
     public List<AttributeValue> getAttributeValues() {
-        if (attributeValues.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(attributeValues);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Attribute#addAttributeValue(org.opensaml.saml1.core.AttributeValue)
-     */
-    public void addAttributeValue(AttributeValue attributeValue) throws IllegalArgumentException {
-        addXMLObject(attributeValues, attributeValue);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Attribute#removeAttributeValue(org.opensaml.saml1.core.AttributeValue)
-     */
-    public void removeAttributeValue(AttributeValue attributeValue) {
-        removeXMLObject(attributeValues, attributeValue);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Attribute#removeAttributeValues(java.util.Collection)
-     */
-    public void removeAttributeValues(Collection<AttributeValue> attributeValues) {
-       for (AttributeValue attributeValue : attributeValues) {
-           removeXMLObject(this.attributeValues, attributeValue);
-       }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Attribute#removeAllAttributeValues()
-     */
-    public void removeAllAttributeValues() {
-        for (AttributeValue attributeValue : attributeValues) {
-            removeXMLObject(attributeValues, attributeValue);
-        }
+        return attributeValues;
     }
 
     /*

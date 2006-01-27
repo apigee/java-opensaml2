@@ -21,7 +21,6 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -31,6 +30,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.saml1.core.SubjectLocality;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * A Concrete implementation of the {@link org.opensaml.saml1.core.AuthenticationStatement} Interface
@@ -55,7 +55,7 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     public AuthenticationStatementImpl() {
         super(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
-        authorityBindings = new ArrayList<AuthorityBinding>();
+        authorityBindings = new XMLObjectChildrenList<AuthorityBinding>(this);
     }
 
     //
@@ -109,46 +109,10 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     }
 
     /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#addAuthorityBinding(org.opensaml.saml1.core.AuthorityBinding)
-     */
-    public void addAuthorityBinding(AuthorityBinding authorityBinding) throws IllegalArgumentException {
-        addXMLObject(authorityBindings, authorityBinding);
-    }
-
-    /*
      * @see org.opensaml.saml1.core.AuthenticationStatement#getAuthorityBindings()
      */
     public List<AuthorityBinding> getAuthorityBindings() {
-        if (authorityBindings.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(authorityBindings);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#removeAuthorityBinding(org.opensaml.saml1.core.AuthorityBinding)
-     */
-    public void removeAuthorityBinding(AuthorityBinding authorityBinding) {
-        removeXMLObject(authorityBindings, authorityBinding);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#removeAuthorityBindings(java.util.Collection)
-     */
-    public void removeAuthorityBindings(Collection<AuthorityBinding> authorityBindings) {
-        if (authorityBindings == null) {
-            return;
-        }
-        removeXMLObjects(this.authorityBindings, authorityBindings);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#removeAllAuthorityBindings()
-     */
-    public void removeAllAuthorityBindings() {
-        for (AuthorityBinding authorityBinding : authorityBindings) {
-            removeAuthorityBinding(authorityBinding);
-        }
+        return authorityBindings;
     }
 
     /*

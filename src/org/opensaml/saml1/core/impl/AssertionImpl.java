@@ -21,7 +21,6 @@
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -31,7 +30,6 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.impl.TypeNameIndexedSAMLObjectList;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
@@ -41,6 +39,7 @@ import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Statement;
 import org.opensaml.saml1.core.SubjectStatement;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * This class implements the SAML 1 <code> Assertion </code> statement.
@@ -63,7 +62,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     private Advice advice;
 
     /** Object representnation of all the <code> Statement <\code> elements. */
-    private TypeNameIndexedSAMLObjectList<Statement> statements = new TypeNameIndexedSAMLObjectList<Statement>();
+    private final IndexedXMLObjectChildrenList <Statement> statements = new IndexedXMLObjectChildrenList<Statement>(this);
 
     /**
      * Constructor
@@ -159,10 +158,8 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml1.core.Assertion#getStatements()
      */
     public List<Statement> getStatements() {
-        if (statements.size() == 0) {
-            return null;
-        } 
-        return Collections.unmodifiableList(statements);
+        
+        return statements;
     }
 
     /*
@@ -176,48 +173,6 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
             return null;
         }
         return Collections.unmodifiableList(list);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Assertion#addStatement(org.opensaml.saml1.core.Statement)
-     */
-    public void addStatement(Statement statement) throws IllegalArgumentException {
-        addXMLObject(this.statements, statement);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Assertion#removeStatement(org.opensaml.saml1.core.Statement)
-     */
-    public void removeStatement(Statement statement) {
-        removeXMLObject(this.statements, statement);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Assertion#removeStatements(java.util.Set)
-     */
-    public void removeStatements(Collection<Statement> statements) {
-        if (statements == null) {
-            return;
-        }
-        removeXMLObjects(this.statements, statements);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Assertion#removeAllStatements()
-     */
-    public void removeAllStatements() {
-        for (Statement statement : statements) {
-            removeStatement(statement);
-        }
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Assertion#removeAllStatements(javax.xml.namespace.QName)
-     */
-    public void removeAllStatements(QName typeOrName) {
-        for (Statement statement : statements.get(typeOrName)) {
-            removeStatement(statement);
-        }
     }
 
     /*
