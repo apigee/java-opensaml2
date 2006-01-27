@@ -46,7 +46,7 @@ public class IDPSSODescriptorMarshaller extends SSODescriptorMarshaller {
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) samlObject;
 
-        if (descriptor.wantAuthnRequestsSigned()) {
+        if (descriptor.wantAuthnRequestsSigned() != null && descriptor.wantAuthnRequestsSigned()) {
             domElement.setAttributeNS(null, IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME, "true");
         }
 

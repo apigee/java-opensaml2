@@ -29,7 +29,7 @@ public interface IDPSSODescriptor extends SSODescriptor{
     public final static String LOCAL_NAME = "IDPSSODescriptor";
     
     /** "Name" attribute name */
-    public final static String WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME = "WantAuthnRequestSigned";
+    public final static String WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME = "WantAuthnRequestsSigned";
     
     /**
      * Checks if the IDP SSO service wants authentication requests signed.

@@ -71,7 +71,7 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
     protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue) throws UnmarshallingException{
         IDPSSODescriptor descriptor = (IDPSSODescriptor) samlObject;
 
-        if (attributeValue.equals(IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME)) {
+        if (attributeName.equals(IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME)) {
             descriptor.setWantAuthnRequestSigned(new Boolean(Boolean.parseBoolean(attributeValue)));
         } else {
             super.processAttribute(samlObject, attributeName, attributeValue);
