@@ -100,7 +100,6 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
 
         assertNotNull("<AttributeValue> subelement not found", attribute.getAttributeValues());
         assertEquals("Number of <AttributeValue> subelement not found", 4, attribute.getAttributeValues().size());
-        // TODO RemoveAllXXX
     }
 
     /*

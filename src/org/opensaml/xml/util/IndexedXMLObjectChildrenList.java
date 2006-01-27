@@ -45,7 +45,7 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
 
     /**
      * Constructor
-     * 
+     * @param parent the parent of all elements
      * @param col collection to add to this list
      */
     public IndexedXMLObjectChildrenList(XMLObject parent, Collection<ElementType> col) {
