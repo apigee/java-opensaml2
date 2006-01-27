@@ -71,7 +71,7 @@ public class ParserPoolManager {
         features.put("http://apache.org/xml/features/validation/schema/normalized-value", Boolean.FALSE);
         features.put("http://apache.org/xml/features/dom/defer-node-expansion", Boolean.TRUE);
         
-        parserPool = new ParserPool(true, null, null);
+        parserPool = new ParserPool(true, null, features);
     }
 
     /**
