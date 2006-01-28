@@ -106,6 +106,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.TelephoneNumberUnmarshaller" />
         </ObjectProvider>
         
+        <!-- Organization provider -->
+        <ObjectProvider qualifiedName="saml2md:Organization">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.OrganizationBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.OrganizationMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.OrganizationUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- NameIDFormat provider -->
         <ObjectProvider qualifiedName="saml2md:NameIDFormat">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.NameIDFormatBuilder" />
