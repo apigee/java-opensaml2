@@ -64,6 +64,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationUnmarshaller" />
         </ObjectProvider>
         
+        <!-- GivenName provider -->
+        <ObjectProvider qualifiedName="saml2md:GivenName">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.GivenNameBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.GivenNameMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.GivenNameUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- AuthnAuthorityDescriptor provider -->
         <ObjectProvider qualifiedName="saml2md:AuthnAuthorityDescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorBuilder" />

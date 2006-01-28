@@ -25,36 +25,36 @@ import java.util.List;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.EmailAddress;
+import org.opensaml.saml2.metadata.GivenName;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.metadata.EmailAddress}
+ * Concrete implementation of {@link org.opensaml.saml2.metadata.GivenName}.
  */
-public class EmailAddressImpl extends AbstractSAMLObject implements EmailAddress {
+public class GivenNameImpl extends AbstractSAMLObject implements org.opensaml.saml2.metadata.GivenName {
 
-    /** The email address */
-    private String address;
+    /** Given name (first name) */
+    private String name;
 
     /**
      * Constructor
      */
-    public EmailAddressImpl() {
-        super(SAMLConstants.SAML20MD_NS, EmailAddress.LOCAL_NAME);
+    public GivenNameImpl() {
+        super(SAMLConstants.SAML20MD_NS, GivenName.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.saml2.metadata.EmailAddress#getAddress()
+     * @see org.opensaml.saml2.metadata.GivenName#getName()
      */
-    public String getAddress() {
-        return address;
+    public String getName() {
+        return name;
     }
 
     /*
-     * @see org.opensaml.saml2.metadata.EmailAddress#setAddress(java.lang.String)
+     * @see org.opensaml.saml2.metadata.GivenName#setName(java.lang.String)
      */
-    public void setAddress(String address) {
-        this.address = prepareForAssignment(this.address, address);
+    public void setName(String newName) {
+        name = prepareForAssignment(name, newName);
     }
 
     /*
