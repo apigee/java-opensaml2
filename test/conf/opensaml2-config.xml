@@ -71,6 +71,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.OrganizationDisplayNameUnmarshaller" />
         </ObjectProvider>
         
+        <!-- OrganizationURL provider -->
+        <ObjectProvider qualifiedName="saml2md:OrganizationURL">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.OrganizationURLBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.OrganizationURLMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.OrganizationURLUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- AdditionalMetdataLocation provider -->
         <ObjectProvider qualifiedName="saml2md:AdditionalMetadataLocation">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationBuilder" />
