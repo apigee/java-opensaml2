@@ -23,22 +23,22 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.SurName;
+import org.opensaml.saml2.metadata.TelephoneNumber;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
- * {@link org.opensaml.saml2.metadata.SurName}.
+ * {@link org.opensaml.saml2.metadata.TelephoneNumber}.
  */
-public class SurNameTest extends SAMLObjectBaseTestCase {
+public class TelephoneNumberTest extends SAMLObjectBaseTestCase {
     
-    /** Expected description */
-    protected String expectedName;
+    /** Expected telephone number */
+    protected String expectedNumber;
     
     /**
      * Constructor
      */
-    public SurNameTest() {
-        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/SurName.xml";
+    public TelephoneNumberTest() {
+        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/TelephoneNumber.xml";
     }
     
     /*
@@ -47,16 +47,16 @@ public class SurNameTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        expectedName = "Smith";
+        expectedNumber = "888.100.1212";
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
-        SurName name = (SurName) unmarshallElement(singleElementFile);
+        TelephoneNumber number = (TelephoneNumber) unmarshallElement(singleElementFile);
         
-        assertEquals("Name was not expected value", expectedName, name.getName());
+        assertEquals("Telephone number was not expected value", expectedNumber, number.getNumber());
     }
 
     /*
@@ -70,12 +70,12 @@ public class SurNameTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME);
-        SurName name = (SurName) buildSAMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, TelephoneNumber.LOCAL_NAME);
+        TelephoneNumber number = (TelephoneNumber) buildSAMLObject(qname);
         
-        name.setName(expectedName);
+        number.setNumber(expectedNumber);
 
-        assertEquals(expectedDOM, name);
+        assertEquals(expectedDOM, number);
     }
 
     /*

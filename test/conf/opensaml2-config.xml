@@ -99,6 +99,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.ServiceNameUnmarshaller" />
         </ObjectProvider>
         
+        <!-- TelephoneNumber provider -->
+        <ObjectProvider qualifiedName="saml2md:TelephoneNumber">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.TelephoneNumberBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.TelephoneNumberMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.TelephoneNumberUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- AdditionalMetdataLocation provider -->
         <ObjectProvider qualifiedName="saml2md:AdditionalMetadataLocation">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationBuilder" />
