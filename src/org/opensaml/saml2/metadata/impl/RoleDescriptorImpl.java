@@ -46,7 +46,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     private Long cacheDuration;
 
     /** Set of supported protocols */
-    private ArrayList<String> supportedProtocols = new ArrayList<String>();
+    private ArrayList<String> supportedProtocols;
     
     /** Error URL */
     private String errorURL;
@@ -72,6 +72,8 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     public RoleDescriptorImpl(String namespaceURI, String localName) {
         super(SAMLConstants.SAML20MD_NS, localName);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+        
+        supportedProtocols = new ArrayList<String>();
         contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }

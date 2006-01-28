@@ -71,6 +71,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.OrganizationDisplayNameUnmarshaller" />
         </ObjectProvider>
         
+        <!-- PDPDescriptor provider -->
+        <ObjectProvider qualifiedName="saml2md:PDPDescriptor">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.PDPDescriptorBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.PDPDescriptorMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.PDPDescriptorUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- OrganizationURL provider -->
         <ObjectProvider qualifiedName="saml2md:OrganizationURL">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.OrganizationURLBuilder" />

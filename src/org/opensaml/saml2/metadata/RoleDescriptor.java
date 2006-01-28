@@ -35,7 +35,7 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
     public final static String LOCAL_NAME = "RoleDescriptor";
     
     /** "protocolEnumeration" attribute's local name */
-    public final static String PROTOCOL_ENUMERATION_ATTRIB_NAME = "protocolEnumeration";
+    public final static String PROTOCOL_ENUMERATION_ATTRIB_NAME = "protocolSupportEnumeration";
     
     /** "errorURL" attribute's local name */
     public final static String ERROR_URL_ATTRIB_NAME = "errorURL";

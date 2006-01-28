@@ -76,7 +76,7 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         RoleDescriptor roleDescriptor = (RoleDescriptor) samlObject;
 
         if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            roleDescriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, 0));
+            roleDescriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, DatatypeHelper.UTC_TIMEZONE));
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             roleDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
         } else if (attributeName.equals(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME)) {

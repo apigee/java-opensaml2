@@ -61,7 +61,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to RoleDescriptor DOM element");
             }
-            String validUntilStr = DatatypeHelper.calendarToString(roleDescriptor.getValidUntil(), 0);
+            String validUntilStr = DatatypeHelper.calendarToString(roleDescriptor.getValidUntil(), DatatypeHelper.UTC_TIMEZONE);
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         

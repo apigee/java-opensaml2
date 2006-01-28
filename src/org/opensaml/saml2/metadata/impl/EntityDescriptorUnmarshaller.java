@@ -78,7 +78,7 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
         if (attributeName.equals(EntityDescriptor.ENTITY_ID_ATTRIB_NAME)) {
             entityDescriptor.setEntityID(attributeValue);
         } else if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            entityDescriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, 0));
+            entityDescriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, DatatypeHelper.UTC_TIMEZONE));
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entityDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
         } else {
