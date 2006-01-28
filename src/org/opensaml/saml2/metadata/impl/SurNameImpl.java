@@ -25,12 +25,12 @@ import java.util.List;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.ServiceName;
+import org.opensaml.saml2.metadata.SurName;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.metadata.ServiceName}
+ * Concrete implementation of {@link org.opensaml.saml2.metadata.SurName}
  */
-public class ServiceNameImpl extends AbstractSAMLObject implements ServiceName {
+public class SurNameImpl extends AbstractSAMLObject implements SurName {
 
     /** Service name */
     private String name;
@@ -38,20 +38,20 @@ public class ServiceNameImpl extends AbstractSAMLObject implements ServiceName {
     /**
      * Constructor
      */
-    public ServiceNameImpl() {
-        super(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME);
+    public SurNameImpl() {
+        super(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.saml2.metadata.ServiceName#getName()
+     * @see org.opensaml.saml2.metadata.SurName#getName()
      */
     public String getName() {
         return name;
     }
 
     /*
-     * @see org.opensaml.saml2.metadata.ServiceName#setName(java.lang.String)
+     * @see org.opensaml.saml2.metadata.SurName#setName(java.lang.String)
      */
     public void setName(String newName) {
         name = prepareForAssignment(name, newName);
