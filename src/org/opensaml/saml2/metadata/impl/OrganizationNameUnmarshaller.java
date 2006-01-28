@@ -26,7 +26,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.OrganizationName;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.GivenName} objects.
+ * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.OrganizationName} objects.
  */
 public class OrganizationNameUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
