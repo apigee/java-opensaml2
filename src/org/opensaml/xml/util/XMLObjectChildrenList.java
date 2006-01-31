@@ -85,6 +85,24 @@ public class XMLObjectChildrenList<ElementType extends XMLObject> extends Abstra
         return elements.size();
     }
 
+    /**
+     * Checks to see if the given element is contained in this list.
+     * 
+     * @param element the element to check for
+     * 
+     * @return true if the element is in this list, false if not
+     */
+    public boolean contains(ElementType element) {
+        return elements.contains(element);
+    }
+
+    /*
+     * @see java.util.Collection#clear()
+     */
+    public void clear() {
+        elements.clear();
+    }
+
     /*
      * @see java.util.AbstractList#get(int)
      */
@@ -111,14 +129,14 @@ public class XMLObjectChildrenList<ElementType extends XMLObject> extends Abstra
         setParent(element);
 
         ElementType removedElement = elements.set(index, element);
-        if(removedElement != null) {
+        if (removedElement != null) {
             removedElement.setParent(null);
         }
-        
+
         modCount++;
-        return removedElement; 
+        return removedElement;
     }
-    
+
     /**
      * Adds the given XMLObject to this list.
      * 
@@ -154,6 +172,21 @@ public class XMLObjectChildrenList<ElementType extends XMLObject> extends Abstra
 
         modCount++;
         return element;
+    }
+
+    /**
+     * Removes the element from the list.
+     * 
+     * @param element the element to be removed
+     * 
+     * @return true if the element was in the list and removed, false if not
+     */
+    public boolean remove(ElementType element) {
+        boolean elementRemoved = false;
+
+        elementRemoved = elements.remove(element);
+
+        return elementRemoved;
     }
 
     /**

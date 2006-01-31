@@ -16,6 +16,8 @@
 
 package org.opensaml.xml;
 
+import java.util.List;
+
 import javax.xml.namespace.QName;
 
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
@@ -96,5 +98,66 @@ public class IndexedXMLObjectChildrenListTest extends TestCase {
         assertEquals("List gotten by element QName index should have had 1 element", 1, indexedList.get(
                 child1.getElementQName()).size());
         assertNull("List gotten by type QName index should have been null", indexedList.get(child1.getSchemaType()));
+    }
+    
+    /**
+     * Tests the sublist functionality.
+     */
+    public void testSublist() {
+        SimpleXMLObject parentObject = new SimpleXMLObject();
+        IndexedXMLObjectChildrenList<XMLObject> indexedList = new IndexedXMLObjectChildrenList<XMLObject>(
+                parentObject);
+
+        QName type1 = new QName("example.org/ns/type1", "Type1");
+        QName type2 = new QName("example.org/ns/type2", "Type2");
+        
+        SimpleXMLObject child1 = new SimpleXMLObject();
+        child1.setSchemaType(type1);
+        indexedList.add(child1);
+
+        SimpleXMLObject child2 = new SimpleXMLObject();
+        child2.setSchemaType(type2);
+        indexedList.add(child2);
+        
+        SimpleXMLObject child3 = new SimpleXMLObject();
+        indexedList.add(child3);
+        
+        SimpleXMLObject child4 = new SimpleXMLObject();
+        child4.setSchemaType(type2);
+        indexedList.add(child4);
+        
+        SimpleXMLObject child5 = new SimpleXMLObject();
+        child5.setSchemaType(type1);
+        indexedList.add(child5);
+        
+        SimpleXMLObject child6 = new SimpleXMLObject();
+        child6.setSchemaType(type1);
+        indexedList.add(child6);
+        
+        List<SimpleXMLObject> elementNameSublist = (List<SimpleXMLObject>) indexedList.subList(child1.getElementQName());
+        List<SimpleXMLObject> type1SchemaSublist = (List<SimpleXMLObject>) indexedList.subList(type1);
+        List<SimpleXMLObject> type2SchemaSublist = (List<SimpleXMLObject>) indexedList.subList(type2);
+        
+        assertEquals("Element name index sublist did not have expected number of elements", 6, elementNameSublist.size());
+        assertEquals("Schema Type1 index sublist did not have expected number of elements", 3, type1SchemaSublist.size());
+        assertEquals("Schema Type2 index sublist did not have expected number of elements", 2, type2SchemaSublist.size());
+        
+        SimpleXMLObject child7 = new SimpleXMLObject();
+        child7.setSchemaType(type1);
+        type1SchemaSublist.add(child7);
+        
+        assertEquals("Child added to sublist did not have parent properly set", parentObject, child7.getParent());
+        assertEquals("Element name index sublist did not have expected number of elements", 7, elementNameSublist.size());
+        assertEquals("Schema Type1 index sublist did not have expected number of elements", 4, type1SchemaSublist.size());
+        assertEquals("Schema Type2 index sublist did not have expected number of elements", 2, type2SchemaSublist.size());
+        
+        SimpleXMLObject child8 = new SimpleXMLObject();
+        child8.setSchemaType(type2);
+        SimpleXMLObject replacedObject = type2SchemaSublist.set(0, child8);
+        
+        assertEquals("Element name index sublist did not have expected number of elements", 7, elementNameSublist.size());
+        assertEquals("Schema Type1 index sublist did not have expected number of elements", 4, type1SchemaSublist.size());
+        assertEquals("Schema Type2 index sublist did not have expected number of elements", 2, type2SchemaSublist.size());
+        assertEquals("Replaced object was not expected object", child2, replacedObject);
     }
 }
