@@ -225,9 +225,7 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
 /**
  * A special list that works as a view of an IndexedXMLObjectChildrenList showing only the 
  * sublist associated with a given index.  Operations performed on this sublist are reflected 
- * in the backing list.  Set operations are unsupported because index based setting/replacement 
- * is an ambiguous operation on a sublist derived by type.  If you wish to use index-based setting 
- * methods you must do so on the backing list.
+ * in the backing list.
  *
  * @param <ElementType> the XMLObject type that this list operates on
  */
