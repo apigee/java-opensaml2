@@ -64,8 +64,8 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         Advice advice = (Advice) unmarshallElement(singleElementFile);
 
-        assertNull("Non zero number of child AssertIDReference elements", advice.getAssertionIDReferences());
-        assertNull("Non zero number of child Assertion elements", advice.getAssertions());
+        assertEquals("Number of child AssertIDReference elements", 0, advice.getAssertionIDReferences().size());
+        assertEquals("Number of child Assertion elements", 0, advice.getAssertions().size());
     }
 
     /*
@@ -108,9 +108,9 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     public void testFullElementsMarshall() {
         Advice advice = new AdviceImpl();
 
-        advice.addAssertionIDReference(new AssertionIDReferenceImpl());
-        advice.addAssertion(new AssertionImpl());
-        advice.addAssertionIDReference(new AssertionIDReferenceImpl());
+        advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
+        advice.getAssertions().add(new AssertionImpl());
+        advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
 
         assertEquals(expectedFullDOM, advice);
     }

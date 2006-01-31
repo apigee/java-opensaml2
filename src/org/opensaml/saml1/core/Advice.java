@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
@@ -37,57 +36,10 @@ public interface Advice extends SAMLObject {
     public List<AssertionIDReference> getAssertionIDReferences();
 
     /**
-     * Add an AssertionIDReference.
-     * 
-     * @param assertionIDReference what to add
-     * 
-     * @throws IllegalArgumentException if the element is already added somewhere
-     */
-    public void addAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalArgumentException;
-
-    /**
-     * Remove a single AssertionIDReference.
-     * 
-     * @param assertionIDReference what to remove
-     */
-    public void removeAssertionIDReference(AssertionIDReference assertionIDReference);
-
-    //  TODO Use XMLObjectChildList
-    
-    /**
-     * Remove several AssertionIDReferences.
-     * 
-     * @param assertionIDReferences what to remove
-     */
-    public void removeAssertionIDReferences(Collection<AssertionIDReference> assertionIDReferences);
-
-    /** Remove all AssertionIDReferences */
-    public void removeAllAssertionIDReferences();
-
-    /**
      * Get the Assertions.
      * 
      * @return the assertions (in order)
      */
     public List<Assertion> getAssertions();
 
-    //  TODO Use XMLObjectChildList
-
-    /**
-     * Add an Assertion.
-     * 
-     * @param assertion what to add
-     * 
-     * @throws IllegalArgumentException if the element is already added somewhere
-     */
-    public void addAssertion(Assertion assertion) throws IllegalArgumentException;
-
-    /** Remove a single Assertion */
-    public void removeAssertion(Assertion assertion);
-
-    /** Remove several Assertions */
-    public void removeAssertions(Collection<Assertion> assertions);
-
-    /** Remove all Assertions */
-    public void removeAllAssertions();
 }

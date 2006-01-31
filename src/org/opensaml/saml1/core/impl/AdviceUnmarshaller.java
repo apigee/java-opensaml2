@@ -52,9 +52,9 @@ public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         Advice advice = (Advice) parentSAMLObject;
 
         if (childSAMLObject instanceof Assertion) {
-            advice.addAssertion((Assertion) childSAMLObject);
+            advice.getAssertions().add((Assertion) childSAMLObject);
         } else if (childSAMLObject instanceof AssertionIDReference) {
-            advice.addAssertionIDReference((AssertionIDReference) childSAMLObject);
+            advice.getAssertionIDReferences().add((AssertionIDReference) childSAMLObject);
         } else if (!SAMLConfig.ignoreUnknownElements()) {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
