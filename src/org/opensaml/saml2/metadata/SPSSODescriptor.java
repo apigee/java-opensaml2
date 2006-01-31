@@ -36,14 +36,14 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @return true of this service signs requests, false if not
      */
-	public boolean isAuthnRequestsSigned();
+	public boolean authnRequestsSigned();
     
     /**
      * Sets whether this service signs AuthN requests.
      * 
      * @param isSigned true of this service signs requests, false if not
      */
-    public void setAuthnRequestsSigned(boolean isSigned);
+    public void setAuthnRequestsSigned(Boolean isSigned);
 
     /**
      * Gets whether this service wants assertions signed.
@@ -57,7 +57,7 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @param wantAssestionSigned true if this service wants assertions signed, false if not
      */
-    public void setWantAssertionsSigned(boolean wantAssestionSigned);
+    public void setWantAssertionsSigned(Boolean wantAssestionSigned);
     
     /**
      * Gets an immutable list of assertion consumer service {@link Endpoint}s for this service.

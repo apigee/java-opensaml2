@@ -21,6 +21,13 @@
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorUnmarshaller" />
         </ObjectProvider>
+        
+        <!-- SPSSODescriptor provider -->
+        <ObjectProvider qualifiedName="saml2md:SPSSODescriptor">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.SPSSODescriptorBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.SPSSODescriptorMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.SPSSODescriptorUnmarshaller" />
+        </ObjectProvider>
 
         <!-- EntityDescriptor provider -->
         <ObjectProvider qualifiedName="saml2md:EntityDescriptor">
