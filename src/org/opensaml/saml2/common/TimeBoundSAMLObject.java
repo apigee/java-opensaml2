@@ -16,10 +16,9 @@
 
 package org.opensaml.saml2.common;
 
-import java.util.GregorianCalendar;
-
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
@@ -47,13 +46,13 @@ public interface TimeBoundSAMLObject extends SAMLObject{
 	 * 
 	 * @return the date until which this descriptor is valid
 	 */
-	public GregorianCalendar getValidUntil();
+	public DateTime getValidUntil();
 
 	/**
 	 * Sets the date until which this descriptor is valid.
 	 * 
 	 * @param validUntil the date until which this descriptor is valid
 	 */
-	public void setValidUntil(GregorianCalendar validUntil);
+	public void setValidUntil(DateTime validUntil);
 
 }

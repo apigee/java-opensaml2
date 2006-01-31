@@ -16,12 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
@@ -39,7 +37,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     protected long expectedCacheDuration;
 
     /** Expected validUntil value */
-    protected GregorianCalendar expectedValidUntil;
+    protected DateTime expectedValidUntil;
 
     /**
      * Constructor
@@ -57,8 +55,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
 
         expectedName = "eDescName";
         expectedCacheDuration = 90000;
-        expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
-        expectedValidUntil.setTimeZone(TimeZone.getTimeZone("Universal"));
+        expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
     }
 
     /*
@@ -73,7 +70,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
         Long duration = entitiesDescriptorObj.getCacheDuration();
         assertNull("cacheDuration attribute has a value of " + duration + ", expected no value", duration);
 
-        GregorianCalendar validUntil = entitiesDescriptorObj.getValidUntil();
+        DateTime validUntil = entitiesDescriptorObj.getValidUntil();
         assertNull("validUntil attribute has a value of " + validUntil + ", expected no value", validUntil);
     }
 
@@ -91,7 +88,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("cacheDuration attribute has a value of " + duration + ", expected a value of "
                 + expectedCacheDuration, expectedCacheDuration, duration);
 
-        GregorianCalendar validUntil = entitiesDescriptorObj.getValidUntil();
+        DateTime validUntil = entitiesDescriptorObj.getValidUntil();
         assertEquals("validUntil attribute value did not match expected value", 0, expectedValidUntil
                 .compareTo(validUntil));
     }

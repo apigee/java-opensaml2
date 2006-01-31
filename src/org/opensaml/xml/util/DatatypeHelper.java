@@ -126,6 +126,8 @@ public class DatatypeHelper {
      * @param timezone the timezone to use during the conversion
      * 
      * @return the String representation of the calendar
+     * 
+     * @deprecated use {@link org.joda.time.DateTime} with {@link org.joda.time.format.ISODateTimeFormat}
      */
     public static String calendarToString(GregorianCalendar date, int timezone) {
         if (date != null) {
@@ -145,6 +147,8 @@ public class DatatypeHelper {
      * @param timezone the timezone to use during the conversion
      * 
      * @return the gregorian calendar
+     * 
+     * @deprecated use {@link org.joda.time.DateTime}
      */
     public static GregorianCalendar stringToCalendar(String s, int timezone){
         XMLGregorianCalendar calendar = getDataTypeFactory().newXMLGregorianCalendar(s);

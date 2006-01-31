@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -73,7 +75,7 @@ public class AffiliationDescriptorUnmarshaller extends AbstractSAMLObjectUnmarsh
         if (attributeName.equals(AffiliationDescriptor.OWNER_ID_ATTRIB_NAME)) {
             descriptor.setOwnerID(attributeValue);
         } else if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            descriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, 0));
+            descriptor.setValidUntil(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             descriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
         } else {

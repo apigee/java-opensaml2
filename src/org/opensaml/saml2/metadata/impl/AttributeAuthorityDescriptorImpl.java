@@ -18,9 +18,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
@@ -36,12 +34,6 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * A concrete implementation of {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor}.
  */
 public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl implements AttributeAuthorityDescriptor {
-
-    /** validUntil attribute */
-    private GregorianCalendar validUntil;
-    
-    /** cacheDurection attribute */
-    private Long cacheDuration;
     
     /** Attribte query endpoints */
     private XMLObjectChildrenList<AttributeService> attributeServices;
@@ -69,41 +61,6 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
         assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
         nameFormats = new XMLObjectChildrenList<NameIDFormat>(this);
         attributes = new XMLObjectChildrenList<Attribute>(this);
-    }
-    
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
-     */
-    public boolean isValid() {
-        return validUntil.before(GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC")));
-    }
-    
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
-     */
-    public GregorianCalendar getValidUntil() {
-        return validUntil;
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
-     */
-    public void setValidUntil(GregorianCalendar validUntil) {
-        this.validUntil = prepareForAssignment(this.validUntil, validUntil);
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#getCacheDuration()
-     */
-    public Long getCacheDuration() {
-        return cacheDuration;
-    }
-
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#setCacheDuration(java.lang.Long)
-     */
-    public void setCacheDuration(Long duration) {
-        cacheDuration = prepareForAssignment(cacheDuration, duration);
     }
     
     /*

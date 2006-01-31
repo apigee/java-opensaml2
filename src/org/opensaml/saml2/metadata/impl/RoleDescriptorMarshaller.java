@@ -19,6 +19,7 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.joda.time.format.ISODateTimeFormat;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
@@ -61,7 +62,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to RoleDescriptor DOM element");
             }
-            String validUntilStr = DatatypeHelper.calendarToString(roleDescriptor.getValidUntil(), DatatypeHelper.UTC_TIMEZONE);
+            String validUntilStr = ISODateTimeFormat.dateTime().print(roleDescriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         

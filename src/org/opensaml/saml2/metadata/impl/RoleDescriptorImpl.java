@@ -19,10 +19,10 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
@@ -40,7 +40,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject implements RoleDescriptor {
     
     /** validUntil attribute */
-    private GregorianCalendar validUntil;
+    private DateTime validUntil;
 
     /** cacheDurection attribute */
     private Long cacheDuration;
@@ -82,21 +82,25 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
      */
     public boolean isValid() {
-        return validUntil.before(GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC")));
+        if(validUntil != null) {
+            return validUntil.isBeforeNow();
+        }else {
+            return true;
+        }
     }
 
     /*
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
      */
-    public GregorianCalendar getValidUntil() {
+    public DateTime getValidUntil() {
         return validUntil;
     }
 
     /*
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
      */
-    public void setValidUntil(GregorianCalendar validUntil) {
-        this.validUntil = prepareForAssignment(this.validUntil, validUntil);
+    public void setValidUntil(DateTime validUntil) {
+        this.validUntil = prepareForAssignment(this.validUntil, validUntil.withZone(DateTimeZone.UTC));
     }
 
     /*

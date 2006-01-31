@@ -20,12 +20,11 @@
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.PDPDescriptor;
@@ -34,8 +33,6 @@ import org.opensaml.saml2.metadata.PDPDescriptor;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.metadata.impl.PDPDescriptorImpl}.
  */
-
-//TODO figure out why date comparisons fail
 public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
     
     /** List of expected supported protocols */
@@ -45,7 +42,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
     protected long expectedCacheDuration;
 
     /** Expected validUntil value */
-    protected GregorianCalendar expectedValidUntil;
+    protected DateTime expectedValidUntil;
     
     /** Expected error url */
     protected String expectedErrorURL;
@@ -69,8 +66,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         expectedSupportedProtocol.add("urn:fooz:baz");
         
         expectedCacheDuration = 90000;
-        expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
-        expectedValidUntil.setTimeZone(TimeZone.getTimeZone("Universal"));
+        expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
         
         expectedErrorURL = "http://example.org";
     }

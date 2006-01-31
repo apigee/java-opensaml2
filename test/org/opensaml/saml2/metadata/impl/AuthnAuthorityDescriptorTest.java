@@ -17,13 +17,12 @@
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
@@ -41,7 +40,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
     protected long expectedCacheDuration;
 
     /** Expected validUntil value */
-    protected GregorianCalendar expectedValidUntil;
+    protected DateTime expectedValidUntil;
 
     /** Expected errorURL value */
     protected String expectedErrorURL;
@@ -63,8 +62,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         expectedSupportedProtocols = new ArrayList<String>();
         expectedSupportedProtocols.add(SAMLConstants.SAML20P_NS);
         expectedCacheDuration = 90000;
-        expectedValidUntil = new GregorianCalendar(2005, Calendar.DECEMBER, 7, 10, 21, 0);
-        expectedValidUntil.setTimeZone(TimeZone.getTimeZone("Universal"));
+        expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
         expectedErrorURL = "http://example.org";
     }
 
@@ -81,7 +79,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         Long duration = authnAuthorityObj.getCacheDuration();
         assertNull("cacheDuration attribute has a value of " + duration + ", expected no value", duration);
 
-        GregorianCalendar validUntil = authnAuthorityObj.getValidUntil();
+        DateTime validUntil = authnAuthorityObj.getValidUntil();
         assertNull("validUntil attribute has a value of " + validUntil + ", expected no value", validUntil);
 
         String errorURL = authnAuthorityObj.getErrorURL();
@@ -102,7 +100,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("cacheDuration attribute has a value of " + duration + ", expected a value of "
                 + expectedCacheDuration, expectedCacheDuration, duration);
 
-        GregorianCalendar validUntil = authnAuthorityObj.getValidUntil();
+        DateTime validUntil = authnAuthorityObj.getValidUntil();
         assertEquals("validUntil attribute value did not match expected value", 0, expectedValidUntil
                 .compareTo(validUntil));
 

@@ -17,6 +17,7 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.apache.log4j.Logger;
+import org.joda.time.format.ISODateTimeFormat;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
@@ -57,7 +58,7 @@ public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to EntityDescriptor DOM element");
             }
-            String validUntilStr = DatatypeHelper.calendarToString(entityDescriptor.getValidUntil(), 0);
+            String validUntilStr = ISODateTimeFormat.dateTime().print(entityDescriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         

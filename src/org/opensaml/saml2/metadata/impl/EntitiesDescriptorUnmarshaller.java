@@ -18,6 +18,8 @@ package org.opensaml.saml2.metadata.impl;
 
 import javax.xml.datatype.DatatypeFactory;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
@@ -74,7 +76,7 @@ public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshall
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) samlObject;
 
         if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            entitiesDescriptor.setValidUntil(DatatypeHelper.stringToCalendar(attributeValue, 0));
+            entitiesDescriptor.setValidUntil(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
         } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entitiesDescriptor.setCacheDuration(new Long(DatatypeHelper.durationToLong(attributeValue)));
         } else if (attributeName.equals(EntitiesDescriptor.NAME_ATTRIB_NAME)) {

@@ -20,6 +20,7 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.apache.log4j.Logger;
+import org.joda.time.format.ISODateTimeFormat;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
@@ -60,7 +61,7 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
             if(log.isDebugEnabled()){
                 log.debug("Writting validUntil attribute to AffiliationDescriptor DOM element");
             }
-            String validUntilStr = DatatypeHelper.calendarToString(descriptor.getValidUntil(), 0);
+            String validUntilStr = ISODateTimeFormat.dateTime().print(descriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
         
