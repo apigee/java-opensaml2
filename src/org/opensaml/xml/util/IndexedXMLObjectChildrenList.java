@@ -145,11 +145,11 @@ public class IndexedXMLObjectChildrenList<ElementType extends XMLObject> extends
      * @return a view of this list that contains only the elements stored under the given index
      */
     public List<? extends ElementType> subList(QName index){
-        if(objectIndex.containsKey(index)) {
-            return new ListView<ElementType>(this, index);
-        }else {
-            return null;
+        if(!objectIndex.containsKey(index)) {
+            objectIndex.put(index, new ArrayList<ElementType>());
         }
+
+        return new ListView<ElementType>(this, index);
     }
 
     /**
