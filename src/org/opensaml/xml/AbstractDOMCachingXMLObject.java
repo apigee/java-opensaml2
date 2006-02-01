@@ -20,9 +20,6 @@
 
 package org.opensaml.xml;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
@@ -224,80 +221,5 @@ public abstract class AbstractDOMCachingXMLObject extends AbstractXMLObject impl
         }
 
         return newValue;
-    }
-
-    /**
-     * This is a helper function for sets which support multiple sub elements. It does all the standard parameter
-     * checking before adding the new member into the Set and invaldating the DOM (iff required)
-     * 
-     * @param <T> The type of the SAMLObject being added
-     * @param set The set to which the SAMLObject is to be added.
-     * @param samlObject The object to add
-     * 
-     * @return true if the given set was modified, false if not
-     * 
-     * @throws IllegalArgumentException if the element already has a parent
-     * 
-     * @deprecated
-     */
-    protected <T extends XMLObject> boolean addXMLObject(List<T> objectList, T samlObject) throws IllegalArgumentException {
-        if (objectList.contains(samlObject)) {
-            return false;
-        }
-
-        if (samlObject.hasParent()) {
-            throw new IllegalArgumentException(samlObject.getClass().getName()
-                    + " cannot be added - it is already the child of another SAML Object");
-        }
-        samlObject.setParent(this);
-        releaseThisandParentDOM();
-        objectList.add(samlObject);
-        return true;
-    }
-
-    /**
-     * This helper function is the inverse of addSAMLObject. Again it does all the required checking processing of the
-     * element being removed.
-     * 
-     * @param <T> The type of the SAMLObject being removed
-     * @param objectList The set from which the SAMLObject is to be removed.
-     * @param samlObject The object to remove
-     * 
-     * @return true if the given set was modified, false if not
-     * 
-     * @deprecated
-     */
-    protected <T extends XMLObject> boolean removeXMLObject(List<T> objectList, T samlObject) {
-        if (samlObject != null && objectList.contains(samlObject)) {
-            samlObject.setParent(null);
-            releaseThisandParentDOM();
-            objectList.remove(samlObject);
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * This helper function removes a series of SAMLObjects from the containing set. Again it is targetted at
-     * SAMLObjects which multiple subelements.
-     * 
-     * @param <T> The type of the SAMLObject being removed
-     * @param containingList The set from which the SAMLObject is to be removed.
-     * @param contentsSet The set of SAMLObject to be removed.
-     * 
-     * @return true if the containingSet was modified, false if not
-     * 
-     * @deprecated
-     */
-    protected <T extends XMLObject> boolean removeXMLObjects(List<T> containingList, Collection<T> contentsSet) {
-        boolean setModified = false;
-        for (T member : contentsSet) {
-            if (removeXMLObject(containingList, member) && !setModified) {
-                setModified = true;
-            }
-        }
-
-        return setModified;
     }
 }
