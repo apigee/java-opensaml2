@@ -84,12 +84,14 @@ public class SAMLObjectSigningTest extends BaseTestCase {
 
         Marshaller marshaller = SAMLObjectManager.getMarshaller(entitiesDescriptor);
         try {
-            Element dom = marshaller.marshall(entitiesDescriptor);
+            Element dom = marshaller.marshall(entitiesDescriptor, ParserPoolManager.getInstance().newDocument());
             DigitalSignatureHelper.verifySignature(dom);
         } catch (MarshallingException e) {
             fail("Marshalling failed with the following error: " + e);
         } catch (SignatureException e) {
             fail("XML Digital Signature did not validate: " + e);
+        } catch (Exception e) {
+            fail("Could not create DOM Document to root marshalled element in: " + e);
         }
     }
 

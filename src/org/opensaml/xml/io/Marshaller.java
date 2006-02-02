@@ -27,18 +27,6 @@ import org.w3c.dom.Element;
  * @param <T> object type this marshaller operates on
  */
 public interface Marshaller<T extends XMLObject> {
-
-    /**
-     * Marshall this element, and its children, into a W3C DOM element.
-     * 
-     * @param xmlObject the object to marshall
-     * @param ignoreUnknownElements indicates whether unknown elements should be ignored when they are encountered
-     * 
-     * @return the W3C DOM element representing this SAML element
-     * 
-     * @throws MarshallingException thrown if there is a problem marshalling the given object
-     */
-	public Element marshall(T xmlObject) throws MarshallingException;
 	
 	/**
 	 * Marshall this element, and its children, into a W3C DOM element rooted in the given document.
