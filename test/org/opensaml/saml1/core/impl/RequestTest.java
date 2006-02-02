@@ -19,11 +19,10 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
@@ -32,7 +31,6 @@ import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.xml.parse.XMLParserException;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -41,17 +39,14 @@ import org.xml.sax.InputSource;
  */
 public class RequestTest extends SAMLObjectBaseTestCase {
 
-    private final GregorianCalendar expectedIssueInstant;
-    private final String expectedIssueInstantAsString;
+    private final DateTime expectedIssueInstant;
 
     private final int expectedMinorVersion;
 
     public RequestTest() {
         singleElementFile = "/data/org/opensaml/saml1/singleRequest.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleRequestAttributes.xml";
-        expectedIssueInstant = new GregorianCalendar(1970, 0, 1, 0, 0, 0);
-        expectedIssueInstant.set(Calendar.MILLISECOND, 100);
-        expectedIssueInstantAsString = DatatypeHelper.calendarToString(expectedIssueInstant, DatatypeHelper.UTC_TIMEZONE);
+        expectedIssueInstant = new DateTime(1970, 1, 1, 0, 0, 0, 100, ISOChronology.getInstanceUTC());
         expectedMinorVersion = 1;
     }
     
@@ -62,9 +57,8 @@ public class RequestTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         Request request = (Request) unmarshallElement(singleElementFile);
 
-        GregorianCalendar date = request.getIssueInstant();
-        assertNull("IssueInstant attribute has a value of " + DatatypeHelper.calendarToString(date, 0)
-                + ", expected no value", date);
+        DateTime date = request.getIssueInstant();
+        assertNull("IssueInstant attribute has a value of " + date + ", expected no value", date);
 
         int minorVersion = request.getMinorVersion();
         
@@ -83,8 +77,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
         Request request = (Request) unmarshallElement(singleElementOptionalAttributesFile);
         
         assertEquals("MinorVersion", expectedMinorVersion, request.getMinorVersion());
-        assertEquals("IssueInstant", expectedIssueInstantAsString, 
-                                     DatatypeHelper.calendarToString(request.getIssueInstant(), DatatypeHelper.UTC_TIMEZONE));
+        assertEquals("IssueInstant", expectedIssueInstant, request.getIssueInstant());
         
     }
     

@@ -19,9 +19,9 @@
  */
 package org.opensaml.saml1.core;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.SignableXMLObject;
 
@@ -47,10 +47,10 @@ public interface RequestAbstractType extends SAMLObject, SignableXMLObject {
     public void setMinorVersion(int version);
     
     /** Get the issue instant */
-    public GregorianCalendar getIssueInstant();
+    public DateTime getIssueInstant();
  
     /** Set the issue instant */
-    public void setIssueInstant(GregorianCalendar gregorianCalendar);
+    public void setIssueInstant(DateTime gregorianCalendar);
  
     /** Return the list of RespondWith elements */
     public List <RespondWith> getRespondWiths();

@@ -20,6 +20,8 @@
 
 package org.opensaml.saml1.core.impl;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -28,7 +30,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * 
@@ -68,9 +69,9 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         Conditions conditions = (Conditions) samlObject;
 
         if (Conditions.NOTBEFORE_ATTRIB_NAME.equals(attributeName)) {
-            conditions.setNotBefore(DatatypeHelper.stringToCalendar(attributeValue, 0));
+            conditions.setNotBefore(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
         } else if (Conditions.NOTONORAFTER_ATTRIB_NAME.equals(attributeName)) {
-            conditions.setNotOnOrAfter(DatatypeHelper.stringToCalendar(attributeValue, 0));
+            conditions.setNotOnOrAfter(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
         } else {
             processAttribute(samlObject, attributeName, attributeValue);
         }

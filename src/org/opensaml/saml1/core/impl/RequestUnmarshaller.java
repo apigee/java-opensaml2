@@ -19,8 +19,8 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import java.util.GregorianCalendar;
-
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -33,7 +33,6 @@ import org.opensaml.saml1.core.Request;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.RespondWith;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A thread safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Request} objects.
@@ -82,7 +81,7 @@ public class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         Request request = (Request) samlElement;
         
         if (RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME.equals(attributeName)) {
-            GregorianCalendar cal = DatatypeHelper.stringToCalendar(attributeValue, DatatypeHelper.UTC_TIMEZONE);
+            DateTime cal = new DateTime(attributeValue, ISOChronology.getInstanceUTC());
             request.setIssueInstant(cal);
         } else if (RequestAbstractType.MINORVERSION_ATTRIB_NAME.equals(attributeName)) {
             request.setMinorVersion(Integer.parseInt(attributeValue));

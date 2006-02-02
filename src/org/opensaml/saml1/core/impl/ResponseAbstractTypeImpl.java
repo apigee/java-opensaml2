@@ -20,8 +20,8 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.GregorianCalendar;
-
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml1.core.ResponseAbstractType;
 
@@ -47,7 +47,7 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObjec
     private int minorVersion = 0;
 
     /** Contents of the Date attribute */
-    private GregorianCalendar issueInstant = null;
+    private DateTime issueInstant = null;
 
     /** Contents of the recipient attribute */
     private String recipient = null;
@@ -86,7 +86,7 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObjec
     /*
      * @see org.opensaml.saml1.core.Response#getIssueInstant()
      */
-    public GregorianCalendar getIssueInstant() {
+    public DateTime getIssueInstant() {
 
         return issueInstant;
     }
@@ -94,8 +94,8 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObjec
     /*
      * @see org.opensaml.saml1.core.Response#setIssueInstant(java.util.Date)
      */
-    public void setIssueInstant(GregorianCalendar date) {
-        this.issueInstant = prepareForAssignment(this.issueInstant, date);
+    public void setIssueInstant(DateTime date) {
+        this.issueInstant = prepareForAssignment(this.issueInstant, date.withZone(DateTimeZone.UTC));
     }
 
     /*

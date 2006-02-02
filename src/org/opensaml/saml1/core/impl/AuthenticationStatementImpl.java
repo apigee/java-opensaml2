@@ -22,9 +22,10 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
@@ -41,7 +42,7 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     private String authenticationMethod;
 
     /** Contains the AuthenticationMethod attribute contents */
-    private GregorianCalendar authenticationInstant;
+    private DateTime authenticationInstant;
 
     /** Contains the SubjectLocality subelement */
     private SubjectLocality subjectLocality;
@@ -79,15 +80,15 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     /*
      * @see org.opensaml.saml1.core.AuthenticationStatement#getAuthenticationInstant()
      */
-    public GregorianCalendar getAuthenticationInstant() {
+    public DateTime getAuthenticationInstant() {
         return authenticationInstant;
     }
 
     /*
      * @see org.opensaml.saml1.core.AuthenticationStatement#setAuthenticationInstant(java.util.GregorianCalendar)
      */
-    public void setAuthenticationInstant(GregorianCalendar authenticationInstant) {
-        this.authenticationInstant = prepareForAssignment(this.authenticationInstant, authenticationInstant);
+    public void setAuthenticationInstant(DateTime authenticationInstant) {
+        this.authenticationInstant = prepareForAssignment(this.authenticationInstant, authenticationInstant.withZone(DateTimeZone.UTC));
     }
 
     //

@@ -16,11 +16,11 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.SignableXMLObject;
 
@@ -83,14 +83,14 @@ public interface Assertion extends SAMLObject, SignableXMLObject {
      * 
      * @return the Issue Instant (as a Date)
      */
-    public GregorianCalendar getIssueInstant();
+    public DateTime getIssueInstant();
 
     /**
      * List the IssueInstance (attribute).
      * 
      * @param issueInstant the issue instant value to List
      */
-    public void setIssueInstant(GregorianCalendar issueInstant);
+    public void setIssueInstant(DateTime issueInstant);
 
     /* Singleton Elements */
 

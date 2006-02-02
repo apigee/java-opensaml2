@@ -16,8 +16,7 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.GregorianCalendar;
-
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.SignableXMLObject;
 
@@ -54,10 +53,10 @@ public interface ResponseAbstractType extends SAMLObject, SignableXMLObject {
     void setMinorVersion(int version);
 
     /** Return the Issue Instant (attribute). */
-    GregorianCalendar getIssueInstant();
+    DateTime getIssueInstant();
 
     /** Set the Issue Instant (attribute). */
-    void setIssueInstant(GregorianCalendar date);
+    void setIssueInstant(DateTime date);
 
     /** Return the Recipient (attribute). */
     String getRecipient();

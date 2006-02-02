@@ -20,17 +20,16 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -39,6 +38,18 @@ import org.xml.sax.InputSource;
  */
 public class ResponseTest extends SAMLObjectBaseTestCase {
 
+    /** Representation of IssueInstant in test file. */
+    private final DateTime expectedIssueInstant;
+
+    /** Representation of InResponseTo in test file. */
+    private final String expectedInResponseTo;
+
+    /** Representation of MinorVersion in test file. */
+    private final int expectedMinorVersion;
+
+    /** Representation of Recipient in test file. */
+    private final String expectedRecipient;
+
     /** A file with a Conditions with kids */
 
     private final String fullElementsFile;
@@ -46,16 +57,6 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /** The expected result of a marshalled multiple element */
 
     private Document expectedFullDOM;
-
-    /**
-     * Representation of NotIssueInstant in test file.
-     */
-
-    private final GregorianCalendar issueInstant;
-
-    private final String expectedInResponseTo;
-    private final int expectedMinorVersion;
-    private final String expectedRecipient;
 
     /**
      * Constructor
@@ -68,8 +69,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         //
         // IssueInstant="1970-01-01T00:00:00.100Z"
         //
-        issueInstant = new GregorianCalendar(1970, 0, 1, 0, 0, 0);
-        issueInstant.set(Calendar.MILLISECOND, 100);
+        expectedIssueInstant = new DateTime(1970, 1, 1, 0, 0, 0, 100, ISOChronology.getInstanceUTC());
 
         expectedInResponseTo="inresponseto";
         expectedMinorVersion=1;
@@ -96,9 +96,8 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
 
         Response response = (Response) unmarshallElement(singleElementFile);
 
-        GregorianCalendar date = response.getIssueInstant();
-        assertNull("IssueInstant attribute has a value of " + DatatypeHelper.calendarToString(date, 0)
-                + ", expected no value", date);
+        assertNull("IssueInstant attribute has a value of " + response.getIssueInstant() 
+                + ", expected no value", response.getIssueInstant());
 
         Assertion assertion;
         assertion = response.getAssertion();
@@ -118,9 +117,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
 
         response = (Response) unmarshallElement(singleElementOptionalAttributesFile);
 
-        GregorianCalendar date = response.getIssueInstant();
-        assertEquals("IssueInstant attribute ", DatatypeHelper.calendarToString(issueInstant, 0), DatatypeHelper
-                .calendarToString(date, 0));
+        assertEquals("IssueInstant attribute ", expectedIssueInstant, response.getIssueInstant());
 
         String string = response.getInResponseTo();
         assertEquals("InResponseTo attribute ", expectedInResponseTo, string);
@@ -168,7 +165,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         Response response = (Response) buildSAMLObject(qname);
 
         response.setInResponseTo(expectedInResponseTo);
-        response.setIssueInstant(issueInstant);
+        response.setIssueInstant(expectedIssueInstant);
         response.setRecipient(expectedRecipient);
         response.setMinorVersion(expectedMinorVersion);
 

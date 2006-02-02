@@ -20,13 +20,11 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Assertion;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -35,11 +33,11 @@ import org.xml.sax.InputSource;
  */
 public class AssertionTest extends SAMLObjectBaseTestCase {
 
-    private final int minorVersion;
+    private final int expectedMinorVersion;
 
-    private final String issuer;
+    private final String expectedIssuer;
 
-    private final GregorianCalendar issueInstant;
+    private final DateTime expectedIssueInstant;
 
     private String fullElementsFile;
 
@@ -50,13 +48,12 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
     public AssertionTest() {
         super();
-        minorVersion = 1;
-        issuer = "issuer";
+        expectedMinorVersion = 1;
+        expectedIssuer = "issuer";
         //
         // IssueInstant="1970-01-02T01:01:02.100Z"
         //
-        issueInstant = new GregorianCalendar(1970, 0, 2, 1, 1, 2);
-        issueInstant.set(Calendar.MILLISECOND, 100);
+        expectedIssueInstant = new DateTime(1970, 1, 2, 1, 1, 2, 100, ISOChronology.getInstanceUTC());
 
         singleElementFile = "/data/org/opensaml/saml1/singleAssertion.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAssertionAttributes.xml";
@@ -104,10 +101,9 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesUnmarshall() {
         Assertion assertion = (Assertion) unmarshallElement(singleElementOptionalAttributesFile);
 
-        assertEquals("Issuer attribute", issuer, assertion.getIssuer());
-        assertEquals("IssueInstant attribute", DatatypeHelper.calendarToString(issueInstant, 0), DatatypeHelper
-                .calendarToString(assertion.getIssueInstant(), 0));
-        assertEquals("Issuer minorVersion", minorVersion, assertion.getMinorVersion());
+        assertEquals("Issuer attribute", expectedIssuer, assertion.getIssuer());
+        assertEquals("IssueInstant attribute", expectedIssueInstant, assertion.getIssueInstant());
+        assertEquals("Issuer expectedMinorVersion", expectedMinorVersion, assertion.getMinorVersion());
 
         assertNull("Conditions element", assertion.getConditions());
         assertNull("Advice element", assertion.getAdvice());
@@ -160,9 +156,9 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         Assertion assertion = new AssertionImpl();
 
-        assertion.setIssueInstant(issueInstant);
-        assertion.setIssuer(issuer);
-        assertion.setMinorVersion(minorVersion);
+        assertion.setIssueInstant(expectedIssueInstant);
+        assertion.setIssuer(expectedIssuer);
+        assertion.setMinorVersion(expectedMinorVersion);
 
         assertEquals(expectedOptionalAttributesDOM, assertion);
     }

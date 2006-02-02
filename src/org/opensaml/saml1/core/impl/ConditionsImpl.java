@@ -22,10 +22,11 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
@@ -41,10 +42,10 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
 
     /** Value saved in the NotBefore attribute */
-    private GregorianCalendar notBefore;
+    private DateTime notBefore;
 
     /** Value saved in the NotOnOrAfter attribute */
-    private GregorianCalendar notOnOrAfter;
+    private DateTime notOnOrAfter;
 
     /** Set containing all the Conditions */
     private final IndexedXMLObjectChildrenList <Condition> conditions = new IndexedXMLObjectChildrenList<Condition>(this);
@@ -60,29 +61,29 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
     /*
      * @see org.opensaml.saml1.core.Conditions#getNotBefore()
      */
-    public GregorianCalendar getNotBefore() {
+    public DateTime getNotBefore() {
         return notBefore;
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#setNotBefore()
      */
-    public void setNotBefore(GregorianCalendar notBefore) {
-        this.notBefore = prepareForAssignment(this.notBefore, notBefore);
+    public void setNotBefore(DateTime notBefore) {
+        this.notBefore = prepareForAssignment(this.notBefore, notBefore.withZone(DateTimeZone.UTC));
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#getNotOnOrAfter()
      */
-    public GregorianCalendar getNotOnOrAfter() {
+    public DateTime getNotOnOrAfter() {
         return notOnOrAfter;
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#setNotOnOrAfter()
      */
-    public void setNotOnOrAfter(GregorianCalendar notOnOrAfter) {
-        this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, notOnOrAfter);
+    public void setNotOnOrAfter(DateTime notOnOrAfter) {
+        this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, notOnOrAfter.withZone(DateTimeZone.UTC));
     }
 
     /*

@@ -22,11 +22,12 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
@@ -53,7 +54,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     private String issuer;
 
     /** Object version of the <code> IssueInstant </code> attribute. */
-    private GregorianCalendar issueInstant;
+    private DateTime issueInstant;
 
     /** (Possibly null) Singleton object version of the <code> Conditions </code> element. */
     private Conditions conditions;
@@ -113,7 +114,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     /*
      * @see org.opensaml.saml1.core.Assertion#getIssueInstant()
      */
-    public GregorianCalendar getIssueInstant() {
+    public DateTime getIssueInstant() {
         return this.issueInstant;
     }
 
@@ -122,8 +123,8 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * 
      * There is (as yet) no helper function for Date values so all the logic is in here.
      */
-    public void setIssueInstant(GregorianCalendar issueInstant) {
-        this.issueInstant = prepareForAssignment(this.issueInstant, issueInstant);
+    public void setIssueInstant(DateTime issueInstant) {
+        this.issueInstant = prepareForAssignment(this.issueInstant, issueInstant.withZone(DateTimeZone.UTC));
     }
 
     /*

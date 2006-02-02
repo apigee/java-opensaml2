@@ -17,6 +17,8 @@
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -27,7 +29,6 @@ import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Statement;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
@@ -76,7 +77,7 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         if (Assertion.ISSUER_ATTRIB_NAME.equals(attributeName)) {
             assertion.setIssuer(attributeValue);
         } else if (Assertion.ISSUEINSTANT_ATTRIB_NAME.equals(attributeName)) {
-            assertion.setIssueInstant(DatatypeHelper.stringToCalendar(attributeValue, 0));
+            assertion.setIssueInstant(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
         } else if (Assertion.MAJORVERSION_ATTRIB_NAME.endsWith(attributeName)) {
             try {
                 if (Integer.parseInt(attributeValue) != 1) {

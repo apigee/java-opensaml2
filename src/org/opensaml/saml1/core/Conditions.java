@@ -16,11 +16,11 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 
 /**
@@ -38,16 +38,16 @@ public interface Conditions extends SAMLObject {
     public final static String NOTONORAFTER_ATTRIB_NAME = "NotOnOrAfter";
 
     /** Return the value of the NotBefore attribute. */
-    public GregorianCalendar getNotBefore();
+    public DateTime getNotBefore();
 
     /** List the value of the NotBefore attribute. */
-    public void setNotBefore(GregorianCalendar notBefore);
+    public void setNotBefore(DateTime notBefore);
 
     /** Return the value of the NotOnOrAfter attribute. */
-    public GregorianCalendar getNotOnOrAfter();
+    public DateTime getNotOnOrAfter();
 
     /** List the value of the NotOnOrAfter attribute. */
-    public void setNotOnOrAfter(GregorianCalendar notOnOrAfter);
+    public void setNotOnOrAfter(DateTime notOnOrAfter);
     
     /**
      * Return the List representing all the <code> Condition </code> sub elements.

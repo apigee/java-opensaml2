@@ -20,16 +20,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Conditions;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -38,6 +36,16 @@ import org.xml.sax.InputSource;
  */
 public class ConditionsTest extends SAMLObjectBaseTestCase {
 
+    /**
+     * Representation of NotBefore in test file.
+     */
+    private final DateTime expectedNotBeforeDate;
+
+    /**
+     * Representation of NotOnOrAfter in test file.
+     */
+    private final DateTime expectedNotOnOfAfter;
+
     /** A file with an Conditions object with kids */
 
     private final String fullElementsFile;
@@ -45,19 +53,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     /** The expected result of a marshalled multiple element */
 
     private Document expectedFullDOM;
-
-    /**
-     * Representation of NotBefore in test file.
-     */
-
-    private final GregorianCalendar notBeforeDate;
-
-    /**
-     * Representation of NotOnOrAfter in test file.
-     */
-
-    private final GregorianCalendar notOnOfAfter;
-
+    
     /**
      * Constructor
      * 
@@ -69,12 +65,11 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         //
         // NotBefore="1970-01-01T01:00:00.123Z"
         //
-        notBeforeDate = new GregorianCalendar(1970, 0, 01, 01, 00, 00);
-        notBeforeDate.set(Calendar.MILLISECOND, 123);
+        expectedNotBeforeDate = new DateTime(1970, 1, 01, 01, 00, 00, 123, ISOChronology.getInstanceUTC());
         //
         // NotOnOrAfter="1970-01-01T00:00:01.000Z"
         //
-        notOnOfAfter = new GregorianCalendar(1970, 0, 01, 00, 00, 01);
+        expectedNotOnOfAfter = new DateTime(1970, 1, 01, 00, 00, 01, 0, ISOChronology.getInstanceUTC());
     }
 
     /*
@@ -98,7 +93,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
 
         conditions = (Conditions) unmarshallElement(singleElementFile);
 
-        GregorianCalendar date = conditions.getNotBefore();
+        DateTime date = conditions.getNotBefore();
         assertNull("NotBefore attribute has a value of " + date + ", expected no value", date);
 
         date = conditions.getNotOnOrAfter();
@@ -115,13 +110,8 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
 
         conditions = (Conditions) unmarshallElement(singleElementOptionalAttributesFile);
 
-        GregorianCalendar date = conditions.getNotBefore();
-        assertEquals("NotBefore attribute ", DatatypeHelper.calendarToString(notBeforeDate, 0), DatatypeHelper
-                .calendarToString(date, 0));
-
-        date = conditions.getNotOnOrAfter();
-        assertEquals("NotOnOrAfter attribute ", DatatypeHelper.calendarToString(notOnOfAfter, 0), DatatypeHelper
-                .calendarToString(date, 0));
+        assertEquals("NotBefore attribute ", expectedNotBeforeDate, conditions.getNotBefore());
+        assertEquals("NotOnOrAfter attribute ", expectedNotOnOfAfter, conditions.getNotOnOrAfter());
     }
 
     /*
@@ -156,8 +146,8 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
         Conditions conditions = (Conditions) buildSAMLObject(qname);
 
-        conditions.setNotBefore(notBeforeDate);
-        conditions.setNotOnOrAfter(notOnOfAfter);
+        conditions.setNotBefore(expectedNotBeforeDate);
+        conditions.setNotOnOrAfter(expectedNotOnOfAfter);
 
         assertEquals(expectedOptionalAttributesDOM, conditions);
     }

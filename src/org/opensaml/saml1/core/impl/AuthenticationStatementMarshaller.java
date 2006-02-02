@@ -20,12 +20,12 @@
 
 package org.opensaml.saml1.core.impl;
 
+import org.joda.time.format.ISODateTimeFormat;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -57,7 +57,7 @@ public class AuthenticationStatementMarshaller extends AbstractSAMLObjectMarshal
 
         if (authenticationStatement.getAuthenticationInstant() != null) {
 
-            String value = DatatypeHelper.calendarToString(authenticationStatement.getAuthenticationInstant(), 0);
+            String value = ISODateTimeFormat.dateTime().print(authenticationStatement.getAuthenticationInstant());
 
             domElement.setAttribute(AuthenticationStatement.AUTHENTICATIONINSTANT_ATTRIB_NAME, value);
         }

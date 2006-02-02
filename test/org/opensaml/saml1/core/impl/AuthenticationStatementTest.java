@@ -20,14 +20,12 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -40,10 +38,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
     private String expectedAuthenticationMethod;
 
     /** Expected value of AuthenticationInstant */
-    private GregorianCalendar expectedAuthenticationInstant;
-
-    /** Expected value of AuthenticationInstant */
-    private String expectedAuthenticationInstantAsString;
+    private DateTime expectedAuthenticationInstant;
 
     /** File with the AuthenticationStatementMethod with children */
     private String fullElementsFile;
@@ -60,9 +55,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         //
         // AuthenticationInstant="1970-01-02T01:01:02.123Z"
         //
-        expectedAuthenticationInstant = new GregorianCalendar(1970, 0, 2, 1, 1, 2);
-        expectedAuthenticationInstant.set(Calendar.MILLISECOND, 123);
-        expectedAuthenticationInstantAsString = DatatypeHelper.calendarToString(expectedAuthenticationInstant, 0);
+        expectedAuthenticationInstant = new DateTime(1970, 1, 2, 1, 1, 2, 123, ISOChronology.getInstanceUTC());
 
         singleElementFile = "/data/org/opensaml/saml1/singleAuthenticationStatement.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthenticationStatementAttributes.xml";
@@ -106,8 +99,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
 
         assertEquals("AuthenticationMethod", expectedAuthenticationMethod, authenticationStatement
                 .getAuthenticationMethod());
-        String date = DatatypeHelper.calendarToString(authenticationStatement.getAuthenticationInstant(), 0);
-        assertEquals("AuthenticationInstant", expectedAuthenticationInstantAsString, date);
+        assertEquals("AuthenticationInstant", expectedAuthenticationInstant, authenticationStatement.getAuthenticationInstant());
     }
 
     /**

@@ -16,9 +16,9 @@
 
 package org.opensaml.saml1.core;
 
-import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 
 /**
@@ -42,10 +42,10 @@ public interface AuthenticationStatement extends SAMLObject, SubjectStatement {
     public void setAuthenticationMethod(String authenticationMethod);
 
     /** Return the contents of the AuthenticationInstant attribute */
-    public GregorianCalendar getAuthenticationInstant();
+    public DateTime getAuthenticationInstant();
 
     /** Set the contents of the AuthenticationInstant attribute */
-    public void setAuthenticationInstant(GregorianCalendar authenticationInstant);
+    public void setAuthenticationInstant(DateTime authenticationInstant);
 
     /** Set the (single) SubjectLocality child element */
     public SubjectLocality getSubjectLocality();

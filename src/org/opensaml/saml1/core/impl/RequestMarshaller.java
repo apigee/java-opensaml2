@@ -19,13 +19,13 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import org.joda.time.format.ISODateTimeFormat;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -48,8 +48,7 @@ public class RequestMarshaller extends AbstractSAMLObjectMarshaller {
         Request request = (Request) samlElement;
         
         if (request.getIssueInstant() != null) {
-            String date = DatatypeHelper.calendarToString(request.getIssueInstant(), 
-                                                          DatatypeHelper.UTC_TIMEZONE);
+            String date = ISODateTimeFormat.dateTime().print(request.getIssueInstant());
             domElement.setAttribute(RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
         }
         if (request.getMinorVersion() != 0) {

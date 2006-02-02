@@ -21,6 +21,8 @@
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -31,7 +33,6 @@ import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Response} objects.
@@ -76,7 +77,7 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         if (attributeName.equals(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME)) {
             response.setInResponseTo(attributeValue);
         } else if (attributeName.equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)) {
-            response.setIssueInstant(DatatypeHelper.stringToCalendar(attributeValue, 0));
+            response.setIssueInstant(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
         } else if (attributeName.equals(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME)) {
             try {
                 if (Integer.parseInt(attributeValue) != 1) {

@@ -20,8 +20,8 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.GregorianCalendar;
-
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.impl.UnknownAttributeException;
@@ -32,7 +32,6 @@ import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectLocality;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthenticationStatement}
@@ -76,7 +75,7 @@ public class AuthenticationStatementUnmarshaller extends AbstractSAMLObjectUnmar
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) samlObject;
 
         if (AuthenticationStatement.AUTHENTICATIONINSTANT_ATTRIB_NAME.equals(attributeName)) {
-            GregorianCalendar value = DatatypeHelper.stringToCalendar(attributeValue, 0);
+            DateTime value = new DateTime(attributeValue, ISOChronology.getInstanceUTC());
             authenticationStatement.setAuthenticationInstant(value);
         } else if (AuthenticationStatement.AUTHENTICATIONMETHOD_ATTRIB_NAME.equals(attributeName)) {
             authenticationStatement.setAuthenticationMethod(attributeValue);
