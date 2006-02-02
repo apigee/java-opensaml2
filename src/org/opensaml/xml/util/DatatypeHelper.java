@@ -21,16 +21,15 @@ import java.util.GregorianCalendar;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  * Helper class for working with various datatypes.
  */
 public class DatatypeHelper {
-    
+
     /** Constant representing the UTC Timezone */
     public final static int UTC_TIMEZONE = 0;
-    
+
     /** JAXP DatatypeFactory */
     private static DatatypeFactory dataTypeFactory;
 
@@ -50,41 +49,41 @@ public class DatatypeHelper {
 
         return dataTypeFactory;
     }
-    
+
     /**
-     *  A "safe" null/empty check for strings.
+     * A "safe" null/empty check for strings.
      * 
-     * @param s     The string to check
+     * @param s The string to check
      * 
-     * @return  true if the string is null or the trimmed string is length zero
+     * @return true if the string is null or the trimmed string is length zero
      */
     public static boolean isEmpty(String s) {
-        if(s != null) {
+        if (s != null) {
             s = s.trim();
-            if(s.length() > 0) {
+            if (s.length() > 0) {
                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     /**
-     *  Compares two strings for equality, allowing for nulls
+     * Compares two strings for equality, allowing for nulls
      * 
-     * @param s1    The first operand
-     * @param s2    The second operand
+     * @param s1 The first operand
+     * @param s2 The second operand
      * 
-     * @return  true if both are null or both are non-null and the same strng value
+     * @return true if both are null or both are non-null and the same strng value
      */
     public static <T> boolean safeEquals(T s1, T s2) {
         if (s1 == null || s2 == null) {
             return s1 == s2;
         }
-        
+
         return s1.equals(s2);
     }
-    
+
     /**
      * A safe string trim that handles nulls.
      * 
@@ -92,76 +91,38 @@ public class DatatypeHelper {
      * 
      * @return the trimmed string or null if the given string was null
      */
-    public static String safeTrim(String s){
-        if(s != null){
+    public static String safeTrim(String s) {
+        if (s != null) {
             return s.trim();
         }
-        
+
         return null;
     }
-    
+
     /**
-     * Removes preceeding or proceeding whitespace from a string or return null if the 
-     * string is null or of zero length after trimming (i.e. if the string only contained whitespace).
+     * Removes preceeding or proceeding whitespace from a string or return null if the string is null or of zero length
+     * after trimming (i.e. if the string only contained whitespace).
      * 
      * @param s the string to trim
      * 
      * @return the trimmed string or null
      */
-    public static String safeTrimOrNullString(String s){
-        if(s != null){
+    public static String safeTrimOrNullString(String s) {
+        if (s != null) {
             s = s.trim();
-            if(s.length() > 0){
+            if (s.length() > 0) {
                 return s;
             }
         }
-        
-        return null;
-    }
-    
-    /**
-     * Converts a date into a lexical format for use in XML.
-     * 
-     * @param date the date to convert
-     * @param timezone the timezone to use during the conversion
-     * 
-     * @return the String representation of the calendar
-     * 
-     * @deprecated use {@link org.joda.time.DateTime} with {@link org.joda.time.format.ISODateTimeFormat}
-     */
-    public static String calendarToString(GregorianCalendar date, int timezone) {
-        if (date != null) {
-            XMLGregorianCalendar calendar = getDataTypeFactory().newXMLGregorianCalendar(date);
-            calendar.normalize();
-            calendar.setTimezone(timezone);
-            return calendar.toXMLFormat();
-        }
-    
+
         return null;
     }
 
     /**
-     * Converts a given string into a GregorianCalendar
-     * 
-     * @param s the string
-     * @param timezone the timezone to use during the conversion
-     * 
-     * @return the gregorian calendar
-     * 
-     * @deprecated use {@link org.joda.time.DateTime}
-     */
-    public static GregorianCalendar stringToCalendar(String s, int timezone){
-        XMLGregorianCalendar calendar = getDataTypeFactory().newXMLGregorianCalendar(s);
-        calendar.normalize();
-        calendar.setTimezone(timezone);
-        return calendar.toGregorianCalendar();
-    }
-    
-    /**
      * Converts a lexical duration, as defined by XML Schema 1.0, into milliseconds.
-     *
+     * 
      * @param duration lexical duration representation
-     *
+     * 
      * @return duration in milliseconds
      */
     public static long durationToLong(String duration) {
@@ -171,9 +132,9 @@ public class DatatypeHelper {
 
     /**
      * Converts a duration in milliseconds to a lexical duration, as defined by XML Schema 1.0.
-     *
+     * 
      * @param duration the duration
-     *
+     * 
      * @return the lexical representation
      */
     public static String longToDuration(long duration) {
