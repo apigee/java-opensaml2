@@ -16,13 +16,29 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.ArrayList;
+
 import javax.xml.namespace.QName;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 
 public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
+
+    /** List of expected supported protocols */
+    protected ArrayList<String> expectedSupportedProtocol;
+    
+    /** Expected cacheDuration value in miliseconds */
+    protected long expectedCacheDuration;
+
+    /** Expected validUntil value */
+    protected DateTime expectedValidUntil;
+    
+    /** Expected error url */
+    protected String expectedErrorURL;
 
     /** expected value for WantAuthnRequestSigned attribute */
     protected Boolean expectedWantAuthnReqSigned;
@@ -38,23 +54,40 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
+        expectedSupportedProtocol = new ArrayList<String>();
+        expectedSupportedProtocol.add("urn:foo:bar");
+        expectedSupportedProtocol.add("urn:fooz:baz");
+        
+        expectedCacheDuration = 90000;
+        expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
+        
+        expectedErrorURL = "http://example.org";
+        
         expectedWantAuthnReqSigned = Boolean.TRUE;
     }
 
     public void testSingleElementUnmarshall() {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) unmarshallElement(singleElementFile);
         
+        assertEquals("Supported protocols not equal to expected value", expectedSupportedProtocol, descriptor.getSupportedProtocols());
     }
 
     public void testSingleElementOptionalAttributesUnmarshall() {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) unmarshallElement(singleElementOptionalAttributesFile);
         
+        assertEquals("Cache duration was not expected value", expectedCacheDuration, descriptor.getCacheDuration().longValue());
+        assertEquals("ValidUntil was not expected value", expectedValidUntil, descriptor.getValidUntil());
         assertEquals("WantAuthnRequestsSigned attribute was not expected value", expectedWantAuthnReqSigned, descriptor.wantAuthnRequestsSigned());
     }
 
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         IDPSSODescriptor descriptor = (IDPSSODescriptor) buildSAMLObject(qname);
+        
+        for(String protocol : expectedSupportedProtocol){
+            descriptor.addSupportedProtocol(protocol);
+        }
+        descriptor.setWantAuthnRequestSigned(expectedWantAuthnReqSigned);
         
         assertEquals(expectedDOM, descriptor);
     }
@@ -63,6 +96,13 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         IDPSSODescriptor descriptor = (IDPSSODescriptor) buildSAMLObject(qname);
         
+        for(String protocol : expectedSupportedProtocol){
+            descriptor.addSupportedProtocol(protocol);
+        }
+        
+        descriptor.setCacheDuration(expectedCacheDuration);
+        descriptor.setValidUntil(expectedValidUntil);
+        descriptor.setErrorURL(expectedErrorURL);
         descriptor.setWantAuthnRequestSigned(expectedWantAuthnReqSigned);
         
         assertEquals(expectedOptionalAttributesDOM, descriptor);
