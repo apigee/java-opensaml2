@@ -23,11 +23,8 @@ package org.opensaml.saml1.core.impl;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * 
@@ -39,12 +36,6 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
 
     /** Expected value of AuthenticationInstant */
     private DateTime expectedAuthenticationInstant;
-
-    /** File with the AuthenticationStatementMethod with children */
-    private String fullElementsFile;
-
-    /** The DOM to hold the AuthenticationStatementMethod with children */
-    private Document expectedFullDOM;
 
     /**
      * Constructor
@@ -59,20 +50,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
 
         singleElementFile = "/data/org/opensaml/saml1/singleAuthenticationStatement.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthenticationStatementAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AuthenticationStatementWithChildren.xml";
-    }
-
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
+        childElementsFile = "/data/org/opensaml/saml1/AuthenticationStatementWithChildren.xml";
     }
 
     /*
@@ -106,8 +84,8 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
      * Test an XML file with children
      */
 
-    public void testFullElementsUnmarshall() {
-        AuthenticationStatement authenticationStatement = (AuthenticationStatement) unmarshallElement(fullElementsFile);
+    public void testChildElementsUnmarshall() {
+        AuthenticationStatement authenticationStatement = (AuthenticationStatement) unmarshallElement(childElementsFile);
 
         assertNotNull("<Subject> element not present", authenticationStatement.getSubject());
 
@@ -140,11 +118,11 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, authenticationStatement);
     }
 
-    /**
-     * Test an XML file with Children
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-
-    public void testFullElementsMarshall() {
+    @Override
+    public void testChildElementsMarshall() {
 
         AuthenticationStatement authenticationStatement = new AuthenticationStatementImpl();
 
@@ -154,6 +132,6 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl());
         authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl());
 
-        assertEquals(expectedFullDOM, authenticationStatement);
+        assertEquals(expectedChildElementsDOM, authenticationStatement);
     }
 }

@@ -21,42 +21,21 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Status;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * org.opensaml.saml1.core.Status
  */
 public class StatusTest extends SAMLObjectBaseTestCase {
 
-    private final String fullElementsFile;
-
-    private Document expectedFullDOM;
-
     /**
      * Constructor
-     * 
      */
     public StatusTest() {
         super();
 
-        fullElementsFile = "/data/org/opensaml/saml1/FullStatus.xml";
+        childElementsFile = "/data/org/opensaml/saml1/FullStatus.xml";
         singleElementFile = "/data/org/opensaml/saml1/singleStatus.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleStatus.xml";
-    }
-
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
     }
 
     /*
@@ -72,20 +51,12 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         assertNull("StatusDetail", status.getStatusDetail());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    @Override
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // Northing
-    }
-
     /**
      * Test an Response file with children
      */
-
-    public void testFullElementsUnmarshall() {
-        Status status = (Status) unmarshallElement(fullElementsFile);
+    @Override
+    public void testChildElementsUnmarshall() {
+        Status status = (Status) unmarshallElement(childElementsFile);
 
         assertNotNull("StatusCode", status.getStatusCode());
         assertNotNull("StatusMessage", status.getStatusMessage());
@@ -106,14 +77,10 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     @Override
-    public void testSingleElementOptionalAttributesMarshall() {
-        // Nothing
-    }
-
-    public void testFullElementsMarshall() {
+    public void testChildElementsMarshall() {
         Status status = new StatusImpl();
 
         status.setStatusCode(new StatusCodeImpl());
@@ -121,6 +88,6 @@ public class StatusTest extends SAMLObjectBaseTestCase {
 
         status.getStatusCode().setValue("samlp:Sucess");
 
-        assertEquals(expectedFullDOM, status);
+        assertEquals(expectedChildElementsDOM, status);
     }
 }

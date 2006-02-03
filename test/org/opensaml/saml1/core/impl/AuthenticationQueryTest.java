@@ -23,24 +23,13 @@ package org.opensaml.saml1.core.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationQuery;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test class for org.opensaml.saml1.core.AuthenticationQuery
  */
 public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
-
-    /** A file with a AuthenticationQuery with kids */
-
-    private final String fullElementsFile;
-
-    /** The expected result of a marshalled multiple element */
-
-    private Document expectedFullDOM;
 
     private final String expectedAuthenticationMethod;
 
@@ -50,21 +39,9 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
     public AuthenticationQueryTest() {
         singleElementFile = "/data/org/opensaml/saml1/singleAuthenticationQuery.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthenticationQueryAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AuthenticationQueryWithChildren.xml";
+        childElementsFile = "/data/org/opensaml/saml1/AuthenticationQueryWithChildren.xml";
 
         expectedAuthenticationMethod = "Trust Me";
-    }
-
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
     }
 
     /**
@@ -94,14 +71,14 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
         assertNull("Subject element present", authenticationQuery.getSubject());
     }
 
-    /**
-     * Test an Response file with children
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-
-    public void testFullElementsUnmarshall() {
+    @Override
+    public void testChildElementsUnmarshall() {
         AuthenticationQuery authenticationQuery;
         
-        authenticationQuery = (AuthenticationQuery) unmarshallElement(fullElementsFile);
+        authenticationQuery = (AuthenticationQuery) unmarshallElement(childElementsFile);
 
         assertNotNull("No Subject element found", authenticationQuery.getSubject());
     }
@@ -128,17 +105,16 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, authenticationQuery);
     }
 
-    /**
-     * Test Marshalling up a file with children
-     * 
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-
-    public void testFullElementsMarshall() {
+    @Override
+    public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
         AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildSAMLObject(qname);
 
         authenticationQuery.setSubject(new SubjectImpl());
-        assertEquals(expectedFullDOM, authenticationQuery);
+        assertEquals(expectedChildElementsDOM, authenticationQuery);
 
     }
 

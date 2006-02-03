@@ -17,23 +17,12 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.StatusCode;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test class for org.opensaml.saml1.core.StatusCode
  */
 public class StatusCodeTest extends SAMLObjectBaseTestCase {
-
-    /** A file with a Conditions with kids */
-
-    private final String fullElementsFile;
-
-    /** The expected result of a marshalled multiple element */
-
-    private Document expectedFullDOM;
 
     /** The expected value for the value attribute */
 
@@ -48,22 +37,15 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
      * 
      */
     public StatusCodeTest() {
-        fullElementsFile = "/data/org/opensaml/saml1/FullStatusCode.xml";
+        childElementsFile = "/data/org/opensaml/saml1/FullStatusCode.xml";
         singleElementFile = "/data/org/opensaml/saml1/singleStatusCode.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleStatusCode.xml";
         value = "samlp:Success";
         childValue = "samlp:VersionMismatch";
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
-    }
-
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
+     */
     @Override
     public void testSingleElementUnmarshall() {
 
@@ -72,22 +54,20 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         assertEquals("Single Element Value wrong", value, code.getValue());
     }
 
-    @Override
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // Nothing to test
-    }
-
     /*
-     * Test an Response file with children
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
+    @Override
+    public void testChildElementsUnmarshall() {
 
-    public void testFullElementsUnmarshall() {
-
-        StatusCode code = (StatusCode) unmarshallElement(fullElementsFile);
+        StatusCode code = (StatusCode) unmarshallElement(childElementsFile);
 
         assertNotNull("Child StatusCode", code.getStatusCode());
     }
 
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
+     */
     @Override
     public void testSingleElementMarshall() {
         StatusCode code = new StatusCodeImpl();
@@ -97,12 +77,11 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, code);
     }
 
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
+     */
     @Override
-    public void testSingleElementOptionalAttributesMarshall() {
-        // Nothing to test
-    }
-
-    public void testFullElementsMarshall() {
+    public void testChildElementsMarshall() {
 
         StatusCode code = new StatusCodeImpl();
 
@@ -112,6 +91,6 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
 
         code.getStatusCode().setValue(childValue);
 
-        assertEquals(expectedFullDOM, code);
+        assertEquals(expectedChildElementsDOM, code);
     }
 }

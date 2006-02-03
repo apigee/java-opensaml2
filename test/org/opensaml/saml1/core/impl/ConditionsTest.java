@@ -25,11 +25,8 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Conditions;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test class for org.opensaml.saml1.core.Conditions
@@ -46,14 +43,6 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      */
     private final DateTime expectedNotOnOfAfter;
 
-    /** A file with an Conditions object with kids */
-
-    private final String fullElementsFile;
-
-    /** The expected result of a marshalled multiple element */
-
-    private Document expectedFullDOM;
-    
     /**
      * Constructor
      * 
@@ -61,7 +50,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     public ConditionsTest() {
         singleElementFile = "/data/org/opensaml/saml1/singleConditions.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleConditionsAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/ConditionsWithChildren.xml";
+        childElementsFile = "/data/org/opensaml/saml1/ConditionsWithChildren.xml";
         //
         // NotBefore="1970-01-01T01:00:00.123Z"
         //
@@ -70,18 +59,6 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         // NotOnOrAfter="1970-01-01T00:00:01.000Z"
         //
         expectedNotOnOfAfter = new DateTime(1970, 1, 01, 00, 00, 01, 0, ISOChronology.getInstanceUTC());
-    }
-
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
     }
 
     /*
@@ -117,10 +94,10 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     /*
      * Test an XML file with children
      */
-    public void testFullElementsUnmarshall() {
+    public void testChildElementsUnmarshall() {
         Conditions conditions;
 
-        conditions = (Conditions) unmarshallElement(fullElementsFile);
+        conditions = (Conditions) unmarshallElement(childElementsFile);
 
         assertEquals("Number of AudienceRestrictionCondition elements", 3, conditions
                 .getAudienceRestrictionConditions().size());
@@ -152,10 +129,11 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, conditions);
     }
 
-    /**
-     * Test an XML file with Children
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    public void testFullElementsMarshall() {
+    @Override
+    public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
         Conditions conditions = (Conditions) buildSAMLObject(qname);
 
@@ -168,7 +146,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         //           
         conditions.getConditions().add(new AudienceRestrictionConditionImpl());
 
-        assertEquals(expectedFullDOM, conditions);
+        assertEquals(expectedChildElementsDOM, conditions);
 
     }
 

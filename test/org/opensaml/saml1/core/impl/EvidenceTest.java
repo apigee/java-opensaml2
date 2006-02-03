@@ -21,10 +21,7 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Evidence;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test for {@link EvidenceImpl}
@@ -35,30 +32,10 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
 
-    /** File to contain an Evidence element with children */
-    private final String fullElementsFile;
-
-    /** Dom to contain an Evidence element with children */
-    private Document expectedFullDOM;
-
     public EvidenceTest() {
         super();
         singleElementFile = "/data/org/opensaml/saml1/singleEvidence.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleEvidence.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/EvidenceWithChildren.xml";
-    }
-
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
+        childElementsFile = "/data/org/opensaml/saml1/EvidenceWithChildren.xml";
     }
 
     /*
@@ -73,19 +50,11 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     @Override
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // No attributes, no test
-    }
-
-    /**
-     * Test an XML file with children
-     */
-
-    public void testFullElementsUnmarshall() {
-        Evidence evidence = (Evidence) unmarshallElement(fullElementsFile);
+    public void testChildElementsUnmarshall() {
+        Evidence evidence = (Evidence) unmarshallElement(childElementsFile);
 
         assertNotNull("AssertionIDReference element not present", evidence.getAssertionIDReference());
         assertNotNull("Assertion element not present", evidence.getAssertion());
@@ -103,12 +72,12 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     @Override
-    public void testSingleElementOptionalAttributesMarshall() {
+    public void testChildElementsMarshall() {
         Evidence evidence = new EvidenceImpl();
 
         evidence.setAssertion(new AssertionImpl());
         evidence.setAssertionIDReference(new AssertionIDReferenceImpl());
 
-        assertEquals(expectedFullDOM, evidence);
+        assertEquals(expectedChildElementsDOM, evidence);
     }
 }

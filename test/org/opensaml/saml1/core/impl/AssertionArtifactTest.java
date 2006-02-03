@@ -83,5 +83,4 @@ public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
         artifact.setAssertionArtifact(expectedAssertionArtifact);
         assertEquals(expectedOptionalAttributesDOM, artifact);
     }
-
 }

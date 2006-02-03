@@ -41,12 +41,6 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
     /** Value for Resource attribute specified in test file with attributes */
     private final DecisionType expectedDecision = DecisionType.Permit;
 
-    /** File with the AuthorizationDecisionStatement with children */
-    private final String fullElementsFile;
-
-    /** The DOM to hold the AuthorizationDecisionStatement with children */
-    private Document expectedFullDOM;
-
     /** File with the AuthorizationDecisionStatement with illegal Decision type */
     private String illegalAttributesFile;
 
@@ -57,21 +51,8 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         super();
         singleElementFile = "/data/org/opensaml/saml1/singleAuthorizationDecisionStatement.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthorizationDecisionStatementAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AuthorizationDecisionStatementWithChildren.xml";
+        childElementsFile = "/data/org/opensaml/saml1/AuthorizationDecisionStatementWithChildren.xml";
         illegalAttributesFile = "/data/org/opensaml/saml1/singleAuthorizationDecisionStatementAttributesInvalid.xml";
-    }
-
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
     }
 
     /*
@@ -120,14 +101,14 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         }
     }
 
-    /**
-     * Test an XML file with children
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-
-    public void testFullElementsUnmarshall() {
+    @Override
+    public void testChildElementsUnmarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
 
-        authorizationDecisionStatement = (AuthorizationDecisionStatement) unmarshallElement(fullElementsFile);
+        authorizationDecisionStatement = (AuthorizationDecisionStatement) unmarshallElement(childElementsFile);
 
         assertNotNull("<Subject> element not present", authorizationDecisionStatement.getSubject());
         assertNotNull("<Evidence> element not present", authorizationDecisionStatement.getEvidence());
@@ -157,11 +138,11 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, authorizationDecisionStatement);
     }
 
-    /**
-     * Test creating a DOM with child elements
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-
-    public void testFullElementsMarshall() {
+    @Override
+    public void testChildElementsMarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
 
         authorizationDecisionStatement = new AuthorizationDecisionStatementImpl();
@@ -174,7 +155,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
 
         authorizationDecisionStatement.setEvidence(new EvidenceImpl());
 
-        assertEquals(expectedFullDOM, authorizationDecisionStatement);
+        assertEquals(expectedChildElementsDOM, authorizationDecisionStatement);
     }
 
 }

@@ -25,26 +25,16 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeQuery;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test class for org.opensaml.saml1.core.AttributeQuery
  */
 public class AttributeQueryTest extends SAMLObjectBaseTestCase {
 
-    /** A file with a AuthenticationQuery with kids */
-
-    private final String fullElementsFile;
-
-    /** The expected result of a marshalled multiple element */
-
-    private Document expectedFullDOM;
-
+    /** The expected value of the Resource Identifier */
     private final String expectedResource;
 
     /**
@@ -53,21 +43,9 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
     public AttributeQueryTest() {
         singleElementFile = "/data/org/opensaml/saml1/singleAttributeQuery.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeQueryAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AttributeQueryWithChildren.xml";
+        childElementsFile = "/data/org/opensaml/saml1/AttributeQueryWithChildren.xml";
 
         expectedResource = "resource";
-    }
-
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
     }
 
     /**
@@ -97,13 +75,13 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         assertEquals("Count of AttributeDesignator elements", 0, attributeQuery.getAttributeDesignators().size());
     }
 
-    /**
-     * Test an Response file with children
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-
-    public void testFullElementsUnmarshall() {
+    @Override
+    public void testChildElementsUnmarshall() {
         AttributeQuery attributeQuery;
-        attributeQuery = (AttributeQuery) unmarshallElement(fullElementsFile);
+        attributeQuery = (AttributeQuery) unmarshallElement(childElementsFile);
 
         assertNotNull("Subject element present", attributeQuery.getSubject());
         assertEquals("Count of AttributeDesignator elements", 4, attributeQuery.getAttributeDesignators().size());
@@ -132,12 +110,11 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, attributeQuery);
     }
 
-    /**
-     * Test Marshalling up a file with children
-     * 
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-
-    public void testFullElementsMarshall() {
+    @Override
+    public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
         AttributeQuery attributeQuery;
         attributeQuery = (AttributeQuery) buildSAMLObject(qname);
@@ -148,7 +125,7 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         list.add(new AttributeImpl());
         list.add(new AttributeImpl());
         list.add(new AttributeImpl());
-        assertEquals(expectedFullDOM, attributeQuery);
+        assertEquals(expectedChildElementsDOM, attributeQuery);
 
     }
 

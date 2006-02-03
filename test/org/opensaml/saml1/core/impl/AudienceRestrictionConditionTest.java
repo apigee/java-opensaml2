@@ -33,7 +33,7 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
      */
     public AudienceRestrictionConditionTest() {
         singleElementFile = "/data/org/opensaml/saml1/singleAudienceRestrictionCondition.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/AudienceRestrictionConditionWithChildren.xml";
+        childElementsFile = "/data/org/opensaml/saml1/AudienceRestrictionConditionWithChildren.xml";
     }
 
     /*
@@ -49,16 +49,14 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     * 
-     * We over,load this to test the children case (there are no attributes)
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     @Override
-    public void testSingleElementOptionalAttributesUnmarshall() {
+    public void testChildElementsUnmarshall() {
 
         AudienceRestrictionCondition audienceRestrictionCondition;
 
-        audienceRestrictionCondition = (AudienceRestrictionCondition) unmarshallElement(singleElementOptionalAttributesFile);
+        audienceRestrictionCondition = (AudienceRestrictionCondition) unmarshallElement(childElementsFile);
 
         assertEquals("Count of child Audience elements", 2, audienceRestrictionCondition.getAudiences().size());
 
@@ -81,7 +79,7 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     @Override
-    public void testSingleElementOptionalAttributesMarshall() {
+    public void testChildElementsMarshall() {
         AudienceRestrictionCondition audienceRestrictionCondition;
 
         audienceRestrictionCondition = new AudienceRestrictionConditionImpl();
@@ -89,7 +87,7 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
         audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
         audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
 
-        assertEquals(expectedOptionalAttributesDOM, audienceRestrictionCondition);
+        assertEquals(expectedChildElementsDOM, audienceRestrictionCondition);
     }
 
 }

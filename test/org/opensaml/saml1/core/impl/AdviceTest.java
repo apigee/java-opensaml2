@@ -21,19 +21,12 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Advice;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Advice}
  */
 public class AdviceTest extends SAMLObjectBaseTestCase {
-
-    private String fullElementsFile;
-
-    private Document expectedFullDOM;
 
     /**
      * Constructor
@@ -42,20 +35,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         super();
 
         singleElementFile = "/data/org/opensaml/saml1/singleAdvice.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAdvice.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AdviceWithChildren.xml";
-    }
-
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
+        childElementsFile = "/data/org/opensaml/saml1/AdviceWithChildren.xml";
     }
 
     /*
@@ -68,18 +48,11 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         assertEquals("Number of child Assertion elements", 0, advice.getAssertions().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // No attributes
-    }
-
     /**
      * Test an XML file with children
      */
-    public void testFullElementsUnmarshall() {
-        Advice advice = (Advice) unmarshallElement(fullElementsFile);
+    public void testChildElementsUnmarshall() {
+        Advice advice = (Advice) unmarshallElement(childElementsFile);
 
         assertEquals("Number of child AssertIDReference elements", 2, advice.getAssertionIDReferences().size());
         assertEquals("Number of child Assertion elements", 1, advice.getAssertions().size());
@@ -95,23 +68,16 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    public void testSingleElementOptionalAttributesMarshall() {
-        // No attributes
-    }
-
-    /*
-     * Generate an advice with contents
-     */
-
-    public void testFullElementsMarshall() {
+    @Override
+    public void testChildElementsMarshall() {
         Advice advice = new AdviceImpl();
 
         advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
         advice.getAssertions().add(new AssertionImpl());
         advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
 
-        assertEquals(expectedFullDOM, advice);
+        assertEquals(expectedChildElementsDOM, advice);
     }
 }

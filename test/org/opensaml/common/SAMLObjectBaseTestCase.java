@@ -37,11 +37,17 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
     /** Location of file containing a single element with all optional attributes */
     protected String singleElementOptionalAttributesFile;
 
+    /** Location of file containing a single element with child elements */
+    protected String childElementsFile;
+
     /** The expected result of a marshalled single element with no optional attributes */
     protected Document expectedDOM;
 
     /** The expected result of a marshalled single element with all optional attributes */
     protected Document expectedOptionalAttributesDOM;
+
+    /** The expected result of a marshalled single element with child elements */
+    protected Document expectedChildElementsDOM;
 
     /*
      * @see junit.framework.TestCase#setUp()
@@ -58,6 +64,11 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
         if (singleElementOptionalAttributesFile != null) {
             expectedOptionalAttributesDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                     .getResourceAsStream(singleElementOptionalAttributesFile)));
+        }
+        
+        if (childElementsFile != null) {
+            expectedChildElementsDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
+                    .getResourceAsStream(childElementsFile)));
         }
     }
 
@@ -136,7 +147,18 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
      * Tests unmarshalling a document that contains a single element (no children) with all that element's optional
      * attributes.
      */
-    public abstract void testSingleElementOptionalAttributesUnmarshall();
+    public void testSingleElementOptionalAttributesUnmarshall()
+    {
+        assertNull("No testSingleElementOptionalAttributesUnmarshall present", singleElementOptionalAttributesFile);
+    }
+
+    /**
+     * Tests unmarshalling a document that contains a single element with children.
+     */
+    public void testChildElementsUnmarshall()
+    {
+        assertNull("No testSingleElementChildElementsUnmarshall present", childElementsFile);
+    }
 
     /**
      * Tests marshalling the contents of a single element, with no optional attributes, to a DOM document.
@@ -146,5 +168,16 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
     /**
      * Tests marshalling the contents of a single element, with all optional attributes, to a DOM document.
      */
-    public abstract void testSingleElementOptionalAttributesMarshall();
+    public void testSingleElementOptionalAttributesMarshall()
+    {
+        assertNull("No testSingleElementOptionalAttributesMarshall", expectedOptionalAttributesDOM);
+    }
+
+    /**
+     * Tests marshalling the contents of a single element with child elements to a DOM document.
+    */
+    public void testChildElementsMarshall()
+    {
+        assertNull("No testSingleElementChildElementsMarshall", expectedChildElementsDOM);
+    }
 }

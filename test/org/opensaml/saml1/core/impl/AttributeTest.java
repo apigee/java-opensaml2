@@ -21,21 +21,12 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Attribute;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * 
  */
 public class AttributeTest extends SAMLObjectBaseTestCase {
-
-    /** A file with sub elements */
-    private String fullElementsFile;
-
-    /** The DOM of an element with subelements */
-    private Document expectedFullDOM;
 
     /** Value from test file */
     private final String expectedAttributeName;
@@ -50,22 +41,9 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         super();
         singleElementFile = "/data/org/opensaml/saml1/singleAttribute.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AttributeWithChildren.xml";
+        childElementsFile = "/data/org/opensaml/saml1/AttributeWithChildren.xml";
         expectedAttributeName = "AttributeName";
         expectedAttributeNamespace = "namespace";
-    }
-
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
     }
 
     /*
@@ -91,12 +69,12 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         assertEquals("AttributeNamespace", expectedAttributeNamespace, attribute.getAttributeNamespace());
     }
 
-    /**
-     * Test an XML file with children
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-
-    public void testFullElementsUnmarshall() {
-        Attribute attribute = (Attribute) unmarshallElement(fullElementsFile);
+    @Override
+    public void testChildElementsUnmarshall() {
+        Attribute attribute = (Attribute) unmarshallElement(childElementsFile);
 
         assertNotNull("<AttributeValue> subelement not found", attribute.getAttributeValues());
         assertEquals("Number of <AttributeValue> subelement not found", 4, attribute.getAttributeValues().size());
@@ -122,11 +100,11 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, attribute);
     }
 
-    /**
-     * Test an XML file with Children
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-
-    public void testFullElementsMarshall() {
+    @Override
+    public void testChildElementsMarshall() {
         Attribute attribute = new AttributeImpl();
 
         attribute.getAttributeValues().add(new AttributeValueImpl());
@@ -134,7 +112,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         attribute.getAttributeValues().add(new AttributeValueImpl());
         attribute.getAttributeValues().add(new AttributeValueImpl());
 
-        assertEquals(expectedFullDOM, attribute);
+        assertEquals(expectedChildElementsDOM, attribute);
     }
 
 }

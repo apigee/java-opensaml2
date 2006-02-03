@@ -23,10 +23,7 @@ package org.opensaml.saml1.core.impl;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Assertion;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Assertion}
@@ -38,10 +35,6 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
     private final String expectedIssuer;
 
     private final DateTime expectedIssueInstant;
-
-    private String fullElementsFile;
-
-    private Document expectedFullDOM;
 
     /**
      * Constructor
@@ -57,20 +50,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
 
         singleElementFile = "/data/org/opensaml/saml1/singleAssertion.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAssertionAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AssertionWithChildren.xml";
-    }
-
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
+        childElementsFile = "/data/org/opensaml/saml1/AssertionWithChildren.xml";
     }
 
     /*
@@ -119,8 +99,8 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      * Test an XML file with children
      */
 
-    public void testFullElementsUnmarshall() {
-        Assertion assertion = (Assertion) unmarshallElement(fullElementsFile);
+    public void testChildElementsUnmarshall() {
+        Assertion assertion = (Assertion) unmarshallElement(childElementsFile);
 
         assertNull("Issuer attribute", assertion.getIssuer());
         assertNull("IssueInstant attribute", assertion.getIssueInstant());
@@ -167,7 +147,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      * Test an XML file with Children
      */
 
-    public void testFullElementsMarshall() {
+    public void testChildElementsMarshall() {
         Assertion assertion = new AssertionImpl();
 
         assertion.setConditions(new ConditionsImpl());
@@ -182,6 +162,6 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertion.getStatements().add(new AuthorizationDecisionStatementImpl());
         assertion.getStatements().add(new AttributeStatementImpl());
 
-        assertEquals(expectedFullDOM, assertion);
+        assertEquals(expectedChildElementsDOM, assertion);
     }
 }

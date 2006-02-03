@@ -25,13 +25,10 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test class for org.opensaml.saml1.core.Response
@@ -50,22 +47,13 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /** Representation of Recipient in test file. */
     private final String expectedRecipient;
 
-    /** A file with a Conditions with kids */
-
-    private final String fullElementsFile;
-
-    /** The expected result of a marshalled multiple element */
-
-    private Document expectedFullDOM;
-
     /**
      * Constructor
-     * 
      */
     public ResponseTest() {
         singleElementFile = "/data/org/opensaml/saml1/singleResponse.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleResponseAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/ResponseWithChildren.xml";
+        childElementsFile = "/data/org/opensaml/saml1/ResponseWithChildren.xml";
         //
         // IssueInstant="1970-01-01T00:00:00.100Z"
         //
@@ -74,18 +62,6 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         expectedInResponseTo="inresponseto";
         expectedMinorVersion=1;
         expectedRecipient="recipient";
-    }
-
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
     }
 
     /**
@@ -129,12 +105,12 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         assertEquals("MinorVersion attribute ", expectedMinorVersion, i);
     }
 
-    /**
-     * Test an Response file with children
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-
-    public void testFullElementsUnmarshall() {
-        Response response = (Response) unmarshallElement(fullElementsFile);
+    @Override
+    public void testChildElementsMarshall() {
+        Response response = (Response) unmarshallElement(childElementsFile);
 
         Assertion assertion;
         assertion = response.getAssertion();
@@ -172,19 +148,18 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, response);
     }
 
-    /**
-     * Test Marshalling up a file with children
-     * 
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-
-    public void testFullElementsMarshall() {
+    @Override
+    public void testChildElementsUnmarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
         Response response = (Response) buildSAMLObject(qname);
 
         response.setAssertion(new AssertionImpl());
         response.setStatus(new StatusImpl());
 
-        assertEquals(expectedFullDOM, response);
+        assertEquals(expectedChildElementsDOM, response);
 
     }
 

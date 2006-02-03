@@ -33,7 +33,6 @@ public class DoNotCacheConditionTest extends SAMLObjectBaseTestCase {
     public DoNotCacheConditionTest() {
         super();
         singleElementFile = "/data/org/opensaml/saml1/singleDoNotCacheCondition.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleDoNotCacheCondition.xml";
     }
 
     /*
@@ -47,14 +46,6 @@ public class DoNotCacheConditionTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    @Override
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // No attributes, no test
-    }
-
-    /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     @Override
@@ -62,14 +53,6 @@ public class DoNotCacheConditionTest extends SAMLObjectBaseTestCase {
         DoNotCacheCondition doNotCacheCondition = new DoNotCacheConditionImpl();
 
         assertEquals(expectedDOM, doNotCacheCondition);
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    @Override
-    public void testSingleElementOptionalAttributesMarshall() {
-        // No attributes, no test
     }
 
 }

@@ -23,22 +23,13 @@ package org.opensaml.saml1.core.impl;
 import java.util.ArrayList;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
- * 
+ * Test for {@link org.opensaml.saml1.core.AttributeStatement}
  */
 public class AttributeStatementTest extends SAMLObjectBaseTestCase {
-
-    /** File with the AuthenticationStatementMethod with children */
-    private String fullElementsFile;
-
-    /** The DOM to hold the AuthenticationStatementMethod with children */
-    private Document expectedFullDOM;
 
     /**
      * Constructor
@@ -46,21 +37,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
     public AttributeStatementTest() {
         super();
         singleElementFile = "/data/org/opensaml/saml1/singleAttributeStatement.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeStatement.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AttributeStatementWithChildren.xml";
-    }
-
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                .getResourceAsStream(fullElementsFile)));
+        childElementsFile = "/data/org/opensaml/saml1/AttributeStatementWithChildren.xml";
     }
 
     /*
@@ -75,19 +52,11 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     @Override
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // No Attributes
-    }
-
-    /**
-     * Test an XML file with children
-     */
-
-    public void testFullElementsUnmarshall() {
-        AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(fullElementsFile);
+    public void testChildElementsUnmarshall() {
+        AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(childElementsFile);
 
         assertNotNull("<Subject> element not present", attributeStatement.getSubject());
         assertNotNull("<AuthorityBinding> elements not present", attributeStatement.getAttributes());
@@ -118,18 +87,10 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     @Override
-    public void testSingleElementOptionalAttributesMarshall() {
-        // No attributes
-    }
-
-    /**
-     * Test an XML file with Children
-     */
-
-    public void testFullElementsMarshall() {
+    public void testChildElementsMarshall() {
 
         AttributeStatement attributeStatement = new AttributeStatementImpl();
 
@@ -139,6 +100,6 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
             attributeStatement.getAttributes().add(new AttributeImpl());
         }
 
-        assertEquals(expectedFullDOM, attributeStatement);
+        assertEquals(expectedChildElementsDOM, attributeStatement);
     }
 }
