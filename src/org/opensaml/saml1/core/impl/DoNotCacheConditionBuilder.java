@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.DoNotCacheCondition;
 
 /**
  * A class whose only job is to create {@link org.opensaml.saml1.core.impl.DoNotCacheConditionImpl} objects
  */
-public class DoNotCacheConditionBuilder implements SAMLObjectBuilder {
+public class DoNotCacheConditionBuilder implements SAMLObjectBuilder<DoNotCacheCondition> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public DoNotCacheCondition buildObject() {
         return new DoNotCacheConditionImpl();
     }
 

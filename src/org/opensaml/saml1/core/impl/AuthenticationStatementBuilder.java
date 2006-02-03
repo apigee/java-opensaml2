@@ -20,18 +20,18 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.AuthenticationStatement;
 
 /**
  * Class to create {@link org.opensaml.saml1.core.impl.AuthenticationStatementImpl} elements
  */
-public class AuthenticationStatementBuilder implements SAMLObjectBuilder {
+public class AuthenticationStatementBuilder implements SAMLObjectBuilder<AuthenticationStatement> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public AuthenticationStatement buildObject() {
         return new AuthenticationStatementImpl();
     }
 

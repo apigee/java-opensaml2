@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.NameIdentifier;
 
 /**
  * A class to create NameIdentifierImpl Objects 
  */
-public class NameIdentifierBuilder implements SAMLObjectBuilder {
+public class NameIdentifierBuilder implements SAMLObjectBuilder<NameIdentifier> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public NameIdentifier buildObject() {
         return new NameIdentifierImpl();
     }
 

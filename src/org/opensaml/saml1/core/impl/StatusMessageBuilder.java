@@ -20,15 +20,15 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.StatusMessage;
 
 /**
  * Class whose sole jobe is the creation of a {@link StatusMessageImpl} object 
  */
-public class StatusMessageBuilder implements SAMLObjectBuilder {
+public class StatusMessageBuilder implements SAMLObjectBuilder<StatusMessage> {
 
-    public SAMLObject buildObject() {
+    public StatusMessage buildObject() {
 
         return new StatusMessageImpl();
     }

@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AuthorizationDecisionQueryImpl} objects
  */
-public class AuthorizationDecisionQueryBuilder implements SAMLObjectBuilder {
+public class AuthorizationDecisionQueryBuilder implements SAMLObjectBuilder<AuthorizationDecisionQuery> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public AuthorizationDecisionQuery buildObject() {
         return new AuthorizationDecisionQueryImpl();
     }
 }

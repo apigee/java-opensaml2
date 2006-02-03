@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.AssertionIDReference;
 
 /**
  * Class which just exists to create {@link org.opensaml.saml1.core.impl.AssertionIDReferenceImpl} objects
  */
-public class AssertionIDReferenceBuilder implements SAMLObjectBuilder {
+public class AssertionIDReferenceBuilder implements SAMLObjectBuilder<AssertionIDReference> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public AssertionIDReference buildObject() {
         return new AssertionIDReferenceImpl();
     }
 

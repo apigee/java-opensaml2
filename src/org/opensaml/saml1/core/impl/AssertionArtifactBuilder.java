@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.AssertionArtifact;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AssertionArtifactImpl} objects
  */
-public class AssertionArtifactBuilder implements SAMLObjectBuilder {
+public class AssertionArtifactBuilder implements SAMLObjectBuilder<AssertionArtifact> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public AssertionArtifact buildObject() {
         return new AssertionArtifactImpl();
     }
 }

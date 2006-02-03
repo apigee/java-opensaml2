@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.Evidence;
 
 /**
  * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.EvidenceImpl} Object 
  */
-public class EvidenceBuilder implements SAMLObjectBuilder {
+public class EvidenceBuilder implements SAMLObjectBuilder<Evidence> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public Evidence buildObject() {
         return new EvidenceImpl();
     }
 

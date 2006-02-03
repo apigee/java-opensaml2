@@ -20,18 +20,18 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.ConfirmationMethod;
 
 /**
  * Class whose only job is to create {@link org.opensaml.saml1.core.impl.ConfirmationMethodImpl} objects
  */
-public class ConfirmationMethodBuilder implements SAMLObjectBuilder {
+public class ConfirmationMethodBuilder implements SAMLObjectBuilder<ConfirmationMethod> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public ConfirmationMethod buildObject() {
         return new ConfirmationMethodImpl();
     }
 }

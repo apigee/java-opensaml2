@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.SubjectLocality;
 
 /**
  * classs which just exists to create {@link org.opensaml.saml1.core.impl.SubjectLocalityImpl} Objects
  */
-public class SubjectLocalityBuilder implements SAMLObjectBuilder {
+public class SubjectLocalityBuilder implements SAMLObjectBuilder<SubjectLocality> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public SubjectLocality buildObject() {
         return new SubjectLocalityImpl();
     }
 

@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.Subject;
 
 /**
  * A class to create SubjectImpl Objects 
  */
-public class SubjectBuilder implements SAMLObjectBuilder {
+public class SubjectBuilder implements SAMLObjectBuilder<Subject> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public Subject buildObject() {
         return new SubjectImpl();
     }
 

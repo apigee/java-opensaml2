@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.AuthorityBinding;
 
 /**
  * classs which just exists to create {@link org.opensaml.saml1.core.impl.AuthorityBindingImpl} Objects
  */
-public class AuthorityBindingBuilder implements SAMLObjectBuilder {
+public class AuthorityBindingBuilder implements SAMLObjectBuilder<AuthorityBinding> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public AuthorityBinding buildObject() {
         return new AuthorityBindingImpl();
     }
 

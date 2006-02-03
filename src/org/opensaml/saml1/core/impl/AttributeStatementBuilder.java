@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.AttributeStatement;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AttributeStatementImpl} objects
  */
-public class AttributeStatementBuilder implements SAMLObjectBuilder {
+public class AttributeStatementBuilder implements SAMLObjectBuilder<AttributeStatement> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public AttributeStatement buildObject() {
         return new AttributeStatementImpl();
     }
 }

@@ -20,18 +20,18 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.Response;
 
 /**
  * Class whose sole jobe is the creation of a {@link ResponseImpl} object
  */
-public class ResponseBuilder implements SAMLObjectBuilder {
+public class ResponseBuilder implements SAMLObjectBuilder<Response> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public Response buildObject() {
 
         return new ResponseImpl();
     }

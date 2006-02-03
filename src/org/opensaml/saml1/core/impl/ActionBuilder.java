@@ -19,19 +19,19 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.Action;
 
 /**
  * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.ActionImpl} 
  * object 
  */
-public class ActionBuilder implements SAMLObjectBuilder {
+public class ActionBuilder implements SAMLObjectBuilder<Action> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public Action buildObject() {
         return new ActionImpl();
     }
 

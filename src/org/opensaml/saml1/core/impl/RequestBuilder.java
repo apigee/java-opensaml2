@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.Request;
 
 /**
  * Class which is here to create a {@link RequestImpl} object
  */
-public class RequestBuilder implements SAMLObjectBuilder {
+public class RequestBuilder implements SAMLObjectBuilder<Request> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public Request buildObject() {
         return new RequestImpl();
     }
 

@@ -20,18 +20,18 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.Audience;
 
 /**
  * Class whose only job is to create {@link org.opensaml.saml1.core.impl.AudienceImpl} objects
  */
-public class AudienceBuilder implements SAMLObjectBuilder {
+public class AudienceBuilder implements SAMLObjectBuilder<Audience> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public Audience buildObject() {
         return new AudienceImpl();
     }
 }

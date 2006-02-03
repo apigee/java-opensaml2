@@ -19,17 +19,17 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.SubjectConfirmation;
 
 /**
  * A class whose whole job is to create a SubiectConfirmationImpl
  */
-public class SubjectConfirmationBuilder implements SAMLObjectBuilder {
+public class SubjectConfirmationBuilder implements SAMLObjectBuilder<SubjectConfirmation> {
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public SubjectConfirmation buildObject() {
         return new SubjectConfirmationImpl();
     }
 

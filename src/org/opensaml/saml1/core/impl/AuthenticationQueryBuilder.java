@@ -19,18 +19,18 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.AuthenticationQuery;
 
 /**
  * Class which just exists to create {@link org.opensaml.saml1.core.impl.AuthenticationQueryImpl} objects
  */
-public class AuthenticationQueryBuilder implements SAMLObjectBuilder {
+public class AuthenticationQueryBuilder implements SAMLObjectBuilder<AuthenticationQuery> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public AuthenticationQuery buildObject() {
         return new AuthenticationQueryImpl();
     }
 

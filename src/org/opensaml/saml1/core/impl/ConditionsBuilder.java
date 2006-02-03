@@ -20,18 +20,18 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml1.core.Conditions;
 
 /**
  * Class to generate Conditions elements
  */
-public class ConditionsBuilder implements SAMLObjectBuilder {
+public class ConditionsBuilder implements SAMLObjectBuilder<Conditions> {
 
     /*
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public Conditions buildObject() {
         return new ConditionsImpl();
     }
 }
