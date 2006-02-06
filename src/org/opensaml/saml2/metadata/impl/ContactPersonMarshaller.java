@@ -44,6 +44,8 @@ public class ContactPersonMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         ContactPerson person = (ContactPerson) samlObject;
         
-        domElement.setAttributeNS(null, ContactPerson.CONTACT_TYPE_ATTRIB_NAME, person.getType().toString());
+        if (person.getType()!= null) {
+            domElement.setAttributeNS(null, ContactPerson.CONTACT_TYPE_ATTRIB_NAME, person.getType().toString());
+        }
     }
 }

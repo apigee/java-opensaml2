@@ -50,13 +50,7 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementUnmarshall() {
         Organization org = (Organization) unmarshallElement(singleElementFile);
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // No optional attributes
+        assertEquals("Display names", 0, org.getDisplayNames().size());
     }
 
     /*
@@ -69,10 +63,5 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, org);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    public void testSingleElementOptionalAttributesMarshall() {
-        // No optional attributes
-    }
+
 }

@@ -45,12 +45,27 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
     /** Expected errorURL value */
     protected String expectedErrorURL;
 
+    /** Expected number of <code> KeyDescriptor </code> sub elements */
+    protected int expectedKeyDescriptors;
+    
+    /** Expected number of <code> ContactPerson </code> sub elements */
+    protected int expectedContactPersons;
+
+    /** Expected number of <code> AuthnQueryService </code> sub elements */
+    protected int expectedAuthnQueryServices;
+
+    /** Expected number of <code> AssertionIdRequestService </code> sub elements */
+    protected int expectedAssertionIdRequestServices;
+
+    /** Expected number of <code> NameIdFormat </code> sub elements */
+    protected int expectedNameIdFormats;
     /**
      * Constructor
      */
     public AuthnAuthorityDescriptorTest() {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AuthnAuthorityDescriptor.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/AuthnAuthorityDescriptorOptionalAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml2/metadata/impl/AuthnAuthorityDescriptorChildElements.xml";
     }
 
     /*
@@ -64,6 +79,14 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         expectedCacheDuration = 90000;
         expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
         expectedErrorURL = "http://example.org";
+        //
+        // Element counts
+        //
+        expectedKeyDescriptors = 0;
+        expectedContactPersons = 2;
+        expectedAuthnQueryServices = 3;
+        expectedAssertionIdRequestServices = 2;
+        expectedNameIdFormats = 1;
     }
 
     /*
@@ -108,6 +131,24 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("errorURL attribute has a value of " + errorURL + ", expected a value of " + expectedErrorURL,
                 expectedErrorURL, errorURL);
     }
+    
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
+     */
+    @Override
+    public void testChildElementsUnmarshall()
+    {
+        AuthnAuthorityDescriptor authnAuthorityObj = (AuthnAuthorityDescriptor) unmarshallElement(childElementsFile);
+
+        // TODO Extensions
+        assertNull("<Extensions>", authnAuthorityObj.getExtensions());
+        assertEquals("KeyDescriptors count", expectedKeyDescriptors, authnAuthorityObj.getKeyDescriptors().size());
+        assertNotNull("Organization", authnAuthorityObj.getOrganization());
+        assertEquals("ContactPersons count", expectedContactPersons, authnAuthorityObj.getContactPersons().size());
+        assertEquals("AuthnQueryServices count", expectedAuthnQueryServices, authnAuthorityObj.getAuthnQueryServices().size());
+        assertEquals("AssertionIDRequestServices count", expectedAssertionIdRequestServices, authnAuthorityObj.getAssertionIDRequestServices().size());
+        assertEquals("NameIdFormats count", expectedNameIdFormats, authnAuthorityObj.getNameIDFormats().size());
+    }
 
     /*
      * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
@@ -134,5 +175,37 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         descriptor.setErrorURL(expectedErrorURL);
 
         assertEquals(expectedOptionalAttributesDOM, descriptor);
+    }
+
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
+     */
+    @Override
+    public void testChildElementsMarshall() {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildSAMLObject(qname);
+
+        descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
+        // TODO Extensions
+        // TODO KeyDescriptor
+        
+        descriptor.setOrganization(new OrganizationImpl());
+        for (int i = 0; i < expectedContactPersons; i++) {
+            descriptor.getContactPersons().add(new ContactPersonImpl());
+        }
+        
+        for (int i = 0; i < expectedAuthnQueryServices; i++) {
+            descriptor.getAuthnQueryServices().add(new AuthnQueryServiceImpl());
+        }
+
+        for (int i = 0; i < expectedAssertionIdRequestServices; i++) {
+            descriptor.getAssertionIDRequestServices().add(new AssertionIDRequestServiceImpl());
+        }
+        
+        for (int i = 0; i < expectedNameIdFormats; i++) {
+            descriptor.getNameIDFormats().add(new NameIDFormatImpl());
+        }
+        
+        assertEquals(expectedChildElementsDOM, descriptor);
     }
 }

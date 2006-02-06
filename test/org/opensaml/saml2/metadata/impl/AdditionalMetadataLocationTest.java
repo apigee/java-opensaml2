@@ -75,18 +75,4 @@ public class AdditionalMetadataLocationTest extends SAMLObjectBaseTestCase {
 
         assertEquals(expectedDOM, location);
     }
-
-    /*
-     * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // Does nothing, no optional attributes
-    }
-
-    /*
-     * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    public void testSingleElementOptionalAttributesMarshall() {
-        // Does nothing, no optional attributes
-    }
 }

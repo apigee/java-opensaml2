@@ -43,8 +43,12 @@ public class EndpointMarshaller extends AbstractSAMLObjectMarshaller {
     public void marshallAttributes(SAMLObject samlElement, Element domElement){
         Endpoint endpoint = (Endpoint)samlElement;
         
-        domElement.setAttributeNS(null, Endpoint.BINDING_ATTRIB_NAME, endpoint.getBinding().toString());
-        domElement.setAttributeNS(null, Endpoint.LOCATION_ATTRIB_NAME, endpoint.getLocation().toString());
+        if (endpoint.getBinding()!= null) {
+            domElement.setAttributeNS(null, Endpoint.BINDING_ATTRIB_NAME, endpoint.getBinding().toString());
+        }
+        if (endpoint.getLocation()!=null) {
+            domElement.setAttributeNS(null, Endpoint.LOCATION_ATTRIB_NAME, endpoint.getLocation().toString());
+        }
         
         if(endpoint.getResponseLocation() != null){
             domElement.setAttributeNS(null, Endpoint.RESPONSE_LOCATION_ATTRIB_NAME, endpoint.getResponseLocation().toString());

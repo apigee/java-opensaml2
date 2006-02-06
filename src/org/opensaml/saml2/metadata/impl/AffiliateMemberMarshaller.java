@@ -51,6 +51,8 @@ public class AffiliateMemberMarshaller extends AbstractSAMLObjectMarshaller {
         super.marshallElementContent(samlObject, domElement);
         
         AffiliateMember member = (AffiliateMember)samlObject;
-        domElement.appendChild(domElement.getOwnerDocument().createTextNode(member.getID()));
+        if (member.getID() != null) {
+            domElement.appendChild(domElement.getOwnerDocument().createTextNode(member.getID()));
+        }
     }
 }

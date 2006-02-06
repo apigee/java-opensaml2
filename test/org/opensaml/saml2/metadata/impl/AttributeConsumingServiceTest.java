@@ -30,13 +30,17 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
     
     protected int expectedIndex;
     protected Boolean expectedIsDefault;
-
+    protected int expectedServiceNameCount;
+    protected int expectedServiceDecsriptionCount;
+    protected int expectedRequestedAttributeCount;
+    
     /**
      * Constructor
      */
     public AttributeConsumingServiceTest() {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AttributeConsumingService.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/AttributeConsumingServiceOptionalAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml2/metadata/impl/AttributeConsumingServiceChildElements.xml";
     }
     
     /*
@@ -47,6 +51,10 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         
         expectedIndex = 1;
         expectedIsDefault = Boolean.TRUE;
+        expectedServiceNameCount = 2;
+        expectedServiceDecsriptionCount = 3;
+        expectedRequestedAttributeCount = 4;
+        
     }
 
     /*
@@ -66,6 +74,20 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         
         assertEquals("Index was not expected value", expectedIndex, service.getIndex());
         assertEquals("isDefault was not expected value", expectedIsDefault, service.isDefault());
+    }
+    
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
+     */
+    @Override
+    public void testChildElementsUnmarshall(){
+        AttributeConsumingService service = (AttributeConsumingService) unmarshallElement(childElementsFile);
+        
+        assertEquals("<ServiceName> count", expectedServiceNameCount, service.getNames().size());
+        assertEquals("<ServiceDescription> count", expectedServiceDecsriptionCount, service.getDescriptions().size());
+        // TODO Requested Attriubute unmarshall
+        // assertEquals("<ReqestAttribute> count", expectedRequestedAttributeCount, service.getRequestAttributes().size());
+       
     }
 
     /*
@@ -91,5 +113,31 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         service.setIsDefault(expectedIsDefault);
 
         assertEquals(expectedOptionalAttributesDOM, service);
+    }
+    
+    @Override
+    public void testChildElementsMarshall()
+    {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME);
+        AttributeConsumingService service = (AttributeConsumingService) buildSAMLObject(qname);
+        
+        service.setIndex(expectedIndex);
+        
+        for (int i = 0; i < expectedServiceNameCount; i++) {
+            service.getNames().add(new ServiceNameImpl());
+        }
+
+        for (int i = 0; i < expectedServiceDecsriptionCount; i++) {
+            service.getDescriptions().add(new ServiceDescriptionImpl());
+        }
+
+        // TODO Requested Attriubute marshall
+        /*
+        for (int i = 0; i < expectedRequestedAttributeCount; i++) {
+            service.getRequestAttributes().add(new RequestedAttributeImpl());
+        }*/
+
+        assertEquals(expectedChildElementsDOM, service);
+    
     }
 }

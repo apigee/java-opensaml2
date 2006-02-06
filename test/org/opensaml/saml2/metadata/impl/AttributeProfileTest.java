@@ -57,13 +57,6 @@ public class AttributeProfileTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    public void testSingleElementOptionalAttributesUnmarshall(){
-        // No optional attributes
-    }
-
-    /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall(){
@@ -73,12 +66,5 @@ public class AttributeProfileTest extends SAMLObjectBaseTestCase {
         profile.setProfileURI(expectedProfileURI);
         
         assertEquals(expectedDOM, profile);
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    public void testSingleElementOptionalAttributesMarshall(){
-        // No optional attributes
     }
 }

@@ -54,13 +54,6 @@ public class AffiliateMemberTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        //DO NOTHING; no optional attributes
-    }
-
-    /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -72,10 +65,4 @@ public class AffiliateMemberTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, member);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    public void testSingleElementOptionalAttributesMarshall() {
-        //DO NOTHING; no optional attributes
-    }
 }

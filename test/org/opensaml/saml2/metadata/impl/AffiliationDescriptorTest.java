@@ -45,6 +45,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
     public AffiliationDescriptorTest(){
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AffiliationDescriptor.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/AffiliationDescriptorOptionalAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml2/metadata/impl/AffiliationDescriptorChildElements.xml";
     }
     
     protected void setUp() throws Exception {
@@ -92,6 +93,19 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
     }
 
     /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
+     */
+    public void testChildElementsUnmarshall()
+    {
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) unmarshallElement(childElementsFile);
+        // TODO Extensions unmarshall
+        assertNull("Extensions", descriptor.getExtensions());
+        // TODO KeyDescriptor unmarshall
+        assertEquals("KeyDescriptor count", 0, descriptor.getKeyDescriptors().size());
+        assertEquals("Affiliate Member count ", 3, descriptor.getMembers().size());
+    }
+
+    /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -116,4 +130,22 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
         
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
+    
+    public void testChildElementsMarshall()
+    {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildSAMLObject(qname);
+        
+        descriptor.setOwnerID(expectedOwnerID);
+
+        // TODO Extensions unMarshall
+        // TODO KeyDescriptor to be tested
+        
+        descriptor.getMembers().add(new AffiliateMemberImpl());
+        descriptor.getMembers().add(new AffiliateMemberImpl());
+        descriptor.getMembers().add(new AffiliateMemberImpl());
+        
+        assertEquals(expectedChildElementsDOM, descriptor);
+    }
+    
 }
