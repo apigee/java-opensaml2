@@ -177,41 +177,41 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getIDPSSODescriptor()
      */
-    public List<RoleDescriptor> getIDPSSODescriptor(){
+    public List<IDPSSODescriptor> getIDPSSODescriptor(){
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME);
-        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
+        return (List<IDPSSODescriptor>) roleDescriptors.subList(descriptorQName);
     }
     
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getSPSSODescriptor()
      */
-    public List<RoleDescriptor> getSPSSODescriptor(){
+    public List<SPSSODescriptor> getSPSSODescriptor(){
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME);
-        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
+        return (List<SPSSODescriptor>) roleDescriptors.subList(descriptorQName);
     }
     
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAuthnAuthorityDescriptor()
      */
-    public List<RoleDescriptor> getAuthnAuthorityDescriptor(){
+    public List<AuthnAuthorityDescriptor> getAuthnAuthorityDescriptor(){
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
-        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
+        return (List<AuthnAuthorityDescriptor>) roleDescriptors.subList(descriptorQName);
     }
     
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAttributeAuthorityDescriptor()
      */
-    public List<RoleDescriptor> getAttributeAuthorityDescriptor(){
+    public List<AttributeAuthorityDescriptor> getAttributeAuthorityDescriptor(){
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
-        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
+        return (List<AttributeAuthorityDescriptor>) roleDescriptors.subList(descriptorQName);
     }
     
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getPDPDescriptor()
      */
-    public List<RoleDescriptor> getPDPDescriptor(){
+    public List<PDPDescriptor> getPDPDescriptor(){
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME);
-        return Collections.unmodifiableList(roleDescriptors.get(descriptorQName));
+        return (List<PDPDescriptor>) roleDescriptors.subList(descriptorQName);
     }
 
     /*

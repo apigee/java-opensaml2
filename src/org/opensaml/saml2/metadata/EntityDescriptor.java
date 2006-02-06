@@ -92,35 +92,35 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      * 
      * @return the {@link IDPSSODescriptor}s role descriptor for this entity
      */
-    public List<RoleDescriptor> getIDPSSODescriptor();
+    public List<IDPSSODescriptor> getIDPSSODescriptor();
     
     /**
      * Gets all the {@link SPSSODescriptor}s role descriptor for this entity.
      * 
      * @return the {@link SPSSODescriptor}s role descriptor for this entity
      */
-    public List<RoleDescriptor> getSPSSODescriptor();
+    public List<SPSSODescriptor> getSPSSODescriptor();
     
     /**
      * Gets all the {@link AuthnAuthorityDescriptor}s role descriptor for this entity.
      * 
      * @return the {@link AuthnAuthorityDescriptor}s role descriptor for this entity
      */
-    public List<RoleDescriptor> getAuthnAuthorityDescriptor();
+    public List<AuthnAuthorityDescriptor> getAuthnAuthorityDescriptor();
     
     /**
      * Gets all the {@link AttributeAuthorityDescriptor}s role descriptor for this entity.
      * 
      * @return the {@link AttributeAuthorityDescriptor}s role descriptor for this entity
      */
-    public List<RoleDescriptor> getAttributeAuthorityDescriptor();
+    public List<AttributeAuthorityDescriptor> getAttributeAuthorityDescriptor();
     
     /**
      * Gets all the {@link PDPDescriptor}s role descriptor for this entity.
      * 
      * @return the {@link PDPDescriptor}s role descriptor for this entity
      */
-    public List<RoleDescriptor> getPDPDescriptor();
+    public List<PDPDescriptor> getPDPDescriptor();
     
     /**
      * Gets the affiliation descriptor for this entity.
