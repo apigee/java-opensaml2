@@ -35,11 +35,18 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
     /** Expected company name */
     protected ContactPersonType expectedPersonType;
     
+    /** Count of EmailAddress subelements */
+    protected int emailAddressCount = 2;
+    
+    /** Count of TelephoneNumber subelements */
+    protected int telephoneNumberCount = 3;
+
     /**
      * Constructor
      */
     public ContactPersonTest() {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/ContactPerson.xml";
+        childElementsFile = "/data/org/opensaml/saml2/metadata/impl/ContactPersonChildElements.xml";
     }
     
     /*
@@ -61,10 +68,19 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // No optional attributes
+    @Override
+    public void testChildElementsUnmarshall()
+    {
+        ContactPerson person = (ContactPerson) unmarshallElement(childElementsFile);
+        
+        // TODO Extension Elements
+        //assertNotNull("Extension Element not present", person.getExtensions());
+        assertNotNull("Company Element not present", person.getCompany());
+        assertNotNull("GivenName not present", person.getGivenName());
+        assertEquals("Email address count", emailAddressCount, person.getEmailAddresses().size());
+        assertEquals("Telephone Number count", telephoneNumberCount, person.getTelephoneNumbers().size());
     }
 
     /*
@@ -80,9 +96,26 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    public void testSingleElementOptionalAttributesMarshall() {
-        // No optional attributes
+    @Override
+    public void testChildElementsMarshall()
+    {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
+        ContactPerson person = (ContactPerson) buildSAMLObject(qname);
+        
+        person.setType(expectedPersonType);
+        // TODO Extensions
+        //person.setExtensions(new ExtensionsImpl());
+        person.setCompany(new CompanyImpl());
+        person.setGivenName(new GivenNameImpl());
+        person.setSurName(new SurNameImpl());
+        for (int i = 0; i < telephoneNumberCount; i++) {
+            person.getTelephoneNumbers().add(new TelephoneNumberImpl());
+        }
+        for (int i = 0; i < emailAddressCount; i++) {
+            person.getEmailAddresses().add(new EmailAddressImpl());
+        }
+        assertEquals(expectedChildElementsDOM, person);
     }
 }

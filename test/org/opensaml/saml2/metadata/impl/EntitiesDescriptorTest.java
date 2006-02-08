@@ -39,28 +39,39 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     /** Expected validUntil value */
     protected DateTime expectedValidUntil;
 
+    /** Expected number of child EntitiesDescriptors */
+    protected int expectedEntitiesDescriptorsCount;
+    
+    /** Expected number of child EntityDescriptors */
+    protected int expectedEntityDescriptorsCount;
+    
     /**
      * Constructor
      */
     public EntitiesDescriptorTest() {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/EntitiesDescriptor.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/EntitiesDescriptorOptionalAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml2/metadata/impl/EntitiesDescriptorChildElements.xml";
     }
 
     /*
      * @see junit.framework.TestCase#setUp()
      */
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
 
         expectedName = "eDescName";
         expectedCacheDuration = 90000;
         expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
+        expectedEntitiesDescriptorsCount = 3;
+        expectedEntityDescriptorsCount = 2;
     }
 
     /*
      * @see org.opensaml.common.BaseTestCase#testSingleElementUnmarshall()
      */
+    @Override
     public void testSingleElementUnmarshall() {
         EntitiesDescriptor entitiesDescriptorObj = (EntitiesDescriptor) unmarshallElement(singleElementFile);
 
@@ -77,6 +88,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
+    @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         EntitiesDescriptor entitiesDescriptorObj = (EntitiesDescriptor) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -92,10 +104,26 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("validUntil attribute value did not match expected value", 0, expectedValidUntil
                 .compareTo(validUntil));
     }
-
+    
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
+     */
+    @Override
+    public void testChildElementsUnmarshall()
+    {
+        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) unmarshallElement(childElementsFile);
+        
+        // TODO Extensions..
+        
+        assertNull("Extensions", entitiesDescriptor.getExtensions());
+        assertEquals("Entities Descriptor child elements", expectedEntitiesDescriptorsCount, entitiesDescriptor.getEntitiesDescriptors().size());
+        assertEquals("Entity Descriptor child elements", expectedEntityDescriptorsCount, entitiesDescriptor.getEntityDescriptors().size());
+    }
+    
     /*
      * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
      */
+    @Override
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(qname);
@@ -106,6 +134,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
+    @Override
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(qname);
@@ -115,5 +144,19 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
         entitiesDescriptor.setValidUntil(expectedValidUntil);
 
         assertEquals(expectedOptionalAttributesDOM, entitiesDescriptor);
+    }
+
+    @Override
+    public void testChildElementsMarshall(){
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(qname);
+
+        // TODO Extensions
+        entitiesDescriptor.getEntitiesDescriptors().add(new EntitiesDescriptorImpl());
+        entitiesDescriptor.getEntityDescriptors().add(new EntityDescriptorImpl());
+        entitiesDescriptor.getEntitiesDescriptors().add(new EntitiesDescriptorImpl());
+        entitiesDescriptor.getEntityDescriptors().add(new EntityDescriptorImpl());
+        entitiesDescriptor.getEntitiesDescriptors().add(new EntitiesDescriptorImpl());
+        assertEquals(expectedChildElementsDOM, entitiesDescriptor);
     }
 }
