@@ -150,21 +150,14 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors()
      */
     public List<RoleDescriptor> getRoleDescriptors() {
-        return Collections.unmodifiableList(roleDescriptors);
-    }
-
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName)
-     */
-    public List<RoleDescriptor> getRoleDescriptors(QName type) {
-        return roleDescriptors.get(type);
+        return roleDescriptors;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName, java.lang.String)
      */
     public RoleDescriptor getRoleDescriptors(QName type, String protocol) {
-        for (RoleDescriptor descriptor : getRoleDescriptors(type)) {
+        for (RoleDescriptor descriptor : roleDescriptors.subList(type)) {
             if (descriptor.isSupportedProtocol(protocol)) {
                 return descriptor;
             }
