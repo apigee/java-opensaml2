@@ -16,20 +16,18 @@
 
 package org.opensaml.xml;
 
-import java.io.Serializable;
-
 /**
  * An interface for classes that implement rules for checking the 
  * validity of a XMLObjects.
  */
-public interface Validator extends Serializable{
+public interface Validator {
 
     /**
      * Checks to see if a XMLObject is valid.
      * 
-     * @param xObj the XMLObject to validate
+     * @param xmlObject the XMLObject to validate
      * 
      * @throws ValidationException thrown if the element is not valid
      */
-    public void validate(XMLObject xObj) throws ValidationException;
+    public void validate(XMLObject xmlObject) throws ValidationException;
 }
