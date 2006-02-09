@@ -44,6 +44,7 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
     public EntityDescriptorTest() {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/EntityDescriptor.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/EntityDescriptorOptionalAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml2/metadata/impl/EntityDescriptorChildElements.xml";
     }
 
     /*
@@ -94,6 +95,26 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
     }
 
     /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
+     */
+    public void testChildElementsUnmarshall()
+    {
+        EntityDescriptor descriptor = (EntityDescriptor) unmarshallElement(childElementsFile);
+        // TODO extensions
+        assertNull("Extensions child", descriptor.getExtensions());
+        assertEquals("IDPSSODescriptor count", 2, descriptor.getIDPSSODescriptor().size());
+        assertEquals("SPSSODescriptor count", 3, descriptor.getSPSSODescriptor().size());
+        assertEquals("AuthnAuthorityDescriptor count", 2, descriptor.getAuthnAuthorityDescriptor().size());
+        // TODO AttributeAuthorityDescriptor
+        //assertEquals("AttributeAuthorityDescriptor count", 2, descriptor.getAttributeAuthorityDescriptor().size());
+        assertEquals("PDPDescriptor count", 2, descriptor.getPDPDescriptor().size());
+        assertNotNull("AffiliationDescriptor ", descriptor.getAffiliationDescriptor());
+        assertNotNull("Organization ", descriptor.getOrganization());
+        assertEquals("ContactPerson count", 1, descriptor.getContactPersons().size());
+        assertEquals("AdditionalMetadataLocation count", 3, descriptor.getAdditionalMetadataLocations().size());
+    }
+
+    /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -118,4 +139,12 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
         
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
+    
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
+     */
+    public void testChildElementsMarshall()
+    {
+    }
+
 }

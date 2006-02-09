@@ -232,7 +232,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.metadata.EntityDescriptor#setOrganization(org.opensaml.saml2.metadata.Organization)
      */
     public void setOrganization(Organization organization) throws IllegalArgumentException {
-        organization = prepareForAssignment(this.organization, organization);
+        this.organization = prepareForAssignment(this.organization, organization);
     }
 
     /*

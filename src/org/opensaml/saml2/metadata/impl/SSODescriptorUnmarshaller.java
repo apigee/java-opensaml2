@@ -45,8 +45,6 @@ public abstract class SSODescriptorUnmarshaller extends RoleDescriptorUnmarshall
      *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
      */
     protected void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException {
-        super.processChildElement(parentElement, childElement);
-        
         SSODescriptor descriptor = (SSODescriptor)parentElement;
         if(childElement instanceof ArtifactResolutionService){
             descriptor.getArtifactResolutionServices().add((ArtifactResolutionService) childElement);

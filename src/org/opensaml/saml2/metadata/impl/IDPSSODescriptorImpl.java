@@ -40,19 +40,19 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     private Boolean wantAuthnRequestsSigned;
 
     /** SingleSignOn services for this entity */
-    private XMLObjectChildrenList<SingleSignOnService> singleSignOnServices;
+    private final XMLObjectChildrenList<SingleSignOnService> singleSignOnServices;
 
     /** NameID mapping services for this entity */
-    private XMLObjectChildrenList<NameIDMappingService> nameIDMappingServices;
+    private final XMLObjectChildrenList<NameIDMappingService> nameIDMappingServices;
 
     /** AssertionID request services for this entity */
-    private XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
+    private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
     /** Attribute profiles supported by this entity */
-    private XMLObjectChildrenList<AttributeProfile> attributeProfiles;
+    private final XMLObjectChildrenList<AttributeProfile> attributeProfiles;
 
     /** Attributes accepted by this entity */
-    private XMLObjectChildrenList<Attribute> attributes;
+    private final XMLObjectChildrenList<Attribute> attributes;
 
     /**
      * Constructor
@@ -60,6 +60,11 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     public IDPSSODescriptorImpl() {
         super(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+        singleSignOnServices = new XMLObjectChildrenList<SingleSignOnService>(this);
+        nameIDMappingServices = new XMLObjectChildrenList<NameIDMappingService>(this);
+        assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
+        attributeProfiles = new XMLObjectChildrenList<AttributeProfile>(this);
+        attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
     /*

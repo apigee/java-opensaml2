@@ -26,6 +26,9 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 
+/**
+ *
+ */
 public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
     /** List of expected supported protocols */
@@ -49,6 +52,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
     public IDPSSODescriptorTest(){
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/IDPSSODescriptor.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/IDPSSODescriptorOptionalAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml2/metadata/impl/IDPSSODescriptorChildElements.xml";
     }
     
     protected void setUp() throws Exception {
@@ -80,6 +84,31 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("WantAuthnRequestsSigned attribute was not expected value", expectedWantAuthnReqSigned, descriptor.wantAuthnRequestsSigned());
     }
 
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
+     */
+    public void testChildElementsUnmarshall()
+    {
+        IDPSSODescriptor descriptor = (IDPSSODescriptor) unmarshallElement(childElementsFile);
+
+        // TODO Extensions
+        // TODO KeyDescriptor
+        // TODO Attributes
+        assertNotNull("Organization child", descriptor.getOrganization());
+        assertEquals("ContactPerson count", 2, descriptor.getContactPersons().size());
+
+        assertEquals("ArtifactResolutionService count", 1, descriptor.getArtifactResolutionServices().size());
+        assertEquals("SingleLogoutService count", 2, descriptor.getSingleLogoutServices().size());
+        assertEquals("ManageNameIDService count", 4, descriptor.getManageNameIDServices().size());
+        assertEquals("NameIDFormat count", 1, descriptor.getNameIDFormats().size());
+        
+        assertEquals("SingleSignOnService count", 3, descriptor.getSingleSignOnServices().size());
+        assertEquals("NameIDMappingService count", 2, descriptor.getNameIDMappingServices().size());
+        assertEquals("AssertionIDRequestService count", 3, descriptor.getAssertionIDRequestServices().size());
+        assertEquals("AttributeProfile count", 3, descriptor.getAttributeProfiles().size());
+        
+    }
+    
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         IDPSSODescriptor descriptor = (IDPSSODescriptor) buildSAMLObject(qname);
@@ -107,4 +136,45 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
         
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
+    
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
+     */
+    public void testChildElementsMarshall()
+    {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        IDPSSODescriptor descriptor = (IDPSSODescriptor) buildSAMLObject(qname);
+   
+        // TODO Extensions
+        // TODO KeyDescriptor
+        // TODO Attributes
+
+        descriptor.setOrganization(new OrganizationImpl());
+        for (int i = 0; i < 2; i ++) {
+            descriptor.getContactPersons().add(new ContactPersonImpl());
+        }
+        descriptor.getArtifactResolutionServices().add(new ArtifactResolutionServiceImpl());
+        for (int i = 0; i < 2; i ++) {
+            descriptor.getSingleLogoutServices().add(new SingleLogoutServiceImpl());
+        }
+        for (int i = 0; i < 4; i ++) {
+            descriptor.getManageNameIDServices().add(new ManageNameIDServiceImpl());
+        }
+        descriptor.getNameIDFormats().add(new NameIDFormatImpl());
+        for (int i = 0; i < 3; i ++) {
+            descriptor.getSingleSignOnServices().add(new SingleSignOnServiceImpl());
+        }
+        for (int i = 0; i < 2; i ++) {
+            descriptor.getNameIDMappingServices().add(new NameIDMappingServiceImpl());
+        }
+        for (int i = 0; i < 3; i ++) {
+            descriptor.getAssertionIDRequestServices().add(new AssertionIDRequestServiceImpl());
+        }
+        for (int i = 0; i < 3; i ++) {
+            descriptor.getAttributeProfiles().add(new AttributeProfileImpl());
+        }
+        
+        
+    }
+
 }
