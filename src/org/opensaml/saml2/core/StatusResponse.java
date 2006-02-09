@@ -21,11 +21,12 @@ package org.opensaml.saml2.core;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.SignableXMLObject;
 
 /**
  * SAML 2.0 Core StatusResponseType.  
  */
-public interface StatusResponse extends SAMLObject {
+public interface StatusResponse extends SAMLObject, SignableXMLObject {
     
     /* Local name */
     public static final String LOCAL_NAME = "StatusResponse";

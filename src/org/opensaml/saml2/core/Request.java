@@ -18,11 +18,12 @@ package org.opensaml.saml2.core;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.SignableXMLObject;
 
 /**
  * SAML 2.0 Core Request
  */
-public interface Request extends SAMLObject {
+public interface Request extends SAMLObject, SignableXMLObject {
 
     /** Element local name */
     public final static String LOCAL_NAME = "Request";
