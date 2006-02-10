@@ -78,9 +78,9 @@ public interface Request extends SAMLObject, SignableXMLObject {
     /**
      * Sets the consent obtained from the principal for sending this request.
      * 
-     * @param consent the consent obtained from the principal for sending this request
+     * @param newConsent the new consent obtained from the principal for sending this request
      */
-    public void setConsent(String consent);
+    public void setConsent(String newConsent);
     
     /**
      * Gets the issuer of this request.
