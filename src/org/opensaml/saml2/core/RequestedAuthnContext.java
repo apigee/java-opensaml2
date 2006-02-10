@@ -21,10 +21,12 @@ package org.opensaml.saml2.core;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLObject;
+
 /**
  * SAML 2.0 Core RequestedAuthnContext 
  */
-public interface RequestedAuthnContext {
+public interface RequestedAuthnContext extends SAMLObject {
     
     /* Element local name */
     public final static String LOCAL_NAME = "RequestedAuthnContext";
