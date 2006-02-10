@@ -67,7 +67,7 @@ public class PDPDescriptorImpl extends RoleDescriptorImpl implements PDPDescript
     /*
      * @see org.opensaml.saml2.metadata.PDPDescriptor#getAssertionIDRequestService()
      */
-    public List<AssertionIDRequestService> getAssertionIDRequestService() {
+    public List<AssertionIDRequestService> getAssertionIDRequestServices() {
         return assertionIDRequestServices;
     }
 

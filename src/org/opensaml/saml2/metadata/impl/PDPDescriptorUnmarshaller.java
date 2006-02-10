@@ -52,7 +52,7 @@ public class PDPDescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
         if (childSAMLObject instanceof AuthzService) {
             descriptor.getAuthzServices().add((AuthzService) childSAMLObject);
         } else if (childSAMLObject instanceof AssertionIDRequestService) {
-            descriptor.getAssertionIDRequestService().add((AssertionIDRequestService) childSAMLObject);
+            descriptor.getAssertionIDRequestServices().add((AssertionIDRequestService) childSAMLObject);
         } else if (childSAMLObject instanceof NameIDFormat) {
             descriptor.getNameIDFormats().add((NameIDFormat) childSAMLObject);
         } else {

@@ -38,7 +38,7 @@ public interface PDPDescriptor extends RoleDescriptor {
      * 
      * @return list of assertion ID request services for this PDP
      */
-    public List<AssertionIDRequestService> getAssertionIDRequestService();
+    public List<AssertionIDRequestService> getAssertionIDRequestServices();
     
     /**
      * Gets the list of NameID formats this service supports.

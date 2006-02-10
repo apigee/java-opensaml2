@@ -53,6 +53,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
     public PDPDescriptorTest(){
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/PDPDescriptor.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/PDPDescriptorOptionalAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml2/metadata/impl/PDPDescriptorChildElements.xml";
     }
     
     /*
@@ -92,6 +93,15 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
     }
 
     /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
+     */
+    public void testChildElementsUnmarshall() {
+        PDPDescriptor descriptor = (PDPDescriptor) unmarshallElement(childElementsFile);
+        assertEquals("AuthzService count", 3, descriptor.getAuthzServices().size());
+        assertEquals("AssertionIDRequestService count", 2, descriptor.getAssertionIDRequestServices().size());
+        assertEquals("NameIDFormat count", 1, descriptor.getNameIDFormats().size());
+    }
+    /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -121,5 +131,18 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         descriptor.setErrorURL(expectedErrorURL);
 
         assertEquals(expectedOptionalAttributesDOM, descriptor);
+    }
+    public void testChildElementsMarshall() {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        PDPDescriptor descriptor = (PDPDescriptor) buildSAMLObject(qname);
+        
+        for (int i = 0; i < 3; i++) {
+            descriptor.getAuthzServices().add(new AuthzServiceImpl());
+        }
+        for (int i = 0; i < 2; i++) {
+            descriptor.getAssertionIDRequestServices().add(new AssertionIDRequestServiceImpl());
+        }
+        descriptor.getNameIDFormats().add(new NameIDFormatImpl());
+        assertEquals(expectedChildElementsDOM, descriptor);
     }
 }

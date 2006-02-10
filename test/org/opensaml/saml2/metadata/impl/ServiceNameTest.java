@@ -60,13 +60,6 @@ public class ServiceNameTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // No optional attributes
-    }
-
-    /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -76,12 +69,5 @@ public class ServiceNameTest extends SAMLObjectBaseTestCase {
         name.setName(expectedName);
 
         assertEquals(expectedDOM, name);
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    public void testSingleElementOptionalAttributesMarshall() {
-        // No optional attributes
     }
 }

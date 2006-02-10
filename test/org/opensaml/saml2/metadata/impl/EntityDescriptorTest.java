@@ -145,6 +145,26 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall()
     {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        EntityDescriptor descriptor = (EntityDescriptor) buildSAMLObject(qname);
+     
+        descriptor.getIDPSSODescriptor().add(new IDPSSODescriptorImpl());
+        descriptor.getSPSSODescriptor().add(new SPSSODescriptorImpl());
+        descriptor.getSPSSODescriptor().add(new SPSSODescriptorImpl());
+        descriptor.getAuthnAuthorityDescriptor().add(new AuthnAuthorityDescriptorImpl());
+        descriptor.getPDPDescriptor().add(new PDPDescriptorImpl());
+        descriptor.getIDPSSODescriptor().add(new IDPSSODescriptorImpl());
+        descriptor.getSPSSODescriptor().add(new SPSSODescriptorImpl());
+        descriptor.getAuthnAuthorityDescriptor().add(new AuthnAuthorityDescriptorImpl());
+        descriptor.getPDPDescriptor().add(new PDPDescriptorImpl());
+        descriptor.setAffiliationDescriptor(new AffiliationDescriptorImpl());
+        descriptor.setOrganization(new OrganizationImpl());
+        descriptor.getContactPersons().add(new ContactPersonImpl());
+        for (int i = 0; i < 3; i++) {
+            descriptor.getAdditionalMetadataLocations().add(new AdditionalMetadataLocationImpl());
+        }
+        
+        assertEquals(expectedChildElementsDOM, descriptor);
     }
 
 }

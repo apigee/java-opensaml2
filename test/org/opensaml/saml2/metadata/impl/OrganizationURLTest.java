@@ -60,13 +60,6 @@ public class OrganizationURLTest extends SAMLObjectBaseTestCase {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // No optional attributes
-    }
-
-    /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -78,10 +71,4 @@ public class OrganizationURLTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, url);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    public void testSingleElementOptionalAttributesMarshall() {
-        // No optional attributes
-    }
 }

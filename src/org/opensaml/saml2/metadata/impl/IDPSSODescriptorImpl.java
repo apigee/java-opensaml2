@@ -20,8 +20,11 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
@@ -114,5 +117,21 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
      */
     public List<Attribute> getAttributes() {
         return attributes;
+    }
+    
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
+     */
+    public List<SAMLObject> getOrderedChildren() {
+        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+        
+        children.addAll(super.getOrderedChildren());
+        children.addAll(singleSignOnServices);
+        children.addAll(nameIDMappingServices);
+        children.addAll(assertionIDRequestServices);
+        children.addAll(attributeProfiles);
+        children.addAll(attributes);
+
+        return Collections.unmodifiableList(children);
     }
 }

@@ -235,9 +235,13 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     public List<SAMLObject> getOrderedChildren() {
         ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
         
-        children.add(getExtensions());
-        children.addAll(getKeyDescriptors());        
-        children.add(getOrganization());
+        if (extensions != null) {
+            children.add(getExtensions());
+        }
+        children.addAll(getKeyDescriptors());
+        if (organization != null) {
+            children.add(getOrganization());
+        }
         children.addAll(getContactPersons());
         
         return Collections.unmodifiableList(children);

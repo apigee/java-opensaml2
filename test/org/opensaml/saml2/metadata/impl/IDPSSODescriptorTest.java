@@ -106,7 +106,6 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("NameIDMappingService count", 2, descriptor.getNameIDMappingServices().size());
         assertEquals("AssertionIDRequestService count", 3, descriptor.getAssertionIDRequestServices().size());
         assertEquals("AttributeProfile count", 3, descriptor.getAttributeProfiles().size());
-        
     }
     
     public void testSingleElementMarshall() {
@@ -154,7 +153,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
             descriptor.getContactPersons().add(new ContactPersonImpl());
         }
         descriptor.getArtifactResolutionServices().add(new ArtifactResolutionServiceImpl());
-        for (int i = 0; i < 2; i ++) {
+       for (int i = 0; i < 2; i ++) {
             descriptor.getSingleLogoutServices().add(new SingleLogoutServiceImpl());
         }
         for (int i = 0; i < 4; i ++) {
@@ -173,8 +172,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
         for (int i = 0; i < 3; i ++) {
             descriptor.getAttributeProfiles().add(new AttributeProfileImpl());
         }
-        
-        
+        assertEquals(expectedChildElementsDOM, descriptor);   
     }
 
 }

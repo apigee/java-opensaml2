@@ -57,6 +57,7 @@ public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements
      */
     public AttributeConsumingServiceImpl() {
         super(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
         
         serviceNames = new XMLObjectChildrenList<ServiceName>(this);
         serviceDescriptions = new XMLObjectChildrenList<ServiceDescription>(this);
