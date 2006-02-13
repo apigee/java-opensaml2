@@ -26,17 +26,17 @@ import org.opensaml.common.SAMLObject;
  */
 public interface NewID extends SAMLObject {
 
-    /* Element local name */
+    /** Element local name */
     public static final String LOCAL_NAME = "NewID";
     
-    /*
+    /**
      * Get NewID value
      * 
      * @return NewID value
      */
     public String getNewID();
     
-    /*
+    /**
      * Set NewID value
      * 
      * @param the new NewID value

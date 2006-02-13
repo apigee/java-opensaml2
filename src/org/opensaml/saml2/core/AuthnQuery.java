@@ -24,10 +24,10 @@ package org.opensaml.saml2.core;
  */
 public interface AuthnQuery extends SubjectQuery {
     
-    /* Element local name */
+    /** Element local name */
     public final static String LOCAL_NAME = "AuthnQuery";
     
-    /* SessionIndex attribute name */
+    /** SessionIndex attribute name */
     public final static String SESSION_INDEX_ATTRIB_NAME = "SessionIndex";
     
     /**

@@ -24,7 +24,7 @@ package org.opensaml.saml2.core;
  */
 public interface LogoutResponse extends StatusResponse {
     
-    /* Element local name*/
+    /** Element local name*/
     public static final String LOCAL_NAME = "LogoutResponse";
     
 }

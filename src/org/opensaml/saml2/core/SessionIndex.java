@@ -26,7 +26,7 @@ import org.opensaml.common.SAMLObject;
  */
 public interface SessionIndex extends SAMLObject {
     
-    /* Element local name*/
+    /** Element local name*/
     public static final String LOCAL_NAME = "SessionIndex";
     
     /**

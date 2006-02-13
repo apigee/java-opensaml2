@@ -26,10 +26,10 @@ import java.util.List;
  */
 public interface AuthzDecisionQuery extends SubjectQuery {
     
-    /* Element local name */
+    /** Element local name */
     public final static String LOCAL_NAME = "AuthzDecisionQuery";
     
-    /* Resource attribute name */
+    /** Resource attribute name */
     public final static String RESOURCE_ATTRIB_NAME = "Resource";
     
     /**

@@ -21,13 +21,10 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.SignableXMLObject;
 
 /**
- * SAML 2.0 Core Request
+ * SAML 2.0 Core RequestAbstractType
  */
 public interface Request extends SAMLObject, SignableXMLObject {
 
-    /** Element local name */
-    public final static String LOCAL_NAME = "Request";
-    
     /** Version attribute name */
     public final static String VERSION_ATTRIB_NAME = "Version";
     

@@ -21,16 +21,16 @@ package org.opensaml.saml2.core;
  */
 public final class AuthnContextComparisonType {
 
-    /** exact comparison type */
+    /** "exact" comparison type */
     public final static AuthnContextComparisonType EXACT = new AuthnContextComparisonType("exact");
 
-    /** minimum comparison type */
+    /** "minimum" comparison type */
     public final static AuthnContextComparisonType MINIMUM = new AuthnContextComparisonType("minimum");
 
-    /** maximum comparison type */
+    /** "maximum" comparison type */
     public final static AuthnContextComparisonType MAXIMUM = new AuthnContextComparisonType("maximum");
 
-    /** better comparison type */
+    /** "better" comparison type */
     public final static AuthnContextComparisonType BETTER = new AuthnContextComparisonType("better");
 
     /** The decision type string */

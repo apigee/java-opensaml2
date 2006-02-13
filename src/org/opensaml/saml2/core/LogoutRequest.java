@@ -28,13 +28,13 @@ import org.joda.time.DateTime;
  */
 public interface LogoutRequest extends Request {
     
-    /* Element local name */
+    /** Element local name */
     public static final String LOCAL_NAME = "LogoutRequest";
     
-    /* Reason attribute name */
+    /** Reason attribute name */
     public static final String REASON_ATTRIB_NAME = "Reason";
     
-    /* NotOnOrAfter attribute name */
+    /** NotOnOrAfter attribute name */
     public static final String NOT_ON_OR_AFTER_ATTRIB_NAME = "NotOnOrAfter";
     
     /**

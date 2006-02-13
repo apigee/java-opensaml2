@@ -25,7 +25,7 @@ package org.opensaml.saml2.core;
  */
 public interface NameIDMappingResponse extends StatusResponse {
     
-    /* Element local name */
+    /** Element local name */
     public static final String LOCAL_NAME = "NameIDMappingResponse";
     
     /**

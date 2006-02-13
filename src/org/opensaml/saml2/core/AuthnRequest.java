@@ -16,8 +16,6 @@
 
 package org.opensaml.saml2.core;
 
-import org.joda.time.DateTime;
-
 
 /**
  * SAML 2.0 Core AuthnRequest

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public interface AttributeQuery extends SubjectQuery {
     
-    /* Element local name */
+    /** Element local name */
     public final static String LOCAL_NAME = "AttributeQuery";
     
     /**

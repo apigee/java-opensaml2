@@ -24,7 +24,7 @@ package org.opensaml.saml2.core;
  */
 public interface SubjectQuery extends Request {
     
-    /* Element local name */
+    /** Element local name */
     public final static String LOCAL_NAME = "SubjectQuery";
     
     /**

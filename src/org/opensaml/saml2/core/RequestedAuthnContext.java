@@ -28,10 +28,10 @@ import org.opensaml.common.SAMLObject;
  */
 public interface RequestedAuthnContext extends SAMLObject {
     
-    /* Element local name */
+    /** Element local name */
     public final static String LOCAL_NAME = "RequestedAuthnContext";
     
-    /* SessionIndex attribute name */
+    /** SessionIndex attribute name */
     public final static String COMPARISON_ATTRIB_NAME = "Comparison";
     
     /**

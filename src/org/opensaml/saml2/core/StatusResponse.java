@@ -24,26 +24,23 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.SignableXMLObject;
 
 /**
- * SAML 2.0 Core StatusResponseType.  
+ * SAML 2.0 Core StatusResponseType
  */
 public interface StatusResponse extends SAMLObject, SignableXMLObject {
     
-    /* Local name */
-    public static final String LOCAL_NAME = "StatusResponse";
-    
-    /* InResponseTo attribute name */
+    /** InResponseTo attribute name */
     public static final String IN_RESPONSE_TO_ATTRIB_NAME = "InResponseTo";
     
-    /* Version attribute name */
+    /** Version attribute name */
     public static final String VERSION_ATTRIB_NAME = "Version";
     
-    /* IssueInstant attribute name */
+    /** IssueInstant attribute name */
     public static final String ISSUE_INSTANT_ATTRIB_NAME = "IssueInstant";
     
-    /* Destination attribute name */
+    /** Destination attribute name */
     public static final String DESTINATION_ATTRIB_NAME = "Destination";
     
-    /* Consent attribute name */
+    /** Consent attribute name */
     public static final String CONSENT_ATTRIB_NAME = "Consent";
 
     /**

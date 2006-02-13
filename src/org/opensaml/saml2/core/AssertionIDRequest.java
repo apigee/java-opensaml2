@@ -26,7 +26,7 @@ import java.util.List;
  */
 public interface AssertionIDRequest extends Request {
     
-    /* Element local name */
+    /** Element local name */
     public static final String LOCAL_NAME = "AssertionIDRequest";
     
     /**

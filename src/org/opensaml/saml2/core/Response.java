@@ -26,7 +26,7 @@ import java.util.List;
  */
 public interface Response extends StatusResponse {
     
-    /* Element local name*/
+    /** Element local name*/
     public static final String LOCAL_NAME = "Response";
     
     /**
