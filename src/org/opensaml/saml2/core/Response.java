@@ -41,5 +41,6 @@ public interface Response extends StatusResponse {
      * 
      * @return  the list of EncryptedAssertion child elements
      */
-    public List<EncryptedAssertion> getEncryptedAssertions();
+    //TODO enable when EncryptedAssertion available
+    //public List<EncryptedAssertion> getEncryptedAssertions();
 }
