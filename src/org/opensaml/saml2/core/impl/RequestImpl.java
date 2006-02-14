@@ -26,7 +26,6 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Request;
 
@@ -34,10 +33,6 @@ import org.opensaml.saml2.core.Request;
  * Concrete implementation of {@link org.opensaml.saml2.core.Request}
  */
 public abstract class RequestImpl extends AbstractSignableSAMLObject implements Request {
-    
-    //TODO how is the typesafe versioning handled?
-    /* SAML version */
-    //private String version;
     
     /* Date/time request was issued */
     private DateTime issueInstant;
@@ -58,10 +53,8 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
      * @param namespaceURI
      * @param elementLocalName
      */
-    public RequestImpl() {
-        super(SAMLConstants.SAML20P_NS, Request.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
-        //TODO need to set namespace prefix ?
+    protected RequestImpl(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /*
