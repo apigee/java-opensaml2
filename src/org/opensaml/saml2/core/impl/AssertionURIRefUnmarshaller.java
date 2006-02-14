@@ -42,6 +42,6 @@ public class AssertionURIRefUnmarshaller extends AbstractSAMLObjectUnmarshaller 
      */
     protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
         AssertionURIRef assertionURIRef = (AssertionURIRef) samlObject;
-        assertionURIRef.setURIRef(elementContent);
+        assertionURIRef.setAssertionURI(elementContent);
     }
 }

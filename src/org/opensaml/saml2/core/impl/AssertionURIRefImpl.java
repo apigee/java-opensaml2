@@ -32,8 +32,8 @@ import org.opensaml.saml2.core.AssertionURIRef;
  */
 public class AssertionURIRefImpl extends AbstractSAMLObject implements AssertionURIRef {
 
-    /** URI Ref of the Assertion */
-    private String uriRef;
+    /** URI of the Assertion */
+    private String assertionURI;
 
     /** Constructor */
     public AssertionURIRefImpl() {
@@ -44,15 +44,15 @@ public class AssertionURIRefImpl extends AbstractSAMLObject implements Assertion
     /*
      * @see org.opensaml.saml2.core.AssertionURIRef#getURIRef()
      */
-    public String getURIRef() {
-        return uriRef;
+    public String getAssertionURI() {
+        return assertionURI;
     }
 
     /*
      * @see org.opensaml.saml2.core.AssertionURIRef#setURIRef(java.lang.String)
      */
-    public void setURIRef(String newURIRef) {
-        this.uriRef = prepareForAssignment(this.uriRef, newURIRef);
+    public void setAssertionURI(String newAssertionURI) {
+        this.assertionURI = prepareForAssignment(this.assertionURI, newAssertionURI);
     }
 
     /*

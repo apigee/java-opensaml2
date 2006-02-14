@@ -43,6 +43,6 @@ public class AssertionURIRefMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         AssertionURIRef assertionURIRef = (AssertionURIRef) samlObject;
-        domElement.setTextContent(assertionURIRef.getURIRef());
+        domElement.setTextContent(assertionURIRef.getAssertionURI());
     }
 }
