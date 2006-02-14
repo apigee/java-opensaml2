@@ -43,6 +43,6 @@ public class AssertionIDRefMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         AssertionIDRef assertionIDRef = (AssertionIDRef) samlObject;
-        domElement.setTextContent(assertionIDRef.getIDRef());
+        domElement.setTextContent(assertionIDRef.getAssertionID());
     }
 }

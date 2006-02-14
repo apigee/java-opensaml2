@@ -42,6 +42,6 @@ public class AssertionIDRefUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      */
     protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
         AssertionIDRef assertionIDRef = (AssertionIDRef) samlObject;
-        assertionIDRef.setIDRef(elementContent);
+        assertionIDRef.setAssertionID(elementContent);
     }
 }

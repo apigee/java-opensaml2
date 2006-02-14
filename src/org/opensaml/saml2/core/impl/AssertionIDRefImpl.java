@@ -33,7 +33,7 @@ import org.opensaml.saml2.core.AssertionIDRef;
 public class AssertionIDRefImpl extends AbstractSAMLObject implements AssertionIDRef {
 
     /** ID Ref of the Assertion */
-    private String idRef;
+    private String assertionID;
 
     /** Constructor */
     public AssertionIDRefImpl() {
@@ -44,15 +44,15 @@ public class AssertionIDRefImpl extends AbstractSAMLObject implements AssertionI
     /*
      * @see org.opensaml.saml2.core.AssertionIDRef#getIDRef()
      */
-    public String getIDRef() {
-        return idRef;
+    public String getAssertionID() {
+        return assertionID;
     }
 
     /*
      * @see org.opensaml.saml2.core.AssertionIDRef#setIDRef(java.lang.String)
      */
-    public void setIDRef(String newIDRef) {
-        this.idRef = prepareForAssignment(this.idRef, newIDRef);
+    public void setAssertionID(String newIDRef) {
+        this.assertionID = prepareForAssignment(this.assertionID, newIDRef);
     }
 
     /*
