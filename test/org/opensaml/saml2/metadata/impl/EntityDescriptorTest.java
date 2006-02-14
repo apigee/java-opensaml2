@@ -100,8 +100,8 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
     public void testChildElementsUnmarshall()
     {
         EntityDescriptor descriptor = (EntityDescriptor) unmarshallElement(childElementsFile);
-        // TODO extensions
-        assertNull("Extensions child", descriptor.getExtensions());
+
+        assertNotNull("Extensions child", descriptor.getExtensions());
         assertEquals("IDPSSODescriptor count", 2, descriptor.getIDPSSODescriptor().size());
         assertEquals("SPSSODescriptor count", 3, descriptor.getSPSSODescriptor().size());
         assertEquals("AuthnAuthorityDescriptor count", 2, descriptor.getAuthnAuthorityDescriptor().size());
@@ -148,6 +148,7 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntityDescriptor descriptor = (EntityDescriptor) buildSAMLObject(qname);
      
+        descriptor.setExtensions(new ExtensionsImpl());
         descriptor.getIDPSSODescriptor().add(new IDPSSODescriptorImpl());
         descriptor.getSPSSODescriptor().add(new SPSSODescriptorImpl());
         descriptor.getSPSSODescriptor().add(new SPSSODescriptorImpl());

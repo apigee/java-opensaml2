@@ -458,6 +458,19 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.ActionUnmarshaller" />
         </ObjectProvider>
 
+	   <!-- ************************************* -->
+       <!--    TEMPLATE CLASSES FOR TESTING       -->
+       <!-- ************************************* -->
+
+        <!-- Extensions provider -->
+        <ObjectProvider qualifiedName="saml2md:Extensions">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.ExtensionsBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.ExtensionsMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.ExtensionsUnmarshaller" />
+        </ObjectProvider>
+        
+
+
     </ObjectProviders>
 
 </OpenSAML>

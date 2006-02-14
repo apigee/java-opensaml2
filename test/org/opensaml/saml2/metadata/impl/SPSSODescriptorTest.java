@@ -96,8 +96,9 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
     {
         SPSSODescriptor descriptor = (SPSSODescriptor) unmarshallElement(childElementsFile);
 
-        // TODO Extensions
+        assertNotNull("Extensions", descriptor.getExtensions());
         // TODO KeyDescriptor
+        assertEquals("KeyDescriptor", 0, descriptor.getKeyDescriptors().size());
         assertNotNull("Organization child", descriptor.getOrganization());
         assertEquals("ContactPerson count", 2, descriptor.getContactPersons().size());
 
@@ -145,10 +146,9 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildSAMLObject(qname);
-   
-        // TODO Extensions
-        // TODO KeyDescriptor
 
+        descriptor.setExtensions(new ExtensionsImpl());
+        // TODO KeyDescriptor
         descriptor.setOrganization(new OrganizationImpl());
         for (int i = 0; i < 2; i ++) {
             descriptor.getContactPersons().add(new ContactPersonImpl());

@@ -115,7 +115,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
         
         // TODO Extensions..
         
-        assertNull("Extensions", entitiesDescriptor.getExtensions());
+        assertNotNull("Extensions", entitiesDescriptor.getExtensions());
         assertEquals("Entities Descriptor child elements", expectedEntitiesDescriptorsCount, entitiesDescriptor.getEntitiesDescriptors().size());
         assertEquals("Entity Descriptor child elements", expectedEntityDescriptorsCount, entitiesDescriptor.getEntityDescriptors().size());
     }
@@ -151,7 +151,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(qname);
 
-        // TODO Extensions
+        entitiesDescriptor.setExtensions(new ExtensionsImpl());
         entitiesDescriptor.getEntitiesDescriptors().add(new EntitiesDescriptorImpl());
         entitiesDescriptor.getEntityDescriptors().add(new EntityDescriptorImpl());
         entitiesDescriptor.getEntitiesDescriptors().add(new EntitiesDescriptorImpl());

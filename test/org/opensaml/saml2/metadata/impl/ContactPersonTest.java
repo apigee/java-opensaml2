@@ -75,8 +75,7 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
     {
         ContactPerson person = (ContactPerson) unmarshallElement(childElementsFile);
         
-        // TODO Extension Elements
-        //assertNotNull("Extension Element not present", person.getExtensions());
+        assertNotNull("Extension Element not present", person.getExtensions());
         assertNotNull("Company Element not present", person.getCompany());
         assertNotNull("GivenName not present", person.getGivenName());
         assertEquals("Email address count", emailAddressCount, person.getEmailAddresses().size());
@@ -105,8 +104,8 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
         ContactPerson person = (ContactPerson) buildSAMLObject(qname);
         
         person.setType(expectedPersonType);
-        // TODO Extensions
-        //person.setExtensions(new ExtensionsImpl());
+
+        person.setExtensions(new ExtensionsImpl());
         person.setCompany(new CompanyImpl());
         person.setGivenName(new GivenNameImpl());
         person.setSurName(new SurNameImpl());

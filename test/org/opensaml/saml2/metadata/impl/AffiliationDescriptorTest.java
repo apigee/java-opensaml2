@@ -98,8 +98,8 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
     public void testChildElementsUnmarshall()
     {
         AffiliationDescriptor descriptor = (AffiliationDescriptor) unmarshallElement(childElementsFile);
-        // TODO Extensions unmarshall
-        assertNull("Extensions", descriptor.getExtensions());
+
+        assertNotNull("Extensions", descriptor.getExtensions());
         // TODO KeyDescriptor unmarshall
         assertEquals("KeyDescriptor count", 0, descriptor.getKeyDescriptors().size());
         assertEquals("Affiliate Member count ", 3, descriptor.getMembers().size());
@@ -138,7 +138,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
         
         descriptor.setOwnerID(expectedOwnerID);
 
-        // TODO Extensions unMarshall
+        descriptor.setExtensions(new ExtensionsImpl());
         // TODO KeyDescriptor to be tested
         
         descriptor.getMembers().add(new AffiliateMemberImpl());

@@ -97,6 +97,11 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsUnmarshall() {
         PDPDescriptor descriptor = (PDPDescriptor) unmarshallElement(childElementsFile);
+        
+        assertNotNull("<Extensions>", descriptor.getExtensions());
+        // TODO KeyDescriptor
+        assertEquals("KeyDescriptor", 0, descriptor.getKeyDescriptors().size());
+
         assertEquals("AuthzService count", 3, descriptor.getAuthzServices().size());
         assertEquals("AssertionIDRequestService count", 2, descriptor.getAssertionIDRequestServices().size());
         assertEquals("NameIDFormat count", 1, descriptor.getNameIDFormats().size());
@@ -132,10 +137,17 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
 
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
+    
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
+     */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildSAMLObject(qname);
-        
+
+        descriptor.setExtensions(new ExtensionsImpl());
+        // TODO KeyDescriptor
+    
         for (int i = 0; i < 3; i++) {
             descriptor.getAuthzServices().add(new AuthzServiceImpl());
         }

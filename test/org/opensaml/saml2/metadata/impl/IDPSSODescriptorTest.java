@@ -91,9 +91,11 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
     {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) unmarshallElement(childElementsFile);
 
-        // TODO Extensions
+        assertNotNull("Extensions", descriptor.getExtensions());
         // TODO KeyDescriptor
+        assertEquals("KeyDescriptor", 0, descriptor.getKeyDescriptors().size());
         // TODO Attributes
+        assertEquals("Attributes", 0, descriptor.getAttributes().size());
         assertNotNull("Organization child", descriptor.getOrganization());
         assertEquals("ContactPerson count", 2, descriptor.getContactPersons().size());
 
@@ -143,8 +145,8 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         IDPSSODescriptor descriptor = (IDPSSODescriptor) buildSAMLObject(qname);
-   
-        // TODO Extensions
+
+        descriptor.setExtensions(new ExtensionsImpl());
         // TODO KeyDescriptor
         // TODO Attributes
 

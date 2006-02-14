@@ -60,8 +60,7 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
     public void testChildElementsUnmarshall() {
         Organization org = (Organization) unmarshallElement(childElementsFile);
         
-        // TODO Extensions
-        assertNull("Extensions", org.getExtensions());
+        assertNotNull("Extensions", org.getExtensions());
         assertEquals("OrganizationName count", 3, org.getOrganizationNames().size());
         assertEquals("DisplayNames count", 2, org.getDisplayNames().size());
         assertEquals("URL count", 1, org.getURLs().size());
@@ -83,6 +82,7 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME);
         Organization org = (Organization) buildSAMLObject(qname);
 
+        org.setExtensions(new ExtensionsImpl());
         for (int i = 0; i < 3; i++){
             org.getOrganizationNames().add(new OrganizationNameImpl());
         }
