@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.xml.signature;
+package org.opensaml.xml.util;
 
 /**
  * An interface for elements whose content is binary data that has been 

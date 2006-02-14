@@ -17,6 +17,7 @@
 package org.opensaml.xml.signature;
 
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.Base64EncodedBinary;
 
 /**
  * XMLObject representing XML Digital Signature, version 20020212, PgenCounter element.
