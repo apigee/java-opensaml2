@@ -23,23 +23,21 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- *  Builder of {@link org.opensaml.saml2.metadata.core.StatusMessageImpl}
+ * Builder of {@link org.opensaml.saml2.metadata.core.NameIDPolcyImpl}
  */
-public class StatusMessageBuilder implements SAMLObjectBuilder {
+public class NameIDPolicyBuilder implements SAMLObjectBuilder {
 
     /**
      * Constructor
-     *
      */
-    public StatusMessageBuilder() { 
-        
+    public NameIDPolicyBuilder() {
     }
 
     /**
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
     public SAMLObject buildObject() {
-        return new StatusMessageImpl();
+        return new NameIDPolicyImpl();
     }
 
 }
