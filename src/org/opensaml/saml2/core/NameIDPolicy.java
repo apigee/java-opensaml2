@@ -68,13 +68,13 @@ public interface NameIDPolicy extends SAMLObject {
      * 
      * @return the AllowCreate value
      */
-    public String getAllowCreate();
+    public Boolean getAllowCreate();
 
     /**
      * Sets the AllowCreate value.
      * 
      * @param newAllowCreate the AllowCreate value
      */
-    public void setAllowCreate(String newAllowCreate);
+    public void setAllowCreate(Boolean newAllowCreate);
 
 }
