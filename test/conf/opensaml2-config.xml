@@ -266,6 +266,20 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.AttributeValueUnmarshaller" />
         </ObjectProvider>
 
+        <!-- StatusMessage provider -->
+        <ObjectProvider qualifiedName="saml2p:StatusMessage">
+            <BuilderClass className="org.opensaml.saml2.core.impl.StatusMessageBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.StatusMessageMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.StatusMessageUnmarshaller" />
+        </ObjectProvider>
+
+        <!-- StatusCode provider -->
+        <ObjectProvider qualifiedName="saml2p:StatusCode">
+            <BuilderClass className="org.opensaml.saml2.core.impl.StatusCodeBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.StatusCodeMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.StatusCodeUnmarshaller" />
+        </ObjectProvider>
+        
 	   <!-- ************************************* -->
        <!--       SAML 1.X Providers              -->
        <!-- ************************************* -->
