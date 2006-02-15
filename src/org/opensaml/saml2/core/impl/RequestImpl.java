@@ -34,16 +34,16 @@ import org.opensaml.saml2.core.Request;
  */
 public abstract class RequestImpl extends AbstractSignableSAMLObject implements Request {
     
-    /* Date/time request was issued */
+    /** Date/time request was issued */
     private DateTime issueInstant;
     
-    /* URI of the request destination */
+    /** URI of the request destination */
     private String destination;
 
-    /* URI of the SAML user consent type */
+    /** URI of the SAML user consent type */
     private String consent;
 
-    /* URI of the SAML user consent type */
+    /** URI of the SAML user consent type */
     private Issuer issuer;
 
 
@@ -57,63 +57,63 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
         super(namespaceURI, elementLocalName);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Request#getIssueInstant()
      */
     public DateTime getIssueInstant() {
         return issueInstant;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Request#setIssueInstant(org.joda.time.DateTime)
      */
     public void setIssueInstant(DateTime newIssueInstant) {
         this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstant);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Request#getDestination()
      */
     public String getDestination() {
         return destination;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Request#setDestination(java.lang.String)
      */
     public void setDestination(String newDestination) {
         this.destination = prepareForAssignment(this.destination, newDestination);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Request#getConsent()
      */
     public String getConsent() {
         return consent;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Request#setConsent(java.lang.String)
      */
     public void setConsent(String newConsent) {
         this.consent = prepareForAssignment(this.consent, newConsent);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Request#getIssuer()
      */
     public Issuer getIssuer() {
         return issuer;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Request#setIssuer(org.opensaml.saml2.core.Issuer)
      */
     public void setIssuer(Issuer newIssuer) {
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
