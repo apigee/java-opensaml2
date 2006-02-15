@@ -20,25 +20,30 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Status;
+import org.opensaml.xml.io.MarshallingException;
+import org.w3c.dom.Element;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.StatusCodeImpl}
+ * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.Status} objects.
  */
-public class StatusCodeBuilder implements SAMLObjectBuilder {
+public class StatusMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
-     *
      */
-    public StatusCodeBuilder() {
+    public StatusMarshaller() {
+        super(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
-    public SAMLObject buildObject() {
-        return new StatusCodeImpl();
+    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
+        // No attributes
+
     }
 
 }

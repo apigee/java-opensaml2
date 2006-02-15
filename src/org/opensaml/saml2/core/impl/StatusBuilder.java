@@ -23,22 +23,22 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.StatusCodeImpl}
+ * Builder of {@link org.opensaml.saml2.metadata.core.StatusImpl}
  */
-public class StatusCodeBuilder implements SAMLObjectBuilder {
+public class StatusBuilder implements SAMLObjectBuilder {
 
     /**
      * Constructor
-     *
      */
-    public StatusCodeBuilder() {
+    public StatusBuilder() {
+        
     }
 
     /**
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
     public SAMLObject buildObject() {
-        return new StatusCodeImpl();
+        return new StatusImpl();
     }
 
 }
