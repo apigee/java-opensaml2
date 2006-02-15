@@ -27,7 +27,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.StatusMessage;
 
 /**
- *
+ * Concrete implementation of {@link org.opensaml.saml2.core.StatusMessage}
  */
 public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessage {
     
