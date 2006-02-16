@@ -42,6 +42,15 @@ public class AssertionURIRefMarshaller extends AbstractSAMLObjectMarshaller {
      *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
+        // do nothing
+    }
+
+    /*
+     * 
+     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
+     *      org.w3c.dom.Element)
+     */
+    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
         AssertionURIRef assertionURIRef = (AssertionURIRef) samlObject;
         domElement.setTextContent(assertionURIRef.getAssertionURI());
     }

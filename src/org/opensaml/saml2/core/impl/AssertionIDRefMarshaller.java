@@ -42,8 +42,7 @@ public class AssertionIDRefMarshaller extends AbstractSAMLObjectMarshaller {
      *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        AssertionIDRef assertionIDRef = (AssertionIDRef) samlObject;
-        domElement.setTextContent(assertionIDRef.getAssertionID());
+        // do nothing
     }
 
     /*
