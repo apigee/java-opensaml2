@@ -41,10 +41,15 @@ public class SAMLVersion {
     /** Minor version number */
     private int minorVersion;
     
+    /** String representation of the version */
+    private String versionString;
+    
     /** Constructor */
     private SAMLVersion(int majorVersion, int minorVersion) {
         this.majorVersion = majorVersion;
         this.minorVersion = minorVersion;
+        
+        versionString = majorVersion + "." + minorVersion;
     }
     
     /**
@@ -63,5 +68,12 @@ public class SAMLVersion {
      */
     public int getMinorVersion() {
         return minorVersion;
+    }
+    
+    /*
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+        return versionString;
     }
 }
