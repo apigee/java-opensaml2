@@ -22,37 +22,35 @@ package org.opensaml.saml2.core.impl;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.NameIDPolicy;
+import org.opensaml.saml2.core.IDPEntry;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.NameIDPolicy} objects.
+ * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.IDPEntry} objects.
  */
-public class NameIDPolicyMarshaller extends AbstractSAMLObjectMarshaller {
+public class IDPEntryMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
      */
-    public NameIDPolicyMarshaller() {
-        super(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
+    public IDPEntryMarshaller() {
+        super(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME);
     }
 
     /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        NameIDPolicy policy = (NameIDPolicy) samlObject;
+        IDPEntry entry = (IDPEntry) samlObject;
         
-        if (policy.getFormat() != null)
-            domElement.setAttributeNS(null, NameIDPolicy.FORMAT_ATTRIB_NAME, policy.getFormat());
-
-        if (policy.getSPNameQualifier() != null)
-            domElement.setAttributeNS(null, NameIDPolicy.SP_NAME_QUALIFIER_ATTRIB_NAME, policy.getSPNameQualifier());
-
-        if (policy.getAllowCreate() != null && policy.getAllowCreate())
-            domElement.setAttributeNS(null, NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME, "true");
-
+        if (entry.getProviderID() != null)
+            domElement.setAttributeNS(null, IDPEntry.PROVIDER_ID_ATTRIB_NAME, entry.getProviderID());
+        if (entry.getName() != null)
+            domElement.setAttributeNS(null, IDPEntry.NAME_ATTRIB_NAME, entry.getName());
+        if (entry.getLoc() != null)
+            domElement.setAttributeNS(null, IDPEntry.LOC_ATTRIB_NAME, entry.getLoc());
+        
     }
 
 }

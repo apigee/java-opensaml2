@@ -22,37 +22,39 @@ package org.opensaml.saml2.core.impl;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.NameIDPolicy;
+import org.opensaml.saml2.core.GetComplete;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.NameIDPolicy} objects.
+ * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.GetComplete} objects.
  */
-public class NameIDPolicyMarshaller extends AbstractSAMLObjectMarshaller {
+public class GetCompleteMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
      */
-    public NameIDPolicyMarshaller() {
-        super(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
+    public GetCompleteMarshaller() {
+        super(SAMLConstants.SAML20P_NS, GetComplete.LOCAL_NAME);
     }
 
     /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        NameIDPolicy policy = (NameIDPolicy) samlObject;
-        
-        if (policy.getFormat() != null)
-            domElement.setAttributeNS(null, NameIDPolicy.FORMAT_ATTRIB_NAME, policy.getFormat());
-
-        if (policy.getSPNameQualifier() != null)
-            domElement.setAttributeNS(null, NameIDPolicy.SP_NAME_QUALIFIER_ATTRIB_NAME, policy.getSPNameQualifier());
-
-        if (policy.getAllowCreate() != null && policy.getAllowCreate())
-            domElement.setAttributeNS(null, NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME, "true");
-
+        // no attributes
     }
+
+    /**
+     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     */
+    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+        GetComplete gc = (GetComplete) samlObject;
+        
+        if (gc.getGetComplete() != null)
+            domElement.setTextContent(gc.getGetComplete());
+    }
+    
+    
 
 }

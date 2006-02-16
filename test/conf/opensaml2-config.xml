@@ -288,12 +288,32 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.StatusUnmarshaller" />
         </ObjectProvider>
         
-        
         <!-- NameIDPolicy provider -->
         <ObjectProvider qualifiedName="saml2p:NameIDPolicy">
             <BuilderClass className="org.opensaml.saml2.core.impl.NameIDPolicyBuilder" />
             <MarshallingClass className="org.opensaml.saml2.core.impl.NameIDPolicyMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.NameIDPolicyUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- Status provider -->
+        <ObjectProvider qualifiedName="saml2p:RequesterID">
+            <BuilderClass className="org.opensaml.saml2.core.impl.RequesterIDBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.RequesterIDMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.RequesterIDUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- GetComplete provider -->
+        <ObjectProvider qualifiedName="saml2p:GetComplete">
+            <BuilderClass className="org.opensaml.saml2.core.impl.GetCompleteBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.GetCompleteMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.GetCompleteUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- IDPEntry provider -->
+        <ObjectProvider qualifiedName="saml2p:IDPEntry">
+            <BuilderClass className="org.opensaml.saml2.core.impl.IDPEntryBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.IDPEntryMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.IDPEntryUnmarshaller" />
         </ObjectProvider>
         
 	   <!-- ************************************* -->
