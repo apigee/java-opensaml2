@@ -45,4 +45,15 @@ public class AssertionIDRefMarshaller extends AbstractSAMLObjectMarshaller {
         AssertionIDRef assertionIDRef = (AssertionIDRef) samlObject;
         domElement.setTextContent(assertionIDRef.getAssertionID());
     }
+
+    /*
+     * 
+     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
+     *      org.w3c.dom.Element)
+     */
+    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+        AssertionIDRef assertionIDRef = (AssertionIDRef) samlObject;
+        domElement.setTextContent(assertionIDRef.getAssertionID());
+    }
+
 }
