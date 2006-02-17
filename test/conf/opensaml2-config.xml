@@ -330,6 +330,34 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.ScopingUnmarshaller" />
         </ObjectProvider>
         
+        <!-- Artifact provider -->
+        <ObjectProvider qualifiedName="saml2p:Artifact">
+            <BuilderClass className="org.opensaml.saml2.core.impl.ArtifactBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.ArtifactMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.ArtifactUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- NewID provider -->
+        <ObjectProvider qualifiedName="saml2p:NewID">
+            <BuilderClass className="org.opensaml.saml2.core.impl.NewIDBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.NewIDMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.NewIDUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- Terminate provider -->
+        <ObjectProvider qualifiedName="saml2p:Terminate">
+            <BuilderClass className="org.opensaml.saml2.core.impl.TerminateBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.TerminateMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.TerminateUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- SessionIndex provider -->
+        <ObjectProvider qualifiedName="saml2p:SessionIndex">
+            <BuilderClass className="org.opensaml.saml2.core.impl.SessionIndexBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.SessionIndexMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.SessionIndexUnmarshaller" />
+        </ObjectProvider>
+        
 	   <!-- ************************************* -->
        <!--       SAML 1.X Providers              -->
        <!-- ************************************* -->
