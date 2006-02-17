@@ -69,7 +69,7 @@ public class ParserPoolManager {
     private ParserPoolManager() {
         HashMap<String, Boolean> features = new HashMap<String, Boolean>();
         features.put("http://apache.org/xml/features/validation/schema/normalized-value", Boolean.FALSE);
-        features.put("http://apache.org/xml/features/dom/defer-node-expansion", Boolean.TRUE);
+        features.put("http://apache.org/xml/features/dom/defer-node-expansion", Boolean.FALSE);
         
         parserPool = new ParserPool(true, null, features);
     }
