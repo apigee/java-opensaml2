@@ -34,6 +34,9 @@ public interface NameID extends Identifier, SAMLObject {
     
     /** Format attribute name */
     public final static String FORMAT_ATTRIB_NAME = "Format";
+    
+    /** SPProviderID attribute name*/
+    public final static String SPPROVIDER_ID_ATTRIB_NAME = "SPProviderID";
 
     /**
      * Gets the NameQualifier value.
@@ -78,16 +81,16 @@ public interface NameID extends Identifier, SAMLObject {
     public void setFormat(String newFormat);
 
     /**
-     * Gets the SPPorivderID of this NameID.
+     * Gets the SPProivderID of this NameID.
      * 
-     * @return the SPPorivderID of this NameID
+     * @return the SPProivderID of this NameID
      */
     public String getSPProviderID();
 
     /**
-     * Sets the SPPorivderID of this NameID.
+     * Sets the SPProivderID of this NameID.
      * 
-     * @param newSPProviderID the SPPorivderID of this NameID
+     * @param newSPProviderID the SPProivderID of this NameID
      */
     public void setSPProviderID(String newSPProviderID);
 }
