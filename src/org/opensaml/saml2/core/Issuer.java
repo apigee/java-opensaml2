@@ -20,7 +20,21 @@ package org.opensaml.saml2.core;
  * SAML 2.0 Core Issuer
  */
 public interface Issuer extends NameID {
-    
+
     /** Element local name */
     public final static String LOCAL_NAME = "Issuer";
+
+    /**
+     * Gets the Issuer of this ID.
+     * 
+     * @return Issuer Issuer
+     */
+    public String getIssuer();
+
+    /**
+     * Sets the Issuer of this ID.
+     * 
+     * @param newIssuer the Issuer of this ID
+     */
+    public void setIssuer(String newIssuer);
 }
