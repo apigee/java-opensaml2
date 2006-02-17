@@ -23,30 +23,31 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Status;
+import org.opensaml.saml2.core.IDPList;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
- * {@link org.opensaml.saml2.core.impl.StatusImpl}.
+ * {@link org.opensaml.saml2.core.impl.IDPEntryImpl}.
  */
-public class StatusTest extends SAMLObjectBaseTestCase {
+public class IDPListTest extends SAMLObjectBaseTestCase {
+    
+    /** The expected number of IDPEntry children */
+    private int expectedNumIDPEntryChildren;
 
     /**
      * Constructor
-     *
      */
-    public StatusTest() {
-        singleElementFile = "/data/org/opensaml/saml2/core/impl/Status.xml";
-        childElementsFile = "/data/org/opensaml/saml2/core/impl/StatusChildElements.xml";
+    public IDPListTest() {
+        singleElementFile = "/data/org/opensaml/saml2/core/impl/IDPList.xml";
+        childElementsFile = "/data/org/opensaml/saml2/core/impl/IDPListChildElements.xml";
     }
-
     
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
-        
+        expectedNumIDPEntryChildren = 3;
     }
 
 
@@ -54,49 +55,51 @@ public class StatusTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
-        Status status = (Status) buildSAMLObject(qname);
-        
-        assertEquals(expectedDOM, status);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
+        IDPList list = (IDPList) buildSAMLObject(qname);
+
+        assertEquals(expectedDOM, list);
     }
-    
-    
-    
+ 
+
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
-        Status status = (Status) buildSAMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
+        IDPList list = (IDPList) buildSAMLObject(qname);
         
-        status.setStatusCode(new StatusCodeImpl());
-        status.setStatusMessage(new StatusMessageImpl());
+        for (int i=0; i<expectedNumIDPEntryChildren; i++)
+            list.getIDPEntrys().add(new IDPEntryImpl());
         
-        assertEquals(expectedChildElementsDOM, status);
+        list.setGetComplete(new GetCompleteImpl());
+        
+        assertEquals(expectedChildElementsDOM, list);
+        
     }
-
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
-        Status status = (Status) unmarshallElement(singleElementFile);
+        IDPList list = (IDPList) unmarshallElement(singleElementFile);
         
-        assertNotNull("Status", status);
-        assertNull("StatusCode child", status.getStatusCode());
-        assertNull("StatusMessage", status.getStatusMessage());
+        assertNotNull("IDPList", list);
+        assertEquals("IDPEntry count", 0, list.getIDPEntrys().size());
+        assertNull("GetComplete", list.getGetComplete());
     }
-
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     public void testChildElementsUnmarshall() {
-        Status status = (Status) unmarshallElement(childElementsFile);
+        IDPList list = (IDPList) unmarshallElement(childElementsFile);
         
-        assertNotNull("StatusCode of Status was null", status.getStatusCode());
-        assertNotNull("StatusMessage of Status was null", status.getStatusMessage());
+        assertEquals("IDPEntry count", expectedNumIDPEntryChildren, list.getIDPEntrys().size());
+        assertNotNull("GetComplete", list.getGetComplete());
     }
     
+    
+
 
 }

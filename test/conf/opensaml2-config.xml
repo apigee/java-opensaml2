@@ -316,6 +316,20 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.IDPEntryUnmarshaller" />
         </ObjectProvider>
         
+        <!-- IDPList provider -->
+        <ObjectProvider qualifiedName="saml2p:IDPList">
+            <BuilderClass className="org.opensaml.saml2.core.impl.IDPListBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.IDPListMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.IDPListUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- Scoping provider -->
+        <ObjectProvider qualifiedName="saml2p:Scoping">
+            <BuilderClass className="org.opensaml.saml2.core.impl.ScopingBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.ScopingMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.ScopingUnmarshaller" />
+        </ObjectProvider>
+        
 	   <!-- ************************************* -->
        <!--       SAML 1.X Providers              -->
        <!-- ************************************* -->
