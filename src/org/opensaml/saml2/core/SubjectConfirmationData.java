@@ -23,18 +23,24 @@ import org.opensaml.common.SAMLObject;
  * SAML 2.0 Core SubjectConfirmationData
  */
 public interface SubjectConfirmationData extends SAMLObject {
-    
+
     /** Element local name */
     public final static String LOCAL_NAME = "SubjectConfirmationData";
-    
+
     /** NotBefore attribute name */
     public final static String NOT_BEFORE_ATTRIB_NAME = "NotBefore";
-    
+
     /** NotOnOrAfter attribute name */
     public final static String NOT_ON_OR_AFTER_ATTRIB_NAME = "NotOnOrAfter";
-    
+
     /** Recipient attribute name */
     public final static String RECIPIENT_ATTRIB_NAME = "Recipient";
+
+    /** InResponseTo attribute name */
+    public final static String IN_RESPONSE_TO_ATTRIB_NAME = "InResponseTo";
+
+    /** Address attribute name */
+    public final static String ADDRESS_ATTRIB_NAME = "Address";
 
     /**
      * Gets the time before which this subject is not valid.
