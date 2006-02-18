@@ -25,6 +25,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Request;
@@ -33,6 +34,9 @@ import org.opensaml.saml2.core.Request;
  * Concrete implementation of {@link org.opensaml.saml2.core.Request}
  */
 public abstract class RequestImpl extends AbstractSignableSAMLObject implements Request {
+    
+    /** Unique identifier of the request */
+    private String id;
     
     /** Date/time request was issued */
     private DateTime issueInstant;
@@ -55,6 +59,22 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
      */
     protected RequestImpl(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
+        setSAMLVersion(SAMLVersion.VERSION_20);
+    }
+    
+
+    /**
+     * @see org.opensaml.saml2.core.Request#getID()
+     */
+    public String getID() {
+        return id;
+    }
+
+    /**
+     * @see org.opensaml.saml2.core.Request#setID(java.lang.String)
+     */
+    public void setID(String newID) {
+        this.id = prepareForAssignment(this.id, newID);
     }
 
     /**

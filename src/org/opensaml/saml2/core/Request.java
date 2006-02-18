@@ -24,6 +24,9 @@ import org.opensaml.xml.SignableXMLObject;
  * SAML 2.0 Core RequestAbstractType
  */
 public interface Request extends SAMLObject, SignableXMLObject {
+    
+    /** ID attribute name */
+    public final static String ID_ATTRIB_NAME = "ID";
 
     /** Version attribute name */
     public final static String VERSION_ATTRIB_NAME = "Version";
@@ -38,10 +41,26 @@ public interface Request extends SAMLObject, SignableXMLObject {
     public final static String CONSENT_ATTRIB_NAME = "Consent";
     
     /**
+     * Gets the unique identifier of the request.
+     * 
+     * @return the unique identifier of the request
+     */
+    public String getID();
+    
+    /**
+     * Sets the unique identifier of the request.
+     * 
+     * @param newID the unique identifier of the request
+     */
+    
+    public void setID(String newID);
+    
+    /**
      * Gets the date/time the request was issued.
      * 
      * @return the date/time the request was issued
      */
+    
     public DateTime getIssueInstant();
     
     /**

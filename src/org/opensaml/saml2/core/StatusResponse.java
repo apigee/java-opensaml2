@@ -28,6 +28,9 @@ import org.opensaml.xml.SignableXMLObject;
  */
 public interface StatusResponse extends SAMLObject, SignableXMLObject {
     
+    /** ID attribute name */
+    public static final String ID_ATTRIB_NAME = "ID";
+    
     /** InResponseTo attribute name */
     public static final String IN_RESPONSE_TO_ATTRIB_NAME = "InResponseTo";
     
@@ -42,6 +45,21 @@ public interface StatusResponse extends SAMLObject, SignableXMLObject {
     
     /** Consent attribute name */
     public static final String CONSENT_ATTRIB_NAME = "Consent";
+    
+    /**
+     * Gets the unique identifier of the response.
+     * 
+     * @return the unique identifier of the response 
+     */
+    public String getID();
+    
+    /**
+     * Sets the unique identifier of the response.
+     * 
+     * @param newID the unique identifier of the response 
+     */
+    
+    public void setID(String newID);
 
     /**
      * Gets the date/time the response was issued.
