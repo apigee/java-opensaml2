@@ -57,7 +57,7 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         Response response = (Response) parentSAMLObject;
 
         if (childSAMLObject instanceof Assertion) {
-            response.setAssertion((Assertion) childSAMLObject);
+            response.getAssertions().add((Assertion) childSAMLObject);
         } else if (childSAMLObject instanceof Status) {
             response.setStatus((Status) childSAMLObject);
         } else {

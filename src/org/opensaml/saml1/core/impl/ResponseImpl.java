@@ -29,6 +29,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Implementation of the {@link org.opensaml.saml1.core.Response} Object
@@ -37,19 +38,26 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
 
     /** Status associated with this element */
     private Status status = null;
-
-    /** Assertion associated with this element */
-    private Assertion assertion = null;
-
+    
+    /** List of all the Assertions */
+    private List<Assertion> assertions;
     /**
      * Constructor
-     * 
      */
     protected ResponseImpl() {
         super(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
+        assertions = new XMLObjectChildrenList<Assertion>(this);
     }
 
+
+    /*
+     * @see org.opensaml.saml1.core.Response#getAssertions()
+     */
+    public List<Assertion> getAssertions() {
+        return assertions;
+    }
+    
     /*
      * @see org.opensaml.saml1.core.Response#getStatus()
      */
@@ -64,26 +72,10 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
         this.status = prepareForAssignment(this.status, status);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#getAssertions()
-     */
-    public Assertion getAssertion() {
-        return assertion;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#addAssertion(org.opensaml.saml1.core.Assertion)
-     */
-    public void setAssertion(Assertion assertion) throws IllegalArgumentException {
-        this.assertion = prepareForAssignment(this.assertion, assertion);
-    }
-
     public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>(2);
+        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>(1+assertions.size());
 
-        if (assertion != null) {
-            children.add(assertion);
-        }
+        children.addAll(assertions);
 
         if (status != null) {
             children.add(status);

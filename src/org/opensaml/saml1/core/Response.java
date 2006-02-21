@@ -16,6 +16,8 @@
 
 package org.opensaml.saml1.core;
 
+import java.util.List;
+
 
 /**
  * This interface defines how the object representing a SAML1 <code> Response </code> element behaves.
@@ -32,8 +34,6 @@ public interface Response extends ResponseAbstractType {
     void setStatus(Status status) throws IllegalArgumentException;
 
     /** Return the object representing the <code>Assertion<code> (element). */
-    Assertion getAssertion();
+    public List<Assertion> getAssertions();
 
-    /** Set the object representing the <code>Assertion<code> (element). */
-    void setAssertion(Assertion assertion) throws IllegalArgumentException;
 }

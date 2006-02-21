@@ -75,9 +75,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         assertNull("IssueInstant attribute has a value of " + response.getIssueInstant() 
                 + ", expected no value", response.getIssueInstant());
 
-        Assertion assertion;
-        assertion = response.getAssertion();
-        assertNull("Assertion element has a value of " + assertion + ", expected no value", assertion);
+        assertEquals("Assertion elements count", 0, response.getAssertions().size());
 
         Status status;
         status = response.getStatus();
@@ -112,9 +110,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Response response = (Response) unmarshallElement(childElementsFile);
 
-        Assertion assertion;
-        assertion = response.getAssertion();
-        assertNotNull("No Assertion element found", assertion);
+        assertEquals("No Assertion elements count", 1, response.getAssertions().size());
 
         Status status;
         status = response.getStatus();
@@ -156,7 +152,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
         Response response = (Response) buildSAMLObject(qname);
 
-        response.setAssertion(new AssertionImpl());
+        response.getAssertions().add(new AssertionImpl());
         response.setStatus(new StatusImpl());
 
         assertEquals(expectedChildElementsDOM, response);
