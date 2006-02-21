@@ -113,8 +113,6 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     {
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) unmarshallElement(childElementsFile);
         
-        // TODO Extensions..
-        
         assertNotNull("Extensions", entitiesDescriptor.getExtensions());
         assertEquals("Entities Descriptor child elements", expectedEntitiesDescriptorsCount, entitiesDescriptor.getEntitiesDescriptors().size());
         assertEquals("Entity Descriptor child elements", expectedEntityDescriptorsCount, entitiesDescriptor.getEntityDescriptors().size());
