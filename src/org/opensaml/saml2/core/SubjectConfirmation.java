@@ -22,10 +22,10 @@ import org.opensaml.common.SAMLObject;
  * SAML 2.0 Core SubjectConfirmation
  */
 public interface SubjectConfirmation extends SAMLObject {
-    
+
     /** Element local name */
     public final static String LOCAL_NAME = "SubjectConfirmation";
-    
+
     /** Method attribute name */
     public final static String METHOD_ATTRIB_NAME = "Method";
 
@@ -63,4 +63,12 @@ public interface SubjectConfirmation extends SAMLObject {
      * @return the data about how this subject was confirmed or constraints on the confirmation
      */
     public SubjectConfirmationData getSubjectConfirmationData();
+
+    /**
+     * Sets the data about how this subject was confirmed or constraints on the confirmation.
+     * 
+     * @param newSubjectConfirmationData the data about how this subject was confirmed or constraints on the
+     *            confirmation
+     */
+    public void setSubjectConfirmationData(SubjectConfirmationData newSubjectConfirmationData);
 }
