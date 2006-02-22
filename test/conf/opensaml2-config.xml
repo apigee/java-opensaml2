@@ -307,6 +307,23 @@
             <MarshallingClass className="org.opensaml.saml2.core.impl.SubjectMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.SubjectUnmarshaller" />
         </ObjectProvider>        
+        
+        <!-- Action provider -->
+        <ObjectProvider qualifiedName="saml2:Action">
+            <BuilderClass className="org.opensaml.saml2.core.impl.ActionBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.ActionMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.ActionUnmarshaller" />
+        </ObjectProvider>  
+        
+        <!-- Evidence provider -->
+        <ObjectProvider qualifiedName="saml2:Evidence">
+            <BuilderClass className="org.opensaml.saml2.core.impl.EvidenceBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.EvidenceMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.EvidenceUnmarshaller" />
+        </ObjectProvider>  
+        
+        
+        
 
         <!-- ** Core Protocol namespace ** -->
         
@@ -420,6 +437,20 @@
             <BuilderClass className="org.opensaml.saml2.core.impl.AuthnQueryBuilder" />
             <MarshallingClass className="org.opensaml.saml2.core.impl.AuthnQueryMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.AuthnQueryUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- AttributeQuery provider -->
+        <ObjectProvider qualifiedName="saml2p:AttributeQuery">
+            <BuilderClass className="org.opensaml.saml2.core.impl.AttributeQueryBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.AttributeQueryMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.AttributeQueryUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- AuthzDecisionQuery provider -->
+        <ObjectProvider qualifiedName="saml2p:AuthzDecisionQuery">
+            <BuilderClass className="org.opensaml.saml2.core.impl.AuthzDecisionQueryBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.AuthzDecisionQueryMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.AuthzDecisionQueryUnmarshaller" />
         </ObjectProvider>
         
 	   <!-- ************************************* -->

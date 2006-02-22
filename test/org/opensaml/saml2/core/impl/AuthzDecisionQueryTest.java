@@ -22,86 +22,95 @@ package org.opensaml.saml2.core.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AuthnQuery;
+import org.opensaml.saml2.core.AuthzDecisionQuery;
 
 /**
  *
  */
-public class AuthnQueryTest extends SubjectQueryTest {
+public class AuthzDecisionQueryTest extends SubjectQueryTest {
     
-    /** Expected SessionIndex attribute value */
-    private String expectedSessionIndex;
+    /** Expected Resource attribute value */
+    private String expectedResource;
+    
+    /** Expected number of Action child elements */
+    private int expectedNumActions;
+    
 
     /**
      * Constructor
      *
      */
-    public AuthnQueryTest() {
+    public AuthzDecisionQueryTest() {
         super();
-        singleElementFile = "/data/org/opensaml/saml2/core/impl/AuthnQuery.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/AuthnQueryOptionalAttributes.xml";
-        childElementsFile = "/data/org/opensaml/saml2/core/impl/AuthnQueryChildElements.xml";
+        singleElementFile = "/data/org/opensaml/saml2/core/impl/AuthzDecisionQuery.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/AuthzDecisionQueryOptionalAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml2/core/impl/AuthzDecisionQueryChildElements.xml";
     }
-    
 
     /**
      * @see org.opensaml.saml2.core.impl.SubjectQueryTest#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
-        expectedSessionIndex = "session12345";
+        expectedResource = "urn:string:resource";
+        expectedNumActions = 2;
     }
-
-
 
     /**
      * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
-        AuthnQuery query = (AuthnQuery) buildSAMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME);
+        AuthzDecisionQuery query = (AuthzDecisionQuery) buildSAMLObject(qname);
         
         super.populateRequiredAttributes(query);
+        query.setResource(expectedResource);
         
         assertEquals(expectedDOM, query);
     }
+    
+    
     
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
-        AuthnQuery query = (AuthnQuery) buildSAMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME);
+        AuthzDecisionQuery query = (AuthzDecisionQuery) buildSAMLObject(qname);
         
         super.populateRequiredAttributes(query);
         super.populateOptionalAttributes(query);
-        query.setSessionIndex(expectedSessionIndex);
+        query.setResource(expectedResource);
         
         assertEquals(expectedOptionalAttributesDOM, query);
     }
+    
+    
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
-        AuthnQuery query = (AuthnQuery) buildSAMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME);
+        AuthzDecisionQuery query = (AuthzDecisionQuery) buildSAMLObject(qname);
         
         super.populateChildElements(query);
-        query.setRequestedAuthnContext(new RequestedAuthnContextImpl());
+        for (int i=0; i<expectedNumActions; i++)
+            query.getActions().add(new ActionImpl());
+        query.setEvidence(new EvidenceImpl());
         
         assertEquals(expectedChildElementsDOM, query);
     }
 
-
     /**
+     * 
      * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
-        AuthnQuery query = (AuthnQuery) unmarshallElement(singleElementFile);
+        AuthzDecisionQuery query = (AuthzDecisionQuery) unmarshallElement(singleElementFile);
         
-        assertNotNull("AuthnQuery", query);
-        assertNull("SessionIndex", query.getSessionIndex());
+        assertNotNull("AuthzDecisionQuery was null", query);
+        assertEquals("Unmarshalled Resource attribute was not the expected value", expectedResource, query.getResource());
         super.helperTestSingleElementUnmarshall(query);
 
     }
@@ -110,19 +119,23 @@ public class AuthnQueryTest extends SubjectQueryTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
-        AuthnQuery query = (AuthnQuery) unmarshallElement(singleElementOptionalAttributesFile);
+        AuthzDecisionQuery query = (AuthzDecisionQuery) unmarshallElement(singleElementOptionalAttributesFile);
         
         super.helperTestSingleElementOptionalAttributesUnmarshall(query);
-        assertEquals("Unmarshalled SessionIndex was not the expected value", expectedSessionIndex, query.getSessionIndex());
     }
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     public void testChildElementsUnmarshall() {
-        AuthnQuery query = (AuthnQuery) unmarshallElement(childElementsFile);
+        AuthzDecisionQuery query = (AuthzDecisionQuery) unmarshallElement(childElementsFile);
         
+        assertEquals("Action count", expectedNumActions, query.getActions().size());
+        assertNotNull("Evidence was null", query.getEvidence());
         super.helperTestChildElementsUnmarshall(query);
-        assertNotNull("RequestedAuthnContext", query.getRequestedAuthnContext());
     }
+
+  
+    
+
 }
