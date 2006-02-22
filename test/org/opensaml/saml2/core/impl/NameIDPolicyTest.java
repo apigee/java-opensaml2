@@ -54,9 +54,9 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-    expectedFormat = "urn:string:format";
-    expectedSPNameQualifer = "urn:string:spname";
-    expectedAllowCreate = new Boolean(true);
+        expectedFormat = "urn:string:format";
+        expectedSPNameQualifer = "urn:string:spname";
+        expectedAllowCreate = new Boolean(true);
 
     }
 

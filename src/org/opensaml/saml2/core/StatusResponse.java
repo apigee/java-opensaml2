@@ -60,6 +60,21 @@ public interface StatusResponse extends SAMLObject, SignableXMLObject {
      */
     
     public void setID(String newID);
+    
+    /**
+     * Gets the unique request identifier for which this is a response
+     * 
+     * @return the unique identifier of the originating request
+     */
+    public String getInResponseTo();
+    
+    /**
+     * Sets the unique request identifier for which this is a response
+     * 
+     * @param newInResponseTo the unique identifier of the originating request
+     */
+    
+    public void setInResponseTo(String newInResponseTo);
 
     /**
      * Gets the date/time the response was issued.
@@ -99,9 +114,9 @@ public interface StatusResponse extends SAMLObject, SignableXMLObject {
     /**
      * Sets the consent obtained from the principal for sending this response.
      * 
-     * @param consent the consent obtained from the principal for sending this response
+     * @param newConsent the consent obtained from the principal for sending this response
      */
-    public void setConsent(String consent);
+    public void setConsent(String newConsent);
     
     /**
      * Gets the issuer of this response.
@@ -131,6 +146,18 @@ public interface StatusResponse extends SAMLObject, SignableXMLObject {
      */
     public void setStatus(Status newStatus);
     
-    //TODO Extensions
+    /**
+     * Gets the Extensions of this response.
+     * 
+     * @return the Status of this response
+     */
+    public Extensions getExtensions();
+    
+    /**
+     * Sets the Extensions of this response.
+     * 
+     * @param newExtensions the Extensions of this response
+     */
+    public void setExtensions(Extensions newExtensions);
     
 }

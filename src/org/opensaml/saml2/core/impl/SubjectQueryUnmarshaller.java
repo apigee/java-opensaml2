@@ -1,0 +1,67 @@
+/*
+ * Copyright [2005] [University Corporation for Advanced Internet Development, Inc.]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * 
+ */
+package org.opensaml.saml2.core.impl;
+
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.impl.UnknownAttributeException;
+import org.opensaml.common.impl.UnknownElementException;
+import org.opensaml.saml2.core.Subject;
+import org.opensaml.saml2.core.SubjectQuery;
+import org.opensaml.xml.io.UnmarshallingException;
+
+/**
+ * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.SubjectQuery}.
+ */
+public abstract class SubjectQueryUnmarshaller extends RequestUnmarshaller {
+
+    /**
+     * Constructor
+     *
+     * @param targetNamespaceURI
+     * @param targetLocalName
+     * @throws IllegalArgumentException
+     */
+    public SubjectQueryUnmarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
+        super(targetNamespaceURI, targetLocalName);
+    }
+
+    /**
+     * @see org.opensaml.saml2.core.impl.RequestUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     */
+    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue) throws UnmarshallingException, UnknownAttributeException {
+        // no attributes of our own
+        super.processAttribute(samlObject, attributeName, attributeValue);
+    }
+
+    /**
+     * @see org.opensaml.saml2.core.impl.RequestUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     */
+    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject) throws UnmarshallingException, UnknownElementException {
+        SubjectQuery sq = (SubjectQuery) parentSAMLObject;
+        
+        if (childSAMLObject instanceof Subject)
+            sq.setSubject((Subject) childSAMLObject);
+        else
+            super.processChildElement(parentSAMLObject, childSAMLObject);
+    }
+    
+    
+
+}

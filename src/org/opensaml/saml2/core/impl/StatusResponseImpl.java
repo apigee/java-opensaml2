@@ -29,31 +29,37 @@ import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.Status;
+import org.opensaml.saml2.core.StatusResponse;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Request}
+ * Concrete implementation of {@link org.opensaml.saml2.core.StatusResponse}
  */
-public abstract class RequestImpl extends AbstractSignableSAMLObject implements Request {
+public abstract class StatusResponseImpl extends AbstractSignableSAMLObject implements StatusResponse {
     
-    /** Unique identifier of the request */
+    /** ID attribute */
     private String id;
     
-    /** Date/time request was issued */
+    /** InResponseTo attribute */
+    private String inResponseTo;
+    
+    /** IssueInstant attribute */
     private DateTime issueInstant;
     
-    /** URI of the request destination */
+    /** Destination attribute */
     private String destination;
-
-    /** URI of the SAML user consent type */
+    
+    /** Consent attribute */
     private String consent;
-
-    /** URI of the SAML user consent type */
+    
+    /** Issuer child element */
     private Issuer issuer;
-
-    /**  Extensions child element */
+    
+    /** Extensions child element */
     private Extensions extensions;
-
+    
+    /** Status child element */
+    private Status status;
 
     /**
      * Constructor
@@ -61,94 +67,122 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
      * @param namespaceURI
      * @param elementLocalName
      */
-    protected RequestImpl(String namespaceURI, String elementLocalName) {
+    protected StatusResponseImpl(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
         setSAMLVersion(SAMLVersion.VERSION_20);
     }
-    
 
     /**
-     * @see org.opensaml.saml2.core.Request#getID()
+     * @see org.opensaml.saml2.core.StatusResponse#getID()
      */
     public String getID() {
-        return id;
+        return this.id;
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#setID(java.lang.String)
+     * @see org.opensaml.saml2.core.StatusResponse#setID(java.lang.String)
      */
     public void setID(String newID) {
         this.id = prepareForAssignment(this.id, newID);
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#getIssueInstant()
+     * @see org.opensaml.saml2.core.StatusResponse#getInResponseTo()
      */
-    public DateTime getIssueInstant() {
-        return issueInstant;
+    public String getInResponseTo() {
+        return this.inResponseTo;
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#setIssueInstant(org.joda.time.DateTime)
+     * @see org.opensaml.saml2.core.StatusResponse#setInResponseTo(java.lang.String)
+     */
+    public void setInResponseTo(String newInResponseTo) {
+        this.inResponseTo = prepareForAssignment(this.inResponseTo, newInResponseTo);
+    }
+
+    /**
+     * @see org.opensaml.saml2.core.StatusResponse#getIssueInstant()
+     */
+    public DateTime getIssueInstant() {
+        return this.issueInstant;
+    }
+
+    /**
+     * @see org.opensaml.saml2.core.StatusResponse#setIssueInstant(org.joda.time.DateTime)
      */
     public void setIssueInstant(DateTime newIssueInstant) {
         this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstant);
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#getDestination()
+     * @see org.opensaml.saml2.core.StatusResponse#getDestination()
      */
     public String getDestination() {
-        return destination;
+        return this.destination;
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#setDestination(java.lang.String)
+     * @see org.opensaml.saml2.core.StatusResponse#setDestination(java.lang.String)
      */
     public void setDestination(String newDestination) {
         this.destination = prepareForAssignment(this.destination, newDestination);
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#getConsent()
+     * @see org.opensaml.saml2.core.StatusResponse#getConsent()
      */
     public String getConsent() {
-        return consent;
+        return this.consent;
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#setConsent(java.lang.String)
+     * @see org.opensaml.saml2.core.StatusResponse#setConsent(java.lang.String)
      */
     public void setConsent(String newConsent) {
         this.consent = prepareForAssignment(this.consent, newConsent);
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#getIssuer()
+     * @see org.opensaml.saml2.core.StatusResponse#getIssuer()
      */
     public Issuer getIssuer() {
-        return issuer;
+        return this.issuer;
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#setIssuer(org.opensaml.saml2.core.Issuer)
+     * @see org.opensaml.saml2.core.StatusResponse#setIssuer(org.opensaml.saml2.core.Issuer)
      */
     public void setIssuer(Issuer newIssuer) {
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
+    
 
     /**
-     * @see org.opensaml.saml2.core.Request#getExtensions()
+     * @see org.opensaml.saml2.core.StatusResponse#getExtensions()
      */
     public Extensions getExtensions() {
         return this.extensions;
     }
 
     /**
-     * @see org.opensaml.saml2.core.Request#setExtensions(org.opensaml.saml2.core.Extensions)
+     * @see org.opensaml.saml2.core.StatusResponse#setExtensions(org.opensaml.saml2.core.Extensions)
      */
     public void setExtensions(Extensions newExtensions) {
         this.extensions = prepareForAssignment(this.extensions, newExtensions);
+    }
+
+    /**
+     * @see org.opensaml.saml2.core.StatusResponse#getStatus()
+     */
+    public Status getStatus() {
+        return this.status;
+    }
+
+    /**
+     * @see org.opensaml.saml2.core.StatusResponse#setStatus(org.opensaml.saml2.core.Status)
+     */
+    public void setStatus(Status newStatus) {
+        this.status = prepareForAssignment(this.status, newStatus);
     }
 
     /**
@@ -156,17 +190,20 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
      */
     public List<SAMLObject> getOrderedChildren() {
         ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
-       
+        
         if (issuer != null)
             children.add(issuer);
-        //TODO Signature ??? necessary?  if so, get from superclass ?
+        //TODO Signature
         if (extensions != null)
             children.add(extensions);
+        if (status != null)
+            children.add(status);
         
         if (children.size() == 0)
             return null;
         
         return Collections.unmodifiableList(children);
+        
     }
 
 }

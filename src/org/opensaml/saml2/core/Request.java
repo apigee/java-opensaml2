@@ -35,7 +35,7 @@ public interface Request extends SAMLObject, SignableXMLObject {
     public final static String ISSUE_INSTANT_ATTRIB_NAME = "IssueInstant";
     
     /** Destination attribute name */
-    public final static String DESTINIATION_ATTRIB_NAME = "Destination";
+    public final static String DESTINATION_ATTRIB_NAME = "Destination";
     
     /** Consent attribute name */
     public final static String CONSENT_ATTRIB_NAME = "Consent";
@@ -112,5 +112,18 @@ public interface Request extends SAMLObject, SignableXMLObject {
      */
     public void setIssuer(Issuer newIssuer);
     
-    //TODO Extensions
+    /**
+     * Gets the Extensions of this request.
+     * 
+     * @return the Status of this request 
+     */
+    public Extensions getExtensions();
+    
+    /**
+     * Sets the Extensions of this request.
+     * 
+     * @param newExtensions the Extensions of this request
+     */
+    public void setExtensions(Extensions newExtensions);
+    
 }
