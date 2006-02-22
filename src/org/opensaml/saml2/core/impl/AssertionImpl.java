@@ -1,0 +1,218 @@
+/*
+ * Copyright [2005] [University Corporation for Advanced Internet Development, Inc.]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * 
+ */
+
+package org.opensaml.saml2.core.impl;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Advice;
+import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.saml2.core.AuthnStatement;
+import org.opensaml.saml2.core.AuthzDecisionStatement;
+import org.opensaml.saml2.core.Conditions;
+import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.Statement;
+import org.opensaml.saml2.core.Subject;
+import org.opensaml.xml.util.XMLObjectChildrenList;
+
+/**
+ * A concrete implementation of {@link org.opensaml.saml2.core.Assertion}.
+ */
+public class AssertionImpl extends AbstractSAMLObject implements Assertion {
+
+    /** Issue Instant of the assertion */
+    private DateTime issueInstant;
+
+    /** ID of the assertion */
+    private String id;
+
+    /** Issuer of the assertion */
+    private Issuer issuer;
+
+    /** Subject of the assertion */
+    private Subject subject;
+
+    /** Conditions of the assertion */
+    private Conditions conditions;
+
+    /** Advice of the assertion */
+    private Advice advice;
+
+    /** Statements of the assertion */
+    private XMLObjectChildrenList<Statement> statements;
+
+    /** Authn Statements of the assertion */
+    private XMLObjectChildrenList<AuthnStatement> authnStatements;
+
+    /** Authz Decision Statements of the assertion */
+    private XMLObjectChildrenList<AuthzDecisionStatement> authzDecisionStatements;
+
+    /** Attribute Statements of the assertion */
+    private XMLObjectChildrenList<AttributeStatement> attributeStatements;
+
+    /** Constructor */
+    public AssertionImpl() {
+        super(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+
+        statements = new XMLObjectChildrenList<Statement>(this);
+        authnStatements = new XMLObjectChildrenList<AuthnStatement>(this);
+        authzDecisionStatements = new XMLObjectChildrenList<AuthzDecisionStatement>(this);
+        attributeStatements = new XMLObjectChildrenList<AttributeStatement>(this);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getIssueInstant()
+     */
+    public DateTime getIssueInstant() {
+        return issueInstant;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#setIssueInstant(org.joda.time.DateTime)
+     */
+    public void setIssueInstant(DateTime newIssueInstance) {
+        this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstance.withZone(DateTimeZone.UTC));
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getID()
+     */
+    public String getID() {
+        return id;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#setID(java.lang.String)
+     */
+    public void setID(String newID) {
+        this.id = prepareForAssignment(this.id, newID);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getIssuer()
+     */
+    public Issuer getIssuer() {
+        return issuer;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#setIssuer(org.opensaml.saml2.core.Issuer)
+     */
+    public void setIssuer(Issuer newIssuer) {
+        this.issuer = prepareForAssignment(this.issuer, newIssuer);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getSubject()
+     */
+    public Subject getSubject() {
+        return subject;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#setSubject(org.opensaml.saml2.core.Subject)
+     */
+    public void setSubject(Subject newSubject) {
+        this.subject = prepareForAssignment(this.subject, newSubject);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getConditions()
+     */
+    public Conditions getConditions() {
+        return conditions;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#setConditions(org.opensaml.saml2.core.Conditions)
+     */
+    public void setConditions(Conditions newConditions) {
+        this.conditions = prepareForAssignment(this.conditions, newConditions);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getAdvice()
+     */
+    public Advice getAdvice() {
+        return advice;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#setAdvice(org.opensaml.saml2.core.Advice)
+     */
+    public void setAdvice(Advice newAdvice) {
+        this.advice = prepareForAssignment(this.advice, newAdvice);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getStatements()
+     */
+    public List<Statement> getStatements() {
+        return statements;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getAuthnStatements()
+     */
+    public List<AuthnStatement> getAuthnStatements() {
+        return authnStatements;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getAuthzDecisionStatements()
+     */
+    public List<AuthzDecisionStatement> getAuthzDecisionStatements() {
+        return authzDecisionStatements;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getAttributeStatement()
+     */
+    public List<AttributeStatement> getAttributeStatement() {
+        return attributeStatements;
+    }
+
+    /*
+     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     */
+    public List<SAMLObject> getOrderedChildren() {
+        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+
+        children.add(issuer);
+        children.add(subject);
+        children.add(conditions);
+        children.add(advice);
+        children.addAll(statements);
+        children.addAll(authnStatements);
+        children.addAll(authzDecisionStatements);
+        children.addAll(attributeStatements);
+
+        return Collections.unmodifiableList(children);
+    }
+}
