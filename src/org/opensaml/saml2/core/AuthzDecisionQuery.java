@@ -44,7 +44,7 @@ public interface AuthzDecisionQuery extends SubjectQuery {
      * 
      * @param newResource the new Resource attrib value of this query
      */
-    public void setSessionIndex(String newSessionIndex);
+    public void setResource(String newResource);
     
     /**
      * Gets the Actions of this query
