@@ -25,15 +25,18 @@ import org.opensaml.common.SAMLObject;
  * SAML 2.0 Core Assertion
  */
 public interface Assertion extends SAMLObject {
-    
+
     /** Element local name */
     public final static String LOCAL_NAME = "Assertion";
-    
+
     /** Version attribute name */
     public final static String VERSION_ATTRIB_NAME = "Version";
-    
+
     /** IssueInstant attribute name */
     public final static String ISSUE_INSTANT_ATTRIB_NAME = "IssueInstant";
+
+    /** ID attribute name */
+    public final static String ID_ATTRIB_NAME = "ID";
 
     /**
      * Gets the issue instance of this assertion.
@@ -48,6 +51,20 @@ public interface Assertion extends SAMLObject {
      * @param newIssueInstance the issue instance of this assertion
      */
     public void setIssueInstant(DateTime newIssueInstance);
+
+    /**
+     * Sets the ID of this assertion.
+     * 
+     * @return the ID of this assertion
+     */
+    public String getID();
+
+    /**
+     * Sets the ID of this assertion.
+     * 
+     * @param newID the ID of this assertion
+     */
+    public void setID(String newID);
 
     /**
      * Gets the Issuer of this assertion.

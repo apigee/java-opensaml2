@@ -89,7 +89,7 @@ public interface Conditions extends SAMLObject {
      * 
      * @param newOneTimeUse the OneTimeUse condition for the assertion
      */
-    public void setOneTimeUser(OneTimeUse newOneTimeUse);
+    public void setOneTimeUse(OneTimeUse newOneTimeUse);
 
     /**
      * Gets the ProxyRestriction conditions for the assertion.

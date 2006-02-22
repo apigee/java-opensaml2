@@ -58,7 +58,7 @@ public interface AuthzDecisionStatement extends Statement {
      * 
      * @param newDescision the decision of the authorization request
      */
-    public void setDecision(DecisionType newDescision);
+    public void setDecision(DecisionType newDecision);
 
     /**
      * Gets the actions authorized to be performed.
