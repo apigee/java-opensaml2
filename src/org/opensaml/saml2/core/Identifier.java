@@ -16,9 +16,11 @@
 
 package org.opensaml.saml2.core;
 
+import org.opensaml.common.SAMLObject;
+
 /**
  * This marker interface is used to identify SAML elements that operate as name identifiers.
  */
-public interface Identifier {
+public interface Identifier  extends SAMLObject {
 
 }
