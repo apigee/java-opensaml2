@@ -39,6 +39,6 @@ public interface SubjectQuery extends Request {
      * 
      * @param newSubject the Subject of this request
      */
-    public void setSubject(Issuer newSubject);
+    public void setSubject(Subject newSubject);
 
 }
