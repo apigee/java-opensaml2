@@ -322,6 +322,12 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.EvidenceUnmarshaller" />
         </ObjectProvider>  
         
+        <!-- Conditions provider -->
+        <ObjectProvider qualifiedName="saml2:Conditions">
+            <BuilderClass className="org.opensaml.saml2.core.impl.ConditionsBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.ConditionsMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.ConditionsUnmarshaller" />
+        </ObjectProvider>  
         
         
 
@@ -451,6 +457,13 @@
             <BuilderClass className="org.opensaml.saml2.core.impl.AuthzDecisionQueryBuilder" />
             <MarshallingClass className="org.opensaml.saml2.core.impl.AuthzDecisionQueryMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.AuthzDecisionQueryUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- AuthnRequest provider -->
+        <ObjectProvider qualifiedName="saml2p:AuthnRequest">
+            <BuilderClass className="org.opensaml.saml2.core.impl.AuthnRequestBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.AuthnRequestMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.AuthnRequestUnmarshaller" />
         </ObjectProvider>
         
 	   <!-- ************************************* -->
