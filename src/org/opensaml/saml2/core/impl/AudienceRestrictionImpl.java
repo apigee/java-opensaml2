@@ -64,5 +64,4 @@ public class AudienceRestrictionImpl extends AbstractSAMLObject implements Audie
         
         return Collections.unmodifiableList(children);
     }
-
 }
