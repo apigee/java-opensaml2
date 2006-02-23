@@ -57,7 +57,6 @@ public class NewIDTest extends SAMLObjectBaseTestCase {
         NewID newID = (NewID) unmarshallElement(singleElementFile);
         
        assertEquals("The unmarshalled NewID was not the expected value", expectedNewID, newID.getNewID());
-
     }
 
     /**
@@ -71,5 +70,4 @@ public class NewIDTest extends SAMLObjectBaseTestCase {
         
         assertEquals(expectedDOM, newID);
     }
-
 }

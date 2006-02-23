@@ -39,14 +39,14 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/ProxyRestrictionChildElements.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -56,14 +56,14 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
         assertEquals("ProxyCount not as expected", expectedCount, count);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -75,14 +75,14 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, proxyRestriction);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     public void testChildElementsUnmarshall() {
@@ -90,7 +90,7 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
         assertEquals("Audience Count", expectedAudienceCount, proxyRestriction.getAudiences().size());
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {

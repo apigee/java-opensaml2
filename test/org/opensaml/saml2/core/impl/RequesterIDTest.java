@@ -58,7 +58,6 @@ public class RequesterIDTest extends SAMLObjectBaseTestCase {
         RequesterID reqID = (RequesterID) unmarshallElement(singleElementFile);
         
        assertEquals("Unmarshalled requester ID was not the expected value", expectedRequesterID, reqID.getRequesterID()); 
-
     }
 
     /**
@@ -72,5 +71,4 @@ public class RequesterIDTest extends SAMLObjectBaseTestCase {
         
         assertEquals(expectedDOM, reqID);
     }
-
 }

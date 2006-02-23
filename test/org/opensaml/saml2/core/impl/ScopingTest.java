@@ -127,7 +127,4 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
         assertNotNull("IDPList", scoping.getIDPList());
         assertEquals("RequesterID count", expectedNumRequestIDs, scoping.getRequesterIDs().size());
     }
-
-
-
 }

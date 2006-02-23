@@ -144,7 +144,6 @@ public abstract class RequestTest extends SAMLObjectBaseTestCase {
         
         assertNull("Consent", req.getConsent());
         assertNull("Destination", req.getDestination());
-        
     }
     
     protected void helperTestSingleElementOptionalAttributesUnmarshall(SAMLObject samlObject) {
@@ -163,7 +162,6 @@ public abstract class RequestTest extends SAMLObjectBaseTestCase {
     protected void helperTestChildElementsUnmarshall(SAMLObject samlObject) {
         Request req = (Request) samlObject;
         
-        assertNotNull("Issuer", req.getIssuer());
-        
+        assertNotNull("Issuer", req.getIssuer());       
     }
 }

@@ -71,7 +71,5 @@ public class SessionIndexTest extends SAMLObjectBaseTestCase {
         si.setSessionIndex(expectedSessionIndex);
         
         assertEquals(expectedDOM, si);
-
     }
-
 }

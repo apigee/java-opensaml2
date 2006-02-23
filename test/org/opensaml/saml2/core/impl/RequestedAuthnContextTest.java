@@ -103,7 +103,6 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
         
         assertNotNull("RequestedAuthnContext", rac);
         assertNull("Comparison", rac.getComparison());
-
     }
 
     /**
@@ -123,6 +122,4 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
        
         assertEquals("AuthnContextClassRef", expectedNumClassRefs, rac.getAuthnContextClassRefs().size());
     }
-
-
 }

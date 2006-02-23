@@ -32,14 +32,14 @@ public class OneTimeUseTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/OneTimeUse.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -48,14 +48,14 @@ public class OneTimeUseTest extends SAMLObjectBaseTestCase {
         assertNotNull(oneTimeUse);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -65,7 +65,7 @@ public class OneTimeUseTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, oneTimeUse);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
