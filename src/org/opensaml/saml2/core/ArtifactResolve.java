@@ -28,17 +28,17 @@ public interface ArtifactResolve extends Request {
     public static final String LOCAL_NAME = "ArtifactResolve";
     
     /**
-     *  Get artifact value 
+     *  Get Artifact child element
      * 
-     * @return the artifact value
+     * @return the Artifact child element
      */
-    public String getArtifact();
+    public Artifact getArtifact();
 
     /**
-     *  Set artifact value 
+     *  Set Artifact child element
      * 
-     * @param newArtifact sets the new artifact value
+     * @param newArtifact sets the new Artifact child element
      */
-    public void setArtifact(String newArtifact);
+    public void setArtifact(Artifact newArtifact);
 
 }
