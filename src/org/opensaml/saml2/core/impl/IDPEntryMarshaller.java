@@ -50,7 +50,5 @@ public class IDPEntryMarshaller extends AbstractSAMLObjectMarshaller {
             domElement.setAttributeNS(null, IDPEntry.NAME_ATTRIB_NAME, entry.getName());
         if (entry.getLoc() != null)
             domElement.setAttributeNS(null, IDPEntry.LOC_ATTRIB_NAME, entry.getLoc());
-        
     }
-
 }
