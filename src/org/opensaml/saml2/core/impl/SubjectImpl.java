@@ -51,28 +51,28 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
         subjectConfirmations = new XMLObjectChildrenList<SubjectConfirmation>(this);
     }
     
-    /*
+    /**
      * @see org.opensaml.saml2.core.Subject#getIdentifier()
      */
     public Identifier getIdentifier() {
         return identifier;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Subject#setIdentifier(org.opensaml.saml2.core.Identifier)
      */
     public void setIdentifier(Identifier newIdentifier) {
         this.identifier = prepareForAssignment(this.identifier, newIdentifier);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Subject#getSubjectConfirmation()
      */
     public List<SubjectConfirmation> getSubjectConfirmations() {
         return subjectConfirmations;
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

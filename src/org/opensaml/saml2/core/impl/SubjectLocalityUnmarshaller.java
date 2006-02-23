@@ -37,7 +37,7 @@ public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller 
         super(SAMLConstants.SAML20_NS, SubjectLocality.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */

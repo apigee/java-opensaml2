@@ -28,7 +28,7 @@ import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.Subject} objects.
+ * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.Subject} objects.
  */
 public class SubjectMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -37,7 +37,7 @@ public class SubjectMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */

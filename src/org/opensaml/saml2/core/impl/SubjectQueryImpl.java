@@ -75,9 +75,4 @@ public abstract class SubjectQueryImpl extends RequestImpl implements SubjectQue
         
         return Collections.unmodifiableList(children);
     }
-    
-    
-    
-    
-
 }

@@ -44,35 +44,35 @@ public class SubjectLocalityImpl extends AbstractSAMLObject implements SubjectLo
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectLocality#getAddress()
      */
     public String getAddress() {
         return address;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectLocality#setAddress(java.lang.String)
      */
     public void setAddress(String newAddress) {
         this.address = prepareForAssignment(this.address, newAddress);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectLocality#getDNSName()
      */
     public String getDNSName() {
         return dnsName;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectLocality#setDNSName(java.lang.String)
      */
     public void setDNSName(String newDNSName) {
         this.dnsName = prepareForAssignment(this.dnsName, newDNSName);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
