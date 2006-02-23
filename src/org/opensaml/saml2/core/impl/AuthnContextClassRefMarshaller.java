@@ -37,7 +37,7 @@ public class AuthnContextClassRefMarshaller extends AbstractSAMLObjectMarshaller
         super(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
@@ -45,7 +45,7 @@ public class AuthnContextClassRefMarshaller extends AbstractSAMLObjectMarshaller
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
