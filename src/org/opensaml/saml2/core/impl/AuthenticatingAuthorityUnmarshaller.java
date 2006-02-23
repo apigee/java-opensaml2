@@ -35,7 +35,7 @@ public class AuthenticatingAuthorityUnmarshaller extends AbstractSAMLObjectUnmar
         super(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */
