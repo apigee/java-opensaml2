@@ -39,7 +39,7 @@ public class AudienceRestrictionUnmarshaller extends AbstractSAMLObjectUnmarshal
         super(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */

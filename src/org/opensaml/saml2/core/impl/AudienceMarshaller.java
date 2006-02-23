@@ -37,7 +37,7 @@ public class AudienceMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
@@ -45,8 +45,7 @@ public class AudienceMarshaller extends AbstractSAMLObjectMarshaller {
         // do nothing
     }
 
-    /*
-     * 
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */

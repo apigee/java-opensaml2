@@ -41,21 +41,21 @@ public class AudienceImpl extends AbstractSAMLObject implements Audience {
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Audience#getValue()
      */
     public String getAudienceURI() {
         return audienceURI;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Audience#setValue(java.lang.String)
      */
     public void setAudienceURI(String newAudienceURI) {
         this.audienceURI = prepareForAssignment(this.audienceURI, newAudienceURI);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

@@ -41,21 +41,21 @@ public class AuthenticatingAuthorityImpl extends AbstractSAMLObject implements A
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthenticatingAuthority#getURI()
      */
     public String getURI() {
         return uri;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthenticatingAuthority#setURI(java.lang.String)
      */
     public void setURI(String newURI) {
         this.uri = prepareForAssignment(this.uri, newURI);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
