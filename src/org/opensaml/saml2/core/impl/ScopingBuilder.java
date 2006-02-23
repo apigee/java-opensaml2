@@ -39,5 +39,4 @@ public class ScopingBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new ScopingImpl();
     }
-
 }

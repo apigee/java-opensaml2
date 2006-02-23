@@ -46,5 +46,4 @@ public class RequesterIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         
         reqID.setRequesterID(elementContent);
     }
-
 }

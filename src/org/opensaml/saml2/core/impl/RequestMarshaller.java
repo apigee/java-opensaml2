@@ -67,5 +67,4 @@ public abstract class RequestMarshaller extends AbstractSAMLObjectMarshaller {
         if (req.getConsent() != null)
             domElement.setAttributeNS(null, Request.CONSENT_ATTRIB_NAME, req.getConsent());
     }
-
 }

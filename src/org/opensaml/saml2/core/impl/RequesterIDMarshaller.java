@@ -54,7 +54,4 @@ public class RequesterIDMarshaller extends AbstractSAMLObjectMarshaller {
         if (reqID.getRequesterID() != null)
             domElement.setTextContent(reqID.getRequesterID());
     }
-    
-    
-
 }

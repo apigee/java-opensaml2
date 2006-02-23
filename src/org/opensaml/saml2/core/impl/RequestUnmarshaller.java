@@ -82,7 +82,4 @@ public abstract class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-    
-    
-
 }

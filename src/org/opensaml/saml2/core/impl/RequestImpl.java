@@ -168,5 +168,4 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
         
         return Collections.unmodifiableList(children);
     }
-
 }

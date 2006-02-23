@@ -47,6 +47,4 @@ public class ScopingMarshaller extends AbstractSAMLObjectMarshaller {
         if (scoping.getProxyCount() != null)
             domElement.setAttributeNS(null, Scoping.PROXY_COUNT_ATTRIB_NAME, scoping.getProxyCount().toString());
     }
-    
-
 }

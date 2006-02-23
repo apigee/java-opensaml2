@@ -107,5 +107,4 @@ public class ScopingImpl extends AbstractSAMLObject implements Scoping {
         else
             return null;
     }
-
 }
