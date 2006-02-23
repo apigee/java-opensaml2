@@ -40,7 +40,7 @@ public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmar
         super(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */

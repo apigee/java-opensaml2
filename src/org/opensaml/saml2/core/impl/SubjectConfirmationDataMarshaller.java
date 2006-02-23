@@ -39,11 +39,10 @@ public class SubjectConfirmationDataMarshaller extends AbstractSAMLObjectMarshal
         super(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
-
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         SubjectConfirmationData subjectCD = (SubjectConfirmationData) samlObject;
 

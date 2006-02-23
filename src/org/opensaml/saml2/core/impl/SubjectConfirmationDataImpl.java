@@ -55,77 +55,77 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
     /** Address of the Confirmation Data */
     private String address;
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getNotBefore()
      */
     public DateTime getNotBefore() {
         return notBefore;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setNotBefore(java.util.Date)
      */
     public void setNotBefore(DateTime newNotBefore) {
         this.notBefore = prepareForAssignment(this.notBefore, newNotBefore.withZone(DateTimeZone.UTC));
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getNotOnOrAfter()
      */
     public DateTime getNotOnOrAfter() {
         return notOnOrAfter;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setNotOnOrAfter(java.util.Date)
      */
     public void setNotOnOrAfter(DateTime newNotOnOrAfter) {
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter.withZone(DateTimeZone.UTC));
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getRecipient()
      */
     public String getRecipient() {
         return recipient;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setRecipient(java.lang.String)
      */
     public void setRecipient(String newRecipient) {
         this.recipient = prepareForAssignment(this.recipient, newRecipient);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getInResponseTo()
      */
     public String getInResponseTo() {
         return inResponseTo;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setInResponseTo(java.lang.String)
      */
     public void setInResponseTo(String newInResponseTo) {
         this.inResponseTo = prepareForAssignment(this.inResponseTo, newInResponseTo);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getAddress()
      */
     public String getAddress() {
         return address;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setAddress(java.lang.String)
      */
     public void setAddress(String newAddress) {
         this.address = prepareForAssignment(this.address, newAddress);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

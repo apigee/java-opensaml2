@@ -51,14 +51,14 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmation#getIdentifier()
      */
     public Identifier getIdentifier() {
         return identifier;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmation#setIdentifier(org.opensaml.saml2.core.Identifier)
      */
     public void setIdentifier(Identifier newIdentifier) {
@@ -66,14 +66,14 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
 
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmation#getSubjectConfirmationData()
      */
     public SubjectConfirmationData getSubjectConfirmationData() {
         return subjectConfirmationData;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmation#setSubjectConfirmationData(org.opensaml.saml1.core.SubjectConfirmationData)
      */
     public void setSubjectConfirmationData(SubjectConfirmationData newSubjectConfirmationData) {
@@ -81,21 +81,21 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
 
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmation#getMethod()
      */
     public String getMethod() {
         return method;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.SubjectConfirmation#setMethod(java.lang.String)
      */
     public void setMethod(String newMethod) {
         this.method = prepareForAssignment(this.method, newMethod);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
