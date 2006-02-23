@@ -48,5 +48,4 @@ public class RequestedAuthnContextMarshaller extends AbstractSAMLObjectMarshalle
         if (rac.getComparison() != null)
             domElement.setAttributeNS(null, RequestedAuthnContext.COMPARISON_ATTRIB_NAME, rac.getComparison().toString());
     }
-
 }

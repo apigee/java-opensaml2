@@ -77,7 +77,4 @@ public class RequestedAuthnContextUnmarshaller extends AbstractSAMLObjectUnmarsh
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-    
-    
-
 }

@@ -39,5 +39,4 @@ public class RequesterIDBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new RequesterIDImpl();
     }
-
 }

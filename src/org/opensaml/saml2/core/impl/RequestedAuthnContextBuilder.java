@@ -41,5 +41,4 @@ public class RequestedAuthnContextBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new RequestedAuthnContextImpl();
     }
-
 }

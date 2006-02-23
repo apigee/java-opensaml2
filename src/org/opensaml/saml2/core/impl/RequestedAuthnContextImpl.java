@@ -100,5 +100,4 @@ public class RequestedAuthnContextImpl extends AbstractSAMLObject implements Req
         
         return Collections.unmodifiableList(children);
     }
-
 }

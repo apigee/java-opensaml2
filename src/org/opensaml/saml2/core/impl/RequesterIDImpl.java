@@ -62,5 +62,4 @@ public class RequesterIDImpl extends AbstractSAMLObject implements RequesterID {
         // No children
         return null;
     }
-
 }
