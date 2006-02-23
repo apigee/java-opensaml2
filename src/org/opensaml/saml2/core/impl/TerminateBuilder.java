@@ -40,5 +40,4 @@ public class TerminateBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new TerminateImpl();
     }
-
 }

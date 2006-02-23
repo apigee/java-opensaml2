@@ -61,7 +61,4 @@ public abstract class SubjectQueryUnmarshaller extends RequestUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-    
-    
-
 }

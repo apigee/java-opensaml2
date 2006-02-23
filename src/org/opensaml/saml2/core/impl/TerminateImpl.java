@@ -47,5 +47,4 @@ public class TerminateImpl extends AbstractSAMLObject implements Terminate {
         // no children
         return null;
     }
-
 }

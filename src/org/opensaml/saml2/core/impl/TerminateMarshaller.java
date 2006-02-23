@@ -44,7 +44,5 @@ public class TerminateMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         // no attributes
-
     }
-
 }
