@@ -24,19 +24,18 @@ import org.opensaml.saml2.core.AttributeValue;
 
 
 /**
- * * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AttributeValueImpl}.
+ * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AttributeValueImpl}.
  */
 public class AttributeValueTest extends SAMLObjectBaseTestCase {
 
     protected String expectedValue;
 
-    /** constructor */
+    /** Constructor */
     public AttributeValueTest() {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/AttributeValue.xml";
     }
 
-    /*
-     * 
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -45,8 +44,7 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
         expectedValue = "Something";
     }
 
-    /*
-     * 
+    /** 
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -56,17 +54,14 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
         assertEquals("value was " + value + ", expected " + expectedValue, expectedValue, value);
     }
 
-    /*
-     * 
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
-
     }
 
-    /*
-     * 
+    /** 
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -75,16 +70,12 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
 
         attributeValue.setValue(expectedValue);
         assertEquals(expectedDOM, attributeValue);
-
     }
 
-    /*
-     * 
+    /** 
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
         // do nothing
-
     }
-
 }

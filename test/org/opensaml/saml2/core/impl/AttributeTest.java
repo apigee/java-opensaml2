@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 
 /**
- * * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AttributeImpl}.
+ * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AttributeImpl}.
  */
 public class AttributeTest extends SAMLObjectBaseTestCase {
 
@@ -44,7 +44,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/AttributeOptionalAttributes.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -55,7 +55,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         expectedFriendlyName = "Attribute Name";
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -66,7 +66,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
@@ -84,7 +84,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
                 friendlyName);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -96,7 +96,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, attribute);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {

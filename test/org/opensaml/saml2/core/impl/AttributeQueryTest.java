@@ -129,11 +129,4 @@ public class AttributeQueryTest extends SubjectQueryTest {
         assertEquals("Attribute count", expectedNumAttributes, query.getAttributes().size());
         super.helperTestChildElementsUnmarshall(query);
     }
-
-
-
-  
-    
-
-
 }

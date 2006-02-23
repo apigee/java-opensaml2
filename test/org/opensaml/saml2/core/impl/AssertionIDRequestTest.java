@@ -120,7 +120,4 @@ public class AssertionIDRequestTest extends RequestTest {
         super.helperTestChildElementsUnmarshall(req);
         assertEquals("AssertionIDRef count", expectedNumAssertionIDRefs, req.getAssertionIDRefs().size());
     }
-
 }
-
-  
