@@ -142,8 +142,9 @@ public abstract class RequestTest extends SAMLObjectBaseTestCase {
         assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), req.getVersion().toString());
         assertEquals("Unmarshalled IssueInstant attribute was not the expected value", 0, expectedIssueInstant.compareTo(req.getIssueInstant()));
         
-        assertNull("Consent", req.getConsent());
-        assertNull("Destination", req.getDestination());
+        assertNull("Consent was not null", req.getConsent());
+        assertNull("Destination was not null", req.getDestination());
+        
     }
     
     protected void helperTestSingleElementOptionalAttributesUnmarshall(SAMLObject samlObject) {
@@ -162,6 +163,7 @@ public abstract class RequestTest extends SAMLObjectBaseTestCase {
     protected void helperTestChildElementsUnmarshall(SAMLObject samlObject) {
         Request req = (Request) samlObject;
         
-        assertNotNull("Issuer", req.getIssuer());       
+        assertNotNull("Issuer was null", req.getIssuer());
+        
     }
 }
