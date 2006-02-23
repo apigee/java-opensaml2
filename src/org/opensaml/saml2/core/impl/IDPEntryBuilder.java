@@ -39,5 +39,4 @@ public class IDPEntryBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new IDPEntryImpl();
     }
-
 }

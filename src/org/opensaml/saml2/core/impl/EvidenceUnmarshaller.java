@@ -40,7 +40,7 @@ public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */

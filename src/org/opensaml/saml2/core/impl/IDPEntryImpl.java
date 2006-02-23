@@ -102,5 +102,4 @@ public class IDPEntryImpl extends AbstractSAMLObject implements IDPEntry {
         // no children
         return null;
     }
-
 }

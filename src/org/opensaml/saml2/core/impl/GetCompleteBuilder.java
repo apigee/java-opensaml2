@@ -39,5 +39,4 @@ public class GetCompleteBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new GetCompleteImpl();
     }
-
 }

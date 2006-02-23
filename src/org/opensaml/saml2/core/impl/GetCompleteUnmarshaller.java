@@ -46,5 +46,4 @@ public class GetCompleteUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         
         gc.setGetComplete(elementContent);
     }
-
 }

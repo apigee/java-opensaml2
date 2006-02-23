@@ -54,7 +54,4 @@ public class GetCompleteMarshaller extends AbstractSAMLObjectMarshaller {
         if (gc.getGetComplete() != null)
             domElement.setTextContent(gc.getGetComplete());
     }
-    
-    
-
 }

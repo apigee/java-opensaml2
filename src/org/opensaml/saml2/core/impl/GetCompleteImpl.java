@@ -62,5 +62,4 @@ public class GetCompleteImpl extends AbstractSAMLObject implements GetComplete {
         // No children
         return null;
     }
-
 }

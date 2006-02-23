@@ -57,28 +57,28 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
         assertion = new XMLObjectChildrenList<Assertion>(this);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Evidence#getAssertionIDRef()
      */
     public List<AssertionIDRef> getAssertionIDReferences() {
         return assertionIDRef;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Evidence#getAssertionURIRef()
      */
     public List<AssertionURIRef> getAssertionURIReferences() {
         return assertionURIRef;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Evidence#getAssertion()
      */
     public List<Assertion> getAssertions() {
         return assertion;
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
