@@ -59,7 +59,4 @@ public class AttributeQueryUnmarshaller extends SubjectQueryUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-    
-    
-
 }

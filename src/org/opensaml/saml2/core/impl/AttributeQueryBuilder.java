@@ -41,5 +41,4 @@ public class AttributeQueryBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new AttributeQueryImpl();
     }
-
 }

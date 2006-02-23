@@ -41,21 +41,21 @@ public class AssertionURIRefImpl extends AbstractSAMLObject implements Assertion
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AssertionURIRef#getURIRef()
      */
     public String getAssertionURI() {
         return assertionURI;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AssertionURIRef#setURIRef(java.lang.String)
      */
     public void setAssertionURI(String newAssertionURI) {
         this.assertionURI = prepareForAssignment(this.assertionURI, newAssertionURI);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

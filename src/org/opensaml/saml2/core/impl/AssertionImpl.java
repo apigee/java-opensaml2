@@ -86,119 +86,119 @@ public class AssertionImpl extends AbstractSAMLObject implements Assertion {
         attributeStatements = new XMLObjectChildrenList<AttributeStatement>(this);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getIssueInstant()
      */
     public DateTime getIssueInstant() {
         return issueInstant;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#setIssueInstant(org.joda.time.DateTime)
      */
     public void setIssueInstant(DateTime newIssueInstance) {
         this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstance.withZone(DateTimeZone.UTC));
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getID()
      */
     public String getID() {
         return id;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#setID(java.lang.String)
      */
     public void setID(String newID) {
         this.id = prepareForAssignment(this.id, newID);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getIssuer()
      */
     public Issuer getIssuer() {
         return issuer;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#setIssuer(org.opensaml.saml2.core.Issuer)
      */
     public void setIssuer(Issuer newIssuer) {
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getSubject()
      */
     public Subject getSubject() {
         return subject;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#setSubject(org.opensaml.saml2.core.Subject)
      */
     public void setSubject(Subject newSubject) {
         this.subject = prepareForAssignment(this.subject, newSubject);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getConditions()
      */
     public Conditions getConditions() {
         return conditions;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#setConditions(org.opensaml.saml2.core.Conditions)
      */
     public void setConditions(Conditions newConditions) {
         this.conditions = prepareForAssignment(this.conditions, newConditions);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getAdvice()
      */
     public Advice getAdvice() {
         return advice;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#setAdvice(org.opensaml.saml2.core.Advice)
      */
     public void setAdvice(Advice newAdvice) {
         this.advice = prepareForAssignment(this.advice, newAdvice);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getStatements()
      */
     public List<Statement> getStatements() {
         return statements;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getAuthnStatements()
      */
     public List<AuthnStatement> getAuthnStatements() {
         return authnStatements;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getAuthzDecisionStatements()
      */
     public List<AuthzDecisionStatement> getAuthzDecisionStatements() {
         return authzDecisionStatements;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Assertion#getAttributeStatement()
      */
     public List<AttributeStatement> getAttributeStatement() {
         return attributeStatements;
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

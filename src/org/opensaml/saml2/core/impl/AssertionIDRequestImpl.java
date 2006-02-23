@@ -68,7 +68,4 @@ public class AssertionIDRequestImpl extends RequestImpl implements AssertionIDRe
         
         return Collections.unmodifiableList(children);
     }
-    
-    
-
 }

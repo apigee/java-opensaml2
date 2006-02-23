@@ -45,7 +45,4 @@ public class AttributeQueryMarshaller extends SubjectQueryMarshaller {
         // no attributes of our own
         super.marshallAttributes(samlObject, domElement);
     }
-    
-    
-
 }

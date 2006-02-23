@@ -59,7 +59,4 @@ public class AssertionIDRequestUnmarshaller extends RequestUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-    
-    
-
 }

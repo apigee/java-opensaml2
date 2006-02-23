@@ -40,5 +40,4 @@ public class AssertionIDRequestBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new AssertionIDRequestImpl();
     }
-
 }

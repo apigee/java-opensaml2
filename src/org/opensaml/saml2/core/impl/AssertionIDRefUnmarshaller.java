@@ -35,8 +35,7 @@ public class AssertionIDRefUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME);
     }
 
-    /*
-     * 
+    /** 
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */

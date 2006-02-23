@@ -67,10 +67,6 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
         if (children.size() == 0)
             return null;
         
-        return Collections.unmodifiableList(children);
-        
+        return Collections.unmodifiableList(children);       
     }
-    
-    
-
 }

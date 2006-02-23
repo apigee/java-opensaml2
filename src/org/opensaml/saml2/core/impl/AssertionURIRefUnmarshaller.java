@@ -35,8 +35,7 @@ public class AssertionURIRefUnmarshaller extends AbstractSAMLObjectUnmarshaller 
         super(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME);
     }
 
-    /*
-     * 
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */
