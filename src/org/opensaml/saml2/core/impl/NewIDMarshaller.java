@@ -44,7 +44,6 @@ public class NewIDMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         // no attributes
-
     }
 
     /** 
@@ -56,5 +55,4 @@ public class NewIDMarshaller extends AbstractSAMLObjectMarshaller {
         if (newID.getNewID() != null)
             domElement.setTextContent(newID.getNewID());
     }
-
 }

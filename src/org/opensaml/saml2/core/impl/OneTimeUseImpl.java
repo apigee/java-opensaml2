@@ -38,7 +38,7 @@ public class OneTimeUseImpl extends AbstractSAMLObject implements OneTimeUse {
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

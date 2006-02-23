@@ -50,21 +50,21 @@ public class ProxyRestrictionImpl extends AbstractSAMLObject implements ProxyRes
         audience = new XMLObjectChildrenList<Audience>(this);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.ProxyRestriction#getAudiences()
      */
     public List<Audience> getAudiences() {
         return audience;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.ProxyRestriction#getCount()
      */
     public Integer getProxyCount() {
         return proxyCount;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.ProxyRestriction#setCount(java.lang.Integer)
      */
     public void setProxyCount(Integer newProxyCount) {
@@ -74,7 +74,7 @@ public class ProxyRestrictionImpl extends AbstractSAMLObject implements ProxyRes
             throw (new IllegalArgumentException("Count must be a non-negative integer."));
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
