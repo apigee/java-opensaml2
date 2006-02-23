@@ -58,56 +58,56 @@ public class AuthzDecisionStatementImpl extends AbstractSAMLObject implements Au
         actions = new XMLObjectChildrenList<Action>(this);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#getResource()
      */
     public String getResource() {
         return resource;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#setResource(java.lang.String)
      */
     public void setResource(String newResourceURI) {
         this.resource = prepareForAssignment(this.resource, newResourceURI);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#getDecision()
      */
     public DecisionType getDecision() {
         return decision;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#setDecision(org.opensaml.saml2.core.DecisionType)
      */
     public void setDecision(DecisionType newDecision) {
         this.decision = prepareForAssignment(this.decision, newDecision);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#getActions()
      */
     public List<Action> getActions() {
         return actions;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#getEvidence()
      */
     public Evidence getEvidence() {
         return evidence;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#setEvidence(org.opensaml.saml2.core.Evidence)
      */
     public void setEvidence(Evidence newEvidence) {
         this.evidence = prepareForAssignment(this.evidence, newEvidence);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

@@ -49,7 +49,4 @@ public class AuthzDecisionQueryMarshaller extends SubjectQueryMarshaller {
         
         super.marshallAttributes(samlObject, domElement);
     }
-    
-    
-
 }

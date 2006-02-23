@@ -66,5 +66,4 @@ public class AuthzDecisionQueryUnmarshaller extends SubjectQueryUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-
 }
