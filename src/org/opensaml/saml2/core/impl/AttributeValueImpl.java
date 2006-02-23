@@ -40,25 +40,24 @@ public class AttributeValueImpl extends AbstractSAMLObject implements AttributeV
         super(SAMLConstants.SAML20_NS, AttributeValue.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AttributeValue#getValue()
      */
     public String getValue() {
         return attributeValue;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AttributeValue#setValue(java.lang.String)
      */
     public void setValue(String newValue) {
         this.attributeValue = prepareForAssignment(this.attributeValue, newValue);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
         return null;
     }
-
 }

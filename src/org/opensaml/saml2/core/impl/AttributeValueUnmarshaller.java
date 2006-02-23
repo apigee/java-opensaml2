@@ -33,8 +33,7 @@ public class AttributeValueUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, AttributeValue.LOCAL_NAME);
     }
 
-    /*
-     * 
+    /** 
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */
