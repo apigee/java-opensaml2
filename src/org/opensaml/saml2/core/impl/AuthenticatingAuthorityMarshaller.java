@@ -37,7 +37,7 @@ public class AuthenticatingAuthorityMarshaller extends AbstractSAMLObjectMarshal
         super(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
@@ -45,7 +45,7 @@ public class AuthenticatingAuthorityMarshaller extends AbstractSAMLObjectMarshal
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
