@@ -69,5 +69,4 @@ public class ArtifactTest extends SAMLObjectBaseTestCase {
         
         assertEquals(expectedDOM, artifact);
     }
-
 }

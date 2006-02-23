@@ -42,14 +42,14 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/AdviceChildElements.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -58,14 +58,14 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         assertNotNull(advice);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -75,14 +75,14 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, advice);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     public void testChildElementsUnmarshall() {
@@ -95,7 +95,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         assertEquals("Assertion count not as expected", assertionCount, advice.getAssertions().size());
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {

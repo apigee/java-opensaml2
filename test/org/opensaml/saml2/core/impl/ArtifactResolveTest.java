@@ -117,8 +117,4 @@ public class ArtifactResolveTest extends RequestTest {
         assertNotNull("Artifact was null", ar.getArtifact());
         super.helperTestChildElementsUnmarshall(ar);
     }
-
-
-
-
 }

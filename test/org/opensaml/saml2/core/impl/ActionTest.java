@@ -39,7 +39,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/ActionOptionalAttributes.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -49,7 +49,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         expectedNamespace = "ns";
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -59,7 +59,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         assertEquals("Action was " + actionname + ", expected " + expectedAction, expectedAction, actionname);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
@@ -72,7 +72,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         assertEquals("Namespace was " + namespace + ", expected " + expectedNamespace, expectedNamespace, namespace);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -83,7 +83,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, action);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
