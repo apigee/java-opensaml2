@@ -52,7 +52,5 @@ public class NameIDPolicyMarshaller extends AbstractSAMLObjectMarshaller {
 
         if (policy.getAllowCreate() != null && policy.getAllowCreate())
             domElement.setAttributeNS(null, NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME, "true");
-
     }
-
 }

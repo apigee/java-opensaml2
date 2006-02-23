@@ -41,7 +41,7 @@ public class NameIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */

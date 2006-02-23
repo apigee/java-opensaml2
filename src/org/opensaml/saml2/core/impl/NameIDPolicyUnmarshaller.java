@@ -55,7 +55,4 @@ public class NameIDPolicyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         else
             super.processAttribute(samlObject, attributeName, attributeValue);
     }
-    
-    
-
 }

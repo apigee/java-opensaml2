@@ -40,5 +40,4 @@ public class NewIDBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new NewIDImpl();
     }
-
 }

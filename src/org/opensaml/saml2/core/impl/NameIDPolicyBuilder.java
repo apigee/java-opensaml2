@@ -39,5 +39,4 @@ public class NameIDPolicyBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new NameIDPolicyImpl();
     }
-
 }

@@ -64,5 +64,4 @@ public class NewIDImpl extends AbstractSAMLObject implements NewID {
         // no children
         return null;
     }
-
 }

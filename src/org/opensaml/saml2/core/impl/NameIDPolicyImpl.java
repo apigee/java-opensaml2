@@ -100,5 +100,4 @@ public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy
         // no children
         return null;
     }
-
 }
