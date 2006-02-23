@@ -49,6 +49,4 @@ public class AuthnQueryMarshaller extends SubjectQueryMarshaller {
         
         super.marshallAttributes(samlObject, domElement);
     }
-    
-
 }

@@ -51,8 +51,7 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
     
     /** Scoping child element */
     private Scoping scoping;
-    
-    
+        
     /** ForeceAuthn attribute */
     private Boolean forceAuthn;
     
@@ -274,10 +273,6 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
         if (children.size() == 0)
             return null;
         
-        return Collections.unmodifiableList(children);
-        
+        return Collections.unmodifiableList(children);   
     }
-    
-    
-
 }

@@ -67,7 +67,4 @@ public class AuthnRequestMarshaller extends RequestMarshaller {
         
         super.marshallAttributes(samlObject, domElement);
     }
-    
-     
-
 }

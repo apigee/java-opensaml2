@@ -63,7 +63,4 @@ public class AuthnQueryUnmarshaller extends SubjectQueryUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-    
-    
-
 }

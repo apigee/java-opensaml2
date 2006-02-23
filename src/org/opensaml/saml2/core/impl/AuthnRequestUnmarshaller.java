@@ -87,5 +87,4 @@ public class AuthnRequestUnmarshaller extends RequestUnmarshaller {
         else 
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-
 }
