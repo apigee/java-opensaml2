@@ -93,5 +93,4 @@ public class AuthnQueryImpl extends SubjectQueryImpl implements AuthnQuery {
         
         return Collections.unmodifiableList(children);
     }
-
 }

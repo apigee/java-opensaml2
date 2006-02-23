@@ -41,5 +41,4 @@ public class AuthnQueryBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new AuthnQueryImpl();
     }
-
 }
