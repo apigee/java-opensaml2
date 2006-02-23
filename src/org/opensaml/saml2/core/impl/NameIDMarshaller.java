@@ -41,11 +41,10 @@ public class NameIDMarshaller extends AbstractSAMLObjectMarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
-
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         NameID nameID = (NameID) samlObject;
 

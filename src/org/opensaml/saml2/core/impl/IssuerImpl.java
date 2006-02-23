@@ -37,14 +37,14 @@ public class IssuerImpl extends NameIDImpl implements Issuer {
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
     
-    /*
+    /**
      * @see org.opensaml.saml2.core.Issuer#getIssuer()
      */
     public String getIssuer() {
         return issuer;
     }
     
-    /*
+    /**
      * @see org.opensaml.saml2.core.Issuer#setIssuer(java.lang.String)
      */
     public void setIssuer(String newIssuer) {

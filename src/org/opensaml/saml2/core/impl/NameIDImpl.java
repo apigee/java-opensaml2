@@ -54,63 +54,63 @@ public class NameIDImpl extends AbstractSAMLObject implements NameID {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.NameID#getNameQualifier()
      */
     public String getNameQualifier() {
         return nameQualifier;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.NameID#setNameQualifier(java.lang.String)
      */
     public void setNameQualifier(String newNameQualifier) {
         this.nameQualifier = prepareForAssignment(this.nameQualifier, newNameQualifier);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.NameID#getSPNameQualifier()
      */
     public String getSPNameQualifier() {
         return spNameQualifier;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.NameID#setSPNameQualifier(java.lang.String)
      */
     public void setSPNameQualifier(String newSPNameQualifier) {
         this.spNameQualifier = prepareForAssignment(this.spNameQualifier, newSPNameQualifier);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.NameID#getFormat()
      */
     public String getFormat() {
         return format;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.NameID#setFormat(java.lang.String)
      */
     public void setFormat(String newFormat) {
         this.format = prepareForAssignment(this.format, newFormat);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.NameID#getSPProviderID()
      */
     public String getSPProviderID() {
         return spProviderID;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.NameID#setSPProviderID(java.lang.String)
      */
     public void setSPProviderID(String newSPProviderID) {
         this.spProviderID = prepareForAssignment(this.spProviderID, newSPProviderID);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

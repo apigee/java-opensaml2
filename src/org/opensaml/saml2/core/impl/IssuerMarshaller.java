@@ -36,7 +36,7 @@ public class IssuerMarshaller extends NameIDMarshaller {
         super(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME);
     }
     
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
