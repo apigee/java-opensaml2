@@ -33,7 +33,7 @@ public class AuthnStatementBuilder implements SAMLObjectBuilder {
 
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
     public SAMLObject buildObject() {

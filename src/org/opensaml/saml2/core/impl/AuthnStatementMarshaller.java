@@ -38,7 +38,7 @@ public class AuthnStatementMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */

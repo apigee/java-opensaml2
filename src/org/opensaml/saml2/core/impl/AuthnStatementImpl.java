@@ -59,70 +59,70 @@ public class AuthnStatementImpl extends AbstractSAMLObject implements AuthnState
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#getSubjectLocality()
      */
     public SubjectLocality getSubjectLocality() {
         return subjectLocality;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#setSubjectLocality(org.opensaml.saml2.core.SubjectLocality)
      */
     public void setSubjectLocality(SubjectLocality newSubjectLocality) {
         this.subjectLocality = prepareForAssignment(this.subjectLocality, newSubjectLocality);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#getAuthnContext()
      */
     public AuthnContext getAuthnContext() {
         return authnContext;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#setAuthnContext(org.opensaml.saml2.core.AuthnContext)
      */
     public void setAuthnContext(AuthnContext newAuthnContext) {
         this.authnContext = prepareForAssignment(this.authnContext, newAuthnContext);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#getAuthnInstant()
      */
     public DateTime getAuthnInstant() {
         return authnInstant;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#setAuthnInstant(org.joda.time.DateTime)
      */
     public void setAuthnInstant(DateTime newAuthnInstant) {
         this.authnInstant = prepareForAssignment(this.authnInstant, newAuthnInstant.withZone(DateTimeZone.UTC));
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#getSessionIndex()
      */
     public String getSessionIndex() {
         return sessionIndex;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#setSessionIndex(java.lang.String)
      */
     public void setSessionIndex(String newSessionIndex) {
         this.sessionIndex = prepareForAssignment(this.sessionIndex, newSessionIndex);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#getSessionNotOnOrAfter()
      */
     public DateTime getSessionNotOnOrAfter() {
         return sessionNotOnOrAfter;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnStatement#setSessionNotOnOrAfter(org.joda.time.DateTime)
      */
     public void setSessionNotOnOrAfter(DateTime newSessionNotOnOrAfter) {
@@ -130,7 +130,7 @@ public class AuthnStatementImpl extends AbstractSAMLObject implements AuthnState
                 .withZone(DateTimeZone.UTC));
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

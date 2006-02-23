@@ -108,5 +108,4 @@ public class AuthzDecisionQueryImpl extends SubjectQueryImpl implements AuthzDec
         
         return Collections.unmodifiableList(children);
     }
-
 }

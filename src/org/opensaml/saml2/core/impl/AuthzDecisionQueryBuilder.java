@@ -41,5 +41,4 @@ public class AuthzDecisionQueryBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new AuthzDecisionQueryImpl();
     }
-
 }
