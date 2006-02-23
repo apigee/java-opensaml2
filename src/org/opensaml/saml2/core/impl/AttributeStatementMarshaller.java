@@ -36,7 +36,7 @@ public class AttributeStatementMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME);
     }
     
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
