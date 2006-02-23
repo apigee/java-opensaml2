@@ -43,7 +43,5 @@ public class StatusMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         // No attributes
-
     }
-
 }

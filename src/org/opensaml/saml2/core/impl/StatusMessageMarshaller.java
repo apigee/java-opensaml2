@@ -55,8 +55,4 @@ public class StatusMessageMarshaller extends AbstractSAMLObjectMarshaller {
         if (message.getMessage() != null)
             domElement.setTextContent(message.getMessage());
     }
-    
-    
-    
-
 }

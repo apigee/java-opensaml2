@@ -69,7 +69,5 @@ public abstract class StatusResponseMarshaller extends AbstractSAMLObjectMarshal
        
        if (sr.getConsent() != null)
            domElement.setAttributeNS(null, StatusResponse.CONSENT_ATTRIB_NAME, sr.getConsent());
-
     }
-
 }

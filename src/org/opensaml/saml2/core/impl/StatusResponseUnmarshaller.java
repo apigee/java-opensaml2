@@ -88,7 +88,4 @@ public abstract class StatusResponseUnmarshaller extends AbstractSAMLObjectUnmar
             sr.setStatus((Status) childSAMLObject);
         super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-    
-    
-
 }

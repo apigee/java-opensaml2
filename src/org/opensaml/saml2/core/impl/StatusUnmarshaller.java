@@ -58,5 +58,4 @@ public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-
 }

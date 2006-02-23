@@ -41,5 +41,4 @@ public class StatusMessageBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new StatusMessageImpl();
     }
-
 }

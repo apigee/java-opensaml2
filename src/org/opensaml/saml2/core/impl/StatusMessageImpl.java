@@ -55,7 +55,6 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
      */
     public void setMessage(String newMessage) {
         this.message = prepareForAssignment(this.message, newMessage);
-
     }
 
     /**
@@ -65,5 +64,4 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
         // No children for this element
         return null;
     }
-
 }

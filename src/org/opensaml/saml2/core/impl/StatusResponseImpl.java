@@ -156,7 +156,6 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
     
-
     /**
      * @see org.opensaml.saml2.core.StatusResponse#getExtensions()
      */
@@ -202,8 +201,6 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
         if (children.size() == 0)
             return null;
         
-        return Collections.unmodifiableList(children);
-        
+        return Collections.unmodifiableList(children);   
     }
-
 }

@@ -38,7 +38,6 @@ public class StatusMessageUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20P_NS, StatusMessage.LOCAL_NAME);
     }
     
-
     /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject, java.lang.String)
      */
@@ -47,6 +46,4 @@ public class StatusMessageUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         
         message.setMessage(elementContent);
     }
-    
-
 }

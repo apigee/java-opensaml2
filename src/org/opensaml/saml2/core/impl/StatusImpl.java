@@ -81,7 +81,6 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public void setStatusMessage(StatusMessage newStatusMessage) {
         this.statusMessage = prepareForAssignment(this.getStatusMessage(), newStatusMessage);
-
     }
 
     /**
@@ -96,7 +95,6 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
      */
     public void setStatusDetail(StatusDetail newStatusDetail) {
         this.statusDetail = prepareForAssignment(this.statusDetail, newStatusDetail);
-
     }
 
     /**
@@ -112,5 +110,4 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
             children.add(statusDetail);
         return Collections.unmodifiableList(children);
     }
-
 }
