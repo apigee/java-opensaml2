@@ -85,5 +85,4 @@ public class IDPListImpl extends AbstractSAMLObject implements IDPList {
         else
             return null;
     }
-
 }

@@ -54,5 +54,4 @@ public class IDPListUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-
 }

@@ -39,5 +39,4 @@ public class IDPListBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new IDPListImpl();
     }
-
 }

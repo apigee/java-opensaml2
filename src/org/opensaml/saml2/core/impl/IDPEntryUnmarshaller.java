@@ -54,8 +54,4 @@ public class IDPEntryUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         else
             super.processAttribute(samlObject, attributeName, attributeValue);
     }
-    
-    
-    
-
 }
