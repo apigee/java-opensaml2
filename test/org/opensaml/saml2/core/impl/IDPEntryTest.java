@@ -113,8 +113,4 @@ public class IDPEntryTest extends SAMLObjectBaseTestCase {
         assertEquals("The unmarshalled Name attribute was not the expected value", expectedName, entry.getName());
         assertEquals("The unmarshalled Loc (location) attribute was not the expected value", expectedLocation, entry.getLoc());
     }
-    
-    
-
-
 }

@@ -35,7 +35,7 @@ public class IssuerTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/Issuer.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -44,7 +44,7 @@ public class IssuerTest extends SAMLObjectBaseTestCase {
         expectedIssuer = "issuer name";
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -54,14 +54,14 @@ public class IssuerTest extends SAMLObjectBaseTestCase {
         assertEquals("Issuer was " + issuername + ", expected " + expectedIssuer, expectedIssuer, issuername);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -72,7 +72,7 @@ public class IssuerTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, issuer);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {

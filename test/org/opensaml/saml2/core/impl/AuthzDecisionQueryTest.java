@@ -134,8 +134,4 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
         assertNotNull("Evidence was null", query.getEvidence());
         super.helperTestChildElementsUnmarshall(query);
     }
-
-  
-    
-
 }

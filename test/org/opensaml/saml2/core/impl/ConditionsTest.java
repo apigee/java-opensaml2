@@ -51,7 +51,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/ConditionsChildElements.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -60,7 +60,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         expectedNotOnOrAfter = new DateTime(1984, 8, 26, 10, 11, 30, 43, ISOChronology.getInstanceUTC());
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -70,7 +70,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals("NotBefore was " + notBefore + ", expected " + expectedNotBefore, expectedNotBefore, notBefore);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
@@ -84,7 +84,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
                 notOnOrAfter);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -95,7 +95,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, conditions);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
@@ -108,7 +108,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, conditions);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     public void testChildElementsUnmarshall() {
@@ -116,7 +116,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals("Condition count not as expected", conditionCount, conditions.getConditions().size());
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {

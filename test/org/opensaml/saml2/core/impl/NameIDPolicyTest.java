@@ -103,5 +103,4 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
         assertEquals("Unmarshalled SPNameQualifier URI attribute value was not the expected value", expectedSPNameQualifer, policy.getSPNameQualifier());
         assertEquals("Unmarshalled AllowCreate attribute value was not the expected value", expectedAllowCreate, policy.getAllowCreate());
     }
-
 }

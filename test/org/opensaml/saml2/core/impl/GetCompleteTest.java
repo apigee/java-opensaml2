@@ -72,5 +72,4 @@ public class GetCompleteTest extends SAMLObjectBaseTestCase {
         
         assertEquals(expectedDOM, gc);
     }
-
 }

@@ -98,8 +98,4 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
         assertEquals("IDPEntry count", expectedNumIDPEntryChildren, list.getIDPEntrys().size());
         assertNotNull("GetComplete", list.getGetComplete());
     }
-    
-    
-
-
 }

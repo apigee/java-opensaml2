@@ -45,7 +45,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/AuthzDecisionStatementChildElements.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -54,7 +54,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
         expectedDecision = DecisionType.DENY;
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -64,7 +64,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
         assertEquals("Resource not as expected", expectedResource, resource);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
@@ -77,7 +77,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
         assertEquals("Decision not as expected", expectedDecision.toString(), decision.toString());
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -88,7 +88,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, authzDecisionStatement);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
@@ -101,7 +101,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, authzDecisionStatement);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     public void testChildElementsUnmarshall() {
@@ -110,7 +110,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
         assertNotNull("Evidence element not present", authzDecisionStatement.getEvidence());
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {

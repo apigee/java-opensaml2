@@ -39,7 +39,7 @@ public class BaseIDTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/BaseIDOptionalAttributes.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -49,7 +49,7 @@ public class BaseIDTest extends SAMLObjectBaseTestCase {
         expectedSPNameQualifier = "spnq";
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -59,7 +59,7 @@ public class BaseIDTest extends SAMLObjectBaseTestCase {
         assertEquals("NameQualifier not as expected", nameQualifier, expectedNameQualifier);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
@@ -71,7 +71,7 @@ public class BaseIDTest extends SAMLObjectBaseTestCase {
         assertEquals("SPNameQualifier not as expected", spNameQualifier, expectedSPNameQualifier);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -82,7 +82,7 @@ public class BaseIDTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, baseID);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
