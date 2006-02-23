@@ -41,21 +41,21 @@ public class AuthnContextDeclImpl extends AbstractSAMLObject implements AuthnCon
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnContextDecl#getDeclartion()
      */
     public String getDeclartion() {
         return declaration;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnContextDecl#setDeclaration(java.lang.String)
      */
     public void setDeclaration(String newDeclaration) {
         this.declaration = prepareForAssignment(this.declaration, newDeclaration);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

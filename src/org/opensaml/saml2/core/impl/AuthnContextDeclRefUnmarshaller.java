@@ -35,7 +35,7 @@ public class AuthnContextDeclRefUnmarshaller extends AbstractSAMLObjectUnmarshal
         super(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */

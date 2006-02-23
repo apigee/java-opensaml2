@@ -41,21 +41,21 @@ public class AuthnContextDeclRefImpl extends AbstractSAMLObject implements Authn
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnContextDeclRef#getURI()
      */
     public String getAuthnContextDeclRef() {
         return authnContextDeclRef;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AuthnContextDeclRef#setURI(java.lang.String)
      */
     public void setAuthnContextDeclRef(String newAuthnContextDeclRef) {
         this.authnContextDeclRef = prepareForAssignment(this.authnContextDeclRef, newAuthnContextDeclRef);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
