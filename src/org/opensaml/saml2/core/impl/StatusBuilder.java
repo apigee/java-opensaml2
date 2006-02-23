@@ -40,5 +40,4 @@ public class StatusBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new StatusImpl();
     }
-
 }

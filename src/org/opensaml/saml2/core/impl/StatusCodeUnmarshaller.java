@@ -63,6 +63,4 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-    
-
 }

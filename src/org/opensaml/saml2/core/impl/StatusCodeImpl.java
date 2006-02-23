@@ -86,8 +86,6 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
             return Collections.unmodifiableList(children);
         } else {
             return null;
-        }
-       
+        }  
     }
-
 }

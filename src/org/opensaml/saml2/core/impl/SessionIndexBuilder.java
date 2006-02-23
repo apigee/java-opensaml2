@@ -40,5 +40,4 @@ public class SessionIndexBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new SessionIndexImpl();
     }
-
 }

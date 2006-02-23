@@ -40,5 +40,4 @@ public class StatusCodeBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new StatusCodeImpl();
     }
-
 }

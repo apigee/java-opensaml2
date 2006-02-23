@@ -55,7 +55,6 @@ public class SessionIndexImpl extends AbstractSAMLObject implements SessionIndex
      */
     public void setSessionIndex(String newSessionIndex) {
         this.sessionIndex = prepareForAssignment(this.sessionIndex, newSessionIndex);
-
     }
 
     /**
@@ -65,5 +64,4 @@ public class SessionIndexImpl extends AbstractSAMLObject implements SessionIndex
         // no children
         return null;
     }
-
 }

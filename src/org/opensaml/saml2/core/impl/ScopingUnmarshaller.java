@@ -66,5 +66,4 @@ public class ScopingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-
 }

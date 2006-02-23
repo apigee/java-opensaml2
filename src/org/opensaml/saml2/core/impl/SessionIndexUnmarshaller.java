@@ -46,5 +46,4 @@ public class SessionIndexUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         
         si.setSessionIndex(elementContent);
     }
-
 }

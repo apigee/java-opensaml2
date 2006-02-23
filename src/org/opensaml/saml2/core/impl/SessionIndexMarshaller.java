@@ -44,7 +44,6 @@ public class SessionIndexMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
         // no attributes
-
     }
 
     /**
@@ -56,5 +55,4 @@ public class SessionIndexMarshaller extends AbstractSAMLObjectMarshaller {
         if (si.getSessionIndex() != null)
             domElement.setTextContent(si.getSessionIndex());
     }
-
 }
