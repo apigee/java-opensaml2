@@ -36,14 +36,14 @@ public class AuthnContextTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/AuthnContextChildElements.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -52,14 +52,14 @@ public class AuthnContextTest extends SAMLObjectBaseTestCase {
         assertNotNull(authnContext);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -69,14 +69,14 @@ public class AuthnContextTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, authnContext);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     public void testChildElementsUnmarshall() {
@@ -89,7 +89,7 @@ public class AuthnContextTest extends SAMLObjectBaseTestCase {
                 .getAuthenticatingAuthorities().size());
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {

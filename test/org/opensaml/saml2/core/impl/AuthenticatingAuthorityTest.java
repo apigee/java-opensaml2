@@ -36,7 +36,7 @@ public class AuthenticatingAuthorityTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/AuthenticatingAuthority.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -45,7 +45,7 @@ public class AuthenticatingAuthorityTest extends SAMLObjectBaseTestCase {
         expectedURI = "authenticating URI";
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -55,14 +55,14 @@ public class AuthenticatingAuthorityTest extends SAMLObjectBaseTestCase {
         assertEquals("URI was " + assertionURI + ", expected " + expectedURI, expectedURI, assertionURI);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -75,7 +75,7 @@ public class AuthenticatingAuthorityTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {

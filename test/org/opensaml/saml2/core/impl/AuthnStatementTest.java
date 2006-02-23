@@ -45,7 +45,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/AuthnStatementChildElements.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -55,7 +55,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         expectedSessionNotOnOrAfter = new DateTime(1984, 8, 26, 10, 11, 30, 43, ISOChronology.getInstanceUTC());
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -66,7 +66,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
                 authnInstant);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
@@ -85,7 +85,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
                 expectedSessionNotOnOrAfter, sessionNotOnOrAfter);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -96,7 +96,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, authnStatement);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
@@ -110,7 +110,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, authnStatement);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     public void testChildElementsUnmarshall() {
@@ -119,7 +119,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         assertNotNull("SubjectLocality element not present", authnStatement.getSubjectLocality());
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {

@@ -35,7 +35,7 @@ public class AuthnContextClassRefTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/AuthnContextClassRef.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -44,7 +44,7 @@ public class AuthnContextClassRefTest extends SAMLObjectBaseTestCase {
         expectedClassRef = "class reference";
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -54,14 +54,14 @@ public class AuthnContextClassRefTest extends SAMLObjectBaseTestCase {
         assertEquals("Class Reference was " + classRef + ", expected " + expectedClassRef, expectedClassRef, classRef);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -72,7 +72,7 @@ public class AuthnContextClassRefTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, authnContextClassRef);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {

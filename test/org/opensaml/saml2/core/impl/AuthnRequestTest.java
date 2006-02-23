@@ -183,6 +183,4 @@ public class AuthnRequestTest extends RequestTest {
         
         super.helperTestChildElementsUnmarshall(req);
     }
-
-
 }

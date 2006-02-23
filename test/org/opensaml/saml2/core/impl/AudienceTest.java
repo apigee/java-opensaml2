@@ -35,7 +35,7 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/Audience.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -44,7 +44,7 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
         expectedAudienceURI = "audience URI";
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -55,14 +55,14 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
                 audienceURI);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -73,7 +73,7 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, audience);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
