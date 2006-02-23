@@ -51,7 +51,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/SubjectConfirmationDataOptionalAttributes.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -63,7 +63,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         expectedAddress = "address";
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -73,7 +73,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         assertEquals("NotBefore was " + notBefore + ", expected " + expectedNotBefore, expectedNotBefore, notBefore);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
@@ -97,7 +97,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         assertEquals("Address was " + address + ", expected " + expectedAddress, expectedAddress, address);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -109,7 +109,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, subjectCD);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {

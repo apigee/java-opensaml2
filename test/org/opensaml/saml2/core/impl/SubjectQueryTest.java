@@ -106,5 +106,4 @@ public abstract class SubjectQueryTest extends RequestTest {
     protected void helperTestSingleElementUnmarshall(SAMLObject samlObject) {
         super.helperTestSingleElementUnmarshall(samlObject);
     }
-
 }

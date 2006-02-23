@@ -56,5 +56,4 @@ public class TerminateTest extends SAMLObjectBaseTestCase {
         
         assertEquals(expectedDOM, term);
     }
-
 }

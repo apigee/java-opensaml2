@@ -39,7 +39,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/SubjectLocalityOptionalAttributes.xml";
     }
 
-    /*
+    /**
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -49,7 +49,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
         expectedDNSName = "dns name";
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
@@ -60,7 +60,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
@@ -73,7 +73,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
         assertEquals("DNSName was " + dnsName + ", expected " + expectedDNSName, expectedDNSName, dnsName);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
@@ -84,7 +84,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, subjectLocality);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {

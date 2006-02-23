@@ -97,6 +97,4 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         assertNotNull("StatusCode of Status was null", status.getStatusCode());
         assertNotNull("StatusMessage of Status was null", status.getStatusMessage());
     }
-    
-
 }

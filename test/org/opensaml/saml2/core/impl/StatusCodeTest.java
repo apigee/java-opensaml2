@@ -86,7 +86,6 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         StatusCode statusCode = (StatusCode) unmarshallElement(singleElementFile);
         
         assertEquals("Unmarshalled status code URI value was not the expected value", expectedValue, statusCode.getValue());
-
     }
 
     /**
@@ -97,6 +96,4 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         
         assertNotNull(statusCode.getStatusCode());
     }
-
-
 }

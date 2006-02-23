@@ -59,7 +59,6 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
         message.setMessage(expectedMessage);
         
         assertEquals(expectedDOM, message);
-        
     }
 
     /**
@@ -68,10 +67,6 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         StatusMessage message = (StatusMessage) unmarshallElement(singleElementFile);
         
-        assertEquals("Unmarshalled status message was not the expected value", expectedMessage, message.getMessage());
-        
+        assertEquals("Unmarshalled status message was not the expected value", expectedMessage, message.getMessage());   
     }
-
-    
-
 }
