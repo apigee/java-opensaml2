@@ -64,5 +64,4 @@ public class ArtifactImpl extends AbstractSAMLObject implements Artifact {
        // no children 
         return null;
     }
-
 }

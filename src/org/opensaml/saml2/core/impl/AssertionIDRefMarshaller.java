@@ -37,7 +37,7 @@ public class AssertionIDRefMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
@@ -45,8 +45,7 @@ public class AssertionIDRefMarshaller extends AbstractSAMLObjectMarshaller {
         // do nothing
     }
 
-    /*
-     * 
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
@@ -54,5 +53,4 @@ public class AssertionIDRefMarshaller extends AbstractSAMLObjectMarshaller {
         AssertionIDRef assertionIDRef = (AssertionIDRef) samlObject;
         domElement.setTextContent(assertionIDRef.getAssertionID());
     }
-
 }

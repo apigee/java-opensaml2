@@ -45,7 +45,4 @@ public class ArtifactResolveMarshaller extends RequestMarshaller {
         // No attributes of our own
         super.marshallAttributes(samlObject, domElement);
     }
-    
-    
-
 }

@@ -37,7 +37,7 @@ public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, Action.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
@@ -52,8 +52,7 @@ public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         }
     }
 
-    /*
-     * 
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
      *      java.lang.String)
      */

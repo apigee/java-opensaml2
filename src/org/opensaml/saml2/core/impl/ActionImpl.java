@@ -44,35 +44,35 @@ public class ActionImpl extends AbstractSAMLObject implements Action {
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Action#getNamespace()
      */
     public String getNamespace() {
         return namespace;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Action#setNamespace(java.lang.String)
      */
     public void setNamespace(String newNamespace) {
         this.namespace = prepareForAssignment(this.namespace, newNamespace);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Action#getAction()
      */
     public String getAction() {
         return action;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Action#setAction(java.lang.String)
      */
     public void setAction(String newAction) {
         this.action = prepareForAssignment(this.action, newAction);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

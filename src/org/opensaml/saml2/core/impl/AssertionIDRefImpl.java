@@ -41,21 +41,21 @@ public class AssertionIDRefImpl extends AbstractSAMLObject implements AssertionI
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AssertionIDRef#getIDRef()
      */
     public String getAssertionID() {
         return assertionID;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.AssertionIDRef#setIDRef(java.lang.String)
      */
     public void setAssertionID(String newIDRef) {
         this.assertionID = prepareForAssignment(this.assertionID, newIDRef);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

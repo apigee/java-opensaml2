@@ -33,7 +33,7 @@ public class AssertionBuilder implements SAMLObjectBuilder {
 
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
      */
     public SAMLObject buildObject() {

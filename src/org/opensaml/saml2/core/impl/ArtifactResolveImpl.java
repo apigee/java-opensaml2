@@ -76,8 +76,4 @@ public class ArtifactResolveImpl extends RequestImpl implements ArtifactResolve 
         
         return Collections.unmodifiableList(children);
     }
-    
-    
-
-
 }

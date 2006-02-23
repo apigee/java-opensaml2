@@ -41,5 +41,4 @@ public class ArtifactResolveBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new ArtifactResolveImpl();
     }
-
 }

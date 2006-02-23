@@ -45,5 +45,4 @@ public class ArtifactUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         
         artifact.setArtifact(elementContent);
     }
-
 }

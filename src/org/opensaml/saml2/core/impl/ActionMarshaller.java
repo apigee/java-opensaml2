@@ -37,7 +37,7 @@ public class ActionMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, Action.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
@@ -49,8 +49,7 @@ public class ActionMarshaller extends AbstractSAMLObjectMarshaller {
         }
     }
     
-    /*
-     * 
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
@@ -58,5 +57,4 @@ public class ActionMarshaller extends AbstractSAMLObjectMarshaller {
         Action action = (Action) samlObject;
         domElement.setTextContent(action.getAction());
     }
-
 }

@@ -59,5 +59,4 @@ public class ArtifactResolveUnmarshaller extends RequestUnmarshaller {
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
-
 }

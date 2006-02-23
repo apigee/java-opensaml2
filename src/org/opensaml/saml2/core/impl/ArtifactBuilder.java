@@ -40,5 +40,4 @@ public class ArtifactBuilder implements SAMLObjectBuilder {
     public SAMLObject buildObject() {
         return new ArtifactImpl();
     }
-
 }

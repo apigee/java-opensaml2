@@ -57,28 +57,28 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         assertion = new XMLObjectChildrenList<Assertion>(this);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Advice#getAssertionIDReferences()
      */
     public List<AssertionIDRef> getAssertionIDReferences() {
         return assertionIDRef;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Advice#getAssertionURIReferences()
      */
     public List<AssertionURIRef> getAssertionURIReferences() {
         return assertionURIRef;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Advice#getAssertions()
      */
     public List<Assertion> getAssertions() {
         return assertion;
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

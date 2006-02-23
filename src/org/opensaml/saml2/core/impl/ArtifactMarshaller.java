@@ -55,5 +55,4 @@ public class ArtifactMarshaller extends AbstractSAMLObjectMarshaller {
         if (artifact.getArtifact() != null)
             domElement.setTextContent(artifact.getArtifact());
     }
-
 }

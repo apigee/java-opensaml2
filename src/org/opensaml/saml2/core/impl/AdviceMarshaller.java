@@ -37,7 +37,7 @@ public class AdviceMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
      *      org.w3c.dom.Element)
      */
