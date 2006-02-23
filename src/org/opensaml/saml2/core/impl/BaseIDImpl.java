@@ -44,35 +44,35 @@ public class BaseIDImpl extends AbstractSAMLObject implements BaseID {
         setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.BaseID#getNameQualifier()
      */
     public String getNameQualifier() {
         return nameQualifier;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.BaseID#setNameQualifier(java.lang.String)
      */
     public void setNameQualifier(String newNameQualifier) {
         this.nameQualifier = prepareForAssignment(this.nameQualifier, newNameQualifier);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.BaseID#getSPNameQualifier()
      */
     public String getSPNameQualifier() {
         return spNameQualfier;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.BaseID#setSPNameQualifier(java.lang.String)
      */
     public void setSPNameQualifier(String newSPNameQualifier) {
         this.spNameQualfier = prepareForAssignment(this.spNameQualfier, newSPNameQualifier);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {

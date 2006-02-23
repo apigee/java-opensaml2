@@ -37,7 +37,7 @@ public class BaseIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, BaseID.LOCAL_NAME);
     }
 
-    /*
+    /**
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */

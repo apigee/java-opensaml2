@@ -69,70 +69,70 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
         proxyRestriction = new XMLObjectChildrenList<ProxyRestriction>(this);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Conditions#getCondition()
      */
     public List<Condition> getConditions() {
         return condition;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Conditions#getAudienceRestriction()
      */
     public List<AudienceRestriction> getAudienceRestrictions() {
         return audienceRestriction;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Conditions#getOneTimeUse()
      */
     public OneTimeUse getOneTimeUse() {
         return oneTimeUse;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Conditions#setOneTimeUse(org.opensaml.saml2.core.OneTimeUse)
      */
     public void setOneTimeUse(OneTimeUse newOneTimeUse) {
         this.oneTimeUse = prepareForAssignment(this.oneTimeUse, newOneTimeUse);
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Conditions#getProxyRestriction()
      */
     public List<ProxyRestriction> getProxyRestrictions() {
         return proxyRestriction;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Conditions#getNotBefore()
      */
     public DateTime getNotBefore() {
         return notBefore;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Conditions#setNotBefore(org.joda.time.DateTime)
      */
     public void setNotBefore(DateTime newNotBefore) {
         this.notBefore = prepareForAssignment(this.notBefore, newNotBefore.withZone(DateTimeZone.UTC));
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Conditions#getNotOnOrAfter()
      */
     public DateTime getNotOnOrAfter() {
         return notOnOrAfter;
     }
 
-    /*
+    /**
      * @see org.opensaml.saml2.core.Conditions#setNotOnOrAfter(org.joda.time.DateTime)
      */
     public void setNotOnOrAfter(DateTime newNotOnOrAfter) {
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter.withZone(DateTimeZone.UTC));
     }
 
-    /*
+    /**
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<SAMLObject> getOrderedChildren() {
