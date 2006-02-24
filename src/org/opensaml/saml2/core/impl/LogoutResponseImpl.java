@@ -17,29 +17,25 @@
 /**
  * 
  */
-package org.opensaml.saml2.core;
+package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.LogoutResponse;
 
 /**
- * SAML 2.0 Core NameIDMappingResponse 
+ * A concrete implementation of {@link org.opensaml.saml2.core.LogoutResponse}
  */
-public interface NameIDMappingResponse extends StatusResponse {
-    
-    /** Element local name */
-    public static final String LOCAL_NAME = "NameIDMappingResponse";
-    
-    /**
-     * Get the Identifier of the response
-     * 
-     * @return the Identifier of the response
-     */
-    public Identifier getIdentifier();
+public class LogoutResponseImpl extends StatusResponseImpl implements LogoutResponse {
 
     /**
-     * Set the Identifier of the response
-     * 
-     * @param newIdentifier the new Identifier of the response
+     * Constructor
+     *
      */
-    public void setIdentifier(Identifier newIdentifier);
- 
+    public LogoutResponseImpl() {
+        super(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
+        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    }
+    
+    //  No additional attributes or child elements on this class
+
 }

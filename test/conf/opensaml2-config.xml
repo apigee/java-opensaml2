@@ -601,6 +601,33 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.ManageNameIDResponseUnmarshaller" />
         </ObjectProvider>
         
+        <!-- LogoutRequest provider -->
+        <ObjectProvider qualifiedName="saml2p:LogoutRequest">
+            <BuilderClass className="org.opensaml.saml2.core.impl.LogoutRequestBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.LogoutRequestMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.LogoutRequestUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- LogoutResponse provider -->
+        <ObjectProvider qualifiedName="saml2p:LogoutResponse">
+            <BuilderClass className="org.opensaml.saml2.core.impl.LogoutResponseBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.LogoutResponseMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.LogoutResponseUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- NameIDMappingRequest provider -->
+        <ObjectProvider qualifiedName="saml2p:NameIDMappingRequest">
+            <BuilderClass className="org.opensaml.saml2.core.impl.NameIDMappingRequestBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.NameIDMappingRequestMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.NameIDMappingRequestUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- NameIDMappingResponse provider -->
+        <ObjectProvider qualifiedName="saml2p:NameIDMappingResponse">
+            <BuilderClass className="org.opensaml.saml2.core.impl.NameIDMappingResponseBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.NameIDMappingResponseMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.NameIDMappingResponseUnmarshaller" />
+        </ObjectProvider> 
         
 	   <!-- ************************************* -->
        <!--       SAML 1.X Providers              -->

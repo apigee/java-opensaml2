@@ -17,29 +17,29 @@
 /**
  * 
  */
-package org.opensaml.saml2.core;
+package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 
 /**
- * SAML 2.0 Core NameIDMappingResponse 
+ * Builder of {@link org.opensaml.saml2.metadata.core.NameIDMappingRequest}
  */
-public interface NameIDMappingResponse extends StatusResponse {
-    
-    /** Element local name */
-    public static final String LOCAL_NAME = "NameIDMappingResponse";
-    
-    /**
-     * Get the Identifier of the response
-     * 
-     * @return the Identifier of the response
-     */
-    public Identifier getIdentifier();
+public class NameIDMappingRequestBuilder implements SAMLObjectBuilder {
 
     /**
-     * Set the Identifier of the response
-     * 
-     * @param newIdentifier the new Identifier of the response
+     * Constructor
+     *
      */
-    public void setIdentifier(Identifier newIdentifier);
- 
+    public NameIDMappingRequestBuilder() {
+
+    }
+
+    /**
+     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     */
+    public SAMLObject buildObject() {
+        return new NameIDMappingRequestImpl();
+    }
+
 }
