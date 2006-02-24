@@ -66,46 +66,18 @@ public interface LogoutRequest extends Request {
     public void setNotOnOrAfter (DateTime newNotOnOrAfter);
     
     /**
-     * Get the NameID of the request
+     * Get the Identifier of the request
      * 
-     * @return the NameID of the request
+     * @return the Identifier of the request
      */
-    public NameID getNameID();
+    public Identifier getIdentifier();
 
     /**
-     * Set the NameID of the request
+     * Set the Identifier of the request
      * 
-     * @param newNameID the new NameID of the request
+     * @param newIdentifier the new Identifier of the request
      */
-    public void setNameID(NameID newNameID);
-
-    /**
-     * Get the EncryptedID of the request
-     * 
-     * @return the EncryptedID of the request
-     */
-    public EncryptedID getEncryptedID();
-
-    /**
-     * Set the EncryptedID of the request
-     * 
-     * @param newEncryptedID the new EncryptedID of the request
-     */
-    public void setEncryptedID(EncryptedID newEncryptedID);
- 
-    /**
-     * Get the BaseID of the request
-     * 
-     * @return the BaseID of the request
-     */
-    public BaseID getBaseID();
-
-    /**
-     * Set the BaseID of the request
-     * 
-     * @param newBaseID the new BaseID of the request
-     */
-    public void setBaseID(BaseID newBaseID);
+    public void setIdentifier(Identifier newIdentifier);
    
     /**
      *  Get the list of SessionIndexes for the request
