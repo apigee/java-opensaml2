@@ -49,7 +49,7 @@ public interface LogoutRequest extends Request {
      * 
      * @param newReason the new Reason value of the request
      */
-    public void setReason(String newNameID);
+    public void setReason(String newReason);
     
     /**
      * Get the NotOnOrAfter attrib value of the request
