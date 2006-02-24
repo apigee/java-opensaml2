@@ -594,11 +594,11 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.ManageNameIDRequestUnmarshaller" />
         </ObjectProvider>
         
-        <!-- Terminate provider -->
-        <ObjectProvider qualifiedName="saml2p:Terminate">
-            <BuilderClass className="org.opensaml.saml2.core.impl.TerminateBuilder" />
-            <MarshallingClass className="org.opensaml.saml2.core.impl.TerminateMarshaller" />
-            <UnmarshallingClass className="org.opensaml.saml2.core.impl.TerminateUnmarshaller" />
+        <!-- ManageNameIDResponse provider -->
+        <ObjectProvider qualifiedName="saml2p:ManageNameIDResponse">
+            <BuilderClass className="org.opensaml.saml2.core.impl.ManageNameIDResponseBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.ManageNameIDResponseMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.ManageNameIDResponseUnmarshaller" />
         </ObjectProvider>
         
         
