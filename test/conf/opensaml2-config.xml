@@ -629,6 +629,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.NameIDMappingResponseUnmarshaller" />
         </ObjectProvider> 
         
+        <!-- Response provider -->
+        <ObjectProvider qualifiedName="saml2p:Response">
+            <BuilderClass className="org.opensaml.saml2.core.impl.ResponseBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.ResponseMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.ResponseUnmarshaller" />
+        </ObjectProvider> 
+        
 	   <!-- ************************************* -->
        <!--       SAML 1.X Providers              -->
        <!-- ************************************* -->
