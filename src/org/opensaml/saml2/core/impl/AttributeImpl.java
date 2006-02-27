@@ -20,17 +20,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeValue;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Attribute}
  */
-public class AttributeImpl extends AbstractSAMLObject implements Attribute {
+public class AttributeImpl extends AbstractAssertionSAMLObject implements Attribute {
 
     /** Name of the attribute */
     private String name;
@@ -47,66 +45,66 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
     /**
      * Constructor
      */
-    public AttributeImpl() {
-        super(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME);
-        
+    protected AttributeImpl() {
+        super(Attribute.LOCAL_NAME);
+
         attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Attribute#getName()
      */
     public String getName() {
         return name;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Attribute#setName(java.lang.String)
      */
     public void setName(String name) {
         this.name = prepareForAssignment(this.name, name);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Attribute#getNameFormat()
      */
     public String getNameFormat() {
         return nameFormat;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Attribute#setNameFormat(java.lang.String)
      */
     public void setNameFormat(String nameFormat) {
         this.nameFormat = prepareForAssignment(this.nameFormat, nameFormat);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Attribute#getFriendlyName()
      */
     public String getFriendlyName() {
         return friendlyName;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Attribute#setFriendlyName(java.lang.String)
      */
     public void setFriendlyName(String friendlyName) {
         this.friendlyName = prepareForAssignment(this.friendlyName, friendlyName);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Attribute#getAttributeValues()
      */
     public List<AttributeValue> getAttributeValues() {
         return attributeValues;
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.addAll(attributeValues);
 

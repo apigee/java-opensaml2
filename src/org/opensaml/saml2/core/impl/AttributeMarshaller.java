@@ -16,15 +16,15 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.Attribute} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.Attribute} objects.
  */
 public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -35,22 +35,22 @@ public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         Attribute attribute = (Attribute) samlElement;
 
         if (attribute.getName() != null) {
             domElement.setAttributeNS(null, Attribute.NAME_ATTTRIB_NAME, attribute.getName());
         }
-        
-        if( attribute.getNameFormat() != null) {
+
+        if (attribute.getNameFormat() != null) {
             domElement.setAttributeNS(null, Attribute.NAME_FORMAT_ATTRIB_NAME, attribute.getNameFormat());
         }
-        
-        if( attribute.getFriendlyName() != null) {
+
+        if (attribute.getFriendlyName() != null) {
             domElement.setAttributeNS(null, Attribute.FRIENDLY_NAME_ATTRIB_NAME, attribute.getFriendlyName());
         }
     }

@@ -22,43 +22,40 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AssertionURIRef}
  */
-public class AssertionURIRefImpl extends AbstractSAMLObject implements AssertionURIRef {
+public class AssertionURIRefImpl extends AbstractAssertionSAMLObject implements AssertionURIRef {
 
     /** URI of the Assertion */
     private String assertionURI;
 
     /** Constructor */
-    public AssertionURIRefImpl() {
-        super(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected AssertionURIRefImpl() {
+        super(AssertionURIRef.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AssertionURIRef#getURIRef()
      */
     public String getAssertionURI() {
         return assertionURI;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AssertionURIRef#setURIRef(java.lang.String)
      */
     public void setAssertionURI(String newAssertionURI) {
         this.assertionURI = prepareForAssignment(this.assertionURI, newAssertionURI);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }
