@@ -16,26 +16,25 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorImpl} objects.
+ * A builder for {@link org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorImpl} objects.
  */
-public class AuthnAuthorityDescriptorBuilder implements SAMLObjectBuilder {
+public class AuthnAuthorityDescriptorBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
      */
     public AuthnAuthorityDescriptorBuilder() {
-        
-    }
-    
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
-     */
-    public SAMLObject buildObject() {
-        return new AuthnAuthorityDescriptorImpl();
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new AuthnAuthorityDescriptorImpl();
+    }
 }

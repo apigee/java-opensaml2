@@ -23,22 +23,20 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concretate implementation of {@link org.opensaml.saml2.metadata.RoleDescriptor}
  */
-public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject implements RoleDescriptor {
-    
+public abstract class RoleDescriptorImpl extends AbstractSignableMetadataSAMLObject implements RoleDescriptor {
+
     /** validUntil attribute */
     private DateTime validUntil;
 
@@ -47,44 +45,53 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
 
     /** Set of supported protocols */
     private ArrayList<String> supportedProtocols;
-    
+
     /** Error URL */
     private String errorURL;
-    
+
     /** Extensions child */
     private Extensions extensions;
-    
+
     /** Organization administering this role */
     private Organization organization;
-    
+
     /** Contact persons for this role */
     private XMLObjectChildrenList<ContactPerson> contactPersons;
-    
+
     /** Key descriptors for this role */
     private XMLObjectChildrenList<KeyDescriptor> keyDescriptors;
-    
+
     /**
      * Constructor
      * 
      * @param namespaceURI the namespace URI of the element this saml object represents
-     * @param localName the local name of the element this SAML object represents
      */
-    public RoleDescriptorImpl(String namespaceURI, String localName) {
-        super(SAMLConstants.SAML20MD_NS, localName);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
-        
+    protected RoleDescriptorImpl(String localName) {
+        super(localName);
+
         supportedProtocols = new ArrayList<String>();
         contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
-    
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
+     */
+    protected RoleDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
      */
     public boolean isValid() {
-        if(validUntil != null) {
+        if (validUntil != null) {
             return validUntil.isBeforeNow();
-        }else {
+        } else {
             return true;
         }
     }
@@ -116,7 +123,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     public void setCacheDuration(Long duration) {
         cacheDuration = prepareForAssignment(cacheDuration, duration);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#getSupportedProtocols()
      */
@@ -136,7 +143,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
      */
     public void addSupportedProtocol(String protocol) {
         protocol = DatatypeHelper.safeTrimOrNullString(protocol);
-        if(protocol != null && !supportedProtocols.contains(protocol)) {
+        if (protocol != null && !supportedProtocols.contains(protocol)) {
             releaseThisandParentDOM();
             supportedProtocols.add(protocol);
         }
@@ -147,7 +154,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
      */
     public void removeSupportedProtocol(String protocol) {
         protocol = DatatypeHelper.safeTrimOrNullString(protocol);
-        if(protocol != null && supportedProtocols.contains(protocol)) {
+        if (protocol != null && supportedProtocols.contains(protocol)) {
             releaseThisandParentDOM();
             supportedProtocols.remove(protocol);
         }
@@ -157,16 +164,16 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
      * @see org.opensaml.saml2.metadata.RoleDescriptor#removeProtocols(java.util.Set)
      */
     public void removeSupportedProtocols(Collection<String> protocols) {
-       for(String protocol : protocols) {
-           removeSupportedProtocol(protocol);
-       }
+        for (String protocol : protocols) {
+            removeSupportedProtocol(protocol);
+        }
     }
 
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#removeAllProtocols()
      */
     public void removeAllSupportedProtocols() {
-        for(String protocol : supportedProtocols) {
+        for (String protocol : supportedProtocols) {
             removeSupportedProtocol(protocol);
         }
     }
@@ -182,10 +189,10 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
      * @see org.opensaml.saml2.metadata.RoleDescriptor#setErrorURL(java.lang.String)
      */
     public void setErrorURL(String errorURL) {
-        
+
         this.errorURL = prepareForAssignment(this.errorURL, errorURL);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#getExtensions()
      */
@@ -200,7 +207,6 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
-
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#getOrganization()
      */
@@ -211,7 +217,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     /*
      * @see org.opensaml.saml2.metadata.RoleDescriptor#setOrganization(org.opensaml.saml2.metadata.Organization)
      */
-    public void setOrganization(Organization organization) throws IllegalArgumentException{
+    public void setOrganization(Organization organization) throws IllegalArgumentException {
         this.organization = prepareForAssignment(this.organization, organization);
     }
 
@@ -228,13 +234,13 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     public List<KeyDescriptor> getKeyDescriptors() {
         return keyDescriptors;
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
-        
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+
         if (extensions != null) {
             children.add(getExtensions());
         }
@@ -243,7 +249,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
             children.add(getOrganization());
         }
         children.addAll(getContactPersons());
-        
+
         return Collections.unmodifiableList(children);
     }
 }

@@ -17,17 +17,17 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectMarshaller;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
+import org.opensaml.xml.XMLObject;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.IndexedEndpoint} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.IndexedEndpoint} objects.
  */
-public class IndexedEndpointMarshaller extends EndpointMarshaller implements SAMLObjectMarshaller {
+public class IndexedEndpointMarshaller extends EndpointMarshaller {
 
     /**
      * Constructor
@@ -38,21 +38,22 @@ public class IndexedEndpointMarshaller extends EndpointMarshaller implements SAM
     public IndexedEndpointMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
-    
+
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
-    public void marshallAttributes(SAMLObject samlObject, Element domElement){
-        IndexedEndpoint iEndpoint = (IndexedEndpoint)samlObject;
-        
-        if(iEndpoint.getIndex() != null) {
+    public void marshallAttributes(XMLObject samlObject, Element domElement) {
+        IndexedEndpoint iEndpoint = (IndexedEndpoint) samlObject;
+
+        if (iEndpoint.getIndex() != null) {
             domElement.setAttributeNS(null, IndexedEndpoint.INDEX_ATTRIB_NAME, iEndpoint.getIndex().toString());
         }
-        
-        if(iEndpoint.isDefault() != null) {
+
+        if (iEndpoint.isDefault() != null) {
             domElement.setAttributeNS(null, IndexedEndpoint.IS_DEFAULT_ATTRIB_NAME, iEndpoint.isDefault().toString());
         }
-        
+
         super.marshallAttributes(samlObject, domElement);
     }
 }

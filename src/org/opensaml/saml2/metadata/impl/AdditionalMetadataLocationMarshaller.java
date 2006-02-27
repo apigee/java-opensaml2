@@ -16,10 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
@@ -36,9 +36,9 @@ public class AdditionalMetadataLocationMarshaller extends AbstractSAMLObjectMars
     }
     
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;
         
         if (aml.getNamespaceURI() != null) {
@@ -46,10 +46,10 @@ public class AdditionalMetadataLocationMarshaller extends AbstractSAMLObjectMars
         }
     }
     
-    /**
-     * Sets the location URI of the AdditionalMetadataLocation object as the content of the DOM element representing it.
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
      */
-    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         super.marshallElementContent(samlObject, domElement);
         
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlObject;

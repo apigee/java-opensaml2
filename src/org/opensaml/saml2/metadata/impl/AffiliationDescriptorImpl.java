@@ -25,19 +25,17 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.saml2.metadata.KeyDescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AffiliationDescriptor}.
  */
-public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implements AffiliationDescriptor {
+public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObject implements AffiliationDescriptor {
 
     /** ID of the owner of this affiliation */
     private String ownerID;
@@ -60,9 +58,9 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
     /**
      * Constructor
      */
-    public AffiliationDescriptorImpl(){
-        super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected AffiliationDescriptorImpl(){
+        super(AffiliationDescriptor.LOCAL_NAME);
+
         members = new XMLObjectChildrenList<AffiliateMember>(this);
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
@@ -145,10 +143,10 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
     }
     
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         children.add(getExtensions());
 

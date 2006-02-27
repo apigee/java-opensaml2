@@ -16,26 +16,25 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationImpl} objects.
+ * A builder for {@link org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationImpl} objects.
  */
-public class AdditionalMetadataLocationBuilder implements SAMLObjectBuilder {
+public class AdditionalMetadataLocationBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
      */
     public AdditionalMetadataLocationBuilder() {
-        
-    }
-    
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
-     */
-    public SAMLObject buildObject() {
-        return new AdditionalMetadataLocationImpl();
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new AdditionalMetadataLocationImpl();
+    }
 }

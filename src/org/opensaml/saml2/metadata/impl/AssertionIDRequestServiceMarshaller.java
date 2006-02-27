@@ -20,15 +20,13 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for
- * {@link org.opensaml.saml2.metadata.AssertionIDRequestService}s.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.AssertionIDRequestService}s.
  */
-public class AssertionIDRequestServiceMarshaller extends EndpointMarshaller implements SAMLObjectMarshaller {
+public class AssertionIDRequestServiceMarshaller extends EndpointMarshaller {
 
     /**
      * Constructor

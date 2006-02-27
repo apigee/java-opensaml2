@@ -16,14 +16,13 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A {@link org.opensaml.common.SAMLObjectBuilder} for
- * {@link org.opensaml.saml2.metadata.impl.AffiliationDescriptorImpl} objects.
+ * A builder for {@link org.opensaml.saml2.metadata.impl.AffiliationDescriptorImpl} objects.
  */
-public class AffiliationDescriptorBuilder implements SAMLObjectBuilder {
+public class AffiliationDescriptorBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
@@ -33,9 +32,9 @@ public class AffiliationDescriptorBuilder implements SAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public XMLObject buildObject() {
         return new AffiliationDescriptorImpl();
     }
 }

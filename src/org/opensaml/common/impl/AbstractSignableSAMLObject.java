@@ -17,11 +17,13 @@
 /**
  * 
  */
+
 package org.opensaml.common.impl;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.AbstractValidatingSignableXMLObject;
+import org.opensaml.xml.Namespace;
 
 /**
  * Abstract SAMLObject implementation that also implements {@link org.opensaml.xml.SignableXMLObject}
@@ -36,9 +38,12 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected AbstractSignableSAMLObject(String namespaceURI, String elementLocalName) {
+    protected AbstractSignableSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName);
+        addNamespace(new Namespace(namespaceURI, namespacePrefix));
+        setElementNamespacePrefix(namespacePrefix);
     }
 
     /*

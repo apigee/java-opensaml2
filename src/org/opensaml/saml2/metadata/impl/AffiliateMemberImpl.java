@@ -18,15 +18,13 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AffiliateMember}.
  */
-public class AffiliateMemberImpl extends AbstractSAMLObject implements AffiliateMember {
+public class AffiliateMemberImpl extends AbstractMetadataSAMLObject implements AffiliateMember {
 
     /** ID of this member */
     private String id;
@@ -34,9 +32,8 @@ public class AffiliateMemberImpl extends AbstractSAMLObject implements Affiliate
     /**
      * Constructor
      */
-    public AffiliateMemberImpl() {
-        super(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected AffiliateMemberImpl() {
+        super(AffiliateMember.LOCAL_NAME);
     }
 
     /*
@@ -60,7 +57,7 @@ public class AffiliateMemberImpl extends AbstractSAMLObject implements Affiliate
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // No children
         return null;
     }

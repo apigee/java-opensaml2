@@ -16,18 +16,16 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AuthnQueryService;
 import org.opensaml.saml2.metadata.NameIDFormat;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
- * {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} objects.
  */
 public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
 
@@ -39,11 +37,10 @@ public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarsha
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) parentElement;
 
         if (childElement instanceof AuthnQueryService) {

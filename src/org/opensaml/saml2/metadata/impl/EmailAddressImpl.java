@@ -22,15 +22,13 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EmailAddress;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.EmailAddress}
  */
-public class EmailAddressImpl extends AbstractSAMLObject implements EmailAddress {
+public class EmailAddressImpl extends AbstractMetadataSAMLObject implements EmailAddress {
 
     /** The email address */
     private String address;
@@ -38,9 +36,8 @@ public class EmailAddressImpl extends AbstractSAMLObject implements EmailAddress
     /**
      * Constructor
      */
-    public EmailAddressImpl() {
-        super(SAMLConstants.SAML20MD_NS, EmailAddress.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected EmailAddressImpl() {
+        super(EmailAddress.LOCAL_NAME);
     }
 
     /*
@@ -58,9 +55,9 @@ public class EmailAddressImpl extends AbstractSAMLObject implements EmailAddress
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

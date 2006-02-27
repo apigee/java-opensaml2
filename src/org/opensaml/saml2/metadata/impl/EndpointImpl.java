@@ -18,15 +18,13 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.metadata.Endpoint}
  */
-public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoint {
+public abstract class EndpointImpl extends AbstractMetadataSAMLObject implements Endpoint {
 
     /** Binding URI */
     private String bindingId;
@@ -36,16 +34,25 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
 
     /** Response location URI */
     private String responseLocation;
-    
+
     /**
      * Constructor
      * 
-     * @param namespaceURI the namespace URI for the element this SAML object represents
      * @param localName the local name of the element this SAML object represents
      */
-    public EndpointImpl(String namespaceURI, String localName) {
-        super(namespaceURI, localName);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected EndpointImpl(String localName) {
+        super(localName);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
+     */
+    protected EndpointImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespacePrefix, elementLocalName, namespacePrefix);
     }
 
     /*
@@ -93,7 +100,7 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren(){
-        return null; //Endpoints don't have child elements
+    public List<XMLObject> getOrderedChildren() {
+        return null; // Endpoints don't have child elements
     }
 }

@@ -20,10 +20,7 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.Company;
@@ -33,10 +30,12 @@ import org.opensaml.saml2.metadata.EmailAddress;
 import org.opensaml.saml2.metadata.GivenName;
 import org.opensaml.saml2.metadata.SurName;
 import org.opensaml.saml2.metadata.TelephoneNumber;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.ContactPerson} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.ContactPerson} objects.
  */
 public class ContactPersonUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -48,52 +47,53 @@ public class ContactPersonUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         ContactPerson person = (ContactPerson) parentSAMLObject;
-        
-        if(childSAMLObject instanceof Extensions){
+
+        if (childSAMLObject instanceof Extensions) {
             person.setExtensions((Extensions) childSAMLObject);
-        }else if(childSAMLObject instanceof Company){
+        } else if (childSAMLObject instanceof Company) {
             person.setCompany((Company) childSAMLObject);
-        }else if(childSAMLObject instanceof GivenName){
+        } else if (childSAMLObject instanceof GivenName) {
             person.setGivenName((GivenName) childSAMLObject);
-        }else if(childSAMLObject instanceof SurName){
+        } else if (childSAMLObject instanceof SurName) {
             person.setSurName((SurName) childSAMLObject);
-        }else if (childSAMLObject instanceof EmailAddress){
+        } else if (childSAMLObject instanceof EmailAddress) {
             person.getEmailAddresses().add((EmailAddress) childSAMLObject);
-        }else if (childSAMLObject instanceof TelephoneNumber){
+        } else if (childSAMLObject instanceof TelephoneNumber) {
             person.getTelephoneNumbers().add((TelephoneNumber) childSAMLObject);
-        }else{
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         ContactPerson person = (ContactPerson) samlObject;
-        
-        if(attributeName.equals(ContactPerson.CONTACT_TYPE_ATTRIB_NAME)){
-            if(ContactPersonType.TECHNICAL.toString().equals(attributeValue)){
+
+        if (attribute.getLocalName().equals(ContactPerson.CONTACT_TYPE_ATTRIB_NAME)) {
+            if (ContactPersonType.TECHNICAL.toString().equals(attribute.getValue())) {
                 person.setType(ContactPersonType.TECHNICAL);
-            }else if(ContactPersonType.SUPPORT.toString().equals(attributeValue)){
+            } else if (ContactPersonType.SUPPORT.toString().equals(attribute.getValue())) {
                 person.setType(ContactPersonType.SUPPORT);
-            }else if(ContactPersonType.ADMINISTRATIVE.toString().equals(attributeValue)){
+            } else if (ContactPersonType.ADMINISTRATIVE.toString().equals(attribute.getValue())) {
                 person.setType(ContactPersonType.ADMINISTRATIVE);
-            }else if(ContactPersonType.BILLING.toString().equals(attributeValue)){
+            } else if (ContactPersonType.BILLING.toString().equals(attribute.getValue())) {
                 person.setType(ContactPersonType.BILLING);
-            }else if(ContactPersonType.OTHER.toString().equals(attributeValue)){
+            } else if (ContactPersonType.OTHER.toString().equals(attribute.getValue())) {
                 person.setType(ContactPersonType.OTHER);
-            }else{
-                super.processAttribute(samlObject, attributeName, attributeValue);
+            } else {
+                super.processAttribute(samlObject, attribute);
             }
-        }else{
-            super.processAttribute(samlObject, attributeName, attributeValue);
+        } else {
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

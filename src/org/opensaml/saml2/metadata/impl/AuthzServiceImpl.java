@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AuthzService;
 
 /**
@@ -31,8 +30,7 @@ public class AuthzServiceImpl extends EndpointImpl implements AuthzService {
     /**
      * Constructor
      */
-    public AuthzServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, AuthzService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected AuthzServiceImpl() {
+        super(AuthzService.LOCAL_NAME);
     }
 }

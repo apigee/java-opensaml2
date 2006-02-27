@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeService;
 
 /**
@@ -31,8 +30,7 @@ public class AttributeServiceImpl extends EndpointImpl implements AttributeServi
     /**
      * Constructor
      */
-    public AttributeServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected AttributeServiceImpl() {
+        super(AttributeService.LOCAL_NAME);
     }
 }

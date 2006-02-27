@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
@@ -25,8 +24,6 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
@@ -40,23 +37,24 @@ import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.PDPDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concretate implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}
  */
-public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements EntityDescriptor {
+public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject implements EntityDescriptor {
 
     /** Entity ID of this Entity */
     private String entityID;
-    
+
     /** validUntil attribute */
     private DateTime validUntil;
-    
+
     /** cacheDurection attribute */
     private Long cacheDuration;
-    
+
     /** Extensions child */
     private Extensions extensions;
 
@@ -75,10 +73,9 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     /** Additional metadata locations for this entity */
     private XMLObjectChildrenList<AdditionalMetadataLocation> additionalMetadata;
 
-    public EntityDescriptorImpl() {
-        super(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
-        
+    protected EntityDescriptorImpl() {
+        super(EntityDescriptor.LOCAL_NAME);
+
         roleDescriptors = new IndexedXMLObjectChildrenList<RoleDescriptor>(this);
         contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
         additionalMetadata = new XMLObjectChildrenList<AdditionalMetadataLocation>(this);
@@ -97,13 +94,14 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     public void setEntityID(String id) {
         entityID = prepareForAssignment(entityID, id);
     }
+
     /*
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
      */
     public boolean isValid() {
         return validUntil.isBeforeNow();
     }
-    
+
     /*
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
      */
@@ -131,7 +129,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     public void setCacheDuration(Long duration) {
         cacheDuration = prepareForAssignment(cacheDuration, duration);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getExtensions()
      */
@@ -166,43 +164,42 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return null;
     }
 
-    
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getIDPSSODescriptor()
      */
-    public List<IDPSSODescriptor> getIDPSSODescriptor(){
+    public List<IDPSSODescriptor> getIDPSSODescriptor() {
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME);
         return (List<IDPSSODescriptor>) roleDescriptors.subList(descriptorQName);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getSPSSODescriptor()
      */
-    public List<SPSSODescriptor> getSPSSODescriptor(){
+    public List<SPSSODescriptor> getSPSSODescriptor() {
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME);
         return (List<SPSSODescriptor>) roleDescriptors.subList(descriptorQName);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAuthnAuthorityDescriptor()
      */
-    public List<AuthnAuthorityDescriptor> getAuthnAuthorityDescriptor(){
+    public List<AuthnAuthorityDescriptor> getAuthnAuthorityDescriptor() {
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
         return (List<AuthnAuthorityDescriptor>) roleDescriptors.subList(descriptorQName);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAttributeAuthorityDescriptor()
      */
-    public List<AttributeAuthorityDescriptor> getAttributeAuthorityDescriptor(){
+    public List<AttributeAuthorityDescriptor> getAttributeAuthorityDescriptor() {
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
         return (List<AttributeAuthorityDescriptor>) roleDescriptors.subList(descriptorQName);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getPDPDescriptor()
      */
-    public List<PDPDescriptor> getPDPDescriptor(){
+    public List<PDPDescriptor> getPDPDescriptor() {
         QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME);
         return (List<PDPDescriptor>) roleDescriptors.subList(descriptorQName);
     }
@@ -250,11 +247,11 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     }
 
     /*
-     * @see org.opensaml.saml2.common.impl.AbstractSAMLElement#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
-        
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+
         children.add(getExtensions());
         children.addAll(roleDescriptors);
         children.add(getAffiliationDescriptor());

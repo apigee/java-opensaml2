@@ -28,14 +28,6 @@ public class SAMLConstants extends XMLConstants{
     /** Directory, on the classpath, schemas are located in */
     private final static String SCHEMA_DIR = "/schema/";
     
-    /**  OpenSAML XML namespace */
-    public final static String OPENSAML_CONFIG_NS = "http://www.opensaml.org/opensaml2-config";
-    
-    /** OpenSAML configuration schema system Id */
-    public final static String OPENSAML_CONFIG_SCHEMA_LOCATION = SCHEMA_DIR + "opensaml2-config.xsd";
-    
-    public final static String OPENSAML_CONFIG_PREFIX = "os2";
-    
     //****************************
     //    Core XML
     //****************************

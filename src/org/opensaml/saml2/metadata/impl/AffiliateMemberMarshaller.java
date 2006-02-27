@@ -16,16 +16,15 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.AffiliateMember}
- * objects.
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.metadata.AffiliateMember} objects.
  */
 public class AffiliateMemberMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -37,20 +36,13 @@ public class AffiliateMemberMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        // DO NOTHING; no attributes
-    }
-    
-    /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallElementContent(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         super.marshallElementContent(samlObject, domElement);
-        
-        AffiliateMember member = (AffiliateMember)samlObject;
+
+        AffiliateMember member = (AffiliateMember) samlObject;
         if (member.getID() != null) {
             domElement.appendChild(domElement.getOwnerDocument().createTextNode(member.getID()));
         }

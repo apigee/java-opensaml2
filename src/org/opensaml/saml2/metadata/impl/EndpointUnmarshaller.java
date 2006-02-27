@@ -16,10 +16,11 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.Endpoint} objects.
@@ -40,17 +41,16 @@ public class EndpointUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.common.SAMLObject,
      *      java.lang.String, java.lang.String)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Endpoint endpoint = (Endpoint) samlObject;
-        if (attributeName.equals(Endpoint.BINDING_ATTRIB_NAME)) {
-            endpoint.setBinding(attributeValue);
-        } else if (attributeName.equals(Endpoint.LOCATION_ATTRIB_NAME)) {
-            endpoint.setLocation(attributeValue);
-        } else if (attributeName.equals(Endpoint.RESPONSE_LOCATION_ATTRIB_NAME)) {
-            endpoint.setResponseLocation(attributeValue);
+        if (attribute.getLocalName().equals(Endpoint.BINDING_ATTRIB_NAME)) {
+            endpoint.setBinding(attribute.getValue());
+        } else if (attribute.getLocalName().equals(Endpoint.LOCATION_ATTRIB_NAME)) {
+            endpoint.setLocation(attribute.getValue());
+        } else if (attribute.getLocalName().equals(Endpoint.RESPONSE_LOCATION_ATTRIB_NAME)) {
+            endpoint.setResponseLocation(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

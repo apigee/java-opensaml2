@@ -20,15 +20,13 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for
- * {@link org.opensaml.saml2.metadata.AssertionIDRequestService}s.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.AssertionIDRequestService}s.
  */
-public class AssertionIDRequestServiceUnmarshaller extends EndpointUnmarshaller implements SAMLObjectUnmarshaller {
+public class AssertionIDRequestServiceUnmarshaller extends EndpointUnmarshaller {
 
     /**
      * Constructor

@@ -20,40 +20,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AuthnQueryService;
 import org.opensaml.saml2.metadata.NameIDFormat;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concreate implementation of {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor}
  */
 public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements AuthnAuthorityDescriptor {
-    
+
     /** AuthnQueryService endpoints */
     private XMLObjectChildrenList<AuthnQueryService> authnQueryServices;
-    
+
     /** AuthnQueryService endpoints */
     private XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
-    
+
     /** NameID formats supported by this descriptor */
     private XMLObjectChildrenList<NameIDFormat> nameIDFormats;
-    
+
     /**
      * Constrcutor
      */
-    public AuthnAuthorityDescriptorImpl() {
-        super(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
-        
+    protected AuthnAuthorityDescriptorImpl() {
+        super(AuthnAuthorityDescriptor.LOCAL_NAME);
+
         authnQueryServices = new XMLObjectChildrenList<AuthnQueryService>(this);
         assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
         nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#getAuthnQueryServices()
      */
@@ -74,18 +72,18 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     public List<NameIDFormat> getNameIDFormats() {
         return nameIDFormats;
     }
-    
+
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren(){
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
-        
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+
         children.addAll(super.getOrderedChildren());
         children.addAll(authnQueryServices);
         children.addAll(assertionIDRequestServices);
         children.addAll(nameIDFormats);
-        
+
         return Collections.unmodifiableList(children);
     }
 }

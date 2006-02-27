@@ -17,48 +17,46 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.saml2.metadata.ServiceName;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AttributeConsumingService}.
  */
-public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements AttributeConsumingService {
-    
+public class AttributeConsumingServiceImpl extends AbstractMetadataSAMLObject implements AttributeConsumingService {
+
     /** Index of this service */
     private int index;
-    
+
     /** isDefault attribute of this service */
     private Boolean isDefault;
-    
+
     /** ServiceName children */
     private XMLObjectChildrenList<ServiceName> serviceNames;
-    
+
     /** ServiceDescription children */
     private XMLObjectChildrenList<ServiceDescription> serviceDescriptions;
-    
+
     /** RequestedAttribute children */
     private XMLObjectChildrenList<RequestedAttribute> requestAttributes;
-    
+
     /**
      * Constructor
      */
-    public AttributeConsumingServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
-        
+    protected AttributeConsumingServiceImpl() {
+        super(AttributeConsumingService.LOCAL_NAME);
+
         serviceNames = new XMLObjectChildrenList<ServiceName>(this);
         serviceDescriptions = new XMLObjectChildrenList<ServiceDescription>(this);
         requestAttributes = new XMLObjectChildrenList<RequestedAttribute>(this);
@@ -75,7 +73,7 @@ public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements
      * @see org.opensaml.saml2.metadata.AttributeConsumingService#setIndex(int)
      */
     public void setIndex(int index) {
-        if(this.index != index) {
+        if (this.index != index) {
             releaseThisandParentDOM();
             this.index = index;
         }
@@ -117,15 +115,15 @@ public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
-        
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+
         children.addAll(serviceNames);
         children.addAll(serviceDescriptions);
         children.addAll(requestAttributes);
-        
+
         return Collections.unmodifiableList(children);
     }
 }

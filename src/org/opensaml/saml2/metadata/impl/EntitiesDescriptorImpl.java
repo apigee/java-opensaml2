@@ -23,17 +23,16 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}.
  */
-public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implements EntitiesDescriptor {
+public class EntitiesDescriptorImpl extends AbstractSignableMetadataSAMLObject implements EntitiesDescriptor {
 
     /** Name of this descriptor group */
     private String name;
@@ -55,10 +54,9 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     /**
      * Constructor
      */
-    public EntitiesDescriptorImpl() {
-        super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
-        
+    protected EntitiesDescriptorImpl() {
+        super(EntitiesDescriptor.LOCAL_NAME);
+
         orderedDescriptors = new IndexedXMLObjectChildrenList<SAMLObject>(this);
     }
 
@@ -140,10 +138,10 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     }
 
     /*
-     * @see org.opensaml.saml2.common.impl.AbstractSAMLElement#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.add(getExtensions());
         children.addAll(orderedDescriptors);

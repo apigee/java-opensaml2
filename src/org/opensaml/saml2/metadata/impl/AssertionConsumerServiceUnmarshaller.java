@@ -20,15 +20,13 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
- * {@link org.opensaml.saml2.metadata.AssertionConsumerService} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.AssertionConsumerService} objects.
  */
-public class AssertionConsumerServiceUnmarshaller extends IndexedEndpointUnmarshaller implements SAMLObjectUnmarshaller {
+public class AssertionConsumerServiceUnmarshaller extends IndexedEndpointUnmarshaller {
 
     /**
      * Constructor

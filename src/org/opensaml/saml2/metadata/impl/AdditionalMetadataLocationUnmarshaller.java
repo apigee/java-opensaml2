@@ -16,18 +16,17 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectUnmarshaller;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation} objects.
  */
-public class AdditionalMetadataLocationUnmarshaller extends AbstractSAMLObjectUnmarshaller implements SAMLObjectUnmarshaller {
+public class AdditionalMetadataLocationUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
@@ -37,22 +36,23 @@ public class AdditionalMetadataLocationUnmarshaller extends AbstractSAMLObjectUn
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement, java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-        if(attributeName.equals(AdditionalMetadataLocation.NAMESPACE_ATTRIB_NAME)) {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
+        if (attribute.getLocalName().equals(AdditionalMetadataLocation.NAMESPACE_ATTRIB_NAME)) {
             AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlObject;
-            aml.setNamespaceURI(attributeValue);
-        }else{
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            aml.setNamespaceURI(attribute.getValue());
+        } else {
+            super.processAttribute(samlObject, attribute);
         }
     }
-    
+
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject, java.lang.String)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+     *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlObject;
         aml.setLocationURI(elementContent);
     }

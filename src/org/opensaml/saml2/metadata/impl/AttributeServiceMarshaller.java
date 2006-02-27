@@ -20,15 +20,13 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeService;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.AttributeService}
- * objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.AttributeService} objects.
  */
-public class AttributeServiceMarshaller extends EndpointMarshaller implements SAMLObjectMarshaller {
+public class AttributeServiceMarshaller extends EndpointMarshaller {
 
     /**
      * Constructor

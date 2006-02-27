@@ -20,20 +20,17 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AssertionIDRequestService}
- * 
  */
 public class AssertionIDRequestServiceImpl extends EndpointImpl implements AssertionIDRequestService {
 
     /**
      * Constructor
      */
-    public AssertionIDRequestServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected AssertionIDRequestServiceImpl() {
+        super(AssertionIDRequestService.LOCAL_NAME);
     }
 }

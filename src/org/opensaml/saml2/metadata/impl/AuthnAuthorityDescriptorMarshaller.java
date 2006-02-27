@@ -20,14 +20,14 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} objects.
  */
-public class AuthnAuthorityDescriptorMarshaller extends RoleDescriptorMarshaller{
+public class AuthnAuthorityDescriptorMarshaller extends RoleDescriptorMarshaller {
 
     /**
      * Constructor
      */
     public AuthnAuthorityDescriptorMarshaller() {
         super(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
-    }    
+    }
 }

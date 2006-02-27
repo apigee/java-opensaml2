@@ -15,9 +15,7 @@
  */
 package org.opensaml.common;
 
-import java.util.List;
-
-import org.opensaml.xml.ValidatingXMLObject;
+import org.opensaml.xml.validation.ValidatingXMLObject;
 
 /**
  * A base interface for all SAML Objects.
@@ -30,6 +28,4 @@ public interface SAMLObject extends ValidatingXMLObject {
      * @return the SAML version for this object
      */
     public SAMLVersion getVersion();
-    
-    public List<SAMLObject> getOrderedChildren();
 }

@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.core.Extensions;
-import org.opensaml.xml.SignableXMLObject;
+import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
  * SAML 2.0 Metadata EntitiesDescriptor.

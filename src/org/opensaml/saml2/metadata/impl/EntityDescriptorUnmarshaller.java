@@ -18,7 +18,6 @@ package org.opensaml.saml2.metadata.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
@@ -30,11 +29,13 @@ import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.w3c.dom.Attr;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.EntityDescriptor}s.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.EntityDescriptor}s.
  */
 public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     /**
@@ -45,10 +46,10 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         EntityDescriptor entityDescriptor = (EntityDescriptor) parentSAMLObject;
 
@@ -70,21 +71,20 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         EntityDescriptor entityDescriptor = (EntityDescriptor) samlObject;
 
-        if (attributeName.equals(EntityDescriptor.ENTITY_ID_ATTRIB_NAME)) {
-            entityDescriptor.setEntityID(attributeValue);
-        } else if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            entityDescriptor.setValidUntil(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
-        } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
-            entityDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
+        if (attribute.getLocalName().equals(EntityDescriptor.ENTITY_ID_ATTRIB_NAME)) {
+            entityDescriptor.setEntityID(attribute.getValue());
+        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
+            entityDescriptor.setValidUntil(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
+        } else if (attribute.getLocalName().equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
+            entityDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attribute.getValue()));
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

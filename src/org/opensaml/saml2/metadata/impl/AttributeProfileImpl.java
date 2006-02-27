@@ -22,15 +22,13 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeProfile;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.metadata.AttributeProfile}
  */
-public class AttributeProfileImpl extends AbstractSAMLObject implements AttributeProfile {
+public class AttributeProfileImpl extends AbstractMetadataSAMLObject implements AttributeProfile {
 
     /** Profile URI */
     private String profileURI;
@@ -38,9 +36,8 @@ public class AttributeProfileImpl extends AbstractSAMLObject implements Attribut
     /**
      * Constructor
      */
-    public AttributeProfileImpl() {
-        super(SAMLConstants.SAML20MD_NS, AttributeProfile.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected AttributeProfileImpl() {
+        super(AttributeProfile.LOCAL_NAME);
     }
 
     /*
@@ -58,9 +55,9 @@ public class AttributeProfileImpl extends AbstractSAMLObject implements Attribut
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null; // No Children
     }
 }

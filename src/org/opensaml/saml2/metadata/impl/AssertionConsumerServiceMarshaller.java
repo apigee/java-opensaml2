@@ -19,14 +19,13 @@
  */
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.AssertionConsumerService} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.AssertionConsumerService} objects.
  */
-public class AssertionConsumerServiceMarshaller extends IndexedEndpointMarshaller implements SAMLObjectMarshaller {
+public class AssertionConsumerServiceMarshaller extends IndexedEndpointMarshaller {
 
     /**
      * Constructor

@@ -20,16 +20,16 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectUnmarshaller;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.IndexedEndpoint}
  * objects.
  */
-public class IndexedEndpointUnmarshaller extends EndpointUnmarshaller implements SAMLObjectUnmarshaller {
+public class IndexedEndpointUnmarshaller extends EndpointUnmarshaller {
 
     /**
      * Constructor
@@ -42,19 +42,18 @@ public class IndexedEndpointUnmarshaller extends EndpointUnmarshaller implements
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         IndexedEndpoint iEndpoint = (IndexedEndpoint) samlObject;
 
-        if (attributeName.equals(IndexedEndpoint.INDEX_ATTRIB_NAME)) {
-            iEndpoint.setIndex(Integer.valueOf(attributeValue));
-        } else if (attributeName.equals(IndexedEndpoint.IS_DEFAULT_ATTRIB_NAME)) {
-            iEndpoint.setDefault(Boolean.valueOf(attributeValue));
+        if (attribute.getLocalName().equals(IndexedEndpoint.INDEX_ATTRIB_NAME)) {
+            iEndpoint.setIndex(Integer.valueOf(attribute.getValue()));
+        } else if (attribute.getLocalName().equals(IndexedEndpoint.IS_DEFAULT_ATTRIB_NAME)) {
+            iEndpoint.setDefault(Boolean.valueOf(attribute.getValue()));
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

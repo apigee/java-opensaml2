@@ -18,15 +18,13 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concreate implementation of {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation}
  */
-public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implements AdditionalMetadataLocation {
+public class AdditionalMetadataLocationImpl extends AbstractMetadataSAMLObject implements AdditionalMetadataLocation {
 
     /** The metadata location */
     private String location;
@@ -37,9 +35,8 @@ public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implement
     /**
      * Constructor
      */
-    public AdditionalMetadataLocationImpl() {
-        super(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected AdditionalMetadataLocationImpl() {
+        super(AdditionalMetadataLocation.LOCAL_NAME);
     }
 
     /*
@@ -73,7 +70,7 @@ public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implement
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // No children for this element
         return null;
     }

@@ -20,15 +20,13 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeService;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.AttributeService}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.AttributeService} objects.
  */
-public class AttributeServiceUnmarshaller extends EndpointUnmarshaller implements SAMLObjectUnmarshaller {
+public class AttributeServiceUnmarshaller extends EndpointUnmarshaller {
 
     /**
      * Constructor

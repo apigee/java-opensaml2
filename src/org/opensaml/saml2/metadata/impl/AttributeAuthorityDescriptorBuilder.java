@@ -17,27 +17,28 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AttributeAuthorityDescriptorImpl}s.
  */
-public class AttributeAuthorityDescriptorBuilder implements SAMLObjectBuilder {
+public class AttributeAuthorityDescriptorBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
      */
-    public AttributeAuthorityDescriptorBuilder(){
-        
+    public AttributeAuthorityDescriptorBuilder() {
+
     }
-    
+
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public XMLObject buildObject() {
         return new AttributeAuthorityDescriptorImpl();
     }
 }

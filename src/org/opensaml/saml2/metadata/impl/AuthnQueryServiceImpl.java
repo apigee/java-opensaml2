@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AuthnQueryService;
 
 /**
@@ -31,8 +30,7 @@ public class AuthnQueryServiceImpl extends EndpointImpl implements AuthnQuerySer
     /**
      * Constructor
      */
-    public AuthnQueryServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, AuthnQueryService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected AuthnQueryServiceImpl() {
+        super(AuthnQueryService.LOCAL_NAME);
     }
 }

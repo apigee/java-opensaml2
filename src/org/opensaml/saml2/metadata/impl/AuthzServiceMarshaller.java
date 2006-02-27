@@ -20,14 +20,13 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AuthzService;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.AuthzService} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.AuthzService} objects.
  */
-public class AuthzServiceMarshaller extends EndpointMarshaller implements SAMLObjectMarshaller {
+public class AuthzServiceMarshaller extends EndpointMarshaller {
 
     /**
      * Constructor

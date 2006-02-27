@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
 
 /**
@@ -31,8 +30,7 @@ public class ArtifactResolutionServiceImpl extends IndexedEndpointImpl implement
     /**
      * Constructor
      */
-    public ArtifactResolutionServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected ArtifactResolutionServiceImpl() {
+        super(ArtifactResolutionService.LOCAL_NAME);
     }
 }

@@ -20,8 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
@@ -29,6 +27,7 @@ import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AttributeProfile;
 import org.opensaml.saml2.metadata.AttributeService;
 import org.opensaml.saml2.metadata.NameIDFormat;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
@@ -45,11 +44,10 @@ public class AttributeAuthorityDescriptorUnmarshaller extends RoleDescriptorUnma
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {
         AttributeAuthorityDescriptor descriptor = (AttributeAuthorityDescriptor) parentElement;
 
         if (childElement instanceof AttributeService) {

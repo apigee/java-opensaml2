@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 
 /**
@@ -31,8 +30,7 @@ public class AssertionConsumerServiceImpl extends IndexedEndpointImpl implements
     /**
      * Constructor
      */
-    public AssertionConsumerServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected AssertionConsumerServiceImpl() {
+        super(AssertionConsumerService.LOCAL_NAME);
     }
 }

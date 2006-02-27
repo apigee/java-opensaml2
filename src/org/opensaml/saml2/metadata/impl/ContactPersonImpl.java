@@ -23,9 +23,6 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.Company;
 import org.opensaml.saml2.metadata.ContactPerson;
@@ -34,12 +31,13 @@ import org.opensaml.saml2.metadata.EmailAddress;
 import org.opensaml.saml2.metadata.GivenName;
 import org.opensaml.saml2.metadata.SurName;
 import org.opensaml.saml2.metadata.TelephoneNumber;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.ContactPerson}
  */
-public class ContactPersonImpl extends AbstractSAMLObject implements ContactPerson {
+public class ContactPersonImpl extends AbstractMetadataSAMLObject implements ContactPerson {
 
     /** Contact person type */
     private ContactPersonType type;
@@ -65,9 +63,8 @@ public class ContactPersonImpl extends AbstractSAMLObject implements ContactPers
     /**
      * Constructor
      */
-    public ContactPersonImpl() {
-        super(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected ContactPersonImpl() {
+        super(ContactPerson.LOCAL_NAME);
 
         emailAddresses = new XMLObjectChildrenList<EmailAddress>(this);
         telephoneNumbers = new XMLObjectChildrenList<TelephoneNumber>(this);
@@ -158,10 +155,10 @@ public class ContactPersonImpl extends AbstractSAMLObject implements ContactPers
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.add(extensions);
         children.add(company);

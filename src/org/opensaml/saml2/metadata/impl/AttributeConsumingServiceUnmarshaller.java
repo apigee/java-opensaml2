@@ -20,20 +20,18 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.saml2.metadata.ServiceName;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for
- * {@link org.opensaml.saml2.metadata.AttributeConsumingService} objects.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.AttributeConsumingService} objects.
  */
 public class AttributeConsumingServiceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -45,11 +43,11 @@ public class AttributeConsumingServiceUnmarshaller extends AbstractSAMLObjectUnm
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         AttributeConsumingService service = (AttributeConsumingService) parentSAMLObject;
 
         if (childSAMLObject instanceof ServiceName) {
@@ -64,19 +62,18 @@ public class AttributeConsumingServiceUnmarshaller extends AbstractSAMLObjectUnm
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AttributeConsumingService service = (AttributeConsumingService) samlObject;
 
-        if (attributeName.equals(AttributeConsumingService.INDEX_ATTRIB_NAME)) {
-            service.setIndex(Integer.valueOf(attributeValue));
-        } else if (attributeName.equals(AttributeConsumingService.IS_DEFAULT_ATTRIB_NAME)) {
-            service.setIsDefault(Boolean.valueOf(attributeValue));
+        if (attribute.getLocalName().equals(AttributeConsumingService.INDEX_ATTRIB_NAME)) {
+            service.setIndex(Integer.valueOf(attribute.getValue()));
+        } else if (attribute.getLocalName().equals(AttributeConsumingService.IS_DEFAULT_ATTRIB_NAME)) {
+            service.setIsDefault(Boolean.valueOf(attribute.getValue()));
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

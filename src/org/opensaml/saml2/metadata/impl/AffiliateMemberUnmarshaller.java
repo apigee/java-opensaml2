@@ -16,16 +16,15 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectUnmarshaller;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
+import org.opensaml.xml.XMLObject;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.AffiliateMember}s.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.AffiliateMember}s.
  */
-public class AffiliateMemberUnmarshaller extends AbstractSAMLObjectUnmarshaller implements SAMLObjectUnmarshaller {
+public class AffiliateMemberUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
@@ -35,10 +34,10 @@ public class AffiliateMemberUnmarshaller extends AbstractSAMLObjectUnmarshaller 
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         AffiliateMember member = (AffiliateMember) samlObject;
         member.setID(elementContent);
     }

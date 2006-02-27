@@ -17,6 +17,7 @@
 package org.opensaml.common.xml;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +32,6 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.SAMLConfig;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Document;
@@ -41,7 +41,6 @@ import org.xml.sax.SAXException;
 
 /**
  * A singleton thread-safe manager for pools of XML parsers.
- * 
  */
 public class ParserPoolManager {
     /** Logger */
@@ -70,7 +69,7 @@ public class ParserPoolManager {
         HashMap<String, Boolean> features = new HashMap<String, Boolean>();
         features.put("http://apache.org/xml/features/validation/schema/normalized-value", Boolean.FALSE);
         features.put("http://apache.org/xml/features/dom/defer-node-expansion", Boolean.FALSE);
-        
+
         parserPool = new ParserPool(true, null, features);
     }
 
@@ -92,12 +91,25 @@ public class ParserPoolManager {
      * 
      * @return the XML Document
      * 
-     * @throws XMLParserException
-     * 
      * @throws XMLParserException thrown if there is a problem reading or parsing the XML document
      */
     public Document parse(InputSource in) throws XMLParserException {
         return parserPool.parse(in);
+    }
+    
+    /**
+     * Parses an XML file, in the given Source. Validation is performed against the SAML schema, and registered
+     * extension Schema, that correspond to the given SAML version identifier. If the version identifier is null, no
+     * validation is performed.
+     * 
+     * @param in the XML file source
+     * 
+     * @return the XML Document
+     * 
+     * @throws XMLParserException thrown if there is a problem reading or parsing the XML document
+     */
+    public Document parse(InputStream in) throws XMLParserException{
+        return parse(new InputSource(in));
     }
 
     /**
@@ -112,7 +124,7 @@ public class ParserPoolManager {
     public void validate(Document samlDocument) throws XMLParserException {
         if (saml11Schema == null) {
             SchemaFactory factory = SchemaFactory.newInstance(javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            
+
             try {
                 saml11Schema = createSchema(factory, getSAML11SchemaSources());
             } catch (SAXException e) {
@@ -215,7 +227,7 @@ public class ParserPoolManager {
      */
     private ArrayList<SAXSource> getSAML11SchemaSources() {
         ArrayList<SAXSource> sources = new ArrayList<SAXSource>();
-        
+
         SAXSource saml11Source = getSchemaSource(SAMLConstants.SAML11_SCHEMA_LOCATION);
         sources.add(saml11Source);
 
@@ -224,7 +236,7 @@ public class ParserPoolManager {
 
         return sources;
     }
-    
+
     /**
      * Gets a list of {@link Source}s for core XML schemas.
      * 
@@ -238,7 +250,7 @@ public class ParserPoolManager {
 
         SAXSource dsigSource = getSchemaSource(SAMLConstants.XMLSIG_SCHEMA_LOCATION);
         sources.add(dsigSource);
-        
+
         SAXSource xencSource = getSchemaSource(SAMLConstants.XMLENC_SCHEMA_LOCATION);
         sources.add(xencSource);
 
@@ -293,7 +305,7 @@ public class ParserPoolManager {
         EntityResolver extEntityResolver = null;
         String extSystemId = null;
         SAXSource extSource = null;
-        
+
         for (Entry entry : schemaExtensions.entrySet()) {
             try {
                 extSystemId = (String) entry.getKey();
@@ -312,7 +324,7 @@ public class ParserPoolManager {
 
         return extSources;
     }
-    
+
     /**
      * Creates a schema input source from a file located on the classpath.
      * 
@@ -320,8 +332,8 @@ public class ParserPoolManager {
      * 
      * @return the schema input source
      */
-    private SAXSource getSchemaSource(String fileLocation){
-        SAXSource source = new SAXSource(new InputSource(SAMLConfig.class.getResourceAsStream(fileLocation)));
+    private SAXSource getSchemaSource(String fileLocation) {
+        SAXSource source = new SAXSource(new InputSource(ParserPoolManager.class.getResourceAsStream(fileLocation)));
         source.setSystemId(fileLocation);
         return source;
     }

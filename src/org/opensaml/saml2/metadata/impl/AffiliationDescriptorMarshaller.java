@@ -21,18 +21,18 @@ package org.opensaml.saml2.metadata.impl;
 
 import org.apache.log4j.Logger;
 import org.joda.time.format.ISODateTimeFormat;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.AffiliationDescriptor} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.AffiliationDescriptor} objects.
  */
 public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
     /**
@@ -48,9 +48,9 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
     }
     
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         AffiliationDescriptor descriptor = (AffiliationDescriptor)samlElement;
         
         // Set affiliationOwnerID

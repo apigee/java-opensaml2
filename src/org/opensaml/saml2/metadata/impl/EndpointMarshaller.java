@@ -16,21 +16,21 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.Endpoint} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.Endpoint} objects.
  */
 public class EndpointMarshaller extends AbstractSAMLObjectMarshaller {
-    
+
     /**
      * 
      * Constructor
-     *
+     * 
      * @throws XMLParserException thrown when an JAXP DatatypeFactory can not be created
      */
     public EndpointMarshaller(String targetNamespaceURI, String targetLocalName) {
@@ -38,20 +38,22 @@ public class EndpointMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#doMarshalling(org.opensaml.common.SAMLElement, org.w3c.dom.Document)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
-    public void marshallAttributes(SAMLObject samlElement, Element domElement){
-        Endpoint endpoint = (Endpoint)samlElement;
-        
-        if (endpoint.getBinding()!= null) {
+    public void marshallAttributes(XMLObject samlElement, Element domElement) {
+        Endpoint endpoint = (Endpoint) samlElement;
+
+        if (endpoint.getBinding() != null) {
             domElement.setAttributeNS(null, Endpoint.BINDING_ATTRIB_NAME, endpoint.getBinding().toString());
         }
-        if (endpoint.getLocation()!=null) {
+        if (endpoint.getLocation() != null) {
             domElement.setAttributeNS(null, Endpoint.LOCATION_ATTRIB_NAME, endpoint.getLocation().toString());
         }
-        
-        if(endpoint.getResponseLocation() != null){
-            domElement.setAttributeNS(null, Endpoint.RESPONSE_LOCATION_ATTRIB_NAME, endpoint.getResponseLocation().toString());
+
+        if (endpoint.getResponseLocation() != null) {
+            domElement.setAttributeNS(null, Endpoint.RESPONSE_LOCATION_ATTRIB_NAME, endpoint.getResponseLocation()
+                    .toString());
         }
     }
 }

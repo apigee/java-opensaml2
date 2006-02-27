@@ -20,14 +20,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AttributeProfile;
 import org.opensaml.saml2.metadata.AttributeService;
 import org.opensaml.saml2.metadata.NameIDFormat;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -54,8 +53,7 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
      * Constructor
      */
     public AttributeAuthorityDescriptorImpl(){
-        super(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+        super(AttributeAuthorityDescriptor.LOCAL_NAME);
         
         attributeServices = new XMLObjectChildrenList<AttributeService>(this);
         assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
@@ -99,10 +97,10 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
     }
     
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         children.addAll(super.getOrderedChildren());
         children.addAll(attributeServices);
