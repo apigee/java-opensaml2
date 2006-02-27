@@ -67,7 +67,7 @@ public class AssertionIDRefTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AssertionIDRef assertionIDRef = (AssertionIDRef) buildSAMLObject(qname);
+        AssertionIDRef assertionIDRef = (AssertionIDRef) buildXMLObject(qname);
 
         assertionIDRef.setAssertionID(expectedAssertionID);
         assertEquals(expectedDOM, assertionIDRef);
