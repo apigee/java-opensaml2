@@ -18,7 +18,7 @@ package org.opensaml.saml2.core;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.SignableXMLObject;
+import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
  * SAML 2.0 Core RequestAbstractType
