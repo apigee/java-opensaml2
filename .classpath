@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/xmlsec-1.3.0-commons-logging.jar"/>
 	<classpathentry kind="lib" path="build-lib/xmlunit1.0.jar"/>
 	<classpathentry kind="lib" path="lib/joda-time-1.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/XMLTooling-J"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
