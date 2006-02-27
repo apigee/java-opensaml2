@@ -22,43 +22,40 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextDeclRef;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnContextDeclRef}.
  */
-public class AuthnContextDeclRefImpl extends AbstractSAMLObject implements AuthnContextDeclRef {
+public class AuthnContextDeclRefImpl extends AbstractAssertionSAMLObject implements AuthnContextDeclRef {
 
     /** URI of the Authentication Context Declaration */
     private String authnContextDeclRef;
 
     /** Constructor */
-    public AuthnContextDeclRefImpl() {
-        super(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected AuthnContextDeclRefImpl() {
+        super(AuthnContextDeclRef.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnContextDeclRef#getURI()
      */
     public String getAuthnContextDeclRef() {
         return authnContextDeclRef;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnContextDeclRef#setURI(java.lang.String)
      */
     public void setAuthnContextDeclRef(String newAuthnContextDeclRef) {
         this.authnContextDeclRef = prepareForAssignment(this.authnContextDeclRef, newAuthnContextDeclRef);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }
