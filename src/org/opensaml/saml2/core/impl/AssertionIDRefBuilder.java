@@ -20,23 +20,23 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.core.impl.AssertionIDRefImpl}
+ * Builder for {@link org.opensaml.saml2.core.impl.AssertionIDRefImpl}
  */
-public class AssertionIDRefBuilder implements SAMLObjectBuilder {
+public class AssertionIDRefBuilder implements XMLObjectBuilder {
 
     /** Constructor */
     public AssertionIDRefBuilder() {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /*
+     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public XMLObject buildObject() {
         return new AssertionIDRefImpl();
     }
 }
