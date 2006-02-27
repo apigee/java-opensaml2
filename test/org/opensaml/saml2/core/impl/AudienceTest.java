@@ -67,7 +67,7 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Audience audience = (Audience) buildSAMLObject(qname);
+        Audience audience = (Audience) buildXMLObject(qname);
 
         audience.setAudienceURI(expectedAudienceURI);
         assertEquals(expectedDOM, audience);

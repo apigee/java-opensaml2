@@ -64,7 +64,7 @@ public class AuthnContextTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthnContext authnContext = (AuthnContext) buildSAMLObject(qname);
+        AuthnContext authnContext = (AuthnContext) buildXMLObject(qname);
 
         assertEquals(expectedDOM, authnContext);
     }
@@ -94,7 +94,7 @@ public class AuthnContextTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthnContext authnContext = (AuthnContext) buildSAMLObject(qname);
+        AuthnContext authnContext = (AuthnContext) buildXMLObject(qname);
 
         authnContext.setAuthnContextClassRef(new AuthnContextClassRefImpl());
         authnContext.setAuthnContextDecl(new AuthnContextDeclImpl());

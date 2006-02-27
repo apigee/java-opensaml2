@@ -82,7 +82,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildSAMLObject(qname);
+        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
 
         authzDecisionStatement.setResource(expectedResource);
         assertEquals(expectedDOM, authzDecisionStatement);
@@ -93,7 +93,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildSAMLObject(qname);
+        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
 
         authzDecisionStatement.setResource(expectedResource);
         authzDecisionStatement.setDecision(expectedDecision);
@@ -115,7 +115,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildSAMLObject(qname);
+        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
 
         for (int i = 0; i < expectedActionCount; i++) {
             authzDecisionStatement.getActions().add(new ActionImpl());

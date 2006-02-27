@@ -66,7 +66,7 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AttributeValue.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AttributeValue attributeValue = (AttributeValue) buildSAMLObject(qname);
+        AttributeValue attributeValue = (AttributeValue) buildXMLObject(qname);
 
         attributeValue.setValue(expectedValue);
         assertEquals(expectedDOM, attributeValue);

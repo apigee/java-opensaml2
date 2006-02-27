@@ -89,7 +89,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Conditions conditions = (Conditions) buildSAMLObject(qname);
+        Conditions conditions = (Conditions) buildXMLObject(qname);
 
         conditions.setNotBefore(expectedNotBefore);
         assertEquals(expectedDOM, conditions);
@@ -100,7 +100,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Conditions conditions = (Conditions) buildSAMLObject(qname);
+        Conditions conditions = (Conditions) buildXMLObject(qname);
 
         conditions.setNotBefore(expectedNotBefore);
         conditions.setNotOnOrAfter(expectedNotOnOrAfter);
@@ -121,7 +121,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Conditions conditions = (Conditions) buildSAMLObject(qname);
+        Conditions conditions = (Conditions) buildXMLObject(qname);
 
         conditions.getConditions().add(new OneTimeUseImpl());
         for (int i = 0; i < audienceRestrictionCount; i++) {

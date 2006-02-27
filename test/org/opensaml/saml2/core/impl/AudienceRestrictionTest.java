@@ -64,7 +64,7 @@ public class AudienceRestrictionTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AudienceRestriction audienceRestriction = (AudienceRestriction) buildSAMLObject(qname);
+        AudienceRestriction audienceRestriction = (AudienceRestriction) buildXMLObject(qname);
 
         assertEquals(expectedDOM, audienceRestriction);
     }
@@ -89,7 +89,7 @@ public class AudienceRestrictionTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AudienceRestriction audienceRestriction = (AudienceRestriction) buildSAMLObject(qname);
+        AudienceRestriction audienceRestriction = (AudienceRestriction) buildXMLObject(qname);
 
         for (int i = 0; i < expectedAudienceCount; i++) {
             audienceRestriction.getAudiences().add(new AudienceImpl());

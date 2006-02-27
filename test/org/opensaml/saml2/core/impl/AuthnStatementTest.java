@@ -90,7 +90,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthnStatement authnStatement = (AuthnStatement) buildSAMLObject(qname);
+        AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);
 
         authnStatement.setAuthnInstant(expectedAuthnInstant);
         assertEquals(expectedDOM, authnStatement);
@@ -101,7 +101,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthnStatement authnStatement = (AuthnStatement) buildSAMLObject(qname);
+        AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);
 
         authnStatement.setAuthnInstant(expectedAuthnInstant);
         authnStatement.setSessionIndex(expectedSessionIndex);
@@ -124,7 +124,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthnStatement authnStatement = (AuthnStatement) buildSAMLObject(qname);
+        AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);
 
         authnStatement.setSubjectLocality(new SubjectLocalityImpl());
         authnStatement.setAuthnContext(new AuthnContextImpl());

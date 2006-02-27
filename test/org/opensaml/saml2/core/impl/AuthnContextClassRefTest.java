@@ -66,7 +66,7 @@ public class AuthnContextClassRefTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthnContextClassRef authnContextClassRef = (AuthnContextClassRef) buildSAMLObject(qname);
+        AuthnContextClassRef authnContextClassRef = (AuthnContextClassRef) buildXMLObject(qname);
 
         authnContextClassRef.setAuthnContextClassRef(expectedClassRef);
         assertEquals(expectedDOM, authnContextClassRef);

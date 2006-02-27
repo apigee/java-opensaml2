@@ -68,7 +68,7 @@ public class AuthenticatingAuthorityTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
-        AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) buildSAMLObject(qname);
+        AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) buildXMLObject(qname);
 
         authenticatingAuthority.setURI(expectedURI);
         assertEquals(expectedDOM, authenticatingAuthority);

@@ -66,7 +66,7 @@ public class AuthnContextDeclRefTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AuthnContextDeclRef authnContextDeclRef = (AuthnContextDeclRef) buildSAMLObject(qname);
+        AuthnContextDeclRef authnContextDeclRef = (AuthnContextDeclRef) buildXMLObject(qname);
 
         authnContextDeclRef.setAuthnContextDeclRef(expectedDeclRef);
         assertEquals(expectedDOM, authnContextDeclRef);
