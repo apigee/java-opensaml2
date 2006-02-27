@@ -20,23 +20,23 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.core.impl.SubjectImpl} objects.
+ * Builder for {@link org.opensaml.saml2.core.impl.SubjectImpl} objects.
  */
-public class SubjectBuilder implements SAMLObjectBuilder {
+public class SubjectBuilder implements XMLObjectBuilder {
 
     /** Constructor */
     public SubjectBuilder() {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /*
+     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public XMLObject buildObject() {
         return new SubjectImpl();
     }
 }

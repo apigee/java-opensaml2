@@ -24,20 +24,17 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SubjectConfirmationData;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.SubjectConfirmationData}
  */
-public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements SubjectConfirmationData {
+public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject implements SubjectConfirmationData {
 
     /** Constructor */
-    public SubjectConfirmationDataImpl() {
-        super(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);   
+    protected SubjectConfirmationDataImpl() {
+        super(SubjectConfirmationData.LOCAL_NAME);
     }
 
     /** NotBefore of the Confirmation Data */
@@ -55,80 +52,80 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
     /** Address of the Confirmation Data */
     private String address;
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getNotBefore()
      */
     public DateTime getNotBefore() {
         return notBefore;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setNotBefore(java.util.Date)
      */
     public void setNotBefore(DateTime newNotBefore) {
         this.notBefore = prepareForAssignment(this.notBefore, newNotBefore.withZone(DateTimeZone.UTC));
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getNotOnOrAfter()
      */
     public DateTime getNotOnOrAfter() {
         return notOnOrAfter;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setNotOnOrAfter(java.util.Date)
      */
     public void setNotOnOrAfter(DateTime newNotOnOrAfter) {
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter.withZone(DateTimeZone.UTC));
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getRecipient()
      */
     public String getRecipient() {
         return recipient;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setRecipient(java.lang.String)
      */
     public void setRecipient(String newRecipient) {
         this.recipient = prepareForAssignment(this.recipient, newRecipient);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getInResponseTo()
      */
     public String getInResponseTo() {
         return inResponseTo;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setInResponseTo(java.lang.String)
      */
     public void setInResponseTo(String newInResponseTo) {
         this.inResponseTo = prepareForAssignment(this.inResponseTo, newInResponseTo);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getAddress()
      */
     public String getAddress() {
         return address;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setAddress(java.lang.String)
      */
     public void setAddress(String newAddress) {
         this.address = prepareForAssignment(this.address, newAddress);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

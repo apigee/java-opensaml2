@@ -24,18 +24,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Identifier;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectConfirmation;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Subject}
  */
-public class SubjectImpl extends AbstractSAMLObject implements Subject {
+public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject {
 
     /** Identifier of the Subject */
     private Identifier identifier;
@@ -44,43 +42,42 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
     private XMLObjectChildrenList<SubjectConfirmation> subjectConfirmations;
 
     /** Constructor */
-    public SubjectImpl() {
-        super(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
-        
+    protected SubjectImpl() {
+        super(Subject.LOCAL_NAME);
+
         subjectConfirmations = new XMLObjectChildrenList<SubjectConfirmation>(this);
     }
-    
-    /**
+
+    /*
      * @see org.opensaml.saml2.core.Subject#getIdentifier()
      */
     public Identifier getIdentifier() {
         return identifier;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Subject#setIdentifier(org.opensaml.saml2.core.Identifier)
      */
     public void setIdentifier(Identifier newIdentifier) {
         this.identifier = prepareForAssignment(this.identifier, newIdentifier);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Subject#getSubjectConfirmation()
      */
     public List<SubjectConfirmation> getSubjectConfirmations() {
         return subjectConfirmations;
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.add(identifier);
         children.addAll(subjectConfirmations);
-        
+
         return Collections.unmodifiableList(children);
     }
 }
