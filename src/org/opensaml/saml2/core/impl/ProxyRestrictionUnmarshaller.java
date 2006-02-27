@@ -20,18 +20,16 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Audience;
 import org.opensaml.saml2.core.ProxyRestriction;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.ProxyRestriction}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ProxyRestriction} objects.
  */
 public class ProxyRestrictionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -40,12 +38,11 @@ public class ProxyRestrictionUnmarshaller extends AbstractSAMLObjectUnmarshaller
         super(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentObject, SAMLObject childObject)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         ProxyRestriction proxyRestriction = (ProxyRestriction) parentObject;
 
         if (childObject instanceof Audience) {
@@ -55,18 +52,17 @@ public class ProxyRestrictionUnmarshaller extends AbstractSAMLObjectUnmarshaller
         }
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         ProxyRestriction proxyRestriction = (ProxyRestriction) samlObject;
 
-        if (attributeName.equals(ProxyRestriction.COUNT_ATTRIB_NAME)) {
-            proxyRestriction.setProxyCount(Integer.valueOf(attributeValue));
+        if (attribute.getLocalName().equals(ProxyRestriction.COUNT_ATTRIB_NAME)) {
+            proxyRestriction.setProxyCount(Integer.valueOf(attribute.getValue()));
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.OneTimeUse;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.OneTimeUse} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.OneTimeUse} objects.
  */
 public class OneTimeUseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

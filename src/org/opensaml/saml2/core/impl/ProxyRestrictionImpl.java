@@ -24,47 +24,44 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Audience;
 import org.opensaml.saml2.core.ProxyRestriction;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.ProxyRestriction}
  */
-public class ProxyRestrictionImpl extends AbstractSAMLObject implements ProxyRestriction {
+public class ProxyRestrictionImpl extends AbstractAssertionSAMLObject implements ProxyRestriction {
 
-    /** Audiences of the Restriction*/
+    /** Audiences of the Restriction */
     private XMLObjectChildrenList<Audience> audience;
 
-    /** Count of the Restriction*/
+    /** Count of the Restriction */
     private Integer proxyCount;
 
     /** Constructor */
-    public ProxyRestrictionImpl() {
-        super(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected ProxyRestrictionImpl() {
+        super(ProxyRestriction.LOCAL_NAME);
 
         audience = new XMLObjectChildrenList<Audience>(this);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.ProxyRestriction#getAudiences()
      */
     public List<Audience> getAudiences() {
         return audience;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.ProxyRestriction#getCount()
      */
     public Integer getProxyCount() {
         return proxyCount;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.ProxyRestriction#setCount(java.lang.Integer)
      */
     public void setProxyCount(Integer newProxyCount) {
@@ -74,13 +71,13 @@ public class ProxyRestrictionImpl extends AbstractSAMLObject implements ProxyRes
             throw (new IllegalArgumentException("Count must be a non-negative integer."));
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
-        
-        children.addAll(audience);       
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+
+        children.addAll(audience);
         return Collections.unmodifiableList(children);
     }
 }

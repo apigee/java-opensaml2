@@ -20,24 +20,22 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.core.impl.ProxyRestrictionImpl}
- * objects.
+ * Builder for {@link org.opensaml.saml2.core.impl.ProxyRestrictionImpl} objects.
  */
-public class ProxyRestrictionBuilder implements SAMLObjectBuilder {
+public class ProxyRestrictionBuilder implements XMLObjectBuilder {
 
     /** Constructor */
     public ProxyRestrictionBuilder() {
-
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /*
+     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public XMLObject buildObject() {
         return new ProxyRestrictionImpl();
     }
 }

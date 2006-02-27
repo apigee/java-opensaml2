@@ -20,15 +20,15 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameID;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.NameID} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.NameID} objects.
  */
 public class NameIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -41,23 +41,22 @@ public class NameIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         NameID nameID = (NameID) samlObject;
-        if (attributeName.equals(NameID.NAME_QUALIFIER_ATTRIB_NAME)) {
-            nameID.setNameQualifier(attributeValue);
-        } else if (attributeName.equals(NameID.SP_NAME_QUALIFIER_ATTRIB_NAME)) {
-            nameID.setSPNameQualifier(attributeValue);
-        } else if (attributeName.equals(NameID.FORMAT_ATTRIB_NAME)) {
-            nameID.setFormat(attributeValue);
-        } else if (attributeName.equals(NameID.SPPROVIDER_ID_ATTRIB_NAME)) {
-            nameID.setSPProviderID(attributeValue);
+        if (attribute.getLocalName().equals(NameID.NAME_QUALIFIER_ATTRIB_NAME)) {
+            nameID.setNameQualifier(attribute.getValue());
+        } else if (attribute.getLocalName().equals(NameID.SP_NAME_QUALIFIER_ATTRIB_NAME)) {
+            nameID.setSPNameQualifier(attribute.getValue());
+        } else if (attribute.getLocalName().equals(NameID.FORMAT_ATTRIB_NAME)) {
+            nameID.setFormat(attribute.getValue());
+        } else if (attribute.getLocalName().equals(NameID.SPPROVIDER_ID_ATTRIB_NAME)) {
+            nameID.setSPProviderID(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

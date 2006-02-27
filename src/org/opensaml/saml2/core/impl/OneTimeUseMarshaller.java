@@ -17,30 +17,20 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.OneTimeUse;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.OneTimeUse} objects.
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.OneTimeUse} objects.
  */
 public class OneTimeUseMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**Constructor*/
+    /** Constructor */
     public OneTimeUseMarshaller() {
         super(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME);
-    }
-    
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // do nothing
     }
 }

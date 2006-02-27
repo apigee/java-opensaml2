@@ -22,26 +22,23 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.OneTimeUse;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.IDNameQualifiers}
  */
-public class OneTimeUseImpl extends AbstractSAMLObject implements OneTimeUse {
+public class OneTimeUseImpl extends AbstractAssertionSAMLObject implements OneTimeUse {
 
     /** Constructor */
-    public OneTimeUseImpl() {
-        super(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected OneTimeUseImpl() {
+        super(OneTimeUse.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }
