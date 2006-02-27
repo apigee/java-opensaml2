@@ -24,44 +24,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Audience;
 import org.opensaml.saml2.core.AudienceRestriction;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.AudienceRestriction}
  */
-public class AudienceRestrictionImpl extends AbstractSAMLObject implements AudienceRestriction {
+public class AudienceRestrictionImpl extends AbstractAssertionSAMLObject implements AudienceRestriction {
 
-    /**List of the audiences*/
+    /** List of the audiences */
     private XMLObjectChildrenList<Audience> audience;
 
     /** Constructor */
-    public AudienceRestrictionImpl() {
-        super(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
-        
+    protected AudienceRestrictionImpl() {
+        super(AudienceRestriction.LOCAL_NAME);
+
         audience = new XMLObjectChildrenList<Audience>(this);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AudienceRestriction#getAudiences()
      */
     public List<Audience> getAudiences() {
         return audience;
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
-        
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+
         children.addAll(audience);
-        
+
         return Collections.unmodifiableList(children);
     }
 }

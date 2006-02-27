@@ -22,43 +22,40 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthenticatingAuthority;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implemenation of {@link org.opensaml.saml2.core.AuthenticatingAuthority}.
  */
-public class AuthenticatingAuthorityImpl extends AbstractSAMLObject implements AuthenticatingAuthority {
+public class AuthenticatingAuthorityImpl extends AbstractAssertionSAMLObject implements AuthenticatingAuthority {
 
     /** URI of the Authenticating Authority */
     private String uri;
 
     /** Constructor */
-    public AuthenticatingAuthorityImpl() {
-        super(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected AuthenticatingAuthorityImpl() {
+        super(AuthenticatingAuthority.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthenticatingAuthority#getURI()
      */
     public String getURI() {
         return uri;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthenticatingAuthority#setURI(java.lang.String)
      */
     public void setURI(String newURI) {
         this.uri = prepareForAssignment(this.uri, newURI);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

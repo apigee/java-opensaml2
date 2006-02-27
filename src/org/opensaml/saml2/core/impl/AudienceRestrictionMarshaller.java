@@ -20,29 +20,17 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AudienceRestriction;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.AudienceRestriction}
- * objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.AudienceRestriction} objects.
  */
 public class AudienceRestrictionMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public AudienceRestrictionMarshaller() {
         super(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME);
-    }
-
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
-     *      org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // do nothing
     }
 }

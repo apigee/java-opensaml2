@@ -22,43 +22,40 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Audience;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Audience}
  */
-public class AudienceImpl extends AbstractSAMLObject implements Audience {
+public class AudienceImpl extends AbstractAssertionSAMLObject implements Audience {
 
     /** URI of this Audience */
     private String audienceURI;
 
     /** Constructor */
-    public AudienceImpl() {
-        super(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected AudienceImpl() {
+        super(Audience.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Audience#getValue()
      */
     public String getAudienceURI() {
         return audienceURI;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Audience#setValue(java.lang.String)
      */
     public void setAudienceURI(String newAudienceURI) {
         this.audienceURI = prepareForAssignment(this.audienceURI, newAudienceURI);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }
