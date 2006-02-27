@@ -22,43 +22,40 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextDecl;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnContextDeclImpl}.
  */
-public class AuthnContextDeclImpl extends AbstractSAMLObject implements AuthnContextDecl {
+public class AuthnContextDeclImpl extends AbstractAssertionSAMLObject implements AuthnContextDecl {
 
     /** Declaration of the Authentication Context */
     private String declaration;
 
     /** Constructor */
-    public AuthnContextDeclImpl() {
-        super(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected AuthnContextDeclImpl() {
+        super(AuthnContextDecl.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnContextDecl#getDeclartion()
      */
     public String getDeclartion() {
         return declaration;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnContextDecl#setDeclaration(java.lang.String)
      */
     public void setDeclaration(String newDeclaration) {
         this.declaration = prepareForAssignment(this.declaration, newDeclaration);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

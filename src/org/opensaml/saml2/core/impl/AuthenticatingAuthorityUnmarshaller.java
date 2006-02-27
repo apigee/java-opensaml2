@@ -20,13 +20,13 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthenticatingAuthority;
+import org.opensaml.xml.XMLObject;
 
 /**
- * A {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.AuthenticatingAuthority}.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AuthenticatingAuthority}.
  */
 public class AuthenticatingAuthorityUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -35,11 +35,11 @@ public class AuthenticatingAuthorityUnmarshaller extends AbstractSAMLObjectUnmar
         super(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) samlObject;
         authenticatingAuthority.setURI(elementContent);
     }

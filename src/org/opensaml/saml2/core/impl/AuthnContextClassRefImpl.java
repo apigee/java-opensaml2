@@ -22,43 +22,40 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextClassRef;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnContextClassRef}.
  */
-public class AuthnContextClassRefImpl extends AbstractSAMLObject implements AuthnContextClassRef {
+public class AuthnContextClassRefImpl extends AbstractAssertionSAMLObject implements AuthnContextClassRef {
 
     /** URI of the Authentication Context Class */
     private String authnContextClassRef;
 
     /** Constructor */
-    public AuthnContextClassRefImpl() {
-        super(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected AuthnContextClassRefImpl() {
+        super(AuthnContextClassRef.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnContextClassRef#getAuthnContextClassRef()
      */
     public String getAuthnContextClassRef() {
         return authnContextClassRef;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnContextClassRef#setAuthnContextClassRef(java.lang.String)
      */
     public void setAuthnContextClassRef(String newAuthnContextClassRef) {
         this.authnContextClassRef = prepareForAssignment(this.authnContextClassRef, newAuthnContextClassRef);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

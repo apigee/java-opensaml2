@@ -20,13 +20,13 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextClassRef;
+import org.opensaml.xml.XMLObject;
 
 /**
- * A {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.AuthnContextClassRef}.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AuthnContextClassRef}.
  */
 public class AuthnContextClassRefUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -35,11 +35,11 @@ public class AuthnContextClassRefUnmarshaller extends AbstractSAMLObjectUnmarsha
         super(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         AuthnContextClassRef authnContextClassRef = (AuthnContextClassRef) samlObject;
         authnContextClassRef.setAuthnContextClassRef(elementContent);
     }
