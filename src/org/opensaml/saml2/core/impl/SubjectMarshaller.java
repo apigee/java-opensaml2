@@ -20,28 +20,17 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Subject;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.Subject} objects.
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.Subject} objects.
  */
 public class SubjectMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public SubjectMarshaller() {
         super(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME);
-    }
-
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
-     *      org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // do nothing
     }
 }

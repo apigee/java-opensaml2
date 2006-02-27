@@ -20,15 +20,15 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SubjectLocality;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.SubjectLocality}.
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.SubjectLocality}.
  */
 public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -37,20 +37,19 @@ public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller 
         super(SAMLConstants.SAML20_NS, SubjectLocality.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         SubjectLocality subjectLocality = (SubjectLocality) samlObject;
 
-        if (attributeName.equals(SubjectLocality.ADDRESS_ATTRIB_NAME)) {
-            subjectLocality.setAddress(attributeValue);
-        } else if (attributeName.equals(SubjectLocality.DNS_NAME_ATTRIB_NAME)) {
-            subjectLocality.setDNSName(attributeValue);
+        if (attribute.getLocalName().equals(SubjectLocality.ADDRESS_ATTRIB_NAME)) {
+            subjectLocality.setAddress(attribute.getValue());
+        } else if (attribute.getLocalName().equals(SubjectLocality.DNS_NAME_ATTRIB_NAME)) {
+            subjectLocality.setDNSName(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

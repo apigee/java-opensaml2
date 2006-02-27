@@ -20,17 +20,16 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Identifier;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectConfirmation;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.Subject} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Subject} objects.
  */
 public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -39,12 +38,11 @@ public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentObject, SAMLObject childObject)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         Subject subject = (Subject) parentObject;
 
         if (childObject instanceof Identifier) {

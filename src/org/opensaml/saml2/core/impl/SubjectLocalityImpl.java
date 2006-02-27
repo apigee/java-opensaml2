@@ -22,15 +22,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SubjectLocality;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.SubjectLocality}.
  */
-public class SubjectLocalityImpl extends AbstractSAMLObject implements SubjectLocality {
+public class SubjectLocalityImpl extends AbstractAssertionSAMLObject implements SubjectLocality {
 
     /** The Address of the assertion */
     private String address;
@@ -39,43 +37,42 @@ public class SubjectLocalityImpl extends AbstractSAMLObject implements SubjectLo
     private String dnsName;
 
     /** Constructor */
-    public SubjectLocalityImpl() {
-        super(SAMLConstants.SAML20_NS, SubjectLocality.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected SubjectLocalityImpl() {
+        super(SubjectLocality.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectLocality#getAddress()
      */
     public String getAddress() {
         return address;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectLocality#setAddress(java.lang.String)
      */
     public void setAddress(String newAddress) {
         this.address = prepareForAssignment(this.address, newAddress);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectLocality#getDNSName()
      */
     public String getDNSName() {
         return dnsName;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.SubjectLocality#setDNSName(java.lang.String)
      */
     public void setDNSName(String newDNSName) {
         this.dnsName = prepareForAssignment(this.dnsName, newDNSName);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }
