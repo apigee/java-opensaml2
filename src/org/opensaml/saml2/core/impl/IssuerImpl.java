@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Issuer;
 
 /**
@@ -32,19 +31,18 @@ public class IssuerImpl extends NameIDImpl implements Issuer {
     private String issuer;
     
     /** Constructor */
-    public IssuerImpl() {
-        super(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected IssuerImpl() {
+        super(Issuer.LOCAL_NAME);
     }
     
-    /**
+    /*
      * @see org.opensaml.saml2.core.Issuer#getIssuer()
      */
     public String getIssuer() {
         return issuer;
     }
     
-    /**
+    /*
      * @see org.opensaml.saml2.core.Issuer#setIssuer(java.lang.String)
      */
     public void setIssuer(String newIssuer) {

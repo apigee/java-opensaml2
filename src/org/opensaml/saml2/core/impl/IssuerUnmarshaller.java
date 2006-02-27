@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Issuer;
+import org.opensaml.xml.XMLObject;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.Issuer}.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Issuer}.
  */
 public class IssuerUnmarshaller extends NameIDUnmarshaller {
 
@@ -34,11 +34,11 @@ public class IssuerUnmarshaller extends NameIDUnmarshaller {
         super(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         Issuer issuer = (Issuer) samlObject;
         issuer.setIssuer(elementContent);
     }
