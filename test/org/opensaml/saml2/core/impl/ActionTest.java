@@ -77,7 +77,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Action action = (Action) buildSAMLObject(qname);
+        Action action = (Action) buildXMLObject(qname);
 
         action.setAction(expectedAction);
         assertEquals(expectedDOM, action);
@@ -88,7 +88,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Action action = (Action) buildSAMLObject(qname);
+        Action action = (Action) buildXMLObject(qname);
 
         action.setAction(expectedAction);
         action.setNamespace(expectedNamespace);

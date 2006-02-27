@@ -64,7 +64,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AttributeStatement attributeStatement = (AttributeStatement) buildSAMLObject(qname);
+        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
 
         assertEquals(expectedDOM, attributeStatement);
     }
@@ -89,7 +89,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AttributeStatement attributeStatement = (AttributeStatement) buildSAMLObject(qname);
+        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
 
         for (int i = 0; i < expectedAttributeCount; i++) {
             attributeStatement.getAttributes().add(new AttributeImpl());

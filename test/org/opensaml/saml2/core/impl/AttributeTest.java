@@ -89,7 +89,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Attribute attribute = (Attribute) buildSAMLObject(qname);
+        Attribute attribute = (Attribute) buildXMLObject(qname);
 
         attribute.setName(expectedName);
 
@@ -101,7 +101,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Attribute attribute = (Attribute) buildSAMLObject(qname);
+        Attribute attribute = (Attribute) buildXMLObject(qname);
 
         attribute.setName(expectedName);
         attribute.setNameFormat(expectedNameFormat);

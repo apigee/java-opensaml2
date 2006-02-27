@@ -67,7 +67,7 @@ public class AssertionURIRefTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildSAMLObject(qname);
+        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
 
         assertionURIRef.setAssertionURI(expectedAssertionURI);
         assertEquals(expectedDOM, assertionURIRef);
