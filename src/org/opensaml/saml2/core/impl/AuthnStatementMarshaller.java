@@ -21,15 +21,15 @@
 package org.opensaml.saml2.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnStatement;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.AuthnStatement}.
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AuthnStatement}.
  */
 public class AuthnStatementMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -38,11 +38,11 @@ public class AuthnStatementMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthnStatement authnStatement = (AuthnStatement) samlObject;
 
         if (authnStatement.getAuthnInstant() != null) {

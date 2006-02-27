@@ -22,18 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.SubjectLocality;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.AuthnStatement}.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AuthnStatement}.
  */
 public class AuthnStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -42,12 +41,11 @@ public class AuthnStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentObject, SAMLObject childObject) throws UnmarshallingException,
-            UnknownElementException {
+    protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         AuthnStatement authnStatement = (AuthnStatement) parentObject;
         if (childObject instanceof SubjectLocality) {
             authnStatement.setSubjectLocality((SubjectLocality) childObject);
@@ -58,21 +56,20 @@ public class AuthnStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         }
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AuthnStatement authnStatement = (AuthnStatement) samlObject;
-        if (attributeName.equals(AuthnStatement.AUTHN_INSTANT_ATTRIB_NAME)) {
-            authnStatement.setAuthnInstant(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
-        } else if (attributeName.equals(AuthnStatement.SESSION_INDEX_ATTRIB_NAME)) {
-            authnStatement.setSessionIndex(attributeValue);
-        } else if (attributeName.equals(AuthnStatement.SESSION_NOT_ON_OR_AFTER_ATTRIB_NAME)) {
-            authnStatement.setSessionNotOnOrAfter(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
+        if (attribute.getLocalName().equals(AuthnStatement.AUTHN_INSTANT_ATTRIB_NAME)) {
+            authnStatement.setAuthnInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
+        } else if (attribute.getLocalName().equals(AuthnStatement.SESSION_INDEX_ATTRIB_NAME)) {
+            authnStatement.setSessionIndex(attribute.getValue());
+        } else if (attribute.getLocalName().equals(AuthnStatement.SESSION_NOT_ON_OR_AFTER_ATTRIB_NAME)) {
+            authnStatement.setSessionNotOnOrAfter(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

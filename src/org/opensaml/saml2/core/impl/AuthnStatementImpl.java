@@ -26,17 +26,15 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.SubjectLocality;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnStatement}.
  */
-public class AuthnStatementImpl extends AbstractSAMLObject implements AuthnStatement {
+public class AuthnStatementImpl extends AbstractAssertionSAMLObject implements AuthnStatement {
 
     /** Subject Locality of the Authentication Statement */
     private SubjectLocality subjectLocality;
@@ -54,75 +52,74 @@ public class AuthnStatementImpl extends AbstractSAMLObject implements AuthnState
     private DateTime sessionNotOnOrAfter;
 
     /** Constructor */
-    public AuthnStatementImpl() {
-        super(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected AuthnStatementImpl() {
+        super(AuthnStatement.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#getSubjectLocality()
      */
     public SubjectLocality getSubjectLocality() {
         return subjectLocality;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#setSubjectLocality(org.opensaml.saml2.core.SubjectLocality)
      */
     public void setSubjectLocality(SubjectLocality newSubjectLocality) {
         this.subjectLocality = prepareForAssignment(this.subjectLocality, newSubjectLocality);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#getAuthnContext()
      */
     public AuthnContext getAuthnContext() {
         return authnContext;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#setAuthnContext(org.opensaml.saml2.core.AuthnContext)
      */
     public void setAuthnContext(AuthnContext newAuthnContext) {
         this.authnContext = prepareForAssignment(this.authnContext, newAuthnContext);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#getAuthnInstant()
      */
     public DateTime getAuthnInstant() {
         return authnInstant;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#setAuthnInstant(org.joda.time.DateTime)
      */
     public void setAuthnInstant(DateTime newAuthnInstant) {
         this.authnInstant = prepareForAssignment(this.authnInstant, newAuthnInstant.withZone(DateTimeZone.UTC));
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#getSessionIndex()
      */
     public String getSessionIndex() {
         return sessionIndex;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#setSessionIndex(java.lang.String)
      */
     public void setSessionIndex(String newSessionIndex) {
         this.sessionIndex = prepareForAssignment(this.sessionIndex, newSessionIndex);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#getSessionNotOnOrAfter()
      */
     public DateTime getSessionNotOnOrAfter() {
         return sessionNotOnOrAfter;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AuthnStatement#setSessionNotOnOrAfter(org.joda.time.DateTime)
      */
     public void setSessionNotOnOrAfter(DateTime newSessionNotOnOrAfter) {
@@ -130,11 +127,11 @@ public class AuthnStatementImpl extends AbstractSAMLObject implements AuthnState
                 .withZone(DateTimeZone.UTC));
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.add(subjectLocality);
         children.add(authnContext);
