@@ -26,20 +26,18 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.saml2.core.Condition;
 import org.opensaml.saml2.core.Conditions;
 import org.opensaml.saml2.core.OneTimeUse;
 import org.opensaml.saml2.core.ProxyRestriction;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Conditions}
  */
-public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
+public class ConditionsImpl extends AbstractAssertionSAMLObject implements Conditions {
 
     /** A Condition */
     private XMLObjectChildrenList<Condition> condition;
@@ -60,83 +58,82 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
     private DateTime notOnOrAfter;
 
     /** Constructor */
-    public ConditionsImpl() {
-        super(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
-        
+    protected ConditionsImpl() {
+        super(Conditions.LOCAL_NAME);
+
         condition = new XMLObjectChildrenList<Condition>(this);
         audienceRestriction = new XMLObjectChildrenList<AudienceRestriction>(this);
         proxyRestriction = new XMLObjectChildrenList<ProxyRestriction>(this);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Conditions#getCondition()
      */
     public List<Condition> getConditions() {
         return condition;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Conditions#getAudienceRestriction()
      */
     public List<AudienceRestriction> getAudienceRestrictions() {
         return audienceRestriction;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Conditions#getOneTimeUse()
      */
     public OneTimeUse getOneTimeUse() {
         return oneTimeUse;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Conditions#setOneTimeUse(org.opensaml.saml2.core.OneTimeUse)
      */
     public void setOneTimeUse(OneTimeUse newOneTimeUse) {
         this.oneTimeUse = prepareForAssignment(this.oneTimeUse, newOneTimeUse);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Conditions#getProxyRestriction()
      */
     public List<ProxyRestriction> getProxyRestrictions() {
         return proxyRestriction;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Conditions#getNotBefore()
      */
     public DateTime getNotBefore() {
         return notBefore;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Conditions#setNotBefore(org.joda.time.DateTime)
      */
     public void setNotBefore(DateTime newNotBefore) {
         this.notBefore = prepareForAssignment(this.notBefore, newNotBefore.withZone(DateTimeZone.UTC));
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Conditions#getNotOnOrAfter()
      */
     public DateTime getNotOnOrAfter() {
         return notOnOrAfter;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Conditions#setNotOnOrAfter(org.joda.time.DateTime)
      */
     public void setNotOnOrAfter(DateTime newNotOnOrAfter) {
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter.withZone(DateTimeZone.UTC));
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.addAll(condition);
         children.addAll(audienceRestriction);

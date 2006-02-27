@@ -22,15 +22,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.BaseID}
  */
-public class BaseIDImpl extends AbstractSAMLObject implements BaseID {
+public class BaseIDImpl extends AbstractAssertionSAMLObject implements BaseID {
 
     /** Name Qualifier of BaseID */
     private String nameQualifier;
@@ -39,43 +37,42 @@ public class BaseIDImpl extends AbstractSAMLObject implements BaseID {
     private String spNameQualfier;
 
     /** Constructor */
-    public BaseIDImpl() {
-        super(SAMLConstants.SAML20_NS, BaseID.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected BaseIDImpl() {
+        super(BaseID.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.BaseID#getNameQualifier()
      */
     public String getNameQualifier() {
         return nameQualifier;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.BaseID#setNameQualifier(java.lang.String)
      */
     public void setNameQualifier(String newNameQualifier) {
         this.nameQualifier = prepareForAssignment(this.nameQualifier, newNameQualifier);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.BaseID#getSPNameQualifier()
      */
     public String getSPNameQualifier() {
         return spNameQualfier;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.BaseID#setSPNameQualifier(java.lang.String)
      */
     public void setSPNameQualifier(String newSPNameQualifier) {
         this.spNameQualfier = prepareForAssignment(this.spNameQualfier, newSPNameQualifier);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

@@ -20,15 +20,15 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.BaseID} objects.
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.BaseID} objects.
  */
 public class BaseIDMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -37,11 +37,11 @@ public class BaseIDMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, BaseID.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         BaseID baseID = (BaseID) samlObject;
         if (baseID.getNameQualifier() != null) {
             domElement.setAttributeNS(null, BaseID.NAME_QUALIFIER_ATTRIB_NAME, baseID.getNameQualifier());

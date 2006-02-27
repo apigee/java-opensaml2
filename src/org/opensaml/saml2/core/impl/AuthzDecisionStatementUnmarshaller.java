@@ -17,57 +17,59 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.saml2.core.DecisionType;
 import org.opensaml.saml2.core.Evidence;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.AuthzDecisionStatement}.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AuthzDecisionStatement}.
  */
 public class AuthzDecisionStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**Constructor*/
+    /** Constructor */
     public AuthzDecisionStatementUnmarshaller() {
         super(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME);
     }
-       
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentObject, SAMLObject childObject) throws UnmarshallingException,
-            UnknownElementException {
+    protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         AuthzDecisionStatement authzDS = (AuthzDecisionStatement) parentObject;
-        
-        if(childObject instanceof Action) {
+
+        if (childObject instanceof Action) {
             authzDS.getActions().add((Action) childObject);
-        } else if(childObject instanceof Evidence) {
+        } else if (childObject instanceof Evidence) {
             authzDS.setEvidence((Evidence) childObject);
-        } else {super.processChildElement(parentObject, childObject);}
+        } else {
+            super.processChildElement(parentObject, childObject);
+        }
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AuthzDecisionStatement authzDS = (AuthzDecisionStatement) samlObject;
-        
-        if(attributeName.equals(AuthzDecisionStatement.RESOURCE_ATTRIB_NAME)) {
-            authzDS.setResource(attributeValue);
-        } else if (attributeName.equals(AuthzDecisionStatement.DECISION_ATTRIB_NAME)) {
-            DecisionType decision = new DecisionType(attributeValue);
+
+        if (attribute.getLocalName().equals(AuthzDecisionStatement.RESOURCE_ATTRIB_NAME)) {
+            authzDS.setResource(attribute.getValue());
+        } else if (attribute.getLocalName().equals(AuthzDecisionStatement.DECISION_ATTRIB_NAME)) {
+            DecisionType decision = new DecisionType(attribute.getValue());
             authzDS.setDecision(decision);
+        } else {
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

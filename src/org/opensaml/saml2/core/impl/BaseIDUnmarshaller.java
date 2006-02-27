@@ -20,15 +20,15 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.BaseID} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.BaseID} objects.
  */
 public class BaseIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -37,19 +37,18 @@ public class BaseIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, BaseID.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         BaseID baseID = (BaseID) samlObject;
-        if (attributeName.equals(BaseID.NAME_QUALIFIER_ATTRIB_NAME)) {
-            baseID.setNameQualifier(attributeValue);
-        } else if (attributeName.equals(BaseID.SP_NAME_QUALIFIER_ATTRIB_NAME)) {
-            baseID.setSPNameQualifier(attributeValue);
+        if (attribute.getLocalName().equals(BaseID.NAME_QUALIFIER_ATTRIB_NAME)) {
+            baseID.setNameQualifier(attribute.getValue());
+        } else if (attribute.getLocalName().equals(BaseID.SP_NAME_QUALIFIER_ATTRIB_NAME)) {
+            baseID.setSPNameQualifier(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }
