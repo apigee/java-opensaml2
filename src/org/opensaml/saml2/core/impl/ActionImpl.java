@@ -22,15 +22,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Action}.
  */
-public class ActionImpl extends AbstractSAMLObject implements Action {
+public class ActionImpl extends AbstractAssertionSAMLObject implements Action {
 
     /** URI of the Namespace of this Action */
     private String namespace;
@@ -39,43 +37,42 @@ public class ActionImpl extends AbstractSAMLObject implements Action {
     private String action;
 
     /** Constructor */
-    public ActionImpl() {
-        super(SAMLConstants.SAML20_NS, Action.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected ActionImpl() {
+        super(Action.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Action#getNamespace()
      */
     public String getNamespace() {
         return namespace;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Action#setNamespace(java.lang.String)
      */
     public void setNamespace(String newNamespace) {
         this.namespace = prepareForAssignment(this.namespace, newNamespace);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Action#getAction()
      */
     public String getAction() {
         return action;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Action#setAction(java.lang.String)
      */
     public void setAction(String newAction) {
         this.action = prepareForAssignment(this.action, newAction);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

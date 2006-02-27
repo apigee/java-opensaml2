@@ -24,19 +24,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Advice}.
  */
-public class AdviceImpl extends AbstractSAMLObject implements Advice {
+public class AdviceImpl extends AbstractAssertionSAMLObject implements Advice {
 
     /** List of AssertionID references */
     private XMLObjectChildrenList<AssertionIDRef> assertionIDRef;
@@ -48,41 +46,40 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     private XMLObjectChildrenList<Assertion> assertion;
 
     /** Constructor */
-    public AdviceImpl() {
-        super(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected AdviceImpl() {
+        super(Advice.LOCAL_NAME);
 
         assertionIDRef = new XMLObjectChildrenList<AssertionIDRef>(this);
         assertionURIRef = new XMLObjectChildrenList<AssertionURIRef>(this);
         assertion = new XMLObjectChildrenList<Assertion>(this);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Advice#getAssertionIDReferences()
      */
     public List<AssertionIDRef> getAssertionIDReferences() {
         return assertionIDRef;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Advice#getAssertionURIReferences()
      */
     public List<AssertionURIRef> getAssertionURIReferences() {
         return assertionURIRef;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.Advice#getAssertions()
      */
     public List<Assertion> getAssertions() {
         return assertion;
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.addAll(assertionIDRef);
         children.addAll(assertionURIRef);

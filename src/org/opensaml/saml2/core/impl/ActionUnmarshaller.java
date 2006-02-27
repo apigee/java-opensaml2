@@ -20,15 +20,15 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.Action}.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Action}.
  */
 public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -37,26 +37,25 @@ public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, Action.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Action action = (Action) samlObject;
 
-        if (attributeName.equals(Action.NAMEPSACE_ATTRIB_NAME)) {
-            action.setNamespace(attributeValue);
+        if (attribute.getLocalName().equals(Action.NAMEPSACE_ATTRIB_NAME)) {
+            action.setNamespace(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         Action action = (Action) samlObject;
         action.setAction(elementContent);
     }
