@@ -64,7 +64,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Subject subject = (Subject) buildSAMLObject(qname);
+        Subject subject = (Subject) buildXMLObject(qname);
 
         assertEquals(expectedDOM, subject);
     }
@@ -91,7 +91,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Subject subject = (Subject) buildSAMLObject(qname);
+        Subject subject = (Subject) buildXMLObject(qname);
 
         subject.setIdentifier(new NameIDImpl());
         for (int i = 0; i < expectedSubjectConfirmationCount; i++) {

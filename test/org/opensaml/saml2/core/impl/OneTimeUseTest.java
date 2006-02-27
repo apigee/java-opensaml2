@@ -60,7 +60,7 @@ public class OneTimeUseTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        OneTimeUse oneTimeUse = (OneTimeUse) buildSAMLObject(qname);
+        OneTimeUse oneTimeUse = (OneTimeUse) buildXMLObject(qname);
 
         assertEquals(expectedDOM, oneTimeUse);
     }

@@ -66,7 +66,7 @@ public class IssuerTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Issuer issuer = (Issuer) buildSAMLObject(qname);
+        Issuer issuer = (Issuer) buildXMLObject(qname);
 
         issuer.setIssuer(expectedIssuer);
         assertEquals(expectedDOM, issuer);

@@ -90,7 +90,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        NameID nameID = (NameID) buildSAMLObject(qname);
+        NameID nameID = (NameID) buildXMLObject(qname);
 
         nameID.setNameQualifier(expectedNameQualifier);
         assertEquals(expectedDOM, nameID);
@@ -101,7 +101,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        NameID nameID = (NameID) buildSAMLObject(qname);
+        NameID nameID = (NameID) buildXMLObject(qname);
 
         nameID.setNameQualifier(expectedNameQualifier);
         nameID.setSPNameQualifier(expectedSPNameQualifier);

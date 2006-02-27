@@ -66,7 +66,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) buildSAMLObject(qname);
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) buildXMLObject(qname);
 
         subjectConfirmation.setMethod(expectedMethod);
         assertEquals(expectedDOM, subjectConfirmation);
@@ -94,7 +94,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) buildSAMLObject(qname);
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) buildXMLObject(qname);
 
         subjectConfirmation.setIdentifier(new NameIDImpl());
         subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl());

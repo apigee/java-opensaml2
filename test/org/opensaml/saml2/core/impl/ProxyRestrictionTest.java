@@ -68,7 +68,7 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        ProxyRestriction proxyRestriction = (ProxyRestriction) buildSAMLObject(qname);
+        ProxyRestriction proxyRestriction = (ProxyRestriction) buildXMLObject(qname);
 
         proxyRestriction.setProxyCount(expectedCount);
 
@@ -95,7 +95,7 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        ProxyRestriction proxyRestriction = (ProxyRestriction) buildSAMLObject(qname);
+        ProxyRestriction proxyRestriction = (ProxyRestriction) buildXMLObject(qname);
 
         for (int i = 0; i < expectedAudienceCount; i++) {
             proxyRestriction.getAudiences().add(new AudienceImpl());

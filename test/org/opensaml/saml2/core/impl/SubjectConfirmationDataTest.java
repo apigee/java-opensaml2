@@ -103,7 +103,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
-        SubjectConfirmationData subjectCD = (SubjectConfirmationData) buildSAMLObject(qname);
+        SubjectConfirmationData subjectCD = (SubjectConfirmationData) buildXMLObject(qname);
 
         subjectCD.setNotBefore(expectedNotBefore);
         assertEquals(expectedDOM, subjectCD);
@@ -115,7 +115,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
-        SubjectConfirmationData subjectCD = (SubjectConfirmationData) buildSAMLObject(qname);
+        SubjectConfirmationData subjectCD = (SubjectConfirmationData) buildXMLObject(qname);
 
         subjectCD.setNotBefore(expectedNotBefore);
         subjectCD.setNotOnOrAfter(expectedNotOnOrAfter);

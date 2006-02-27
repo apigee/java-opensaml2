@@ -78,7 +78,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectLocality.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        SubjectLocality subjectLocality = (SubjectLocality) buildSAMLObject(qname);
+        SubjectLocality subjectLocality = (SubjectLocality) buildXMLObject(qname);
 
         subjectLocality.setAddress(expectedAddress);
         assertEquals(expectedDOM, subjectLocality);
@@ -89,7 +89,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectLocality.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        SubjectLocality subjectLocality = (SubjectLocality) buildSAMLObject(qname);
+        SubjectLocality subjectLocality = (SubjectLocality) buildXMLObject(qname);
 
         subjectLocality.setAddress(expectedAddress);
         subjectLocality.setDNSName(expectedDNSName);
