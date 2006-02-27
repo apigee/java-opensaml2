@@ -16,10 +16,11 @@
 
 package org.opensaml.common;
 
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.ParserPoolManager;
-import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.Configuration;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBaseTestCase;
+import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Document;
@@ -29,7 +30,7 @@ import org.xml.sax.InputSource;
 /**
  * Base test case for all OpenSAML tests that work with {@link org.opensaml.common.SAMLObject}s.
  */
-public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
+public abstract class SAMLObjectBaseTestCase extends XMLObjectBaseTestCase {
 
     /** Location of file containing a single element with NO optional attributes */
     protected String singleElementFile;
@@ -80,46 +81,17 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
     }
 
     /**
-     * Asserts a given SAMLObject is equal to an expected DOM. The SAMLObject is marshalled and the resulting DOM object
-     * is compared against the expected DOM object for equality.
-     * 
-     * @param expectedDOM the expected DOM
-     * @param samlObject the SAMLObject to be marshalled and compared against the expected DOM
-     */
-    public void assertEquals(Document expectedDOM, SAMLObject samlObject) {
-        assertEquals("Marshalled DOM was not the same as the expected DOM", expectedDOM, samlObject);
-    }
-
-    /**
-     * Asserts a given SAMLObject is equal to an expected DOM. The SAMLObject is marshalled and the resulting DOM object
-     * is compared against the expected DOM object for equality.
-     * 
-     * @param failMessage the message to display if the DOMs are not equal
-     * @param expectedDOM the expected DOM
-     * @param samlObject the SAMLObject to be marshalled and compared against the expected DOM
-     */
-    public void assertEquals(String failMessage, Document expectedDOM, SAMLObject samlObject) {
-        SAMLObjectMarshaller marshaller = SAMLObjectManager.getMarshaller(samlObject);
-        try {
-            Element generatedDOM = marshaller.marshall(samlObject);
-            assertXMLEqual(failMessage, expectedDOM, generatedDOM.getOwnerDocument());
-        } catch (MarshallingException e) {
-            fail("Marshalling failed with the following error: " + e);
-        }
-    }
-
-    /**
      * Unmarshalls an element file into its SAMLObject.
      * 
      * @return the SAMLObject from the file
      */
-    protected SAMLObject unmarshallElement(String elementFile) {
+    protected XMLObject unmarshallElement(String elementFile) {
         try {
             ParserPoolManager ppMgr = ParserPoolManager.getInstance();
             Document doc = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class.getResourceAsStream(elementFile)));
             Element samlElement = doc.getDocumentElement();
 
-            SAMLObjectUnmarshaller unmarshaller = SAMLObjectManager.getUnmarshaller(samlElement);
+            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlElement);
             if (unmarshaller == null) {
                 fail("Unable to retrieve unmarshaller by DOM Element");
             }
@@ -127,10 +99,6 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
             return unmarshaller.unmarshall(samlElement);
         } catch (XMLParserException e) {
             fail("Unable to parse element file " + elementFile);
-        } catch (UnknownAttributeException e) {
-            fail("Unknown attribute exception thrown when parsing element file " + elementFile + ": " + e);
-        } catch (UnknownElementException e) {
-            fail("Unknown element exception thrown when parsing element file " + elementFile + ": " + e);
         } catch (UnmarshallingException e) {
             fail("Unmarshalling failed when parsing element file " + elementFile + ": " + e);
         }
@@ -179,5 +147,17 @@ public abstract class SAMLObjectBaseTestCase extends BaseTestCase {
     public void testChildElementsMarshall()
     {
         assertNull("No testSingleElementChildElementsMarshall", expectedChildElementsDOM);
+    }
+    
+    static {
+        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+        
+        try{
+        Document saml2mdConfig = ppMgr.parse(SAMLObjectBaseTestCase.class.getResourceAsStream("/conf/saml2-metadata-config.xml"));
+        Configuration.load(saml2mdConfig);
+        
+        }catch(Exception e){
+            System.err.println("Unable to configure OpenSAML: " + e);
+        }
     }
 }

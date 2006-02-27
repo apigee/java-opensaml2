@@ -80,7 +80,7 @@ public class AuthnQueryServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnQueryService.LOCAL_NAME);
-        AuthnQueryService service = (AuthnQueryService) buildSAMLObject(qname);
+        AuthnQueryService service = (AuthnQueryService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);
@@ -93,7 +93,7 @@ public class AuthnQueryServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnQueryService.LOCAL_NAME);
-        AuthnQueryService service = (AuthnQueryService) buildSAMLObject(qname);
+        AuthnQueryService service = (AuthnQueryService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);

@@ -64,7 +64,7 @@ public class CompanyTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, Company.LOCAL_NAME);
-        Company company = (Company) buildSAMLObject(qname);
+        Company company = (Company) buildXMLObject(qname);
         
         company.setName(expectedName);
 

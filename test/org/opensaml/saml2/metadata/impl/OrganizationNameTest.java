@@ -64,7 +64,7 @@ public class OrganizationNameTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, OrganizationName.LOCAL_NAME);
-        OrganizationName name = (OrganizationName) buildSAMLObject(qname);
+        OrganizationName name = (OrganizationName) buildXMLObject(qname);
         
         name.setName(expectName);
 

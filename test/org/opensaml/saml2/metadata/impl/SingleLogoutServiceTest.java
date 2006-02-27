@@ -80,7 +80,7 @@ public class SingleLogoutServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME);
-        SingleLogoutService service = (SingleLogoutService) buildSAMLObject(qname);
+        SingleLogoutService service = (SingleLogoutService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);
@@ -93,7 +93,7 @@ public class SingleLogoutServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME);
-        SingleLogoutService service = (SingleLogoutService) buildSAMLObject(qname);
+        SingleLogoutService service = (SingleLogoutService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);

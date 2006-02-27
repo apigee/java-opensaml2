@@ -80,7 +80,7 @@ public class SingleSignOnServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS,  SingleSignOnService.LOCAL_NAME);
-        SingleSignOnService service = ( SingleSignOnService) buildSAMLObject(qname);
+        SingleSignOnService service = ( SingleSignOnService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);
@@ -93,7 +93,7 @@ public class SingleSignOnServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS,  SingleSignOnService.LOCAL_NAME);
-        SingleSignOnService service = ( SingleSignOnService) buildSAMLObject(qname);
+        SingleSignOnService service = ( SingleSignOnService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);

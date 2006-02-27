@@ -110,7 +110,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildSAMLObject(qname);
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
         
         descriptor.setOwnerID(expectedOwnerID);
         
@@ -122,7 +122,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildSAMLObject(qname);
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
         
         descriptor.setOwnerID(expectedOwnerID);
         descriptor.setValidUntil(expectedValidUntil);
@@ -134,7 +134,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall()
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildSAMLObject(qname);
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
         
         descriptor.setOwnerID(expectedOwnerID);
 

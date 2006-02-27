@@ -64,7 +64,7 @@ public class GivenNameTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, GivenName.LOCAL_NAME);
-        GivenName name = (GivenName) buildSAMLObject(qname);
+        GivenName name = (GivenName) buildXMLObject(qname);
         
         name.setName(expectName);
 

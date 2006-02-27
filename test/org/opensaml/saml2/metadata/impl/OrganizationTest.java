@@ -70,7 +70,7 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME);
-        Organization org = (Organization) buildSAMLObject(qname);
+        Organization org = (Organization) buildXMLObject(qname);
 
         assertEquals(expectedDOM, org);
     }
@@ -80,7 +80,7 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME);
-        Organization org = (Organization) buildSAMLObject(qname);
+        Organization org = (Organization) buildXMLObject(qname);
 
         org.setExtensions(new ExtensionsImpl());
         for (int i = 0; i < 3; i++){

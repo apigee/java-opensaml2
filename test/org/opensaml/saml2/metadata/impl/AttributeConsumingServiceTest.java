@@ -95,7 +95,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME);
-        AttributeConsumingService service = (AttributeConsumingService) buildSAMLObject(qname);
+        AttributeConsumingService service = (AttributeConsumingService) buildXMLObject(qname);
         
         service.setIndex(expectedIndex);
 
@@ -107,7 +107,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME);
-        AttributeConsumingService service = (AttributeConsumingService) buildSAMLObject(qname);
+        AttributeConsumingService service = (AttributeConsumingService) buildXMLObject(qname);
         
         service.setIndex(expectedIndex);
         service.setIsDefault(expectedIsDefault);
@@ -119,7 +119,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall()
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME);
-        AttributeConsumingService service = (AttributeConsumingService) buildSAMLObject(qname);
+        AttributeConsumingService service = (AttributeConsumingService) buildXMLObject(qname);
         
         service.setIndex(expectedIndex);
         

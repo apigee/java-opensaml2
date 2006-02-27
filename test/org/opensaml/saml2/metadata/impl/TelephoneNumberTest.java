@@ -64,7 +64,7 @@ public class TelephoneNumberTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, TelephoneNumber.LOCAL_NAME);
-        TelephoneNumber number = (TelephoneNumber) buildSAMLObject(qname);
+        TelephoneNumber number = (TelephoneNumber) buildXMLObject(qname);
         
         number.setNumber(expectedNumber);
 

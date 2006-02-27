@@ -69,7 +69,7 @@ public class AdditionalMetadataLocationTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        AdditionalMetadataLocation location = (AdditionalMetadataLocation) buildSAMLObject(qname);
+        AdditionalMetadataLocation location = (AdditionalMetadataLocation) buildXMLObject(qname);
         location.setLocationURI(expectedContent);
         location.setNamespaceURI(expectedNamespace);
 

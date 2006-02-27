@@ -64,7 +64,7 @@ public class ServiceNameTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME);
-        ServiceName name = (ServiceName) buildSAMLObject(qname);
+        ServiceName name = (ServiceName) buildXMLObject(qname);
         
         name.setName(expectedName);
 

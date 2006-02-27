@@ -87,7 +87,7 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
-        ContactPerson person = (ContactPerson) buildSAMLObject(qname);
+        ContactPerson person = (ContactPerson) buildXMLObject(qname);
         
         person.setType(expectedPersonType);
 
@@ -101,7 +101,7 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall()
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
-        ContactPerson person = (ContactPerson) buildSAMLObject(qname);
+        ContactPerson person = (ContactPerson) buildXMLObject(qname);
         
         person.setType(expectedPersonType);
 

@@ -61,7 +61,7 @@ public class AttributeProfileTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall(){
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeProfile.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        AttributeProfile profile = (AttributeProfile) buildSAMLObject(qname);
+        AttributeProfile profile = (AttributeProfile) buildXMLObject(qname);
         
         profile.setProfileURI(expectedProfileURI);
         

@@ -113,7 +113,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        SPSSODescriptor descriptor = (SPSSODescriptor) buildSAMLObject(qname);
+        SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
         
         for(String protocol : expectedSupportedProtocol){
             descriptor.addSupportedProtocol(protocol);
@@ -124,7 +124,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        SPSSODescriptor descriptor = (SPSSODescriptor) buildSAMLObject(qname);
+        SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
         
         descriptor.setAuthnRequestsSigned(expectedAuthnRequestSigned);
         descriptor.setWantAssertionsSigned(expectedWantAssertionsSigned);
@@ -145,7 +145,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall()
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        SPSSODescriptor descriptor = (SPSSODescriptor) buildSAMLObject(qname);
+        SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
 
         descriptor.setExtensions(new ExtensionsImpl());
         // TODO KeyDescriptor

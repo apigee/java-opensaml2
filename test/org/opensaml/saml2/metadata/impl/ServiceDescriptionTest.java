@@ -64,7 +64,7 @@ public class ServiceDescriptionTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ServiceDescription.LOCAL_NAME);
-        ServiceDescription description = (ServiceDescription) buildSAMLObject(qname);
+        ServiceDescription description = (ServiceDescription) buildXMLObject(qname);
         
         description.setDescription(expectedDescription);
 

@@ -124,7 +124,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(qname);
+        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildXMLObject(qname);
 
         assertEquals(expectedDOM, entitiesDescriptor);
     }
@@ -135,7 +135,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(qname);
+        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildXMLObject(qname);
 
         entitiesDescriptor.setName(expectedName);
         entitiesDescriptor.setCacheDuration(new Long(expectedCacheDuration));
@@ -147,7 +147,7 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     @Override
     public void testChildElementsMarshall(){
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildSAMLObject(qname);
+        EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildXMLObject(qname);
 
         entitiesDescriptor.setExtensions(new ExtensionsImpl());
         entitiesDescriptor.getEntitiesDescriptors().add(new EntitiesDescriptorImpl());

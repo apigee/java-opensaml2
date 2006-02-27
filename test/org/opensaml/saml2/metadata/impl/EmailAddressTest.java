@@ -64,7 +64,7 @@ public class EmailAddressTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EmailAddress.LOCAL_NAME);
-        EmailAddress address = (EmailAddress) buildSAMLObject(qname);
+        EmailAddress address = (EmailAddress) buildXMLObject(qname);
         
         address.setAddress(expectedAddress);
 

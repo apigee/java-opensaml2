@@ -80,7 +80,7 @@ public class AttributeServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME);
-        AttributeService service = (AttributeService) buildSAMLObject(qname);
+        AttributeService service = (AttributeService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);
@@ -93,7 +93,7 @@ public class AttributeServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME);
-        AttributeService service = (AttributeService) buildSAMLObject(qname);
+        AttributeService service = (AttributeService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);

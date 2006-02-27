@@ -58,7 +58,7 @@ public class AffiliateMemberTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        AffiliateMember member = (AffiliateMember) buildSAMLObject(qname);
+        AffiliateMember member = (AffiliateMember) buildXMLObject(qname);
         
         member.setID(expectedMemberID);
         

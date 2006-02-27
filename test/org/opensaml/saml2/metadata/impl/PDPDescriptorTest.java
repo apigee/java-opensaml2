@@ -111,7 +111,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        PDPDescriptor descriptor = (PDPDescriptor) buildSAMLObject(qname);
+        PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
         
         for(String protocol : expectedSupportedProtocol){
             descriptor.addSupportedProtocol(protocol);
@@ -125,7 +125,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        PDPDescriptor descriptor = (PDPDescriptor) buildSAMLObject(qname);
+        PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
         
         for(String protocol : expectedSupportedProtocol){
             descriptor.addSupportedProtocol(protocol);
@@ -143,7 +143,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        PDPDescriptor descriptor = (PDPDescriptor) buildSAMLObject(qname);
+        PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
 
         descriptor.setExtensions(new ExtensionsImpl());
         // TODO KeyDescriptor

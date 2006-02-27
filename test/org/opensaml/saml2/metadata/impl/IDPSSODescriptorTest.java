@@ -112,7 +112,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
     
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        IDPSSODescriptor descriptor = (IDPSSODescriptor) buildSAMLObject(qname);
+        IDPSSODescriptor descriptor = (IDPSSODescriptor) buildXMLObject(qname);
         
         for(String protocol : expectedSupportedProtocol){
             descriptor.addSupportedProtocol(protocol);
@@ -124,7 +124,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        IDPSSODescriptor descriptor = (IDPSSODescriptor) buildSAMLObject(qname);
+        IDPSSODescriptor descriptor = (IDPSSODescriptor) buildXMLObject(qname);
         
         for(String protocol : expectedSupportedProtocol){
             descriptor.addSupportedProtocol(protocol);
@@ -144,7 +144,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall()
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        IDPSSODescriptor descriptor = (IDPSSODescriptor) buildSAMLObject(qname);
+        IDPSSODescriptor descriptor = (IDPSSODescriptor) buildXMLObject(qname);
 
         descriptor.setExtensions(new ExtensionsImpl());
         // TODO KeyDescriptor

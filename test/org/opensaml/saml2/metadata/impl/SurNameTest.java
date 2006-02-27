@@ -64,7 +64,7 @@ public class SurNameTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME);
-        SurName name = (SurName) buildSAMLObject(qname);
+        SurName name = (SurName) buildXMLObject(qname);
         
         name.setName(expectedName);
 

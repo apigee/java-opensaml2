@@ -87,7 +87,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME);
-        AssertionConsumerService service = (AssertionConsumerService) buildSAMLObject(qname);
+        AssertionConsumerService service = (AssertionConsumerService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);
@@ -101,7 +101,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME);
-        AssertionConsumerService service = (AssertionConsumerService) buildSAMLObject(qname);
+        AssertionConsumerService service = (AssertionConsumerService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);

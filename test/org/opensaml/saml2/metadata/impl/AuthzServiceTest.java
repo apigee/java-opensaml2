@@ -80,7 +80,7 @@ public class AuthzServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthzService.LOCAL_NAME);
-        AuthzService service = (AuthzService) buildSAMLObject(qname);
+        AuthzService service = (AuthzService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);
@@ -93,7 +93,7 @@ public class AuthzServiceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthzService.LOCAL_NAME);
-        AuthzService service = (AuthzService) buildSAMLObject(qname);
+        AuthzService service = (AuthzService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
         service.setLocation(expectedLocation);

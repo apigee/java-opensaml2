@@ -157,7 +157,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildSAMLObject(qname);
+        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);
 
         descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
 
@@ -169,7 +169,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildSAMLObject(qname);
+        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);
 
         descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
         descriptor.setValidUntil(expectedValidUntil);
@@ -185,7 +185,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
     @Override
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildSAMLObject(qname);
+        AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);
 
         descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
         descriptor.setExtensions(new ExtensionsImpl());

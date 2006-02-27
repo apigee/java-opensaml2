@@ -64,7 +64,7 @@ public class OrganizationURLTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, OrganizationURL.LOCAL_NAME);
-        OrganizationURL url = (OrganizationURL) buildSAMLObject(qname);
+        OrganizationURL url = (OrganizationURL) buildXMLObject(qname);
         
         url.setURL(expectURL);
 
