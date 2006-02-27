@@ -25,6 +25,9 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.ContactPersonType;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -97,7 +100,6 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    @Override
     public void testChildElementsMarshall()
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
@@ -114,6 +116,14 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
         }
         for (int i = 0; i < emailAddressCount; i++) {
             person.getEmailAddresses().add(new EmailAddressImpl());
+        }
+        
+        Marshaller marshaller = marshallerFactory.getMarshaller(person);
+        try {
+            System.out.println(XMLHelper.nodeToString(marshaller.marshall(person)));
+        } catch (MarshallingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         assertEquals(expectedChildElementsDOM, person);
     }

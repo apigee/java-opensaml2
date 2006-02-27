@@ -20,15 +20,13 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SingleLogoutService;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.SingleLogoutService}
- * objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.SingleLogoutService} objects.
  */
-public class SingleLogoutServiceMarshaller extends EndpointMarshaller implements SAMLObjectMarshaller {
+public class SingleLogoutServiceMarshaller extends EndpointMarshaller {
 
     /**
      * Constructor

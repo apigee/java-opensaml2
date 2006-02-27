@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ManageNameIDService;
 
 /**
@@ -31,8 +30,7 @@ public class ManageNameIDServiceImpl extends EndpointImpl implements ManageNameI
     /**
      * Constructor
      */
-    public ManageNameIDServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, ManageNameIDService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected ManageNameIDServiceImpl() {
+        super(ManageNameIDService.LOCAL_NAME);
     }
 }

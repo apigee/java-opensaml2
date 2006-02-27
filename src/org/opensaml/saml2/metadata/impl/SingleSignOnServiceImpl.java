@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SingleSignOnService;
 
 /**
@@ -31,8 +30,7 @@ public class SingleSignOnServiceImpl extends EndpointImpl implements SingleSignO
     /**
      * Constructor
      */
-    public SingleSignOnServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected SingleSignOnServiceImpl() {
+        super(SingleSignOnService.LOCAL_NAME);
     }
 }

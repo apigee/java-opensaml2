@@ -20,15 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.SPSSODescriptor}
- * objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.SPSSODescriptor} objects.
  */
 public class SPSSODescriptorMarshaller extends SSODescriptorMarshaller {
 
@@ -40,10 +39,10 @@ public class SPSSODescriptorMarshaller extends SSODescriptorMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         SPSSODescriptor descriptor = (SPSSODescriptor) samlObject;
 
         if (descriptor.authnRequestsSigned()) {

@@ -20,15 +20,15 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ServiceDescription;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.ServiceDescription}
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.ServiceDescription}
  * objects.
  */
 public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
@@ -41,18 +41,9 @@ public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
-     *      org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-
-    }
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
-     *      org.w3c.dom.Element)
-     */
-    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         ServiceDescription description = (ServiceDescription) samlObject;
 
         if (description.getDescription() != null) {

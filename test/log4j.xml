@@ -53,7 +53,7 @@
 
    <!-- Limit the org.apache category to INFO as its DEBUG is verbose -->
    <category name="org.opensaml">
-      <priority value="DEBUG"/>
+      <priority value="WARN"/>
    </category>
    
    <category name="org.apache">

@@ -22,15 +22,13 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.OrganizationURL;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.OrganizationURL}
  */
-public class OrganizationURLImpl extends AbstractSAMLObject implements OrganizationURL {
+public class OrganizationURLImpl extends AbstractMetadataSAMLObject implements OrganizationURL {
 
     /** Organization URL */
     private String url;
@@ -38,9 +36,8 @@ public class OrganizationURLImpl extends AbstractSAMLObject implements Organizat
     /**
      * Constructor
      */
-    public OrganizationURLImpl() {
-        super(SAMLConstants.SAML20MD_NS, OrganizationURL.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected OrganizationURLImpl() {
+        super(OrganizationURL.LOCAL_NAME);
     }
 
     /*
@@ -60,7 +57,7 @@ public class OrganizationURLImpl extends AbstractSAMLObject implements Organizat
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

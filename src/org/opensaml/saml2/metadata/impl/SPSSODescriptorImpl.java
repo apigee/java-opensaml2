@@ -23,11 +23,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -50,9 +49,8 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     /**
      * Constructor
      */
-    public SPSSODescriptorImpl() {
-        super(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected SPSSODescriptorImpl() {
+        super(SPSSODescriptor.LOCAL_NAME);
         
         assertionConsumerServices = new XMLObjectChildrenList<AssertionConsumerService>(this);
         attributeConsumingServices = new XMLObjectChildrenList<AttributeConsumingService>(this);
@@ -111,8 +109,8 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         children.addAll(super.getOrderedChildren());
         children.addAll(assertionConsumerServices);

@@ -19,12 +19,9 @@
  */
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
  * simple noop marshaller
@@ -37,9 +34,4 @@ public class ExtensionsMarshaller extends AbstractSAMLObjectMarshaller {
     public ExtensionsMarshaller() throws IllegalArgumentException {
         super(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME);
     }
-
-    @Override
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-    }
-
 }

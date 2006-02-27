@@ -52,7 +52,7 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
     /**
      * Constructor
      */
-    public AttributeAuthorityDescriptorImpl(){
+    protected AttributeAuthorityDescriptorImpl(){
         super(AttributeAuthorityDescriptor.LOCAL_NAME);
         
         attributeServices = new XMLObjectChildrenList<AttributeService>(this);

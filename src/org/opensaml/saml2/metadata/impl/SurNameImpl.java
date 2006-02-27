@@ -22,15 +22,13 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SurName;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.SurName}
  */
-public class SurNameImpl extends AbstractSAMLObject implements SurName {
+public class SurNameImpl extends AbstractMetadataSAMLObject implements SurName {
 
     /** Service name */
     private String name;
@@ -38,9 +36,8 @@ public class SurNameImpl extends AbstractSAMLObject implements SurName {
     /**
      * Constructor
      */
-    public SurNameImpl() {
-        super(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected SurNameImpl() {
+        super(SurName.LOCAL_NAME);
     }
 
     /*
@@ -60,7 +57,7 @@ public class SurNameImpl extends AbstractSAMLObject implements SurName {
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

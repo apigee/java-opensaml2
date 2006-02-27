@@ -22,15 +22,13 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.TelephoneNumber;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.TelephoneNumber}
  */
-public class TelephoneNumberImpl extends AbstractSAMLObject implements TelephoneNumber {
+public class TelephoneNumberImpl extends AbstractMetadataSAMLObject implements TelephoneNumber {
 
     /** Telephone number */
     private String number;
@@ -38,9 +36,8 @@ public class TelephoneNumberImpl extends AbstractSAMLObject implements Telephone
     /**
      * Constructor
      */
-    public TelephoneNumberImpl() {
-        super(SAMLConstants.SAML20MD_NS, TelephoneNumber.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected TelephoneNumberImpl() {
+        super(TelephoneNumber.LOCAL_NAME);
     }
 
     /*
@@ -60,7 +57,7 @@ public class TelephoneNumberImpl extends AbstractSAMLObject implements Telephone
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

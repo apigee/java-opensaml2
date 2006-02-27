@@ -19,14 +19,13 @@
  */
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ManageNameIDService;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.ManageNameIDService} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.ManageNameIDService} objects.
  */
-public class ManageNameIDServiceMarshaller extends EndpointMarshaller implements SAMLObjectMarshaller {
+public class ManageNameIDServiceMarshaller extends EndpointMarshaller {
 
     /**
      * Constructor

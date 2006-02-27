@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.NameIDMappingService;
 
 /**
@@ -31,8 +30,7 @@ public class NameIDMappingServiceImpl extends EndpointImpl implements NameIDMapp
     /**
      * Constructor
      */
-    public NameIDMappingServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected NameIDMappingServiceImpl() {
+        super(NameIDMappingService.LOCAL_NAME);
     }
 }

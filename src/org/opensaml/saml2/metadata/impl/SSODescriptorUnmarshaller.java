@@ -16,17 +16,16 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
 import org.opensaml.saml2.metadata.ManageNameIDService;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.SSODescriptor;
 import org.opensaml.saml2.metadata.SingleLogoutService;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.SSODescriptor}
- * objects.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.SSODescriptor} objects.
  */
 public abstract class SSODescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
 
@@ -39,22 +38,22 @@ public abstract class SSODescriptorUnmarshaller extends RoleDescriptorUnmarshall
     protected SSODescriptorUnmarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
-    
+
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement) throws UnmarshallingException {
-        SSODescriptor descriptor = (SSODescriptor)parentElement;
-        if(childElement instanceof ArtifactResolutionService){
+    protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {
+        SSODescriptor descriptor = (SSODescriptor) parentElement;
+        if (childElement instanceof ArtifactResolutionService) {
             descriptor.getArtifactResolutionServices().add((ArtifactResolutionService) childElement);
-        }else if(childElement instanceof SingleLogoutService){
+        } else if (childElement instanceof SingleLogoutService) {
             descriptor.getSingleLogoutServices().add((SingleLogoutService) childElement);
-        }else if(childElement instanceof ManageNameIDService){
+        } else if (childElement instanceof ManageNameIDService) {
             descriptor.getManageNameIDServices().add((ManageNameIDService) childElement);
-        }else if(childElement instanceof NameIDFormat){
+        } else if (childElement instanceof NameIDFormat) {
             descriptor.getNameIDFormats().add((NameIDFormat) childElement);
-        }else{
+        } else {
             super.processChildElement(parentElement, childElement);
         }
     }

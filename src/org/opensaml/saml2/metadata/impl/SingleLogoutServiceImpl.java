@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SingleLogoutService;
 
 /**
@@ -31,8 +30,7 @@ public class SingleLogoutServiceImpl extends EndpointImpl implements SingleLogou
     /**
      * Constructor
      */
-    public SingleLogoutServiceImpl() {
-        super(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected SingleLogoutServiceImpl() {
+        super(SingleLogoutService.LOCAL_NAME);
     }
 }

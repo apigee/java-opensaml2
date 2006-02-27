@@ -17,7 +17,7 @@
 package org.opensaml.saml2.metadata.impl;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.SSODescriptor} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.SSODescriptor} objects.
  */
 public abstract class SSODescriptorMarshaller extends RoleDescriptorMarshaller {
 

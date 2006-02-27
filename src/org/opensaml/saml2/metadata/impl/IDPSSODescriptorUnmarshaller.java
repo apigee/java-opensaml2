@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
@@ -28,10 +27,12 @@ import org.opensaml.saml2.metadata.AttributeProfile;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.NameIDMappingService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * 
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.SSODescriptor} objects.
  */
 public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
 
@@ -43,10 +44,9 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentObject, SAMLObject childObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) parentObject;
 
         if (childObject instanceof SingleSignOnService) {
@@ -65,16 +65,16 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue) throws UnmarshallingException{
+    protected void processAttribute(XMLObject samlObject, Attr attribute)
+            throws UnmarshallingException {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) samlObject;
 
-        if (attributeName.equals(IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME)) {
-            descriptor.setWantAuthnRequestSigned(new Boolean(Boolean.parseBoolean(attributeValue)));
+        if (attribute.getLocalName().equals(IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME)) {
+            descriptor.setWantAuthnRequestSigned(new Boolean(Boolean.parseBoolean(attribute.getValue())));
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

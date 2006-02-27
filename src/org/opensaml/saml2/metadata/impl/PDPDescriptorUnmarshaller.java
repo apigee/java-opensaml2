@@ -20,16 +20,16 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthzService;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.PDPDescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.PDPDescriptor}
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.PDPDescriptor}
  * objects.
  */
 public class PDPDescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
@@ -42,10 +42,9 @@ public class PDPDescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         PDPDescriptor descriptor = (PDPDescriptor) parentSAMLObject;
 

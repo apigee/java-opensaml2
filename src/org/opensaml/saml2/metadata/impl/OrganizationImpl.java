@@ -23,20 +23,18 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.OrganizationDisplayName;
 import org.opensaml.saml2.metadata.OrganizationName;
 import org.opensaml.saml2.metadata.OrganizationURL;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.Organization}
  */
-public class OrganizationImpl extends AbstractSAMLObject implements Organization {
+public class OrganizationImpl extends AbstractMetadataSAMLObject implements Organization {
 
     /** element extensions */
     private Extensions extensions;
@@ -53,9 +51,8 @@ public class OrganizationImpl extends AbstractSAMLObject implements Organization
     /**
      * Constructor
      */
-    public OrganizationImpl() {
-        super(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected OrganizationImpl() {
+        super(Organization.LOCAL_NAME);
 
         names = new XMLObjectChildrenList<OrganizationName>(this);
         displayNames = new XMLObjectChildrenList<OrganizationDisplayName>(this);
@@ -98,10 +95,10 @@ public class OrganizationImpl extends AbstractSAMLObject implements Organization
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.add(extensions);
         children.addAll(names);

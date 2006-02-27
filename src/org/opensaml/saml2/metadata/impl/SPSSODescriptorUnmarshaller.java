@@ -20,16 +20,16 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.SPSSODescriptor}
- * objects.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.SPSSODescriptor} objects.
  */
 public class SPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
 
@@ -41,10 +41,10 @@ public class SPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         SPSSODescriptor descriptor = (SPSSODescriptor) parentSAMLObject;
 
@@ -58,19 +58,18 @@ public class SPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         SPSSODescriptor descriptor = (SPSSODescriptor) samlObject;
 
-        if (attributeName.equals(SPSSODescriptor.AUTH_REQUETS_SIGNED_ATTRIB_NAME)) {
-            descriptor.setAuthnRequestsSigned(Boolean.valueOf(attributeValue));
-        } else if (attributeName.equals(SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME)) {
-            descriptor.setWantAssertionsSigned(Boolean.valueOf(attributeValue));
+        if (attribute.getLocalName().equals(SPSSODescriptor.AUTH_REQUETS_SIGNED_ATTRIB_NAME)) {
+            descriptor.setAuthnRequestsSigned(Boolean.valueOf(attribute.getValue()));
+        } else if (attribute.getLocalName().equals(SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME)) {
+            descriptor.setWantAssertionsSigned(Boolean.valueOf(attribute.getValue()));
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

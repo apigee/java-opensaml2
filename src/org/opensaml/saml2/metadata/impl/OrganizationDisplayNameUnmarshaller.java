@@ -20,10 +20,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.OrganizationDisplayName;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
@@ -39,10 +39,9 @@ public class OrganizationDisplayNameUnmarshaller extends AbstractSAMLObjectUnmar
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
-     *      java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject, java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         OrganizationDisplayName name = (OrganizationDisplayName) samlObject;
 
         name.setName(elementContent);

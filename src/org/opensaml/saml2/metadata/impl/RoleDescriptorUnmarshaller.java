@@ -20,7 +20,6 @@ import java.util.StringTokenizer;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
@@ -29,12 +28,13 @@ import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.w3c.dom.Attr;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.RoleDescriptor}
- * objects.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.RoleDescriptor} objects.
  */
 public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -49,10 +49,10 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addChildElement(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      org.opensaml.saml2.common.impl.AbstractSAMLElement)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         RoleDescriptor roleDescriptor = (RoleDescriptor) parentSAMLObject;
 
@@ -70,26 +70,25 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.saml2.common.impl.AbstractSAMLElement,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         RoleDescriptor roleDescriptor = (RoleDescriptor) samlObject;
 
-        if (attributeName.equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
-            roleDescriptor.setValidUntil(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
-        } else if (attributeName.equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
-            roleDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attributeValue));
-        } else if (attributeName.equals(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME)) {
-            StringTokenizer protocolTokenizer = new StringTokenizer(attributeValue, " ");
+        if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
+            roleDescriptor.setValidUntil(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
+        } else if (attribute.getLocalName().equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
+            roleDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attribute.getValue()));
+        } else if (attribute.getLocalName().equals(RoleDescriptor.PROTOCOL_ENUMERATION_ATTRIB_NAME)) {
+            StringTokenizer protocolTokenizer = new StringTokenizer(attribute.getValue(), " ");
             while (protocolTokenizer.hasMoreTokens()) {
                 roleDescriptor.addSupportedProtocol(protocolTokenizer.nextToken());
             }
-        } else if (attributeName.equals(RoleDescriptor.ERROR_URL_ATTRIB_NAME)) {
-            roleDescriptor.setErrorURL(attributeValue);
+        } else if (attribute.getLocalName().equals(RoleDescriptor.ERROR_URL_ATTRIB_NAME)) {
+            roleDescriptor.setErrorURL(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

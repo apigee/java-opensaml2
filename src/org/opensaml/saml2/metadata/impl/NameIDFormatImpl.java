@@ -22,15 +22,13 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.NameIDFormat;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.NameIDFormat}.
  */
-public class NameIDFormatImpl extends AbstractSAMLObject implements NameIDFormat {
+public class NameIDFormatImpl extends AbstractMetadataSAMLObject implements NameIDFormat {
 
     /** NameID format */
     private String format;
@@ -38,9 +36,8 @@ public class NameIDFormatImpl extends AbstractSAMLObject implements NameIDFormat
     /**
      * Constructor
      */
-    public NameIDFormatImpl() {
-        super(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected NameIDFormatImpl() {
+        super(NameIDFormat.LOCAL_NAME);
     }
 
     /*
@@ -58,9 +55,9 @@ public class NameIDFormatImpl extends AbstractSAMLObject implements NameIDFormat
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

@@ -24,13 +24,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
 import org.opensaml.saml2.metadata.ManageNameIDService;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.SSODescriptor;
 import org.opensaml.saml2.metadata.SingleLogoutService;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -56,14 +55,24 @@ public abstract class SSODescriptorImpl extends RoleDescriptorImpl implements SS
      * @param namespaceURI the namespace URI of the element this saml object represents
      * @param localName the local name of the element this SAML object represents
      */
-    public SSODescriptorImpl(String namespaceURI, String localName) {
-        super(SAMLConstants.SAML20MD_NS, localName);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected SSODescriptorImpl(String localName) {
+        super(localName);
 
         artifactResolutionServices = new XMLObjectChildrenList<ArtifactResolutionService>(this);
         singleLogoutServices = new XMLObjectChildrenList<SingleLogoutService>(this);
         manageNameIDServices = new XMLObjectChildrenList<ManageNameIDService>(this);
         nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
+    }
+    
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
+     */
+    protected SSODescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*
@@ -95,10 +104,10 @@ public abstract class SSODescriptorImpl extends RoleDescriptorImpl implements SS
     }
     
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         children.addAll(super.getOrderedChildren());
         children.addAll(artifactResolutionServices);

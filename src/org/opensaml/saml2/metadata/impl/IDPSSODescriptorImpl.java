@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
@@ -32,6 +31,7 @@ import org.opensaml.saml2.metadata.AttributeProfile;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.NameIDMappingService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -60,8 +60,8 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     /**
      * Constructor
      */
-    public IDPSSODescriptorImpl() {
-        super(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME);
+    protected IDPSSODescriptorImpl() {
+        super(IDPSSODescriptor.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
         singleSignOnServices = new XMLObjectChildrenList<SingleSignOnService>(this);
         nameIDMappingServices = new XMLObjectChildrenList<NameIDMappingService>(this);
@@ -118,13 +118,13 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     public List<Attribute> getAttributes() {
         return attributes;
     }
-    
+
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
-        
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+
         children.addAll(super.getOrderedChildren());
         children.addAll(singleSignOnServices);
         children.addAll(nameIDMappingServices);

@@ -23,12 +23,11 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthzService;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.PDPDescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -48,9 +47,8 @@ public class PDPDescriptorImpl extends RoleDescriptorImpl implements PDPDescript
     /**
      * Constructor
      */
-    public PDPDescriptorImpl() {
-        super(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+    protected PDPDescriptorImpl() {
+        super(PDPDescriptor.LOCAL_NAME);
 
         authzServices = new XMLObjectChildrenList<AuthzService>(this);
         assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
@@ -78,9 +76,9 @@ public class PDPDescriptorImpl extends RoleDescriptorImpl implements PDPDescript
         return nameIDFormats;
     }
 
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
-        
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+
         children.addAll(super.getOrderedChildren());
         children.addAll(authzServices);
         children.addAll(assertionIDRequestServices);

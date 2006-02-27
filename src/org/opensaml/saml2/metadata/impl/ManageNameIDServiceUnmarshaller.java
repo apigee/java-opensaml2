@@ -17,17 +17,16 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.SAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ManageNameIDService;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.ManageNameIDService}
- * objects.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.ManageNameIDService} objects.
  */
-public class ManageNameIDServiceUnmarshaller extends EndpointUnmarshaller implements SAMLObjectUnmarshaller {
+public class ManageNameIDServiceUnmarshaller extends EndpointUnmarshaller {
 
     /**
      * Constructor

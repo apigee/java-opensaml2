@@ -25,21 +25,19 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Test implementation of Extensions for the prupooises 
  */
-public class ExtensionsImpl extends AbstractSAMLObject implements Extensions {
+public class ExtensionsImpl extends AbstractMetadataSAMLObject implements Extensions {
 
     /**
      * Constructor
      */
     public ExtensionsImpl() {
-        super(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
+        super(Extensions.LOCAL_NAME);
     }
 
     /*
@@ -96,7 +94,7 @@ public class ExtensionsImpl extends AbstractSAMLObject implements Extensions {
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        return new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        return new ArrayList<XMLObject>();
     }
 }

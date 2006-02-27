@@ -17,12 +17,43 @@
 package org.opensaml.saml2.metadata;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.signature.KeyInfo;
 
-public interface KeyDescriptor extends SAMLObject{
+public interface KeyDescriptor extends SAMLObject {
 
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "KeyDescriptor";
-    
+
     /** "use" attribute's local name */
     public final static String USE_ATTRIB_NAME = "use";
+
+    /**
+     * Gets the use of this key.
+     * 
+     * @return the use of this key
+     */
+    public KeyUseType getUse();
+
+    /**
+     * Sets the use of this key.
+     * 
+     * @param newType the use of this key
+     */
+    public void setUse(KeyUseType newType);
+
+    /**
+     * Gets information about the key, including the key itself.
+     * 
+     * @return information about the key, including the key itself
+     */
+    public KeyInfo getKeyInfo();
+
+    /**
+     * Sets information about the key, including the key itself.
+     * 
+     * @param newKeyInfo information about the key, including the key itself
+     */
+    public void setKeyInfo(KeyInfo newKeyInfo);
+
+    // TOOD Add encryption method once encryption interfaces are available
 }

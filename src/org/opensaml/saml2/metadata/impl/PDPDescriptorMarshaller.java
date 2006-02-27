@@ -24,8 +24,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.PDPDescriptor;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.PDPDescriptor}
- * objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.PDPDescriptor} objects.
  */
 public class PDPDescriptorMarshaller extends RoleDescriptorMarshaller {
 
