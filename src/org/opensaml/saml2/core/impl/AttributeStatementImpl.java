@@ -24,41 +24,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AttributeStatement}.
  */
-public class AttributeStatementImpl extends AbstractSAMLObject implements AttributeStatement {
+public class AttributeStatementImpl extends AbstractAssertionSAMLObject implements AttributeStatement {
 
     /** Attributes in this statement */
     private XMLObjectChildrenList<Attribute> attributes;
 
     /** Constructor */
-    public AttributeStatementImpl() {
-        super(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected AttributeStatementImpl() {
+        super(AttributeStatement.LOCAL_NAME);
 
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AttributeStatement#getAttributes()
      */
     public List<Attribute> getAttributes() {
         return attributes;
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.addAll(attributes);
         return Collections.unmodifiableList(children);

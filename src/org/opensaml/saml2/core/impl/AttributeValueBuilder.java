@@ -20,23 +20,23 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.core.impl.AttributeValueImpl} objects.
+ * Builder for {@link org.opensaml.saml2.core.impl.AttributeValueImpl} objects.
  */
-public class AttributeValueBuilder implements SAMLObjectBuilder {
+public class AttributeValueBuilder implements XMLObjectBuilder {
 
     /** Constructor */
     public AttributeValueBuilder() {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /*
+     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public XMLObject buildObject() {
         return new AttributeValueImpl();
     }
 }

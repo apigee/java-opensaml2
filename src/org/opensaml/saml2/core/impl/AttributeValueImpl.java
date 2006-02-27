@@ -22,42 +22,40 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AttributeValue;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.AttributeValue}
  */
-public class AttributeValueImpl extends AbstractSAMLObject implements AttributeValue {
+public class AttributeValueImpl extends AbstractAssertionSAMLObject implements AttributeValue {
 
     /** Name of the attribute */
     private String attributeValue;
 
     /** Constructor */
-    public AttributeValueImpl() {
-        super(SAMLConstants.SAML20_NS, AttributeValue.LOCAL_NAME);
+    protected AttributeValueImpl() {
+        super(AttributeValue.LOCAL_NAME);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AttributeValue#getValue()
      */
     public String getValue() {
         return attributeValue;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.AttributeValue#setValue(java.lang.String)
      */
     public void setValue(String newValue) {
         this.attributeValue = prepareForAssignment(this.attributeValue, newValue);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }
