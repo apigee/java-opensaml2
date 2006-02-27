@@ -22,15 +22,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameID;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.NameID}
  */
-public class NameIDImpl extends AbstractSAMLObject implements NameID {
+public class NameIDImpl extends AbstractAssertionSAMLObject implements NameID {
 
     /** Name Qualifier of the Name ID */
     private String nameQualifier;
@@ -45,75 +43,74 @@ public class NameIDImpl extends AbstractSAMLObject implements NameID {
     private String spProviderID;
 
     /** Constructor */
-    public NameIDImpl() {
-        super(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20_PREFIX);
+    protected NameIDImpl() {
+        super(NameID.LOCAL_NAME);
     }
 
-    protected NameIDImpl(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
+    protected NameIDImpl(String targetLocalName) {
+        super(targetLocalName);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.NameID#getNameQualifier()
      */
     public String getNameQualifier() {
         return nameQualifier;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.NameID#setNameQualifier(java.lang.String)
      */
     public void setNameQualifier(String newNameQualifier) {
         this.nameQualifier = prepareForAssignment(this.nameQualifier, newNameQualifier);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.NameID#getSPNameQualifier()
      */
     public String getSPNameQualifier() {
         return spNameQualifier;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.NameID#setSPNameQualifier(java.lang.String)
      */
     public void setSPNameQualifier(String newSPNameQualifier) {
         this.spNameQualifier = prepareForAssignment(this.spNameQualifier, newSPNameQualifier);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.NameID#getFormat()
      */
     public String getFormat() {
         return format;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.NameID#setFormat(java.lang.String)
      */
     public void setFormat(String newFormat) {
         this.format = prepareForAssignment(this.format, newFormat);
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.NameID#getSPProviderID()
      */
     public String getSPProviderID() {
         return spProviderID;
     }
 
-    /**
+    /*
      * @see org.opensaml.saml2.core.NameID#setSPProviderID(java.lang.String)
      */
     public void setSPProviderID(String newSPProviderID) {
         this.spProviderID = prepareForAssignment(this.spProviderID, newSPProviderID);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }
