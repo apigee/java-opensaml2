@@ -16,12 +16,11 @@
 
 package org.opensaml.saml2.core;
 
-import org.opensaml.common.SAMLObject;
 
 /**
  * SAML 2.0 Core BaseID
  */
-public interface BaseID extends SAMLObject {
+public interface BaseID extends Identifier {
     
     /** Element local name*/
     public final static String LOCAL_NAME = "BaseID";
