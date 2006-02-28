@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.common.impl;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.AbstractValidatingSignableXMLObject;
-import org.opensaml.xml.Namespace;
 
 /**
  * Abstract SAMLObject implementation that also implements {@link org.opensaml.xml.SignableXMLObject}
@@ -41,9 +36,7 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
      * @param namespacePrefix the prefix for the given namespace
      */
     protected AbstractSignableSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName);
-        addNamespace(new Namespace(namespaceURI, namespacePrefix));
-        setElementNamespacePrefix(namespacePrefix);
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

@@ -17,7 +17,6 @@
 package org.opensaml.common.impl;
 
 import org.opensaml.common.SAMLVersion;
-import org.opensaml.xml.Namespace;
 import org.opensaml.xml.validation.AbstractValidatingDOMCachingXMLObject;
 
 /**
@@ -36,9 +35,7 @@ public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXML
      * @param namespacePrefix the prefix for the given namespace
      */
     protected AbstractSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName);
-        addNamespace(new Namespace(namespaceURI, namespacePrefix));
-        setElementNamespacePrefix(namespacePrefix);
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*
