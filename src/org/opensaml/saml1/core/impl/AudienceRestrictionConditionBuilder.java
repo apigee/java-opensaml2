@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Class to generate AudienceResttictyionCondition Objects
  */
-public class AudienceRestrictionConditionBuilder implements SAMLObjectBuilder {
+public class AudienceRestrictionConditionBuilder implements XMLObjectBuilder {
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /**
+     * Constructor
      */
-    public SAMLObject buildObject() {
-        return new AudienceRestrictionConditionImpl();
+    public AudienceRestrictionConditionBuilder() {
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new AudienceRestrictionConditionImpl();
+    }
 }

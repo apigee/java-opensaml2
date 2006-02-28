@@ -19,21 +19,23 @@ package org.opensaml.saml1.core.impl;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Statement;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.Assertion} objects.
  */
 public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+
+    /** Logger */
+    private static Logger log = Logger.getLogger(AssertionUnmarshaller.class);
 
     /**
      * Constructor
@@ -42,15 +44,12 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME);
     }
 
-    /** Logger */
-    private static Logger log = Logger.getLogger(AssertionUnmarshaller.class);
-
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
 
         Assertion assertion = (Assertion) parentSAMLObject;
 
@@ -66,21 +65,20 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
 
         Assertion assertion = (Assertion) samlObject;
 
-        if (Assertion.ISSUER_ATTRIB_NAME.equals(attributeName)) {
-            assertion.setIssuer(attributeValue);
-        } else if (Assertion.ISSUEINSTANT_ATTRIB_NAME.equals(attributeName)) {
-            assertion.setIssueInstant(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
-        } else if (Assertion.MAJORVERSION_ATTRIB_NAME.endsWith(attributeName)) {
+        if (Assertion.ISSUER_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            assertion.setIssuer(attribute.getValue());
+        } else if (Assertion.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            assertion.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
+        } else if (Assertion.MAJORVERSION_ATTRIB_NAME.endsWith(attribute.getLocalName())) {
             try {
-                if (Integer.parseInt(attributeValue) != 1) {
+                if (Integer.parseInt(attribute.getValue()) != 1) {
                     log.error("SAML version must be 1");
                     throw new UnmarshallingException("SAML version must be 1");
                 }
@@ -88,15 +86,15 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 log.error("Error when checking MajorVersion attribute", n);
                 throw new UnmarshallingException(n);
             }
-        } else if (Assertion.MINORVERSION_ATTRIB_NAME.equals(attributeName)) {
+        } else if (Assertion.MINORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {
             try {
-                assertion.setMinorVersion(Integer.parseInt(attributeValue));
+                assertion.setMinorVersion(Integer.parseInt(attribute.getValue()));
             } catch (NumberFormatException n) {
                 log.error("Error when checking MinorVersion attribute", n);
                 throw new UnmarshallingException(n);
             }
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

@@ -14,32 +14,26 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
+import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete class implementation of {@link org.opensaml.saml1.core.Audience}  
+ * Concrete class implementation of {@link org.opensaml.saml1.core.Audience}
  */
-public class AudienceImpl extends AbstractSAMLObject implements Audience {
+public class AudienceImpl extends AbstractAssertionSAMLObject implements Audience {
+
     /** String to hold the URI */
     private String uri;
 
     /**
      * Constructor
      */
-    public AudienceImpl() {
-        super(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected AudienceImpl() {
+        super(Audience.LOCAL_NAME);
     }
 
     /*
@@ -58,9 +52,9 @@ public class AudienceImpl extends AbstractSAMLObject implements Audience {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

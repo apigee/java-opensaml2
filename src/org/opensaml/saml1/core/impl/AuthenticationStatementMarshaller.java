@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.AuthenticationStatement} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.AuthenticationStatement} objects.
  */
 public class AuthenticationStatementMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -41,26 +37,20 @@ public class AuthenticationStatementMarshaller extends AbstractSAMLObjectMarshal
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
-    @Override
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        AuthenticationStatement authenticationStatement;
-
-        authenticationStatement = (AuthenticationStatement) samlElement;
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
+        AuthenticationStatement authenticationStatement = (AuthenticationStatement) samlElement;
 
         if (authenticationStatement.getAuthenticationMethod() != null) {
-
             domElement.setAttribute(AuthenticationStatement.AUTHENTICATIONMETHOD_ATTRIB_NAME, authenticationStatement
                     .getAuthenticationMethod());
         }
 
         if (authenticationStatement.getAuthenticationInstant() != null) {
-
             String value = ISODateTimeFormat.dateTime().print(authenticationStatement.getAuthenticationInstant());
-
             domElement.setAttribute(AuthenticationStatement.AUTHENTICATIONINSTANT_ATTRIB_NAME, value);
         }
     }
-
 }

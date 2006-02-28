@@ -14,31 +14,28 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationQuery;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of the {@link org.opensaml.saml1.core.AuthenticationQuery} interface
  */
 public class AuthenticationQueryImpl extends SubjectQueryImpl implements AuthenticationQuery {
 
+    /** The method used to do the authentication */
     private String authenticationMethod;
-    
+
     /**
      * Constructor
      */
-    public AuthenticationQueryImpl() {
-        super(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
+    protected AuthenticationQueryImpl() {
+        super(AuthenticationQuery.LOCAL_NAME);
     }
 
     /*
@@ -58,14 +55,13 @@ public class AuthenticationQueryImpl extends SubjectQueryImpl implements Authent
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         if (getSubject() == null) {
             return null;
         } else {
-            List<SAMLObject> list = new ArrayList<SAMLObject>(1);
+            List<XMLObject> list = new ArrayList<XMLObject>(1);
             list.add(getSubject());
             return Collections.unmodifiableList(list);
         }
     }
-
 }

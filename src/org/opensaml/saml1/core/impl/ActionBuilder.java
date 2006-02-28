@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.saml1.core.Action;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.ActionImpl} 
- * object 
+ * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.ActionImpl} object
  */
-public class ActionBuilder implements SAMLObjectBuilder<Action> {
+public class ActionBuilder implements XMLObjectBuilder {
+
+    /**
+     * Constructor
+     */
+    public ActionBuilder() {
+
+    }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public Action buildObject() {
         return new ActionImpl();
     }
-
 }

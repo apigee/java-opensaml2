@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.AuthenticationQuery;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Class which just exists to create {@link org.opensaml.saml1.core.impl.AuthenticationQueryImpl} objects
  */
-public class AuthenticationQueryBuilder implements SAMLObjectBuilder<AuthenticationQuery> {
+public class AuthenticationQueryBuilder implements XMLObjectBuilder {
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /**
+     * Constructor
      */
-    public AuthenticationQuery buildObject() {
-        return new AuthenticationQueryImpl();
+    public AuthenticationQueryBuilder() {
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new AuthenticationQueryImpl();
+    }
 }

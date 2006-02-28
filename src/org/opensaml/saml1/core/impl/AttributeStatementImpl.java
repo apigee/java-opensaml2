@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -42,8 +37,8 @@ public class AttributeStatementImpl extends SubjectStatementImpl implements Attr
      * Constructor
      */
     public AttributeStatementImpl() {
-        super(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+        super(AttributeStatement.LOCAL_NAME);
+
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
@@ -56,23 +51,21 @@ public class AttributeStatementImpl extends SubjectStatementImpl implements Attr
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-
-        List<SAMLObject> list = new ArrayList<SAMLObject>(attributes.size() + 1);
+    public List<XMLObject> getOrderedChildren() {
+        List<XMLObject> list = new ArrayList<XMLObject>(attributes.size() + 1);
 
         if (getSubject() != null) {
             list.add(getSubject());
         }
 
         list.addAll(attributes);
-        
+
         if (list.size() == 0) {
             return null;
         }
-        
+
         return Collections.unmodifiableList(list);
     }
-
 }

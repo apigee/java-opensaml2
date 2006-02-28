@@ -14,32 +14,26 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeValue;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implementation of {@link org.opensaml.saml1.core.AttributeValue} Object
  */
-public class AttributeValueImpl extends AbstractSAMLObject implements AttributeValue {
+public class AttributeValueImpl extends AbstractAssertionSAMLObject implements AttributeValue {
 
     /** String to contain the contents */
     String attributeValue;
-    
+
     /**
      * Constructor
      */
-    public AttributeValueImpl() {
-        super(SAMLConstants.SAML1_NS, AttributeValue.LOCAL_NAME);
-            setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected AttributeValueImpl() {
+        super(AttributeValue.LOCAL_NAME);
     }
 
     /*
@@ -57,9 +51,9 @@ public class AttributeValueImpl extends AbstractSAMLObject implements AttributeV
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // No children
         return null;
     }

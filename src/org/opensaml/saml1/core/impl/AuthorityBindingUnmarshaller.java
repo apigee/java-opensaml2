@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorityBinding;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthorityBinding} objects.
@@ -40,22 +36,21 @@ public class AuthorityBindingUnmarshaller extends AbstractSAMLObjectUnmarshaller
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute)
+            throws UnmarshallingException {
 
         AuthorityBinding authorityBinding = (AuthorityBinding) samlObject;
 
-        if (AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME.equals(attributeName)) {
-            authorityBinding.setAuthorityKind(attributeValue);
-        } else if (AuthorityBinding.LOCATION_ATTRIB_NAME.equals(attributeName)) {
-            authorityBinding.setLocation(attributeValue);
-        } else if (AuthorityBinding.BINDING_ATTRIB_NAME.equals(attributeName)) {
-            authorityBinding.setBinding(attributeValue);
+        if (AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            authorityBinding.setAuthorityKind(attribute.getValue());
+        } else if (AuthorityBinding.LOCATION_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            authorityBinding.setLocation(attribute.getValue());
+        } else if (AuthorityBinding.BINDING_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            authorityBinding.setBinding(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

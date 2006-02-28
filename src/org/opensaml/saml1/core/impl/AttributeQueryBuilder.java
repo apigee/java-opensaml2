@@ -14,23 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.AttributeQuery;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AttributeQueryImpl} objects
  */
-public class AttributeQueryBuilder implements SAMLObjectBuilder<AttributeQuery> {
+public class AttributeQueryBuilder implements XMLObjectBuilder {
+
+    /**
+     * Constructor
+     */
+    public AttributeQueryBuilder() {
+
+    }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public AttributeQuery buildObject() {
+    public XMLObject buildObject() {
         return new AttributeQueryImpl();
     }
 }

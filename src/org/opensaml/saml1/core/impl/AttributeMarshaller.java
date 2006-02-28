@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeDesignator;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.Attribute} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.Attribute} objects.
  */
 public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -40,17 +37,19 @@ public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         Attribute attribute = (Attribute) samlElement;
-        
+
         if (attribute.getAttributeName() != null) {
             domElement.setAttribute(AttributeDesignator.ATTRIBUTENAME_ATTRIB_NAME, attribute.getAttributeName());
         }
-        
+
         if (attribute.getAttributeNamespace() != null) {
-            domElement.setAttribute(AttributeDesignator.ATTRIBUTENAMESPACE_ATTRIB_NAME, attribute.getAttributeNamespace());
+            domElement.setAttribute(AttributeDesignator.ATTRIBUTENAMESPACE_ATTRIB_NAME, attribute
+                    .getAttributeNamespace());
         }
     }
 }

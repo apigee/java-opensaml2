@@ -14,53 +14,49 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of the org.opensaml.saml1.core.AudienceRestrictionCondition
  */
-public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject implements
+public class AudienceRestrictionConditionImpl extends AbstractSignableAssertionSAMLObject implements
         AudienceRestrictionCondition {
 
+    /** Audiences */
     private final List<Audience> audiences = new XMLObjectChildrenList<Audience>(this);
 
-    public AudienceRestrictionConditionImpl() {
-        super(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    /**
+     * Constructor
+     */
+    protected AudienceRestrictionConditionImpl() {
+        super(AudienceRestrictionCondition.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#getAudiences()
      */
     public List<Audience> getAudiences() {
-        
         return audiences;
     }
 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        
-        if (audiences.size() == 0){
+    public List<XMLObject> getOrderedChildren() {
+
+        if (audiences.size() == 0) {
             return null;
         }
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>(audiences);
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>(audiences);
         return Collections.unmodifiableList(children);
     }
 }

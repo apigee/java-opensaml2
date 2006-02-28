@@ -17,18 +17,23 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /** Class whose sole jobe is the creation of a {@link AssertionImpl} object */
 
-public class AssertionBuilder implements SAMLObjectBuilder {
+public class AssertionBuilder implements XMLObjectBuilder {
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /**
+     * Constructor
      */
-    public SAMLObject buildObject() {
+    public AssertionBuilder() {
 
-        return new AssertionImpl();
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public SAMLObject buildObject() {
+        return new AssertionImpl();
+    }
 }

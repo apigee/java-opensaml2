@@ -14,35 +14,29 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml1.core.Action}
  */
-public class ActionImpl extends AbstractSAMLObject implements Action {
+public class ActionImpl extends AbstractAssertionSAMLObject implements Action {
 
     /** Place to store the namespace */
     private String namespace;
-    
+
     /** Where to store the contents */
     private String contents;
-    
+
     /**
      * Constructor
      */
-    public ActionImpl() {
-        super(SAMLConstants.SAML1_NS, Action.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected ActionImpl() {
+        super(Action.LOCAL_NAME);
     }
 
     /*
@@ -74,9 +68,9 @@ public class ActionImpl extends AbstractSAMLObject implements Action {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // No elements
         return null;
     }

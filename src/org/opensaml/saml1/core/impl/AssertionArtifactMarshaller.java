@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- *  A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.AssertionArtifact} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.AssertionArtifact} objects.
  */
 public class AssertionArtifactMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -39,23 +36,13 @@ public class AssertionArtifactMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    @Override
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // No Work
-    }
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         AssertionArtifact assertionArtifact = (AssertionArtifact) samlObject;
         if (assertionArtifact.getAssertionArtifact() != null) {
             domElement.setTextContent(assertionArtifact.getAssertionArtifact());
         }
     }
-
-    
 }

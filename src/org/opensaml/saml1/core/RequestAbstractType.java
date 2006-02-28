@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.SignableXMLObject;
+import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
  * This interface describes the base class for types derived from

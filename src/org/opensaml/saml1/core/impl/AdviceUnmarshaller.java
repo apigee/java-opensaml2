@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLConfig;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Advice} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.Advice} objects.
  */
 public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -43,11 +37,11 @@ public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
 
         Advice advice = (Advice) parentSAMLObject;
 
@@ -55,7 +49,7 @@ public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             advice.getAssertions().add((Assertion) childSAMLObject);
         } else if (childSAMLObject instanceof AssertionIDReference) {
             advice.getAssertionIDReferences().add((AssertionIDReference) childSAMLObject);
-        } else if (!SAMLConfig.ignoreUnknownElements()) {
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }

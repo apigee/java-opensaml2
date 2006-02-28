@@ -14,53 +14,47 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * A Concrete implementation of the {@link org.opensaml.saml1.core.Attribute} Interface
  */
-public class AttributeImpl extends AbstractSAMLObject implements Attribute {
+public class AttributeImpl extends AbstractAssertionSAMLObject implements Attribute {
 
     /** Contains the AttributeValues */
-    private final List <AttributeValue> attributeValues;
-   
+    private final List<AttributeValue> attributeValues;
+
     /** Contains the AttributeName */
     private String attributeName;
-    
+
     /** Contains the AttributeNamespace */
     private String attributeNamespace;
-    
-    
-    /** Contains the Subject subelement */
-    //private Subject subject;
 
-   /**
+    /** Contains the Subject subelement */
+    // private Subject subject;
+    /**
      * Constructor
      */
-    public AttributeImpl() {
-        super(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected AttributeImpl() {
+        super(Attribute.LOCAL_NAME);
+
         attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
     }
 
     //
     // ATTRIBUTES
     //
-    
+
+    // TODO add method comments and methods to interface and impl class
     public String getAttributeName() {
         return attributeName;
     }
@@ -80,7 +74,7 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
     //
     // ELEMENTS
     //
-    
+
     /*
      * @see org.opensaml.saml1.core.Attribute#getAttributeValues()
      */
@@ -89,18 +83,16 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
 
         if (attributeValues.size() == 0) {
             return null;
         }
 
-        List<SAMLObject> list = new ArrayList<SAMLObject>(attributeValues.size() + 1);
+        List<XMLObject> list = new ArrayList<XMLObject>(attributeValues.size() + 1);
         list.addAll(attributeValues);
         return Collections.unmodifiableList(list);
     }
-
-
 }

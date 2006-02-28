@@ -22,7 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.SignableXMLObject;
+import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
  * This interface defines how the object representing a SAML 1 <code> Assertion </code> element behaves.

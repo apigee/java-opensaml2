@@ -14,30 +14,26 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation if {@link org.opensaml.saml1.core.AssertionArtifact}
  */
-public class AssertionArtifactImpl extends AbstractSAMLObject implements AssertionArtifact {
+public class AssertionArtifactImpl extends AbstractProtocolSAMLObject implements AssertionArtifact {
 
+    /** The assertion artifact */
     private String assertionArtifact;
-    
+
     /**
      * Constructor
      */
     public AssertionArtifactImpl() {
-        super(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
+        super(AssertionArtifact.LOCAL_NAME);
     }
 
     /*
@@ -55,10 +51,9 @@ public class AssertionArtifactImpl extends AbstractSAMLObject implements Asserti
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
-
 }

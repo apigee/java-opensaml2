@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
+import org.opensaml.xml.XMLObject;
 
 /**
- *
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AssertionArtifact} objects.
  */
 public class AssertionArtifactUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -37,14 +34,12 @@ public class AssertionArtifactUnmarshaller extends AbstractSAMLObjectUnmarshalle
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         AssertionArtifact assertionArtifact = (AssertionArtifact) samlObject;
 
         assertionArtifact.setAssertionArtifact(elementContent);
     }
-
-    
 }

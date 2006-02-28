@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeValue;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.AttributeValue}
- * objects
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.AttributeValue} objects
  */
 public class AttributeValueMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -41,19 +36,10 @@ public class AttributeValueMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-
-        // No attributes
-    }
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
-     *      org.w3c.dom.Element)
-     */
-    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         AttributeValue attributeValue = (AttributeValue) samlObject;
         if (attributeValue.getAttributeValue() != null) {
             domElement.setTextContent(attributeValue.getAttributeValue());

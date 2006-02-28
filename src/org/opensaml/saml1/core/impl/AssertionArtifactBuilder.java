@@ -14,23 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.AssertionArtifact;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AssertionArtifactImpl} objects
  */
-public class AssertionArtifactBuilder implements SAMLObjectBuilder<AssertionArtifact> {
+public class AssertionArtifactBuilder implements XMLObjectBuilder {
+
+    /**
+     * Constructor
+     */
+    public AssertionArtifactBuilder() {
+
+    }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public AssertionArtifact buildObject() {
+    public XMLObject buildObject() {
         return new AssertionArtifactImpl();
     }
 }

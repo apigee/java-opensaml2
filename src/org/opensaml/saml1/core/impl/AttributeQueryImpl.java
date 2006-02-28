@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeQuery;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -36,17 +32,17 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
 
     /** Contains the resource attribute */
     private String resource;
-    
-    /** Contains all the child AttributeDesignators */ 
+
+    /** Contains all the child AttributeDesignators */
     private final List<AttributeDesignator> attributeDesignators;
-    
+
     /**
      * Constructor
      */
-    public AttributeQueryImpl() {
-        super(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
-        attributeDesignators = new XMLObjectChildrenList<AttributeDesignator>(this); 
+    protected AttributeQueryImpl() {
+        super(AttributeQuery.LOCAL_NAME);
+
+        attributeDesignators = new XMLObjectChildrenList<AttributeDesignator>(this);
     }
 
     /*
@@ -71,11 +67,11 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        List<SAMLObject> list = new ArrayList<SAMLObject>(attributeDesignators.size()+1);
-        
+    public List<XMLObject> getOrderedChildren() {
+        List<XMLObject> list = new ArrayList<XMLObject>(attributeDesignators.size() + 1);
+
         if (getSubject() != null) {
             list.add(getSubject());
         }

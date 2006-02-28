@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorityBinding;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete impementation of the {@link org.opensaml.saml1.core.SubjectLocality} interface
  */
-public class AuthorityBindingImpl extends AbstractSAMLObject implements org.opensaml.saml1.core.AuthorityBinding {
+public class AuthorityBindingImpl extends AbstractAssertionSAMLObject implements AuthorityBinding {
 
     /** The AuthorityKind */
     private String authorityKind;
@@ -44,9 +38,8 @@ public class AuthorityBindingImpl extends AbstractSAMLObject implements org.open
     /**
      * Constructor
      */
-    public AuthorityBindingImpl() {
-        super(SAMLConstants.SAML1_NS, AuthorityBinding.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected AuthorityBindingImpl() {
+        super(AuthorityBinding.LOCAL_NAME);
     }
 
     /*
@@ -92,9 +85,9 @@ public class AuthorityBindingImpl extends AbstractSAMLObject implements org.open
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // No children
         return null;
     }

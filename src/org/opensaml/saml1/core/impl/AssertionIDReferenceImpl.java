@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implementation of {@link org.opensaml.saml1.core.AssertionIDReference} Object
  */
-public class AssertionIDReferenceImpl extends AbstractSAMLObject implements AssertionIDReference {
+public class AssertionIDReferenceImpl extends AbstractAssertionSAMLObject implements AssertionIDReference {
 
     /** String to contain the NCName */
     private String NCName;
@@ -38,9 +32,8 @@ public class AssertionIDReferenceImpl extends AbstractSAMLObject implements Asse
     /**
      * Constructor
      */
-    public AssertionIDReferenceImpl() {
-        super(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected AssertionIDReferenceImpl() {
+        super(AssertionIDReference.LOCAL_NAME);
     }
 
     /*
@@ -58,9 +51,9 @@ public class AssertionIDReferenceImpl extends AbstractSAMLObject implements Asse
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

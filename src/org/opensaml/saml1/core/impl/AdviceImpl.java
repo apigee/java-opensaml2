@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.Collections;
@@ -25,56 +21,56 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.Advice} Object
  */
-public class AdviceImpl extends AbstractSAMLObject implements Advice {
+public class AdviceImpl extends AbstractAssertionSAMLObject implements Advice {
 
     /** Contains all the SAML objects we have added */
-    private final IndexedXMLObjectChildrenList<SAMLObject> orderedChildren = new IndexedXMLObjectChildrenList<SAMLObject>(this);
+    private final IndexedXMLObjectChildrenList<XMLObject> orderedChildren = new IndexedXMLObjectChildrenList<XMLObject>(
+            this);
 
     /**
      * Constructor
      */
-    public AdviceImpl() {
-        super(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected AdviceImpl() {
+        super(Advice.LOCAL_NAME);
     }
 
     /*
      * @see org.opensaml.saml1.core.Advice#getAssertionIDReferences()
      */
-    @SuppressWarnings("unchecked")
     public List<AssertionIDReference> getAssertionIDReferences() {
-        List<? extends SAMLObject> l = orderedChildren.subList(new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME));
         //
         // The cast in the line below is unsafe. (it's checking against the erasure of l - which is List.
         // We are, howeverever guaranteed by sublist that although l is 'just' a List it
         // will only contain <AssertionIDReferences> explicit code in IndexedXMLObjectChildrenList$ListView.indexCheck
         // helps us be sure.
-        
-        return (List<AssertionIDReference>) l;
-    }
 
-    @SuppressWarnings("unchecked")
-    public List<Assertion> getAssertions() {
-        List<? extends SAMLObject> l = orderedChildren.subList(new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME));
-        // See Comment for getAssertionIDReference as to why this unsafe casting is OK
-        return (List<Assertion>) l;
+        QName assertionIDRefQName = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
+        return (List<AssertionIDReference>) orderedChildren.subList(assertionIDRefQName);
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.saml1.core.Advice#getAssertions()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<Assertion> getAssertions() {
+        // See Comment for getAssertionIDReference as to why this unsafe casting is OK
+        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME);
+        return (List<Assertion>) orderedChildren.subList(assertionQname);
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
+     */
+    public List<XMLObject> getOrderedChildren() {
         if (orderedChildren.size() == 0) {
             return null;
         }

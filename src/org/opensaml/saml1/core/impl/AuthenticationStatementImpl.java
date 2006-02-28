@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
@@ -26,11 +22,10 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.saml1.core.SubjectLocality;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -53,9 +48,9 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     /**
      * Constructor
      */
-    public AuthenticationStatementImpl() {
-        super(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected AuthenticationStatementImpl() {
+        super(AuthenticationStatement.LOCAL_NAME);
+
         authorityBindings = new XMLObjectChildrenList<AuthorityBinding>(this);
     }
 
@@ -88,7 +83,8 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
      * @see org.opensaml.saml1.core.AuthenticationStatement#setAuthenticationInstant(java.util.GregorianCalendar)
      */
     public void setAuthenticationInstant(DateTime authenticationInstant) {
-        this.authenticationInstant = prepareForAssignment(this.authenticationInstant, authenticationInstant.withZone(DateTimeZone.UTC));
+        this.authenticationInstant = prepareForAssignment(this.authenticationInstant, authenticationInstant
+                .withZone(DateTimeZone.UTC));
     }
 
     //
@@ -119,8 +115,8 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        List<SAMLObject> list = new ArrayList<SAMLObject>(authorityBindings.size() + 2);
+    public List<XMLObject> getOrderedChildren() {
+        List<XMLObject> list = new ArrayList<XMLObject>(authorityBindings.size() + 2);
 
         if (getSubject() != null) {
             list.add(getSubject());
@@ -138,5 +134,4 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
 
         return Collections.unmodifiableList(list);
     }
-
 }

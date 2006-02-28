@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Subject;
-import org.opensaml.saml1.core.SubjectStatement;
 
 /**
- * Abstract type to implement SubjectStatementType
+ * Base for SAML 1.X Assertion SAMLObject
  */
-public abstract class SubjectStatementImpl extends AbstractAssertionSAMLObject implements SubjectStatement {
-
-    /** Contains the Subject subelement */
-    private Subject subject;
+public abstract class AbstractAssertionSAMLObject extends AbstractSAMLObject {
 
     /**
      * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to
@@ -38,10 +31,11 @@ public abstract class SubjectStatementImpl extends AbstractAssertionSAMLObject i
      * 
      * @param localName the local name of the element
      */
-    protected SubjectStatementImpl(String elementLocalName) {
-        super(elementLocalName);
+    protected AbstractAssertionSAMLObject(String localName) {
+        super(SAMLConstants.SAML1_NS, localName, SAMLConstants.SAML1_PREFIX);
+        setSAMLVersion(SAMLVersion.VERSION_11);
     }
-    
+
     /**
      * Constructor.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
      * 
@@ -49,22 +43,8 @@ public abstract class SubjectStatementImpl extends AbstractAssertionSAMLObject i
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
      */
-    protected SubjectStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+    protected AbstractAssertionSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
         setSAMLVersion(SAMLVersion.VERSION_11);
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.SubjectStatement#getSubject()
-     */
-    public Subject getSubject() {
-        return subject;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.SubjectStatement#setSubject(org.opensaml.saml1.core.Subject)
-     */
-    public void setSubject(Subject subject) throws IllegalArgumentException {
-        this.subject = prepareForAssignment(this.subject, subject);
     }
 }

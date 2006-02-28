@@ -18,7 +18,7 @@ package org.opensaml.saml1.core;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.SignableXMLObject;
+import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
  * This interface defines the base class for type derived from the SAML1 <code> ResponseAbstractType </code> .

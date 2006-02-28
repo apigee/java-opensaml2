@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.AuthorityBinding;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * classs which just exists to create {@link org.opensaml.saml1.core.impl.AuthorityBindingImpl} Objects
  */
-public class AuthorityBindingBuilder implements SAMLObjectBuilder<AuthorityBinding> {
+public class AuthorityBindingBuilder implements XMLObjectBuilder {
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /**
+     * Constructor
      */
-    public AuthorityBinding buildObject() {
-        return new AuthorityBindingImpl();
+    public AuthorityBindingBuilder() {
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new AuthorityBindingImpl();
+    }
 }

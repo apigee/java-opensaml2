@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeStatement;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- *
+ * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.AttributeStatement} objects.
  */
 public class AttributeStatementMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -38,13 +32,4 @@ public class AttributeStatementMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME);
 
     }
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    @Override
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        // No Attributes
-    }
-
 }

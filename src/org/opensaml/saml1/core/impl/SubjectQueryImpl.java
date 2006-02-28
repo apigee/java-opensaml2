@@ -19,26 +19,38 @@
  */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectQuery;
 
 /**
  * Concrete (but abstract) implementation of {@link org.opensaml.saml1.core.SubjectQuery} abstract type
  */
-public abstract class SubjectQueryImpl extends AbstractSAMLObject implements SubjectQuery {
+public abstract class SubjectQueryImpl extends AbstractProtocolSAMLObject implements SubjectQuery {
 
     /** Contains the Subject subelement */
     private Subject subject;
     
     /**
-     * Constructor
-     *
-     * @param namespaceURI
-     * @param elementLocalName
+     * Constructor. Sets namespace to {@link SAMLConstants#SAML1P_NS} and prefix to
+     * {@link SAMLConstants#SAML1P_PREFIX}.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * 
+     * @param localName the local name of the element
      */
-    public SubjectQueryImpl(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected SubjectQueryImpl(String elementLocalName) {
+        super(elementLocalName);
+    }
+    
+    /**
+     * Constructor.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
+     */
+    protected SubjectQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

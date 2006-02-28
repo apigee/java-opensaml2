@@ -17,15 +17,15 @@
 package org.opensaml.saml1.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.Assertion} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.Assertion} objects.
  */
 public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -37,29 +37,24 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    @Override
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
 
         Assertion assertion = (Assertion) samlElement;
 
         if (assertion.getIssuer() != null) {
-
             domElement.setAttribute(Assertion.ISSUER_ATTRIB_NAME, assertion.getIssuer());
         }
 
         if (assertion.getIssueInstant() != null) {
-
             String date = ISODateTimeFormat.dateTime().print(assertion.getIssueInstant());
-
             domElement.setAttribute(Assertion.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
         if (assertion.getMinorVersion() != 0) {
             String minorVersion = Integer.toString(assertion.getMinorVersion());
-
             domElement.setAttribute(Assertion.MINORVERSION_ATTRIB_NAME, minorVersion);
             domElement.setAttribute(Assertion.MAJORVERSION_ATTRIB_NAME, "1");
         }

@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.Audience;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Class whose only job is to create {@link org.opensaml.saml1.core.impl.AudienceImpl} objects
  */
-public class AudienceBuilder implements SAMLObjectBuilder<Audience> {
+public class AudienceBuilder implements XMLObjectBuilder {
+    
+    /**
+     * Constructor
+     */
+    public AudienceBuilder() {
+        
+    }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public Audience buildObject() {
+    public XMLObject buildObject() {
         return new AudienceImpl();
     }
 }

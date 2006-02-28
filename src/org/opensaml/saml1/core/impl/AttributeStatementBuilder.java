@@ -14,23 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AttributeStatementImpl} objects
  */
-public class AttributeStatementBuilder implements SAMLObjectBuilder<AttributeStatement> {
+public class AttributeStatementBuilder implements XMLObjectBuilder {
+
+    /**
+     * Constructor
+     */
+    public AttributeStatementBuilder() {
+
+    }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public AttributeStatement buildObject() {
+    public XMLObject buildObject() {
         return new AttributeStatementImpl();
     }
 }

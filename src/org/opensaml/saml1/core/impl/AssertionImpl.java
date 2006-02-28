@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
@@ -28,9 +24,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
@@ -40,12 +34,13 @@ import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Statement;
 import org.opensaml.saml1.core.SubjectStatement;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * This class implements the SAML 1 <code> Assertion </code> statement.
  */
-public class AssertionImpl extends AbstractSignableSAMLObject implements Assertion {
+public class AssertionImpl extends AbstractSignableAssertionSAMLObject implements Assertion {
 
     /** Object version of the <code> MinorVersion </code> attribute. */
     private int minorVersion;
@@ -63,14 +58,13 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     private Advice advice;
 
     /** Object representnation of all the <code> Statement <\code> elements. */
-    private final IndexedXMLObjectChildrenList <Statement> statements = new IndexedXMLObjectChildrenList<Statement>(this);
+    private final IndexedXMLObjectChildrenList<Statement> statements = new IndexedXMLObjectChildrenList<Statement>(this);
 
     /**
      * Constructor
      */
-    public AssertionImpl() {
-        super(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected AssertionImpl() {
+        super(Assertion.LOCAL_NAME);
     }
 
     /*
@@ -159,7 +153,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml1.core.Assertion#getStatements()
      */
     public List<Statement> getStatements() {
-        
+
         return statements;
     }
 
@@ -167,9 +161,9 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml1.core.Assertion#getStatements(javax.xml.namespace.QName)
      */
     public List<Statement> getStatements(QName typeOrName) {
-        
-        List <Statement> list = statements.get(typeOrName);
-        
+
+        List<Statement> list = statements.get(typeOrName);
+
         if (list == null || list.size() == 0) {
             return null;
         }
@@ -200,7 +194,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME);
         return getStatements(statementQName);
     }
-    
+
     /*
      * @see org.opensaml.saml1.core.Assertion#getAttributeStatements()
      */
@@ -210,11 +204,11 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
 
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         if (conditions != null) {
             children.add(conditions);
@@ -225,7 +219,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         }
 
         children.addAll(statements);
-        
+
         if (children.size() == 0) {
             return null;
         }

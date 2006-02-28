@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.AuthenticationStatement;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Class to create {@link org.opensaml.saml1.core.impl.AuthenticationStatementImpl} elements
  */
-public class AuthenticationStatementBuilder implements SAMLObjectBuilder<AuthenticationStatement> {
+public class AuthenticationStatementBuilder implements XMLObjectBuilder {
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /**
+     * Constructor
      */
-    public AuthenticationStatement buildObject() {
-        return new AuthenticationStatementImpl();
+    public AuthenticationStatementBuilder() {
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new AuthenticationStatementImpl();
+    }
 }
