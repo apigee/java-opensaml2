@@ -30,9 +30,6 @@ public interface Assertion extends SignableXMLObject, SAMLObject{
     /** Element local name */
     public final static String LOCAL_NAME = "Assertion";
 
-    /** Version attribute name */
-    public final static String VERSION_ATTRIB_NAME = "Version";
-
     /** IssueInstant attribute name */
     public final static String ISSUE_INSTANT_ATTRIB_NAME = "IssueInstant";
 
