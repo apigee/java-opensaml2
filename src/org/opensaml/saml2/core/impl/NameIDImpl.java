@@ -30,6 +30,9 @@ import org.opensaml.xml.XMLObject;
  */
 public class NameIDImpl extends AbstractAssertionSAMLObject implements NameID {
 
+    /** Name of the Name ID */
+    private String name;
+    
     /** Name Qualifier of the Name ID */
     private String nameQualifier;
 
@@ -51,6 +54,20 @@ public class NameIDImpl extends AbstractAssertionSAMLObject implements NameID {
         super(targetLocalName);
     }
 
+    /*
+     * @see org.opensaml.saml2.core.NameID#getName()
+     */
+    public String getName() {
+        return name;
+    }
+    
+    /*
+     * @see org.opensaml.saml2.core.NameID#setName(java.lang.String)
+     */
+    public void setName(String newName) {
+        this.name = prepareForAssignment(this.name, newName);
+    }
+    
     /*
      * @see org.opensaml.saml2.core.NameID#getNameQualifier()
      */

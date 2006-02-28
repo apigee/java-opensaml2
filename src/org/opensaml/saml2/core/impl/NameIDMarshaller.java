@@ -36,13 +36,14 @@ public class NameIDMarshaller extends AbstractSAMLObjectMarshaller {
     public NameIDMarshaller() {
         super(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME);
     }
-    
+
     protected NameIDMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameID nameID = (NameID) samlObject;
@@ -50,11 +51,11 @@ public class NameIDMarshaller extends AbstractSAMLObjectMarshaller {
         if (nameID.getNameQualifier() != null) {
             domElement.setAttributeNS(null, NameID.NAME_QUALIFIER_ATTRIB_NAME, nameID.getNameQualifier());
         }
-        
+
         if (nameID.getSPNameQualifier() != null) {
             domElement.setAttributeNS(null, NameID.SP_NAME_QUALIFIER_ATTRIB_NAME, nameID.getSPNameQualifier());
         }
-        
+
         if (nameID.getFormat() != null) {
             domElement.setAttributeNS(null, NameID.FORMAT_ATTRIB_NAME, nameID.getFormat());
         }
@@ -62,5 +63,14 @@ public class NameIDMarshaller extends AbstractSAMLObjectMarshaller {
         if (nameID.getSPProviderID() != null) {
             domElement.setAttributeNS(null, NameID.SPPROVIDER_ID_ATTRIB_NAME, nameID.getSPProviderID());
         }
+    }
+
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
+     */
+    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
+        NameID nameID = (NameID) samlObject;
+        domElement.setTextContent(nameID.getName());
     }
 }

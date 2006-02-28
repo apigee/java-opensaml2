@@ -59,4 +59,13 @@ public class NameIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             super.processAttribute(samlObject, attribute);
         }
     }
+
+    /*
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
+     *      java.lang.String)
+     */
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
+        NameID nameID = (NameID) samlObject;
+        nameID.setName(elementContent);
+    }
 }
