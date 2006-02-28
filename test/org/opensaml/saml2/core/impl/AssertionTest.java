@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 
 /**
- * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.ConditionsImpl}.
+ * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AssertionImpl}.
  */
 public class AssertionTest extends SAMLObjectBaseTestCase {
 
@@ -93,7 +93,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Assertion assertion = (Assertion) buildSAMLObject(qname);
+        Assertion assertion = (Assertion) buildXMLObject(qname);
 
         assertion.setIssueInstant(expectedIssueInstant);
         assertEquals(expectedDOM, assertion);
@@ -104,7 +104,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Assertion assertion = (Assertion) buildSAMLObject(qname);
+        Assertion assertion = (Assertion) buildXMLObject(qname);
 
         assertion.setIssueInstant(expectedIssueInstant);
         assertion.setID(expectedID);
@@ -130,7 +130,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Assertion assertion = (Assertion) buildSAMLObject(qname);
+        Assertion assertion = (Assertion) buildXMLObject(qname);
 
         assertion.setIssuer(new IssuerImpl());
         assertion.setSubject(new SubjectImpl());

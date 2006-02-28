@@ -70,7 +70,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Advice advice = (Advice) buildSAMLObject(qname);
+        Advice advice = (Advice) buildXMLObject(qname);
 
         assertEquals(expectedDOM, advice);
     }
@@ -100,7 +100,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Advice advice = (Advice) buildSAMLObject(qname);
+        Advice advice = (Advice) buildXMLObject(qname);
 
         for (int i = 0; i < assertionIDRefCount; i++) {
             advice.getAssertionIDReferences().add(new AssertionIDRefImpl());

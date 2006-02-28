@@ -70,7 +70,7 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Evidence evidence = (Evidence) buildSAMLObject(qname);
+        Evidence evidence = (Evidence) buildXMLObject(qname);
 
         assertEquals(expectedDOM, evidence);
     }
@@ -94,7 +94,7 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
 
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Evidence evidence = (Evidence) buildSAMLObject(qname);
+        Evidence evidence = (Evidence) buildXMLObject(qname);
 
         for (int i = 0; i < assertionIDRefCount; i++) {
             evidence.getAssertionIDReferences().add(new AssertionIDRefImpl());
