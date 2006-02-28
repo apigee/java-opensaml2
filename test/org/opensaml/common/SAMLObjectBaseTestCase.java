@@ -147,7 +147,7 @@ public abstract class SAMLObjectBaseTestCase extends XMLObjectBaseTestCase {
 
     static {
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
+        
         try {
             // SAML 1.X Assertion Object Provider Configuration
             Document saml1AssertionConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
@@ -163,6 +163,11 @@ public abstract class SAMLObjectBaseTestCase extends XMLObjectBaseTestCase {
             Document saml2mdConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
                     .getResourceAsStream("/conf/saml2-metadata-config.xml"));
             Configuration.load(saml2mdConfig);
+            
+            //SAML 2.0 Assertion Object Provider Configuration
+            Document saml2assertionConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
+                     .getResourceAsStream("/conf/saml2-assertion-config.xml"));
+            Configuration.load(saml2assertionConfig);
 
         } catch (Exception e) {
             System.err.println("Unable to configure OpenSAML: " + e);
