@@ -64,7 +64,6 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
-    @Override
     public void testSingleElementUnmarshall() {
         Conditions conditions;
 
@@ -81,7 +80,6 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         Conditions conditions;
 
@@ -110,7 +108,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        Conditions conditions = (Conditions) buildSAMLObject(qname);
+        Conditions conditions = (Conditions) buildXMLObject(qname);
 
         assertEquals(expectedDOM, conditions);
 
@@ -121,7 +119,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        Conditions conditions = (Conditions) buildSAMLObject(qname);
+        Conditions conditions = (Conditions) buildXMLObject(qname);
 
         conditions.setNotBefore(expectedNotBeforeDate);
         conditions.setNotOnOrAfter(expectedNotOnOfAfter);
@@ -132,10 +130,9 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    @Override
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        Conditions conditions = (Conditions) buildSAMLObject(qname);
+        Conditions conditions = (Conditions) buildXMLObject(qname);
 
         conditions.getConditions().add(new AudienceRestrictionConditionImpl());
         conditions.getConditions().add(new DoNotCacheConditionImpl());

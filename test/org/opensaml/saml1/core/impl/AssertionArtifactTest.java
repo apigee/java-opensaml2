@@ -45,7 +45,6 @@ public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
-    @Override
     public void testSingleElementUnmarshall() {
         AssertionArtifact artifact = (AssertionArtifact) unmarshallElement(singleElementFile);
         
@@ -55,7 +54,6 @@ public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         AssertionArtifact artifact = (AssertionArtifact) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -65,21 +63,19 @@ public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
-    @Override
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
         
-        assertEquals(expectedDOM, buildSAMLObject(qname));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
         
-        AssertionArtifact artifact = (AssertionArtifact) buildSAMLObject(qname);
+        AssertionArtifact artifact = (AssertionArtifact) buildXMLObject(qname);
         artifact.setAssertionArtifact(expectedAssertionArtifact);
         assertEquals(expectedOptionalAttributesDOM, artifact);
     }

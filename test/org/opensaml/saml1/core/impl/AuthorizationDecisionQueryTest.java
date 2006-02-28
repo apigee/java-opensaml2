@@ -73,7 +73,6 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
-    @Override
     public void testSingleElementUnmarshall() {
 
         AuthorizationDecisionQuery authorizationDecisionQuery;
@@ -88,7 +87,6 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthorizationDecisionQuery authorizationDecisionQuery;
         authorizationDecisionQuery = (AuthorizationDecisionQuery) unmarshallElement(singleElementOptionalAttributesFile);
@@ -102,7 +100,6 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
     /**
      * Test an Response file with children
      */
-
     public void testFullElementsUnmarshall() {
         AuthorizationDecisionQuery authorizationDecisionQuery;
         authorizationDecisionQuery = (AuthorizationDecisionQuery) unmarshallElement(fullElementsFile);
@@ -115,22 +112,20 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
-    @Override
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME);
         
-        assertEquals(expectedDOM, buildSAMLObject(qname));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME);
         
         AuthorizationDecisionQuery authorizationDecisionQuery;
-        authorizationDecisionQuery = (AuthorizationDecisionQuery) buildSAMLObject(qname);
+        authorizationDecisionQuery = (AuthorizationDecisionQuery) buildXMLObject(qname);
 
         authorizationDecisionQuery.setResource(expectedResource);
         assertEquals(expectedOptionalAttributesDOM, authorizationDecisionQuery);
@@ -140,11 +135,10 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
      * Test Marshalling up a file with children
      * 
      */
-
     public void testFullElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME);
         AuthorizationDecisionQuery authorizationDecisionQuery;
-        authorizationDecisionQuery = (AuthorizationDecisionQuery) buildSAMLObject(qname);
+        authorizationDecisionQuery = (AuthorizationDecisionQuery) buildXMLObject(qname);
 
         authorizationDecisionQuery.setSubject(new SubjectImpl());
         List <Action> list = authorizationDecisionQuery.getActions();

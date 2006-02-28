@@ -47,7 +47,6 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
-    @Override
     public void testSingleElementUnmarshall() {
 
         AuthenticationQuery authenticationQuery;
@@ -61,7 +60,6 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthenticationQuery authenticationQuery;
         
@@ -74,7 +72,6 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-    @Override
     public void testChildElementsUnmarshall() {
         AuthenticationQuery authenticationQuery;
         
@@ -86,20 +83,18 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
-    @Override
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
         
-        assertEquals(expectedDOM, buildSAMLObject(qname));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
-        AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildSAMLObject(qname);
+        AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildXMLObject(qname);
 
         authenticationQuery.setAuthenticationMethod(expectedAuthenticationMethod);
         assertEquals(expectedOptionalAttributesDOM, authenticationQuery);
@@ -108,10 +103,9 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    @Override
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
-        AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildSAMLObject(qname);
+        AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildXMLObject(qname);
 
         authenticationQuery.setSubject(new SubjectImpl());
         assertEquals(expectedChildElementsDOM, authenticationQuery);

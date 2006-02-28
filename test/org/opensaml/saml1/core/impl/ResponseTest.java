@@ -66,7 +66,6 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
-    @Override
     public void testSingleElementUnmarshall() {
 
         Response response = (Response) unmarshallElement(singleElementFile);
@@ -84,7 +83,6 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         Response response;
 
@@ -105,7 +103,6 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    @Override
     public void testChildElementsMarshall() {
         Response response = (Response) unmarshallElement(childElementsFile);
 
@@ -119,10 +116,9 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
-    @Override
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        Response response = (Response) buildSAMLObject(qname);
+        Response response = (Response) buildXMLObject(qname);
 
         assertEquals(expectedDOM, response);
     }
@@ -130,10 +126,9 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        Response response = (Response) buildSAMLObject(qname);
+        Response response = (Response) buildXMLObject(qname);
 
         response.setInResponseTo(expectedInResponseTo);
         response.setIssueInstant(expectedIssueInstant);
@@ -146,10 +141,9 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-    @Override
     public void testChildElementsUnmarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        Response response = (Response) buildSAMLObject(qname);
+        Response response = (Response) buildXMLObject(qname);
 
         response.getAssertions().add(new AssertionImpl());
         response.setStatus(new StatusImpl());
