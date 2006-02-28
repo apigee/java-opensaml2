@@ -19,15 +19,15 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Artifact;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link orgopensaml.saml2.core.Artifact}
+ * A thread-safe Marshaller for {@link orgopensaml.saml2.core.Artifact}
  */
 public class ArtifactMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -40,16 +40,9 @@ public class ArtifactMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // do nothing
-    }
-
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         Artifact artifact = (Artifact) samlObject;
         
         if (artifact.getArtifact() != null)

@@ -19,13 +19,13 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Artifact;
+import org.opensaml.xml.XMLObject;
 
 /**
- * A thead-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.Artifact}
+ * A thead-safe Unmarshaller for {@link org.opensaml.saml2.core.Artifact}
  */
 public class ArtifactUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -38,11 +38,13 @@ public class ArtifactUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject, java.lang.String)
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject, java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         Artifact artifact = (Artifact) samlObject;
         
         artifact.setArtifact(elementContent);
     }
+    
+    
 }

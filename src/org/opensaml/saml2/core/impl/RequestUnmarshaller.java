@@ -21,17 +21,16 @@ package org.opensaml.saml2.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Request;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.Request}
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Request}
  * objects.
  */
 public abstract class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller {
@@ -48,30 +47,27 @@ public abstract class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller
     }
 
     /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue) throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Request req = (Request) samlObject;
         
-        if (attributeName.equals(Request.ID_ATTRIB_NAME))
-            req.setID(attributeValue);
-        // TODO how to handle version
-        //else if (attributeName.equals(Request.VERSION_ATTRIB_NAME))
-         //   req.setSAMLVersion();
-        else if (attributeName.equals(Request.ISSUE_INSTANT_ATTRIB_NAME))
-            req.setIssueInstant(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
-        else if (attributeName.equals(Request.DESTINATION_ATTRIB_NAME))
-            req.setDestination(attributeValue);
-        else if (attributeName.equals(Request.CONSENT_ATTRIB_NAME))
-            req.setConsent(attributeValue);
+        if (attribute.getLocalName().equals(Request.ID_ATTRIB_NAME))
+            req.setID(attribute.getValue());
+        else if (attribute.getLocalName().equals(Request.ISSUE_INSTANT_ATTRIB_NAME))
+            req.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
+        else if (attribute.getLocalName().equals(Request.DESTINATION_ATTRIB_NAME))
+            req.setDestination(attribute.getValue());
+        else if (attribute.getLocalName().equals(Request.CONSENT_ATTRIB_NAME))
+            req.setConsent(attribute.getValue());
         else
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
     }
 
     /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject) throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         Request req = (Request) parentSAMLObject;
         
         if (childSAMLObject instanceof Issuer)

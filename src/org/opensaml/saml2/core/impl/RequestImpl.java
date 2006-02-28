@@ -24,17 +24,15 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLVersion;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Request;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Request}
  */
-public abstract class RequestImpl extends AbstractSignableSAMLObject implements Request {
+public abstract class RequestImpl extends AbstractSignableProtocolSAMLObject implements Request {
     
     /** Unique identifier of the request */
     private String id;
@@ -58,12 +56,10 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
     /**
      * Constructor
      *
-     * @param namespaceURI
      * @param elementLocalName
      */
-    protected RequestImpl(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-        setSAMLVersion(SAMLVersion.VERSION_20);
+    protected RequestImpl(String elementLocalName) {
+        super(elementLocalName);
     }
     
 
@@ -152,10 +148,10 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
        
         if (issuer != null)
             children.add(issuer);

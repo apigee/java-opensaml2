@@ -19,12 +19,8 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
-
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaler} for {@link org.opensaml.saml2.core.SubjectQuery}.
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.SubjectQuery}.
  */
 public abstract class SubjectQueryMarshaller extends RequestMarshaller {
 
@@ -38,12 +34,5 @@ public abstract class SubjectQueryMarshaller extends RequestMarshaller {
     protected SubjectQueryMarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
     }
-
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // no attributes of our own
-        super.marshallAttributes(samlObject, domElement);
-    }
+    
 }

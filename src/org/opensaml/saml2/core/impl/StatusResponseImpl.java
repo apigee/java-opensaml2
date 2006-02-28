@@ -24,18 +24,16 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLVersion;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusResponse;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.StatusResponse}
  */
-public abstract class StatusResponseImpl extends AbstractSignableSAMLObject implements StatusResponse {
+public abstract class StatusResponseImpl extends AbstractSignableProtocolSAMLObject implements StatusResponse {
     
     /** ID attribute */
     private String id;
@@ -64,12 +62,10 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
     /**
      * Constructor
      *
-     * @param namespaceURI
      * @param elementLocalName
      */
-    protected StatusResponseImpl(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-        setSAMLVersion(SAMLVersion.VERSION_20);
+    protected StatusResponseImpl(String elementLocalName) {
+        super(elementLocalName);
     }
 
     /**
@@ -185,10 +181,10 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         if (issuer != null)
             children.add(issuer);

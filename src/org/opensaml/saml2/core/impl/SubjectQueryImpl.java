@@ -23,9 +23,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectQuery;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.SubjectQuery}
@@ -38,11 +38,10 @@ public abstract class SubjectQueryImpl extends RequestImpl implements SubjectQue
     /**
      * Constructor
      *
-     * @param namespaceURI
      * @param elementLocalName
      */
-    protected SubjectQueryImpl(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected SubjectQueryImpl(String elementLocalName) {
+        super(elementLocalName);
     }
 
     /**
@@ -60,10 +59,10 @@ public abstract class SubjectQueryImpl extends RequestImpl implements SubjectQue
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestImpl#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
@@ -75,4 +74,5 @@ public abstract class SubjectQueryImpl extends RequestImpl implements SubjectQue
         
         return Collections.unmodifiableList(children);
     }
+    
 }
