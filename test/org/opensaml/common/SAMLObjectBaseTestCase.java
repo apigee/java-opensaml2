@@ -169,6 +169,11 @@ public abstract class SAMLObjectBaseTestCase extends XMLObjectBaseTestCase {
                      .getResourceAsStream("/conf/saml2-assertion-config.xml"));
             Configuration.load(saml2assertionConfig);
 
+            //SAML 2.0 Protocol Object Provider Configuration
+            Document saml2protocolConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
+                     .getResourceAsStream("/conf/saml2-protocol-config.xml"));
+            Configuration.load(saml2protocolConfig);
+
         } catch (Exception e) {
             System.err.println("Unable to configure OpenSAML: " + e);
         }
