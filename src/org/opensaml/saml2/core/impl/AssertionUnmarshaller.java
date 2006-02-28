@@ -87,8 +87,6 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (attribute.getLocalName().equals(Assertion.ISSUE_INSTANT_ATTRIB_NAME)) {
             assertion.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
-        } else if (attribute.getLocalName().equals(Assertion.VERSION_ATTRIB_NAME)) {
-            // TODO setVersion
         } else if (attribute.getLocalName().equals(Assertion.ID_ATTRIB_NAME)) {
             assertion.setID(attribute.getValue());
         } else {

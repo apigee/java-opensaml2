@@ -50,10 +50,6 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
             domElement.setAttributeNS(null, Assertion.ISSUE_INSTANT_ATTRIB_NAME, issueInstantStr);
         }
 
-        if (assertion.getVersion() != null) {
-            domElement.setAttributeNS(null, Assertion.VERSION_ATTRIB_NAME, assertion.getVersion().toString());
-        }
-
         if (assertion.getID() != null) {
             domElement.setAttributeNS(null, Assertion.ID_ATTRIB_NAME, assertion.getID());
         }

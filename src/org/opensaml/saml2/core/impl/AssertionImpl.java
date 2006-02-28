@@ -36,6 +36,7 @@ import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -51,6 +52,9 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
 
     /** Issuer of the assertion */
     private Issuer issuer;
+    
+    /** Signature of the assertion */
+    private Signature signature;
 
     /** Subject of the assertion */
     private Subject subject;
@@ -125,6 +129,20 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
 
+    /*
+     * @see org.opensaml.xml.signature.SignableXMLObject#getSignature()
+     */
+    public Signature getSignature() {
+        return signature;
+    }
+    
+    /*
+     * @see org.opensaml.xml.signature.SignableXMLObject#setSignature(org.opensaml.xml.signature.Signature)
+     */
+    public void setSignature(Signature newSignature) {
+        this.signature = prepareForAssignment(this.signature, newSignature);
+    }
+    
     /*
      * @see org.opensaml.saml2.core.Assertion#getSubject()
      */
