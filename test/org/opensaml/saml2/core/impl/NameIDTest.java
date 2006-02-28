@@ -27,6 +27,9 @@ import org.opensaml.saml2.core.NameID;
  */
 public class NameIDTest extends SAMLObjectBaseTestCase {
 
+    /** Expected Name value */
+    private String expectedName;
+    
     /** Expected NameQualifier value */
     private String expectedNameQualifier;
 
@@ -51,6 +54,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
+        expectedName = "id name";
         expectedNameQualifier = "nq";
         expectedSPNameQualifier = "spnq";
         expectedFormat = "format style";
@@ -63,8 +67,8 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         NameID nameID = (NameID) unmarshallElement(singleElementFile);
 
-        String nameQualifier = nameID.getNameQualifier();
-        assertEquals("NameQualifier not as expected", nameQualifier, expectedNameQualifier);
+        String name = nameID.getName();
+        assertEquals("Name not as expected", name, expectedName);
     }
 
     /**
@@ -72,6 +76,10 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         NameID nameID = (NameID) unmarshallElement(singleElementOptionalAttributesFile);
+
+        String name = nameID.getName();
+        assertEquals("Name not as expected", name, expectedName);
+
         String nameQualifier = nameID.getNameQualifier();
         assertEquals("NameQualifier not as expected", nameQualifier, expectedNameQualifier);
 
@@ -92,7 +100,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         NameID nameID = (NameID) buildXMLObject(qname);
 
-        nameID.setNameQualifier(expectedNameQualifier);
+        nameID.setName(expectedName);
         assertEquals(expectedDOM, nameID);
     }
 
@@ -103,6 +111,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         NameID nameID = (NameID) buildXMLObject(qname);
 
+        nameID.setName(expectedName);
         nameID.setNameQualifier(expectedNameQualifier);
         nameID.setSPNameQualifier(expectedSPNameQualifier);
         nameID.setFormat(expectedFormat);
