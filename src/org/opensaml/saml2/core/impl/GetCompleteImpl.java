@@ -21,15 +21,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.GetComplete;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.GetComplete}
  */
-public class GetCompleteImpl extends AbstractSAMLObject implements GetComplete {
+public class GetCompleteImpl extends AbstractProtocolSAMLObject implements GetComplete {
     
     /** URI element content */
     private String getComplete;
@@ -37,8 +35,8 @@ public class GetCompleteImpl extends AbstractSAMLObject implements GetComplete {
     /**
      * Constructor
      */
-    public GetCompleteImpl() {
-        super(SAMLConstants.SAML20P_NS, GetComplete.LOCAL_NAME);
+    protected GetCompleteImpl() {
+        super(GetComplete.LOCAL_NAME);
     }
 
     /**
@@ -56,9 +54,9 @@ public class GetCompleteImpl extends AbstractSAMLObject implements GetComplete {
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // No children
         return null;
     }

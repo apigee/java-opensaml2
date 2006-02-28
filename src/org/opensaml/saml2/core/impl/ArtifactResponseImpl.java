@@ -19,7 +19,6 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.ArtifactResponse;
 
 /**
@@ -31,9 +30,8 @@ public class ArtifactResponseImpl extends StatusResponseImpl implements Artifact
      * Constructor
      *
      */
-    public ArtifactResponseImpl() {
-        super(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected ArtifactResponseImpl() {
+        super(ArtifactResponse.LOCAL_NAME);
     }
     
     //TODO need to implement anything for children of type

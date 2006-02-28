@@ -59,7 +59,7 @@ public class AuthnQueryTest extends SubjectQueryTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
-        AuthnQuery query = (AuthnQuery) buildSAMLObject(qname);
+        AuthnQuery query = (AuthnQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
         
@@ -71,7 +71,7 @@ public class AuthnQueryTest extends SubjectQueryTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
-        AuthnQuery query = (AuthnQuery) buildSAMLObject(qname);
+        AuthnQuery query = (AuthnQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
         super.populateOptionalAttributes(query);
@@ -85,7 +85,7 @@ public class AuthnQueryTest extends SubjectQueryTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
-        AuthnQuery query = (AuthnQuery) buildSAMLObject(qname);
+        AuthnQuery query = (AuthnQuery) buildXMLObject(qname);
         
         super.populateChildElements(query);
         query.setRequestedAuthnContext(new RequestedAuthnContextImpl());

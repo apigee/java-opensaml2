@@ -21,15 +21,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.IDPEntry;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.IDPEntry}
  */
-public class IDPEntryImpl extends AbstractSAMLObject implements IDPEntry {
+public class IDPEntryImpl extends AbstractProtocolSAMLObject implements IDPEntry {
     
     /** The unique identifier of the IdP */
     private String providerID;
@@ -45,9 +43,8 @@ public class IDPEntryImpl extends AbstractSAMLObject implements IDPEntry {
     /**
      * Constructor
      */
-    public IDPEntryImpl() {
-        super(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected IDPEntryImpl() {
+        super(IDPEntry.LOCAL_NAME);
     }
 
     /**
@@ -96,9 +93,9 @@ public class IDPEntryImpl extends AbstractSAMLObject implements IDPEntry {
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // no children
         return null;
     }

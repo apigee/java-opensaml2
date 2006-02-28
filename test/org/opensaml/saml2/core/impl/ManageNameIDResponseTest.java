@@ -52,7 +52,7 @@ public class ManageNameIDResponseTest extends StatusResponseTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME);
-        ManageNameIDResponse resp = (ManageNameIDResponse) buildSAMLObject(qname);
+        ManageNameIDResponse resp = (ManageNameIDResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
         
@@ -64,7 +64,7 @@ public class ManageNameIDResponseTest extends StatusResponseTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME);
-        ManageNameIDResponse resp = (ManageNameIDResponse) buildSAMLObject(qname);
+        ManageNameIDResponse resp = (ManageNameIDResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
         super.populateOptionalAttributes(resp);
@@ -77,7 +77,7 @@ public class ManageNameIDResponseTest extends StatusResponseTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME);
-        ManageNameIDResponse resp = (ManageNameIDResponse) buildSAMLObject(qname);
+        ManageNameIDResponse resp = (ManageNameIDResponse) buildXMLObject(qname);
         
         super.populateChildElements(resp);
         

@@ -19,9 +19,6 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.Issuer;
@@ -30,10 +27,11 @@ import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NewEncryptedID;
 import org.opensaml.saml2.core.NewID;
 import org.opensaml.saml2.core.Terminate;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.ManageNameIDRequest}
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ManageNameIDRequest}
  * objects.
  */
 public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
@@ -46,18 +44,7 @@ public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
         super(SAMLConstants.SAML20P_NS, ManageNameIDRequest.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
-     */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue) throws UnmarshallingException, UnknownAttributeException {
-        // no attributes of our own
-        super.processAttribute(samlObject, attributeName, attributeValue);
-    }
-
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
-     */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject) throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         ManageNameIDRequest req = (ManageNameIDRequest) parentSAMLObject;
         
         //TODO may change depending on Chad's encryption implementation

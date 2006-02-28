@@ -20,10 +20,10 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.LogoutRequest;
+import org.opensaml.saml2.core.LogoutResponse;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.LogoutResponse} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.LogoutResponse} objects.
  */
 public class LogoutResponseMarshaller extends StatusResponseMarshaller {
 
@@ -32,7 +32,7 @@ public class LogoutResponseMarshaller extends StatusResponseMarshaller {
      *
      */
     public LogoutResponseMarshaller() {
-        super(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
     }
     
     // no attributes or elements of our own to marshall

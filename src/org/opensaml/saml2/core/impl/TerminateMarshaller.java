@@ -19,15 +19,12 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Terminate;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.Terminate} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.Terminate} objects.
  */
 public class TerminateMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -37,12 +34,5 @@ public class TerminateMarshaller extends AbstractSAMLObjectMarshaller {
      */
     public TerminateMarshaller() {
         super(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME);
-    }
-
-    /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // no attributes
     }
 }

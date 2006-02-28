@@ -107,12 +107,7 @@ public abstract class StatusResponseTest extends SAMLObjectBaseTestCase {
         
         sr.setID(expectedID);
         sr.setIssueInstant(expectedIssueInstant);
-        
-        // TODO
-        // Note: can't do this because it's protected.
-        // The RequestImpl constructor currently sets this
-        // automatically for SAML 2.0.
-        //sr.setVersion(expectedSAMLVersion);
+        // NOTE:  the SAML Version attribute is set automatically by the impl superclas
         
     }
     

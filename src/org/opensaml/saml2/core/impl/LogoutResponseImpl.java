@@ -19,7 +19,6 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.LogoutResponse;
 
 /**
@@ -31,9 +30,8 @@ public class LogoutResponseImpl extends StatusResponseImpl implements LogoutResp
      * Constructor
      *
      */
-    public LogoutResponseImpl() {
-        super(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected LogoutResponseImpl() {
+        super(LogoutResponse.LOCAL_NAME);
     }
     
     //  No additional attributes or child elements on this class

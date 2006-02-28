@@ -58,7 +58,7 @@ public class AttributeQueryTest extends SubjectQueryTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
-        AttributeQuery query = (AttributeQuery) buildSAMLObject(qname);
+        AttributeQuery query = (AttributeQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
         
@@ -72,7 +72,7 @@ public class AttributeQueryTest extends SubjectQueryTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
-        AttributeQuery query = (AttributeQuery) buildSAMLObject(qname);
+        AttributeQuery query = (AttributeQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
         super.populateOptionalAttributes(query);
@@ -87,7 +87,7 @@ public class AttributeQueryTest extends SubjectQueryTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
-        AttributeQuery query = (AttributeQuery) buildSAMLObject(qname);
+        AttributeQuery query = (AttributeQuery) buildXMLObject(qname);
         
        populateChildElements(query);
        for (int i= 0; i<expectedNumAttributes; i++)

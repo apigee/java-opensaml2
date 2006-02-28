@@ -63,7 +63,7 @@ public class ArtifactTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME);
-        Artifact artifact = (Artifact) buildSAMLObject(qname);
+        Artifact artifact = (Artifact) buildXMLObject(qname);
         
         artifact.setArtifact(expectedContent);
         

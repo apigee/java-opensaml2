@@ -19,14 +19,14 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnQuery;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.AuthnQuery}.
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AuthnQuery}.
  */
 public class AuthnQueryMarshaller extends SubjectQueryMarshaller {
 
@@ -39,9 +39,9 @@ public class AuthnQueryMarshaller extends SubjectQueryMarshaller {
     }
 
     /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthnQuery query = (AuthnQuery) samlObject;
         
         if (query.getSessionIndex() != null)

@@ -52,7 +52,7 @@ public class TerminateTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME);
-        Terminate term = (Terminate) buildSAMLObject(qname);
+        Terminate term = (Terminate) buildXMLObject(qname);
         
         assertEquals(expectedDOM, term);
     }

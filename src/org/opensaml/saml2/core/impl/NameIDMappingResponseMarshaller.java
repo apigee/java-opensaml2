@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameIDMappingResponse;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.NameIDMappingResponse} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.NameIDMappingResponse} objects.
  */
 public class NameIDMappingResponseMarshaller extends StatusResponseMarshaller {
 

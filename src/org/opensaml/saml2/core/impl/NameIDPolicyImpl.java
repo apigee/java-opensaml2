@@ -21,15 +21,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameIDPolicy;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.NameIDPolicy}
  */
-public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy {
+public class NameIDPolicyImpl extends AbstractProtocolSAMLObject implements NameIDPolicy {
     
     /** NameID Format URI */
     private String format;
@@ -43,9 +41,8 @@ public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy
     /**
      * Constructor
      */
-    public NameIDPolicyImpl() {
-        super(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected NameIDPolicyImpl() {
+        super(NameIDPolicy.LOCAL_NAME);
     }
 
     /**
@@ -94,9 +91,9 @@ public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // no children
         return null;
     }

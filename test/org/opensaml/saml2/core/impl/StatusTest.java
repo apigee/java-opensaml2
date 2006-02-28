@@ -55,7 +55,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
-        Status status = (Status) buildSAMLObject(qname);
+        Status status = (Status) buildXMLObject(qname);
         
         assertEquals(expectedDOM, status);
     }
@@ -67,7 +67,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
-        Status status = (Status) buildSAMLObject(qname);
+        Status status = (Status) buildXMLObject(qname);
         
         status.setStatusCode(new StatusCodeImpl());
         status.setStatusMessage(new StatusMessageImpl());

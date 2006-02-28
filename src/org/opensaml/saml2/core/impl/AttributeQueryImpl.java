@@ -23,10 +23,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeQuery;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -41,9 +40,8 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
      * Constructor
      *
      */
-    public AttributeQueryImpl() {
-        super(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected AttributeQueryImpl() {
+        super(AttributeQuery.LOCAL_NAME);
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
@@ -55,10 +53,10 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryImpl#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());

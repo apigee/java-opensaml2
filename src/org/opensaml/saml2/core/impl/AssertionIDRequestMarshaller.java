@@ -19,14 +19,11 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionIDRequest;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link orgopensaml.saml2.core.AssertionIDRequest}
+ * A thread-safe Marshaller for {@link orgopensaml.saml2.core.AssertionIDRequest}
  */
 public class AssertionIDRequestMarshaller extends RequestMarshaller {
 
@@ -38,11 +35,4 @@ public class AssertionIDRequestMarshaller extends RequestMarshaller {
         super(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // no attributes of our own
-        super.marshallAttributes(samlObject, domElement);
-    }
 }

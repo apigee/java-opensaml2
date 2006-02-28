@@ -98,13 +98,8 @@ public abstract class RequestTest extends SAMLObjectBaseTestCase {
         
         req.setID(expectedID);
         req.setIssueInstant(expectedIssueInstant);
-        
-        // TODO
-        // Note: can't do this because it's protected.
-        // The RequestImpl constructor currently sets this
-        // automatically for SAML 2.0.
-        //req.setVersion(expectedSAMLVersion);
-        
+        // NOTE:  the SAML Version attribute is set automatically by the impl superclass
+          
     }
     
     /**

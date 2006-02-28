@@ -21,15 +21,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NewID;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.NewID}
  */
-public class NewIDImpl extends AbstractSAMLObject implements NewID {
+public class NewIDImpl extends AbstractProtocolSAMLObject implements NewID {
     
     /** The new NameID */
     private String newID;
@@ -38,9 +36,8 @@ public class NewIDImpl extends AbstractSAMLObject implements NewID {
      * Constructor
      *
      */
-    public NewIDImpl() {
-        super(SAMLConstants.SAML20P_NS, NewID.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected NewIDImpl() {
+        super(NewID.LOCAL_NAME);
     }
 
     /**
@@ -58,9 +55,9 @@ public class NewIDImpl extends AbstractSAMLObject implements NewID {
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // no children
         return null;
     }

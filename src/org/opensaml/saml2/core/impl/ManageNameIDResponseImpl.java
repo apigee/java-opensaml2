@@ -19,11 +19,10 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.ManageNameIDResponse;
 
 /**
- * A {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.core.impl.ManageNameIDResponseImpl} objects.
+ * A Builder for {@link org.opensaml.saml2.core.impl.ManageNameIDResponseImpl} objects.
  */
 public class ManageNameIDResponseImpl extends StatusResponseImpl implements ManageNameIDResponse {
 
@@ -32,8 +31,7 @@ public class ManageNameIDResponseImpl extends StatusResponseImpl implements Mana
      *
      */
     public ManageNameIDResponseImpl() {
-        super(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+        super(ManageNameIDResponse.LOCAL_NAME);
     }
     
     // No additional attributes or child elements on this class

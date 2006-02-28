@@ -23,14 +23,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.saml2.core.Conditions;
 import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.saml2.core.RequestedAuthnContext;
 import org.opensaml.saml2.core.Scoping;
 import org.opensaml.saml2.core.Subject;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnRequest}.
@@ -77,9 +76,8 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
      * Constructor
      *
      */
-    public AuthnRequestImpl() {
-        super(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected AuthnRequestImpl() {
+        super(AuthnRequest.LOCAL_NAME);
     }
 
     /**
@@ -251,10 +249,10 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestImpl#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());

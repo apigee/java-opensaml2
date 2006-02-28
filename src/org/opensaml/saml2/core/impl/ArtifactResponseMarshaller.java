@@ -19,14 +19,11 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.ArtifactResponse;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link orgopensaml.saml2.core.ArtifactResponse}
+ * A thread-safe Marshaller for {@link orgopensaml.saml2.core.ArtifactResponse}
  */
 public class ArtifactResponseMarshaller extends StatusResponseMarshaller {
 
@@ -37,15 +34,5 @@ public class ArtifactResponseMarshaller extends StatusResponseMarshaller {
     public ArtifactResponseMarshaller() {
         super(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME);
     }
-
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // no attributes of our own
-        super.marshallAttributes(samlObject, domElement);
-    }
-    
-    
 
 }

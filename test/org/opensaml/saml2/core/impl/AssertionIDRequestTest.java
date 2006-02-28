@@ -57,7 +57,7 @@ public class AssertionIDRequestTest extends RequestTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
-        AssertionIDRequest req = (AssertionIDRequest) buildSAMLObject(qname);
+        AssertionIDRequest req = (AssertionIDRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
         
@@ -70,7 +70,7 @@ public class AssertionIDRequestTest extends RequestTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
-        AssertionIDRequest req = (AssertionIDRequest) buildSAMLObject(qname);
+        AssertionIDRequest req = (AssertionIDRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
         super.populateOptionalAttributes(req);
@@ -84,7 +84,7 @@ public class AssertionIDRequestTest extends RequestTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
-        AssertionIDRequest req = (AssertionIDRequest) buildSAMLObject(qname);
+        AssertionIDRequest req = (AssertionIDRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
         for (int i = 0; i< expectedNumAssertionIDRefs; i++)

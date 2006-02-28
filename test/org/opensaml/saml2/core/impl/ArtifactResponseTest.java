@@ -55,7 +55,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME);
-        ArtifactResponse ar = (ArtifactResponse) buildSAMLObject(qname);
+        ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(ar);
         
@@ -67,7 +67,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME);
-        ArtifactResponse ar = (ArtifactResponse) buildSAMLObject(qname);
+        ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(ar);
         super.populateOptionalAttributes(ar);
@@ -81,7 +81,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME);
-        ArtifactResponse ar = (ArtifactResponse) buildSAMLObject(qname);
+        ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
         
         super.populateChildElements(ar);
         

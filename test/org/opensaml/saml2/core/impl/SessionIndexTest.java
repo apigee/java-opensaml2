@@ -66,7 +66,7 @@ public class SessionIndexTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME);
-        SessionIndex si = (SessionIndex) buildSAMLObject(qname);
+        SessionIndex si = (SessionIndex) buildXMLObject(qname);
         
         si.setSessionIndex(expectedSessionIndex);
         

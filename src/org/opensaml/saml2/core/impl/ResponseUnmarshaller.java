@@ -19,15 +19,14 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Response;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.Response}
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Response}
  * objects.
  */
 public class ResponseUnmarshaller extends StatusResponseUnmarshaller {
@@ -41,9 +40,9 @@ public class ResponseUnmarshaller extends StatusResponseUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject) throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         Response resp = (Response) parentSAMLObject;
         
         // TODO may need more to handle EncryptedAssertion pending Chad's encryption implementation

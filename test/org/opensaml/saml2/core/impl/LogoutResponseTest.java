@@ -52,7 +52,7 @@ public class LogoutResponseTest extends StatusResponseTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
-        LogoutResponse resp = (LogoutResponse) buildSAMLObject(qname);
+        LogoutResponse resp = (LogoutResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
         
@@ -64,7 +64,7 @@ public class LogoutResponseTest extends StatusResponseTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
-        LogoutResponse resp = (LogoutResponse) buildSAMLObject(qname);
+        LogoutResponse resp = (LogoutResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
         super.populateOptionalAttributes(resp);
@@ -77,7 +77,7 @@ public class LogoutResponseTest extends StatusResponseTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
-        LogoutResponse resp = (LogoutResponse) buildSAMLObject(qname);
+        LogoutResponse resp = (LogoutResponse) buildXMLObject(qname);
         
         super.populateChildElements(resp);
         

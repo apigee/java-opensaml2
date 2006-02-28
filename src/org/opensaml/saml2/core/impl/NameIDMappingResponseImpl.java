@@ -23,10 +23,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Identifier;
 import org.opensaml.saml2.core.NameIDMappingResponse;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.NameIDMappingResponse}
@@ -40,9 +39,8 @@ public class NameIDMappingResponseImpl extends StatusResponseImpl implements Nam
      * Constructor
      *
      */
-    public NameIDMappingResponseImpl() {
-        super(SAMLConstants.SAML20P_NS, NameIDMappingResponse.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected NameIDMappingResponseImpl() {
+        super(NameIDMappingResponse.LOCAL_NAME);
     }
 
     /**
@@ -60,10 +58,10 @@ public class NameIDMappingResponseImpl extends StatusResponseImpl implements Nam
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseImpl#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());

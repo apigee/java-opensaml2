@@ -23,19 +23,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.saml2.core.AuthnContextComparisonType;
 import org.opensaml.saml2.core.AuthnContextDeclRef;
 import org.opensaml.saml2.core.RequestedAuthnContext;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.RequestedAuthnContext}
  */
-public class RequestedAuthnContextImpl extends AbstractSAMLObject implements RequestedAuthnContext {
+public class RequestedAuthnContextImpl extends AbstractProtocolSAMLObject implements RequestedAuthnContext {
     
     /** AuthnContextClassRef child elements */
     private XMLObjectChildrenList<AuthnContextClassRef> authnContextClassRefs; 
@@ -50,9 +48,8 @@ public class RequestedAuthnContextImpl extends AbstractSAMLObject implements Req
      * Constructor
      *
      */
-    public RequestedAuthnContextImpl() {
-        super(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected RequestedAuthnContextImpl() {
+        super(RequestedAuthnContext.LOCAL_NAME);
         
         authnContextClassRefs = new XMLObjectChildrenList<AuthnContextClassRef>(this);
         authnContextDeclRefs = new XMLObjectChildrenList<AuthnContextDeclRef>(this);
@@ -87,10 +84,10 @@ public class RequestedAuthnContextImpl extends AbstractSAMLObject implements Req
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         children.addAll(authnContextClassRefs);
         children.addAll(authnContextDeclRefs);

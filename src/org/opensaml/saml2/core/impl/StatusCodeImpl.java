@@ -23,15 +23,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.StatusCode;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.StatusCode}
  */
-public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
+public class StatusCodeImpl extends AbstractProtocolSAMLObject implements StatusCode {
     
     /** Value attribute URI*/
     private String value;
@@ -43,9 +41,8 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
      * Constructor
      *
      */
-    public StatusCodeImpl() {
-        super(SAMLConstants.SAML20P_NS, StatusCode.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected StatusCodeImpl() {
+        super(StatusCode.LOCAL_NAME);
     }
 
     /**
@@ -77,11 +74,11 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         if (childStatusCode != null) {
-            ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+            ArrayList<XMLObject> children = new ArrayList<XMLObject>();
             children.add(childStatusCode);
             return Collections.unmodifiableList(children);
         } else {

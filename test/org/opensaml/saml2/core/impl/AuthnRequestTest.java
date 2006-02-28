@@ -86,7 +86,7 @@ public class AuthnRequestTest extends RequestTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
-        AuthnRequest req = (AuthnRequest) buildSAMLObject(qname);
+        AuthnRequest req = (AuthnRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
         
@@ -99,7 +99,7 @@ public class AuthnRequestTest extends RequestTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
-        AuthnRequest req = (AuthnRequest) buildSAMLObject(qname);
+        AuthnRequest req = (AuthnRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
         super.populateOptionalAttributes(req);
@@ -120,7 +120,7 @@ public class AuthnRequestTest extends RequestTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
-        AuthnRequest req = (AuthnRequest) buildSAMLObject(qname);
+        AuthnRequest req = (AuthnRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
         

@@ -58,7 +58,7 @@ public class ResponseTest extends StatusResponseTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
-        Response resp = (Response) buildSAMLObject(qname);
+        Response resp = (Response) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
         
@@ -70,7 +70,7 @@ public class ResponseTest extends StatusResponseTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
-        Response resp = (Response) buildSAMLObject(qname);
+        Response resp = (Response) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
         super.populateOptionalAttributes(resp);
@@ -83,7 +83,7 @@ public class ResponseTest extends StatusResponseTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
-        Response resp = (Response) buildSAMLObject(qname);
+        Response resp = (Response) buildXMLObject(qname);
         
         super.populateChildElements(resp);
         for (int i=0; i<expectedNumAssertions; i++)

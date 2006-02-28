@@ -19,14 +19,11 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.ManageNameIDRequest;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.ManageNameIDRequest} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.ManageNameIDRequest} objects.
  */
 public class ManageNameIDRequestMarshaller extends RequestMarshaller {
 
@@ -37,15 +34,5 @@ public class ManageNameIDRequestMarshaller extends RequestMarshaller {
     public ManageNameIDRequestMarshaller() {
         super(SAMLConstants.SAML20P_NS, ManageNameIDRequest.LOCAL_NAME);
     }
-
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // no attributes of our own
-        super.marshallAttributes(samlObject, domElement);
-    }
-    
-    
 
 }

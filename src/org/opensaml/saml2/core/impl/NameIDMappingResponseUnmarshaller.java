@@ -19,16 +19,15 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Identifier;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameIDMappingResponse;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.NameIDMappingResponse} objects.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml2.core.NameIDMappingResponse} objects.
  */
 public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshaller {
 
@@ -41,9 +40,9 @@ public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshalle
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject) throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
        NameIDMappingResponse resp = (NameIDMappingResponse) parentSAMLObject;
        
        // NOTE: Issuer in superclass is also an instance of Identifier, so have to be careful

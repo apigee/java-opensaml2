@@ -65,7 +65,7 @@ public class RequesterIDTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME);
-        RequesterID reqID = (RequesterID) buildSAMLObject(qname);
+        RequesterID reqID = (RequesterID) buildXMLObject(qname);
 
         reqID.setRequesterID(expectedRequesterID);
         

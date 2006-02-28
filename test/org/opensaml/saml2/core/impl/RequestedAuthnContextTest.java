@@ -64,7 +64,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
-        RequestedAuthnContext rac = (RequestedAuthnContext) buildSAMLObject(qname);
+        RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
         
         assertEquals(expectedDOM, rac);
 
@@ -75,7 +75,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
-        RequestedAuthnContext rac = (RequestedAuthnContext) buildSAMLObject(qname);
+        RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
         
         rac.setComparison(AuthnContextComparisonType.EXACT);
         
@@ -87,7 +87,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
-        RequestedAuthnContext rac = (RequestedAuthnContext) buildSAMLObject(qname);
+        RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
         
         for (int i=0; i< expectedNumClassRefs; i++)
             rac.getAuthnContextClassRefs().add(new AuthnContextClassRefImpl());

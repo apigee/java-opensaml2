@@ -23,18 +23,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.IDPList;
 import org.opensaml.saml2.core.RequesterID;
 import org.opensaml.saml2.core.Scoping;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Scoping}
  */
-public class ScopingImpl extends AbstractSAMLObject implements Scoping {
+public class ScopingImpl extends AbstractProtocolSAMLObject implements Scoping {
     
     /** IDPList child element */
     private IDPList idpList;
@@ -48,9 +46,8 @@ public class ScopingImpl extends AbstractSAMLObject implements Scoping {
     /**
      * Constructor
      */
-    public ScopingImpl() {
-        super(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected ScopingImpl() {
+        super(Scoping.LOCAL_NAME);
         
         requesterIDs = new XMLObjectChildrenList<RequesterID>(this);
     }
@@ -92,10 +89,10 @@ public class ScopingImpl extends AbstractSAMLObject implements Scoping {
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         if (idpList != null)
             children.add(idpList);

@@ -65,7 +65,7 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
-        NameIDPolicy policy = (NameIDPolicy) buildSAMLObject(qname);
+        NameIDPolicy policy = (NameIDPolicy) buildXMLObject(qname);
         
         assertEquals(expectedDOM, policy);
     }
@@ -75,7 +75,7 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
-        NameIDPolicy policy = (NameIDPolicy) buildSAMLObject(qname);
+        NameIDPolicy policy = (NameIDPolicy) buildXMLObject(qname);
         
         policy.setFormat(expectedFormat);
         policy.setSPNameQualifier(expectedSPNameQualifer);

@@ -19,13 +19,13 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.LogoutResponse}
  */
-public class LogoutResponseBuilder implements SAMLObjectBuilder {
+public class LogoutResponseBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
@@ -36,9 +36,9 @@ public class LogoutResponseBuilder implements SAMLObjectBuilder {
     }
 
     /**
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public XMLObject buildObject() {
         return new LogoutResponseImpl();
     }
 

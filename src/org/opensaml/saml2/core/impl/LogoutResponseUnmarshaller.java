@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.LogoutResponse;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.LogoutResponse} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.LogoutResponse} objects.
  */
 public class LogoutResponseUnmarshaller extends StatusResponseUnmarshaller {
 

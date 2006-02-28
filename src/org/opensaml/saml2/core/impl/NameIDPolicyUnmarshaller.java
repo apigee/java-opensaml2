@@ -19,15 +19,15 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameIDPolicy;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.NameIDPolicy}
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.NameIDPolicy}
  * objects.
  */
 public class NameIDPolicyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
@@ -41,18 +41,18 @@ public class NameIDPolicyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue) throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         NameIDPolicy policy = (NameIDPolicy) samlObject;
         
-        if (attributeName.equals(NameIDPolicy.FORMAT_ATTRIB_NAME))
-            policy.setFormat(attributeValue);
-        if (attributeName.equals(NameIDPolicy.SP_NAME_QUALIFIER_ATTRIB_NAME))
-            policy.setSPNameQualifier(attributeValue);
-        if (attributeName.equals(NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME))
-            policy.setAllowCreate(Boolean.valueOf(attributeValue));
+        if (attribute.getLocalName().equals(NameIDPolicy.FORMAT_ATTRIB_NAME))
+            policy.setFormat(attribute.getValue());
+        if (attribute.getLocalName().equals(NameIDPolicy.SP_NAME_QUALIFIER_ATTRIB_NAME))
+            policy.setSPNameQualifier(attribute.getValue());
+        if (attribute.getLocalName().equals(NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME))
+            policy.setAllowCreate(Boolean.valueOf(attribute.getValue()));
         else
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
     }
 }

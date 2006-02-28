@@ -66,7 +66,7 @@ public class LogoutRequestTest extends RequestTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
-        LogoutRequest req = (LogoutRequest) buildSAMLObject(qname);
+        LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
         
@@ -78,7 +78,7 @@ public class LogoutRequestTest extends RequestTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
-        LogoutRequest req = (LogoutRequest) buildSAMLObject(qname);
+        LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
         super.populateOptionalAttributes(req);
@@ -93,7 +93,7 @@ public class LogoutRequestTest extends RequestTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
-        LogoutRequest req = (LogoutRequest) buildSAMLObject(qname);
+        LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
         req.setIdentifier(new NameIDImpl());

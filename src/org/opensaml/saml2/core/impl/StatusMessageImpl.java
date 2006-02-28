@@ -21,15 +21,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.StatusMessage;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.StatusMessage}
  */
-public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessage {
+public class StatusMessageImpl extends AbstractProtocolSAMLObject implements StatusMessage {
     
     /** The message string */
     private String message;
@@ -38,9 +36,8 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
      * Constructor
      * 
      */
-    public StatusMessageImpl() {
-        super(SAMLConstants.SAML20P_NS, StatusMessage.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected StatusMessageImpl() {
+        super(StatusMessage.LOCAL_NAME);
     }
 
     /**
@@ -58,9 +55,9 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // No children for this element
         return null;
     }

@@ -19,13 +19,13 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A {@link org.opensaml.common.SAMLObjectBuilder} for {@link org.opensaml.saml2.core.impl.AssertionIDRequestImpl}
+ * A Builder for {@link org.opensaml.saml2.core.impl.AssertionIDRequestImpl}
  */
-public class AssertionIDRequestBuilder implements SAMLObjectBuilder {
+public class AssertionIDRequestBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
@@ -35,9 +35,9 @@ public class AssertionIDRequestBuilder implements SAMLObjectBuilder {
     }
 
     /**
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public SAMLObject buildObject() {
+    public XMLObject buildObject() {
         return new AssertionIDRequestImpl();
     }
 }

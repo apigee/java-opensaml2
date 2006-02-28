@@ -23,10 +23,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnQuery;
 import org.opensaml.saml2.core.RequestedAuthnContext;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.AuthnQuery}
@@ -43,9 +42,8 @@ public class AuthnQueryImpl extends SubjectQueryImpl implements AuthnQuery {
      * Constructor
      *
      */
-    public AuthnQueryImpl() {
-        super(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected AuthnQueryImpl() {
+        super(AuthnQuery.LOCAL_NAME);
     }
 
     /**
@@ -77,10 +75,10 @@ public class AuthnQueryImpl extends SubjectQueryImpl implements AuthnQuery {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryImpl#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());

@@ -56,7 +56,7 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
-        IDPList list = (IDPList) buildSAMLObject(qname);
+        IDPList list = (IDPList) buildXMLObject(qname);
 
         assertEquals(expectedDOM, list);
     }
@@ -67,7 +67,7 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
-        IDPList list = (IDPList) buildSAMLObject(qname);
+        IDPList list = (IDPList) buildXMLObject(qname);
         
         for (int i=0; i<expectedNumIDPEntryChildren; i++)
             list.getIDPEntrys().add(new IDPEntryImpl());

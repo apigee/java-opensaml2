@@ -19,14 +19,11 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AttributeQuery;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.AttributeQuery}.
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AttributeQuery}.
  */
 public class AttributeQueryMarshaller extends SubjectQueryMarshaller {
 
@@ -38,11 +35,4 @@ public class AttributeQueryMarshaller extends SubjectQueryMarshaller {
         super(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlObject, Element domElement) throws MarshallingException {
-        // no attributes of our own
-        super.marshallAttributes(samlObject, domElement);
-    }
 }

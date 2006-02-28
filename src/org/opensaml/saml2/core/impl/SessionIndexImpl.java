@@ -21,15 +21,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SessionIndex;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.SessionIndex}
  */
-public class SessionIndexImpl extends AbstractSAMLObject implements SessionIndex {
+public class SessionIndexImpl extends AbstractProtocolSAMLObject implements SessionIndex {
     
     /** The session index value */
     private String sessionIndex;
@@ -38,9 +36,8 @@ public class SessionIndexImpl extends AbstractSAMLObject implements SessionIndex
      * Constructor
      *
      */
-    public SessionIndexImpl() {
-        super(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected SessionIndexImpl() {
+        super(SessionIndex.LOCAL_NAME);
     }
 
     /**
@@ -58,9 +55,9 @@ public class SessionIndexImpl extends AbstractSAMLObject implements SessionIndex
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // no children
         return null;
     }

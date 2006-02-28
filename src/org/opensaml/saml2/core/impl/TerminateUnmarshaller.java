@@ -24,7 +24,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Terminate;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.Terminate}
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Terminate}
  * objects.
  */
 public class TerminateUnmarshaller extends AbstractSAMLObjectUnmarshaller {

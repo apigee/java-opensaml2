@@ -21,29 +21,26 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Terminate;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Terminate}
  */
-public class TerminateImpl extends AbstractSAMLObject implements Terminate {
+public class TerminateImpl extends AbstractProtocolSAMLObject implements Terminate {
 
     /**
      * Constructor
      *
      */
     public TerminateImpl() {
-        super(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+        super(Terminate.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // no children
         return null;
     }

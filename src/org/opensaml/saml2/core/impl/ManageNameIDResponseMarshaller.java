@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.ManageNameIDResponse;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.ManageNameIDResponse} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.ManageNameIDResponse} objects.
  */
 public class ManageNameIDResponseMarshaller extends StatusResponseMarshaller {
 

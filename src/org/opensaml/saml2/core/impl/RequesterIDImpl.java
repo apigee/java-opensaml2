@@ -21,15 +21,13 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.RequesterID;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.RequesterID}
  */
-public class RequesterIDImpl extends AbstractSAMLObject implements RequesterID {
+public class RequesterIDImpl extends AbstractProtocolSAMLObject implements RequesterID {
     
     /** */
     private String requesterID;
@@ -37,8 +35,8 @@ public class RequesterIDImpl extends AbstractSAMLObject implements RequesterID {
     /**
      * Constructor
      */
-    public RequesterIDImpl() {
-        super(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME);
+    protected RequesterIDImpl() {
+        super(RequesterID.LOCAL_NAME);
     }
 
     /**
@@ -56,9 +54,9 @@ public class RequesterIDImpl extends AbstractSAMLObject implements RequesterID {
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // No children
         return null;
     }

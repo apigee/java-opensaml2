@@ -61,7 +61,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME);
-        AuthzDecisionQuery query = (AuthzDecisionQuery) buildSAMLObject(qname);
+        AuthzDecisionQuery query = (AuthzDecisionQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
         query.setResource(expectedResource);
@@ -76,7 +76,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME);
-        AuthzDecisionQuery query = (AuthzDecisionQuery) buildSAMLObject(qname);
+        AuthzDecisionQuery query = (AuthzDecisionQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
         super.populateOptionalAttributes(query);
@@ -92,7 +92,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME);
-        AuthzDecisionQuery query = (AuthzDecisionQuery) buildSAMLObject(qname);
+        AuthzDecisionQuery query = (AuthzDecisionQuery) buildXMLObject(qname);
         
         super.populateChildElements(query);
         for (int i=0; i<expectedNumActions; i++)

@@ -23,18 +23,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.GetComplete;
 import org.opensaml.saml2.core.IDPEntry;
 import org.opensaml.saml2.core.IDPList;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.IDPList}
  */
-public class IDPListImpl extends AbstractSAMLObject implements IDPList {
+public class IDPListImpl extends AbstractProtocolSAMLObject implements IDPList {
     
     /** List of IDPEntry's */
     private XMLObjectChildrenList<IDPEntry> idpEntries;
@@ -45,9 +43,8 @@ public class IDPListImpl extends AbstractSAMLObject implements IDPList {
     /**
      * Constructor
      */
-    public IDPListImpl() {
-        super(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected IDPListImpl() {
+        super(IDPList.LOCAL_NAME);
         
         idpEntries = new XMLObjectChildrenList<IDPEntry>(this);
     }
@@ -74,10 +71,10 @@ public class IDPListImpl extends AbstractSAMLObject implements IDPList {
     }
 
     /**
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         children.addAll(idpEntries);
         children.add(getComplete);
         if (children.size() > 0)

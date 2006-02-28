@@ -19,19 +19,18 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.saml2.core.AuthnContextComparisonType;
 import org.opensaml.saml2.core.AuthnContextDeclRef;
 import org.opensaml.saml2.core.RequestedAuthnContext;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.RequestedAuthnContext}
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.RequestedAuthnContext}
  * objects.
  */
 public class RequestedAuthnContextUnmarshaller extends AbstractSAMLObjectUnmarshaller {
@@ -45,30 +44,30 @@ public class RequestedAuthnContextUnmarshaller extends AbstractSAMLObjectUnmarsh
     }
 
     /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue) throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         RequestedAuthnContext rac = (RequestedAuthnContext) samlObject;
         
-        if (attributeName.equals(RequestedAuthnContext.COMPARISON_ATTRIB_NAME)) {
-            if ("exact".equals(attributeValue))
+        if (attribute.getLocalName().equals(RequestedAuthnContext.COMPARISON_ATTRIB_NAME)) {
+            if ("exact".equals(attribute.getValue()))
                 rac.setComparison(AuthnContextComparisonType.EXACT);
-            else if ("minimum".equals(attributeValue))
+            else if ("minimum".equals(attribute.getValue()))
                 rac.setComparison(AuthnContextComparisonType.MINIMUM);
-            else if ("maximum".equals(attributeValue))
+            else if ("maximum".equals(attribute.getValue()))
                 rac.setComparison(AuthnContextComparisonType.MAXIMUM);
-            else if ("better".equals(attributeValue))
+            else if ("better".equals(attribute.getValue()))
                 rac.setComparison(AuthnContextComparisonType.BETTER);
             else
-                throw new UnmarshallingException("Saw an invalid value for Comparison attribute: " + attributeValue);
+                throw new UnmarshallingException("Saw an invalid value for Comparison attribute: " + attribute.getValue());
         } else
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
     }
 
     /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject) throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         RequestedAuthnContext rac = (RequestedAuthnContext) parentSAMLObject;
         if (childSAMLObject instanceof AuthnContextClassRef)
             rac.getAuthnContextClassRefs().add((AuthnContextClassRef) childSAMLObject);

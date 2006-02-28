@@ -19,17 +19,16 @@
  */
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.AuthzDecisionQuery;
 import org.opensaml.saml2.core.Evidence;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.core.AuthzDecisionQuery} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AuthzDecisionQuery} objects.
  */
 public class AuthzDecisionQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
@@ -42,21 +41,21 @@ public class AuthzDecisionQueryUnmarshaller extends SubjectQueryUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue) throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AuthzDecisionQuery query = (AuthzDecisionQuery) samlObject;
         
-        if (attributeName.equals(AuthzDecisionQuery.RESOURCE_ATTRIB_NAME))
-            query.setResource(attributeValue);
+        if (attribute.getLocalName().equals(AuthzDecisionQuery.RESOURCE_ATTRIB_NAME))
+            query.setResource(attribute.getValue());
         else
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject) throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         AuthzDecisionQuery query = (AuthzDecisionQuery) parentSAMLObject;
         
         if (childSAMLObject instanceof Action)

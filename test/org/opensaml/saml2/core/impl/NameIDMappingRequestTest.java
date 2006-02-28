@@ -54,7 +54,7 @@ public class NameIDMappingRequestTest extends RequestTest {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME);
-        NameIDMappingRequest req = (NameIDMappingRequest) buildSAMLObject(qname);
+        NameIDMappingRequest req = (NameIDMappingRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
         
@@ -66,7 +66,7 @@ public class NameIDMappingRequestTest extends RequestTest {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME);
-        NameIDMappingRequest req = (NameIDMappingRequest) buildSAMLObject(qname);
+        NameIDMappingRequest req = (NameIDMappingRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
         super.populateOptionalAttributes(req);
@@ -79,7 +79,7 @@ public class NameIDMappingRequestTest extends RequestTest {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME);
-        NameIDMappingRequest req = (NameIDMappingRequest) buildSAMLObject(qname);
+        NameIDMappingRequest req = (NameIDMappingRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
         req.setIdentifier(new NameIDImpl());

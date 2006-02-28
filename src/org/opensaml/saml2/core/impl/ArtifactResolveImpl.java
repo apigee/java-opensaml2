@@ -23,10 +23,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Artifact;
 import org.opensaml.saml2.core.ArtifactResolve;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.ArtifactResolve}
@@ -40,9 +39,8 @@ public class ArtifactResolveImpl extends RequestImpl implements ArtifactResolve 
      * Constructor
      *
      */
-    public ArtifactResolveImpl() {
-        super(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20P_PREFIX);
+    protected ArtifactResolveImpl() {
+        super(ArtifactResolve.LOCAL_NAME);
     }
 
     /**
@@ -60,10 +58,10 @@ public class ArtifactResolveImpl extends RequestImpl implements ArtifactResolve 
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestImpl#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
