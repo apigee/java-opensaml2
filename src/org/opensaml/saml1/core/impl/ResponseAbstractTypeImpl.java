@@ -14,31 +14,19 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
+import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ResponseAbstractType;
 
 /**
  * Abstract implementation of the (abstract) {@link org.opensaml.saml1.core.ResponseAbstractType} Object
  */
-public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObject implements ResponseAbstractType {
-
-    /**
-     * Constructor
-     *
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected ResponseAbstractTypeImpl(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
+public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolSAMLObject implements
+        ResponseAbstractType {
 
     /** Contents of the InResponseTo attribute */
     private String inResponseTo = null;
@@ -51,6 +39,27 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObjec
 
     /** Contents of the recipient attribute */
     private String recipient = null;
+
+    /**
+     * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to {@link SAMLConstants#SAML1_PREFIX}.
+     * Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * 
+     * @param localName the local name of the element
+     */
+    protected ResponseAbstractTypeImpl(String elementLocalName) {
+        super(elementLocalName);
+    }
+
+    /**
+     * Constructor. Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
+     */
+    protected ResponseAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 
     /*
      * @see org.opensaml.saml1.core.Response#getInResponseTo()

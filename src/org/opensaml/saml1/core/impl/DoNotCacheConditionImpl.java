@@ -14,37 +14,30 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.DoNotCacheCondition;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implememtation of a {@link org.opensaml.saml1.core.DoNotCacheCondition} Objects
  */
-public class DoNotCacheConditionImpl extends AbstractSAMLObject implements DoNotCacheCondition {
+public class DoNotCacheConditionImpl extends AbstractAssertionSAMLObject implements DoNotCacheCondition {
 
     /**
      * Constructor
      * 
      */
     public DoNotCacheConditionImpl() {
-        super(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+        super(DoNotCacheCondition.LOCAL_NAME);
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

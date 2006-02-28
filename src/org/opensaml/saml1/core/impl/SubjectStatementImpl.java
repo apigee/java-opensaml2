@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.SAMLVersion;

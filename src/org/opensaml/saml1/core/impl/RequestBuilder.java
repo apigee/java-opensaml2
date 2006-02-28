@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.Request;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Class which is here to create a {@link RequestImpl} object
  */
-public class RequestBuilder implements SAMLObjectBuilder<Request> {
+public class RequestBuilder implements XMLObjectBuilder {
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /**
+     * Constructor
      */
-    public Request buildObject() {
-        return new RequestImpl();
+    public RequestBuilder() {
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new RequestImpl();
+    }
 }

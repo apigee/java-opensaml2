@@ -22,6 +22,8 @@ package org.opensaml.saml1.core;
 
 /**
  * Encapsulation of the SAML1 DecisionType
+ * 
+ * TODO change from JDK 1.5 to 1.4 typesafe enum struct
  */
 public enum DecisionType {
 

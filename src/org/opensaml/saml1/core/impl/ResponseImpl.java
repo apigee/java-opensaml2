@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -38,18 +33,18 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
 
     /** Status associated with this element */
     private Status status = null;
-    
+
     /** List of all the Assertions */
     private List<Assertion> assertions;
+
     /**
      * Constructor
      */
     protected ResponseImpl() {
-        super(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
+        super(Response.LOCAL_NAME);
+
         assertions = new XMLObjectChildrenList<Assertion>(this);
     }
-
 
     /*
      * @see org.opensaml.saml1.core.Response#getAssertions()
@@ -57,7 +52,7 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
     public List<Assertion> getAssertions() {
         return assertions;
     }
-    
+
     /*
      * @see org.opensaml.saml1.core.Response#getStatus()
      */
@@ -72,8 +67,11 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
         this.status = prepareForAssignment(this.status, status);
     }
 
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>(1+assertions.size());
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
+     */
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>(1 + assertions.size());
 
         children.addAll(assertions);
 
@@ -84,7 +82,7 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
         if (children.size() == 0) {
             return null;
         }
-        
+
         return Collections.unmodifiableList(children);
     }
 }

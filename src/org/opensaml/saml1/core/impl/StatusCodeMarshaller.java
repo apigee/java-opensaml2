@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- *  A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.StatusCode} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.StatusCode} objects.
  */
 public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -40,9 +36,10 @@ public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         StatusCode statusCode = (StatusCode) samlElement;
 
         if (statusCode.getValue() != null) {

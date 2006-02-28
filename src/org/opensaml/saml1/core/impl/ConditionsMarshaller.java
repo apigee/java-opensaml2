@@ -14,22 +14,18 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Conditions;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * 
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.Conditions} objects.
  */
 public class ConditionsMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -41,10 +37,10 @@ public class ConditionsMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
 
         Conditions conditions = (Conditions) samlElement;
 

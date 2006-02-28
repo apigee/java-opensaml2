@@ -14,32 +14,26 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.ConfirmationMethod} interface
  */
-public class ConfirmationMethodImpl extends AbstractSAMLObject implements ConfirmationMethod {
+public class ConfirmationMethodImpl extends AbstractAssertionSAMLObject implements ConfirmationMethod {
 
     /** Contains the content string */
     private String confirmationMethod;
-    
+
     /**
      * Constructor
      */
-    public ConfirmationMethodImpl() {
-        super(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected ConfirmationMethodImpl() {
+        super(ConfirmationMethod.LOCAL_NAME);
     }
 
     /*
@@ -59,8 +53,7 @@ public class ConfirmationMethodImpl extends AbstractSAMLObject implements Confir
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
-
 }

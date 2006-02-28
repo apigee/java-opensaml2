@@ -14,39 +14,32 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Complete implementation of {@link org.opensaml.saml1.core.impl.NameIdentifierImpl}
  */
-
-public class NameIdentifierImpl extends AbstractSAMLObject implements NameIdentifier {
+public class NameIdentifierImpl extends AbstractAssertionSAMLObject implements NameIdentifier {
 
     /** Contents of the NameQualifierAttribute */
     String nameQualifier;
-    
+
     /** Contents of the Format */
     String format;
-    
+
     /** Contents of the elemen body */
     String nameIdentifier;
-    
+
     /**
      * Constructor
      */
-    public NameIdentifierImpl() {
-        super(SAMLConstants.SAML1_NS, NameIdentifier.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected NameIdentifierImpl() {
+        super(NameIdentifier.LOCAL_NAME);
     }
 
     /*
@@ -86,10 +79,9 @@ public class NameIdentifierImpl extends AbstractSAMLObject implements NameIdenti
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
-
 }

@@ -14,32 +14,26 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectConfirmationData;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.SubjectConfirmationData} interface
  */
-public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements SubjectConfirmationData {
+public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject implements SubjectConfirmationData {
 
     /** Contains the content string */
     private String confirmationData;
-    
+
     /**
      * Constructor
      */
-    public SubjectConfirmationDataImpl() {
-        super(SAMLConstants.SAML1_NS, SubjectConfirmationData.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected SubjectConfirmationDataImpl() {
+        super(SubjectConfirmationData.LOCAL_NAME);
     }
 
     /*
@@ -59,8 +53,7 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
-
 }

@@ -14,23 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusMessage;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of org.opensaml.saml1.core StatusMessage object
  */
-public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessage {
+public class StatusMessageImpl extends AbstractProtocolSAMLObject implements StatusMessage {
 
     /**
      * Contents of the element
@@ -40,9 +34,8 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
     /**
      * Constructor
      */
-    public StatusMessageImpl() {
-        super(SAMLConstants.SAML1P_NS, StatusMessage.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
+    protected StatusMessageImpl() {
+        super(StatusMessage.LOCAL_NAME);
     }
 
     /*
@@ -60,9 +53,9 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         return null;
     }
 }

@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * 
+ * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.NameIdentifier} objects.
  */
 public class NameIdentifierUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -40,27 +36,26 @@ public class NameIdentifierUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         NameIdentifier nameIdentifier = (NameIdentifier) samlObject;
 
-        if (NameIdentifier.FORMAT_ATTRIB_NAME.equals(attributeName)) {
-            nameIdentifier.setFormat(attributeValue);
-        } else if (NameIdentifier.NAMEQUALIFIER_ATTRIB_NAME.equals(attributeName)) {
-            nameIdentifier.setNameQualifier(attributeValue);
+        if (NameIdentifier.FORMAT_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            nameIdentifier.setFormat(attribute.getValue());
+        } else if (NameIdentifier.NAMEQUALIFIER_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            nameIdentifier.setNameQualifier(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         NameIdentifier nameIdentifier = (NameIdentifier) samlObject;
         nameIdentifier.setNameIdentifier(elementContent);
     }

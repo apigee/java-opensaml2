@@ -14,32 +14,28 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.DoNotCacheCondition;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * This is a concrete implementation of the {@link org.opensaml.saml1.core.Conditions} interface.
  */
-public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
+public class ConditionsImpl extends AbstractAssertionSAMLObject implements Conditions {
 
     /** Value saved in the NotBefore attribute */
     private DateTime notBefore;
@@ -48,14 +44,13 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
     private DateTime notOnOrAfter;
 
     /** Set containing all the Conditions */
-    private final IndexedXMLObjectChildrenList <Condition> conditions = new IndexedXMLObjectChildrenList<Condition>(this);
+    private final IndexedXMLObjectChildrenList<Condition> conditions = new IndexedXMLObjectChildrenList<Condition>(this);
 
     /**
      * Constructor
      */
-    public ConditionsImpl() {
-        super(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected ConditionsImpl() {
+        super(Conditions.LOCAL_NAME);
     }
 
     /*
@@ -97,7 +92,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml1.core.Conditions#getConditions(javax.xml.namespace.QName)
      */
     public List<Condition> getConditions(QName typeOrName) {
-        
+
         List<Condition> list = conditions.get(typeOrName);
         if (list == null || list.size() == 0) {
             return null;
@@ -124,11 +119,11 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         if (conditions.size() == 0) {
             return null;
         }
-        ArrayList<SAMLObject> children = new ArrayList<SAMLObject>();
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         children.addAll(conditions);
         return Collections.unmodifiableList(children);
     }

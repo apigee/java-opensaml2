@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -25,8 +21,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.DoNotCacheCondition;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.DoNotCacheCondition}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.DoNotCacheCondition} objects.
  */
 public class DoNotCacheConditionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

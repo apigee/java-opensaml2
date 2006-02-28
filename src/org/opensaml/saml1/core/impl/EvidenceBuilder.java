@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.saml1.core.Evidence;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.EvidenceImpl} Object 
+ * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.EvidenceImpl} Object
  */
-public class EvidenceBuilder implements SAMLObjectBuilder<Evidence> {
+public class EvidenceBuilder implements XMLObjectBuilder {
+
+    /**
+     * Constructor
+     */
+    public EvidenceBuilder() {
+
+    }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public Evidence buildObject() {
         return new EvidenceImpl();
     }
-
 }

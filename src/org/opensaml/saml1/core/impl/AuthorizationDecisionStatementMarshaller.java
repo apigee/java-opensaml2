@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- *A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} objects.
  */
 public class AuthorizationDecisionStatementMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -39,23 +36,22 @@ public class AuthorizationDecisionStatementMarshaller extends AbstractSAMLObject
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
-    @Override
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         AuthorizationDecisionStatement authorizationDecisionStatement;
-        
+
         authorizationDecisionStatement = (AuthorizationDecisionStatement) samlElement;
-        
+
         if (authorizationDecisionStatement.getResource() != null) {
-            domElement.setAttribute(AuthorizationDecisionStatement.RESOURCE_ATTRIB_NAME,
-                    authorizationDecisionStatement.getResource());
+            domElement.setAttribute(AuthorizationDecisionStatement.RESOURCE_ATTRIB_NAME, authorizationDecisionStatement
+                    .getResource());
         }
- 
+
         if (authorizationDecisionStatement.getDecision() != null) {
-            domElement.setAttribute(AuthorizationDecisionStatement.DECISION_ATTRIB_NAME,
-                    authorizationDecisionStatement.getDecision().toString());
+            domElement.setAttribute(AuthorizationDecisionStatement.DECISION_ATTRIB_NAME, authorizationDecisionStatement
+                    .getDecision().toString());
         }
     }
-
 }

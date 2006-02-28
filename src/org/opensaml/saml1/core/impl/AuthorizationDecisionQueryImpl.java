@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 import org.opensaml.saml1.core.Evidence;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -37,20 +34,20 @@ public class AuthorizationDecisionQueryImpl extends SubjectQueryImpl implements 
 
     /** Contains the resource attribute */
     private String resource;
-    
-    /** Contains all the Action child elements*/ 
+
+    /** Contains all the Action child elements */
     private final List<Action> actions;
-    
+
     /** Contains the Evidence child element */
     private Evidence evidence;
-    
+
     /**
      * Constructor
      */
-    public AuthorizationDecisionQueryImpl() {
-        super(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME);
+    protected AuthorizationDecisionQueryImpl() {
+        super(AuthorizationDecisionQuery.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
-        actions = new XMLObjectChildrenList<Action>(this); 
+        actions = new XMLObjectChildrenList<Action>(this);
     }
 
     /*
@@ -67,20 +64,32 @@ public class AuthorizationDecisionQueryImpl extends SubjectQueryImpl implements 
         this.resource = prepareForAssignment(this.resource, resource);
     }
 
+    /*
+     * @see org.opensaml.saml1.core.AuthorizationDecisionQuery#getActions()
+     */
     public List<Action> getActions() {
         return actions;
     }
 
+    /*
+     * @see org.opensaml.saml1.core.AuthorizationDecisionQuery#getEvidence()
+     */
     public Evidence getEvidence() {
         return evidence;
     }
 
+    /*
+     * @see org.opensaml.saml1.core.AuthorizationDecisionQuery#setEvidence(org.opensaml.saml1.core.Evidence)
+     */
     public void setEvidence(Evidence evidence) {
         this.evidence = prepareForAssignment(this.evidence, evidence);
     }
 
-    public List<SAMLObject> getOrderedChildren() {
-        List<SAMLObject> list = new ArrayList<SAMLObject>(actions.size()+2);
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
+     */
+    public List<XMLObject> getOrderedChildren() {
+        List<XMLObject> list = new ArrayList<XMLObject>(actions.size() + 2);
         if (getSubject() != null) {
             list.add(getSubject());
         }
@@ -89,7 +98,5 @@ public class AuthorizationDecisionQueryImpl extends SubjectQueryImpl implements 
             list.add(evidence);
         }
         return Collections.unmodifiableList(list);
-        
     }
-
 }

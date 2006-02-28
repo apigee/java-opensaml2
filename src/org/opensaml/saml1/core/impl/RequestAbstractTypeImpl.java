@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.impl.AbstractSignableSAMLObject;
+import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.RespondWith;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -31,23 +29,38 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete (but abstract) class for <code> org.opensaml.saml1.core.RequestAbstractType </code>
  */
-public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject implements RequestAbstractType {
+public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSAMLObject implements RequestAbstractType {
 
     /** Contains the minor version */
     private int version;
-    
+
     /** Containt the IssueInstant */
     public DateTime issueInstant;
-    
-    /** Contains the RespondWiths */
-    public final List<RespondWith> RespondWiths; 
-    
+
+    /** Contains the respondWiths */
+    public final List<RespondWith> respondWiths;
+
     /**
-     * Constructor.
+     * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to {@link SAMLConstants#SAML1_PREFIX}.
+     * Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * 
+     * @param localName the local name of the element
      */
-    public RequestAbstractTypeImpl(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-        RespondWiths = new XMLObjectChildrenList<RespondWith>(this);
+    protected RequestAbstractTypeImpl(String elementLocalName) {
+        super(elementLocalName);
+        respondWiths = new XMLObjectChildrenList<RespondWith>(this);
+    }
+
+    /**
+     * Constructor. Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
+     */
+    protected RequestAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+        respondWiths = new XMLObjectChildrenList<RespondWith>(this);
     }
 
     public int getMinorVersion() {
@@ -70,6 +83,6 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject
     }
 
     public List<RespondWith> getRespondWiths() {
-        return RespondWiths;
+        return respondWiths;
     }
 }

@@ -14,39 +14,33 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectConfirmation;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Complete implementation of {@link org.opensaml.saml1.core.Subject}
  */
-public class SubjectImpl extends AbstractSAMLObject implements Subject {
+public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject {
 
     /** Contains the NameIdentifier inside the Subject */
     private NameIdentifier nameIdentifier;
 
     /** Contains the SubjectConfirmation inside the Subject */
     private SubjectConfirmation subjectConfirmation;
-    
+
     /**
      * Constructor
      */
     public SubjectImpl() {
-        super(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+        super(Subject.LOCAL_NAME);
     }
 
     /*
@@ -80,22 +74,21 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-       
-        List<SAMLObject> list = new ArrayList<SAMLObject>(2);
-        
+    public List<XMLObject> getOrderedChildren() {
+
+        List<XMLObject> list = new ArrayList<XMLObject>(2);
+
         if (nameIdentifier != null) {
             list.add(nameIdentifier);
         }
-        
+
         if (subjectConfirmation != null) {
             list.add(subjectConfirmation);
         }
         if (list.size() == 0) {
             return null;
         }
-        
+
         return Collections.unmodifiableList(list);
     }
-
 }

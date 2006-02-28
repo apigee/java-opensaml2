@@ -14,46 +14,42 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
 import org.opensaml.saml1.core.Evidence;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * A concrete implementation of {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} 
+ * A concrete implementation of {@link org.opensaml.saml1.core.AuthorizationDecisionStatement}
  */
 public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl implements AuthorizationDecisionStatement {
 
     /** Contains the Resource attribute */
     private String resource;
-    
+
     /** Contains the Decision attribute */
     private DecisionType decision;
-    
+
     /** Contains the list of Action elements */
     private final List<Action> actions;
-    
+
     /** Contains the (single) Evidence element */
     private Evidence evidence;
-    
+
     /**
      * Constructor
      */
-    public AuthorizationDecisionStatementImpl() {
-        super(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected AuthorizationDecisionStatementImpl() {
+        super(AuthorizationDecisionStatement.LOCAL_NAME);
+
         actions = new XMLObjectChildrenList<Action>(this);
     }
 
@@ -92,7 +88,6 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
         return actions;
     }
 
-
     /*
      * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#getEvidence()
      */
@@ -110,9 +105,9 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        List<SAMLObject> list = new ArrayList<SAMLObject>(actions.size() + 2);
-        
+    public List<XMLObject> getOrderedChildren() {
+        List<XMLObject> list = new ArrayList<XMLObject>(actions.size() + 2);
+
         if (getSubject() != null) {
             list.add(getSubject());
         }

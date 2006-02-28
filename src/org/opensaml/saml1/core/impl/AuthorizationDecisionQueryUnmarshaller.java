@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 import org.opensaml.saml1.core.Evidence;
 import org.opensaml.saml1.core.Subject;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.AuthorizationDecisionQuery} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AuthorizationDecisionQuery} objects.
  */
 public class AuthorizationDecisionQueryUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -42,11 +37,11 @@ public class AuthorizationDecisionQueryUnmarshaller extends AbstractSAMLObjectUn
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
 
         AuthorizationDecisionQuery authorizationDecisionQuery;
         authorizationDecisionQuery = (AuthorizationDecisionQuery) parentSAMLObject;
@@ -63,19 +58,18 @@ public class AuthorizationDecisionQueryUnmarshaller extends AbstractSAMLObjectUn
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
 
         AuthorizationDecisionQuery authorizationDecisionQuery;
         authorizationDecisionQuery = (AuthorizationDecisionQuery) samlObject;
 
-        if (attributeName.equals(AuthorizationDecisionQuery.RESOURCE_ATTRIB_NAME)) {
-            authorizationDecisionQuery.setResource(attributeValue);
+        if (attribute.getLocalName().equals(AuthorizationDecisionQuery.RESOURCE_ATTRIB_NAME)) {
+            authorizationDecisionQuery.setResource(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

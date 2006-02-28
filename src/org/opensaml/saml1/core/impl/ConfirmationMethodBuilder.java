@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.ConfirmationMethod;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Class whose only job is to create {@link org.opensaml.saml1.core.impl.ConfirmationMethodImpl} objects
  */
-public class ConfirmationMethodBuilder implements SAMLObjectBuilder<ConfirmationMethod> {
+public class ConfirmationMethodBuilder implements XMLObjectBuilder {
+
+    /**
+     * Constructor
+     */
+    public ConfirmationMethodBuilder() {
+
+    }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public ConfirmationMethod buildObject() {
+    public XMLObject buildObject() {
         return new ConfirmationMethodImpl();
     }
 }

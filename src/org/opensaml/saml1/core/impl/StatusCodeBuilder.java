@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Class whose sole jobe is the creation of a {@link StatusCodeImpl} object
  */
-public class StatusCodeBuilder implements SAMLObjectBuilder<StatusCode> {
+public class StatusCodeBuilder implements XMLObjectBuilder {
 
-    public StatusCode buildObject() {
-        return new StatusCodeImpl();
+    /**
+     * Constructor
+     */
+    public StatusCodeBuilder() {
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new StatusCodeImpl();
+    }
 }

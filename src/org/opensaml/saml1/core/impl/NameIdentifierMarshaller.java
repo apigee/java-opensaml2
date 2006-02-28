@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- *
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.NameIdentifier} objects.
  */
 public class NameIdentifierMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
+     * 
      * @throws IllegalArgumentException
      */
     public NameIdentifierMarshaller() throws IllegalArgumentException {
@@ -40,28 +38,28 @@ public class NameIdentifierMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
-    @Override
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         NameIdentifier nameIdentifier = (NameIdentifier) samlElement;
-        
+
         if (nameIdentifier.getNameQualifier() != null) {
             domElement.setAttribute(NameIdentifier.NAMEQUALIFIER_ATTRIB_NAME, nameIdentifier.getNameQualifier());
         }
-        
+
         if (nameIdentifier.getFormat() != null) {
             domElement.setAttribute(NameIdentifier.FORMAT_ATTRIB_NAME, nameIdentifier.getFormat());
         }
     }
-    
+
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallElementContent(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
      */
-    protected void marshallElementContent(SAMLObject samlObject, Element domElement) throws MarshallingException {
+    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameIdentifier nameIdentifier = (NameIdentifier) samlObject;
-        
+
         if (nameIdentifier.getNameIdentifier() != null) {
             domElement.setTextContent(nameIdentifier.getNameIdentifier());
         }

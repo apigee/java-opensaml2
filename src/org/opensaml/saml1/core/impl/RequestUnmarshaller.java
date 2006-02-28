@@ -14,17 +14,11 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AssertionIDReference;
@@ -32,10 +26,12 @@ import org.opensaml.saml1.core.Query;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.RespondWith;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
- * A thread safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Request} objects.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.Request} objects.
  */
 public class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -47,13 +43,12 @@ public class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject, org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    @Override
-    protected void processChildElement(SAMLObject parentElement, SAMLObject childElement)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {
         Request request = (Request) parentElement;
-        
+
         try {
             if (childElement instanceof RespondWith) {
                 request.getRespondWiths().add((RespondWith) childElement);
@@ -64,7 +59,7 @@ public class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             } else if (childElement instanceof AssertionArtifact) {
                 request.getAssertionArtifacts().add((AssertionArtifact) childElement);
             } else {
-               super.processChildElement(parentElement, childElement);
+                super.processChildElement(parentElement, childElement);
             }
         } catch (IllegalArgumentException e) {
             throw new UnmarshallingException(e);
@@ -72,27 +67,25 @@ public class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject, java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    @Override
-    protected void processAttribute(SAMLObject samlElement, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
-        
+    protected void processAttribute(XMLObject samlElement, Attr attribute) throws UnmarshallingException {
+
         Request request = (Request) samlElement;
-        
-        if (RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME.equals(attributeName)) {
-            DateTime cal = new DateTime(attributeValue, ISOChronology.getInstanceUTC());
+
+        if (RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            DateTime cal = new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC());
             request.setIssueInstant(cal);
-        } else if (RequestAbstractType.MINORVERSION_ATTRIB_NAME.equals(attributeName)) {
-            request.setMinorVersion(Integer.parseInt(attributeValue));
-        } else if (RequestAbstractType.MAJORVERSION_ATTRIB_NAME.equals(attributeName)) {
-            if (Integer.parseInt(attributeValue) != 1) {
-                throw new UnmarshallingException(attributeValue + " is invalid valued for " +
-                          RequestAbstractType.MAJORVERSION_ATTRIB_NAME + ": 1 expected");
+        } else if (RequestAbstractType.MINORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            request.setMinorVersion(Integer.parseInt(attribute.getValue()));
+        } else if (RequestAbstractType.MAJORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            if (Integer.parseInt(attribute.getValue()) != 1) {
+                throw new UnmarshallingException(attribute.getValue() + " is invalid valued for "
+                        + RequestAbstractType.MAJORVERSION_ATTRIB_NAME + ": 1 expected");
             }
         } else {
-            super.processAttribute(samlElement, attributeName, attributeValue);
+            super.processAttribute(samlElement, attribute);
         }
     }
-
 }

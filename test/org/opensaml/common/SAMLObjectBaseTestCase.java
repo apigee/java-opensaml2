@@ -66,7 +66,7 @@ public abstract class SAMLObjectBaseTestCase extends XMLObjectBaseTestCase {
             expectedOptionalAttributesDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                     .getResourceAsStream(singleElementOptionalAttributesFile)));
         }
-        
+
         if (childElementsFile != null) {
             expectedChildElementsDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                     .getResourceAsStream(childElementsFile)));
@@ -115,16 +115,14 @@ public abstract class SAMLObjectBaseTestCase extends XMLObjectBaseTestCase {
      * Tests unmarshalling a document that contains a single element (no children) with all that element's optional
      * attributes.
      */
-    public void testSingleElementOptionalAttributesUnmarshall()
-    {
+    public void testSingleElementOptionalAttributesUnmarshall() {
         assertNull("No testSingleElementOptionalAttributesUnmarshall present", singleElementOptionalAttributesFile);
     }
 
     /**
      * Tests unmarshalling a document that contains a single element with children.
      */
-    public void testChildElementsUnmarshall()
-    {
+    public void testChildElementsUnmarshall() {
         assertNull("No testSingleElementChildElementsUnmarshall present", childElementsFile);
     }
 
@@ -136,27 +134,37 @@ public abstract class SAMLObjectBaseTestCase extends XMLObjectBaseTestCase {
     /**
      * Tests marshalling the contents of a single element, with all optional attributes, to a DOM document.
      */
-    public void testSingleElementOptionalAttributesMarshall()
-    {
+    public void testSingleElementOptionalAttributesMarshall() {
         assertNull("No testSingleElementOptionalAttributesMarshall", expectedOptionalAttributesDOM);
     }
 
     /**
      * Tests marshalling the contents of a single element with child elements to a DOM document.
-    */
-    public void testChildElementsMarshall()
-    {
+     */
+    public void testChildElementsMarshall() {
         assertNull("No testSingleElementChildElementsMarshall", expectedChildElementsDOM);
     }
-    
+
     static {
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-        
-        try{
-        Document saml2mdConfig = ppMgr.parse(SAMLObjectBaseTestCase.class.getResourceAsStream("/conf/saml2-metadata-config.xml"));
-        Configuration.load(saml2mdConfig);
-        
-        }catch(Exception e){
+
+        try {
+            // SAML 1.X Assertion Object Provider Configuration
+            Document saml1AssertionConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
+                    .getResourceAsStream("/conf/saml1-assertion-config.xml"));
+            Configuration.load(saml1AssertionConfig);
+            
+            // SAML 1.X Protocol Object Provider Configuration
+            Document saml1ProtocolConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
+                    .getResourceAsStream("/conf/saml1-protocol-config.xml"));
+            Configuration.load(saml1ProtocolConfig);
+            
+            //SAML 2.0 Metadata Object Provider Configuration
+            Document saml2mdConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
+                    .getResourceAsStream("/conf/saml2-metadata-config.xml"));
+            Configuration.load(saml2mdConfig);
+
+        } catch (Exception e) {
             System.err.println("Unable to configure OpenSAML: " + e);
         }
     }

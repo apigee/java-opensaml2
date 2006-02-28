@@ -14,23 +14,18 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Evidence;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Evidence} objects.
+ * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.Evidence} objects.
  */
 public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -45,8 +40,8 @@ public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
      *      org.opensaml.common.SAMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
 
         Evidence evidence = (Evidence) parentSAMLObject;
 

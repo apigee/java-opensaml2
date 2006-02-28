@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.DoNotCacheCondition;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * Thread safe  {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.DoNotCacheCondition} objects
- * */
+ * Thread safe Marshaller for {@link org.opensaml.saml1.core.DoNotCacheCondition} objects
+ */
 public class DoNotCacheConditionMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
@@ -36,13 +30,5 @@ public class DoNotCacheConditionMarshaller extends AbstractSAMLObjectMarshaller 
      */
     public DoNotCacheConditionMarshaller() {
         super(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
-    }
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        
-        // No attributes to Marshall
     }
 }

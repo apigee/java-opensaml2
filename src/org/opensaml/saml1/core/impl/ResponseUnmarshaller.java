@@ -14,25 +14,20 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.impl.UnknownAttributeException;
-import org.opensaml.common.impl.UnknownElementException;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Response} objects.
@@ -48,11 +43,11 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processChildElement(org.opensaml.common.SAMLObject,
-     *      org.opensaml.common.SAMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(SAMLObject parentSAMLObject, SAMLObject childSAMLObject)
-            throws UnmarshallingException, UnknownElementException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
 
         Response response = (Response) parentSAMLObject;
 
@@ -66,21 +61,20 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(SAMLObject samlObject, String attributeName, String attributeValue)
-            throws UnmarshallingException, UnknownAttributeException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
 
         Response response = (Response) samlObject;
 
-        if (attributeName.equals(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME)) {
-            response.setInResponseTo(attributeValue);
-        } else if (attributeName.equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)) {
-            response.setIssueInstant(new DateTime(attributeValue, ISOChronology.getInstanceUTC()));
-        } else if (attributeName.equals(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME)) {
+        if (attribute.getLocalName().equals(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME)) {
+            response.setInResponseTo(attribute.getValue());
+        } else if (attribute.getLocalName().equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)) {
+            response.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
+        } else if (attribute.getLocalName().equals(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME)) {
             try {
-                if (Integer.parseInt(attributeValue) != 1) {
+                if (Integer.parseInt(attribute.getValue()) != 1) {
                     log.error("SAML version must be 1");
                     throw new UnmarshallingException("SAML version must be 1");
                 }
@@ -88,18 +82,18 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 log.error("Parsing major version ", n);
                 throw new UnmarshallingException(n);
             }
-        } else if (attributeName.equals(ResponseAbstractType.MINORVERSION_ATTRIB_NAME)) {
+        } else if (attribute.getLocalName().equals(ResponseAbstractType.MINORVERSION_ATTRIB_NAME)) {
             try {
-                int newVersion = Integer.parseInt(attributeValue);
+                int newVersion = Integer.parseInt(attribute.getValue());
                 response.setMinorVersion(newVersion);
             } catch (NumberFormatException n) {
                 log.error("Parsing minor version ", n);
                 throw new UnmarshallingException(n);
             }
-        } else if (attributeName.equals(ResponseAbstractType.RECIPIENT_ATTRIB_NAME)) {
-            response.setRecipient(attributeValue);
+        } else if (attribute.getLocalName().equals(ResponseAbstractType.RECIPIENT_ATTRIB_NAME)) {
+            response.setRecipient(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attributeName, attributeValue);
+            super.processAttribute(samlObject, attribute);
         }
     }
 }

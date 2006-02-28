@@ -14,20 +14,15 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectConfirmationData;
+import org.opensaml.xml.XMLObject;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.SubjectConfirmationData}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.SubjectConfirmationData} objects.
  */
 public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -39,10 +34,10 @@ public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmar
     }
 
     /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#unmarshallElementContent(org.opensaml.common.SAMLObject,
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
      */
-    protected void unmarshallElementContent(SAMLObject samlObject, String elementContent) {
+    protected void processElementContent(XMLObject samlObject, String elementContent) {
         SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) samlObject;
         subjectConfirmationData.setConfirmationData(elementContent);
     }

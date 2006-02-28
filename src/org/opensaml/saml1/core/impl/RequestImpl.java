@@ -14,42 +14,39 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Query;
 import org.opensaml.saml1.core.Request;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- *
+ * Concrete implementation of {@link org.opensaml.saml1.core.Request}
  */
 public class RequestImpl extends RequestAbstractTypeImpl implements Request {
 
     /** Saves the query (one of Query, SubjectQuery, AuthenticationQuery, AttributeQuery, AuthorizationDecisionQuery */
     private Query query;
-    
+
     /** The List of AssertionIDReferences */
     private final List<AssertionIDReference> assertionIDReferences;
-    
+
     /** The List of AssertionArtifacts */
     private final List<AssertionArtifact> assertionArtifacts;
-    
+
     /**
      * Constructor
      */
-    public RequestImpl() {
-        super(SAMLConstants.SAML1P_NS, Request.LOCAL_NAME);
+    protected RequestImpl() {
+        super(Request.LOCAL_NAME);
         setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
         assertionIDReferences = new XMLObjectChildrenList<AssertionIDReference>(this);
         assertionArtifacts = new XMLObjectChildrenList<AssertionArtifact>(this);
@@ -86,10 +83,10 @@ public class RequestImpl extends RequestAbstractTypeImpl implements Request {
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
 
-        List<SAMLObject> list = new ArrayList<SAMLObject>();
-        
+        List<XMLObject> list = new ArrayList<XMLObject>();
+
         if (getRespondWiths().size() != 0) {
             list.addAll(getRespondWiths());
         }
@@ -104,5 +101,4 @@ public class RequestImpl extends RequestAbstractTypeImpl implements Request {
         }
         return Collections.unmodifiableList(list);
     }
-
 }

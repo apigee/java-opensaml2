@@ -14,24 +14,28 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.AuthorizationDecisionStatement;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.AuthorizationDecisionStatementImpl} Object 
+ * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.AuthorizationDecisionStatementImpl}
+ * Object
  */
-public class AuthorizationDecisionStatementBuilder implements SAMLObjectBuilder<AuthorizationDecisionStatement> {
+public class AuthorizationDecisionStatementBuilder implements XMLObjectBuilder {
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /**
+     * Constructor
      */
-    public AuthorizationDecisionStatement buildObject() {
-        return new AuthorizationDecisionStatementImpl();
+    public AuthorizationDecisionStatementBuilder() {
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new AuthorizationDecisionStatementImpl();
+    }
 }

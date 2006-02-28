@@ -14,24 +14,27 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.NameIdentifier;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A class to create NameIdentifierImpl Objects 
+ * A class to create NameIdentifierImpl Objects
  */
-public class NameIdentifierBuilder implements SAMLObjectBuilder<NameIdentifier> {
+public class NameIdentifierBuilder implements XMLObjectBuilder {
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+    /**
+     * Constructor
      */
-    public NameIdentifier buildObject() {
-        return new NameIdentifierImpl();
+    public NameIdentifierBuilder() {
+
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new NameIdentifierImpl();
+    }
 }

@@ -14,39 +14,33 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Evidence;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of the {@link org.opensaml.saml1.core.Evidence} interface
  */
-public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
+public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidence {
 
     /** Contains the AssertionIDReference */
     AssertionIDReference assertionIDReference;
-    
+
     /** Contains the Assertion */
     Assertion assertion;
-    
+
     /**
      * Constructor
      */
-    public EvidenceImpl() {
-        super(SAMLConstants.SAML1_NS, Evidence.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected EvidenceImpl() {
+        super(Evidence.LOCAL_NAME);
     }
 
     /*
@@ -80,9 +74,9 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        ArrayList<SAMLObject> list = new ArrayList<SAMLObject>(2);
-        
+    public List<XMLObject> getOrderedChildren() {
+        ArrayList<XMLObject> list = new ArrayList<XMLObject>(2);
+
         if (assertionIDReference != null) {
             list.add(assertionIDReference);
         }
@@ -94,5 +88,4 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
         }
         return Collections.unmodifiableList(list);
     }
-
 }

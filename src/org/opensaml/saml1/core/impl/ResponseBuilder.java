@@ -14,26 +14,28 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObjectBuilder;
-import org.opensaml.saml1.core.Response;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
  * Class whose sole jobe is the creation of a {@link ResponseImpl} object
  */
-public class ResponseBuilder implements SAMLObjectBuilder<Response> {
+public class ResponseBuilder implements XMLObjectBuilder {
+
+    /**
+     * Constructor
+     */
+    public ResponseBuilder() {
+
+    }
 
     /*
-     * @see org.opensaml.common.SAMLObjectBuilder#buildObject()
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public Response buildObject() {
+    public XMLObject buildObject() {
 
         return new ResponseImpl();
     }
-
 }

@@ -14,35 +14,29 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectLocality;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete impementation of the {@link org.opensaml.saml1.core.SubjectLocality} interface
  */
-public class SubjectLocalityImpl extends AbstractSAMLObject implements SubjectLocality {
+public class SubjectLocalityImpl extends AbstractAssertionSAMLObject implements SubjectLocality {
 
     /** The IPAddress */
     private String IPAddress;
-    
+
     /** The DNS Address */
     private String DNSAddress;
-    
+
     /**
      * Constructor
      */
-    public SubjectLocalityImpl() {
-        super(SAMLConstants.SAML1_NS, SubjectLocality.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+    protected SubjectLocalityImpl() {
+        super(SubjectLocality.LOCAL_NAME);
     }
 
     /*
@@ -74,9 +68,9 @@ public class SubjectLocalityImpl extends AbstractSAMLObject implements SubjectLo
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
+    public List<XMLObject> getOrderedChildren() {
         // No children
         return null;
     }

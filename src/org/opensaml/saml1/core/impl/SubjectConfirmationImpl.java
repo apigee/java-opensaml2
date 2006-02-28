@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
@@ -24,34 +21,32 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.xml.security.keys.KeyInfo;
-import org.opensaml.common.SAMLObject;
-import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.saml1.core.SubjectConfirmationData;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of a <code> SubjectConfirmation </code> object 
+ * Concrete implementation of a <code> SubjectConfirmation </code> object
  */
-public class SubjectConfirmationImpl extends AbstractSAMLObject implements SubjectConfirmation {
+public class SubjectConfirmationImpl extends AbstractAssertionSAMLObject implements SubjectConfirmation {
 
     /** Contains the list of ConfirmationMethods */
     private final List<ConfirmationMethod> confirmationMethods;
 
     /** Contains the SubjectConfirmationData element */
     private SubjectConfirmationData subjectConfirmationData;
-    
+
     /** Contains the KeyInfo element */
     KeyInfo keyInfo;
-    
+
     /**
      * Constructor
      */
     public SubjectConfirmationImpl() {
-        super(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML1_PREFIX);
+        super(SubjectConfirmation.LOCAL_NAME);
+
         confirmationMethods = new XMLObjectChildrenList<ConfirmationMethod>(this);
     }
 
@@ -65,7 +60,8 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
     /*
      * @see org.opensaml.saml1.core.SubjectConfirmation#setSubjectConfirmationData(org.opensaml.saml1.core.SubjectConfirmationData)
      */
-    public void setSubjectConfirmationData(SubjectConfirmationData subjectConfirmationData) throws IllegalArgumentException {
+    public void setSubjectConfirmationData(SubjectConfirmationData subjectConfirmationData)
+            throws IllegalArgumentException {
 
         this.subjectConfirmationData = prepareForAssignment(this.subjectConfirmationData, subjectConfirmationData);
     }
@@ -92,12 +88,12 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
     }
 
     /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
-    public List<SAMLObject> getOrderedChildren() {
-        
-        List<SAMLObject> list = new ArrayList<SAMLObject>(confirmationMethods.size()+1);
-        
+    public List<XMLObject> getOrderedChildren() {
+
+        List<XMLObject> list = new ArrayList<XMLObject>(confirmationMethods.size() + 1);
+
         list.addAll(confirmationMethods);
         if (subjectConfirmationData != null) {
             list.add(subjectConfirmationData);
@@ -107,5 +103,4 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
         }
         return Collections.unmodifiableList(list);
     }
-
 }

@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectConfirmation;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.SubjectConfirmation} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.SubjectConfirmation} objects.
  */
 public class SubjectConfirmationMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -37,15 +30,5 @@ public class SubjectConfirmationMarshaller extends AbstractSAMLObjectMarshaller 
      */
     public SubjectConfirmationMarshaller() {
         super(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME);
-    }
-
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject,
-     *      org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
-        //
-        // No attributes
-        //
     }
 }

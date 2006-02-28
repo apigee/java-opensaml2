@@ -14,22 +14,19 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.saml1.core.RequestAbstractType;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.xml.io.Marshaller} for {@link org.opensaml.saml1.core.Request} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml1.core.Request} objects.
  */
 public class RequestMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -41,20 +38,20 @@ public class RequestMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectMarshaller#marshallAttributes(org.opensaml.common.SAMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
-    @Override
-    protected void marshallAttributes(SAMLObject samlElement, Element domElement) throws MarshallingException {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         Request request = (Request) samlElement;
-        
+
         if (request.getIssueInstant() != null) {
             String date = ISODateTimeFormat.dateTime().print(request.getIssueInstant());
             domElement.setAttribute(RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
         }
         if (request.getMinorVersion() != 0) {
             domElement.setAttribute(RequestAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
-            domElement.setAttribute(RequestAbstractType.MINORVERSION_ATTRIB_NAME, 
-                                    Integer.toString(request.getMinorVersion()));
+            domElement.setAttribute(RequestAbstractType.MINORVERSION_ATTRIB_NAME, Integer.toString(request
+                    .getMinorVersion()));
         }
     }
 }
