@@ -39,6 +39,20 @@ public interface NameID extends Identifier, SAMLObject {
     public final static String SPPROVIDER_ID_ATTRIB_NAME = "SPProviderID";
 
     /**
+     * Gets the Name value.
+     * 
+     * @return the Name value
+     */
+    public String getName();
+    
+    /**
+     * Sets the Name value.
+     * 
+     * @param newName the Name value
+     */
+    public void setName(String newName);
+    
+    /**
      * Gets the NameQualifier value.
      * 
      * @return the NameQualifier value
