@@ -36,13 +36,10 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     private DateTime expectedNotOnOrAfter;
 
     /** Count of Condition subelements */
-    private int conditionCount = 7;
+    private int conditionCount = 6;
 
     /** Count of AudienceRestriction subelements */
     private int audienceRestrictionCount = 3;
-
-    /** Count of ProxyRestriction subelements */
-    private int proxyRestrictionCount = 2;
 
     /** Constructor */
     public ConditionsTest() {
@@ -128,9 +125,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
             conditions.getAudienceRestrictions().add(new AudienceRestrictionImpl());
         }
         conditions.setOneTimeUse(new OneTimeUseImpl());
-        for (int i = 0; i < proxyRestrictionCount; i++) {
-            conditions.getProxyRestrictions().add(new ProxyRestrictionImpl());
-        }
+        conditions.setProxyRestriction(new ProxyRestrictionImpl());
         assertEquals(expectedChildElementsDOM, conditions);
     }
 }
