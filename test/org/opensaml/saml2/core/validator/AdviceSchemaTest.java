@@ -26,27 +26,37 @@ import org.opensaml.xml.validation.ValidationException;
 
 public class AdviceSchemaTest extends SAMLObjectBaseTestCase {
 
+    private QName qname;
+
+    private AdviceSchemaValidator adviceValidator;
+
+    /** Constructor */
+    public AdviceSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        adviceValidator = new AdviceSchemaValidator();
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
+
     /**
      * Tests the correct case.
      * 
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+
         Advice advice = (Advice) buildXMLObject(qname);
 
-        AdviceSchemaValidator adviceValidator = new AdviceSchemaValidator();
         adviceValidator.validate(advice);
     }
-    
+
     public void testSingleElementUnmarshall() {
-        // TODO Auto-generated method stub
-        
+        // do nothing
     }
 
     public void testSingleElementMarshall() {
-        // TODO Auto-generated method stub
-        
+        // do nothing
     }
-
 }

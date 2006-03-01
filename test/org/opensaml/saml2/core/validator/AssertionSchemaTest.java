@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.core.impl;
+package org.opensaml.saml2.core.validator;
 
 import javax.xml.namespace.QName;
 
@@ -23,11 +23,30 @@ import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.validator.AssertionSchemaValidator;
+import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.ValidationException;
 
 public class AssertionSchemaTest extends SAMLObjectBaseTestCase {
 
+    private QName qname;
+    private QName isqname;
+    private QName subqname;
+    private Issuer issuer;
+    private Subject subject;
+    private AssertionSchemaValidator assertionValidator;
+    
+    /**Constructor*/
+    public AssertionSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        isqname = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        subqname = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        issuer = (Issuer) buildXMLObject(isqname);
+        subject = (Subject) buildXMLObject(subqname);
+        assertionValidator = new AssertionSchemaValidator();
+
+    }
+    
     protected void setUp() throws Exception {
         super.setUp();
     }
@@ -38,15 +57,13 @@ public class AssertionSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
-        assertion.setIssuer(new IssuerImpl());
+        assertion.setIssuer(issuer);
         assertion.setID("id");
         assertion.setIssueInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
-        assertion.setSubject(new SubjectImpl());
+        assertion.setSubject(subject);
         
-        AssertionSchemaValidator assertionValidator = new AssertionSchemaValidator();
         assertionValidator.validate(assertion);
     }
 
@@ -61,12 +78,11 @@ public class AssertionSchemaTest extends SAMLObjectBaseTestCase {
 
         assertion.setID("id");
         assertion.setIssueInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
-        assertion.setSubject(new SubjectImpl());
+        assertion.setSubject(subject);
         
-        AssertionSchemaValidator assertionValidator = new AssertionSchemaValidator();
         try {
             assertionValidator.validate(assertion);
-            fail("Should raise a Validation Exception");
+            fail("Issuer missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }
@@ -77,17 +93,15 @@ public class AssertionSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testIDFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
-        assertion.setIssuer(new IssuerImpl());
+        assertion.setIssuer(issuer);
         assertion.setIssueInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
-        assertion.setSubject(new SubjectImpl());
+        assertion.setSubject(subject);
         
-        AssertionSchemaValidator assertionValidator = new AssertionSchemaValidator();
         try {
             assertionValidator.validate(assertion);
-            fail("Should raise a Validation Exception");
+            fail("ID missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }
@@ -98,17 +112,15 @@ public class AssertionSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testIssueInstantFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
-        assertion.setIssuer(new IssuerImpl());
+        assertion.setIssuer(issuer);
         assertion.setID("id");
-        assertion.setSubject(new SubjectImpl());
+        assertion.setSubject(subject);
         
-        AssertionSchemaValidator assertionValidator = new AssertionSchemaValidator();
         try {
             assertionValidator.validate(assertion);
-            fail("Should raise a Validation Exception");
+            fail("IssueInstant missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }
@@ -119,26 +131,24 @@ public class AssertionSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testSubjectFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
-        assertion.setIssuer(new IssuerImpl());
+        assertion.setIssuer(issuer);
         assertion.setID("id");
         assertion.setIssueInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
         
-        AssertionSchemaValidator assertionValidator = new AssertionSchemaValidator();
         try {
             assertionValidator.validate(assertion);
-            fail("Should raise a Validation Exception");
+            fail("Subject missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }
     
     public void testSingleElementUnmarshall() {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 
     public void testSingleElementMarshall() {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 }

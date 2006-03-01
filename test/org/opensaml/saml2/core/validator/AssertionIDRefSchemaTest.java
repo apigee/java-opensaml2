@@ -26,6 +26,16 @@ import org.opensaml.xml.validation.ValidationException;
 
 public class AssertionIDRefSchemaTest extends SAMLObjectBaseTestCase {
 
+    private QName qname;
+
+    private AssertionIDRefSchemaValidator assertionIDRefValidator;
+
+    /** Constructor */
+    public AssertionIDRefSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        assertionIDRefValidator = new AssertionIDRefSchemaValidator();
+    }
+
     protected void setUp() throws Exception {
         super.setUp();
     }
@@ -36,36 +46,33 @@ public class AssertionIDRefSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AssertionIDRef assertionIDRef = (AssertionIDRef) buildXMLObject(qname);
 
         assertionIDRef.setAssertionID("id");
-        AssertionIDRefSchemaValidator assertionIDRefValidator = new AssertionIDRefSchemaValidator();
+
         assertionIDRefValidator.validate(assertionIDRef);
     }
 
     /**
-     * Tests absent ID failure.
+     * Tests absent ID Reference failure.
      * 
      * @throws ValidationException
      */
     public void testIDFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AssertionIDRef assertionIDRef = (AssertionIDRef) buildXMLObject(qname);
 
-        AssertionIDRefSchemaValidator assertionIDRefValidator = new AssertionIDRefSchemaValidator();
         try {
             assertionIDRefValidator.validate(assertionIDRef);
-            fail("Should raise a Validation Exception");
+            fail("ID Ref missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }
 
     public void testSingleElementUnmarshall() {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 
     public void testSingleElementMarshall() {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 }

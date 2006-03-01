@@ -26,6 +26,16 @@ import org.opensaml.xml.validation.ValidationException;
 
 public class AssertionURIRefSchemaTest extends SAMLObjectBaseTestCase {
 
+    private QName qname;
+
+    private AssertionURIRefSchemaValidator assertionURIRefValidator;
+
+    /** Constructor */
+    public AssertionURIRefSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+    }
+
     protected void setUp() throws Exception {
         super.setUp();
     }
@@ -36,11 +46,10 @@ public class AssertionURIRefSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
 
         assertionURIRef.setAssertionURI("id");
-        AssertionURIRefSchemaValidator assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+
         assertionURIRefValidator.validate(assertionURIRef);
     }
 
@@ -50,22 +59,20 @@ public class AssertionURIRefSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
 
-        AssertionURIRefSchemaValidator assertionURIRefValidator = new AssertionURIRefSchemaValidator();
         try {
             assertionURIRefValidator.validate(assertionURIRef);
-            fail("Should raise a Validation Exception");
+            fail("URI missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }
 
     public void testSingleElementUnmarshall() {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 
     public void testSingleElementMarshall() {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 }

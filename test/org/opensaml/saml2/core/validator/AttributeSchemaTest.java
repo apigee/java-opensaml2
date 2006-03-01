@@ -26,6 +26,14 @@ import org.opensaml.xml.validation.ValidationException;
 
 public class AttributeSchemaTest extends SAMLObjectBaseTestCase {
 
+    private QName qname;
+    private AttributeSchemaValidator attributeValidator;
+    
+    /**Constructor*/
+    public AttributeSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        attributeValidator = new AttributeSchemaValidator();
+    }
     protected void setUp() throws Exception {
         super.setUp();
     }
@@ -36,11 +44,10 @@ public class AttributeSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Attribute attribute = (Attribute) buildXMLObject(qname);
 
         attribute.setName("name");
-        AttributeSchemaValidator attributeValidator = new AttributeSchemaValidator();
+
         attributeValidator.validate(attribute);
     }
 
@@ -50,22 +57,20 @@ public class AttributeSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Attribute attribute = (Attribute) buildXMLObject(qname);
 
-        AttributeSchemaValidator attributeValidator = new AttributeSchemaValidator();
         try {
             attributeValidator.validate(attribute);
-            fail("Should raise a Validation Exception");
+            fail("Name missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }
 
     public void testSingleElementUnmarshall() {
-        // TODO Auto-generated method stub        
+        // do nothing        
     }
 
     public void testSingleElementMarshall() {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 }

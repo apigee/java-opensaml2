@@ -25,6 +25,15 @@ import org.opensaml.xml.validation.ValidationException;
 
 public class ActionSchemaTest extends SAMLObjectBaseTestCase {
 
+    private QName qname;
+    private ActionSchemaValidator actionValidator;
+    
+    /**Constructor*/
+    public ActionSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        actionValidator = new ActionSchemaValidator();
+    }
+    
     protected void setUp() throws Exception {
         super.setUp();
     }
@@ -35,12 +44,12 @@ public class ActionSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+
         Action action = (Action) buildXMLObject(qname);
 
         action.setNamespace("ns");
         action.setAction("action label");
-        ActionSchemaValidator actionValidator = new ActionSchemaValidator();
+
         actionValidator.validate(action);
     }
 
@@ -50,14 +59,13 @@ public class ActionSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testNameSpaceFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Action action = (Action) buildXMLObject(qname);
 
         action.setAction("action label");
-        ActionSchemaValidator actionValidator = new ActionSchemaValidator();
+
         try {
             actionValidator.validate(action);
-            fail ("Should raise a Validation Exception");
+            fail ("Action missing, should raise a Validation Exception");
             } catch 
                 (ValidationException success) {
             }
@@ -69,25 +77,23 @@ public class ActionSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testActionFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Action action = (Action) buildXMLObject(qname);
 
         action.setNamespace("ns");
-        ActionSchemaValidator actionValidator = new ActionSchemaValidator();
+
         try {
         actionValidator.validate(action);
-        fail ("Should raise a Validation Exception");
+        fail ("Namespace missing, should raise a Validation Exception");
         } catch 
             (ValidationException success) {
         }
-        
     }
 
     public void testSingleElementUnmarshall() {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 
     public void testSingleElementMarshall() {
-        // TODO Auto-generated method stub
+        // do nothing
     }
 }
