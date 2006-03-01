@@ -20,11 +20,11 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.validator.AttributeSchemaValidator;
+import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.validator.AssertionURIRefSchemaValidator;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AttributeSchemaTest extends SAMLObjectBaseTestCase {
+public class AssertionURIRefSchemaTest extends SAMLObjectBaseTestCase {
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -36,33 +36,33 @@ public class AttributeSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Attribute attribute = (Attribute) buildXMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
 
-        attribute.setName("name");
-        AttributeSchemaValidator attributeValidator = new AttributeSchemaValidator();
-        attributeValidator.validate(attribute);
+        assertionURIRef.setAssertionURI("id");
+        AssertionURIRefSchemaValidator assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+        assertionURIRefValidator.validate(assertionURIRef);
     }
 
     /**
-     * Tests absent Name failure.
+     * Tests absent URI failure.
      * 
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Attribute attribute = (Attribute) buildXMLObject(qname);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
 
-        AttributeSchemaValidator attributeValidator = new AttributeSchemaValidator();
+        AssertionURIRefSchemaValidator assertionURIRefValidator = new AssertionURIRefSchemaValidator();
         try {
-            attributeValidator.validate(attribute);
+            assertionURIRefValidator.validate(assertionURIRef);
             fail("Should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }
 
     public void testSingleElementUnmarshall() {
-        // TODO Auto-generated method stub        
+        // TODO Auto-generated method stub
     }
 
     public void testSingleElementMarshall() {
