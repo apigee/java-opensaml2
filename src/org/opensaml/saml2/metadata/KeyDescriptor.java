@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.metadata;
 
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.signature.KeyInfo;
 
@@ -55,5 +57,10 @@ public interface KeyDescriptor extends SAMLObject {
      */
     public void setKeyInfo(KeyInfo newKeyInfo);
 
-    // TOOD Add encryption method once encryption interfaces are available
+    /**
+     * Gets the encryption methods that are supported by the entity.
+     * 
+     * @return the encryption methods that are supported by the entity
+     */
+    public List<EncryptionMethod> getEncryptionMethods();
 }
