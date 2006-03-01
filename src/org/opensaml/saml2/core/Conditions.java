@@ -25,13 +25,13 @@ import org.opensaml.common.SAMLObject;
  * SAML 2.0 Core Conditions
  */
 public interface Conditions extends SAMLObject {
-    
+
     /** Element local name */
     public final static String LOCAL_NAME = "Conditions";
-    
+
     /** NotBefore attribute name */
     public final static String NOT_BEFORE_ATTRIB_NAME = "NotBefore";
-    
+
     /** NotOnOrAfter attribute name */
     public final static String NOT_ON_OR_AFTER_ATTRIB_NAME = "NotOnOrAfter";
 
@@ -92,9 +92,16 @@ public interface Conditions extends SAMLObject {
     public void setOneTimeUse(OneTimeUse newOneTimeUse);
 
     /**
-     * Gets the ProxyRestriction conditions for the assertion.
+     * Gets the ProxyRestriction condition for the assertion.
      * 
-     * @return the ProxyRestriction conditions for the assertion
+     * @return the ProxyRestriction condition for the assertion
      */
-    public List<ProxyRestriction> getProxyRestrictions();
+    public ProxyRestriction getProxyRestriction();
+
+    /**
+     * Sets the ProxyRestriction condition for the assertion.
+     * 
+     * @param newProxyRestriction the ProxyRestriction condition for the assertion.
+     */
+    public void setProxyRestriction(ProxyRestriction newProxyRestriction);
 }
