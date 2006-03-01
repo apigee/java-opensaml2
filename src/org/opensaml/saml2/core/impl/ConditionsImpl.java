@@ -49,7 +49,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
     private OneTimeUse oneTimeUse;
 
     /** Proxy Restriction condition */
-    private XMLObjectChildrenList<ProxyRestriction> proxyRestriction;
+    private ProxyRestriction proxyRestriction;
 
     /** Not Before condition */
     private DateTime notBefore;
@@ -63,7 +63,6 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
 
         condition = new XMLObjectChildrenList<Condition>(this);
         audienceRestriction = new XMLObjectChildrenList<AudienceRestriction>(this);
-        proxyRestriction = new XMLObjectChildrenList<ProxyRestriction>(this);
     }
 
     /*
@@ -97,8 +96,15 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
     /*
      * @see org.opensaml.saml2.core.Conditions#getProxyRestriction()
      */
-    public List<ProxyRestriction> getProxyRestrictions() {
+    public ProxyRestriction getProxyRestriction() {
         return proxyRestriction;
+    }
+    
+    /*
+     * @see org.opensaml.saml2.core.Conditions#setProxyRestriction(org.opensaml.saml2.core.ProxyRestriction)
+     */
+    public void setProxyRestriction(ProxyRestriction newProxyRestriction) {
+        this.proxyRestriction = prepareForAssignment(this.proxyRestriction, newProxyRestriction);
     }
 
     /*
@@ -138,7 +144,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
         children.addAll(condition);
         children.addAll(audienceRestriction);
         children.add(oneTimeUse);
-        children.addAll(proxyRestriction);
+        children.add(proxyRestriction);
 
         return Collections.unmodifiableList(children);
     }
