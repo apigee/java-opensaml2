@@ -71,6 +71,6 @@ public class NameIDMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameID nameID = (NameID) samlObject;
-        domElement.setTextContent(nameID.getName());
+        domElement.setTextContent(nameID.getValue());
     }
 }

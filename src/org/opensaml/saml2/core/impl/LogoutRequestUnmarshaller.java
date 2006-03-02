@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Identifier;
-import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.BaseID;
 import org.opensaml.saml2.core.LogoutRequest;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.SessionIndex;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -63,13 +60,14 @@ public class LogoutRequestUnmarshaller extends RequestUnmarshaller {
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         LogoutRequest req = (LogoutRequest) parentSAMLObject;
         
-        // NOTE: Issuer in superclass is also an instance of Identifier, so have to be careful
-        if (childSAMLObject instanceof Identifier && !(childSAMLObject instanceof Issuer))
-            req.setIdentifier((Identifier) childSAMLObject);
-        else if (childSAMLObject instanceof SessionIndex)
+        if (childSAMLObject instanceof BaseID) {
+            req.setBaseID((BaseID) childSAMLObject);
+        }else if(childSAMLObject instanceof NameID) {
+            req.setNameID((NameID) childSAMLObject);
+        }else if (childSAMLObject instanceof SessionIndex) {
             req.getSessionIndexes().add((SessionIndex) childSAMLObject);
-        else
+        }else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
-
 }

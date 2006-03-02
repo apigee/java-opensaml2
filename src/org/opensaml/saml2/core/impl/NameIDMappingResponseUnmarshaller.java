@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Identifier;
-import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingResponse;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -33,23 +30,25 @@ public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshalle
 
     /**
      * Constructor
-     *
+     * 
      */
     public NameIDMappingResponseUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, NameIDMappingResponse.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
        NameIDMappingResponse resp = (NameIDMappingResponse) parentSAMLObject;
        
-       // NOTE: Issuer in superclass is also an instance of Identifier, so have to be careful
-       if (childSAMLObject instanceof Identifier && !(childSAMLObject instanceof Issuer))
-           resp.setIdentifier((Identifier) childSAMLObject);
-       else
+       if (childSAMLObject instanceof BaseID) {
+           resp.setBaseID((BaseID) childSAMLObject);
+       }else if(childSAMLObject instanceof NameID) {
+           resp.setNameID((NameID) childSAMLObject);
+       }else {
            super.processChildElement(parentSAMLObject, childSAMLObject);
+       }      
     }
-
 }

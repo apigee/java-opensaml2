@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.saml2.core.Identifier;
+import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingRequest;
 import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.xml.XMLObject;
@@ -33,8 +31,11 @@ import org.opensaml.xml.XMLObject;
  */
 public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappingRequest {
     
-    /** Identifier child element */
-    private Identifier identifier;
+    /** BaseID child element */
+    private BaseID baseID;
+    
+    /** NameID child element */
+    private NameID nameID;
     
     /** NameIDPolicy child element */
     private NameIDPolicy nameIDPolicy;
@@ -47,18 +48,32 @@ public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappi
         super(NameIDMappingRequest.LOCAL_NAME);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NameIDMappingRequest#getIdentifier()
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#getBaseID()
      */
-    public Identifier getIdentifier() {
-        return this.identifier;
+    public BaseID getBaseID() {
+        return baseID;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NameIDMappingRequest#setIdentifier(org.opensaml.saml2.core.Identifier)
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#setBaseID(org.opensaml.saml2.core.BaseID)
      */
-    public void setIdentifier(Identifier newIdentifier) {
-        this.identifier = prepareForAssignment(this.identifier, newIdentifier);
+    public void setBaseID(BaseID newBaseID) {
+        baseID = prepareForAssignment(baseID, newBaseID);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#getNameID()
+     */
+    public NameID getNameID() {
+        return nameID;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#setNameID(org.opensaml.saml2.core.NameID)
+     */
+    public void setNameID(NameID newNameID) {
+        nameID = prepareForAssignment(nameID, newNameID);
     }
 
     /**
@@ -83,9 +98,16 @@ public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappi
         
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
+
+
+        if (baseID != null) {
+            children.add(baseID);
+        }
+
+        if (nameID != null) {
+            children.add(nameID);
+        }
         
-        if (identifier != null)
-            children.add(identifier);
         if (nameIDPolicy != null)
             children.add(nameIDPolicy);
         

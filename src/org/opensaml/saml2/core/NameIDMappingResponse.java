@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core;
 
 
@@ -29,17 +26,31 @@ public interface NameIDMappingResponse extends StatusResponse {
     public static final String LOCAL_NAME = "NameIDMappingResponse";
     
     /**
-     * Get the Identifier of the response
+     * Gets the base identifier of the principal for this response.
      * 
-     * @return the Identifier of the response
+     * @return the base identifier of the principal for this response
      */
-    public Identifier getIdentifier();
-
+    public BaseID getBaseID();
+    
     /**
-     * Set the Identifier of the response
+     * Sets the base identifier of the principal for this response.
      * 
-     * @param newIdentifier the new Identifier of the response
+     * @param newBaseID the base identifier of the principal for this response
      */
-    public void setIdentifier(Identifier newIdentifier);
+    public void setBaseID(BaseID newBaseID);
+    
+    /**
+     * Gets the name identifier of the principal for this response.
+     * 
+     * @return the name identifier of the principal for this response
+     */
+    public NameID getNameID();
+    
+    /**
+     * Sets the name identifier of the principal for this response.
+     * 
+     * @param newNameID the name identifier of the principal for this response
+     */
+    public void setNameID(NameID newNameID);
  
 }

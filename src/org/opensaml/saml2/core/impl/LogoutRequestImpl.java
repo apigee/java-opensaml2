@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -24,8 +21,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.opensaml.saml2.core.Identifier;
+import org.opensaml.saml2.core.BaseID;
 import org.opensaml.saml2.core.LogoutRequest;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.SessionIndex;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -34,23 +32,25 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * A concrete implementation of {@link org.opensaml.saml2.core.LogoutRequest}
  */
 public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
-    
+
     /** Reason attribute */
     private String reason;
-    
+
     /** NotOnOrAfter attribute */
     private DateTime notOnOrAfter;
-    
-    /** Identifier child element */
-    private Identifier identifier;
-    
+
+    /** BaseID child element */
+    private BaseID baseID;
+
+    /** NameID child element */
+    private NameID nameID;
+
     /** SessionIndex child elements */
     private XMLObjectChildrenList<SessionIndex> sessionIndexes;
-    
 
     /**
      * Constructor
-     *
+     * 
      */
     protected LogoutRequestImpl() {
         super(LogoutRequest.LOCAL_NAME);
@@ -85,19 +85,32 @@ public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.LogoutRequest#getIdentifier()
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#getBaseID()
      */
-    public Identifier getIdentifier() {
-        return this.identifier;
+    public BaseID getBaseID() {
+        return baseID;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.LogoutRequest#setIdentifier(org.opensaml.saml2.core.Identifier)
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#setBaseID(org.opensaml.saml2.core.BaseID)
      */
-    public void setIdentifier(Identifier newIdentifier) {
-        this.identifier = prepareForAssignment(this.identifier, newIdentifier);
+    public void setBaseID(BaseID newBaseID) {
+        baseID = prepareForAssignment(baseID, newBaseID);
+    }
 
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#getNameID()
+     */
+    public NameID getNameID() {
+        return nameID;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#setNameID(org.opensaml.saml2.core.NameID)
+     */
+    public void setNameID(NameID newNameID) {
+        nameID = prepareForAssignment(nameID, newNameID);
     }
 
     /**
@@ -112,18 +125,25 @@ public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
-        if (super.getOrderedChildren() != null)
+
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
-        
-        if (identifier != null)
-            children.add(identifier);
+        }
+
+        if (baseID != null) {
+            children.add(baseID);
+        }
+
+        if (nameID != null) {
+            children.add(nameID);
+        }
+
         children.addAll(sessionIndexes);
-        
-        if (children.size() == 0)
+
+        if (children.size() == 0) {
             return null;
-        
+        }
+
         return Collections.unmodifiableList(children);
     }
-
 }

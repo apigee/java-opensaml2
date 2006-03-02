@@ -66,6 +66,6 @@ public class NameIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         NameID nameID = (NameID) samlObject;
-        nameID.setName(elementContent);
+        nameID.setValue(elementContent);
     }
 }

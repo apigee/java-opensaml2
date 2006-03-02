@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Identifier;
-import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingRequest;
 import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.xml.XMLObject;
@@ -34,25 +31,28 @@ public class NameIDMappingRequestUnmarshaller extends RequestUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public NameIDMappingRequestUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         NameIDMappingRequest req = (NameIDMappingRequest) parentSAMLObject;
-        
-        // NOTE: Issuer in superclass is also an instance of Identifier, so have to be careful
-        if (childSAMLObject instanceof Identifier && !(childSAMLObject instanceof Issuer))
-            req.setIdentifier((Identifier) childSAMLObject);
-        else if (childSAMLObject instanceof NameIDPolicy)
-            req.setNameIDPolicy((NameIDPolicy) childSAMLObject);
-        else
-            super.processChildElement(parentSAMLObject, childSAMLObject);
-    }
 
+        if (childSAMLObject instanceof BaseID) {
+            req.setBaseID((BaseID) childSAMLObject);
+        } else if (childSAMLObject instanceof NameID) {
+            req.setNameID((NameID) childSAMLObject);
+        } else if (childSAMLObject instanceof NameIDPolicy) {
+            req.setNameIDPolicy((NameIDPolicy) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
+    }
 }

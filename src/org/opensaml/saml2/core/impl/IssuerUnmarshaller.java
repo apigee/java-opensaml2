@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -40,6 +36,6 @@ public class IssuerUnmarshaller extends NameIDUnmarshaller {
      */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         Issuer issuer = (Issuer) samlObject;
-        issuer.setIssuer(elementContent);
+        issuer.setValue(elementContent);
     }
 }

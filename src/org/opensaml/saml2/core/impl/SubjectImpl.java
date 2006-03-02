@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.saml2.core.Identifier;
+import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectConfirmation;
 import org.opensaml.xml.XMLObject;
@@ -35,9 +32,12 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject {
 
-    /** Identifier of the Subject */
-    private Identifier identifier;
+    /** BaseID child element */
+    private BaseID baseID;
 
+    /** NameID child element */
+    private NameID nameID;
+    
     /** Subject Confirmations of the Subject */
     private XMLObjectChildrenList<SubjectConfirmation> subjectConfirmations;
 
@@ -48,18 +48,33 @@ public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject 
         subjectConfirmations = new XMLObjectChildrenList<SubjectConfirmation>(this);
     }
 
+
     /*
-     * @see org.opensaml.saml2.core.Subject#getIdentifier()
+     * @see org.opensaml.saml2.core.LogoutRequest#getBaseID()
      */
-    public Identifier getIdentifier() {
-        return identifier;
+    public BaseID getBaseID() {
+        return baseID;
     }
 
     /*
-     * @see org.opensaml.saml2.core.Subject#setIdentifier(org.opensaml.saml2.core.Identifier)
+     * @see org.opensaml.saml2.core.LogoutRequest#setBaseID(org.opensaml.saml2.core.BaseID)
      */
-    public void setIdentifier(Identifier newIdentifier) {
-        this.identifier = prepareForAssignment(this.identifier, newIdentifier);
+    public void setBaseID(BaseID newBaseID) {
+        baseID = prepareForAssignment(baseID, newBaseID);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#getNameID()
+     */
+    public NameID getNameID() {
+        return nameID;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.LogoutRequest#setNameID(org.opensaml.saml2.core.NameID)
+     */
+    public void setNameID(NameID newNameID) {
+        nameID = prepareForAssignment(nameID, newNameID);
     }
 
     /*
@@ -75,7 +90,14 @@ public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject 
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        children.add(identifier);
+        if (baseID != null) {
+            children.add(baseID);
+        }
+
+        if (nameID != null) {
+            children.add(nameID);
+        }
+        
         children.addAll(subjectConfirmations);
 
         return Collections.unmodifiableList(children);

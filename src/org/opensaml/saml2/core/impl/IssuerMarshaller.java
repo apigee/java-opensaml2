@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -42,6 +38,6 @@ public class IssuerMarshaller extends NameIDMarshaller {
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         Issuer issuer = (Issuer) samlObject;
-        domElement.setTextContent(issuer.getIssuer());
+        domElement.setTextContent(issuer.getValue());
     }
 }

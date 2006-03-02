@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
 import java.util.List;
@@ -28,7 +24,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.BaseID}
  */
-public class BaseIDImpl extends AbstractAssertionSAMLObject implements BaseID {
+public abstract class BaseIDImpl extends AbstractAssertionSAMLObject implements BaseID {
 
     /** Name Qualifier of BaseID */
     private String nameQualifier;

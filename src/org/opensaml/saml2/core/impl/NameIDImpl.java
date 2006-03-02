@@ -57,14 +57,14 @@ public class NameIDImpl extends AbstractAssertionSAMLObject implements NameID {
     /*
      * @see org.opensaml.saml2.core.NameID#getName()
      */
-    public String getName() {
+    public String getValue() {
         return name;
     }
     
     /*
      * @see org.opensaml.saml2.core.NameID#setName(java.lang.String)
      */
-    public void setName(String newName) {
+    public void setValue(String newName) {
         this.name = prepareForAssignment(this.name, newName);
     }
     

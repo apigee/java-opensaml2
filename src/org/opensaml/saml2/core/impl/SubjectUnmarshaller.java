@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Identifier;
+import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectConfirmation;
 import org.opensaml.xml.XMLObject;
@@ -45,8 +42,10 @@ public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         Subject subject = (Subject) parentObject;
 
-        if (childObject instanceof Identifier) {
-            subject.setIdentifier((Identifier) childObject);
+        if (childObject instanceof BaseID) {
+            subject.setBaseID((BaseID) childObject);
+        }else if(childObject instanceof NameID) {
+            subject.setNameID((NameID) childObject);
         } else if (childObject instanceof SubjectConfirmation) {
             subject.getSubjectConfirmations().add((SubjectConfirmation) childObject);
         } else {

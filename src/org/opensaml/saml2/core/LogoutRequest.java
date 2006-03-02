@@ -66,19 +66,33 @@ public interface LogoutRequest extends Request {
     public void setNotOnOrAfter (DateTime newNotOnOrAfter);
     
     /**
-     * Get the Identifier of the request
+     * Gets the base identifier of the principal for this request.
      * 
-     * @return the Identifier of the request
+     * @return the base identifier of the principal for this request
      */
-    public Identifier getIdentifier();
-
+    public BaseID getBaseID();
+    
     /**
-     * Set the Identifier of the request
+     * Sets the base identifier of the principal for this request.
      * 
-     * @param newIdentifier the new Identifier of the request
+     * @param newBaseID the base identifier of the principal for this request
      */
-    public void setIdentifier(Identifier newIdentifier);
-   
+    public void setBaseID(BaseID newBaseID);
+    
+    /**
+     * Gets the name identifier of the principal for this request.
+     * 
+     * @return the name identifier of the principal for this request
+     */
+    public NameID getNameID();
+    
+    /**
+     * Sets the name identifier of the principal for this request.
+     * 
+     * @param newNameID the name identifier of the principal for this request
+     */
+    public void setNameID(NameID newNameID);
+       
     /**
      *  Get the list of SessionIndexes for the request
      * 

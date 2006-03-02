@@ -1,5 +1,5 @@
 /*
- * Copyright [2005] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,36 @@
 
 package org.opensaml.saml2.core;
 
-import org.opensaml.common.SAMLObject;
-
 /**
- * SAML 2.0 Core BaseID
+ * SAML 2.0 Assertion NameID schema type.
  */
-public interface BaseID extends SAMLObject {
-    
-    /** Element local name*/
-    public final static String LOCAL_NAME = "BaseID";
-    
+public interface NameIDType {
+
     /** NameQualifier attribute name */
     public final static String NAME_QUALIFIER_ATTRIB_NAME = "NameQualifier";
-    
+
     /** SPNameQualifier attribute name */
     public final static String SP_NAME_QUALIFIER_ATTRIB_NAME = "SPNameQualifier";
+
+    /** Format attribute name */
+    public final static String FORMAT_ATTRIB_NAME = "Format";
+
+    /** SPProviderID attribute name*/
+    public final static String SPPROVIDER_ID_ATTRIB_NAME = "SPProviderID";
+
+    /**
+     * Gets the value of this type.
+     * 
+     * @return the value of this type
+     */
+    public String getValue();
+
+    /**
+     * Sets the value of this type
+     * 
+     * @param newValue the value of this type
+     */
+    public void setValue(String newValue);
 
     /**
      * Gets the NameQualifier value.
@@ -59,4 +74,33 @@ public interface BaseID extends SAMLObject {
      * @param newSPNameQualifier the SPNameQualifier value
      */
     public void setSPNameQualifier(String newSPNameQualifier);
+
+    /**
+     * Gets the format of the NameID.
+     * 
+     * @return the format of the NameID
+     */
+    public String getFormat();
+
+    /**
+     * Sets the format of the NameID.
+     * 
+     * @param newFormat the format of the NameID
+     */
+    public void setFormat(String newFormat);
+
+    /**
+     * Gets the SPProivderID of this NameID.
+     * 
+     * @return the SPProivderID of this NameID
+     */
+    public String getSPProviderID();
+
+    /**
+     * Sets the SPProivderID of this NameID.
+     * 
+     * @param newSPProviderID the SPProivderID of this NameID
+     */
+    public void setSPProviderID(String newSPProviderID);
+
 }
