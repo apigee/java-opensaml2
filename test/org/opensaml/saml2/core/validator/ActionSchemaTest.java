@@ -18,12 +18,12 @@ package org.opensaml.saml2.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.xml.validation.ValidationException;
 
-public class ActionSchemaTest extends SAMLObjectBaseTestCase {
+public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
     private ActionSchemaValidator actionValidator;
@@ -87,13 +87,5 @@ public class ActionSchemaTest extends SAMLObjectBaseTestCase {
         } catch 
             (ValidationException success) {
         }
-    }
-
-    public void testSingleElementUnmarshall() {
-        // do nothing
-    }
-
-    public void testSingleElementMarshall() {
-        // do nothing
     }
 }

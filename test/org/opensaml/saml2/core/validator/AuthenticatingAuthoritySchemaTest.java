@@ -20,19 +20,19 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.AuthenticatingAuthority;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AuthenticatingAuthoritySchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
 
-    private AssertionURIRefSchemaValidator assertionURIRefValidator;
+    private AuthenticatingAuthoritySchemaValidator authenticatingAuthorityValidator;
 
     /** Constructor */
-    public AssertionURIRefSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+    public AuthenticatingAuthoritySchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        authenticatingAuthorityValidator = new AuthenticatingAuthoritySchemaValidator();
     }
 
     protected void setUp() throws Exception {
@@ -45,11 +45,11 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+        AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) buildXMLObject(qname);
 
-        assertionURIRef.setAssertionURI("uri");
+        authenticatingAuthority.setURI("uri");
 
-        assertionURIRefValidator.validate(assertionURIRef);
+        authenticatingAuthorityValidator.validate(authenticatingAuthority);
     }
 
     /**
@@ -58,10 +58,10 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+        AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) buildXMLObject(qname);
 
         try {
-            assertionURIRefValidator.validate(assertionURIRef);
+            authenticatingAuthorityValidator.validate(authenticatingAuthority);
             fail("URI missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }

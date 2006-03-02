@@ -20,19 +20,26 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.Audience;
+import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AudienceRestrictionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
 
-    private AssertionURIRefSchemaValidator assertionURIRefValidator;
+    private AudienceRestrictionSchemaValidator audienceRestrictionValidator;
+
+    private QName audQName;
+
+    private Audience audience;
 
     /** Constructor */
-    public AssertionURIRefSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+    public AudienceRestrictionSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        audQName = new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        audience = (Audience) buildXMLObject(audQName);
+        audienceRestrictionValidator = new AudienceRestrictionSchemaValidator();
     }
 
     protected void setUp() throws Exception {
@@ -45,24 +52,24 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+        AudienceRestriction audienceRestriction = (AudienceRestriction) buildXMLObject(qname);
 
-        assertionURIRef.setAssertionURI("uri");
+        audienceRestriction.getAudiences().add(audience);
 
-        assertionURIRefValidator.validate(assertionURIRef);
+        audienceRestrictionValidator.validate(audienceRestriction);
     }
 
     /**
-     * Tests absent URI failure.
+     * Tests absent Audience failure.
      * 
      * @throws ValidationException
      */
-    public void testURIFailure() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+    public void testAudienceFailure() throws ValidationException {
+        AudienceRestriction audienceRestriction = (AudienceRestriction) buildXMLObject(qname);
 
         try {
-            assertionURIRefValidator.validate(assertionURIRef);
-            fail("URI missing, should raise a Validation Exception");
+            audienceRestrictionValidator.validate(audienceRestriction);
+            fail("Audience missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }

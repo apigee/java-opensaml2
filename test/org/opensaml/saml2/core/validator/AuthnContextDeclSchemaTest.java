@@ -20,19 +20,19 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.AuthnContextDecl;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AuthnContextDeclSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
 
-    private AssertionURIRefSchemaValidator assertionURIRefValidator;
+    private AuthnContextDeclSchemaValidator authnContextDeclValidator;
 
     /** Constructor */
-    public AssertionURIRefSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+    public AuthnContextDeclSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        authnContextDeclValidator = new AuthnContextDeclSchemaValidator();
     }
 
     protected void setUp() throws Exception {
@@ -45,24 +45,24 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+        AuthnContextDecl authnContextDecl = (AuthnContextDecl) buildXMLObject(qname);
 
-        assertionURIRef.setAssertionURI("uri");
+        authnContextDecl.setDeclaration("declaration");
 
-        assertionURIRefValidator.validate(assertionURIRef);
+        authnContextDeclValidator.validate(authnContextDecl);
     }
 
     /**
-     * Tests absent URI failure.
+     * Tests absent Declaration failure.
      * 
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+        AuthnContextDecl authnContextDecl = (AuthnContextDecl) buildXMLObject(qname);
 
         try {
-            assertionURIRefValidator.validate(assertionURIRef);
-            fail("URI missing, should raise a Validation Exception");
+            authnContextDeclValidator.validate(authnContextDecl);
+            fail("Declaration missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }

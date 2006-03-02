@@ -20,19 +20,19 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.AttributeValue;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AttributeValueSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
 
-    private AssertionURIRefSchemaValidator assertionURIRefValidator;
+    private AttributeValueSchemaValidator attributeValueValidator;
 
     /** Constructor */
-    public AssertionURIRefSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+    public AttributeValueSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, AttributeValue.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        attributeValueValidator = new AttributeValueSchemaValidator();
     }
 
     protected void setUp() throws Exception {
@@ -45,25 +45,8 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+        AttributeValue attributeValue = (AttributeValue) buildXMLObject(qname);
 
-        assertionURIRef.setAssertionURI("uri");
-
-        assertionURIRefValidator.validate(assertionURIRef);
-    }
-
-    /**
-     * Tests absent URI failure.
-     * 
-     * @throws ValidationException
-     */
-    public void testURIFailure() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
-
-        try {
-            assertionURIRefValidator.validate(assertionURIRef);
-            fail("URI missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        attributeValueValidator.validate(attributeValue);
     }
 }

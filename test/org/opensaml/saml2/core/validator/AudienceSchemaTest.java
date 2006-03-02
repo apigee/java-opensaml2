@@ -20,19 +20,19 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.Audience;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AudienceSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
 
-    private AssertionURIRefSchemaValidator assertionURIRefValidator;
+    private AudienceSchemaValidator audienceValidator;
 
     /** Constructor */
-    public AssertionURIRefSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+    public AudienceSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        audienceValidator = new AudienceSchemaValidator();
     }
 
     protected void setUp() throws Exception {
@@ -45,11 +45,11 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+        Audience audience = (Audience) buildXMLObject(qname);
 
-        assertionURIRef.setAssertionURI("uri");
+        audience.setAudienceURI("uri");
 
-        assertionURIRefValidator.validate(assertionURIRef);
+        audienceValidator.validate(audience);
     }
 
     /**
@@ -58,10 +58,10 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+        Audience audience = (Audience) buildXMLObject(qname);
 
         try {
-            assertionURIRefValidator.validate(assertionURIRef);
+            audienceValidator.validate(audience);
             fail("URI missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }

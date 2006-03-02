@@ -18,13 +18,12 @@ package org.opensaml.saml2.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
-import org.opensaml.saml2.core.validator.AdviceSchemaValidator;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AdviceSchemaTest extends SAMLObjectBaseTestCase {
+public class AdviceSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
 
@@ -50,13 +49,5 @@ public class AdviceSchemaTest extends SAMLObjectBaseTestCase {
         Advice advice = (Advice) buildXMLObject(qname);
 
         adviceValidator.validate(advice);
-    }
-
-    public void testSingleElementUnmarshall() {
-        // do nothing
-    }
-
-    public void testSingleElementMarshall() {
-        // do nothing
     }
 }

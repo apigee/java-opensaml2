@@ -20,19 +20,19 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AuthnContextSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
 
-    private AssertionURIRefSchemaValidator assertionURIRefValidator;
+    private AuthnContextSchemaValidator authnContextValidator;
 
     /** Constructor */
-    public AssertionURIRefSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+    public AuthnContextSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        authnContextValidator = new AuthnContextSchemaValidator();
     }
 
     protected void setUp() throws Exception {
@@ -45,25 +45,9 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
 
-        assertionURIRef.setAssertionURI("uri");
+        AuthnContext authnContext = (AuthnContext) buildXMLObject(qname);
 
-        assertionURIRefValidator.validate(assertionURIRef);
-    }
-
-    /**
-     * Tests absent URI failure.
-     * 
-     * @throws ValidationException
-     */
-    public void testURIFailure() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
-
-        try {
-            assertionURIRefValidator.validate(assertionURIRef);
-            fail("URI missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        authnContextValidator.validate(authnContext);
     }
 }

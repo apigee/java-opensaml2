@@ -18,13 +18,12 @@ package org.opensaml.saml2.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionIDRef;
-import org.opensaml.saml2.core.validator.AssertionIDRefSchemaValidator;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AssertionIDRefSchemaTest extends SAMLObjectBaseTestCase {
+public class AssertionIDRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
 
@@ -66,13 +65,5 @@ public class AssertionIDRefSchemaTest extends SAMLObjectBaseTestCase {
             fail("ID Ref missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
-    }
-
-    public void testSingleElementUnmarshall() {
-        // do nothing
-    }
-
-    public void testSingleElementMarshall() {
-        // do nothing
     }
 }

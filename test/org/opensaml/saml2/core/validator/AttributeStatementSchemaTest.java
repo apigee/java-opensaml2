@@ -21,17 +21,22 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
+import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AttributeSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AttributeStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
-    private AttributeSchemaValidator attributeValidator;
+    private AttributeStatementSchemaValidator attributeStatementValidator;
+    private QName attQName;
+    private Attribute attribute;
     
     /**Constructor*/
-    public AttributeSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        attributeValidator = new AttributeSchemaValidator();
+    public AttributeStatementSchemaTest() {
+        qname = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        attQName = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        attribute = (Attribute) buildXMLObject(attQName);
+        attributeStatementValidator = new AttributeStatementSchemaValidator();
     }
     protected void setUp() throws Exception {
         super.setUp();
@@ -43,24 +48,24 @@ public class AttributeSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testProper() throws ValidationException {
-        Attribute attribute = (Attribute) buildXMLObject(qname);
+        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
 
-        attribute.setName("name");
+        attributeStatement.getAttributes().add(attribute);
 
-        attributeValidator.validate(attribute);
+        attributeStatementValidator.validate(attributeStatement);
     }
 
     /**
-     * Tests absent Name failure.
+     * Tests absent Attribute failure.
      * 
      * @throws ValidationException
      */
-    public void testNameFailure() throws ValidationException {
-        Attribute attribute = (Attribute) buildXMLObject(qname);
+    public void testAttributeFailure() throws ValidationException {
+        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
 
         try {
-            attributeValidator.validate(attribute);
-            fail("Name missing, should raise a Validation Exception");
+            attributeStatementValidator.validate(attributeStatement);
+            fail("Attribute missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
     }

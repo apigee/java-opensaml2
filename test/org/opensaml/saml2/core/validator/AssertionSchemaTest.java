@@ -21,13 +21,14 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.ValidationException;
 
-public class AssertionSchemaTest extends SAMLObjectBaseTestCase {
+public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     private QName qname;
     private QName isqname;
@@ -73,7 +74,6 @@ public class AssertionSchemaTest extends SAMLObjectBaseTestCase {
      * @throws ValidationException
      */
     public void testIssuerFailure() throws ValidationException {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
         assertion.setID("id");
@@ -142,13 +142,5 @@ public class AssertionSchemaTest extends SAMLObjectBaseTestCase {
             fail("Subject missing, should raise a Validation Exception");
         } catch (ValidationException success) {
         }
-    }
-    
-    public void testSingleElementUnmarshall() {
-        // do nothing
-    }
-
-    public void testSingleElementMarshall() {
-        // do nothing
     }
 }
