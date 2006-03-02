@@ -19,7 +19,6 @@ package org.opensaml.common;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBaseTestCase;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
@@ -30,7 +29,7 @@ import org.xml.sax.InputSource;
 /**
  * Base test case for all OpenSAML tests that work with {@link org.opensaml.common.SAMLObject}s.
  */
-public abstract class SAMLObjectBaseTestCase extends XMLObjectBaseTestCase {
+public abstract class SAMLObjectBaseTestCase extends  SAMLObjectTestCaseConfigInitializer {
 
     /** Location of file containing a single element with NO optional attributes */
     protected String singleElementFile;
@@ -145,37 +144,4 @@ public abstract class SAMLObjectBaseTestCase extends XMLObjectBaseTestCase {
         assertNull("No testSingleElementChildElementsMarshall", expectedChildElementsDOM);
     }
 
-    static {
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-        
-        try {
-            // SAML 1.X Assertion Object Provider Configuration
-            Document saml1AssertionConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                    .getResourceAsStream("/conf/saml1-assertion-config.xml"));
-            Configuration.load(saml1AssertionConfig);
-            
-            // SAML 1.X Protocol Object Provider Configuration
-            Document saml1ProtocolConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                    .getResourceAsStream("/conf/saml1-protocol-config.xml"));
-            Configuration.load(saml1ProtocolConfig);
-            
-            //SAML 2.0 Metadata Object Provider Configuration
-            Document saml2mdConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                    .getResourceAsStream("/conf/saml2-metadata-config.xml"));
-            Configuration.load(saml2mdConfig);
-            
-            //SAML 2.0 Assertion Object Provider Configuration
-            Document saml2assertionConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                     .getResourceAsStream("/conf/saml2-assertion-config.xml"));
-            Configuration.load(saml2assertionConfig);
-
-            //SAML 2.0 Protocol Object Provider Configuration
-            Document saml2protocolConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                     .getResourceAsStream("/conf/saml2-protocol-config.xml"));
-            Configuration.load(saml2protocolConfig);
-
-        } catch (Exception e) {
-            System.err.println("Unable to configure OpenSAML: " + e);
-        }
-    }
 }
