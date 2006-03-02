@@ -22,6 +22,7 @@ package org.opensaml.common;
 import javax.xml.namespace.QName;
 
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
@@ -77,5 +78,16 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
     protected void populateRequiredData() {
         
     }
+    
+    /**
+     *  Tests the expected proper validation case.
+     */
+    public void testProperValidation() {
+       try {
+           validator.validate(target);
+       } catch (ValidationException e) {
+           fail("SAML object was valid, but raised a ValidationException: " + e.getMessage());
+       }
+   } 
 
 }
