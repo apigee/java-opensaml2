@@ -80,14 +80,60 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
     }
     
     /**
+     * Asserts that the validation of default test XMLObject target 
+     * was successful, as expected.
+     * 
+     * @param message
+     */
+    protected void assertValidationPass(String message) {
+        assertValidationPass(message, target);
+    }
+    
+    /**
+     * Asserts that the validation of the specified XMLObject target 
+     * was successful, as expected.
+     * 
+     * @param message
+     * @param validateTarget
+     */
+    protected void assertValidationPass(String message, XMLObject validateTarget) {
+       try {
+           validator.validate(validateTarget);
+       } catch (ValidationException e) {
+           fail(message + " : Expected success, but validation failure raised ValidationException: " + e.getMessage());
+       }
+    }
+    
+    /**
+     * Asserts that the validation of the default test XMLObject target 
+     * failed, as expected.
+     * 
+     * @param message
+     */
+    protected void assertValidationFail(String message) {
+        assertValidationFail(message, target);
+    }
+    
+    /**
+     * Asserts that the validation of the specified XMLObject target 
+     * failed, as expected.
+     * 
+     * @param message
+     * @param validateTarget
+     */
+    protected void assertValidationFail(String message, XMLObject validateTarget) {
+       try {
+           validator.validate(validateTarget);
+           fail(message + " : Validation success, expected failure to raise ValidationException");
+       } catch (ValidationException e) {
+       }
+    }
+    
+    /**
      *  Tests the expected proper validation case.
      */
     public void testProperValidation() {
-       try {
-           validator.validate(target);
-       } catch (ValidationException e) {
-           fail("SAML object was valid, but raised a ValidationException: " + e.getMessage());
-       }
-   } 
+        assertValidationPass("SAML object was valid");
+    } 
 
 }
