@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameID;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.core.NameID} objects.
  */
-public class NameIDMarshaller extends AbstractSAMLObjectMarshaller {
+public class NameIDMarshaller extends AbstractNameIDTypeMarshaller {
 
     /** Constructor */
     public NameIDMarshaller() {
@@ -39,38 +31,5 @@ public class NameIDMarshaller extends AbstractSAMLObjectMarshaller {
 
     protected NameIDMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
-    }
-
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
-        NameID nameID = (NameID) samlObject;
-
-        if (nameID.getNameQualifier() != null) {
-            domElement.setAttributeNS(null, NameID.NAME_QUALIFIER_ATTRIB_NAME, nameID.getNameQualifier());
-        }
-
-        if (nameID.getSPNameQualifier() != null) {
-            domElement.setAttributeNS(null, NameID.SP_NAME_QUALIFIER_ATTRIB_NAME, nameID.getSPNameQualifier());
-        }
-
-        if (nameID.getFormat() != null) {
-            domElement.setAttributeNS(null, NameID.FORMAT_ATTRIB_NAME, nameID.getFormat());
-        }
-
-        if (nameID.getSPProviderID() != null) {
-            domElement.setAttributeNS(null, NameID.SPPROVIDER_ID_ATTRIB_NAME, nameID.getSPProviderID());
-        }
-    }
-
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
-    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
-        NameID nameID = (NameID) samlObject;
-        domElement.setTextContent(nameID.getValue());
     }
 }

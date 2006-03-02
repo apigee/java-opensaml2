@@ -81,7 +81,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsUnmarshall() {
         Subject subject = (Subject) unmarshallElement(childElementsFile);
-        assertNotNull("Identifier element not present", subject.getIdentifier());
+        assertNotNull("Identifier element not present", subject.getNameID());
         assertEquals("SubjectConfirmation Count not as expected", expectedSubjectConfirmationCount, subject
                 .getSubjectConfirmations().size());
     }
@@ -93,7 +93,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Subject subject = (Subject) buildXMLObject(qname);
 
-        subject.setIdentifier(new NameIDImpl());
+        subject.setNameID(new NameIDImpl());
         for (int i = 0; i < expectedSubjectConfirmationCount; i++) {
             subject.getSubjectConfirmations().add(new SubjectConfirmationImpl());
         }

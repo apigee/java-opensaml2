@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.saml2.core.Issuer;
@@ -25,27 +21,10 @@ import org.opensaml.saml2.core.Issuer;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Issuer}
  */
-public class IssuerImpl extends NameIDImpl implements Issuer {
+public class IssuerImpl extends AbstractNameIDType implements Issuer {
 
-    /**Issuer of the assertion*/
-    private String issuer;
-    
     /** Constructor */
     protected IssuerImpl() {
         super(Issuer.LOCAL_NAME);
-    }
-    
-    /*
-     * @see org.opensaml.saml2.core.Issuer#getIssuer()
-     */
-    public String getIssuer() {
-        return issuer;
-    }
-    
-    /*
-     * @see org.opensaml.saml2.core.Issuer#setIssuer(java.lang.String)
-     */
-    public void setIssuer(String newIssuer) {
-        this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
 }

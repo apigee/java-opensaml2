@@ -96,7 +96,7 @@ public class LogoutRequestTest extends RequestTest {
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
-        req.setIdentifier(new NameIDImpl());
+        req.setNameID(new NameIDImpl());
         for (int i=0; i<expectedNumSessionIndexes; i++)
             req.getSessionIndexes().add(new SessionIndexImpl());
         
@@ -132,7 +132,7 @@ public class LogoutRequestTest extends RequestTest {
     public void testChildElementsUnmarshall() {
         LogoutRequest req = (LogoutRequest) unmarshallElement(childElementsFile);
         
-        assertNotNull("Identifier was null", req.getIdentifier());
+        assertNotNull("Identifier was null", req.getNameID());
         assertEquals("Number of unmarshalled SessionIndexes was not the expected value", expectedNumSessionIndexes, req.getSessionIndexes().size());
         super.helperTestChildElementsUnmarshall(req);
     }

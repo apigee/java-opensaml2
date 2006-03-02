@@ -50,7 +50,7 @@ public class IssuerTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         Issuer issuer = (Issuer) unmarshallElement(singleElementFile);
 
-        String issuername = issuer.getIssuer();
+        String issuername = issuer.getValue();
         assertEquals("Issuer was " + issuername + ", expected " + expectedIssuer, expectedIssuer, issuername);
     }
 
@@ -68,7 +68,7 @@ public class IssuerTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Issuer issuer = (Issuer) buildXMLObject(qname);
 
-        issuer.setIssuer(expectedIssuer);
+        issuer.setValue(expectedIssuer);
         assertEquals(expectedDOM, issuer);
     }
 

@@ -35,10 +35,14 @@ public abstract class AbstractSAMLObjectUnmarshaller extends AbstractXMLObjectUn
     private static Logger log = Logger.getLogger(AbstractSAMLObjectUnmarshaller.class);
 
     /**
-     * 
      * Constructor
      * 
-     * @param target the QName of the type or elment this unmarshaller operates on
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * 
+     * @throws NullPointerException if any of the arguments are null (or empty in the case of String parameters)
      */
     protected AbstractSAMLObjectUnmarshaller(String targetNamespaceURI, String targetLocalName)
             throws IllegalArgumentException {

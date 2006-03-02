@@ -85,7 +85,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
     public void testChildElementsUnmarshall() {
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) unmarshallElement(childElementsFile);
 
-        assertNotNull("Identifier elemement not present", subjectConfirmation.getIdentifier());
+        assertNotNull("Identifier elemement not present", subjectConfirmation.getNameID());
         assertNotNull("SubjectConfirmationData element not present", subjectConfirmation.getSubjectConfirmationData());
     }
 
@@ -96,7 +96,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) buildXMLObject(qname);
 
-        subjectConfirmation.setIdentifier(new NameIDImpl());
+        subjectConfirmation.setNameID(new NameIDImpl());
         subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl());
 
         assertEquals(expectedChildElementsDOM, subjectConfirmation);

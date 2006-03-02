@@ -14,36 +14,14 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
-import java.util.List;
-
 import org.opensaml.saml2.core.NameID;
-import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.NameID}
  */
-public class NameIDImpl extends AbstractAssertionSAMLObject implements NameID {
-
-    /** Name of the Name ID */
-    private String name;
-    
-    /** Name Qualifier of the Name ID */
-    private String nameQualifier;
-
-    /** SP Name Qualifier of the Name ID */
-    private String spNameQualifier;
-
-    /** Format of the Name ID */
-    private String format;
-
-    /** SP Proivder ID of the NameID */
-    private String spProviderID;
+public class NameIDImpl extends AbstractNameIDType implements NameID {
 
     /** Constructor */
     protected NameIDImpl() {
@@ -52,82 +30,5 @@ public class NameIDImpl extends AbstractAssertionSAMLObject implements NameID {
 
     protected NameIDImpl(String targetLocalName) {
         super(targetLocalName);
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.NameID#getName()
-     */
-    public String getValue() {
-        return name;
-    }
-    
-    /*
-     * @see org.opensaml.saml2.core.NameID#setName(java.lang.String)
-     */
-    public void setValue(String newName) {
-        this.name = prepareForAssignment(this.name, newName);
-    }
-    
-    /*
-     * @see org.opensaml.saml2.core.NameID#getNameQualifier()
-     */
-    public String getNameQualifier() {
-        return nameQualifier;
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.NameID#setNameQualifier(java.lang.String)
-     */
-    public void setNameQualifier(String newNameQualifier) {
-        this.nameQualifier = prepareForAssignment(this.nameQualifier, newNameQualifier);
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.NameID#getSPNameQualifier()
-     */
-    public String getSPNameQualifier() {
-        return spNameQualifier;
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.NameID#setSPNameQualifier(java.lang.String)
-     */
-    public void setSPNameQualifier(String newSPNameQualifier) {
-        this.spNameQualifier = prepareForAssignment(this.spNameQualifier, newSPNameQualifier);
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.NameID#getFormat()
-     */
-    public String getFormat() {
-        return format;
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.NameID#setFormat(java.lang.String)
-     */
-    public void setFormat(String newFormat) {
-        this.format = prepareForAssignment(this.format, newFormat);
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.NameID#getSPProviderID()
-     */
-    public String getSPProviderID() {
-        return spProviderID;
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.NameID#setSPProviderID(java.lang.String)
-     */
-    public void setSPProviderID(String newSPProviderID) {
-        this.spProviderID = prepareForAssignment(this.spProviderID, newSPProviderID);
-    }
-
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
-    public List<XMLObject> getOrderedChildren() {
-        return null;
     }
 }

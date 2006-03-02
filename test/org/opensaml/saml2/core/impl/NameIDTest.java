@@ -67,7 +67,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         NameID nameID = (NameID) unmarshallElement(singleElementFile);
 
-        String name = nameID.getName();
+        String name = nameID.getValue();
         assertEquals("Name not as expected", name, expectedName);
     }
 
@@ -77,7 +77,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesUnmarshall() {
         NameID nameID = (NameID) unmarshallElement(singleElementOptionalAttributesFile);
 
-        String name = nameID.getName();
+        String name = nameID.getValue();
         assertEquals("Name not as expected", name, expectedName);
 
         String nameQualifier = nameID.getNameQualifier();
@@ -100,7 +100,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         NameID nameID = (NameID) buildXMLObject(qname);
 
-        nameID.setName(expectedName);
+        nameID.setValue(expectedName);
         assertEquals(expectedDOM, nameID);
     }
 
@@ -111,7 +111,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         NameID nameID = (NameID) buildXMLObject(qname);
 
-        nameID.setName(expectedName);
+        nameID.setValue(expectedName);
         nameID.setNameQualifier(expectedNameQualifier);
         nameID.setSPNameQualifier(expectedSPNameQualifier);
         nameID.setFormat(expectedFormat);

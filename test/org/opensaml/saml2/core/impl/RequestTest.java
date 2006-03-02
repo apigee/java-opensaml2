@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core.impl;
 
 import org.joda.time.DateTime;

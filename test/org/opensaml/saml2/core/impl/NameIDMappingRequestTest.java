@@ -82,7 +82,7 @@ public class NameIDMappingRequestTest extends RequestTest {
         NameIDMappingRequest req = (NameIDMappingRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
-        req.setIdentifier(new NameIDImpl());
+        req.setNameID(new NameIDImpl());
         req.setNameIDPolicy(new NameIDPolicyImpl());
         
         assertEquals(expectedChildElementsDOM, req);
@@ -114,7 +114,7 @@ public class NameIDMappingRequestTest extends RequestTest {
     public void testChildElementsUnmarshall() {
         NameIDMappingRequest req = (NameIDMappingRequest) unmarshallElement(childElementsFile);
         
-        assertNotNull("Identifier was null", req.getIdentifier());
+        assertNotNull("Identifier was null", req.getNameID());
         assertNotNull("NameIDPolicy was null", req.getNameIDPolicy());
         super.helperTestChildElementsUnmarshall(req);
     }

@@ -82,7 +82,7 @@ public class NameIDMappingResponseTest extends StatusResponseTest {
         NameIDMappingResponse req = (NameIDMappingResponse) buildXMLObject(qname);
         
         super.populateChildElements(req);
-        req.setIdentifier(new NameIDImpl());
+        req.setNameID(new NameIDImpl());
         
         assertEquals(expectedChildElementsDOM, req);
     }
@@ -113,7 +113,7 @@ public class NameIDMappingResponseTest extends StatusResponseTest {
     public void testChildElementsUnmarshall() {
         NameIDMappingResponse resp = (NameIDMappingResponse) unmarshallElement(childElementsFile);
         
-        assertNotNull("Identifier was null", resp.getIdentifier());
+        assertNotNull("Identifier was null", resp.getNameID());
         super.helperTestChildElementsUnmarshall(resp);
     }
 

@@ -138,12 +138,6 @@
             <MarshallingClass className="org.opensaml.saml2.core.impl.AuthenticatingAuthorityMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.AuthenticatingAuthorityUnmarshaller" />
         </ObjectProvider>
-        
-        <ObjectProvider qualifiedName="saml2:BaseID">
-            <BuilderClass className="org.opensaml.saml2.core.impl.BaseIDBuilder" />
-            <MarshallingClass className="org.opensaml.saml2.core.impl.BaseIDMarshaller" />
-            <UnmarshallingClass className="org.opensaml.saml2.core.impl.BaseIDUnmarshaller" />
-        </ObjectProvider>
 
         <ObjectProvider qualifiedName="saml2:Conditions">
             <BuilderClass className="org.opensaml.saml2.core.impl.ConditionsBuilder" />
