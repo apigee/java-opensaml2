@@ -20,41 +20,38 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AssertionIDRef;
+import org.opensaml.saml2.core.Issuer;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Test case for {@link org.opensaml.saml2.core.validator.AssertionIDRefSchemaValidator}.
+ * Test case for {@link org.opensaml.saml2.core.validator.IssuerSchemaValidator}.
  */
-public class AssertionIDRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class IssuerSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public AssertionIDRefSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        validator = new AssertionIDRefSchemaValidator();
+    public IssuerSchemaTest() {
+        targetQName = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new IssuerSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        AssertionIDRef assertionIDRef = (AssertionIDRef) target;
-        assertionIDRef.setAssertionID("id");
+        Issuer issuer = (Issuer) target;
+        issuer.setValue("name");
     }
 
     /**
-     * Tests absent ID Reference failure.
+     * Tests Name failure.
      * 
      * @throws ValidationException
      */
-    public void testIDFailure() throws ValidationException {
-        AssertionIDRef assertionIDRef = (AssertionIDRef) target;
+    public void testNameFailure() throws ValidationException {
+        Issuer issuer = (Issuer) target;
 
-        assertionIDRef.setAssertionID(null);
-        assertValidationFail("ID Ref was null, should raise a Validation Exception");
+        issuer.setValue(null);
+        assertValidationFail("Name was null, should raise a Validation Exception");
 
-        assertionIDRef.setAssertionID("");
-        assertValidationFail("ID Ref was empty string, should raise a Validation Exception");
+        issuer.setValue("");
+        assertValidationFail("Name was empty string, should raise a Validation Exception");
     }
 }

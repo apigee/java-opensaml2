@@ -23,34 +23,26 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.ActionSchemaValidator}.
+ */
 public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
-    private QName qname;
-    private ActionSchemaValidator actionValidator;
-    
-    /**Constructor*/
+    /** Constructor */
     public ActionSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        actionValidator = new ActionSchemaValidator();
-    }
-    
-    protected void setUp() throws Exception {
-        super.setUp();
+        super();
+        targetQName = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new ActionSchemaValidator();
     }
 
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void testProper() throws ValidationException {
-
-        Action action = (Action) buildXMLObject(qname);
-
-        action.setNamespace("ns");
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        Action action = (Action) target;
         action.setAction("action label");
-
-        actionValidator.validate(action);
+        action.setNamespace("ns");
     }
 
     /**
@@ -59,16 +51,13 @@ public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testNameSpaceFailure() throws ValidationException {
-        Action action = (Action) buildXMLObject(qname);
+        Action action = (Action) target;
 
-        action.setAction("action label");
+        action.setAction(null);
+        assertValidationFail("Action was null, should raise a Validation Exception");
 
-        try {
-            actionValidator.validate(action);
-            fail ("Action missing, should raise a Validation Exception");
-            } catch 
-                (ValidationException success) {
-            }
+        action.setAction("");
+        assertValidationFail("Action was empty string, should raise a Validation Exception");
     }
 
     /**
@@ -77,15 +66,12 @@ public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testActionFailure() throws ValidationException {
-        Action action = (Action) buildXMLObject(qname);
+        Action action = (Action) target;
 
-        action.setNamespace("ns");
+        action.setNamespace(null);
+        assertValidationFail("Namespace was null, should raise a Validation Exception");
 
-        try {
-        actionValidator.validate(action);
-        fail ("Namespace missing, should raise a Validation Exception");
-        } catch 
-            (ValidationException success) {
-        }
+        action.setNamespace("");
+        assertValidationFail("Namespace was empty string, should raise a Validation Exception");
     }
 }

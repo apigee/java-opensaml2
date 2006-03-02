@@ -23,33 +23,22 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthenticatingAuthority;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AuthenticatingAuthoritySchemaValidator}.
+ */
 public class AuthenticatingAuthoritySchemaTest extends SAMLObjectValidatorBaseTestCase {
-
-    private QName qname;
-
-    private AuthenticatingAuthoritySchemaValidator authenticatingAuthorityValidator;
 
     /** Constructor */
     public AuthenticatingAuthoritySchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        authenticatingAuthorityValidator = new AuthenticatingAuthoritySchemaValidator();
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
+        validator = new AuthenticatingAuthoritySchemaValidator();
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
-     */
-    public void testProper() throws ValidationException {
-        AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) target;
         authenticatingAuthority.setURI("uri");
-
-        authenticatingAuthorityValidator.validate(authenticatingAuthority);
     }
 
     /**
@@ -58,12 +47,12 @@ public class AuthenticatingAuthoritySchemaTest extends SAMLObjectValidatorBaseTe
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) buildXMLObject(qname);
+        AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) target;
 
-        try {
-            authenticatingAuthorityValidator.validate(authenticatingAuthority);
-            fail("URI missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        authenticatingAuthority.setURI(null);
+        assertValidationFail("URI was null, should raise a Validation Exception");
+
+        authenticatingAuthority.setURI("");
+        assertValidationFail("URI was empty string, should raise a Validation Exception");
     }
 }

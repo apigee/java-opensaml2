@@ -25,38 +25,25 @@ import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.saml2.core.DecisionType;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AuthzDecisionStatementSchemaValidator}.
+ */
 public class AuthzDecisionStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
-    private QName qname;
-    private QName actionQName;
-    private Action action;
-    private AuthzDecisionStatementSchemaValidator authzDecisionStatementValidator;
-    
-    /**Constructor*/
+    /** Constructor */
     public AuthzDecisionStatementSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        actionQName = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        action = (Action) buildXMLObject(actionQName);
-        authzDecisionStatementValidator = new AuthzDecisionStatementSchemaValidator();
-    }
-    
-    protected void setUp() throws Exception {
-        super.setUp();
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AuthzDecisionStatementSchemaValidator();
     }
 
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
-     */
-    public void testProper() throws ValidationException {
-        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) target;
+        Action action = (Action) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX));
         authzDecisionStatement.setResource("resource");
         authzDecisionStatement.setDecision(DecisionType.DENY);
         authzDecisionStatement.getActions().add(action);
-        
-        authzDecisionStatementValidator.validate(authzDecisionStatement);
     }
 
     /**
@@ -65,15 +52,20 @@ public class AuthzDecisionStatementSchemaTest extends SAMLObjectValidatorBaseTes
      * @throws ValidationException
      */
     public void testResourceFailure() throws ValidationException {
-        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
+        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) target;
 
-        authzDecisionStatement.setDecision(DecisionType.DENY);
-        authzDecisionStatement.getActions().add(action);
-        
+        authzDecisionStatement.setResource(null);
         try {
-            authzDecisionStatementValidator.validate(authzDecisionStatement);
-            fail("Resource missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
+            validator.validate(authzDecisionStatement);
+            fail("Resource was null, should raise a Validation Exception");
+        } catch (ValidationException e) {
+        }
+
+        authzDecisionStatement.setResource("");
+        try {
+            validator.validate(authzDecisionStatement);
+            fail("Resource was empty string, should raise a Validation Exception");
+        } catch (ValidationException e) {
         }
     }
 
@@ -83,33 +75,29 @@ public class AuthzDecisionStatementSchemaTest extends SAMLObjectValidatorBaseTes
      * @throws ValidationException
      */
     public void testDecisionFailure() throws ValidationException {
-        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
+        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) target;
 
-        authzDecisionStatement.setResource("resource");
-        authzDecisionStatement.getActions().add(action);
-        
+        authzDecisionStatement.setDecision(null);
         try {
-            authzDecisionStatementValidator.validate(authzDecisionStatement);
-            fail("Decision missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
+            validator.validate(authzDecisionStatement);
+            fail("Decision was null, should raise a Validation Exception");
+        } catch (ValidationException e) {
         }
     }
-    
+
     /**
      * Tests absent Action failure.
      * 
      * @throws ValidationException
      */
     public void testActionFailure() throws ValidationException {
-        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
+        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) target;
 
-        authzDecisionStatement.setResource("resource");
-        authzDecisionStatement.setDecision(DecisionType.DENY);
-
+        authzDecisionStatement.getActions().clear();
         try {
-            authzDecisionStatementValidator.validate(authzDecisionStatement);
-            fail("Action missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
+            validator.validate(authzDecisionStatement);
+            fail("Action list was empty, should raise a Validation Exception");
+        } catch (ValidationException e) {
         }
     }
 }

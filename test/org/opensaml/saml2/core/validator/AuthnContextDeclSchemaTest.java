@@ -23,33 +23,24 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextDecl;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AuthnContextDeclSchemaValidator}.
+ */
 public class AuthnContextDeclSchemaTest extends SAMLObjectValidatorBaseTestCase {
-
-    private QName qname;
-
-    private AuthnContextDeclSchemaValidator authnContextDeclValidator;
 
     /** Constructor */
     public AuthnContextDeclSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        authnContextDeclValidator = new AuthnContextDeclSchemaValidator();
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AuthnContextDeclSchemaValidator();
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void testProper() throws ValidationException {
-        AuthnContextDecl authnContextDecl = (AuthnContextDecl) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        AuthnContextDecl authnContextDecl = (AuthnContextDecl) target;
         authnContextDecl.setDeclaration("declaration");
-
-        authnContextDeclValidator.validate(authnContextDecl);
     }
 
     /**
@@ -58,12 +49,12 @@ public class AuthnContextDeclSchemaTest extends SAMLObjectValidatorBaseTestCase 
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        AuthnContextDecl authnContextDecl = (AuthnContextDecl) buildXMLObject(qname);
+        AuthnContextDecl authnContextDecl = (AuthnContextDecl) target;
 
-        try {
-            authnContextDeclValidator.validate(authnContextDecl);
-            fail("Declaration missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        authnContextDecl.setDeclaration(null);
+        assertValidationFail("Declaration was null, should raise a Validation Exception");
+
+        authnContextDecl.setDeclaration("");
+        assertValidationFail("Declaration was empty string, should raise a Validation Exception");
     }
 }

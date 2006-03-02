@@ -20,41 +20,37 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AssertionIDRef;
+import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.Evidence;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Test case for {@link org.opensaml.saml2.core.validator.AssertionIDRefSchemaValidator}.
+ * Test case for {@link org.opensaml.saml2.core.validator.EvidenceSchemaValidator}.
  */
-public class AssertionIDRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class EvidenceSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public AssertionIDRefSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        validator = new AssertionIDRefSchemaValidator();
+    public EvidenceSchemaTest() {
+        targetQName = new QName(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new EvidenceSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        AssertionIDRef assertionIDRef = (AssertionIDRef) target;
-        assertionIDRef.setAssertionID("id");
+        Evidence evidence = (Evidence) target;
+        Assertion assertion = (Assertion) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
+        evidence.getAssertions().add(assertion);
     }
 
     /**
-     * Tests absent ID Reference failure.
+     * Tests Assertion failure.
      * 
      * @throws ValidationException
      */
-    public void testIDFailure() throws ValidationException {
-        AssertionIDRef assertionIDRef = (AssertionIDRef) target;
-
-        assertionIDRef.setAssertionID(null);
-        assertValidationFail("ID Ref was null, should raise a Validation Exception");
-
-        assertionIDRef.setAssertionID("");
-        assertValidationFail("ID Ref was empty string, should raise a Validation Exception");
+    public void testAssertion() throws ValidationException {
+        Evidence evidence = (Evidence) target;
+        
+        evidence.getAssertions().clear();
+        assertValidationFail("No assertions present, should raise a Validation Exception");
     }
 }

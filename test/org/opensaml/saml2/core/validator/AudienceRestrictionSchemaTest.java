@@ -24,39 +24,23 @@ import org.opensaml.saml2.core.Audience;
 import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AudienceRestrictionSchemaValidator}.
+ */
 public class AudienceRestrictionSchemaTest extends SAMLObjectValidatorBaseTestCase {
-
-    private QName qname;
-
-    private AudienceRestrictionSchemaValidator audienceRestrictionValidator;
-
-    private QName audQName;
-
-    private Audience audience;
 
     /** Constructor */
     public AudienceRestrictionSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        audQName = new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        audience = (Audience) buildXMLObject(audQName);
-        audienceRestrictionValidator = new AudienceRestrictionSchemaValidator();
+        targetQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AudienceRestrictionSchemaValidator();
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
-     */
-    public void testProper() throws ValidationException {
-        AudienceRestriction audienceRestriction = (AudienceRestriction) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        AudienceRestriction audienceRestriction = (AudienceRestriction) target;
+        Audience audience = (Audience) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX));
         audienceRestriction.getAudiences().add(audience);
-
-        audienceRestrictionValidator.validate(audienceRestriction);
     }
 
     /**
@@ -65,12 +49,9 @@ public class AudienceRestrictionSchemaTest extends SAMLObjectValidatorBaseTestCa
      * @throws ValidationException
      */
     public void testAudienceFailure() throws ValidationException {
-        AudienceRestriction audienceRestriction = (AudienceRestriction) buildXMLObject(qname);
+        AudienceRestriction audienceRestriction = (AudienceRestriction) target;
 
-        try {
-            audienceRestrictionValidator.validate(audienceRestriction);
-            fail("Audience missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        audienceRestriction.getAudiences().clear();
+        assertValidationFail("Audience list empty, should raise a Validation Exception");
     }
 }

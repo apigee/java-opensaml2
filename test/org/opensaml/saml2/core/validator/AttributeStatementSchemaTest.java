@@ -24,35 +24,26 @@ import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AttributeStatementSchemaValidator}.
+ */
 public class AttributeStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
-    private QName qname;
-    private AttributeStatementSchemaValidator attributeStatementValidator;
-    private QName attQName;
-    private Attribute attribute;
-    
-    /**Constructor*/
+    /** Constructor */
     public AttributeStatementSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        attQName = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        attribute = (Attribute) buildXMLObject(attQName);
-        attributeStatementValidator = new AttributeStatementSchemaValidator();
-    }
-    protected void setUp() throws Exception {
-        super.setUp();
+        targetQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AttributeStatementSchemaValidator();
     }
 
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void testProper() throws ValidationException {
-        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        AttributeStatement attributeStatement = (AttributeStatement) target;
+        Attribute attribute = (Attribute) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX));
         attributeStatement.getAttributes().add(attribute);
-
-        attributeStatementValidator.validate(attributeStatement);
     }
 
     /**
@@ -61,12 +52,9 @@ public class AttributeStatementSchemaTest extends SAMLObjectValidatorBaseTestCas
      * @throws ValidationException
      */
     public void testAttributeFailure() throws ValidationException {
-        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
+        AttributeStatement attributeStatement = (AttributeStatement) target;
 
-        try {
-            attributeStatementValidator.validate(attributeStatement);
-            fail("Attribute missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        attributeStatement.getAttributes().clear();
+        assertValidationFail("Attribute list empty, should raise a Validation Exception");
     }
 }

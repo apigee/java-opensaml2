@@ -23,33 +23,21 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AuthnContextClassRefSchemaValidator}.
+ */
 public class AuthnContextClassRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
-
-    private QName qname;
-
-    private AuthnContextClassRefSchemaValidator authnContextClassRefValidator;
 
     /** Constructor */
     public AuthnContextClassRefSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        authnContextClassRefValidator = new AuthnContextClassRefSchemaValidator();
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AuthnContextClassRefSchemaValidator();
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
-     */
-    public void testProper() throws ValidationException {
-        AuthnContextClassRef authnContextClassRef = (AuthnContextClassRef) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        AuthnContextClassRef authnContextClassRef = (AuthnContextClassRef) target;
         authnContextClassRef.setAuthnContextClassRef("ref");
-
-        authnContextClassRefValidator.validate(authnContextClassRef);
     }
 
     /**
@@ -58,12 +46,12 @@ public class AuthnContextClassRefSchemaTest extends SAMLObjectValidatorBaseTestC
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        AuthnContextClassRef authnContextClassRef = (AuthnContextClassRef) buildXMLObject(qname);
+        AuthnContextClassRef authnContextClassRef = (AuthnContextClassRef) target;
 
-        try {
-            authnContextClassRefValidator.validate(authnContextClassRef);
-            fail("ClassRef missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        authnContextClassRef.setAuthnContextClassRef(null);
+        assertValidationFail("ClassRef was null, should raise a Validation Exception");
+
+        authnContextClassRef.setAuthnContextClassRef("");
+        assertValidationFail("ClassRef was empty string, should raise a Validation Exception");
     }
 }

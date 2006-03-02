@@ -23,31 +23,24 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AttributeSchemaValidator}.
+ */
 public class AttributeSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
-    private QName qname;
-    private AttributeSchemaValidator attributeValidator;
-    
-    /**Constructor*/
+    /** Constructor */
     public AttributeSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        attributeValidator = new AttributeSchemaValidator();
-    }
-    protected void setUp() throws Exception {
-        super.setUp();
+        targetQName = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AttributeSchemaValidator();
     }
 
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void testProper() throws ValidationException {
-        Attribute attribute = (Attribute) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        Attribute attribute = (Attribute) target;
         attribute.setName("name");
-
-        attributeValidator.validate(attribute);
     }
 
     /**
@@ -56,12 +49,12 @@ public class AttributeSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testNameFailure() throws ValidationException {
-        Attribute attribute = (Attribute) buildXMLObject(qname);
+        Attribute attribute = (Attribute) target;
 
-        try {
-            attributeValidator.validate(attribute);
-            fail("Name missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        attribute.setName(null);
+        assertValidationFail("Name was null, should raise a Validation Exception");
+
+        attribute.setName("");
+        assertValidationFail("Name was empty string, should raise a Validation Exception");
     }
 }

@@ -23,33 +23,24 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextDeclRef;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AuthnContextDeclRefSchemaValidator}.
+ */
 public class AuthnContextDeclRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
-
-    private QName qname;
-
-    private AuthnContextDeclRefSchemaValidator authnContextDeclRefValidator;
 
     /** Constructor */
     public AuthnContextDeclRefSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        authnContextDeclRefValidator = new AuthnContextDeclRefSchemaValidator();
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AuthnContextDeclRefSchemaValidator();
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void testProper() throws ValidationException {
-        AuthnContextDeclRef authnContextDeclRef = (AuthnContextDeclRef) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        AuthnContextDeclRef authnContextDeclRef = (AuthnContextDeclRef) target;
         authnContextDeclRef.setAuthnContextDeclRef("ref");
-
-        authnContextDeclRefValidator.validate(authnContextDeclRef);
     }
 
     /**
@@ -58,12 +49,12 @@ public class AuthnContextDeclRefSchemaTest extends SAMLObjectValidatorBaseTestCa
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        AuthnContextDeclRef authnContextDeclRef = (AuthnContextDeclRef) buildXMLObject(qname);
+        AuthnContextDeclRef authnContextDeclRef = (AuthnContextDeclRef) target;
 
-        try {
-            authnContextDeclRefValidator.validate(authnContextDeclRef);
-            fail("DeclRef missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        authnContextDeclRef.setAuthnContextDeclRef(null);
+        assertValidationFail("DeclRef was null, should raise a Validation Exception");
+
+        authnContextDeclRef.setAuthnContextDeclRef("");
+        assertValidationFail("DeclRef was empty string, should raise a Validation Exception");
     }
 }

@@ -23,33 +23,24 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Audience;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AudienceSchemaValidator}.
+ */
 public class AudienceSchemaTest extends SAMLObjectValidatorBaseTestCase {
-
-    private QName qname;
-
-    private AudienceSchemaValidator audienceValidator;
 
     /** Constructor */
     public AudienceSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        audienceValidator = new AudienceSchemaValidator();
+        targetQName = new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AudienceSchemaValidator();
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void testProper() throws ValidationException {
-        Audience audience = (Audience) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        Audience audience = (Audience) target;
         audience.setAudienceURI("uri");
-
-        audienceValidator.validate(audience);
     }
 
     /**
@@ -58,12 +49,12 @@ public class AudienceSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        Audience audience = (Audience) buildXMLObject(qname);
+        Audience audience = (Audience) target;
 
-        try {
-            audienceValidator.validate(audience);
-            fail("URI missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        audience.setAudienceURI(null);
+        assertValidationFail("URI was null, should raise a Validation Exception");
+
+        audience.setAudienceURI("");
+        assertValidationFail("URI was empty string, should raise a Validation Exception");
     }
 }

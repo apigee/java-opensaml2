@@ -23,33 +23,24 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AssertionURIRefSchemaValidator}.
+ */
 public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
-
-    private QName qname;
-
-    private AssertionURIRefSchemaValidator assertionURIRefValidator;
 
     /** Constructor */
     public AssertionURIRefSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        assertionURIRefValidator = new AssertionURIRefSchemaValidator();
+        targetQName = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AssertionURIRefSchemaValidator();
     }
 
-    protected void setUp() throws Exception {
-        super.setUp();
-    }
-
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void testProper() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
-
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        AssertionURIRef assertionURIRef = (AssertionURIRef) target;
         assertionURIRef.setAssertionURI("uri");
-
-        assertionURIRefValidator.validate(assertionURIRef);
     }
 
     /**
@@ -58,12 +49,12 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testURIFailure() throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(qname);
+        AssertionURIRef assertionURIRef = (AssertionURIRef) target;
 
-        try {
-            assertionURIRefValidator.validate(assertionURIRef);
-            fail("URI missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        assertionURIRef.setAssertionURI(null);
+        assertValidationFail("URI was null, should raise a Validation Exception");
+
+        assertionURIRef.setAssertionURI("");
+        assertValidationFail("URI was empty string, should raise a Validation Exception");
     }
 }
