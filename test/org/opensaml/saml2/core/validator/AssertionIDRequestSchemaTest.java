@@ -24,7 +24,6 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionIDRequest;
-import org.opensaml.xml.validation.ValidationException;
 
 /**
  *
@@ -57,18 +56,6 @@ public class AssertionIDRequestSchemaTest extends RequestSchemaTest {
         AssertionIDRef ref = (AssertionIDRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME));
         request.getAssertionIDRefs().add(ref);
     }
-
-    /**
-     *  Tests the correct case.
-     */
-    public void testProper() {
-        AssertionIDRequest request = (AssertionIDRequest) target;
-        try {
-            validator.validate(request);
-        } catch (ValidationException e) {
-            fail("AssertionIDRequest was valid, should not raise a ValidationException");
-        }
-    }
     
     /**
      * Tests invalid AssertionID Ref children.
@@ -76,11 +63,7 @@ public class AssertionIDRequestSchemaTest extends RequestSchemaTest {
     public void testAssertionIDRefFailure() {
         AssertionIDRequest request = (AssertionIDRequest) target;
         request.getAssertionIDRefs().clear();
-        try {
-            validator.validate(request);
-            fail("AssertionIDRef list was empty, should raise a ValidationException");
-        } catch (ValidationException e) {
-        }
+        assertValidationFail("AssertionIDRef list was empty");
     }
 
 }

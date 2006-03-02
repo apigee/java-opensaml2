@@ -24,7 +24,6 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Artifact;
-import org.opensaml.xml.validation.ValidationException;
 
 /**
  *
@@ -49,19 +48,6 @@ public class ArtifactSchemaTest extends SAMLObjectValidatorBaseTestCase {
         Artifact artifact = (Artifact) target;
         artifact.setArtifact("artifact-string");
     }
-
-    /**
-     *  Tests the correct case.
-     */
-    public void testProper() {
-       Artifact artifact = (Artifact) target;
-       
-       try {
-           validator.validate(artifact);
-       } catch (ValidationException e) {
-           fail("Artifact was valid, should NOT raise a ValidationException");
-       }
-   } 
    
    /**
     * Tests null or empty artifact.
@@ -70,18 +56,10 @@ public class ArtifactSchemaTest extends SAMLObjectValidatorBaseTestCase {
        Artifact artifact = (Artifact) target;
        
        artifact.setArtifact(null);
-       try {
-           validator.validate(artifact);
-           fail("Artifact was null, should raise a ValidationException");
-       } catch (ValidationException e) {
-       }
+       assertValidationFail("Artifact was null");
        
        artifact.setArtifact("");
-       try {
-           validator.validate(artifact);
-           fail("Artifact was empty string, should raise a ValidationException");
-       } catch (ValidationException e) {
-       }
+       assertValidationFail("Artifact was empty string");
     
    }
 

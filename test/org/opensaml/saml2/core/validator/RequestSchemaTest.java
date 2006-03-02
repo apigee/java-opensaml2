@@ -22,7 +22,6 @@ package org.opensaml.saml2.core.validator;
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.saml2.core.Request;
-import org.opensaml.xml.validation.ValidationException;
 
 
 /**
@@ -62,18 +61,10 @@ public abstract class RequestSchemaTest extends SAMLObjectValidatorBaseTestCase 
     public void testIDFailure() {
         Request request = (Request) target;
         request.setID("");
-        try {
-            validator.validate(request);
-            fail("ID attribute was empty string, should raise ValidationException");
-        } catch (ValidationException e) {
-        }
+        assertValidationFail("ID attribute was empty string");
         
         request.setID(null);
-        try {
-            validator.validate(request);
-            fail("ID attribute was null, should raise ValidationException");
-        } catch (ValidationException e) {
-        }
+        assertValidationFail("ID attribute was null, should raise ValidationException");
     }
     
     // TODO don't know that we can really test this since can't change the SAMLVersion
@@ -94,11 +85,7 @@ public abstract class RequestSchemaTest extends SAMLObjectValidatorBaseTestCase 
     public void testIssueInstantFailure() {
         Request request = (Request) target;
         request.setIssueInstant(null);
-        try {
-            validator.validate(request);
-            fail("IssueInstant attribute was null, should raise ValidationException");
-        } catch (ValidationException e) {
-        }
+        assertValidationFail("IssueInstant attribute was null");
     }
 
 }
