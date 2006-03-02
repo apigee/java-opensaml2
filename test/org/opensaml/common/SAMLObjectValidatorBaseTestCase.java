@@ -19,12 +19,27 @@
  */
 package org.opensaml.common;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.validation.Validator;
+
 /**
  * Base test case for all OpenSAML tests that test the {@link org.opensaml.xml.validation.Validator}'s
  * that validate SAML objects.
  */
 public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCaseConfigInitializer {
+    
+    /** The primary XMLObject which will be the target of a given test run */
+    protected XMLObject target;
 
+    /** QName of the object to be tested */
+    protected QName targetQName;
+
+    /** Validator for the type corresponding to the test target */
+    protected Validator validator;
+
+    /**
     /**
      * Constructor
      *
@@ -38,6 +53,15 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
      */
     protected void setUp() throws Exception {
         super.setUp();
+        
+        if (targetQName == null)
+            throw new Exception("targetQName was null");
+        
+        if (validator == null)
+            throw new Exception("validator was null");
+        
+        target = buildXMLObject(targetQName);
+        populateRequiredData();
     }
 
     /*
@@ -47,5 +71,11 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
         super.tearDown();
     }
     
+    /**
+     *  Subclasses should override to populate required elements and attributes
+     */
+    protected void populateRequiredData() {
+        
+    }
 
 }

@@ -25,41 +25,37 @@ import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Artifact;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  *
  */
 public class ArtifactSchemaTest extends SAMLObjectValidatorBaseTestCase {
-    
-    private QName qname;
-    private Validator validator;
 
     /**
      * Constructor
      *
      */
     public ArtifactSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        super();
+        targetQName = new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new ArtifactSchemaValidator();
-        
     }
-    
-   /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#setUp()
+
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        Artifact artifact = (Artifact) target;
+        artifact.setArtifact("artifact-string");
     }
-    
 
     /**
      *  Tests the correct case.
      */
     public void testProper() {
-       Artifact artifact = (Artifact) buildXMLObject(qname);
+       Artifact artifact = (Artifact) target;
        
-       artifact.setArtifact("artifact");
        try {
            validator.validate(artifact);
        } catch (ValidationException e) {
@@ -71,7 +67,7 @@ public class ArtifactSchemaTest extends SAMLObjectValidatorBaseTestCase {
     * Tests null or empty artifact.
     */
     public void testArtifactFailure() {
-       Artifact artifact = (Artifact) buildXMLObject(qname);
+       Artifact artifact = (Artifact) target;
        
        artifact.setArtifact(null);
        try {
@@ -88,6 +84,5 @@ public class ArtifactSchemaTest extends SAMLObjectValidatorBaseTestCase {
        }
     
    }
-
 
 }

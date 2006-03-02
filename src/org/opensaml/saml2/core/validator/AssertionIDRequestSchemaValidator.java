@@ -19,43 +19,37 @@
  */
 package org.opensaml.saml2.core.validator;
 
-
-import org.opensaml.saml2.core.Artifact;
+import org.opensaml.saml2.core.AssertionIDRequest;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Artifact} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.AssertionIDRequest} for Schema compliance.
  */
-public class ArtifactSchemaValidator implements Validator {
+public class AssertionIDRequestSchemaValidator extends RequestSchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ArtifactSchemaValidator() {
+    public AssertionIDRequestSchemaValidator() {
+        super();
     }
 
     /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        Artifact artifact = (Artifact) xmlObject;
-        
-        validateArtifact(artifact);
+        super.validate(xmlObject);
+        AssertionIDRequest request = (AssertionIDRequest) xmlObject;
+        validateAssertionIDRefs(request);
     }
     
-    /**
-     * Test that Artifact element content is not empty
-     * 
-     * @param artifact
-     * @throws ValidationException
-     */
-    protected void validateArtifact(Artifact artifact) throws ValidationException {
-        if (DatatypeHelper.isEmpty(artifact.getArtifact()))
-            throw new ValidationException("Artifact must contain a value");
+    protected void validateAssertionIDRefs(AssertionIDRequest request) throws ValidationException {
+        if (request.getAssertionIDRefs().size() < 1)
+            throw new ValidationException("Request must contain at least one AssertionIDRef");
     }
+    
 
 }
