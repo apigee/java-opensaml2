@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Test case for {@link org.opensaml.saml2.metadata.AddtionalMetadataLocation}.
+ * Test case for {@link org.opensaml.saml2.metadata.AffiliateMember}.
  */
 public class AffiliateMemberSchemaTest extends SAMLObjectValidatorBaseTestCase {
 

@@ -18,7 +18,6 @@ package org.opensaml.saml2.metadata.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AttributeService;
@@ -27,7 +26,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor}.
  */
-public class AttributeAuthorityDescriptorSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AttributeAuthorityDescriptorSchemaTest extends RoleDescriptorSchemaTest {
 
     /** Constructor */
     public AttributeAuthorityDescriptorSchemaTest() {
@@ -46,6 +45,7 @@ public class AttributeAuthorityDescriptorSchemaTest extends SAMLObjectValidatorB
         attributeAuthorityDescriptor.getAttributeServices().add(attributeService);
     }
 
+    
     /**
      * Tests for AttributeService failure.
      * 
