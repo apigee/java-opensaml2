@@ -58,6 +58,9 @@ public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
         action.setAction("");
         assertValidationFail("Action was empty string, should raise a Validation Exception");
+        
+        action.setAction("    ");
+        assertValidationFail("Action was white space, should raise a Validation Exception");
     }
 
     /**
@@ -73,5 +76,8 @@ public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
         action.setNamespace("");
         assertValidationFail("Namespace was empty string, should raise a Validation Exception");
+        
+        action.setNamespace("    ");
+        assertValidationFail("Namespace was white space, should raise a Validation Exception");
     }
 }
