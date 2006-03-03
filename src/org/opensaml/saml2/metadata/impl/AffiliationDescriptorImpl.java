@@ -76,6 +76,9 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
      * @see org.opensaml.saml2.metadata.AffiliationDescriptor#setOwnerID(java.lang.String)
      */
     public void setOwnerID(String newOwnerID) {
+        if (newOwnerID != null && newOwnerID.length() > 1024) {
+            throw new IllegalArgumentException("Owner ID can not exceed 1024 characters in length");
+        }
         ownerID = prepareForAssignment(ownerID, newOwnerID);
     }
     
