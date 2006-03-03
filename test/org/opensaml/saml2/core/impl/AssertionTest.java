@@ -123,6 +123,11 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertNotNull("Conditions element not present", assertion.getConditions());
         assertNotNull("Advice element not present", assertion.getAdvice());
         assertEquals("Statement count not as expected", statementCount, assertion.getStatements().size());
+        assertEquals("AuthnStatement count not as expected", authnStatementCount, assertion.getAuthnStatements().size());
+        assertEquals("AuthzDecisionStatment count not as expected", authzDecisionStatementCount, assertion
+                .getAuthzDecisionStatements().size());
+        assertEquals("AttributeStatement count not as expected", attributeStatementCount, assertion
+                .getAttributeStatement().size());
     }
 
     /**
