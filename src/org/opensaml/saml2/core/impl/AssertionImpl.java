@@ -24,8 +24,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AttributeStatement;
@@ -37,7 +40,7 @@ import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.signature.Signature;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Assertion}.
@@ -66,25 +69,13 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
     private Advice advice;
 
     /** Statements of the assertion */
-    private XMLObjectChildrenList<Statement> statements;
-
-    /** Authn Statements of the assertion */
-    private XMLObjectChildrenList<AuthnStatement> authnStatements;
-
-    /** Authz Decision Statements of the assertion */
-    private XMLObjectChildrenList<AuthzDecisionStatement> authzDecisionStatements;
-
-    /** Attribute Statements of the assertion */
-    private XMLObjectChildrenList<AttributeStatement> attributeStatements;
+    private IndexedXMLObjectChildrenList<Statement> statements;
 
     /** Constructor */
     protected AssertionImpl() {
         super(Assertion.LOCAL_NAME);
 
-        statements = new XMLObjectChildrenList<Statement>(this);
-        authnStatements = new XMLObjectChildrenList<AuthnStatement>(this);
-        authzDecisionStatements = new XMLObjectChildrenList<AuthzDecisionStatement>(this);
-        attributeStatements = new XMLObjectChildrenList<AttributeStatement>(this);
+        statements = new IndexedXMLObjectChildrenList<Statement>(this);
     }
 
     /*
@@ -201,21 +192,27 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      * @see org.opensaml.saml2.core.Assertion#getAuthnStatements()
      */
     public List<AuthnStatement> getAuthnStatements() {
-        return authnStatements;
+        QName statementQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
+        return (List<AuthnStatement>) statements.subList(statementQName);
     }
 
     /*
      * @see org.opensaml.saml2.core.Assertion#getAuthzDecisionStatements()
      */
     public List<AuthzDecisionStatement> getAuthzDecisionStatements() {
-        return authzDecisionStatements;
+        QName statementQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
+        return (List<AuthzDecisionStatement>) statements.subList(statementQName);
     }
 
     /*
      * @see org.opensaml.saml2.core.Assertion#getAttributeStatement()
      */
     public List<AttributeStatement> getAttributeStatement() {
-        return attributeStatements;
+        QName statementQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
+        return (List<AttributeStatement>) statements.subList(statementQName);
     }
 
     /*
@@ -229,9 +226,6 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
         children.add(conditions);
         children.add(advice);
         children.addAll(statements);
-        children.addAll(authnStatements);
-        children.addAll(authzDecisionStatements);
-        children.addAll(attributeStatements);
 
         return Collections.unmodifiableList(children);
     }

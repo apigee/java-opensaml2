@@ -67,12 +67,6 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             assertion.setAdvice((Advice) childObject);
         } else if (childObject instanceof Statement) {
             assertion.getStatements().add((Statement) childObject);
-        } else if (childObject instanceof AuthnStatement) {
-            assertion.getAuthnStatements().add((AuthnStatement) childObject);
-        } else if (childObject instanceof AuthzDecisionStatement) {
-            assertion.getAuthzDecisionStatements().add((AuthzDecisionStatement) childObject);
-        } else if (childObject instanceof AttributeStatement) {
-            assertion.getAttributeStatement().add((AttributeStatement) childObject);
         } else {
             super.processChildElement(parentObject, childObject);
         }
