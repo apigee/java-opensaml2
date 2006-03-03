@@ -28,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor} for Schema compliance.
  */
-public class AttributeAuthorityDescriptorSchemaValidator implements Validator {
+public class AttributeAuthorityDescriptorSchemaValidator extends RoleDescriptorSchemaValidator implements Validator {
 
     /** Constructor */
     public AttributeAuthorityDescriptorSchemaValidator() {
@@ -39,6 +39,7 @@ public class AttributeAuthorityDescriptorSchemaValidator implements Validator {
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
+        super.validate(xmlObject);
         AttributeAuthorityDescriptor attributeAuthorityDescriptor = (AttributeAuthorityDescriptor) xmlObject;
         validateAttributeServices(attributeAuthorityDescriptor);
     }
@@ -56,4 +57,5 @@ public class AttributeAuthorityDescriptorSchemaValidator implements Validator {
             throw new ValidationException("Must have one or more AttributeServices.");
         }
     }
+
 }
