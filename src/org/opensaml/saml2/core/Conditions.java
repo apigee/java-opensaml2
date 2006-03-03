@@ -85,23 +85,9 @@ public interface Conditions extends SAMLObject {
     public OneTimeUse getOneTimeUse();
 
     /**
-     * Sets the OneTimeUse condition for the assertion.
-     * 
-     * @param newOneTimeUse the OneTimeUse condition for the assertion
-     */
-    public void setOneTimeUse(OneTimeUse newOneTimeUse);
-
-    /**
      * Gets the ProxyRestriction condition for the assertion.
      * 
      * @return the ProxyRestriction condition for the assertion
      */
     public ProxyRestriction getProxyRestriction();
-
-    /**
-     * Sets the ProxyRestriction condition for the assertion.
-     * 
-     * @param newProxyRestriction the ProxyRestriction condition for the assertion.
-     */
-    public void setProxyRestriction(ProxyRestriction newProxyRestriction);
 }
