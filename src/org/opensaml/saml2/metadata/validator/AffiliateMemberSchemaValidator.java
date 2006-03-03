@@ -31,6 +31,11 @@ import org.opensaml.xml.validation.Validator;
  */
 public class AffiliateMemberSchemaValidator implements Validator {
 
+    /** Constructor */
+    public AffiliateMemberSchemaValidator() {
+
+    }
+
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
@@ -39,6 +44,12 @@ public class AffiliateMemberSchemaValidator implements Validator {
         validateID(affiliateMember);
     }
 
+    /**
+     * Checks that ID is valid and present.
+     * 
+     * @param affiliateMember
+     * @throws ValidationException
+     */
     protected void validateID(AffiliateMember affiliateMember) throws ValidationException {
         if (DatatypeHelper.isEmpty(affiliateMember.getID())) {
             throw new ValidationException("ID required");

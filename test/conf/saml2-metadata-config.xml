@@ -9,6 +9,13 @@
     
     <ObjectProviders>
  
+        <!-- AttributeAuthorityDescriptor provider -->
+        <ObjectProvider qualifiedName="saml2md:AttributeAuthorityDescriptor">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.AttributeAuthorityDescriptorBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.AttributeAuthorityDescriptorMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AttributeAuthorityDescriptorUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- EntitiesDescriptor provider -->
         <ObjectProvider qualifiedName="saml2md:EntitiesDescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorBuilder" />

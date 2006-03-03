@@ -31,6 +31,11 @@ import org.opensaml.xml.validation.Validator;
  */
 public class AffiliationDescriptorSchemaValidator implements Validator {
 
+    /** Constructor */
+    public AffiliationDescriptorSchemaValidator() {
+
+    }
+
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
@@ -40,6 +45,12 @@ public class AffiliationDescriptorSchemaValidator implements Validator {
         validateMember(affiliationDescriptor);
     }
 
+    /**
+     * Checks that OwnerID is present and valid.
+     * 
+     * @param affiliationDescriptor
+     * @throws ValidationException
+     */
     protected void validateOwner(AffiliationDescriptor affiliationDescriptor) throws ValidationException {
         if (DatatypeHelper.isEmpty(affiliationDescriptor.getOwnerID())) {
             throw new ValidationException("Owner ID required.");
@@ -47,7 +58,13 @@ public class AffiliationDescriptorSchemaValidator implements Validator {
             throw new ValidationException("Max Owner ID length is 1024.");
         }
     }
-    
+
+    /**
+     * Checks that at least one Member is present.
+     * 
+     * @param affiliationDescriptor
+     * @throws ValidationException
+     */
     protected void validateMember(AffiliationDescriptor affiliationDescriptor) throws ValidationException {
         if (affiliationDescriptor.getMembers() == null || affiliationDescriptor.getMembers().size() < 1) {
             throw new ValidationException("Must have one or more Affiliation Members.");

@@ -20,19 +20,18 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
+import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor} for Schema compliance.
  */
-public class AdditionalMetadataLocationSchemaValidator implements Validator {
+public class AttributeAuthorityDescriptorSchemaValidator implements Validator {
 
     /** Constructor */
-    public AdditionalMetadataLocationSchemaValidator() {
+    public AttributeAuthorityDescriptorSchemaValidator() {
 
     }
 
@@ -40,32 +39,21 @@ public class AdditionalMetadataLocationSchemaValidator implements Validator {
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        AdditionalMetadataLocation aml = (AdditionalMetadataLocation) xmlObject;
-        validateLocation(aml);
-        validateNamespace(aml);
+        AttributeAuthorityDescriptor attributeAuthorityDescriptor = (AttributeAuthorityDescriptor) xmlObject;
+        validateAttributeServices(attributeAuthorityDescriptor);
     }
 
     /**
-     * Checks that Location is present.
+     * Checks that at least one AttributeService is present.
      * 
-     * @param aml
+     * @param attributeAuthorityDescriptor
      * @throws ValidationException
      */
-    protected void validateLocation(AdditionalMetadataLocation aml) throws ValidationException {
-        if (DatatypeHelper.isEmpty(aml.getLocationURI())) {
-            throw new ValidationException("Location required");
-        }
-    }
-
-    /**
-     * Checks that Namespace is present.
-     * 
-     * @param aml
-     * @throws ValidationException
-     */
-    protected void validateNamespace(AdditionalMetadataLocation aml) throws ValidationException {
-        if (DatatypeHelper.isEmpty(aml.getNamespaceURI())) {
-            throw new ValidationException("Namespace required");
+    protected void validateAttributeServices(AttributeAuthorityDescriptor attributeAuthorityDescriptor)
+            throws ValidationException {
+        if (attributeAuthorityDescriptor.getAttributeServices() == null
+                || attributeAuthorityDescriptor.getAttributeServices().size() == 0) {
+            throw new ValidationException("Must have one or more AttributeServices.");
         }
     }
 }
