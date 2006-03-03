@@ -48,22 +48,29 @@ public class ConditionsSchemaTest extends SAMLObjectValidatorBaseTestCase {
     public void testOneTimeUseFailure() throws ValidationException {
         Conditions conditions = (Conditions) target;
 
-        OneTimeUse oneTimeUse = (OneTimeUse) buildXMLObject(new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME,
+        OneTimeUse oneTimeUse1 = (OneTimeUse) buildXMLObject(new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX));
+
+        OneTimeUse oneTimeUse2 = (OneTimeUse) buildXMLObject(new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
         
-        conditions.setOneTimeUse(oneTimeUse);
-        conditions.getConditions().add(oneTimeUse);
+        conditions.getConditions().add(oneTimeUse1);
+        conditions.getConditions().add(oneTimeUse2);
         assertValidationFail("Multiple OneTimeUse conditions present, should raise a Validation Exception");
     }
     
     public void testProxyRestrictionFailure() throws ValidationException {
         Conditions conditions = (Conditions) target;
         
-        ProxyRestriction proxyRestriction = (ProxyRestriction) buildXMLObject(new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME,
+        ProxyRestriction proxyRestriction1 = (ProxyRestriction) buildXMLObject(new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX));
+
+        ProxyRestriction proxyRestriction2 = (ProxyRestriction) buildXMLObject(new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
         
-        conditions.setProxyRestriction(proxyRestriction);
-        conditions.getConditions().add(proxyRestriction);
+        conditions.getConditions().add(proxyRestriction1);
+        conditions.getConditions().add(proxyRestriction2);
+
         assertValidationFail("Multiple ProxyRestriction conditions present, should raise a Validation Exception");
     }
 }
