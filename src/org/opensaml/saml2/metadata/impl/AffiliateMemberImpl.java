@@ -47,7 +47,7 @@ public class AffiliateMemberImpl extends AbstractMetadataSAMLObject implements A
      * @see org.opensaml.saml2.metadata.AffiliateMember#setID(java.lang.String)
      */
     public void setID(String newID) throws IllegalArgumentException {
-        if (newID.length() > 1024) {
+        if (newID != null && newID.length() > 1024) {
             throw new IllegalArgumentException("Member ID can not exceed 1024 characters in length");
         }
 
