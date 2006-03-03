@@ -60,9 +60,6 @@ public class ConditionsSchemaValidator implements Validator {
                 oneTimeUseCount++;
             }
         }
-        if (conditions.getOneTimeUse() != null) {
-            oneTimeUseCount++;
-        }
         
         if (oneTimeUseCount > 1) {
             throw new ValidationException("At most one instance of OneTimeUse allowed");
@@ -75,9 +72,6 @@ public class ConditionsSchemaValidator implements Validator {
             if (conditions.getConditions().get(i) instanceof ProxyRestriction) {
                 proxyRestrictionCount++;
             }
-        }
-        if (conditions.getProxyRestriction() != null) {
-            proxyRestrictionCount++;
         }
         
         if (proxyRestrictionCount > 1) {
