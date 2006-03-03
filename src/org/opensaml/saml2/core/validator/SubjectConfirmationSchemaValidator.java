@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.SubjectConfirmation;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -51,7 +52,7 @@ public class SubjectConfirmationSchemaValidator implements Validator {
      * @throws ValidationException
      */
     protected void validateMethod(SubjectConfirmation subjectConfirmation) throws ValidationException {
-        if (subjectConfirmation.getMethod() == null) {
+        if (DatatypeHelper.isEmpty(subjectConfirmation.getMethod())) {
             throw new ValidationException("Method required");
         }
     }

@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AuthnContextDeclRef;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -51,7 +52,7 @@ public class AuthnContextDeclRefSchemaValidator implements Validator {
      * @throws ValidationException
      */
     protected void validateDeclRef(AuthnContextDeclRef authnCDR) throws ValidationException {
-        if (authnCDR.getAuthnContextDeclRef() == null) {
+        if (DatatypeHelper.isEmpty(authnCDR.getAuthnContextDeclRef())) {
             throw new ValidationException("AuthnContextDeclRef required");
         }
     }

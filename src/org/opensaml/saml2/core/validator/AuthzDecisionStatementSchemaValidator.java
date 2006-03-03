@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -53,7 +54,7 @@ public class AuthzDecisionStatementSchemaValidator implements Validator {
      * @throws ValidationException
      */
     protected void validateResource(AuthzDecisionStatement authzDS) throws ValidationException {
-        if (authzDS.getResource() == null) {
+        if (DatatypeHelper.isEmpty(authzDS.getResource())) {
             throw new ValidationException("Resource required");
         }
     }

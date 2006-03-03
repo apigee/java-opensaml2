@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -79,7 +80,7 @@ public class AssertionSchemaValidator implements Validator {
      * @throws ValidationException
      */
     protected void validateID(Assertion assertion) throws ValidationException {
-        if (assertion.getID() == null) {
+        if (DatatypeHelper.isEmpty(assertion.getID())) {
             throw new ValidationException("ID is required attribute");
         }
     }

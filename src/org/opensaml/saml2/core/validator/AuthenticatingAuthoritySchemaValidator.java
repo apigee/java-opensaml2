@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AuthenticatingAuthority;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -51,7 +52,7 @@ public class AuthenticatingAuthoritySchemaValidator implements Validator {
      * @throws ValidationException
      */
     protected void validateURI(AuthenticatingAuthority authenAuthority) throws ValidationException {
-        if (authenAuthority.getURI() == null) {
+        if (DatatypeHelper.isEmpty(authenAuthority.getURI())) {
             throw new ValidationException("URI required");
         }
     }

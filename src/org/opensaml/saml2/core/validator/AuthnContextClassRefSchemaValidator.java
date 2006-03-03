@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -51,7 +52,7 @@ public class AuthnContextClassRefSchemaValidator implements Validator {
      * @throws ValidationException
      */
     protected void validateClassRef(AuthnContextClassRef authnCCR) throws ValidationException {
-        if (authnCCR.getAuthnContextClassRef() == null) {
+        if (DatatypeHelper.isEmpty(authnCCR.getAuthnContextClassRef())) {
             throw new ValidationException("AuthnContextClassRef required");
         }
     }
