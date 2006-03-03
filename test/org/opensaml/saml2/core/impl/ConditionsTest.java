@@ -111,6 +111,8 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
     public void testChildElementsUnmarshall() {
         Conditions conditions = (Conditions) unmarshallElement(childElementsFile);
         assertEquals("Condition count not as expected", conditionCount, conditions.getConditions().size());
+        assertNotNull("OneTimeUse absent", conditions.getOneTimeUse());
+        assertNotNull("ProxyRestriction absent", conditions.getProxyRestriction());
     }
 
     /**
@@ -124,8 +126,8 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         for (int i = 0; i < audienceRestrictionCount; i++) {
             conditions.getAudienceRestrictions().add(new AudienceRestrictionImpl());
         }
-        conditions.setOneTimeUse(new OneTimeUseImpl());
-        conditions.setProxyRestriction(new ProxyRestrictionImpl());
+        conditions.getConditions().add(new OneTimeUseImpl());
+        conditions.getConditions().add(new ProxyRestrictionImpl());
         assertEquals(expectedChildElementsDOM, conditions);
     }
 }
