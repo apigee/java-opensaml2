@@ -95,7 +95,11 @@ public class AuthnStatementImpl extends AbstractAssertionSAMLObject implements A
      * @see org.opensaml.saml2.core.AuthnStatement#setAuthnInstant(org.joda.time.DateTime)
      */
     public void setAuthnInstant(DateTime newAuthnInstant) {
-        this.authnInstant = prepareForAssignment(this.authnInstant, newAuthnInstant.withZone(DateTimeZone.UTC));
+        if (newAuthnInstant != null) {
+            this.authnInstant = prepareForAssignment(this.authnInstant, newAuthnInstant.withZone(DateTimeZone.UTC));
+        } else {
+            this.authnInstant = null;
+        }
     }
 
     /*

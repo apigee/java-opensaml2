@@ -52,7 +52,7 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
 
     /** Issuer of the assertion */
     private Issuer issuer;
-    
+
     /** Signature of the assertion */
     private Signature signature;
 
@@ -98,7 +98,12 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      * @see org.opensaml.saml2.core.Assertion#setIssueInstant(org.joda.time.DateTime)
      */
     public void setIssueInstant(DateTime newIssueInstance) {
-        this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstance.withZone(DateTimeZone.UTC));
+        if (newIssueInstance != null) {
+            this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstance.withZone(DateTimeZone.UTC));
+        } else {
+            this.issueInstant = null;
+        }
+
     }
 
     /*
@@ -135,14 +140,14 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
     public Signature getSignature() {
         return signature;
     }
-    
+
     /*
      * @see org.opensaml.xml.signature.SignableXMLObject#setSignature(org.opensaml.xml.signature.Signature)
      */
     public void setSignature(Signature newSignature) {
         this.signature = prepareForAssignment(this.signature, newSignature);
     }
-    
+
     /*
      * @see org.opensaml.saml2.core.Assertion#getSubject()
      */
