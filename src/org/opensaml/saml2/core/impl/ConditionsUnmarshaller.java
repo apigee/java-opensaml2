@@ -52,12 +52,6 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (childObject instanceof Condition) {
             conditions.getConditions().add((Condition) childObject);
-        } else if (childObject instanceof AudienceRestriction) {
-            conditions.getAudienceRestrictions().add((AudienceRestriction) childObject);
-        } else if (childObject instanceof OneTimeUse) {
-            conditions.setOneTimeUse((OneTimeUse) childObject);
-        } else if (childObject instanceof ProxyRestriction) {
-            conditions.setProxyRestriction((ProxyRestriction) childObject);
         } else {
             super.processChildElement(parentObject, childObject);
         }

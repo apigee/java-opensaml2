@@ -24,15 +24,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.saml2.core.Condition;
 import org.opensaml.saml2.core.Conditions;
 import org.opensaml.saml2.core.OneTimeUse;
 import org.opensaml.saml2.core.ProxyRestriction;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Conditions}
@@ -40,10 +43,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class ConditionsImpl extends AbstractAssertionSAMLObject implements Conditions {
 
     /** A Condition */
-    private XMLObjectChildrenList<Condition> condition;
-
-    /** Audience Restriction condition */
-    private XMLObjectChildrenList<AudienceRestriction> audienceRestriction;
+    private IndexedXMLObjectChildrenList<Condition> condition;
 
     /** One Time Use condition */
     private OneTimeUse oneTimeUse;
@@ -61,8 +61,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
     protected ConditionsImpl() {
         super(Conditions.LOCAL_NAME);
 
-        condition = new XMLObjectChildrenList<Condition>(this);
-        audienceRestriction = new XMLObjectChildrenList<AudienceRestriction>(this);
+        condition = new IndexedXMLObjectChildrenList<Condition>(this);
     }
 
     /*
@@ -76,35 +75,34 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
      * @see org.opensaml.saml2.core.Conditions#getAudienceRestriction()
      */
     public List<AudienceRestriction> getAudienceRestrictions() {
-        return audienceRestriction;
+        QName conditionQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
+        return (List<AudienceRestriction>) condition.subList(conditionQName);
     }
 
     /*
      * @see org.opensaml.saml2.core.Conditions#getOneTimeUse()
      */
     public OneTimeUse getOneTimeUse() {
-        return oneTimeUse;
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.Conditions#setOneTimeUse(org.opensaml.saml2.core.OneTimeUse)
-     */
-    public void setOneTimeUse(OneTimeUse newOneTimeUse) {
-        this.oneTimeUse = prepareForAssignment(this.oneTimeUse, newOneTimeUse);
+        QName conditionQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        List<OneTimeUse> list = (List<OneTimeUse>) condition.subList(conditionQName);
+        if (list == null || list.size() == 0) {
+            return null;
+        } else
+            return list.get(0);
     }
 
     /*
      * @see org.opensaml.saml2.core.Conditions#getProxyRestriction()
      */
     public ProxyRestriction getProxyRestriction() {
-        return proxyRestriction;
-    }
-    
-    /*
-     * @see org.opensaml.saml2.core.Conditions#setProxyRestriction(org.opensaml.saml2.core.ProxyRestriction)
-     */
-    public void setProxyRestriction(ProxyRestriction newProxyRestriction) {
-        this.proxyRestriction = prepareForAssignment(this.proxyRestriction, newProxyRestriction);
+        QName conditionQName = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
+        List<ProxyRestriction> list = (List<ProxyRestriction>) condition.subList(conditionQName);
+        if (list == null || list.size() == 0) {
+            return null;
+        } else
+            return list.get(0);
     }
 
     /*
@@ -142,9 +140,6 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.addAll(condition);
-        children.addAll(audienceRestriction);
-        children.add(oneTimeUse);
-        children.add(proxyRestriction);
 
         return Collections.unmodifiableList(children);
     }
