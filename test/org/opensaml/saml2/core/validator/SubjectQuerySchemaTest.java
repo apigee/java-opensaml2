@@ -21,48 +21,49 @@ package org.opensaml.saml2.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Artifact;
+import org.opensaml.saml2.core.Subject;
+import org.opensaml.saml2.core.SubjectQuery;
+
+
 
 /**
  *
  */
-public class ArtifactSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class SubjectQuerySchemaTest extends RequestSchemaTest {
 
     /**
      * Constructor
      *
      */
-    public ArtifactSchemaTest() {
+    public SubjectQuerySchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-        validator = new ArtifactSchemaValidator();
     }
 
     /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
+     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#setUp()
+     */
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
+    
+    /*
+     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#populateRequiredData()
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        Artifact artifact = (Artifact) target;
-        artifact.setArtifact("artifact-string");
+        SubjectQuery query = (SubjectQuery) target;
+        Subject subject = (Subject) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME));
+        query.setSubject(subject);
     }
-   
-   /**
-    * Tests null or empty artifact.
-    */
-    public void testArtifactFailure() {
-       Artifact artifact = (Artifact) target;
-       
-       artifact.setArtifact(null);
-       assertValidationFail("Artifact was null");
-       
-       artifact.setArtifact("");
-       assertValidationFail("Artifact was empty string");
     
-       artifact.setArtifact("        ");
-       assertValidationFail("Artifact was all whitespace");
-   }
+    /**
+     *  Tests invalid Subject child element.
+     */
+    public void testSubjectFailure() {
+        SubjectQuery query = (SubjectQuery) target;
+        query.setSubject(null);
+        assertValidationFail("Subject was null");
+    }
 
 }
