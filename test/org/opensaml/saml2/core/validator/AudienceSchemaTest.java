@@ -56,5 +56,8 @@ public class AudienceSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
         audience.setAudienceURI("");
         assertValidationFail("URI was empty string, should raise a Validation Exception");
+        
+        audience.setAudienceURI("    ");
+        assertValidationFail("URI was white space, should raise a Validation Exception");
     }
 }

@@ -55,18 +55,13 @@ public class AuthzDecisionStatementSchemaTest extends SAMLObjectValidatorBaseTes
         AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) target;
 
         authzDecisionStatement.setResource(null);
-        try {
-            validator.validate(authzDecisionStatement);
-            fail("Resource was null, should raise a Validation Exception");
-        } catch (ValidationException e) {
-        }
+        assertValidationFail("Resource was null, should raise a Validation Exception");
 
         authzDecisionStatement.setResource("");
-        try {
-            validator.validate(authzDecisionStatement);
-            fail("Resource was empty string, should raise a Validation Exception");
-        } catch (ValidationException e) {
-        }
+        assertValidationFail("Resource was empty string, should raise a Validation Exception");
+        
+        authzDecisionStatement.setResource("    ");
+        assertValidationFail("Resource was white space, should raise a Validation Exception");
     }
 
     /**
@@ -78,11 +73,7 @@ public class AuthzDecisionStatementSchemaTest extends SAMLObjectValidatorBaseTes
         AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) target;
 
         authzDecisionStatement.setDecision(null);
-        try {
-            validator.validate(authzDecisionStatement);
-            fail("Decision was null, should raise a Validation Exception");
-        } catch (ValidationException e) {
-        }
+        assertValidationFail("Decision was null, should raise a Validation Exception");
     }
 
     /**
@@ -94,10 +85,6 @@ public class AuthzDecisionStatementSchemaTest extends SAMLObjectValidatorBaseTes
         AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) target;
 
         authzDecisionStatement.getActions().clear();
-        try {
-            validator.validate(authzDecisionStatement);
-            fail("Action list was empty, should raise a Validation Exception");
-        } catch (ValidationException e) {
-        }
+        assertValidationFail("Action list was empty, should raise a Validation Exception");
     }
 }

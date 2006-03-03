@@ -56,5 +56,8 @@ public class AttributeSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
         attribute.setName("");
         assertValidationFail("Name was empty string, should raise a Validation Exception");
+        
+        attribute.setName("    ");
+        assertValidationFail("Name was white space, should raise a Validation Exception");
     }
 }

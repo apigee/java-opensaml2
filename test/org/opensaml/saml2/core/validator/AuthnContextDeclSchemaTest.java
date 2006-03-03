@@ -56,5 +56,8 @@ public class AuthnContextDeclSchemaTest extends SAMLObjectValidatorBaseTestCase 
 
         authnContextDecl.setDeclaration("");
         assertValidationFail("Declaration was empty string, should raise a Validation Exception");
+        
+        authnContextDecl.setDeclaration("    ");
+        assertValidationFail("Declaration was white space, should raise a Validation Exception");
     }
 }

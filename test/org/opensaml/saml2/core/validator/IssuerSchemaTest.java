@@ -53,5 +53,8 @@ public class IssuerSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
         issuer.setValue("");
         assertValidationFail("Name was empty string, should raise a Validation Exception");
+        
+        issuer.setValue("    ");
+        assertValidationFail("Name was white space, should raise a Validation Exception");
     }
 }

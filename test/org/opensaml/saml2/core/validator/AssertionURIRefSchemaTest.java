@@ -56,5 +56,8 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
         assertionURIRef.setAssertionURI("");
         assertValidationFail("URI was empty string, should raise a Validation Exception");
+        
+        assertionURIRef.setAssertionURI("    ");
+        assertValidationFail("URI was white space, should raise a Validation Exception");
     }
 }

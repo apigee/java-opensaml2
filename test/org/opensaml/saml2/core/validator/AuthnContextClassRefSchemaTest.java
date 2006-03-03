@@ -53,5 +53,8 @@ public class AuthnContextClassRefSchemaTest extends SAMLObjectValidatorBaseTestC
 
         authnContextClassRef.setAuthnContextClassRef("");
         assertValidationFail("ClassRef was empty string, should raise a Validation Exception");
+        
+        authnContextClassRef.setAuthnContextClassRef("    ");
+        assertValidationFail("ClassRef was white space, should raise a Validation Exception");
     }
 }

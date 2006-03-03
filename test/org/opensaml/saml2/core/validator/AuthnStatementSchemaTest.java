@@ -26,38 +26,27 @@ import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AuthnStatementSchemaValidator}.
+ */
 public class AuthnStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
-    private QName qname;
-    private QName authnQName;
-    private AuthnContext authnContext;
-    private AuthnStatementSchemaValidator assertionValidator;
-    
-    /**Constructor*/
+    /** Constructor */
     public AuthnStatementSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        authnQName = new QName(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        authnContext = (AuthnContext) buildXMLObject(authnQName);
-        assertionValidator = new AuthnStatementSchemaValidator();
-
-    }
-    
-    protected void setUp() throws Exception {
-        super.setUp();
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AuthnStatementSchemaValidator();
     }
 
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void testProper() throws ValidationException {
-        AuthnStatement assertion = (AuthnStatement) buildXMLObject(qname);
-
-        assertion.setAuthnInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
-        assertion.setAuthnContext(authnContext);
-        
-        assertionValidator.validate(assertion);
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        AuthnStatement authnStatement = (AuthnStatement) target;
+        AuthnContext authnContext = (AuthnContext) buildXMLObject(new QName(SAMLConstants.SAML20_NS,
+                AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
+        authnStatement.setAuthnInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
+        authnStatement.setAuthnContext(authnContext);
     }
 
     /**
@@ -66,14 +55,13 @@ public class AuthnStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testIssuerFailure() throws ValidationException {
-        AuthnStatement assertion = (AuthnStatement) buildXMLObject(qname);
+        AuthnStatement authnStatement = (AuthnStatement) target;
 
-        assertion.setAuthnContext(authnContext);
-        
+        authnStatement.setAuthnInstant(null);
         try {
-            assertionValidator.validate(assertion);
-            fail("AuthnInstant missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
+            validator.validate(authnStatement);
+            fail("AuthnInstant was null, should raise a Validation Exception");
+        } catch (ValidationException e) {
         }
     }
 
@@ -83,14 +71,13 @@ public class AuthnStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testIDFailure() throws ValidationException {
-        AuthnStatement assertion = (AuthnStatement) buildXMLObject(qname);
+        AuthnStatement authnStatement = (AuthnStatement) target;
 
-        assertion.setAuthnInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
-        
+        authnStatement.setAuthnContext(null);
         try {
-            assertionValidator.validate(assertion);
-            fail("AuthnContext missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
+            validator.validate(authnStatement);
+            fail("AuthnContext was null, should raise a Validation Exception");
+        } catch (ValidationException e) {
         }
     }
 }

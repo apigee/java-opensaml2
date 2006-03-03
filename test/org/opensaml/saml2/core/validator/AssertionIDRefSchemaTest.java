@@ -56,5 +56,8 @@ public class AssertionIDRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
         assertionIDRef.setAssertionID("");
         assertValidationFail("ID Ref was empty string, should raise a Validation Exception");
+        
+        assertionIDRef.setAssertionID("    ");
+        assertValidationFail("ID Ref was white space, should raise a Validation Exception");
     }
 }

@@ -27,44 +27,32 @@ import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.ValidationException;
 
+/**
+ * Test case for {@link org.opensaml.saml2.core.validator.AssertionSchemaValidator}.
+ */
 public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
-    private QName qname;
-    private QName isqname;
-    private QName subqname;
-    private Issuer issuer;
-    private Subject subject;
-    private AssertionSchemaValidator assertionValidator;
-    
-    /**Constructor*/
+    /** Constructor */
     public AssertionSchemaTest() {
-        qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        isqname = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        subqname = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        issuer = (Issuer) buildXMLObject(isqname);
-        subject = (Subject) buildXMLObject(subqname);
-        assertionValidator = new AssertionSchemaValidator();
-
-    }
-    
-    protected void setUp() throws Exception {
-        super.setUp();
+        targetQName = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        validator = new AssertionSchemaValidator();
     }
 
-    /**
-     * Tests the correct case.
-     * 
-     * @throws ValidationException
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void testProper() throws ValidationException {
-        Assertion assertion = (Assertion) buildXMLObject(qname);
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        Assertion assertion = (Assertion) target;
+        Issuer issuer = (Issuer) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX));
+        Subject subject = (Subject) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX));
 
         assertion.setIssuer(issuer);
+        assertion.setSubject(subject);
         assertion.setID("id");
         assertion.setIssueInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
-        assertion.setSubject(subject);
-        
-        assertionValidator.validate(assertion);
     }
 
     /**
@@ -73,17 +61,10 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testIssuerFailure() throws ValidationException {
-        Assertion assertion = (Assertion) buildXMLObject(qname);
+        Assertion assertion = (Assertion) target;
 
-        assertion.setID("id");
-        assertion.setIssueInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
-        assertion.setSubject(subject);
-        
-        try {
-            assertionValidator.validate(assertion);
-            fail("Issuer missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        assertion.setIssuer(null);
+        assertValidationFail("Issuer was null, should raise a Validation Exception");
     }
 
     /**
@@ -92,54 +73,39 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
      * @throws ValidationException
      */
     public void testIDFailure() throws ValidationException {
-        Assertion assertion = (Assertion) buildXMLObject(qname);
+        Assertion assertion = (Assertion) target;
 
-        assertion.setIssuer(issuer);
-        assertion.setIssueInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
-        assertion.setSubject(subject);
+        assertion.setID(null);
+        assertValidationFail("ID was null, should raise a Validation Exception");
+
+        assertion.setID("");
+        assertValidationFail("ID was empty string, should raise a Validation Exception");
         
-        try {
-            assertionValidator.validate(assertion);
-            fail("ID missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        assertion.setID("    ");
+        assertValidationFail("ID was white space, should raise a Validation Exception");
     }
-    
+
     /**
      * Tests absent IssueInstant failure.
      * 
      * @throws ValidationException
      */
     public void testIssueInstantFailure() throws ValidationException {
-        Assertion assertion = (Assertion) buildXMLObject(qname);
+        Assertion assertion = (Assertion) target;
 
-        assertion.setIssuer(issuer);
-        assertion.setID("id");
-        assertion.setSubject(subject);
-        
-        try {
-            assertionValidator.validate(assertion);
-            fail("IssueInstant missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        assertion.setIssueInstant(null);
+        assertValidationFail("IssueInstant was null, should raise a Validation Exception");
     }
-    
+
     /**
      * Tests absent Subject failure.
      * 
      * @throws ValidationException
      */
     public void testSubjectFailure() throws ValidationException {
-        Assertion assertion = (Assertion) buildXMLObject(qname);
+        Assertion assertion = (Assertion) target;
 
-        assertion.setIssuer(issuer);
-        assertion.setID("id");
-        assertion.setIssueInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
-        
-        try {
-            assertionValidator.validate(assertion);
-            fail("Subject missing, should raise a Validation Exception");
-        } catch (ValidationException success) {
-        }
+        assertion.setSubject(null);
+        assertValidationFail("Subject was null, should raise a Validation Exception");
     }
 }

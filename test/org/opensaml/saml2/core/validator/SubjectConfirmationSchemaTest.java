@@ -53,5 +53,8 @@ public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCa
         
         subjectConfirmation.setMethod("");
         assertValidationFail("Method was empty string, should raise a Validation Exception");
+        
+        subjectConfirmation.setMethod("    ");
+        assertValidationFail("Method was white space, should raise a Validation Exception");
     }
 }

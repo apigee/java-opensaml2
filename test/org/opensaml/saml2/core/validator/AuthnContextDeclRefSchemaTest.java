@@ -56,5 +56,8 @@ public class AuthnContextDeclRefSchemaTest extends SAMLObjectValidatorBaseTestCa
 
         authnContextDeclRef.setAuthnContextDeclRef("");
         assertValidationFail("DeclRef was empty string, should raise a Validation Exception");
+        
+        authnContextDeclRef.setAuthnContextDeclRef("    ");
+        assertValidationFail("DeclRef was white space, should raise a Validation Exception");
     }
 }

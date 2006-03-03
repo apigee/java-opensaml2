@@ -54,5 +54,8 @@ public class AuthenticatingAuthoritySchemaTest extends SAMLObjectValidatorBaseTe
 
         authenticatingAuthority.setURI("");
         assertValidationFail("URI was empty string, should raise a Validation Exception");
+        
+        authenticatingAuthority.setURI("    ");
+        assertValidationFail("URI was white space, should raise a Validation Exception");
     }
 }
