@@ -104,6 +104,9 @@ public class AssertionSchemaValidator implements Validator {
      */
     protected void validateSubject(Assertion assertion) throws ValidationException {
         if ((assertion.getStatements() == null || assertion.getStatements().size() == 0)
+                && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().size() == 0)
+                && (assertion.getAttributeStatement() == null || assertion.getAttributeStatement().size() == 0)
+                && (assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().size() == 0)
                 && assertion.getSubject() == null) {
             throw new ValidationException("Subject is required when Statements are absent");
         }
