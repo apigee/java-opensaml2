@@ -27,7 +27,7 @@ public abstract class RoleDescriptorSchemaTest extends SAMLObjectValidatorBaseTe
 
     /** Constructor */
     public RoleDescriptorSchemaTest() {
-        super();
+ 
     }
  
     /*

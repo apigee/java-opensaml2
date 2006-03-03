@@ -33,7 +33,7 @@ public class AttributeAuthorityDescriptorSchemaTest extends RoleDescriptorSchema
         targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
         validator = new AttributeAuthorityDescriptorSchemaValidator();
     }
-
+    
     /*
      * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
@@ -44,7 +44,6 @@ public class AttributeAuthorityDescriptorSchemaTest extends RoleDescriptorSchema
                 AttributeService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         attributeAuthorityDescriptor.getAttributeServices().add(attributeService);
     }
-
     
     /**
      * Tests for AttributeService failure.
