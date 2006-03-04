@@ -32,7 +32,7 @@ public class AudienceImpl extends AbstractAssertionSAMLObject implements Audienc
     /**
      * Constructor
      */
-    protected AudienceImpl() {
+    public AudienceImpl() {
         super(Audience.LOCAL_NAME);
     }
 
