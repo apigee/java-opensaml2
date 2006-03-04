@@ -118,7 +118,12 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      * There is (as yet) no helper function for Date values so all the logic is in here.
      */
     public void setIssueInstant(DateTime issueInstant) {
-        this.issueInstant = prepareForAssignment(this.issueInstant, issueInstant.withZone(DateTimeZone.UTC));
+        
+        if (issueInstant != null) {
+                issueInstant = issueInstant.withZone(DateTimeZone.UTC);
+        }
+        
+        this.issueInstant = prepareForAssignment(this.issueInstant, issueInstant);
     }
 
     /*
