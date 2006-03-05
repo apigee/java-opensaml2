@@ -20,19 +20,19 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.saml1.core.impl.AudienceImpl;
+import org.opensaml.saml1.core.AttributeDesignator;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
  */
-public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class AttributeDesignatorSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public AudeinceRestrictionConditionSchemaTest() {
+    public AttributeDesignatorSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AudienceRestrictionConditionValidator();
+        targetQName = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        validator = new AttributeDesignatorValidator();
+
     }
 
     /*
@@ -40,14 +40,24 @@ public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
+
+        AttributeDesignator attributeDesignator = (AttributeDesignator) target;
+
+        attributeDesignator.setAttributeName("Jimmy");
+        attributeDesignator.setAttributeNamespace("Glaswegan");
     }
     
-    public void testMissingAudience(){
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().clear();
-        assertValidationFail("Audience was empty, should raise a Validation Exception");
+    public void testMissingName() {
+        AttributeDesignator attributeDesignator = (AttributeDesignator) target;
+
+        attributeDesignator.setAttributeName("");
+        assertValidationFail("No AttributeName attribute");
+    }
+
+    public void testMissingNameSpace() {
+        AttributeDesignator attributeDesignator = (AttributeDesignator) target;
+
+        attributeDesignator.setAttributeNamespace(null);
+        assertValidationFail("No AttributeNamespace attribute");
     }
 }

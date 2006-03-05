@@ -20,7 +20,7 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -28,18 +28,22 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Schema compliance.
  */
-public class AudienceRestrictionConditionValidator implements Validator {
+public class AttributeDesignatorValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
+        AttributeDesignator attributeDesignator = (AttributeDesignator) xmlObject;
         
-         AudienceRestrictionCondition audienceRestrictionCondition= (AudienceRestrictionCondition) xmlObject;
-         
-         if (audienceRestrictionCondition.getAudiences() == null || 
-             audienceRestrictionCondition.getAudiences().size() == 0) {
-             throw new ValidationException("No Audience statements present");
-         }
-    }
+        String nameSpace = attributeDesignator.getAttributeNamespace();
+        if (nameSpace == null || nameSpace.length() == 0) {
+            throw new ValidationException("No NameSpace attribute present");
+        }
+
+        String name = attributeDesignator.getAttributeName();
+        if (name == null || name.length() == 0) {
+            throw new ValidationException("No Name attribute present");
+        }
+}
 }

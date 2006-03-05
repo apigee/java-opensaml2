@@ -20,19 +20,18 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.saml1.core.impl.AudienceImpl;
+import org.opensaml.saml1.core.Action;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
+ * Test case for {@link org.opensaml.saml1.core.validator.ActionSchemaValidator}.
  */
-public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public AudeinceRestrictionConditionSchemaTest() {
+    public ActionSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AudienceRestrictionConditionValidator();
+        targetQName = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        validator = new ActionSchemaValidator();
     }
 
     /*
@@ -41,13 +40,13 @@ public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
     protected void populateRequiredData() {
         super.populateRequiredData();
         
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
+        Action action = (Action) target;
+        action.setContents("data and other cool stuff");
     }
     
-    public void testMissingAudience(){
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().clear();
-        assertValidationFail("Audience was empty, should raise a Validation Exception");
+    public void testMissingContents(){
+        Action action = (Action) target;
+        action.setContents(null);
+        assertValidationFail("No Contents, should raise a Validation Exception");
     }
 }

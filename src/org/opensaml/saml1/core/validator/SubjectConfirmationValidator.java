@@ -20,7 +20,7 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -28,18 +28,16 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Schema compliance.
  */
-public class AudienceRestrictionConditionValidator implements Validator {
+public class SubjectConfirmationValidator implements Validator  {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) xmlObject;
         
-         AudienceRestrictionCondition audienceRestrictionCondition= (AudienceRestrictionCondition) xmlObject;
-         
-         if (audienceRestrictionCondition.getAudiences() == null || 
-             audienceRestrictionCondition.getAudiences().size() == 0) {
-             throw new ValidationException("No Audience statements present");
+         if (subjectConfirmation.getConfirmationMethods().size() == 0) {
+             throw new ValidationException("At least Confirmation Method should be present");
          }
     }
 }

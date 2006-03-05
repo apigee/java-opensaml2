@@ -18,21 +18,21 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.saml1.core.impl.AudienceImpl;
+import org.opensaml.saml1.core.Attribute;
+import org.opensaml.saml1.core.AttributeValue;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
  */
-public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AttributeSchemaTest extends AttributeDesignatorSchemaTest {
 
     /** Constructor */
-    public AudeinceRestrictionConditionSchemaTest() {
+    public AttributeSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AudienceRestrictionConditionValidator();
+        targetQName = new QName(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        validator = new AttributeValidator();
+
     }
 
     /*
@@ -40,14 +40,18 @@ public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
+
+        Attribute attribute = (Attribute) target;
+        QName qname = new QName(SAMLConstants.SAML1_NS, AttributeValue.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
+        attribute.getAttributeValues().add((AttributeValue)buildXMLObject(qname));
     }
     
-    public void testMissingAudience(){
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().clear();
-        assertValidationFail("Audience was empty, should raise a Validation Exception");
+    public void testMissingValue() {
+        Attribute attribute = (Attribute) target;
+        attribute.getAttributeValues().clear();
+        
+        assertValidationFail("No AttributeValue elements");
     }
+
 }

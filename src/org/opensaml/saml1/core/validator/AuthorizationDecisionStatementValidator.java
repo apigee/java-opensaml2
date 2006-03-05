@@ -20,26 +20,38 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.saml1.core.AuthorizationDecisionStatement;
+import org.opensaml.saml1.core.DecisionType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Schema compliance.
  */
-public class AudienceRestrictionConditionValidator implements Validator {
+public class AuthorizationDecisionStatementValidator extends SubjectStatementValidator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         
-         AudienceRestrictionCondition audienceRestrictionCondition= (AudienceRestrictionCondition) xmlObject;
-         
-         if (audienceRestrictionCondition.getAudiences() == null || 
-             audienceRestrictionCondition.getAudiences().size() == 0) {
-             throw new ValidationException("No Audience statements present");
-         }
+        super.validate(xmlObject);
+        
+        AuthorizationDecisionStatement authorizationDecisionStatement;
+        authorizationDecisionStatement = (AuthorizationDecisionStatement) xmlObject;
+        
+        String resource = authorizationDecisionStatement.getResource();
+        if (resource == null || resource.length() == 0) {
+            throw new ValidationException("No Resource attribute present");
+        }
+
+        DecisionType decision = authorizationDecisionStatement.getDecision();
+        if (decision == null) {
+            throw new ValidationException("No Decision attribute present");
+        }
+        
+        if (authorizationDecisionStatement.getActions().size() == 0) {
+            throw new ValidationException("No Action elements present");
+        }
     }
 }

@@ -20,7 +20,7 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -28,18 +28,28 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Schema compliance.
  */
-public class AudienceRestrictionConditionValidator implements Validator {
+public class AuthorityBindingValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         
-         AudienceRestrictionCondition audienceRestrictionCondition= (AudienceRestrictionCondition) xmlObject;
+        AuthorityBinding authorityBinding = (AuthorityBinding) xmlObject;
          
-         if (audienceRestrictionCondition.getAudiences() == null || 
-             audienceRestrictionCondition.getAudiences().size() == 0) {
-             throw new ValidationException("No Audience statements present");
+        String authorityKind = authorityBinding.getAuthorityKind();    
+        if (authorityKind == null || authorityKind.length() == 0) {
+             throw new ValidationException("No AuthorityKind attribute present");
          }
+        
+        String location = authorityBinding.getLocation();
+        if (location == null || location.length() == 0) {
+            throw new ValidationException("No Location attribute present");
+        }
+        
+        String binding = authorityBinding.getBinding();
+        if (binding == null || binding.length() == 0) {
+            throw new ValidationException("No Bining attribute present");
+        }
     }
 }

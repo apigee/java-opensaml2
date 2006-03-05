@@ -20,19 +20,17 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.saml1.core.impl.AudienceImpl;
+import org.opensaml.saml1.core.Subject;
+import org.opensaml.saml1.core.SubjectStatement;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
  */
-public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class SubjectStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public AudeinceRestrictionConditionSchemaTest() {
+    public SubjectStatementSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AudienceRestrictionConditionValidator();
     }
 
     /*
@@ -40,14 +38,17 @@ public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
+
+        SubjectStatement subjectStatement= (SubjectStatement) target;
         
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
+        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        subjectStatement.setSubject((Subject)buildXMLObject(qname));
     }
     
-    public void testMissingAudience(){
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().clear();
-        assertValidationFail("Audience was empty, should raise a Validation Exception");
+    public void testMissingSubject(){
+        SubjectStatement subjectStatement= (SubjectStatement) target;
+
+        subjectStatement.setSubject(null);
+        assertValidationFail("No Subject methods - should fail");
     }
 }

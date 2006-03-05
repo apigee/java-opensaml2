@@ -20,19 +20,19 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.saml1.core.impl.AudienceImpl;
+import org.opensaml.saml1.core.ConfirmationMethod;
+import org.opensaml.saml1.core.SubjectConfirmation;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
  */
-public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public AudeinceRestrictionConditionSchemaTest() {
+    public SubjectConfirmationSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AudienceRestrictionConditionValidator();
+        targetQName = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        validator = new SubjectConfirmationValidator();
     }
 
     /*
@@ -40,14 +40,17 @@ public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
+
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) target;
         
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
+        QName qname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod)buildXMLObject(qname));
     }
     
-    public void testMissingAudience(){
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().clear();
-        assertValidationFail("Audience was empty, should raise a Validation Exception");
+    public void testMissingConfirmationMethod(){
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) target;
+
+        subjectConfirmation.getConfirmationMethods().clear();
+        assertValidationFail("No Confirmation methods - should fail");
     }
 }

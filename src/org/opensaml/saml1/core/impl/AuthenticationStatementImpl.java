@@ -83,8 +83,10 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
      * @see org.opensaml.saml1.core.AuthenticationStatement#setAuthenticationInstant(java.util.GregorianCalendar)
      */
     public void setAuthenticationInstant(DateTime authenticationInstant) {
-        this.authenticationInstant = prepareForAssignment(this.authenticationInstant, authenticationInstant
-                .withZone(DateTimeZone.UTC));
+        if (authenticationInstant != null) {
+            authenticationInstant = authenticationInstant.withZone(DateTimeZone.UTC);
+        }
+        this.authenticationInstant = prepareForAssignment(this.authenticationInstant, authenticationInstant);
     }
 
     //

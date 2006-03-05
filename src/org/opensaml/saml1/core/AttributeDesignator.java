@@ -25,7 +25,7 @@ public interface AttributeDesignator extends SAMLObject {
 
     /** Element name, no namespace. */
 
-    public final static String LOCAL_NAME = "AttributeStatement";
+    public final static String LOCAL_NAME = "AttributeDesignator";
     
     /** Name for the AttributeName attribute */
     public final static String ATTRIBUTENAME_ATTRIB_NAME = "AttributeName";
