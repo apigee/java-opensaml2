@@ -24,24 +24,27 @@ import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.AuthnRequest} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class AuthnRequestSchemaValidator extends RequestSchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public AuthnRequestSchemaValidator() {
+        super();
     }
 
     /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         super.validate(xmlObject);
     }
     
+    // All requirements are validated in the superclasses
     
+    // TODO verify spec conditions on combos of attributes?
 
 }

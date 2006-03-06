@@ -19,29 +19,37 @@
  */
 package org.opensaml.saml2.core.validator;
 
+import org.opensaml.saml2.core.StatusMessage;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * hecks {@link org.opensaml.saml2.core.StatusMessage} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class StatusMessageSchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public StatusMessageSchemaValidator() {
+        super();
     }
 
     /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+        StatusMessage sm = (StatusMessage) xmlObject;
+        
+        validateMessage(sm);
     }
-    
-    
 
+    protected void validateMessage(StatusMessage sm) throws ValidationException {
+        if (DatatypeHelper.isEmpty(sm.getMessage())) {
+            throw new ValidationException("Message element just be non-empty");
+        }
+    }
 }

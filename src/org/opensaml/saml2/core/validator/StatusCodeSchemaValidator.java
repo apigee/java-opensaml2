@@ -19,29 +19,44 @@
  */
 package org.opensaml.saml2.core.validator;
 
+import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.StatusCode} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class StatusCodeSchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public StatusCodeSchemaValidator() {
+        super();
     }
 
     /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+        StatusCode sc = (StatusCode) xmlObject;
+        
+        validateValue(sc);
     }
-    
-    
+
+    /**
+     *  Validates the Value attribute
+     * 
+     * @param sc
+     * @throws ValidationException
+     */
+    protected void validateValue(StatusCode sc) throws ValidationException {
+        if (DatatypeHelper.isEmpty(sc.getValue())) {
+            throw new ValidationException("Value attribute is required");
+        }
+    }
 
 }

@@ -27,7 +27,7 @@ import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- *
+ * Checks {@link org.opensaml.saml2.core.StatusResponse} for Schema compliance.
  */
 public abstract class StatusResponseSchemaValidator implements Validator {
 

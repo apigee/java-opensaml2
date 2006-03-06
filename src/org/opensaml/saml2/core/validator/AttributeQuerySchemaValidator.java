@@ -24,24 +24,27 @@ import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.AttributeQuery} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public AttributeQuerySchemaValidator() {
+        super();
     }
 
     /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.saml2.core.validator.SubjectQuerySchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         super.validate(xmlObject);
     }
     
+    // Only validation requirments are in the superclasses
     
+    // TODO need to validate uniqure Attribute/@Name and Attribute/@NameFormat combos
 
 }

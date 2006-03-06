@@ -19,29 +19,45 @@
  */
 package org.opensaml.saml2.core.validator;
 
+import org.opensaml.saml2.core.IDPEntry;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.IDPEntry} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class IDPEntrySchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public IDPEntrySchemaValidator() {
+        super();
     }
 
     /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+        IDPEntry entry = (IDPEntry) xmlObject;
+        
+        validateProviderID(entry);
+
     }
-    
-    
+
+    /**
+     * Validates ProviderID attribute
+     * 
+     * @param entry
+     * @throws ValidationException 
+     */
+    protected void validateProviderID(IDPEntry entry) throws ValidationException {
+        if (DatatypeHelper.isEmpty(entry.getProviderID())) {
+            throw new ValidationException("ProviderID attribute is required");
+        }
+    }
 
 }

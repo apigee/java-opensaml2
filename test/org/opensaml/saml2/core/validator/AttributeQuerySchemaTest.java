@@ -22,41 +22,23 @@ package org.opensaml.saml2.core.validator;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Subject;
-import org.opensaml.saml2.core.SubjectQuery;
-
-
+import org.opensaml.saml2.core.AttributeQuery;
 
 /**
  *
  */
-public abstract class SubjectQuerySchemaTest extends RequestSchemaTest {
+public class AttributeQuerySchemaTest extends SubjectQuerySchemaTest {
 
     /**
      * Constructor
      *
      */
-    public SubjectQuerySchemaTest() {
+    public AttributeQuerySchemaTest() {
         super();
-    }
-  
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#populateRequiredData()
-     */
-    protected void populateRequiredData() {
-        super.populateRequiredData();
-        SubjectQuery query = (SubjectQuery) target;
-        Subject subject = (Subject) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME));
-        query.setSubject(subject);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        validator = new AttributeQuerySchemaValidator();
     }
     
-    /**
-     *  Tests invalid Subject child element.
-     */
-    public void testSubjectFailure() {
-        SubjectQuery query = (SubjectQuery) target;
-        query.setSubject(null);
-        assertValidationFail("Subject was null");
-    }
+    // All requirements are tested in the superclasses.
 
 }

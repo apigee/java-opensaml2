@@ -19,29 +19,38 @@
  */
 package org.opensaml.saml2.core.validator;
 
+import org.opensaml.saml2.core.RequesterID;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.RequesterID} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class RequesterIDSchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public RequesterIDSchemaValidator() {
+        super();
     }
 
     /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+        RequesterID reqid = (RequesterID) xmlObject;
+        
+        validateRequesterID(reqid);
     }
-    
-    
+
+    protected void validateRequesterID(RequesterID reqid) throws ValidationException {
+        if (DatatypeHelper.isEmpty(reqid.getRequesterID())) {
+            throw new ValidationException("RequesterID element must be non-empty");
+        }
+    }
 
 }

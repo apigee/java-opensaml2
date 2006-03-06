@@ -22,41 +22,43 @@ package org.opensaml.saml2.core.validator;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Subject;
-import org.opensaml.saml2.core.SubjectQuery;
-
-
+import org.opensaml.saml2.core.Artifact;
+import org.opensaml.saml2.core.ArtifactResolve;
 
 /**
  *
  */
-public abstract class SubjectQuerySchemaTest extends RequestSchemaTest {
+public class ArtifactResolveSchemaTest extends RequestSchemaTest {
 
     /**
      * Constructor
      *
      */
-    public SubjectQuerySchemaTest() {
+    public ArtifactResolveSchemaTest() {
         super();
+        targetQName = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        validator = new ArtifactResolveSchemaValidator();
     }
-  
+
     /*
      * @see org.opensaml.saml2.core.validator.RequestSchemaTest#populateRequiredData()
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        SubjectQuery query = (SubjectQuery) target;
-        Subject subject = (Subject) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME));
-        query.setSubject(subject);
+        ArtifactResolve ar = (ArtifactResolve) target;
+        Artifact artifact = (Artifact) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME));
+        ar.setArtifact(artifact);
     }
     
+    
     /**
-     *  Tests invalid Subject child element.
+     *  Tests invalid Artifact child element.
      */
-    public void testSubjectFailure() {
-        SubjectQuery query = (SubjectQuery) target;
-        query.setSubject(null);
-        assertValidationFail("Subject was null");
+    public void testArtifactFailure() {
+        ArtifactResolve ar = (ArtifactResolve) target;
+        
+        ar.setArtifact(null);
+        assertValidationFail("Artifact child was null");
     }
 
 }

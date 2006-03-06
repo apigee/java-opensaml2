@@ -24,15 +24,16 @@ import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.ArtifactResponse} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class ArtifactResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public ArtifactResponseSchemaValidator() {
+        super();
     }
 
     /*
@@ -42,6 +43,6 @@ public class ResponseSchemaValidator extends StatusResponseSchemaValidator imple
         super.validate(xmlObject);
     }
     
-    
+    // All requirements are validated in the superclasses.
 
 }

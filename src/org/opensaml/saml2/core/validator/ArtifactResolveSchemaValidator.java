@@ -19,29 +19,45 @@
  */
 package org.opensaml.saml2.core.validator;
 
+import org.opensaml.saml2.core.ArtifactResolve;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.ArtifactResolve} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class ArtifactResolveSchemaValidator extends RequestSchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public ArtifactResolveSchemaValidator() {
+        super();
+        
     }
 
     /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         super.validate(xmlObject);
+        ArtifactResolve ar = (ArtifactResolve) xmlObject;
+        
+        validateArtifact(ar);
     }
-    
-    
+
+    /**
+     * Validates the Artifact child element.
+     * 
+     * @param ar
+     * @throws ValidationException
+     */
+    protected void validateArtifact(ArtifactResolve ar) throws ValidationException {
+        if (ar.getArtifact() == null) {
+            throw new ValidationException("An Artifact is required");
+        }
+    }
 
 }

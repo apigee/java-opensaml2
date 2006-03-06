@@ -19,29 +19,43 @@
  */
 package org.opensaml.saml2.core.validator;
 
+import org.opensaml.saml2.core.IDPList;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.IDPList} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class IDPListSchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public IDPListSchemaValidator() {
+        super();
     }
 
     /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+        IDPList list = (IDPList) xmlObject;
+        
+        validateIDPEntries(list);
     }
-    
-    
+
+    /**
+     *  Validates IDPEntry child elements.
+     * 
+     * @param list
+     * @throws ValidationException
+     */
+    protected void validateIDPEntries(IDPList list) throws ValidationException {
+        if (list.getIDPEntrys().size() < 1) {
+            throw new ValidationException("IDPList must contain at least one IDPEntry");
+        }
+    }
 
 }

@@ -46,6 +46,12 @@ public class AssertionIDRequestSchemaValidator extends RequestSchemaValidator im
         validateAssertionIDRefs(request);
     }
     
+    /**
+     * Validate the AssertionIDRef child elements.
+     * 
+     * @param request
+     * @throws ValidationException
+     */
     protected void validateAssertionIDRefs(AssertionIDRequest request) throws ValidationException {
         if (request.getAssertionIDRefs().size() < 1)
             throw new ValidationException("Request must contain at least one AssertionIDRef");

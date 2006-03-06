@@ -19,29 +19,44 @@
  */
 package org.opensaml.saml2.core.validator;
 
+import org.opensaml.saml2.core.GetComplete;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Response} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.GetComplete} for Schema compliance.
  */
-public class ResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class GetCompleteSchemaValidator implements Validator {
 
     /**
      * Constructor
      *
      */
-    public ResponseSchemaValidator() {
+    public GetCompleteSchemaValidator() {
+        super();
     }
 
     /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+        GetComplete gc = (GetComplete) xmlObject;
+        
+        validateGetComplete(gc);
+    }
+
+    /**
+     * Validate the GetComplete element content.
+     * 
+     * @param gc
+     * @throws ValidationException
+     */
+    protected void validateGetComplete(GetComplete gc) throws ValidationException {
+        if (DatatypeHelper.isEmpty(gc.getGetComplete())) {
+            throw new ValidationException("GetComplete element must be non-empty");
+        }
     }
     
-    
-
 }
