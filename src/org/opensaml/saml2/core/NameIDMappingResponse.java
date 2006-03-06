@@ -26,20 +26,6 @@ public interface NameIDMappingResponse extends StatusResponse {
     public static final String LOCAL_NAME = "NameIDMappingResponse";
     
     /**
-     * Gets the base identifier of the principal for this response.
-     * 
-     * @return the base identifier of the principal for this response
-     */
-    public BaseID getBaseID();
-    
-    /**
-     * Sets the base identifier of the principal for this response.
-     * 
-     * @param newBaseID the base identifier of the principal for this response
-     */
-    public void setBaseID(BaseID newBaseID);
-    
-    /**
      * Gets the name identifier of the principal for this response.
      * 
      * @return the name identifier of the principal for this response

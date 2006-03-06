@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.saml2.core.BaseID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingResponse;
 import org.opensaml.xml.XMLObject;
@@ -30,9 +29,6 @@ import org.opensaml.xml.XMLObject;
  */
 public class NameIDMappingResponseImpl extends StatusResponseImpl implements NameIDMappingResponse {
     
-    /** BaseID child element */
-    private BaseID baseID;
-
     /** NameID child element */
     private NameID nameID;
 
@@ -42,20 +38,6 @@ public class NameIDMappingResponseImpl extends StatusResponseImpl implements Nam
      */
     protected NameIDMappingResponseImpl() {
         super(NameIDMappingResponse.LOCAL_NAME);
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#getBaseID()
-     */
-    public BaseID getBaseID() {
-        return baseID;
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#setBaseID(org.opensaml.saml2.core.BaseID)
-     */
-    public void setBaseID(BaseID newBaseID) {
-        baseID = prepareForAssignment(baseID, newBaseID);
     }
 
     /*
@@ -81,10 +63,6 @@ public class NameIDMappingResponseImpl extends StatusResponseImpl implements Nam
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
         
-        if (baseID != null) {
-            children.add(baseID);
-        }
-
         if (nameID != null) {
             children.add(nameID);
         }

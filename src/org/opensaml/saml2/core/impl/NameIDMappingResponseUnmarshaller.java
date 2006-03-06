@@ -17,7 +17,6 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.BaseID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingResponse;
 import org.opensaml.xml.XMLObject;
@@ -43,11 +42,9 @@ public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshalle
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
        NameIDMappingResponse resp = (NameIDMappingResponse) parentSAMLObject;
        
-       if (childSAMLObject instanceof BaseID) {
-           resp.setBaseID((BaseID) childSAMLObject);
-       }else if(childSAMLObject instanceof NameID) {
+       if (childSAMLObject instanceof NameID) {
            resp.setNameID((NameID) childSAMLObject);
-       }else {
+       } else {
            super.processChildElement(parentSAMLObject, childSAMLObject);
        }      
     }
