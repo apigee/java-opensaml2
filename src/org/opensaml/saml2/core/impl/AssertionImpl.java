@@ -189,6 +189,13 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
     }
 
     /*
+     * @see org.opensaml.saml2.core.Assertion#getStatements(javax.xml.namespace.QName)
+     */
+    public List<Statement> getStatements(QName typeOrName) {
+        return (List<Statement>) statements.subList(typeOrName);
+    }
+
+    /*
      * @see org.opensaml.saml2.core.Assertion#getAuthnStatements()
      */
     public List<AuthnStatement> getAuthnStatements() {
