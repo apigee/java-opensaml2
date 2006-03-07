@@ -79,6 +79,14 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
 	public List<RoleDescriptor> getRoleDescriptors();
     
     /**
+     * Gets all the role descriptors for this entity descriptor
+     * that match the supplied QName parameter.
+     * 
+     * @return the role descriptors for this entity descriptor
+     */
+	public List<RoleDescriptor> getRoleDescriptors(QName typeOrName);
+    
+    /**
      * Gets all the {@link IDPSSODescriptor}s role descriptor for this entity.
      * 
      * @return the {@link IDPSSODescriptor}s role descriptor for this entity

@@ -152,6 +152,13 @@ public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject imp
     }
 
     /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName)
+     */
+    public List<RoleDescriptor> getRoleDescriptors(QName typeOrName) {
+        return (List<RoleDescriptor>) roleDescriptors.subList(typeOrName);
+    }
+
+    /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName, java.lang.String)
      */
     public RoleDescriptor getRoleDescriptors(QName type, String protocol) {
