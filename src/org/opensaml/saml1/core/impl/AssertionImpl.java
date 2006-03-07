@@ -158,7 +158,6 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      * @see org.opensaml.saml1.core.Assertion#getStatements()
      */
     public List<Statement> getStatements() {
-
         return statements;
     }
 
@@ -166,46 +165,39 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      * @see org.opensaml.saml1.core.Assertion#getStatements(javax.xml.namespace.QName)
      */
     public List<Statement> getStatements(QName typeOrName) {
-
-        List<Statement> list = statements.get(typeOrName);
-
-        if (list == null || list.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(list);
+        return (List<Statement>) statements.subList(typeOrName);
     }
 
     /*
      * @see org.opensaml.saml1.core.Assertion#getSubjectStatements()
      */
-    public List<Statement> getSubjectStatements() {
+    public List<SubjectStatement> getSubjectStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, SubjectStatement.LOCAL_NAME);
-        return getStatements(statementQName);
+        return (List<SubjectStatement>) statements.subList(statementQName);
     }
 
     /*
      * @see org.opensaml.saml1.core.Assertion#getAuthenticationStatements()
      */
-    public List<Statement> getAuthenticationStatements() {
+    public List<AuthenticationStatement> getAuthenticationStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME);
-
-        return getStatements(statementQName);
+        return (List<AuthenticationStatement>) statements.subList(statementQName);
     }
 
     /*
      * @see org.opensaml.saml1.core.Assertion#getAuthorizationDecisionStatements()
      */
-    public List<Statement> getAuthorizationDecisionStatements() {
+    public List<AuthorizationDecisionStatement> getAuthorizationDecisionStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME);
-        return getStatements(statementQName);
+        return (List<AuthorizationDecisionStatement>) statements.subList(statementQName);
     }
 
     /*
      * @see org.opensaml.saml1.core.Assertion#getAttributeStatements()
      */
-    public List<Statement> getAttributeStatements() {
+    public List<AttributeStatement> getAttributeStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME);
-        return getStatements(statementQName);
+        return (List<AttributeStatement>) statements.subList(statementQName);
     }
 
     /*

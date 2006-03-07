@@ -149,26 +149,26 @@ public interface Assertion extends SAMLObject, SignableXMLObject {
      * 
      * @return all the SubjectStatements
      */
-    public List<Statement> getSubjectStatements();
+    public List<SubjectStatement> getSubjectStatements();
 
     /**
      * Return the List representing all the <code> AuthenticationStatement </code> sub elements.
      * 
      * @return all the AuthenticationStatements
      */
-    public List<Statement> getAuthenticationStatements();
+    public List<AuthenticationStatement> getAuthenticationStatements();
 
     /**
      * Return the List representing all the <code> AuthorizationStatement </code> sub elements.
      * 
      * @return all the authorizationDecisionStatements.
      */
-    public List<Statement> getAuthorizationDecisionStatements();
+    public List<AuthorizationDecisionStatement> getAuthorizationDecisionStatements();
 
     /**
      * Add a single <code> AttributeStatement </code> to the List (if appropriate).
      * 
      * @return all the attributeStatements
      */
-    public List<Statement> getAttributeStatements();
+    public List<AttributeStatement> getAttributeStatements();
 }

@@ -68,10 +68,10 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertNull("Advice element", assertion.getAdvice());
 
         assertEquals("Statement element count", 0, assertion.getStatements().size());
-        assertNull("AttributeStatements element count", assertion.getAttributeStatements());
-        assertNull("SubjectStatements element count", assertion.getSubjectStatements());
-        assertNull("AuthenticationStatements element count", assertion.getAuthenticationStatements());
-        assertNull("AuthorizationDecisionStatements element count", assertion.getAuthorizationDecisionStatements());
+        assertEquals("AttributeStatements element count", 0, assertion.getAttributeStatements().size());
+        assertEquals("SubjectStatements element count", 0, assertion.getSubjectStatements().size());
+        assertEquals("AuthenticationStatements element count", 0, assertion.getAuthenticationStatements().size());
+        assertEquals("AuthorizationDecisionStatements element count", 0, assertion.getAuthorizationDecisionStatements().size());
     }
 
     /*
@@ -89,10 +89,10 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertNull("Advice element", assertion.getAdvice());
 
         assertEquals("Statement element count", 0, assertion.getStatements().size());
-        assertNull("AttributeStatements element count", assertion.getAttributeStatements());
-        assertNull("SubjectStatements element count", assertion.getSubjectStatements());
-        assertNull("AuthenticationStatements element count", assertion.getAuthenticationStatements());
-        assertNull("AuthorizationDecisionStatements element count", assertion.getAuthorizationDecisionStatements());
+        assertEquals("AttributeStatements element count", 0, assertion.getAttributeStatements().size());
+        assertEquals("SubjectStatements element count", 0, assertion.getSubjectStatements().size());
+        assertEquals("AuthenticationStatements element count", 0, assertion.getAuthenticationStatements().size());
+        assertEquals("AuthorizationDecisionStatements element count", 0, assertion.getAuthorizationDecisionStatements().size());
     }
 
     /**
