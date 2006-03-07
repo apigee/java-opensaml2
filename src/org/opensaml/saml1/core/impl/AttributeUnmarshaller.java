@@ -16,19 +16,16 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
-import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeValue;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.impl.AttributeImpl} objects.
  */
-public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class AttributeUnmarshaller extends AttributeDesignatorUnmarshaller {
 
     /**
      * Constructor
@@ -41,12 +38,9 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
      *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
-            throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
 
-        Attribute attribute;
-
-        attribute = (Attribute) parentSAMLObject;
+        Attribute attribute = (Attribute) parentSAMLObject;
 
         if (childSAMLObject instanceof AttributeValue) {
             attribute.getAttributeValues().add((AttributeValue) childSAMLObject);
@@ -54,21 +48,5 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
-
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
-    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-
-        Attribute attributeXMLObject = (Attribute) samlObject;
-
-        if (AttributeDesignator.ATTRIBUTENAME_ATTRIB_NAME.equals(attribute.getLocalName())) {
-            attributeXMLObject.setAttributeName(attribute.getValue());
-        } else if (AttributeDesignator.ATTRIBUTENAMESPACE_ATTRIB_NAME.equals(attribute.getLocalName())) {
-            attributeXMLObject.setAttributeNamespace(attribute.getValue());
-        } else {
-            super.processAttribute(samlObject, attribute);
-        }
-    }
+  
 }

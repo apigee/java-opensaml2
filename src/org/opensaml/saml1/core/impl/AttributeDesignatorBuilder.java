@@ -14,22 +14,31 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Attribute;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /**
- * A thread safe Marshaller for {@link org.opensaml.saml1.core.Attribute} objects.
+ * A class which exists to create {@link org.opensaml.saml1.core.impl.AttributeDesignatorImpl} objects
  */
-public class AttributeMarshaller extends AttributeDesignatorMarshaller {
+public class AttributeDesignatorBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
+     *
      */
-    public AttributeMarshaller() {
-        super(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME);
+    public AttributeDesignatorBuilder() {
     }
-    
- 
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public XMLObject buildObject() {
+        return new AttributeDesignatorImpl();
+    }
+
 }

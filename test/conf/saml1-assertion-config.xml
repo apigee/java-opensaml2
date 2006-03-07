@@ -104,6 +104,12 @@
             <MarshallingClass className="org.opensaml.saml1.core.impl.AttributeMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.AttributeUnmarshaller" />
         </ObjectProvider>
+        
+        <ObjectProvider qualifiedName="saml1:AttributeDesignator">
+            <BuilderClass className="org.opensaml.saml1.core.impl.AttributeDesignatorBuilder" />
+            <MarshallingClass className="org.opensaml.saml1.core.impl.AttributeDesignatorMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml1.core.impl.AttributeDesignatorUnmarshaller" />
+        </ObjectProvider>
 
         <ObjectProvider qualifiedName="saml1:AttributeValue">
             <BuilderClass className="org.opensaml.saml1.core.impl.AttributeValueBuilder" />

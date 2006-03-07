@@ -28,19 +28,11 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * A Concrete implementation of the {@link org.opensaml.saml1.core.Attribute} Interface
  */
-public class AttributeImpl extends AbstractAssertionSAMLObject implements Attribute {
+public class AttributeImpl extends AttributeDesignatorImpl implements Attribute {
 
     /** Contains the AttributeValues */
     private final List<AttributeValue> attributeValues;
 
-    /** Contains the AttributeName */
-    private String attributeName;
-
-    /** Contains the AttributeNamespace */
-    private String attributeNamespace;
-
-    /** Contains the Subject subelement */
-    // private Subject subject;
     /**
      * Constructor
      */
@@ -49,31 +41,6 @@ public class AttributeImpl extends AbstractAssertionSAMLObject implements Attrib
 
         attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
     }
-
-    //
-    // ATTRIBUTES
-    //
-
-    // TODO add method comments and methods to interface and impl class
-    public String getAttributeName() {
-        return attributeName;
-    }
-
-    public void setAttributeName(String attributeName) {
-        this.attributeName = prepareForAssignment(this.attributeName, attributeName);
-    }
-
-    public String getAttributeNamespace() {
-        return attributeNamespace;
-    }
-
-    public void setAttributeNamespace(String attributeNamespace) {
-        this.attributeNamespace = prepareForAssignment(this.attributeNamespace, attributeNamespace);
-    }
-
-    //
-    // ELEMENTS
-    //
 
     /*
      * @see org.opensaml.saml1.core.Attribute#getAttributeValues()
