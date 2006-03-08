@@ -115,10 +115,10 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
 
         attributeQuery.setSubject(new SubjectImpl());
         List <AttributeDesignator> list = attributeQuery.getAttributeDesignators();
-        list.add(new AttributeImpl());
-        list.add(new AttributeImpl());
-        list.add(new AttributeImpl());
-        list.add(new AttributeImpl());
+        list.add(new AttributeDesignatorImpl());
+        list.add(new AttributeDesignatorImpl());
+        list.add(new AttributeDesignatorImpl());
+        list.add(new AttributeDesignatorImpl());
         assertEquals(expectedChildElementsDOM, attributeQuery);
 
     }

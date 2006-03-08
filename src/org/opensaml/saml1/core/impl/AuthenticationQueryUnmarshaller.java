@@ -16,10 +16,8 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationQuery;
-import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
@@ -27,28 +25,13 @@ import org.w3c.dom.Attr;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AuthenticationQuery} objects.
  */
-public class AuthenticationQueryUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class AuthenticationQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
     /**
      * Constructor
      */
     public AuthenticationQueryUnmarshaller() {
         super(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
-    }
-
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
-            throws UnmarshallingException {
-        AuthenticationQuery authenticationQuery = (AuthenticationQuery) parentSAMLObject;
-
-        if (childSAMLObject instanceof Subject) {
-            authenticationQuery.setSubject((Subject) childSAMLObject);
-        } else {
-            super.processChildElement(parentSAMLObject, childSAMLObject);
-        }
     }
 
     /*

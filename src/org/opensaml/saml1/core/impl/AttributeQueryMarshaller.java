@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.xml.XMLObject;
@@ -26,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.AttributeQuery} objects.
  */
-public class AttributeQueryMarshaller extends AbstractSAMLObjectMarshaller {
+public class AttributeQueryMarshaller extends SubjectQueryMarshaller {
 
     /**
      * Constructor

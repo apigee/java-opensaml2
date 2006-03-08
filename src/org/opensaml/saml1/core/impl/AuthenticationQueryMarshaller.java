@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationQuery;
 import org.opensaml.xml.XMLObject;
@@ -26,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.AuthenticationQuery} objects.
  */
-public class AuthenticationQueryMarshaller extends AbstractSAMLObjectMarshaller {
+public class AuthenticationQueryMarshaller extends SubjectQueryMarshaller {
 
     /**
      * Constructor
@@ -43,8 +42,9 @@ public class AuthenticationQueryMarshaller extends AbstractSAMLObjectMarshaller 
         AuthenticationQuery authenticationQuery = (AuthenticationQuery) samlObject;
 
         if (authenticationQuery.getAuthenticationMethod() != null) {
-            domElement.setAttribute(AuthenticationQuery.AUTHENTICATIONMETHOD_ATTRIB_NAME, authenticationQuery
-                    .getAuthenticationMethod());
+            domElement.setAttributeNS(null, AuthenticationQuery.AUTHENTICATIONMETHOD_ATTRIB_NAME,
+                    authenticationQuery.getAuthenticationMethod());
         }
     }
+    
 }

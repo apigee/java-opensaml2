@@ -16,12 +16,10 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 import org.opensaml.saml1.core.Evidence;
-import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
@@ -29,7 +27,7 @@ import org.w3c.dom.Attr;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AuthorizationDecisionQuery} objects.
  */
-public class AuthorizationDecisionQueryUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class AuthorizationDecisionQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
     /** Constructor */
     public AuthorizationDecisionQueryUnmarshaller() {
@@ -46,9 +44,7 @@ public class AuthorizationDecisionQueryUnmarshaller extends AbstractSAMLObjectUn
         AuthorizationDecisionQuery authorizationDecisionQuery;
         authorizationDecisionQuery = (AuthorizationDecisionQuery) parentSAMLObject;
 
-        if (childSAMLObject instanceof Subject) {
-            authorizationDecisionQuery.setSubject((Subject) childSAMLObject);
-        } else if (childSAMLObject instanceof Action) {
+        if (childSAMLObject instanceof Action) {
             authorizationDecisionQuery.getActions().add((Action) childSAMLObject);
         } else if (childSAMLObject instanceof Evidence) {
             authorizationDecisionQuery.setEvidence((Evidence) childSAMLObject);

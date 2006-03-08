@@ -16,10 +16,15 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectQuery;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete (but abstract) implementation of {@link org.opensaml.saml1.core.SubjectQuery} abstract type
@@ -63,4 +68,18 @@ public abstract class SubjectQueryImpl extends AbstractProtocolSAMLObject implem
     public void setSubject(Subject subject) {
         this.subject = prepareForAssignment(this.subject, subject);
     }
+
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
+     */
+    public List<XMLObject> getOrderedChildren() {
+        if (subject == null) {
+            return null;
+        }
+        
+        List<XMLObject> children = new ArrayList<XMLObject>();
+        children.add(subject);
+        return Collections.unmodifiableList(children);
+    }
+    
 }

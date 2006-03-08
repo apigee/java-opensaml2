@@ -16,11 +16,9 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeQuery;
-import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
@@ -28,7 +26,7 @@ import org.w3c.dom.Attr;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AttributeQuery} objects.
  */
-public class AttributeQueryUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class AttributeQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
     /** Constructor */
     public AttributeQueryUnmarshaller() {
@@ -44,9 +42,7 @@ public class AttributeQueryUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         AttributeQuery attributeQuery = (AttributeQuery) parentSAMLObject;
 
-        if (childSAMLObject instanceof Subject) {
-            attributeQuery.setSubject((Subject) childSAMLObject);
-        } else if (childSAMLObject instanceof AttributeDesignator) {
+        if (childSAMLObject instanceof AttributeDesignator) {
             attributeQuery.getAttributeDesignators().add((AttributeDesignator) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);

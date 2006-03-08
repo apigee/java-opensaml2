@@ -56,12 +56,16 @@ public class AuthenticationQueryImpl extends SubjectQueryImpl implements Authent
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-        if (getSubject() == null) {
-            return null;
-        } else {
-            List<XMLObject> list = new ArrayList<XMLObject>(1);
-            list.add(getSubject());
-            return Collections.unmodifiableList(list);
+        List<XMLObject> list = new ArrayList<XMLObject>();
+        
+        if (super.getOrderedChildren() != null) {
+            list.addAll(super.getOrderedChildren());
         }
+        
+        if (list.size() == 0) {
+            return null;
+        }
+        
+        return Collections.unmodifiableList(list);
     }
 }
