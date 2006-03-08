@@ -45,22 +45,22 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
         Assertion assertion = (Assertion) samlElement;
 
         if (assertion.getID() != null) {
-            domElement.setAttribute(Assertion.ID_ATTRIB_NAME, assertion.getID());
+            domElement.setAttributeNS(null, Assertion.ID_ATTRIB_NAME, assertion.getID());
         }
         
         if (assertion.getIssuer() != null) {
-            domElement.setAttribute(Assertion.ISSUER_ATTRIB_NAME, assertion.getIssuer());
+            domElement.setAttributeNS(null, Assertion.ISSUER_ATTRIB_NAME, assertion.getIssuer());
         }
 
         if (assertion.getIssueInstant() != null) {
             String date = ISODateTimeFormat.dateTime().print(assertion.getIssueInstant());
-            domElement.setAttribute(Assertion.ISSUEINSTANT_ATTRIB_NAME, date);
+            domElement.setAttributeNS(null, Assertion.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
         if (assertion.getMinorVersion() != 0) {
             String minorVersion = Integer.toString(assertion.getMinorVersion());
-            domElement.setAttribute(Assertion.MINORVERSION_ATTRIB_NAME, minorVersion);
-            domElement.setAttribute(Assertion.MAJORVERSION_ATTRIB_NAME, "1");
+            domElement.setAttributeNS(null, Assertion.MINORVERSION_ATTRIB_NAME, minorVersion);
+            domElement.setAttributeNS(null, Assertion.MAJORVERSION_ATTRIB_NAME, "1");
         }
     }
 }

@@ -43,7 +43,7 @@ public class AttributeQueryMarshaller extends SubjectQueryMarshaller {
         AttributeQuery attributeQuery = (AttributeQuery) samlElement;
 
         if (attributeQuery.getResource() != null) {
-            domElement.setAttribute(AttributeQuery.RESOURCE_ATTRIB_NAME, attributeQuery.getResource());
+            domElement.setAttributeNS(null, AttributeQuery.RESOURCE_ATTRIB_NAME, attributeQuery.getResource());
         }
     }
 }

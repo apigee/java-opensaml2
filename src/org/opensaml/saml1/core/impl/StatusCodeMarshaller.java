@@ -43,7 +43,7 @@ public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
         StatusCode statusCode = (StatusCode) samlElement;
 
         if (statusCode.getValue() != null) {
-            domElement.setAttribute(StatusCode.VALUE_ATTRIB_NAME, statusCode.getValue());
+            domElement.setAttributeNS(null, StatusCode.VALUE_ATTRIB_NAME, statusCode.getValue());
         }
     }
 }

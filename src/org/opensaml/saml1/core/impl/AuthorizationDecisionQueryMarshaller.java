@@ -42,7 +42,7 @@ public class AuthorizationDecisionQueryMarshaller extends SubjectQueryMarshaller
         AuthorizationDecisionQuery authorizationDecisionQuery = (AuthorizationDecisionQuery) samlElement;
 
         if (authorizationDecisionQuery.getResource() != null) {
-            domElement.setAttribute(AuthorizationDecisionQuery.RESOURCE_ATTRIB_NAME, authorizationDecisionQuery
+            domElement.setAttributeNS(null, AuthorizationDecisionQuery.RESOURCE_ATTRIB_NAME, authorizationDecisionQuery
                     .getResource());
         }
     }

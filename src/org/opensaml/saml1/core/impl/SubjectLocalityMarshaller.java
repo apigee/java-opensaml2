@@ -43,11 +43,11 @@ public class SubjectLocalityMarshaller extends AbstractSAMLObjectMarshaller {
         SubjectLocality subjectLocality = (SubjectLocality) samlElement;
 
         if (subjectLocality.getIPAddress() != null) {
-            domElement.setAttribute(SubjectLocality.IPADDRESS_ATTRIB_NAME, subjectLocality.getIPAddress());
+            domElement.setAttributeNS(null, SubjectLocality.IPADDRESS_ATTRIB_NAME, subjectLocality.getIPAddress());
         }
 
         if (subjectLocality.getDNSAddress() != null) {
-            domElement.setAttribute(SubjectLocality.DNSADDRESS_ATTRIB_NAME, subjectLocality.getDNSAddress());
+            domElement.setAttributeNS(null, SubjectLocality.DNSADDRESS_ATTRIB_NAME, subjectLocality.getDNSAddress());
         }
     }
 }

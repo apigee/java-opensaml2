@@ -43,15 +43,15 @@ public class AuthorityBindingMarshaller extends AbstractSAMLObjectMarshaller {
         AuthorityBinding authorityBinding = (AuthorityBinding) samlElement;
 
         if (authorityBinding.getAuthorityKind() != null) {
-            domElement.setAttribute(AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, authorityBinding.getAuthorityKind());
+            domElement.setAttributeNS(null, AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, authorityBinding.getAuthorityKind());
         }
 
         if (authorityBinding.getBinding() != null) {
-            domElement.setAttribute(AuthorityBinding.BINDING_ATTRIB_NAME, authorityBinding.getBinding());
+            domElement.setAttributeNS(null, AuthorityBinding.BINDING_ATTRIB_NAME, authorityBinding.getBinding());
         }
 
         if (authorityBinding.getLocation() != null) {
-            domElement.setAttribute(AuthorityBinding.LOCATION_ATTRIB_NAME, authorityBinding.getLocation());
+            domElement.setAttributeNS(null, AuthorityBinding.LOCATION_ATTRIB_NAME, authorityBinding.getLocation());
         }
     }
 }

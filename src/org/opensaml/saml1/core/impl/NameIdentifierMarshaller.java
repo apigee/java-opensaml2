@@ -45,11 +45,11 @@ public class NameIdentifierMarshaller extends AbstractSAMLObjectMarshaller {
         NameIdentifier nameIdentifier = (NameIdentifier) samlElement;
 
         if (nameIdentifier.getNameQualifier() != null) {
-            domElement.setAttribute(NameIdentifier.NAMEQUALIFIER_ATTRIB_NAME, nameIdentifier.getNameQualifier());
+            domElement.setAttributeNS(null, NameIdentifier.NAMEQUALIFIER_ATTRIB_NAME, nameIdentifier.getNameQualifier());
         }
 
         if (nameIdentifier.getFormat() != null) {
-            domElement.setAttribute(NameIdentifier.FORMAT_ATTRIB_NAME, nameIdentifier.getFormat());
+            domElement.setAttributeNS(null, NameIdentifier.FORMAT_ATTRIB_NAME, nameIdentifier.getFormat());
         }
     }
 

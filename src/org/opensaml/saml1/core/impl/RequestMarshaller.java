@@ -45,16 +45,16 @@ public class RequestMarshaller extends AbstractSAMLObjectMarshaller {
         Request request = (Request) samlElement;
 
         if (request.getID() != null) {
-            domElement.setAttribute(RequestAbstractType.ID_ATTRIB_NAME, request.getID());
+            domElement.setAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, request.getID());
         }
         
         if (request.getIssueInstant() != null) {
             String date = ISODateTimeFormat.dateTime().print(request.getIssueInstant());
-            domElement.setAttribute(RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
+            domElement.setAttributeNS(null, RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
         }
         if (request.getMinorVersion() != 0) {
-            domElement.setAttribute(RequestAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
-            domElement.setAttribute(RequestAbstractType.MINORVERSION_ATTRIB_NAME, Integer.toString(request
+            domElement.setAttributeNS(null, RequestAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
+            domElement.setAttributeNS(null, RequestAbstractType.MINORVERSION_ATTRIB_NAME, Integer.toString(request
                     .getMinorVersion()));
         }
     }

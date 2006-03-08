@@ -46,26 +46,26 @@ public class ResponseMarshaller extends AbstractSAMLObjectMarshaller {
         Response response = (Response) samlElement;
 
         if (response.getID() != null) {
-            domElement.setAttribute(ResponseAbstractType.ID_ATTRIB_NAME, response.getID());
+            domElement.setAttributeNS(null, ResponseAbstractType.ID_ATTRIB_NAME, response.getID());
         }
         
         if (response.getInResponseTo() != null) {
-            domElement.setAttribute(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
+            domElement.setAttributeNS(null, ResponseAbstractType.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
         }
 
         if (response.getIssueInstant() != null) {
             String date = ISODateTimeFormat.dateTime().print(response.getIssueInstant());
-            domElement.setAttribute(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
+            domElement.setAttributeNS(null, ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
         if (response.getMinorVersion() != 0) {
             String minorVersion = Integer.toString(response.getMinorVersion());
-            domElement.setAttribute(ResponseAbstractType.MINORVERSION_ATTRIB_NAME, minorVersion);
-            domElement.setAttribute(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
+            domElement.setAttributeNS(null, ResponseAbstractType.MINORVERSION_ATTRIB_NAME, minorVersion);
+            domElement.setAttributeNS(null, ResponseAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
         }
 
         if (response.getRecipient() != null) {
-            domElement.setAttribute(ResponseAbstractType.RECIPIENT_ATTRIB_NAME, response.getRecipient());
+            domElement.setAttributeNS(null, ResponseAbstractType.RECIPIENT_ATTRIB_NAME, response.getRecipient());
         }
     }
 }

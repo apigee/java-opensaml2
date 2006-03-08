@@ -46,12 +46,12 @@ public class ConditionsMarshaller extends AbstractSAMLObjectMarshaller {
 
         if (conditions.getNotBefore() != null) {
             String date = ISODateTimeFormat.dateTime().print(conditions.getNotBefore());
-            domElement.setAttribute(Conditions.NOTBEFORE_ATTRIB_NAME, date);
+            domElement.setAttributeNS(null, Conditions.NOTBEFORE_ATTRIB_NAME, date);
         }
 
         if (conditions.getNotOnOrAfter() != null) {
             String date = ISODateTimeFormat.dateTime().print(conditions.getNotOnOrAfter());
-            domElement.setAttribute(Conditions.NOTONORAFTER_ATTRIB_NAME, date);
+            domElement.setAttributeNS(null, Conditions.NOTONORAFTER_ATTRIB_NAME, date);
         }
     }
 }
