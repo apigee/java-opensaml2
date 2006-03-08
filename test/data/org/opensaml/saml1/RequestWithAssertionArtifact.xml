@@ -1,1 +1,4 @@
 <samlp:Request xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol"
+><samlp:AssertionArtifact
+/><samlp:AssertionArtifact
+/></samlp:Request>
