@@ -109,8 +109,11 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
     /*
      * @see org.opensaml.saml1.core.RequestAbstractType#setIssueInstant(org.joda.time.DateTime)
      */
-    public void setIssueInstant(DateTime gregorianCalendar) {
-        this.issueInstant = prepareForAssignment(this.issueInstant, gregorianCalendar.withZone(DateTimeZone.UTC));
+    public void setIssueInstant(DateTime instant) {
+        if (instant != null) {
+            instant = instant.withZone(DateTimeZone.UTC);
+        }
+        this.issueInstant = prepareForAssignment(this.issueInstant, instant);
     }
 
     /*

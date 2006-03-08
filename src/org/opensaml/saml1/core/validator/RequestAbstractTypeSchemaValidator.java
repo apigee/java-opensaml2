@@ -20,11 +20,8 @@
 
 package org.opensaml.saml1.core.validator;
 
-import java.util.List;
-
 import org.opensaml.common.SAMLVersion;
-import org.opensaml.saml1.core.Assertion;
-import org.opensaml.saml1.core.Statement;
+import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -32,38 +29,28 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.AssertionIDReference} for Schema compliance.
  */
-public class AssertionSchemaValidator implements Validator {
+public class RequestAbstractTypeSchemaValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         
-         Assertion assertion= (Assertion) xmlObject;
-         
-         if ((assertion.getVersion() != SAMLVersion.VERSION_10) &&
-             (assertion.getVersion() != SAMLVersion.VERSION_11)) {
-             throw new ValidationException("Invalid Version");
-         }
-         
-         String id = assertion.getID();
-         if ((id == null) || (id.length() == 0)) {
-             throw new ValidationException("ID not present");
-         }
-         
-         
-         String issuer = assertion.getIssuer();
-         if ((issuer == null) || (issuer.length() == 0)) {
-             throw new ValidationException("Issuer not present");
+        RequestAbstractType requestAbstractType = (RequestAbstractType) xmlObject;
+        
+        String id = requestAbstractType.getID();
+        if (id == null || id.length() == 0) {
+            throw new ValidationException("RequestID is missing");
+        }
+        
+        if ((requestAbstractType.getVersion() != SAMLVersion.VERSION_10) &&
+                (requestAbstractType.getVersion() != SAMLVersion.VERSION_11)) {
+                throw new ValidationException("Invalid Version");
+            }
+            
+        if (requestAbstractType.getIssueInstant() == null) {
+             throw new ValidationException("No IssueInstant attribute present");
          }
 
-         if (assertion.getIssueInstant() == null) {
-             throw new ValidationException("IssueInstant not present");
-         }
-         
-         List <Statement> list = assertion.getStatements();
-         if (list == null || list.size() == 0) {
-             throw new ValidationException("No Statements present");
-         }
     }
 }

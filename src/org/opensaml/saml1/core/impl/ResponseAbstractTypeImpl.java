@@ -65,10 +65,16 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
     }
 
 
+    /*
+     * @see org.opensaml.saml1.core.ResponseAbstractType#getID()
+     */
     public String getID() {
         return id;
     }
 
+    /*
+     * @see org.opensaml.saml1.core.ResponseAbstractType#setID(java.lang.String)
+     */
     public void setID(String id) {
         this.id = prepareForAssignment(this.id, id);
     }

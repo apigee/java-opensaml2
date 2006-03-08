@@ -48,6 +48,11 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         assertion.getStatements().add(new AttributeStatementImpl());
     }
     
+    public void testMissingID(){
+        Assertion assertion = (Assertion) target;
+        assertion.setID("");
+        assertValidationFail("ID was empty, should raise a Validation Exception");
+    }
     public void testMissingIssuer(){
         Assertion assertion = (Assertion) target;
         assertion.setIssuer("");

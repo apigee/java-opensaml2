@@ -59,7 +59,7 @@ public interface RequestAbstractType extends SAMLObject, SignableXMLObject {
     public void setID(String id);
     
     /** Set the issue instant */
-    public void setIssueInstant(DateTime gregorianCalendar);
+    public void setIssueInstant(DateTime date);
  
     /** Return the list of RespondWith elements */
     public List <RespondWith> getRespondWiths();
