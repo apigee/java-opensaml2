@@ -28,7 +28,10 @@ import org.opensaml.saml1.core.ResponseAbstractType;
 public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolSAMLObject implements
         ResponseAbstractType {
 
-    /** Contents of the InResponseTo attribute */
+    /** Contains the ID */
+    private String id;
+    
+   /** Contents of the InResponseTo attribute */
     private String inResponseTo = null;
 
     /** Minor Version of this element */
@@ -61,6 +64,16 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
+
+    public String getID() {
+        return id;
+    }
+
+    public void setID(String id) {
+        this.id = prepareForAssignment(this.id, id);
+    }
+
+    
     /*
      * @see org.opensaml.saml1.core.Response#getInResponseTo()
      */

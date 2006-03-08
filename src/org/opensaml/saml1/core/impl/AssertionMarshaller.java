@@ -44,6 +44,10 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
 
         Assertion assertion = (Assertion) samlElement;
 
+        if (assertion.getID() != null) {
+            domElement.setAttribute(Assertion.ID_ATTRIB_NAME, assertion.getID());
+        }
+        
         if (assertion.getIssuer() != null) {
             domElement.setAttribute(Assertion.ISSUER_ATTRIB_NAME, assertion.getIssuer());
         }

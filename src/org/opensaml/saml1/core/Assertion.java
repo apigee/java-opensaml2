@@ -48,7 +48,10 @@ public interface Assertion extends SAMLObject, SignableXMLObject {
     /** Name for the attribute which defines the issue instant */
     public final static String ISSUEINSTANT_ATTRIB_NAME = "IssueInstant";
 
-    /* attributes */
+    /** Name for the attribute which defines the Issue Instant. */
+    public final static String ID_ATTRIB_NAME = "AssertionID";
+
+/* attributes */
 
     /**
      * Get the MinorVersion attribute.
@@ -85,6 +88,12 @@ public interface Assertion extends SAMLObject, SignableXMLObject {
      */
     public DateTime getIssueInstant();
 
+    /** Set the ID */
+    public String getID();
+    
+    /** Get the ID */
+    public void setID(String id);
+    
     /**
      * List the IssueInstance (attribute).
      * 

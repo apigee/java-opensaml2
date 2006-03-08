@@ -36,11 +36,13 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
 
     private final DateTime expectedIssueInstant;
 
+    private final String expectedID;
     /**
      * Constructor
      */
     public AssertionTest() {
         super();
+        expectedID = "ident";
         expectedMinorVersion = 1;
         expectedIssuer = "issuer";
         //
@@ -63,6 +65,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
 
         assertNull("Issuer attribute", assertion.getIssuer());
         assertNull("IssueInstant attribute", assertion.getIssueInstant());
+        assertNull("ID attribute", assertion.getID());
 
         assertNull("Conditions element", assertion.getConditions());
         assertNull("Advice element", assertion.getAdvice());
@@ -83,6 +86,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
 
         assertEquals("Issuer attribute", expectedIssuer, assertion.getIssuer());
         assertEquals("IssueInstant attribute", expectedIssueInstant, assertion.getIssueInstant());
+        assertEquals("ID attribute", expectedID, assertion.getID());
         assertEquals("Issuer expectedMinorVersion", expectedMinorVersion, assertion.getMinorVersion());
 
         assertNull("Conditions element", assertion.getConditions());
@@ -103,6 +107,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         Assertion assertion = (Assertion) unmarshallElement(childElementsFile);
 
         assertNull("Issuer attribute", assertion.getIssuer());
+        assertNull("ID attribute", assertion.getID());
         assertNull("IssueInstant attribute", assertion.getIssueInstant());
 
         assertNotNull("Conditions element null", assertion.getConditions());
@@ -137,6 +142,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         Assertion assertion = new AssertionImpl();
 
         assertion.setIssueInstant(expectedIssueInstant);
+        assertion.setID(expectedID);
         assertion.setIssuer(expectedIssuer);
         assertion.setMinorVersion(expectedMinorVersion);
 

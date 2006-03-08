@@ -74,7 +74,9 @@ public class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         Request request = (Request) samlElement;
 
-        if (RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
+        if (RequestAbstractType.ID_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            request.setID(attribute.getValue());
+        } else if (RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
             DateTime cal = new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC());
             request.setIssueInstant(cal);
         } else if (RequestAbstractType.MINORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {

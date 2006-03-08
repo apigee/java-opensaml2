@@ -45,6 +45,10 @@ public class ResponseMarshaller extends AbstractSAMLObjectMarshaller {
 
         Response response = (Response) samlElement;
 
+        if (response.getID() != null) {
+            domElement.setAttribute(ResponseAbstractType.ID_ATTRIB_NAME, response.getID());
+        }
+        
         if (response.getInResponseTo() != null) {
             domElement.setAttribute(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
         }
@@ -57,10 +61,10 @@ public class ResponseMarshaller extends AbstractSAMLObjectMarshaller {
         if (response.getMinorVersion() != 0) {
             String minorVersion = Integer.toString(response.getMinorVersion());
             domElement.setAttribute(ResponseAbstractType.MINORVERSION_ATTRIB_NAME, minorVersion);
+            domElement.setAttribute(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
         }
 
         if (response.getRecipient() != null) {
-            domElement.setAttribute(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
             domElement.setAttribute(ResponseAbstractType.RECIPIENT_ATTRIB_NAME, response.getRecipient());
         }
     }

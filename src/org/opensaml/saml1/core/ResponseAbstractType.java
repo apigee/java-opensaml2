@@ -40,12 +40,21 @@ public interface ResponseAbstractType extends SAMLObject, SignableXMLObject {
     /** Name for the attribute which defines the Recipient. */
     public final static String RECIPIENT_ATTRIB_NAME = "Recipient";
 
-    /** Return the InResponseTo (attribute). */
+    /** Name for the attribute which defines the Issue Instant. */
+    public final static String ID_ATTRIB_NAME = "ResponseID";
+
+   /** Return the InResponseTo (attribute). */
     String getInResponseTo();
 
     /** Set the InResponseTo (attribute). */
     void setInResponseTo(String who);
 
+    /** Set the ID */
+    public String getID();
+    
+    /** Get the ID */
+    public void setID(String id);
+    
     /** Return the Minor Version (attribute). */
     int getMinorVersion();
 

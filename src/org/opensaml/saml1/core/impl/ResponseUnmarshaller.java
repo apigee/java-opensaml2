@@ -68,7 +68,9 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         Response response = (Response) samlObject;
 
-        if (attribute.getLocalName().equals(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME)) {
+        if (attribute.getLocalName().equals(ResponseAbstractType.ID_ATTRIB_NAME)) {
+            response.setID(attribute.getValue());
+        } else if (attribute.getLocalName().equals(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME)) {
             response.setInResponseTo(attribute.getValue());
         } else if (attribute.getLocalName().equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)) {
             response.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));

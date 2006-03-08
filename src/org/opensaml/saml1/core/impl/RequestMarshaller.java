@@ -44,6 +44,10 @@ public class RequestMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         Request request = (Request) samlElement;
 
+        if (request.getID() != null) {
+            domElement.setAttribute(RequestAbstractType.ID_ATTRIB_NAME, request.getID());
+        }
+        
         if (request.getIssueInstant() != null) {
             String date = ISODateTimeFormat.dateTime().print(request.getIssueInstant());
             domElement.setAttribute(RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);

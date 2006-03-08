@@ -39,11 +39,14 @@ import org.xml.sax.InputSource;
  */
 public class RequestTest extends SAMLObjectBaseTestCase {
 
+    private final String expectedID;
+    
     private final DateTime expectedIssueInstant;
 
     private final int expectedMinorVersion;
 
     public RequestTest() {
+        expectedID = "ident";
         singleElementFile = "/data/org/opensaml/saml1/singleRequest.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleRequestAttributes.xml";
         expectedIssueInstant = new DateTime(1970, 1, 1, 0, 0, 0, 100, ISOChronology.getInstanceUTC());
@@ -56,6 +59,9 @@ public class RequestTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         Request request = (Request) unmarshallElement(singleElementFile);
 
+        String id = request.getID();
+        assertNull("ID attribute has value " + id + "expected no value", id);
+        
         DateTime date = request.getIssueInstant();
         assertNull("IssueInstant attribute has a value of " + date + ", expected no value", date);
 
@@ -74,6 +80,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesUnmarshall() {
         Request request = (Request) unmarshallElement(singleElementOptionalAttributesFile);
         
+        assertEquals("ID", expectedID, request.getID());
         assertEquals("MinorVersion", expectedMinorVersion, request.getMinorVersion());
         assertEquals("IssueInstant", expectedIssueInstant, request.getIssueInstant());
         
@@ -121,6 +128,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Request.LOCAL_NAME);
         Request request = (Request) buildXMLObject(qname);
 
+        request.setID(expectedID);
         request.setIssueInstant(expectedIssueInstant);
         request.setMinorVersion(expectedMinorVersion);
         assertEquals(expectedOptionalAttributesDOM, request);

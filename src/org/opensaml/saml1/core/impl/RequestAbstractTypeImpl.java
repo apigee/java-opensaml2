@@ -31,6 +31,9 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSAMLObject implements RequestAbstractType {
 
+    /** Contains the ID */
+    private String id;
+    
     /** Contains the minor version */
     private int version;
 
@@ -62,11 +65,33 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
         super(namespaceURI, elementLocalName, namespacePrefix);
         respondWiths = new XMLObjectChildrenList<RespondWith>(this);
     }
+    
 
+    /*
+     * @see org.opensaml.saml1.core.RequestAbstractType#getID()
+     */
+    public String getID() {
+        return id;
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.RequestAbstractType#setID(java.lang.String)
+     */
+    public void setID(String id) {
+        this.id = prepareForAssignment(this.id, id);
+    }
+
+
+    /*
+     * @see org.opensaml.saml1.core.RequestAbstractType#getMinorVersion()
+     */
     public int getMinorVersion() {
         return version;
     }
 
+    /*
+     * @see org.opensaml.saml1.core.RequestAbstractType#setMinorVersion(int)
+     */
     public void setMinorVersion(int version) {
         if (this.version != version) {
             releaseThisandParentDOM();
@@ -74,14 +99,23 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
         }
     }
 
+    /*
+     * @see org.opensaml.saml1.core.RequestAbstractType#getIssueInstant()
+     */
     public DateTime getIssueInstant() {
         return issueInstant;
     }
 
+    /*
+     * @see org.opensaml.saml1.core.RequestAbstractType#setIssueInstant(org.joda.time.DateTime)
+     */
     public void setIssueInstant(DateTime gregorianCalendar) {
         this.issueInstant = prepareForAssignment(this.issueInstant, gregorianCalendar.withZone(DateTimeZone.UTC));
     }
 
+    /*
+     * @see org.opensaml.saml1.core.RequestAbstractType#getRespondWiths()
+     */
     public List<RespondWith> getRespondWiths() {
         return respondWiths;
     }

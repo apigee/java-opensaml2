@@ -40,8 +40,17 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * This class implements the SAML 1 <code> Assertion </code> statement.
  */
+/**
+ *
+ */
+/**
+ *
+ */
 public class AssertionImpl extends AbstractSignableAssertionSAMLObject implements Assertion {
 
+    /** The <code> AssertionID </code> attrribute */
+    private String id;
+    
     /** Object version of the <code> MinorVersion </code> attribute. */
     private int minorVersion;
 
@@ -74,6 +83,22 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
         return minorVersion;
     }
 
+
+    /*
+     * @see org.opensaml.saml1.core.Assertion#getID()
+     */
+    public String getID() {
+        return id;
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.Assertion#setID(java.lang.String)
+     */
+    public void setID(String id) {
+        this.id = prepareForAssignment(this.id, id);   
+    }
+
+    
     /*
      * @see org.opensaml.saml1.core.Assertion#removeSubjectStatements(java.util.Set)
      * 

@@ -35,6 +35,9 @@ import org.opensaml.saml1.core.Status;
 public class ResponseTest extends SAMLObjectBaseTestCase {
 
     /** Representation of IssueInstant in test file. */
+    private final String expectedID;
+
+    /** Representation of IssueInstant in test file. */
     private final DateTime expectedIssueInstant;
 
     /** Representation of InResponseTo in test file. */
@@ -50,6 +53,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
     public ResponseTest() {
+        expectedID = "ident";
         singleElementFile = "/data/org/opensaml/saml1/singleResponse.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleResponseAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/ResponseWithChildren.xml";
@@ -70,6 +74,9 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
 
         Response response = (Response) unmarshallElement(singleElementFile);
 
+        String id = response.getID();
+        assertNull("ID attribute has value " + id + "expected no value", id);
+       
         assertNull("IssueInstant attribute has a value of " + response.getIssueInstant() 
                 + ", expected no value", response.getIssueInstant());
 
@@ -85,9 +92,9 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Response response;
-
         response = (Response) unmarshallElement(singleElementOptionalAttributesFile);
 
+        assertEquals("ID", expectedID, response.getID());
         assertEquals("IssueInstant attribute ", expectedIssueInstant, response.getIssueInstant());
 
         String string = response.getInResponseTo();
@@ -103,7 +110,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    public void testChildElementsMarshall() {
+    public void testChildElementsUnmarshall() {
         Response response = (Response) unmarshallElement(childElementsFile);
 
         assertEquals("No Assertion elements count", 1, response.getAssertions().size());
@@ -130,6 +137,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
         Response response = (Response) buildXMLObject(qname);
 
+        response.setID(expectedID);
         response.setInResponseTo(expectedInResponseTo);
         response.setIssueInstant(expectedIssueInstant);
         response.setRecipient(expectedRecipient);
@@ -141,7 +149,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-    public void testChildElementsUnmarshall() {
+    public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
         Response response = (Response) buildXMLObject(qname);
 
