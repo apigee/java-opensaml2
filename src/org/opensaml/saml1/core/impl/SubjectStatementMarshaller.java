@@ -14,21 +14,27 @@
  * limitations under the License.
  */
 
+/**
+ * 
+ */
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 
 /**
- * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.AttributeStatement} objects.
+ *
  */
-public class AttributeStatementMarshaller extends SubjectStatementMarshaller {
+public abstract class SubjectStatementMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
+     *
+     * @param targetNamespaceURI
+     * @param targetLocalName
+     * @throws NullPointerException
      */
-    public AttributeStatementMarshaller() {
-        super(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME);
-
+    protected SubjectStatementMarshaller(String targetNamespaceURI, String targetLocalName) throws NullPointerException {
+        super(targetNamespaceURI, targetLocalName);
     }
+
 }

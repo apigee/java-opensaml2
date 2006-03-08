@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.xml.XMLObject;
@@ -26,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} objects.
  */
-public class AuthorizationDecisionStatementMarshaller extends AbstractSAMLObjectMarshaller {
+public class AuthorizationDecisionStatementMarshaller extends SubjectStatementMarshaller {
 
     /**
      * Constructor
@@ -45,12 +44,12 @@ public class AuthorizationDecisionStatementMarshaller extends AbstractSAMLObject
         authorizationDecisionStatement = (AuthorizationDecisionStatement) samlElement;
 
         if (authorizationDecisionStatement.getResource() != null) {
-            domElement.setAttribute(AuthorizationDecisionStatement.RESOURCE_ATTRIB_NAME, authorizationDecisionStatement
+            domElement.setAttributeNS(null, AuthorizationDecisionStatement.RESOURCE_ATTRIB_NAME, authorizationDecisionStatement
                     .getResource());
         }
 
         if (authorizationDecisionStatement.getDecision() != null) {
-            domElement.setAttribute(AuthorizationDecisionStatement.DECISION_ATTRIB_NAME, authorizationDecisionStatement
+            domElement.setAttributeNS(null, AuthorizationDecisionStatement.DECISION_ATTRIB_NAME, authorizationDecisionStatement
                     .getDecision().toString());
         }
     }

@@ -18,11 +18,9 @@ package org.opensaml.saml1.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
-import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectLocality;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -31,7 +29,7 @@ import org.w3c.dom.Attr;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AuthenticationStatement} objects.
  */
-public class AuthenticationStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class AuthenticationStatementUnmarshaller extends SubjectStatementUnmarshaller {
 
     /**
      * Constructor
@@ -49,9 +47,7 @@ public class AuthenticationStatementUnmarshaller extends AbstractSAMLObjectUnmar
 
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) parentSAMLObject;
 
-        if (childSAMLObject instanceof Subject) {
-            authenticationStatement.setSubject((Subject) childSAMLObject);
-        } else if (childSAMLObject instanceof SubjectLocality) {
+        if (childSAMLObject instanceof SubjectLocality) {
             authenticationStatement.setSubjectLocality((SubjectLocality) childSAMLObject);
         } else if (childSAMLObject instanceof AuthorityBinding) {
             authenticationStatement.getAuthorityBindings().add((AuthorityBinding) childSAMLObject);

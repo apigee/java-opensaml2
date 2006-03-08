@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.xml.XMLObject;
@@ -27,7 +26,7 @@ import org.w3c.dom.Element;
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.AuthenticationStatement} objects.
  */
-public class AuthenticationStatementMarshaller extends AbstractSAMLObjectMarshaller {
+public class AuthenticationStatementMarshaller extends SubjectStatementMarshaller {
 
     /**
      * Constructor
@@ -44,13 +43,13 @@ public class AuthenticationStatementMarshaller extends AbstractSAMLObjectMarshal
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) samlElement;
 
         if (authenticationStatement.getAuthenticationMethod() != null) {
-            domElement.setAttribute(AuthenticationStatement.AUTHENTICATIONMETHOD_ATTRIB_NAME, authenticationStatement
+            domElement.setAttributeNS(null, AuthenticationStatement.AUTHENTICATIONMETHOD_ATTRIB_NAME, authenticationStatement
                     .getAuthenticationMethod());
         }
 
         if (authenticationStatement.getAuthenticationInstant() != null) {
             String value = ISODateTimeFormat.dateTime().print(authenticationStatement.getAuthenticationInstant());
-            domElement.setAttribute(AuthenticationStatement.AUTHENTICATIONINSTANT_ATTRIB_NAME, value);
+            domElement.setAttributeNS(null, AuthenticationStatement.AUTHENTICATIONINSTANT_ATTRIB_NAME, value);
         }
     }
 }

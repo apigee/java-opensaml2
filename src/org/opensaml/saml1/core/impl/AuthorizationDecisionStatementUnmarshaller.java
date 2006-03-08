@@ -17,13 +17,11 @@
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
 import org.opensaml.saml1.core.Evidence;
-import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
@@ -32,7 +30,7 @@ import org.w3c.dom.Attr;
  * A thread-safe Unmarshaller for
  * {@link org.opensaml.saml1.core.impl.AuthorizationDecisionStatementImpl} objects.
  */
-public class AuthorizationDecisionStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class AuthorizationDecisionStatementUnmarshaller extends SubjectStatementUnmarshaller {
 
     /** Logger */
     private static Logger log = Logger.getLogger(AuthorizationDecisionStatementUnmarshaller.class);
@@ -57,8 +55,6 @@ public class AuthorizationDecisionStatementUnmarshaller extends AbstractSAMLObje
             authorizationDecisionStatement.getActions().add((Action) childSAMLObject);
         } else if (childSAMLObject instanceof Evidence) {
             authorizationDecisionStatement.setEvidence((Evidence) childSAMLObject);
-        } else if (childSAMLObject instanceof Subject) {
-            authorizationDecisionStatement.setSubject((Subject) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }

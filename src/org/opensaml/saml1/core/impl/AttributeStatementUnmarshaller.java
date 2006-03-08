@@ -16,18 +16,16 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
-import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AttributeStatement} objects.
  */
-public class AttributeStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class AttributeStatementUnmarshaller extends SubjectStatementUnmarshaller {
 
     /**
      * Constructor
@@ -37,17 +35,14 @@ public class AttributeStatementUnmarshaller extends AbstractSAMLObjectUnmarshall
     }
 
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
      */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
 
         AttributeStatement attributeStatement = (AttributeStatement) parentSAMLObject;
 
-        if (childSAMLObject instanceof Subject) {
-            attributeStatement.setSubject((Subject) childSAMLObject);
-        } else if (childSAMLObject instanceof Attribute) {
+        if (childSAMLObject instanceof Attribute) {
             attributeStatement.getAttributes().add((Attribute) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);

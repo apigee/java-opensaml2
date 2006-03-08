@@ -108,8 +108,8 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>(actions.size() + 2);
 
-        if (getSubject() != null) {
-            list.add(getSubject());
+        if (super.getOrderedChildren() != null) {
+            list.addAll(super.getOrderedChildren());
         }
         list.addAll(actions);
         if (evidence != null) {

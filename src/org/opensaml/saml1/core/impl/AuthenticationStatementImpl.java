@@ -120,8 +120,8 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>(authorityBindings.size() + 2);
 
-        if (getSubject() != null) {
-            list.add(getSubject());
+        if (super.getOrderedChildren() != null) {
+            list.addAll(super.getOrderedChildren());
         }
 
         if (subjectLocality != null) {

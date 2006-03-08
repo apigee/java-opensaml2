@@ -16,10 +16,15 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectStatement;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Abstract type to implement SubjectStatementType
@@ -64,4 +69,18 @@ public abstract class SubjectStatementImpl extends AbstractAssertionSAMLObject i
     public void setSubject(Subject subject) throws IllegalArgumentException {
         this.subject = prepareForAssignment(this.subject, subject);
     }
+
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
+     */
+    public List<XMLObject> getOrderedChildren() {
+        if (subject == null) {
+            return null;
+        }
+        
+        List<XMLObject> children = new ArrayList<XMLObject>();
+        children.add(subject);
+        return Collections.unmodifiableList(children);
+    }
+    
 }
