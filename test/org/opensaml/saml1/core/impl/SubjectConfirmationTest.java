@@ -64,8 +64,8 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) unmarshallElement(singleElementFile);
 
-        assertNull("Non zero number of child ConfirmationMethods elements", subjectConfirmation
-                .getConfirmationMethods());
+        assertEquals("Non zero number of child ConfirmationMethods elements", 0, subjectConfirmation
+                .getConfirmationMethods().size());
         assertNull("Non zero number of child SubjectConfirmationData elements", subjectConfirmation
                 .getSubjectConfirmationData());
     }
@@ -83,7 +83,6 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
     public void testFullElementsUnmarshall() {
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) unmarshallElement(fullElementsFile);
 
-        assertNotNull("Zero child ConfirmationMethods elements", subjectConfirmation.getConfirmationMethods());
         assertEquals("Number of ConfirmationMethods", 2, subjectConfirmation.getConfirmationMethods().size());
         assertNotNull("Zero child SubjectConfirmationData elements", subjectConfirmation.getSubjectConfirmationData());
     }
