@@ -20,26 +20,26 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.saml1.core.Response;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Checks {@link org.opensaml.saml1.core.AttributeStatement} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.Response} for Schema compliance.
  */
-public class AttributeStatementValidator extends SubjectStatementValidator {
+public class ResponseSchemaValidator extends ResponseAbstractTypeSchemaValidator  {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        
+       
         super.validate(xmlObject);
         
-        AttributeStatement attributeStatement = (AttributeStatement) xmlObject;
+        Response response = (Response) xmlObject;
         
-        if (attributeStatement.getAttributes().size() == 0) {
-            throw new ValidationException("No Attribute Element present");
+        if (response.getStatus() == null) {
+            throw new ValidationException("No Response present");
         }
     }
 }

@@ -30,7 +30,7 @@ import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml1.core.AssertionIDReference} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.Assertion} for Schema compliance.
  */
 public class AssertionSchemaValidator implements Validator {
 

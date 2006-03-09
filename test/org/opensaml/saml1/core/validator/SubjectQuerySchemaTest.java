@@ -20,19 +20,17 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.ConfirmationMethod;
-import org.opensaml.saml1.core.SubjectConfirmation;
+import org.opensaml.saml1.core.Subject;
+import org.opensaml.saml1.core.SubjectQuery;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.SubjectConfirmationValidator}.
+ * Test class for {@link org.opensaml.saml1.core.validator.SubjectQuerySchemaValidator}.
  */
-public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class SubjectQuerySchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SubjectConfirmationSchemaTest() {
+    public SubjectQuerySchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new SubjectConfirmationValidator();
     }
 
     /*
@@ -40,17 +38,15 @@ public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCa
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) target;
         
-        QName qname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod)buildXMLObject(qname));
+        SubjectQuery query = (SubjectQuery) target;
+        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        query.setSubject((Subject) buildXMLObject(qname));
     }
     
-    public void testMissingConfirmationMethod(){
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) target;
-
-        subjectConfirmation.getConfirmationMethods().clear();
-        assertValidationFail("No Confirmation methods - should fail");
+    public void testSubject() {
+        SubjectQuery query = (SubjectQuery) target;
+        query.setSubject(null);
+        assertValidationFail("No Subject, should raise a Validation Exception");
     }
 }

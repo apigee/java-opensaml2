@@ -25,7 +25,7 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Checks {@link org.opensaml.saml1.core.AssertionIDReference} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.Request} for Schema compliance.
  */
 public class RequestSchemaValidator extends RequestAbstractTypeSchemaValidator  {
 

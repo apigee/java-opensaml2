@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AttributeDesignatorValidator}.
  */
 public abstract class AttributeDesignatorSchemaTest extends SAMLObjectValidatorBaseTestCase {
 

@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorityBinding;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AuthorityBindingValidator}.
  */
 public class AuthorityBindingSchemaTest extends SAMLObjectValidatorBaseTestCase {
 

@@ -14,32 +14,30 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.Attribute;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.ValidationException;
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AttributeQuery;
 
 /**
- * Checks {@link org.opensaml.saml1.core.Attribute} for Schema compliance.
+ * Test case for {@link org.opensaml.saml1.core.validator.AttributeQuerySchemaValidator}.
  */
-public class AttributeValidator extends AttributeDesignatorValidator {
+public class AttributeQuerySchemaTest extends SubjectQuerySchemaTest  {
+
+    /** Constructor */
+    public AttributeQuerySchemaTest() {
+        super();
+        targetQName = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        validator = new AttributeQuerySchemaValidator();
+    }
 
     /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
-        super.validate(xmlObject);
-        
-        Attribute attribute = (Attribute) xmlObject;
-        
-        if (attribute.getAttributeValues().size() == 0) {
-            throw new ValidationException("No AttributeValue elements present");
-        }
+    protected void populateRequiredData() {
+        super.populateRequiredData();
     }
+    
 }

@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AuthenticationStatementValidator}.
  */
 public class AuthenticationStatementSchemaTest extends SubjectStatementSchemaTest {
 

@@ -21,7 +21,7 @@ import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.saml1.core.RequestAbstractType;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.ActionSchemaValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.RequestSchemaValidator}.
  */
 public abstract class RequestAbstractTypeSchemaTest extends SAMLObjectValidatorBaseTestCase {
 

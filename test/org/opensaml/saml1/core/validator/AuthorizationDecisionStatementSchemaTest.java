@@ -24,7 +24,7 @@ import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AuthorizationDecisionStatementValidator}.
  */
 public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSchemaTest {
 
@@ -71,6 +71,4 @@ public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSc
         authorizationDecisionStatement.getActions().clear();
         assertValidationFail("No Action elements - should fail");
     }
-
-
 }

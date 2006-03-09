@@ -26,7 +26,7 @@ import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.SubjectStatement} for Schema compliance.
  */
 public class SubjectStatementValidator implements Validator {
 

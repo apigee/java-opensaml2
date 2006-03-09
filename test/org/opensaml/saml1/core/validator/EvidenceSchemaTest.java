@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Evidence;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.ActionSchemaValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.EvidenceSchemaValidator}.
  */
 public class EvidenceSchemaTest extends SAMLObjectValidatorBaseTestCase {
 

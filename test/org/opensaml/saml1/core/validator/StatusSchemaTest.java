@@ -20,19 +20,20 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.ConfirmationMethod;
-import org.opensaml.saml1.core.SubjectConfirmation;
+import org.opensaml.saml1.core.Status;
+import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.saml2.core.validator.StatusSchemaValidator;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.SubjectConfirmationValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.StatusSchemaValidator}.
  */
-public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class StatusSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SubjectConfirmationSchemaTest() {
+    public StatusSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new SubjectConfirmationValidator();
+        targetQName = new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        validator = new StatusSchemaValidator();
     }
 
     /*
@@ -41,16 +42,14 @@ public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCa
     protected void populateRequiredData() {
         super.populateRequiredData();
 
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) target;
-        
-        QName qname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod)buildXMLObject(qname));
+        Status status = (Status) target;
+        QName qname = new QName(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        status.setStatusCode((StatusCode)buildXMLObject(qname));
     }
     
-    public void testMissingConfirmationMethod(){
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) target;
-
-        subjectConfirmation.getConfirmationMethods().clear();
-        assertValidationFail("No Confirmation methods - should fail");
+    public void testMissingStatusCode(){
+        Status status = (Status) target;
+        status.setStatusCode(null);
+        assertValidationFail("No StatusCode, should raise a Validation Exception");
     }
 }

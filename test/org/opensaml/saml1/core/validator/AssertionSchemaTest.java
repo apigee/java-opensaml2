@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.impl.AttributeStatementImpl;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.ActionSchemaValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AssertionSchemaValidator}.
  */
 public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
@@ -44,6 +44,7 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         
         Assertion assertion = (Assertion) target;
         assertion.setIssuer("Issuer");
+        assertion.setID("ident");
         assertion.setIssueInstant(new DateTime());
         assertion.getStatements().add(new AttributeStatementImpl());
     }
@@ -69,6 +70,5 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         Assertion assertion = (Assertion) target;
         assertion.getStatements().clear();
         assertValidationFail("No statements, should raise a Validation Exception");
-        
     }
 }

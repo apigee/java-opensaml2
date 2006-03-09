@@ -18,19 +18,20 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Subject;
-import org.opensaml.saml1.core.SubjectStatement;
+import org.opensaml.saml1.core.Response;
+import org.opensaml.saml1.core.Status;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.SubjectStatementValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.ResponseSchemaValidator}.
  */
-public abstract class SubjectStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class ResponseSchemaTest extends ResponseAbstractTypeSchemaTest  {
 
     /** Constructor */
-    public SubjectStatementSchemaTest() {
+    public ResponseSchemaTest() {
         super();
+        targetQName = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        validator = new ResponseSchemaValidator();
     }
 
     /*
@@ -38,17 +39,15 @@ public abstract class SubjectStatementSchemaTest extends SAMLObjectValidatorBase
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-
-        SubjectStatement subjectStatement= (SubjectStatement) target;
         
-        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        subjectStatement.setSubject((Subject)buildXMLObject(qname));
+        Response response = (Response) target;
+        QName qname = new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        response.setStatus((Status)buildXMLObject(qname));
     }
     
-    public void testMissingSubject(){
-        SubjectStatement subjectStatement= (SubjectStatement) target;
-
-        subjectStatement.setSubject(null);
-        assertValidationFail("No Subject methods - should fail");
+    public void testMissingStatus() {
+        Response response = (Response) target;
+        response.setStatus(null);
+        assertValidationFail("No Status, should raise a Validation Exception");
     }
 }

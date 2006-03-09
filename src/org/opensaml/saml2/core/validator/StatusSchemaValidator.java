@@ -19,7 +19,7 @@
  */
 package org.opensaml.saml2.core.validator;
 
-import org.opensaml.saml2.core.Status;
+import org.opensaml.saml1.core.Status;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;

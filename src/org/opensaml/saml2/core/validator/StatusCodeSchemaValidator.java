@@ -19,7 +19,7 @@
  */
 package org.opensaml.saml2.core.validator;
 
-import org.opensaml.saml2.core.StatusCode;
+import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;

@@ -16,11 +16,9 @@
 
 package org.opensaml.saml1.core.validator;
 
-import javax.security.auth.Subject;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.AttributeQuery;
@@ -28,7 +26,7 @@ import org.opensaml.saml1.core.Query;
 import org.opensaml.saml1.core.Request;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.ActionSchemaValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.RequestSchemaValidator}.
  */
 public class RequestSchemaTest extends RequestAbstractTypeSchemaTest  {
 

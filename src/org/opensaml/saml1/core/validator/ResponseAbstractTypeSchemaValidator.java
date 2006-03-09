@@ -20,26 +20,37 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.common.SAMLVersion;
+import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
+import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml1.core.AttributeStatement} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.ResponseAbstractType} for Schema compliance.
  */
-public class AttributeStatementValidator extends SubjectStatementValidator {
+public class ResponseAbstractTypeSchemaValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         
-        super.validate(xmlObject);
+        ResponseAbstractType responseAbstractType = (ResponseAbstractType) xmlObject;
         
-        AttributeStatement attributeStatement = (AttributeStatement) xmlObject;
-        
-        if (attributeStatement.getAttributes().size() == 0) {
-            throw new ValidationException("No Attribute Element present");
+        String id = responseAbstractType.getID();
+        if (id == null || id.length() == 0) {
+            throw new ValidationException("RequestID is missing");
         }
+        
+        if ((responseAbstractType.getVersion() != SAMLVersion.VERSION_10) &&
+                (responseAbstractType.getVersion() != SAMLVersion.VERSION_11)) {
+                throw new ValidationException("Invalid Version");
+            }
+            
+        if (responseAbstractType.getIssueInstant() == null) {
+             throw new ValidationException("No IssueInstant attribute present");
+         }
+
     }
 }

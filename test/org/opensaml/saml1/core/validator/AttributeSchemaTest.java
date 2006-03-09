@@ -23,7 +23,7 @@ import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AttributeValidator}.
  */
 public class AttributeSchemaTest extends AttributeDesignatorSchemaTest {
 

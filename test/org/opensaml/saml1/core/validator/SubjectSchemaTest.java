@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectConfirmation;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
+ * Test case for {@link org.opensaml.saml1.core.validator.SubjectValidator}.
  */
 public class SubjectSchemaTest extends SAMLObjectValidatorBaseTestCase {
 

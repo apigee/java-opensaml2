@@ -24,7 +24,7 @@ import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.impl.AudienceImpl;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionCondition}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionConditionValidator}.
  */
 public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 

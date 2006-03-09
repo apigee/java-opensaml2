@@ -123,7 +123,10 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
      * @see org.opensaml.saml1.core.Response#setIssueInstant(java.util.Date)
      */
     public void setIssueInstant(DateTime date) {
-        this.issueInstant = prepareForAssignment(this.issueInstant, date.withZone(DateTimeZone.UTC));
+        if (date != null) {
+            date = date.withZone(DateTimeZone.UTC);
+        }
+        this.issueInstant = prepareForAssignment(this.issueInstant, date);
     }
 
     /*

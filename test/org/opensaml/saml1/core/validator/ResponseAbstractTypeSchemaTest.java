@@ -16,20 +16,17 @@
 
 package org.opensaml.saml1.core.validator;
 
-import javax.xml.namespace.QName;
-
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Subject;
-import org.opensaml.saml1.core.SubjectStatement;
+import org.opensaml.saml1.core.ResponseAbstractType;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.SubjectStatementValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.ResponseAbstractTypeSchemaValidator}.
  */
-public abstract class SubjectStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class ResponseAbstractTypeSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SubjectStatementSchemaTest() {
+    public ResponseAbstractTypeSchemaTest() {
         super();
     }
 
@@ -38,17 +35,22 @@ public abstract class SubjectStatementSchemaTest extends SAMLObjectValidatorBase
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-
-        SubjectStatement subjectStatement= (SubjectStatement) target;
         
-        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        subjectStatement.setSubject((Subject)buildXMLObject(qname));
+        ResponseAbstractType response = (ResponseAbstractType) target;
+        response.setID("Ident");
+        response.setMinorVersion(1);
+        response.setIssueInstant(new DateTime());
     }
     
-    public void testMissingSubject(){
-        SubjectStatement subjectStatement= (SubjectStatement) target;
+    public void testMissingID() {
+        ResponseAbstractType response = (ResponseAbstractType) target;
+        response.setID(null);
+        assertValidationFail("No RequestID, should raise a Validation Exception");
+    }
 
-        subjectStatement.setSubject(null);
-        assertValidationFail("No Subject methods - should fail");
+    public void testMissingIssueInstant() {
+        ResponseAbstractType response = (ResponseAbstractType) target;
+        response.setIssueInstant(null);
+        assertValidationFail("Both IssueInstant attribute present, should raise a Validation Exception");
     }
 }
