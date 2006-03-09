@@ -20,6 +20,8 @@
 
 package org.opensaml.saml1.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
 
 /**
@@ -40,10 +42,10 @@ public interface AuthorityBinding extends SAMLObject {
     public final static String BINDING_ATTRIB_NAME = "Binding";
 
     /** Getter for AuthorityKind */
-    public String getAuthorityKind();
+    public QName getAuthorityKind();
 
     /** Setter for AuthorityKind */
-    public void setAuthorityKind(String authorityKind);
+    public void setAuthorityKind(QName authorityKind);
     
     /** Getter for Location */
     public String getLocation();

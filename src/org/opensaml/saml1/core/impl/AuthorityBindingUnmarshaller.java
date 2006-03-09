@@ -16,11 +16,15 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -42,9 +46,13 @@ public class AuthorityBindingUnmarshaller extends AbstractSAMLObjectUnmarshaller
             throws UnmarshallingException {
 
         AuthorityBinding authorityBinding = (AuthorityBinding) samlObject;
-
+        
         if (AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME.equals(attribute.getLocalName())) {
-            authorityBinding.setAuthorityKind(attribute.getValue());
+            // TODO may need more error checking/handling here.
+            if (!DatatypeHelper.isEmpty(attribute.getValue())) {
+                QName qname = XMLHelper.getAttributeValueAsQName(attribute);
+                authorityBinding.setAuthorityKind(qname);
+            }
         } else if (AuthorityBinding.LOCATION_ATTRIB_NAME.equals(attribute.getLocalName())) {
             authorityBinding.setLocation(attribute.getValue());
         } else if (AuthorityBinding.BINDING_ATTRIB_NAME.equals(attribute.getLocalName())) {

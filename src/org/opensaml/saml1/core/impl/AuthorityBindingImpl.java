@@ -18,6 +18,8 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.XMLObject;
 
@@ -27,7 +29,7 @@ import org.opensaml.xml.XMLObject;
 public class AuthorityBindingImpl extends AbstractAssertionSAMLObject implements AuthorityBinding {
 
     /** The AuthorityKind */
-    private String authorityKind;
+    private QName authorityKind;
 
     /** The Location */
     private String location;
@@ -45,14 +47,14 @@ public class AuthorityBindingImpl extends AbstractAssertionSAMLObject implements
     /*
      * @see org.opensaml.saml1.core.AuthorityBinding#getAuthorityKind()
      */
-    public String getAuthorityKind() {
+    public QName getAuthorityKind() {
         return authorityKind;
     }
 
     /*
-     * @see org.opensaml.saml1.core.AuthorityBinding#setAuthorityKind(java.lang.String)
+     * @see org.opensaml.saml1.core.AuthorityBinding#setAuthorityKind(javax.xml.namespace.QName)
      */
-    public void setAuthorityKind(String authorityKind) {
+    public void setAuthorityKind(QName authorityKind) {
         this.authorityKind = prepareForAssignment(this.authorityKind, authorityKind);
     }
 

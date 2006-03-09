@@ -16,6 +16,8 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorityBinding;
@@ -43,7 +45,18 @@ public class AuthorityBindingMarshaller extends AbstractSAMLObjectMarshaller {
         AuthorityBinding authorityBinding = (AuthorityBinding) samlElement;
 
         if (authorityBinding.getAuthorityKind() != null) {
-            domElement.setAttributeNS(null, AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, authorityBinding.getAuthorityKind());
+            QName authKind = authorityBinding.getAuthorityKind();
+            // TODO may want to factor this code out for reuse, ie get "QName string"
+            // from the QName in a particular Element context
+            StringBuffer buf = new StringBuffer();
+            if (authKind.getNamespaceURI() != null) {
+                String prefix = domElement.lookupPrefix(authKind.getNamespaceURI());
+                if (prefix != null) {
+                    buf.append(prefix + ":");
+                }
+            }
+            buf.append(authKind.getLocalPart());
+            domElement.setAttributeNS(null, AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, buf.toString());
         }
 
         if (authorityBinding.getBinding() != null) {

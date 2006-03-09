@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.saml1.core.AuthorityBinding;
 
 /**
@@ -42,7 +43,8 @@ public class AuthorityBindingSchemaTest extends SAMLObjectValidatorBaseTestCase 
         super.populateRequiredData();
 
         AuthorityBinding authorityBinding = (AuthorityBinding) target;
-        authorityBinding.setAuthorityKind("AuthorityKind");
+        // this attribute is a Schema QName type, e.g. AuthorityKind="samlp:AttributeQuery"
+        authorityBinding.setAuthorityKind(new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX));
         authorityBinding.setLocation("location");
         authorityBinding.setBinding("binding");
     }
@@ -50,7 +52,7 @@ public class AuthorityBindingSchemaTest extends SAMLObjectValidatorBaseTestCase 
     public void testMissingAuthorityKind() {
         AuthorityBinding authorityBinding = (AuthorityBinding) target;
 
-        authorityBinding.setAuthorityKind("");
+        authorityBinding.setAuthorityKind(null);
         assertValidationFail("No AuthorityBinding attribute - should fail");
     }
 

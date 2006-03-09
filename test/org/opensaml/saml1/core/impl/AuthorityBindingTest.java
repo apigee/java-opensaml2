@@ -19,7 +19,11 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.saml1.core.AuthorityBinding;
 
 /**
@@ -28,7 +32,7 @@ import org.opensaml.saml1.core.AuthorityBinding;
 public class AuthorityBindingTest extends SAMLObjectBaseTestCase {
 
     /** Value of AuthorityKind in test file */
-    private final String expectedAuthorityKind;
+    private final QName expectedAuthorityKind;
 
     /** Value of Location in test file */
     private final String expectedLocation;
@@ -40,8 +44,9 @@ public class AuthorityBindingTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
     public AuthorityBindingTest() {
-        super();
-        expectedAuthorityKind = "none";
+        super(); 
+        //this attribute is a Schema QName type, e.g. AuthorityKind="samlp:AttributeQuery"
+        expectedAuthorityKind = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
         expectedLocation = "here";
         expectedBinding = "binding";
         singleElementFile = "/data/org/opensaml/saml1/singleAuthorityBinding.xml";
