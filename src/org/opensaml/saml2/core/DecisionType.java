@@ -38,7 +38,7 @@ public final class DecisionType {
      * 
      * @param decisionType the decision type string
      */
-    public DecisionType(String decisionType) {
+    private DecisionType(String decisionType) {
         this.decisionType = decisionType;
     }
 

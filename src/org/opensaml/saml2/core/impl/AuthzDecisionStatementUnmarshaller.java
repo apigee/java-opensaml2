@@ -66,8 +66,16 @@ public class AuthzDecisionStatementUnmarshaller extends AbstractSAMLObjectUnmars
         if (attribute.getLocalName().equals(AuthzDecisionStatement.RESOURCE_ATTRIB_NAME)) {
             authzDS.setResource(attribute.getValue());
         } else if (attribute.getLocalName().equals(AuthzDecisionStatement.DECISION_ATTRIB_NAME)) {
-            DecisionType decision = new DecisionType(attribute.getValue());
-            authzDS.setDecision(decision);
+            String value = attribute.getValue();
+            if (value.equals(DecisionType.PERMIT.toString())) {
+                authzDS.setDecision(DecisionType.PERMIT);
+            } else if (value.equals(DecisionType.DENY.toString())) {
+                authzDS.setDecision(DecisionType.DENY);
+            } else  if (value.equals(DecisionType.INDETERMINATE.toString())) {
+                authzDS.setDecision(DecisionType.INDETERMINATE);
+            }  else {
+                throw new UnmarshallingException("Unknown value for DecisionType '" + value + "'");
+            }
         } else {
             super.processAttribute(samlObject, attribute);
         }
