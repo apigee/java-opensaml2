@@ -33,13 +33,13 @@ public final class AuthnContextComparisonType {
     /** "better" comparison type */
     public final static AuthnContextComparisonType BETTER = new AuthnContextComparisonType("better");
 
-    /** The decision type string */
+    /** The comparison type string */
     private String comparisonType;
 
     /**
      * Constructor
      * 
-     * @param comparisonType the decision type string
+     * @param comparisonType the comparison type string
      */
     private AuthnContextComparisonType(String comparisonType) {
         this.comparisonType= comparisonType;
