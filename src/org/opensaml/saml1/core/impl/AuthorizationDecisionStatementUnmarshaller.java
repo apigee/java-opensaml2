@@ -70,16 +70,17 @@ public class AuthorizationDecisionStatementUnmarshaller extends SubjectStatement
         authorizationDecisionStatement = (AuthorizationDecisionStatement) samlObject;
 
         if (AuthorizationDecisionStatement.DECISION_ATTRIB_NAME.equals(attribute.getLocalName())) {
-            DecisionType decision;
-
-            try {
-                decision = Enum.valueOf(DecisionType.class, attribute.getValue());
-            } catch (IllegalArgumentException e) {
-                log.error("Unknown type for DecisionType " + attribute.getValue());
-                throw new UnmarshallingException("Unknown type for DecisionType " + attribute.getValue(), e);
+            String value = attribute.getValue();
+            if (value.equals(DecisionType.PERMIT.toString())) {
+                authorizationDecisionStatement.setDecision(DecisionType.PERMIT);
+            } else if (value.equals(DecisionType.DENY.toString())) {
+                authorizationDecisionStatement.setDecision(DecisionType.DENY);
+            } else  if (value.equals(DecisionType.INDETERMINATE.toString())) {
+                authorizationDecisionStatement.setDecision(DecisionType.INDETERMINATE);
+            }  else {
+                log.error("Unknown value for DecisionType '" + value + "'");
+                throw new UnmarshallingException("Unknown value for DecisionType '" + value + "'");
             }
-            authorizationDecisionStatement.setDecision(decision);
-
         } else if (AuthorizationDecisionStatement.RESOURCE_ATTRIB_NAME.equals(attribute.getLocalName())) {
             authorizationDecisionStatement.setResource(attribute.getValue());
         } else {

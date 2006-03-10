@@ -21,13 +21,37 @@ package org.opensaml.saml1.core;
 
 
 /**
- * Encapsulation of the SAML1 DecisionType
+ * A type safe enumeration of {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} Decision types.
  * 
- * TODO change from JDK 1.5 to 1.4 typesafe enum struct
  */
-public enum DecisionType {
+public final class DecisionType {
+    
+    /** "Permit" decision type */
+    public final static DecisionType PERMIT = new DecisionType("Permit");
+    
+    /** "Deny" decision type */
+    public final static DecisionType DENY = new DecisionType("Deny");
+    
+    /** "Indeterminate" decision type */
+    public final static DecisionType INDETERMINATE = new DecisionType("Indeterminate");
+    
+    /** The decision type sting */
+    private String decisionType;
+    
+    
+    /**
+     *  Constructor
+     *  
+     *  @param newDecisionType
+     */
+    private DecisionType(String newDecisionType) {
+        this.decisionType = newDecisionType;
+    }
 
-    Permit,
-    Deny,
-    Indeterminate;
+    /*
+     * @see java.lang.Object#toString()
+     */
+    public String toString() {
+        return this.decisionType;
+    }
 }

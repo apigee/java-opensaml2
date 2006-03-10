@@ -45,7 +45,7 @@ public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSc
         AuthorizationDecisionStatement authorizationDecisionStatement = (AuthorizationDecisionStatement) target;
  
         authorizationDecisionStatement.setResource("resource");
-        authorizationDecisionStatement.setDecision(DecisionType.Deny);
+        authorizationDecisionStatement.setDecision(DecisionType.DENY);
         
         QName qname = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         authorizationDecisionStatement.getActions().add((Action)buildXMLObject(qname));

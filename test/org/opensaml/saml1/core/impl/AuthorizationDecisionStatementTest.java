@@ -39,7 +39,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
     private final String expectedResource = "resource";
 
     /** Value for Resource attribute specified in test file with attributes */
-    private final DecisionType expectedDecision = DecisionType.Permit;
+    private final DecisionType expectedDecision = DecisionType.PERMIT;
 
     /** File with the AuthorizationDecisionStatement with illegal Decision type */
     private String illegalAttributesFile;
@@ -80,7 +80,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         authorizationDecisionStatement = (AuthorizationDecisionStatement) unmarshallElement(singleElementOptionalAttributesFile);
 
         assertEquals("Resource attribute ", expectedResource, authorizationDecisionStatement.getResource());
-        assertEquals("Decision attribute ", expectedDecision, authorizationDecisionStatement.getDecision());
+        assertEquals("Decision attribute ", expectedDecision.toString(), authorizationDecisionStatement.getDecision().toString());
 
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
