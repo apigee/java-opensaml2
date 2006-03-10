@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -47,7 +48,7 @@ public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
         ServiceDescription description = (ServiceDescription) samlObject;
 
         if (description.getDescription() != null) {
-            domElement.setTextContent(description.getDescription());
+            XMLHelper.appendTextContent(domElement, description.getDescription());
         }
     }
 }

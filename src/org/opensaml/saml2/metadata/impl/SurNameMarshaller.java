@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SurName;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -47,7 +48,7 @@ public class SurNameMarshaller extends AbstractSAMLObjectMarshaller {
         SurName name = (SurName) samlObject;
 
         if (name.getName() != null) {
-            domElement.setTextContent(name.getName());
+            XMLHelper.appendTextContent(domElement, name.getName());
         }
     }
 }

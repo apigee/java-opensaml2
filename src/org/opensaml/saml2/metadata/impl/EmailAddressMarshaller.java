@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EmailAddress;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -47,7 +48,7 @@ public class EmailAddressMarshaller extends AbstractSAMLObjectMarshaller {
         EmailAddress address = (EmailAddress) samlObject;
 
         if (address.getAddress() != null) {
-            domElement.setTextContent(address.getAddress());
+            XMLHelper.appendTextContent(domElement, address.getAddress());
         }
     }
 }

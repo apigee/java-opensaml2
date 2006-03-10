@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.TelephoneNumber;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -44,7 +45,7 @@ public class TelephoneNumberMarshaller extends AbstractSAMLObjectMarshaller {
         TelephoneNumber number = (TelephoneNumber) samlObject;
 
         if (number.getNumber() != null) {
-            domElement.setTextContent(number.getNumber());
+            XMLHelper.appendTextContent(domElement, number.getNumber());
         }
     }
 }

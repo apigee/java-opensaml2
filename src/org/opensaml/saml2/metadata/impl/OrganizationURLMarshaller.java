@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.OrganizationURL;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -47,7 +48,7 @@ public class OrganizationURLMarshaller extends AbstractSAMLObjectMarshaller {
         OrganizationURL url = (OrganizationURL) samlObject;
 
         if (url.getURL() != null) {
-            domElement.setTextContent(url.getURL());
+            XMLHelper.appendTextContent(domElement, url.getURL());
         }
     }
 }

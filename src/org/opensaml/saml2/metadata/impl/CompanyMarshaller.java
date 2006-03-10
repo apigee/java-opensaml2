@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.Company;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -47,7 +48,7 @@ public class CompanyMarshaller extends AbstractSAMLObjectMarshaller {
         Company company = (Company) samlObject;
 
         if (company.getName() != null) {
-            domElement.setTextContent(company.getName());
+            XMLHelper.appendTextContent(domElement, company.getName());
         }
     }
 }
