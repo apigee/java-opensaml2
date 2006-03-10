@@ -64,10 +64,10 @@ public interface Conditions extends SAMLObject {
     /**
      * Return the List representing all the <code> AudienceRestrictionCondition </code> sub elements.
      */
-    public List<Condition> getAudienceRestrictionConditions();
+    public List<AudienceRestrictionCondition> getAudienceRestrictionConditions();
 
     /**
      * Return the List representing all the <code> DoNotCacheCondition </code> sub elements.
      */
-    public List<Condition> getDoNotCacheConditions();
+    public List<DoNotCacheCondition> getDoNotCacheConditions();
 }

@@ -92,28 +92,23 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
      * @see org.opensaml.saml1.core.Conditions#getConditions(javax.xml.namespace.QName)
      */
     public List<Condition> getConditions(QName typeOrName) {
-
-        List<Condition> list = conditions.get(typeOrName);
-        if (list == null || list.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(list);
+        return (List<Condition>) conditions.subList(typeOrName);
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#getAudienceRestrictionConditions()
      */
-    public List<Condition> getAudienceRestrictionConditions() {
-        QName conditionQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
-        return getConditions(conditionQName);
+    public List<AudienceRestrictionCondition> getAudienceRestrictionConditions() {
+        QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
+        return (List<AudienceRestrictionCondition>) conditions.subList(qname);
     }
 
     /*
      * @see org.opensaml.saml1.core.Conditions#getDoNotCacheConditions()
      */
-    public List<Condition> getDoNotCacheConditions() {
-        QName conditionQName = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
-        return getConditions(conditionQName);
+    public List<DoNotCacheCondition> getDoNotCacheConditions() {
+        QName qname = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
+        return (List<DoNotCacheCondition>) conditions.subList(qname);
     }
 
     /*
