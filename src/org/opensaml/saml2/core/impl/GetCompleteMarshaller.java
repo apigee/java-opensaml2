@@ -24,6 +24,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.GetComplete;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -45,6 +46,6 @@ public class GetCompleteMarshaller extends AbstractSAMLObjectMarshaller {
         GetComplete gc = (GetComplete) samlObject;
         
         if (gc.getGetComplete() != null)
-            domElement.setTextContent(gc.getGetComplete());
+            XMLHelper.appendTextContent(domElement, gc.getGetComplete());
     }
 }

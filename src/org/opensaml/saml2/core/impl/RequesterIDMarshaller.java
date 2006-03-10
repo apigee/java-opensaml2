@@ -24,6 +24,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.RequesterID;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -45,6 +46,6 @@ public class RequesterIDMarshaller extends AbstractSAMLObjectMarshaller {
         RequesterID reqID = (RequesterID) samlObject;
         
         if (reqID.getRequesterID() != null)
-            domElement.setTextContent(reqID.getRequesterID());
+            XMLHelper.appendTextContent(domElement, reqID.getRequesterID());
     }
 }

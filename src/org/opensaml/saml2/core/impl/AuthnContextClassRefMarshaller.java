@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -43,6 +44,6 @@ public class AuthnContextClassRefMarshaller extends AbstractSAMLObjectMarshaller
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthnContextClassRef authnContextClassRef = (AuthnContextClassRef) samlObject;
-        domElement.setTextContent(authnContextClassRef.getAuthnContextClassRef());
+        XMLHelper.appendTextContent(domElement, authnContextClassRef.getAuthnContextClassRef());
     }
 }

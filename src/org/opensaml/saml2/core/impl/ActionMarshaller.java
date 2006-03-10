@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -55,6 +56,6 @@ public class ActionMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         Action action = (Action) samlObject;
-        domElement.setTextContent(action.getAction());
+        XMLHelper.appendTextContent(domElement, action.getAction());
     }
 }

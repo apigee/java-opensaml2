@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -43,6 +44,6 @@ public class AssertionURIRefMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         AssertionURIRef assertionURIRef = (AssertionURIRef) samlObject;
-        domElement.setTextContent(assertionURIRef.getAssertionURI());
+        XMLHelper.appendTextContent(domElement, assertionURIRef.getAssertionURI());
     }
 }

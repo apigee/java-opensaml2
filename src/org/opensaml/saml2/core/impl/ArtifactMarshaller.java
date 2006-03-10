@@ -24,6 +24,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Artifact;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -45,7 +46,8 @@ public class ArtifactMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         Artifact artifact = (Artifact) samlObject;
         
-        if (artifact.getArtifact() != null)
-            domElement.setTextContent(artifact.getArtifact());
+        if (artifact.getArtifact() != null) {
+            XMLHelper.appendTextContent(domElement, artifact.getArtifact());
+        }
     }
 }

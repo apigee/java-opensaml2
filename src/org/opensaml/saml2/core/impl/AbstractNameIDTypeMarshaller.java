@@ -21,6 +21,7 @@ import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -71,6 +72,6 @@ public abstract class AbstractNameIDTypeMarshaller extends AbstractSAMLObjectMar
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameIDType nameID = (NameIDType) samlObject;
-        domElement.setTextContent(nameID.getValue());
+        XMLHelper.appendTextContent(domElement, nameID.getValue());
     }
 }

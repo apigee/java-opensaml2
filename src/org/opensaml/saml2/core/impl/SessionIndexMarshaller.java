@@ -24,6 +24,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SessionIndex;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -46,6 +47,6 @@ public class SessionIndexMarshaller extends AbstractSAMLObjectMarshaller {
         SessionIndex si = (SessionIndex) samlObject;
         
         if (si.getSessionIndex() != null)
-            domElement.setTextContent(si.getSessionIndex());
+            XMLHelper.appendTextContent(domElement, si.getSessionIndex());
     }
 }
