@@ -21,6 +21,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusMessage;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -43,7 +44,7 @@ public class StatusMessageMarshaller extends AbstractSAMLObjectMarshaller {
         StatusMessage statusMessage = (StatusMessage) samlObject;
 
         if (statusMessage.getMessage() != null) {
-            domElement.setTextContent(statusMessage.getMessage());
+            XMLHelper.appendTextContent(domElement,statusMessage.getMessage());
         }
     }
 }

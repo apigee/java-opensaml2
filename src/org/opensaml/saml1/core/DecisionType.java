@@ -21,7 +21,7 @@ package org.opensaml.saml1.core;
 
 
 /**
- * A type safe enumeration of {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} Decision types.
+ * A type safe "enumeration" of {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} Decision types.
  * 
  */
 public final class DecisionType {

@@ -22,7 +22,7 @@ import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.StatusCode;
-import org.opensaml.saml2.core.validator.StatusSchemaValidator;
+import org.opensaml.saml1.core.validator.StatusSchemaValidator;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.StatusSchemaValidator}.

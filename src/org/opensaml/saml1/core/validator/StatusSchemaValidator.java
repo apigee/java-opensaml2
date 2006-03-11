@@ -28,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.Status} for Schema compliance.
  */
-public class StatusValidator implements Validator {
+public class StatusSchemaValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)

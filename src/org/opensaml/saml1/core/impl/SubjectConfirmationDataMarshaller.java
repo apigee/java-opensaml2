@@ -21,6 +21,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -42,6 +43,6 @@ public class SubjectConfirmationDataMarshaller extends AbstractSAMLObjectMarshal
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData) samlObject;
 
-        domElement.setTextContent(subjectConfirmationData.getConfirmationData());
+        XMLHelper.appendTextContent(domElement,subjectConfirmationData.getConfirmationData());
     }
 }
