@@ -19,6 +19,8 @@
  */
 package org.opensaml.saml1.core;
 
+import java.util.List;
+
 import org.opensaml.common.SAMLObject;
 
 /**
@@ -28,20 +30,13 @@ public interface Evidence extends SAMLObject {
 
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "Evidence";
+    
+    /** Get the ordered list of all Evidence child elements (AssertionIDReferences and Assertions) */
+    public List<SAMLObject> getEvidence();
 
-    /** Get the AssertionIdReference */
-    public AssertionIDReference getAssertionIDReference();
+    /** Get the list of the AssertionIdReference */
+    public List<AssertionIDReference> getAssertionIDReferences();
     
-    /** Set the AssertionIdReference 
-     * @throws IllegalArgumentException */
-    public void setAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalArgumentException;
-    
-    /** Get the Assertion */
-    public Assertion getAssertion();
-    
-    /** Set the Assertion 
-     * @throws IllegalArgumentException */
-    public void setAssertion(Assertion assertion) throws IllegalArgumentException;
-    
-    
+    /** Get the list of Assertions */
+    public List<Assertion> getAssertions();
 }

@@ -20,72 +20,67 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Evidence;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * Concrete implementation of the {@link org.opensaml.saml1.core.Evidence} interface
  */
 public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidence {
-
-    /** Contains the AssertionIDReference */
-    AssertionIDReference assertionIDReference;
-
-    /** Contains the Assertion */
-    Assertion assertion;
+    
+    /** The Evidence child elements */
+    private IndexedXMLObjectChildrenList<SAMLObject> evidence;
 
     /**
      * Constructor
      */
     protected EvidenceImpl() {
         super(Evidence.LOCAL_NAME);
+        
+        evidence = new IndexedXMLObjectChildrenList<SAMLObject>(this);
     }
 
     /*
-     * @see org.opensaml.saml1.core.Evidence#getAssertionIDReference()
+     * @see org.opensaml.saml1.core.Evidence#getAssertionIDReferences()
      */
-    public AssertionIDReference getAssertionIDReference() {
-        return assertionIDReference;
+    public List<AssertionIDReference> getAssertionIDReferences() {
+        QName qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
+        return (List<AssertionIDReference>) evidence.subList(qname);
     }
 
     /*
-     * @see org.opensaml.saml1.core.Evidence#setAssertionIDReference(org.opensaml.saml1.core.AssertionIDReference)
+     * @see org.opensaml.saml1.core.Evidence#getAssertions()
      */
-    public void setAssertionIDReference(AssertionIDReference assertionIDReference) throws IllegalArgumentException {
-        this.assertionIDReference = prepareForAssignment(this.assertionIDReference, assertionIDReference);
+    public List<Assertion> getAssertions() {
+        QName qname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME);
+        return (List<Assertion>) evidence.subList(qname);
     }
 
     /*
-     * @see org.opensaml.saml1.core.Evidence#getAssertion()
+     * @see org.opensaml.saml1.core.Evidence#getEvidences()
      */
-    public Assertion getAssertion() {
-        return assertion;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Evidence#setAssertion(org.opensaml.saml1.core.Assertion)
-     */
-    public void setAssertion(Assertion assertion) throws IllegalArgumentException {
-        this.assertion = prepareForAssignment(this.assertion, assertion);
+    public List<SAMLObject> getEvidence() {
+        return (List<SAMLObject>) Collections.unmodifiableList(evidence);
     }
 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-        ArrayList<XMLObject> list = new ArrayList<XMLObject>(2);
-
-        if (assertionIDReference != null) {
-            list.add(assertionIDReference);
-        }
-        if (assertion != null) {
-            list.add(assertion);
-        }
-        if (list.size() == 0) {
+        if (evidence.size() == 0) {
             return null;
         }
+        
+        ArrayList<XMLObject> list = new ArrayList<XMLObject>();
+        list.addAll(evidence);
+
         return Collections.unmodifiableList(list);
     }
 }

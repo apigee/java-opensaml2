@@ -46,9 +46,9 @@ public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         Evidence evidence = (Evidence) parentSAMLObject;
 
         if (childSAMLObject instanceof AssertionIDReference) {
-            evidence.setAssertionIDReference((AssertionIDReference) childSAMLObject);
+            evidence.getAssertionIDReferences().add((AssertionIDReference) childSAMLObject);
         } else if (childSAMLObject instanceof Assertion) {
-            evidence.setAssertion((Assertion) childSAMLObject);
+            evidence.getAssertions().add((Assertion) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }

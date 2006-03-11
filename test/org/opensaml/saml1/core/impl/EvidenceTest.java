@@ -45,8 +45,7 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         Evidence evidence = (Evidence) unmarshallElement(singleElementFile);
 
-        assertNull("AssertionIDReference element present", evidence.getAssertionIDReference());
-        assertNull("Assertion element present", evidence.getAssertion());
+        assertEquals("AssertionIDReference or Assertion element was present", 0, evidence.getEvidence().size());
     }
 
     /*
@@ -56,8 +55,9 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
     public void testChildElementsUnmarshall() {
         Evidence evidence = (Evidence) unmarshallElement(childElementsFile);
 
-        assertNotNull("AssertionIDReference element not present", evidence.getAssertionIDReference());
-        assertNotNull("Assertion element not present", evidence.getAssertion());
+        assertEquals("Assertion and AssertionIDReference element count", 4, evidence.getEvidence().size());
+        assertEquals("AssertionIDReference element count", 2, evidence.getAssertionIDReferences().size());
+        assertEquals("Assertion element count", 2, evidence.getAssertions().size());
     }
 
     /*
@@ -75,8 +75,10 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Evidence evidence = new EvidenceImpl();
 
-        evidence.setAssertion(new AssertionImpl());
-        evidence.setAssertionIDReference(new AssertionIDReferenceImpl());
+        evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
+        evidence.getAssertions().add(new AssertionImpl());
+        evidence.getAssertions().add(new AssertionImpl());
+        evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
 
         assertEquals(expectedChildElementsDOM, evidence);
     }
