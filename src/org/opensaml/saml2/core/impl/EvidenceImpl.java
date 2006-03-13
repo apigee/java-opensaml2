@@ -27,11 +27,11 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Evidentiary;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.saml2.core.Evidence;
+import org.opensaml.saml2.core.Evidentiary;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
@@ -97,7 +97,7 @@ public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidenc
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (evidence.size() == 0) {
             return null;
         }
