@@ -19,24 +19,11 @@
  */
 package org.opensaml.saml1.core;
 
-import java.util.List;
-
 import org.opensaml.common.SAMLObject;
 
 /**
- * Interface describing how a SAML1.1 <code> Evidence </code> element behaves
+ * Marker interface for element types that can constitute evidence within a @{org.opensaml.saml1.core.Evidence} object.
  */
-public interface Evidence extends SAMLObject {
+public interface Evidentiary extends SAMLObject {
 
-    /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "Evidence";
-    
-    /** Get the ordered list of all Evidentiary child elements  */
-    public List<Evidentiary> getEvidence();
-
-    /** Get the list of the AssertionIdReference */
-    public List<AssertionIDReference> getAssertionIDReferences();
-    
-    /** Get the list of Assertions */
-    public List<Assertion> getAssertions();
 }

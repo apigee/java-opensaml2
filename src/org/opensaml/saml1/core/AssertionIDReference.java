@@ -25,7 +25,7 @@ import org.opensaml.common.SAMLObject;
 /**
  * This interface defines how the object representing a SAML 1 <code> AssertionIDReference </code> element behaves.
  */
-public interface AssertionIDReference extends SAMLObject {
+public interface AssertionIDReference extends SAMLObject, Evidentiary {
 
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "AssertionIDReference";

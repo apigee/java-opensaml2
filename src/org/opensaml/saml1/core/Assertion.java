@@ -27,7 +27,7 @@ import org.opensaml.xml.signature.SignableXMLObject;
 /**
  * This interface defines how the object representing a SAML 1 <code> Assertion </code> element behaves.
  */
-public interface Assertion extends SAMLObject, SignableXMLObject {
+public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
 
     /** Element name, no namespace. */
 

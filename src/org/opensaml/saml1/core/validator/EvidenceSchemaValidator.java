@@ -20,9 +20,6 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.common.SAMLObject;
-import org.opensaml.saml1.core.Assertion;
-import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Evidence;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
@@ -42,13 +39,6 @@ public class EvidenceSchemaValidator implements Validator {
          
          if (evidence.getEvidence().size() == 0) {
              throw new ValidationException("At least one Assertion or AssertionIDReference is required");
-         }
-         
-         for (SAMLObject object: evidence.getEvidence()) {
-             if (!(object instanceof Assertion) && !(object instanceof AssertionIDReference)) {
-                 throw new ValidationException("Child object of Evidence was not a valid type '" 
-                         + object.getClass().toString()  + "'");
-             }
          }
 
     }

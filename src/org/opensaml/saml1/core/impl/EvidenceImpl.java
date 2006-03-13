@@ -22,11 +22,11 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Evidence;
+import org.opensaml.saml1.core.Evidentiary;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
@@ -35,8 +35,8 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
  */
 public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidence {
     
-    /** The Evidence child elements */
-    private IndexedXMLObjectChildrenList<SAMLObject> evidence;
+    /** The Evidentiary child elements */
+    private IndexedXMLObjectChildrenList<Evidentiary> evidence;
 
     /**
      * Constructor
@@ -44,7 +44,7 @@ public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidenc
     protected EvidenceImpl() {
         super(Evidence.LOCAL_NAME);
         
-        evidence = new IndexedXMLObjectChildrenList<SAMLObject>(this);
+        evidence = new IndexedXMLObjectChildrenList<Evidentiary>(this);
     }
 
     /*
@@ -66,8 +66,8 @@ public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidenc
     /*
      * @see org.opensaml.saml1.core.Evidence#getEvidences()
      */
-    public List<SAMLObject> getEvidence() {
-        return (List<SAMLObject>) Collections.unmodifiableList(evidence);
+    public List<Evidentiary> getEvidence() {
+        return evidence;
     }
 
     /*
