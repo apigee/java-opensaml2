@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.List;
@@ -31,10 +32,21 @@ public class TerminateImpl extends AbstractProtocolSAMLObject implements Termina
 
     /**
      * Constructor
-     *
+     * 
      */
     public TerminateImpl() {
         super(Terminate.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected TerminateImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**

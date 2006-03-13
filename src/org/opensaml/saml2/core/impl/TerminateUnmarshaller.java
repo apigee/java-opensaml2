@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -24,16 +25,25 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Terminate;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Terminate}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Terminate} objects.
  */
 public class TerminateUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public TerminateUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected TerminateUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 }

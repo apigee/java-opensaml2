@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -30,9 +31,19 @@ public class TerminateMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public TerminateMarshaller() {
         super(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected TerminateMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 }

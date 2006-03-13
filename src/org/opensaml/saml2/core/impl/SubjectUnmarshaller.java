@@ -35,6 +35,16 @@ public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected SubjectUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
      *      org.opensaml.xml.XMLObject)
@@ -44,7 +54,7 @@ public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (childObject instanceof BaseID) {
             subject.setBaseID((BaseID) childObject);
-        }else if(childObject instanceof NameID) {
+        } else if (childObject instanceof NameID) {
             subject.setNameID((NameID) childObject);
         } else if (childObject instanceof SubjectConfirmation) {
             subject.getSubjectConfirmations().add((SubjectConfirmation) childObject);
