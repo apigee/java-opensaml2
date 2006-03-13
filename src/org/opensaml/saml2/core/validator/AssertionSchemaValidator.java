@@ -46,7 +46,6 @@ public class AssertionSchemaValidator implements Validator {
         validateVersion(assertion);
         validateID(assertion);
         validateIssueInstant(assertion);
-        validateSubject(assertion);
     }
 
     /**
@@ -94,32 +93,6 @@ public class AssertionSchemaValidator implements Validator {
     protected void validateIssueInstant(Assertion assertion) throws ValidationException {
         if (assertion.getIssueInstant() == null) {
             throw new ValidationException("IssueInstant is required attribute");
-        }
-    }
-
-    /**
-     * Checks that the Subject element is present when required.
-     * 
-     * @param assertion
-     * @throws ValidationException
-     */
-    protected void validateSubject(Assertion assertion) throws ValidationException {
-        if ((assertion.getStatements() == null || assertion.getStatements().size() == 0)
-                && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().size() == 0)
-                && (assertion.getAttributeStatement() == null || assertion.getAttributeStatement().size() == 0)
-                && (assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().size() == 0)
-                && assertion.getSubject() == null) {
-            throw new ValidationException("Subject is required when Statements are absent");
-        }
-
-        if (assertion.getAuthnStatements().size() > 0 && assertion.getSubject() == null) {
-            throw new ValidationException("Assertions containing AuthnStatements require a Subject");
-        }
-        if (assertion.getAuthzDecisionStatements().size() > 0 && assertion.getSubject() == null) {
-            throw new ValidationException("Assertions containing AuthzDecisionStatements require a Subject");
-        }
-        if (assertion.getAttributeStatement().size() > 0 && assertion.getSubject() == null) {
-            throw new ValidationException("Assertions containing AttributeStatements require a Subject");
         }
     }
 }

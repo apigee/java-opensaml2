@@ -51,8 +51,9 @@ public class AssertionIDRefSchemaValidator implements Validator {
      * @param assertionIDRef
      * @throws ValidationException
      */
-protected void validateIDRef(AssertionIDRef assertionIDRef) throws ValidationException {
+    protected void validateIDRef(AssertionIDRef assertionIDRef) throws ValidationException {
         if (DatatypeHelper.isEmpty(assertionIDRef.getAssertionID())) {
             throw new ValidationException("IDRef is required");
         }
-    }}
+    }
+}
