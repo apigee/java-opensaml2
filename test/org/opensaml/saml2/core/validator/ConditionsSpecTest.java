@@ -26,14 +26,14 @@ import org.opensaml.saml2.core.ProxyRestriction;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Test case for {@link org.opensaml.saml2.core.validator.ConditionsSchemaValidator}.
+ * Test case for {@link org.opensaml.saml2.core.validator.ConditionsSpecValidator}.
  */
-public class ConditionsSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class ConditionsSpecTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public ConditionsSchemaTest() {
+    public ConditionsSpecTest() {
         targetQName = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        validator = new ConditionsSchemaValidator();
+        validator = new ConditionsSpecValidator();
     }
 
     protected void populateRequiredData() {

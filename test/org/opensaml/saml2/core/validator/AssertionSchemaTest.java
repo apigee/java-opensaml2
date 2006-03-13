@@ -24,7 +24,6 @@ import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
@@ -46,11 +45,8 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         Assertion assertion = (Assertion) target;
         Issuer issuer = (Issuer) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
-        Subject subject = (Subject) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME,
-                SAMLConstants.SAML20_PREFIX));
 
         assertion.setIssuer(issuer);
-        assertion.setSubject(subject);
         assertion.setID("id");
         assertion.setIssueInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
     }
@@ -95,17 +91,5 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
         assertion.setIssueInstant(null);
         assertValidationFail("IssueInstant was null, should raise a Validation Exception");
-    }
-
-    /**
-     * Tests absent Subject failure.
-     * 
-     * @throws ValidationException
-     */
-    public void testSubjectFailure() throws ValidationException {
-        Assertion assertion = (Assertion) target;
-
-        assertion.setSubject(null);
-        assertValidationFail("Subject was null, should raise a Validation Exception");
     }
 }
