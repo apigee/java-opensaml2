@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -33,19 +34,31 @@ public class RequestedAuthnContextMarshaller extends AbstractSAMLObjectMarshalle
 
     /**
      * Constructor
-     *
+     * 
      */
     public RequestedAuthnContextMarshaller() {
         super(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected RequestedAuthnContextMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         RequestedAuthnContext rac = (RequestedAuthnContext) samlObject;
-        
+
         if (rac.getComparison() != null)
-            domElement.setAttributeNS(null, RequestedAuthnContext.COMPARISON_ATTRIB_NAME, rac.getComparison().toString());
+            domElement.setAttributeNS(null, RequestedAuthnContext.COMPARISON_ATTRIB_NAME, rac.getComparison()
+                    .toString());
     }
 }

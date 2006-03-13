@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.List;
@@ -28,7 +29,7 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.RequesterID}
  */
 public class RequesterIDImpl extends AbstractProtocolSAMLObject implements RequesterID {
-    
+
     /** */
     private String requesterID;
 
@@ -37,6 +38,17 @@ public class RequesterIDImpl extends AbstractProtocolSAMLObject implements Reque
      */
     protected RequesterIDImpl() {
         super(RequesterID.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected RequesterIDImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**

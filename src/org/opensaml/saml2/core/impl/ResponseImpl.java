@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -32,20 +33,31 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * Concrete implementation of {@link org.opensaml.saml2.core.Response}
  */
 public class ResponseImpl extends StatusResponseImpl implements Response {
-    
-    //TODO may need more for EncryptedAssertion pending Chad's encryption implementation
-    
+
+    // TODO may need more for EncryptedAssertion pending Chad's encryption implementation
+
     /** Assertion child elements */
     private XMLObjectChildrenList<Assertion> assertions;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected ResponseImpl() {
         super(Response.LOCAL_NAME);
-        
+
         assertions = new XMLObjectChildrenList<Assertion>(this);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -60,15 +72,15 @@ public class ResponseImpl extends StatusResponseImpl implements Response {
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
-        
+
         children.addAll(assertions);
-        
+
         if (children.size() == 0)
             return null;
-        
+
         return Collections.unmodifiableList(children);
     }
 

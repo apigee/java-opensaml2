@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -40,11 +41,22 @@ public class RequesterIDMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected RequesterIDMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         RequesterID reqID = (RequesterID) samlObject;
-        
+
         if (reqID.getRequesterID() != null)
             XMLHelper.appendTextContent(domElement, reqID.getRequesterID());
     }

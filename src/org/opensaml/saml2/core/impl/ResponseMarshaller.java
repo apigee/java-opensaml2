@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -29,12 +30,21 @@ public class ResponseMarshaller extends StatusResponseMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ResponseMarshaller() {
         super(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
     }
-    
-    // no attributes of our own to marshall
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ResponseMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    // no attributes of our own to marshall
 }

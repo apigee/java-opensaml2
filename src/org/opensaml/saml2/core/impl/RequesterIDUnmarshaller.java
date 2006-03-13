@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -25,25 +26,35 @@ import org.opensaml.saml2.core.RequesterID;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.RequesterID}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.RequesterID} objects.
  */
 public class RequesterIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public RequesterIDUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject, java.lang.String)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected RequesterIDUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
+     *      java.lang.String)
      */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         RequesterID reqID = (RequesterID) samlObject;
-        
+
         reqID.setRequesterID(elementContent);
     }
 }

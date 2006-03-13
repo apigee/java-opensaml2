@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -33,13 +34,13 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.Request}
  */
 public abstract class RequestImpl extends AbstractSignableProtocolSAMLObject implements Request {
-    
+
     /** Unique identifier of the request */
     private String id;
-    
+
     /** Date/time request was issued */
     private DateTime issueInstant;
-    
+
     /** URI of the request destination */
     private String destination;
 
@@ -49,19 +50,28 @@ public abstract class RequestImpl extends AbstractSignableProtocolSAMLObject imp
     /** URI of the SAML user consent type */
     private Issuer issuer;
 
-    /**  Extensions child element */
+    /** Extensions child element */
     private Extensions extensions;
-
 
     /**
      * Constructor
-     *
+     * 
      * @param elementLocalName
      */
     protected RequestImpl(String elementLocalName) {
         super(elementLocalName);
     }
-    
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected RequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 
     /**
      * @see org.opensaml.saml2.core.Request#getID()
@@ -152,16 +162,16 @@ public abstract class RequestImpl extends AbstractSignableProtocolSAMLObject imp
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-       
+
         if (issuer != null)
             children.add(issuer);
-        //TODO Signature ??? necessary?  if so, get from superclass ?
+        // TODO Signature ??? necessary? if so, get from superclass ?
         if (extensions != null)
             children.add(extensions);
-        
+
         if (children.size() == 0)
             return null;
-        
+
         return Collections.unmodifiableList(children);
     }
 }

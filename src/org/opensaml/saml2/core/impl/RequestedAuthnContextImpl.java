@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -34,25 +35,36 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * Concrete implementation of {@link org.opensaml.saml2.core.RequestedAuthnContext}
  */
 public class RequestedAuthnContextImpl extends AbstractProtocolSAMLObject implements RequestedAuthnContext {
-    
+
     /** AuthnContextClassRef child elements */
-    private XMLObjectChildrenList<AuthnContextClassRef> authnContextClassRefs; 
+    private XMLObjectChildrenList<AuthnContextClassRef> authnContextClassRefs;
 
     /** AuthnContextDeclRef child elements */
-    private XMLObjectChildrenList<AuthnContextDeclRef> authnContextDeclRefs; 
-    
+    private XMLObjectChildrenList<AuthnContextDeclRef> authnContextDeclRefs;
+
     /** Comparison attribute */
     private AuthnContextComparisonType comparison;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected RequestedAuthnContextImpl() {
         super(RequestedAuthnContext.LOCAL_NAME);
-        
+
         authnContextClassRefs = new XMLObjectChildrenList<AuthnContextClassRef>(this);
         authnContextDeclRefs = new XMLObjectChildrenList<AuthnContextDeclRef>(this);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected RequestedAuthnContextImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -88,13 +100,13 @@ public class RequestedAuthnContextImpl extends AbstractProtocolSAMLObject implem
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         children.addAll(authnContextClassRefs);
         children.addAll(authnContextDeclRefs);
-        
+
         if (children.size() == 0)
             return null;
-        
+
         return Collections.unmodifiableList(children);
     }
 }
