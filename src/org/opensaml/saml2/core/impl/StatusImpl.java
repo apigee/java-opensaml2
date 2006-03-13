@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.Status}
  */
 public class StatusImpl extends AbstractProtocolSAMLObject implements Status {
-    
+
     /** StatusCode element */
     private StatusCode statusCode;
 
@@ -45,10 +46,21 @@ public class StatusImpl extends AbstractProtocolSAMLObject implements Status {
 
     /**
      * Constructor
-     *
+     * 
      */
     protected StatusImpl() {
         super(Status.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected StatusImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -99,7 +111,7 @@ public class StatusImpl extends AbstractProtocolSAMLObject implements Status {
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         children.add(statusCode);
         if (statusMessage != null)
             children.add(statusMessage);

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -34,38 +35,49 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.StatusResponse}
  */
 public abstract class StatusResponseImpl extends AbstractSignableProtocolSAMLObject implements StatusResponse {
-    
+
     /** ID attribute */
     private String id;
-    
+
     /** InResponseTo attribute */
     private String inResponseTo;
-    
+
     /** IssueInstant attribute */
     private DateTime issueInstant;
-    
+
     /** Destination attribute */
     private String destination;
-    
+
     /** Consent attribute */
     private String consent;
-    
+
     /** Issuer child element */
     private Issuer issuer;
-    
+
     /** Extensions child element */
     private Extensions extensions;
-    
+
     /** Status child element */
     private Status status;
 
     /**
      * Constructor
-     *
+     * 
      * @param elementLocalName
      */
     protected StatusResponseImpl(String elementLocalName) {
         super(elementLocalName);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected StatusResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -151,7 +163,7 @@ public abstract class StatusResponseImpl extends AbstractSignableProtocolSAMLObj
     public void setIssuer(Issuer newIssuer) {
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
-    
+
     /**
      * @see org.opensaml.saml2.core.StatusResponse#getExtensions()
      */
@@ -185,18 +197,18 @@ public abstract class StatusResponseImpl extends AbstractSignableProtocolSAMLObj
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (issuer != null)
             children.add(issuer);
-        //TODO Signature
+        // TODO Signature
         if (extensions != null)
             children.add(extensions);
         if (status != null)
             children.add(status);
-        
+
         if (children.size() == 0)
             return null;
-        
-        return Collections.unmodifiableList(children);   
+
+        return Collections.unmodifiableList(children);
     }
 }

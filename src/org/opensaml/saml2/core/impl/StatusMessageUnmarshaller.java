@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -25,9 +26,8 @@ import org.opensaml.saml2.core.StatusMessage;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusMessage}
- * objects.
- *
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusMessage} objects.
+ * 
  */
 public class StatusMessageUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -37,13 +37,24 @@ public class StatusMessageUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     public StatusMessageUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, StatusMessage.LOCAL_NAME);
     }
-    
+
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject, java.lang.String)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected StatusMessageUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
+     *      java.lang.String)
      */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         StatusMessage message = (StatusMessage) samlObject;
-        
+
         message.setMessage(elementContent);
     }
 }
