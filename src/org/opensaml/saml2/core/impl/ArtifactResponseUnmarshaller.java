@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -29,10 +30,20 @@ public class ArtifactResponseUnmarshaller extends StatusResponseUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ArtifactResponseUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ArtifactResponseUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     // TODO need to process any <any ...> elements, or leave to a subclass of this class

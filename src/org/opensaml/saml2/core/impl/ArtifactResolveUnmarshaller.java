@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -32,18 +33,30 @@ public class ArtifactResolveUnmarshaller extends RequestUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ArtifactResolveUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected ArtifactResolveUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
+     */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         ArtifactResolve ar = (ArtifactResolve) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof Artifact)
             ar.setArtifact((Artifact) childSAMLObject);
         else

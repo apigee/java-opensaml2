@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.saml2.core.ArtifactResponse;
@@ -28,13 +29,24 @@ public class ArtifactResponseImpl extends StatusResponseImpl implements Artifact
 
     /**
      * Constructor
-     *
+     * 
      */
     protected ArtifactResponseImpl() {
         super(ArtifactResponse.LOCAL_NAME);
     }
-    
-    //TODO need to implement anything for children of type
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ArtifactResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
+    // TODO need to implement anything for children of type
     // <any namespace=##any">
 
 }

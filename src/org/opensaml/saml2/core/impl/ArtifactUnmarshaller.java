@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -31,20 +32,30 @@ public class ArtifactUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ArtifactUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS , Artifact.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject, java.lang.String)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ArtifactUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
+     *      java.lang.String)
      */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         Artifact artifact = (Artifact) samlObject;
-        
+
         artifact.setArtifact(elementContent);
     }
-    
-    
+
 }

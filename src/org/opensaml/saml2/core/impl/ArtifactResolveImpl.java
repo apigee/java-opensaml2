@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -31,16 +32,27 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.ArtifactResolve}
  */
 public class ArtifactResolveImpl extends RequestImpl implements ArtifactResolve {
-    
+
     /** Artifact child element */
     private Artifact artifact;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected ArtifactResolveImpl() {
         super(ArtifactResolve.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ArtifactResolveImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -62,16 +74,16 @@ public class ArtifactResolveImpl extends RequestImpl implements ArtifactResolve 
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
-        
+
         if (artifact != null)
             children.add(artifact);
-        
+
         if (children.size() == 0)
             return null;
-        
+
         return Collections.unmodifiableList(children);
     }
 }

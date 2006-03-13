@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -29,10 +30,20 @@ public class ArtifactResolveMarshaller extends RequestMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ArtifactResolveMarshaller() {
         super(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ArtifactResolveMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
 }
