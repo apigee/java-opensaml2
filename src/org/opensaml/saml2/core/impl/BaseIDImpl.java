@@ -37,6 +37,17 @@ public abstract class BaseIDImpl extends AbstractAssertionSAMLObject implements 
         super(BaseID.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected BaseIDImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.BaseID#getNameQualifier()
      */

@@ -37,6 +37,16 @@ public class BaseIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20_NS, BaseID.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected BaseIDUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Attr)
