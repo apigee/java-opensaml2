@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -27,24 +28,34 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- *A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusCode}
- * objects. 
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusCode} objects.
  */
 public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
      */
-    public StatusCodeUnmarshaller () {
+    public StatusCodeUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, StatusCode.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected StatusCodeUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         StatusCode statusCode = (StatusCode) samlObject;
-        
+
         if (attribute.getLocalName().equals(StatusCode.VALUE_ATTRIB_NAME))
             statusCode.setValue(attribute.getValue());
         else
@@ -52,11 +63,13 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         StatusCode statusCode = (StatusCode) parentSAMLObject;
-       
+
         if (childSAMLObject instanceof StatusCode)
             statusCode.setStatusCode((StatusCode) childSAMLObject);
         else

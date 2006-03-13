@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -26,27 +27,38 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Response}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Response} objects.
  */
 public class ResponseUnmarshaller extends StatusResponseUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ResponseUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected ResponseUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
+     */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         Response resp = (Response) parentSAMLObject;
-        
+
         // TODO may need more to handle EncryptedAssertion pending Chad's encryption implementation
-        
+
         if (childSAMLObject instanceof Assertion)
             resp.getAssertions().add((Assertion) childSAMLObject);
         else

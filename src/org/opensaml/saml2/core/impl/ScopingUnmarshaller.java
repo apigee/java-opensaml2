@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -29,8 +30,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Scoping}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Scoping} objects.
  */
 public class ScopingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -42,11 +42,22 @@ public class ScopingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ScopingUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Scoping scoping = (Scoping) samlObject;
-        
+
         if (attribute.getLocalName().equals(Scoping.PROXY_COUNT_ATTRIB_NAME))
             scoping.setProxyCount(Integer.valueOf(attribute.getValue()));
         else
@@ -54,9 +65,11 @@ public class ScopingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         Scoping scoping = (Scoping) parentSAMLObject;
         if (childSAMLObject instanceof IDPList)
             scoping.setIDPList((IDPList) childSAMLObject);

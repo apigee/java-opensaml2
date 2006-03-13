@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -34,18 +35,29 @@ public class SessionIndexMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public SessionIndexMarshaller() {
         super(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected SessionIndexMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         SessionIndex si = (SessionIndex) samlObject;
-        
+
         if (si.getSessionIndex() != null)
             XMLHelper.appendTextContent(domElement, si.getSessionIndex());
     }

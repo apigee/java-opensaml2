@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.List;
@@ -28,16 +29,27 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.SessionIndex}
  */
 public class SessionIndexImpl extends AbstractProtocolSAMLObject implements SessionIndex {
-    
+
     /** The session index value */
     private String sessionIndex;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected SessionIndexImpl() {
         super(SessionIndex.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected SessionIndexImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**

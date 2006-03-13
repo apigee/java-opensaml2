@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -30,19 +31,30 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.StatusCode}
  */
 public class StatusCodeImpl extends AbstractProtocolSAMLObject implements StatusCode {
-    
-    /** Value attribute URI*/
+
+    /** Value attribute URI */
     private String value;
-    
-    /** Nested secondary StatusCode child element*/
+
+    /** Nested secondary StatusCode child element */
     private StatusCode childStatusCode;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected StatusCodeImpl() {
         super(StatusCode.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected StatusCodeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -83,6 +95,6 @@ public class StatusCodeImpl extends AbstractProtocolSAMLObject implements Status
             return Collections.unmodifiableList(children);
         } else {
             return null;
-        }  
+        }
     }
 }
