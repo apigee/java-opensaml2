@@ -28,4 +28,14 @@ public class NameIDUnmarshaller extends AbstractNameIDTypeUnmarshaller {
     public NameIDUnmarshaller() {
         super(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected NameIDUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

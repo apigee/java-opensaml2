@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -39,11 +40,22 @@ public class NameIDPolicyMarshaller extends AbstractSAMLObjectMarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected NameIDPolicyMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameIDPolicy policy = (NameIDPolicy) samlObject;
-        
+
         if (policy.getFormat() != null)
             domElement.setAttributeNS(null, NameIDPolicy.FORMAT_ATTRIB_NAME, policy.getFormat());
 

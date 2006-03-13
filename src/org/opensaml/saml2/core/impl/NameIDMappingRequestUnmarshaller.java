@@ -38,6 +38,16 @@ public class NameIDMappingRequestUnmarshaller extends RequestUnmarshaller {
     }
 
     /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected NameIDMappingRequestUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
      *      org.opensaml.xml.XMLObject)
      */

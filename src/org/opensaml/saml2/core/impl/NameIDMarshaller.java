@@ -29,6 +29,13 @@ public class NameIDMarshaller extends AbstractNameIDTypeMarshaller {
         super(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME);
     }
 
+    /**
+     * 
+     * Constructor
+     * 
+     * @param targetNamespaceURI
+     * @param targetLocalName
+     */
     protected NameIDMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }

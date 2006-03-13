@@ -28,16 +28,27 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.NameIDMappingResponse}
  */
 public class NameIDMappingResponseImpl extends StatusResponseImpl implements NameIDMappingResponse {
-    
+
     /** NameID child element */
     private NameID nameID;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected NameIDMappingResponseImpl() {
         super(NameIDMappingResponse.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected NameIDMappingResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*
@@ -59,17 +70,17 @@ public class NameIDMappingResponseImpl extends StatusResponseImpl implements Nam
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
-        
+
         if (nameID != null) {
             children.add(nameID);
         }
-        
+
         if (children.size() == 0)
             return null;
-        
+
         return Collections.unmodifiableList(children);
     }
 }

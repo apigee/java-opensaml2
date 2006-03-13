@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -27,25 +28,35 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.NameIDPolicy}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.NameIDPolicy} objects.
  */
 public class NameIDPolicyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public NameIDPolicyUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected NameIDPolicyUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         NameIDPolicy policy = (NameIDPolicy) samlObject;
-        
+
         if (attribute.getLocalName().equals(NameIDPolicy.FORMAT_ATTRIB_NAME))
             policy.setFormat(attribute.getValue());
         if (attribute.getLocalName().equals(NameIDPolicy.SP_NAME_QUALIFIER_ATTRIB_NAME))

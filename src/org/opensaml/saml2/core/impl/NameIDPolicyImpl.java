@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.List;
@@ -28,7 +29,7 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.NameIDPolicy}
  */
 public class NameIDPolicyImpl extends AbstractProtocolSAMLObject implements NameIDPolicy {
-    
+
     /** NameID Format URI */
     private String format;
 
@@ -43,6 +44,17 @@ public class NameIDPolicyImpl extends AbstractProtocolSAMLObject implements Name
      */
     protected NameIDPolicyImpl() {
         super(NameIDPolicy.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected NameIDPolicyImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**

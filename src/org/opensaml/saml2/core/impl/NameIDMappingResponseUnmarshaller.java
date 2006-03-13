@@ -36,16 +36,27 @@ public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshalle
     }
 
     /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected NameIDMappingResponseUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
      *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
-       NameIDMappingResponse resp = (NameIDMappingResponse) parentSAMLObject;
-       
-       if (childSAMLObject instanceof NameID) {
-           resp.setNameID((NameID) childSAMLObject);
-       } else {
-           super.processChildElement(parentSAMLObject, childSAMLObject);
-       }      
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
+        NameIDMappingResponse resp = (NameIDMappingResponse) parentSAMLObject;
+
+        if (childSAMLObject instanceof NameID) {
+            resp.setNameID((NameID) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }
