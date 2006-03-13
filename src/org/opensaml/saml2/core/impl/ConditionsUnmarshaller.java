@@ -24,11 +24,8 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.saml2.core.Condition;
 import org.opensaml.saml2.core.Conditions;
-import org.opensaml.saml2.core.OneTimeUse;
-import org.opensaml.saml2.core.ProxyRestriction;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
@@ -41,6 +38,16 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     /** Constructor */
     public ConditionsUnmarshaller() {
         super(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ConditionsUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /*

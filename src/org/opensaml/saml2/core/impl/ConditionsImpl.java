@@ -45,12 +45,6 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
     /** A Condition */
     private IndexedXMLObjectChildrenList<Condition> condition;
 
-    /** One Time Use condition */
-    private OneTimeUse oneTimeUse;
-
-    /** Proxy Restriction condition */
-    private ProxyRestriction proxyRestriction;
-
     /** Not Before condition */
     private DateTime notBefore;
 
@@ -62,6 +56,17 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
         super(Conditions.LOCAL_NAME);
 
         condition = new IndexedXMLObjectChildrenList<Condition>(this);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ConditionsImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*
