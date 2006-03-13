@@ -47,6 +47,17 @@ public class ProxyRestrictionImpl extends AbstractAssertionSAMLObject implements
         audience = new XMLObjectChildrenList<Audience>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ProxyRestrictionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.ProxyRestriction#getAudiences()
      */

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -34,19 +35,29 @@ public class NewIDMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public NewIDMarshaller() {
         super(SAMLConstants.SAML20P_NS, NewID.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected NewIDMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         NewID newID = (NewID) samlObject;
-        
+
         if (newID.getNewID() != null)
             XMLHelper.appendTextContent(domElement, newID.getNewID());
     }

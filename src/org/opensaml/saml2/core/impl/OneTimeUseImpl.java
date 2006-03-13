@@ -35,6 +35,17 @@ public class OneTimeUseImpl extends AbstractAssertionSAMLObject implements OneTi
         super(OneTimeUse.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected OneTimeUseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */

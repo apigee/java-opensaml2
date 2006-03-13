@@ -37,6 +37,16 @@ public class ProxyRestrictionMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ProxyRestrictionMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)

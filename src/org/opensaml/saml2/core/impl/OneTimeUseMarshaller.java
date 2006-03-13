@@ -33,4 +33,14 @@ public class OneTimeUseMarshaller extends AbstractSAMLObjectMarshaller {
     public OneTimeUseMarshaller() {
         super(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected OneTimeUseMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

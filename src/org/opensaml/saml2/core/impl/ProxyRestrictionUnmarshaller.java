@@ -38,6 +38,16 @@ public class ProxyRestrictionUnmarshaller extends AbstractSAMLObjectUnmarshaller
         super(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ProxyRestrictionUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
      *      org.opensaml.xml.XMLObject)

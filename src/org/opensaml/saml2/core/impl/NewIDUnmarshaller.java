@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -25,25 +26,35 @@ import org.opensaml.saml2.core.NewID;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.NewID}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.NewID} objects.
  */
 public class NewIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public NewIDUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, NewID.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject, java.lang.String)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected NewIDUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
+     *      java.lang.String)
      */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         NewID newID = (NewID) samlObject;
-        
+
         newID.setNewID(elementContent);
     }
 }

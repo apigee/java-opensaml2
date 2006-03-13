@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.List;
@@ -28,16 +29,27 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.NewID}
  */
 public class NewIDImpl extends AbstractProtocolSAMLObject implements NewID {
-    
+
     /** The new NameID */
     private String newID;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected NewIDImpl() {
         super(NewID.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected NewIDImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
