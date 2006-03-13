@@ -28,7 +28,14 @@ public class NameIDImpl extends AbstractNameIDType implements NameID {
         super(NameID.LOCAL_NAME);
     }
 
-    protected NameIDImpl(String targetLocalName) {
-        super(targetLocalName);
+    /**
+     * Constructor
+     *
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected NameIDImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 }

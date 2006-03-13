@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -29,10 +30,19 @@ public class ManageNameIDRequestMarshaller extends RequestMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ManageNameIDRequestMarshaller() {
         super(SAMLConstants.SAML20P_NS, ManageNameIDRequest.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ManageNameIDRequestMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

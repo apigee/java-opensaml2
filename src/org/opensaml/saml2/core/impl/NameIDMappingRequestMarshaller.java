@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -29,12 +30,21 @@ public class NameIDMappingRequestMarshaller extends RequestMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public NameIDMappingRequestMarshaller() {
         super(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME);
     }
-    
-   // no attributes of our own to marshall 
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected NameIDMappingRequestMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    // no attributes of our own to marshall
 }

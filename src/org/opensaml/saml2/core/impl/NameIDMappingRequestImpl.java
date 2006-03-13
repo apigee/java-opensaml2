@@ -30,22 +30,33 @@ import org.opensaml.xml.XMLObject;
  * A concrete implementation of {@link org.opensaml.saml2.core.NameIDMappingRequest}
  */
 public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappingRequest {
-    
+
     /** BaseID child element */
     private BaseID baseID;
-    
+
     /** NameID child element */
     private NameID nameID;
-    
+
     /** NameIDPolicy child element */
     private NameIDPolicy nameIDPolicy;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected NameIDMappingRequestImpl() {
         super(NameIDMappingRequest.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected NameIDMappingRequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*
@@ -95,10 +106,9 @@ public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappi
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
-
 
         if (baseID != null) {
             children.add(baseID);
@@ -107,14 +117,13 @@ public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappi
         if (nameID != null) {
             children.add(nameID);
         }
-        
+
         if (nameIDPolicy != null)
             children.add(nameIDPolicy);
-        
+
         if (children.size() == 0)
             return null;
-        
+
         return Collections.unmodifiableList(children);
     }
-
 }

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.saml2.core.ManageNameIDResponse;
@@ -28,12 +29,22 @@ public class ManageNameIDResponseImpl extends StatusResponseImpl implements Mana
 
     /**
      * Constructor
-     *
+     * 
      */
     public ManageNameIDResponseImpl() {
         super(ManageNameIDResponse.LOCAL_NAME);
     }
-    
-    // No additional attributes or child elements on this class
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ManageNameIDResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
+    // No additional attributes or child elements on this class
 }

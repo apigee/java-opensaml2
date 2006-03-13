@@ -17,25 +17,34 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.ManageNameIDResponse;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ManageNameIDResponse}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ManageNameIDResponse} objects.
  */
 public class ManageNameIDResponseUnmarshaller extends StatusResponseUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ManageNameIDResponseUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME);
     }
-    
-    // no attributes or child elements of our own to process
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ManageNameIDResponseUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    // no attributes or child elements of our own to process
 }

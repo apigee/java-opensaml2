@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -31,26 +32,36 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ManageNameIDRequest}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ManageNameIDRequest} objects.
  */
 public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ManageNameIDRequestUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, ManageNameIDRequest.LOCAL_NAME);
     }
 
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ManageNameIDRequestUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         ManageNameIDRequest req = (ManageNameIDRequest) parentSAMLObject;
-        
-        //TODO may change depending on Chad's encryption implementation
-        
-        //TODO make sure there aren't any other hidden issues here...
-        //NOTE: Issuer is a sub-interface of NameID, so need this additional check
+
+        // TODO may change depending on Chad's encryption implementation
+
+        // TODO make sure there aren't any other hidden issues here...
+        // NOTE: Issuer is a sub-interface of NameID, so need this additional check
         if (childSAMLObject instanceof NameID && !(childSAMLObject instanceof Issuer))
             req.setNameID((NameID) childSAMLObject);
         else if (childSAMLObject instanceof EncryptedID)
@@ -63,8 +74,5 @@ public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
             req.setTerminate((Terminate) childSAMLObject);
         else
             super.processChildElement(parentSAMLObject, childSAMLObject);
-
-        
     }
-
 }

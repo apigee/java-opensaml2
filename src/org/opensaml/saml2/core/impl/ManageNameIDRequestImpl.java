@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -35,33 +36,41 @@ import org.opensaml.xml.XMLObject;
  * A concrete implementation of {@link org.opensaml.saml2.core.ManageNameIDRequest}
  */
 public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameIDRequest {
-    
-    
+
     // TODO EncryptedID and NewEncryptedID stuff may change, pending Chad's encryption implementation
-    
+
     /** NameID child element */
     private NameID nameID;
-    
+
     /** EncryptedID child element */
     private EncryptedID encryptedID;
-    
+
     /** NewID child element */
     private NewID newID;
 
     /** NameID child element */
     private NewEncryptedID newEncryptedID;
-    
+
     /** Terminate child element */
     private Terminate terminate;
 
-
-
     /**
      * Constructor
-     *
+     * 
      */
     protected ManageNameIDRequestImpl() {
         super(ManageNameIDRequest.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ManageNameIDRequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -139,7 +148,7 @@ public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameID
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
         if (nameID != null)
@@ -152,12 +161,11 @@ public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameID
             children.add(newEncryptedID);
         if (terminate != null)
             children.add(terminate);
-        
+
         if (children.size() == 0)
             return null;
-            
+
         return Collections.unmodifiableList(children);
     }
-    
 
 }
