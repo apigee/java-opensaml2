@@ -38,6 +38,16 @@ public class AuthnContextDeclMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthnContextDeclMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)

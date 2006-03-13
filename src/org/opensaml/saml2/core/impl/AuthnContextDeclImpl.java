@@ -38,6 +38,17 @@ public class AuthnContextDeclImpl extends AbstractAssertionSAMLObject implements
         super(AuthnContextDecl.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthnContextDeclImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.AuthnContextDecl#getDeclartion()
      */
