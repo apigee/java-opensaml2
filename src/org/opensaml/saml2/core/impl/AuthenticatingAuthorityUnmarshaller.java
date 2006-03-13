@@ -35,6 +35,16 @@ public class AuthenticatingAuthorityUnmarshaller extends AbstractSAMLObjectUnmar
         super(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthenticatingAuthorityUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)

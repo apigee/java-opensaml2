@@ -37,6 +37,16 @@ public class AudienceRestrictionUnmarshaller extends AbstractSAMLObjectUnmarshal
         super(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AudienceRestrictionUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
      *      org.opensaml.xml.XMLObject)

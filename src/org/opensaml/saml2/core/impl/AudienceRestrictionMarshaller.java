@@ -33,4 +33,14 @@ public class AudienceRestrictionMarshaller extends AbstractSAMLObjectMarshaller 
     public AudienceRestrictionMarshaller() {
         super(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AudienceRestrictionMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

@@ -38,6 +38,17 @@ public class AuthenticatingAuthorityImpl extends AbstractAssertionSAMLObject imp
         super(AuthenticatingAuthority.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthenticatingAuthorityImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.AuthenticatingAuthority#getURI()
      */
