@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -34,5 +35,14 @@ public class IDPListMarshaller extends AbstractSAMLObjectMarshaller {
     public IDPListMarshaller() {
         super(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
     }
-    
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected IDPListMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

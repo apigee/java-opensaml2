@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -25,25 +26,35 @@ import org.opensaml.saml2.core.GetComplete;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.GetComplete}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.GetComplete} objects.
  */
 public class GetCompleteUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public GetCompleteUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, GetComplete.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject, java.lang.String)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected GetCompleteUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
+     *      java.lang.String)
      */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         GetComplete gc = (GetComplete) samlObject;
-        
+
         gc.setGetComplete(elementContent);
     }
 }

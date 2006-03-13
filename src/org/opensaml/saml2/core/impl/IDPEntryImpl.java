@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.List;
@@ -28,15 +29,16 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.IDPEntry}
  */
 public class IDPEntryImpl extends AbstractProtocolSAMLObject implements IDPEntry {
-    
+
     /** The unique identifier of the IdP */
     private String providerID;
 
     /** Human-readable name for the IdP */
     private String name;
 
-    /** URI reference representing the location of a profile-specific
-     * endpoint supporting the authentication request protocol.
+    /**
+     * URI reference representing the location of a profile-specific endpoint supporting the authentication request
+     * protocol.
      */
     private String loc;
 
@@ -45,6 +47,17 @@ public class IDPEntryImpl extends AbstractProtocolSAMLObject implements IDPEntry
      */
     protected IDPEntryImpl() {
         super(IDPEntry.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected IDPEntryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**

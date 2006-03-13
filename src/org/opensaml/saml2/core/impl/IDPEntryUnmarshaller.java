@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -27,8 +28,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.IDPEntry}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.IDPEntry} objects.
  */
 public class IDPEntryUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -40,17 +40,28 @@ public class IDPEntryUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected IDPEntryUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         IDPEntry entry = (IDPEntry) samlObject;
-        
+
         if (attribute.getLocalName().equals(IDPEntry.PROVIDER_ID_ATTRIB_NAME))
             entry.setProviderID(attribute.getValue());
         else if (attribute.getLocalName().equals(IDPEntry.NAME_ATTRIB_NAME))
             entry.setName(attribute.getValue());
         else if (attribute.getLocalName().equals(IDPEntry.LOC_ATTRIB_NAME))
-                entry.setLoc(attribute.getValue());
+            entry.setLoc(attribute.getValue());
         else
             super.processAttribute(samlObject, attribute);
     }

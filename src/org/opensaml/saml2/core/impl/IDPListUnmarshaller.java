@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -28,8 +29,7 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.IDPList}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.IDPList} objects.
  */
 public class IDPListUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -41,11 +41,23 @@ public class IDPListUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected IDPListUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
+     */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         IDPList list = (IDPList) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof IDPEntry)
             list.getIDPEntrys().add((IDPEntry) childSAMLObject);
         else if (childSAMLObject instanceof GetComplete)

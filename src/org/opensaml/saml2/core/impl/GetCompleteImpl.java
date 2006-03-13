@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.List;
@@ -28,7 +29,7 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.GetComplete}
  */
 public class GetCompleteImpl extends AbstractProtocolSAMLObject implements GetComplete {
-    
+
     /** URI element content */
     private String getComplete;
 
@@ -37,6 +38,17 @@ public class GetCompleteImpl extends AbstractProtocolSAMLObject implements GetCo
      */
     protected GetCompleteImpl() {
         super(GetComplete.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected GetCompleteImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
