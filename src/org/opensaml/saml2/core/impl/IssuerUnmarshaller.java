@@ -28,4 +28,14 @@ public class IssuerUnmarshaller extends AbstractNameIDTypeUnmarshaller {
     public IssuerUnmarshaller() {
         super(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected IssuerUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

@@ -28,4 +28,14 @@ public class IssuerMarshaller extends AbstractNameIDTypeMarshaller {
     public IssuerMarshaller() {
         super(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected IssuerMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

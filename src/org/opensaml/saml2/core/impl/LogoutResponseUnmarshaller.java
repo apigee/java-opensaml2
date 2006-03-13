@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -29,12 +30,21 @@ public class LogoutResponseUnmarshaller extends StatusResponseUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public LogoutResponseUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
     }
-    
-    // no attributes or elements of our own to unmarshall
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected LogoutResponseUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    // no attributes or elements of our own to unmarshall
 }

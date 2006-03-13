@@ -34,18 +34,29 @@ public class LogoutRequestUnmarshaller extends RequestUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public LogoutRequestUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected LogoutRequestUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         LogoutRequest req = (LogoutRequest) samlObject;
-        
+
         if (attribute.getLocalName().equals(LogoutRequest.REASON_ATTRIB_NAME))
             req.setReason(attribute.getValue());
         else if (attribute.getLocalName().equals(LogoutRequest.NOT_ON_OR_AFTER_ATTRIB_NAME))
@@ -55,18 +66,20 @@ public class LogoutRequestUnmarshaller extends RequestUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         LogoutRequest req = (LogoutRequest) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof BaseID) {
             req.setBaseID((BaseID) childSAMLObject);
-        }else if(childSAMLObject instanceof NameID) {
+        } else if (childSAMLObject instanceof NameID) {
             req.setNameID((NameID) childSAMLObject);
-        }else if (childSAMLObject instanceof SessionIndex) {
+        } else if (childSAMLObject instanceof SessionIndex) {
             req.getSessionIndexes().add((SessionIndex) childSAMLObject);
-        }else {
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }

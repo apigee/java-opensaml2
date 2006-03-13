@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
@@ -33,29 +34,38 @@ public class LogoutRequestMarshaller extends RequestMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public LogoutRequestMarshaller() {
         super(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected LogoutRequestMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         LogoutRequest req = (LogoutRequest) samlObject;
-        
+
         if (req.getReason() != null)
             domElement.setAttributeNS(null, LogoutRequest.REASON_ATTRIB_NAME, req.getReason());
-        
+
         if (req.getNotOnOrAfter() != null) {
             String noaStr = ISODateTimeFormat.dateTime().print(req.getNotOnOrAfter());
             domElement.setAttributeNS(null, LogoutRequest.NOT_ON_OR_AFTER_ATTRIB_NAME, noaStr);
         }
-        
+
         super.marshallAttributes(samlObject, domElement);
     }
-    
-    
 
 }

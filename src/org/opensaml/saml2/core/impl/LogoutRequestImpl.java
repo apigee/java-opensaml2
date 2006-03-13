@@ -58,6 +58,17 @@ public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
     }
 
     /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected LogoutRequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
+    /**
      * @see org.opensaml.saml2.core.LogoutRequest#getReason()
      */
     public String getReason() {

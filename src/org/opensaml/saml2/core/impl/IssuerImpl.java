@@ -27,4 +27,15 @@ public class IssuerImpl extends AbstractNameIDType implements Issuer {
     protected IssuerImpl() {
         super(Issuer.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected IssuerImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 }
