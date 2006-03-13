@@ -33,4 +33,14 @@ public class AdviceMarshaller extends AbstractSAMLObjectMarshaller {
     public AdviceMarshaller() {
         super(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AdviceMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.List;
@@ -28,7 +29,7 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.Artifact}
  */
 public class ArtifactImpl extends AbstractProtocolSAMLObject implements Artifact {
-    
+
     /** Artifact data */
     private String artifact;
 
@@ -38,6 +39,17 @@ public class ArtifactImpl extends AbstractProtocolSAMLObject implements Artifact
      */
     protected ArtifactImpl() {
         super(Artifact.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ArtifactImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -58,7 +70,7 @@ public class ArtifactImpl extends AbstractProtocolSAMLObject implements Artifact
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-       // no children 
+        // no children
         return null;
     }
 }

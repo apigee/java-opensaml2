@@ -54,6 +54,17 @@ public class AdviceImpl extends AbstractAssertionSAMLObject implements Advice {
         assertion = new XMLObjectChildrenList<Assertion>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AdviceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.Advice#getAssertionIDReferences()
      */
