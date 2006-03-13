@@ -48,6 +48,17 @@ public class SubjectConfirmationImpl extends AbstractAssertionSAMLObject impleme
         super(SubjectConfirmation.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected SubjectConfirmationImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.LogoutRequest#getBaseID()
      */
@@ -118,7 +129,7 @@ public class SubjectConfirmationImpl extends AbstractAssertionSAMLObject impleme
         if (nameID != null) {
             children.add(nameID);
         }
-        
+
         children.add(subjectConfirmationData);
 
         return Collections.unmodifiableList(children);

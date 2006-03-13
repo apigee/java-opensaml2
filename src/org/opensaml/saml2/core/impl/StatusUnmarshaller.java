@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -29,25 +30,37 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Status}
- * objects. 
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Status} objects.
  */
 public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public StatusUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);;
+        super(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
+        ;
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected StatusUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
+     */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         Status status = (Status) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof StatusCode)
             status.setStatusCode((StatusCode) childSAMLObject);
         else if (childSAMLObject instanceof StatusMessage)

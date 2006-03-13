@@ -32,11 +32,6 @@ import org.opensaml.xml.XMLObject;
  */
 public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject implements SubjectConfirmationData {
 
-    /** Constructor */
-    protected SubjectConfirmationDataImpl() {
-        super(SubjectConfirmationData.LOCAL_NAME);
-    }
-
     /** NotBefore of the Confirmation Data */
     private DateTime notBefore;
 
@@ -51,6 +46,22 @@ public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject imp
 
     /** Address of the Confirmation Data */
     private String address;
+
+    /** Constructor */
+    protected SubjectConfirmationDataImpl() {
+        super(SubjectConfirmationData.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected SubjectConfirmationDataImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 
     /*
      * @see org.opensaml.saml2.core.SubjectConfirmationData#getNotBefore()

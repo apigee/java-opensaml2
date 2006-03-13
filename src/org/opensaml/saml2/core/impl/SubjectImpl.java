@@ -37,7 +37,7 @@ public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject 
 
     /** NameID child element */
     private NameID nameID;
-    
+
     /** Subject Confirmations of the Subject */
     private XMLObjectChildrenList<SubjectConfirmation> subjectConfirmations;
 
@@ -48,6 +48,16 @@ public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject 
         subjectConfirmations = new XMLObjectChildrenList<SubjectConfirmation>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected SubjectImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 
     /*
      * @see org.opensaml.saml2.core.LogoutRequest#getBaseID()
@@ -97,7 +107,7 @@ public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject 
         if (nameID != null) {
             children.add(nameID);
         }
-        
+
         children.addAll(subjectConfirmations);
 
         return Collections.unmodifiableList(children);

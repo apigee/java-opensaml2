@@ -36,6 +36,16 @@ public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshal
         super(SAMLConstants.SAML20_NS, SubjectConfirmation.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected SubjectConfirmationUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
      *      org.opensaml.xml.XMLObject)
@@ -45,7 +55,7 @@ public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshal
 
         if (childObject instanceof BaseID) {
             subjectConfirmation.setBaseID((BaseID) childObject);
-        }else if(childObject instanceof NameID) {
+        } else if (childObject instanceof NameID) {
             subjectConfirmation.setNameID((NameID) childObject);
         } else if (childObject instanceof SubjectConfirmationData) {
             subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) childObject);

@@ -39,6 +39,16 @@ public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmar
         super(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected SubjectConfirmationDataUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Attr)
