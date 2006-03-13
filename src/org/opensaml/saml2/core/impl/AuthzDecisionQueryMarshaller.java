@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -32,21 +33,32 @@ public class AuthzDecisionQueryMarshaller extends SubjectQueryMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AuthzDecisionQueryMarshaller() {
         super(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthzDecisionQueryMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthzDecisionQuery query = (AuthzDecisionQuery) samlObject;
-        
+
         if (query.getResource() != null)
             domElement.setAttributeNS(null, AuthzDecisionQuery.RESOURCE_ATTRIB_NAME, query.getResource());
-        
+
         super.marshallAttributes(samlObject, domElement);
     }
 }

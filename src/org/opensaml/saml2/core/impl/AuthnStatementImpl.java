@@ -56,6 +56,17 @@ public class AuthnStatementImpl extends AbstractAssertionSAMLObject implements A
         super(AuthnStatement.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthnStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.AuthnStatement#getSubjectLocality()
      */

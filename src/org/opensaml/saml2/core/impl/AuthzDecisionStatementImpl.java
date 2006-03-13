@@ -55,6 +55,17 @@ public class AuthzDecisionStatementImpl extends AbstractAssertionSAMLObject impl
         actions = new XMLObjectChildrenList<Action>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthzDecisionStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#getResource()
      */

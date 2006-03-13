@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -34,18 +35,29 @@ public class AuthzDecisionQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AuthzDecisionQueryUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthzDecisionQueryUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AuthzDecisionQuery query = (AuthzDecisionQuery) samlObject;
-        
+
         if (attribute.getLocalName().equals(AuthzDecisionQuery.RESOURCE_ATTRIB_NAME))
             query.setResource(attribute.getValue());
         else
@@ -53,11 +65,13 @@ public class AuthzDecisionQueryUnmarshaller extends SubjectQueryUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         AuthzDecisionQuery query = (AuthzDecisionQuery) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof Action)
             query.getActions().add((Action) childSAMLObject);
         else if (childSAMLObject instanceof Evidence)

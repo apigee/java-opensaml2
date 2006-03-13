@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -33,20 +34,19 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * Concrete implementation of {@link org.opensaml.saml2.core.AuthzDecisionQuery}
  */
 public class AuthzDecisionQueryImpl extends SubjectQueryImpl implements AuthzDecisionQuery {
-    
+
     /** Resource attribute value */
     private String resource;
-    
+
     /** Evidence child element */
     private Evidence evidence;
-    
+
     /** Action child elements */
     private XMLObjectChildrenList<Action> actions;
-    
 
     /**
      * Constructor
-     *
+     * 
      */
     protected AuthzDecisionQueryImpl() {
         super(AuthzDecisionQuery.LOCAL_NAME);
@@ -55,12 +55,23 @@ public class AuthzDecisionQueryImpl extends SubjectQueryImpl implements AuthzDec
     }
 
     /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthzDecisionQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
+    /**
      * @see org.opensaml.saml2.core.AuthzDecisionQuery#getResource()
      */
     public String getResource() {
         return this.resource;
     }
-    
+
     /**
      * @see org.opensaml.saml2.core.AuthzDecisionQuery#setResource(java.lang.String)
      */
@@ -94,16 +105,16 @@ public class AuthzDecisionQueryImpl extends SubjectQueryImpl implements AuthzDec
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
         children.addAll(actions);
         if (evidence != null)
             children.add(evidence);
-        
+
         if (children.size() == 0)
             return null;
-        
+
         return Collections.unmodifiableList(children);
     }
 }

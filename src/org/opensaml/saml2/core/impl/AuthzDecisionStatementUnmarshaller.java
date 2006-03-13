@@ -40,6 +40,16 @@ public class AuthzDecisionStatementUnmarshaller extends AbstractSAMLObjectUnmars
         super(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthzDecisionStatementUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
      *      org.opensaml.xml.XMLObject)
@@ -71,9 +81,9 @@ public class AuthzDecisionStatementUnmarshaller extends AbstractSAMLObjectUnmars
                 authzDS.setDecision(DecisionType.PERMIT);
             } else if (value.equals(DecisionType.DENY.toString())) {
                 authzDS.setDecision(DecisionType.DENY);
-            } else  if (value.equals(DecisionType.INDETERMINATE.toString())) {
+            } else if (value.equals(DecisionType.INDETERMINATE.toString())) {
                 authzDS.setDecision(DecisionType.INDETERMINATE);
-            }  else {
+            } else {
                 throw new UnmarshallingException("Unknown value for DecisionType '" + value + "'");
             }
         } else {
