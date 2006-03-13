@@ -38,6 +38,17 @@ public class AssertionIDRefImpl extends AbstractAssertionSAMLObject implements A
         super(AssertionIDRef.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AssertionIDRefImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.AssertionIDRef#getIDRef()
      */

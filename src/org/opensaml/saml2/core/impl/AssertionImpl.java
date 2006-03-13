@@ -78,6 +78,17 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
         statements = new IndexedXMLObjectChildrenList<Statement>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AssertionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.Assertion#getIssueInstant()
      */

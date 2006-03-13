@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -29,10 +30,20 @@ public class AssertionIDRequestMarshaller extends RequestMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AssertionIDRequestMarshaller() {
         super(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AssertionIDRequestMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
 }

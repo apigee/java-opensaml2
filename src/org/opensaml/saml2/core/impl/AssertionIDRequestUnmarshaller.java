@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -32,18 +33,30 @@ public class AssertionIDRequestUnmarshaller extends RequestUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AssertionIDRequestUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected AssertionIDRequestUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
+     */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         AssertionIDRequest idRequest = (AssertionIDRequest) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof AssertionIDRef)
             idRequest.getAssertionIDRefs().add((AssertionIDRef) childSAMLObject);
         else

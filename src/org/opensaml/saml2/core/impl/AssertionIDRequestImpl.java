@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * A concrete implementation of {@link org.opensaml.saml2.core.AssertionIDRequest}
  */
 public class AssertionIDRequestImpl extends RequestImpl implements AssertionIDRequest {
-    
+
     /** List of AssertionIDRef child elements */
     private XMLObjectChildrenList<AssertionIDRef> assertionIDRefs;
 
@@ -42,6 +43,17 @@ public class AssertionIDRequestImpl extends RequestImpl implements AssertionIDRe
     protected AssertionIDRequestImpl() {
         super(AssertionIDRequest.LOCAL_NAME);
         assertionIDRefs = new XMLObjectChildrenList<AssertionIDRef>(this);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AssertionIDRequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -56,14 +68,14 @@ public class AssertionIDRequestImpl extends RequestImpl implements AssertionIDRe
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
         children.addAll(assertionIDRefs);
-        
+
         if (children.size() == 0)
             return null;
-        
+
         return Collections.unmodifiableList(children);
     }
 }
