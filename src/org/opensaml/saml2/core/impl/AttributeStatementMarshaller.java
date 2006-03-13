@@ -33,4 +33,14 @@ public class AttributeStatementMarshaller extends AbstractSAMLObjectMarshaller {
     public AttributeStatementMarshaller() {
         super(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AttributeStatementMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

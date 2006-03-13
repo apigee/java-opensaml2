@@ -38,6 +38,17 @@ public class AttributeValueImpl extends AbstractAssertionSAMLObject implements A
         super(AttributeValue.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AttributeValueImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.AttributeValue#getValue()
      */

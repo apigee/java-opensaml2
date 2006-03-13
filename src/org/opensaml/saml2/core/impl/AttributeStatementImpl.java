@@ -44,6 +44,17 @@ public class AttributeStatementImpl extends AbstractAssertionSAMLObject implemen
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AttributeStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.AttributeStatement#getAttributes()
      */
