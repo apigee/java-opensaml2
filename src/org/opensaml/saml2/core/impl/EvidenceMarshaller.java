@@ -33,4 +33,14 @@ public class EvidenceMarshaller extends AbstractSAMLObjectMarshaller {
     public EvidenceMarshaller() {
         super(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME);
     }
+    
+    /**
+     * Constructor
+     *
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected EvidenceMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }
