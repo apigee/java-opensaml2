@@ -38,6 +38,17 @@ public class AssertionURIRefImpl extends AbstractAssertionSAMLObject implements 
         super(AssertionURIRef.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AssertionURIRefImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.AssertionURIRef#getURIRef()
      */

@@ -35,6 +35,16 @@ public class AssertionURIRefUnmarshaller extends AbstractSAMLObjectUnmarshaller 
         super(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AssertionURIRefUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)

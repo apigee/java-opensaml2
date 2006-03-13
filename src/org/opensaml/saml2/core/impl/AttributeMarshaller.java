@@ -35,6 +35,16 @@ public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AttributeMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)

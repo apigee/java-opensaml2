@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -32,17 +33,28 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * Concrete implementation of {@link org.opensaml.saml2.core.AttributeQuery}
  */
 public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQuery {
-    
+
     /** Attribute child elements */
     private XMLObjectChildrenList<Attribute> attributes;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected AttributeQueryImpl() {
         super(AttributeQuery.LOCAL_NAME);
         attributes = new XMLObjectChildrenList<Attribute>(this);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AttributeQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -57,14 +69,14 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
         children.addAll(attributes);
-        
+
         if (children.size() == 0)
             return null;
-        
-        return Collections.unmodifiableList(children);       
+
+        return Collections.unmodifiableList(children);
     }
 }

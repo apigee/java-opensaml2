@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -29,10 +30,20 @@ public class AttributeQueryMarshaller extends SubjectQueryMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AttributeQueryMarshaller() {
         super(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AttributeQueryMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
 }

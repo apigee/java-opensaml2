@@ -51,6 +51,17 @@ public class AttributeImpl extends AbstractAssertionSAMLObject implements Attrib
         attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AttributeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.Attribute#getName()
      */

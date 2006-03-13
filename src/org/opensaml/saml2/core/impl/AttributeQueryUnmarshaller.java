@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -32,18 +33,30 @@ public class AttributeQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AttributeQueryUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected AttributeQueryUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
+     */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         AttributeQuery query = (AttributeQuery) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof Attribute)
             query.getAttributes().add((Attribute) childSAMLObject);
         else
