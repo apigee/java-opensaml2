@@ -41,6 +41,17 @@ public class SubjectLocalityImpl extends AbstractAssertionSAMLObject implements 
         super(SubjectLocality.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected SubjectLocalityImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.SubjectLocality#getAddress()
      */

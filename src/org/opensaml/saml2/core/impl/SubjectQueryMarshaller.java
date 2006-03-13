@@ -34,5 +34,4 @@ public abstract class SubjectQueryMarshaller extends RequestMarshaller {
     protected SubjectQueryMarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
     }
-    
 }

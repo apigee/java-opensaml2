@@ -33,4 +33,14 @@ public class SubjectMarshaller extends AbstractSAMLObjectMarshaller {
     public SubjectMarshaller() {
         super(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected SubjectMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }
