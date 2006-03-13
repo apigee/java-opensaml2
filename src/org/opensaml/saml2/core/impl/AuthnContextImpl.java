@@ -56,6 +56,17 @@ public class AuthnContextImpl extends AbstractAssertionSAMLObject implements Aut
         authenticatingAuthority = new XMLObjectChildrenList<AuthenticatingAuthority>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthnContextImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.core.AuthnContext#getAuthnContextClassRef()
      */

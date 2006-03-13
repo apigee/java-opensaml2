@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -31,19 +32,30 @@ import org.opensaml.xml.XMLObject;
  * Concrete implementation of {@link org.opensaml.saml2.core.AuthnQuery}
  */
 public class AuthnQueryImpl extends SubjectQueryImpl implements AuthnQuery {
-    
+
     /** SessionIndex attribute */
     private String sessionIndex;
-    
+
     /** RequestedAuthnContext child element */
     private RequestedAuthnContext requestedAuthnContext;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected AuthnQueryImpl() {
         super(AuthnQuery.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthnQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -79,16 +91,16 @@ public class AuthnQueryImpl extends SubjectQueryImpl implements AuthnQuery {
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
-        
+
         if (requestedAuthnContext != null)
             children.add(requestedAuthnContext);
-        
+
         if (children.size() == 0)
             return null;
-        
+
         return Collections.unmodifiableList(children);
     }
 }

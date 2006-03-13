@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import java.util.ArrayList;
@@ -35,49 +36,60 @@ import org.opensaml.xml.XMLObject;
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnRequest}.
  */
 public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
-    
+
     /** Subject child element */
     private Subject subject;
-    
+
     /** NameIDPolicy child element */
     private NameIDPolicy nameIDPolicy;
-    
+
     /** Conditions child element */
     private Conditions conditions;
-    
+
     /** RequestedAuthnContext child element */
     private RequestedAuthnContext requestedAuthnContext;
-    
+
     /** Scoping child element */
     private Scoping scoping;
-        
+
     /** ForeceAuthn attribute */
     private Boolean forceAuthn;
-    
+
     /** IsPassive attribute */
     private Boolean isPassive;
-    
+
     /** ProtocolBinding attribute */
     private String protocolBinding;
-    
+
     /** AssertionConsumerServiceIndex attribute */
     private Integer assertionConsumerServiceIndex;
-    
+
     /** AssertionConsumerServiceURL attribute */
     private String assertionConsumerServiceURL;
-    
+
     /** AttributeConsumingServiceIndex attribute */
     private Integer attributeConsumingServiceIndex;
-    
+
     /** ProviderName attribute */
     private String providerName;
 
     /**
      * Constructor
-     *
+     * 
      */
     protected AuthnRequestImpl() {
         super(AuthnRequest.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthnRequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /**
@@ -133,7 +145,8 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
      * @see org.opensaml.saml2.core.AuthnRequest#setAssertionConsumerServiceIndex(java.lang.Integer)
      */
     public void setAssertionConsumerServiceIndex(Integer newAssertionConsumerServiceIndex) {
-        this.assertionConsumerServiceIndex = prepareForAssignment(this.assertionConsumerServiceIndex, newAssertionConsumerServiceIndex);
+        this.assertionConsumerServiceIndex = prepareForAssignment(this.assertionConsumerServiceIndex,
+                newAssertionConsumerServiceIndex);
     }
 
     /**
@@ -147,7 +160,8 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
      * @see org.opensaml.saml2.core.AuthnRequest#setAssertionConsumerServiceURL(java.lang.String)
      */
     public void setAssertionConsumerServiceURL(String newAssertionConsumerServiceURL) {
-        this.assertionConsumerServiceURL = prepareForAssignment(this.assertionConsumerServiceURL, newAssertionConsumerServiceURL);
+        this.assertionConsumerServiceURL = prepareForAssignment(this.assertionConsumerServiceURL,
+                newAssertionConsumerServiceURL);
     }
 
     /**
@@ -161,7 +175,8 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
      * @see org.opensaml.saml2.core.AuthnRequest#setAttributeConsumingServiceIndex(java.lang.Integer)
      */
     public void setAttributeConsumingServiceIndex(Integer newAttributeConsumingServiceIndex) {
-        this.attributeConsumingServiceIndex = prepareForAssignment(this.attributeConsumingServiceIndex, newAttributeConsumingServiceIndex);
+        this.attributeConsumingServiceIndex = prepareForAssignment(this.attributeConsumingServiceIndex,
+                newAttributeConsumingServiceIndex);
     }
 
     /**
@@ -253,10 +268,10 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null)
             children.addAll(super.getOrderedChildren());
-        
+
         if (subject != null)
             children.add(subject);
         if (nameIDPolicy != null)
@@ -267,10 +282,10 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
             children.add(requestedAuthnContext);
         if (scoping != null)
             children.add(scoping);
-        
+
         if (children.size() == 0)
             return null;
-        
-        return Collections.unmodifiableList(children);   
+
+        return Collections.unmodifiableList(children);
     }
 }

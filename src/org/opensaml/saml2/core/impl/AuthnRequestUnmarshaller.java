@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -37,18 +38,29 @@ public class AuthnRequestUnmarshaller extends RequestUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AuthnRequestUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthnRequestUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AuthnRequest req = (AuthnRequest) samlObject;
-        
+
         if (attribute.getLocalName().equals(AuthnRequest.FORCE_AUTHN_ATTRIB_NAME))
             req.setForceAuthn(Boolean.valueOf(attribute.getValue()));
         else if (attribute.getLocalName().equals(AuthnRequest.IS_PASSIVE_ATTRIB_NAME))
@@ -68,11 +80,13 @@ public class AuthnRequestUnmarshaller extends RequestUnmarshaller {
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         AuthnRequest req = (AuthnRequest) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof Subject)
             req.setSubject((Subject) childSAMLObject);
         else if (childSAMLObject instanceof NameIDPolicy)
@@ -83,7 +97,7 @@ public class AuthnRequestUnmarshaller extends RequestUnmarshaller {
             req.setRequestedAuthnContext((RequestedAuthnContext) childSAMLObject);
         else if (childSAMLObject instanceof Scoping)
             req.setScoping((Scoping) childSAMLObject);
-        else 
+        else
             super.processChildElement(parentSAMLObject, childSAMLObject);
     }
 }

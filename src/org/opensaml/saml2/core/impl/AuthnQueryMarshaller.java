@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -32,21 +33,32 @@ public class AuthnQueryMarshaller extends SubjectQueryMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AuthnQueryMarshaller() {
         super(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthnQueryMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthnQuery query = (AuthnQuery) samlObject;
-        
+
         if (query.getSessionIndex() != null)
             domElement.setAttributeNS(null, AuthnQuery.SESSION_INDEX_ATTRIB_NAME, query.getSessionIndex());
-        
+
         super.marshallAttributes(samlObject, domElement);
     }
 }

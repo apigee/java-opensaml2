@@ -33,4 +33,14 @@ public class AuthnContextMarshaller extends AbstractSAMLObjectMarshaller {
     public AuthnContextMarshaller() {
         super(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthnContextMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }
