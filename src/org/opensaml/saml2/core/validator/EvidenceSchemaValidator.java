@@ -51,9 +51,7 @@ public class EvidenceSchemaValidator implements Validator {
      * @throws ValidationException
      */
     protected void validateAssertions(Evidence evidence) throws ValidationException {
-        if ((evidence.getAssertionIDReferences() == null || evidence.getAssertionIDReferences().size() == 0)
-                && (evidence.getAssertionURIReferences() == null || evidence.getAssertionURIReferences().size() == 0)
-                && (evidence.getAssertions() == null || evidence.getAssertions().size() == 0)) {
+        if (evidence.getEvidence() == null || evidence.getEvidence().size() == 0) {
             throw new ValidationException(
                     "Must contain at least one AssertionIDReference, AssertionURIReference, or Assertion");
         }

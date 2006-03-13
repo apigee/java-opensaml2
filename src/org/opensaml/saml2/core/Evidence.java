@@ -49,5 +49,12 @@ public interface Evidence extends SAMLObject {
      */
     public List<Assertion> getAssertions();
 
+    /**
+     * Gets the list of all elements used as evidence.
+     * 
+     * @return the list of Evidentiary objects used as evidence
+     */
+    public List<Evidentiary> getEvidence();
+
     // TODO encrypted assertions
 }

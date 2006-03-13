@@ -24,55 +24,61 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.saml2.core.Evidence;
+import org.opensaml.saml2.core.Evidentiary;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Evidence}.
  */
 public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidence {
 
-    /** Assertion ID Reference of the Evidence */
-    private XMLObjectChildrenList<AssertionIDRef> assertionIDRef;
-
-    /** Assertion URI Reference of the Evidence */
-    private XMLObjectChildrenList<AssertionURIRef> assertionURIRef;
-
     /** Assertion of the Evidence */
-    private XMLObjectChildrenList<Assertion> assertion;
+    private IndexedXMLObjectChildrenList<Evidentiary> evidence;
 
     /** Constructor */
     protected EvidenceImpl() {
         super(Evidence.LOCAL_NAME);
 
-        assertionIDRef = new XMLObjectChildrenList<AssertionIDRef>(this);
-        assertionURIRef = new XMLObjectChildrenList<AssertionURIRef>(this);
-        assertion = new XMLObjectChildrenList<Assertion>(this);
+        evidence = new IndexedXMLObjectChildrenList<Evidentiary>(this);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Evidence#getEvidence()
+     */
+    public List<Evidentiary> getEvidence() {
+        return evidence;
     }
 
     /*
      * @see org.opensaml.saml2.core.Evidence#getAssertionIDRef()
      */
     public List<AssertionIDRef> getAssertionIDReferences() {
-        return assertionIDRef;
+        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return (List<AssertionIDRef>) evidence.subList(qname);
     }
 
     /*
      * @see org.opensaml.saml2.core.Evidence#getAssertionURIRef()
      */
     public List<AssertionURIRef> getAssertionURIReferences() {
-        return assertionURIRef;
+        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return (List<AssertionURIRef>) evidence.subList(qname);
     }
 
     /*
      * @see org.opensaml.saml2.core.Evidence#getAssertion()
      */
     public List<Assertion> getAssertions() {
-        return assertion;
+        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return (List<Assertion>) evidence.subList(qname);
     }
 
     /*
@@ -80,10 +86,12 @@ public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidenc
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+        
+        if (evidence.size() == 0) {
+            return null;
+        }
 
-        children.addAll(assertionIDRef);
-        children.addAll(assertionURIRef);
-        children.addAll(assertion);
+        children.addAll(evidence);
 
         return Collections.unmodifiableList(children);
     }

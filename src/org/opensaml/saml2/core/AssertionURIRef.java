@@ -21,7 +21,7 @@ import org.opensaml.common.SAMLObject;
 /**
  * SAML 2.0 Core AssertionURIRef
  */
-public interface AssertionURIRef extends SAMLObject {
+public interface AssertionURIRef extends SAMLObject, Evidentiary {
     
     /** Element local name */ 
     public final static String LOCAL_NAME = "AssertionURIRef";

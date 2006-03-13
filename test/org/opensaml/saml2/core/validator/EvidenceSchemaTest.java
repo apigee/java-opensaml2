@@ -21,6 +21,8 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.AssertionIDRef;
+import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.saml2.core.Evidence;
 import org.opensaml.xml.validation.ValidationException;
 
@@ -38,8 +40,15 @@ public class EvidenceSchemaTest extends SAMLObjectValidatorBaseTestCase {
     protected void populateRequiredData() {
         super.populateRequiredData();
         Evidence evidence = (Evidence) target;
+        
         Assertion assertion = (Assertion) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
         evidence.getAssertions().add(assertion);
+        
+        AssertionIDRef assertionIDRef = (AssertionIDRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
+        evidence.getAssertionIDReferences().add(assertionIDRef);
+        
+        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
+        evidence.getAssertionURIReferences().add(assertionURIRef);
     }
 
     /**
@@ -50,7 +59,7 @@ public class EvidenceSchemaTest extends SAMLObjectValidatorBaseTestCase {
     public void testAssertion() throws ValidationException {
         Evidence evidence = (Evidence) target;
         
-        evidence.getAssertions().clear();
+        evidence.getEvidence().clear();
         assertValidationFail("No assertions present, should raise a Validation Exception");
     }
 }

@@ -27,7 +27,7 @@ import org.opensaml.xml.signature.SignableXMLObject;
 /**
  * SAML 2.0 Core Assertion
  */
-public interface Assertion extends SignableXMLObject, SAMLObject{
+public interface Assertion extends SignableXMLObject, SAMLObject, Evidentiary {
 
     /** Element local name */
     public final static String LOCAL_NAME = "Assertion";
