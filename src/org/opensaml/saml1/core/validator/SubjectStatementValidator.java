@@ -37,6 +37,7 @@ public class SubjectStatementValidator implements Validator {
         
          SubjectStatement subjectStatement = (SubjectStatement) xmlObject;
          
+         // TODO split out into separate method.
          if (subjectStatement.getSubject() == null) {
              throw new ValidationException("No Subject present");
          }

@@ -35,7 +35,7 @@ public class SubjectConfirmationValidator implements Validator  {
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) xmlObject;
-        
+        // TODO separate methods
          if (subjectConfirmation.getConfirmationMethods().size() == 0) {
              throw new ValidationException("At least Confirmation Method should be present");
          }

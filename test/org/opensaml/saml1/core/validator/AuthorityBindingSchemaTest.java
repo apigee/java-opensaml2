@@ -24,7 +24,7 @@ import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.saml1.core.AuthorityBinding;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AuthorityBindingValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AuthorityBindingSchemaValidator}.
  */
 public class AuthorityBindingSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
@@ -32,7 +32,7 @@ public class AuthorityBindingSchemaTest extends SAMLObjectValidatorBaseTestCase 
     public AuthorityBindingSchemaTest() {
         super();
         targetQName = new QName(SAMLConstants.SAML1_NS, AuthorityBinding.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AuthorityBindingValidator();
+        validator = new AuthorityBindingSchemaValidator();
 
     }
 

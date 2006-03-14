@@ -37,10 +37,14 @@ public class AuthorizationDecisionQuerySchemaValidator extends SubjectQuerySchem
         super.validate(xmlObject);
         AuthorizationDecisionQuery query = (AuthorizationDecisionQuery) xmlObject;
         
+        // TODO separate out into different methods
+        // TODO DatatypeHelper.isEmpty()?
+        
         String resource = query.getResource();
         if (resource == null || resource.length() == 0) {
             throw new ValidationException("Resource attribute missing");
         }
+        
         
         if (query.getActions().size() == 0) {
             throw new ValidationException("No Action elements present");

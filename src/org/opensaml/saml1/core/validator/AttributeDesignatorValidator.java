@@ -22,6 +22,7 @@ package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -35,7 +36,8 @@ public class AttributeDesignatorValidator implements Validator {
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         AttributeDesignator attributeDesignator = (AttributeDesignator) xmlObject;
-        
+        // TODO split out into separate methods
+        // TODO investigate using DatatypeHelper.isEmpty()
         String nameSpace = attributeDesignator.getAttributeNamespace();
         if (nameSpace == null || nameSpace.length() == 0) {
             throw new ValidationException("No NameSpace attribute present");

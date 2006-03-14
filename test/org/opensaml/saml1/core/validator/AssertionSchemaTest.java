@@ -53,11 +53,21 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         Assertion assertion = (Assertion) target;
         assertion.setID("");
         assertValidationFail("ID was empty, should raise a Validation Exception");
+        assertion.setID(null);
+        assertValidationFail("ID was null, should raise a Validation Exception");
+        assertion.setID("  ");
+        assertValidationFail("ID was whitespace, should raise a Validation Exception");
+
     }
+
     public void testMissingIssuer(){
         Assertion assertion = (Assertion) target;
         assertion.setIssuer("");
         assertValidationFail("Issuer was empty, should raise a Validation Exception");
+        assertion.setIssuer(null);
+        assertValidationFail("Issuer was null, should raise a Validation Exception");
+        assertion.setIssuer("   ");
+        assertValidationFail("Issuer was whitespace, should raise a Validation Exception");
     }
 
     public void testMissingIssueInstant(){

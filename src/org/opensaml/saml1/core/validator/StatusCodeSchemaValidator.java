@@ -49,6 +49,7 @@ public class StatusCodeSchemaValidator implements Validator {
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         
+        // TODO separate methods
         StatusCode statusCode = (StatusCode) xmlObject;
         
         String value = statusCode.getValue();
@@ -59,7 +60,7 @@ public class StatusCodeSchemaValidator implements Validator {
             throw new ValidationException("No Value attribute present");
         }
         //
-        // Spec compliance
+        // TODO Spec compliance
         //
         QName qname = QName.valueOf(value);
         //

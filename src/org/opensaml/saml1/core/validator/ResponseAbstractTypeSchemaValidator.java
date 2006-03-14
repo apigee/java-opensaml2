@@ -37,7 +37,8 @@ public class ResponseAbstractTypeSchemaValidator implements Validator {
     public void validate(XMLObject xmlObject) throws ValidationException {
         
         ResponseAbstractType responseAbstractType = (ResponseAbstractType) xmlObject;
-        
+        // TODO separate methods
+        // TODO DatatypeHelper.isEmpty() & tests
         String id = responseAbstractType.getID();
         if (id == null || id.length() == 0) {
             throw new ValidationException("RequestID is missing");

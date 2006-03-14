@@ -20,26 +20,28 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.saml1.core.Audience;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Spec compliance.
  */
-public class AudienceRestrictionConditionValidator implements Validator {
+public class AudienceSpecValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        
-         AudienceRestrictionCondition audienceRestrictionCondition= (AudienceRestrictionCondition) xmlObject;
-         
-         if (audienceRestrictionCondition.getAudiences() == null || 
-             audienceRestrictionCondition.getAudiences().size() == 0) {
-             throw new ValidationException("No Audience statements present");
-         }
+         Audience audience = (Audience) xmlObject;
+         validateURIPresent(audience);
+    }
+    
+    protected void validateURIPresent(Audience audience) throws ValidationException {
+        if (DatatypeHelper.isEmpty(audience.getUri())) {
+            throw new ValidationException("AudienceURI Required");
+        }
     }
 }

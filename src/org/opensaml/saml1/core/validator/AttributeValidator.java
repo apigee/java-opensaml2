@@ -35,7 +35,7 @@ public class AttributeValidator extends AttributeDesignatorValidator {
     public void validate(XMLObject xmlObject) throws ValidationException {
         
         super.validate(xmlObject);
-        
+        // TODO Separate out into method
         Attribute attribute = (Attribute) xmlObject;
         
         if (attribute.getAttributeValues().size() == 0) {

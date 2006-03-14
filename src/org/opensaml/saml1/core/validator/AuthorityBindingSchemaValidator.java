@@ -30,15 +30,16 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.AuthorityBinding} for Schema compliance.
  */
-public class AuthorityBindingValidator implements Validator {
+public class AuthorityBindingSchemaValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
+        // TODO separate into distinct methods
         
         AuthorityBinding authorityBinding = (AuthorityBinding) xmlObject;
-         
+ 
         QName authorityKind = authorityBinding.getAuthorityKind();    
         if (authorityKind == null) {
              throw new ValidationException("No AuthorityKind attribute present");
@@ -49,6 +50,7 @@ public class AuthorityBindingValidator implements Validator {
         // 2) validating parser that doesn't properly validate this QName value.
         
         String location = authorityBinding.getLocation();
+        // TODO use DatatypeHelper.isEmpty()?
         if (location == null || location.length() == 0) {
             throw new ValidationException("No Location attribute present");
         }

@@ -36,6 +36,8 @@ public class AuthorizationDecisionStatementValidator extends SubjectStatementVal
     public void validate(XMLObject xmlObject) throws ValidationException {
         
         super.validate(xmlObject);
+        // TODO different methods
+        // TODO DatatypeHelper.isEmpty() for resource
         
         AuthorizationDecisionStatement authorizationDecisionStatement;
         authorizationDecisionStatement = (AuthorizationDecisionStatement) xmlObject;

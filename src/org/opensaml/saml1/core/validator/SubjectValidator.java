@@ -35,7 +35,7 @@ public class SubjectValidator implements Validator  {
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         Subject subject = (Subject) xmlObject;
-        
+        // TODO separate methods
          if (subject.getNameIdentifier() == null &&
              subject.getSubjectConfirmation() == null) {
              throw new ValidationException("Either a NameIdentifier or SubjectConfirmation should be present");

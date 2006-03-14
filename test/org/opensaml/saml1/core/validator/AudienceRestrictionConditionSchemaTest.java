@@ -20,18 +20,19 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Action;
+import org.opensaml.saml1.core.AudienceRestrictionCondition;
+import org.opensaml.saml1.core.impl.AudienceImpl;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.ActionSchemaValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionConditionSchemaValidator}.
  */
-public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AudienceRestrictionConditionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public ActionSchemaTest() {
+    public AudienceRestrictionConditionSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new ActionSchemaValidator();
+        targetQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        validator = new AudienceRestrictionConditionSchemaValidator();
     }
 
     /*
@@ -40,19 +41,13 @@ public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
     protected void populateRequiredData() {
         super.populateRequiredData();
         
-        Action action = (Action) target;
-        action.setContents("data and other cool stuff");
+        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
+        audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
     }
     
-    public void testMissingContents(){
-        Action action = (Action) target;
-        action.setContents(null);
-        assertValidationFail("Contents null, should raise a Validation Exception");
-
-        action.setContents("");
-        assertValidationFail("Contents empty, should raise a Validation Exception");
-
-        action.setContents("  ");
-        assertValidationFail("Contents whitespace, should raise a Validation Exception");
-}
+    public void testMissingAudience(){
+        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
+        audienceRestrictionCondition.getAudiences().clear();
+        assertValidationFail("Audience was empty, should raise a Validation Exception");
+    }
 }

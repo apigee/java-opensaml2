@@ -37,7 +37,7 @@ public class RequestSchemaValidator extends RequestAbstractTypeSchemaValidator  
         super.validate(xmlObject);
         
         Request request = (Request) xmlObject;
-        
+        // TODO separate method... 
         if (request.getQuery() != null) {
             if (request.getAssertionArtifacts().size() != 0) {
                 throw new ValidationException("Both Query and one or more AssertionAtrifacts present");

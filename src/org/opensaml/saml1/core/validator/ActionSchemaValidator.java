@@ -22,6 +22,7 @@ package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.Action;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -36,10 +37,13 @@ public class ActionSchemaValidator implements Validator {
     public void validate(XMLObject xmlObject) throws ValidationException {
         
          Action action = (Action) xmlObject;
+       
+         //
+         // TODO This is a Spec restriction
+         //
          
-         String data = action.getContents();
-         if ((data == null) || (data.length() == 0)) {
-             throw new ValidationException("No contents present");
+         if (DatatypeHelper.isEmpty(action.getContents())) {
+             throw new ValidationException("Action label must be specified");
          }
 
     }

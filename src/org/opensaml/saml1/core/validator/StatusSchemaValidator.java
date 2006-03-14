@@ -36,7 +36,7 @@ public class StatusSchemaValidator implements Validator {
     public void validate(XMLObject xmlObject) throws ValidationException {
         
         Status status = (Status) xmlObject;
-        
+        // TODO separate methods
         if (status.getStatusCode() == null) {
             throw new ValidationException("No StatusCode element present");
         }

@@ -26,6 +26,7 @@ import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Statement;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -37,6 +38,8 @@ public class AssertionSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
+    // TODO split out into separate tests
+    // TODO no spec validation
     public void validate(XMLObject xmlObject) throws ValidationException {
         
          Assertion assertion= (Assertion) xmlObject;
@@ -46,14 +49,12 @@ public class AssertionSchemaValidator implements Validator {
              throw new ValidationException("Invalid Version");
          }
          
-         String id = assertion.getID();
-         if ((id == null) || (id.length() == 0)) {
+         if (DatatypeHelper.isEmpty(assertion.getID())) {
              throw new ValidationException("ID not present");
          }
          
          
-         String issuer = assertion.getIssuer();
-         if ((issuer == null) || (issuer.length() == 0)) {
+         if (DatatypeHelper.isEmpty(assertion.getIssuer())) {
              throw new ValidationException("Issuer not present");
          }
 

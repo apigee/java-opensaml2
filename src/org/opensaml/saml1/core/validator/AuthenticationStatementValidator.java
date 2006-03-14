@@ -22,6 +22,7 @@ package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
@@ -37,10 +38,10 @@ public class AuthenticationStatementValidator extends SubjectStatementValidator 
         super.validate(xmlObject);
         
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) xmlObject;
-        
-        String method = authenticationStatement.getAuthenticationMethod();
-        if (method == null || method.length() == 0) {
-            throw new ValidationException("No authenticationStatement present");
+        // TODO separate out into distinct method
+        // TODO use DatatypeHelper.isEmpty()?
+        if (DatatypeHelper.isEmpty(authenticationStatement.getAuthenticationMethod())) {
+            throw new ValidationException("No authenticationStatement URI is null");
         }
         
         if (authenticationStatement.getAuthenticationInstant() == null) {

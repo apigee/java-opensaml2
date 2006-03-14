@@ -34,7 +34,7 @@ public class SubjectQuerySchemaValidator implements Validator {
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        
+        // TODO separate methods
         SubjectQuery subjectQuery= (SubjectQuery) xmlObject;
         
         if (subjectQuery.getSubject() == null) {

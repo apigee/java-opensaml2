@@ -35,7 +35,7 @@ public class AttributeStatementValidator extends SubjectStatementValidator {
     public void validate(XMLObject xmlObject) throws ValidationException {
         
         super.validate(xmlObject);
-        
+        // TODO Split into separate method.
         AttributeStatement attributeStatement = (AttributeStatement) xmlObject;
         
         if (attributeStatement.getAttributes().size() == 0) {

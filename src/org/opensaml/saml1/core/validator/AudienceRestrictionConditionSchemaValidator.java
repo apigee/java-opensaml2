@@ -20,26 +20,26 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.Evidence;
+import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml1.core.Evidence} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Schema compliance.
  */
-public class EvidenceSchemaValidator implements Validator {
+public class AudienceRestrictionConditionSchemaValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         
-         Evidence evidence = (Evidence) xmlObject;
-         // TODO Distinct method
-         if (evidence.getEvidence().size() == 0) {
-             throw new ValidationException("At least one Assertion or AssertionIDReference is required");
+         AudienceRestrictionCondition audienceRestrictionCondition= (AudienceRestrictionCondition) xmlObject;
+         // TODO split out into a separate method
+         if (audienceRestrictionCondition.getAudiences() == null || 
+             audienceRestrictionCondition.getAudiences().size() == 0) {
+             throw new ValidationException("No Audience statements present");
          }
-
     }
 }

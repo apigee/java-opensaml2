@@ -20,19 +20,18 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.saml1.core.impl.AudienceImpl;
+import org.opensaml.saml1.core.Audience;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionConditionValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AudienceSpecValidator}.
  */
-public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AudienceSpecTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public AudeinceRestrictionConditionSchemaTest() {
+    public AudienceSpecTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AudienceRestrictionConditionValidator();
+        targetQName = new QName(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        validator = new AudienceSpecValidator();
     }
 
     /*
@@ -41,13 +40,20 @@ public class AudeinceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
     protected void populateRequiredData() {
         super.populateRequiredData();
         
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
+        Audience audience = (Audience) target;
+        audience.setUri("http://shibboleth.middleware.edu/");
     }
     
-    public void testMissingAudience(){
-        AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        audienceRestrictionCondition.getAudiences().clear();
+    public void testMissingUri(){
+        Audience audience = (Audience) target;
+        
+        audience.setUri(null);
+        assertValidationFail("Audience was null, should raise a Validation Exception");
+        
+        audience.setUri("");
         assertValidationFail("Audience was empty, should raise a Validation Exception");
+        
+        audience.setUri("   ");
+        assertValidationFail("Audience was just spaces, should raise a Validation Exception");
     }
 }

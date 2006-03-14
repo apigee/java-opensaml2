@@ -38,8 +38,9 @@ public class ResponseSchemaValidator extends ResponseAbstractTypeSchemaValidator
         
         Response response = (Response) xmlObject;
         
+        // TODO separate method
         if (response.getStatus() == null) {
-            throw new ValidationException("No Response present");
+            throw new ValidationException("No Status present");
         }
     }
 }
