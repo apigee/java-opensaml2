@@ -16,19 +16,13 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Response;
-import org.opensaml.saml1.core.ResponseAbstractType;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.Response} objects.
  */
-public class ResponseMarshaller extends AbstractSAMLObjectMarshaller {
+public class ResponseMarshaller extends ResponseAbstractTypeMarshaller {
 
     /**
      * Constructor
@@ -37,35 +31,5 @@ public class ResponseMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
-
-        Response response = (Response) samlElement;
-
-        if (response.getID() != null) {
-            domElement.setAttributeNS(null, ResponseAbstractType.ID_ATTRIB_NAME, response.getID());
-        }
-        
-        if (response.getInResponseTo() != null) {
-            domElement.setAttributeNS(null, ResponseAbstractType.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
-        }
-
-        if (response.getIssueInstant() != null) {
-            String date = ISODateTimeFormat.dateTime().print(response.getIssueInstant());
-            domElement.setAttributeNS(null, ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
-        }
-
-        if (response.getMinorVersion() != 0) {
-            String minorVersion = Integer.toString(response.getMinorVersion());
-            domElement.setAttributeNS(null, ResponseAbstractType.MINORVERSION_ATTRIB_NAME, minorVersion);
-            domElement.setAttributeNS(null, ResponseAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
-        }
-
-        if (response.getRecipient() != null) {
-            domElement.setAttributeNS(null, ResponseAbstractType.RECIPIENT_ATTRIB_NAME, response.getRecipient());
-        }
-    }
+ 
 }

@@ -16,26 +16,17 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
-import org.joda.time.DateTime;
-import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
-import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Response} objects.
  */
-public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(ResponseUnmarshaller.class);
+public class ResponseUnmarshaller extends  ResponseAbstractTypeUnmarshaller {
 
     /** Constructor */
     public ResponseUnmarshaller() {
@@ -59,43 +50,5 @@ public class ResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
-
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
-    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-
-        Response response = (Response) samlObject;
-
-        if (attribute.getLocalName().equals(ResponseAbstractType.ID_ATTRIB_NAME)) {
-            response.setID(attribute.getValue());
-        } else if (attribute.getLocalName().equals(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME)) {
-            response.setInResponseTo(attribute.getValue());
-        } else if (attribute.getLocalName().equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)) {
-            response.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
-        } else if (attribute.getLocalName().equals(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME)) {
-            try {
-                if (Integer.parseInt(attribute.getValue()) != 1) {
-                    log.error("SAML version must be 1");
-                    throw new UnmarshallingException("SAML version must be 1");
-                }
-            } catch (NumberFormatException n) {
-                log.error("Parsing major version ", n);
-                throw new UnmarshallingException(n);
-            }
-        } else if (attribute.getLocalName().equals(ResponseAbstractType.MINORVERSION_ATTRIB_NAME)) {
-            try {
-                int newVersion = Integer.parseInt(attribute.getValue());
-                response.setMinorVersion(newVersion);
-            } catch (NumberFormatException n) {
-                log.error("Parsing minor version ", n);
-                throw new UnmarshallingException(n);
-            }
-        } else if (attribute.getLocalName().equals(ResponseAbstractType.RECIPIENT_ATTRIB_NAME)) {
-            response.setRecipient(attribute.getValue());
-        } else {
-            super.processAttribute(samlObject, attribute);
-        }
-    }
+ 
 }

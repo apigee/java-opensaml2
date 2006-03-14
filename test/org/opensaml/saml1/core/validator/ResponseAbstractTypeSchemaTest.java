@@ -51,6 +51,6 @@ public abstract class ResponseAbstractTypeSchemaTest extends SAMLObjectValidator
     public void testMissingIssueInstant() {
         ResponseAbstractType response = (ResponseAbstractType) target;
         response.setIssueInstant(null);
-        assertValidationFail("Both IssueInstant attribute present, should raise a Validation Exception");
+        assertValidationFail("No IssueInstant attribute present, should raise a Validation Exception");
     }
 }

@@ -72,12 +72,17 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>(1 + assertions.size());
-
-        children.addAll(assertions);
+        
+        if (super.getOrderedChildren() != null) {
+            children.addAll(super.getOrderedChildren());
+        }
 
         if (status != null) {
             children.add(status);
         }
+        
+        children.addAll(assertions);
+
 
         if (children.size() == 0) {
             return null;
