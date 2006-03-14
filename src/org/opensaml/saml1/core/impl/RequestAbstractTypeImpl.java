@@ -16,6 +16,8 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -24,6 +26,7 @@ import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.RespondWith;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -122,4 +125,18 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
     public List<RespondWith> getRespondWiths() {
         return respondWiths;
     }
+
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
+     */
+    public List<XMLObject> getOrderedChildren() {
+        if (respondWiths.size() == 0 ) {
+            return null;
+        }
+        
+        List<XMLObject> children = new ArrayList<XMLObject>();
+        children.addAll(respondWiths);
+        return Collections.unmodifiableList(children);
+    }
+    
 }

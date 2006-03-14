@@ -23,8 +23,12 @@ import java.util.List;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.saml1.core.AttributeQuery;
+import org.opensaml.saml1.core.AuthenticationQuery;
+import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 import org.opensaml.saml1.core.Query;
 import org.opensaml.saml1.core.Request;
+import org.opensaml.saml1.core.SubjectQuery;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
@@ -60,6 +64,34 @@ public class RequestImpl extends RequestAbstractTypeImpl implements Request {
     }
 
     /*
+     * @see org.opensaml.saml1.core.Request#getSubjectQuery()
+     */
+    public SubjectQuery getSubjectQuery() {
+        return (query instanceof SubjectQuery ? (SubjectQuery) query : null);
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.Request#getAttributeQuery()
+     */
+    public AttributeQuery getAttributeQuery() {
+        return (query instanceof AttributeQuery ? (AttributeQuery) query : null);
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.Request#getAuthenticationQuery()
+     */
+    public AuthenticationQuery getAuthenticationQuery() {
+        return (query instanceof AuthenticationQuery ? (AuthenticationQuery) query : null);
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.Request#getAuthorizationDecisionQuery()
+     */
+    public AuthorizationDecisionQuery getAuthorizationDecisionQuery() {
+        return (query instanceof AuthorizationDecisionQuery ? (AuthorizationDecisionQuery) query : null);
+    }
+
+    /*
      * @see org.opensaml.saml1.core.Request#setQuery(org.opensaml.saml1.core.Query)
      */
     public void setQuery(Query query) throws IllegalArgumentException {
@@ -87,8 +119,8 @@ public class RequestImpl extends RequestAbstractTypeImpl implements Request {
 
         List<XMLObject> list = new ArrayList<XMLObject>();
 
-        if (getRespondWiths().size() != 0) {
-            list.addAll(getRespondWiths());
+        if (super.getOrderedChildren() != null) {
+            list.addAll(super.getOrderedChildren());
         }
         if (query != null) {
             list.add(query);
@@ -99,6 +131,11 @@ public class RequestImpl extends RequestAbstractTypeImpl implements Request {
         if (assertionArtifacts.size() != 0) {
             list.addAll(assertionArtifacts);
         }
+       
+        if (list.size() == 0) {
+            return null;
+        }
+        
         return Collections.unmodifiableList(list);
     }
 }

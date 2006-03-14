@@ -16,19 +16,13 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Request;
-import org.opensaml.saml1.core.RequestAbstractType;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.Request} objects.
  */
-public class RequestMarshaller extends AbstractSAMLObjectMarshaller {
+public class RequestMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
      * Constructor
@@ -37,25 +31,4 @@ public class RequestMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML1P_NS, Request.LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
-    protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
-        Request request = (Request) samlElement;
-
-        if (request.getID() != null) {
-            domElement.setAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, request.getID());
-        }
-        
-        if (request.getIssueInstant() != null) {
-            String date = ISODateTimeFormat.dateTime().print(request.getIssueInstant());
-            domElement.setAttributeNS(null, RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
-        }
-        if (request.getMinorVersion() != 0) {
-            domElement.setAttributeNS(null, RequestAbstractType.MAJORVERSION_ATTRIB_NAME, "1");
-            domElement.setAttributeNS(null, RequestAbstractType.MINORVERSION_ATTRIB_NAME, Integer.toString(request
-                    .getMinorVersion()));
-        }
-    }
 }

@@ -30,8 +30,20 @@ public interface Request extends RequestAbstractType {
      * A bit odd this, it s a choice so only one of these will return any value
      */
     
-    /** Get the query (Query, SubjectQuery, AuthenticationQuery, AttributeQuery, AuthorizationDecisioonQuery */ 
+    /** Get the request Query, SubjectQuery, AuthenticationQuery, AttributeQuery, or AuthorizationDecisionQuery */ 
     public Query getQuery();
+    
+    /** Get the request SubjectQuery, AuthenticationQuery, AttributeQuery, or AuthorizationDecisionQuery */ 
+    public SubjectQuery getSubjectQuery();
+    
+    /** Get the query AuthenticationQuery */ 
+    public AuthenticationQuery getAuthenticationQuery();
+    
+    /** Get the request AttributeQuery */ 
+    public AttributeQuery getAttributeQuery();
+    
+    /** Get the request AuthorizationDecisionQuery */ 
+    public AuthorizationDecisionQuery getAuthorizationDecisionQuery();
     
     /** Set the query (Query, SubjectQuery, AuthenticationQuery, AttributeQuery, AuthorizationDecisioonQuery 
      * @throws IllegalAddException */ 

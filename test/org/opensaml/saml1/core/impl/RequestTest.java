@@ -100,7 +100,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
         
         request = (Request) unmarshallElement("/data/org/opensaml/saml1/RequestWithQuery.xml");
         
-        assertNotNull("Query is not null", request.getQuery());
+        assertNotNull("Query is null", request.getQuery());
         assertEquals("AssertionId count", 0, request.getAssertionIDReferences().size());
         assertEquals("AssertionArtifact count", 0, request.getAssertionArtifacts().size());
         
