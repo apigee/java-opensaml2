@@ -35,7 +35,7 @@ public interface AuthnContextDecl extends SAMLObject {
      * 
      * @return AuthnContextDecl Declaration
      */
-    public String getDeclartion();
+    public String getDeclaration();
 
     /**
      * Sets the Declaration of this Authentication Context.

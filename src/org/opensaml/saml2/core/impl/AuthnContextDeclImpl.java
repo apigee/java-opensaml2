@@ -52,7 +52,7 @@ public class AuthnContextDeclImpl extends AbstractAssertionSAMLObject implements
     /*
      * @see org.opensaml.saml2.core.AuthnContextDecl#getDeclartion()
      */
-    public String getDeclartion() {
+    public String getDeclaration() {
         return declaration;
     }
 

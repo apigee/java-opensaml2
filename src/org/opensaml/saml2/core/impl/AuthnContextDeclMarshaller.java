@@ -54,6 +54,6 @@ public class AuthnContextDeclMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthnContextDecl authnContextDecl = (AuthnContextDecl) samlObject;
-        XMLHelper.appendTextContent(domElement, authnContextDecl.getDeclartion());
+        XMLHelper.appendTextContent(domElement, authnContextDecl.getDeclaration());
     }
 }

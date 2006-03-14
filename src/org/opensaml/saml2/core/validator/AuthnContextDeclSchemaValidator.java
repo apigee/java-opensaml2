@@ -52,7 +52,7 @@ public class AuthnContextDeclSchemaValidator implements Validator {
      * @throws ValidationException
      */
     protected void validateDecl(AuthnContextDecl authnCD) throws ValidationException {
-        if (DatatypeHelper.isEmpty(authnCD.getDeclartion())) {
+        if (DatatypeHelper.isEmpty(authnCD.getDeclaration())) {
             throw new ValidationException("Declaration required");
         }
     }

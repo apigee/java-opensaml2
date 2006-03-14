@@ -50,7 +50,7 @@ public class AuthnContextDeclTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         AuthnContextDecl authnContextDecl = (AuthnContextDecl) unmarshallElement(singleElementFile);
 
-        String declaration = authnContextDecl.getDeclartion();
+        String declaration = authnContextDecl.getDeclaration();
         assertEquals("Declartion was " + declaration + ", expected " + expectedDeclartion, expectedDeclartion,
                 declaration);
     }
