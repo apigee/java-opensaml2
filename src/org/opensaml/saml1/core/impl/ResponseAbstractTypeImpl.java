@@ -16,11 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ResponseAbstractType;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Abstract implementation of the (abstract) {@link org.opensaml.saml1.core.ResponseAbstractType} Object
@@ -142,4 +145,14 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
     public void setRecipient(String recipient) {
         this.recipient = prepareForAssignment(this.recipient, recipient);
     }
+
+    /*
+     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
+     */
+    public List<XMLObject> getOrderedChildren() {
+        // TODO Signature ?
+        return null;
+    }
+    
+    
 }

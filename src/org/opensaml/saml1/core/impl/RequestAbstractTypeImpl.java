@@ -130,6 +130,7 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
+        // TODO Signature ?
         if (respondWiths.size() == 0 ) {
             return null;
         }
