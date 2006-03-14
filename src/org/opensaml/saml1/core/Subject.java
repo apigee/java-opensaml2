@@ -28,12 +28,16 @@ public interface Subject extends SAMLObject {
     /** Element name, no namespace. */
     public final static String LOCAL_NAME = "Subject";
     
+    /** Gets the NameIdentifier of this Subject */
     public NameIdentifier getNameIdentifier();
     
+    /** Sets the NameIdentifier of this Subject */
     public void setNameIdentifier(NameIdentifier nameIdentifier) throws IllegalArgumentException;
     
+    /** Gets the SubjectConfirmation of this Subject */
     public SubjectConfirmation getSubjectConfirmation();
     
+    /** Sets the SubjectConfirmation of this Subject */
     public void setSubjectConfirmation(SubjectConfirmation subjectConfirmation) throws IllegalArgumentException;
     
 }
