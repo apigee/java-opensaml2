@@ -43,6 +43,7 @@ public interface SubjectConfirmation extends SAMLObject {
     public SubjectConfirmationData getSubjectConfirmationData();
 
     // TODO - how do we deal with KeyInfo
+    // TODO looks like KeyInfo needs to be changed to the XMLTooling KeyInfo type, check with Chad.
     
     public KeyInfo getKeyInfo();
 

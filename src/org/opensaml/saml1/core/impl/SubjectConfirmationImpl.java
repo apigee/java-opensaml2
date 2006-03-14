@@ -37,9 +37,11 @@ public class SubjectConfirmationImpl extends AbstractAssertionSAMLObject impleme
 
     /** Contains the SubjectConfirmationData element */
     private SubjectConfirmationData subjectConfirmationData;
-
+    
     /** Contains the KeyInfo element */
     KeyInfo keyInfo;
+    
+    //TODO looks like KeyInfo needs to be changed to the XMLTooling KeyInfo type, check with Chad.
 
     /**
      * Constructor
@@ -95,9 +97,13 @@ public class SubjectConfirmationImpl extends AbstractAssertionSAMLObject impleme
         List<XMLObject> list = new ArrayList<XMLObject>(confirmationMethods.size() + 1);
 
         list.addAll(confirmationMethods);
+        
         if (subjectConfirmationData != null) {
             list.add(subjectConfirmationData);
         }
+        
+        // TODO KeyInfo
+        
         if (list.size() == 0) {
             return null;
         }
