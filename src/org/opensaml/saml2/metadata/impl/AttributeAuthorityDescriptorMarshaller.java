@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -30,7 +31,17 @@ public class AttributeAuthorityDescriptorMarshaller extends RoleDescriptorMarsha
     /**
      * Constructor
      */
-    public AttributeAuthorityDescriptorMarshaller(){
+    public AttributeAuthorityDescriptorMarshaller() {
         super(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AttributeAuthorityDescriptorMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 }

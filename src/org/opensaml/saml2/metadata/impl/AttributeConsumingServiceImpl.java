@@ -62,6 +62,17 @@ public class AttributeConsumingServiceImpl extends AbstractMetadataSAMLObject im
         requestAttributes = new XMLObjectChildrenList<RequestedAttribute>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AttributeConsumingServiceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.AttributeConsumingService#getIndex()
      */

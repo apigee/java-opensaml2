@@ -33,34 +33,45 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * A concrete implementation of {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor}.
  */
 public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl implements AttributeAuthorityDescriptor {
-    
+
     /** Attribte query endpoints */
     private XMLObjectChildrenList<AttributeService> attributeServices;
-    
+
     /** Assertion request endpoints */
     private XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
-    
+
     /** Supported NameID formats */
     private XMLObjectChildrenList<NameIDFormat> nameFormats;
-    
+
     /** Supported attribute profiles */
     private XMLObjectChildrenList<AttributeProfile> attributeProfiles;
-    
+
     /** Supported attribute */
     private XMLObjectChildrenList<Attribute> attributes;
-    
+
     /**
      * Constructor
      */
-    protected AttributeAuthorityDescriptorImpl(){
+    protected AttributeAuthorityDescriptorImpl() {
         super(AttributeAuthorityDescriptor.LOCAL_NAME);
-        
+
         attributeServices = new XMLObjectChildrenList<AttributeService>(this);
         assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
         nameFormats = new XMLObjectChildrenList<NameIDFormat>(this);
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
-    
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AttributeAuthorityDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.AttributeAuthorityDescriptor#getAttributeServices()
      */
@@ -95,20 +106,20 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
     public List<Attribute> getAttributes() {
         return attributes;
     }
-    
+
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         children.addAll(super.getOrderedChildren());
         children.addAll(attributeServices);
         children.addAll(assertionIDRequestServices);
         children.addAll(nameFormats);
         children.addAll(attributeProfiles);
         children.addAll(attributes);
-        
+
         return Collections.unmodifiableList(children);
     }
 }

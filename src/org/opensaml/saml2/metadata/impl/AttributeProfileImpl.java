@@ -40,6 +40,17 @@ public class AttributeProfileImpl extends AbstractMetadataSAMLObject implements 
         super(AttributeProfile.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AttributeProfileImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.AttributeProfile#getProfileURI()
      */
