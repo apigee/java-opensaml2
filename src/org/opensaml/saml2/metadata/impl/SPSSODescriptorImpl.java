@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
@@ -36,33 +37,44 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
 
     /** value for isAuthnRequestSigned attribute */
     private Boolean authnRequestSigned;
-    
+
     /** value for the want assertion signed attribute */
     private Boolean wantAssertionSigned;
-    
+
     /** AssertionConsumerService children */
     private XMLObjectChildrenList<AssertionConsumerService> assertionConsumerServices;
-    
+
     /** AttributeConsumingService children */
     private XMLObjectChildrenList<AttributeConsumingService> attributeConsumingServices;
-    
+
     /**
      * Constructor
      */
     protected SPSSODescriptorImpl() {
         super(SPSSODescriptor.LOCAL_NAME);
-        
+
         assertionConsumerServices = new XMLObjectChildrenList<AssertionConsumerService>(this);
         attributeConsumingServices = new XMLObjectChildrenList<AttributeConsumingService>(this);
     }
-    
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected SPSSODescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.SPSSODescriptor#isAuthnRequestsSigned()
      */
     public boolean authnRequestsSigned() {
-        if(authnRequestSigned != null) {
+        if (authnRequestSigned != null) {
             return authnRequestSigned;
-        }else {
+        } else {
             return false;
         }
     }
@@ -78,9 +90,9 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
      * @see org.opensaml.saml2.metadata.SPSSODescriptor#wantAssertionsSigned()
      */
     public boolean wantAssertionsSigned() {
-        if(wantAssertionSigned != null) {
+        if (wantAssertionSigned != null) {
             return wantAssertionSigned;
-        }else {
+        } else {
             return false;
         }
     }
@@ -105,17 +117,17 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     public List<AttributeConsumingService> getAttributeConsumingServices() {
         return attributeConsumingServices;
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         children.addAll(super.getOrderedChildren());
         children.addAll(assertionConsumerServices);
         children.addAll(attributeConsumingServices);
-        
+
         return Collections.unmodifiableList(children);
     }
 }

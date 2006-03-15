@@ -33,4 +33,15 @@ public class SingleSignOnServiceImpl extends EndpointImpl implements SingleSignO
     protected SingleSignOnServiceImpl() {
         super(SingleSignOnService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected SingleSignOnServiceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 }

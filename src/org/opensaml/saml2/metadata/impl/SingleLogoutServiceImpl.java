@@ -33,4 +33,15 @@ public class SingleLogoutServiceImpl extends EndpointImpl implements SingleLogou
     protected SingleLogoutServiceImpl() {
         super(SingleLogoutService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected SingleLogoutServiceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 }

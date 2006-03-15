@@ -34,4 +34,14 @@ public class SingleSignOnServiceUnmarshaller extends EndpointUnmarshaller {
     public SingleSignOnServiceUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected SingleSignOnServiceUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

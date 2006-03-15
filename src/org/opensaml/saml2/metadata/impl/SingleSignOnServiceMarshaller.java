@@ -34,4 +34,14 @@ public class SingleSignOnServiceMarshaller extends EndpointMarshaller {
     public SingleSignOnServiceMarshaller() {
         super(SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected SingleSignOnServiceMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

@@ -34,4 +34,14 @@ public class SingleLogoutServiceMarshaller extends EndpointMarshaller {
     public SingleLogoutServiceMarshaller() {
         super(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected SingleLogoutServiceMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }
