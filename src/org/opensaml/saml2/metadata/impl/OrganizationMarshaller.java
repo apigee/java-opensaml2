@@ -35,4 +35,14 @@ public class OrganizationMarshaller extends AbstractSAMLObjectMarshaller {
     public OrganizationMarshaller() {
         super(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected OrganizationMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

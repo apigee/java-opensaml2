@@ -37,6 +37,16 @@ public class OrganizationNameUnmarshaller extends AbstractSAMLObjectUnmarshaller
         super(SAMLConstants.SAML20MD_NS, OrganizationName.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected OrganizationNameUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)

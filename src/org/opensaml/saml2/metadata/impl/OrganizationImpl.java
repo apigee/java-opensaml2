@@ -59,6 +59,17 @@ public class OrganizationImpl extends AbstractMetadataSAMLObject implements Orga
         urls = new XMLObjectChildrenList<OrganizationURL>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected OrganizationImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.Organization#getExtensions()
      */
