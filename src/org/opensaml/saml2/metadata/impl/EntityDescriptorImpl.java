@@ -92,6 +92,9 @@ public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject imp
      * @see org.opensaml.saml2.metadata.EntityDescriptor#setEntityID(java.lang.String)
      */
     public void setEntityID(String id) {
+        if (id != null && id.length() > 1024) {
+            throw new IllegalArgumentException("Entity ID can not exceed 1024 characters in length");
+        }
         entityID = prepareForAssignment(entityID, id);
     }
 
