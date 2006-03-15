@@ -34,4 +34,14 @@ public class AuthzServiceUnmarshaller extends EndpointUnmarshaller {
     public AuthzServiceUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, AuthzService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthzServiceUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -27,24 +28,36 @@ import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.ContactPerson} objects.
+ * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.ContactPerson}
+ * objects.
  */
 public class ContactPersonMarshaller extends AbstractSAMLObjectMarshaller {
-    
+
     /**
      * Constructor
      */
-    public ContactPersonMarshaller(){
+    public ContactPersonMarshaller() {
         super(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ContactPersonMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         ContactPerson person = (ContactPerson) samlObject;
-        
-        if (person.getType()!= null) {
+
+        if (person.getType() != null) {
             domElement.setAttributeNS(null, ContactPerson.CONTACT_TYPE_ATTRIB_NAME, person.getType().toString());
         }
     }

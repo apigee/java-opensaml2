@@ -33,4 +33,15 @@ public class AuthzServiceImpl extends EndpointImpl implements AuthzService {
     protected AuthzServiceImpl() {
         super(AuthzService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthzServiceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 }

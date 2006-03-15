@@ -70,6 +70,17 @@ public class ContactPersonImpl extends AbstractMetadataSAMLObject implements Con
         telephoneNumbers = new XMLObjectChildrenList<TelephoneNumber>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ContactPersonImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.ContactPerson#getContactPersonType()
      */
