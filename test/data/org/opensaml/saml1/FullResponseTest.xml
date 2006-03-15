@@ -1,5 +1,6 @@
+<!-- xsi:schemaLocation="urn:oasis:names:tc:SAML:1.0:protocol ../../../../../src/schema/cs-sstc-schema-assertion-1.1.xsd"-->
 <Response xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="urn:oasis:names:tc:SAML:1.0:protocol ../../../../../src/schema/cs-sstc-schema-assertion-1.1.xsd"
+ 
  xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol"
  xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion"
  xmlns:ds="http://www.w3.org/2001/04/xmlenc#"

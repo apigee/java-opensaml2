@@ -21,8 +21,8 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
-import org.opensaml.saml1.core.DecisionType;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
@@ -36,23 +36,46 @@ public class AuthorizationDecisionStatementValidator extends SubjectStatementVal
     public void validate(XMLObject xmlObject) throws ValidationException {
         
         super.validate(xmlObject);
-        // TODO different methods
-        // TODO DatatypeHelper.isEmpty() for resource
-        
+
         AuthorizationDecisionStatement authorizationDecisionStatement;
         authorizationDecisionStatement = (AuthorizationDecisionStatement) xmlObject;
         
-        String resource = authorizationDecisionStatement.getResource();
-        if (resource == null || resource.length() == 0) {
-            throw new ValidationException("No Resource attribute present");
-        }
-
-        DecisionType decision = authorizationDecisionStatement.getDecision();
-        if (decision == null) {
-            throw new ValidationException("No Decision attribute present");
-        }
+        validateResource(authorizationDecisionStatement);
         
-        if (authorizationDecisionStatement.getActions().size() == 0) {
+        validateDecision(authorizationDecisionStatement);
+        
+        validateActions(authorizationDecisionStatement);
+    }
+    
+    /**
+     * Check that the resource attribute is present and valid
+     * @param statement the AuthorizationDecisionStatement under question
+     * @throws ValidationException
+     */
+    protected void validateResource(AuthorizationDecisionStatement statement) throws ValidationException {
+        if (DatatypeHelper.isEmpty(statement.getResource())) {
+            throw new ValidationException("Resource attribute not present or invalid");
+        }
+     }
+    
+    /**
+     * Check that the Decision element is present
+     * @param statement the AuthorizationDecisionStatement under question
+     * @throws ValidationException
+     */
+    protected void validateDecision(AuthorizationDecisionStatement statement) throws ValidationException {
+        if (statement.getDecision() == null) {
+            throw new ValidationException("No Decision element present");
+        }
+    }
+
+    /**
+     * Check that there is at least one Action element
+     * @param statement the AuthorizationDecisionStatement under question
+     * @throws ValidationException
+     */
+    protected void validateActions(AuthorizationDecisionStatement statement) throws ValidationException {
+        if (statement.getActions().size() == 0) {
             throw new ValidationException("No Action elements present");
         }
     }

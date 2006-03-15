@@ -44,8 +44,15 @@ public abstract class ResponseAbstractTypeSchemaTest extends SAMLObjectValidator
     
     public void testMissingID() {
         ResponseAbstractType response = (ResponseAbstractType) target;
+
         response.setID(null);
-        assertValidationFail("No RequestID, should raise a Validation Exception");
+        assertValidationFail("RequestID is null, should raise a Validation Exception");
+
+        response.setID("");
+        assertValidationFail("RequestID is empty, should raise a Validation Exception");
+
+        response.setID(" ");
+        assertValidationFail("RequestID is whitespace, should raise a Validation Exception");
     }
 
     public void testMissingIssueInstant() {

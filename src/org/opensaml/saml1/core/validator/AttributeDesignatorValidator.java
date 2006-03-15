@@ -36,16 +36,30 @@ public class AttributeDesignatorValidator implements Validator {
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
         AttributeDesignator attributeDesignator = (AttributeDesignator) xmlObject;
-        // TODO split out into separate methods
-        // TODO investigate using DatatypeHelper.isEmpty()
-        String nameSpace = attributeDesignator.getAttributeNamespace();
-        if (nameSpace == null || nameSpace.length() == 0) {
-            throw new ValidationException("No NameSpace attribute present");
+        
+        validateName(attributeDesignator);
+        validateNameSpace(attributeDesignator);
+    }
+    
+    /**
+     * Checks that the AttributeNameSpace attribute is present and valid
+     * @param designator
+     * @throws ValidationException
+     */
+    protected void validateNameSpace(AttributeDesignator designator) throws ValidationException {
+        if (DatatypeHelper.isEmpty(designator.getAttributeNamespace())) {
+            throw new ValidationException("AttributeNameSpace attribute not present or invalid");
         }
-
-        String name = attributeDesignator.getAttributeName();
-        if (name == null || name.length() == 0) {
-            throw new ValidationException("No Name attribute present");
+    }
+    
+    /**
+     * Checks that the AttributeName attribute is present and valid
+     * @param designator
+     * @throws ValidationException
+     */
+    protected void validateName(AttributeDesignator designator) throws ValidationException {
+        if (DatatypeHelper.isEmpty(designator.getAttributeName())) {
+            throw new ValidationException("AttributeName attribute not present or invalid");
         }
-}
+    }
 }

@@ -54,15 +54,21 @@ public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSc
     public void testMissingResource() {
         AuthorizationDecisionStatement authorizationDecisionStatement = (AuthorizationDecisionStatement) target;
 
+        authorizationDecisionStatement.setResource(null);
+        assertValidationFail("Null Resource attribute - should fail");
+
         authorizationDecisionStatement.setResource("");
-        assertValidationFail("No Resource attribute - should fail");
+        assertValidationFail("Empty Resource attribute - should fail");
+
+        authorizationDecisionStatement.setResource("   ");
+        assertValidationFail("Invalid Resource attribute - should fail");
     }
 
     public void testMissingDecision() {
         AuthorizationDecisionStatement authorizationDecisionStatement = (AuthorizationDecisionStatement) target;
 
         authorizationDecisionStatement.setDecision(null);
-        assertValidationFail("No Decision attribute - should fail");
+        assertValidationFail("No Decision element - should fail");
     }
 
     public void testEmptyActionList() {

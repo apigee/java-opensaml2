@@ -22,6 +22,7 @@ package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -37,15 +38,29 @@ public class AuthorizationDecisionQuerySchemaValidator extends SubjectQuerySchem
         super.validate(xmlObject);
         AuthorizationDecisionQuery query = (AuthorizationDecisionQuery) xmlObject;
         
-        // TODO separate out into different methods
-        // TODO DatatypeHelper.isEmpty()?
+       validateActions(query);
+       
+       validateResourcePresent(query);
         
-        String resource = query.getResource();
-        if (resource == null || resource.length() == 0) {
-            throw new ValidationException("Resource attribute missing");
+    }
+    
+    /**
+     * Validates that the Resource attribute is present and valid
+     * @param query
+     * @throws ValidationException
+     */
+    protected void validateResourcePresent(AuthorizationDecisionQuery query) throws ValidationException {
+        if (DatatypeHelper.isEmpty(query.getResource())) {
+            throw new ValidationException("No Resource attribute present");
         }
-        
-        
+    }
+ 
+    /**
+     * Validates that there is at least one Action Element present.
+     * @param query
+     * @throws ValidationException
+     */
+    protected void validateActions(AuthorizationDecisionQuery query) throws ValidationException {
         if (query.getActions().size() == 0) {
             throw new ValidationException("No Action elements present");
         }

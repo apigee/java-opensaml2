@@ -50,7 +50,13 @@ public class AuthorizationDecisionQuerySchemaTest extends SubjectQuerySchemaTest
         AuthorizationDecisionQuery query = (AuthorizationDecisionQuery) target;
         
         query.setResource(null);
-        assertValidationFail("No Resource attribute, should raise a Validation Exception");
+        assertValidationFail("Resource attribute is null , should raise a Validation Exception");
+
+        query.setResource("");
+        assertValidationFail("Resource attribute is empty, should raise a Validation Exception");
+
+        query.setResource("   ");
+        assertValidationFail("Resource attribute is white space, should raise a Validation Exception");
     }
 
     public void testMissingActions() {

@@ -47,17 +47,30 @@ public abstract class AttributeDesignatorSchemaTest extends SAMLObjectValidatorB
         attributeDesignator.setAttributeNamespace("Glaswegan");
     }
     
-    public void testMissingName() {
+    public void testName() {
         AttributeDesignator attributeDesignator = (AttributeDesignator) target;
 
         attributeDesignator.setAttributeName("");
-        assertValidationFail("No AttributeName attribute");
+        assertValidationFail("AttributeName attribute is empty - should throw");
+
+        attributeDesignator.setAttributeName(null);
+        assertValidationFail("AttributeName attribute is null - should throw");
+        
+
+        attributeDesignator.setAttributeName("  ");
+        assertValidationFail("AttributeName attribute is invalid  - should throw");
     }
 
-    public void testMissingNameSpace() {
+    public void testNameSpace() {
         AttributeDesignator attributeDesignator = (AttributeDesignator) target;
 
         attributeDesignator.setAttributeNamespace(null);
-        assertValidationFail("No AttributeNamespace attribute");
+        assertValidationFail("AttributeNamespace attribute is null - should throw");
+
+        attributeDesignator.setAttributeNamespace("");
+        assertValidationFail("AttributeNamespace attribute is empty - should throw");
+
+        attributeDesignator.setAttributeNamespace("  ");
+        assertValidationFail("AttributeNamespace attribute is invalid - should throw");
     }
 }

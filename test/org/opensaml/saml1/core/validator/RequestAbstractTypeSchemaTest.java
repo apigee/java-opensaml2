@@ -43,10 +43,18 @@ public abstract class RequestAbstractTypeSchemaTest extends SAMLObjectValidatorB
        
     }
     
+
     public void testMissingID() {
         RequestAbstractType request = (RequestAbstractType) target;
+        
         request.setID(null);
-        assertValidationFail("No RequestID, should raise a Validation Exception");
+        assertValidationFail("RequestID is null, should raise a Validation Exception");
+        
+        request.setID("");
+        assertValidationFail("RequestID is empty, should raise a Validation Exception");
+        
+        request.setID(" ");
+        assertValidationFail("RequestID is invalid, should raise a Validation Exception");
     }
 
     public void testMissingIssueInstant() {

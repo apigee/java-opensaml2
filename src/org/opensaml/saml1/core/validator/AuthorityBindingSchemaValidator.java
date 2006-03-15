@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -36,28 +37,51 @@ public class AuthorityBindingSchemaValidator implements Validator {
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        // TODO separate into distinct methods
         
         AuthorityBinding authorityBinding = (AuthorityBinding) xmlObject;
  
-        QName authorityKind = authorityBinding.getAuthorityKind();    
-        if (authorityKind == null) {
-             throw new ValidationException("No AuthorityKind attribute present");
-         }
+        validateAuthorityKind(authorityBinding);
+        validateBinding(authorityBinding);
+        validateLocation(authorityBinding);
+    }
+    
+    /**
+     * Check that the AuthorityKind is valid
+     * @param authorityBinding
+     * @throws ValidationException
+     */
+    protected void validateAuthorityKind(AuthorityBinding authorityBinding) throws ValidationException {
+        //
         // TODO may need to do more validation on the QName here - need to make sure
         // that the prefix is valid - cases of 
         // 1) no incoming XML validation was performed
         // 2) validating parser that doesn't properly validate this QName value.
-        
-        String location = authorityBinding.getLocation();
-        // TODO use DatatypeHelper.isEmpty()?
-        if (location == null || location.length() == 0) {
-            throw new ValidationException("No Location attribute present");
+        //
+        QName authorityKind = authorityBinding.getAuthorityKind();    
+        if (authorityKind == null) {
+             throw new ValidationException("No AuthorityKind attribute present");
+         }
+    }
+    
+    /**
+     * Check the location Attribute for validity
+     * @param authorityBinding
+     * @throws ValidationException
+     */
+    protected void validateLocation(AuthorityBinding authorityBinding) throws ValidationException {
+        if (DatatypeHelper.isEmpty(authorityBinding.getLocation())) {
+            throw new ValidationException("Location attribute not present or invalid ");
         }
-        
-        String binding = authorityBinding.getBinding();
-        if (binding == null || binding.length() == 0) {
-            throw new ValidationException("No Bining attribute present");
+    }
+
+    /**
+     * Check the binding Attribute for validity
+     * @param authorityBinding
+     * @throws ValidationException
+     */
+    protected void validateBinding(AuthorityBinding authorityBinding) throws ValidationException {
+        if (DatatypeHelper.isEmpty(authorityBinding.getBinding())) {
+            throw new ValidationException("Binding attribute not present or invalid ");
         }
     }
 }

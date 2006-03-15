@@ -23,6 +23,7 @@ package org.opensaml.saml1.core.validator;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -37,21 +38,47 @@ public class ResponseAbstractTypeSchemaValidator implements Validator {
     public void validate(XMLObject xmlObject) throws ValidationException {
         
         ResponseAbstractType responseAbstractType = (ResponseAbstractType) xmlObject;
-        // TODO separate methods
-        // TODO DatatypeHelper.isEmpty() & tests
-        String id = responseAbstractType.getID();
-        if (id == null || id.length() == 0) {
-            throw new ValidationException("RequestID is missing");
-        }
+ 
+        validateVersion(responseAbstractType);
         
-        if ((responseAbstractType.getVersion() != SAMLVersion.VERSION_10) &&
-                (responseAbstractType.getVersion() != SAMLVersion.VERSION_11)) {
-                throw new ValidationException("Invalid Version");
-            }
-            
-        if (responseAbstractType.getIssueInstant() == null) {
-             throw new ValidationException("No IssueInstant attribute present");
-         }
+        validateID(responseAbstractType);
 
+        validateIssueInstant(responseAbstractType);
     }
+    
+    /**
+     * Validates that this is SAML1.0 or SAML 1.1
+     *  
+     * @param request
+     * @throws ValidationException
+     */
+    protected void validateVersion(ResponseAbstractType response) throws ValidationException {
+        if ((response.getVersion() != SAMLVersion.VERSION_10) && (response.getVersion() != SAMLVersion.VERSION_11)) {
+            throw new ValidationException("Invalid Version");
+        }
+    }
+    
+    /**
+     * Validate that the ID is present and valid
+     * @param request
+     * @throws ValidationException
+     */
+    protected void validateID(ResponseAbstractType response) throws ValidationException {
+        if (DatatypeHelper.isEmpty(response.getID())) {
+            throw new ValidationException("RequestID is null, empty or whitespace");
+        }
+    }
+    
+    /**
+     * Validate that the IssueInstant is present.
+     * 
+     * @param request
+     * @throws ValidationException
+     */
+    protected void validateIssueInstant(ResponseAbstractType response) throws ValidationException {
+        if (response.getIssueInstant() == null) {
+            throw new ValidationException("No IssueInstant attribute present");
+        }
+    }
+
 }

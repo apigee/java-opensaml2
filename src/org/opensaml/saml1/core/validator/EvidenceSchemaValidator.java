@@ -36,10 +36,18 @@ public class EvidenceSchemaValidator implements Validator {
     public void validate(XMLObject xmlObject) throws ValidationException {
         
          Evidence evidence = (Evidence) xmlObject;
-         // TODO Distinct method
-         if (evidence.getEvidence().size() == 0) {
-             throw new ValidationException("At least one Assertion or AssertionIDReference is required");
-         }
-
+         
+         validateEvidence(evidence);
+    }
+    
+    /**
+     * Check that there is an assertion of AddsertionIDRef
+     * @param evidence
+     * @throws ValidationException
+     */
+    protected void validateEvidence(Evidence evidence) throws ValidationException {
+        if (evidence.getEvidence().size() == 0) {
+            throw new ValidationException("At least one Assertion or AssertionIDReference is required");
+        }    
     }
 }
