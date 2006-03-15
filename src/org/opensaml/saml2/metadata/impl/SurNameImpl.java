@@ -40,6 +40,17 @@ public class SurNameImpl extends AbstractMetadataSAMLObject implements SurName {
         super(SurName.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected SurNameImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.SurName#getName()
      */

@@ -40,6 +40,17 @@ public class TelephoneNumberImpl extends AbstractMetadataSAMLObject implements T
         super(TelephoneNumber.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected TelephoneNumberImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.TelephoneNumber#getNumber()
      */
