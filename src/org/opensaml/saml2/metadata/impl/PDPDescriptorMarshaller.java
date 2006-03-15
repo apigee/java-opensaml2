@@ -34,4 +34,14 @@ public class PDPDescriptorMarshaller extends RoleDescriptorMarshaller {
     public PDPDescriptorMarshaller() {
         super(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected PDPDescriptorMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

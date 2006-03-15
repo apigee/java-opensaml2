@@ -29,8 +29,7 @@ import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.ServiceDescription}
- * objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.ServiceDescription} objects.
  */
 public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
 
@@ -41,8 +40,19 @@ public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20MD_NS, ServiceDescription.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ServiceDescriptionMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         ServiceDescription description = (ServiceDescription) samlObject;

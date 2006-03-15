@@ -40,6 +40,17 @@ public class ServiceDescriptionImpl extends AbstractMetadataSAMLObject implement
         super(ServiceDescription.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ServiceDescriptionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.ServiceDescription#getDescription()
      */

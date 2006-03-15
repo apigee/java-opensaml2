@@ -55,6 +55,17 @@ public class PDPDescriptorImpl extends RoleDescriptorImpl implements PDPDescript
         nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected PDPDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.PDPDescriptor#getAuthzServices()
      */

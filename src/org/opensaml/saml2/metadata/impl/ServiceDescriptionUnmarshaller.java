@@ -37,6 +37,16 @@ public class ServiceDescriptionUnmarshaller extends AbstractSAMLObjectUnmarshall
         super(SAMLConstants.SAML20MD_NS, ServiceDescription.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ServiceDescriptionUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)

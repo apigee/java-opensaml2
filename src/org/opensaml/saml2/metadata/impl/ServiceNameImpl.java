@@ -40,6 +40,17 @@ public class ServiceNameImpl extends AbstractMetadataSAMLObject implements Servi
         super(ServiceName.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected ServiceNameImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.ServiceName#getName()
      */
