@@ -60,6 +60,17 @@ public class EntitiesDescriptorImpl extends AbstractSignableMetadataSAMLObject i
         orderedDescriptors = new IndexedXMLObjectChildrenList<SAMLObject>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected EntitiesDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getName()
      */

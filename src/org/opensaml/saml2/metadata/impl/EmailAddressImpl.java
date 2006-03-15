@@ -40,6 +40,17 @@ public class EmailAddressImpl extends AbstractMetadataSAMLObject implements Emai
         super(EmailAddress.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected EmailAddressImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.EmailAddress#getAddress()
      */

@@ -47,6 +47,16 @@ public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshall
         super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected EntitiesDescriptorUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
      *      org.opensaml.xml.XMLObject)

@@ -81,6 +81,17 @@ public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject imp
         additionalMetadata = new XMLObjectChildrenList<AdditionalMetadataLocation>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected EntityDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getEntityID()
      */
