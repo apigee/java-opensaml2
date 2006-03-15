@@ -16,6 +16,7 @@
 
 package org.opensaml.common.impl;
 
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.validation.AbstractValidatingDOMCachingXMLObject;
 
@@ -59,5 +60,10 @@ public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXML
      */
     public final boolean equals(Object obj) {
         return super.equals(obj);
+    }
+    
+    // TODO
+    protected DateTime prepareForAssignment(DateTime oldValue, DateTime newValue){
+        return null;
     }
 }
