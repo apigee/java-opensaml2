@@ -34,4 +34,14 @@ public class NameIDMappingServiceMarshaller extends EndpointMarshaller {
     public NameIDMappingServiceMarshaller() {
         super(SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected NameIDMappingServiceMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

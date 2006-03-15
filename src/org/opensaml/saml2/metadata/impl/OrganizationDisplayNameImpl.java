@@ -40,6 +40,17 @@ public class OrganizationDisplayNameImpl extends AbstractMetadataSAMLObject impl
         super(OrganizationDisplayName.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected OrganizationDisplayNameImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.OrganizationDisplayName#getName()
      */

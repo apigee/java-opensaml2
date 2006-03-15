@@ -33,4 +33,15 @@ public class NameIDMappingServiceImpl extends EndpointImpl implements NameIDMapp
     protected NameIDMappingServiceImpl() {
         super(NameIDMappingService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected NameIDMappingServiceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 }

@@ -40,6 +40,17 @@ public class NameIDFormatImpl extends AbstractMetadataSAMLObject implements Name
         super(NameIDFormat.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected NameIDFormatImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.NameIDFormat#getFormat()
      */

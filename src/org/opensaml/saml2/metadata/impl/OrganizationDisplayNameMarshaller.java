@@ -40,6 +40,16 @@ public class OrganizationDisplayNameMarshaller extends AbstractSAMLObjectMarshal
         super(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected OrganizationDisplayNameMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)
