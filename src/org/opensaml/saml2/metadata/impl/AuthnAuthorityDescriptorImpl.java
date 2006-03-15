@@ -52,6 +52,17 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
         nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthnAuthorityDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#getAuthnQueryServices()
      */

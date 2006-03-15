@@ -34,4 +34,14 @@ public class AuthnQueryServiceMarshaller extends EndpointMarshaller {
     public AuthnQueryServiceMarshaller() {
         super(SAMLConstants.SAML20MD_NS, AuthnQueryService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthnQueryServiceMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

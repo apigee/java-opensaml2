@@ -34,4 +34,14 @@ public class AttributeServiceUnmarshaller extends EndpointUnmarshaller {
     public AttributeServiceUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AttributeServiceUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

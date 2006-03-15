@@ -34,4 +34,14 @@ public class AttributeServiceMarshaller extends EndpointMarshaller {
     public AttributeServiceMarshaller() {
         super(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AttributeServiceMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

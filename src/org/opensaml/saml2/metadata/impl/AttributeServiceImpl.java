@@ -33,4 +33,15 @@ public class AttributeServiceImpl extends EndpointImpl implements AttributeServi
     protected AttributeServiceImpl() {
         super(AttributeService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AttributeServiceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 }

@@ -30,4 +30,14 @@ public class AuthnAuthorityDescriptorMarshaller extends RoleDescriptorMarshaller
     public AuthnAuthorityDescriptorMarshaller() {
         super(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AuthnAuthorityDescriptorMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

@@ -33,4 +33,15 @@ public class AuthnQueryServiceImpl extends EndpointImpl implements AuthnQuerySer
     protected AuthnQueryServiceImpl() {
         super(AuthnQueryService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AuthnQueryServiceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 }
