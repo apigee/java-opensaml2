@@ -30,7 +30,7 @@ public class AttributeAuthorityDescriptorSchemaTest extends RoleDescriptorSchema
 
     /** Constructor */
     public AttributeAuthorityDescriptorSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AttributeAuthorityDescriptorSchemaValidator();
     }
     

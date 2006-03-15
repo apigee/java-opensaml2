@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
-import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml2.metadata.ServiceName;
 import org.opensaml.xml.validation.ValidationException;
 
@@ -59,9 +58,9 @@ public class AttributeConsumingServiceSchemaTest extends SAMLObjectValidatorBase
      */
     public void testIndexFailure() throws ValidationException {
         AttributeConsumingService attributeConsumingService = (AttributeConsumingService) target;
-
-        // TODO null attributeConsumingService.setIndex();
-        // assertValidationFail("Index was null, should raise a Validation Exception.");
+        
+        attributeConsumingService.setIndex(-3);
+        assertValidationFail("Index was negative, should raise a Validation Exception.");
     }
 
     /**
@@ -80,6 +79,6 @@ public class AttributeConsumingServiceSchemaTest extends SAMLObjectValidatorBase
         AttributeConsumingService attributeConsumingService = (AttributeConsumingService) target;
 
         // attributeConsumingService.getRequestAttributes().clear();
-        // assertValidationFail("Requeseted Attributes list was empty, should raise a Validation Exception");
+        // assertValidationFail("Requested Attributes list was empty, should raise a Validation Exception");
     }
 }
