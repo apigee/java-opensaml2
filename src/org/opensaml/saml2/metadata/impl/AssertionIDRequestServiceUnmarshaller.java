@@ -34,4 +34,14 @@ public class AssertionIDRequestServiceUnmarshaller extends EndpointUnmarshaller 
     public AssertionIDRequestServiceUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AssertionIDRequestServiceUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

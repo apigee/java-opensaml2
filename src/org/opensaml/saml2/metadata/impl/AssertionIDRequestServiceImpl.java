@@ -33,4 +33,15 @@ public class AssertionIDRequestServiceImpl extends EndpointImpl implements Asser
     protected AssertionIDRequestServiceImpl() {
         super(AssertionIDRequestService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AssertionIDRequestServiceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 }

@@ -34,4 +34,14 @@ public class AssertionConsumerServiceUnmarshaller extends IndexedEndpointUnmarsh
     public AssertionConsumerServiceUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AssertionConsumerServiceUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

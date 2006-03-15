@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -32,5 +33,15 @@ public class AssertionConsumerServiceMarshaller extends IndexedEndpointMarshalle
      */
     public AssertionConsumerServiceMarshaller() {
         super(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AssertionConsumerServiceMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 }

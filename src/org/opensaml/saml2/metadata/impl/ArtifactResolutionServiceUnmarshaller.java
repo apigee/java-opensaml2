@@ -34,4 +34,14 @@ public class ArtifactResolutionServiceUnmarshaller extends IndexedEndpointUnmars
     public ArtifactResolutionServiceUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ArtifactResolutionServiceUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }
