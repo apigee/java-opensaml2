@@ -34,4 +34,14 @@ public class ManageNameIDServiceUnmarshaller extends EndpointUnmarshaller {
     public ManageNameIDServiceUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, ManageNameIDService.LOCAL_NAME);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ManageNameIDServiceUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
 }

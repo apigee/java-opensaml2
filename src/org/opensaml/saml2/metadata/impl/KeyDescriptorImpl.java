@@ -31,13 +31,13 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  * Concrete implementation of {@link org.opensaml.saml2.metadata.KeyDescriptor}.
  */
 public class KeyDescriptorImpl extends AbstractMetadataSAMLObject implements KeyDescriptor {
-    
+
     /** Key usage type */
     private KeyUseType keyUseType;
-    
+
     /** Key information */
     private KeyInfo keyInfo;
-    
+
     /** Encryption methods supported by the entity */
     private XMLObjectChildrenList<EncryptionMethod> encryptionMethods;
 
@@ -46,10 +46,21 @@ public class KeyDescriptorImpl extends AbstractMetadataSAMLObject implements Key
      */
     protected KeyDescriptorImpl() {
         super(KeyDescriptor.LOCAL_NAME);
-        
+
         encryptionMethods = new XMLObjectChildrenList<EncryptionMethod>(this);
     }
-    
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected KeyDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptor#getUse()
      */
@@ -77,11 +88,11 @@ public class KeyDescriptorImpl extends AbstractMetadataSAMLObject implements Key
     public void setKeyInfo(KeyInfo newKeyInfo) {
         keyInfo = prepareForAssignment(keyInfo, newKeyInfo);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptor#getEncryptionMethods()
      */
-    public List<EncryptionMethod> getEncryptionMethods(){
+    public List<EncryptionMethod> getEncryptionMethods() {
         return encryptionMethods;
     }
 
@@ -90,10 +101,10 @@ public class KeyDescriptorImpl extends AbstractMetadataSAMLObject implements Key
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         children.add(keyInfo);
         children.addAll(encryptionMethods);
-        
+
         return Collections.unmodifiableList(children);
     }
 }

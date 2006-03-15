@@ -37,6 +37,16 @@ public class GivenNameUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML20MD_NS, GivenName.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected GivenNameUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)

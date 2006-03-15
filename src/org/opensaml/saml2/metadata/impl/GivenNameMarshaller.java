@@ -40,6 +40,16 @@ public class GivenNameMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML20MD_NS, GivenName.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected GivenNameMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Element)

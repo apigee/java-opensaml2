@@ -40,6 +40,17 @@ public class GivenNameImpl extends AbstractMetadataSAMLObject implements GivenNa
         super(GivenName.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected GivenNameImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
     /*
      * @see org.opensaml.saml2.metadata.GivenName#getName()
      */

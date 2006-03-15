@@ -43,19 +43,19 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     private Boolean wantAuthnRequestsSigned;
 
     /** SingleSignOn services for this entity */
-    private final XMLObjectChildrenList<SingleSignOnService> singleSignOnServices;
+    private XMLObjectChildrenList<SingleSignOnService> singleSignOnServices;
 
     /** NameID mapping services for this entity */
-    private final XMLObjectChildrenList<NameIDMappingService> nameIDMappingServices;
+    private XMLObjectChildrenList<NameIDMappingService> nameIDMappingServices;
 
     /** AssertionID request services for this entity */
-    private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
+    private XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
     /** Attribute profiles supported by this entity */
-    private final XMLObjectChildrenList<AttributeProfile> attributeProfiles;
+    private XMLObjectChildrenList<AttributeProfile> attributeProfiles;
 
     /** Attributes accepted by this entity */
-    private final XMLObjectChildrenList<Attribute> attributes;
+    private XMLObjectChildrenList<Attribute> attributes;
 
     /**
      * Constructor
@@ -68,6 +68,17 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
         assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
         attributeProfiles = new XMLObjectChildrenList<AttributeProfile>(this);
         attributes = new XMLObjectChildrenList<Attribute>(this);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected IDPSSODescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

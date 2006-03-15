@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
@@ -32,5 +33,15 @@ public class ManageNameIDServiceMarshaller extends EndpointMarshaller {
      */
     public ManageNameIDServiceMarshaller() {
         super(SAMLConstants.SAML20MD_NS, ManageNameIDService.LOCAL_NAME);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected ManageNameIDServiceMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 }

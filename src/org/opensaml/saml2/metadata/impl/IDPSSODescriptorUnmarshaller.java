@@ -43,8 +43,19 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
         super(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected IDPSSODescriptorUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) parentObject;
@@ -65,10 +76,10 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
     }
 
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
-    protected void processAttribute(XMLObject samlObject, Attr attribute)
-            throws UnmarshallingException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) samlObject;
 
         if (attribute.getLocalName().equals(IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME)) {
