@@ -41,19 +41,21 @@ public class AttributeConsumingServiceSchemaValidator implements Validator {
     public void validate(XMLObject xmlObject) throws ValidationException {
         AttributeConsumingService attributeConsumingService = (AttributeConsumingService) xmlObject;
 
-        // Null int values? validateIndex(attributeConsumingService);
+        validateIndex(attributeConsumingService);
         validateServiceNames(attributeConsumingService);
-        // RequestedAttribute not yet implemented validateRequestedAttributes(attributeConsumingService);
+        // RequestedAttribute not yet implemented: validateRequestedAttributes(attributeConsumingService);
     }
 
     /**
-     * Checks that Index is present.
+     * Checks that Index is positive.
      * 
      * @param attributeConsumingService
      * @throws ValidationException
      */
     protected void validateIndex(AttributeConsumingService attributeConsumingService) throws ValidationException {
-        //TODO
+        if (attributeConsumingService.getIndex() < 0) {
+            throw new ValidationException("Index must be positive integer");
+        }
     }
 
     /**
