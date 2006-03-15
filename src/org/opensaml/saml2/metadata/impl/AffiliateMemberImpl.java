@@ -35,6 +35,17 @@ public class AffiliateMemberImpl extends AbstractMetadataSAMLObject implements A
     protected AffiliateMemberImpl() {
         super(AffiliateMember.LOCAL_NAME);
     }
+    
+    /**
+     * Constructor
+     *
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AffiliateMemberImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 
     /*
      * @see org.opensaml.saml2.metadata.AffiliateMember#getID()

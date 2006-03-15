@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
@@ -39,30 +40,41 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
 
     /** ID of the owner of this affiliation */
     private String ownerID;
-    
+
     /** validUntil attribute */
     private DateTime validUntil;
-    
+
     /** cacheDurection attribute */
     private Long cacheDuration;
-    
+
     /** Extensions child */
     private Extensions extensions;
-    
+
     /** Members of this affiliation */
     private XMLObjectChildrenList<AffiliateMember> members;
-    
+
     /** Key descriptors for this role */
     private XMLObjectChildrenList<KeyDescriptor> keyDescriptors;
-    
+
     /**
      * Constructor
      */
-    protected AffiliationDescriptorImpl(){
+    protected AffiliationDescriptorImpl() {
         super(AffiliationDescriptor.LOCAL_NAME);
 
         members = new XMLObjectChildrenList<AffiliateMember>(this);
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AffiliationDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*
@@ -81,14 +93,14 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
         }
         ownerID = prepareForAssignment(ownerID, newOwnerID);
     }
-    
+
     /*
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
      */
     public boolean isValid() {
         return validUntil.isBeforeNow();
     }
-    
+
     /*
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
      */
@@ -116,7 +128,7 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
     public void setCacheDuration(Long duration) {
         cacheDuration = prepareForAssignment(cacheDuration, duration);
     }
-    
+
     /*
      * @see org.opensaml.saml2.metadata.AffiliationDescriptor#getExtensions()
      */
@@ -144,19 +156,19 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
     public List<KeyDescriptor> getKeyDescriptors() {
         return keyDescriptors;
     }
-    
+
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         children.add(getExtensions());
 
         children.addAll(getMembers());
-        
+
         children.addAll(getKeyDescriptors());
-        
+
         return Collections.unmodifiableList(children);
     }
 }

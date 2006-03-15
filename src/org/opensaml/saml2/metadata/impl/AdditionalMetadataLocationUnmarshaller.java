@@ -35,6 +35,16 @@ public class AdditionalMetadataLocationUnmarshaller extends AbstractSAMLObjectUn
         super(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME);
     }
 
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AdditionalMetadataLocationUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Attr)

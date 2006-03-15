@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import org.apache.log4j.Logger;
@@ -43,33 +44,44 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
     /**
      * Constructor
      */
-    public AffiliationDescriptorMarshaller(){
+    public AffiliationDescriptorMarshaller() {
         super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME);
     }
-    
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AffiliationDescriptorMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
-        AffiliationDescriptor descriptor = (AffiliationDescriptor)samlElement;
-        
+        AffiliationDescriptor descriptor = (AffiliationDescriptor) samlElement;
+
         // Set affiliationOwnerID
         if (descriptor.getOwnerID() != null) {
             domElement.setAttributeNS(null, AffiliationDescriptor.OWNER_ID_ATTRIB_NAME, descriptor.getOwnerID());
         }
-        
+
         // Set the validUntil attribute
-        if(descriptor.getValidUntil() != null){
-            if(log.isDebugEnabled()){
+        if (descriptor.getValidUntil() != null) {
+            if (log.isDebugEnabled()) {
                 log.debug("Writting validUntil attribute to AffiliationDescriptor DOM element");
             }
             String validUntilStr = ISODateTimeFormat.dateTime().print(descriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
-        
+
         // Set the cacheDuration attribute
-        if(descriptor.getCacheDuration() != null){
-            if(log.isDebugEnabled()){
+        if (descriptor.getCacheDuration() != null) {
+            if (log.isDebugEnabled()) {
                 log.debug("Writting cacheDuration attribute to AffiliationDescriptor DOM element");
             }
             String cacheDuration = DatatypeHelper.longToDuration(descriptor.getCacheDuration());

@@ -38,6 +38,17 @@ public class AdditionalMetadataLocationImpl extends AbstractMetadataSAMLObject i
     protected AdditionalMetadataLocationImpl() {
         super(AdditionalMetadataLocation.LOCAL_NAME);
     }
+    
+    /**
+     * Constructor
+     *
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
+     */
+    protected AdditionalMetadataLocationImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+    }
 
     /*
      * @see org.opensaml.saml2.metadata.AdditionalMetadataLocation#getLocationURI()

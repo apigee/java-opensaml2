@@ -24,9 +24,10 @@ import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation} objects.
+ * A thread safe {@link org.opensaml.common.io.Marshaller} for
+ * {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation} objects.
  */
-public class AdditionalMetadataLocationMarshaller extends AbstractSAMLObjectMarshaller{
+public class AdditionalMetadataLocationMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
@@ -34,24 +35,36 @@ public class AdditionalMetadataLocationMarshaller extends AbstractSAMLObjectMars
     public AdditionalMetadataLocationMarshaller() {
         super(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME);
     }
-    
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     */
+    protected AdditionalMetadataLocationMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
+    }
+
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;
-        
+
         if (aml.getNamespaceURI() != null) {
             domElement.setAttributeNS(null, AdditionalMetadataLocation.NAMESPACE_ATTRIB_NAME, aml.getNamespaceURI());
         }
     }
-    
+
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         super.marshallElementContent(samlObject, domElement);
-        
+
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlObject;
         if (aml.getLocationURI() != null) {
             domElement.appendChild(domElement.getOwnerDocument().createTextNode(aml.getLocationURI()));
