@@ -20,6 +20,10 @@
 
 package org.opensaml.saml2.metadata.validator;
 
+import org.opensaml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
@@ -30,5 +34,33 @@ public class IDPSSODescriptorSpecValidator extends SSODescriptorSpecValidator im
     /** Constructor */
     public IDPSSODescriptorSpecValidator() {
 
+    }
+
+    public void validate(XMLObject xmlObject) throws ValidationException {
+        super.validate(xmlObject);
+        IDPSSODescriptor idpssoDescriptor = (IDPSSODescriptor) xmlObject;
+        validateSingleSign(idpssoDescriptor);
+        validateNameIDMapping(idpssoDescriptor);
+    }
+
+    protected void validateSingleSign(IDPSSODescriptor idpssoDescriptor) throws ValidationException {
+        if (idpssoDescriptor.getSingleSignOnServices() != null && idpssoDescriptor.getSingleSignOnServices().size() > 0) {
+            for (int i = 0; i < idpssoDescriptor.getSingleSignOnServices().size(); i++) {
+                if (!DatatypeHelper.isEmpty(idpssoDescriptor.getSingleSignOnServices().get(i).getResponseLocation())) {
+                    throw new ValidationException("ResponseLocation of all SingleSignOnServices must be null");
+                }
+            }
+        }
+    }
+
+    protected void validateNameIDMapping(IDPSSODescriptor idpssoDescriptor) throws ValidationException {
+        if (idpssoDescriptor.getNameIDMappingServices() != null
+                && idpssoDescriptor.getNameIDMappingServices().size() > 0) {
+            for (int i = 0; i < idpssoDescriptor.getNameIDMappingServices().size(); i++) {
+                if (!DatatypeHelper.isEmpty(idpssoDescriptor.getNameIDMappingServices().get(i).getResponseLocation())) {
+                    throw new ValidationException("ResponseLocation of all NameIDMappingServices must be null");
+                }
+            }
+        }
     }
 }

@@ -20,6 +20,10 @@
 
 package org.opensaml.saml2.metadata.validator;
 
+import org.opensaml.saml2.metadata.SSODescriptor;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
@@ -30,5 +34,31 @@ public class SSODescriptorSpecValidator extends RoleDescriptorSpecValidator impl
     /** Constructor */
     public SSODescriptorSpecValidator() {
 
+    }
+
+    /*
+     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
+     */
+    public void validate(XMLObject xmlObject) throws ValidationException {
+        SSODescriptor ssoDescriptor = (SSODescriptor) xmlObject;
+        validateResponseLocation(ssoDescriptor);
+        super.validate(xmlObject);
+    }
+
+    /**
+     * Checks that Response Location of Artifact Resolution Services is omitted.
+     * 
+     * @param ssoDescriptor
+     * @throws ValidationException
+     */
+    protected void validateResponseLocation(SSODescriptor ssoDescriptor) throws ValidationException {
+        if (ssoDescriptor.getArtifactResolutionServices() != null
+                && ssoDescriptor.getArtifactResolutionServices().size() > 0) {
+            for (int i = 0; i < ssoDescriptor.getArtifactResolutionServices().size(); i++) {
+                if (!DatatypeHelper.isEmpty(ssoDescriptor.getArtifactResolutionServices().get(i).getResponseLocation())) {
+                    throw new ValidationException("ResponseLocation of all ArtificatResolutionServices must be null");
+                }
+            }
+        }
     }
 }

@@ -20,10 +20,6 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.saml2.metadata.NameIDMappingService;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DatatypeHelper;
-import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
@@ -34,26 +30,5 @@ public class NameIDMappingServiceSpecValidator extends EndpointSchemaValidator i
     /** Constructor */
     public NameIDMappingServiceSpecValidator() {
 
-    }
-
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        NameIDMappingService nameIDMappingService = (NameIDMappingService) xmlObject;
-        validateResponseLocation(nameIDMappingService);
-    }
-
-    /**
-     * Checks that Response Location is omitted.
-     * 
-     * @param nameIDMappingService
-     * @throws ValidationException
-     */
-    protected void validateResponseLocation(NameIDMappingService nameIDMappingService) throws ValidationException {
-        if (!DatatypeHelper.isEmpty(nameIDMappingService.getResponseLocation())) {
-            throw new ValidationException("Response Location must be omitted.");
-        }
     }
 }
