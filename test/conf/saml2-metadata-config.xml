@@ -22,7 +22,14 @@
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorUnmarshaller" />
         </ObjectProvider>
-        
+
+        <!-- RequestedAttribute provider -->
+        <ObjectProvider qualifiedName="saml2md:RequestedAttribute">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.RequestedAttributeBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.RequestedAttributeMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.RequestedAttributeUnmarshaller" />
+        </ObjectProvider>
+                
         <!-- SPSSODescriptor provider -->
         <ObjectProvider qualifiedName="saml2md:SPSSODescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.SPSSODescriptorBuilder" />
