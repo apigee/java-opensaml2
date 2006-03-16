@@ -31,12 +31,12 @@ public interface ServiceDescription extends SAMLObject {
      * 
      * @return the description of the service
      */
-    public String getDescription();
+    public LocalizedString getDescription();
     
     /**
      * Sets the description of the service.
      * 
      * @param newDescription the description of the service
      */
-    public void setDescription(String newDescription);
+    public void setDescription(LocalizedString newDescription);
 }

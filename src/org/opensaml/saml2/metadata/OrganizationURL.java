@@ -31,12 +31,12 @@ public interface OrganizationURL extends SAMLObject {
      * 
      * @return the URL of the organization
      */
-    public String getURL();
+    public LocalizedString getURL();
     
     /**
      * Sets the organization URL.
      * 
      * @param newName organization URL
      */
-    public void setURL(String newURL);
+    public void setURL(LocalizedString newURL);
 }

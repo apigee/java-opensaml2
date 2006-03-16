@@ -31,12 +31,12 @@ public interface OrganizationName extends SAMLObject {
      * 
      * @return the name of the organization
      */
-    public String getName();
+    public LocalizedString getName();
     
     /**
      * Sets the organization name.
      * 
      * @param newName organization name
      */
-    public void setName(String newName);
+    public void setName(LocalizedString newName);
 }

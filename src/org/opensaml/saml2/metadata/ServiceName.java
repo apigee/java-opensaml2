@@ -31,12 +31,12 @@ public interface ServiceName extends SAMLObject {
      * 
      * @return the name of the service
      */
-    public String getName();
+    public LocalizedString getName();
     
     /**
      * Sets the service name.
      * 
      * @param newName service name
      */
-    public void setName(String newName);
+    public void setName(LocalizedString newName);
 }

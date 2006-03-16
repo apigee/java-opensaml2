@@ -28,7 +28,7 @@ public interface RequestedAttribute extends Attribute {
     public final static String LOCAL_NAME = "RequestedAttribute";
     
     /** "isRequired" attribute's local name */
-    public final static String IS_REQUIRED_ATTRIB_NAME = "index";
+    public final static String IS_REQUIRED_ATTRIB_NAME = "isRequired";
     
     /**
      * Checks to see if this requested attribute is also required.
