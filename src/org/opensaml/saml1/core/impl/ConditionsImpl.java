@@ -23,7 +23,6 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
@@ -64,7 +63,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
      * @see org.opensaml.saml1.core.Conditions#setNotBefore()
      */
     public void setNotBefore(DateTime notBefore) {
-        this.notBefore = prepareForAssignment(this.notBefore, notBefore.withZone(DateTimeZone.UTC));
+        this.notBefore = prepareForAssignment(this.notBefore, notBefore);
     }
 
     /*
@@ -78,7 +77,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
      * @see org.opensaml.saml1.core.Conditions#setNotOnOrAfter()
      */
     public void setNotOnOrAfter(DateTime notOnOrAfter) {
-        this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, notOnOrAfter.withZone(DateTimeZone.UTC));
+        this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, notOnOrAfter);
     }
 
     /*

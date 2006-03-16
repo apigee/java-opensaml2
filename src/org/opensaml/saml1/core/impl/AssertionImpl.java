@@ -23,7 +23,6 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
@@ -143,11 +142,6 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      * There is (as yet) no helper function for Date values so all the logic is in here.
      */
     public void setIssueInstant(DateTime issueInstant) {
-        
-        if (issueInstant != null) {
-                issueInstant = issueInstant.withZone(DateTimeZone.UTC);
-        }
-        
         this.issueInstant = prepareForAssignment(this.issueInstant, issueInstant);
     }
 

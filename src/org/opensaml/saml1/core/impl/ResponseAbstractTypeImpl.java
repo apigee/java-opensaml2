@@ -19,7 +19,6 @@ package org.opensaml.saml1.core.impl;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ResponseAbstractType;
@@ -126,9 +125,6 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
      * @see org.opensaml.saml1.core.Response#setIssueInstant(java.util.Date)
      */
     public void setIssueInstant(DateTime date) {
-        if (date != null) {
-            date = date.withZone(DateTimeZone.UTC);
-        }
         this.issueInstant = prepareForAssignment(this.issueInstant, date);
     }
 
