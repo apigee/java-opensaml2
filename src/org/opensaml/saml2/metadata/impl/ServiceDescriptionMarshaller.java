@@ -58,7 +58,8 @@ public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
         ServiceDescription description = (ServiceDescription) samlObject;
 
         if (description.getDescription() != null) {
-            XMLHelper.appendTextContent(domElement, description.getDescription());
+            XMLHelper.appendTextContent(domElement, description.getDescription().getLocalString() + ","
+                    + description.getDescription().getLanguage());
         }
     }
 }

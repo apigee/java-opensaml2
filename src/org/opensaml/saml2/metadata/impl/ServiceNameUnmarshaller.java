@@ -22,6 +22,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.ServiceName;
 import org.opensaml.xml.XMLObject;
 
@@ -54,6 +55,7 @@ public class ServiceNameUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         ServiceName name = (ServiceName) samlObject;
 
-        name.setName(elementContent);
+        String[] localizedContent = elementContent.split(",");
+        name.setName(new LocalizedString(localizedContent[0], localizedContent[1]));
     }
 }

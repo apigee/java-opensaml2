@@ -58,7 +58,8 @@ public class ServiceNameMarshaller extends AbstractSAMLObjectMarshaller {
         ServiceName name = (ServiceName) samlObject;
 
         if (name.getName() != null) {
-            XMLHelper.appendTextContent(domElement, name.getName());
+            XMLHelper.appendTextContent(domElement, name.getName().getLocalString() + ","
+                    + name.getName().getLanguage());
         }
     }
 }
