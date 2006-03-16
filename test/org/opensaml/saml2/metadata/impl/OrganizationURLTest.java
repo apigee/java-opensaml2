@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationURL;
 
 /**
@@ -32,7 +33,7 @@ import org.opensaml.saml2.metadata.OrganizationURL;
 public class OrganizationURLTest extends SAMLObjectBaseTestCase {
     
     /** Expected URL */
-    protected String expectURL;
+    protected LocalizedString expectURL;
     
     /**
      * Constructor
@@ -47,7 +48,7 @@ public class OrganizationURLTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        expectURL = "http://example.org";
+        expectURL = new LocalizedString("http://example.org", "Language");
     }
 
     /*

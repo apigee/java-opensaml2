@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.ServiceDescription;
 
 /**
@@ -32,7 +33,7 @@ import org.opensaml.saml2.metadata.ServiceDescription;
 public class ServiceDescriptionTest extends SAMLObjectBaseTestCase {
     
     /** Expected description */
-    protected String expectedDescription;
+    protected LocalizedString expectedDescription;
     
     /**
      * Constructor
@@ -47,7 +48,7 @@ public class ServiceDescriptionTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        expectedDescription = "This is a description";
+        expectedDescription = new LocalizedString("This is a description", "Language");
     }
 
     /*

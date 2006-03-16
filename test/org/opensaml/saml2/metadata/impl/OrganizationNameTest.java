@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationName;
 
 /**
@@ -32,7 +33,7 @@ import org.opensaml.saml2.metadata.OrganizationName;
 public class OrganizationNameTest extends SAMLObjectBaseTestCase {
     
     /** Expected name */
-    protected String expectName;
+    protected LocalizedString expectName;
     
     /**
      * Constructor
@@ -47,7 +48,7 @@ public class OrganizationNameTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        expectName = "MyOrg";
+        expectName = new LocalizedString("MyOrg", "Language");
     }
 
     /*
