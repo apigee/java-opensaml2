@@ -20,10 +20,6 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.saml2.metadata.ArtifactResolutionService;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DatatypeHelper;
-import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
@@ -34,27 +30,5 @@ public class ArtifactResolutionServiceSpecValidator extends IndexedEndpointSchem
     /** Constructor */
     public ArtifactResolutionServiceSpecValidator() {
 
-    }
-
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        ArtifactResolutionService artifactResolutionService = (ArtifactResolutionService) xmlObject;
-        validateResponseLocation(artifactResolutionService);
-    }
-
-    /**
-     * Checks that Response Location is omitted.
-     * 
-     * @param artifactResolutionService
-     * @throws ValidationException
-     */
-    protected void validateResponseLocation(ArtifactResolutionService artifactResolutionService)
-            throws ValidationException {
-        if (!DatatypeHelper.isEmpty(artifactResolutionService.getResponseLocation())) {
-            throw new ValidationException("Response Location must be omitted.");
-        }
     }
 }
