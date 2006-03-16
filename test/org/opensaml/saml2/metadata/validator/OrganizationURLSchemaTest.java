@@ -18,19 +18,21 @@ package org.opensaml.saml2.metadata.validator;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.ArtifactResolutionService;
-import org.opensaml.saml2.metadata.SSODescriptor;
+import org.opensaml.saml2.metadata.LocalizedString;
+import org.opensaml.saml2.metadata.OrganizationURL;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Test case for {@link org.opensaml.saml2.metadata.SSODescriptor}.
+ * Test case for {@link org.opensaml.saml2.metadata.OrganizationURL}.
  */
-public abstract class SSODescriptorSpecTest extends RoleDescriptorSpecTest {
+public class OrganizationURLSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SSODescriptorSpecTest() {
-
+    public OrganizationURLSchemaTest() {
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, OrganizationURL.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        validator = new OrganizationURLSchemaValidator();
     }
 
     /*
@@ -38,21 +40,19 @@ public abstract class SSODescriptorSpecTest extends RoleDescriptorSpecTest {
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        SSODescriptor ssoDescriptor = (SSODescriptor) target;
-        ArtifactResolutionService artifactResolutionService = (ArtifactResolutionService) buildXMLObject(new QName(
-                SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
-        ssoDescriptor.getArtifactResolutionServices().add(artifactResolutionService);
+        OrganizationURL organizationURL = (OrganizationURL) target;
+        organizationURL.setURL(new LocalizedString("url", "language"));
     }
 
     /**
-     * Tests for Response Location Failure.
+     * Tests for Name failure.
      * 
      * @throws ValidationException
      */
-    public void testResponseLocationFailure() throws ValidationException {
-        SSODescriptor ssoDescriptor = (SSODescriptor) target;
+    public void testNameFailure() throws ValidationException {
+        OrganizationURL organizationURL = (OrganizationURL) target;
 
-        ssoDescriptor.getArtifactResolutionServices().get(0).setResponseLocation("location");
-        assertValidationFail("ResponseLocation was present in ArtifactResolutionService, should raise Validation Exception.");
+        organizationURL.setURL(null);
+        assertValidationFail("URL was null, should raise a Validation Exception.");
     }
 }

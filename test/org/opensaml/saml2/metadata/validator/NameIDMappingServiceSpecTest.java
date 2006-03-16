@@ -20,7 +20,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.NameIDMappingService;
-import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Test case for {@link org.opensaml.saml2.metadata.NameIDMappingService}.
@@ -32,21 +31,5 @@ public class NameIDMappingServiceSpecTest extends EndpointSchemaTest {
         targetQName = new QName(SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new NameIDMappingServiceSpecValidator();
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
-    protected void populateRequiredData() {
-        super.populateRequiredData();
-        NameIDMappingService nameIDMappingService = (NameIDMappingService) target;
-        nameIDMappingService.setResponseLocation(null);
-    }
-
-    public void testResponseLocationFailure() throws ValidationException {
-        NameIDMappingService nameIDMappingService = (NameIDMappingService) target;
-
-        nameIDMappingService.setResponseLocation("response location");
-        assertValidationFail("Response Location was present, should raise Validation Exception");
     }
 }

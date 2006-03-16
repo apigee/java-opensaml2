@@ -20,6 +20,9 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.saml2.metadata.NameIDMappingService;
+import org.opensaml.saml2.metadata.SingleSignOnService;
+import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Test case for {@link org.opensaml.saml2.metadata.IDPSSODescriptor}.
@@ -30,5 +33,43 @@ public class IDPSSODescriptorSpecTest extends SSODescriptorSpecTest {
     public IDPSSODescriptorSpecTest() {
         targetQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new IDPSSODescriptorSpecValidator();
+    }
+
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
+     */
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        IDPSSODescriptor idpssoDescriptor = (IDPSSODescriptor) target;
+        SingleSignOnService singleSignOnService = (SingleSignOnService) buildXMLObject(new QName(
+                SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+        idpssoDescriptor.getSingleSignOnServices().add(singleSignOnService);
+        NameIDMappingService nameIDMappingService = (NameIDMappingService) buildXMLObject(new QName(
+                SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+        idpssoDescriptor.getNameIDMappingServices().add(nameIDMappingService);
+    }
+
+    /**
+     * Tests for Single Sign On Service Failure.
+     * 
+     * @throws ValidationException
+     */
+    public void testSingleSignOnFailure() throws ValidationException {
+        IDPSSODescriptor idpssoDescriptor = (IDPSSODescriptor) target;
+
+        idpssoDescriptor.getSingleSignOnServices().get(0).setResponseLocation("location");
+        assertValidationFail("ResponseLocation was present in SingleSignOnService, should raise Validation Exception.");
+    }
+
+    /**
+     * Tests for Name ID Mapping Service Failure.
+     * 
+     * @throws ValidationException
+     */
+    public void testNameIDMappingFailure() throws ValidationException {
+        IDPSSODescriptor idpssoDescriptor = (IDPSSODescriptor) target;
+
+        idpssoDescriptor.getNameIDMappingServices().get(0).setResponseLocation("location");
+        assertValidationFail("ResponseLocation was present in NameIDMappingService, should raise Validation Exception.");
     }
 }

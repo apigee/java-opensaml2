@@ -18,19 +18,21 @@ package org.opensaml.saml2.metadata.validator;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.ArtifactResolutionService;
-import org.opensaml.saml2.metadata.SSODescriptor;
+import org.opensaml.saml2.metadata.LocalizedString;
+import org.opensaml.saml2.metadata.OrganizationDisplayName;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Test case for {@link org.opensaml.saml2.metadata.SSODescriptor}.
+ * Test case for {@link org.opensaml.saml2.metadata.OrganizationDisplayName}.
  */
-public abstract class SSODescriptorSpecTest extends RoleDescriptorSpecTest {
+public class OrganizationDisplayNameSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SSODescriptorSpecTest() {
-
+    public OrganizationDisplayNameSchemaTest() {
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        validator = new OrganizationDisplayNameSchemaValidator();
     }
 
     /*
@@ -38,21 +40,19 @@ public abstract class SSODescriptorSpecTest extends RoleDescriptorSpecTest {
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        SSODescriptor ssoDescriptor = (SSODescriptor) target;
-        ArtifactResolutionService artifactResolutionService = (ArtifactResolutionService) buildXMLObject(new QName(
-                SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
-        ssoDescriptor.getArtifactResolutionServices().add(artifactResolutionService);
+        OrganizationDisplayName organizationDisplayName = (OrganizationDisplayName) target;
+        organizationDisplayName.setName(new LocalizedString("name", "Languauge"));
     }
 
     /**
-     * Tests for Response Location Failure.
+     * Tests for Name failure.
      * 
      * @throws ValidationException
      */
-    public void testResponseLocationFailure() throws ValidationException {
-        SSODescriptor ssoDescriptor = (SSODescriptor) target;
+    public void testNameFailure() throws ValidationException {
+        OrganizationDisplayName organizationDisplayName = (OrganizationDisplayName) target;
 
-        ssoDescriptor.getArtifactResolutionServices().get(0).setResponseLocation("location");
-        assertValidationFail("ResponseLocation was present in ArtifactResolutionService, should raise Validation Exception.");
+        organizationDisplayName.setName(null);
+        assertValidationFail("Name was null, should raise a Validation Exception.");
     }
 }

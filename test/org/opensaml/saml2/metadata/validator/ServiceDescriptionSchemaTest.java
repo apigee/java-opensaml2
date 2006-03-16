@@ -18,19 +18,21 @@ package org.opensaml.saml2.metadata.validator;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.ArtifactResolutionService;
-import org.opensaml.saml2.metadata.SSODescriptor;
+import org.opensaml.saml2.metadata.LocalizedString;
+import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Test case for {@link org.opensaml.saml2.metadata.SSODescriptor}.
+ * Test case for {@link org.opensaml.saml2.metadata.ServiceDescription}.
  */
-public abstract class SSODescriptorSpecTest extends RoleDescriptorSpecTest {
+public class ServiceDescriptionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SSODescriptorSpecTest() {
-
+    public ServiceDescriptionSchemaTest() {
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, ServiceDescription.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        validator = new ServiceDescriptionSchemaValidator();
     }
 
     /*
@@ -38,21 +40,19 @@ public abstract class SSODescriptorSpecTest extends RoleDescriptorSpecTest {
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        SSODescriptor ssoDescriptor = (SSODescriptor) target;
-        ArtifactResolutionService artifactResolutionService = (ArtifactResolutionService) buildXMLObject(new QName(
-                SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
-        ssoDescriptor.getArtifactResolutionServices().add(artifactResolutionService);
+        ServiceDescription serviceDescription = (ServiceDescription) target;
+        serviceDescription.setDescription(new LocalizedString("description","language"));
     }
 
     /**
-     * Tests for Response Location Failure.
+     * Tests for Description failure.
      * 
      * @throws ValidationException
      */
-    public void testResponseLocationFailure() throws ValidationException {
-        SSODescriptor ssoDescriptor = (SSODescriptor) target;
+    public void testDescriptionFailure() throws ValidationException {
+        ServiceDescription serviceDescription = (ServiceDescription) target;
 
-        ssoDescriptor.getArtifactResolutionServices().get(0).setResponseLocation("location");
-        assertValidationFail("ResponseLocation was present in ArtifactResolutionService, should raise Validation Exception.");
+        serviceDescription.setDescription(null);
+        assertValidationFail("Description was null, should raise a Validation Exception.");
     }
 }

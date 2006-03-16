@@ -20,7 +20,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SingleSignOnService;
-import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Test case for {@link org.opensaml.saml2.metadata.SingleSignOnService}.
@@ -31,21 +30,5 @@ public class SingleSignOnServiceSpecTest extends EndpointSchemaTest {
     public SingleSignOnServiceSpecTest() {
         targetQName = new QName(SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new SingleSignOnServiceSpecValidator();
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
-    protected void populateRequiredData() {
-        super.populateRequiredData();
-        SingleSignOnService singleSignOnService = (SingleSignOnService) target;
-        singleSignOnService.setResponseLocation(null);
-    }
-
-    public void testResponseLocationFailure() throws ValidationException {
-        SingleSignOnService singleSignOnService = (SingleSignOnService) target;
-
-        singleSignOnService.setResponseLocation("response location");
-        assertValidationFail("Response Location was present, should raise Validation Exception");
     }
 }
