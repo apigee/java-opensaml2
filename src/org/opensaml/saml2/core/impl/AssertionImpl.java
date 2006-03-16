@@ -27,7 +27,6 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
@@ -100,9 +99,6 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      * @see org.opensaml.saml2.core.Assertion#setIssueInstant(org.joda.time.DateTime)
      */
     public void setIssueInstant(DateTime newIssueInstance) {
-        if (newIssueInstance != null) {
-            newIssueInstance = newIssueInstance.withZone(DateTimeZone.UTC);
-        }
         this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstance);
     }
 

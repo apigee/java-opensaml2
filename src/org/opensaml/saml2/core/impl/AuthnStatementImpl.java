@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.SubjectLocality;
@@ -106,11 +105,7 @@ public class AuthnStatementImpl extends AbstractAssertionSAMLObject implements A
      * @see org.opensaml.saml2.core.AuthnStatement#setAuthnInstant(org.joda.time.DateTime)
      */
     public void setAuthnInstant(DateTime newAuthnInstant) {
-        if (newAuthnInstant != null) {
-            this.authnInstant = prepareForAssignment(this.authnInstant, newAuthnInstant.withZone(DateTimeZone.UTC));
-        } else {
-            this.authnInstant = null;
-        }
+        this.authnInstant = prepareForAssignment(this.authnInstant, newAuthnInstant);
     }
 
     /*
@@ -138,8 +133,7 @@ public class AuthnStatementImpl extends AbstractAssertionSAMLObject implements A
      * @see org.opensaml.saml2.core.AuthnStatement#setSessionNotOnOrAfter(org.joda.time.DateTime)
      */
     public void setSessionNotOnOrAfter(DateTime newSessionNotOnOrAfter) {
-        this.sessionNotOnOrAfter = prepareForAssignment(this.sessionNotOnOrAfter, newSessionNotOnOrAfter
-                .withZone(DateTimeZone.UTC));
+        this.sessionNotOnOrAfter = prepareForAssignment(this.sessionNotOnOrAfter, newSessionNotOnOrAfter);
     }
 
     /*

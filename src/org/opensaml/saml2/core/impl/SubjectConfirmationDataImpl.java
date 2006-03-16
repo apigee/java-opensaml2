@@ -23,7 +23,6 @@ package org.opensaml.saml2.core.impl;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
 
@@ -74,7 +73,7 @@ public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject imp
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setNotBefore(java.util.Date)
      */
     public void setNotBefore(DateTime newNotBefore) {
-        this.notBefore = prepareForAssignment(this.notBefore, newNotBefore.withZone(DateTimeZone.UTC));
+        this.notBefore = prepareForAssignment(this.notBefore, newNotBefore);
     }
 
     /*
@@ -88,7 +87,7 @@ public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject imp
      * @see org.opensaml.saml2.core.SubjectConfirmationData#setNotOnOrAfter(java.util.Date)
      */
     public void setNotOnOrAfter(DateTime newNotOnOrAfter) {
-        this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter.withZone(DateTimeZone.UTC));
+        this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter);
     }
 
     /*
