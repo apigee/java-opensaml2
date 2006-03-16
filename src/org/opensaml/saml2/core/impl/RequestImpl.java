@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Request;
@@ -98,6 +99,9 @@ public abstract class RequestImpl extends AbstractSignableProtocolSAMLObject imp
      * @see org.opensaml.saml2.core.Request#setIssueInstant(org.joda.time.DateTime)
      */
     public void setIssueInstant(DateTime newIssueInstant) {
+        if (newIssueInstant != null) {
+            newIssueInstant = newIssueInstant.withZone(DateTimeZone.UTC);
+        }
         this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstant);
     }
 

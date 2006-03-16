@@ -103,7 +103,10 @@ public class EntitiesDescriptorImpl extends AbstractSignableMetadataSAMLObject i
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
      */
     public void setValidUntil(DateTime validUntil) {
-        this.validUntil = prepareForAssignment(this.validUntil, validUntil.withZone(DateTimeZone.UTC));
+        if (validUntil != null) {
+            validUntil = validUntil.withZone(DateTimeZone.UTC);
+        }
+        this.validUntil = prepareForAssignment(this.validUntil, validUntil);
     }
 
     /*

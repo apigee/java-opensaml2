@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.opensaml.saml2.core.BaseID;
 import org.opensaml.saml2.core.LogoutRequest;
 import org.opensaml.saml2.core.NameID;
@@ -93,6 +94,9 @@ public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
      * @see org.opensaml.saml2.core.LogoutRequest#setNotOnOrAfter(org.joda.time.DateTime)
      */
     public void setNotOnOrAfter(DateTime newNotOnOrAfter) {
+        if (newNotOnOrAfter != null) {
+            newNotOnOrAfter.withZone(DateTimeZone.UTC);
+        }
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter);
     }
 

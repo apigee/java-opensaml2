@@ -101,11 +101,9 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      */
     public void setIssueInstant(DateTime newIssueInstance) {
         if (newIssueInstance != null) {
-            this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstance.withZone(DateTimeZone.UTC));
-        } else {
-            this.issueInstant = null;
+            newIssueInstance = newIssueInstance.withZone(DateTimeZone.UTC);
         }
-
+        this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstance);
     }
 
     /*
