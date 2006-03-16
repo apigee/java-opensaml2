@@ -58,7 +58,8 @@ public class OrganizationDisplayNameMarshaller extends AbstractSAMLObjectMarshal
         OrganizationDisplayName name = (OrganizationDisplayName) samlObject;
 
         if (name.getName() != null) {
-            XMLHelper.appendTextContent(domElement, name.getName());
+            XMLHelper.appendTextContent(domElement, name.getName().getLocalString() + ","
+                    + name.getName().getLanguage());
         }
     }
 }

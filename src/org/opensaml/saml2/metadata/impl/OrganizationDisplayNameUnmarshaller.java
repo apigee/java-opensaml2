@@ -22,6 +22,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationDisplayName;
 import org.opensaml.xml.XMLObject;
 
@@ -55,6 +56,7 @@ public class OrganizationDisplayNameUnmarshaller extends AbstractSAMLObjectUnmar
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         OrganizationDisplayName name = (OrganizationDisplayName) samlObject;
 
-        name.setName(elementContent);
+        String[] localizedContent = elementContent.split(",");
+        name.setName(new LocalizedString(localizedContent[0], localizedContent[1]));
     }
 }
