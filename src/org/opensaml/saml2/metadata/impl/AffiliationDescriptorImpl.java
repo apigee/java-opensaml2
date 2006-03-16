@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
@@ -112,9 +111,6 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
      */
     public void setValidUntil(DateTime validUntil) {
-        if (validUntil != null) {
-            validUntil = validUntil.withZone(DateTimeZone.UTC);
-        }
         this.validUntil = prepareForAssignment(this.validUntil, validUntil);
     }
 
