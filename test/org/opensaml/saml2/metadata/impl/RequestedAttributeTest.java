@@ -1,0 +1,122 @@
+/*
+ * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.opensaml.saml2.metadata.impl;
+
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.RequestedAttribute;
+
+/**
+ * Test case for creating, marshalling, and unmarshalling
+ * {@link org.opensaml.saml2.metadata.impl.RequestedAttributeImpl}.
+ */
+public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
+
+    /** Expected Name attribute value */
+    protected String expectedName;
+
+    /** Expected NameFormat attribute value */
+    protected String expectedNameFormat;
+
+    /** Expected FriendlyName attribute value */
+    protected String expectedFriendlyName;
+
+    /** Excpected isRequired attribute value */
+    protected boolean expectedIsRequired;
+
+    /**
+     * Constructor
+     */
+    public RequestedAttributeTest() {
+        singleElementFile = "/data/org/opensaml/saml2/metadata/impl/RequestedAttribute.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/RequestedAttributeOptionalAttributes.xml";
+    }
+
+    /**
+     * @see junit.framework.TestCase#setUp()
+     */
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        expectedName = "attribName";
+        expectedNameFormat = "urn:string";
+        expectedFriendlyName = "Attribute Name";
+        expectedIsRequired = true;
+    }
+
+    /**
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
+     */
+    public void testSingleElementUnmarshall() {
+        RequestedAttribute attribute = (RequestedAttribute) unmarshallElement(singleElementFile);
+
+        String name = attribute.getName();
+        assertEquals("Name was " + name + ", expected " + expectedName, expectedName, name);
+
+    }
+
+    /**
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalRequestedAttributesUnmarshall()
+     */
+    public void testSingleElementOptionalAttributesUnmarshall() {
+        RequestedAttribute requestedAttribute = (RequestedAttribute) unmarshallElement(singleElementOptionalAttributesFile);
+
+        String name = requestedAttribute.getName();
+        assertEquals("Name was " + name + ", expected " + expectedName, expectedName, name);
+
+        String nameFormat = requestedAttribute.getNameFormat();
+        assertEquals("NameFormat was " + nameFormat + ", expected " + expectedNameFormat, expectedNameFormat,
+                nameFormat);
+
+        String friendlyName = requestedAttribute.getFriendlyName();
+        assertEquals("FriendlyName was " + friendlyName + ", expected " + expectedFriendlyName, expectedFriendlyName,
+                friendlyName);
+
+        boolean isRequired = requestedAttribute.isRequired();
+        assertEquals("Is Required was " + isRequired + ", expected " + expectedIsRequired, expectedIsRequired,
+                isRequired);
+    }
+
+    /**
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
+     */
+    public void testSingleElementMarshall() {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, RequestedAttribute.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        RequestedAttribute requestedAttribute = (RequestedAttribute) buildXMLObject(qname);
+
+        requestedAttribute.setName(expectedName);
+
+        assertEquals(expectedDOM, requestedAttribute);
+    }
+
+    /**
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalRequestedAttributesMarshall()
+     */
+    public void testSingleElementOptionalAttributesMarshall() {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, RequestedAttribute.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        RequestedAttribute requestedAttribute = (RequestedAttribute) buildXMLObject(qname);
+
+        requestedAttribute.setName(expectedName);
+        requestedAttribute.setNameFormat(expectedNameFormat);
+        requestedAttribute.setFriendlyName(expectedFriendlyName);
+        requestedAttribute.setIsRequired(expectedIsRequired);
+
+        assertEquals(expectedOptionalAttributesDOM, requestedAttribute);
+    }
+}
