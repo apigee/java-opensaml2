@@ -20,7 +20,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
-import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Test case for {@link org.opensaml.saml2.metadata.ArtifactResolutionService}.
@@ -31,21 +30,5 @@ public class ArtifactResolutionServiceSpecTest extends IndexedEndpointSchemaTest
     public ArtifactResolutionServiceSpecTest() {
         targetQName = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new ArtifactResolutionServiceSpecValidator();
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
-    protected void populateRequiredData() {
-        super.populateRequiredData();
-        ArtifactResolutionService artifactResolutionService = (ArtifactResolutionService) target;
-        artifactResolutionService.setResponseLocation(null);
-    }
-
-    public void testResponseLocationFailure() throws ValidationException {
-        ArtifactResolutionService artifactResolutionService = (ArtifactResolutionService) target;
-
-        artifactResolutionService.setResponseLocation("response location");
-        assertValidationFail("Response Location was present, should raise Validation Exception");
     }
 }
