@@ -22,6 +22,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationURL;
 import org.opensaml.xml.XMLObject;
 
@@ -31,7 +32,7 @@ import org.opensaml.xml.XMLObject;
 public class OrganizationURLImpl extends AbstractMetadataSAMLObject implements OrganizationURL {
 
     /** Organization URL */
-    private String url;
+    private LocalizedString url;
 
     /**
      * Constructor
@@ -54,14 +55,14 @@ public class OrganizationURLImpl extends AbstractMetadataSAMLObject implements O
     /*
      * @see org.opensaml.saml2.metadata.OrganizationURL#getURL()
      */
-    public String getURL() {
+    public LocalizedString getURL() {
         return url;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.OrganizationURL#setURL(java.lang.String)
      */
-    public void setURL(String newURL) {
+    public void setURL(LocalizedString newURL) {
         url = prepareForAssignment(url, newURL);
     }
 

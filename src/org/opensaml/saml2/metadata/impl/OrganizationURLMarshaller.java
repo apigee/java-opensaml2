@@ -58,7 +58,7 @@ public class OrganizationURLMarshaller extends AbstractSAMLObjectMarshaller {
         OrganizationURL url = (OrganizationURL) samlObject;
 
         if (url.getURL() != null) {
-            XMLHelper.appendTextContent(domElement, url.getURL());
+            XMLHelper.appendTextContent(domElement, url.getURL().getLocalString() + "," + url.getURL().getLanguage());
         }
     }
 }
