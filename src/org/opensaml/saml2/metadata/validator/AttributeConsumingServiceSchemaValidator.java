@@ -43,7 +43,7 @@ public class AttributeConsumingServiceSchemaValidator implements Validator {
 
         validateIndex(attributeConsumingService);
         validateServiceNames(attributeConsumingService);
-        // RequestedAttribute not yet implemented: validateRequestedAttributes(attributeConsumingService);
+        validateRequestedAttributes(attributeConsumingService);
     }
 
     /**
