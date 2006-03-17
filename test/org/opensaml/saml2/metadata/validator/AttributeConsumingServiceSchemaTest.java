@@ -21,6 +21,7 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
+import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml2.metadata.ServiceName;
 import org.opensaml.xml.validation.ValidationException;
 
@@ -44,11 +45,11 @@ public class AttributeConsumingServiceSchemaTest extends SAMLObjectValidatorBase
         AttributeConsumingService attributeConsumingService = (AttributeConsumingService) target;
         ServiceName name = (ServiceName) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX));
-        // not yet implemented RequestedAttribute attribute = (RequestedAttribute) buildXMLObject (new
-        // QName(SAMLConstants.SAML20MD_NS, RequestedAttribute.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+        RequestedAttribute attribute = (RequestedAttribute) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
+                RequestedAttribute.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         attributeConsumingService.setIndex(5);
         attributeConsumingService.getNames().add(name);
-        // not yet implemented attributeConsumingService.getRequestAttributes().add(attribute);
+        attributeConsumingService.getRequestAttributes().add(attribute);
     }
 
     /**
@@ -58,7 +59,7 @@ public class AttributeConsumingServiceSchemaTest extends SAMLObjectValidatorBase
      */
     public void testIndexFailure() throws ValidationException {
         AttributeConsumingService attributeConsumingService = (AttributeConsumingService) target;
-        
+
         attributeConsumingService.setIndex(-3);
         assertValidationFail("Index was negative, should raise a Validation Exception.");
     }
@@ -78,7 +79,7 @@ public class AttributeConsumingServiceSchemaTest extends SAMLObjectValidatorBase
     public void testRequestedAttributeFailure() throws ValidationException {
         AttributeConsumingService attributeConsumingService = (AttributeConsumingService) target;
 
-        // attributeConsumingService.getRequestAttributes().clear();
-        // assertValidationFail("Requested Attributes list was empty, should raise a Validation Exception");
+        attributeConsumingService.getRequestAttributes().clear();
+        assertValidationFail("Requested Attributes list was empty, should raise a Validation Exception");
     }
 }
