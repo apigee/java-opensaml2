@@ -15,12 +15,13 @@
  */
 package org.opensaml.common;
 
+import org.opensaml.xml.DOMCachingXMLObject;
 import org.opensaml.xml.validation.ValidatingXMLObject;
 
 /**
  * A base interface for all SAML Objects.
  */
-public interface SAMLObject extends ValidatingXMLObject {
+public interface SAMLObject extends ValidatingXMLObject, DOMCachingXMLObject {
 
     /**
      * Gets the SAML version for this object.
