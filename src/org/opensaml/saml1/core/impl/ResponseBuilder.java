@@ -16,13 +16,16 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
+import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Class whose sole jobe is the creation of a {@link ResponseImpl} object
  */
-public class ResponseBuilder implements XMLObjectBuilder {
+public class ResponseBuilder extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
@@ -36,6 +39,13 @@ public class ResponseBuilder implements XMLObjectBuilder {
      */
     public XMLObject buildObject() {
 
-        return new ResponseImpl();
+        return new ResponseImpl(null);
+    }
+
+    /*
+     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     */
+    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
+        return new ResponseImpl(getVersion(domElement, context, ResponseAbstractType.MINORVERSION_ATTRIB_NAME));
     }
 }

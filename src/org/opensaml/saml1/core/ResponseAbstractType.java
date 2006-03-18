@@ -58,9 +58,6 @@ public interface ResponseAbstractType extends SAMLObject, SignableXMLObject {
     /** Return the Minor Version (attribute). */
     int getMinorVersion();
 
-    /** Set the Minor Version (attribute). */
-    void setMinorVersion(int version);
-
     /** Return the Issue Instant (attribute). */
     DateTime getIssueInstant();
 

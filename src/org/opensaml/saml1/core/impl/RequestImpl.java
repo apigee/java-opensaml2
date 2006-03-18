@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AssertionIDReference;
@@ -48,9 +49,17 @@ public class RequestImpl extends RequestAbstractTypeImpl implements Request {
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected RequestImpl() {
-        super(Request.LOCAL_NAME);
+    private RequestImpl()
+    {
+        super(Request.LOCAL_NAME, null);
+        assertionIDReferences = null;
+        assertionArtifacts = null;
+    }
+    
+    protected RequestImpl(SAMLVersion version) {
+        super(Request.LOCAL_NAME, version);
         setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
         assertionIDReferences = new XMLObjectChildrenList<AssertionIDReference>(this);
         assertionArtifacts = new XMLObjectChildrenList<AssertionArtifact>(this);

@@ -91,7 +91,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl();
+        SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl(null);
 
         assertEquals(expectedDOM, subjectConfirmation);
     }
@@ -108,11 +108,11 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
      */
 
     public void testFullElementsMarshall() {
-        SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl();
+        SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl(null);
 
-        subjectConfirmation.getConfirmationMethods().add(new ConfirmationMethodImpl());
-        subjectConfirmation.getConfirmationMethods().add(new ConfirmationMethodImpl());
-        subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl());
+        subjectConfirmation.getConfirmationMethods().add(new ConfirmationMethodImpl(null));
+        subjectConfirmation.getConfirmationMethods().add(new ConfirmationMethodImpl(null));
+        subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl(null));
 
         assertEquals(expectedFullDOM, subjectConfirmation);
     }

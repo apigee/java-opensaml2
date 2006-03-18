@@ -47,11 +47,12 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
     private final IndexedXMLObjectChildrenList<Condition> conditions = new IndexedXMLObjectChildrenList<Condition>(this);
 
     /**
-     * Constructor
-     *
+     * Hidden Constructor
+     * @deprecated
+     */
     private ConditionsImpl() {
-        super(Conditions.LOCAL_NAME);
-    }*/
+        super(Conditions.LOCAL_NAME, null);
+    }
 
     /**
      * Constructor

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
@@ -46,14 +47,25 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected AuthorizationDecisionStatementImpl() {
-        super(AuthorizationDecisionStatement.LOCAL_NAME);
+    private AuthorizationDecisionStatementImpl() {
+        super(AuthorizationDecisionStatement.LOCAL_NAME, null);
+
+        actions = null;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param version the version to create the object with
+     */
+    protected AuthorizationDecisionStatementImpl(SAMLVersion version) {
+        super(AuthorizationDecisionStatement.LOCAL_NAME, version);
 
         actions = new XMLObjectChildrenList<Action>(this);
     }
-
-    /*
+   /*
      * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#getResource()
      */
     public String getResource() {

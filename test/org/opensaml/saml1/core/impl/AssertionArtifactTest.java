@@ -66,7 +66,7 @@ public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
         
-        assertEquals(expectedDOM, buildXMLObject(qname));
+        assertEquals(expectedDOM, buildXMLObject(qname, null));
     }
 
     /*
@@ -75,7 +75,7 @@ public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
         
-        AssertionArtifact artifact = (AssertionArtifact) buildXMLObject(qname);
+        AssertionArtifact artifact = (AssertionArtifact) buildXMLObject(qname, null);
         artifact.setAssertionArtifact(expectedAssertionArtifact);
         assertEquals(expectedOptionalAttributesDOM, artifact);
     }

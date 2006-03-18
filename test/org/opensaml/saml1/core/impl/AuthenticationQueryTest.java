@@ -86,7 +86,7 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
         
-        assertEquals(expectedDOM, buildXMLObject(qname));
+        assertEquals(expectedDOM, buildXMLObject(qname, null));
     }
 
     /**
@@ -94,7 +94,7 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
-        AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildXMLObject(qname);
+        AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildXMLObject(qname, null);
 
         authenticationQuery.setAuthenticationMethod(expectedAuthenticationMethod);
         assertEquals(expectedOptionalAttributesDOM, authenticationQuery);
@@ -105,9 +105,9 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
-        AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildXMLObject(qname);
+        AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildXMLObject(qname, null);
 
-        authenticationQuery.setSubject(new SubjectImpl());
+        authenticationQuery.setSubject(new SubjectImpl(null));
         assertEquals(expectedChildElementsDOM, authenticationQuery);
 
     }

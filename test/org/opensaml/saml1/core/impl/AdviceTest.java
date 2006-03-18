@@ -62,7 +62,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        Advice advice = new AdviceImpl();
+        Advice advice = new AdviceImpl(null);
 
         assertEquals(expectedDOM, advice);
     }
@@ -72,11 +72,11 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        Advice advice = new AdviceImpl();
+        Advice advice = new AdviceImpl(null);
 
-        advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
+        advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl(null));
         advice.getAssertions().add(new AssertionImpl(null));
-        advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
+        advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl(null));
 
         assertEquals(expectedChildElementsDOM, advice);
     }

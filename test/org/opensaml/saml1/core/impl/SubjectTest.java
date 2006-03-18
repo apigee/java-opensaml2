@@ -62,7 +62,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        Subject subject = new SubjectImpl();
+        Subject subject = new SubjectImpl(null);
 
         assertEquals(expectedDOM, subject);
     }
@@ -72,10 +72,10 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        Subject subject = new SubjectImpl();
+        Subject subject = new SubjectImpl(null);
 
-        subject.setNameIdentifier(new NameIdentifierImpl());
-        subject.setSubjectConfirmation(new SubjectConfirmationImpl());
+        subject.setNameIdentifier(new NameIdentifierImpl(null));
+        subject.setSubjectConfirmation(new SubjectConfirmationImpl(null));
 
         assertEquals(expectedChildElementsDOM, subject);
     }

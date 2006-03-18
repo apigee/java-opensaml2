@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 
 /** Class whose sole job is the creation of a {@link AssertionImpl} object */
 
-public class AssertionBuilder extends SAMLObjectBuilder {
+public class AssertionBuilder extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor

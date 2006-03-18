@@ -20,14 +20,16 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
-import org.opensaml.saml1.core.impl.AttributeStatementImpl;
+import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.saml1.core.impl.AbstractSAMLObjectBuilder;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AssertionSchemaValidator}.
  */
-public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AssertionSchemaTest extends SAML1ObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AssertionSchemaTest() {
@@ -46,7 +48,8 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         assertion.setIssuer("Issuer");
         assertion.setID("ident");
         assertion.setIssueInstant(new DateTime());
-        assertion.getStatements().add(new AttributeStatementImpl());
+        QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        assertion.getStatements().add((AttributeStatement)buildXMLObject(name, context));
     }
     
     public void testMissingID(){

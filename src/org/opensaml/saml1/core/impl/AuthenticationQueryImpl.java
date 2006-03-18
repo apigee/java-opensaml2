@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.AuthenticationQuery;
 import org.opensaml.xml.XMLObject;
 
@@ -33,11 +34,20 @@ public class AuthenticationQueryImpl extends SubjectQueryImpl implements Authent
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected AuthenticationQueryImpl() {
-        super(AuthenticationQuery.LOCAL_NAME);
+    private AuthenticationQueryImpl() {
+        super(AuthenticationQuery.LOCAL_NAME, null);
     }
-
+    
+    /**
+     * Constructor
+     *
+     * @param version the version to set the object to
+     */
+    protected AuthenticationQueryImpl(SAMLVersion version) {
+        super(AuthenticationQuery.LOCAL_NAME, version);
+    }
     /*
      * @see org.opensaml.saml1.core.AuthenticationQuery#getAuthenticationMethod()
      */

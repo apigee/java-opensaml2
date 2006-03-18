@@ -45,10 +45,7 @@ public interface RequestAbstractType extends SAMLObject, SignableXMLObject {
 
     /** Get the Minor Version */
     public int getMinorVersion();
-    
-    /** Set the Minor Version */
-    public void setMinorVersion(int version);
-    
+      
     /** Get the issue instant */
     public DateTime getIssueInstant();
  

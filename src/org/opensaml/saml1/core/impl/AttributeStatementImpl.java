@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
 import org.opensaml.xml.XMLObject;
@@ -34,14 +35,23 @@ public class AttributeStatementImpl extends SubjectStatementImpl implements Attr
     private final List<Attribute> attributes;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    public AttributeStatementImpl() {
-        super(AttributeStatement.LOCAL_NAME);
+    private AttributeStatementImpl() {
+        super(AttributeStatement.LOCAL_NAME, null);
 
+        attributes = null;
+    }
+    /**
+     * Constructor
+     *
+     * @param version the version to set
+     */
+    protected AttributeStatementImpl(SAMLVersion version) {
+        super(AttributeStatement.LOCAL_NAME, version);
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
-
     /*
      * @see org.opensaml.saml1.core.AttributeStatement#getAttributes()
      */

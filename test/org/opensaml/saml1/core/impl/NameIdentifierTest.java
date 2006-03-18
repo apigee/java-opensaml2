@@ -72,7 +72,7 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        NameIdentifier nameIdentifier = new NameIdentifierImpl();
+        NameIdentifier nameIdentifier = new NameIdentifierImpl(null);
         
         assertEquals(expectedDOM, nameIdentifier);
     }
@@ -82,7 +82,7 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        NameIdentifier nameIdentifier = new NameIdentifierImpl();
+        NameIdentifier nameIdentifier = new NameIdentifierImpl(null);
         
         nameIdentifier.setFormat(expectedFormat);
         nameIdentifier.setNameIdentifier(expectedNameIdentifier);

@@ -69,14 +69,14 @@ public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AttributeDesignatorImpl());
+        assertEquals(expectedDOM, new AttributeDesignatorImpl(null));
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        AttributeDesignator ad = new AttributeDesignatorImpl();
+        AttributeDesignator ad = new AttributeDesignatorImpl(null);
 
         ad.setAttributeName(expectedAttributeName);
         ad.setAttributeNamespace(expectedAttributeNamespace);

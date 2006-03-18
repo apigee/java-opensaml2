@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
@@ -43,9 +44,21 @@ public class AuthorizationDecisionQueryImpl extends SubjectQueryImpl implements 
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected AuthorizationDecisionQueryImpl() {
-        super(AuthorizationDecisionQuery.LOCAL_NAME);
+    private AuthorizationDecisionQueryImpl() {
+        super(AuthorizationDecisionQuery.LOCAL_NAME, null);
+        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
+        actions = null;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param version the {@link SAMLVersion} to create
+     */
+    protected AuthorizationDecisionQueryImpl(SAMLVersion version) {
+        super(AuthorizationDecisionQuery.LOCAL_NAME, version);
         setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
         actions = new XMLObjectChildrenList<Action>(this);
     }

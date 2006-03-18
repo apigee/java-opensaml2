@@ -70,7 +70,7 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        StatusCode code = new StatusCodeImpl();
+        StatusCode code = new StatusCodeImpl(null);
 
         code.setValue(value);
 
@@ -83,11 +83,11 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
     @Override
     public void testChildElementsMarshall() {
 
-        StatusCode code = new StatusCodeImpl();
+        StatusCode code = new StatusCodeImpl(null);
 
         code.setValue(value);
 
-        code.setStatusCode(new StatusCodeImpl());
+        code.setStatusCode(new StatusCodeImpl(null));
 
         code.getStatusCode().setValue(childValue);
 

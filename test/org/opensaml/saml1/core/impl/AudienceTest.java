@@ -66,7 +66,7 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        Audience audience = new AudienceImpl();
+        Audience audience = new AudienceImpl(null);
         
         assertEquals(expectedDOM, audience);
     }
@@ -76,7 +76,7 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        Audience audience = new AudienceImpl();
+        Audience audience = new AudienceImpl(null);
         
         audience.setUri(expectedUri);
         assertEquals(expectedOptionalAttributesDOM, audience);

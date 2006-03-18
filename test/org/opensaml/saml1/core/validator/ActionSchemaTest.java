@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.Action;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.ActionSchemaValidator}.
  */
-public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class ActionSchemaTest extends SAML1ObjectValidatorBaseTestCase {
 
     /** Constructor */
     public ActionSchemaTest() {

@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.xml.XMLObject;
 
@@ -30,12 +31,22 @@ public class AssertionArtifactImpl extends AbstractProtocolSAMLObject implements
     private String assertionArtifact;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    public AssertionArtifactImpl() {
-        super(AssertionArtifact.LOCAL_NAME);
+    private AssertionArtifactImpl() {
+        super(AssertionArtifact.LOCAL_NAME, null);
     }
 
+    /**
+     * Constructor
+     *
+     * @param version the version to create with
+     */
+    protected AssertionArtifactImpl(SAMLVersion version) {
+        super(AssertionArtifact.LOCAL_NAME, version);
+    } 
+    
     /*
      * @see org.opensaml.saml1.core.AssertionArtifact#getAssertionArtifact()
      */

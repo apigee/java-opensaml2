@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectConfirmation;
@@ -37,12 +38,20 @@ public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject 
     private SubjectConfirmation subjectConfirmation;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    public SubjectImpl() {
-        super(Subject.LOCAL_NAME);
+    private SubjectImpl() {
+        super(Subject.LOCAL_NAME, null);
     }
-
+    /**
+     * Constructor
+     *
+     * @param version the {@link SAMLVersion} to set
+     */
+    protected SubjectImpl(SAMLVersion version) {
+        super(Subject.LOCAL_NAME, version);
+    }
     /*
      * @see org.opensaml.saml1.core.Subject#getNameIdentifier()
      */

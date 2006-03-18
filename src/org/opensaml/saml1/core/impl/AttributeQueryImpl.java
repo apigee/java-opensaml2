@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.xml.XMLObject;
@@ -37,14 +38,20 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
     private final List<AttributeDesignator> attributeDesignators;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    protected AttributeQueryImpl() {
-        super(AttributeQuery.LOCAL_NAME);
+    private AttributeQueryImpl() {
+        super(AttributeQuery.LOCAL_NAME, null);
+
+        attributeDesignators = null;
+    }
+
+    protected AttributeQueryImpl(SAMLVersion version) {
+        super(AttributeQuery.LOCAL_NAME, version);
 
         attributeDesignators = new XMLObjectChildrenList<AttributeDesignator>(this);
     }
-
     /*
      * @see org.opensaml.saml1.core.AttributeQuery#getResource()
      */

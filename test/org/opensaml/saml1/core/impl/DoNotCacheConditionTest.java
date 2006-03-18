@@ -50,7 +50,7 @@ public class DoNotCacheConditionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        DoNotCacheCondition doNotCacheCondition = new DoNotCacheConditionImpl();
+        DoNotCacheCondition doNotCacheCondition = new DoNotCacheConditionImpl(null);
 
         assertEquals(expectedDOM, doNotCacheCondition);
     }

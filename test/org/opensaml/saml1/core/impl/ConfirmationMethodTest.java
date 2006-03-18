@@ -66,7 +66,7 @@ public class ConfirmationMethodTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        ConfirmationMethod confirmationMethod = new ConfirmationMethodImpl();
+        ConfirmationMethod confirmationMethod = new ConfirmationMethodImpl(null);
         
         assertEquals(expectedDOM, confirmationMethod);
     }
@@ -76,7 +76,7 @@ public class ConfirmationMethodTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        ConfirmationMethod confirmationMethod = new ConfirmationMethodImpl();
+        ConfirmationMethod confirmationMethod = new ConfirmationMethodImpl(null);
         confirmationMethod.setConfirmationMethod(expectedConfirmationMethod);
         
         assertEquals(expectedOptionalAttributesDOM, confirmationMethod);

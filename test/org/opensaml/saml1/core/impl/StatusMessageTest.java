@@ -64,7 +64,7 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        StatusMessage statusMessage = new StatusMessageImpl();
+        StatusMessage statusMessage = new StatusMessageImpl(null);
         
         assertEquals(expectedDOM, statusMessage);
     }
@@ -74,7 +74,7 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        StatusMessage statusMessage = new StatusMessageImpl();
+        StatusMessage statusMessage = new StatusMessageImpl(null);
 
         statusMessage.setMessage(contents);
         assertEquals(expectedOptionalAttributesDOM, statusMessage);

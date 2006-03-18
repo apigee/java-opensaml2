@@ -64,7 +64,7 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AttributeValueImpl());
+        assertEquals(expectedDOM, new AttributeValueImpl(null));
     }
 
     /*
@@ -72,7 +72,7 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        AttributeValue attributeValue = new AttributeValueImpl();
+        AttributeValue attributeValue = new AttributeValueImpl(null);
         
         attributeValue.setAttributeValue(expectedAttributeValue);
         assertEquals(expectedOptionalAttributesDOM, attributeValue);

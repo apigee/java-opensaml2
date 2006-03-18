@@ -90,7 +90,7 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
         
-        assertEquals(expectedDOM, buildXMLObject(qname));
+        assertEquals(expectedDOM, buildXMLObject(qname, null));
     }
 
     /**
@@ -99,7 +99,7 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
         AttributeQuery attributeQuery;
-        attributeQuery = (AttributeQuery) buildXMLObject(qname);
+        attributeQuery = (AttributeQuery) buildXMLObject(qname, null);
 
         attributeQuery.setResource(expectedResource);
         assertEquals(expectedOptionalAttributesDOM, attributeQuery);
@@ -111,14 +111,14 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
         AttributeQuery attributeQuery;
-        attributeQuery = (AttributeQuery) buildXMLObject(qname);
+        attributeQuery = (AttributeQuery) buildXMLObject(qname, null);
 
-        attributeQuery.setSubject(new SubjectImpl());
+        attributeQuery.setSubject(new SubjectImpl(null));
         List <AttributeDesignator> list = attributeQuery.getAttributeDesignators();
-        list.add(new AttributeDesignatorImpl());
-        list.add(new AttributeDesignatorImpl());
-        list.add(new AttributeDesignatorImpl());
-        list.add(new AttributeDesignatorImpl());
+        list.add(new AttributeDesignatorImpl(null));
+        list.add(new AttributeDesignatorImpl(null));
+        list.add(new AttributeDesignatorImpl(null));
+        list.add(new AttributeDesignatorImpl(null));
         assertEquals(expectedChildElementsDOM, attributeQuery);
 
     }

@@ -19,8 +19,10 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.RespondWith;
@@ -32,6 +34,9 @@ import org.w3c.dom.Attr;
  * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.RequestAbstractType} objects.
  */
 public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+
+    /** Logger */
+    private static Logger log = Logger.getLogger(RequestAbstractType.class);
 
     /**
      * Constructor
@@ -70,11 +75,27 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
             DateTime cal = new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC());
             request.setIssueInstant(cal);
         } else if (RequestAbstractType.MINORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {
-            request.setMinorVersion(Integer.parseInt(attribute.getValue()));
+            int minor;
+            try {
+                minor = Integer.parseInt(attribute.getValue());
+            } catch (NumberFormatException n) {
+                log.error("Parsing minor version ", n);
+                throw new UnmarshallingException(n);
+            }
+            if ((minor == 0 && request.getVersion() != SAMLVersion.VERSION_10) ||
+                (minor == 1 && request.getVersion() != SAMLVersion.VERSION_11)) {
+                log.error("MinorVersion mismatch");
+                throw new UnmarshallingException("MinorVersion mismatch");
+            }
         } else if (RequestAbstractType.MAJORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {
-            if (Integer.parseInt(attribute.getValue()) != 1) {
-                throw new UnmarshallingException(attribute.getValue() + " is invalid valued for "
-                        + RequestAbstractType.MAJORVERSION_ATTRIB_NAME + ": 1 expected");
+            try {
+                if (Integer.parseInt(attribute.getValue()) != 1) {
+                    log.error("SAML version must be 1");
+                    throw new UnmarshallingException("SAML version must be 1");
+                }
+            } catch (NumberFormatException n) {
+                log.error("Parsing major version ", n);
+                throw new UnmarshallingException(n);
             }
         } else {
             super.processAttribute(samlElement, attribute);

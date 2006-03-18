@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.xml.XMLObject;
 
@@ -36,10 +37,14 @@ public class NameIdentifierImpl extends AbstractAssertionSAMLObject implements N
     String nameIdentifier;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    protected NameIdentifierImpl() {
-        super(NameIdentifier.LOCAL_NAME);
+    private  NameIdentifierImpl() {
+        super(NameIdentifier.LOCAL_NAME, null);
+    }
+    protected NameIdentifierImpl(SAMLVersion version) {
+        super(NameIdentifier.LOCAL_NAME, version);
     }
 
     /*

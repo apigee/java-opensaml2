@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
@@ -35,17 +36,29 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
     private Status status = null;
 
     /** List of all the Assertions */
-    private List<Assertion> assertions;
+    private final List<Assertion> assertions;
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected ResponseImpl() {
-        super(Response.LOCAL_NAME);
+    private ResponseImpl() {
+        super(Response.LOCAL_NAME, null);
 
         assertions = new XMLObjectChildrenList<Assertion>(this);
     }
 
+    /**
+     * Constructor
+     *
+     * @param version
+     */
+    protected ResponseImpl(SAMLVersion version)
+    {
+        super(Response.LOCAL_NAME, version);
+        assertions = new XMLObjectChildrenList<Assertion>(this);
+    }
+    
     /*
      * @see org.opensaml.saml1.core.Response#getAssertions()
      */

@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.SubjectLocality;
 import org.opensaml.xml.XMLObject;
 
@@ -33,10 +34,20 @@ public class SubjectLocalityImpl extends AbstractAssertionSAMLObject implements 
     private String DNSAddress;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    protected SubjectLocalityImpl() {
-        super(SubjectLocality.LOCAL_NAME);
+    private SubjectLocalityImpl() {
+        super(SubjectLocality.LOCAL_NAME, null);
+    }
+    
+    /**
+     * Constructor
+     *
+     * @param version the version to set
+     */
+    protected SubjectLocalityImpl(SAMLVersion version) {
+        super(SubjectLocality.LOCAL_NAME, version);
     }
 
     /*

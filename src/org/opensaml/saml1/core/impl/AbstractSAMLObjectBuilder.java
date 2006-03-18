@@ -26,17 +26,15 @@ import org.w3c.dom.Element;
 
 /** Class whose sole job is the creation of a {@link AssertionImpl} object */
 
-public abstract class SAMLObjectBuilder implements ExtendedXMLObjectBuilder {
+public abstract class AbstractSAMLObjectBuilder implements ExtendedXMLObjectBuilder {
 
     /** The name we use to look up the version in the context */
     
-    protected static final String contextVersion = "org.opensaml.saml1.core.impl.contextVersion"; 
+    public static final String contextVersion = "org.opensaml.saml1.core.impl.contextVersion"; 
     
-    private static final SAMLVersion defaultVersion = SAMLVersion.VERSION_11;
-    
-    /**
+   /**
      * This method returns the version from the provided context.  If this fails 
-     * it returns the default.
+     * it returns null.
      * @param context The unmarshalling context
      * @return the correct SAML verison
      */
@@ -51,19 +49,15 @@ public abstract class SAMLObjectBuilder implements ExtendedXMLObjectBuilder {
         if (context != null) {
             version = (SAMLVersion) context.get(SAMLConstants.SAML1_NS);
         }
-        if (version == null) {
-            version = defaultVersion;
-        }   
+ 
         return version;
     } 
     
     /**
      * This method, for the use of elements with a MinorId attribute
-     * looks up the version in the DOM and returns the value.  If this fails
-     * it looks up the value in the context
+     * looks up the version in the DOM and returns the value.  
      * 
      * @param domElement the dom element for the object under construction 
-     * @param context the unmarshalling context
      * @param attributename the name for the minor version attribute 
      * ("MinorVersion" one assumes)
      * @return the correct SAML version
@@ -88,9 +82,8 @@ public abstract class SAMLObjectBuilder implements ExtendedXMLObjectBuilder {
                 version = SAMLVersion.VERSION_10;
             }
         } 
-        
         if (version == null) {
-            version = getVersion(context);
+            return getVersion(context);
         }
         return version;
     }

@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.xml.XMLObject;
 
@@ -31,9 +32,19 @@ public class ConfirmationMethodImpl extends AbstractAssertionSAMLObject implemen
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected ConfirmationMethodImpl() {
-        super(ConfirmationMethod.LOCAL_NAME);
+    private ConfirmationMethodImpl() {
+        super(ConfirmationMethod.LOCAL_NAME, null);
+    }
+
+    /**
+     * Constructor
+     *
+     * @param version the version to set
+     */
+    protected ConfirmationMethodImpl(SAMLVersion version) {
+        super(ConfirmationMethod.LOCAL_NAME, version);
     }
 
     /*

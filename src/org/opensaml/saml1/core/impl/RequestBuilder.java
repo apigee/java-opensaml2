@@ -16,13 +16,16 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
+import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Class which is here to create a {@link RequestImpl} object
  */
-public class RequestBuilder implements XMLObjectBuilder {
+public class RequestBuilder extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
@@ -35,6 +38,13 @@ public class RequestBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new RequestImpl();
+        return new RequestImpl(null);
+    }
+
+    /*
+     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     */
+    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
+        return new RequestImpl(getVersion(domElement, context, RequestAbstractType.MINORVERSION_ATTRIB_NAME));
     }
 }

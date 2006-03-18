@@ -19,11 +19,15 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
@@ -44,7 +48,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
     private final DateTime expectedIssueInstant;
 
     private final int expectedMinorVersion;
-
+    
     public RequestTest() {
         expectedID = "ident";
         singleElementFile = "/data/org/opensaml/saml1/singleRequest.xml";
@@ -116,7 +120,11 @@ public class RequestTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Request.LOCAL_NAME);
-        Request request= (Request) buildXMLObject(qname);
+        
+        Map<String, Object> context = new HashMap<String, Object>(1);
+        context.put(AbstractSAMLObjectBuilder.contextVersion, null);
+        
+        Request request= (Request) buildXMLObject(qname, context);
 
         assertEquals(expectedDOM, request);
     }
@@ -125,12 +133,11 @@ public class RequestTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1P_NS, Request.LOCAL_NAME);
-        Request request = (Request) buildXMLObject(qname);
+        
+        Request request = new RequestImpl(SAMLVersion.VERSION_11);
 
         request.setID(expectedID);
         request.setIssueInstant(expectedIssueInstant);
-        request.setMinorVersion(expectedMinorVersion);
         assertEquals(expectedOptionalAttributesDOM, request);
     }
 
@@ -140,6 +147,8 @@ public class RequestTest extends SAMLObjectBaseTestCase {
     public void testSingleElementChildrenMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Request.LOCAL_NAME);
         QName oqname;
+        Map<String, Object> context = new HashMap<String, Object>(1);
+        context.put(AbstractSAMLObjectBuilder.contextVersion, null);
 
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         Request request; 
@@ -149,26 +158,26 @@ public class RequestTest extends SAMLObjectBaseTestCase {
         try {
             dom = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                         .getResourceAsStream("/data/org/opensaml/saml1/RequestWithAssertionArtifact.xml")));
-            request = (Request) buildXMLObject(qname); 
+            request = (Request) buildXMLObject(qname, context); 
             oqname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
-            request.getAssertionArtifacts().add((AssertionArtifact) buildXMLObject(oqname));
-            request.getAssertionArtifacts().add((AssertionArtifact) buildXMLObject(oqname));
+            request.getAssertionArtifacts().add((AssertionArtifact) buildXMLObject(oqname, context));
+            request.getAssertionArtifacts().add((AssertionArtifact) buildXMLObject(oqname, context));
             assertEquals(dom, request);
           
             dom = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                     .getResourceAsStream("/data/org/opensaml/saml1/RequestWithAssertionIDReference.xml")));
-            request = (Request) buildXMLObject(qname); 
+            request = (Request) buildXMLObject(qname, context); 
             oqname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
-            request.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(oqname));
-            request.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(oqname));
-            request.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(oqname));
+            request.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(oqname, context));
+            request.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(oqname, context));
+            request.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(oqname, context));
             assertEquals(dom, request);
 
             dom = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
                     .getResourceAsStream("/data/org/opensaml/saml1/RequestWithQuery.xml")));
-            request = (Request) buildXMLObject(qname); 
+            request = (Request) buildXMLObject(qname, context); 
             oqname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
-            request.setQuery((AttributeQuery) buildXMLObject(oqname));
+            request.setQuery((AttributeQuery) buildXMLObject(oqname, context));
             assertEquals(dom, request);
 
         } catch (XMLParserException e) {

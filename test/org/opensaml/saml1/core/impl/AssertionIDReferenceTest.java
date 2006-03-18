@@ -71,7 +71,7 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        AssertionIDReference assertionIDReference = new AssertionIDReferenceImpl();
+        AssertionIDReference assertionIDReference = new AssertionIDReferenceImpl(null);
 
         assertEquals(expectedDOM, assertionIDReference);
     }
@@ -82,10 +82,9 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        AssertionIDReference assertionIDReference = new AssertionIDReferenceImpl();
+        AssertionIDReference assertionIDReference = new AssertionIDReferenceImpl(null);
 
         assertionIDReference.setNCName(expectedNCName);
         assertEquals(expectedOptionalAttributesDOM, assertionIDReference);
     }
-
 }

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
 import org.opensaml.xml.XMLObject;
@@ -35,12 +36,25 @@ public class AttributeImpl extends AttributeDesignatorImpl implements Attribute 
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected AttributeImpl() {
-        super(Attribute.LOCAL_NAME);
+    private AttributeImpl() {
+        super(Attribute.LOCAL_NAME, null);
+
+        attributeValues = null;
+    }
+   
+    /**
+     * Constructor
+     *
+     * @param version the version it is being build
+     */
+    protected AttributeImpl(SAMLVersion version) {
+        super(Attribute.LOCAL_NAME, version);
 
         attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
     }
+    
 
     /*
      * @see org.opensaml.saml1.core.Attribute#getAttributeValues()

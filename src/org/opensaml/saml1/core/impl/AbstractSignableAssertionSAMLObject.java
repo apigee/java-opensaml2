@@ -49,30 +49,4 @@ public abstract class AbstractSignableAssertionSAMLObject extends AbstractSignab
         super(namespaceURI, elementLocalName, namespacePrefix);
         setSAMLVersion(version);
    }
-    /**
-     * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to
-     * {@link SAMLConstants#SAML1_PREFIX}.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
-     * 
-     * @param localName the local name of the element
-     * @deprecated
-     */
-    protected AbstractSignableAssertionSAMLObject(String localName) {
-        super(SAMLConstants.SAML1_NS, localName, SAMLConstants.SAML1_PREFIX);
-        setSAMLVersion(SAMLObjectBuilder.getVersion(null));
-    }
-
-    /**
-     * Constructor.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
-     * 
-     * @param namespaceURI the namespace the element is in
-     * @param elementLocalName the local name of the XML element this Object represents
-     * @param namespacePrefix the prefix for the given namespace
-     * @deprecated
-     */
-    protected AbstractSignableAssertionSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);
-        setSAMLVersion(SAMLObjectBuilder.getVersion(null));
-    }
-
-
 }

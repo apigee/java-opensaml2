@@ -156,16 +156,16 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         Assertion assertion = new AssertionImpl(null);
 
         assertion.setConditions(new ConditionsImpl(null));
-        assertion.setAdvice(new AdviceImpl());
+        assertion.setAdvice(new AdviceImpl(null));
 
-        assertion.getStatements().add(new AuthenticationStatementImpl());
-        assertion.getStatements().add(new AuthorizationDecisionStatementImpl());
-        assertion.getStatements().add(new AttributeStatementImpl());
-        assertion.getStatements().add(new AuthenticationStatementImpl());
-        assertion.getStatements().add(new AuthorizationDecisionStatementImpl());
-        assertion.getStatements().add(new AttributeStatementImpl());
-        assertion.getStatements().add(new AuthorizationDecisionStatementImpl());
-        assertion.getStatements().add(new AttributeStatementImpl());
+        assertion.getStatements().add(new AuthenticationStatementImpl(null));
+        assertion.getStatements().add(new AuthorizationDecisionStatementImpl(null));
+        assertion.getStatements().add(new AttributeStatementImpl(null));
+        assertion.getStatements().add(new AuthenticationStatementImpl(null));
+        assertion.getStatements().add(new AuthorizationDecisionStatementImpl(null));
+        assertion.getStatements().add(new AttributeStatementImpl(null));
+        assertion.getStatements().add(new AuthorizationDecisionStatementImpl(null));
+        assertion.getStatements().add(new AttributeStatementImpl(null));
 
         assertEquals(expectedChildElementsDOM, assertion);
     }

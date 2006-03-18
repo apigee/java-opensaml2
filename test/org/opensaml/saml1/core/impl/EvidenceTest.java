@@ -65,7 +65,7 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new EvidenceImpl());
+        assertEquals(expectedDOM, new EvidenceImpl(null));
     }
 
     /*
@@ -73,12 +73,12 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        Evidence evidence = new EvidenceImpl();
+        Evidence evidence = new EvidenceImpl(null);
 
-        evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
+        evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl(null));
         evidence.getAssertions().add(new AssertionImpl(null));
         evidence.getAssertions().add(new AssertionImpl(null));
-        evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
+        evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl(null));
 
         assertEquals(expectedChildElementsDOM, evidence);
     }

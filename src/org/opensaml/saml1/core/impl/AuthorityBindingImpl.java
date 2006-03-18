@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.XMLObject;
 
@@ -38,12 +39,21 @@ public class AuthorityBindingImpl extends AbstractAssertionSAMLObject implements
     private String binding;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    protected AuthorityBindingImpl() {
-        super(AuthorityBinding.LOCAL_NAME);
+    private AuthorityBindingImpl() {
+        super(AuthorityBinding.LOCAL_NAME, null);
     }
 
+    /**
+     * Constructor
+     *
+     * @param version the version to set
+     */
+    protected AuthorityBindingImpl(SAMLVersion version) {
+        super(AuthorityBinding.LOCAL_NAME, version);
+    }
     /*
      * @see org.opensaml.saml1.core.AuthorityBinding#getAuthorityKind()
      */

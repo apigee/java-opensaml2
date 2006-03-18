@@ -16,13 +16,15 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * A class to create NameIdentifierImpl Objects
  */
-public class NameIdentifierBuilder implements XMLObjectBuilder {
+public class NameIdentifierBuilder  extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
@@ -35,6 +37,13 @@ public class NameIdentifierBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new NameIdentifierImpl();
+        return new NameIdentifierImpl(null);
+    }
+
+    /*
+     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     */
+    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
+        return new NameIdentifierImpl(getVersion(context));
     }
 }

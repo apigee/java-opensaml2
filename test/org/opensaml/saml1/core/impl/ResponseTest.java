@@ -20,11 +20,15 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
@@ -125,7 +129,9 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        Response response = (Response) buildXMLObject(qname);
+        Map<String, Object> context = new HashMap<String, Object>(1);
+        context.put(AbstractSAMLObjectBuilder.contextVersion, null);
+        Response response = (Response) buildXMLObject(qname, null);
 
         assertEquals(expectedDOM, response);
     }
@@ -134,14 +140,12 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        Response response = (Response) buildXMLObject(qname);
+        Response response = new ResponseImpl(SAMLVersion.VERSION_11);
 
         response.setID(expectedID);
         response.setInResponseTo(expectedInResponseTo);
         response.setIssueInstant(expectedIssueInstant);
         response.setRecipient(expectedRecipient);
-        response.setMinorVersion(expectedMinorVersion);
 
         assertEquals(expectedOptionalAttributesDOM, response);
     }
@@ -151,13 +155,14 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        Response response = (Response) buildXMLObject(qname);
+        Map<String, Object> context = new HashMap<String, Object>(1);
+        context.put(AbstractSAMLObjectBuilder.contextVersion, null);
+        Response response = (Response) buildXMLObject(qname, null);
 
         response.getAssertions().add(new AssertionImpl(null));
-        response.setStatus(new StatusImpl());
+        response.setStatus(new StatusImpl(null));
 
         assertEquals(expectedChildElementsDOM, response);
 
     }
-
 }

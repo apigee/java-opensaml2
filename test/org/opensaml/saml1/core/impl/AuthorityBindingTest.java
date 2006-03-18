@@ -80,7 +80,7 @@ public class AuthorityBindingTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AuthorityBindingImpl());
+        assertEquals(expectedDOM, new AuthorityBindingImpl(null));
     }
 
     /*
@@ -88,7 +88,7 @@ public class AuthorityBindingTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        AuthorityBinding authorityBinding = new AuthorityBindingImpl();
+        AuthorityBinding authorityBinding = new AuthorityBindingImpl(null);
         authorityBinding.setAuthorityKind(expectedAuthorityKind);
         authorityBinding.setBinding(expectedBinding);
         authorityBinding.setLocation(expectedLocation);

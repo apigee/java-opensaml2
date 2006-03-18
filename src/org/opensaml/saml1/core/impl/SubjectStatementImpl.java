@@ -36,24 +36,25 @@ public abstract class SubjectStatementImpl extends AbstractAssertionSAMLObject i
 
     /**
      * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to
-     * {@link SAMLConstants#SAML1_PREFIX}.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * {@link SAMLConstants#SAML1_PREFIX}.
      * 
      * @param localName the local name of the element
+     * @param version the version to set
      */
-    protected SubjectStatementImpl(String elementLocalName) {
-        super(elementLocalName);
+    protected SubjectStatementImpl(String elementLocalName, SAMLVersion version) {
+        super(elementLocalName, version);
     }
     
     /**
-     * Constructor.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * Constructor.  
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
-     */
-    protected SubjectStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);
-        setSAMLVersion(SAMLVersion.VERSION_11);
+    * @param version the version to set
+      */
+    protected SubjectStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
+        super(namespaceURI, elementLocalName, namespacePrefix, version);
     }
 
     /*

@@ -67,7 +67,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new ActionImpl());
+        assertEquals(expectedDOM, new ActionImpl(null));
     }
 
     /*
@@ -75,7 +75,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        Action action = new ActionImpl();
+        Action action = new ActionImpl(null);
         action.setNamespace(expectedNamespace);
         action.setContents(expectedContents);
         assertEquals(expectedOptionalAttributesDOM, action);

@@ -21,6 +21,7 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.xml.XMLObject;
 
@@ -36,20 +37,29 @@ public class AttributeDesignatorImpl extends AbstractAssertionSAMLObject impleme
     private String attributeNamespace;
 
     /**
-     * Constructor
-     *
+     * Hidden Constructor
+     * @deprecated 
      */
-     protected AttributeDesignatorImpl() {
-        super(AttributeDesignator.LOCAL_NAME);
+     private AttributeDesignatorImpl() {
+        super(AttributeDesignator.LOCAL_NAME, null);
     }
     
     /**
      * Constructor
      *
-     * @param elementLocalName
+     * @param version the version we want it to have
      */
-    protected AttributeDesignatorImpl(String elementLocalName) {
-        super(elementLocalName);
+    protected AttributeDesignatorImpl(SAMLVersion version) {
+        super(AttributeDesignator.LOCAL_NAME, version);
+    }
+    
+    /**
+     * Constructor
+     * @param elementLocalName
+     * @param version the version we want it to have
+     */
+    protected AttributeDesignatorImpl(String elementLocalName, SAMLVersion version) {
+        super(elementLocalName, version);
     }
 
 
@@ -59,9 +69,10 @@ public class AttributeDesignatorImpl extends AbstractAssertionSAMLObject impleme
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix
+     * @param version the version we want it to have
      */
-    protected AttributeDesignatorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);
+    protected AttributeDesignatorImpl(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
+        super(namespaceURI, elementLocalName, namespacePrefix, version);
     }
 
     /*

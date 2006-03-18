@@ -71,7 +71,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new SubjectLocalityImpl());
+        assertEquals(expectedDOM, new SubjectLocalityImpl(null));
     }
 
     /*
@@ -79,7 +79,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        SubjectLocality subjectLocality = new SubjectLocalityImpl();
+        SubjectLocality subjectLocality = new SubjectLocalityImpl(null);
         
         subjectLocality.setDNSAddress(expectedDNSAddress);
         subjectLocality.setIPAddress(expectedIPAddress);

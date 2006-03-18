@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.xml.XMLObject;
@@ -36,9 +37,13 @@ public class AudienceRestrictionConditionImpl extends AbstractSignableAssertionS
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected AudienceRestrictionConditionImpl() {
-        super(AudienceRestrictionCondition.LOCAL_NAME);
+    private AudienceRestrictionConditionImpl() {
+        super(AudienceRestrictionCondition.LOCAL_NAME, null);
+    }
+    protected AudienceRestrictionConditionImpl(SAMLVersion version) {
+        super(AudienceRestrictionCondition.LOCAL_NAME, version);
     }
 
     /*

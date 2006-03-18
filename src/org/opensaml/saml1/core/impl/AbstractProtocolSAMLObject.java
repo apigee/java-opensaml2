@@ -30,10 +30,11 @@ public abstract class AbstractProtocolSAMLObject extends AbstractSAMLObject {
      * {@link SAMLConstants#SAML1P_PREFIX}.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
      * 
      * @param localName the local name of the element
+     * @param version the version to set
      */
-    protected AbstractProtocolSAMLObject(String localName) {
+    protected AbstractProtocolSAMLObject(String localName, SAMLVersion version) {
         super(SAMLConstants.SAML1P_NS, localName, SAMLConstants.SAML1P_PREFIX);
-        setSAMLVersion(SAMLVersion.VERSION_11);
+        setSAMLVersion(version);
     }
 
     /**
@@ -42,9 +43,10 @@ public abstract class AbstractProtocolSAMLObject extends AbstractSAMLObject {
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
+     * @param version the version to set
      */
-    protected AbstractProtocolSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
+    protected AbstractProtocolSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        setSAMLVersion(SAMLVersion.VERSION_11);
+        setSAMLVersion(version);
     }
 }

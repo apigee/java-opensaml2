@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
@@ -39,14 +40,25 @@ public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidenc
     private IndexedXMLObjectChildrenList<Evidentiary> evidence;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    protected EvidenceImpl() {
-        super(Evidence.LOCAL_NAME);
+    private EvidenceImpl() {
+        super(Evidence.LOCAL_NAME, null);
+        
+        evidence = null;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param version the version to set
+     */
+    protected EvidenceImpl(SAMLVersion version) {
+        super(Evidence.LOCAL_NAME, version);
         
         evidence = new IndexedXMLObjectChildrenList<Evidentiary>(this);
     }
-
     /*
      * @see org.opensaml.saml1.core.Evidence#getAssertionIDReferences()
      */

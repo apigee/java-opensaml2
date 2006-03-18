@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
@@ -26,32 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
  */
 public abstract class AbstractAssertionSAMLObject extends AbstractSAMLObject {
 
-    /**
-     * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to
-     * {@link SAMLConstants#SAML1_PREFIX}.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
-     * 
-     * @param localName the local name of the element
-     * @deprecated
-     */
-    protected AbstractAssertionSAMLObject(String localName) {
-        super(SAMLConstants.SAML1_NS, localName, SAMLConstants.SAML1_PREFIX);
-        setSAMLVersion(SAMLObjectBuilder.getVersion(null));
-    }
-
-    /**
-     * Constructor.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
-     * 
-     * @param namespaceURI the namespace the element is in
-     * @param elementLocalName the local name of the XML element this Object represents
-     * @param namespacePrefix the prefix for the given namespace
-     * @deprecated
-     */
-    protected AbstractAssertionSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);
-        setSAMLVersion(SAMLObjectBuilder.getVersion(null));
-    }
-    
-    /**
+     /**
      * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to
      * {@link SAMLConstants#SAML1_PREFIX}.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
      * 

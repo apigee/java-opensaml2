@@ -27,7 +27,7 @@ import org.w3c.dom.Element;
 /**
  *
  */
-public class ConditionsBuilder extends SAMLObjectBuilder {
+public class ConditionsBuilder extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor

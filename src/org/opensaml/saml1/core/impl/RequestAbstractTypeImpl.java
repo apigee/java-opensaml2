@@ -35,9 +35,6 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
 
     /** Contains the ID */
     private String id;
-    
-    /** Contains the minor version */
-    private int version;
 
     /** Containt the IssueInstant */
     public DateTime issueInstant;
@@ -51,8 +48,8 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
      * 
      * @param localName the local name of the element
      */
-    protected RequestAbstractTypeImpl(String elementLocalName) {
-        super(elementLocalName);
+    protected RequestAbstractTypeImpl(String elementLocalName, SAMLVersion version) {
+        super(elementLocalName, version);
         respondWiths = new XMLObjectChildrenList<RespondWith>(this);
     }
 
@@ -63,8 +60,8 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
      */
-    protected RequestAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);
+    protected RequestAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
+        super(namespaceURI, elementLocalName, namespacePrefix, version);
         respondWiths = new XMLObjectChildrenList<RespondWith>(this);
     }
     
@@ -83,21 +80,14 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
         this.id = prepareForAssignment(this.id, id);
     }
 
-
-    /*
-     * @see org.opensaml.saml1.core.RequestAbstractType#getMinorVersion()
-     */
-    public int getMinorVersion() {
-        return version;
-    }
-
     /*
      * @see org.opensaml.saml1.core.RequestAbstractType#setMinorVersion(int)
      */
-    public void setMinorVersion(int version) {
-        if (this.version != version) {
-            releaseThisandParentDOM();
-            this.version = version;
+    public int getMinorVersion() {
+        if (SAMLVersion.VERSION_11.equals(getVersion())) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

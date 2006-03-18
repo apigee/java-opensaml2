@@ -16,13 +16,15 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Class to generate AudienceResttictyionCondition Objects
  */
-public class AudienceRestrictionConditionBuilder implements XMLObjectBuilder {
+public class AudienceRestrictionConditionBuilder extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
@@ -35,6 +37,14 @@ public class AudienceRestrictionConditionBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new AudienceRestrictionConditionImpl();
+        return new AudienceRestrictionConditionImpl(null);
+    }
+
+    /*
+     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     */
+    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
+
+        return new AudienceRestrictionConditionImpl(getVersion(context));
     }
 }

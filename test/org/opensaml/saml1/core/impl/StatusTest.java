@@ -67,9 +67,9 @@ public class StatusTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        Status status = new StatusImpl();
+        Status status = new StatusImpl(null);
 
-        status.setStatusCode(new StatusCodeImpl());
+        status.setStatusCode(new StatusCodeImpl(null));
 
         status.getStatusCode().setValue("samlp:Sucess");
 
@@ -81,10 +81,10 @@ public class StatusTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        Status status = new StatusImpl();
+        Status status = new StatusImpl(null);
 
-        status.setStatusCode(new StatusCodeImpl());
-        status.setStatusMessage(new StatusMessageImpl());
+        status.setStatusCode(new StatusCodeImpl(null));
+        status.setStatusMessage(new StatusMessageImpl(null));
 
         status.getStatusCode().setValue("samlp:Sucess");
 

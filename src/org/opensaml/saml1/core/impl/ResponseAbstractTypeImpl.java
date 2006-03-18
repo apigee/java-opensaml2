@@ -36,9 +36,6 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
    /** Contents of the InResponseTo attribute */
     private String inResponseTo = null;
 
-    /** Minor Version of this element */
-    private int minorVersion = 0;
-
     /** Contents of the Date attribute */
     private DateTime issueInstant = null;
 
@@ -47,12 +44,13 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
 
     /**
      * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to {@link SAMLConstants#SAML1_PREFIX}.
-     * Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * Sets the SAML version as specified
      * 
      * @param localName the local name of the element
+     * @param version the version to set
      */
-    protected ResponseAbstractTypeImpl(String elementLocalName) {
-        super(elementLocalName);
+    protected ResponseAbstractTypeImpl(String elementLocalName, SAMLVersion version) {
+        super(elementLocalName, version);
     }
 
     /**
@@ -62,8 +60,8 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
      */
-    protected ResponseAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);
+    protected ResponseAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
+        super(namespaceURI, elementLocalName, namespacePrefix, version);
     }
 
 
@@ -100,16 +98,10 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
      * @see org.opensaml.saml1.core.Response#getMinorVersion()
      */
     public int getMinorVersion() {
-        return minorVersion;
-    }
-
-    /*
-     * @see org.opensaml.saml1.core.Response#setMinorVersion(int)
-     */
-    public void setMinorVersion(int version) {
-        if (version != minorVersion) {
-            releaseThisandParentDOM();
-            minorVersion = version;
+        if (SAMLVersion.VERSION_11.equals(getVersion())) {
+            return 1;
+        } else {
+            return 0;
         }
     }
 

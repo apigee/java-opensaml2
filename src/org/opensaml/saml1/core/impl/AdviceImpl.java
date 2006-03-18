@@ -21,6 +21,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
@@ -39,11 +40,21 @@ public class AdviceImpl extends AbstractAssertionSAMLObject implements Advice {
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected AdviceImpl() {
-        super(Advice.LOCAL_NAME);
+    private AdviceImpl() {
+        super(Advice.LOCAL_NAME, null);
     }
 
+    /**
+     * Constructor
+     *
+     * @param version the version to be created with
+     */
+    protected AdviceImpl(SAMLVersion version) {
+        super(Advice.LOCAL_NAME, version);
+    }
+    
     /*
      * @see org.opensaml.saml1.core.Advice#getAssertionIDReferences()
      */

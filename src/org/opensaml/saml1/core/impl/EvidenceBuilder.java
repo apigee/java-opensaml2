@@ -16,13 +16,16 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
 import org.opensaml.saml1.core.Evidence;
-import org.opensaml.xml.XMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
+import org.w3c.dom.Element;
 
 /**
  * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.EvidenceImpl} Object
  */
-public class EvidenceBuilder implements XMLObjectBuilder {
+public class EvidenceBuilder  extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
@@ -35,6 +38,13 @@ public class EvidenceBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public Evidence buildObject() {
-        return new EvidenceImpl();
+        return new EvidenceImpl(null);
+    }
+
+    /*
+     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     */
+    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
+        return new EvidenceImpl(getVersion(context));    
     }
 }

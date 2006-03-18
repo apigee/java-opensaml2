@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.xml.XMLObject;
 
@@ -35,10 +36,20 @@ public class StatusCodeImpl extends AbstractProtocolSAMLObject implements Status
     private StatusCode childStatusCode;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    protected StatusCodeImpl() {
-        super(StatusCode.LOCAL_NAME);
+    private  StatusCodeImpl() {
+        super(StatusCode.LOCAL_NAME, null);
+    }
+    
+    /**
+     * Constructor
+     *
+     * @param version the version to set
+     */
+    protected StatusCodeImpl(SAMLVersion version) {
+        super(StatusCode.LOCAL_NAME, version);
     }
 
     /*

@@ -16,13 +16,15 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Class whose sole jobe is the creation of a {@link StatusImpl} object
  */
-public class StatusBuilder implements XMLObjectBuilder {
+public class StatusBuilder  extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
@@ -35,6 +37,13 @@ public class StatusBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new StatusImpl();
+        return new StatusImpl(null);
+    }
+
+    /*
+     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     */
+    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
+        return new StatusImpl(getVersion(context));
     }
 }

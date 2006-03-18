@@ -68,7 +68,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        SubjectConfirmationData subjectConfirmationData = new SubjectConfirmationDataImpl();
+        SubjectConfirmationData subjectConfirmationData = new SubjectConfirmationDataImpl(null);
 
         assertEquals(expectedDOM, subjectConfirmationData);
     }
@@ -78,7 +78,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        SubjectConfirmationData subjectConfirmationData = new SubjectConfirmationDataImpl();
+        SubjectConfirmationData subjectConfirmationData = new SubjectConfirmationDataImpl(null);
         
         subjectConfirmationData.setConfirmationData(expectedSubjectConfirmationData);
 

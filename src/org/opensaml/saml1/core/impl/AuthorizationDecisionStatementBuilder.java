@@ -16,14 +16,17 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.AuthorizationDecisionStatementImpl}
  * Object
  */
-public class AuthorizationDecisionStatementBuilder implements XMLObjectBuilder {
+public class AuthorizationDecisionStatementBuilder extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
@@ -36,6 +39,10 @@ public class AuthorizationDecisionStatementBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new AuthorizationDecisionStatementImpl();
+        return new AuthorizationDecisionStatementImpl(null);
+    }
+
+    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
+        return new AuthorizationDecisionStatementImpl(getVersion(context));
     }
 }

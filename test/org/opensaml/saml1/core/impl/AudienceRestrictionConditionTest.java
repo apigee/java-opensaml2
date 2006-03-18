@@ -70,7 +70,7 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
 
         AudienceRestrictionCondition audienceRestrictionCondition;
 
-        audienceRestrictionCondition = new AudienceRestrictionConditionImpl();
+        audienceRestrictionCondition = new AudienceRestrictionConditionImpl(null);
 
         assertEquals(expectedDOM, audienceRestrictionCondition);
     }
@@ -82,10 +82,10 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         AudienceRestrictionCondition audienceRestrictionCondition;
 
-        audienceRestrictionCondition = new AudienceRestrictionConditionImpl();
+        audienceRestrictionCondition = new AudienceRestrictionConditionImpl(null);
 
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl());
+        audienceRestrictionCondition.getAudiences().add(new AudienceImpl(null));
+        audienceRestrictionCondition.getAudiences().add(new AudienceImpl(null));
 
         assertEquals(expectedChildElementsDOM, audienceRestrictionCondition);
     }

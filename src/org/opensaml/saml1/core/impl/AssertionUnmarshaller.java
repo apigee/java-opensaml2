@@ -69,7 +69,7 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     protected void processContext(XMLObject object, Map<String, Object> context){
         Assertion assertion = (Assertion) object;
-        context.put(SAMLObjectBuilder.contextVersion, assertion.getVersion());
+        context.put(AbstractSAMLObjectBuilder.contextVersion, assertion.getVersion());
     }
     
     

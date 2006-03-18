@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.saml1.core.StatusDetail;
@@ -41,10 +42,20 @@ public class StatusImpl extends AbstractProtocolSAMLObject implements Status {
     private StatusDetail statusDetail;
 
     /**
-     * Constructor.
+     * Hidden Constructor.
+     * @deprecated
      */
-    protected StatusImpl() {
-        super(Status.LOCAL_NAME);
+    private StatusImpl() {
+        super(Status.LOCAL_NAME, null);
+    }
+   
+    /**
+     * Constructor
+     *
+     * @param version the {@link SAMLVersion} to set
+     */
+    protected StatusImpl(SAMLVersion version) {
+        super(Status.LOCAL_NAME, version);
     }
 
     /*

@@ -27,13 +27,14 @@ public abstract class AbstractSignableProtocolSAMLObject extends AbstractSignabl
 
     /**
      * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to
-     * {@link SAMLConstants#SAML1_PREFIX}.  Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * {@link SAMLConstants#SAML1_PREFIX}.  
      * 
      * @param localName the local name of the element
+     * @param version the {@link SAMLVersion) to set
      */
-    protected AbstractSignableProtocolSAMLObject(String localName) {
+    protected AbstractSignableProtocolSAMLObject(String localName, SAMLVersion version) {
         super(SAMLConstants.SAML1P_NS, localName, SAMLConstants.SAML1P_PREFIX);
-        setSAMLVersion(SAMLVersion.VERSION_11);
+        setSAMLVersion(version);
     }
 
     /**
@@ -42,9 +43,10 @@ public abstract class AbstractSignableProtocolSAMLObject extends AbstractSignabl
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
+     * @param version the {@link SAMLVersion) to set
      */
-    protected AbstractSignableProtocolSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
+    protected AbstractSignableProtocolSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        setSAMLVersion(SAMLVersion.VERSION_11);
+        setSAMLVersion(version);
     }
 }

@@ -22,6 +22,7 @@ package org.opensaml.saml1.core.impl;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
@@ -71,12 +72,17 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
                 throw new UnmarshallingException(n);
             }
         } else if (attribute.getLocalName().equals(ResponseAbstractType.MINORVERSION_ATTRIB_NAME)) {
+            int minor;
             try {
-                int newVersion = Integer.parseInt(attribute.getValue());
-                response.setMinorVersion(newVersion);
+                minor = Integer.parseInt(attribute.getValue());
             } catch (NumberFormatException n) {
                 log.error("Parsing minor version ", n);
                 throw new UnmarshallingException(n);
+            }
+            if ((minor == 0 && response.getVersion() != SAMLVersion.VERSION_10) ||
+                (minor == 1 && response.getVersion() != SAMLVersion.VERSION_11)) {
+                log.error("MinorVersion mismatch");
+                throw new UnmarshallingException("MinorVersion mismatch");
             }
         } else if (attribute.getLocalName().equals(ResponseAbstractType.RECIPIENT_ATTRIB_NAME)) {
             response.setRecipient(attribute.getValue());

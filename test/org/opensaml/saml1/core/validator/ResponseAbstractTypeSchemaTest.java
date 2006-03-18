@@ -17,13 +17,12 @@
 package org.opensaml.saml1.core.validator;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.saml1.core.ResponseAbstractType;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.ResponseAbstractTypeSchemaValidator}.
  */
-public abstract class ResponseAbstractTypeSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class ResponseAbstractTypeSchemaTest extends SAML1ObjectValidatorBaseTestCase {
 
     /** Constructor */
     public ResponseAbstractTypeSchemaTest() {
@@ -38,7 +37,6 @@ public abstract class ResponseAbstractTypeSchemaTest extends SAMLObjectValidator
         
         ResponseAbstractType response = (ResponseAbstractType) target;
         response.setID("Ident");
-        response.setMinorVersion(1);
         response.setIssueInstant(new DateTime());
     }
     

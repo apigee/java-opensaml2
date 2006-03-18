@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.xml.XMLObject;
 
@@ -31,9 +32,18 @@ public class AudienceImpl extends AbstractAssertionSAMLObject implements Audienc
 
     /**
      * Constructor
+     * @deprecated
      */
-    public AudienceImpl() {
-        super(Audience.LOCAL_NAME);
+    private AudienceImpl() {
+        super(Audience.LOCAL_NAME, null);
+    }
+    /**
+     * Constructor
+     *
+     * @param version the version to set
+     */
+    protected AudienceImpl(SAMLVersion version) {
+        super(Audience.LOCAL_NAME, version);
     }
 
     /*

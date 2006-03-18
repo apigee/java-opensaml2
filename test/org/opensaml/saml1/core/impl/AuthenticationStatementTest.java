@@ -103,7 +103,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AuthenticationStatementImpl());
+        assertEquals(expectedDOM, new AuthenticationStatementImpl(null));
     }
 
     /*
@@ -111,7 +111,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        AuthenticationStatement authenticationStatement = new AuthenticationStatementImpl();
+        AuthenticationStatement authenticationStatement = new AuthenticationStatementImpl(null);
 
         authenticationStatement.setAuthenticationInstant(expectedAuthenticationInstant);
         authenticationStatement.setAuthenticationMethod(expectedAuthenticationMethod);
@@ -124,13 +124,13 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
     @Override
     public void testChildElementsMarshall() {
 
-        AuthenticationStatement authenticationStatement = new AuthenticationStatementImpl();
+        AuthenticationStatement authenticationStatement = new AuthenticationStatementImpl(null);
 
-        authenticationStatement.setSubject(new SubjectImpl());
+        authenticationStatement.setSubject(new SubjectImpl(null));
 
-        authenticationStatement.setSubjectLocality(new SubjectLocalityImpl());
-        authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl());
-        authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl());
+        authenticationStatement.setSubjectLocality(new SubjectLocalityImpl(null));
+        authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl(null));
+        authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl(null));
 
         assertEquals(expectedChildElementsDOM, authenticationStatement);
     }

@@ -108,7 +108,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        Conditions conditions = (Conditions) buildXMLObject(qname);
+        Conditions conditions = (Conditions) buildXMLObject(qname, null);
 
         assertEquals(expectedDOM, conditions);
 
@@ -119,7 +119,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        Conditions conditions = (Conditions) buildXMLObject(qname);
+        Conditions conditions = (Conditions) buildXMLObject(qname, null);
 
         conditions.setNotBefore(expectedNotBeforeDate);
         conditions.setNotOnOrAfter(expectedNotOnOfAfter);
@@ -132,16 +132,16 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        Conditions conditions = (Conditions) buildXMLObject(qname);
+        Conditions conditions = (Conditions) buildXMLObject(qname, null);
 
-        conditions.getConditions().add(new AudienceRestrictionConditionImpl());
-        conditions.getConditions().add(new DoNotCacheConditionImpl());
+        conditions.getConditions().add(new AudienceRestrictionConditionImpl(null));
+        conditions.getConditions().add(new DoNotCacheConditionImpl(null));
         // conditions.addCondition(condition);
 
-        conditions.getConditions().add(new AudienceRestrictionConditionImpl());
+        conditions.getConditions().add(new AudienceRestrictionConditionImpl(null));
         // conditions.addCondition(condition);
         //           
-        conditions.getConditions().add(new AudienceRestrictionConditionImpl());
+        conditions.getConditions().add(new AudienceRestrictionConditionImpl(null));
 
         assertEquals(expectedChildElementsDOM, conditions);
 

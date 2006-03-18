@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.xml.security.keys.KeyInfo;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.saml1.core.SubjectConfirmationData;
@@ -44,10 +45,23 @@ public class SubjectConfirmationImpl extends AbstractAssertionSAMLObject impleme
     //TODO looks like KeyInfo needs to be changed to the XMLTooling KeyInfo type, check with Chad.
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    public SubjectConfirmationImpl() {
-        super(SubjectConfirmation.LOCAL_NAME);
+    private SubjectConfirmationImpl() {
+        super(SubjectConfirmation.LOCAL_NAME, null);
+
+        confirmationMethods = null;
+    }
+    
+    /**
+     * Constructor
+     *
+     * @param version the {@link SAMLVersion} to set
+     * 
+     */
+    protected SubjectConfirmationImpl(SAMLVersion version) {
+        super(SubjectConfirmation.LOCAL_NAME, version);
 
         confirmationMethods = new XMLObjectChildrenList<ConfirmationMethod>(this);
     }

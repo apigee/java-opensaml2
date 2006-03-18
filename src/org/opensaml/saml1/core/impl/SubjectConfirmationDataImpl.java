@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
 
@@ -30,10 +31,20 @@ public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject imp
     private String confirmationData;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    protected SubjectConfirmationDataImpl() {
-        super(SubjectConfirmationData.LOCAL_NAME);
+    private SubjectConfirmationDataImpl() {
+        super(SubjectConfirmationData.LOCAL_NAME, null);
+    }
+
+    /**
+     * Constructor
+     *
+     * @param version the version to set
+     */
+    protected SubjectConfirmationDataImpl(SAMLVersion version) {
+        super(SubjectConfirmationData.LOCAL_NAME, version);
     }
 
     /*

@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.saml1.core.SubjectLocality;
@@ -46,13 +47,24 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected AuthenticationStatementImpl() {
-        super(AuthenticationStatement.LOCAL_NAME);
+    private AuthenticationStatementImpl() {
+        super(AuthenticationStatement.LOCAL_NAME, null);
+
+        authorityBindings = null;
+    }
+
+    /**
+     * Constructor
+     *
+     * @param version the SAMLVersion to test
+     */
+    protected AuthenticationStatementImpl(SAMLVersion version) {
+        super(AuthenticationStatement.LOCAL_NAME, version);
 
         authorityBindings = new XMLObjectChildrenList<AuthorityBinding>(this);
     }
-
     //
     // Attributes
     //

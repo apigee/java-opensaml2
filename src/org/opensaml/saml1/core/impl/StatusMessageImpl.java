@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.StatusMessage;
 import org.opensaml.xml.XMLObject;
 
@@ -32,10 +33,20 @@ public class StatusMessageImpl extends AbstractProtocolSAMLObject implements Sta
     private String message;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    protected StatusMessageImpl() {
-        super(StatusMessage.LOCAL_NAME);
+    private StatusMessageImpl() {
+        super(StatusMessage.LOCAL_NAME, null);
+    }
+    
+    /**
+     * Constructor
+     *
+     * @param version the version to set
+     */
+    protected StatusMessageImpl(SAMLVersion version) {
+        super(StatusMessage.LOCAL_NAME, version);
     }
 
     /*

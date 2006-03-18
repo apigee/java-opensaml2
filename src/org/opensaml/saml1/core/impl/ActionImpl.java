@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.xml.XMLObject;
 
@@ -33,10 +34,20 @@ public class ActionImpl extends AbstractAssertionSAMLObject implements Action {
     private String contents;
 
     /**
-     * Constructor
+     * Hidden Constructor
+     * @deprecated
      */
-    protected ActionImpl() {
-        super(Action.LOCAL_NAME);
+    private ActionImpl() {
+        super(Action.LOCAL_NAME, null);
+    }
+    
+    /**
+     * Constructor
+     *
+     * @param version the version this is to be created with
+     */
+    public ActionImpl(SAMLVersion version) {
+        super(Action.LOCAL_NAME, version);
     }
 
     /*

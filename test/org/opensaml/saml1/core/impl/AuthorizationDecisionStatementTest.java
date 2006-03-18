@@ -123,7 +123,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AuthorizationDecisionStatementImpl());
+        assertEquals(expectedDOM, new AuthorizationDecisionStatementImpl(null));
     }
 
     /*
@@ -133,7 +133,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
 
-        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl();
+        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl(null);
         authorizationDecisionStatement.setDecision(expectedDecision);
         authorizationDecisionStatement.setResource(expectedResource);
 
@@ -147,15 +147,15 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
 
-        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl();
+        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl(null);
 
-        authorizationDecisionStatement.setSubject(new SubjectImpl());
-        authorizationDecisionStatement.getActions().add(new ActionImpl());
-        authorizationDecisionStatement.getActions().add(new ActionImpl());
-        authorizationDecisionStatement.getActions().add(new ActionImpl());
-        authorizationDecisionStatement.setEvidence(new EvidenceImpl());
+        authorizationDecisionStatement.setSubject(new SubjectImpl(null));
+        authorizationDecisionStatement.getActions().add(new ActionImpl(null));
+        authorizationDecisionStatement.getActions().add(new ActionImpl(null));
+        authorizationDecisionStatement.getActions().add(new ActionImpl(null));
+        authorizationDecisionStatement.setEvidence(new EvidenceImpl(null));
 
-        authorizationDecisionStatement.setEvidence(new EvidenceImpl());
+        authorizationDecisionStatement.setEvidence(new EvidenceImpl(null));
 
         assertEquals(expectedChildElementsDOM, authorizationDecisionStatement);
     }

@@ -83,7 +83,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AttributeStatementImpl());
+        assertEquals(expectedDOM, new AttributeStatementImpl(null));
     }
 
     /*
@@ -92,12 +92,12 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
     @Override
     public void testChildElementsMarshall() {
 
-        AttributeStatement attributeStatement = new AttributeStatementImpl();
+        AttributeStatement attributeStatement = new AttributeStatementImpl(null);
 
-        attributeStatement.setSubject(new SubjectImpl());
+        attributeStatement.setSubject(new SubjectImpl(null));
 
         for (int i = 0; i < 5; i++) {
-            attributeStatement.getAttributes().add(new AttributeImpl());
+            attributeStatement.getAttributes().add(new AttributeImpl(null));
         }
 
         assertEquals(expectedChildElementsDOM, attributeStatement);

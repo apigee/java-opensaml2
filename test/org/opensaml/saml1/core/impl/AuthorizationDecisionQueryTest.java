@@ -115,7 +115,7 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME);
         
-        assertEquals(expectedDOM, buildXMLObject(qname));
+        assertEquals(expectedDOM, buildXMLObject(qname, null));
     }
 
     /**
@@ -125,7 +125,7 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME);
         
         AuthorizationDecisionQuery authorizationDecisionQuery;
-        authorizationDecisionQuery = (AuthorizationDecisionQuery) buildXMLObject(qname);
+        authorizationDecisionQuery = (AuthorizationDecisionQuery) buildXMLObject(qname, null);
 
         authorizationDecisionQuery.setResource(expectedResource);
         assertEquals(expectedOptionalAttributesDOM, authorizationDecisionQuery);
@@ -138,14 +138,14 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
     public void testFullElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME);
         AuthorizationDecisionQuery authorizationDecisionQuery;
-        authorizationDecisionQuery = (AuthorizationDecisionQuery) buildXMLObject(qname);
+        authorizationDecisionQuery = (AuthorizationDecisionQuery) buildXMLObject(qname, null);
 
-        authorizationDecisionQuery.setSubject(new SubjectImpl());
+        authorizationDecisionQuery.setSubject(new SubjectImpl(null));
         List <Action> list = authorizationDecisionQuery.getActions();
-        list.add(new ActionImpl());
-        list.add(new ActionImpl());
-        list.add(new ActionImpl());
-        authorizationDecisionQuery.setEvidence(new EvidenceImpl());
+        list.add(new ActionImpl(null));
+        list.add(new ActionImpl(null));
+        list.add(new ActionImpl(null));
+        authorizationDecisionQuery.setEvidence(new EvidenceImpl(null));
         assertEquals(expectedFullDOM, authorizationDecisionQuery);
 
     }

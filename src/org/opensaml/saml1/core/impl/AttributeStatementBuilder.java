@@ -16,13 +16,15 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AttributeStatementImpl} objects
  */
-public class AttributeStatementBuilder implements XMLObjectBuilder {
+public class AttributeStatementBuilder extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
@@ -35,6 +37,10 @@ public class AttributeStatementBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new AttributeStatementImpl();
+        return new AttributeStatementImpl(null);
+    }
+
+    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
+        return new AttributeStatementImpl(getVersion(context));
     }
 }
