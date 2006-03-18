@@ -62,8 +62,8 @@ public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXML
         return super.equals(obj);
     }
     
-    // TODO
+    // TODO - stop just calling the parent
     protected DateTime prepareForAssignment(DateTime oldValue, DateTime newValue){
-        return null;
+        return super.prepareForAssignment(oldValue, newValue);
     }
 }
