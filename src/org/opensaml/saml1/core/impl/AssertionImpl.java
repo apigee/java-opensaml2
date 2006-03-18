@@ -39,20 +39,11 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * This class implements the SAML 1 <code> Assertion </code> statement.
  */
-/**
- *
- */
-/**
- *
- */
 public class AssertionImpl extends AbstractSignableAssertionSAMLObject implements Assertion {
 
     /** The <code> AssertionID </code> attrribute */
     private String id;
     
-    /** Object version of the <code> MinorVersion </code> attribute. */
-    private int minorVersion;
-
     /** Object version of the <code> Issuer </code> attribute. */
     private String issuer;
 
@@ -70,18 +61,28 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
 
     /**
      * Constructor
+     * @deprecated
      */
-    protected AssertionImpl() {
-        super(Assertion.LOCAL_NAME);
+    private AssertionImpl() {
+        super(Assertion.LOCAL_NAME, null);
     }
-
+    /**
+     * Constructor
+     *  Create an Assertion with a known verson
+     */
+    protected AssertionImpl(SAMLVersion version) {
+        super(Assertion.LOCAL_NAME, version);
+    }
     /*
      * @see org.opensaml.saml1.core.Assertion#removeSubjectStatements(java.util.Set)
      */
     public int getMinorVersion() {
-        return minorVersion;
+        if (SAMLVersion.VERSION_10.equals(getVersion())) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
-
 
     /*
      * @see org.opensaml.saml1.core.Assertion#getID()
@@ -95,24 +96,6 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      */
     public void setID(String id) {
         this.id = prepareForAssignment(this.id, id);   
-    }
-
-    
-    /*
-     * @see org.opensaml.saml1.core.Assertion#removeSubjectStatements(java.util.Set)
-     * 
-     * Since we know that we are SAML1 we can also set the SAML version if we can
-     */
-    public void setMinorVersion(int version) {
-        if (version != minorVersion) {
-            releaseThisandParentDOM();
-            minorVersion = version;
-            if (version == 0) {
-                setSAMLVersion(SAMLVersion.VERSION_10);
-            } else if (version == 1) {
-                setSAMLVersion(SAMLVersion.VERSION_11);
-            }
-        }
     }
 
     /*

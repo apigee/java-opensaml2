@@ -76,8 +76,8 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
         Evidence evidence = new EvidenceImpl();
 
         evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
-        evidence.getAssertions().add(new AssertionImpl());
-        evidence.getAssertions().add(new AssertionImpl());
+        evidence.getAssertions().add(new AssertionImpl(null));
+        evidence.getAssertions().add(new AssertionImpl(null));
         evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
 
         assertEquals(expectedChildElementsDOM, evidence);

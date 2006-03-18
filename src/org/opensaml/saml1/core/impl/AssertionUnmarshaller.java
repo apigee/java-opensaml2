@@ -16,9 +16,12 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
@@ -64,6 +67,12 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         }
     }
 
+    protected void processContext(XMLObject object, Map<String, Object> context){
+        Assertion assertion = (Assertion) object;
+        context.put(SAMLObjectBuilder.contextVersion, assertion.getVersion());
+    }
+    
+    
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Attr)
@@ -89,11 +98,17 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 throw new UnmarshallingException(n);
             }
         } else if (Assertion.MINORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {
+            int minor = 0;
             try {
-                assertion.setMinorVersion(Integer.parseInt(attribute.getValue()));
+                minor = Integer.parseInt(attribute.getValue());
             } catch (NumberFormatException n) {
                 log.error("Error when checking MinorVersion attribute", n);
                 throw new UnmarshallingException(n);
+            }
+            if ((minor == 0 && assertion.getVersion() != SAMLVersion.VERSION_10) ||
+                (minor == 1 && assertion.getVersion() != SAMLVersion.VERSION_11)) {
+                log.error("MinorVersion mismatch");
+                throw new UnmarshallingException("MinorVersion mismatch");
             }
         } else {
             super.processAttribute(samlObject, attribute);

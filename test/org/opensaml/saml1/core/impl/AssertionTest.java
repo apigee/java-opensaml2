@@ -23,6 +23,7 @@ package org.opensaml.saml1.core.impl;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Assertion;
 
 /**
@@ -129,7 +130,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        Assertion assertion = new AssertionImpl();
+        Assertion assertion = new AssertionImpl(null);
 
         assertEquals(expectedDOM, assertion);
     }
@@ -139,13 +140,11 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        Assertion assertion = new AssertionImpl();
+        Assertion assertion = new AssertionImpl(SAMLVersion.VERSION_11);
 
         assertion.setIssueInstant(expectedIssueInstant);
         assertion.setID(expectedID);
         assertion.setIssuer(expectedIssuer);
-        assertion.setMinorVersion(expectedMinorVersion);
-
         assertEquals(expectedOptionalAttributesDOM, assertion);
     }
 
@@ -154,9 +153,9 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
 
     public void testChildElementsMarshall() {
-        Assertion assertion = new AssertionImpl();
+        Assertion assertion = new AssertionImpl(null);
 
-        assertion.setConditions(new ConditionsImpl());
+        assertion.setConditions(new ConditionsImpl(null));
         assertion.setAdvice(new AdviceImpl());
 
         assertion.getStatements().add(new AuthenticationStatementImpl());

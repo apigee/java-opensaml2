@@ -51,7 +51,7 @@ public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
     /** Name for the attribute which defines the Issue Instant. */
     public final static String ID_ATTRIB_NAME = "AssertionID";
 
-/* attributes */
+    /* attributes */
 
     /**
      * Get the MinorVersion attribute.
@@ -61,13 +61,6 @@ public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
     public int getMinorVersion();
 
     /**
-     * List the MinorVersion (attribute).
-     * 
-     * @param version the value to List
-     */
-    public void setMinorVersion(int version);
-
-    /**
      * Get the Issuer (which is an attribute) .
      * 
      * @return the Issuer
@@ -75,9 +68,9 @@ public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
     public String getIssuer();
 
     /**
-     * List the Issuer (attribute).
+     * Set the Issuer (attribute).
      * 
-     * @param Issuer the value to List
+     * @param Issuer the value to set
      */
     public void setIssuer(String Issuer);
 
@@ -95,9 +88,9 @@ public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
     public void setID(String id);
     
     /**
-     * List the IssueInstance (attribute).
+     * Set the IssueInstance (attribute).
      * 
-     * @param issueInstant the issue instant value to List
+     * @param issueInstant the issue instant value to set
      */
     public void setIssueInstant(DateTime issueInstant);
 
@@ -111,11 +104,11 @@ public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
     public Conditions getConditions();
 
     /**
-     * List the Object representing the <code> Conditions </code> Sub element.
+     * Set the Object representing the <code> Conditions </code> Sub element.
      * 
      * @param conditions the condition to List
      * 
-     * @throws IllegalArgumentException if the condition has already been List into another object
+     * @throws IllegalArgumentException if the condition has already been set into another object
      */
     public void setConditions(Conditions conditions) throws IllegalArgumentException;
 
@@ -127,9 +120,9 @@ public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
     public Advice getAdvice();
 
     /**
-     * List the Object representing the <code> Advice </code> sub element.
+     * Set the Object representing the <code> Advice </code> sub element.
      * 
-     * @param advice the object to List
+     * @param advice the object to set
      * 
      * @throws IllegalArgumentException if the object has already been put into another SAMLObject
      */
@@ -175,7 +168,7 @@ public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
     public List<AuthorizationDecisionStatement> getAuthorizationDecisionStatements();
 
     /**
-     * Add a single <code> AttributeStatement </code> to the List (if appropriate).
+     * Return all the <code> AttributeStatement </code> elements
      * 
      * @return all the attributeStatements
      */

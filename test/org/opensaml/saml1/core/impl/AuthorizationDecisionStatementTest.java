@@ -20,6 +20,8 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.HashMap;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
@@ -90,7 +92,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
             Element samlElement = doc.getDocumentElement();
 
             authorizationDecisionStatement = (AuthorizationDecisionStatement) new AuthorizationDecisionStatementUnmarshaller()
-                    .unmarshall(samlElement);
+                    .unmarshall(samlElement, new HashMap<String, Object>());
 
             fail("illegal attribute successfully parsed");
         } catch (UnmarshallingException e) {

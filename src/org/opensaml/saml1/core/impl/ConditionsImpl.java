@@ -23,6 +23,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
@@ -47,11 +48,20 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
 
     /**
      * Constructor
-     */
-    protected ConditionsImpl() {
+     *
+    private ConditionsImpl() {
         super(Conditions.LOCAL_NAME);
-    }
+    }*/
 
+    /**
+     * Constructor
+     *
+     * @param version which version to create 
+     */
+    protected ConditionsImpl(SAMLVersion version) {
+        super(Conditions.LOCAL_NAME, version);
+    }
+    
     /*
      * @see org.opensaml.saml1.core.Conditions#getNotBefore()
      */

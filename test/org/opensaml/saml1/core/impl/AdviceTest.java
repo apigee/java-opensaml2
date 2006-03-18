@@ -75,7 +75,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         Advice advice = new AdviceImpl();
 
         advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
-        advice.getAssertions().add(new AssertionImpl());
+        advice.getAssertions().add(new AssertionImpl(null));
         advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl());
 
         assertEquals(expectedChildElementsDOM, advice);

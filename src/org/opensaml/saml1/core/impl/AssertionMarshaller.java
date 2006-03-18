@@ -17,6 +17,7 @@
 package org.opensaml.saml1.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
@@ -58,10 +59,12 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
             domElement.setAttributeNS(null, Assertion.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
-        if (assertion.getMinorVersion() != 0) {
-            String minorVersion = Integer.toString(assertion.getMinorVersion());
-            domElement.setAttributeNS(null, Assertion.MINORVERSION_ATTRIB_NAME, minorVersion);
+        if (assertion.getVersion() == SAMLVersion.VERSION_10) {
             domElement.setAttributeNS(null, Assertion.MAJORVERSION_ATTRIB_NAME, "1");
+            domElement.setAttributeNS(null, Assertion.MINORVERSION_ATTRIB_NAME, "0");
+        } else if (assertion.getVersion() == SAMLVersion.VERSION_11) {
+            domElement.setAttributeNS(null, Assertion.MAJORVERSION_ATTRIB_NAME, "1");
+            domElement.setAttributeNS(null, Assertion.MINORVERSION_ATTRIB_NAME, "1");
         }
     }
 }

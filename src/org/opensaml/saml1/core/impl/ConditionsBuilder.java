@@ -16,13 +16,18 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.Map;
+
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Class to generate Conditions elements
  */
-public class ConditionsBuilder implements XMLObjectBuilder {
+/**
+ *
+ */
+public class ConditionsBuilder extends SAMLObjectBuilder {
 
     /**
      * Constructor
@@ -35,6 +40,13 @@ public class ConditionsBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new ConditionsImpl();
+        return new ConditionsImpl(getVersion(null));
+    }
+
+    /*
+     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     */
+    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
+        return new ConditionsImpl(getVersion(context));
     }
 }
