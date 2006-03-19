@@ -47,7 +47,7 @@ public abstract class AbstractSAMLObjectBuilder implements ExtendedXMLObjectBuil
         // We use the SAML1 Assertyion namespace as a convenient tag.
         //
         if (context != null) {
-            version = (SAMLVersion) context.get(SAMLConstants.SAML1_NS);
+            version = (SAMLVersion) context.get(contextVersion);
         }
  
         return version;
