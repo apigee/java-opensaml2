@@ -20,31 +20,28 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.Action;
+import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml1.core.Action} for Schema compliance.
  */
-public class ActionSchemaValidator implements Validator {
+public class SAML1ObjectSpecValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        
-         Action action = (Action) xmlObject;
-       
-         //
-         // TODO This is a Spec restriction
-         //
-         
-         if (DatatypeHelper.isEmpty(action.getContents())) {
-             throw new ValidationException("Action label must be specified");
-         }
 
+        SAMLObject parent = (SAMLObject) xmlObject;
+
+        for (XMLObject xmlChild: xmlObject.getOrderedChildren()) {
+            SAMLObject child = (SAMLObject) xmlChild;
+            if (parent.getVersion() != child.getVersion()) {
+               throw new ValidationException("Version mismatch " + child.getVersion() + " in parent " + parent.getVersion());
+            }
+        }
     }
 }

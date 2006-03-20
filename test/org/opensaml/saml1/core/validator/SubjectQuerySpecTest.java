@@ -18,7 +18,6 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectQuery;
@@ -26,10 +25,10 @@ import org.opensaml.saml1.core.SubjectQuery;
 /**
  * Test class for {@link org.opensaml.saml1.core.validator.SubjectQuerySchemaValidator}.
  */
-public abstract class SubjectQuerySchemaTest extends SAML1ObjectValidatorBaseTestCase {
+public abstract class SubjectQuerySpecTest extends SAML1ObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SubjectQuerySchemaTest() {
+    public SubjectQuerySpecTest() {
         super();
     }
 
@@ -44,9 +43,10 @@ public abstract class SubjectQuerySchemaTest extends SAML1ObjectValidatorBaseTes
         query.setSubject((Subject) buildXMLObject(qname, context));
     }
     
-    public void testSubject() {
+    public void testVersions() {
         SubjectQuery query = (SubjectQuery) target;
-        query.setSubject(null);
-        assertValidationFail("No Subject, should raise a Validation Exception");
+        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        query.setSubject((Subject) buildXMLObject(qname, otherContext));
+        assertValidationFail("Subject version mismatch, should thow an exception ");
     }
 }

@@ -18,20 +18,19 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Action;
+import org.opensaml.saml1.core.AttributeQuery;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.ActionSchemaValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AttributeQuerySchemaValidator}.
  */
-public class ActionSchemaTest extends SAML1ObjectValidatorBaseTestCase {
+public class AttributeQuerySpecTest extends SubjectQuerySpecTest  {
 
     /** Constructor */
-    public ActionSchemaTest() {
+    public AttributeQuerySpecTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new ActionSchemaValidator();
+        targetQName = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        validator = new AttributeQuerySpecValidator();
     }
 
     /*
@@ -39,20 +38,7 @@ public class ActionSchemaTest extends SAML1ObjectValidatorBaseTestCase {
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        
-        Action action = (Action) target;
-        action.setContents("data and other cool stuff");
     }
     
-    public void testMissingContents(){
-        Action action = (Action) target;
-        action.setContents(null);
-        assertValidationFail("Contents null, should raise a Validation Exception");
-
-        action.setContents("");
-        assertValidationFail("Contents empty, should raise a Validation Exception");
-
-        action.setContents("  ");
-        assertValidationFail("Contents whitespace, should raise a Validation Exception");
-}
+   // All the testing is done in the superclass
 }

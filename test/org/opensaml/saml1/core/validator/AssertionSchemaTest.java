@@ -16,10 +16,11 @@
 
 package org.opensaml.saml1.core.validator;
 
+import java.util.HashMap;
+
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
@@ -38,11 +39,10 @@ public class AssertionSchemaTest extends SAML1ObjectValidatorBaseTestCase {
         validator = new AssertionSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
+    /**
+     * Common setup method (populateRequiredData & the first test
      */
-    protected void populateRequiredData() {
-        super.populateRequiredData();
+    private void setupRequiredData() {
         
         Assertion assertion = (Assertion) target;
         assertion.setIssuer("Issuer");
@@ -50,6 +50,26 @@ public class AssertionSchemaTest extends SAML1ObjectValidatorBaseTestCase {
         assertion.setIssueInstant(new DateTime());
         QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         assertion.getStatements().add((AttributeStatement)buildXMLObject(name, context));
+        
+    }
+    /*
+     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
+     */
+    protected void populateRequiredData() {
+        super.populateRequiredData();
+        setupRequiredData();
+    }
+    
+    public void testWrongVersion() {
+        target = buildXMLObject(targetQName, otherContext);
+        setupRequiredData();
+        assertValidationPass("SAML1.0 is OK");
+        HashMap<String, Object> saml2Context = new HashMap<String, Object>(context.size());
+        saml2Context.putAll(context);
+        saml2Context.put(AbstractSAMLObjectBuilder.contextVersion, SAMLVersion.VERSION_20);
+        target = buildXMLObject(targetQName, saml2Context);
+        setupRequiredData();
+        assertValidationFail("SAML2.0 is not OK");
     }
     
     public void testMissingID(){

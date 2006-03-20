@@ -18,19 +18,19 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Subject;
-import org.opensaml.saml1.core.SubjectQuery;
+import org.opensaml.saml1.core.Action;
 
 /**
- * Test class for {@link org.opensaml.saml1.core.validator.SubjectQuerySchemaValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.ActionSpecValidator}.
  */
-public abstract class SubjectQuerySchemaTest extends SAML1ObjectValidatorBaseTestCase {
+public class ActionSpecTest extends SAML1ObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SubjectQuerySchemaTest() {
+    public ActionSpecTest() {
         super();
+        targetQName = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        validator = new ActionSpecValidator();
     }
 
     /*
@@ -39,14 +39,21 @@ public abstract class SubjectQuerySchemaTest extends SAML1ObjectValidatorBaseTes
     protected void populateRequiredData() {
         super.populateRequiredData();
         
-        SubjectQuery query = (SubjectQuery) target;
-        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        query.setSubject((Subject) buildXMLObject(qname, context));
+        Action action = (Action) target;
+        action.setContents("data and other cool stuff");
     }
     
-    public void testSubject() {
-        SubjectQuery query = (SubjectQuery) target;
-        query.setSubject(null);
-        assertValidationFail("No Subject, should raise a Validation Exception");
+    public void testMissingContents(){
+        Action action = (Action) target;
+        action.setContents(null);
+        assertValidationFail("Contents null, should raise a Validation Exception");
+
+        action.setContents("");
+        assertValidationFail("Contents empty, should raise a Validation Exception");
+
+        action.setContents("  ");
+        assertValidationFail("Contents whitespace, should raise a Validation Exception");
     }
+    
+    // No children so noi version mismatch to test
 }

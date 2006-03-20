@@ -18,12 +18,14 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.saml1.core.Query;
 import org.opensaml.saml1.core.Request;
+import org.opensaml.saml1.core.impl.AbstractSAMLObjectBuilder;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.RequestSchemaValidator}.
@@ -41,11 +43,12 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTest  {
      * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
     protected void populateRequiredData() {
+        context.put(AbstractSAMLObjectBuilder.contextVersion, SAMLVersion.VERSION_11);
         super.populateRequiredData();
         
         Request request = (Request) target;
         QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
-        request.setQuery((Query)buildXMLObject(qname));
+        request.setQuery((Query)buildXMLObject(qname, context));
     }
     
     public void testNothingPresent() {

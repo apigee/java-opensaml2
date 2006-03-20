@@ -44,6 +44,7 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
     protected Validator validator;
 
     /** Context for the object construction */
+    // TODO Move this into the base class
     protected Map<String, Object> context;
     /**
     /**
@@ -66,9 +67,7 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
         
         if (validator == null)
             throw new Exception("validator was null");
-        //
-        // TODO -replace with one with a context when the 
-        target = buildXMLObject(targetQName);
+        target = buildXMLObject(targetQName, context);
         populateRequiredData();
     }
 

@@ -35,34 +35,72 @@ import org.opensaml.xml.validation.Validator;
  */
 public class AssertionSchemaValidator implements Validator {
 
-    /*
+    /**
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    // TODO split out into separate tests
-    // TODO no spec validation
     public void validate(XMLObject xmlObject) throws ValidationException {
         
          Assertion assertion= (Assertion) xmlObject;
          
+         validateVersion(assertion);
+         validateId(assertion);
+         validateIssuer(assertion);
+         validateIssueInstant(assertion);
+         validateStatements(assertion);
+    }
+    
+    /**
+     * Test that the version is SAML1.1 or 1.0
+     * @param assertion what to test
+     * @throws ValidationException
+     */
+    protected void validateVersion(Assertion assertion) throws ValidationException {
          if ((assertion.getVersion() != SAMLVersion.VERSION_10) &&
              (assertion.getVersion() != SAMLVersion.VERSION_11)) {
              throw new ValidationException("Invalid Version");
          }
-         
+    }    
+    
+    /**
+     * Test that the ID is present
+     * @param assertion
+     * @throws ValidationException
+     */
+    protected void validateId(Assertion assertion) throws ValidationException {
          if (DatatypeHelper.isEmpty(assertion.getID())) {
              throw new ValidationException("ID not present");
          }
+    }
          
-         
-         if (DatatypeHelper.isEmpty(assertion.getIssuer())) {
+    /**
+     * Test that the issuer is present
+     * @param assertion
+     * @throws ValidationException
+     */
+    protected void validateIssuer(Assertion assertion) throws ValidationException {
+        if (DatatypeHelper.isEmpty(assertion.getIssuer())) {
              throw new ValidationException("Issuer not present");
          }
-
+    }
+    
+    /**
+     * Test that the IssueInstant is present
+     * @param assertion
+     * @throws ValidationException
+     */
+    protected void validateIssueInstant(Assertion assertion) throws ValidationException {
          if (assertion.getIssueInstant() == null) {
              throw new ValidationException("IssueInstant not present");
          }
+    }
          
-         List <Statement> list = assertion.getStatements();
+    /**
+     * Test that the provided assertion has some statements in 
+     * @param assertion
+     * @throws ValidationException
+     */
+    protected void validateStatements(Assertion assertion) throws ValidationException {
+        List <Statement> list = assertion.getStatements();
          if (list == null || list.size() == 0) {
              throw new ValidationException("No Statements present");
          }

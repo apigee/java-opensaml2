@@ -19,7 +19,6 @@ package org.opensaml.saml1.core.impl;
 import java.util.Map;
 
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
 import org.w3c.dom.Element;
 
 /**
