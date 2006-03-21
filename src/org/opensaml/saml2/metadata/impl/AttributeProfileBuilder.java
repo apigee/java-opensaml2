@@ -20,18 +20,33 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.AttributeProfile;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AttributeProfileImpl}s
  */
 public class AttributeProfileBuilder implements XMLObjectBuilder {
 
+    /**
+     * Constructor
+     */
+    public AttributeProfileBuilder() {
+
+    }
+
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AttributeProfile buildObject() {
+        return new AttributeProfileImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AttributeProfile buildObject(Element element) {
         return new AttributeProfileImpl();
     }
 }

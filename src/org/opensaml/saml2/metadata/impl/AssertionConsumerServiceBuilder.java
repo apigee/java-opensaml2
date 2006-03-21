@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AssertionConsumerServiceImpl} objects.
@@ -38,7 +39,14 @@ public class AssertionConsumerServiceBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AssertionConsumerService buildObject() {
+        return new AssertionConsumerServiceImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AssertionConsumerService buildObject(Element element) {
         return new AssertionConsumerServiceImpl();
     }
 }

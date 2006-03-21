@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AttributeAuthorityDescriptorImpl}s.
@@ -38,7 +39,14 @@ public class AttributeAuthorityDescriptorBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AttributeAuthorityDescriptor buildObject() {
+        return new AttributeAuthorityDescriptorImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AttributeAuthorityDescriptor buildObject(Element element) {
         return new AttributeAuthorityDescriptorImpl();
     }
 }

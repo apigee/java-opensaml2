@@ -16,8 +16,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AffiliateMemberImpl}s.
@@ -34,7 +35,14 @@ public class AffiliateMemberBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AffiliateMember buildObject() {
+        return new AffiliateMemberImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AffiliateMember buildObject(Element element) {
         return new AffiliateMemberImpl();
     }
 }

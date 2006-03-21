@@ -17,27 +17,36 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AssertionIDRequestServiceImpl}
  */
 public class AssertionIDRequestServiceBuilder implements XMLObjectBuilder {
-    
+
     /**
      * Constructor
      */
     public AssertionIDRequestServiceBuilder() {
-        
+
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AssertionIDRequestService buildObject() {
+        return new AssertionIDRequestServiceImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AssertionIDRequestService buildObject(Element element) {
         return new AssertionIDRequestServiceImpl();
     }
 }

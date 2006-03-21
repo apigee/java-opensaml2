@@ -16,8 +16,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * A builder for {@link org.opensaml.saml2.metadata.impl.AffiliationDescriptorImpl} objects.
@@ -34,7 +35,14 @@ public class AffiliationDescriptorBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AffiliationDescriptor buildObject() {
+        return new AffiliationDescriptorImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AffiliationDescriptor buildObject(Element element) {
         return new AffiliationDescriptorImpl();
     }
 }

@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.AttributeConsumingServiceImpl}.
@@ -38,7 +39,14 @@ public class AttributeConsumingServiceBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AttributeConsumingService buildObject() {
+        return new AttributeConsumingServiceImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AttributeConsumingService buildObject(Element element) {
         return new AttributeConsumingServiceImpl();
     }
 }
