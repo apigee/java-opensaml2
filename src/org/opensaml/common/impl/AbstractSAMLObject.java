@@ -80,7 +80,7 @@ public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXML
      */
     protected DateTime prepareForAssignment(DateTime oldValue, DateTime newValue){
         if(newValue != null){
-            newValue.withZone(DateTimeZone.UTC);
+            newValue = newValue.withZone(DateTimeZone.UTC);
         }
         
         return super.prepareForAssignment(oldValue, newValue);
