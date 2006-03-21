@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.AuthzDecisionQuery;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.AuthzDecisionQueryImpl} objects.
@@ -29,13 +31,23 @@ public class AuthzDecisionQueryBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AuthzDecisionQueryBuilder() {
-        
+
     }
 
-    public XMLObject buildObject() {
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     */
+    public AuthzDecisionQuery buildObject() {
+        return new AuthzDecisionQueryImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AuthzDecisionQuery buildObject(Element element) {
         return new AuthzDecisionQueryImpl();
     }
 }

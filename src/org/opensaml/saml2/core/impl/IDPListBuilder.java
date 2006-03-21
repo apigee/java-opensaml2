@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.IDPList;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.IDPListImpl}
@@ -33,10 +35,14 @@ public class IDPListBuilder implements XMLObjectBuilder {
     public IDPListBuilder() {
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public IDPList buildObject() {
+        return new IDPListImpl();
+    }
+
+    public IDPList buildObject(Element element) {
         return new IDPListImpl();
     }
 }

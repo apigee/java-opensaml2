@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AuthzDecisionStatementImpl} objects.
@@ -36,7 +37,14 @@ public class AuthzDecisionStatementBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AuthzDecisionStatement buildObject() {
+        return new AuthzDecisionStatementImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AuthzDecisionStatement buildObject(Element element) {
         return new AuthzDecisionStatementImpl();
     }
 }
