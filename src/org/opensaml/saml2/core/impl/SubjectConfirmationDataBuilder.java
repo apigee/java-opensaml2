@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
- * Builder for {@link org.opensaml.saml2.core.impl.SubjectConfirmationDataImpl}
- * objects.
+ * Builder for {@link org.opensaml.saml2.core.impl.SubjectConfirmationDataImpl} objects.
  */
 public class SubjectConfirmationDataBuilder implements XMLObjectBuilder {
 
@@ -37,7 +37,14 @@ public class SubjectConfirmationDataBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public SubjectConfirmationData buildObject() {
+        return new SubjectConfirmationDataImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public SubjectConfirmationData buildObject(Element element) {
         return new SubjectConfirmationDataImpl();
     }
 }

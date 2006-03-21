@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.SubjectLocality;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.SubjectLocalityImpl} objects.
@@ -36,7 +37,14 @@ public class SubjectLocalityBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public SubjectLocality buildObject() {
+        return new SubjectLocalityImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public SubjectLocality buildObject(Element element) {
         return new SubjectLocalityImpl();
     }
 }

@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.SubjectImpl} objects.
@@ -36,7 +37,14 @@ public class SubjectBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public Subject buildObject() {
+        return new SubjectImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public Subject buildObject(Element element) {
         return new SubjectImpl();
     }
 }
