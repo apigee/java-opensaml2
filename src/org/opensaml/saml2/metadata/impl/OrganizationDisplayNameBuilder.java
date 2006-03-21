@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.OrganizationDisplayName;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.OrganizationDisplayNameImpl}
@@ -38,7 +39,14 @@ public class OrganizationDisplayNameBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public OrganizationDisplayName buildObject() {
+        return new OrganizationDisplayNameImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public OrganizationDisplayName buildObject(Element element) {
         return new OrganizationDisplayNameImpl();
     }
 }

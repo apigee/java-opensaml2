@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.NameIDMappingService;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of (@link org.opensaml.saml2.metadata.impl.NameIDMappingServiceImpl}.
@@ -38,7 +39,14 @@ public class NameIDMappingServiceBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public NameIDMappingService buildObject() {
+        return new NameIDMappingServiceImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public NameIDMappingService buildObject(Element element) {
         return new NameIDMappingServiceImpl();
     }
 }
