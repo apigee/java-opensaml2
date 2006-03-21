@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.IDPSSODescriptorImpl}
@@ -31,7 +32,14 @@ public class IDPSSODescriptorBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public IDPSSODescriptor buildObject() {
+        return new IDPSSODescriptorImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public IDPSSODescriptor buildObject(Element element) {
         return new IDPSSODescriptorImpl();
     }
 }

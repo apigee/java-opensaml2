@@ -16,25 +16,33 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * An Builder for EntityDescriptor elements.
  */
 public class EntityDescriptorBuilder implements XMLObjectBuilder {
-    
+
     /**
      * Constructor.
      */
     public EntityDescriptorBuilder() {
-        
+
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public EntityDescriptor buildObject() {
+        return new EntityDescriptorImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public EntityDescriptor buildObject(Element element) {
         return new EntityDescriptorImpl();
     }
 }

@@ -17,27 +17,36 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.EmailAddress;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.EmailAddressImpl}
  */
 public class EmailAddressBuilder implements XMLObjectBuilder {
- 
+
     /**
      * Constructor
      */
-    public EmailAddressBuilder(){
-        
+    public EmailAddressBuilder() {
+
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public EmailAddress buildObject() {
+        return new EmailAddressImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public EmailAddress buildObject(Element element) {
         return new EmailAddressImpl();
     }
 }
