@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AudienceRestrictionImpl} objects.
@@ -36,7 +37,14 @@ public class AudienceRestrictionBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AudienceRestriction buildObject() {
+        return new AudienceRestrictionImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AudienceRestriction buildObject(Element element) {
         return new AudienceRestrictionImpl();
     }
 }

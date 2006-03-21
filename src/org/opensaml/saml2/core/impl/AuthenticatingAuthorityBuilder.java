@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.AuthenticatingAuthority;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AuthenticatingAuthorityImpl} objects.
@@ -36,7 +37,14 @@ public class AuthenticatingAuthorityBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AuthenticatingAuthority buildObject() {
+        return new AuthenticatingAuthorityImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AuthenticatingAuthority buildObject(Element element) {
         return new AuthenticatingAuthorityImpl();
     }
 }

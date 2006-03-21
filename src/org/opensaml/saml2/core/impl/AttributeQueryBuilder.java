@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.AttributeQuery;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.AttributeQueryImpl} objects.
@@ -29,16 +31,23 @@ public class AttributeQueryBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AttributeQueryBuilder() {
-        
+
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AttributeQuery buildObject() {
+        return new AttributeQueryImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public AttributeQuery buildObject(Element element) {
         return new AttributeQueryImpl();
     }
 }
