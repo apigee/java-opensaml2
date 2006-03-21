@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.OneTimeUse;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.OneTimeUseImpl} objects.
@@ -36,7 +37,14 @@ public class OneTimeUseBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public OneTimeUse buildObject() {
+        return new OneTimeUseImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public OneTimeUse buildObject(Element element) {
         return new OneTimeUseImpl();
     }
 }

@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.LogoutResponse;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.LogoutResponse}
@@ -29,17 +31,23 @@ public class LogoutResponseBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public LogoutResponseBuilder() {
 
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public LogoutResponse buildObject() {
         return new LogoutResponseImpl();
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public LogoutResponse buildObject(Element element) {
+        return new LogoutResponseImpl();
+    }
 }

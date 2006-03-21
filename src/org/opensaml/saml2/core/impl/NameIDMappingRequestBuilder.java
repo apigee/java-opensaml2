@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.NameIDMappingRequest;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.NameIDMappingRequest}
@@ -29,17 +31,23 @@ public class NameIDMappingRequestBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public NameIDMappingRequestBuilder() {
 
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public NameIDMappingRequest buildObject() {
         return new NameIDMappingRequestImpl();
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public NameIDMappingRequest buildObject(Element element) {
+        return new NameIDMappingRequestImpl();
+    }
 }

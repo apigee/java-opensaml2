@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.ManageNameIDRequest;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.ManageNameIDRequestImpl} objects.
@@ -29,17 +31,23 @@ public class ManageNameIDRequestBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ManageNameIDRequestBuilder() {
 
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public ManageNameIDRequest buildObject() {
         return new ManageNameIDRequestImpl();
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public ManageNameIDRequest buildObject(Element element) {
+        return new ManageNameIDRequestImpl();
+    }
 }

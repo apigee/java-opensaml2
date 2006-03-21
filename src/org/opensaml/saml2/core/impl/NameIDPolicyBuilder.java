@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.NameIDPolcyImpl}
@@ -33,10 +35,17 @@ public class NameIDPolicyBuilder implements XMLObjectBuilder {
     public NameIDPolicyBuilder() {
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public NameIDPolicy buildObject() {
+        return new NameIDPolicyImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public NameIDPolicy buildObject(Element element) {
         return new NameIDPolicyImpl();
     }
 }
