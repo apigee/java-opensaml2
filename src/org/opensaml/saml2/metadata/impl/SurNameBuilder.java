@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.SurName;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.SurNameImpl}
@@ -38,7 +39,14 @@ public class SurNameBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public SurName buildObject() {
+        return new SurNameImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public SurName buildObject(Element element) {
         return new SurNameImpl();
     }
 }

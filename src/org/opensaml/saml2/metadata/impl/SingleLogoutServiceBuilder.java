@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.SingleLogoutService;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.SingleLogoutServiceImpl}.
@@ -38,7 +39,14 @@ public class SingleLogoutServiceBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public SingleLogoutService buildObject() {
+        return new SingleLogoutServiceImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public SingleLogoutService buildObject(Element element) {
         return new SingleLogoutServiceImpl();
     }
 }

@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.ServiceName;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.ServiceNameImpl}
@@ -38,7 +39,14 @@ public class ServiceNameBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public ServiceName buildObject() {
+        return new ServiceNameImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public ServiceName buildObject(Element element) {
         return new ServiceNameImpl();
     }
 }

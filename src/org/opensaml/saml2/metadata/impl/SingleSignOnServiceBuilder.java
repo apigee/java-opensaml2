@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.SingleSignOnServiceImpl}.
@@ -38,7 +39,14 @@ public class SingleSignOnServiceBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public SingleSignOnService buildObject() {
+        return new SingleSignOnServiceImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public SingleSignOnService buildObject(Element element) {
         return new SingleSignOnServiceImpl();
     }
 }
