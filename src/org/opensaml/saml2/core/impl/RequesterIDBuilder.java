@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.RequesterID;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.RequesterID}
@@ -33,10 +35,17 @@ public class RequesterIDBuilder implements XMLObjectBuilder {
     public RequesterIDBuilder() {
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public RequesterID buildObject() {
+        return new RequesterIDImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public RequesterID buildObject(Element element) {
         return new RequesterIDImpl();
     }
 }

@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.Response;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.Response}
@@ -29,17 +31,23 @@ public class ResponseBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public ResponseBuilder() {
 
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public Response buildObject() {
         return new ResponseImpl();
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public Response buildObject(Element element) {
+        return new ResponseImpl();
+    }
 }

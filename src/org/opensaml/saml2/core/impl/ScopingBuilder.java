@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.Scoping;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.ScopingImpl}
@@ -33,11 +35,17 @@ public class ScopingBuilder implements XMLObjectBuilder {
     public ScopingBuilder() {
     }
 
-    /**
-     * 
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public Scoping buildObject() {
+        return new ScopingImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public Scoping buildObject(Element element) {
         return new ScopingImpl();
     }
 }

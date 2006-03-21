@@ -17,28 +17,37 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.StatusMessage;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
- *  Builder of {@link org.opensaml.saml2.metadata.core.StatusMessageImpl}
+ * Builder of {@link org.opensaml.saml2.metadata.core.StatusMessageImpl}
  */
 public class StatusMessageBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
-    public StatusMessageBuilder() { 
-        
+    public StatusMessageBuilder() {
+
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public StatusMessage buildObject() {
+        return new StatusMessageImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public StatusMessage buildObject(Element element) {
         return new StatusMessageImpl();
     }
 }

@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.SessionIndex;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.SessionIndex} objects.
@@ -29,15 +31,22 @@ public class SessionIndexBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public SessionIndexBuilder() {
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public SessionIndex buildObject() {
+        return new SessionIndexImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public SessionIndex buildObject(Element element) {
         return new SessionIndexImpl();
     }
 }

@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.StatusCodeImpl}
@@ -29,15 +31,22 @@ public class StatusCodeBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public StatusCodeBuilder() {
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public StatusCode buildObject() {
+        return new StatusCodeImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public StatusCode buildObject(Element element) {
         return new StatusCodeImpl();
     }
 }

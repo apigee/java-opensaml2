@@ -17,28 +17,36 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.RequestedAuthnContext;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
- * A Builder for {@link org.opensaml.saml2.core.impl.RequestedAuthnContextImpl}
- * objects.
+ * A Builder for {@link org.opensaml.saml2.core.impl.RequestedAuthnContextImpl} objects.
  */
 public class RequestedAuthnContextBuilder implements XMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public RequestedAuthnContextBuilder() {
     }
 
-    /**
+    /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public RequestedAuthnContext buildObject() {
+        return new RequestedAuthnContextImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public RequestedAuthnContext buildObject(Element element) {
         return new RequestedAuthnContextImpl();
     }
 }

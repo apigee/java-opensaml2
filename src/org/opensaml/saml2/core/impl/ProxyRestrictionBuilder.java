@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.ProxyRestriction;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.ProxyRestrictionImpl} objects.
@@ -35,7 +36,14 @@ public class ProxyRestrictionBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public ProxyRestriction buildObject() {
+        return new ProxyRestrictionImpl();
+    }
+
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     */
+    public ProxyRestriction buildObject(Element element) {
         return new ProxyRestrictionImpl();
     }
 }
