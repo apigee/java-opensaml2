@@ -20,8 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AuthnContextImpl} objects.
@@ -36,7 +37,11 @@ public class AuthnContextBuilder implements XMLObjectBuilder {
     /*
      * @see org.opensaml.common.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
+    public AuthnContext buildObject() {
+        return new AuthnContextImpl();
+    }
+
+    public AuthnContext buildObject(Element element) {
         return new AuthnContextImpl();
     }
 }
