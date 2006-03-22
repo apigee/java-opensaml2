@@ -32,26 +32,30 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
 
     /** Expected affiliationOwnerID value */
     protected String expectedOwnerID;
-    
+
+    /** Expceted ID value */
+    protected String expectedID;
+
     /** Expected cacheDuration value in miliseconds */
     protected long expectedCacheDuration;
 
     /** Expected validUntil value */
     protected DateTime expectedValidUntil;
-    
+
     /**
      * Constructor
      */
-    public AffiliationDescriptorTest(){
+    public AffiliationDescriptorTest() {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AffiliationDescriptor.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/AffiliationDescriptorOptionalAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml2/metadata/impl/AffiliationDescriptorChildElements.xml";
     }
-    
+
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         expectedOwnerID = "urn:example.org";
+        expectedID = "id";
         expectedCacheDuration = 90000;
         expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
     }
@@ -61,11 +65,11 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementUnmarshall() {
         AffiliationDescriptor descriptor = (AffiliationDescriptor) unmarshallElement(singleElementFile);
-        
+
         String ownerId = descriptor.getOwnerID();
-        assertEquals("entityID attribute has a value of " + ownerId + ", expected a value of " + expectedOwnerID, expectedOwnerID,
-                ownerId);
-        
+        assertEquals("entityID attribute has a value of " + ownerId + ", expected a value of " + expectedOwnerID,
+                expectedOwnerID, ownerId);
+
         Long duration = descriptor.getCacheDuration();
         assertNull("cacheDuration attribute has a value of " + duration + ", expected no value", duration);
 
@@ -78,10 +82,13 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AffiliationDescriptor descriptor = (AffiliationDescriptor) unmarshallElement(singleElementOptionalAttributesFile);
-        
+
         String ownerId = descriptor.getOwnerID();
-        assertEquals("entityID attribute has a value of " + ownerId + ", expected a value of " + expectedOwnerID, expectedOwnerID,
-                ownerId);
+        assertEquals("entityID attribute has a value of " + ownerId + ", expected a value of " + expectedOwnerID,
+                expectedOwnerID, ownerId);
+
+        String id = descriptor.getID();
+        assertEquals("ID attribute has a value of " + id + ", expected a value of " + expectedID, expectedID, id);
 
         long duration = descriptor.getCacheDuration().longValue();
         assertEquals("cacheDuration attribute has a value of " + duration + ", expected a value of "
@@ -95,8 +102,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-    public void testChildElementsUnmarshall()
-    {
+    public void testChildElementsUnmarshall() {
         AffiliationDescriptor descriptor = (AffiliationDescriptor) unmarshallElement(childElementsFile);
 
         assertNotNull("Extensions", descriptor.getExtensions());
@@ -109,11 +115,12 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
         AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
-        
+
         descriptor.setOwnerID(expectedOwnerID);
-        
+
         assertEquals(expectedDOM, descriptor);
     }
 
@@ -121,31 +128,33 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
         AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
-        
+
         descriptor.setOwnerID(expectedOwnerID);
+        descriptor.setID(expectedID);
         descriptor.setValidUntil(expectedValidUntil);
         descriptor.setCacheDuration(expectedCacheDuration);
-        
+
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
-    
-    public void testChildElementsMarshall()
-    {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+
+    public void testChildElementsMarshall() {
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
         AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
-        
+
         descriptor.setOwnerID(expectedOwnerID);
 
         descriptor.setExtensions(new ExtensionsImpl());
         // TODO KeyDescriptor to be tested
-        
+
         descriptor.getMembers().add(new AffiliateMemberImpl());
         descriptor.getMembers().add(new AffiliateMemberImpl());
         descriptor.getMembers().add(new AffiliateMemberImpl());
-        
+
         assertEquals(expectedChildElementsDOM, descriptor);
     }
-    
+
 }

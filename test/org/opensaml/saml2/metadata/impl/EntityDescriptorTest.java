@@ -31,13 +31,16 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
 
     /** Expected entityID value */
     protected String expectedEntityID;
-    
+
+    /** Expected ID value */
+    protected String expectedID;
+
     /** Expected cacheDuration value in miliseconds */
     protected long expectedCacheDuration;
 
     /** Expected validUntil value */
     protected DateTime expectedValidUntil;
-    
+
     /**
      * Constructor
      */
@@ -52,7 +55,7 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         expectedEntityID = "99ff33";
         expectedCacheDuration = 90000;
         expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
@@ -63,11 +66,11 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementUnmarshall() {
         EntityDescriptor descriptor = (EntityDescriptor) unmarshallElement(singleElementFile);
-        
+
         String entityID = descriptor.getEntityID();
-        assertEquals("entityID attribute has a value of " + entityID + ", expected a value of " + expectedEntityID, expectedEntityID,
-                entityID);
-        
+        assertEquals("entityID attribute has a value of " + entityID + ", expected a value of " + expectedEntityID,
+                expectedEntityID, entityID);
+
         Long duration = descriptor.getCacheDuration();
         assertNull("cacheDuration attribute has a value of " + duration + ", expected no value", duration);
 
@@ -80,10 +83,13 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         EntityDescriptor descriptor = (EntityDescriptor) unmarshallElement(singleElementOptionalAttributesFile);
-        
+
         String entityID = descriptor.getEntityID();
-        assertEquals("entityID attribute has a value of " + entityID + ", expected a value of " + expectedEntityID, expectedEntityID,
-                entityID);
+        assertEquals("entityID attribute has a value of " + entityID + ", expected a value of " + expectedEntityID,
+                expectedEntityID, entityID);
+
+        String id = descriptor.getID();
+        assertEquals("ID attribute has a value of " + id + ", expected a value of " + expectedID, expectedID, id);
 
         long duration = descriptor.getCacheDuration().longValue();
         assertEquals("cacheDuration attribute has a value of " + duration + ", expected a value of "
@@ -97,8 +103,7 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-    public void testChildElementsUnmarshall()
-    {
+    public void testChildElementsUnmarshall() {
         EntityDescriptor descriptor = (EntityDescriptor) unmarshallElement(childElementsFile);
 
         assertNotNull("Extensions child", descriptor.getExtensions());
@@ -106,7 +111,7 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("SPSSODescriptor count", 3, descriptor.getSPSSODescriptor().size());
         assertEquals("AuthnAuthorityDescriptor count", 2, descriptor.getAuthnAuthorityDescriptor().size());
         // TODO AttributeAuthorityDescriptor
-        //assertEquals("AttributeAuthorityDescriptor count", 2, descriptor.getAttributeAuthorityDescriptor().size());
+        // assertEquals("AttributeAuthorityDescriptor count", 2, descriptor.getAttributeAuthorityDescriptor().size());
         assertEquals("PDPDescriptor count", 2, descriptor.getPDPDescriptor().size());
         assertNotNull("AffiliationDescriptor ", descriptor.getAffiliationDescriptor());
         assertNotNull("Organization ", descriptor.getOrganization());
@@ -120,9 +125,9 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntityDescriptor descriptor = (EntityDescriptor) buildXMLObject(qname);
-        
+
         descriptor.setEntityID(expectedEntityID);
-        
+
         assertEquals(expectedDOM, descriptor);
     }
 
@@ -132,22 +137,22 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntityDescriptor descriptor = (EntityDescriptor) buildXMLObject(qname);
-        
+
         descriptor.setEntityID(expectedEntityID);
+        descriptor.setID(expectedID);
         descriptor.setValidUntil(expectedValidUntil);
         descriptor.setCacheDuration(expectedCacheDuration);
-        
+
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    public void testChildElementsMarshall()
-    {
+    public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntityDescriptor descriptor = (EntityDescriptor) buildXMLObject(qname);
-     
+
         descriptor.setExtensions(new ExtensionsImpl());
         descriptor.getIDPSSODescriptor().add(new IDPSSODescriptorImpl());
         descriptor.getSPSSODescriptor().add(new SPSSODescriptorImpl());
@@ -164,7 +169,7 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
         for (int i = 0; i < 3; i++) {
             descriptor.getAdditionalMetadataLocations().add(new AdditionalMetadataLocationImpl());
         }
-        
+
         assertEquals(expectedChildElementsDOM, descriptor);
     }
 
