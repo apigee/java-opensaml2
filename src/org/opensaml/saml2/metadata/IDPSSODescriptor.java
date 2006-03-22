@@ -28,7 +28,7 @@ public interface IDPSSODescriptor extends SSODescriptor{
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "IDPSSODescriptor";
     
-    /** "Name" attribute name */
+    /** "WantAuthnRequestSigned" attribute name */
     public final static String WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME = "WantAuthnRequestsSigned";
     
     /**

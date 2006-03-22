@@ -38,6 +38,9 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
     /** Element QName, no prefix */
     public final static QName ELEMENT_QNAME = new QName(SAMLConstants.SAML20MD_NS, LOCAL_NAME);
     
+    /** "ID" attribute name */
+    public final static String ID_ATTRIB_NAME = "ID";
+    
     /** "Name" attribute name */
     public final static String ENTITY_ID_ATTRIB_NAME = "entityID";
 
@@ -55,6 +58,20 @@ public interface EntityDescriptor extends SAMLObject, TimeBoundSAMLObject, Cache
      */
     public void setEntityID(String id);
 
+    /**
+     * Gets the ID for this entity descriptor.
+     * 
+     * @return the ID for this entity descriptor
+     */
+    public String getID();
+    
+    /**
+     * Sets the ID for this entity descriptor.
+     * 
+     * @param newID the ID for this entity descriptor
+     */
+    public void setID(String newID);
+    
     /**
      * Gets the Extensions child of this object.
      * 

@@ -22,6 +22,7 @@ import org.opensaml.common.SAMLObject;
  * SAML 2.0 Metadata AffiliateMember
  */
 public interface AffiliateMember extends SAMLObject {
+    
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "AffiliateMember";
     

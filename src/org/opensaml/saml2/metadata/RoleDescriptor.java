@@ -30,22 +30,39 @@ import org.opensaml.xml.signature.SignableXMLObject;
  * SAML 2.0 Metadata RoleDescriptor
  */
 public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject {
-    
+
     /** Element name, no namespace */
     public final static String LOCAL_NAME = "RoleDescriptor";
-    
+
+    /** "ID" attribute's local name */
+    public final static String ID_ATTRIB_NAME = "ID";
+
     /** "protocolEnumeration" attribute's local name */
     public final static String PROTOCOL_ENUMERATION_ATTRIB_NAME = "protocolSupportEnumeration";
-    
+
     /** "errorURL" attribute's local name */
     public final static String ERROR_URL_ATTRIB_NAME = "errorURL";
-    
+
+    /**
+     * Gets the ID of this role descriptor.
+     * 
+     * @return the ID of this role descriptor
+     */
+    public String getID();
+
+    /**
+     * Sets the ID of this role descriptor.
+     * 
+     * @param newID the ID of this role descriptor
+     */
+    public void setID(String newID);
+
     /**
      * Gets an immutable list of protocol {@link URI}s supported by this role.
      * 
      * @return list of protocol {@link URI}s supported by this role
      */
-	public List<String> getSupportedProtocols();
+    public List<String> getSupportedProtocols();
 
     /**
      * Chckes to see if the given protocol is supported by this role.
@@ -54,32 +71,32 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
      * 
      * @return true if the protocol is supported, false if not
      */
-	public boolean isSupportedProtocol(String protocol);
-    
+    public boolean isSupportedProtocol(String protocol);
+
     /**
      * Adds a protocol to the list of supported protocols for this role.
      * 
      * @param protocol the protocol
      */
     public void addSupportedProtocol(String protocol);
-    
+
     /**
      * Removes a protocol to the list of supported protocols for this role.
      * 
      * @param protocol the protocol
      */
     public void removeSupportedProtocol(String protocol);
-    
+
     /**
      * Removes a list of protocols to the list of supported protocols for this role.
      * 
      * @param protocols the protocol
      */
     public void removeSupportedProtocols(Collection<String> protocols);
-    
+
     /**
      * Removes all the supported protocols from this role.
-     *
+     * 
      */
     public void removeAllSupportedProtocols();
 
@@ -88,31 +105,31 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
      * 
      * @return the URI users should be sent to in the event of an error
      */
-	public String getErrorURL();
-    
+    public String getErrorURL();
+
     /**
      * Sets the URI users should be sent to in the event of an error.
      * 
      * @param errorURL the URI users should be sent to in the event of an error
      */
     public void setErrorURL(String errorURL);
-    
+
     /**
      * Gets the Extensions child of this object.
      * 
      * @return the Extensions child of this object
      */
     public Extensions getExtensions();
-    
+
     /**
      * Sets the Extensions child of this object.
      * 
      * @param extensions the Extensions child of this object
      * 
-     * @throws IllegalArgumentException thrown if the given extensions Object is already a child of another SAMLObject 
+     * @throws IllegalArgumentException thrown if the given extensions Object is already a child of another SAMLObject
      */
     public void setExtensions(Extensions extensions) throws IllegalArgumentException;
-    
+
     /**
      * Gets the key descriptors for this role.
      * 
@@ -125,8 +142,8 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
      * 
      * @return the organization responsible for this role
      */
-	public Organization getOrganization();
-    
+    public Organization getOrganization();
+
     /**
      * Sets the organization responsible for this role.
      * 
@@ -135,7 +152,7 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
      * @throws IllegalArgumentException thrown if the given organization is owned by another element
      */
     public void setOrganization(Organization organization) throws IllegalArgumentException;
-    
+
     /**
      * Gets an immutable list of {@link ContactPerson}s for this role.
      * 

@@ -32,48 +32,65 @@ import org.opensaml.xml.signature.SignableXMLObject;
  * 
  * @author Chad La Joie
  */
-public interface EntitiesDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject{
-    
-	/** Element name, no namespace */
-	public final static String LOCAL_NAME = "EntitiesDescriptor";
-    
+public interface EntitiesDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject {
+
+    /** Element name, no namespace */
+    public final static String LOCAL_NAME = "EntitiesDescriptor";
+
     /** Element QName, no prefix */
     public final static QName ELEMENT_QNAME = new QName(SAMLConstants.SAML20MD_NS, LOCAL_NAME);
-	
-	/** "Name" attribute name */
-	public final static String NAME_ATTRIB_NAME = "Name";
-	
-	/**
-	 * Gets the name of this entity group.
-	 * 
-	 * @return the name of this entity group
-	 */
-	public String getName();
-	
-	/**
-	 * Sets the name of this entity group.
-	 * 
-	 * @param name the name of this entity group
-	 */
-	public void setName(String name);
-    
+
+    /** "ID" attribute name */
+    public final static String ID_ATTRIB_NAME = "ID";
+
+    /** "Name" attribute name */
+    public final static String NAME_ATTRIB_NAME = "Name";
+
+    /**
+     * Gets the name of this entity group.
+     * 
+     * @return the name of this entity group
+     */
+    public String getName();
+
+    /**
+     * Sets the name of this entity group.
+     * 
+     * @param name the name of this entity group
+     */
+    public void setName(String name);
+
+    /**
+     * Gets the ID of this entity group.
+     * 
+     * @return the id of this entity group
+     */
+    public String getID();
+
+    /**
+     * Sets the ID of this entity group.
+     * 
+     * @param newID the ID of this entity group
+     */
+    public void setID(String newID);
+
     /**
      * Gets the Extensions child of this object.
      * 
      * @return the Extensions child of this object
      */
     public Extensions getExtensions();
-    
+
     /**
      * Sets the Extensions child of this object.
      * 
      * @param extensions the Extensions child of this object
      * 
-     * @throws IllegalArgumentException thrown if the given extensions Object is already a child of another SAMLObject 
+     * @throws IllegalArgumentException thrown if the given extensions Object is already a child of another SAMLObject
      */
     public void setExtensions(Extensions extensions) throws IllegalArgumentException;
-	
-	/**
+
+    /**
      * Gets a list of child {@link EntitiesDescriptor}s.
      * 
      * @return list of descriptors
@@ -85,5 +102,5 @@ public interface EntitiesDescriptor extends SAMLObject, SignableXMLObject, TimeB
      * 
      * @return list of child descriptors
      */
-	public List<EntityDescriptor> getEntityDescriptors();
+    public List<EntityDescriptor> getEntityDescriptors();
 }

@@ -34,6 +34,9 @@ public interface AffiliationDescriptor extends SAMLObject, SignableXMLObject, Ti
 	
 	/** "affiliationOwnerID" attribute's local name */
 	public final static String OWNER_ID_ATTRIB_NAME = "affiliationOwnerID";
+    
+    /** ID attribute's local name */
+    public final static String ID_ATTRIB_NAME = "ID";
 
 	/**
 	 * Gets the ID of the owner of this affiliation.  The owner may, or may not, be a memeber of the affiliation.
@@ -41,6 +44,13 @@ public interface AffiliationDescriptor extends SAMLObject, SignableXMLObject, Ti
 	 * @return the ID of the owner of this affiliation
 	 */
 	public String getOwnerID();
+    
+    /**
+     * Gets the ID of this Descriptor.
+     * 
+     * @return the ID of this Descriptor
+     */
+    public String getID();
 
     /**
      * Gets the Extensions child of this object.
@@ -65,6 +75,13 @@ public interface AffiliationDescriptor extends SAMLObject, SignableXMLObject, Ti
 	 */
 	public void setOwnerID(String ownerID);
 	
+    /**
+     * Sets the ID of this descriptor.
+     * 
+     * @param newID the ID of this descriptor
+     */
+    public void setID(String newID);
+    
     /**
      * Gets a list of the members of this affiliation.
      * 
