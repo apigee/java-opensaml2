@@ -21,6 +21,7 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 
@@ -29,6 +30,9 @@ import org.opensaml.saml2.core.Assertion;
  */
 public class AssertionTest extends SAMLObjectBaseTestCase {
 
+    /** Expected Version value */
+    private SAMLVersion expectedVersion;
+    
     /** Expected IssueInstant value */
     private DateTime expectedIssueInstant;
 
@@ -59,6 +63,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
+        expectedVersion = SAMLVersion.VERSION_20;
         expectedIssueInstant = new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC());
         expectedID = "id";
     }
@@ -86,6 +91,9 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
 
         String id = assertion.getID();
         assertEquals("ID was " + id + ", expected " + expectedID, expectedID, id);
+        
+        SAMLVersion version = assertion.getVersion();
+        assertEquals("Version was " + version + ", expected " + expectedVersion, expectedVersion, version);
     }
 
     /**
@@ -108,6 +116,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
 
         assertion.setIssueInstant(expectedIssueInstant);
         assertion.setID(expectedID);
+        assertion.setVersion(expectedVersion);
 
         assertEquals(expectedOptionalAttributesDOM, assertion);
     }
