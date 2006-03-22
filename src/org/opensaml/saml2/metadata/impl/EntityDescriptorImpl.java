@@ -48,6 +48,9 @@ public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject imp
     /** Entity ID of this Entity */
     private String entityID;
 
+    /** ID attribute */
+    private String id;
+
     /** validUntil attribute */
     private DateTime validUntil;
 
@@ -106,6 +109,20 @@ public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject imp
             throw new IllegalArgumentException("Entity ID can not exceed 1024 characters in length");
         }
         entityID = prepareForAssignment(entityID, id);
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#getID()
+     */
+    public String getID() {
+        return id;
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.EntityDescriptor#setID(java.lang.String)
+     */
+    public void setID(String newID) {
+        this.id = prepareForAssignment(this.id, newID);
     }
 
     /*

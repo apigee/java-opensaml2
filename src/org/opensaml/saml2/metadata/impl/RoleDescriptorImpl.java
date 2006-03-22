@@ -36,6 +36,9 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public abstract class RoleDescriptorImpl extends AbstractSignableMetadataSAMLObject implements RoleDescriptor {
 
+    /** ID attribute */
+    private String id;
+
     /** validUntil attribute */
     private DateTime validUntil;
 
@@ -82,6 +85,20 @@ public abstract class RoleDescriptorImpl extends AbstractSignableMetadataSAMLObj
      */
     protected RoleDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.RoleDescriptor#getID()
+     */
+    public String getID() {
+        return id;
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.RoleDescriptor#setID(java.lang.String)
+     */
+    public void setID(String newID) {
+        this.id = prepareForAssignment(this.id, newID);
     }
 
     /*

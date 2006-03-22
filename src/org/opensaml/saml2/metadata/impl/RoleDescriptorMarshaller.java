@@ -56,6 +56,14 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         RoleDescriptor roleDescriptor = (RoleDescriptor) samlElement;
 
+        // Set the ID attribute
+        if (roleDescriptor.getID() != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Writing ID attribute to RoleDescriptor DOM element");
+            }
+            domElement.setAttributeNS(null, RoleDescriptor.ID_ATTRIB_NAME, roleDescriptor.getID());
+        }
+
         // Set the validUntil attribute
         if (roleDescriptor.getValidUntil() != null) {
             if (log.isDebugEnabled()) {

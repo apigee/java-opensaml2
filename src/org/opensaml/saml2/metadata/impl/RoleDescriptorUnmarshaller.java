@@ -76,7 +76,9 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         RoleDescriptor roleDescriptor = (RoleDescriptor) samlObject;
 
-        if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
+        if (attribute.getLocalName().equals(RoleDescriptor.ID_ATTRIB_NAME)) {
+            roleDescriptor.setID(attribute.getValue());
+        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
             roleDescriptor.setValidUntil(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             roleDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attribute.getValue()));
