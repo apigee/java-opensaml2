@@ -45,7 +45,7 @@ public class SAMLVersion {
     private String versionString;
     
     /** Constructor */
-    private SAMLVersion(int majorVersion, int minorVersion) {
+    public SAMLVersion(int majorVersion, int minorVersion) {
         this.majorVersion = majorVersion;
         this.minorVersion = minorVersion;
         
