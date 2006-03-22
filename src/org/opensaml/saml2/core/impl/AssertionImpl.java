@@ -27,6 +27,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
@@ -45,6 +46,9 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
  * A concrete implementation of {@link org.opensaml.saml2.core.Assertion}.
  */
 public class AssertionImpl extends AbstractSignableAssertionSAMLObject implements Assertion {
+
+    /** SAML Version of the assertion */
+    private SAMLVersion version;
 
     /** Issue Instant of the assertion */
     private DateTime issueInstant;
@@ -86,6 +90,20 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      */
     protected AssertionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#getVersion()
+     */
+    public SAMLVersion getVersion() {
+        return version;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Assertion#setVersion(org.opensaml.common.SAMLVersion)
+     */
+    public void setVersion(SAMLVersion newVersion) {
+        this.version = prepareForAssignment(this.version, newVersion);
     }
 
     /*

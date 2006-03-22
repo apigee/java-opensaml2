@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Request;
@@ -35,6 +36,9 @@ import org.opensaml.xml.XMLObject;
  */
 public abstract class RequestImpl extends AbstractSignableProtocolSAMLObject implements Request {
 
+    /** SAML Version of the request */
+    private SAMLVersion version;
+    
     /** Unique identifier of the request */
     private String id;
 
@@ -73,6 +77,20 @@ public abstract class RequestImpl extends AbstractSignableProtocolSAMLObject imp
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
+    /*
+     * @see org.opensaml.saml2.core.Request#getVersion()
+     */
+    public SAMLVersion getVersion() {
+        return version;
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Request#setVersion(org.opensaml.common.SAMLVersion)
+     */
+    public void setVersion(SAMLVersion newVersion) {
+        this.version = prepareForAssignment(this.version, newVersion);
+    }
+    
     /**
      * @see org.opensaml.saml2.core.Request#getID()
      */

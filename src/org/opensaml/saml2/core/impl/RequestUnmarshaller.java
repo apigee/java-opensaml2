@@ -17,10 +17,12 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.core.Issuer;
@@ -30,29 +32,34 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Request}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Request} objects.
  */
 public abstract class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      * @param targetNamespaceURI
      * @param targetLocalName
      * @throws IllegalArgumentException
      */
-     protected RequestUnmarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
+    protected RequestUnmarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Request req = (Request) samlObject;
-        
-        if (attribute.getLocalName().equals(Request.ID_ATTRIB_NAME))
+
+        if (attribute.getLocalName().equals(Request.VERSION_ATTRIB_NAME)) {
+            String[] version = attribute.getValue().split(".");
+            int major = Integer.valueOf(version[0]);
+            int minor = Integer.valueOf(version[1]);
+            req.setVersion(new SAMLVersion(major, minor));
+        } else if (attribute.getLocalName().equals(Request.ID_ATTRIB_NAME))
             req.setID(attribute.getValue());
         else if (attribute.getLocalName().equals(Request.ISSUE_INSTANT_ATTRIB_NAME))
             req.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
@@ -65,14 +72,16 @@ public abstract class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller
     }
 
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
+     *      org.opensaml.xml.XMLObject)
      */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         Request req = (Request) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof Issuer)
             req.setIssuer((Issuer) childSAMLObject);
-        //TODO Signature
+        // TODO Signature
         else if (childSAMLObject instanceof Extensions)
             req.setExtensions((Extensions) childSAMLObject);
         else

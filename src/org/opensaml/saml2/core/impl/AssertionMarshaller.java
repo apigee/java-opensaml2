@@ -55,6 +55,10 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         Assertion assertion = (Assertion) samlObject;
 
+        if (assertion.getVersion() != null) {
+            domElement.setAttributeNS(null, Assertion.VERSION_ATTRIB_NAME, assertion.getVersion().toString());
+        }
+
         if (assertion.getIssueInstant() != null) {
             String issueInstantStr = ISODateTimeFormat.dateTime().print(assertion.getIssueInstant());
             domElement.setAttributeNS(null, Assertion.ISSUE_INSTANT_ATTRIB_NAME, issueInstantStr);

@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.core.Issuer;
@@ -55,7 +56,12 @@ public abstract class StatusResponseUnmarshaller extends AbstractSAMLObjectUnmar
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         StatusResponse sr = (StatusResponse) samlObject;
         
-        if (attribute.getLocalName().equals(StatusResponse.ID_ATTRIB_NAME))
+        if (attribute.getLocalName().equals(StatusResponse.VERSION_ATTRIB_NAME)) {
+            String[] version = attribute.getValue().split(".");
+            int major = Integer.valueOf(version[0]);
+            int minor = Integer.valueOf(version[1]);
+            sr.setVersion(new SAMLVersion(major, minor));
+        } else if (attribute.getLocalName().equals(StatusResponse.ID_ATTRIB_NAME))
             sr.setID(attribute.getValue());
         else if (attribute.getLocalName().equals(StatusResponse.IN_RESPONSE_TO_ATTRIB_NAME))
             sr.setInResponseTo(attribute.getValue());

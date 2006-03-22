@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
@@ -33,7 +34,7 @@ public abstract class RequestMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
-     *
+     * 
      * @param targetNamespaceURI
      * @param targetLocalName
      * @throws IllegalArgumentException
@@ -41,29 +42,34 @@ public abstract class RequestMarshaller extends AbstractSAMLObjectMarshaller {
     protected RequestMarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
     }
-    
+
     /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
+     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Element)
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         Request req = (Request) samlObject;
-        
+
+        if (req.getVersion() != null) {
+            domElement.setAttributeNS(null, Request.VERSION_ATTRIB_NAME, req.getVersion().toString());
+        }
+
         if (req.getID() != null) {
             domElement.setAttributeNS(null, Request.ID_ATTRIB_NAME, req.getID());
             domElement.setIdAttributeNS(null, Request.ID_ATTRIB_NAME, true);
         }
-        
+
         if (req.getVersion() != null)
             domElement.setAttributeNS(null, Request.VERSION_ATTRIB_NAME, req.getVersion().toString());
-        
+
         if (req.getIssueInstant() != null) {
             String iiStr = ISODateTimeFormat.dateTime().print(req.getIssueInstant());
             domElement.setAttributeNS(null, Request.ISSUE_INSTANT_ATTRIB_NAME, iiStr);
         }
-        
+
         if (req.getDestination() != null)
             domElement.setAttributeNS(null, Request.DESTINATION_ATTRIB_NAME, req.getDestination());
-        
+
         if (req.getConsent() != null)
             domElement.setAttributeNS(null, Request.CONSENT_ATTRIB_NAME, req.getConsent());
     }

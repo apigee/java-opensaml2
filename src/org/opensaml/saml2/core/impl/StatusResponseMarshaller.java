@@ -48,6 +48,10 @@ public abstract class StatusResponseMarshaller extends AbstractSAMLObjectMarshal
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         StatusResponse sr = (StatusResponse) samlObject;
         
+        if (sr.getVersion() != null) {
+            domElement.setAttributeNS(null, StatusResponse.VERSION_ATTRIB_NAME, sr.getVersion().toString());
+        }
+        
        if (sr.getID() != null)  {
            domElement.setAttributeNS(null, StatusResponse.ID_ATTRIB_NAME, sr.getID());
            domElement.setIdAttributeNS(null, StatusResponse.ID_ATTRIB_NAME, true);
