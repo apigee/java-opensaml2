@@ -24,8 +24,8 @@ import org.opensaml.common.SAMLObject;
  * SAML 2.0 Core Subject
  */
 public interface Subject extends SAMLObject {
-    
-    /** Element local name */ 
+
+    /** Element local name */
     public final static String LOCAL_NAME = "Subject";
 
     /**
@@ -34,27 +34,29 @@ public interface Subject extends SAMLObject {
      * @return the base identifier of the principal for this request
      */
     public BaseID getBaseID();
-    
+
     /**
      * Sets the base identifier of the principal for this request.
      * 
      * @param newBaseID the base identifier of the principal for this request
      */
     public void setBaseID(BaseID newBaseID);
-    
+
     /**
      * Gets the name identifier of the principal for this request.
      * 
      * @return the name identifier of the principal for this request
      */
     public NameID getNameID();
-    
+
     /**
      * Sets the name identifier of the principal for this request.
      * 
      * @param newNameID the name identifier of the principal for this request
      */
     public void setNameID(NameID newNameID);
+
+    // TODO EncryptedID
 
     /**
      * Gets the confirmations made about this subject.

@@ -21,6 +21,7 @@ package org.opensaml.saml2.core;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
@@ -45,6 +46,20 @@ public interface StatusResponse extends SAMLObject,  SignableXMLObject {
     
     /** Consent attribute name */
     public static final String CONSENT_ATTRIB_NAME = "Consent";
+    
+    /**
+     * Gets the SAML Version of this response.
+     * 
+     * @return the SAML Version of this response.
+     */
+    public SAMLVersion getVersion();
+    
+    /**
+     * Sets the SAML Version of this response.
+     * 
+     * @param newVersion the SAML Version of this response
+     */
+    public void setVersion(SAMLVersion newVersion);
     
     /**
      * Gets the unique identifier of the response.

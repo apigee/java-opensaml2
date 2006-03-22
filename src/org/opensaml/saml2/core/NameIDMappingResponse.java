@@ -39,4 +39,5 @@ public interface NameIDMappingResponse extends StatusResponse {
      */
     public void setNameID(NameID newNameID);
  
+    // TODO EncryptedID
 }

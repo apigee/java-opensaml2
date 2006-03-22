@@ -49,27 +49,29 @@ public interface SubjectConfirmation extends SAMLObject {
      * @return the base identifier of the principal for this request
      */
     public BaseID getBaseID();
-    
+
     /**
      * Sets the base identifier of the principal for this request.
      * 
      * @param newBaseID the base identifier of the principal for this request
      */
     public void setBaseID(BaseID newBaseID);
-    
+
     /**
      * Gets the name identifier of the principal for this request.
      * 
      * @return the name identifier of the principal for this request
      */
     public NameID getNameID();
-    
+
     /**
      * Sets the name identifier of the principal for this request.
      * 
      * @param newNameID the name identifier of the principal for this request
      */
     public void setNameID(NameID newNameID);
+
+    // TODO EncryptedID
 
     /**
      * Gets the data about how this subject was confirmed or constraints on the confirmation.

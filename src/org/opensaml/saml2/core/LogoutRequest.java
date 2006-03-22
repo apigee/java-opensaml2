@@ -93,6 +93,8 @@ public interface LogoutRequest extends Request {
      */
     public void setNameID(NameID newNameID);
        
+    // TODO EncryptedID
+    
     /**
      *  Get the list of SessionIndexes for the request
      * 

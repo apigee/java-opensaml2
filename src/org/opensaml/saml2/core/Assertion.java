@@ -22,6 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
@@ -32,12 +33,28 @@ public interface Assertion extends SignableXMLObject, SAMLObject, Evidentiary {
     /** Element local name */
     public final static String LOCAL_NAME = "Assertion";
 
+    public final static String VERSION_ATTRIB_NAME = "Version";
+    
     /** IssueInstant attribute name */
     public final static String ISSUE_INSTANT_ATTRIB_NAME = "IssueInstant";
 
     /** ID attribute name */
     public final static String ID_ATTRIB_NAME = "ID";
 
+    /**
+     * Gets the SAML Version of this assertion.
+     * 
+     * @return the SAML Version of this assertion.
+     */
+    public SAMLVersion getVersion();
+    
+    /**
+     * Sets the SAML Version of this assertion.
+     * 
+     * @param newVersion the SAML Version of this assertion
+     */
+    public void setVersion(SAMLVersion newVersion);
+    
     /**
      * Gets the issue instance of this assertion.
      * 

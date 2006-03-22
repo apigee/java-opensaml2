@@ -56,6 +56,8 @@ public interface NameIDMappingRequest extends Request {
      */
     public void setNameID(NameID newNameID);
     
+    // TODO EncryptedID
+    
     /**
      * Get the NameIDPolicy of the request
      * 
