@@ -39,6 +39,9 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
 
     /** ID of the owner of this affiliation */
     private String ownerID;
+    
+    /** ID attribute*/
+    private String id;
 
     /** validUntil attribute */
     private DateTime validUntil;
@@ -91,6 +94,14 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
             throw new IllegalArgumentException("Owner ID can not exceed 1024 characters in length");
         }
         ownerID = prepareForAssignment(ownerID, newOwnerID);
+    }
+    
+    public String getID() {
+        return id;
+    }
+    
+    public void setID(String newID) {
+        this.id = prepareForAssignment(this.id, newID);
     }
 
     /*

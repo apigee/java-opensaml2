@@ -70,6 +70,11 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
             domElement.setAttributeNS(null, AffiliationDescriptor.OWNER_ID_ATTRIB_NAME, descriptor.getOwnerID());
         }
 
+        // Set ID
+        if (descriptor.getID() != null) {
+            domElement.setAttributeNS(null, AffiliationDescriptor.ID_ATTRIB_NAME, descriptor.getID());
+        }
+        
         // Set the validUntil attribute
         if (descriptor.getValidUntil() != null) {
             if (log.isDebugEnabled()) {

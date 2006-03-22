@@ -83,7 +83,9 @@ public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshall
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) samlObject;
 
-        if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
+        if (attribute.getLocalName().equals(EntitiesDescriptor.ID_ATTRIB_NAME)) {
+            entitiesDescriptor.setID(attribute.getValue());
+        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
             entitiesDescriptor.setValidUntil(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entitiesDescriptor.setCacheDuration(new Long(DatatypeHelper.durationToLong(attribute.getValue())));

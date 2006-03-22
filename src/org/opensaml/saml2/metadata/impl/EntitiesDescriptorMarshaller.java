@@ -68,6 +68,14 @@ public class EntitiesDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) samlElement;
 
+        // Set the ID attribute
+        if (entitiesDescriptor.getID() != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Writing ID attribute to EntitiesDescriptor DOM element.");
+            }
+            domElement.setAttributeNS(null, EntitiesDescriptor.ID_ATTRIB_NAME, entitiesDescriptor.getID());
+        }
+
         // Set the validUntil attribute
         if (entitiesDescriptor.getValidUntil() != null) {
             if (log.isDebugEnabled()) {

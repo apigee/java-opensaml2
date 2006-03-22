@@ -36,6 +36,9 @@ public class EntitiesDescriptorImpl extends AbstractSignableMetadataSAMLObject i
     /** Name of this descriptor group */
     private String name;
 
+    /** ID attribute */
+    private String id;
+
     /** validUntil attribute */
     private DateTime validUntil;
 
@@ -82,6 +85,20 @@ public class EntitiesDescriptorImpl extends AbstractSignableMetadataSAMLObject i
      */
     public void setName(String newName) {
         this.name = prepareForAssignment(this.name, newName);
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getID()
+     */
+    public String getID() {
+        return id;
+    }
+
+    /*
+     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#setID(java.lang.String)
+     */
+    public void setID(String newID) {
+        this.id = prepareForAssignment(this.id, newID);
     }
 
     /*
