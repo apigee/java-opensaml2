@@ -19,7 +19,7 @@ package org.opensaml.common.impl;
 import org.apache.log4j.Logger;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
+import org.opensaml.xml.io.AbstractDOMCachingXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
@@ -27,7 +27,7 @@ import org.w3c.dom.Attr;
  * An thread safe abstract unmarshaller. This abstract marshaller only works with
  * {@link org.opensaml.common.impl.AbstractSAMLObject}.
  */
-public abstract class AbstractSAMLObjectUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public abstract class AbstractSAMLObjectUnmarshaller extends AbstractDOMCachingXMLObjectUnmarshaller {
 
     /**
      * Logger

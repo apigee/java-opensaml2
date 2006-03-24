@@ -17,7 +17,7 @@
 package org.opensaml.common.impl;
 
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
+import org.opensaml.xml.io.AbstractDOMCachingXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
@@ -27,7 +27,7 @@ import org.w3c.dom.Element;
  * 
  * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller
  */
-public abstract class AbstractSAMLObjectMarshaller extends AbstractXMLObjectMarshaller {
+public abstract class AbstractSAMLObjectMarshaller extends AbstractDOMCachingXMLObjectMarshaller {
 
     /**
      * Constructor
