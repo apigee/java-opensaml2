@@ -18,7 +18,6 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.xml.XMLObject;
 
@@ -31,20 +30,21 @@ public class AssertionIDReferenceImpl extends AbstractAssertionSAMLObject implem
     private String NCName;
 
     /**
-     * Hidden Constructor
-     * @deprecated 
+     * Constructor
      */
-    private AssertionIDReferenceImpl() {
-        super(AssertionIDReference.LOCAL_NAME, null);
+    protected AssertionIDReferenceImpl() {
+        super(AssertionIDReference.LOCAL_NAME);
     }
 
     /**
      * Constructor
-     *
-     * @param version which SAMLVersion to write
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected AssertionIDReferenceImpl(SAMLVersion version) {
-        super(AssertionIDReference.LOCAL_NAME, version);
+    protected AssertionIDReferenceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

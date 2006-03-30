@@ -22,6 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
@@ -54,11 +55,25 @@ public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
     /* attributes */
 
     /**
+     * Get the MajorVersion attribute.
+     * 
+     * @return The stored MajorVersion
+     */
+    public int getMajorVersion();
+    
+    /**
      * Get the MinorVersion attribute.
      * 
      * @return The stored MinorVersion
      */
     public int getMinorVersion();
+    
+    /**
+     * Sets the SAML version of this assertion.
+     * 
+     * @param version the SAML version of this assertion
+     */
+    public void setVersion(SAMLVersion version);
 
     /**
      * Get the Issuer (which is an attribute) .

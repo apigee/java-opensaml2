@@ -21,7 +21,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
@@ -35,24 +34,26 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 public class AdviceImpl extends AbstractAssertionSAMLObject implements Advice {
 
     /** Contains all the SAML objects we have added */
-    private final IndexedXMLObjectChildrenList<XMLObject> orderedChildren = new IndexedXMLObjectChildrenList<XMLObject>(
-            this);
+    private IndexedXMLObjectChildrenList<XMLObject> orderedChildren;
 
     /**
      * Constructor
-     * @deprecated
      */
-    private AdviceImpl() {
-        super(Advice.LOCAL_NAME, null);
+    protected AdviceImpl() {
+        super(Advice.LOCAL_NAME);
+        orderedChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
     }
 
     /**
      * Constructor
-     *
-     * @param version the version to be created with
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected AdviceImpl(SAMLVersion version) {
-        super(Advice.LOCAL_NAME, version);
+    protected AdviceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+        orderedChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
     }
     
     /*

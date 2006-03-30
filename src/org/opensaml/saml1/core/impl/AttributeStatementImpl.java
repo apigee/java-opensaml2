@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
 import org.opensaml.xml.XMLObject;
@@ -32,26 +31,28 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class AttributeStatementImpl extends SubjectStatementImpl implements AttributeStatement {
 
     /** Contains the Attributes (in order) */
-    private final List<Attribute> attributes;
+    private final XMLObjectChildrenList<Attribute> attributes;
 
-    /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private AttributeStatementImpl() {
-        super(AttributeStatement.LOCAL_NAME, null);
-
-        attributes = null;
-    }
     /**
      * Constructor
-     *
-     * @param version the version to set
      */
-    protected AttributeStatementImpl(SAMLVersion version) {
-        super(AttributeStatement.LOCAL_NAME, version);
+    protected AttributeStatementImpl() {
+        super(AttributeStatement.LOCAL_NAME);
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
+     */
+    protected AttributeStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+        attributes = new XMLObjectChildrenList<Attribute>(this);
+    }
+
     /*
      * @see org.opensaml.saml1.core.AttributeStatement#getAttributes()
      */
@@ -65,7 +66,7 @@ public class AttributeStatementImpl extends SubjectStatementImpl implements Attr
      */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>(attributes.size() + 1);
-        
+
         if (super.getOrderedChildren() != null) {
             list.addAll(super.getOrderedChildren());
         }

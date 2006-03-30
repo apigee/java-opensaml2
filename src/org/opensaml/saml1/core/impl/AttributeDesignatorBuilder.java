@@ -17,12 +17,11 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.xml.AbstractXMLObject;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AttributeDesignatorImpl} objects
@@ -31,7 +30,7 @@ public class AttributeDesignatorBuilder extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
-     *
+     * 
      */
     public AttributeDesignatorBuilder() {
     }
@@ -39,12 +38,14 @@ public class AttributeDesignatorBuilder extends AbstractSAMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AttributeDesignatorImpl(null);
+    public AttributeDesignatorImpl buildObject() {
+        return new AttributeDesignatorImpl();
     }
 
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new AttributeDesignatorImpl(getVersion(context));
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public AbstractXMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AttributeDesignatorImpl(namespaceURI, localName, namespacePrefix);
     }
-
 }

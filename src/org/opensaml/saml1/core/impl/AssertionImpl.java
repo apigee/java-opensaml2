@@ -44,6 +44,9 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
     /** The <code> AssertionID </code> attrribute */
     private String id;
     
+    /** SAML version of this assertion */
+    private SAMLVersion version;
+    
     /** Object version of the <code> Issuer </code> attribute. */
     private String issuer;
 
@@ -57,31 +60,49 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
     private Advice advice;
 
     /** Object representnation of all the <code> Statement <\code> elements. */
-    private final IndexedXMLObjectChildrenList<Statement> statements = new IndexedXMLObjectChildrenList<Statement>(this);
+    private IndexedXMLObjectChildrenList<Statement> statements;
 
     /**
      * Constructor
-     * @deprecated
      */
-    private AssertionImpl() {
-        super(Assertion.LOCAL_NAME, null);
+    protected AssertionImpl() {
+        super(Assertion.LOCAL_NAME);
+        statements = new IndexedXMLObjectChildrenList<Statement>(this);
+        version = SAMLVersion.VERSION_11;
     }
+    
     /**
      * Constructor
-     *  Create an Assertion with a known verson
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected AssertionImpl(SAMLVersion version) {
-        super(Assertion.LOCAL_NAME, version);
+    protected AssertionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+        statements = new IndexedXMLObjectChildrenList<Statement>(this);
+        version = SAMLVersion.VERSION_11;
     }
+    
+    /*
+     * @see org.opensaml.saml1.core.Assertion#getMajorVersion()
+     */
+    public int getMajorVersion(){
+        return version.getMajorVersion();
+    }
+    
     /*
      * @see org.opensaml.saml1.core.Assertion#removeSubjectStatements(java.util.Set)
      */
     public int getMinorVersion() {
-        if (SAMLVersion.VERSION_10.equals(getVersion())) {
-            return 0;
-        } else {
-            return 1;
-        }
+        return version.getMinorVersion();
+    }
+    
+    /*
+     * @see org.opensaml.saml1.core.Assertion#setVersion(org.opensaml.common.SAMLVersion)
+     */
+    public void setVersion(SAMLVersion newVersion){
+        version = prepareForAssignment(version, newVersion);
     }
 
     /*

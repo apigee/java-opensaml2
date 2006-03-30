@@ -16,10 +16,7 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AssertionArtifactImpl} objects
@@ -36,11 +33,14 @@ public class AssertionArtifactBuilder extends AbstractSAMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AssertionArtifactImpl(null);
+    public AssertionArtifactImpl buildObject() {
+        return new AssertionArtifactImpl();
     }
 
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new AssertionArtifactImpl(getVersion(context));
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public AssertionArtifactImpl buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AssertionArtifactImpl(namespaceURI, localName, namespacePrefix);
     }
 }

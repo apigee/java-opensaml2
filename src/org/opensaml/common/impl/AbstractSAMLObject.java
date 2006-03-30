@@ -18,16 +18,12 @@ package org.opensaml.common.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.validation.AbstractValidatingDOMCachingXMLObject;
 
 /**
  * An abstract implementation of SAMLObject.
  */
 public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXMLObject{
-
-    /** SAML version of this object */
-    private SAMLVersion version;
 
     /**
      * Constructor
@@ -38,22 +34,6 @@ public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXML
      */
     protected AbstractSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-    }
-
-    /*
-     * @see org.opensaml.common.SAMLObject#getVersion()
-     */
-    public SAMLVersion getVersion() {
-        return version;
-    }
-
-    /**
-     * Sets the SAML version for this object.
-     * 
-     * @param version the SAML version for this object
-     */
-    protected void setSAMLVersion(SAMLVersion version) {
-        this.version = version;
     }
     
     /*

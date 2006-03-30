@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
 import org.opensaml.xml.XMLObject;
@@ -32,29 +32,27 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class AttributeImpl extends AttributeDesignatorImpl implements Attribute {
 
     /** Contains the AttributeValues */
-    private final List<AttributeValue> attributeValues;
+    private XMLObjectChildrenList<AttributeValue> attributeValues;
 
     /**
      * Constructor
-     * @deprecated
      */
-    private AttributeImpl() {
-        super(Attribute.LOCAL_NAME, null);
-
-        attributeValues = null;
-    }
-   
-    /**
-     * Constructor
-     *
-     * @param version the version it is being build
-     */
-    protected AttributeImpl(SAMLVersion version) {
-        super(Attribute.LOCAL_NAME, version);
-
+    protected AttributeImpl() {
+        super(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
     }
-    
+
+    /**
+     * Constructor
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
+     */
+    protected AttributeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+        attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
+    }
 
     /*
      * @see org.opensaml.saml1.core.Attribute#getAttributeValues()
@@ -67,7 +65,6 @@ public class AttributeImpl extends AttributeDesignatorImpl implements Attribute 
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-
         if (attributeValues.size() == 0) {
             return null;
         }

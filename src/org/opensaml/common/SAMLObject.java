@@ -23,10 +23,4 @@ import org.opensaml.xml.validation.ValidatingXMLObject;
  */
 public interface SAMLObject extends ValidatingXMLObject, DOMCachingXMLObject {
 
-    /**
-     * Gets the SAML version for this object.
-     * 
-     * @return the SAML version for this object
-     */
-    public SAMLVersion getVersion();
 }

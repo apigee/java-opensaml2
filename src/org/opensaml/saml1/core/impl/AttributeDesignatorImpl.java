@@ -21,7 +21,6 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.xml.XMLObject;
 
@@ -37,44 +36,22 @@ public class AttributeDesignatorImpl extends AbstractAssertionSAMLObject impleme
     private String attributeNamespace;
 
     /**
-     * Hidden Constructor
-     * @deprecated 
+     * Constructor
      */
-     private AttributeDesignatorImpl() {
-        super(AttributeDesignator.LOCAL_NAME, null);
+     protected AttributeDesignatorImpl() {
+        super(AttributeDesignator.LOCAL_NAME);
     }
     
-    /**
-     * Constructor
-     *
-     * @param version the version we want it to have
-     */
-    protected AttributeDesignatorImpl(SAMLVersion version) {
-        super(AttributeDesignator.LOCAL_NAME, version);
-    }
-    
-    /**
-     * Constructor
-     * @param elementLocalName
-     * @param version the version we want it to have
-     */
-    protected AttributeDesignatorImpl(String elementLocalName, SAMLVersion version) {
-        super(elementLocalName, version);
-    }
-
-
-    /**
-     * Constructor
-     *
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
-     * @param version the version we want it to have
-     */
-    protected AttributeDesignatorImpl(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
-        super(namespaceURI, elementLocalName, namespacePrefix, version);
-    }
-
+     /**
+      * Constructor
+      * 
+      * @param namespaceURI the namespace the element is in
+      * @param elementLocalName the local name of the XML element this Object represents
+      * @param namespacePrefix the prefix for the given namespace
+      */
+     protected AttributeDesignatorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+         super(namespaceURI, elementLocalName, namespacePrefix);
+     }
     /*
      * @see org.opensaml.saml1.core.AttributeDesignator#getAttributeName()
      */

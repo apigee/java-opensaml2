@@ -16,11 +16,7 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.saml1.core.Action;
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 
 /**
  * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.ActionImpl} object
@@ -37,15 +33,14 @@ public class ActionBuilder extends AbstractSAMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public Action buildObject() {
-        return new ActionImpl(getVersion(null));
+    public ActionImpl buildObject() {
+        return new ActionImpl();
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        
-        return new ActionImpl(getVersion(context));
+    public ActionImpl buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new ActionImpl(namespaceURI, localName, namespacePrefix);
     }
 }

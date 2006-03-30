@@ -16,9 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLVersion;
@@ -36,9 +33,6 @@ import org.w3c.dom.Attr;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.Assertion} objects.
  */
 public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(AssertionUnmarshaller.class);
 
     /**
      * Constructor
@@ -67,12 +61,6 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         }
     }
 
-    protected void processContext(XMLObject object, Map<String, Object> context){
-        Assertion assertion = (Assertion) object;
-        context.put(AbstractSAMLObjectBuilder.contextVersion, assertion.getVersion());
-    }
-    
-    
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Attr)
@@ -87,28 +75,11 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             assertion.setIssuer(attribute.getValue());
         } else if (Assertion.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
             assertion.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
-        } else if (Assertion.MAJORVERSION_ATTRIB_NAME.endsWith(attribute.getLocalName())) {
-            try {
-                if (Integer.parseInt(attribute.getValue()) != 1) {
-                    log.error("SAML version must be 1");
-                    throw new UnmarshallingException("SAML version must be 1");
-                }
-            } catch (NumberFormatException n) {
-                log.error("Error when checking MajorVersion attribute", n);
-                throw new UnmarshallingException(n);
-            }
         } else if (Assertion.MINORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {
-            int minor = 0;
-            try {
-                minor = Integer.parseInt(attribute.getValue());
-            } catch (NumberFormatException n) {
-                log.error("Error when checking MinorVersion attribute", n);
-                throw new UnmarshallingException(n);
-            }
-            if ((minor == 0 && assertion.getVersion() != SAMLVersion.VERSION_10) ||
-                (minor == 1 && assertion.getVersion() != SAMLVersion.VERSION_11)) {
-                log.error("MinorVersion mismatch");
-                throw new UnmarshallingException("MinorVersion mismatch");
+            if (attribute.getValue().equals("0")) {
+                assertion.setVersion(SAMLVersion.VERSION_10);
+            } else {
+                assertion.setVersion(SAMLVersion.VERSION_11);
             }
         } else {
             super.processAttribute(samlObject, attribute);

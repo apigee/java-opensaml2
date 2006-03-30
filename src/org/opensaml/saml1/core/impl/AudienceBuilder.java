@@ -16,31 +16,33 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.xml.AbstractXMLObject;
 import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
 
 /**
  * Class whose only job is to create {@link org.opensaml.saml1.core.impl.AudienceImpl} objects
  */
-public class AudienceBuilder extends AbstractSAMLObjectBuilder{
-    
+public class AudienceBuilder extends AbstractSAMLObjectBuilder {
+
     /**
      * Constructor
      */
     public AudienceBuilder() {
-        
+
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new AudienceImpl(null);
+        return new AudienceImpl();
     }
 
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new AudienceImpl(getVersion(context));
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public AbstractXMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AudienceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

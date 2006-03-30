@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectQuery;
@@ -39,10 +38,9 @@ public abstract class SubjectQueryImpl extends AbstractProtocolSAMLObject implem
      * {@link SAMLConstants#SAML1P_PREFIX}.
      * 
      * @param localName the local name of the element
-     * @param version the version to create
      */
-    protected SubjectQueryImpl(String elementLocalName, SAMLVersion version) {
-        super(elementLocalName, version);
+    protected SubjectQueryImpl(String elementLocalName) {
+        super(elementLocalName);
     }
     
     /**
@@ -51,10 +49,9 @@ public abstract class SubjectQueryImpl extends AbstractProtocolSAMLObject implem
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
-     * @param version the version to create
      */
-    protected SubjectQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
-        super(namespaceURI, elementLocalName, namespacePrefix, version);
+    protected SubjectQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

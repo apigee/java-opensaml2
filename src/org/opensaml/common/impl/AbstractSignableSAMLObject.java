@@ -16,17 +16,15 @@
 
 package org.opensaml.common.impl;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.AbstractValidatingSignableXMLObject;
 
 /**
  * Abstract SAMLObject implementation that also implements {@link org.opensaml.xml.SignableXMLObject}
  */
 public abstract class AbstractSignableSAMLObject extends AbstractValidatingSignableXMLObject implements SAMLObject {
-
-    /** SAML version of this object */
-    private SAMLVersion version;
 
     /**
      * Constructor
@@ -38,20 +36,34 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
     protected AbstractSignableSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
-
+    
     /*
-     * @see org.opensaml.common.SAMLObject#getVersion()
+     * @see java.lang.Object#equals(java.lang.Object)
      */
-    public SAMLVersion getVersion() {
-        return version;
+    public final boolean equals(Object obj) {
+        return super.equals(obj);
     }
-
+    
     /**
-     * Sets the SAML version for this object.
+     * A helper function for derived classes that checks to see if the old and new value are equal and if so releases
+     * the cached dom. Derived classes are expected to use this thus: <code>
+     *   this.foo = prepareForAssignment(this.foo, foo);
+     *   </code>
      * 
-     * @param version the SAML version for this object
+     * This method will do a (null) safe compare of the objects and will also invalidate the DOM if appropriate
+     * 
+     * @param oldValue - current value
+     * @param newValue - proposed new value
+     * 
+     * @return The value to assign to the saved Object.
+     * 
+     * @throws IllegalAddException if the child already has a parent.
      */
-    protected void setSAMLVersion(SAMLVersion version) {
-        this.version = version;
+    protected DateTime prepareForAssignment(DateTime oldValue, DateTime newValue){
+        if(newValue != null){
+            newValue = newValue.withZone(DateTimeZone.UTC);
+        }
+        
+        return super.prepareForAssignment(oldValue, newValue);
     }
 }

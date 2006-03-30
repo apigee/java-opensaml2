@@ -16,10 +16,7 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 
 /**
  * Class which just exists to create {@link org.opensaml.saml1.core.impl.AssertionIDReferenceImpl} objects
@@ -36,12 +33,14 @@ public class AssertionIDReferenceBuilder extends AbstractSAMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AssertionIDReferenceImpl(null);
+    public AssertionIDReferenceImpl buildObject() {
+        return new AssertionIDReferenceImpl();
     }
 
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-       
-        return new AssertionIDReferenceImpl(getVersion(context));
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public AssertionIDReferenceImpl buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AssertionIDReferenceImpl(namespaceURI, localName, namespacePrefix);
     }
 }
