@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.AbstractXMLObject;
 import org.opensaml.xml.XMLObject;
 
 /**
@@ -42,7 +41,7 @@ public class AudienceBuilder extends AbstractSAMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AbstractXMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AudienceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -17,6 +17,7 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AttributeStatementImpl} objects
@@ -33,14 +34,14 @@ public class AttributeStatementBuilder extends AbstractSAMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public AttributeStatementImpl buildObject() {
+    public XMLObject buildObject() {
         return new AttributeStatementImpl();
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AttributeStatementImpl buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeStatementImpl(namespaceURI, localName, namespacePrefix);
     }
 }

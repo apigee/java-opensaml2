@@ -16,10 +16,8 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
 
 /**
  * Class which just exists to create {@link org.opensaml.saml1.core.impl.AuthenticationQueryImpl} objects
@@ -37,14 +35,13 @@ public class AuthenticationQueryBuilder extends AbstractSAMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new AuthenticationQueryImpl(null);
+        return new AuthenticationQueryImpl();
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        // TODO Auto-generated method stub
-        return new AuthenticationQueryImpl(getVersion(context));
+    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthenticationQueryImpl(namespaceURI, localName, namespacePrefix);
     }
 }

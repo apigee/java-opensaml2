@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.AuthenticationQuery;
 import org.opensaml.xml.XMLObject;
 
@@ -34,20 +33,22 @@ public class AuthenticationQueryImpl extends SubjectQueryImpl implements Authent
 
     /**
      * Constructor
-     * @deprecated
      */
-    private AuthenticationQueryImpl() {
-        super(AuthenticationQuery.LOCAL_NAME, null);
+    protected AuthenticationQueryImpl() {
+        super(AuthenticationQuery.LOCAL_NAME);
     }
-    
+
     /**
-     * Constructor
-     *
-     * @param version the version to set the object to
+     * Constructor.
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected AuthenticationQueryImpl(SAMLVersion version) {
-        super(AuthenticationQuery.LOCAL_NAME, version);
+    protected AuthenticationQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
+
     /*
      * @see org.opensaml.saml1.core.AuthenticationQuery#getAuthenticationMethod()
      */
@@ -67,15 +68,15 @@ public class AuthenticationQueryImpl extends SubjectQueryImpl implements Authent
      */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>();
-        
+
         if (super.getOrderedChildren() != null) {
             list.addAll(super.getOrderedChildren());
         }
-        
+
         if (list.size() == 0) {
             return null;
         }
-        
+
         return Collections.unmodifiableList(list);
     }
 }

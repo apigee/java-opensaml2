@@ -17,6 +17,7 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A class which exists to create {@link org.opensaml.saml1.core.impl.AssertionArtifactImpl} objects
@@ -33,14 +34,14 @@ public class AssertionArtifactBuilder extends AbstractSAMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public AssertionArtifactImpl buildObject() {
+    public XMLObject buildObject() {
         return new AssertionArtifactImpl();
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AssertionArtifactImpl buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AssertionArtifactImpl(namespaceURI, localName, namespacePrefix);
     }
 }

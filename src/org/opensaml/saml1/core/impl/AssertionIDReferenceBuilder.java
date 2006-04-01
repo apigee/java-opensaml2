@@ -17,6 +17,7 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.xml.XMLObject;
 
 /**
  * Class which just exists to create {@link org.opensaml.saml1.core.impl.AssertionIDReferenceImpl} objects
@@ -33,14 +34,14 @@ public class AssertionIDReferenceBuilder extends AbstractSAMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public AssertionIDReferenceImpl buildObject() {
+    public XMLObject buildObject() {
         return new AssertionIDReferenceImpl();
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AssertionIDReferenceImpl buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AssertionIDReferenceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

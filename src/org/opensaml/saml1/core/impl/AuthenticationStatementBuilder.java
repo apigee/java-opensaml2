@@ -16,10 +16,8 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
 
 /**
  * Class to create {@link org.opensaml.saml1.core.impl.AuthenticationStatementImpl} elements
@@ -37,10 +35,13 @@ public class AuthenticationStatementBuilder extends AbstractSAMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new AuthenticationStatementImpl(null);
+        return new AuthenticationStatementImpl();
     }
 
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new AuthenticationStatementImpl(getVersion(context));
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthenticationStatementImpl(namespaceURI, localName, namespacePrefix);
     }
 }
