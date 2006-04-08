@@ -31,13 +31,6 @@ public class ActionImpl extends AbstractAssertionSAMLObject implements Action {
 
     /** Where to store the contents */
     private String contents;
-
-    /**
-     * Constructor
-     */
-    protected ActionImpl() {
-        super(Action.LOCAL_NAME);
-    }
     
     /**
      * Constructor

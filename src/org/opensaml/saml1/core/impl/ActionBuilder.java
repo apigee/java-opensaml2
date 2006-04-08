@@ -17,12 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Action;
 
 /**
  * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.ActionImpl} object
  */
-public class ActionBuilder extends AbstractSAMLObjectBuilder {
+public class ActionBuilder extends AbstractSAMLObjectBuilder<Action> {
 
     /**
      * Constructor
@@ -34,14 +35,14 @@ public class ActionBuilder extends AbstractSAMLObjectBuilder {
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new ActionImpl();
+    public Action buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public Action buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ActionImpl(namespaceURI, localName, namespacePrefix);
     }
 }

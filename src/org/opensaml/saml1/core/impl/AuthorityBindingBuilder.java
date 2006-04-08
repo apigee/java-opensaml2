@@ -16,15 +16,13 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
 
 /**
  * classs which just exists to create {@link org.opensaml.saml1.core.impl.AuthorityBindingImpl} Objects
  */
-public class AuthorityBindingBuilder  extends AbstractSAMLObjectBuilder {
+public class AuthorityBindingBuilder extends AbstractSAMLObjectBuilder {
 
     /**
      * Constructor
@@ -37,11 +35,10 @@ public class AuthorityBindingBuilder  extends AbstractSAMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public XMLObject buildObject() {
-        return new AuthorityBindingImpl(null);
+        return new AuthorityBindingImpl();
     }
 
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        // TODO Auto-generated method stub
-        return new AuthorityBindingImpl(getVersion(context));
+    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthorityBindingImpl(namespaceURI, localName, namespacePrefix);
     }
 }
