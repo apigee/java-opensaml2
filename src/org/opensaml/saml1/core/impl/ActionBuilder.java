@@ -21,7 +21,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 
 /**
- * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.ActionImpl} object
+ * Builder of {@link org.opensaml.saml1.core.impl.ActionImpl} objects.
  */
 public class ActionBuilder extends AbstractSAMLObjectBuilder<Action> {
 
@@ -33,7 +33,7 @@ public class ActionBuilder extends AbstractSAMLObjectBuilder<Action> {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Action buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);

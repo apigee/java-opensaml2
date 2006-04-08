@@ -17,18 +17,20 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.AttributeDesignator} interface.
  */
-public class AttributeDesignatorImpl extends AbstractAssertionSAMLObject implements AttributeDesignator {
-    
+public class AttributeDesignatorImpl extends AbstractSAMLObject implements AttributeDesignator {
+
     /** Contains the AttributeName */
     private String attributeName;
 
@@ -37,21 +39,15 @@ public class AttributeDesignatorImpl extends AbstractAssertionSAMLObject impleme
 
     /**
      * Constructor
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-     protected AttributeDesignatorImpl() {
-        super(AttributeDesignator.LOCAL_NAME);
+    protected AttributeDesignatorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
-    
-     /**
-      * Constructor
-      * 
-      * @param namespaceURI the namespace the element is in
-      * @param elementLocalName the local name of the XML element this Object represents
-      * @param namespacePrefix the prefix for the given namespace
-      */
-     protected AttributeDesignatorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-         super(namespaceURI, elementLocalName, namespacePrefix);
-     }
+
     /*
      * @see org.opensaml.saml1.core.AttributeDesignator#getAttributeName()
      */
@@ -86,5 +82,4 @@ public class AttributeDesignatorImpl extends AbstractAssertionSAMLObject impleme
     public List<XMLObject> getOrderedChildren() {
         return null;
     }
-
 }

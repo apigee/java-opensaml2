@@ -16,15 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.DoNotCacheCondition;
 
 /**
- * A class whose only job is to create {@link org.opensaml.saml1.core.impl.DoNotCacheConditionImpl} objects
+ * Builder of {@link org.opensaml.saml1.core.impl.DoNotCacheConditionImpl} objects.
  */
-public class DoNotCacheConditionBuilder  extends AbstractSAMLObjectBuilder {
+public class DoNotCacheConditionBuilder extends AbstractSAMLObjectBuilder<DoNotCacheCondition> {
 
     /**
      * Constructor
@@ -34,16 +33,16 @@ public class DoNotCacheConditionBuilder  extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new DoNotCacheConditionImpl(null);
+    public DoNotCacheCondition buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new DoNotCacheConditionImpl(getVersion(context));
+    public DoNotCacheCondition buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new DoNotCacheConditionImpl(namespaceURI, localName, namespacePrefix);
     }
 }

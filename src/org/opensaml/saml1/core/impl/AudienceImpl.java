@@ -18,23 +18,17 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete class implementation of {@link org.opensaml.saml1.core.Audience}
  */
-public class AudienceImpl extends AbstractAssertionSAMLObject implements Audience {
+public class AudienceImpl extends AbstractSAMLObject implements Audience {
 
     /** String to hold the URI */
     private String uri;
-
-    /**
-     * Constructor
-     */
-    protected AudienceImpl() {
-        super(Audience.LOCAL_NAME);
-    }
 
     /**
      * Constructor

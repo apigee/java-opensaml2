@@ -20,20 +20,21 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLVersion;
-import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Abstract implementation of the (abstract) {@link org.opensaml.saml1.core.ResponseAbstractType} Object
+ * Abstract implementation of {@link org.opensaml.saml1.core.ResponseAbstractType} Object
  */
-public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolSAMLObject implements
-        ResponseAbstractType {
+public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObject implements ResponseAbstractType {
 
     /** Contains the ID */
     private String id;
-    
-   /** Contents of the InResponseTo attribute */
+
+    private SAMLVersion version;
+
+    /** Contents of the InResponseTo attribute */
     private String inResponseTo = null;
 
     /** Contents of the Date attribute */
@@ -43,27 +44,16 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
     private String recipient = null;
 
     /**
-     * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to {@link SAMLConstants#SAML1_PREFIX}.
-     * Sets the SAML version as specified
-     * 
-     * @param localName the local name of the element
-     * @param version the version to set
-     */
-    protected ResponseAbstractTypeImpl(String elementLocalName, SAMLVersion version) {
-        super(elementLocalName, version);
-    }
-
-    /**
-     * Constructor. Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * Constructor
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
      */
-    protected ResponseAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
-        super(namespaceURI, elementLocalName, namespacePrefix, version);
+    protected ResponseAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+        version = SAMLVersion.VERSION_11;
     }
-
 
     /*
      * @see org.opensaml.saml1.core.ResponseAbstractType#getID()
@@ -79,7 +69,6 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
         this.id = prepareForAssignment(this.id, id);
     }
 
-    
     /*
      * @see org.opensaml.saml1.core.Response#getInResponseTo()
      */
@@ -98,11 +87,21 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
      * @see org.opensaml.saml1.core.Response#getMinorVersion()
      */
     public int getMinorVersion() {
-        if (SAMLVersion.VERSION_11.equals(getVersion())) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return version.getMinorVersion();
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.ResponseAbstractType#getMajorVersion()
+     */
+    public int getMajorVersion() {
+        return version.getMajorVersion();
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.ResponseAbstractType#setVersion(org.opensaml.common.SAMLVersion)
+     */
+    public void setVersion(SAMLVersion newVersion) {
+        version = prepareForAssignment(version, newVersion);
     }
 
     /*
@@ -141,6 +140,4 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableProtocolS
         // TODO Signature ?
         return null;
     }
-    
-    
 }

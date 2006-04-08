@@ -17,12 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AssertionIDReference;
 
 /**
- * Class which just exists to create {@link org.opensaml.saml1.core.impl.AssertionIDReferenceImpl} objects
+ * Builder of {@link org.opensaml.saml1.core.impl.AssertionIDReferenceImpl} objects.
  */
-public class AssertionIDReferenceBuilder extends AbstractSAMLObjectBuilder {
+public class AssertionIDReferenceBuilder extends AbstractSAMLObjectBuilder<AssertionIDReference> {
 
     /**
      * Constructor
@@ -32,16 +33,16 @@ public class AssertionIDReferenceBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AssertionIDReferenceImpl();
+    public AssertionIDReference buildObject() {
+        return buildObject(SAMLConstants.SAML1P_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public AssertionIDReference buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AssertionIDReferenceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

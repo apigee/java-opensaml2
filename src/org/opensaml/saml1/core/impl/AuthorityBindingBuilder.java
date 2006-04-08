@@ -17,12 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AuthorityBinding;
 
 /**
- * classs which just exists to create {@link org.opensaml.saml1.core.impl.AuthorityBindingImpl} Objects
+ * Builder of {@link org.opensaml.saml1.core.impl.AuthorityBindingImpl} objects.
  */
-public class AuthorityBindingBuilder extends AbstractSAMLObjectBuilder {
+public class AuthorityBindingBuilder extends AbstractSAMLObjectBuilder<AuthorityBinding> {
 
     /**
      * Constructor
@@ -32,13 +33,13 @@ public class AuthorityBindingBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AuthorityBindingImpl();
+    public AuthorityBinding buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, AuthorityBinding.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public AuthorityBinding buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AuthorityBindingImpl(namespaceURI, localName, namespacePrefix);
     }
 }

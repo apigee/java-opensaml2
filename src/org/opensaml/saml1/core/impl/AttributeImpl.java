@@ -32,7 +32,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class AttributeImpl extends AttributeDesignatorImpl implements Attribute {
 
     /** Contains the AttributeValues */
-    private XMLObjectChildrenList<AttributeValue> attributeValues;
+    private final XMLObjectChildrenList<AttributeValue> attributeValues;
 
     /**
      * Constructor

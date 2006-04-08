@@ -17,12 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AttributeQuery;
 
 /**
- * A class which exists to create {@link org.opensaml.saml1.core.impl.AttributeQueryImpl} objects
+ * Builder of {@link org.opensaml.saml1.core.impl.AttributeQueryImpl} objects.
  */
-public class AttributeQueryBuilder extends AbstractSAMLObjectBuilder {
+public class AttributeQueryBuilder extends AbstractSAMLObjectBuilder<AttributeQuery> {
 
     /**
      * Constructor
@@ -32,16 +33,16 @@ public class AttributeQueryBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AttributeQueryImpl();
+    public AttributeQuery buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public AttributeQuery buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeQueryImpl(namespaceURI, localName, namespacePrefix);
     }
 }

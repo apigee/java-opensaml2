@@ -17,12 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Audience;
 
 /**
- * Class whose only job is to create {@link org.opensaml.saml1.core.impl.AudienceImpl} objects
+ * Builder of {@link org.opensaml.saml1.core.impl.AudienceImpl} objects.
  */
-public class AudienceBuilder extends AbstractSAMLObjectBuilder {
+public class AudienceBuilder extends AbstractSAMLObjectBuilder<Audience> {
 
     /**
      * Constructor
@@ -32,16 +33,16 @@ public class AudienceBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AudienceImpl();
+    public Audience buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public Audience buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AudienceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

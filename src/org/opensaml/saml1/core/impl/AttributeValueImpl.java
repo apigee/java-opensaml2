@@ -18,24 +18,18 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.AttributeValue;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implementation of {@link org.opensaml.saml1.core.AttributeValue} Object
  */
-public class AttributeValueImpl extends AbstractAssertionSAMLObject implements AttributeValue {
+public class AttributeValueImpl extends AbstractSAMLObject implements AttributeValue {
 
     /** String to contain the contents */
     String attributeValue;
 
-    /**
-     * Constructor
-     */
-    protected AttributeValueImpl() {
-        super(AttributeValue.LOCAL_NAME);
-    }
-    
     /**
      * Constructor
      * 
@@ -46,7 +40,7 @@ public class AttributeValueImpl extends AbstractAssertionSAMLObject implements A
     protected AttributeValueImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
-    
+
     /*
      * @see org.opensaml.saml1.core.AttributeValue#getAttributeValue()
      */

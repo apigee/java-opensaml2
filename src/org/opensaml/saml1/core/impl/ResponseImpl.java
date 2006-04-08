@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
@@ -36,29 +35,20 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
     private Status status = null;
 
     /** List of all the Assertions */
-    private final List<Assertion> assertions;
+    private final XMLObjectChildrenList<Assertion> assertions;
 
     /**
      * Constructor
-     * @deprecated
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    private ResponseImpl() {
-        super(Response.LOCAL_NAME, null);
-
+    protected ResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
         assertions = new XMLObjectChildrenList<Assertion>(this);
     }
 
-    /**
-     * Constructor
-     *
-     * @param version
-     */
-    protected ResponseImpl(SAMLVersion version)
-    {
-        super(Response.LOCAL_NAME, version);
-        assertions = new XMLObjectChildrenList<Assertion>(this);
-    }
-    
     /*
      * @see org.opensaml.saml1.core.Response#getAssertions()
      */
@@ -85,7 +75,7 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>(1 + assertions.size());
-        
+
         if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
         }
@@ -93,9 +83,8 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
         if (status != null) {
             children.add(status);
         }
-        
-        children.addAll(assertions);
 
+        children.addAll(assertions);
 
         if (children.size() == 0) {
             return null;

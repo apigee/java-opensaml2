@@ -17,10 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Assertion;
 
-/** Class whose sole job is the creation of a {@link AssertionImpl} object */
-
-public class AssertionBuilder extends AbstractSAMLObjectBuilder {
+/** 
+ * Builder of {@link AssertionImpl} objects. 
+ */
+public class AssertionBuilder extends AbstractSAMLObjectBuilder<Assertion> {
 
     /**
      * Constructor
@@ -30,10 +33,10 @@ public class AssertionBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AssertionImpl buildObject() {
-        return new AssertionImpl();
+        return new AssertionImpl(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
@@ -42,5 +45,4 @@ public class AssertionBuilder extends AbstractSAMLObjectBuilder {
     public AssertionImpl buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AssertionImpl(namespaceURI, localName, namespacePrefix);
     }
-
 }

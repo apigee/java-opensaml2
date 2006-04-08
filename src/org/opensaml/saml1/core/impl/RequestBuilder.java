@@ -16,16 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.saml1.core.RequestAbstractType;
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Request;
 
 /**
- * Class which is here to create a {@link RequestImpl} object
+ * Builder of {@link org.opensaml.saml1.core.impl.RequestImpl} objects.
  */
-public class RequestBuilder extends AbstractSAMLObjectBuilder {
+public class RequestBuilder extends AbstractSAMLObjectBuilder<Request> {
 
     /**
      * Constructor
@@ -35,16 +33,16 @@ public class RequestBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new RequestImpl(null);
+    public Request buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, Request.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new RequestImpl(getVersion(domElement, context, RequestAbstractType.MINORVERSION_ATTRIB_NAME));
+    public Request buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new RequestImpl(namespaceURI, localName, namespacePrefix);
     }
 }

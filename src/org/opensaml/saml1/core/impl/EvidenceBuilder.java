@@ -16,16 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Evidence;
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
 
 /**
- * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.EvidenceImpl} Object
+ * Builder of {@link org.opensaml.saml1.core.impl.EvidenceImpl} objects.
  */
-public class EvidenceBuilder  extends AbstractSAMLObjectBuilder {
+public class EvidenceBuilder extends AbstractSAMLObjectBuilder<Evidence> {
 
     /**
      * Constructor
@@ -34,17 +32,17 @@ public class EvidenceBuilder  extends AbstractSAMLObjectBuilder {
 
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+    /* 
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Evidence buildObject() {
-        return new EvidenceImpl(null);
+        return buildObject(SAMLConstants.SAML1_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new EvidenceImpl(getVersion(context));    
+    public Evidence buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new EvidenceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

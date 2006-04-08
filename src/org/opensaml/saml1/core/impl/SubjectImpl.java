@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectConfirmation;
@@ -29,7 +29,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * Complete implementation of {@link org.opensaml.saml1.core.Subject}
  */
-public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject {
+public class SubjectImpl extends AbstractSAMLObject implements Subject {
 
     /** Contains the NameIdentifier inside the Subject */
     private NameIdentifier nameIdentifier;
@@ -38,20 +38,16 @@ public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject 
     private SubjectConfirmation subjectConfirmation;
 
     /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private SubjectImpl() {
-        super(Subject.LOCAL_NAME, null);
-    }
-    /**
      * Constructor
-     *
-     * @param version the {@link SAMLVersion} to set
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected SubjectImpl(SAMLVersion version) {
-        super(Subject.LOCAL_NAME, version);
+    protected SubjectImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
+
     /*
      * @see org.opensaml.saml1.core.Subject#getNameIdentifier()
      */

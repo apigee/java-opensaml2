@@ -23,6 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -46,17 +47,7 @@ public class AuthorityBindingMarshaller extends AbstractSAMLObjectMarshaller {
 
         if (authorityBinding.getAuthorityKind() != null) {
             QName authKind = authorityBinding.getAuthorityKind();
-            // TODO may want to factor this code out for reuse, ie get "QName string"
-            // from the QName in a particular Element context
-            StringBuffer buf = new StringBuffer();
-            if (authKind.getNamespaceURI() != null) {
-                String prefix = domElement.lookupPrefix(authKind.getNamespaceURI());
-                if (prefix != null) {
-                    buf.append(prefix + ":");
-                }
-            }
-            buf.append(authKind.getLocalPart());
-            domElement.setAttributeNS(null, AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, buf.toString());
+            domElement.setAttributeNS(null, AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, XMLHelper.getQNameAsAttributeValue(authKind));
         }
 
         if (authorityBinding.getBinding() != null) {

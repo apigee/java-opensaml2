@@ -16,18 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Conditions;
 
 /**
- * Class to generate Conditions elements
+ * Builder of {@link org.opensaml.saml1.core.impl.ConditionsImpl} objects.
  */
-/**
- *
- */
-public class ConditionsBuilder extends AbstractSAMLObjectBuilder {
+public class ConditionsBuilder extends AbstractSAMLObjectBuilder<Conditions> {
 
     /**
      * Constructor
@@ -37,16 +33,16 @@ public class ConditionsBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new ConditionsImpl(getVersion(null));
+    public Conditions buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new ConditionsImpl(getVersion(context));
+    public Conditions buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new ConditionsImpl(namespaceURI, localName, namespacePrefix);
     }
 }

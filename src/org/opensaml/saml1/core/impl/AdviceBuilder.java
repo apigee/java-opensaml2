@@ -17,12 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Advice;
 
 /**
- * A class whose sole purpose is to create a {@link org.opensaml.saml1.core.impl.AdviceImpl} objecta
+ * Builder of {@link org.opensaml.saml1.core.impl.AdviceImpl} objects.
  */
-public class AdviceBuilder extends AbstractSAMLObjectBuilder {
+public class AdviceBuilder extends AbstractSAMLObjectBuilder<Advice> {
 
     /**
      * Constructor
@@ -30,18 +31,18 @@ public class AdviceBuilder extends AbstractSAMLObjectBuilder {
     public AdviceBuilder() {
 
     }
-
+    
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AdviceImpl();
+    public Advice buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public Advice buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AdviceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

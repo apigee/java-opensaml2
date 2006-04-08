@@ -18,31 +18,26 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.DoNotCacheCondition;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implememtation of a {@link org.opensaml.saml1.core.DoNotCacheCondition} Objects
  */
-public class DoNotCacheConditionImpl extends AbstractAssertionSAMLObject implements DoNotCacheCondition {
-
-    /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private DoNotCacheConditionImpl() {
-        super(DoNotCacheCondition.LOCAL_NAME, null);
-    }
+public class DoNotCacheConditionImpl extends AbstractSAMLObject implements DoNotCacheCondition {
 
     /**
      * Constructor
-     *
-     * @param version the version to set
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected DoNotCacheConditionImpl(SAMLVersion version) {
-        super(DoNotCacheCondition.LOCAL_NAME, version);
+    protected DoNotCacheConditionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
+
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */

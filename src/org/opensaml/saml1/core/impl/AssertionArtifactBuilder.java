@@ -17,12 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AssertionArtifact;
 
 /**
- * A class which exists to create {@link org.opensaml.saml1.core.impl.AssertionArtifactImpl} objects
+ * Builder of {@link org.opensaml.saml1.core.impl.AssertionArtifactImpl} objects.
  */
-public class AssertionArtifactBuilder extends AbstractSAMLObjectBuilder {
+public class AssertionArtifactBuilder extends AbstractSAMLObjectBuilder<AssertionArtifact> {
 
     /**
      * Constructor
@@ -32,16 +33,16 @@ public class AssertionArtifactBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AssertionArtifactImpl();
+    public AssertionArtifact buildObject() {
+        return buildObject(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public AssertionArtifact buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AssertionArtifactImpl(namespaceURI, localName, namespacePrefix);
     }
 }

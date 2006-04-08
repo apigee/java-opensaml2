@@ -16,15 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.NameIdentifier;
 
 /**
- * A class to create NameIdentifierImpl Objects
+ * Builder of{@link org.opensaml.saml1.core.impl.NameIdentifierImpl} objects.
  */
-public class NameIdentifierBuilder  extends AbstractSAMLObjectBuilder {
+public class NameIdentifierBuilder extends AbstractSAMLObjectBuilder<NameIdentifier> {
 
     /**
      * Constructor
@@ -34,16 +33,16 @@ public class NameIdentifierBuilder  extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new NameIdentifierImpl(null);
+    public NameIdentifier buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, NameIdentifier.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new NameIdentifierImpl(getVersion(context));
+    public NameIdentifier buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new NameIdentifierImpl(namespaceURI, localName, namespacePrefix);
     }
 }

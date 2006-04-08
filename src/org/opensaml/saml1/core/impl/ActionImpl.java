@@ -18,13 +18,14 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml1.core.Action}
  */
-public class ActionImpl extends AbstractAssertionSAMLObject implements Action {
+public class ActionImpl extends AbstractSAMLObject implements Action {
 
     /** Place to store the namespace */
     private String namespace;

@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.xml.XMLObject;
@@ -28,19 +29,11 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of the org.opensaml.saml1.core.AudienceRestrictionCondition
  */
-public class AudienceRestrictionConditionImpl extends AbstractSignableAssertionSAMLObject implements
-        AudienceRestrictionCondition {
+public class AudienceRestrictionConditionImpl extends AbstractSignableSAMLObject implements AudienceRestrictionCondition {
 
     /** Audiences */
-    private final List<Audience> audiences = new XMLObjectChildrenList<Audience>(this);
+    private final XMLObjectChildrenList<Audience> audiences;
 
-    /**
-     * Constructor
-     */
-    protected AudienceRestrictionConditionImpl() {
-        super(AudienceRestrictionCondition.LOCAL_NAME);
-    }
-    
     /**
      * Constructor.
      * 
@@ -50,7 +43,8 @@ public class AudienceRestrictionConditionImpl extends AbstractSignableAssertionS
      */
     protected AudienceRestrictionConditionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-   }
+        audiences = new XMLObjectChildrenList<Audience>(this);
+    }
 
     /*
      * @see org.opensaml.saml1.core.AudienceRestrictionCondition#getAudiences()

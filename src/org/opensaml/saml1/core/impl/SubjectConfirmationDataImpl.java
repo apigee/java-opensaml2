@@ -18,33 +18,27 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.SubjectConfirmationData} interface
  */
-public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject implements SubjectConfirmationData {
+public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements SubjectConfirmationData {
 
     /** Contains the content string */
     private String confirmationData;
 
     /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private SubjectConfirmationDataImpl() {
-        super(SubjectConfirmationData.LOCAL_NAME, null);
-    }
-
-    /**
      * Constructor
-     *
-     * @param version the version to set
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected SubjectConfirmationDataImpl(SAMLVersion version) {
-        super(SubjectConfirmationData.LOCAL_NAME, version);
+    protected SubjectConfirmationDataImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

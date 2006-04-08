@@ -18,14 +18,14 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Complete implementation of {@link org.opensaml.saml1.core.impl.NameIdentifierImpl}
  */
-public class NameIdentifierImpl extends AbstractAssertionSAMLObject implements NameIdentifier {
+public class NameIdentifierImpl extends AbstractSAMLObject implements NameIdentifier {
 
     /** Contents of the NameQualifierAttribute */
     String nameQualifier;
@@ -37,14 +37,14 @@ public class NameIdentifierImpl extends AbstractAssertionSAMLObject implements N
     String nameIdentifier;
 
     /**
-     * Hidden Constructor
-     * @deprecated
+     * Constructor
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    private  NameIdentifierImpl() {
-        super(NameIdentifier.LOCAL_NAME, null);
-    }
-    protected NameIdentifierImpl(SAMLVersion version) {
-        super(NameIdentifier.LOCAL_NAME, version);
+    protected NameIdentifierImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

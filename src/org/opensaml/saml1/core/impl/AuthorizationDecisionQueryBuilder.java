@@ -16,15 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 
 /**
- * A class which exists to create {@link org.opensaml.saml1.core.impl.AuthorizationDecisionQueryImpl} objects
+ * Builder of {@link org.opensaml.saml1.core.impl.AuthorizationDecisionQueryImpl} objects.
  */
-public class AuthorizationDecisionQueryBuilder extends AbstractSAMLObjectBuilder {
+public class AuthorizationDecisionQueryBuilder extends AbstractSAMLObjectBuilder<AuthorizationDecisionQuery> {
 
     /**
      * Constructor
@@ -34,13 +33,16 @@ public class AuthorizationDecisionQueryBuilder extends AbstractSAMLObjectBuilder
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AuthorizationDecisionQueryImpl(null);
+    public AuthorizationDecisionQuery buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, AuthorizationDecisionQuery.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new AuthorizationDecisionQueryImpl(getVersion(context));
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public AuthorizationDecisionQuery buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthorizationDecisionQueryImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -20,14 +20,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml1.core.StatusCode} Object
  */
-public class StatusCodeImpl extends AbstractProtocolSAMLObject implements StatusCode {
+public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
 
     /** Contents of the Value attribute */
     private String value;
@@ -36,20 +36,14 @@ public class StatusCodeImpl extends AbstractProtocolSAMLObject implements Status
     private StatusCode childStatusCode;
 
     /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private  StatusCodeImpl() {
-        super(StatusCode.LOCAL_NAME, null);
-    }
-    
-    /**
      * Constructor
-     *
-     * @param version the version to set
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected StatusCodeImpl(SAMLVersion version) {
-        super(StatusCode.LOCAL_NAME, version);
+    protected StatusCodeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

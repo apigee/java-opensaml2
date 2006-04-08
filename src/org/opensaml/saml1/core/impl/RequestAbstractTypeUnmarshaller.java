@@ -79,27 +79,16 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
             try {
                 minor = Integer.parseInt(attribute.getValue());
             } catch (NumberFormatException n) {
-                log.error("Parsing minor version ", n);
+                log.error("Unable to parse minor version string", n);
                 throw new UnmarshallingException(n);
             }
-            if ((minor == 0 && request.getVersion() != SAMLVersion.VERSION_10) ||
-                (minor == 1 && request.getVersion() != SAMLVersion.VERSION_11)) {
-                log.error("MinorVersion mismatch");
-                throw new UnmarshallingException("MinorVersion mismatch");
-            }
-        } else if (RequestAbstractType.MAJORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {
-            try {
-                if (Integer.parseInt(attribute.getValue()) != 1) {
-                    log.error("SAML version must be 1");
-                    throw new UnmarshallingException("SAML version must be 1");
-                }
-            } catch (NumberFormatException n) {
-                log.error("Parsing major version ", n);
-                throw new UnmarshallingException(n);
+            if(minor == 0){
+                request.setVersion(SAMLVersion.VERSION_10);
+            }else if(minor == 1){
+                request.setVersion(SAMLVersion.VERSION_11);
             }
         } else {
             super.processAttribute(samlElement, attribute);
         }
     }
-
 }

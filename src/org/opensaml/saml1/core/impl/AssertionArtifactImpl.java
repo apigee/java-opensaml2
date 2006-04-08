@@ -18,23 +18,17 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation if {@link org.opensaml.saml1.core.AssertionArtifact}
  */
-public class AssertionArtifactImpl extends AbstractProtocolSAMLObject implements AssertionArtifact {
+public class AssertionArtifactImpl extends AbstractSAMLObject implements AssertionArtifact {
 
     /** The assertion artifact */
     private String assertionArtifact;
-
-    /**
-     * Constructor
-     */
-    protected AssertionArtifactImpl() {
-        super(AssertionArtifact.LOCAL_NAME);
-    }
 
     /**
      * Constructor

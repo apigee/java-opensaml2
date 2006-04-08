@@ -22,49 +22,41 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLVersion;
-import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.RespondWith;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete (but abstract) class for <code> org.opensaml.saml1.core.RequestAbstractType </code>
+ * Implementation of {@link org.opensaml.saml1.core.RequestAbstractType}.
  */
-public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSAMLObject implements RequestAbstractType {
+public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject implements RequestAbstractType {
 
     /** Contains the ID */
     private String id;
 
     /** Containt the IssueInstant */
-    public DateTime issueInstant;
+    private DateTime issueInstant;
+
+    /** Version of this SAML message */
+    private SAMLVersion version;
 
     /** Contains the respondWiths */
-    public final List<RespondWith> respondWiths;
+    public final XMLObjectChildrenList<RespondWith> respondWiths;
 
     /**
-     * Constructor. Sets namespace to {@link SAMLConstants#SAML1_NS} and prefix to {@link SAMLConstants#SAML1_PREFIX}.
-     * Sets the SAML version to {@link SAMLVersion#VERSION_11}.
-     * 
-     * @param localName the local name of the element
-     */
-    protected RequestAbstractTypeImpl(String elementLocalName, SAMLVersion version) {
-        super(elementLocalName, version);
-        respondWiths = new XMLObjectChildrenList<RespondWith>(this);
-    }
-
-    /**
-     * Constructor. Sets the SAML version to {@link SAMLVersion#VERSION_11}.
+     * Constructor
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
      */
-    protected RequestAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix, SAMLVersion version) {
-        super(namespaceURI, elementLocalName, namespacePrefix, version);
+    protected RequestAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+        version = SAMLVersion.VERSION_11;
         respondWiths = new XMLObjectChildrenList<RespondWith>(this);
     }
-    
 
     /*
      * @see org.opensaml.saml1.core.RequestAbstractType#getID()
@@ -81,14 +73,24 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
     }
 
     /*
+     * @see org.opensaml.saml1.core.RequestAbstractType#getMajorVersion()
+     */
+    public int getMajorVersion() {
+        return version.getMajorVersion();
+    }
+
+    /*
      * @see org.opensaml.saml1.core.RequestAbstractType#setMinorVersion(int)
      */
     public int getMinorVersion() {
-        if (SAMLVersion.VERSION_11.equals(getVersion())) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return version.getMinorVersion();
+    }
+
+    /*
+     * @see org.opensaml.saml1.core.RequestAbstractType#setVersion(org.opensaml.common.SAMLVersion)
+     */
+    public void setVersion(SAMLVersion newVersion) {
+        version = prepareForAssignment(version, newVersion);
     }
 
     /*
@@ -116,14 +118,12 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableProtocolSA
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-        // TODO Signature ?
-        if (respondWiths.size() == 0 ) {
+        if (respondWiths.size() == 0) {
             return null;
         }
-        
+
         List<XMLObject> children = new ArrayList<XMLObject>();
         children.addAll(respondWiths);
         return Collections.unmodifiableList(children);
     }
-    
 }

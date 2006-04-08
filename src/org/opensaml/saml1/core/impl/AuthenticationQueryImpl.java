@@ -32,13 +32,6 @@ public class AuthenticationQueryImpl extends SubjectQueryImpl implements Authent
     private String authenticationMethod;
 
     /**
-     * Constructor
-     */
-    protected AuthenticationQueryImpl() {
-        super(AuthenticationQuery.LOCAL_NAME);
-    }
-
-    /**
      * Constructor.
      * 
      * @param namespaceURI the namespace the element is in

@@ -23,7 +23,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
@@ -35,7 +35,7 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * This is a concrete implementation of the {@link org.opensaml.saml1.core.Conditions} interface.
  */
-public class ConditionsImpl extends AbstractAssertionSAMLObject implements Conditions {
+public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
 
     /** Value saved in the NotBefore attribute */
     private DateTime notBefore;
@@ -44,25 +44,20 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
     private DateTime notOnOrAfter;
 
     /** Set containing all the Conditions */
-    private final IndexedXMLObjectChildrenList<Condition> conditions = new IndexedXMLObjectChildrenList<Condition>(this);
-
-    /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private ConditionsImpl() {
-        super(Conditions.LOCAL_NAME, null);
-    }
+    private final IndexedXMLObjectChildrenList<Condition> conditions;
 
     /**
      * Constructor
-     *
-     * @param version which version to create 
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected ConditionsImpl(SAMLVersion version) {
-        super(Conditions.LOCAL_NAME, version);
+    protected ConditionsImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
+        conditions = new IndexedXMLObjectChildrenList<Condition>(this);
     }
-    
+
     /*
      * @see org.opensaml.saml1.core.Conditions#getNotBefore()
      */
@@ -102,7 +97,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
      * @see org.opensaml.saml1.core.Conditions#getConditions(javax.xml.namespace.QName)
      */
     public List<Condition> getConditions(QName typeOrName) {
-        return (List<Condition>) conditions.subList(typeOrName);
+        return conditions;
     }
 
     /*

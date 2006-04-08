@@ -16,15 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Subject;
 
 /**
- * A class to create SubjectImpl Objects
+ * Builder of (@link org.opensaml.saml1.core.impl.SubjectImpl} objects.
  */
-public class SubjectBuilder extends AbstractSAMLObjectBuilder {
+public class SubjectBuilder extends AbstractSAMLObjectBuilder<Subject> {
 
     /**
      * Constructor
@@ -34,16 +33,16 @@ public class SubjectBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new SubjectImpl(null);
+    public Subject buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new SubjectImpl(getVersion(context));
+    public Subject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new SubjectImpl(namespaceURI, localName, namespacePrefix);
     }
 }

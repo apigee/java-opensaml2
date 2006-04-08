@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.xml.security.keys.KeyInfo;
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.saml1.core.SubjectConfirmationData;
@@ -31,38 +31,28 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of a <code> SubjectConfirmation </code> object
  */
-public class SubjectConfirmationImpl extends AbstractAssertionSAMLObject implements SubjectConfirmation {
+public class SubjectConfirmationImpl extends AbstractSAMLObject implements SubjectConfirmation {
 
     /** Contains the list of ConfirmationMethods */
-    private final List<ConfirmationMethod> confirmationMethods;
+    private final XMLObjectChildrenList<ConfirmationMethod> confirmationMethods;
 
     /** Contains the SubjectConfirmationData element */
     private SubjectConfirmationData subjectConfirmationData;
-    
+
     /** Contains the KeyInfo element */
     KeyInfo keyInfo;
-    
-    //TODO looks like KeyInfo needs to be changed to the XMLTooling KeyInfo type, check with Chad.
 
-    /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private SubjectConfirmationImpl() {
-        super(SubjectConfirmation.LOCAL_NAME, null);
+    // TODO looks like KeyInfo needs to be changed to the XMLTooling KeyInfo type, check with Chad.
 
-        confirmationMethods = null;
-    }
-    
     /**
      * Constructor
-     *
-     * @param version the {@link SAMLVersion} to set
      * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected SubjectConfirmationImpl(SAMLVersion version) {
-        super(SubjectConfirmation.LOCAL_NAME, version);
-
+    protected SubjectConfirmationImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
         confirmationMethods = new XMLObjectChildrenList<ConfirmationMethod>(this);
     }
 
@@ -111,13 +101,13 @@ public class SubjectConfirmationImpl extends AbstractAssertionSAMLObject impleme
         List<XMLObject> list = new ArrayList<XMLObject>(confirmationMethods.size() + 1);
 
         list.addAll(confirmationMethods);
-        
+
         if (subjectConfirmationData != null) {
             list.add(subjectConfirmationData);
         }
-        
+
         // TODO KeyInfo
-        
+
         if (list.size() == 0) {
             return null;
         }

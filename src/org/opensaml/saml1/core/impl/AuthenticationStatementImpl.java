@@ -45,15 +45,6 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     private final XMLObjectChildrenList<AuthorityBinding> authorityBindings;
 
     /**
-     * Constructor
-     */
-    protected AuthenticationStatementImpl() {
-        super(AuthenticationStatement.LOCAL_NAME);
-
-        authorityBindings = new XMLObjectChildrenList<AuthorityBinding>(this);
-    }
-
-    /**
      * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
@@ -64,10 +55,6 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
         super(namespaceURI, elementLocalName, namespacePrefix);
         authorityBindings = new XMLObjectChildrenList<AuthorityBinding>(this);
     }
-
-    //
-    // Attributes
-    //
 
     /*
      * @see org.opensaml.saml1.core.AuthenticationStatement#getAuthenticationMethod()

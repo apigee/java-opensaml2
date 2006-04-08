@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.apache.log4j.Logger;
@@ -30,16 +31,17 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.ResponseAbstractType} objects.
+ * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.ResponseAbstractType}
+ * objects.
  */
 public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-    
+
     /** Logger */
     private static Logger log = Logger.getLogger(ResponseUnmarshaller.class);
 
     /**
      * Constructor
-     *
+     * 
      * @param targetNamespaceURI
      * @param targetLocalName
      * @throws IllegalArgumentException
@@ -48,9 +50,10 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
             throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
     }
-    
+
     /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
+     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
+     *      org.w3c.dom.Attr)
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         ResponseAbstractType response = (ResponseAbstractType) samlObject;
@@ -61,16 +64,6 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
             response.setInResponseTo(attribute.getValue());
         } else if (attribute.getLocalName().equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)) {
             response.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
-        } else if (attribute.getLocalName().equals(ResponseAbstractType.MAJORVERSION_ATTRIB_NAME)) {
-            try {
-                if (Integer.parseInt(attribute.getValue()) != 1) {
-                    log.error("SAML version must be 1");
-                    throw new UnmarshallingException("SAML version must be 1");
-                }
-            } catch (NumberFormatException n) {
-                log.error("Parsing major version ", n);
-                throw new UnmarshallingException(n);
-            }
         } else if (attribute.getLocalName().equals(ResponseAbstractType.MINORVERSION_ATTRIB_NAME)) {
             int minor;
             try {
@@ -79,10 +72,10 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
                 log.error("Parsing minor version ", n);
                 throw new UnmarshallingException(n);
             }
-            if ((minor == 0 && response.getVersion() != SAMLVersion.VERSION_10) ||
-                (minor == 1 && response.getVersion() != SAMLVersion.VERSION_11)) {
-                log.error("MinorVersion mismatch");
-                throw new UnmarshallingException("MinorVersion mismatch");
+            if (minor == 0) {
+                response.setVersion(SAMLVersion.VERSION_10);
+            } else if (minor == 1) {
+                response.setVersion(SAMLVersion.VERSION_11);
             }
         } else if (attribute.getLocalName().equals(ResponseAbstractType.RECIPIENT_ATTRIB_NAME)) {
             response.setRecipient(attribute.getValue());
@@ -90,6 +83,4 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
             super.processAttribute(samlObject, attribute);
         }
     }
- 
-
 }

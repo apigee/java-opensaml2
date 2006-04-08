@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectQuery;
 import org.opensaml.xml.XMLObject;
@@ -28,20 +28,10 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete (but abstract) implementation of {@link org.opensaml.saml1.core.SubjectQuery} abstract type
  */
-public abstract class SubjectQueryImpl extends AbstractProtocolSAMLObject implements SubjectQuery {
+public abstract class SubjectQueryImpl extends AbstractSAMLObject implements SubjectQuery {
 
     /** Contains the Subject subelement */
     private Subject subject;
-    
-    /**
-     * Constructor. Sets namespace to {@link SAMLConstants#SAML1P_NS} and prefix to
-     * {@link SAMLConstants#SAML1P_PREFIX}.
-     * 
-     * @param localName the local name of the element
-     */
-    protected SubjectQueryImpl(String elementLocalName) {
-        super(elementLocalName);
-    }
     
     /**
      * Constructor.
@@ -80,5 +70,4 @@ public abstract class SubjectQueryImpl extends AbstractProtocolSAMLObject implem
         children.add(subject);
         return Collections.unmodifiableList(children);
     }
-    
 }

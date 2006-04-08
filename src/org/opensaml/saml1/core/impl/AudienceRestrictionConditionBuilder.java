@@ -17,12 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AudienceRestrictionCondition;
 
 /**
- * Class to generate AudienceResttictyionCondition Objects
+ * Builder of {@link org.opensaml.saml1.core.impl.AudienceRestrictionConditionImpl} objects.
  */
-public class AudienceRestrictionConditionBuilder extends AbstractSAMLObjectBuilder {
+public class AudienceRestrictionConditionBuilder extends AbstractSAMLObjectBuilder<AudienceRestrictionCondition> {
 
     /**
      * Constructor
@@ -32,16 +33,16 @@ public class AudienceRestrictionConditionBuilder extends AbstractSAMLObjectBuild
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AudienceRestrictionConditionImpl();
+    public AudienceRestrictionCondition buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public AudienceRestrictionCondition buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AudienceRestrictionConditionImpl(namespaceURI, localName, namespacePrefix);
     }
 }

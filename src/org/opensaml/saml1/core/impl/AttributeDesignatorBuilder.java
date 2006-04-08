@@ -21,31 +21,31 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AttributeDesignator;
 
 /**
- * A class which exists to create {@link org.opensaml.saml1.core.impl.AttributeDesignatorImpl} objects
+ * Builder of {@link org.opensaml.saml1.core.impl.AttributeDesignatorImpl} objects.
  */
-public class AttributeDesignatorBuilder extends AbstractSAMLObjectBuilder {
+public class AttributeDesignatorBuilder extends AbstractSAMLObjectBuilder<AttributeDesignator> {
 
     /**
      * Constructor
-     * 
      */
     public AttributeDesignatorBuilder() {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AttributeDesignatorImpl();
+    public AttributeDesignator buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, AttributeDesignator.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public AttributeDesignator buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeDesignatorImpl(namespaceURI, localName, namespacePrefix);
     }
 }

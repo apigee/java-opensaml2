@@ -18,33 +18,27 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.ConfirmationMethod} interface
  */
-public class ConfirmationMethodImpl extends AbstractAssertionSAMLObject implements ConfirmationMethod {
+public class ConfirmationMethodImpl extends AbstractSAMLObject implements ConfirmationMethod {
 
     /** Contains the content string */
     private String confirmationMethod;
 
     /**
      * Constructor
-     * @deprecated
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    private ConfirmationMethodImpl() {
-        super(ConfirmationMethod.LOCAL_NAME, null);
-    }
-
-    /**
-     * Constructor
-     *
-     * @param version the version to set
-     */
-    protected ConfirmationMethodImpl(SAMLVersion version) {
-        super(ConfirmationMethod.LOCAL_NAME, version);
+    protected ConfirmationMethodImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

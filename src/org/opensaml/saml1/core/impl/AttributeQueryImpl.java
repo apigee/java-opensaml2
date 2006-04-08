@@ -34,15 +34,7 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
     private String resource;
 
     /** Contains all the child AttributeDesignators */
-    private XMLObjectChildrenList<AttributeDesignator> attributeDesignators;
-
-    /**
-     * Constructor
-     */
-    protected AttributeQueryImpl() {
-        super(AttributeQuery.LOCAL_NAME);
-        attributeDesignators = new XMLObjectChildrenList<AttributeDesignator>(this);
-    }
+    private final XMLObjectChildrenList<AttributeDesignator> attributeDesignators;
 
     /**
      * Constructor

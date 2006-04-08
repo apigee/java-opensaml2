@@ -16,34 +16,33 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Status;
 
 /**
- * Class whose sole jobe is the creation of a {@link StatusImpl} object
+ * Builder of {@link StatusImpl} objects.
  */
-public class StatusBuilder  extends AbstractSAMLObjectBuilder {
+public class StatusBuilder extends AbstractSAMLObjectBuilder<Status> {
 
     /**
      * Constructor
      */
-    public StatusBuilder(){
-        
+    public StatusBuilder() {
+
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new StatusImpl(null);
+    public Status buildObject() {
+        return buildObject(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new StatusImpl(getVersion(context));
+    public Status buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new StatusImpl(namespaceURI, localName, namespacePrefix);
     }
 }

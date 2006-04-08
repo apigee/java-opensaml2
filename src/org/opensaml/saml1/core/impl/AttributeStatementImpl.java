@@ -35,14 +35,6 @@ public class AttributeStatementImpl extends SubjectStatementImpl implements Attr
 
     /**
      * Constructor
-     */
-    protected AttributeStatementImpl() {
-        super(AttributeStatement.LOCAL_NAME);
-        attributes = new XMLObjectChildrenList<Attribute>(this);
-    }
-
-    /**
-     * Constructor
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
@@ -57,7 +49,6 @@ public class AttributeStatementImpl extends SubjectStatementImpl implements Attr
      * @see org.opensaml.saml1.core.AttributeStatement#getAttributes()
      */
     public List<Attribute> getAttributes() {
-
         return attributes;
     }
 

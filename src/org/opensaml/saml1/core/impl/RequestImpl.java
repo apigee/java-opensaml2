@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.AttributeQuery;
@@ -42,25 +40,20 @@ public class RequestImpl extends RequestAbstractTypeImpl implements Request {
     private Query query;
 
     /** The List of AssertionIDReferences */
-    private final List<AssertionIDReference> assertionIDReferences;
+    private final XMLObjectChildrenList<AssertionIDReference> assertionIDReferences;
 
     /** The List of AssertionArtifacts */
-    private final List<AssertionArtifact> assertionArtifacts;
+    private final XMLObjectChildrenList<AssertionArtifact> assertionArtifacts;
 
     /**
      * Constructor
-     * @deprecated
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    private RequestImpl()
-    {
-        super(Request.LOCAL_NAME, null);
-        assertionIDReferences = null;
-        assertionArtifacts = null;
-    }
-    
-    protected RequestImpl(SAMLVersion version) {
-        super(Request.LOCAL_NAME, version);
-        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
+    protected RequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
         assertionIDReferences = new XMLObjectChildrenList<AssertionIDReference>(this);
         assertionArtifacts = new XMLObjectChildrenList<AssertionArtifact>(this);
     }
@@ -140,11 +133,11 @@ public class RequestImpl extends RequestAbstractTypeImpl implements Request {
         if (assertionArtifacts.size() != 0) {
             list.addAll(assertionArtifacts);
         }
-       
+
         if (list.size() == 0) {
             return null;
         }
-        
+
         return Collections.unmodifiableList(list);
     }
 }

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.saml1.core.StatusDetail;
@@ -30,7 +30,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete Implementation {@link org.opensaml.saml1.core.Status}
  */
-public class StatusImpl extends AbstractProtocolSAMLObject implements Status {
+public class StatusImpl extends AbstractSAMLObject implements Status {
 
     /** Representation of the StatusMessage element. */
     private StatusMessage statusMessage;
@@ -42,20 +42,14 @@ public class StatusImpl extends AbstractProtocolSAMLObject implements Status {
     private StatusDetail statusDetail;
 
     /**
-     * Hidden Constructor.
-     * @deprecated
-     */
-    private StatusImpl() {
-        super(Status.LOCAL_NAME, null);
-    }
-   
-    /**
      * Constructor
-     *
-     * @param version the {@link SAMLVersion} to set
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected StatusImpl(SAMLVersion version) {
-        super(Status.LOCAL_NAME, version);
+    protected StatusImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

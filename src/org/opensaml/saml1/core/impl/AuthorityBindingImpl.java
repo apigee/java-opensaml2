@@ -20,13 +20,14 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete impementation of the {@link org.opensaml.saml1.core.SubjectLocality} interface
  */
-public class AuthorityBindingImpl extends AbstractAssertionSAMLObject implements AuthorityBinding {
+public class AuthorityBindingImpl extends AbstractSAMLObject implements AuthorityBinding {
 
     /** The AuthorityKind */
     private QName authorityKind;
@@ -36,13 +37,6 @@ public class AuthorityBindingImpl extends AbstractAssertionSAMLObject implements
 
     /** The Binding */
     private String binding;
-
-    /**
-     * Constructor
-     */
-    protected AuthorityBindingImpl() {
-        super(AuthorityBinding.LOCAL_NAME);
-    }
 
     /**
      * Constructor.

@@ -22,7 +22,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
@@ -34,31 +34,23 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * Concrete implementation of the {@link org.opensaml.saml1.core.Evidence} interface
  */
-public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidence {
-    
-    /** The Evidentiary child elements */
-    private IndexedXMLObjectChildrenList<Evidentiary> evidence;
+public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
 
-    /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private EvidenceImpl() {
-        super(Evidence.LOCAL_NAME, null);
-        
-        evidence = null;
-    }
+    /** The Evidentiary child elements */
+    private final IndexedXMLObjectChildrenList<Evidentiary> evidence;
 
     /**
      * Constructor
-     *
-     * @param version the version to set
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected EvidenceImpl(SAMLVersion version) {
-        super(Evidence.LOCAL_NAME, version);
-        
+    protected EvidenceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
         evidence = new IndexedXMLObjectChildrenList<Evidentiary>(this);
     }
+
     /*
      * @see org.opensaml.saml1.core.Evidence#getAssertionIDReferences()
      */
@@ -89,7 +81,7 @@ public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidenc
         if (evidence.size() == 0) {
             return null;
         }
-        
+
         ArrayList<XMLObject> list = new ArrayList<XMLObject>();
         list.addAll(evidence);
 

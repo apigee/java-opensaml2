@@ -18,14 +18,14 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.StatusMessage;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of org.opensaml.saml1.core StatusMessage object
  */
-public class StatusMessageImpl extends AbstractProtocolSAMLObject implements StatusMessage {
+public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessage {
 
     /**
      * Contents of the element
@@ -33,20 +33,14 @@ public class StatusMessageImpl extends AbstractProtocolSAMLObject implements Sta
     private String message;
 
     /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private StatusMessageImpl() {
-        super(StatusMessage.LOCAL_NAME, null);
-    }
-    
-    /**
      * Constructor
-     *
-     * @param version the version to set
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected StatusMessageImpl(SAMLVersion version) {
-        super(StatusMessage.LOCAL_NAME, version);
+    protected StatusMessageImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

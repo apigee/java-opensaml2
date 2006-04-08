@@ -16,15 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.ConfirmationMethod;
 
 /**
- * Class whose only job is to create {@link org.opensaml.saml1.core.impl.ConfirmationMethodImpl} objects
+ * Builder of {@link org.opensaml.saml1.core.impl.ConfirmationMethodImpl} objects.
  */
-public class ConfirmationMethodBuilder  extends AbstractSAMLObjectBuilder {
+public class ConfirmationMethodBuilder extends AbstractSAMLObjectBuilder<ConfirmationMethod> {
 
     /**
      * Constructor
@@ -34,16 +33,16 @@ public class ConfirmationMethodBuilder  extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new ConfirmationMethodImpl(null);
+    public ConfirmationMethod buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new ConfirmationMethodImpl(getVersion(context));
+    public ConfirmationMethod buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new ConfirmationMethodImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
@@ -37,28 +36,20 @@ public class AuthorizationDecisionQueryImpl extends SubjectQueryImpl implements 
     private String resource;
 
     /** Contains all the Action child elements */
-    private final List<Action> actions;
+    private final XMLObjectChildrenList<Action> actions;
 
     /** Contains the Evidence child element */
     private Evidence evidence;
-
+    
     /**
-     * Constructor
-     * @deprecated
+     * Constructor.
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    private AuthorizationDecisionQueryImpl() {
-        super(AuthorizationDecisionQuery.LOCAL_NAME, null);
-        setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
-        actions = null;
-    }
-
-    /**
-     * Constructor
-     *
-     * @param version the {@link SAMLVersion} to create
-     */
-    protected AuthorizationDecisionQueryImpl(SAMLVersion version) {
-        super(AuthorizationDecisionQuery.LOCAL_NAME, version);
+    protected AuthorizationDecisionQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
         setElementNamespacePrefix(SAMLConstants.SAML1P_PREFIX);
         actions = new XMLObjectChildrenList<Action>(this);
     }

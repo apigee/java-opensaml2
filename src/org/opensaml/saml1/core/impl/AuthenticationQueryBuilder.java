@@ -17,12 +17,13 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AuthenticationQuery;
 
 /**
- * Class which just exists to create {@link org.opensaml.saml1.core.impl.AuthenticationQueryImpl} objects
+ * Builder of {@link org.opensaml.saml1.core.impl.AuthenticationQueryImpl} objects.
  */
-public class AuthenticationQueryBuilder extends AbstractSAMLObjectBuilder {
+public class AuthenticationQueryBuilder extends AbstractSAMLObjectBuilder<AuthenticationQuery> {
 
     /**
      * Constructor
@@ -32,16 +33,16 @@ public class AuthenticationQueryBuilder extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new AuthenticationQueryImpl();
+    public AuthenticationQuery buildObject() {
+        return buildObject(SAMLConstants.SAML1_NS, AuthenticationQuery.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(String namespaceURI, String localName, String namespacePrefix) {
+    public AuthenticationQuery buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AuthenticationQueryImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -18,64 +18,58 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.SubjectLocality;
 import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete impementation of the {@link org.opensaml.saml1.core.SubjectLocality} interface
  */
-public class SubjectLocalityImpl extends AbstractAssertionSAMLObject implements SubjectLocality {
+public class SubjectLocalityImpl extends AbstractSAMLObject implements SubjectLocality {
 
-    /** The IPAddress */
-    private String IPAddress;
+    /** The ipAddress */
+    private String ipAddress;
 
     /** The DNS Address */
-    private String DNSAddress;
+    private String dnsAddress;
 
     /**
-     * Hidden Constructor
-     * @deprecated
-     */
-    private SubjectLocalityImpl() {
-        super(SubjectLocality.LOCAL_NAME, null);
-    }
-    
-    /**
      * Constructor
-     *
-     * @param version the version to set
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected SubjectLocalityImpl(SAMLVersion version) {
-        super(SubjectLocality.LOCAL_NAME, version);
+    protected SubjectLocalityImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*
      * @see org.opensaml.saml1.core.SubjectLocality#getIPAddress()
      */
     public String getIPAddress() {
-        return IPAddress;
+        return ipAddress;
     }
 
     /*
      * @see org.opensaml.saml1.core.SubjectLocality#setIPAddress(java.lang.String)
      */
     public void setIPAddress(String address) {
-        IPAddress = prepareForAssignment(IPAddress, address);
+        ipAddress = prepareForAssignment(ipAddress, address);
     }
 
     /*
      * @see org.opensaml.saml1.core.SubjectLocality#getDNSAddress()
      */
     public String getDNSAddress() {
-        return DNSAddress;
+        return dnsAddress;
     }
 
     /*
      * @see org.opensaml.saml1.core.SubjectLocality#setDNSAddress(java.lang.String)
      */
     public void setDNSAddress(String address) {
-        DNSAddress = prepareForAssignment(DNSAddress, address);
+        dnsAddress = prepareForAssignment(dnsAddress, address);
     }
 
     /*

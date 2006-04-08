@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
@@ -39,7 +40,7 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * This class implements the SAML 1 <code> Assertion </code> statement.
  */
-public class AssertionImpl extends AbstractSignableAssertionSAMLObject implements Assertion {
+public class AssertionImpl extends AbstractSignableSAMLObject implements Assertion {
 
     /** The <code> AssertionID </code> attrribute */
     private String id;
@@ -60,16 +61,7 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
     private Advice advice;
 
     /** Object representnation of all the <code> Statement <\code> elements. */
-    private IndexedXMLObjectChildrenList<Statement> statements;
-
-    /**
-     * Constructor
-     */
-    protected AssertionImpl() {
-        super(Assertion.LOCAL_NAME);
-        statements = new IndexedXMLObjectChildrenList<Statement>(this);
-        version = SAMLVersion.VERSION_11;
-    }
+    private final IndexedXMLObjectChildrenList<Statement> statements;
     
     /**
      * Constructor

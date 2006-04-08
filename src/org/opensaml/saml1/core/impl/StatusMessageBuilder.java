@@ -16,15 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.Map;
-
-import org.opensaml.xml.XMLObject;
-import org.w3c.dom.Element;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.StatusMessage;
 
 /**
- * Class whose sole jobe is the creation of a {@link StatusMessageImpl} object
+ * Builder of {@link org.opensaml.saml1.core.impl.StatusMessageImpl} objects.
  */
-public class StatusMessageBuilder  extends AbstractSAMLObjectBuilder {
+public class StatusMessageBuilder extends AbstractSAMLObjectBuilder<StatusMessage> {
 
     /**
      * Constructor
@@ -34,16 +33,16 @@ public class StatusMessageBuilder  extends AbstractSAMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new StatusMessageImpl(null);
+    public StatusMessage buildObject() {
+        return buildObject(SAMLConstants.SAML1P_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.ExtendedXMLObjectBuilder#buildObject(org.w3c.dom.Element, java.util.Map)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public XMLObject buildObject(Element domElement, Map<String, Object> context) {
-        return new StatusMessageImpl(getVersion(context));
+    public StatusMessage buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new StatusMessageImpl(namespaceURI, localName, namespacePrefix);
     }
 }
