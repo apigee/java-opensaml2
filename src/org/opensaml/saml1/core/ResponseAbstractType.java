@@ -18,6 +18,7 @@ package org.opensaml.saml1.core;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
@@ -49,24 +50,38 @@ public interface ResponseAbstractType extends SAMLObject, SignableXMLObject {
     /** Set the InResponseTo (attribute). */
     void setInResponseTo(String who);
 
-    /** Set the ID */
+    /** Get the ID */
     public String getID();
     
-    /** Get the ID */
+    /** Set the ID */
     public void setID(String id);
     
     /** Return the Minor Version (attribute). */
-    int getMinorVersion();
+    public int getMinorVersion();
+    
+    /**
+     * Gets the major version of this SAML message.
+     * 
+     * @return the major version of this SAML message
+     */
+    public int getMajorVersion();
+    
+    /**
+     * Sets the SAML version for this message.
+     * 
+     * @param version the SAML version for this message
+     */
+    public void setVersion(SAMLVersion version);
 
     /** Return the Issue Instant (attribute). */
-    DateTime getIssueInstant();
+    public DateTime getIssueInstant();
 
     /** Set the Issue Instant (attribute). */
-    void setIssueInstant(DateTime date);
+    public void setIssueInstant(DateTime date);
 
     /** Return the Recipient (attribute). */
-    String getRecipient();
+    public String getRecipient();
 
     /** Set the Recipient (attribute). */
-    void setRecipient(String recipient);
+    public void setRecipient(String recipient);
 }

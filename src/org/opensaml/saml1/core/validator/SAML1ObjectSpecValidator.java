@@ -20,7 +20,6 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -35,13 +34,5 @@ public class SAML1ObjectSpecValidator implements Validator {
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
 
-        SAMLObject parent = (SAMLObject) xmlObject;
-
-        for (XMLObject xmlChild: xmlObject.getOrderedChildren()) {
-            SAMLObject child = (SAMLObject) xmlChild;
-            if (parent.getVersion() != child.getVersion()) {
-               throw new ValidationException("Version mismatch " + child.getVersion() + " in parent " + parent.getVersion());
-            }
-        }
     }
 }

@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
@@ -43,16 +44,29 @@ public interface RequestAbstractType extends SAMLObject, SignableXMLObject {
     /** Name for the attribute which defines the Issue Instant. */
     public final static String ID_ATTRIB_NAME = "RequestID";
 
-    /** Get the Minor Version */
+    /**
+     * Gets the major version of this SAML message.
+     * 
+     * @return the major version of this SAML message
+     */
+    public int getMajorVersion();
+    
+    /**
+     * Gets the minor version of this SAML message.
+     * 
+     * @return the minor version of this SAML message
+     */
     public int getMinorVersion();
+    
+    public void setVersion(SAMLVersion version);
       
     /** Get the issue instant */
     public DateTime getIssueInstant();
  
-    /** Set the ID */
+    /** Get the ID */
     public String getID();
     
-    /** Get the ID */
+    /** Set the ID */
     public void setID(String id);
     
     /** Set the issue instant */
@@ -60,5 +74,4 @@ public interface RequestAbstractType extends SAMLObject, SignableXMLObject {
  
     /** Return the list of RespondWith elements */
     public List <RespondWith> getRespondWiths();
-    
 }

@@ -36,7 +36,7 @@ public class AttributeQueryBuilder extends AbstractSAMLObjectBuilder<AttributeQu
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AttributeQuery buildObject() {
-        return buildObject(SAMLConstants.SAML1_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        return buildObject(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*

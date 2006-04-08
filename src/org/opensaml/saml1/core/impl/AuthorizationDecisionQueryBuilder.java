@@ -36,7 +36,7 @@ public class AuthorizationDecisionQueryBuilder extends AbstractSAMLObjectBuilder
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthorizationDecisionQuery buildObject() {
-        return buildObject(SAMLConstants.SAML1_NS, AuthorizationDecisionQuery.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        return buildObject(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*

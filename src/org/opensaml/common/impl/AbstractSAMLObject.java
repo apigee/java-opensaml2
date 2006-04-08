@@ -23,7 +23,7 @@ import org.opensaml.xml.validation.AbstractValidatingDOMCachingXMLObject;
 /**
  * An abstract implementation of SAMLObject.
  */
-public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXMLObject{
+public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXMLObject {
 
     /**
      * Constructor
@@ -35,14 +35,14 @@ public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXML
     protected AbstractSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
-    
+
     /*
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public final boolean equals(Object obj) {
         return super.equals(obj);
     }
-    
+
     /**
      * A helper function for derived classes that checks to see if the old and new value are equal and if so releases
      * the cached dom. Derived classes are expected to use this thus: <code>
@@ -58,11 +58,11 @@ public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXML
      * 
      * @throws IllegalAddException if the child already has a parent.
      */
-    protected DateTime prepareForAssignment(DateTime oldValue, DateTime newValue){
-        if(newValue != null){
+    protected DateTime prepareForAssignment(DateTime oldValue, DateTime newValue) {
+        if (newValue != null) {
             newValue = newValue.withZone(DateTimeZone.UTC);
         }
-        
+
         return super.prepareForAssignment(oldValue, newValue);
     }
 }

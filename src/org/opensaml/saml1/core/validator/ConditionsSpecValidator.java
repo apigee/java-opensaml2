@@ -17,12 +17,9 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.common.SAMLVersion;
-import org.opensaml.saml1.core.Condition;
-import org.opensaml.saml1.core.Conditions;
-import org.opensaml.saml1.core.DoNotCacheCondition;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 
@@ -35,23 +32,6 @@ public class ConditionsSpecValidator extends SAML1ObjectSpecValidator {
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        
         super.validate(xmlObject);
-        validateDoNotCacheConiditons((Conditions)xmlObject);
-    }
-    
-    protected void validateDoNotCacheConiditons(Conditions conditions) throws ValidationException {
-        
-        if (conditions.getVersion() == SAMLVersion.VERSION_11) {
-            //
-            // DoNotCache is OK for V1.1
-            //
-            return;
-        }
-        for (Condition condition : conditions.getConditions()) {
-            if (condition instanceof DoNotCacheCondition) {
-                throw new ValidationException("SAML1.0 does not support DoNotCacheCondition");
-            }
-        }
     }
 }

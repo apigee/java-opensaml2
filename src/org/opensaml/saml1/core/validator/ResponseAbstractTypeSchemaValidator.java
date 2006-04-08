@@ -20,7 +20,6 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -36,30 +35,31 @@ public class ResponseAbstractTypeSchemaValidator implements Validator {
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        
+
         ResponseAbstractType responseAbstractType = (ResponseAbstractType) xmlObject;
- 
+
         validateVersion(responseAbstractType);
-        
+
         validateID(responseAbstractType);
 
         validateIssueInstant(responseAbstractType);
     }
-    
+
     /**
      * Validates that this is SAML1.0 or SAML 1.1
-     *  
+     * 
      * @param request
      * @throws ValidationException
      */
     protected void validateVersion(ResponseAbstractType response) throws ValidationException {
-        if ((response.getVersion() != SAMLVersion.VERSION_10) && (response.getVersion() != SAMLVersion.VERSION_11)) {
+        if ((response.getMajorVersion() != 1) && (response.getMinorVersion() != 0 || response.getMinorVersion() != 1)) {
             throw new ValidationException("Invalid Version");
         }
     }
-    
+
     /**
      * Validate that the ID is present and valid
+     * 
      * @param request
      * @throws ValidationException
      */
@@ -68,7 +68,7 @@ public class ResponseAbstractTypeSchemaValidator implements Validator {
             throw new ValidationException("RequestID is null, empty or whitespace");
         }
     }
-    
+
     /**
      * Validate that the IssueInstant is present.
      * 

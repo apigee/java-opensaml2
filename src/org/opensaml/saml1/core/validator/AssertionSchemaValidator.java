@@ -22,7 +22,6 @@ package org.opensaml.saml1.core.validator;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Statement;
 import org.opensaml.xml.XMLObject;
@@ -55,8 +54,8 @@ public class AssertionSchemaValidator implements Validator {
      * @throws ValidationException
      */
     protected void validateVersion(Assertion assertion) throws ValidationException {
-         if ((assertion.getVersion() != SAMLVersion.VERSION_10) &&
-             (assertion.getVersion() != SAMLVersion.VERSION_11)) {
+         if ((assertion.getMajorVersion() != 1) &&
+             (assertion.getMinorVersion() != 0 || assertion.getMinorVersion() != 1)) {
              throw new ValidationException("Invalid Version");
          }
     }    
