@@ -215,7 +215,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
 
         QName assertionIDRequestServiceQName = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedAssertionIdRequestServices; i++) {
-            descriptor.getAssertionIDRequestServices().add((AssertionIDRequestService) assertionIDRequestServiceQName);
+            descriptor.getAssertionIDRequestServices().add((AssertionIDRequestService) buildXMLObject(assertionIDRequestServiceQName));
         }
         
         QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
