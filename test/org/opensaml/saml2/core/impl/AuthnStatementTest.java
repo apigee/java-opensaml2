@@ -22,7 +22,9 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnStatement;
+import org.opensaml.saml2.core.SubjectLocality;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AuthnStatementImpl}.
@@ -126,8 +128,12 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);
 
-        authnStatement.setSubjectLocality(new SubjectLocalityImpl());
-        authnStatement.setAuthnContext(new AuthnContextImpl());
+        QName subjectLocalityQName = new QName(SAMLConstants.SAML20_NS, SubjectLocality.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        authnStatement.setSubjectLocality((SubjectLocality) buildXMLObject(subjectLocalityQName));
+        
+        QName authnContextQName = new QName(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        authnStatement.setAuthnContext((AuthnContext) buildXMLObject(authnContextQName));
+        
         assertEquals(expectedChildElementsDOM, authnStatement);
     }
 }

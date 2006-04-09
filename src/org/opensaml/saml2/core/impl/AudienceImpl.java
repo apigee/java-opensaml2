@@ -22,21 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Audience;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Audience}
  */
-public class AudienceImpl extends AbstractAssertionSAMLObject implements Audience {
+public class AudienceImpl extends AbstractSAMLObject implements Audience {
 
     /** URI of this Audience */
     private String audienceURI;
-
-    /** Constructor */
-    protected AudienceImpl() {
-        super(Audience.LOCAL_NAME);
-    }
 
     /**
      * Constructor

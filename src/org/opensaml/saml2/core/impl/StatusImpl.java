@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.saml2.core.StatusDetail;
@@ -33,7 +34,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Status}
  */
-public class StatusImpl extends AbstractProtocolSAMLObject implements Status {
+public class StatusImpl extends AbstractSAMLObject implements Status {
 
     /** StatusCode element */
     private StatusCode statusCode;
@@ -43,14 +44,6 @@ public class StatusImpl extends AbstractProtocolSAMLObject implements Status {
 
     /** StatusDetail element */
     private StatusDetail statusDetail;
-
-    /**
-     * Constructor
-     * 
-     */
-    protected StatusImpl() {
-        super(Status.LOCAL_NAME);
-    }
 
     /**
      * Constructor

@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthenticatingAuthority;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AuthenticatingAuthorityImpl} objects.
  */
-public class AuthenticatingAuthorityBuilder implements XMLObjectBuilder {
+public class AuthenticatingAuthorityBuilder extends AbstractSAMLObjectBuilder<AuthenticatingAuthority> {
 
     /** Constructor */
     public AuthenticatingAuthorityBuilder() {
@@ -35,16 +35,16 @@ public class AuthenticatingAuthorityBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthenticatingAuthority buildObject() {
-        return new AuthenticatingAuthorityImpl();
+        return buildObject(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AuthenticatingAuthority buildObject(Element element) {
-        return new AuthenticatingAuthorityImpl();
+    public AuthenticatingAuthority buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthenticatingAuthorityImpl(namespaceURI, localName, namespacePrefix);
     }
 }

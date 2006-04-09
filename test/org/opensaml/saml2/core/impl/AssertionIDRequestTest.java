@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionIDRequest;
 
 /**
@@ -56,7 +57,7 @@ public class AssertionIDRequestTest extends RequestTest {
      * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AssertionIDRequest req = (AssertionIDRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -69,7 +70,7 @@ public class AssertionIDRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AssertionIDRequest req = (AssertionIDRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -83,12 +84,14 @@ public class AssertionIDRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AssertionIDRequest req = (AssertionIDRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
+        
+        QName assertionIDRefQName = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i< expectedNumAssertionIDRefs; i++)
-            req.getAssertionIDRefs().add(new AssertionIDRefImpl());
+            req.getAssertionIDRefs().add((AssertionIDRef) buildXMLObject(assertionIDRefQName));
         
         assertEquals(expectedChildElementsDOM, req);
     }

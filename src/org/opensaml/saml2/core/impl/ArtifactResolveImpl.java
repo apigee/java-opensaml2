@@ -39,14 +39,6 @@ public class ArtifactResolveImpl extends RequestImpl implements ArtifactResolve 
     /**
      * Constructor
      * 
-     */
-    protected ArtifactResolveImpl() {
-        super(ArtifactResolve.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix

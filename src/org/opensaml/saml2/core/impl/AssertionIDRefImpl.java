@@ -22,21 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.AssertionIDRef}
  */
-public class AssertionIDRefImpl extends AbstractAssertionSAMLObject implements AssertionIDRef {
+public class AssertionIDRefImpl extends AbstractSAMLObject implements AssertionIDRef {
 
     /** ID Ref of the Assertion */
     private String assertionID;
-
-    /** Constructor */
-    protected AssertionIDRefImpl() {
-        super(AssertionIDRef.LOCAL_NAME);
-    }
 
     /**
      * Constructor

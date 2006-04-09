@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Response;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.Response}
  */
-public class ResponseBuilder implements XMLObjectBuilder {
+public class ResponseBuilder extends AbstractSAMLObjectBuilder<Response> {
 
     /**
      * Constructor
@@ -41,13 +41,13 @@ public class ResponseBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public Response buildObject() {
-        return new ResponseImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public Response buildObject(Element element) {
-        return new ResponseImpl();
+    public Response buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new ResponseImpl(namespaceURI, localName, namespacePrefix);
     }
 }

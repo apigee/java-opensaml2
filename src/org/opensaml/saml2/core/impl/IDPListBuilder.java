@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.IDPList;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.IDPListImpl}
  */
-public class IDPListBuilder implements XMLObjectBuilder {
+public class IDPListBuilder extends AbstractSAMLObjectBuilder<IDPList> {
 
     /**
      * Constructor
@@ -36,13 +36,16 @@ public class IDPListBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public IDPList buildObject() {
-        return new IDPListImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
-    public IDPList buildObject(Element element) {
-        return new IDPListImpl();
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public IDPList buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new IDPListImpl(namespaceURI, localName, namespacePrefix);
     }
 }

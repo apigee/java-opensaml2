@@ -18,24 +18,20 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.BaseID;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.BaseID}
  */
-public abstract class BaseIDImpl extends AbstractAssertionSAMLObject implements BaseID {
+public abstract class BaseIDImpl extends AbstractSAMLObject implements BaseID {
 
     /** Name Qualifier of BaseID */
     private String nameQualifier;
 
     /** SP Name Qualifier of Base */
     private String spNameQualfier;
-
-    /** Constructor */
-    protected BaseIDImpl() {
-        super(BaseID.LOCAL_NAME);
-    }
 
     /**
      * Constructor

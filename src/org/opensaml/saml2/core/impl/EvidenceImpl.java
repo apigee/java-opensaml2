@@ -26,6 +26,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
@@ -38,24 +39,10 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Evidence}.
  */
-public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidence {
+public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
 
     /** Assertion of the Evidence */
-    private IndexedXMLObjectChildrenList<Evidentiary> evidence;
-
-    /** Constructor */
-    protected EvidenceImpl() {
-        super(Evidence.LOCAL_NAME);
-
-        evidence = new IndexedXMLObjectChildrenList<Evidentiary>(this);
-    }
-
-    /*
-     * @see org.opensaml.saml2.core.Evidence#getEvidence()
-     */
-    public List<Evidentiary> getEvidence() {
-        return evidence;
-    }
+    private final IndexedXMLObjectChildrenList<Evidentiary> evidence;
 
     /**
      * Constructor
@@ -66,6 +53,14 @@ public class EvidenceImpl extends AbstractAssertionSAMLObject implements Evidenc
      */
     protected EvidenceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        evidence = new IndexedXMLObjectChildrenList<Evidentiary>(this);
+    }
+
+    /*
+     * @see org.opensaml.saml2.core.Evidence#getEvidence()
+     */
+    public List<Evidentiary> getEvidence() {
+        return evidence;
     }
 
     /*

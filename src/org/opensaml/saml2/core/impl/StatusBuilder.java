@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Status;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.StatusImpl}
  */
-public class StatusBuilder implements XMLObjectBuilder {
+public class StatusBuilder extends AbstractSAMLObjectBuilder<Status> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class StatusBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Status buildObject() {
-        return new StatusImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public Status buildObject(Element element) {
-        return new StatusImpl();
+    public Status buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new StatusImpl(namespaceURI, localName, namespacePrefix);
     }
 }

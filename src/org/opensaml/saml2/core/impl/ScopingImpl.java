@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.IDPList;
 import org.opensaml.saml2.core.RequesterID;
 import org.opensaml.saml2.core.Scoping;
@@ -33,25 +34,16 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Scoping}
  */
-public class ScopingImpl extends AbstractProtocolSAMLObject implements Scoping {
+public class ScopingImpl extends AbstractSAMLObject implements Scoping {
 
     /** IDPList child element */
     private IDPList idpList;
 
     /** List of RequesterID child elements */
-    private XMLObjectChildrenList<RequesterID> requesterIDs;
+    private final XMLObjectChildrenList<RequesterID> requesterIDs;
 
     /** ProxyCount attribute */
     private Integer proxyCount;
-
-    /**
-     * Constructor
-     */
-    protected ScopingImpl() {
-        super(Scoping.LOCAL_NAME);
-
-        requesterIDs = new XMLObjectChildrenList<RequesterID>(this);
-    }
 
     /**
      * Constructor
@@ -62,6 +54,7 @@ public class ScopingImpl extends AbstractProtocolSAMLObject implements Scoping {
      */
     protected ScopingImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        requesterIDs = new XMLObjectChildrenList<RequesterID>(this);
     }
 
     /**

@@ -25,6 +25,8 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.LogoutRequest;
+import org.opensaml.saml2.core.NameID;
+import org.opensaml.saml2.core.SessionIndex;
 
 /**
  *
@@ -65,7 +67,7 @@ public class LogoutRequestTest extends RequestTest {
      * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -77,7 +79,7 @@ public class LogoutRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -92,13 +94,18 @@ public class LogoutRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
-        req.setNameID(new NameIDImpl());
-        for (int i=0; i<expectedNumSessionIndexes; i++)
-            req.getSessionIndexes().add(new SessionIndexImpl());
+        
+        QName nameIDQName = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        req.setNameID((NameID) buildXMLObject(nameIDQName));
+        
+        QName sessionIndexQName = new QName(SAMLConstants.SAML20_NS, SessionIndex.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        for (int i=0; i<expectedNumSessionIndexes; i++){
+            req.getSessionIndexes().add((SessionIndex) buildXMLObject(sessionIndexQName));
+        }
         
         assertEquals(expectedChildElementsDOM, req);
     }

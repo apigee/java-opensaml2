@@ -23,11 +23,6 @@ import org.opensaml.saml2.core.NameID;
  */
 public class NameIDImpl extends AbstractNameIDType implements NameID {
 
-    /** Constructor */
-    protected NameIDImpl() {
-        super(NameID.LOCAL_NAME);
-    }
-
     /**
      * Constructor
      *

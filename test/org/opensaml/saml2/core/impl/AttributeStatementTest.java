@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
 
 /**
@@ -91,8 +92,9 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
 
+        QName attributeQName = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < expectedAttributeCount; i++) {
-            attributeStatement.getAttributes().add(new AttributeImpl());
+            attributeStatement.getAttributes().add((Attribute) buildXMLObject(attributeQName));
         }
 
         assertEquals(expectedChildElementsDOM, attributeStatement);

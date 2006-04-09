@@ -19,7 +19,11 @@
  */
 package org.opensaml.saml2.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectQuery;
 
 /**
@@ -62,7 +66,9 @@ public abstract class SubjectQueryTest extends RequestTest {
         SubjectQuery sq = (SubjectQuery) samlObject;
         
         super.populateChildElements(sq);
-        sq.setSubject(new SubjectImpl());
+        
+        QName subjectQName = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        sq.setSubject((Subject) buildXMLObject(subjectQName));
     }
 
 

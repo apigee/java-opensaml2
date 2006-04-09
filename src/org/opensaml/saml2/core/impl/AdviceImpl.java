@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
@@ -34,25 +35,16 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Advice}.
  */
-public class AdviceImpl extends AbstractAssertionSAMLObject implements Advice {
+public class AdviceImpl extends AbstractSAMLObject implements Advice {
 
     /** List of AssertionID references */
-    private XMLObjectChildrenList<AssertionIDRef> assertionIDRef;
+    private final XMLObjectChildrenList<AssertionIDRef> assertionIDRef;
 
     /** List of AssertionURI references */
-    private XMLObjectChildrenList<AssertionURIRef> assertionURIRef;
+    private final XMLObjectChildrenList<AssertionURIRef> assertionURIRef;
 
     /** List of Assertions */
-    private XMLObjectChildrenList<Assertion> assertion;
-
-    /** Constructor */
-    protected AdviceImpl() {
-        super(Advice.LOCAL_NAME);
-
-        assertionIDRef = new XMLObjectChildrenList<AssertionIDRef>(this);
-        assertionURIRef = new XMLObjectChildrenList<AssertionURIRef>(this);
-        assertion = new XMLObjectChildrenList<Assertion>(this);
-    }
+    private final XMLObjectChildrenList<Assertion> assertion;
 
     /**
      * Constructor
@@ -63,6 +55,9 @@ public class AdviceImpl extends AbstractAssertionSAMLObject implements Advice {
      */
     protected AdviceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        assertionIDRef = new XMLObjectChildrenList<AssertionIDRef>(this);
+        assertionURIRef = new XMLObjectChildrenList<AssertionURIRef>(this);
+        assertion = new XMLObjectChildrenList<Assertion>(this);
     }
 
     /*

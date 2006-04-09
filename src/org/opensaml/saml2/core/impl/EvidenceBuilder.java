@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Evidence;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.EvidenceImpl} objects.
  */
-public class EvidenceBuilder implements XMLObjectBuilder {
+public class EvidenceBuilder extends AbstractSAMLObjectBuilder<Evidence> {
 
     /** Constructor */
     public EvidenceBuilder() {
@@ -35,16 +35,16 @@ public class EvidenceBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Evidence buildObject() {
-        return new EvidenceImpl();
+        return buildObject(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public Evidence buildObject(Element element) {
-        return new EvidenceImpl();
+    public Evidence buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new EvidenceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

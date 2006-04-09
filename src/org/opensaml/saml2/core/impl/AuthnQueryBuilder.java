@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnQuery;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.AuthnQueryImpl} objects.
  */
-public class AuthnQueryBuilder implements XMLObjectBuilder {
+public class AuthnQueryBuilder extends AbstractSAMLObjectBuilder<AuthnQuery> {
 
     /**
      * Constructor
@@ -38,16 +38,16 @@ public class AuthnQueryBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthnQuery buildObject() {
-        return new AuthnQueryImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AuthnQuery buildObject(Element element) {
-        return new AuthnQueryImpl();
+    public AuthnQuery buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthnQueryImpl(namespaceURI, localName, namespacePrefix);
     }
 }

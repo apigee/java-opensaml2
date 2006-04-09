@@ -51,7 +51,7 @@ public class LogoutResponseTest extends StatusResponseTest {
      * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutResponse resp = (LogoutResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -63,7 +63,7 @@ public class LogoutResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutResponse resp = (LogoutResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -76,7 +76,7 @@ public class LogoutResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutResponse resp = (LogoutResponse) buildXMLObject(qname);
         
         super.populateChildElements(resp);

@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextDeclRef;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AuthnContextDeclRefImpl} objects.
  */
-public class AuthnContextDeclRefBuilder implements XMLObjectBuilder {
+public class AuthnContextDeclRefBuilder extends AbstractSAMLObjectBuilder<AuthnContextDeclRef> {
 
     /** Constructor */
     public AuthnContextDeclRefBuilder() {
@@ -35,16 +35,16 @@ public class AuthnContextDeclRefBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthnContextDeclRef buildObject() {
-        return new AuthnContextDeclRefImpl();
+        return buildObject(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AuthnContextDeclRef buildObject(Element element) {
-        return new AuthnContextDeclRefImpl();
+    public AuthnContextDeclRef buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthnContextDeclRefImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -20,7 +20,9 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.SubjectConfirmation;
+import org.opensaml.saml2.core.SubjectConfirmationData;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.SubjectConfirmationImpl}.
@@ -96,8 +98,11 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) buildXMLObject(qname);
 
-        subjectConfirmation.setNameID(new NameIDImpl());
-        subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl());
+        QName nameIDQName = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        subjectConfirmation.setNameID((NameID) buildXMLObject(nameIDQName));
+        
+        QName subjectConfirmationDataQName = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) subjectConfirmationDataQName);
 
         assertEquals(expectedChildElementsDOM, subjectConfirmation);
     }

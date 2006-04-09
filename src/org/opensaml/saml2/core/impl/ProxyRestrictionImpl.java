@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Audience;
 import org.opensaml.saml2.core.ProxyRestriction;
 import org.opensaml.xml.XMLObject;
@@ -32,20 +33,13 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.ProxyRestriction}
  */
-public class ProxyRestrictionImpl extends AbstractAssertionSAMLObject implements ProxyRestriction {
+public class ProxyRestrictionImpl extends AbstractSAMLObject implements ProxyRestriction {
 
     /** Audiences of the Restriction */
-    private XMLObjectChildrenList<Audience> audience;
+    private final XMLObjectChildrenList<Audience> audiences;
 
     /** Count of the Restriction */
     private Integer proxyCount;
-
-    /** Constructor */
-    protected ProxyRestrictionImpl() {
-        super(ProxyRestriction.LOCAL_NAME);
-
-        audience = new XMLObjectChildrenList<Audience>(this);
-    }
 
     /**
      * Constructor
@@ -56,13 +50,14 @@ public class ProxyRestrictionImpl extends AbstractAssertionSAMLObject implements
      */
     protected ProxyRestrictionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        audiences = new XMLObjectChildrenList<Audience>(this);
     }
 
     /*
      * @see org.opensaml.saml2.core.ProxyRestriction#getAudiences()
      */
     public List<Audience> getAudiences() {
-        return audience;
+        return audiences;
     }
 
     /*
@@ -88,7 +83,7 @@ public class ProxyRestrictionImpl extends AbstractAssertionSAMLObject implements
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        children.addAll(audience);
+        children.addAll(audiences);
         return Collections.unmodifiableList(children);
     }
 }

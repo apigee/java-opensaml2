@@ -22,21 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AttributeValue;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.AttributeValue}
  */
-public class AttributeValueImpl extends AbstractAssertionSAMLObject implements AttributeValue {
+public class AttributeValueImpl extends AbstractSAMLObject implements AttributeValue {
 
     /** Name of the attribute */
     private String attributeValue;
-
-    /** Constructor */
-    protected AttributeValueImpl() {
-        super(AttributeValue.LOCAL_NAME);
-    }
 
     /**
      * Constructor

@@ -46,16 +46,7 @@ public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
     private NameID nameID;
 
     /** SessionIndex child elements */
-    private XMLObjectChildrenList<SessionIndex> sessionIndexes;
-
-    /**
-     * Constructor
-     * 
-     */
-    protected LogoutRequestImpl() {
-        super(LogoutRequest.LOCAL_NAME);
-        sessionIndexes = new XMLObjectChildrenList<SessionIndex>(this);
-    }
+    private final XMLObjectChildrenList<SessionIndex> sessionIndexes;
 
     /**
      * Constructor
@@ -66,6 +57,7 @@ public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
      */
     protected LogoutRequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        sessionIndexes = new XMLObjectChildrenList<SessionIndex>(this);
     }
 
     /**

@@ -23,7 +23,14 @@ import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.saml2.core.AuthnStatement;
+import org.opensaml.saml2.core.AuthzDecisionStatement;
+import org.opensaml.saml2.core.Conditions;
+import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.Subject;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AssertionImpl}.
@@ -146,19 +153,31 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
-        assertion.setIssuer(new IssuerImpl());
-        assertion.setSubject(new SubjectImpl());
-        assertion.setConditions(new ConditionsImpl());
-        assertion.setAdvice(new AdviceImpl());
+        QName issuerQName = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        assertion.setIssuer((Issuer) buildXMLObject(issuerQName));
+        
+        QName subjectQName = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        assertion.setSubject((Subject) buildXMLObject(subjectQName));
+        
+        QName conditionsQName = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        assertion.setConditions((Conditions) buildXMLObject(conditionsQName));
+        
+        QName adviceQName = new QName(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        assertion.setAdvice((Advice) buildXMLObject(adviceQName));
 
+        QName authnStatementQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < authnStatementCount; i++) {
-            assertion.getAuthnStatements().add(new AuthnStatementImpl());
+            assertion.getAuthnStatements().add((AuthnStatement) buildXMLObject(authnStatementQName));
         }
+        
+        QName authzDecisionStatementQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < authzDecisionStatementCount; i++) {
-            assertion.getAuthzDecisionStatements().add(new AuthzDecisionStatementImpl());
+            assertion.getAuthzDecisionStatements().add((AuthzDecisionStatement) buildXMLObject(authzDecisionStatementQName));
         }
+        
+        QName attributeStatementQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < attributeStatementCount; i++) {
-            assertion.getAttributeStatement().add(new AttributeStatementImpl());
+            assertion.getAttributeStatement().add((AttributeStatement) buildXMLObject(attributeStatementQName));
         }
         assertEquals(expectedChildElementsDOM, assertion);
     }

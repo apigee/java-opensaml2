@@ -23,13 +23,14 @@ package org.opensaml.saml2.core.impl;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.SubjectConfirmationData}
  */
-public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject implements SubjectConfirmationData {
+public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements SubjectConfirmationData {
 
     /** NotBefore of the Confirmation Data */
     private DateTime notBefore;
@@ -45,11 +46,6 @@ public class SubjectConfirmationDataImpl extends AbstractAssertionSAMLObject imp
 
     /** Address of the Confirmation Data */
     private String address;
-
-    /** Constructor */
-    protected SubjectConfirmationDataImpl() {
-        super(SubjectConfirmationData.LOCAL_NAME);
-    }
 
     /**
      * Constructor

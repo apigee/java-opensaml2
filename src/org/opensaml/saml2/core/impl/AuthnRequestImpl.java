@@ -76,14 +76,6 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
     /**
      * Constructor
      * 
-     */
-    protected AuthnRequestImpl() {
-        super(AuthnRequest.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix

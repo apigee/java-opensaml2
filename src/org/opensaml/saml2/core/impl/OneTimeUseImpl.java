@@ -22,18 +22,14 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.OneTimeUse;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.IDNameQualifiers}
  */
-public class OneTimeUseImpl extends AbstractAssertionSAMLObject implements OneTimeUse {
-
-    /** Constructor */
-    protected OneTimeUseImpl() {
-        super(OneTimeUse.LOCAL_NAME);
-    }
+public class OneTimeUseImpl extends AbstractSAMLObject implements OneTimeUse {
 
     /**
      * Constructor

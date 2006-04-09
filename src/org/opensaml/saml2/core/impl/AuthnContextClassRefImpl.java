@@ -22,21 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnContextClassRef}.
  */
-public class AuthnContextClassRefImpl extends AbstractAssertionSAMLObject implements AuthnContextClassRef {
+public class AuthnContextClassRefImpl extends AbstractSAMLObject implements AuthnContextClassRef {
 
     /** URI of the Authentication Context Class */
     private String authnContextClassRef;
-
-    /** Constructor */
-    protected AuthnContextClassRefImpl() {
-        super(AuthnContextClassRef.LOCAL_NAME);
-    }
 
     /**
      * Constructor

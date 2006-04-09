@@ -22,24 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Artifact;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Artifact}
  */
-public class ArtifactImpl extends AbstractProtocolSAMLObject implements Artifact {
+public class ArtifactImpl extends AbstractSAMLObject implements Artifact {
 
     /** Artifact data */
     private String artifact;
-
-    /**
-     * Constructor
-     * 
-     */
-    protected ArtifactImpl() {
-        super(Artifact.LOCAL_NAME);
-    }
 
     /**
      * Constructor

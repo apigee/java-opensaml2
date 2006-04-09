@@ -35,15 +35,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class AssertionIDRequestImpl extends RequestImpl implements AssertionIDRequest {
 
     /** List of AssertionIDRef child elements */
-    private XMLObjectChildrenList<AssertionIDRef> assertionIDRefs;
-
-    /**
-     * Constructor
-     */
-    protected AssertionIDRequestImpl() {
-        super(AssertionIDRequest.LOCAL_NAME);
-        assertionIDRefs = new XMLObjectChildrenList<AssertionIDRef>(this);
-    }
+    private final XMLObjectChildrenList<AssertionIDRef> assertionIDRefs;
 
     /**
      * Constructor
@@ -54,6 +46,7 @@ public class AssertionIDRequestImpl extends RequestImpl implements AssertionIDRe
      */
     protected AssertionIDRequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        assertionIDRefs = new XMLObjectChildrenList<AssertionIDRef>(this);
     }
 
     /**

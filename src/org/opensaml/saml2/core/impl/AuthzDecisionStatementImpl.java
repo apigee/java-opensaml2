@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.saml2.core.DecisionType;
@@ -34,7 +35,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthzDecisionStatement}.
  */
-public class AuthzDecisionStatementImpl extends AbstractAssertionSAMLObject implements AuthzDecisionStatement {
+public class AuthzDecisionStatementImpl extends AbstractSAMLObject implements AuthzDecisionStatement {
 
     /** URI of the resource to which authorization is sought */
     private String resource;
@@ -43,17 +44,10 @@ public class AuthzDecisionStatementImpl extends AbstractAssertionSAMLObject impl
     private DecisionType decision;
 
     /** Actions authorized to be performed */
-    private XMLObjectChildrenList<Action> actions;
+    private final XMLObjectChildrenList<Action> actions;
 
     /** SAML assertion the authority relied on when making the authorization decision */
     private Evidence evidence;
-
-    /** Constructor */
-    protected AuthzDecisionStatementImpl() {
-        super(AuthzDecisionStatement.LOCAL_NAME);
-
-        actions = new XMLObjectChildrenList<Action>(this);
-    }
 
     /**
      * Constructor
@@ -64,6 +58,7 @@ public class AuthzDecisionStatementImpl extends AbstractAssertionSAMLObject impl
      */
     protected AuthzDecisionStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        actions = new XMLObjectChildrenList<Action>(this);
     }
 
     /*

@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Scoping;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.ScopingImpl}
  */
-public class ScopingBuilder implements XMLObjectBuilder {
+public class ScopingBuilder extends AbstractSAMLObjectBuilder<Scoping> {
 
     /**
      * Constructor
@@ -36,16 +36,16 @@ public class ScopingBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Scoping buildObject() {
-        return new ScopingImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public Scoping buildObject(Element element) {
-        return new ScopingImpl();
+    public Scoping buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new ScopingImpl(namespaceURI, localName, namespacePrefix);
     }
 }

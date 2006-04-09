@@ -24,27 +24,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.StatusCode}
  */
-public class StatusCodeImpl extends AbstractProtocolSAMLObject implements StatusCode {
+public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
 
     /** Value attribute URI */
     private String value;
 
     /** Nested secondary StatusCode child element */
     private StatusCode childStatusCode;
-
-    /**
-     * Constructor
-     * 
-     */
-    protected StatusCodeImpl() {
-        super(StatusCode.LOCAL_NAME);
-    }
 
     /**
      * Constructor

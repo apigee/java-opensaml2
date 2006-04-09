@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.LogoutResponse;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.LogoutResponse}
  */
-public class LogoutResponseBuilder implements XMLObjectBuilder {
+public class LogoutResponseBuilder extends AbstractSAMLObjectBuilder<LogoutResponse> {
 
     /**
      * Constructor
@@ -38,16 +38,16 @@ public class LogoutResponseBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public LogoutResponse buildObject() {
-        return new LogoutResponseImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public LogoutResponse buildObject(Element element) {
-        return new LogoutResponseImpl();
+    public LogoutResponse buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new LogoutResponseImpl(namespaceURI, localName, namespacePrefix);
     }
 }

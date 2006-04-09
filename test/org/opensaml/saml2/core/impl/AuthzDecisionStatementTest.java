@@ -20,8 +20,10 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.saml2.core.DecisionType;
+import org.opensaml.saml2.core.Evidence;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -117,10 +119,14 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
 
+        QName actionQName = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < expectedActionCount; i++) {
-            authzDecisionStatement.getActions().add(new ActionImpl());
+            authzDecisionStatement.getActions().add((Action) buildXMLObject(actionQName));
         }
-        authzDecisionStatement.setEvidence(new EvidenceImpl());
+        
+        QName evidenceQName = new QName(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        authzDecisionStatement.setEvidence((Evidence) buildXMLObject(evidenceQName));
+        
         assertEquals(expectedChildElementsDOM, authzDecisionStatement);
     }
 }

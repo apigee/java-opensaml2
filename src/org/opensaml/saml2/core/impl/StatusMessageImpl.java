@@ -22,24 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.StatusMessage;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.StatusMessage}
  */
-public class StatusMessageImpl extends AbstractProtocolSAMLObject implements StatusMessage {
+public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessage {
 
     /** The message string */
     private String message;
-
-    /**
-     * Constructor
-     * 
-     */
-    protected StatusMessageImpl() {
-        super(StatusMessage.LOCAL_NAME);
-    }
 
     /**
      * Constructor

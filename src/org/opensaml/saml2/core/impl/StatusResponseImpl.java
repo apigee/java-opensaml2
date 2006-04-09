@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Status;
@@ -35,7 +36,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.StatusResponse}
  */
-public abstract class StatusResponseImpl extends AbstractSignableProtocolSAMLObject implements StatusResponse {
+public abstract class StatusResponseImpl extends AbstractSignableSAMLObject implements StatusResponse {
 
     /** SAML Version attribute */
     private SAMLVersion version;
@@ -63,15 +64,6 @@ public abstract class StatusResponseImpl extends AbstractSignableProtocolSAMLObj
 
     /** Status child element */
     private Status status;
-
-    /**
-     * Constructor
-     * 
-     * @param elementLocalName
-     */
-    protected StatusResponseImpl(String elementLocalName) {
-        super(elementLocalName);
-    }
 
     /**
      * Constructor

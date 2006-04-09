@@ -22,21 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AuthenticatingAuthority;
 import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implemenation of {@link org.opensaml.saml2.core.AuthenticatingAuthority}.
  */
-public class AuthenticatingAuthorityImpl extends AbstractAssertionSAMLObject implements AuthenticatingAuthority {
+public class AuthenticatingAuthorityImpl extends AbstractSAMLObject implements AuthenticatingAuthority {
 
     /** URI of the Authenticating Authority */
     private String uri;
-
-    /** Constructor */
-    protected AuthenticatingAuthorityImpl() {
-        super(AuthenticatingAuthority.LOCAL_NAME);
-    }
 
     /**
      * Constructor

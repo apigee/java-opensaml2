@@ -57,14 +57,6 @@ public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameID
     /**
      * Constructor
      * 
-     */
-    protected ManageNameIDRequestImpl() {
-        super(ManageNameIDRequest.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix
@@ -167,5 +159,4 @@ public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameID
 
         return Collections.unmodifiableList(children);
     }
-
 }

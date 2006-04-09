@@ -22,24 +22,20 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Action}.
  */
-public class ActionImpl extends AbstractAssertionSAMLObject implements Action {
+public class ActionImpl extends AbstractSAMLObject implements Action {
 
     /** URI of the Namespace of this Action */
     private String namespace;
 
     /** Action value */
     private String action;
-
-    /** Constructor */
-    protected ActionImpl() {
-        super(Action.LOCAL_NAME);
-    }
 
     /**
      * Constructor

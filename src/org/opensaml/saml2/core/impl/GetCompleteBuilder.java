@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.GetComplete;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.GetComplete}
  */
-public class GetCompleteBuilder implements XMLObjectBuilder {
+public class GetCompleteBuilder extends AbstractSAMLObjectBuilder<GetComplete> {
 
     /**
      * Constructor
@@ -36,16 +36,16 @@ public class GetCompleteBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public GetComplete buildObject() {
-        return new GetCompleteImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, GetComplete.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public GetComplete buildObject(Element element) {
-        return new GetCompleteImpl();
+    public GetComplete buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new GetCompleteImpl(namespaceURI, localName, namespacePrefix);
     }
 }

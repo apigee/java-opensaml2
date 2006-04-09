@@ -20,6 +20,9 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.AssertionIDRef;
+import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.saml2.core.Evidence;
 
 /**
@@ -96,14 +99,19 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Evidence evidence = (Evidence) buildXMLObject(qname);
 
+        QName assertionIDRefQName = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < assertionIDRefCount; i++) {
-            evidence.getAssertionIDReferences().add(new AssertionIDRefImpl());
+            evidence.getAssertionIDReferences().add((AssertionIDRef) buildXMLObject(assertionIDRefQName));
         }
+        
+        QName assertionURIRefQName = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < assertionURIRefCount; i++) {
-            evidence.getAssertionURIReferences().add(new AssertionURIRefImpl());
+            evidence.getAssertionURIReferences().add((AssertionURIRef) buildXMLObject(assertionURIRefQName));
         }
+        
+        QName assertionQName = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < assertionCount; i++) {
-            evidence.getAssertions().add(new AssertionImpl());
+            evidence.getAssertions().add((Assertion) buildXMLObject(assertionQName));
         }
         assertEquals(expectedChildElementsDOM, evidence);
     }

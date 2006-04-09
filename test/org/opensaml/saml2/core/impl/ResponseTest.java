@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Response;
 
 /**
@@ -57,7 +58,7 @@ public class ResponseTest extends StatusResponseTest {
      * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         Response resp = (Response) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -69,7 +70,7 @@ public class ResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         Response resp = (Response) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -82,12 +83,15 @@ public class ResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         Response resp = (Response) buildXMLObject(qname);
         
         super.populateChildElements(resp);
-        for (int i=0; i<expectedNumAssertions; i++)
-            resp.getAssertions().add(new AssertionImpl());
+        
+        QName assetionQname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        for (int i=0; i<expectedNumAssertions; i++){
+            resp.getAssertions().add((Assertion) buildXMLObject(assetionQname));
+        }
         
         assertEquals(expectedChildElementsDOM, resp);
     }

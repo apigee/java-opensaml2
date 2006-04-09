@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Audience;
 import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.xml.XMLObject;
@@ -32,17 +33,10 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.AudienceRestriction}
  */
-public class AudienceRestrictionImpl extends AbstractAssertionSAMLObject implements AudienceRestriction {
+public class AudienceRestrictionImpl extends AbstractSAMLObject implements AudienceRestriction {
 
     /** List of the audiences */
-    private XMLObjectChildrenList<Audience> audience;
-
-    /** Constructor */
-    protected AudienceRestrictionImpl() {
-        super(AudienceRestriction.LOCAL_NAME);
-
-        audience = new XMLObjectChildrenList<Audience>(this);
-    }
+    private final XMLObjectChildrenList<Audience> audience;
 
     /**
      * Constructor
@@ -53,6 +47,7 @@ public class AudienceRestrictionImpl extends AbstractAssertionSAMLObject impleme
      */
     protected AudienceRestrictionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        audience = new XMLObjectChildrenList<Audience>(this);
     }
 
     /*

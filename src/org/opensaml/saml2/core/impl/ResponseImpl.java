@@ -37,17 +37,7 @@ public class ResponseImpl extends StatusResponseImpl implements Response {
     // TODO may need more for EncryptedAssertion pending Chad's encryption implementation
 
     /** Assertion child elements */
-    private XMLObjectChildrenList<Assertion> assertions;
-
-    /**
-     * Constructor
-     * 
-     */
-    protected ResponseImpl() {
-        super(Response.LOCAL_NAME);
-
-        assertions = new XMLObjectChildrenList<Assertion>(this);
-    }
+    private final XMLObjectChildrenList<Assertion> assertions;
 
     /**
      * Constructor
@@ -58,6 +48,7 @@ public class ResponseImpl extends StatusResponseImpl implements Response {
      */
     protected ResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        assertions = new XMLObjectChildrenList<Assertion>(this);
     }
 
     /**
@@ -83,5 +74,4 @@ public class ResponseImpl extends StatusResponseImpl implements Response {
 
         return Collections.unmodifiableList(children);
     }
-
 }

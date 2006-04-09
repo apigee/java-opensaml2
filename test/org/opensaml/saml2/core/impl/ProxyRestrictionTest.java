@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Audience;
 import org.opensaml.saml2.core.ProxyRestriction;
 
 /**
@@ -97,8 +98,9 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         ProxyRestriction proxyRestriction = (ProxyRestriction) buildXMLObject(qname);
 
+        QName audienceQName = new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < expectedAudienceCount; i++) {
-            proxyRestriction.getAudiences().add(new AudienceImpl());
+            proxyRestriction.getAudiences().add((Audience) buildXMLObject(audienceQName));
         }
 
         assertEquals(expectedChildElementsDOM, proxyRestriction);

@@ -22,21 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AssertionURIRef}
  */
-public class AssertionURIRefImpl extends AbstractAssertionSAMLObject implements AssertionURIRef {
+public class AssertionURIRefImpl extends AbstractSAMLObject implements AssertionURIRef {
 
     /** URI of the Assertion */
     private String assertionURI;
-
-    /** Constructor */
-    protected AssertionURIRefImpl() {
-        super(AssertionURIRef.LOCAL_NAME);
-    }
 
     /**
      * Constructor

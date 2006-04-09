@@ -27,6 +27,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.saml2.core.Condition;
@@ -39,23 +40,16 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Conditions}
  */
-public class ConditionsImpl extends AbstractAssertionSAMLObject implements Conditions {
+public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
 
     /** A Condition */
-    private IndexedXMLObjectChildrenList<Condition> condition;
+    private final IndexedXMLObjectChildrenList<Condition> conditions;
 
-    /** Not Before condition */
+    /** Not Before conditions */
     private DateTime notBefore;
 
-    /** Not On Or After condition */
+    /** Not On Or After conditions */
     private DateTime notOnOrAfter;
-
-    /** Constructor */
-    protected ConditionsImpl() {
-        super(Conditions.LOCAL_NAME);
-
-        condition = new IndexedXMLObjectChildrenList<Condition>(this);
-    }
 
     /**
      * Constructor
@@ -66,13 +60,14 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
      */
     protected ConditionsImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        conditions = new IndexedXMLObjectChildrenList<Condition>(this);
     }
 
     /*
      * @see org.opensaml.saml2.core.Conditions#getCondition()
      */
     public List<Condition> getConditions() {
-        return condition;
+        return conditions;
     }
 
     /*
@@ -81,7 +76,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
     public List<AudienceRestriction> getAudienceRestrictions() {
         QName conditionQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
-        return (List<AudienceRestriction>) condition.subList(conditionQName);
+        return (List<AudienceRestriction>) conditions.subList(conditionQName);
     }
 
     /*
@@ -89,7 +84,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
      */
     public OneTimeUse getOneTimeUse() {
         QName conditionQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        List<OneTimeUse> list = (List<OneTimeUse>) condition.subList(conditionQName);
+        List<OneTimeUse> list = (List<OneTimeUse>) conditions.subList(conditionQName);
         if (list == null || list.size() == 0) {
             return null;
         } else
@@ -102,7 +97,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
     public ProxyRestriction getProxyRestriction() {
         QName conditionQName = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
-        List<ProxyRestriction> list = (List<ProxyRestriction>) condition.subList(conditionQName);
+        List<ProxyRestriction> list = (List<ProxyRestriction>) conditions.subList(conditionQName);
         if (list == null || list.size() == 0) {
             return null;
         } else
@@ -143,7 +138,7 @@ public class ConditionsImpl extends AbstractAssertionSAMLObject implements Condi
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        children.addAll(condition);
+        children.addAll(conditions);
 
         return Collections.unmodifiableList(children);
     }

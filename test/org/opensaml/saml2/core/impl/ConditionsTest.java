@@ -22,7 +22,11 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.AudienceRestriction;
+import org.opensaml.saml2.core.Condition;
 import org.opensaml.saml2.core.Conditions;
+import org.opensaml.saml2.core.OneTimeUse;
+import org.opensaml.saml2.core.ProxyRestriction;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.ConditionsImpl}.
@@ -122,12 +126,19 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Conditions conditions = (Conditions) buildXMLObject(qname);
 
-        conditions.getConditions().add(new OneTimeUseImpl());
+        QName oneTimeUserQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        conditions.getConditions().add((Condition) buildXMLObject(oneTimeUserQName));
+        
+        QName audienceRestrictionQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < audienceRestrictionCount; i++) {
-            conditions.getAudienceRestrictions().add(new AudienceRestrictionImpl());
+            conditions.getAudienceRestrictions().add((AudienceRestriction) buildXMLObject(audienceRestrictionQName));
         }
-        conditions.getConditions().add(new OneTimeUseImpl());
-        conditions.getConditions().add(new ProxyRestrictionImpl());
+        
+        conditions.getConditions().add((Condition) buildXMLObject(oneTimeUserQName));
+        
+        QName proxyRestrictionQName = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        conditions.getConditions().add((Condition) buildXMLObject(proxyRestrictionQName));
+        
         assertEquals(expectedChildElementsDOM, conditions);
     }
 }

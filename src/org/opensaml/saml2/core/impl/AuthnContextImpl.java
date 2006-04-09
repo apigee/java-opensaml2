@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AuthenticatingAuthority;
 import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnContextClassRef;
@@ -35,7 +36,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * A concrete implemenation of {@link org.opensaml.saml2.core.AuthnContext}.
  */
-public class AuthnContextImpl extends AbstractAssertionSAMLObject implements AuthnContext {
+public class AuthnContextImpl extends AbstractSAMLObject implements AuthnContext {
 
     /** URI of the Context Class */
     private AuthnContextClassRef authnContextClassRef;
@@ -47,14 +48,7 @@ public class AuthnContextImpl extends AbstractAssertionSAMLObject implements Aut
     private AuthnContextDeclRef authnContextDeclRef;
 
     /** List of the Authenticating Authorities */
-    private XMLObjectChildrenList<AuthenticatingAuthority> authenticatingAuthority;
-
-    /** Constructor */
-    protected AuthnContextImpl() {
-        super(AuthnContext.LOCAL_NAME);
-
-        authenticatingAuthority = new XMLObjectChildrenList<AuthenticatingAuthority>(this);
-    }
+    private final XMLObjectChildrenList<AuthenticatingAuthority> authenticatingAuthority;
 
     /**
      * Constructor
@@ -65,6 +59,7 @@ public class AuthnContextImpl extends AbstractAssertionSAMLObject implements Aut
      */
     protected AuthnContextImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        authenticatingAuthority = new XMLObjectChildrenList<AuthenticatingAuthority>(this);
     }
 
     /*

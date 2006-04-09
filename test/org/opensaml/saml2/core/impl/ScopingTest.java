@@ -23,6 +23,8 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.IDPList;
+import org.opensaml.saml2.core.RequesterID;
 import org.opensaml.saml2.core.Scoping;
 
 /**
@@ -86,10 +88,13 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME);
         Scoping scoping = (Scoping) buildXMLObject(qname);
         
-        scoping.setIDPList(new IDPListImpl());
+        QName idpListQName = new QName(SAMLConstants.SAML20_NS, IDPList.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        scoping.setIDPList((IDPList) buildXMLObject(idpListQName));
         
-        for (int i = 0; i<expectedNumRequestIDs; i++)
-            scoping.getRequesterIDs().add(new RequesterIDImpl());
+        QName requesterIDQName = new QName(SAMLConstants.SAML20_NS, RequesterID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        for (int i = 0; i<expectedNumRequestIDs; i++){
+            scoping.getRequesterIDs().add((RequesterID) buildXMLObject(requesterIDQName));
+        }
         
         assertEquals(expectedChildElementsDOM, scoping);
     }

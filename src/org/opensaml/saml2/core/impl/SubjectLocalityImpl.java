@@ -22,24 +22,20 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.SubjectLocality;
 import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.SubjectLocality}.
  */
-public class SubjectLocalityImpl extends AbstractAssertionSAMLObject implements SubjectLocality {
+public class SubjectLocalityImpl extends AbstractSAMLObject implements SubjectLocality {
 
     /** The Address of the assertion */
     private String address;
 
     /** The DNS Name of the assertion */
     private String dnsName;
-
-    /** Constructor */
-    protected SubjectLocalityImpl() {
-        super(SubjectLocality.LOCAL_NAME);
-    }
 
     /**
      * Constructor

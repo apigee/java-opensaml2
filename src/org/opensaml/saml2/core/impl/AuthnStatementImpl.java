@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.SubjectLocality;
@@ -33,7 +34,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnStatement}.
  */
-public class AuthnStatementImpl extends AbstractAssertionSAMLObject implements AuthnStatement {
+public class AuthnStatementImpl extends AbstractSAMLObject implements AuthnStatement {
 
     /** Subject Locality of the Authentication Statement */
     private SubjectLocality subjectLocality;
@@ -49,11 +50,6 @@ public class AuthnStatementImpl extends AbstractAssertionSAMLObject implements A
 
     /** Time at which the session ends */
     private DateTime sessionNotOnOrAfter;
-
-    /** Constructor */
-    protected AuthnStatementImpl() {
-        super(AuthnStatement.LOCAL_NAME);
-    }
 
     /**
      * Constructor

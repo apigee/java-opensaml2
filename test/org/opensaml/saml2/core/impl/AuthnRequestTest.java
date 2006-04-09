@@ -23,6 +23,11 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnRequest;
+import org.opensaml.saml2.core.Conditions;
+import org.opensaml.saml2.core.NameIDPolicy;
+import org.opensaml.saml2.core.RequestedAuthnContext;
+import org.opensaml.saml2.core.Scoping;
+import org.opensaml.saml2.core.Subject;
 
 /**
  *
@@ -85,7 +90,7 @@ public class AuthnRequestTest extends RequestTest {
      * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnRequest req = (AuthnRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -98,7 +103,7 @@ public class AuthnRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnRequest req = (AuthnRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -119,16 +124,25 @@ public class AuthnRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnRequest req = (AuthnRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
         
-        req.setSubject(new SubjectImpl());
-        req.setNameIDPolicy(new NameIDPolicyImpl());
-        req.setConditions(new ConditionsImpl());
-        req.setRequestedAuthnContext(new RequestedAuthnContextImpl());
-        req.setScoping(new ScopingImpl());
+        QName subjectQName = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        req.setSubject((Subject) buildXMLObject(subjectQName));
+        
+        QName nameIDPolicyQName = new QName(SAMLConstants.SAML20_NS, NameIDPolicy.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        req.setNameIDPolicy((NameIDPolicy) buildXMLObject(nameIDPolicyQName));
+        
+        QName conditionsQName = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        req.setConditions((Conditions) buildXMLObject(conditionsQName));
+        
+        QName requestedAuthnContextQName = new QName(SAMLConstants.SAML20_NS, RequestedAuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        req.setRequestedAuthnContext((RequestedAuthnContext) buildXMLObject(requestedAuthnContextQName));
+        
+        QName scopingQName = new QName(SAMLConstants.SAML20_NS, Scoping.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        req.setScoping((Scoping) buildXMLObject(scopingQName));
         
         assertEquals(expectedChildElementsDOM, req);
     }

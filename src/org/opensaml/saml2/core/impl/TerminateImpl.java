@@ -22,21 +22,14 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Terminate;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Terminate}
  */
-public class TerminateImpl extends AbstractProtocolSAMLObject implements Terminate {
-
-    /**
-     * Constructor
-     * 
-     */
-    public TerminateImpl() {
-        super(Terminate.LOCAL_NAME);
-    }
+public class TerminateImpl extends AbstractSAMLObject implements Terminate {
 
     /**
      * Constructor

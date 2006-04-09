@@ -22,23 +22,17 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.GetComplete;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.GetComplete}
  */
-public class GetCompleteImpl extends AbstractProtocolSAMLObject implements GetComplete {
+public class GetCompleteImpl extends AbstractSAMLObject implements GetComplete {
 
     /** URI element content */
     private String getComplete;
-
-    /**
-     * Constructor
-     */
-    protected GetCompleteImpl() {
-        super(GetComplete.LOCAL_NAME);
-    }
 
     /**
      * Constructor

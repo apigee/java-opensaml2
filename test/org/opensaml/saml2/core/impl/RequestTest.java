@@ -16,11 +16,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Request;
 
@@ -69,7 +72,9 @@ public abstract class RequestTest extends SAMLObjectBaseTestCase {
         expectedIssueInstant = new DateTime(2006, 2, 21, 16, 40, 0, 0, ISOChronology.getInstanceUTC());
         expectedDestination = "http://idp.example.org/endpoint";
         expectedConsent = "urn:string:consent";
-        expectedIssuer = new IssuerImpl();
+        
+        QName issuerQName = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        expectedIssuer = (Issuer) buildXMLObject(issuerQName);
     }
 
 

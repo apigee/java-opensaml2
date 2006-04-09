@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnStatement;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AuthnStatementImpl} objects.
  */
-public class AuthnStatementBuilder implements XMLObjectBuilder {
+public class AuthnStatementBuilder extends AbstractSAMLObjectBuilder<AuthnStatement> {
 
     /** Constructor */
     public AuthnStatementBuilder() {
@@ -35,16 +35,16 @@ public class AuthnStatementBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthnStatement buildObject() {
-        return new AuthnStatementImpl();
+        return buildObject(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AuthnStatement buildObject(Element element) {
-        return new AuthnStatementImpl();
+    public AuthnStatement buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthnStatementImpl(namespaceURI, localName, namespacePrefix);
     }
 }

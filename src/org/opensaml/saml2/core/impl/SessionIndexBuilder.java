@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SessionIndex;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.SessionIndex} objects.
  */
-public class SessionIndexBuilder implements XMLObjectBuilder {
+public class SessionIndexBuilder extends AbstractSAMLObjectBuilder<SessionIndex> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class SessionIndexBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public SessionIndex buildObject() {
-        return new SessionIndexImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public SessionIndex buildObject(Element element) {
-        return new SessionIndexImpl();
+    public SessionIndex buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new SessionIndexImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -18,14 +18,14 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
-import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.NameIDType;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Abstract implementation of {@link org.opensaml.saml2.core.NameIDType}
  */
-public class AbstractNameIDType extends AbstractAssertionSAMLObject implements NameIDType {
+public class AbstractNameIDType extends AbstractSAMLObject implements NameIDType {
 
     /** Name of the Name ID */
     private String name;
@@ -41,16 +41,6 @@ public class AbstractNameIDType extends AbstractAssertionSAMLObject implements N
 
     /** SP Proivder ID of the NameID */
     private String spProviderID;
-
-    /**
-     * Constructor. Sets namespace to {@link SAMLConstants#SAML20_NS} and prefix to
-     * {@link SAMLConstants#SAML20_PREFIX}.
-     * 
-     * @param localName the local name of the element
-     */
-    protected AbstractNameIDType(String localName) {
-        super(localName);
-    }
 
     /**
      * Constructor

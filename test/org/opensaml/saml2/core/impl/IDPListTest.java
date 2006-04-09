@@ -23,6 +23,8 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.GetComplete;
+import org.opensaml.saml2.core.IDPEntry;
 import org.opensaml.saml2.core.IDPList;
 
 /**
@@ -69,10 +71,13 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
         IDPList list = (IDPList) buildXMLObject(qname);
         
-        for (int i=0; i<expectedNumIDPEntryChildren; i++)
-            list.getIDPEntrys().add(new IDPEntryImpl());
+        QName idpEntryQName = new QName(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        for (int i=0; i<expectedNumIDPEntryChildren; i++){
+            list.getIDPEntrys().add((IDPEntry) buildXMLObject(idpEntryQName));
+        }
         
-        list.setGetComplete(new GetCompleteImpl());
+        QName getCompelteQName = new QName(SAMLConstants.SAML20P_NS, GetComplete.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        list.setGetComplete((GetComplete) buildXMLObject(getCompelteQName));
         
         assertEquals(expectedChildElementsDOM, list);
         

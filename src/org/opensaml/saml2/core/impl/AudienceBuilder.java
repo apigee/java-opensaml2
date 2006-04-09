@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Audience;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AudienceImpl} objects.
  */
-public class AudienceBuilder implements XMLObjectBuilder {
+public class AudienceBuilder extends AbstractSAMLObjectBuilder<Audience> {
 
     /** Construtor */
     public AudienceBuilder() {
@@ -35,16 +35,16 @@ public class AudienceBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Audience buildObject() {
-        return new AudienceImpl();
+        return buildObject(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
-    
+
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public Audience buildObject(Element element) {
-        return new AudienceImpl();
+    public Audience buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AudienceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

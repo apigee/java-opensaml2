@@ -35,16 +35,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQuery {
 
     /** Attribute child elements */
-    private XMLObjectChildrenList<Attribute> attributes;
-
-    /**
-     * Constructor
-     * 
-     */
-    protected AttributeQueryImpl() {
-        super(AttributeQuery.LOCAL_NAME);
-        attributes = new XMLObjectChildrenList<Attribute>(this);
-    }
+    private final XMLObjectChildrenList<Attribute> attributes;
 
     /**
      * Constructor
@@ -55,6 +46,7 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
      */
     protected AttributeQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
     /**

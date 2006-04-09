@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeQuery;
 
 /**
@@ -57,7 +58,7 @@ public class AttributeQueryTest extends SubjectQueryTest {
      * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AttributeQuery query = (AttributeQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
@@ -71,7 +72,7 @@ public class AttributeQueryTest extends SubjectQueryTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AttributeQuery query = (AttributeQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
@@ -86,12 +87,15 @@ public class AttributeQueryTest extends SubjectQueryTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AttributeQuery query = (AttributeQuery) buildXMLObject(qname);
         
        populateChildElements(query);
-       for (int i= 0; i<expectedNumAttributes; i++)
-           query.getAttributes().add(new AttributeImpl());
+       
+       QName attributeQName = new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+       for (int i= 0; i<expectedNumAttributes; i++){
+           query.getAttributes().add((Attribute) buildXMLObject(attributeQName));
+       }
       
        assertEquals(expectedChildElementsDOM, query);
     }

@@ -30,14 +30,6 @@ public class LogoutResponseImpl extends StatusResponseImpl implements LogoutResp
     /**
      * Constructor
      * 
-     */
-    protected LogoutResponseImpl() {
-        super(LogoutResponse.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix
@@ -45,6 +37,4 @@ public class LogoutResponseImpl extends StatusResponseImpl implements LogoutResp
     protected LogoutResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
-
-    // No additional attributes or child elements on this class
 }

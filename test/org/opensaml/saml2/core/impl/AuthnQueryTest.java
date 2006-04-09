@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnQuery;
+import org.opensaml.saml2.core.RequestedAuthnContext;
 
 /**
  *
@@ -58,7 +59,7 @@ public class AuthnQueryTest extends SubjectQueryTest {
      * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnQuery query = (AuthnQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
@@ -70,7 +71,7 @@ public class AuthnQueryTest extends SubjectQueryTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnQuery query = (AuthnQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
@@ -84,11 +85,13 @@ public class AuthnQueryTest extends SubjectQueryTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnQuery query = (AuthnQuery) buildXMLObject(qname);
         
         super.populateChildElements(query);
-        query.setRequestedAuthnContext(new RequestedAuthnContextImpl());
+        
+        QName requestedAuthnContextQName = new QName(SAMLConstants.SAML20_NS, RequestedAuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        query.setRequestedAuthnContext((RequestedAuthnContext) buildXMLObject(requestedAuthnContextQName));
         
         assertEquals(expectedChildElementsDOM, query);
     }

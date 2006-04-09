@@ -42,14 +42,6 @@ public class AuthnQueryImpl extends SubjectQueryImpl implements AuthnQuery {
     /**
      * Constructor
      * 
-     */
-    protected AuthnQueryImpl() {
-        super(AuthnQuery.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix

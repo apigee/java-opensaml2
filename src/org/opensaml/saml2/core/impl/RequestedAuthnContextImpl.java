@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.saml2.core.AuthnContextComparisonType;
 import org.opensaml.saml2.core.AuthnContextDeclRef;
@@ -34,27 +35,16 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.RequestedAuthnContext}
  */
-public class RequestedAuthnContextImpl extends AbstractProtocolSAMLObject implements RequestedAuthnContext {
+public class RequestedAuthnContextImpl extends AbstractSAMLObject implements RequestedAuthnContext {
 
     /** AuthnContextClassRef child elements */
-    private XMLObjectChildrenList<AuthnContextClassRef> authnContextClassRefs;
+    private final XMLObjectChildrenList<AuthnContextClassRef> authnContextClassRefs;
 
     /** AuthnContextDeclRef child elements */
-    private XMLObjectChildrenList<AuthnContextDeclRef> authnContextDeclRefs;
+    private final XMLObjectChildrenList<AuthnContextDeclRef> authnContextDeclRefs;
 
     /** Comparison attribute */
     private AuthnContextComparisonType comparison;
-
-    /**
-     * Constructor
-     * 
-     */
-    protected RequestedAuthnContextImpl() {
-        super(RequestedAuthnContext.LOCAL_NAME);
-
-        authnContextClassRefs = new XMLObjectChildrenList<AuthnContextClassRef>(this);
-        authnContextDeclRefs = new XMLObjectChildrenList<AuthnContextDeclRef>(this);
-    }
 
     /**
      * Constructor
@@ -65,6 +55,8 @@ public class RequestedAuthnContextImpl extends AbstractProtocolSAMLObject implem
      */
     protected RequestedAuthnContextImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        authnContextClassRefs = new XMLObjectChildrenList<AuthnContextClassRef>(this);
+        authnContextDeclRefs = new XMLObjectChildrenList<AuthnContextDeclRef>(this);
     }
 
     /**

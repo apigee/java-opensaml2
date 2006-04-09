@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.ArtifactResolve;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.ArtifactResolveImpl} objects.
  */
-public class ArtifactResolveBuilder implements XMLObjectBuilder {
+public class ArtifactResolveBuilder extends AbstractSAMLObjectBuilder<ArtifactResolve> {
 
     /**
      * Constructor
@@ -41,13 +41,13 @@ public class ArtifactResolveBuilder implements XMLObjectBuilder {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public ArtifactResolve buildObject() {
-        return new ArtifactResolveImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public ArtifactResolve buildObject(Element element) {
-        return new ArtifactResolveImpl();
+    public ArtifactResolve buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new ArtifactResolveImpl(namespaceURI, localName, namespacePrefix);
     }
 }

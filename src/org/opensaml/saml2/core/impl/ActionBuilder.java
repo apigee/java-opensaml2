@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.ActionImpl} objects.
  */
-public class ActionBuilder implements XMLObjectBuilder {
+public class ActionBuilder extends AbstractSAMLObjectBuilder<Action> {
 
     /** Constructor */
     public ActionBuilder() {
@@ -35,16 +35,16 @@ public class ActionBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Action buildObject() {
-        return new ActionImpl();
+        return buildObject(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public Action buildObject(Element element) {
-        return new ActionImpl();
+    public Action buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new ActionImpl(namespaceURI, localName, namespacePrefix);
     }
 }

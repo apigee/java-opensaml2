@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.RequestedAuthnContext;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.RequestedAuthnContextImpl} objects.
  */
-public class RequestedAuthnContextBuilder implements XMLObjectBuilder {
+public class RequestedAuthnContextBuilder extends AbstractSAMLObjectBuilder<RequestedAuthnContext> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class RequestedAuthnContextBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public RequestedAuthnContext buildObject() {
-        return new RequestedAuthnContextImpl();
+        return buildObject(SAMLConstants.SAML20_NS, RequestedAuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public RequestedAuthnContext buildObject(Element element) {
-        return new RequestedAuthnContextImpl();
+    public RequestedAuthnContext buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new RequestedAuthnContextImpl(namespaceURI, localName, namespacePrefix);
     }
 }

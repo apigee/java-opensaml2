@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.BaseID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
@@ -30,7 +31,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Subject}
  */
-public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject {
+public class SubjectImpl extends AbstractSAMLObject implements Subject {
 
     /** BaseID child element */
     private BaseID baseID;
@@ -39,14 +40,7 @@ public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject 
     private NameID nameID;
 
     /** Subject Confirmations of the Subject */
-    private XMLObjectChildrenList<SubjectConfirmation> subjectConfirmations;
-
-    /** Constructor */
-    protected SubjectImpl() {
-        super(Subject.LOCAL_NAME);
-
-        subjectConfirmations = new XMLObjectChildrenList<SubjectConfirmation>(this);
-    }
+    private final XMLObjectChildrenList<SubjectConfirmation> subjectConfirmations;
 
     /**
      * Constructor
@@ -57,6 +51,7 @@ public class SubjectImpl extends AbstractAssertionSAMLObject implements Subject 
      */
     protected SubjectImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        subjectConfirmations = new XMLObjectChildrenList<SubjectConfirmation>(this);
     }
 
     /*

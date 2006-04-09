@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SubjectConfirmationData;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.SubjectConfirmationDataImpl} objects.
  */
-public class SubjectConfirmationDataBuilder implements XMLObjectBuilder {
+public class SubjectConfirmationDataBuilder extends AbstractSAMLObjectBuilder<SubjectConfirmationData> {
 
     /** Constructor */
     public SubjectConfirmationDataBuilder() {
@@ -35,16 +35,16 @@ public class SubjectConfirmationDataBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public SubjectConfirmationData buildObject() {
-        return new SubjectConfirmationDataImpl();
+        return buildObject(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public SubjectConfirmationData buildObject(Element element) {
-        return new SubjectConfirmationDataImpl();
+    public SubjectConfirmationData buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new SubjectConfirmationDataImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.saml2.core.AuthnContextComparisonType;
 import org.opensaml.saml2.core.RequestedAuthnContext;
 
@@ -89,8 +90,10 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
         RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
         
-        for (int i=0; i< expectedNumClassRefs; i++)
-            rac.getAuthnContextClassRefs().add(new AuthnContextClassRefImpl());
+        QName authnContextClassRefQName = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        for (int i=0; i< expectedNumClassRefs; i++){
+            rac.getAuthnContextClassRefs().add((AuthnContextClassRef) buildXMLObject(authnContextClassRefQName));
+        }
         
         assertEquals(expectedChildElementsDOM, rac);
     }

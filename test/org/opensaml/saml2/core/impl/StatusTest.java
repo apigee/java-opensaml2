@@ -24,6 +24,8 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Status;
+import org.opensaml.saml2.core.StatusCode;
+import org.opensaml.saml2.core.StatusMessage;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -69,8 +71,11 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
         Status status = (Status) buildXMLObject(qname);
         
-        status.setStatusCode(new StatusCodeImpl());
-        status.setStatusMessage(new StatusMessageImpl());
+        QName statusCodeQName = new QName(SAMLConstants.SAML20P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        status.setStatusCode((StatusCode) buildXMLObject(statusCodeQName));
+        
+        QName statusMessageQName = new QName(SAMLConstants.SAML20_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        status.setStatusMessage((StatusMessage) buildXMLObject(statusMessageQName));
         
         assertEquals(expectedChildElementsDOM, status);
     }

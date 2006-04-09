@@ -23,11 +23,6 @@ import org.opensaml.saml2.core.Issuer;
  */
 public class IssuerImpl extends AbstractNameIDType implements Issuer {
 
-    /** Constructor */
-    protected IssuerImpl() {
-        super(Issuer.LOCAL_NAME);
-    }
-
     /**
      * Constructor
      * 

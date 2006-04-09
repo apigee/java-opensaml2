@@ -22,13 +22,14 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.NameIDPolicy}
  */
-public class NameIDPolicyImpl extends AbstractProtocolSAMLObject implements NameIDPolicy {
+public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy {
 
     /** NameID Format URI */
     private String format;
@@ -38,13 +39,6 @@ public class NameIDPolicyImpl extends AbstractProtocolSAMLObject implements Name
 
     /** NameID Format URI */
     private Boolean allowCreate;
-
-    /**
-     * Constructor
-     */
-    protected NameIDPolicyImpl() {
-        super(NameIDPolicy.LOCAL_NAME);
-    }
 
     /**
      * Constructor

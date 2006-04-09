@@ -35,14 +35,6 @@ public class NameIDMappingResponseImpl extends StatusResponseImpl implements Nam
     /**
      * Constructor
      * 
-     */
-    protected NameIDMappingResponseImpl() {
-        super(NameIDMappingResponse.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix

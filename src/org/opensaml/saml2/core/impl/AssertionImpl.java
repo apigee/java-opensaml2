@@ -28,6 +28,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
@@ -45,7 +46,7 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Assertion}.
  */
-public class AssertionImpl extends AbstractSignableAssertionSAMLObject implements Assertion {
+public class AssertionImpl extends AbstractSignableSAMLObject implements Assertion {
 
     /** SAML Version of the assertion */
     private SAMLVersion version;
@@ -72,14 +73,7 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
     private Advice advice;
 
     /** Statements of the assertion */
-    private IndexedXMLObjectChildrenList<Statement> statements;
-
-    /** Constructor */
-    protected AssertionImpl() {
-        super(Assertion.LOCAL_NAME);
-
-        statements = new IndexedXMLObjectChildrenList<Statement>(this);
-    }
+    private final IndexedXMLObjectChildrenList<Statement> statements;
 
     /**
      * Constructor
@@ -90,6 +84,7 @@ public class AssertionImpl extends AbstractSignableAssertionSAMLObject implement
      */
     protected AssertionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        statements = new IndexedXMLObjectChildrenList<Statement>(this);
     }
 
     /*

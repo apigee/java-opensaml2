@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContext;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AuthnContextImpl} objects.
  */
-public class AuthnContextBuilder implements XMLObjectBuilder {
+public class AuthnContextBuilder extends AbstractSAMLObjectBuilder<AuthnContext> {
 
     /** Constructor */
     public AuthnContextBuilder() {
@@ -35,13 +35,16 @@ public class AuthnContextBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthnContext buildObject() {
-        return new AuthnContextImpl();
+        return buildObject(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    public AuthnContext buildObject(Element element) {
-        return new AuthnContextImpl();
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public AuthnContext buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthnContextImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.xml.XMLObject;
@@ -32,17 +33,10 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AttributeStatement}.
  */
-public class AttributeStatementImpl extends AbstractAssertionSAMLObject implements AttributeStatement {
+public class AttributeStatementImpl extends AbstractSAMLObject implements AttributeStatement {
 
     /** Attributes in this statement */
-    private XMLObjectChildrenList<Attribute> attributes;
-
-    /** Constructor */
-    protected AttributeStatementImpl() {
-        super(AttributeStatement.LOCAL_NAME);
-
-        attributes = new XMLObjectChildrenList<Attribute>(this);
-    }
+    private final XMLObjectChildrenList<Attribute> attributes;
 
     /**
      * Constructor
@@ -53,6 +47,7 @@ public class AttributeStatementImpl extends AbstractAssertionSAMLObject implemen
      */
     protected AttributeStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
     /*

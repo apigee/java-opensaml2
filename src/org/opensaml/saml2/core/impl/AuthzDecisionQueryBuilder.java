@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthzDecisionQuery;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.AuthzDecisionQueryImpl} objects.
  */
-public class AuthzDecisionQueryBuilder implements XMLObjectBuilder {
+public class AuthzDecisionQueryBuilder extends AbstractSAMLObjectBuilder<AuthzDecisionQuery> {
 
     /**
      * Constructor
@@ -38,16 +38,16 @@ public class AuthzDecisionQueryBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthzDecisionQuery buildObject() {
-        return new AuthzDecisionQueryImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AuthzDecisionQuery buildObject(Element element) {
-        return new AuthzDecisionQueryImpl();
+    public AuthzDecisionQuery buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthzDecisionQueryImpl(namespaceURI, localName, namespacePrefix);
     }
 }

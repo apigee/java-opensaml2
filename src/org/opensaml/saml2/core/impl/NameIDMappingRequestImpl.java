@@ -43,14 +43,6 @@ public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappi
     /**
      * Constructor
      * 
-     */
-    protected NameIDMappingRequestImpl() {
-        super(NameIDMappingRequest.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix

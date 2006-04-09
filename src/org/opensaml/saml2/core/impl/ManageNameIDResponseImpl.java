@@ -30,14 +30,6 @@ public class ManageNameIDResponseImpl extends StatusResponseImpl implements Mana
     /**
      * Constructor
      * 
-     */
-    public ManageNameIDResponseImpl() {
-        super(ManageNameIDResponse.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix
@@ -45,6 +37,4 @@ public class ManageNameIDResponseImpl extends StatusResponseImpl implements Mana
     protected ManageNameIDResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
-
-    // No additional attributes or child elements on this class
 }

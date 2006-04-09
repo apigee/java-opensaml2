@@ -22,7 +22,9 @@ package org.opensaml.saml2.core.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingRequest;
+import org.opensaml.saml2.core.NameIDPolicy;
 
 /**
  *
@@ -53,7 +55,7 @@ public class NameIDMappingRequestTest extends RequestTest {
      * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         NameIDMappingRequest req = (NameIDMappingRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -65,7 +67,7 @@ public class NameIDMappingRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         NameIDMappingRequest req = (NameIDMappingRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -78,12 +80,16 @@ public class NameIDMappingRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         NameIDMappingRequest req = (NameIDMappingRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
-        req.setNameID(new NameIDImpl());
-        req.setNameIDPolicy(new NameIDPolicyImpl());
+        
+        QName nameIDQName = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        req.setNameID((NameID) buildXMLObject(nameIDQName));
+        
+        QName nameIDPolicyQName = new QName(SAMLConstants.SAML20_NS, NameIDPolicy.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        req.setNameIDPolicy((NameIDPolicy) buildXMLObject(nameIDPolicyQName));
         
         assertEquals(expectedChildElementsDOM, req);
     }

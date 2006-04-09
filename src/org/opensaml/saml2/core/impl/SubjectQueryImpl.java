@@ -39,15 +39,6 @@ public abstract class SubjectQueryImpl extends RequestImpl implements SubjectQue
     /**
      * Constructor
      * 
-     * @param elementLocalName
-     */
-    protected SubjectQueryImpl(String elementLocalName) {
-        super(elementLocalName);
-    }
-
-    /**
-     * Constructor
-     * 
      * @param namespaceURI
      * @param elementLocalName
      * @param namespacePrefix

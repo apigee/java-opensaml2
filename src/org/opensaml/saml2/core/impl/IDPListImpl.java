@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.GetComplete;
 import org.opensaml.saml2.core.IDPEntry;
 import org.opensaml.saml2.core.IDPList;
@@ -33,22 +34,13 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.IDPList}
  */
-public class IDPListImpl extends AbstractProtocolSAMLObject implements IDPList {
+public class IDPListImpl extends AbstractSAMLObject implements IDPList {
 
     /** List of IDPEntry's */
-    private XMLObjectChildrenList<IDPEntry> idpEntries;
+    private final XMLObjectChildrenList<IDPEntry> idpEntries;
 
     /** GetComplete child element */
     private GetComplete getComplete;
-
-    /**
-     * Constructor
-     */
-    protected IDPListImpl() {
-        super(IDPList.LOCAL_NAME);
-
-        idpEntries = new XMLObjectChildrenList<IDPEntry>(this);
-    }
 
     /**
      * Constructor
@@ -59,6 +51,7 @@ public class IDPListImpl extends AbstractProtocolSAMLObject implements IDPList {
      */
     protected IDPListImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        idpEntries = new XMLObjectChildrenList<IDPEntry>(this);
     }
 
     /**

@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionIDRef;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AssertionIDRefImpl}
  */
-public class AssertionIDRefBuilder implements XMLObjectBuilder {
+public class AssertionIDRefBuilder extends AbstractSAMLObjectBuilder<AssertionIDRef> {
 
     /** Constructor */
     public AssertionIDRefBuilder() {
@@ -35,16 +35,16 @@ public class AssertionIDRefBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AssertionIDRef buildObject() {
-        return new AssertionIDRefImpl();
+        return buildObject(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AssertionIDRef buildObject(Element element) {
-        return new AssertionIDRefImpl();
+    public AssertionIDRef buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AssertionIDRefImpl(namespaceURI, localName, namespacePrefix);
     }
 }

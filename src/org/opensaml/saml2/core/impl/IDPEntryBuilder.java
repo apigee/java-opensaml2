@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.IDPEntry;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.IDPEntry}
  */
-public class IDPEntryBuilder implements XMLObjectBuilder {
+public class IDPEntryBuilder extends AbstractSAMLObjectBuilder<IDPEntry> {
 
     /**
      * Constructor
@@ -36,16 +36,16 @@ public class IDPEntryBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public IDPEntry buildObject() {
-        return new IDPEntryImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public IDPEntry buildObject(Element element) {
-        return new IDPEntryImpl();
+    public IDPEntry buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new IDPEntryImpl(namespaceURI, localName, namespacePrefix);
     }
 }

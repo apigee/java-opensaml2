@@ -42,17 +42,7 @@ public class AuthzDecisionQueryImpl extends SubjectQueryImpl implements AuthzDec
     private Evidence evidence;
 
     /** Action child elements */
-    private XMLObjectChildrenList<Action> actions;
-
-    /**
-     * Constructor
-     * 
-     */
-    protected AuthzDecisionQueryImpl() {
-        super(AuthzDecisionQuery.LOCAL_NAME);
-
-        actions = new XMLObjectChildrenList<Action>(this);
-    }
+    private final XMLObjectChildrenList<Action> actions;
 
     /**
      * Constructor
@@ -63,6 +53,7 @@ public class AuthzDecisionQueryImpl extends SubjectQueryImpl implements AuthzDec
      */
     protected AuthzDecisionQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        actions = new XMLObjectChildrenList<Action>(this);
     }
 
     /**

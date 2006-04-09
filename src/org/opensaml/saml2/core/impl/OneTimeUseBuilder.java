@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.OneTimeUse;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.OneTimeUseImpl} objects.
  */
-public class OneTimeUseBuilder implements XMLObjectBuilder {
+public class OneTimeUseBuilder extends AbstractSAMLObjectBuilder<OneTimeUse> {
 
     /** Constructor */
     public OneTimeUseBuilder() {
@@ -35,16 +35,16 @@ public class OneTimeUseBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.common.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public OneTimeUse buildObject() {
-        return new OneTimeUseImpl();
+        return buildObject(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public OneTimeUse buildObject(Element element) {
-        return new OneTimeUseImpl();
+    public OneTimeUse buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new OneTimeUseImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -20,7 +20,11 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.AuthenticatingAuthority;
 import org.opensaml.saml2.core.AuthnContext;
+import org.opensaml.saml2.core.AuthnContextClassRef;
+import org.opensaml.saml2.core.AuthnContextDecl;
+import org.opensaml.saml2.core.AuthnContextDeclRef;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AuthnContextImpl}.
@@ -96,11 +100,18 @@ public class AuthnContextTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnContext authnContext = (AuthnContext) buildXMLObject(qname);
 
-        authnContext.setAuthnContextClassRef(new AuthnContextClassRefImpl());
-        authnContext.setAuthnContextDecl(new AuthnContextDeclImpl());
-        authnContext.setAuthnContextDeclRef(new AuthnContextDeclRefImpl());
+        QName authnContextClassRefQName = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        authnContext.setAuthnContextClassRef((AuthnContextClassRef) buildXMLObject(authnContextClassRefQName));
+        
+        QName authnContextDeclQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        authnContext.setAuthnContextDecl((AuthnContextDecl) buildXMLObject(authnContextDeclQName));
+        
+        QName authnContextDeclRefQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        authnContext.setAuthnContextDeclRef((AuthnContextDeclRef) buildXMLObject(authnContextDeclRefQName));
+        
+        QName authenticatingAuthorityQName = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < expectedAuthenticatingAuthorityCount; i++) {
-            authnContext.getAuthenticatingAuthorities().add(new AuthenticatingAuthorityImpl());
+            authnContext.getAuthenticatingAuthorities().add((AuthenticatingAuthority) buildXMLObject(authenticatingAuthorityQName));
         }
 
         assertEquals(expectedChildElementsDOM, authnContext);

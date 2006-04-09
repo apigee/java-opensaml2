@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.RequesterID;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.core.RequesterID}
  */
-public class RequesterIDBuilder implements XMLObjectBuilder {
+public class RequesterIDBuilder extends AbstractSAMLObjectBuilder<RequesterID> {
 
     /**
      * Constructor
@@ -36,16 +36,16 @@ public class RequesterIDBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public RequesterID buildObject() {
-        return new RequesterIDImpl();
+        return buildObject(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public RequesterID buildObject(Element element) {
-        return new RequesterIDImpl();
+    public RequesterID buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new RequesterIDImpl(namespaceURI, localName, namespacePrefix);
     }
 }
