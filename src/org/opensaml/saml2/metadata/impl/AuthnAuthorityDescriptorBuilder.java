@@ -16,14 +16,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * A builder for {@link org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorImpl} objects.
  */
-public class AuthnAuthorityDescriptorBuilder implements XMLObjectBuilder {
+public class AuthnAuthorityDescriptorBuilder extends AbstractSAMLObjectBuilder<AuthnAuthorityDescriptor> {
 
     /**
      * Constructor
@@ -33,16 +33,17 @@ public class AuthnAuthorityDescriptorBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthnAuthorityDescriptor buildObject() {
-        return new AuthnAuthorityDescriptorImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AuthnAuthorityDescriptor buildObject(Element element) {
-        return new AuthnAuthorityDescriptorImpl();
+    public AuthnAuthorityDescriptor buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthnAuthorityDescriptorImpl(namespaceURI, localName, namespacePrefix);
     }
 }

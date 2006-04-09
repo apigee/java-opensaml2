@@ -22,23 +22,17 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.SurName;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.SurName}
  */
-public class SurNameImpl extends AbstractMetadataSAMLObject implements SurName {
+public class SurNameImpl extends AbstractSAMLObject implements SurName {
 
     /** Service name */
     private String name;
-
-    /**
-     * Constructor
-     */
-    protected SurNameImpl() {
-        super(SurName.LOCAL_NAME);
-    }
 
     /**
      * Constructor

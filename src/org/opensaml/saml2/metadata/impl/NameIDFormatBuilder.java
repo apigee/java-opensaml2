@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.NameIDFormat;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.NameIDFormatImpl}
  */
-public class NameIDFormatBuilder implements XMLObjectBuilder {
+public class NameIDFormatBuilder extends AbstractSAMLObjectBuilder<NameIDFormat> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class NameIDFormatBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public NameIDFormat buildObject() {
-        return new NameIDFormatImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public NameIDFormat buildObject(Element element) {
-        return new NameIDFormatImpl();
+    public NameIDFormat buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new NameIDFormatImpl(namespaceURI, localName, namespacePrefix);
     }
 }

@@ -18,26 +18,20 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concreate implementation of {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation}
  */
-public class AdditionalMetadataLocationImpl extends AbstractMetadataSAMLObject implements AdditionalMetadataLocation {
+public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implements AdditionalMetadataLocation {
 
     /** The metadata location */
     private String location;
 
     /** Namespace scope of the root metadata element at the location */
     private String namespace;
-
-    /**
-     * Constructor
-     */
-    protected AdditionalMetadataLocationImpl() {
-        super(AdditionalMetadataLocation.LOCAL_NAME);
-    }
     
     /**
      * Constructor

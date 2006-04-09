@@ -22,7 +22,16 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
+import org.opensaml.saml2.metadata.AffiliationDescriptor;
+import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
+import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.saml2.metadata.Organization;
+import org.opensaml.saml2.metadata.PDPDescriptor;
+import org.opensaml.saml2.metadata.SPSSODescriptor;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.metadata.impl.EntityDescriptorImpl}.
@@ -153,21 +162,34 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntityDescriptor descriptor = (EntityDescriptor) buildXMLObject(qname);
 
-        descriptor.setExtensions(new ExtensionsImpl());
-        descriptor.getIDPSSODescriptor().add(new IDPSSODescriptorImpl());
-        descriptor.getSPSSODescriptor().add(new SPSSODescriptorImpl());
-        descriptor.getSPSSODescriptor().add(new SPSSODescriptorImpl());
-        descriptor.getAuthnAuthorityDescriptor().add(new AuthnAuthorityDescriptorImpl());
-        descriptor.getPDPDescriptor().add(new PDPDescriptorImpl());
-        descriptor.getIDPSSODescriptor().add(new IDPSSODescriptorImpl());
-        descriptor.getSPSSODescriptor().add(new SPSSODescriptorImpl());
-        descriptor.getAuthnAuthorityDescriptor().add(new AuthnAuthorityDescriptorImpl());
-        descriptor.getPDPDescriptor().add(new PDPDescriptorImpl());
-        descriptor.setAffiliationDescriptor(new AffiliationDescriptorImpl());
-        descriptor.setOrganization(new OrganizationImpl());
-        descriptor.getContactPersons().add(new ContactPersonImpl());
+        QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
+        
+        QName idpSSOQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName spSSOQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName authnAuthQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName pdpQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName affilQName = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        descriptor.getIDPSSODescriptor().add((IDPSSODescriptor) buildXMLObject(idpSSOQName));
+        descriptor.getSPSSODescriptor().add((SPSSODescriptor) buildXMLObject(spSSOQName));
+        descriptor.getSPSSODescriptor().add((SPSSODescriptor) buildXMLObject(spSSOQName));
+        descriptor.getAuthnAuthorityDescriptor().add((AuthnAuthorityDescriptor) buildXMLObject(authnAuthQName));
+        descriptor.getPDPDescriptor().add((PDPDescriptor) buildXMLObject(pdpQName));
+        descriptor.getIDPSSODescriptor().add((IDPSSODescriptor) buildXMLObject(idpSSOQName));
+        descriptor.getSPSSODescriptor().add((SPSSODescriptor) buildXMLObject(spSSOQName));
+        descriptor.getAuthnAuthorityDescriptor().add((AuthnAuthorityDescriptor) buildXMLObject(authnAuthQName));
+        descriptor.getPDPDescriptor().add((PDPDescriptor) buildXMLObject(pdpQName));
+        descriptor.setAffiliationDescriptor((AffiliationDescriptor) buildXMLObject(affilQName));
+        
+        QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        descriptor.setOrganization((Organization) buildXMLObject(orgQName));
+        
+        QName contactQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        descriptor.getContactPersons().add((ContactPerson) buildXMLObject(contactQName));
+        
+        QName addMDQName = new QName(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 3; i++) {
-            descriptor.getAdditionalMetadataLocations().add(new AdditionalMetadataLocationImpl());
+            descriptor.getAdditionalMetadataLocations().add((AdditionalMetadataLocation) buildXMLObject(addMDQName));
         }
 
         assertEquals(expectedChildElementsDOM, descriptor);

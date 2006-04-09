@@ -33,24 +33,13 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements AuthnAuthorityDescriptor {
 
     /** AuthnQueryService endpoints */
-    private XMLObjectChildrenList<AuthnQueryService> authnQueryServices;
+    private final XMLObjectChildrenList<AuthnQueryService> authnQueryServices;
 
     /** AuthnQueryService endpoints */
-    private XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
+    private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
     /** NameID formats supported by this descriptor */
-    private XMLObjectChildrenList<NameIDFormat> nameIDFormats;
-
-    /**
-     * Constrcutor
-     */
-    protected AuthnAuthorityDescriptorImpl() {
-        super(AuthnAuthorityDescriptor.LOCAL_NAME);
-
-        authnQueryServices = new XMLObjectChildrenList<AuthnQueryService>(this);
-        assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
-        nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
-    }
+    private final XMLObjectChildrenList<NameIDFormat> nameIDFormats;
 
     /**
      * Constructor
@@ -61,6 +50,9 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
      */
     protected AuthnAuthorityDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        authnQueryServices = new XMLObjectChildrenList<AuthnQueryService>(this);
+        assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
+        nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
 
     /*

@@ -23,6 +23,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
@@ -43,7 +44,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concretate implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}
  */
-public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject implements EntityDescriptor {
+public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements EntityDescriptor {
 
     /** Entity ID of this Entity */
     private String entityID;
@@ -61,7 +62,7 @@ public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject imp
     private Extensions extensions;
 
     /** Role descriptors for this entity */
-    private IndexedXMLObjectChildrenList<RoleDescriptor> roleDescriptors;
+    private final IndexedXMLObjectChildrenList<RoleDescriptor> roleDescriptors;
 
     /** Affiliatition descriptor for this entity */
     private AffiliationDescriptor affiliationDescriptor;
@@ -70,18 +71,10 @@ public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject imp
     private Organization organization;
 
     /** Contact persons for this entity */
-    private XMLObjectChildrenList<ContactPerson> contactPersons;
+    private final XMLObjectChildrenList<ContactPerson> contactPersons;
 
     /** Additional metadata locations for this entity */
-    private XMLObjectChildrenList<AdditionalMetadataLocation> additionalMetadata;
-
-    protected EntityDescriptorImpl() {
-        super(EntityDescriptor.LOCAL_NAME);
-
-        roleDescriptors = new IndexedXMLObjectChildrenList<RoleDescriptor>(this);
-        contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
-        additionalMetadata = new XMLObjectChildrenList<AdditionalMetadataLocation>(this);
-    }
+    private final XMLObjectChildrenList<AdditionalMetadataLocation> additionalMetadata;
 
     /**
      * Constructor
@@ -92,6 +85,9 @@ public class EntityDescriptorImpl extends AbstractSignableMetadataSAMLObject imp
      */
     protected EntityDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        roleDescriptors = new IndexedXMLObjectChildrenList<RoleDescriptor>(this);
+        contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
+        additionalMetadata = new XMLObjectChildrenList<AdditionalMetadataLocation>(this);
     }
 
     /*

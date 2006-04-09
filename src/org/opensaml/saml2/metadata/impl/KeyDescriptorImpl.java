@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.EncryptionMethod;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.KeyUseType;
@@ -30,7 +31,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.KeyDescriptor}.
  */
-public class KeyDescriptorImpl extends AbstractMetadataSAMLObject implements KeyDescriptor {
+public class KeyDescriptorImpl extends AbstractSAMLObject implements KeyDescriptor {
 
     /** Key usage type */
     private KeyUseType keyUseType;
@@ -39,16 +40,7 @@ public class KeyDescriptorImpl extends AbstractMetadataSAMLObject implements Key
     private KeyInfo keyInfo;
 
     /** Encryption methods supported by the entity */
-    private XMLObjectChildrenList<EncryptionMethod> encryptionMethods;
-
-    /**
-     * Constructor
-     */
-    protected KeyDescriptorImpl() {
-        super(KeyDescriptor.LOCAL_NAME);
-
-        encryptionMethods = new XMLObjectChildrenList<EncryptionMethod>(this);
-    }
+    private final XMLObjectChildrenList<EncryptionMethod> encryptionMethods;
 
     /**
      * Constructor
@@ -59,6 +51,7 @@ public class KeyDescriptorImpl extends AbstractMetadataSAMLObject implements Key
      */
     protected KeyDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        encryptionMethods = new XMLObjectChildrenList<EncryptionMethod>(this);
     }
 
     /*

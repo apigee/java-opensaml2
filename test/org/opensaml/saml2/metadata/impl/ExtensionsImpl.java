@@ -25,19 +25,24 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Test implementation of Extensions for the prupooises 
  */
-public class ExtensionsImpl extends AbstractMetadataSAMLObject implements Extensions {
+public class ExtensionsImpl extends AbstractSAMLObject implements Extensions {
 
     /**
      * Constructor
+     * 
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    public ExtensionsImpl() {
-        super(Extensions.LOCAL_NAME);
+    protected ExtensionsImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

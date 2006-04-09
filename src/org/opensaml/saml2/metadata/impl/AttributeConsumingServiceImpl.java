@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml2.metadata.ServiceDescription;
@@ -34,7 +35,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AttributeConsumingService}.
  */
-public class AttributeConsumingServiceImpl extends AbstractMetadataSAMLObject implements AttributeConsumingService {
+public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements AttributeConsumingService {
 
     /** Index of this service */
     private int index;
@@ -43,25 +44,14 @@ public class AttributeConsumingServiceImpl extends AbstractMetadataSAMLObject im
     private Boolean isDefault;
 
     /** ServiceName children */
-    private XMLObjectChildrenList<ServiceName> serviceNames;
+    private final XMLObjectChildrenList<ServiceName> serviceNames;
 
     /** ServiceDescription children */
-    private XMLObjectChildrenList<ServiceDescription> serviceDescriptions;
+    private final XMLObjectChildrenList<ServiceDescription> serviceDescriptions;
 
     /** RequestedAttribute children */
-    private XMLObjectChildrenList<RequestedAttribute> requestAttributes;
-
-    /**
-     * Constructor
-     */
-    protected AttributeConsumingServiceImpl() {
-        super(AttributeConsumingService.LOCAL_NAME);
-
-        serviceNames = new XMLObjectChildrenList<ServiceName>(this);
-        serviceDescriptions = new XMLObjectChildrenList<ServiceDescription>(this);
-        requestAttributes = new XMLObjectChildrenList<RequestedAttribute>(this);
-    }
-
+    private final XMLObjectChildrenList<RequestedAttribute> requestAttributes;
+    
     /**
      * Constructor
      * 
@@ -71,6 +61,9 @@ public class AttributeConsumingServiceImpl extends AbstractMetadataSAMLObject im
      */
     protected AttributeConsumingServiceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        serviceNames = new XMLObjectChildrenList<ServiceName>(this);
+        serviceDescriptions = new XMLObjectChildrenList<ServiceDescription>(this);
+        requestAttributes = new XMLObjectChildrenList<RequestedAttribute>(this);
     }
 
     /*

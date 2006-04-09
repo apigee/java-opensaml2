@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.RequestedAttribute;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.RequestedAttributeImpl}.
  */
-public class RequestedAttributeBuilder implements XMLObjectBuilder {
+public class RequestedAttributeBuilder extends AbstractSAMLObjectBuilder<RequestedAttribute> {
 
     /** Constructor */
     public RequestedAttributeBuilder() {
@@ -35,16 +35,16 @@ public class RequestedAttributeBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public RequestedAttribute buildObject() {
-        return new RequestedAttributeImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, RequestedAttribute.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public RequestedAttribute buildObject(Element element) {
-        return new RequestedAttributeImpl();
+    public RequestedAttribute buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new RequestedAttributeImpl(namespaceURI, localName, namespacePrefix);
     }
 }

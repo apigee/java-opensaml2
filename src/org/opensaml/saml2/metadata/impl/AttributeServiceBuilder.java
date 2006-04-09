@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeService;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AttributeServiceImpl}.
  */
-public class AttributeServiceBuilder implements XMLObjectBuilder {
+public class AttributeServiceBuilder extends AbstractSAMLObjectBuilder<AttributeService> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class AttributeServiceBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AttributeService buildObject() {
-        return new AttributeServiceImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AttributeService buildObject(Element element) {
-        return new AttributeServiceImpl();
+    public AttributeService buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AttributeServiceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

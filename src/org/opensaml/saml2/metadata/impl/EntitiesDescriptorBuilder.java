@@ -16,35 +16,33 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * A builder of {@link org.opensaml.saml2.metadata.impl.EntitiesDescriptorImpl} objects.
  */
-public class EntitiesDescriptorBuilder implements XMLObjectBuilder {
+public class EntitiesDescriptorBuilder extends AbstractSAMLObjectBuilder<EntitiesDescriptor> {
 
     /**
-     * 
      * Constructor
-     * 
      */
     public EntitiesDescriptorBuilder() {
 
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public EntitiesDescriptor buildObject() {
-        return new EntitiesDescriptorImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public EntitiesDescriptor buildObject(Element element) {
-        return new EntitiesDescriptorImpl();
+    public EntitiesDescriptor buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new EntitiesDescriptorImpl(namespaceURI, localName, namespacePrefix);
     }
 }

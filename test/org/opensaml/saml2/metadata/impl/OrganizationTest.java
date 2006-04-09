@@ -17,20 +17,24 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.Organization;
+import org.opensaml.saml2.metadata.OrganizationDisplayName;
+import org.opensaml.saml2.metadata.OrganizationName;
+import org.opensaml.saml2.metadata.OrganizationURL;
 
 /**
- * Test case for creating, marshalling, and unmarshalling
- * {@link org.opensaml.saml2.metadata.OrganizationName}.
+ * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.metadata.OrganizationName}.
  */
 public class OrganizationTest extends SAMLObjectBaseTestCase {
-    
+
     /**
      * Constructor
      */
@@ -38,7 +42,7 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/Organization.xml";
         childElementsFile = "/data/org/opensaml/saml2/metadata/impl/OrganizationChildElements.xml";
     }
-    
+
     /*
      * @see junit.framework.TestCase#setUp()
      */
@@ -59,12 +63,13 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsUnmarshall() {
         Organization org = (Organization) unmarshallElement(childElementsFile);
-        
+
         assertNotNull("Extensions", org.getExtensions());
         assertEquals("OrganizationName count", 3, org.getOrganizationNames().size());
         assertEquals("DisplayNames count", 2, org.getDisplayNames().size());
         assertEquals("URL count", 1, org.getURLs().size());
     }
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
@@ -82,14 +87,24 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME);
         Organization org = (Organization) buildXMLObject(qname);
 
-        org.setExtensions(new ExtensionsImpl());
-        for (int i = 0; i < 3; i++){
-            org.getOrganizationNames().add(new OrganizationNameImpl());
+        QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        org.setExtensions((Extensions) buildXMLObject(extensionsQName));
+
+        QName nameQName = new QName(SAMLConstants.SAML20MD_NS, OrganizationName.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        for (int i = 0; i < 3; i++) {
+            org.getOrganizationNames().add((OrganizationName) buildXMLObject(nameQName));
         }
-        for (int i = 0; i < 2; i++){
-            org.getDisplayNames().add(new OrganizationDisplayNameImpl());
+
+        QName displayNameQName = new QName(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        for (int i = 0; i < 2; i++) {
+            org.getDisplayNames().add((OrganizationDisplayName) buildXMLObject(displayNameQName));
         }
-        org.getURLs().add(new OrganizationURLImpl());
+
+        QName urlQName = new QName(SAMLConstants.SAML20MD_NS, OrganizationURL.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        org.getURLs().add((OrganizationURL) buildXMLObject(urlQName));
         assertEquals(expectedChildElementsDOM, org);
     }
- }
+}

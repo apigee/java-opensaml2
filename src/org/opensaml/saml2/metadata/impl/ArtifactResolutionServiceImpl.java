@@ -29,13 +29,6 @@ public class ArtifactResolutionServiceImpl extends IndexedEndpointImpl implement
 
     /**
      * Constructor
-     */
-    protected ArtifactResolutionServiceImpl() {
-        super(ArtifactResolutionService.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
      * 
      * @param namespaceURI
      * @param elementLocalName

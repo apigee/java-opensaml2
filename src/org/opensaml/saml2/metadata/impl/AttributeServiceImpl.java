@@ -29,13 +29,6 @@ public class AttributeServiceImpl extends EndpointImpl implements AttributeServi
 
     /**
      * Constructor
-     */
-    protected AttributeServiceImpl() {
-        super(AttributeService.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
      * 
      * @param namespaceURI
      * @param elementLocalName

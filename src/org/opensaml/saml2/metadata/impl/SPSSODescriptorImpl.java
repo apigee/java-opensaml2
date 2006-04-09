@@ -42,20 +42,10 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     private Boolean wantAssertionSigned;
 
     /** AssertionConsumerService children */
-    private XMLObjectChildrenList<AssertionConsumerService> assertionConsumerServices;
+    private final XMLObjectChildrenList<AssertionConsumerService> assertionConsumerServices;
 
     /** AttributeConsumingService children */
-    private XMLObjectChildrenList<AttributeConsumingService> attributeConsumingServices;
-
-    /**
-     * Constructor
-     */
-    protected SPSSODescriptorImpl() {
-        super(SPSSODescriptor.LOCAL_NAME);
-
-        assertionConsumerServices = new XMLObjectChildrenList<AssertionConsumerService>(this);
-        attributeConsumingServices = new XMLObjectChildrenList<AttributeConsumingService>(this);
-    }
+    private final XMLObjectChildrenList<AttributeConsumingService> attributeConsumingServices;
 
     /**
      * Constructor
@@ -66,6 +56,8 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
      */
     protected SPSSODescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        assertionConsumerServices = new XMLObjectChildrenList<AssertionConsumerService>(this);
+        attributeConsumingServices = new XMLObjectChildrenList<AttributeConsumingService>(this);
     }
 
     /*

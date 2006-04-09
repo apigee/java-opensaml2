@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AssertionIDRequestServiceImpl}
  */
-public class AssertionIDRequestServiceBuilder implements XMLObjectBuilder {
+public class AssertionIDRequestServiceBuilder extends AbstractSAMLObjectBuilder<AssertionIDRequestService> {
 
     /**
      * Constructor
@@ -37,16 +37,17 @@ public class AssertionIDRequestServiceBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AssertionIDRequestService buildObject() {
-        return new AssertionIDRequestServiceImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AssertionIDRequestService buildObject(Element element) {
-        return new AssertionIDRequestServiceImpl();
+    public AssertionIDRequestService buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AssertionIDRequestServiceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

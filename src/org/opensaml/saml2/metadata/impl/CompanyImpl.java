@@ -22,23 +22,17 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.Company;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.Company}.
  */
-public class CompanyImpl extends AbstractMetadataSAMLObject implements Company {
+public class CompanyImpl extends AbstractSAMLObject implements Company {
 
     /** Company name */
     private String companyName;
-
-    /**
-     * Constructor
-     */
-    protected CompanyImpl() {
-        super(Company.LOCAL_NAME);
-    }
 
     /**
      * Constructor

@@ -36,24 +36,13 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class PDPDescriptorImpl extends RoleDescriptorImpl implements PDPDescriptor {
 
     /** AuthzService children */
-    private XMLObjectChildrenList<AuthzService> authzServices;
+    private final XMLObjectChildrenList<AuthzService> authzServices;
 
     /** AssertionIDRequestService children */
-    private XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
+    private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
     /** NameIDFormat children */
-    private XMLObjectChildrenList<NameIDFormat> nameIDFormats;
-
-    /**
-     * Constructor
-     */
-    protected PDPDescriptorImpl() {
-        super(PDPDescriptor.LOCAL_NAME);
-
-        authzServices = new XMLObjectChildrenList<AuthzService>(this);
-        assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
-        nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
-    }
+    private final XMLObjectChildrenList<NameIDFormat> nameIDFormats;
 
     /**
      * Constructor
@@ -64,6 +53,9 @@ public class PDPDescriptorImpl extends RoleDescriptorImpl implements PDPDescript
      */
     protected PDPDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        authzServices = new XMLObjectChildrenList<AuthzService>(this);
+        assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
+        nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
 
     /*

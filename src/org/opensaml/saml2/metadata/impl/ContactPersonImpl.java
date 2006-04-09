@@ -23,6 +23,7 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.Company;
 import org.opensaml.saml2.metadata.ContactPerson;
@@ -37,7 +38,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.ContactPerson}
  */
-public class ContactPersonImpl extends AbstractMetadataSAMLObject implements ContactPerson {
+public class ContactPersonImpl extends AbstractSAMLObject implements ContactPerson {
 
     /** Contact person type */
     private ContactPersonType type;
@@ -55,20 +56,10 @@ public class ContactPersonImpl extends AbstractMetadataSAMLObject implements Con
     private SurName surName;
 
     /** Child email address */
-    private XMLObjectChildrenList<EmailAddress> emailAddresses;
+    private final XMLObjectChildrenList<EmailAddress> emailAddresses;
 
     /** Child telephone numbers */
-    private XMLObjectChildrenList<TelephoneNumber> telephoneNumbers;
-
-    /**
-     * Constructor
-     */
-    protected ContactPersonImpl() {
-        super(ContactPerson.LOCAL_NAME);
-
-        emailAddresses = new XMLObjectChildrenList<EmailAddress>(this);
-        telephoneNumbers = new XMLObjectChildrenList<TelephoneNumber>(this);
-    }
+    private final XMLObjectChildrenList<TelephoneNumber> telephoneNumbers;
 
     /**
      * Constructor
@@ -79,6 +70,8 @@ public class ContactPersonImpl extends AbstractMetadataSAMLObject implements Con
      */
     protected ContactPersonImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        emailAddresses = new XMLObjectChildrenList<EmailAddress>(this);
+        telephoneNumbers = new XMLObjectChildrenList<TelephoneNumber>(this);
     }
 
     /*

@@ -22,23 +22,17 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.NameIDFormat}.
  */
-public class NameIDFormatImpl extends AbstractMetadataSAMLObject implements NameIDFormat {
+public class NameIDFormatImpl extends AbstractSAMLObject implements NameIDFormat {
 
     /** NameID format */
     private String format;
-
-    /**
-     * Constructor
-     */
-    protected NameIDFormatImpl() {
-        super(NameIDFormat.LOCAL_NAME);
-    }
 
     /**
      * Constructor

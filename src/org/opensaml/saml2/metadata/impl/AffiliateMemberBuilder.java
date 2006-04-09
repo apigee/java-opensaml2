@@ -16,14 +16,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AffiliateMember;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AffiliateMemberImpl}s.
  */
-public class AffiliateMemberBuilder implements XMLObjectBuilder {
+public class AffiliateMemberBuilder extends AbstractSAMLObjectBuilder<AffiliateMember> {
 
     /**
      * Constructor
@@ -33,16 +33,16 @@ public class AffiliateMemberBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AffiliateMember buildObject() {
-        return new AffiliateMemberImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AffiliateMember buildObject(Element element) {
-        return new AffiliateMemberImpl();
+    public AffiliateMember buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AffiliateMemberImpl(namespaceURI, localName, namespacePrefix);
     }
 }

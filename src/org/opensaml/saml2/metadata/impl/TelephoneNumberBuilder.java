@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.TelephoneNumber;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.TelephoneNumberImpl}
  */
-public class TelephoneNumberBuilder implements XMLObjectBuilder {
+public class TelephoneNumberBuilder extends AbstractSAMLObjectBuilder<TelephoneNumber> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class TelephoneNumberBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public TelephoneNumber buildObject() {
-        return new TelephoneNumberImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, TelephoneNumber.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public TelephoneNumber buildObject(Element element) {
-        return new TelephoneNumberImpl();
+    public TelephoneNumber buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new TelephoneNumberImpl(namespaceURI, localName, namespacePrefix);
     }
 }

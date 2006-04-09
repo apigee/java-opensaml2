@@ -29,13 +29,6 @@ public class SingleLogoutServiceImpl extends EndpointImpl implements SingleLogou
 
     /**
      * Constructor
-     */
-    protected SingleLogoutServiceImpl() {
-        super(SingleLogoutService.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
      * 
      * @param namespaceURI
      * @param elementLocalName

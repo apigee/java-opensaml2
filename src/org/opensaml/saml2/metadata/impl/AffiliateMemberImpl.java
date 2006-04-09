@@ -18,23 +18,17 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AffiliateMember}.
  */
-public class AffiliateMemberImpl extends AbstractMetadataSAMLObject implements AffiliateMember {
+public class AffiliateMemberImpl extends AbstractSAMLObject implements AffiliateMember {
 
     /** ID of this member */
     private String id;
-
-    /**
-     * Constructor
-     */
-    protected AffiliateMemberImpl() {
-        super(AffiliateMember.LOCAL_NAME);
-    }
     
     /**
      * Constructor

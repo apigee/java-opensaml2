@@ -21,6 +21,8 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
+import org.opensaml.saml2.metadata.ServiceDescription;
+import org.opensaml.saml2.metadata.ServiceName;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -123,12 +125,14 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         
         service.setIndex(expectedIndex);
         
+        QName serviceNameQName = new QName(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedServiceNameCount; i++) {
-            service.getNames().add(new ServiceNameImpl());
+            service.getNames().add((ServiceName) buildXMLObject(serviceNameQName));
         }
 
+        QName serviceDescQName = new QName(SAMLConstants.SAML20MD_NS, ServiceDescription.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedServiceDecsriptionCount; i++) {
-            service.getDescriptions().add(new ServiceDescriptionImpl());
+            service.getDescriptions().add((ServiceDescription) buildXMLObject(serviceDescQName));
         }
 
         // TODO Requested Attriubute marshall

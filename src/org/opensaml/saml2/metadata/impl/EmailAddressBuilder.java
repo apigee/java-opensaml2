@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EmailAddress;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.EmailAddressImpl}
  */
-public class EmailAddressBuilder implements XMLObjectBuilder {
+public class EmailAddressBuilder extends AbstractSAMLObjectBuilder<EmailAddress> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class EmailAddressBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public EmailAddress buildObject() {
-        return new EmailAddressImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, EmailAddress.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public EmailAddress buildObject(Element element) {
-        return new EmailAddressImpl();
+    public EmailAddress buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new EmailAddressImpl(namespaceURI, localName, namespacePrefix);
     }
 }

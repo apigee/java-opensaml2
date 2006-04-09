@@ -23,6 +23,7 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.OrganizationDisplayName;
@@ -34,30 +35,19 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.Organization}
  */
-public class OrganizationImpl extends AbstractMetadataSAMLObject implements Organization {
+public class OrganizationImpl extends AbstractSAMLObject implements Organization {
 
     /** element extensions */
     private Extensions extensions;
 
     /** OrganizationName children */
-    private XMLObjectChildrenList<OrganizationName> names;
+    private final XMLObjectChildrenList<OrganizationName> names;
 
     /** OrganizationDisplayName children */
-    private XMLObjectChildrenList<OrganizationDisplayName> displayNames;
+    private final XMLObjectChildrenList<OrganizationDisplayName> displayNames;
 
     /** OrganizationURL children */
-    private XMLObjectChildrenList<OrganizationURL> urls;
-
-    /**
-     * Constructor
-     */
-    protected OrganizationImpl() {
-        super(Organization.LOCAL_NAME);
-
-        names = new XMLObjectChildrenList<OrganizationName>(this);
-        displayNames = new XMLObjectChildrenList<OrganizationDisplayName>(this);
-        urls = new XMLObjectChildrenList<OrganizationURL>(this);
-    }
+    private final XMLObjectChildrenList<OrganizationURL> urls;
 
     /**
      * Constructor
@@ -68,6 +58,9 @@ public class OrganizationImpl extends AbstractMetadataSAMLObject implements Orga
      */
     protected OrganizationImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        names = new XMLObjectChildrenList<OrganizationName>(this);
+        displayNames = new XMLObjectChildrenList<OrganizationDisplayName>(this);
+        urls = new XMLObjectChildrenList<OrganizationURL>(this);
     }
 
     /*

@@ -22,6 +22,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.xml.XMLObject;
@@ -29,17 +30,10 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.ServiceDescription}.
  */
-public class ServiceDescriptionImpl extends AbstractMetadataSAMLObject implements ServiceDescription {
+public class ServiceDescriptionImpl extends AbstractSAMLObject implements ServiceDescription {
 
     /** Service description */
     private LocalizedString description;
-
-    /**
-     * Constructor
-     */
-    protected ServiceDescriptionImpl() {
-        super(ServiceDescription.LOCAL_NAME);
-    }
 
     /**
      * Constructor

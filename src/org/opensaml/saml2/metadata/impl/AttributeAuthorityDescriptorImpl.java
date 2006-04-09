@@ -35,31 +35,19 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl implements AttributeAuthorityDescriptor {
 
     /** Attribte query endpoints */
-    private XMLObjectChildrenList<AttributeService> attributeServices;
+    private final XMLObjectChildrenList<AttributeService> attributeServices;
 
     /** Assertion request endpoints */
-    private XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
+    private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
     /** Supported NameID formats */
-    private XMLObjectChildrenList<NameIDFormat> nameFormats;
+    private final XMLObjectChildrenList<NameIDFormat> nameFormats;
 
     /** Supported attribute profiles */
-    private XMLObjectChildrenList<AttributeProfile> attributeProfiles;
+    private final XMLObjectChildrenList<AttributeProfile> attributeProfiles;
 
     /** Supported attribute */
-    private XMLObjectChildrenList<Attribute> attributes;
-
-    /**
-     * Constructor
-     */
-    protected AttributeAuthorityDescriptorImpl() {
-        super(AttributeAuthorityDescriptor.LOCAL_NAME);
-
-        attributeServices = new XMLObjectChildrenList<AttributeService>(this);
-        assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
-        nameFormats = new XMLObjectChildrenList<NameIDFormat>(this);
-        attributes = new XMLObjectChildrenList<Attribute>(this);
-    }
+    private final XMLObjectChildrenList<Attribute> attributes;
 
     /**
      * Constructor
@@ -70,6 +58,11 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
      */
     protected AttributeAuthorityDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        attributeServices = new XMLObjectChildrenList<AttributeService>(this);
+        assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
+        attributeProfiles = new XMLObjectChildrenList<AttributeProfile>(this);
+        nameFormats = new XMLObjectChildrenList<NameIDFormat>(this);
+        attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
     /*

@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AttributeProfile;
@@ -43,33 +42,20 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     private Boolean wantAuthnRequestsSigned;
 
     /** SingleSignOn services for this entity */
-    private XMLObjectChildrenList<SingleSignOnService> singleSignOnServices;
+    private final XMLObjectChildrenList<SingleSignOnService> singleSignOnServices;
 
     /** NameID mapping services for this entity */
-    private XMLObjectChildrenList<NameIDMappingService> nameIDMappingServices;
+    private final XMLObjectChildrenList<NameIDMappingService> nameIDMappingServices;
 
     /** AssertionID request services for this entity */
-    private XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
+    private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
     /** Attribute profiles supported by this entity */
-    private XMLObjectChildrenList<AttributeProfile> attributeProfiles;
+    private final XMLObjectChildrenList<AttributeProfile> attributeProfiles;
 
     /** Attributes accepted by this entity */
-    private XMLObjectChildrenList<Attribute> attributes;
-
-    /**
-     * Constructor
-     */
-    protected IDPSSODescriptorImpl() {
-        super(IDPSSODescriptor.LOCAL_NAME);
-        setElementNamespacePrefix(SAMLConstants.SAML20MD_PREFIX);
-        singleSignOnServices = new XMLObjectChildrenList<SingleSignOnService>(this);
-        nameIDMappingServices = new XMLObjectChildrenList<NameIDMappingService>(this);
-        assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
-        attributeProfiles = new XMLObjectChildrenList<AttributeProfile>(this);
-        attributes = new XMLObjectChildrenList<Attribute>(this);
-    }
-
+    private final XMLObjectChildrenList<Attribute> attributes;
+    
     /**
      * Constructor
      * 
@@ -79,6 +65,11 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
      */
     protected IDPSSODescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        singleSignOnServices = new XMLObjectChildrenList<SingleSignOnService>(this);
+        nameIDMappingServices = new XMLObjectChildrenList<NameIDMappingService>(this);
+        assertionIDRequestServices = new XMLObjectChildrenList<AssertionIDRequestService>(this);
+        attributeProfiles = new XMLObjectChildrenList<AttributeProfile>(this);
+        attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
     /*

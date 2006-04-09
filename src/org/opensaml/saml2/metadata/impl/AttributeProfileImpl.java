@@ -22,23 +22,17 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.AttributeProfile;
 import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.metadata.AttributeProfile}
  */
-public class AttributeProfileImpl extends AbstractMetadataSAMLObject implements AttributeProfile {
+public class AttributeProfileImpl extends AbstractSAMLObject implements AttributeProfile {
 
     /** Profile URI */
     private String profileURI;
-
-    /**
-     * Constructor
-     */
-    protected AttributeProfileImpl() {
-        super(AttributeProfile.LOCAL_NAME);
-    }
 
     /**
      * Constructor

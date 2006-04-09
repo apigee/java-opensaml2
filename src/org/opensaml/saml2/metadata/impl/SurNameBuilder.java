@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SurName;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.SurNameImpl}
  */
-public class SurNameBuilder implements XMLObjectBuilder {
+public class SurNameBuilder extends AbstractSAMLObjectBuilder<SurName> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class SurNameBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public SurName buildObject() {
-        return new SurNameImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public SurName buildObject(Element element) {
-        return new SurNameImpl();
+    public SurName buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new SurNameImpl(namespaceURI, localName, namespacePrefix);
     }
 }

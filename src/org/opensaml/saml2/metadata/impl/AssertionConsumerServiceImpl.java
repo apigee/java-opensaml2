@@ -29,13 +29,6 @@ public class AssertionConsumerServiceImpl extends IndexedEndpointImpl implements
 
     /**
      * Constructor
-     */
-    protected AssertionConsumerServiceImpl() {
-        super(AssertionConsumerService.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
      * 
      * @param namespaceURI
      * @param elementLocalName

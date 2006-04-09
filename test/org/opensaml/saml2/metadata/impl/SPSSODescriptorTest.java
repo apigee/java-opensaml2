@@ -24,47 +24,56 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.metadata.ArtifactResolutionService;
+import org.opensaml.saml2.metadata.AssertionConsumerService;
+import org.opensaml.saml2.metadata.AttributeConsumingService;
+import org.opensaml.saml2.metadata.ContactPerson;
+import org.opensaml.saml2.metadata.ManageNameIDService;
+import org.opensaml.saml2.metadata.NameIDFormat;
+import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.saml2.metadata.SingleLogoutService;
 
 /**
- *
+ * 
  */
 public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
     /** expected value for AuthnRequestSigned attribute */
     protected Boolean expectedAuthnRequestSigned;
-    
+
     /** expected value for WantAssertionsSigned attribute */
     protected Boolean expectedWantAssertionsSigned;
-    
+
     /** List of expected supported protocols */
     protected ArrayList<String> expectedSupportedProtocol;
-    
+
     /** Expected cacheDuration value in miliseconds */
     protected long expectedCacheDuration;
 
     /** Expected validUntil value */
     protected DateTime expectedValidUntil;
-    
+
     /**
      * Constructor
      */
-    public SPSSODescriptorTest(){
+    public SPSSODescriptorTest() {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/SPSSODescriptor.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/SPSSODescriptorOptionalAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml2/metadata/impl/SPSSODescriptorChildElements.xml";
     }
-    
+
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         expectedAuthnRequestSigned = Boolean.TRUE;
         expectedWantAssertionsSigned = Boolean.TRUE;
-        
+
         expectedSupportedProtocol = new ArrayList<String>();
         expectedSupportedProtocol.add("urn:foo:bar");
         expectedSupportedProtocol.add("urn:fooz:baz");
-        
+
         expectedCacheDuration = 90000;
         expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
     }
@@ -74,8 +83,9 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementUnmarshall() {
         SPSSODescriptor descriptor = (SPSSODescriptor) unmarshallElement(singleElementFile);
-        
-        assertEquals("Supported protocols not equal to expected value", expectedSupportedProtocol, descriptor.getSupportedProtocols());
+
+        assertEquals("Supported protocols not equal to expected value", expectedSupportedProtocol, descriptor
+                .getSupportedProtocols());
     }
 
     /*
@@ -83,17 +93,19 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testSingleElementOptionalAttributesUnmarshall() {
         SPSSODescriptor descriptor = (SPSSODescriptor) unmarshallElement(singleElementOptionalAttributesFile);
-        
-        assertEquals("Supported protocols not equal to expected value", expectedSupportedProtocol, descriptor.getSupportedProtocols());
-        assertEquals("AuthnRequestsSigned attribute was not expected value", expectedAuthnRequestSigned.booleanValue(), descriptor.authnRequestsSigned());
-        assertEquals("WantAssertionsSigned attribute was not expected value", expectedWantAssertionsSigned.booleanValue(), descriptor.wantAssertionsSigned());
+
+        assertEquals("Supported protocols not equal to expected value", expectedSupportedProtocol, descriptor
+                .getSupportedProtocols());
+        assertEquals("AuthnRequestsSigned attribute was not expected value", expectedAuthnRequestSigned.booleanValue(),
+                descriptor.authnRequestsSigned());
+        assertEquals("WantAssertionsSigned attribute was not expected value", expectedWantAssertionsSigned
+                .booleanValue(), descriptor.wantAssertionsSigned());
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-    public void testChildElementsUnmarshall()
-    {
+    public void testChildElementsUnmarshall() {
         SPSSODescriptor descriptor = (SPSSODescriptor) unmarshallElement(childElementsFile);
 
         assertNotNull("Extensions", descriptor.getExtensions());
@@ -106,7 +118,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("SingleLogoutService count", 2, descriptor.getSingleLogoutServices().size());
         assertEquals("ManageNameIDService count", 4, descriptor.getManageNameIDServices().size());
         assertEquals("NameIDFormat count", 1, descriptor.getNameIDFormats().size());
-        
+
         assertEquals("AssertionConsumerService count", 2, descriptor.getAssertionConsumerServices().size());
         assertEquals("AttributeConsumingService", 1, descriptor.getAttributeConsumingServices().size());
     }
@@ -114,57 +126,84 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
-        
-        for(String protocol : expectedSupportedProtocol){
+
+        for (String protocol : expectedSupportedProtocol) {
             descriptor.addSupportedProtocol(protocol);
         }
-        
+
         assertEquals(expectedDOM, descriptor);
     }
 
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
-        
+
         descriptor.setAuthnRequestsSigned(expectedAuthnRequestSigned);
         descriptor.setWantAssertionsSigned(expectedWantAssertionsSigned);
-        
-        for(String protocol : expectedSupportedProtocol){
+
+        for (String protocol : expectedSupportedProtocol) {
             descriptor.addSupportedProtocol(protocol);
         }
-        
+
         descriptor.setCacheDuration(expectedCacheDuration);
         descriptor.setValidUntil(expectedValidUntil);
-        
+
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    public void testChildElementsMarshall()
-    {
+    public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
 
-        descriptor.setExtensions(new ExtensionsImpl());
+        QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
+
         // TODO KeyDescriptor
-        descriptor.setOrganization(new OrganizationImpl());
-        for (int i = 0; i < 2; i ++) {
-            descriptor.getContactPersons().add(new ContactPersonImpl());
-        }
-        descriptor.getArtifactResolutionServices().add(new ArtifactResolutionServiceImpl());
-       for (int i = 0; i < 2; i ++) {
-            descriptor.getSingleLogoutServices().add(new SingleLogoutServiceImpl());
-        }
-        for (int i = 0; i < 4; i ++) {
-            descriptor.getManageNameIDServices().add(new ManageNameIDServiceImpl());
-        }
-        descriptor.getNameIDFormats().add(new NameIDFormatImpl());
+
+        QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        descriptor.setOrganization((Organization) buildXMLObject(orgQName));
+
+        QName contactQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 2; i++) {
-            descriptor.getAssertionConsumerServices().add(new AssertionConsumerServiceImpl());
+            descriptor.getContactPersons().add((ContactPerson) buildXMLObject(contactQName));
         }
-        descriptor.getAttributeConsumingServices().add(new AttributeConsumingServiceImpl());
+
+        QName artResQName = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        descriptor.getArtifactResolutionServices().add((ArtifactResolutionService) buildXMLObject(artResQName));
+
+        QName sloQName = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        for (int i = 0; i < 2; i++) {
+            descriptor.getSingleLogoutServices().add((SingleLogoutService) buildXMLObject(sloQName));
+        }
+
+        QName mngNameIDQName = new QName(SAMLConstants.SAML20MD_NS, ManageNameIDService.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        for (int i = 0; i < 4; i++) {
+            descriptor.getManageNameIDServices().add((ManageNameIDService) buildXMLObject(mngNameIDQName));
+        }
+
+        QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        descriptor.getNameIDFormats().add((NameIDFormat) buildXMLObject(nameIDFormatQName));
+
+        QName assertConsumeQName = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        for (int i = 0; i < 2; i++) {
+            descriptor.getAssertionConsumerServices()
+                    .add((AssertionConsumerService) buildXMLObject(assertConsumeQName));
+        }
+
+        QName attribConsumeQName = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        descriptor.getAttributeConsumingServices().add((AttributeConsumingService) buildXMLObject(attribConsumeQName));
+
         assertEquals(expectedChildElementsDOM, descriptor);
     }
 }

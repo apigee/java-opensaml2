@@ -22,23 +22,17 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.TelephoneNumber;
 import org.opensaml.xml.XMLObject;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.TelephoneNumber}
  */
-public class TelephoneNumberImpl extends AbstractMetadataSAMLObject implements TelephoneNumber {
+public class TelephoneNumberImpl extends AbstractSAMLObject implements TelephoneNumber {
 
     /** Telephone number */
     private String number;
-
-    /**
-     * Constructor
-     */
-    protected TelephoneNumberImpl() {
-        super(TelephoneNumber.LOCAL_NAME);
-    }
 
     /**
      * Constructor

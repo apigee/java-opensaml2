@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
@@ -35,7 +36,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.AffiliationDescriptor}.
  */
-public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObject implements AffiliationDescriptor {
+public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implements AffiliationDescriptor {
 
     /** ID of the owner of this affiliation */
     private String ownerID;
@@ -53,20 +54,10 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
     private Extensions extensions;
 
     /** Members of this affiliation */
-    private XMLObjectChildrenList<AffiliateMember> members;
+    private final XMLObjectChildrenList<AffiliateMember> members;
 
     /** Key descriptors for this role */
-    private XMLObjectChildrenList<KeyDescriptor> keyDescriptors;
-
-    /**
-     * Constructor
-     */
-    protected AffiliationDescriptorImpl() {
-        super(AffiliationDescriptor.LOCAL_NAME);
-
-        members = new XMLObjectChildrenList<AffiliateMember>(this);
-        keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
-    }
+    private final XMLObjectChildrenList<KeyDescriptor> keyDescriptors;
 
     /**
      * Constructor
@@ -77,6 +68,8 @@ public class AffiliationDescriptorImpl extends AbstractSignableMetadataSAMLObjec
      */
     protected AffiliationDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        members = new XMLObjectChildrenList<AffiliateMember>(this);
+        keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
 
     /*

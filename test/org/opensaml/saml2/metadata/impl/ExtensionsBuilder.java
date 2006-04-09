@@ -19,19 +19,26 @@
  */
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
 
 /**
  * Test class to create Extensions
  */
-public class ExtensionsBuilder implements XMLObjectBuilder {
+public class ExtensionsBuilder extends AbstractSAMLObjectBuilder<Extensions> {
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
-    public XMLObject buildObject() {
-        return new ExtensionsImpl();
+    public Extensions buildObject() {
+        return buildObject(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
+    /*
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
+     */
+    public Extensions buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new ExtensionsImpl(namespaceURI, localName, namespacePrefix);
+    }
 }

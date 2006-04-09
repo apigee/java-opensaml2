@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.SPSSODescriptorImpl}
  */
-public class SPSSODescriptorBuilder implements XMLObjectBuilder {
+public class SPSSODescriptorBuilder extends AbstractSAMLObjectBuilder<SPSSODescriptor> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class SPSSODescriptorBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public SPSSODescriptor buildObject() {
-        return new SPSSODescriptorImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public SPSSODescriptor buildObject(Element element) {
-        return new SPSSODescriptorImpl();
+    public SPSSODescriptor buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new SPSSODescriptorImpl(namespaceURI, localName, namespacePrefix);
     }
 }

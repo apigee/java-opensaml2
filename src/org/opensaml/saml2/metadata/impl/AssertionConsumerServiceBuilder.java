@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder for {@link org.opensaml.saml2.metadata.impl.AssertionConsumerServiceImpl} objects.
  */
-public class AssertionConsumerServiceBuilder implements XMLObjectBuilder {
+public class AssertionConsumerServiceBuilder extends AbstractSAMLObjectBuilder<AssertionConsumerService> {
 
     /**
      * Constructor
@@ -37,16 +37,17 @@ public class AssertionConsumerServiceBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AssertionConsumerService buildObject() {
-        return new AssertionConsumerServiceImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public AssertionConsumerService buildObject(Element element) {
-        return new AssertionConsumerServiceImpl();
+    public AssertionConsumerService buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AssertionConsumerServiceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

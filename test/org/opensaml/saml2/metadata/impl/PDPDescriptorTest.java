@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
@@ -27,48 +28,51 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.metadata.AssertionIDRequestService;
+import org.opensaml.saml2.metadata.AuthzService;
+import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.PDPDescriptor;
 
 /**
- * Test case for creating, marshalling, and unmarshalling
- * {@link org.opensaml.saml2.metadata.impl.PDPDescriptorImpl}.
+ * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.metadata.impl.PDPDescriptorImpl}.
  */
 public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
-    
+
     /** List of expected supported protocols */
     protected ArrayList<String> expectedSupportedProtocol;
-    
+
     /** Expected cacheDuration value in miliseconds */
     protected long expectedCacheDuration;
 
     /** Expected validUntil value */
     protected DateTime expectedValidUntil;
-    
+
     /** Expected error url */
     protected String expectedErrorURL;
-    
+
     /**
      * Constructor
      */
-    public PDPDescriptorTest(){
+    public PDPDescriptorTest() {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/PDPDescriptor.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/PDPDescriptorOptionalAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml2/metadata/impl/PDPDescriptorChildElements.xml";
     }
-    
+
     /*
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         expectedSupportedProtocol = new ArrayList<String>();
         expectedSupportedProtocol.add("urn:foo:bar");
         expectedSupportedProtocol.add("urn:fooz:baz");
-        
+
         expectedCacheDuration = 90000;
         expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
-        
+
         expectedErrorURL = "http://example.org";
     }
 
@@ -78,7 +82,8 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
     public void testSingleElementUnmarshall() {
         PDPDescriptor descriptor = (PDPDescriptor) unmarshallElement(singleElementFile);
 
-        assertEquals("Supported protocols not equal to expected value", expectedSupportedProtocol, descriptor.getSupportedProtocols());
+        assertEquals("Supported protocols not equal to expected value", expectedSupportedProtocol, descriptor
+                .getSupportedProtocols());
     }
 
     /*
@@ -87,7 +92,8 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesUnmarshall() {
         PDPDescriptor descriptor = (PDPDescriptor) unmarshallElement(singleElementOptionalAttributesFile);
 
-        assertEquals("Cache duration was not expected value", expectedCacheDuration, descriptor.getCacheDuration().longValue());
+        assertEquals("Cache duration was not expected value", expectedCacheDuration, descriptor.getCacheDuration()
+                .longValue());
         assertEquals("ValidUntil was not expected value", expectedValidUntil, descriptor.getValidUntil());
         assertEquals("ErrorURL was not expected value", expectedErrorURL, descriptor.getErrorURL());
     }
@@ -97,7 +103,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsUnmarshall() {
         PDPDescriptor descriptor = (PDPDescriptor) unmarshallElement(childElementsFile);
-        
+
         assertNotNull("<Extensions>", descriptor.getExtensions());
         // TODO KeyDescriptor
         assertEquals("KeyDescriptor", 0, descriptor.getKeyDescriptors().size());
@@ -106,14 +112,15 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("AssertionIDRequestService count", 2, descriptor.getAssertionIDRequestServices().size());
         assertEquals("NameIDFormat count", 1, descriptor.getNameIDFormats().size());
     }
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
-        
-        for(String protocol : expectedSupportedProtocol){
+
+        for (String protocol : expectedSupportedProtocol) {
             descriptor.addSupportedProtocol(protocol);
         }
 
@@ -126,18 +133,18 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
-        
-        for(String protocol : expectedSupportedProtocol){
+
+        for (String protocol : expectedSupportedProtocol) {
             descriptor.addSupportedProtocol(protocol);
         }
-        
+
         descriptor.setCacheDuration(expectedCacheDuration);
         descriptor.setValidUntil(expectedValidUntil);
         descriptor.setErrorURL(expectedErrorURL);
 
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
-    
+
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
@@ -145,16 +152,27 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
 
-        descriptor.setExtensions(new ExtensionsImpl());
+        QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
         // TODO KeyDescriptor
-    
+
+        QName authzQName = new QName(SAMLConstants.SAML20MD_NS, AuthzService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 3; i++) {
-            descriptor.getAuthzServices().add(new AuthzServiceImpl());
+            descriptor.getAuthzServices().add((AuthzService) buildXMLObject(authzQName));
         }
+
+        QName assertIDReqQName = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 2; i++) {
-            descriptor.getAssertionIDRequestServices().add(new AssertionIDRequestServiceImpl());
+            descriptor.getAssertionIDRequestServices()
+                    .add((AssertionIDRequestService) buildXMLObject(assertIDReqQName));
         }
-        descriptor.getNameIDFormats().add(new NameIDFormatImpl());
+
+        QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
+        descriptor.getNameIDFormats().add((NameIDFormat) buildXMLObject(nameIDFormatQName));
+
         assertEquals(expectedChildElementsDOM, descriptor);
     }
 }

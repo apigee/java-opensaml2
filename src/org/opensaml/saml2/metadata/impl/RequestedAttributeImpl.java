@@ -22,7 +22,6 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.impl.AttributeImpl;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.xml.XMLObject;
@@ -37,9 +36,13 @@ public class RequestedAttributeImpl extends AttributeImpl implements RequestedAt
 
     /**
      * Constructor
+     * 
+     * @param namespaceURI
+     * @param elementLocalName
+     * @param namespacePrefix
      */
-    protected RequestedAttributeImpl() {
-        super(SAMLConstants.SAML20MD_NS, RequestedAttribute.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    protected RequestedAttributeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     public boolean isRequired() {

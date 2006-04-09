@@ -22,6 +22,8 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 
 /**
@@ -147,12 +149,14 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
 
         descriptor.setOwnerID(expectedOwnerID);
 
-        descriptor.setExtensions(new ExtensionsImpl());
+        QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
         // TODO KeyDescriptor to be tested
 
-        descriptor.getMembers().add(new AffiliateMemberImpl());
-        descriptor.getMembers().add(new AffiliateMemberImpl());
-        descriptor.getMembers().add(new AffiliateMemberImpl());
+        QName affilMemberQName = new QName(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        descriptor.getMembers().add((AffiliateMember) buildXMLObject(affilMemberQName));
+        descriptor.getMembers().add((AffiliateMember) buildXMLObject(affilMemberQName));
+        descriptor.getMembers().add((AffiliateMember) buildXMLObject(affilMemberQName));
 
         assertEquals(expectedChildElementsDOM, descriptor);
     }

@@ -38,31 +38,16 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public abstract class SSODescriptorImpl extends RoleDescriptorImpl implements SSODescriptor {
 
     /** Supported artifact resolutions services */
-    private XMLObjectChildrenList<ArtifactResolutionService> artifactResolutionServices;
+    private final XMLObjectChildrenList<ArtifactResolutionService> artifactResolutionServices;
 
     /** Logout services for this SSO entity */
-    private XMLObjectChildrenList<SingleLogoutService> singleLogoutServices;
+    private final XMLObjectChildrenList<SingleLogoutService> singleLogoutServices;
 
     /** Manage NameID services for this entity */
-    private XMLObjectChildrenList<ManageNameIDService> manageNameIDServices;
+    private final XMLObjectChildrenList<ManageNameIDService> manageNameIDServices;
 
     /** NameID formats supported by this entity */
-    private XMLObjectChildrenList<NameIDFormat> nameIDFormats;
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI the namespace URI of the element this saml object represents
-     * @param localName the local name of the element this SAML object represents
-     */
-    protected SSODescriptorImpl(String localName) {
-        super(localName);
-
-        artifactResolutionServices = new XMLObjectChildrenList<ArtifactResolutionService>(this);
-        singleLogoutServices = new XMLObjectChildrenList<SingleLogoutService>(this);
-        manageNameIDServices = new XMLObjectChildrenList<ManageNameIDService>(this);
-        nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
-    }
+    private final XMLObjectChildrenList<NameIDFormat> nameIDFormats;
     
     /**
      * Constructor
@@ -73,6 +58,10 @@ public abstract class SSODescriptorImpl extends RoleDescriptorImpl implements SS
      */
     protected SSODescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        artifactResolutionServices = new XMLObjectChildrenList<ArtifactResolutionService>(this);
+        singleLogoutServices = new XMLObjectChildrenList<SingleLogoutService>(this);
+        manageNameIDServices = new XMLObjectChildrenList<ManageNameIDService>(this);
+        nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
 
     /*

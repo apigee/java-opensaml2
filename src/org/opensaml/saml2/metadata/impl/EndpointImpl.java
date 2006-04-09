@@ -18,13 +18,14 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.XMLObject;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.metadata.Endpoint}
  */
-public abstract class EndpointImpl extends AbstractMetadataSAMLObject implements Endpoint {
+public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoint {
 
     /** Binding URI */
     private String bindingId;
@@ -34,15 +35,6 @@ public abstract class EndpointImpl extends AbstractMetadataSAMLObject implements
 
     /** Response location URI */
     private String responseLocation;
-
-    /**
-     * Constructor
-     * 
-     * @param localName the local name of the element this SAML object represents
-     */
-    protected EndpointImpl(String localName) {
-        super(localName);
-    }
 
     /**
      * Constructor

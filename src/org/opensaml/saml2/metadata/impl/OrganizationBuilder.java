@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.Organization;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.OrganizationImpl}
  */
-public class OrganizationBuilder implements XMLObjectBuilder {
+public class OrganizationBuilder extends AbstractSAMLObjectBuilder<Organization> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class OrganizationBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Organization buildObject() {
-        return new OrganizationImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public Organization buildObject(Element element) {
-        return new OrganizationImpl();
+    public Organization buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new OrganizationImpl(namespaceURI, localName, namespacePrefix);
     }
 }

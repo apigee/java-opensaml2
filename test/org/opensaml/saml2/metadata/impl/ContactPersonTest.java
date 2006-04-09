@@ -20,8 +20,14 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.metadata.Company;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.ContactPersonType;
+import org.opensaml.saml2.metadata.EmailAddress;
+import org.opensaml.saml2.metadata.GivenName;
+import org.opensaml.saml2.metadata.SurName;
+import org.opensaml.saml2.metadata.TelephoneNumber;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -100,15 +106,26 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
         
         person.setType(expectedPersonType);
 
-        person.setExtensions(new ExtensionsImpl());
-        person.setCompany(new CompanyImpl());
-        person.setGivenName(new GivenNameImpl());
-        person.setSurName(new SurNameImpl());
+        QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        person.setExtensions((Extensions) buildXMLObject(extensionsQName));
+        
+        QName companuQName = new QName(SAMLConstants.SAML20MD_NS, Company.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        person.setCompany((Company) buildXMLObject(companuQName));
+        
+        QName givenNameQName = new QName(SAMLConstants.SAML20MD_NS, GivenName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        person.setGivenName((GivenName) buildXMLObject(givenNameQName));
+        
+        QName surnameQName = new QName(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        person.setSurName((SurName) buildXMLObject(surnameQName));
+        
+        QName teleQName = new QName(SAMLConstants.SAML20MD_NS, TelephoneNumber.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < telephoneNumberCount; i++) {
-            person.getTelephoneNumbers().add(new TelephoneNumberImpl());
+            person.getTelephoneNumbers().add((TelephoneNumber) buildXMLObject(teleQName));
         }
+        
+        QName emailQName = new QName(SAMLConstants.SAML20MD_NS, EmailAddress.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < emailAddressCount; i++) {
-            person.getEmailAddresses().add(new EmailAddressImpl());
+            person.getEmailAddresses().add((EmailAddress) buildXMLObject(emailQName));
         }
         
         assertEquals(expectedChildElementsDOM, person);

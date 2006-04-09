@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SingleLogoutService;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.SingleLogoutServiceImpl}.
  */
-public class SingleLogoutServiceBuilder implements XMLObjectBuilder {
+public class SingleLogoutServiceBuilder extends AbstractSAMLObjectBuilder<SingleLogoutService> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class SingleLogoutServiceBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public SingleLogoutService buildObject() {
-        return new SingleLogoutServiceImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public SingleLogoutService buildObject(Element element) {
-        return new SingleLogoutServiceImpl();
+    public SingleLogoutService buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new SingleLogoutServiceImpl(namespaceURI, localName, namespacePrefix);
     }
 }

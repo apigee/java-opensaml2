@@ -29,13 +29,6 @@ public class ManageNameIDServiceImpl extends EndpointImpl implements ManageNameI
 
     /**
      * Constructor
-     */
-    protected ManageNameIDServiceImpl() {
-        super(ManageNameIDService.LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
      * 
      * @param namespaceURI
      * @param elementLocalName

@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.KeyDescriptor;
@@ -34,7 +35,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concretate implementation of {@link org.opensaml.saml2.metadata.RoleDescriptor}
  */
-public abstract class RoleDescriptorImpl extends AbstractSignableMetadataSAMLObject implements RoleDescriptor {
+public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject implements RoleDescriptor {
 
     /** ID attribute */
     private String id;
@@ -46,7 +47,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableMetadataSAMLObj
     private Long cacheDuration;
 
     /** Set of supported protocols */
-    private ArrayList<String> supportedProtocols;
+    private final ArrayList<String> supportedProtocols;
 
     /** Error URL */
     private String errorURL;
@@ -58,23 +59,10 @@ public abstract class RoleDescriptorImpl extends AbstractSignableMetadataSAMLObj
     private Organization organization;
 
     /** Contact persons for this role */
-    private XMLObjectChildrenList<ContactPerson> contactPersons;
+    private final XMLObjectChildrenList<ContactPerson> contactPersons;
 
     /** Key descriptors for this role */
-    private XMLObjectChildrenList<KeyDescriptor> keyDescriptors;
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI the namespace URI of the element this saml object represents
-     */
-    protected RoleDescriptorImpl(String localName) {
-        super(localName);
-
-        supportedProtocols = new ArrayList<String>();
-        contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
-        keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
-    }
+    private final XMLObjectChildrenList<KeyDescriptor> keyDescriptors;
 
     /**
      * Constructor
@@ -85,6 +73,9 @@ public abstract class RoleDescriptorImpl extends AbstractSignableMetadataSAMLObj
      */
     protected RoleDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        supportedProtocols = new ArrayList<String>();
+        contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
+        keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
 
     /*

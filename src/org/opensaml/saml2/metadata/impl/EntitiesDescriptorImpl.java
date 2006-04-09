@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.core.Extensions;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -31,7 +32,7 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}.
  */
-public class EntitiesDescriptorImpl extends AbstractSignableMetadataSAMLObject implements EntitiesDescriptor {
+public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implements EntitiesDescriptor {
 
     /** Name of this descriptor group */
     private String name;
@@ -48,19 +49,8 @@ public class EntitiesDescriptorImpl extends AbstractSignableMetadataSAMLObject i
     /** Extensions child */
     private Extensions extensions;
 
-    /**
-     * Ordered set of child Entity/Entities Descriptors
-     */
-    private IndexedXMLObjectChildrenList<SAMLObject> orderedDescriptors;
-
-    /**
-     * Constructor
-     */
-    protected EntitiesDescriptorImpl() {
-        super(EntitiesDescriptor.LOCAL_NAME);
-
-        orderedDescriptors = new IndexedXMLObjectChildrenList<SAMLObject>(this);
-    }
+    /** Ordered set of child Entity/Entities Descriptors */
+    private final IndexedXMLObjectChildrenList<SAMLObject> orderedDescriptors;
 
     /**
      * Constructor
@@ -71,6 +61,7 @@ public class EntitiesDescriptorImpl extends AbstractSignableMetadataSAMLObject i
      */
     protected EntitiesDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        orderedDescriptors = new IndexedXMLObjectChildrenList<SAMLObject>(this);
     }
 
     /*

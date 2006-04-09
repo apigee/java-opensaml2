@@ -22,6 +22,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
 
+import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationName;
 import org.opensaml.xml.XMLObject;
@@ -29,17 +30,10 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.OrganizationName}
  */
-public class OrganizationNameImpl extends AbstractMetadataSAMLObject implements OrganizationName {
+public class OrganizationNameImpl extends AbstractSAMLObject implements OrganizationName {
 
     /** Organization name */
     private LocalizedString name;
-
-    /**
-     * Constructor
-     */
-    protected OrganizationNameImpl() {
-        super(OrganizationName.LOCAL_NAME);
-    }
 
     /**
      * Constructor

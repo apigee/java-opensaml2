@@ -20,14 +20,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ServiceName;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.w3c.dom.Element;
 
 /**
  * Builder of {@link org.opensaml.saml2.metadata.impl.ServiceNameImpl}
  */
-public class ServiceNameBuilder implements XMLObjectBuilder {
+public class ServiceNameBuilder extends AbstractSAMLObjectBuilder<ServiceName> {
 
     /**
      * Constructor
@@ -37,16 +37,16 @@ public class ServiceNameBuilder implements XMLObjectBuilder {
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
+     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public ServiceName buildObject() {
-        return new ServiceNameImpl();
+        return buildObject(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(org.w3c.dom.Element)
+     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
      */
-    public ServiceName buildObject(Element element) {
-        return new ServiceNameImpl();
+    public ServiceName buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new ServiceNameImpl(namespaceURI, localName, namespacePrefix);
     }
 }

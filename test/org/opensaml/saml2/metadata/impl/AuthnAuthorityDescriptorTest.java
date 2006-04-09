@@ -25,7 +25,13 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
+import org.opensaml.saml2.metadata.AuthnQueryService;
+import org.opensaml.saml2.metadata.ContactPerson;
+import org.opensaml.saml2.metadata.NameIDFormat;
+import org.opensaml.saml2.metadata.Organization;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -188,24 +194,33 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);
 
         descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
-        descriptor.setExtensions(new ExtensionsImpl());
+        
+        QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
+        
         // TODO KeyDescriptor
         
-        descriptor.setOrganization(new OrganizationImpl());
+        QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        descriptor.setOrganization((Organization) buildXMLObject(orgQName));
+        
+        QName contactPersonQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedContactPersons; i++) {
-            descriptor.getContactPersons().add(new ContactPersonImpl());
+            descriptor.getContactPersons().add((ContactPerson) buildXMLObject(contactPersonQName));
         }
         
+        QName authnQueryServiceQName = new QName(SAMLConstants.SAML20MD_NS, AuthnQueryService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedAuthnQueryServices; i++) {
-            descriptor.getAuthnQueryServices().add(new AuthnQueryServiceImpl());
+            descriptor.getAuthnQueryServices().add((AuthnQueryService) buildXMLObject(authnQueryServiceQName));
         }
 
+        QName assertionIDRequestServiceQName = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedAssertionIdRequestServices; i++) {
-            descriptor.getAssertionIDRequestServices().add(new AssertionIDRequestServiceImpl());
+            descriptor.getAssertionIDRequestServices().add((AssertionIDRequestService) assertionIDRequestServiceQName);
         }
         
+        QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedNameIdFormats; i++) {
-            descriptor.getNameIDFormats().add(new NameIDFormatImpl());
+            descriptor.getNameIDFormats().add((NameIDFormat) buildXMLObject(nameIDFormatQName));
         }
         
         assertEquals(expectedChildElementsDOM, descriptor);

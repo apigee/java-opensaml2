@@ -32,15 +32,6 @@ public abstract class IndexedEndpointImpl extends EndpointImpl implements Indexe
 
     /** isDefault attribute */
     private Boolean isDefault;
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI the namespace URI for the element this SAML object represents
-     */
-    protected IndexedEndpointImpl(String localName) {
-        super(localName);
-    }
     
     /**
      * Constructor
