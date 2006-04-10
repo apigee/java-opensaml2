@@ -16,8 +16,6 @@
 
 package org.opensaml.common;
 
-import java.util.HashMap;
-
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
@@ -97,7 +95,7 @@ public abstract class SAMLObjectBaseTestCase extends  SAMLObjectTestCaseConfigIn
                 fail("Unable to retrieve unmarshaller by DOM Element");
             }
 
-            return unmarshaller.unmarshall(samlElement, new HashMap<String, Object>());
+            return unmarshaller.unmarshall(samlElement);
         } catch (XMLParserException e) {
             fail("Unable to parse element file " + elementFile);
         } catch (UnmarshallingException e) {

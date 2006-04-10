@@ -19,9 +19,6 @@
  */
 package org.opensaml.common;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.xml.namespace.QName;
 
 import org.opensaml.xml.XMLObject;
@@ -43,9 +40,6 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
     /** Validator for the type corresponding to the test target */
     protected Validator validator;
 
-    /** Context for the object construction */
-    // TODO Move this into the base class
-    protected Map<String, Object> context;
     /**
     /**
      * Constructor
@@ -53,7 +47,6 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
      */
     public SAMLObjectValidatorBaseTestCase() {
         super();
-        context = new HashMap<String, Object>();
     }
 
     /*
@@ -67,7 +60,7 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
         
         if (validator == null)
             throw new Exception("validator was null");
-        target = buildXMLObject(targetQName, context);
+        target = buildXMLObject(targetQName);
         populateRequiredData();
     }
 
