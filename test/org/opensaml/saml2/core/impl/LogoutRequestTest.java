@@ -102,7 +102,7 @@ public class LogoutRequestTest extends RequestTest {
         QName nameIDQName = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         req.setNameID((NameID) buildXMLObject(nameIDQName));
         
-        QName sessionIndexQName = new QName(SAMLConstants.SAML20_NS, SessionIndex.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName sessionIndexQName = new QName(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         for (int i=0; i<expectedNumSessionIndexes; i++){
             req.getSessionIndexes().add((SessionIndex) buildXMLObject(sessionIndexQName));
         }

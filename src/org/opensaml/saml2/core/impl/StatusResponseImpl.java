@@ -74,6 +74,7 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
      */
     protected StatusResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        version = SAMLVersion.VERSION_20;
     }
 
     /*

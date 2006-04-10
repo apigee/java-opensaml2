@@ -88,10 +88,10 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME);
         Scoping scoping = (Scoping) buildXMLObject(qname);
         
-        QName idpListQName = new QName(SAMLConstants.SAML20_NS, IDPList.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName idpListQName = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         scoping.setIDPList((IDPList) buildXMLObject(idpListQName));
         
-        QName requesterIDQName = new QName(SAMLConstants.SAML20_NS, RequesterID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName requesterIDQName = new QName(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         for (int i = 0; i<expectedNumRequestIDs; i++){
             scoping.getRequesterIDs().add((RequesterID) buildXMLObject(requesterIDQName));
         }

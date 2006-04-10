@@ -67,6 +67,7 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
      */
     protected RequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        version = SAMLVersion.VERSION_20;
     }
 
     /*

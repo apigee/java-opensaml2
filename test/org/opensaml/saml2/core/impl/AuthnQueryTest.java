@@ -90,7 +90,7 @@ public class AuthnQueryTest extends SubjectQueryTest {
         
         super.populateChildElements(query);
         
-        QName requestedAuthnContextQName = new QName(SAMLConstants.SAML20_NS, RequestedAuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName requestedAuthnContextQName = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         query.setRequestedAuthnContext((RequestedAuthnContext) buildXMLObject(requestedAuthnContextQName));
         
         assertEquals(expectedChildElementsDOM, query);

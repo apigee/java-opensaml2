@@ -74,7 +74,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         QName statusCodeQName = new QName(SAMLConstants.SAML20P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         status.setStatusCode((StatusCode) buildXMLObject(statusCodeQName));
         
-        QName statusMessageQName = new QName(SAMLConstants.SAML20_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName statusMessageQName = new QName(SAMLConstants.SAML20P_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         status.setStatusMessage((StatusMessage) buildXMLObject(statusMessageQName));
         
         assertEquals(expectedChildElementsDOM, status);

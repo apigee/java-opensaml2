@@ -84,7 +84,7 @@ public class SAMLVersion {
      * @return SAMLVersion for the given string
      */
     public final static SAMLVersion valueOf(String version){
-        String[] components = version.split(".");
+        String[] components = version.split("\\.");
         return valueOf(Integer.valueOf(components[0]),Integer.valueOf(components[1]));
     }
     

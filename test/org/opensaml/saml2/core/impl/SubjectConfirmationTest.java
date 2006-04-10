@@ -102,7 +102,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         subjectConfirmation.setNameID((NameID) buildXMLObject(nameIDQName));
         
         QName subjectConfirmationDataQName = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) subjectConfirmationDataQName);
+        subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) buildXMLObject(subjectConfirmationDataQName));
 
         assertEquals(expectedChildElementsDOM, subjectConfirmation);
     }

@@ -88,7 +88,7 @@ public class NameIDMappingRequestTest extends RequestTest {
         QName nameIDQName = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         req.setNameID((NameID) buildXMLObject(nameIDQName));
         
-        QName nameIDPolicyQName = new QName(SAMLConstants.SAML20_NS, NameIDPolicy.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName nameIDPolicyQName = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         req.setNameIDPolicy((NameIDPolicy) buildXMLObject(nameIDPolicyQName));
         
         assertEquals(expectedChildElementsDOM, req);

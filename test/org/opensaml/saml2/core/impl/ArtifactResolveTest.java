@@ -82,7 +82,7 @@ public class ArtifactResolveTest extends RequestTest {
         
         super.populateChildElements(ar);
         
-        QName artifactQName = new QName(SAMLConstants.SAML20_NS, Artifact.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName artifactQName = new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ar.setArtifact((Artifact) buildXMLObject(artifactQName));
         
         assertEquals(expectedChildElementsDOM, ar);

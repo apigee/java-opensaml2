@@ -132,16 +132,16 @@ public class AuthnRequestTest extends RequestTest {
         QName subjectQName = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         req.setSubject((Subject) buildXMLObject(subjectQName));
         
-        QName nameIDPolicyQName = new QName(SAMLConstants.SAML20_NS, NameIDPolicy.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName nameIDPolicyQName = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         req.setNameIDPolicy((NameIDPolicy) buildXMLObject(nameIDPolicyQName));
         
         QName conditionsQName = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         req.setConditions((Conditions) buildXMLObject(conditionsQName));
         
-        QName requestedAuthnContextQName = new QName(SAMLConstants.SAML20_NS, RequestedAuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName requestedAuthnContextQName = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         req.setRequestedAuthnContext((RequestedAuthnContext) buildXMLObject(requestedAuthnContextQName));
         
-        QName scopingQName = new QName(SAMLConstants.SAML20_NS, Scoping.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName scopingQName = new QName(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         req.setScoping((Scoping) buildXMLObject(scopingQName));
         
         assertEquals(expectedChildElementsDOM, req);
