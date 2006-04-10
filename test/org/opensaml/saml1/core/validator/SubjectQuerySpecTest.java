@@ -44,10 +44,4 @@ public abstract class SubjectQuerySpecTest extends SAMLObjectValidatorBaseTestCa
         query.setSubject((Subject) buildXMLObject(qname));
     }
     
-    public void testVersions() {
-        SubjectQuery query = (SubjectQuery) target;
-        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        query.setSubject((Subject) buildXMLObject(qname));
-        assertValidationFail("Subject version mismatch, should thow an exception ");
-    }
 }

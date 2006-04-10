@@ -1,5 +1,5 @@
 /*
- * Copyright [2005] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright [2005-2006] [University Corporation for Advanced Internet Development, Inc.]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,7 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
-import org.opensaml.saml1.core.DoNotCacheCondition;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AttributeQuerySchemaValidator}.
@@ -46,22 +44,6 @@ public class ConditionsSpecTest extends SAMLObjectValidatorBaseTestCase  {
         Conditions conditions = (Conditions) target;
         QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         conditions.getConditions().add((AudienceRestrictionCondition) buildXMLObject(qname));
-    }
-    
-    public void testVersions() {
-        Conditions conditions = (Conditions) target;
-        QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        conditions.getConditions().add((Condition) buildXMLObject(qname));
-        assertValidationFail("Condition version mismatch, should thow an exception ");
-    }
-    
-    public void testDoNotCacheCondition() {
-        target = buildXMLObject(targetQName);
-        Conditions conditions = (Conditions) target;
-
-        QName qname = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        conditions.getConditions().add((Condition) buildXMLObject(qname));
-        assertValidationFail("DoNotCache , should thow an exception ");
     }
     
 }

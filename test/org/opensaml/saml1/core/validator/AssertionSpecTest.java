@@ -20,9 +20,13 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.saml1.core.Condition;
+import org.opensaml.saml1.core.Conditions;
+import org.opensaml.saml1.core.DoNotCacheCondition;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AssertionSchemaValidator}.
@@ -49,12 +53,15 @@ public class AssertionSpecTest extends SAMLObjectValidatorBaseTestCase {
         assertion.getStatements().add((AttributeStatement)buildXMLObject(name));
     }
     
-    public void testWrongSubVersion() {
-
-        QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+    public void testDoNotCache() {
         Assertion assertion = (Assertion) target;
-        assertion.getStatements().add((AttributeStatement)buildXMLObject(name));
-        
-        assertValidationFail("Invalid child version, should raise a Validation Exception");
+        QName oqname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        Conditions conditions = (Conditions) buildXMLObject(oqname);
+        assertion.setConditions(conditions);
+        oqname = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        conditions.getConditions().add((Condition) buildXMLObject(oqname));
+        assertValidationPass("DoNotCache allowed in SAML 1.1");
+        assertion.setVersion(SAMLVersion.VERSION_10);
+        assertValidationFail("DoNotCache not allowed in SAML 1.0");
     }
 }

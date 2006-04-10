@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AttributeStatement;
@@ -61,7 +62,8 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         target = buildXMLObject(targetQName);
         setupRequiredData();
         assertValidationPass("SAML1.0 is OK");
-        setupRequiredData();
+        Assertion assertion = (Assertion) target;
+        assertion.setVersion(SAMLVersion.VERSION_20);
         assertValidationFail("SAML2.0 is not OK");
     }
     
