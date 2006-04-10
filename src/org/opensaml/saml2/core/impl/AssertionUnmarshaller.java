@@ -88,10 +88,7 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         Assertion assertion = (Assertion) samlObject;
 
         if (attribute.getLocalName().equals(Assertion.VERSION_ATTRIB_NAME)) {
-            String[] version = attribute.getValue().split(".");
-            int major = Integer.valueOf(version[0]);
-            int minor = Integer.valueOf(version[1]);
-            assertion.setVersion(new SAMLVersion(major, minor));
+            assertion.setVersion(SAMLVersion.valueOf(attribute.getValue()));
         } else if (attribute.getLocalName().equals(Assertion.ISSUE_INSTANT_ATTRIB_NAME)) {
             assertion.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(Assertion.ID_ATTRIB_NAME)) {

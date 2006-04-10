@@ -55,10 +55,7 @@ public abstract class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller
         Request req = (Request) samlObject;
 
         if (attribute.getLocalName().equals(Request.VERSION_ATTRIB_NAME)) {
-            String[] version = attribute.getValue().split(".");
-            int major = Integer.valueOf(version[0]);
-            int minor = Integer.valueOf(version[1]);
-            req.setVersion(new SAMLVersion(major, minor));
+            req.setVersion(SAMLVersion.valueOf(attribute.getValue()));
         } else if (attribute.getLocalName().equals(Request.ID_ATTRIB_NAME))
             req.setID(attribute.getValue());
         else if (attribute.getLocalName().equals(Request.ISSUE_INSTANT_ATTRIB_NAME))

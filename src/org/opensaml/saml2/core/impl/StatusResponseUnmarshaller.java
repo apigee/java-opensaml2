@@ -57,10 +57,7 @@ public abstract class StatusResponseUnmarshaller extends AbstractSAMLObjectUnmar
         StatusResponse sr = (StatusResponse) samlObject;
         
         if (attribute.getLocalName().equals(StatusResponse.VERSION_ATTRIB_NAME)) {
-            String[] version = attribute.getValue().split(".");
-            int major = Integer.valueOf(version[0]);
-            int minor = Integer.valueOf(version[1]);
-            sr.setVersion(new SAMLVersion(major, minor));
+            sr.setVersion(SAMLVersion.valueOf(attribute.getValue()));
         } else if (attribute.getLocalName().equals(StatusResponse.ID_ATTRIB_NAME))
             sr.setID(attribute.getValue());
         else if (attribute.getLocalName().equals(StatusResponse.IN_RESPONSE_TO_ATTRIB_NAME))

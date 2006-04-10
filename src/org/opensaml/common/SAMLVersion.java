@@ -45,11 +45,47 @@ public class SAMLVersion {
     private String versionString;
     
     /** Constructor */
-    public SAMLVersion(int majorVersion, int minorVersion) {
+    private SAMLVersion(int majorVersion, int minorVersion) {
         this.majorVersion = majorVersion;
         this.minorVersion = minorVersion;
         
         versionString = majorVersion + "." + minorVersion;
+    }
+    
+    /**
+     * Gets the SAMLVersion given the major and minor version number.
+     * 
+     * @param majorVersion major version number
+     * @param minorVersion minor version number
+     * 
+     * @return the SAMLVersion
+     */
+    public final static SAMLVersion valueOf(int majorVersion, int minorVersion){
+        if(majorVersion == 1){
+            if(minorVersion == 0){
+                return SAMLVersion.VERSION_10;
+            }else if(minorVersion == 1){
+                return SAMLVersion.VERSION_11;
+            }
+        }else if(majorVersion == 2){
+            if(minorVersion == 0){
+                return SAMLVersion.VERSION_20;
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Gets the SAMLVersion for a given version string, such as "2.0".
+     * 
+     * @param version SAML version string
+     * 
+     * @return SAMLVersion for the given string
+     */
+    public final static SAMLVersion valueOf(String version){
+        String[] components = version.split(".");
+        return valueOf(Integer.valueOf(components[0]),Integer.valueOf(components[1]));
     }
     
     /**
