@@ -19,13 +19,35 @@
  */
 package org.opensaml.saml1.core.validator;
 
+import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.Condition;
+import org.opensaml.saml1.core.Conditions;
+import org.opensaml.saml1.core.DoNotCacheCondition;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.validation.ValidationException;
+
 /**
  * Spec validator for {@link org.opensaml.saml1.Assertion}
  */
 public class AssertionSpecValidator extends SAML1ObjectSpecValidator {
 
-    //
-    // No Validators - the superclass does it for us.  We leave this in place so that the
-    // fact that this class does need validation is registered
-    //
+    public void validate(XMLObject xmlObject) throws ValidationException {
+        
+        super.validate(xmlObject);
+        validateDoNotCache((Assertion) xmlObject);
+    }
+    
+    protected void validateDoNotCache(Assertion assertion) throws ValidationException {
+        
+        if (assertion.getMinorVersion() == 0) {
+            Conditions conditions = assertion.getConditions();
+            if (conditions != null) {
+                for (Condition condition : conditions.getConditions()) {
+                    if (condition instanceof DoNotCacheCondition) {
+                        throw new ValidationException("DoNotCacheCondition not valid in SAML1.0");
+                    }
+                }
+            }
+        }
+    }
 }
