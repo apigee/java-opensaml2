@@ -65,6 +65,7 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
+        expectedID = "id";
         expectedEntityID = "99ff33";
         expectedCacheDuration = 90000;
         expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());

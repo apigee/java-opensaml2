@@ -62,10 +62,10 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see junit.framework.TestCase#setUp()
      */
-    @Override
     protected void setUp() throws Exception {
         super.setUp();
 
+        expectedID = "id";
         expectedName = "eDescName";
         expectedCacheDuration = 90000;
         expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
@@ -76,7 +76,6 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.BaseTestCase#testSingleElementUnmarshall()
      */
-    @Override
     public void testSingleElementUnmarshall() {
         EntitiesDescriptor entitiesDescriptorObj = (EntitiesDescriptor) unmarshallElement(singleElementFile);
 
@@ -93,7 +92,6 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         EntitiesDescriptor entitiesDescriptorObj = (EntitiesDescriptor) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -116,7 +114,6 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-    @Override
     public void testChildElementsUnmarshall() {
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) unmarshallElement(childElementsFile);
 
@@ -130,7 +127,6 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
      */
-    @Override
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildXMLObject(qname);
@@ -141,7 +137,6 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildXMLObject(qname);
@@ -154,7 +149,9 @@ public class EntitiesDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, entitiesDescriptor);
     }
 
-    @Override
+    /*
+     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
+     */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildXMLObject(qname);

@@ -41,7 +41,7 @@ public abstract class IndexedEndpointImpl extends EndpointImpl implements Indexe
      * @param namespacePrefix the prefix for the given namespace
      */
     protected IndexedEndpointImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespacePrefix, elementLocalName, namespacePrefix);
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

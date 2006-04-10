@@ -44,7 +44,7 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
      * @param namespacePrefix the prefix for the given namespace
      */
     protected EndpointImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespacePrefix, elementLocalName, namespacePrefix);
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /*

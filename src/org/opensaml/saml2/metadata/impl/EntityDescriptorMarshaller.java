@@ -67,7 +67,7 @@ public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
         }
 
         // Set the ID attribute
-        if (entityDescriptor.getEntityID() != null) {
+        if (entityDescriptor.getID() != null) {
             domElement.setAttributeNS(null, EntityDescriptor.ID_ATTRIB_NAME, entityDescriptor.getID());
         }
 
