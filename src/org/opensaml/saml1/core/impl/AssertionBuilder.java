@@ -36,7 +36,7 @@ public class AssertionBuilder extends AbstractSAMLObjectBuilder<Assertion> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AssertionImpl buildObject() {
-        return new AssertionImpl(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        return new AssertionImpl(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*

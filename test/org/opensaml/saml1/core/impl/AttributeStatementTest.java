@@ -26,7 +26,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
 import org.opensaml.saml1.core.Subject;
@@ -105,7 +104,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
 
         attributeStatement.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
 
-        QName oqname = new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName oqname = new QName(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         for (int i = 0; i < 5; i++) {
             attributeStatement.getAttributes().add((Attribute) buildXMLObject(oqname));
         }

@@ -69,9 +69,6 @@ public class RequestTest extends SAMLObjectBaseTestCase {
         DateTime date = request.getIssueInstant();
         assertNull("IssueInstant attribute has a value of " + date + ", expected no value", date);
 
-        int minorVersion = request.getMinorVersion();
-        
-        assertTrue("MinorVersion has value " + minorVersion + " expected no value", minorVersion == 0);
         assertNull("Query has value", request.getQuery());
         assertEquals("AssertionArtifact present", 0, request.getAssertionArtifacts().size());
         assertEquals("AssertionIDReferences present", 0, request.getAssertionIDReferences().size());

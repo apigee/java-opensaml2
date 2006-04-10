@@ -65,7 +65,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleAssertion.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAssertionAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/AssertionWithChildren.xml";
-        qname = new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*

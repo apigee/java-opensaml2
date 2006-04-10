@@ -29,7 +29,6 @@ import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
 import org.opensaml.saml1.core.Evidence;
-import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
@@ -159,7 +158,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
 
         authorizationDecisionStatement = (AuthorizationDecisionStatement) buildXMLObject(qname);
 
-        QName oqname = new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName oqname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         authorizationDecisionStatement.setSubject((Subject) buildXMLObject(oqname));
         oqname = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         authorizationDecisionStatement.getActions().add((Action) buildXMLObject(oqname));

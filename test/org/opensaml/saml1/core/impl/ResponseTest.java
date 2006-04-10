@@ -153,7 +153,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Response response = (Response) buildXMLObject(qname);
 
-        response.getAssertions().add((Assertion) buildXMLObject(new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX)));
+        response.getAssertions().add((Assertion) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
         response.setStatus((Status)buildXMLObject(new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX)));
 
         assertEquals(expectedChildElementsDOM, response);

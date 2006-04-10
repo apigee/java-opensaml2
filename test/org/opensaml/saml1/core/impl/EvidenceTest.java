@@ -85,8 +85,8 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Evidence evidence = (Evidence) buildXMLObject(qname);
 
-        QName refQname = new QName(SAMLConstants.SAML1P_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
-        QName assertionQname = new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName refQname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         
         evidence.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(refQname));
         evidence.getAssertions().add((Assertion) buildXMLObject(assertionQname));

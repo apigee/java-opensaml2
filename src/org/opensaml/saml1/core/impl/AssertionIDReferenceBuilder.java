@@ -36,7 +36,7 @@ public class AssertionIDReferenceBuilder extends AbstractSAMLObjectBuilder<Asser
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AssertionIDReference buildObject() {
-        return buildObject(SAMLConstants.SAML1P_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        return buildObject(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*

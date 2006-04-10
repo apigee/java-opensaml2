@@ -81,8 +81,8 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Advice advice = (Advice) buildXMLObject(qname);
         
-        QName assertionIDRefQname = new QName(SAMLConstants.SAML1P_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
-        QName assertionQname = new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName assertionIDRefQname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         
         advice.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(assertionIDRefQname));
         advice.getAssertions().add((Assertion) buildXMLObject(assertionQname) );
