@@ -84,6 +84,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      */
     protected AssertionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        version = SAMLVersion.VERSION_20;
         statements = new IndexedXMLObjectChildrenList<Statement>(this);
     }
 
