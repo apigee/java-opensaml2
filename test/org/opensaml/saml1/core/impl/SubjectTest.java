@@ -20,13 +20,21 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
+import org.opensaml.saml1.core.SubjectConfirmation;
 
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Subject}
  */
 public class SubjectTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /**
      * Constructor
@@ -36,6 +44,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
 
         singleElementFile = "/data/org/opensaml/saml1/singleSubject.xml";
         childElementsFile = "/data/org/opensaml/saml1/SubjectWithChildren.xml";
+        qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -62,9 +71,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        Subject subject = new SubjectImpl(null);
-
-        assertEquals(expectedDOM, subject);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -72,10 +79,12 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        Subject subject = new SubjectImpl(null);
+        Subject subject = (Subject) buildXMLObject(qname);
 
-        subject.setNameIdentifier(new NameIdentifierImpl(null));
-        subject.setSubjectConfirmation(new SubjectConfirmationImpl(null));
+        QName oqname = new QName(SAMLConstants.SAML1_NS, NameIdentifier.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        subject.setNameIdentifier((NameIdentifier) buildXMLObject(oqname));
+        oqname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        subject.setSubjectConfirmation((SubjectConfirmation) buildXMLObject(oqname));
 
         assertEquals(expectedChildElementsDOM, subject);
     }

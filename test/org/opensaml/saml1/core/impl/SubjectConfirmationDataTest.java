@@ -19,13 +19,19 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectConfirmationData;
 
 /**
  * Test for {@link org.opensaml.saml1.core.impl.SubjectConfirmationData}
  */
 public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     private String expectedSubjectConfirmationData;
     /**
@@ -37,6 +43,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleSubjectConfirmationData.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleSubjectConfirmationDataAttributes.xml";
         expectedSubjectConfirmationData = "subjectconfirmation";
+        qname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmationData.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -68,9 +75,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        SubjectConfirmationData subjectConfirmationData = new SubjectConfirmationDataImpl(null);
-
-        assertEquals(expectedDOM, subjectConfirmationData);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -78,7 +83,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        SubjectConfirmationData subjectConfirmationData = new SubjectConfirmationDataImpl(null);
+        SubjectConfirmationData subjectConfirmationData = (SubjectConfirmationData)  buildXMLObject(qname);
         
         subjectConfirmationData.setConfirmationData(expectedSubjectConfirmationData);
 

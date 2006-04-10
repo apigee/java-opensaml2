@@ -20,13 +20,21 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Evidence;
 
 /**
  * Test for {@link EvidenceImpl}
  */
 public class EvidenceTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /**
      * Constructor
@@ -36,6 +44,8 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
         super();
         singleElementFile = "/data/org/opensaml/saml1/singleEvidence.xml";
         childElementsFile = "/data/org/opensaml/saml1/EvidenceWithChildren.xml";
+        
+        qname = new QName(SAMLConstants.SAML1_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -65,7 +75,7 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new EvidenceImpl(null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -73,12 +83,15 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        Evidence evidence = new EvidenceImpl(null);
+        Evidence evidence = (Evidence) buildXMLObject(qname);
 
-        evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl(null));
-        evidence.getAssertions().add(new AssertionImpl(null));
-        evidence.getAssertions().add(new AssertionImpl(null));
-        evidence.getAssertionIDReferences().add(new AssertionIDReferenceImpl(null));
+        QName refQname = new QName(SAMLConstants.SAML1P_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName assertionQname = new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        
+        evidence.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(refQname));
+        evidence.getAssertions().add((Assertion) buildXMLObject(assertionQname));
+        evidence.getAssertions().add((Assertion) buildXMLObject(assertionQname));
+        evidence.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(refQname));
 
         assertEquals(expectedChildElementsDOM, evidence);
     }

@@ -20,16 +20,27 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.saml1.core.AuthenticationStatement;
+import org.opensaml.saml1.core.AuthorizationDecisionStatement;
+import org.opensaml.saml1.core.Conditions;
+import org.opensaml.saml1.core.Statement;
 
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Assertion}
  */
 public class AssertionTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     private final int expectedMinorVersion;
 
@@ -54,6 +65,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleAssertion.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAssertionAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/AssertionWithChildren.xml";
+        qname = new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
@@ -130,9 +142,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        Assertion assertion = new AssertionImpl(null);
-
-        assertEquals(expectedDOM, assertion);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -140,7 +150,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        Assertion assertion = new AssertionImpl(SAMLVersion.VERSION_11);
+        Assertion assertion = (Assertion) buildXMLObject(qname);
 
         assertion.setIssueInstant(expectedIssueInstant);
         assertion.setID(expectedID);
@@ -153,19 +163,23 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      */
 
     public void testChildElementsMarshall() {
-        Assertion assertion = new AssertionImpl(null);
+        Assertion assertion = (Assertion) buildXMLObject(qname);
 
-        assertion.setConditions(new ConditionsImpl(null));
-        assertion.setAdvice(new AdviceImpl(null));
+        assertion.setConditions((Conditions) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        assertion.setAdvice((Advice) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
 
-        assertion.getStatements().add(new AuthenticationStatementImpl(null));
-        assertion.getStatements().add(new AuthorizationDecisionStatementImpl(null));
-        assertion.getStatements().add(new AttributeStatementImpl(null));
-        assertion.getStatements().add(new AuthenticationStatementImpl(null));
-        assertion.getStatements().add(new AuthorizationDecisionStatementImpl(null));
-        assertion.getStatements().add(new AttributeStatementImpl(null));
-        assertion.getStatements().add(new AuthorizationDecisionStatementImpl(null));
-        assertion.getStatements().add(new AttributeStatementImpl(null));
+        QName authenticationQname = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName authorizationQname = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName attributeQname = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        
+        assertion.getStatements().add((Statement) buildXMLObject(authenticationQname));
+        assertion.getStatements().add((Statement) buildXMLObject(authorizationQname));
+        assertion.getStatements().add((Statement) buildXMLObject(attributeQname));
+        assertion.getStatements().add((Statement) buildXMLObject(authenticationQname));
+        assertion.getStatements().add((Statement) buildXMLObject(authorizationQname));
+        assertion.getStatements().add((Statement) buildXMLObject(attributeQname));
+        assertion.getStatements().add((Statement) buildXMLObject(authorizationQname));
+        assertion.getStatements().add((Statement) buildXMLObject(attributeQname));
 
         assertEquals(expectedChildElementsDOM, assertion);
     }

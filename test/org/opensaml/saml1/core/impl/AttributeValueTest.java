@@ -19,13 +19,19 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeValue;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.impl.AttributeValue}
  */
 public class AttributeValueTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     private final String expectedAttributeValue;
     
@@ -37,6 +43,7 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
         expectedAttributeValue = "Test Attribute Value";
         singleElementFile = "/data/org/opensaml/saml1/singleAttributeValue.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeValueContents.xml";
+        qname = new QName(SAMLConstants.SAML1_NS, AttributeValue.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -64,7 +71,7 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AttributeValueImpl(null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -72,7 +79,7 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        AttributeValue attributeValue = new AttributeValueImpl(null);
+        AttributeValue attributeValue = (AttributeValue) buildXMLObject(qname);
         
         attributeValue.setAttributeValue(expectedAttributeValue);
         assertEquals(expectedOptionalAttributesDOM, attributeValue);

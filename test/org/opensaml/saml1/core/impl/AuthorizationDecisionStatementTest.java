@@ -20,12 +20,17 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.HashMap;
+import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionType;
+import org.opensaml.saml1.core.Evidence;
+import org.opensaml.saml1.core.Status;
+import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Document;
@@ -36,6 +41,9 @@ import org.xml.sax.InputSource;
  * 
  */
 public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /** Value for Resource attribute specified in test file with attributes */
     private final String expectedResource = "resource";
@@ -55,6 +63,8 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthorizationDecisionStatementAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/AuthorizationDecisionStatementWithChildren.xml";
         illegalAttributesFile = "/data/org/opensaml/saml1/singleAuthorizationDecisionStatementAttributesInvalid.xml";
+        
+        qname = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -92,7 +102,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
             Element samlElement = doc.getDocumentElement();
 
             authorizationDecisionStatement = (AuthorizationDecisionStatement) new AuthorizationDecisionStatementUnmarshaller()
-                    .unmarshall(samlElement, new HashMap<String, Object>());
+                    .unmarshall(samlElement);
 
             fail("illegal attribute successfully parsed");
         } catch (UnmarshallingException e) {
@@ -123,7 +133,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AuthorizationDecisionStatementImpl(null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -133,7 +143,7 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
 
-        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl(null);
+        authorizationDecisionStatement = (AuthorizationDecisionStatement) buildXMLObject(qname);
         authorizationDecisionStatement.setDecision(expectedDecision);
         authorizationDecisionStatement.setResource(expectedResource);
 
@@ -147,15 +157,18 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
 
-        authorizationDecisionStatement = new AuthorizationDecisionStatementImpl(null);
+        authorizationDecisionStatement = (AuthorizationDecisionStatement) buildXMLObject(qname);
 
-        authorizationDecisionStatement.setSubject(new SubjectImpl(null));
-        authorizationDecisionStatement.getActions().add(new ActionImpl(null));
-        authorizationDecisionStatement.getActions().add(new ActionImpl(null));
-        authorizationDecisionStatement.getActions().add(new ActionImpl(null));
-        authorizationDecisionStatement.setEvidence(new EvidenceImpl(null));
+        QName oqname = new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        authorizationDecisionStatement.setSubject((Subject) buildXMLObject(oqname));
+        oqname = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        authorizationDecisionStatement.getActions().add((Action) buildXMLObject(oqname));
+        authorizationDecisionStatement.getActions().add((Action) buildXMLObject(oqname));
+        authorizationDecisionStatement.getActions().add((Action) buildXMLObject(oqname));
+        oqname = new QName(SAMLConstants.SAML1_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        authorizationDecisionStatement.setEvidence((Evidence) buildXMLObject(oqname));
 
-        authorizationDecisionStatement.setEvidence(new EvidenceImpl(null));
+        authorizationDecisionStatement.setEvidence((Evidence) buildXMLObject(oqname));
 
         assertEquals(expectedChildElementsDOM, authorizationDecisionStatement);
     }

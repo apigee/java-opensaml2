@@ -30,6 +30,9 @@ import org.opensaml.saml1.core.AssertionArtifact;
  */
 public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
 
+    /** name used to generate objects */
+    private final QName qname;
+
     private final String expectedAssertionArtifact;  
     
     /**
@@ -40,6 +43,7 @@ public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleAssertionArtifact.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAssertionArtifactAttribute.xml";
         expectedAssertionArtifact = "Test Text";
+        qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
@@ -64,18 +68,14 @@ public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
-        
-        assertEquals(expectedDOM, buildXMLObject(qname, null));
+       assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
-        
-        AssertionArtifact artifact = (AssertionArtifact) buildXMLObject(qname, null);
+        AssertionArtifact artifact = (AssertionArtifact) buildXMLObject(qname);
         artifact.setAssertionArtifact(expectedAssertionArtifact);
         assertEquals(expectedOptionalAttributesDOM, artifact);
     }

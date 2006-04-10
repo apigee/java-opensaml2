@@ -16,21 +16,18 @@
 
 package org.opensaml.saml1.core.validator;
 
-import java.util.HashMap;
-
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AttributeStatement;
-import org.opensaml.saml1.core.impl.AbstractSAMLObjectBuilder;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AssertionSchemaValidator}.
  */
-public class AssertionSchemaTest extends SAML1ObjectValidatorBaseTestCase {
+public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AssertionSchemaTest() {
@@ -49,7 +46,7 @@ public class AssertionSchemaTest extends SAML1ObjectValidatorBaseTestCase {
         assertion.setID("ident");
         assertion.setIssueInstant(new DateTime());
         QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        assertion.getStatements().add((AttributeStatement)buildXMLObject(name, context));
+        assertion.getStatements().add((AttributeStatement)buildXMLObject(name));
         
     }
     /*
@@ -61,13 +58,9 @@ public class AssertionSchemaTest extends SAML1ObjectValidatorBaseTestCase {
     }
     
     public void testWrongVersion() {
-        target = buildXMLObject(targetQName, otherContext);
+        target = buildXMLObject(targetQName);
         setupRequiredData();
         assertValidationPass("SAML1.0 is OK");
-        HashMap<String, Object> saml2Context = new HashMap<String, Object>(context.size());
-        saml2Context.putAll(context);
-        saml2Context.put(AbstractSAMLObjectBuilder.contextVersion, SAMLVersion.VERSION_20);
-        target = buildXMLObject(targetQName, saml2Context);
         setupRequiredData();
         assertValidationFail("SAML2.0 is not OK");
     }

@@ -19,13 +19,19 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
 
 /**
  * test for {@link org.opensaml.saml1.core.impl.ConfirmationMethod}
  */
 public class ConfirmationMethodTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /** Pattern in XML file */
     private String expectedConfirmationMethod;
@@ -38,6 +44,8 @@ public class ConfirmationMethodTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleConfirmationMethod.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleConfirmationMethodAttributes.xml";
         expectedConfirmationMethod = "confirmation";
+        
+        qname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -66,9 +74,7 @@ public class ConfirmationMethodTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        ConfirmationMethod confirmationMethod = new ConfirmationMethodImpl(null);
-        
-        assertEquals(expectedDOM, confirmationMethod);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -76,7 +82,7 @@ public class ConfirmationMethodTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        ConfirmationMethod confirmationMethod = new ConfirmationMethodImpl(null);
+        ConfirmationMethod confirmationMethod = (ConfirmationMethod) buildXMLObject(qname);
         confirmationMethod.setConfirmationMethod(expectedConfirmationMethod);
         
         assertEquals(expectedOptionalAttributesDOM, confirmationMethod);

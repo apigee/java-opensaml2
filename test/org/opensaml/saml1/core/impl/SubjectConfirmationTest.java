@@ -20,9 +20,14 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
+import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -30,6 +35,9 @@ import org.xml.sax.InputSource;
  * Test for {@link org.opensaml.saml1.core.impl.Subject}
  */
 public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     private String fullElementsFile;
 
@@ -44,6 +52,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleSubjectConfirmation.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleSubjectConfirmation.xml";
         fullElementsFile = "/data/org/opensaml/saml1/SubjectConfirmationWithChildren.xml";
+        qname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -91,9 +100,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl(null);
-
-        assertEquals(expectedDOM, subjectConfirmation);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -108,11 +115,13 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
      */
 
     public void testFullElementsMarshall() {
-        SubjectConfirmation subjectConfirmation = new SubjectConfirmationImpl(null);
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmationImpl) buildXMLObject(qname);
 
-        subjectConfirmation.getConfirmationMethods().add(new ConfirmationMethodImpl(null));
-        subjectConfirmation.getConfirmationMethods().add(new ConfirmationMethodImpl(null));
-        subjectConfirmation.setSubjectConfirmationData(new SubjectConfirmationDataImpl(null));
+        QName oqname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod) buildXMLObject(oqname));
+        subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod) buildXMLObject(oqname));
+        oqname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmationData.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) buildXMLObject(oqname));
 
         assertEquals(expectedFullDOM, subjectConfirmation);
     }

@@ -20,16 +20,24 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
+import org.opensaml.saml1.core.Subject;
+import org.opensaml.saml1.core.SubjectLocality;
 
 /**
  * 
  */
 public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /** Expected value of AuthenticationMethod */
     private String expectedAuthenticationMethod;
@@ -51,6 +59,8 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleAuthenticationStatement.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthenticationStatementAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/AuthenticationStatementWithChildren.xml";
+        
+        qname = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -103,7 +113,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AuthenticationStatementImpl(null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -111,7 +121,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        AuthenticationStatement authenticationStatement = new AuthenticationStatementImpl(null);
+        AuthenticationStatement authenticationStatement = (AuthenticationStatement) buildXMLObject(qname);
 
         authenticationStatement.setAuthenticationInstant(expectedAuthenticationInstant);
         authenticationStatement.setAuthenticationMethod(expectedAuthenticationMethod);
@@ -123,14 +133,14 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
+        AuthenticationStatement authenticationStatement = (AuthenticationStatement) buildXMLObject(qname);
 
-        AuthenticationStatement authenticationStatement = new AuthenticationStatementImpl(null);
+        authenticationStatement.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
 
-        authenticationStatement.setSubject(new SubjectImpl(null));
-
-        authenticationStatement.setSubjectLocality(new SubjectLocalityImpl(null));
-        authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl(null));
-        authenticationStatement.getAuthorityBindings().add(new AuthorityBindingImpl(null));
+        authenticationStatement.setSubjectLocality((SubjectLocality) buildXMLObject(new QName(SAMLConstants.SAML1_NS, SubjectLocality.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        QName authQname = new QName(SAMLConstants.SAML1_NS, AuthorityBinding.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        authenticationStatement.getAuthorityBindings().add((AuthorityBinding) buildXMLObject(authQname));
+        authenticationStatement.getAuthorityBindings().add((AuthorityBinding) buildXMLObject(authQname));
 
         assertEquals(expectedChildElementsDOM, authenticationStatement);
     }

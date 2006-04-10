@@ -19,6 +19,7 @@ package org.opensaml.saml1.core.validator;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AttributeStatement;
@@ -26,7 +27,7 @@ import org.opensaml.saml1.core.AttributeStatement;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AssertionSchemaValidator}.
  */
-public class AssertionSpecTest extends SAML1ObjectValidatorBaseTestCase {
+public class AssertionSpecTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AssertionSpecTest() {
@@ -45,14 +46,14 @@ public class AssertionSpecTest extends SAML1ObjectValidatorBaseTestCase {
         assertion.setID("ident");
         assertion.setIssueInstant(new DateTime());
         QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        assertion.getStatements().add((AttributeStatement)buildXMLObject(name, context));
+        assertion.getStatements().add((AttributeStatement)buildXMLObject(name));
     }
     
     public void testWrongSubVersion() {
 
         QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         Assertion assertion = (Assertion) target;
-        assertion.getStatements().add((AttributeStatement)buildXMLObject(name, otherContext));
+        assertion.getStatements().add((AttributeStatement)buildXMLObject(name));
         
         assertValidationFail("Invalid child version, should raise a Validation Exception");
     }

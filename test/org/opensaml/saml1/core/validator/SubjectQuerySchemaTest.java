@@ -26,7 +26,7 @@ import org.opensaml.saml1.core.SubjectQuery;
 /**
  * Test class for {@link org.opensaml.saml1.core.validator.SubjectQuerySchemaValidator}.
  */
-public abstract class SubjectQuerySchemaTest extends SAML1ObjectValidatorBaseTestCase {
+public abstract class SubjectQuerySchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public SubjectQuerySchemaTest() {
@@ -41,7 +41,7 @@ public abstract class SubjectQuerySchemaTest extends SAML1ObjectValidatorBaseTes
         
         SubjectQuery query = (SubjectQuery) target;
         QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        query.setSubject((Subject) buildXMLObject(qname, context));
+        query.setSubject((Subject) buildXMLObject(qname));
     }
     
     public void testSubject() {

@@ -19,13 +19,19 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
 
 /**
  * Test case for NameIdentifier
  */
 public class NameIdentifierTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     private String expectedNameIdentifier;
     private String expectedFormat;
@@ -41,6 +47,7 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
         expectedFormat = "format";
         expectedNameIdentifier = "IdentifierText";
         expectedNameQualifier = "Qualifier";
+        qname = new QName(SAMLConstants.SAML1_NS, NameIdentifier.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -72,9 +79,7 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        NameIdentifier nameIdentifier = new NameIdentifierImpl(null);
-        
-        assertEquals(expectedDOM, nameIdentifier);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -82,7 +87,7 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        NameIdentifier nameIdentifier = new NameIdentifierImpl(null);
+        NameIdentifier nameIdentifier = (NameIdentifier) buildXMLObject(qname);
         
         nameIdentifier.setFormat(expectedFormat);
         nameIdentifier.setNameIdentifier(expectedNameIdentifier);

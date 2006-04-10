@@ -18,13 +18,14 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.ActionSpecValidator}.
  */
-public class ActionSpecTest extends SAML1ObjectValidatorBaseTestCase {
+public class ActionSpecTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public ActionSpecTest() {

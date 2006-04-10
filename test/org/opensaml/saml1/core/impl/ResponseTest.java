@@ -20,16 +20,13 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
 
@@ -37,6 +34,9 @@ import org.opensaml.saml1.core.Status;
  * Test class for org.opensaml.saml1.core.Response
  */
 public class ResponseTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /** Representation of IssueInstant in test file. */
     private final String expectedID;
@@ -69,6 +69,8 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         expectedInResponseTo="inresponseto";
         expectedMinorVersion=1;
         expectedRecipient="recipient";
+        
+        qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /**
@@ -128,19 +130,14 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        Map<String, Object> context = new HashMap<String, Object>(1);
-        context.put(AbstractSAMLObjectBuilder.contextVersion, null);
-        Response response = (Response) buildXMLObject(qname, null);
-
-        assertEquals(expectedDOM, response);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        Response response = new ResponseImpl(SAMLVersion.VERSION_11);
+        Response response = (Response) buildXMLObject(qname);
 
         response.setID(expectedID);
         response.setInResponseTo(expectedInResponseTo);
@@ -154,13 +151,10 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
-        Map<String, Object> context = new HashMap<String, Object>(1);
-        context.put(AbstractSAMLObjectBuilder.contextVersion, null);
-        Response response = (Response) buildXMLObject(qname, null);
+        Response response = (Response) buildXMLObject(qname);
 
-        response.getAssertions().add(new AssertionImpl(null));
-        response.setStatus(new StatusImpl(null));
+        response.getAssertions().add((Assertion) buildXMLObject(new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX)));
+        response.setStatus((Status)buildXMLObject(new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX)));
 
         assertEquals(expectedChildElementsDOM, response);
 

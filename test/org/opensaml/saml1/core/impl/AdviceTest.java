@@ -20,13 +20,21 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
+import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.AssertionIDReference;
 
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Advice}
  */
 public class AdviceTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /**
      * Constructor
@@ -36,6 +44,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
 
         singleElementFile = "/data/org/opensaml/saml1/singleAdvice.xml";
         childElementsFile = "/data/org/opensaml/saml1/AdviceWithChildren.xml";
+        qname = new QName(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -62,9 +71,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        Advice advice = new AdviceImpl(null);
-
-        assertEquals(expectedDOM, advice);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -72,11 +79,14 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        Advice advice = new AdviceImpl(null);
-
-        advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl(null));
-        advice.getAssertions().add(new AssertionImpl(null));
-        advice.getAssertionIDReferences().add(new AssertionIDReferenceImpl(null));
+        Advice advice = (Advice) buildXMLObject(qname);
+        
+        QName assertionIDRefQname = new QName(SAMLConstants.SAML1P_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName assertionQname = new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        
+        advice.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(assertionIDRefQname));
+        advice.getAssertions().add((Assertion) buildXMLObject(assertionQname) );
+        advice.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(assertionIDRefQname));
 
         assertEquals(expectedChildElementsDOM, advice);
     }

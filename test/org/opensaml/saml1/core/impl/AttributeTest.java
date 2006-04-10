@@ -20,13 +20,20 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
+import org.opensaml.saml1.core.AttributeValue;
 
 /**
  * 
  */
 public class AttributeTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /** Value from test file */
     private final String expectedAttributeName;
@@ -44,6 +51,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml1/AttributeWithChildren.xml";
         expectedAttributeName = "AttributeName";
         expectedAttributeNamespace = "namespace";
+        qname = new QName(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -85,7 +93,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AttributeImpl(null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -93,7 +101,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        Attribute attribute = new AttributeImpl(null);
+        Attribute attribute = (Attribute) buildXMLObject(qname);
 
         attribute.setAttributeName(expectedAttributeName);
         attribute.setAttributeNamespace(expectedAttributeNamespace);
@@ -105,12 +113,14 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        Attribute attribute = new AttributeImpl(null);
+        Attribute attribute = (Attribute) buildXMLObject(qname);
 
-        attribute.getAttributeValues().add(new AttributeValueImpl(null));
-        attribute.getAttributeValues().add(new AttributeValueImpl(null));
-        attribute.getAttributeValues().add(new AttributeValueImpl(null));
-        attribute.getAttributeValues().add(new AttributeValueImpl(null));
+        QName attname = new QName(SAMLConstants.SAML1_NS, AttributeValue.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        
+        attribute.getAttributeValues().add((AttributeValue) buildXMLObject(attname)); 
+        attribute.getAttributeValues().add((AttributeValue) buildXMLObject(attname)); 
+        attribute.getAttributeValues().add((AttributeValue) buildXMLObject(attname)); 
+        attribute.getAttributeValues().add((AttributeValue) buildXMLObject(attname)); 
 
         assertEquals(expectedChildElementsDOM, attribute);
     }

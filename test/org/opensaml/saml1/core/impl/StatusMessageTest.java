@@ -19,13 +19,19 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusMessage;
 
 /**
  * Test for org.opensaml.saml1.core.StatusMessage 
  */
 public class StatusMessageTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     private final String contents;
 
@@ -39,6 +45,8 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
         contents = "Nibble a Happy Warthog";
         singleElementFile = "/data/org/opensaml/saml1/singleStatusMessage.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/FullStatusMessage.xml";
+        
+        qname = new QName(SAMLConstants.SAML1P_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
@@ -64,9 +72,7 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        StatusMessage statusMessage = new StatusMessageImpl(null);
-        
-        assertEquals(expectedDOM, statusMessage);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -74,7 +80,7 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        StatusMessage statusMessage = new StatusMessageImpl(null);
+        StatusMessage statusMessage = (StatusMessage) buildXMLObject(qname);
 
         statusMessage.setMessage(contents);
         assertEquals(expectedOptionalAttributesDOM, statusMessage);

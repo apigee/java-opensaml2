@@ -28,13 +28,17 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeQuery;
+import org.opensaml.saml1.core.Subject;
 
 /**
  * Test class for org.opensaml.saml1.core.AttributeQuery
  */
 public class AttributeQueryTest extends SAMLObjectBaseTestCase {
 
-    /** The expected value of the Resource Identifier */
+    /** name used to generate objects */
+    private final QName qname;
+
+   /** The expected value of the Resource Identifier */
     private final String expectedResource;
 
     /**
@@ -44,8 +48,8 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleAttributeQuery.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeQueryAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/AttributeQueryWithChildren.xml";
-
         expectedResource = "resource";
+        qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /**
@@ -88,18 +92,15 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
-        
-        assertEquals(expectedDOM, buildXMLObject(qname, null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
         AttributeQuery attributeQuery;
-        attributeQuery = (AttributeQuery) buildXMLObject(qname, null);
+        attributeQuery = (AttributeQuery) buildXMLObject(qname);
 
         attributeQuery.setResource(expectedResource);
         assertEquals(expectedOptionalAttributesDOM, attributeQuery);
@@ -109,16 +110,15 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
-        AttributeQuery attributeQuery;
-        attributeQuery = (AttributeQuery) buildXMLObject(qname, null);
+        AttributeQuery attributeQuery = (AttributeQuery) buildXMLObject(qname);
 
-        attributeQuery.setSubject(new SubjectImpl(null));
+        attributeQuery.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
         List <AttributeDesignator> list = attributeQuery.getAttributeDesignators();
-        list.add(new AttributeDesignatorImpl(null));
-        list.add(new AttributeDesignatorImpl(null));
-        list.add(new AttributeDesignatorImpl(null));
-        list.add(new AttributeDesignatorImpl(null));
+        QName attqname = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);  
+        list.add((AttributeDesignator) buildXMLObject(attqname));
+        list.add((AttributeDesignator) buildXMLObject(attqname));
+        list.add((AttributeDesignator) buildXMLObject(attqname)); 
+        list.add((AttributeDesignator) buildXMLObject(attqname)); 
         assertEquals(expectedChildElementsDOM, attributeQuery);
 
     }

@@ -20,13 +20,21 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.saml1.core.StatusMessage;
 
 /**
  * org.opensaml.saml1.core.Status
  */
 public class StatusTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /**
      * Constructor
@@ -36,6 +44,8 @@ public class StatusTest extends SAMLObjectBaseTestCase {
 
         childElementsFile = "/data/org/opensaml/saml1/FullStatus.xml";
         singleElementFile = "/data/org/opensaml/saml1/singleStatus.xml";
+        
+        qname = new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
@@ -67,9 +77,11 @@ public class StatusTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        Status status = new StatusImpl(null);
+        Status status = (Status) buildXMLObject(qname);
 
-        status.setStatusCode(new StatusCodeImpl(null));
+        QName oqname = new QName(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        
+        status.setStatusCode((StatusCode)buildXMLObject(oqname));
 
         status.getStatusCode().setValue("samlp:Sucess");
 
@@ -81,10 +93,13 @@ public class StatusTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        Status status = new StatusImpl(null);
+        Status status = (Status) buildXMLObject(qname);
 
-        status.setStatusCode(new StatusCodeImpl(null));
-        status.setStatusMessage(new StatusMessageImpl(null));
+        QName oqname = new QName(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        
+        status.setStatusCode((StatusCode)buildXMLObject(oqname));
+        oqname = new QName(SAMLConstants.SAML1P_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        status.setStatusMessage((StatusMessage)buildXMLObject(oqname));
 
         status.getStatusCode().setValue("samlp:Sucess");
 

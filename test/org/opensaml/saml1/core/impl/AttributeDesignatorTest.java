@@ -20,13 +20,19 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 
 /**
  * 
  */
 public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /** Value from test file */
     private final String expectedAttributeName;
@@ -43,6 +49,7 @@ public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeDesignatorAttributes.xml";
         expectedAttributeName = "AttributeName";
         expectedAttributeNamespace = "namespace";
+        qname = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -69,14 +76,14 @@ public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AttributeDesignatorImpl(null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        AttributeDesignator ad = new AttributeDesignatorImpl(null);
+        AttributeDesignator ad = (AttributeDesignator) buildXMLObject(qname);
 
         ad.setAttributeName(expectedAttributeName);
         ad.setAttributeNamespace(expectedAttributeNamespace);

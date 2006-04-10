@@ -20,7 +20,11 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 
 /**
@@ -28,12 +32,16 @@ import org.opensaml.saml1.core.AudienceRestrictionCondition;
  */
 public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
 
+    /** name used to generate objects */
+    private final QName qname;
+
     /**
      * Constructor
      */
     public AudienceRestrictionConditionTest() {
         singleElementFile = "/data/org/opensaml/saml1/singleAudienceRestrictionCondition.xml";
         childElementsFile = "/data/org/opensaml/saml1/AudienceRestrictionConditionWithChildren.xml";
+        qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -67,12 +75,7 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-
-        AudienceRestrictionCondition audienceRestrictionCondition;
-
-        audienceRestrictionCondition = new AudienceRestrictionConditionImpl(null);
-
-        assertEquals(expectedDOM, audienceRestrictionCondition);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -82,10 +85,11 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         AudienceRestrictionCondition audienceRestrictionCondition;
 
-        audienceRestrictionCondition = new AudienceRestrictionConditionImpl(null);
+        audienceRestrictionCondition = (AudienceRestrictionCondition) buildXMLObject(qname);
 
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl(null));
-        audienceRestrictionCondition.getAudiences().add(new AudienceImpl(null));
+        QName audienceName = new QName(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        audienceRestrictionCondition.getAudiences().add((Audience) buildXMLObject(audienceName));
+        audienceRestrictionCondition.getAudiences().add((Audience) buildXMLObject(audienceName));
 
         assertEquals(expectedChildElementsDOM, audienceRestrictionCondition);
     }

@@ -16,7 +16,10 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
 
 /**
@@ -24,12 +27,13 @@ import org.opensaml.saml1.core.StatusCode;
  */
 public class StatusCodeTest extends SAMLObjectBaseTestCase {
 
-    /** The expected value for the value attribute */
+    /** name used to generate objects */
+    private final QName qname;
 
+    /** The expected value for the value attribute */
     private final String value;
 
     /** The expected value for the value attribute okf the child element */
-
     private final String childValue;
 
     /**
@@ -41,6 +45,8 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleStatusCode.xml";
         value = "samlp:Success";
         childValue = "samlp:VersionMismatch";
+        
+        qname = new QName(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
@@ -70,7 +76,7 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        StatusCode code = new StatusCodeImpl(null);
+        StatusCode code = (StatusCode) buildXMLObject(qname);
 
         code.setValue(value);
 
@@ -83,11 +89,11 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
     @Override
     public void testChildElementsMarshall() {
 
-        StatusCode code = new StatusCodeImpl(null);
+        StatusCode code = (StatusCode) buildXMLObject(qname);
 
         code.setValue(value);
 
-        code.setStatusCode(new StatusCodeImpl(null));
+        code.setStatusCode((StatusCode) buildXMLObject(qname));
 
         code.getStatusCode().setValue(childValue);
 

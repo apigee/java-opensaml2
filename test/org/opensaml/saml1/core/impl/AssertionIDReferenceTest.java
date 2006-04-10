@@ -20,7 +20,10 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionIDReference;
 
 /**
@@ -30,6 +33,10 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
 
     private final String expectedNCName;
 
+    /** name used to generate objects */
+    private final QName qname;
+
+
     /**
      * Constructor
      */
@@ -38,6 +45,7 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleAssertionIDReference.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAssertionIDReferenceContents.xml";
         expectedNCName = "NibbleAHappyWarthog";
+        qname = new QName(SAMLConstants.SAML1P_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
@@ -71,9 +79,7 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        AssertionIDReference assertionIDReference = new AssertionIDReferenceImpl(null);
-
-        assertEquals(expectedDOM, assertionIDReference);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -82,7 +88,7 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        AssertionIDReference assertionIDReference = new AssertionIDReferenceImpl(null);
+        AssertionIDReference assertionIDReference = (AssertionIDReference) buildXMLObject(qname);
 
         assertionIDReference.setNCName(expectedNCName);
         assertEquals(expectedOptionalAttributesDOM, assertionIDReference);

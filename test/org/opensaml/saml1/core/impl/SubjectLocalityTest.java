@@ -19,13 +19,19 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectLocality;
 
 /**
  * Test for {@link org.opensaml.saml1.core.impl.SubjectLocalityImpl}
  */
 public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /** Value of IPAddress in test file */
     private final String expectedIPAddress;
@@ -42,6 +48,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
         expectedDNSAddress = "shibboleth.internet2.edu";
         singleElementFile = "/data/org/opensaml/saml1/singleSubjectLocality.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleSubjectLocalityAttributes.xml";
+        qname = new QName(SAMLConstants.SAML1_NS, SubjectLocality.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -71,7 +78,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new SubjectLocalityImpl(null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -79,7 +86,7 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        SubjectLocality subjectLocality = new SubjectLocalityImpl(null);
+        SubjectLocality subjectLocality = (SubjectLocality) buildXMLObject(qname);
         
         subjectLocality.setDNSAddress(expectedDNSAddress);
         subjectLocality.setIPAddress(expectedIPAddress);

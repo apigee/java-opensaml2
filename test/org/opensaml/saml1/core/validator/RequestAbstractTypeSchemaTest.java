@@ -16,14 +16,9 @@
 
 package org.opensaml.saml1.core.validator;
 
-import javax.xml.namespace.QName;
-
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
-import org.opensaml.common.SAMLVersion;
-import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.RequestAbstractType;
-import org.opensaml.saml1.core.impl.AbstractSAMLObjectBuilder;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.RequestSchemaValidator}.
@@ -33,7 +28,6 @@ public abstract class RequestAbstractTypeSchemaTest extends SAMLObjectValidatorB
     /** Constructor */
     public RequestAbstractTypeSchemaTest() {
         super();
-        context.put(AbstractSAMLObjectBuilder.contextVersion, SAMLVersion.VERSION_11);
     }
 
     /*
@@ -43,7 +37,7 @@ public abstract class RequestAbstractTypeSchemaTest extends SAMLObjectValidatorB
         super.populateRequiredData();
         
         // TODO - remove when builder always takes a context
-        target = buildXMLObject(targetQName, context);
+        target = buildXMLObject(targetQName);
         RequestAbstractType request = (RequestAbstractType) target;
         request.setID("Ident");
         request.setIssueInstant(new DateTime());

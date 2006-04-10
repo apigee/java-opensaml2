@@ -22,9 +22,6 @@ import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.saml1.core.impl.AudienceImpl;
-
-import sun.security.provider.certpath.BuildStep;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionConditionSchemaValidator}.
@@ -46,7 +43,7 @@ public class AudienceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
         
         AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
         QName name = new QName(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        audienceRestrictionCondition.getAudiences().add((Audience)buildXMLObject(name, context));
+        audienceRestrictionCondition.getAudiences().add((Audience)buildXMLObject(name));
     }
     
     public void testMissingAudience(){

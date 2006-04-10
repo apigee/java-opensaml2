@@ -19,7 +19,10 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 
 /**
@@ -29,7 +32,8 @@ public class ActionTest extends SAMLObjectBaseTestCase {
 
     private final String expectedContents;
     private final String expectedNamespace;
-    
+    private final QName qname;
+
     /**
      * Constructor
      */
@@ -39,6 +43,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile  = "/data/org/opensaml/saml1/singleActionAttributes.xml";    
         expectedNamespace = "namespace";
         expectedContents = "Action Contents";
+        qname = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
     
 
@@ -67,7 +72,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new ActionImpl(null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -75,7 +80,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        Action action = new ActionImpl(null);
+        Action action =(Action) buildXMLObject(qname);
         action.setNamespace(expectedNamespace);
         action.setContents(expectedContents);
         assertEquals(expectedOptionalAttributesDOM, action);

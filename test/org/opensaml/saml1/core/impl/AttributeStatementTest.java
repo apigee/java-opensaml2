@@ -22,14 +22,22 @@ package org.opensaml.saml1.core.impl;
 
 import java.util.ArrayList;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
+import org.opensaml.saml1.core.Subject;
 
 /**
  * Test for {@link org.opensaml.saml1.core.AttributeStatement}
  */
 public class AttributeStatementTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /**
      * Constructor
@@ -38,6 +46,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
         super();
         singleElementFile = "/data/org/opensaml/saml1/singleAttributeStatement.xml";
         childElementsFile = "/data/org/opensaml/saml1/AttributeStatementWithChildren.xml";
+        qname = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -83,7 +92,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, new AttributeStatementImpl(null));
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -92,12 +101,13 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
     @Override
     public void testChildElementsMarshall() {
 
-        AttributeStatement attributeStatement = new AttributeStatementImpl(null);
+        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
 
-        attributeStatement.setSubject(new SubjectImpl(null));
+        attributeStatement.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
 
+        QName oqname = new QName(SAMLConstants.SAML1P_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         for (int i = 0; i < 5; i++) {
-            attributeStatement.getAttributes().add(new AttributeImpl(null));
+            attributeStatement.getAttributes().add((Attribute) buildXMLObject(oqname));
         }
 
         assertEquals(expectedChildElementsDOM, attributeStatement);

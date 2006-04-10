@@ -26,12 +26,17 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Conditions;
+import org.opensaml.saml1.core.DoNotCacheCondition;
 
 /**
  * Test class for org.opensaml.saml1.core.Conditions
  */
 public class ConditionsTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     /**
      * Representation of NotBefore in test file.
@@ -59,6 +64,8 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         // NotOnOrAfter="1970-01-01T00:00:01.000Z"
         //
         expectedNotOnOfAfter = new DateTime(1970, 1, 01, 00, 00, 01, 0, ISOChronology.getInstanceUTC());
+        
+        qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -107,8 +114,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        Conditions conditions = (Conditions) buildXMLObject(qname, null);
+        Conditions conditions = (Conditions) buildXMLObject(qname);
 
         assertEquals(expectedDOM, conditions);
 
@@ -118,8 +124,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        Conditions conditions = (Conditions) buildXMLObject(qname, null);
+        Conditions conditions = (Conditions) buildXMLObject(qname);
 
         conditions.setNotBefore(expectedNotBeforeDate);
         conditions.setNotOnOrAfter(expectedNotOnOfAfter);
@@ -131,17 +136,19 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
-        Conditions conditions = (Conditions) buildXMLObject(qname, null);
 
-        conditions.getConditions().add(new AudienceRestrictionConditionImpl(null));
-        conditions.getConditions().add(new DoNotCacheConditionImpl(null));
+        Conditions conditions = (Conditions) buildXMLObject(qname);
+
+        QName arcQname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        
+        conditions.getConditions().add((AudienceRestrictionCondition) buildXMLObject(arcQname));
+        conditions.getConditions().add((DoNotCacheCondition) buildXMLObject(new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
         // conditions.addCondition(condition);
 
-        conditions.getConditions().add(new AudienceRestrictionConditionImpl(null));
+        conditions.getConditions().add((AudienceRestrictionCondition) buildXMLObject(arcQname));
         // conditions.addCondition(condition);
         //           
-        conditions.getConditions().add(new AudienceRestrictionConditionImpl(null));
+        conditions.getConditions().add((AudienceRestrictionCondition) buildXMLObject(arcQname));
 
         assertEquals(expectedChildElementsDOM, conditions);
 

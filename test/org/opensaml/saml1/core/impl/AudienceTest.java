@@ -19,13 +19,19 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 
 /**
  * Test for org.opensaml.saml1.core.Audience Objects
  */
 public class AudienceTest extends SAMLObjectBaseTestCase {
+
+    /** name used to generate objects */
+    private final QName qname;
 
     private final String expectedUri;
     
@@ -37,6 +43,7 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/singleAudience.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAudienceAttributes.xml";
         expectedUri = "urn:oasis:names:tc:SAML:1.0:assertion";
+        qname = new QName(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -66,9 +73,7 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        Audience audience = new AudienceImpl(null);
-        
-        assertEquals(expectedDOM, audience);
+        assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
     /*
@@ -76,7 +81,7 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementOptionalAttributesMarshall() {
-        Audience audience = new AudienceImpl(null);
+        Audience audience = (Audience) buildXMLObject(qname);
         
         audience.setUri(expectedUri);
         assertEquals(expectedOptionalAttributesDOM, audience);

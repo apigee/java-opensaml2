@@ -18,6 +18,7 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Condition;
@@ -27,7 +28,7 @@ import org.opensaml.saml1.core.DoNotCacheCondition;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AttributeQuerySchemaValidator}.
  */
-public class ConditionsSpecTest extends SAML1ObjectValidatorBaseTestCase  {
+public class ConditionsSpecTest extends SAMLObjectValidatorBaseTestCase  {
 
     /** Constructor */
     public ConditionsSpecTest() {
@@ -44,22 +45,22 @@ public class ConditionsSpecTest extends SAML1ObjectValidatorBaseTestCase  {
         
         Conditions conditions = (Conditions) target;
         QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        conditions.getConditions().add((AudienceRestrictionCondition) buildXMLObject(qname, context));
+        conditions.getConditions().add((AudienceRestrictionCondition) buildXMLObject(qname));
     }
     
     public void testVersions() {
         Conditions conditions = (Conditions) target;
         QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        conditions.getConditions().add((Condition) buildXMLObject(qname, otherContext));
+        conditions.getConditions().add((Condition) buildXMLObject(qname));
         assertValidationFail("Condition version mismatch, should thow an exception ");
     }
     
     public void testDoNotCacheCondition() {
-        target = buildXMLObject(targetQName, otherContext);
+        target = buildXMLObject(targetQName);
         Conditions conditions = (Conditions) target;
 
         QName qname = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        conditions.getConditions().add((Condition) buildXMLObject(qname, otherContext));
+        conditions.getConditions().add((Condition) buildXMLObject(qname));
         assertValidationFail("DoNotCache , should thow an exception ");
     }
     

@@ -19,7 +19,10 @@
  */
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.DoNotCacheCondition;
 
 /**
@@ -50,9 +53,7 @@ public class DoNotCacheConditionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        DoNotCacheCondition doNotCacheCondition = new DoNotCacheConditionImpl(null);
-
-        assertEquals(expectedDOM, doNotCacheCondition);
+        assertEquals(expectedDOM, buildXMLObject(new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
     }
 
 }
