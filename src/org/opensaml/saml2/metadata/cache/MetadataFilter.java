@@ -16,7 +16,7 @@
 
 package org.opensaml.saml2.metadata.cache;
 
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A metadata filter is used to remove unwanted portions of a metadata document
@@ -35,5 +35,5 @@ public interface MetadataFilter {
      * 
      * @throws FilterException thrown if an error occurs during the filtering process
      */
-    public void doFilter(EntitiesDescriptor metadata) throws FilterException;
+    public void doFilter(XMLObject object) throws FilterException;
 }

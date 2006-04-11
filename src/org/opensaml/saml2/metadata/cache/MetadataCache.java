@@ -17,6 +17,7 @@
 package org.opensaml.saml2.metadata.cache;
 
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.resolver.MetadataResolverFactory;
 import org.opensaml.saml2.metadata.resolver.ResolutionException;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -57,13 +58,24 @@ public interface MetadataCache {
     public void loadMetadata(String metadataURI, MetadataResolverFactory resolverFactory, MetadataFilter filter)throws ResolutionException, UnmarshallingException, FilterException;
     
     /**
-     * Retrieves previously loaded metadata from the repository.
+     * Retrieves metadata corrsponding to the URI iff the top level of the metadata
+     * is an EntitiesDescriptor
      * 
      * @param URI URI of the metadata
      * 
      * @return the metadata
      */
-    public EntitiesDescriptor retrieveMetadata(String URI);
+    public EntitiesDescriptor retrieveEntities(String URI);
+    
+    /**
+     * Retrieves metadata corrsponding to the URI iff the top level of the metadata
+     * is an EntityDescriptor
+     * 
+     * @param URI URI of the metadata
+     * 
+     * @return the metadata  Returns null i
+     */
+    public EntityDescriptor retrieveEntity(String URI);
     
     /**
      * Removes a metadata document from the repository.
@@ -71,4 +83,10 @@ public interface MetadataCache {
      * @param metadataURI the URI of the metadata document
      */
     public void removeMetadata(String metadataURI);
+    
+    /**
+     * Invalidate the metadata.  This would be called, for instance when a locally stored file with
+     * metadata in it changes.
+     */
+    public void invalidateMetadata(String metadataURI);
 }

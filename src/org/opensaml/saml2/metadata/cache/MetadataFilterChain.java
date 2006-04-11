@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A filter that allows the composition of {@link org.opensaml.saml2.metadata.cache.MetadataFilter}s.
@@ -37,12 +37,12 @@ public class MetadataFilterChain implements MetadataFilter {
     /**
      * Evaluates the filters in this chain in the order they were added.
      */
-    public final void doFilter(EntitiesDescriptor metadata) throws FilterException{
+    public final void doFilter(XMLObject object) throws FilterException{
         MetadataFilter filter;
         
         for(int i = 0; i < filters.size(); i++) {
             filter = filters.get(i);
-            filter.doFilter(metadata);
+            filter.doFilter(object);
         }
     }
     
