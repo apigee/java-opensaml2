@@ -31,6 +31,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -90,7 +91,7 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (attribute.getLocalName().equals(RoleDescriptor.ERROR_URL_ATTRIB_NAME)) {
             roleDescriptor.setErrorURL(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attribute);
+            roleDescriptor.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
         }
     }
 }

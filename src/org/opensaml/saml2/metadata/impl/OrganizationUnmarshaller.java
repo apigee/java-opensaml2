@@ -29,6 +29,8 @@ import org.opensaml.saml2.metadata.OrganizationName;
 import org.opensaml.saml2.metadata.OrganizationURL;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.Organization} objects.
@@ -71,5 +73,14 @@ public class OrganizationUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
+        Organization org = (Organization) samlObject;
+        
+        org.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
     }
 }

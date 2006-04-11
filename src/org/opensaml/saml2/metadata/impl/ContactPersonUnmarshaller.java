@@ -32,6 +32,7 @@ import org.opensaml.saml2.metadata.SurName;
 import org.opensaml.saml2.metadata.TelephoneNumber;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -103,7 +104,7 @@ public class ContactPersonUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 super.processAttribute(samlObject, attribute);
             }
         } else {
-            super.processAttribute(samlObject, attribute);
+            person.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
         }
     }
 }

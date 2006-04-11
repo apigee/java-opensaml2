@@ -16,10 +16,16 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.Map.Entry;
+
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
@@ -54,6 +60,13 @@ public class EndpointMarshaller extends AbstractSAMLObjectMarshaller {
         if (endpoint.getResponseLocation() != null) {
             domElement.setAttributeNS(null, Endpoint.RESPONSE_LOCATION_ATTRIB_NAME, endpoint.getResponseLocation()
                     .toString());
+        }
+        
+        Attr attribute;
+        for(Entry<QName, String> entry: endpoint.getUnknownAttributes().entrySet()){
+            attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
+            attribute.setValue(entry.getValue());
+            domElement.setAttributeNode(attribute);
         }
     }
 }

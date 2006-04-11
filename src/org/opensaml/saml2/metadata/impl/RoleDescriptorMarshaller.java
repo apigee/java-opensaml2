@@ -17,6 +17,9 @@
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.List;
+import java.util.Map.Entry;
+
+import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.joda.time.format.ISODateTimeFormat;
@@ -27,6 +30,8 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
@@ -104,6 +109,13 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
                 log.debug("Writting errorURL attribute to RoleDescriptor DOM element");
             }
             domElement.setAttributeNS(null, RoleDescriptor.ERROR_URL_ATTRIB_NAME, roleDescriptor.getErrorURL());
+        }
+        
+        Attr attribute;
+        for(Entry<QName, String> entry: roleDescriptor.getUnknownAttributes().entrySet()){
+            attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
+            attribute.setValue(entry.getValue());
+            domElement.setAttributeNode(attribute);
         }
     }
 }

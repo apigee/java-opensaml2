@@ -19,9 +19,11 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.apache.commons.collections.map.TypedMap;
 import org.joda.time.DateTime;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
@@ -38,6 +40,7 @@ import org.opensaml.saml2.metadata.PDPDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DOMCachingXMLObjectAwareMap;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
@@ -75,6 +78,9 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
 
     /** Additional metadata locations for this entity */
     private final XMLObjectChildrenList<AdditionalMetadataLocation> additionalMetadata;
+    
+    /** "anyAttribute" attributes */
+    private final Map<QName, String> unknownAttributes;
 
     /**
      * Constructor
@@ -88,6 +94,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         roleDescriptors = new IndexedXMLObjectChildrenList<RoleDescriptor>(this);
         contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
         additionalMetadata = new XMLObjectChildrenList<AdditionalMetadataLocation>(this);
+        unknownAttributes = TypedMap.decorate(new DOMCachingXMLObjectAwareMap(this), QName.class, String.class);
     }
 
     /*
@@ -277,6 +284,13 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      */
     public List<AdditionalMetadataLocation> getAdditionalMetadataLocations() {
         return additionalMetadata;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Map<QName, String> getUnknownAttributes() {
+        return unknownAttributes;
     }
 
     /*

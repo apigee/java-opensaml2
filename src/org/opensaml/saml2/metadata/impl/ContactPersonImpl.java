@@ -22,7 +22,11 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.xml.namespace.QName;
+
+import org.apache.commons.collections.map.TypedMap;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.Company;
@@ -33,6 +37,7 @@ import org.opensaml.saml2.metadata.GivenName;
 import org.opensaml.saml2.metadata.SurName;
 import org.opensaml.saml2.metadata.TelephoneNumber;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DOMCachingXMLObjectAwareMap;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -54,6 +59,9 @@ public class ContactPersonImpl extends AbstractSAMLObject implements ContactPers
 
     /** SurName child object */
     private SurName surName;
+    
+    /** "anyAttribute" attributes */
+    private final Map<QName, String> unknownAttributes;
 
     /** Child email address */
     private final XMLObjectChildrenList<EmailAddress> emailAddresses;
@@ -70,6 +78,7 @@ public class ContactPersonImpl extends AbstractSAMLObject implements ContactPers
      */
     protected ContactPersonImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        unknownAttributes = TypedMap.decorate(new DOMCachingXMLObjectAwareMap(this), QName.class, String.class);
         emailAddresses = new XMLObjectChildrenList<EmailAddress>(this);
         telephoneNumbers = new XMLObjectChildrenList<TelephoneNumber>(this);
     }
@@ -156,6 +165,13 @@ public class ContactPersonImpl extends AbstractSAMLObject implements ContactPers
      */
     public List<TelephoneNumber> getTelephoneNumbers() {
         return telephoneNumbers;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Map<QName, String> getUnknownAttributes() {
+        return unknownAttributes;
     }
 
     /*

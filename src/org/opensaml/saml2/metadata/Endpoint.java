@@ -17,11 +17,13 @@
 package org.opensaml.saml2.metadata;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.AttributeExtensibleXMLObject;
+import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
  * SAML 2.0 Metadata Endpoint data type interface
  */
-public interface Endpoint extends SAMLObject{
+public interface Endpoint extends SAMLObject, ElementExtensibleXMLObject, AttributeExtensibleXMLObject{
     
     /** "Binding" attribute name */
     public final static String BINDING_ATTRIB_NAME = "Binding";

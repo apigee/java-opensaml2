@@ -20,11 +20,17 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.Map.Entry;
+
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
@@ -59,6 +65,13 @@ public class ContactPersonMarshaller extends AbstractSAMLObjectMarshaller {
 
         if (person.getType() != null) {
             domElement.setAttributeNS(null, ContactPerson.CONTACT_TYPE_ATTRIB_NAME, person.getType().toString());
+        }
+        
+        Attr attribute;
+        for(Entry<QName, String> entry: person.getUnknownAttributes().entrySet()){
+            attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
+            attribute.setValue(entry.getValue());
+            domElement.setAttributeNode(attribute);
         }
     }
 }

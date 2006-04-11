@@ -20,6 +20,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.Map.Entry;
+
+import javax.xml.namespace.QName;
+
 import org.apache.log4j.Logger;
 import org.joda.time.format.ISODateTimeFormat;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -30,6 +34,8 @@ import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
@@ -91,6 +97,13 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
             }
             String cacheDuration = DatatypeHelper.longToDuration(descriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
+        }
+        
+        Attr attribute;
+        for(Entry<QName, String> entry: descriptor.getUnknownAttributes().entrySet()){
+            attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
+            attribute.setValue(entry.getValue());
+            domElement.setAttributeNode(attribute);
         }
     }
 }

@@ -16,11 +16,18 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+import javax.xml.namespace.QName;
+
+import org.apache.commons.collections.map.TypedMap;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DOMCachingXMLObjectAwareMap;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.metadata.Endpoint}
@@ -35,6 +42,12 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
 
     /** Response location URI */
     private String responseLocation;
+    
+    /** "anyAttribute" attributes */
+    private final Map<QName, String> unknownAttributes;
+    
+    /** child "any" elements */
+    private final XMLObjectChildrenList<XMLObject> unknownChildren;
 
     /**
      * Constructor
@@ -45,6 +58,8 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
      */
     protected EndpointImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        unknownAttributes = TypedMap.decorate(new DOMCachingXMLObjectAwareMap(this), QName.class, String.class);
+        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
 
     /*
@@ -88,11 +103,25 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
     public void setResponseLocation(String location) {
         responseLocation = prepareForAssignment(responseLocation, location);
     }
-
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Map<QName, String> getUnknownAttributes() {
+        return unknownAttributes;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<XMLObject> getUnknownXMLObjects() {
+        return unknownChildren;
+    }
+    
+    /**
+     * {@inheritDoc}
      */
     public List<XMLObject> getOrderedChildren() {
-        return null; // Endpoints don't have child elements
+        return Collections.unmodifiableList(unknownChildren);
     }
 }

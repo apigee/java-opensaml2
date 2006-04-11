@@ -20,9 +20,18 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import java.util.Map.Entry;
+
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.Organization;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.Organization} objects.
@@ -44,5 +53,19 @@ public class OrganizationMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected OrganizationMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
+        Organization org = (Organization) xmlObject;
+        
+        Attr attribute;
+        for(Entry<QName, String> entry: org.getUnknownAttributes().entrySet()){
+            attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
+            attribute.setValue(entry.getValue());
+            domElement.setAttributeNode(attribute);
+        }
     }
 }

@@ -20,11 +20,12 @@ import java.util.List;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.common.Extensions;
+import org.opensaml.xml.AttributeExtensibleXMLObject;
 
 /**
  * SAML 2.0 Metadata Organization
  */
-public interface Organization extends SAMLObject{
+public interface Organization extends SAMLObject, AttributeExtensibleXMLObject{
     
     /** Local name, no namespace */
     public final static String LOCAL_NAME = "Organization";

@@ -20,6 +20,7 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -43,6 +44,7 @@ public class EndpointUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Endpoint endpoint = (Endpoint) samlObject;
+        
         if (attribute.getLocalName().equals(Endpoint.BINDING_ATTRIB_NAME)) {
             endpoint.setBinding(attribute.getValue());
         } else if (attribute.getLocalName().equals(Endpoint.LOCATION_ATTRIB_NAME)) {
@@ -50,7 +52,17 @@ public class EndpointUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (attribute.getLocalName().equals(Endpoint.RESPONSE_LOCATION_ATTRIB_NAME)) {
             endpoint.setResponseLocation(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attribute);
+            endpoint.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
+        Endpoint endpoint = (Endpoint) parentSAMLObject;
+
+        endpoint.getUnknownXMLObjects().add(childSAMLObject);
     }
 }
