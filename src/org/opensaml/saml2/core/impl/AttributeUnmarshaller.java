@@ -21,6 +21,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -72,7 +73,7 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (attribute.getLocalName().equals(Attribute.FRIENDLY_NAME_ATTRIB_NAME)) {
             attrib.setFriendlyName(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attribute);
+            attrib.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
         }
     }
 }

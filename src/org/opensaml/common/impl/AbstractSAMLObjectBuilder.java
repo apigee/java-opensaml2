@@ -17,13 +17,14 @@
 package org.opensaml.common.impl;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Base builder for {@link org.opensaml.common.SAMLObject}s.
  */
 public abstract class AbstractSAMLObjectBuilder<SAMLObjectType extends SAMLObject> extends
-        AbstractXMLObjectBuilder<SAMLObjectType> {
+        AbstractXMLObjectBuilder<SAMLObjectType> implements SAMLObjectBuilder<SAMLObjectType> {
 
     /**
      * Builds a SAMLObject using the default name and namespace information provided SAML specifications.

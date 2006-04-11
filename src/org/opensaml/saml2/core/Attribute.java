@@ -19,12 +19,13 @@ package org.opensaml.saml2.core;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.AttributeExtensibleXMLObject;
 import org.opensaml.xml.XMLObject;
 
 /**
  * SAML 2.0 Core Attribute
  */
-public interface Attribute extends SAMLObject {
+public interface Attribute extends SAMLObject, AttributeExtensibleXMLObject {
 
     /** Local name of the Attribute element */
     public static final String LOCAL_NAME = "Attribute";

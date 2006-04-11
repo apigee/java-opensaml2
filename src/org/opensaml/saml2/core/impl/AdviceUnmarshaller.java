@@ -63,7 +63,7 @@ public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (childObject instanceof Assertion) {
             advice.getAssertions().add((Assertion) childObject);
         } else {
-            super.processChildElement(parentObject, childObject);
+            advice.getUnknownXMLObjects().add(childObject);
         }
     }
 }

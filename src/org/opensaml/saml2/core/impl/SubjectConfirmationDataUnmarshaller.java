@@ -27,6 +27,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -49,6 +50,16 @@ public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmar
         super(namespaceURI, elementLocalName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
+        SubjectConfirmationData subjectCD = (SubjectConfirmationData) parentSAMLObject;
+
+        subjectCD.getUnknownXMLObjects().add(childSAMLObject);
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
      *      org.w3c.dom.Attr)
@@ -67,7 +78,7 @@ public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmar
         } else if (attribute.getLocalName().equals(SubjectConfirmationData.ADDRESS_ATTRIB_NAME)) {
             subjectCD.setAddress(attribute.getValue());
         } else {
-            super.processAttribute(samlObject, attribute);
+            subjectCD.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
         }
     }
 }

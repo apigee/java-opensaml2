@@ -23,8 +23,8 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
+import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.saml2.core.Extensions;
 import org.opensaml.xml.signature.SignableXMLObject;
 
 /**

@@ -19,7 +19,7 @@ package org.opensaml.saml2.metadata;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.common.Extensions;
 
 /**
  * SAML 2.0 Metadata ContactPerson

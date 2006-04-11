@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-package org.opensaml.saml2.metadata.impl;
+package org.opensaml.saml2.common;
 
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Extensions;
+import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
- * Unmarshaller
+ * SAML 2.0 Extensions
  */
-public class ExtensionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public interface Extensions extends SAMLObject, ElementExtensibleXMLObject {
 
-    /**
-     * Constructor
-     */
-    public ExtensionsUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME);
-    }
+	/** Local name, no namespace */
+	public final static String LOCAL_NAME = "Extensions";
 }

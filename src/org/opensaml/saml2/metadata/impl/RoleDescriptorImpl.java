@@ -23,7 +23,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.Organization;

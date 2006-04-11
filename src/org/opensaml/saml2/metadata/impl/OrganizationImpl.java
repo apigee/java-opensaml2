@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.OrganizationDisplayName;
 import org.opensaml.saml2.metadata.OrganizationName;

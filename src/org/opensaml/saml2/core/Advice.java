@@ -19,11 +19,12 @@ package org.opensaml.saml2.core;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
  * SAML 2.0 Core Advice
  */
-public interface Advice extends SAMLObject {
+public interface Advice extends SAMLObject, ElementExtensibleXMLObject {
     
     /** Element local name */
     public final static String LOCAL_NAME = "Advice";

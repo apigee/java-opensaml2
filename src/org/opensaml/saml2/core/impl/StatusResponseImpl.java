@@ -27,7 +27,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.saml2.core.Extensions;
+import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusResponse;
@@ -183,7 +183,7 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
     }
 
     /**
-     * @see org.opensaml.saml2.core.StatusResponse#setExtensions(org.opensaml.saml2.core.Extensions)
+     * @see org.opensaml.saml2.core.StatusResponse#setExtensions(org.opensaml.saml2.common.Extensions)
      */
     public void setExtensions(Extensions newExtensions) {
         this.extensions = prepareForAssignment(this.extensions, newExtensions);

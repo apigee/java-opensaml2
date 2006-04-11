@@ -19,10 +19,15 @@ package org.opensaml.saml2.core.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+import javax.xml.namespace.QName;
+
+import org.apache.commons.collections.map.TypedMap;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DOMCachingXMLObjectAwareMap;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -39,6 +44,9 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
     /** Human readable name of the attribute */
     private String friendlyName;
 
+    /** "anyAttribute" attributes */
+    private final Map<QName, String> unknownAttributes;
+    
     /** List of attribute values for this attribute */
     private final XMLObjectChildrenList<XMLObject> attributeValues;
 
@@ -51,6 +59,7 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
      */
     protected AttributeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        unknownAttributes = TypedMap.decorate(new DOMCachingXMLObjectAwareMap(this), QName.class, String.class);
         attributeValues = new XMLObjectChildrenList<XMLObject>(this);
     }
 
@@ -94,6 +103,13 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
      */
     public void setFriendlyName(String friendlyName) {
         this.friendlyName = prepareForAssignment(this.friendlyName, friendlyName);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Map<QName, String> getUnknownAttributes() {
+        return unknownAttributes;
     }
 
     /*

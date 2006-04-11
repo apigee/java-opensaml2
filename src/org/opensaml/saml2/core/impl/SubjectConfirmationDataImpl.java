@@ -20,12 +20,19 @@
 
 package org.opensaml.saml2.core.impl;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+import javax.xml.namespace.QName;
+
+import org.apache.commons.collections.map.TypedMap;
 import org.joda.time.DateTime;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DOMCachingXMLObjectAwareMap;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.SubjectConfirmationData}
@@ -46,6 +53,12 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
 
     /** Address of the Confirmation Data */
     private String address;
+    
+    /** "anyAttribute" attributes */
+    private final Map<QName, String> unknownAttributes;
+    
+    /** "any" children */
+    private final XMLObjectChildrenList<XMLObject> unknownChildren;
 
     /**
      * Constructor
@@ -56,6 +69,8 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
      */
     protected SubjectConfirmationDataImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        unknownAttributes = TypedMap.decorate(new DOMCachingXMLObjectAwareMap(this), QName.class, String.class);
+        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
 
     /*
@@ -127,11 +142,25 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
     public void setAddress(String newAddress) {
         this.address = prepareForAssignment(this.address, newAddress);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public Map<QName, String> getUnknownAttributes() {
+        return unknownAttributes;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<XMLObject> getUnknownXMLObjects() {
+        return unknownChildren;
+    }
 
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-        return null;
+        return Collections.unmodifiableList(unknownChildren);
     }
 }

@@ -45,6 +45,9 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
 
     /** List of Assertions */
     private final XMLObjectChildrenList<Assertion> assertion;
+    
+    /** "any" children */
+    private final XMLObjectChildrenList<XMLObject> unknownChildren;
 
     /**
      * Constructor
@@ -58,6 +61,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         assertionIDRef = new XMLObjectChildrenList<AssertionIDRef>(this);
         assertionURIRef = new XMLObjectChildrenList<AssertionURIRef>(this);
         assertion = new XMLObjectChildrenList<Assertion>(this);
+        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
 
     /*
@@ -80,6 +84,13 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     public List<Assertion> getAssertions() {
         return assertion;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<XMLObject> getUnknownXMLObjects() {
+        return unknownChildren;
+    }
 
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
@@ -90,6 +101,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         children.addAll(assertionIDRef);
         children.addAll(assertionURIRef);
         children.addAll(assertion);
+        children.addAll(unknownChildren);
 
         return Collections.unmodifiableList(children);
     }

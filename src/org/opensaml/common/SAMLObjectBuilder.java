@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-package org.opensaml.saml2.metadata.impl;
+package org.opensaml.common;
 
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Extensions;
+import org.opensaml.xml.XMLObjectBuilder;
 
-/**
- * simple noop marshaller
- */
-public class ExtensionsMarshaller extends AbstractSAMLObjectMarshaller {
+public interface SAMLObjectBuilder<SAMLObjectType extends SAMLObject> extends XMLObjectBuilder<SAMLObjectType> {
 
     /**
-     * Constructor
+     * Builds a SAMLObject using the default name and namespace information provided SAML specifications.
+     * 
+     * @return built SAMLObject
      */
-    public ExtensionsMarshaller() throws IllegalArgumentException {
-        super(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME);
-    }
+    public abstract SAMLObjectType buildObject();
 }

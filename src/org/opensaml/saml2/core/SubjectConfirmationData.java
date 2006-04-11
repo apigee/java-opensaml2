@@ -18,11 +18,13 @@ package org.opensaml.saml2.core;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.AttributeExtensibleXMLObject;
+import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
  * SAML 2.0 Core SubjectConfirmationData
  */
-public interface SubjectConfirmationData extends SAMLObject {
+public interface SubjectConfirmationData extends SAMLObject, ElementExtensibleXMLObject, AttributeExtensibleXMLObject {
 
     /** Element local name */
     public final static String LOCAL_NAME = "SubjectConfirmationData";
