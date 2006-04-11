@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.AttributeValue;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
@@ -41,7 +40,7 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
     private String friendlyName;
 
     /** List of attribute values for this attribute */
-    private final XMLObjectChildrenList<AttributeValue> attributeValues;
+    private final XMLObjectChildrenList<XMLObject> attributeValues;
 
     /**
      * Constructor
@@ -52,7 +51,7 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
      */
     protected AttributeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
+        attributeValues = new XMLObjectChildrenList<XMLObject>(this);
     }
 
     /*
@@ -100,7 +99,7 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
     /*
      * @see org.opensaml.saml2.core.Attribute#getAttributeValues()
      */
-    public List<AttributeValue> getAttributeValues() {
+    public List<XMLObject> getAttributeValues() {
         return attributeValues;
     }
 

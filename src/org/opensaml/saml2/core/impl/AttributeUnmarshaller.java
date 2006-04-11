@@ -19,7 +19,6 @@ package org.opensaml.saml2.core.impl;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.AttributeValue;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
@@ -55,11 +54,7 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         Attribute attribute = (Attribute) parentSAMLObject;
 
-        if (childSAMLObject instanceof AttributeValue) {
-            attribute.getAttributeValues().add((AttributeValue) childSAMLObject);
-        } else {
-            super.processChildElement(parentSAMLObject, childSAMLObject);
-        }
+        attribute.getAttributeValues().add(childSAMLObject);
     }
 
     /*

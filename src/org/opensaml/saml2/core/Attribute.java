@@ -19,6 +19,7 @@ package org.opensaml.saml2.core;
 import java.util.List;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.XMLObject;
 
 /**
  * SAML 2.0 Core Attribute
@@ -84,5 +85,5 @@ public interface Attribute extends SAMLObject {
      * 
      * @return the list of attribute values for this attribute
      */
-    public List<AttributeValue> getAttributeValues();
+    public List<XMLObject> getAttributeValues();
 }
