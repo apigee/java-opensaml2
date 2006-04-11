@@ -14,35 +14,32 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.ArtifactResponse;
+import org.opensaml.saml2.core.StatusDetail;
 
-/**
- * A thread-safe Marshaller for {@link orgopensaml.saml2.core.ArtifactResponse}
- */
-public class ArtifactResponseMarshaller extends StatusResponseMarshaller {
+public class StatusDetailBuilder extends AbstractSAMLObjectBuilder<StatusDetail> {
 
     /**
      * Constructor
-     * 
      */
-    public ArtifactResponseMarshaller() {
-        super(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME);
+    public StatusDetailBuilder() {
+
     }
 
     /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * {@inheritDoc}
      */
-    protected ArtifactResponseMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    public StatusDetail buildObject() {
+        return buildObject(SAMLConstants.SAML20P_NS, StatusDetail.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public StatusDetail buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new StatusDetailImpl(namespaceURI, localName, namespacePrefix);
     }
 }

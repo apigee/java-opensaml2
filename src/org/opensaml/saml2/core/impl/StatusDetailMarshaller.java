@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-package org.opensaml.saml2.core;
+package org.opensaml.saml2.core.impl;
 
-import org.opensaml.xml.ElementExtensibleXMLObject;
+import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.StatusDetail;
 
 /**
- * SAML 2.0 Core ArtifactResponse
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.StatusDetail} objects.
  */
-public interface ArtifactResponse extends StatusResponse, ElementExtensibleXMLObject {
-    
-    /** Element local name*/
-    public static final String LOCAL_NAME = "ArtifactResponse";
+public class StatusDetailMarshaller extends AbstractSAMLObjectMarshaller {
+
+    /**
+     * Constructor
+     */
+    public StatusDetailMarshaller(){
+        super(SAMLConstants.SAML20P_NS, StatusDetail.LOCAL_NAME);
+    }
 }

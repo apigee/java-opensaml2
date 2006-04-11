@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.saml2.core.ArtifactResponse;
+import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.saml2.core.StatusDetail;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.ArtifactResponse}
+ * Concrete implementation of {@link org.opensaml.saml2.core.StatusDetail}
  */
-public class ArtifactResponseImpl extends StatusResponseImpl implements ArtifactResponse {
+public class StatusDetailImpl extends AbstractSAMLObject implements StatusDetail {
 
     /** child "any" elements */
     private final XMLObjectChildrenList<XMLObject> unknownChildren;
@@ -39,11 +35,11 @@ public class ArtifactResponseImpl extends StatusResponseImpl implements Artifact
     /**
      * Constructor
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
-    protected ArtifactResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+    protected StatusDetailImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
         unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
@@ -59,11 +55,6 @@ public class ArtifactResponseImpl extends StatusResponseImpl implements Artifact
      * {@inheritDoc}
      */
     public List<XMLObject> getOrderedChildren() {
-        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
-        children.addAll(super.getOrderedChildren());
-        children.addAll(unknownChildren);
-        
-        return Collections.unmodifiableList(children);
+        return Collections.unmodifiableList(unknownChildren);
     }
 }

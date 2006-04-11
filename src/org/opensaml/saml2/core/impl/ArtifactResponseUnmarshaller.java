@@ -21,7 +21,12 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.core.ArtifactResponse;
+import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.Status;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ArtifactResponse}.
@@ -44,5 +49,19 @@ public class ArtifactResponseUnmarshaller extends StatusResponseUnmarshaller {
      */
     protected ArtifactResponseUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
+    }
+    
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+        ArtifactResponse artifactResponse = (ArtifactResponse) parentSAMLObject;
+        
+        if (childSAMLObject instanceof Issuer){
+            artifactResponse.setIssuer((Issuer) childSAMLObject);
+        }else if (childSAMLObject instanceof Extensions){  // TODO Signature
+            artifactResponse.setExtensions((Extensions) childSAMLObject);
+        }else if (childSAMLObject instanceof Status){
+            artifactResponse.setStatus((Status) childSAMLObject);
+        }else{
+            artifactResponse.getUnknownXMLObjects().add(childSAMLObject);
+        }
     }
 }

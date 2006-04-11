@@ -20,11 +20,12 @@
 package org.opensaml.saml2.core;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
  * SAML 2.0 Core StatusDetail
  */
-public interface StatusDetail extends SAMLObject {
+public interface StatusDetail extends SAMLObject, ElementExtensibleXMLObject {
 
     /**Local Name of StatusDetail*/
     public final static String LOCAL_NAME = "StatusDetail";

@@ -14,35 +14,33 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.ArtifactResponse;
+import org.opensaml.saml2.core.StatusDetail;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe Marshaller for {@link orgopensaml.saml2.core.ArtifactResponse}
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusDetail} objects.
  */
-public class ArtifactResponseMarshaller extends StatusResponseMarshaller {
+public class StatusDetailUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     * 
      */
-    public ArtifactResponseMarshaller() {
-        super(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME);
+    public StatusDetailUnmarshaller() {
+        super(SAMLConstants.SAML20P_NS, StatusDetail.LOCAL_NAME);
     }
 
     /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * {@inheritDoc}
      */
-    protected ArtifactResponseMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
+        StatusDetail statusDetail = (StatusDetail) parentSAMLObject;
+
+        statusDetail.getUnknownXMLObjects().add(childSAMLObject);
     }
 }

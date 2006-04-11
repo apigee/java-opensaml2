@@ -22,7 +22,6 @@ package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.Assertion;
 
 /**
