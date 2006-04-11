@@ -26,7 +26,4 @@ public interface ArtifactResponse extends StatusResponse {
     
     /** Element local name*/
     public static final String LOCAL_NAME = "ArtifactResponse";
-    
-    //TODO need to deal with <any namespace="##any"> child elements ?
-    
 }

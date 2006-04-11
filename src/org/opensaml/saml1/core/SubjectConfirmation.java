@@ -22,11 +22,11 @@ package org.opensaml.saml1.core;
 
 import java.util.List;
 
-import org.apache.xml.security.keys.KeyInfo;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.xml.signature.KeyInfo;
 
 /**
- * Interface to define how a <code> SubjectConfirmation  <\code> element behaves
+ * Interface to define how a SubjectConfirmation element behaves
  */
 public interface SubjectConfirmation extends SAMLObject {
 
@@ -41,11 +41,18 @@ public interface SubjectConfirmation extends SAMLObject {
 
     /** Return the SubjectConfirmationData */
     public SubjectConfirmationData getSubjectConfirmationData();
-
-    // TODO - how do we deal with KeyInfo
-    // TODO looks like KeyInfo needs to be changed to the XMLTooling KeyInfo type, check with Chad.
     
+    /**
+     * Gets the key information for the subject.
+     * 
+     * @return the key information for the subject
+     */
     public KeyInfo getKeyInfo();
 
+    /**
+     * Sets the key information for the subject.
+     * 
+     * @param keyInfo the key information for the subject
+     */
     public void setKeyInfo(KeyInfo keyInfo);
 }

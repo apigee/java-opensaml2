@@ -45,7 +45,4 @@ public class ArtifactResponseUnmarshaller extends StatusResponseUnmarshaller {
     protected ArtifactResponseUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
     }
-
-    // TODO need to process any <any ...> elements, or leave to a subclass of this class
-
 }

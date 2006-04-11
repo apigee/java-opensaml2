@@ -39,7 +39,7 @@ public class AuthenticationStatementValidator extends SubjectStatementValidator 
         
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) xmlObject;
         // TODO separate out into distinct method
-        // TODO use DatatypeHelper.isEmpty()?
+
         if (DatatypeHelper.isEmpty(authenticationStatement.getAuthenticationMethod())) {
             throw new ValidationException("No authenticationStatement URI is null");
         }

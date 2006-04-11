@@ -28,7 +28,4 @@ public interface StatusDetail extends SAMLObject {
 
     /**Local Name of StatusDetail*/
     public final static String LOCAL_NAME = "StatusDetail";
-    
-    
-    //TODO need to flesh out interface
 }

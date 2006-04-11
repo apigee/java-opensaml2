@@ -22,7 +22,6 @@ package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.EncryptedID;
-import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.ManageNameIDRequest;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NewEncryptedID;
@@ -60,9 +59,7 @@ public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
 
         // TODO may change depending on Chad's encryption implementation
 
-        // TODO make sure there aren't any other hidden issues here...
-        // NOTE: Issuer is a sub-interface of NameID, so need this additional check
-        if (childSAMLObject instanceof NameID && !(childSAMLObject instanceof Issuer))
+        if (childSAMLObject instanceof NameID)
             req.setNameID((NameID) childSAMLObject);
         else if (childSAMLObject instanceof EncryptedID)
             req.setEncryptedID((EncryptedID) childSAMLObject);

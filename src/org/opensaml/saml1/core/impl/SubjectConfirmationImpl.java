@@ -20,12 +20,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.xml.security.keys.KeyInfo;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -40,9 +40,7 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
     private SubjectConfirmationData subjectConfirmationData;
 
     /** Contains the KeyInfo element */
-    KeyInfo keyInfo;
-
-    // TODO looks like KeyInfo needs to be changed to the XMLTooling KeyInfo type, check with Chad.
+    private KeyInfo keyInfo;
 
     /**
      * Constructor
@@ -106,7 +104,9 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
             list.add(subjectConfirmationData);
         }
 
-        // TODO KeyInfo
+        if(keyInfo != null){
+            list.add(keyInfo);
+        }
 
         if (list.size() == 0) {
             return null;

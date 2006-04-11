@@ -16,8 +16,10 @@
 
 package org.opensaml.saml2.metadata.resolver.provider;
 
+import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml2.metadata.resolver.MetadataResolver;
 import org.opensaml.saml2.metadata.resolver.ResolutionException;
+import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Document;
 
 /**
@@ -84,11 +86,15 @@ public abstract class AbstractMetadataResolver implements MetadataResolver {
         Document metadata = doResolve(metadataURI);
         
         if(validateXML()) {
-            //TODO validate against schema
+            try{
+                ParserPoolManager.getInstance().validate(metadata);
+            }catch(XMLParserException e){
+                throw new ResolutionException("Unable to schema validate metadata found at " + metadataURI, e);
+            }
         }
         
         if(validateDigitalSignature()) {
-            //TODO
+            //TODO validate digital signature
         }
         
         return metadata;
