@@ -32,7 +32,7 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.resolver.MetadataResolver;
 import org.opensaml.saml2.metadata.resolver.MetadataResolverFactory;
 import org.opensaml.saml2.metadata.resolver.ResolutionException;
-import org.opensaml.xml.AbstractDOMCachingXMLObject;
+import org.opensaml.xml.DOMCachingXMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallerFactory;
@@ -494,10 +494,11 @@ public class MetadataCacheImpl implements MetadataCache, Runnable {
                 // If we get here we have just sucessfully loaded the object and we will return it
                 // If it is appropriate we will kill off the DOM
                 //
-                if (retVal instanceof AbstractDOMCachingXMLObject) {
-                    AbstractDOMCachingXMLObject domObject = (AbstractDOMCachingXMLObject) retVal;
+                if (retVal instanceof DOMCachingXMLObject) {
+                    DOMCachingXMLObject domObject = (DOMCachingXMLObject) retVal;
                     
-                    domObject.releaseThisAndChildrenDOM();
+                    domObject.releaseChildrenDOM(true);
+                    domObject.releaseDOM();
                 }
 
                 log.debug("Loaded " + metadataURI + " successfully ");
