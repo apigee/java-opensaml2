@@ -25,6 +25,8 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationURL;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.OrganizationURL} objects.
@@ -48,6 +50,24 @@ public class OrganizationURLUnmarshaller extends AbstractSAMLObjectUnmarshaller 
         super(namespaceURI, elementLocalName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
+        if (attribute.getLocalName().equals(OrganizationURL.LANG_ATTRIB_NAME)
+                && attribute.getNamespaceURI().equals(SAMLConstants.XML_NS)) {
+            OrganizationURL url = (OrganizationURL) samlObject;
+
+            LocalizedString urlStr = url.getURL();
+            if (urlStr == null) {
+                urlStr = new LocalizedString();
+            }
+
+            urlStr.setLanguage(attribute.getValue());
+            url.setURL(urlStr);
+        }
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
@@ -55,7 +75,12 @@ public class OrganizationURLUnmarshaller extends AbstractSAMLObjectUnmarshaller 
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         OrganizationURL url = (OrganizationURL) samlObject;
 
-        String[] localizedContent = elementContent.split(",");
-        url.setURL(new LocalizedString(localizedContent[0], localizedContent[1]));
+        LocalizedString urlStr = url.getURL();
+        if (urlStr == null) {
+            urlStr = new LocalizedString();
+        }
+
+        urlStr.setLocalizedString(elementContent);
+        url.setURL(urlStr);
     }
 }

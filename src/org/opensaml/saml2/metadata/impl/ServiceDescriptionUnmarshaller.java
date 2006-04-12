@@ -23,8 +23,11 @@ package org.opensaml.saml2.metadata.impl;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.LocalizedString;
+import org.opensaml.saml2.metadata.OrganizationName;
 import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.ServiceDescription} objects.
@@ -47,6 +50,24 @@ public class ServiceDescriptionUnmarshaller extends AbstractSAMLObjectUnmarshall
     protected ServiceDescriptionUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
+        if (attribute.getLocalName().equals(ServiceDescription.LANG_ATTRIB_NAME)
+                && attribute.getNamespaceURI().equals(SAMLConstants.XML_NS)) {
+            ServiceDescription description = (ServiceDescription) samlObject;
+
+            LocalizedString descStr = description.getDescription();
+            if (descStr == null) {
+                descStr = new LocalizedString();
+            }
+
+            descStr.setLanguage(attribute.getValue());
+            description.setDescription(descStr);
+        }
+    }
 
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
@@ -55,7 +76,12 @@ public class ServiceDescriptionUnmarshaller extends AbstractSAMLObjectUnmarshall
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         ServiceDescription description = (ServiceDescription) samlObject;
 
-        String[] localizedContent = elementContent.split(",");
-        description.setDescription(new LocalizedString(localizedContent[0], localizedContent[1]));
+        LocalizedString descStr = description.getDescription();
+        if (descStr == null) {
+            descStr = new LocalizedString();
+        }
+
+        descStr.setLocalizedString(elementContent);
+        description.setDescription(descStr);
     }
 }

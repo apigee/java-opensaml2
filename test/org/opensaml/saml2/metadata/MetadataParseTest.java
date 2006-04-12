@@ -1,0 +1,103 @@
+/*
+ * Copyright [2005] [University Corporation for Advanced Internet Development, Inc.]
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.opensaml.saml2.metadata;
+
+import java.io.InputStream;
+
+import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
+import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.xml.Configuration;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.Unmarshaller;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.XMLParserException;
+import org.w3c.dom.Document;
+
+/**
+ * Test cases that parses real, "in-the-wild", metadata files. Currently uses the InCommon and SWITCH federation
+ * metadata files (current as of the time this test was written).
+ */
+public class MetadataParseTest extends SAMLObjectTestCaseConfigInitializer {
+
+    /**
+     * Constructor
+     */
+    public MetadataParseTest() {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected void setUp() throws Exception {
+        super.setUp();
+    }
+
+    /**
+     * Tests unmarshalling an InCommon metadata document.
+     * 
+     * @throws XMLParserException
+     * @throws UnmarshallingException
+     */
+    public void testInCommonMDUnmarshall() throws XMLParserException, UnmarshallingException {
+        String inCommonMDFile = "/data/org/opensaml/saml2/metadata/InCommon-metadata.xml";
+        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+
+        try {
+            InputStream in = MetadataParseTest.class.getResourceAsStream(inCommonMDFile);
+            Document inCommonMDDoc = ppMgr.parse(in);
+            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
+                    inCommonMDDoc.getDocumentElement());
+
+            XMLObject inCommonMD = unmarshaller.unmarshall(inCommonMDDoc.getDocumentElement());
+
+            assertEquals("First element of InCommon data was not expected EntitiesDescriptor", "EntitiesDescriptor",
+                    inCommonMD.getElementQName().getLocalPart());
+        } catch (XMLParserException xe) {
+            fail("Unable to parse XML file: " + xe);
+        } catch (UnmarshallingException ue) {
+            fail("Unable to unmarshall XML: " + ue);
+        }
+    }
+
+    /**
+     * Tests unmarshalling an SWITCH metadata document.
+     * 
+     * @throws XMLParserException
+     * @throws UnmarshallingException
+     */
+    public void testSWITCHMDParse() {
+        String switchMDFile = "/data/org/opensaml/saml2/metadata/metadata.switchaai_signed.xml";
+        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+
+        try {
+            InputStream in = MetadataParseTest.class.getResourceAsStream(switchMDFile);
+            Document switchMDDoc = ppMgr.parse(in);
+            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
+                    switchMDDoc.getDocumentElement());
+
+            XMLObject switchMD = unmarshaller.unmarshall(switchMDDoc.getDocumentElement());
+
+            assertEquals("First element of SWITCH data was not expected EntitiesDescriptor", "EntitiesDescriptor",
+                    switchMD.getElementQName().getLocalPart());
+        } catch (XMLParserException xe) {
+            fail("Unable to parse XML file: " + xe);
+        } catch (UnmarshallingException ue) {
+            fail("Unable to unmarshall XML: " + ue);
+        }
+    }
+}

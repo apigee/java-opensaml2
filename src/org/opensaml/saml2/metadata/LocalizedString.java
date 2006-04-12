@@ -26,6 +26,13 @@ public class LocalizedString {
 	
 	/** Language of the localized string */
 	private String language;
+    
+    /**
+     * Constructor
+     */
+    public LocalizedString(){
+        
+    }
 	
 	/**
 	 * Constructor
@@ -46,6 +53,15 @@ public class LocalizedString {
 	public String getLocalString(){
 		return localizedString;
 	}
+    
+    /**
+     * Sets the localized string.
+     * 
+     * @param newString the localized string
+     */
+    public void setLocalizedString(String newString){
+       localizedString = newString;
+    }
 	
 	/**
 	 * Gets the language of the string.
@@ -55,6 +71,15 @@ public class LocalizedString {
 	public String getLanguage(){
 		return language;
 	}
+    
+    /**
+     * Sets the language of the string.
+     * 
+     * @param newLanguage the language of the string
+     */
+    public void setLanguage(String newLanguage){
+        language = newLanguage;
+    }
 	
 	/**
 	 * Determines if two LocalizedStrings are equal, that is, if both thier localized string and language have case-sentivite equality.

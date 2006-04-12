@@ -26,6 +26,9 @@ public interface OrganizationURL extends SAMLObject {
     /** Element local name */
     public final static String LOCAL_NAME = "OrganizationURL";
     
+    /** Language attribute name */
+    public final static String LANG_ATTRIB_NAME = "lang";
+    
     /**
      * Gets the URL of the organization.
      * 

@@ -26,6 +26,9 @@ public interface OrganizationName extends SAMLObject {
     /** Element local name */
     public final static String LOCAL_NAME = "OrganizationName";
     
+    /** Language attribute name */
+    public final static String LANG_ATTRIB_NAME = "lang";
+    
     /**
      * Gets the name of the organization.
      * 

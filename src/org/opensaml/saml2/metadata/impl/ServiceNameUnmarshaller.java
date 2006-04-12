@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -25,6 +21,8 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.ServiceName;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.ServiceName} objects.
@@ -48,6 +46,25 @@ public class ServiceNameUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(namespaceURI, elementLocalName);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
+        if (attribute.getLocalName().equals(ServiceName.LANG_ATTRIB_NAME)
+                && attribute.getNamespaceURI().equals(SAMLConstants.XML_NS)) {
+            ServiceName name = (ServiceName) samlObject;
+
+            LocalizedString nameStr = name.getName();
+            if (nameStr == null) {
+                nameStr = new LocalizedString();
+            }
+
+            nameStr.setLanguage(attribute.getValue());
+            name.setName(nameStr);
+        }
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
@@ -55,7 +72,12 @@ public class ServiceNameUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         ServiceName name = (ServiceName) samlObject;
 
-        String[] localizedContent = elementContent.split(",");
-        name.setName(new LocalizedString(localizedContent[0], localizedContent[1]));
+        LocalizedString nameStr = name.getName();
+        if (nameStr == null) {
+            nameStr = new LocalizedString();
+        }
+
+        nameStr.setLocalizedString(elementContent);
+        name.setName(nameStr);
     }
 }

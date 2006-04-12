@@ -47,13 +47,6 @@
             <MarshallingClass className="org.opensaml.saml2.core.impl.AttributeMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.AttributeUnmarshaller" />
         </ObjectProvider>
-        
-        <!-- AttributeValue provider -->
-        <ObjectProvider qualifiedName="saml2:AttributeValue">
-            <BuilderClass className="org.opensaml.saml2.core.impl.AttributeValueBuilder" />
-            <MarshallingClass className="org.opensaml.saml2.core.impl.AttributeValueMarshaller" />
-            <UnmarshallingClass className="org.opensaml.saml2.core.impl.AttributeValueUnmarshaller" />
-        </ObjectProvider>
                 
         <!-- AuthnContextClassRef provider -->
         <ObjectProvider qualifiedName="saml2:AuthnContextClassRef">
@@ -182,5 +175,12 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.SubjectLocalityUnmarshaller" />
         </ObjectProvider>        
  
+        <!--  Extensions provider -->
+        <ObjectProvider qualifiedName="saml2:Extensions">
+            <BuilderClass className="org.opensaml.saml2.common.impl.ExtensionsBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.common.impl.ExtensionsMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.common.impl.ExtensionsUnmarshaller" />
+        </ObjectProvider>
+        
     </ObjectProviders>
  </XMLTooling>

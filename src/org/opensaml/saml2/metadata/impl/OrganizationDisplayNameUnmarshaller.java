@@ -25,6 +25,8 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationDisplayName;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
@@ -49,6 +51,24 @@ public class OrganizationDisplayNameUnmarshaller extends AbstractSAMLObjectUnmar
         super(namespaceURI, elementLocalName);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
+        if (attribute.getLocalName().equals(OrganizationDisplayName.LANG_ATTRIB_NAME)
+                && attribute.getNamespaceURI().equals(SAMLConstants.XML_NS)) {
+            OrganizationDisplayName name = (OrganizationDisplayName) samlObject;
+
+            LocalizedString nameStr = name.getName();
+            if (nameStr == null) {
+                nameStr = new LocalizedString();
+            }
+
+            nameStr.setLanguage(attribute.getValue());
+            name.setName(nameStr);
+        }
+    }
+
     /*
      * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
      *      java.lang.String)
@@ -56,7 +76,12 @@ public class OrganizationDisplayNameUnmarshaller extends AbstractSAMLObjectUnmar
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         OrganizationDisplayName name = (OrganizationDisplayName) samlObject;
 
-        String[] localizedContent = elementContent.split(",");
-        name.setName(new LocalizedString(localizedContent[0], localizedContent[1]));
+        LocalizedString nameStr = name.getName();
+        if (nameStr == null) {
+            nameStr = new LocalizedString();
+        }
+
+        nameStr.setLocalizedString(elementContent);
+        name.setName(nameStr);
     }
 }

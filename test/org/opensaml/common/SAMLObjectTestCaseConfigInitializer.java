@@ -86,8 +86,4 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
             System.err.println("Unable to configure OpenSAML: " + e);
         }
     }
-
-
-
-
 }

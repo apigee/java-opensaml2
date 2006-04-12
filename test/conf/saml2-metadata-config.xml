@@ -260,13 +260,12 @@
             <MarshallingClass className="org.opensaml.saml2.metadata.impl.AttributeConsumingServiceMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.AttributeConsumingServiceUnmarshaller" />
         </ObjectProvider>
-        
-        
-        <!-- Extensions class: ONLY FOR TESTING -->
+
+        <!--  Extensions provider -->
         <ObjectProvider qualifiedName="saml2md:Extensions">
-            <BuilderClass className="org.opensaml.saml2.metadata.impl.ExtensionsBuilder" />
-            <MarshallingClass className="org.opensaml.saml2.metadata.impl.ExtensionsMarshaller" />
-            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.ExtensionsUnmarshaller" />
+            <BuilderClass className="org.opensaml.saml2.common.impl.ExtensionsBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.common.impl.ExtensionsMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.common.impl.ExtensionsUnmarshaller" />
         </ObjectProvider>
  
     </ObjectProviders>
