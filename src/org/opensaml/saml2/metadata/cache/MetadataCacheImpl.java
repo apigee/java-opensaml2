@@ -21,6 +21,7 @@ package org.opensaml.saml2.metadata.cache;
 
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
@@ -45,7 +46,7 @@ import org.w3c.dom.Document;
  * {@link java.lang.ref.SoftReference} to allow caching with an LRU.
  * 
  */
-public class MetadataCacheImpl implements MetadataCache {
+public class MetadataCacheImpl implements MetadataCache, Runnable {
 
     private static Logger log = Logger.getLogger(MetadataCacheImpl.class);
     
@@ -58,28 +59,33 @@ public class MetadataCacheImpl implements MetadataCache {
      */
     private final UnmarshallerFactory unmarshallerFactory;
     
-    /*
-     * The LRU list - this pins things into the cache
-     */
+    /** The LRU list - this pins things into the cache */
     
     private final XMLObject[] lruList;
     
-    /*
-     * Do we start to load the data as soon as we know its invalid? 
-     */
+    /** How long to wait if no expirey or cache duration set (ms) */
     
-    private final boolean lazyLoad;
+    private final long defaultWait;
+    
+    /** the load & invalidate worker thread */
+    
+    private final Thread workerThread;
+    
+    /** how to exit the thread (helpful for the tests to not get too many threads */
+    private boolean keepLooping = true;
     
     /**
      * Constructor
      *
      */
-    public MetadataCacheImpl(UnmarshallerFactory unmarshallerFactory, int lruSize, boolean lazyLoad) {
+    public MetadataCacheImpl(UnmarshallerFactory unmarshallerFactory, int lruSize, long defaultWaitSecs) {
         map = new HashMap<String, LookupEntry>();
         this.unmarshallerFactory = unmarshallerFactory;
-        this.lazyLoad = lazyLoad;
+        defaultWait = defaultWaitSecs * 1000;
         
         lruList = new XMLObject[lruSize];
+        workerThread = new Thread(this, "Metadata Cache Load and invalidate thread");
+        workerThread.start();
     }
     
     /**
@@ -87,7 +93,7 @@ public class MetadataCacheImpl implements MetadataCache {
      *
      */
     public MetadataCacheImpl(UnmarshallerFactory unmarshallerFactory ) {
-        this(unmarshallerFactory, 2, false);
+        this(unmarshallerFactory, 2, 3600*6);
     }
 
     /*
@@ -122,7 +128,8 @@ public class MetadataCacheImpl implements MetadataCache {
                 map.put(metadataURI, entry);
             }
         }
-
+        log.debug("Added " + metadataURI + " to cache");
+        workerThread.interrupt();
     }
 
     /*
@@ -211,14 +218,27 @@ public class MetadataCacheImpl implements MetadataCache {
         LookupEntry entry = map.get(metadataURI);
         
         entry.clear();
-
+        
+        log.debug("Invalidated " + metadataURI);
+        //
+        // Start loading it again
+        //
+        workerThread.interrupt();
+    }
+    
+    /*
+     * @see org.opensaml.saml2.metadata.cache.MetadataCache#invalidateAllMetadata()
+     */
+    public void invalidateAllMetadata() {
+        // TODO Auto-generated method stub
+        
     }
     
     /**
      * This is the reference which goes into the map.  It contains a weak reference to the
      * actual XML reference (so it might be null).  
      */
-    private class LookupEntry implements Runnable {
+    private class LookupEntry {
         /*
          * Most of the caching smarts are contained within this reference.  
          * All of the methods can be called in multiple threads and so
@@ -249,12 +269,6 @@ public class MetadataCacheImpl implements MetadataCache {
         
         /** mutex is used to guarantee read ordering and keep elements mutually coherent */
         private final Object mutex;
-        
-        /** Trigger to clear us when the becomes invalid */
-        private Thread invalidateThread = null;
-        
-        /** load us up thread (subject to memory pressure) */
-        private Thread loadThread = null;
 
         /** event to stop multiple loads */
         private Object loading;
@@ -275,22 +289,12 @@ public class MetadataCacheImpl implements MetadataCache {
             
             mutex = new Object();
             
-            //
-            // The rest of the initialization happens under the mutex.  This means that the
-            // worker thread will not start until the object is fully instantiated. 
-            //
-            synchronized (mutex) {
-                this.metadataURI = metadataURI;
-                this.resolver = resolver;
-                this.filter = filter;
-                loading = Boolean.FALSE;
-                expires = null;
-                generation = 0;
-                if (!lazyLoad) {
-                    this.loadThread = new LoadThread(); 
-                    this.loadThread.start();
-                }
-            }
+            this.metadataURI = metadataURI;
+            this.resolver = resolver;
+            this.filter = filter;
+            loading = Boolean.FALSE;
+            expires = null;
+            generation = 0;
         }
         
         /**
@@ -300,7 +304,7 @@ public class MetadataCacheImpl implements MetadataCache {
          * @throws UnmarshallingException 
          * @throws ResolutionException 
          */
-        protected XMLObject get() throws ResolutionException, UnmarshallingException, FilterException {
+        private XMLObject get() throws ResolutionException, UnmarshallingException, FilterException {
             XMLObject retVal = null;
             SoftReference<XMLObject> ref;
             DateTime exp;
@@ -344,34 +348,38 @@ public class MetadataCacheImpl implements MetadataCache {
         }
         
         /**
+         * @return when this item will expire
+         */
+        private DateTime getExpires() {
+            return expires;
+        }
+        
+        /**
+         * @return the URI for this entity
+         */
+        private String getURI() {
+            return metadataURI;
+        }
+        
+        
+        /**
          * Clear invalidates out cache.  If we are lazy loading we start to load it up again
          */
-        protected void clear() {
-            Thread thread;
+        private void clear() {
             SoftReference<XMLObject> reference;
             /*
              * Do all the work under the mutex...
              */
             synchronized (mutex) {
-                thread = this.invalidateThread;
                 reference = this.reference;
                 this.expires = null;
                 this.reference = null;
-                this.invalidateThread = null;
                 this.generation ++;
-            }
-            
-            if (thread != null) {
-                thread.interrupt();
             }
             
             if (reference != null) {
                 lruRemove(reference.get());
                 reference.clear();
-            }
-            
-            if (!lazyLoad && metadataURI != null) {
-                new LoadThread();
             }
         }
         
@@ -379,7 +387,7 @@ public class MetadataCacheImpl implements MetadataCache {
          * The element is about to be destroyed so lets clear up all our dangluing issues
          * However we cannot just call clear because that might trigger a reload...
          */
-        protected void delete() {
+        private void delete() {
             //
             // The metadataURI is the signal that this LookupEntry is on the way out
             //
@@ -394,7 +402,7 @@ public class MetadataCacheImpl implements MetadataCache {
          * @throws UnmarshallingException 
          * @throws FilterException 
          */
-        protected XMLObject load() throws ResolutionException, UnmarshallingException, FilterException {
+        private XMLObject load() throws ResolutionException, UnmarshallingException, FilterException {
            /*
             * Load is either called because we are not lazy loading and the data has gone invalid, or 
             * because the user needs the data and it is invalid.  It is therefore serialized and we take a
@@ -406,16 +414,25 @@ public class MetadataCacheImpl implements MetadataCache {
             *  
             *  NOTE the lock ordering.  Take (loading) first, then (mutex).
             */ 
+            
+            log.debug("Loading " + metadataURI);
+            
             XMLObject retVal;
 
             synchronized (loading) {
 
                 SoftReference<XMLObject> reference;
                 DateTime expires;
+                String metadataURI;
             
                 synchronized (mutex) {
-                    reference = this.reference;
                     expires = this.expires;
+                    reference = this.reference;
+                    metadataURI = this.metadataURI;
+                }
+                
+                if (metadataURI == null) {
+                    return null;
                 }
                 
                 retVal = null;
@@ -431,6 +448,8 @@ public class MetadataCacheImpl implements MetadataCache {
                     //
                     // it is valid in cache, return it
                     //
+                    log.debug("Still valid - load stopped: " + metadataURI);
+                                      
                     return retVal;
                 }
                 
@@ -459,110 +478,40 @@ public class MetadataCacheImpl implements MetadataCache {
                     filter.doFilter(retVal);
                 }
                 
-                expires = expires(retVal, null, new DateTime());
+                DateTime now = new DateTime();
+                expires = expires(retVal, null, now);
+                if (expires == null) {
+                    expires = now.plus(defaultWait);
+                }
                 synchronized (mutex) {
                     this.reference = new SoftReference<XMLObject>(retVal);
                     this.expires = expires;
                     this.generation ++;
+                   
+                }
+            
+                //
+                // If we get here we have just sucessfully loaded the object and we will return it
+                // If it is appropriate we will kill off the DOM
+                //
+                if (retVal instanceof AbstractDOMCachingXMLObject) {
+                    AbstractDOMCachingXMLObject domObject = (AbstractDOMCachingXMLObject) retVal;
                     
-                    if (expires != null) {
-                        this.invalidateThread = new Thread(this, "Invalidate " + metadataURI);
-                        this.invalidateThread.start();
-                    }
+                    domObject.releaseThisAndChildrenDOM();
                 }
+
+                log.debug("Loaded " + metadataURI + " successfully ");
+                
+                //
+                // Now tell the worker thread - we may be called in the mainline
+                //
+                
+                workerThread.interrupt();
+                
             }
             
-            //
-            // If we get here we have just sucessfully loaded the object and we will return it
-            // If it is appropriate we will kill off the DOM
-            //
-            if (retVal instanceof AbstractDOMCachingXMLObject) {
-                AbstractDOMCachingXMLObject domObject = (AbstractDOMCachingXMLObject) retVal;
-                
-                domObject.releaseThisAndChildrenDOM();
-            }
-
             return retVal;
-        }
-        
-        /*
-         * The runnable part of this object is used for cache invalidation for internal reasons 
-         * @see java.lang.Runnable#run()
-         */
-        public void run() {
-            DateTime expires;
-            long generation;
-            boolean doClear;
-
-            //
-            // Collect the expires time under syncrhronize.  This ensures that 
-            // all data setup is complete before we start running 
-            //
-            
-            synchronized (mutex) {
-                expires = this.expires;
-                generation = this.generation;
-                
-                if (expires == null || reference == null || reference.get() == null) {
-                    //
-                    // nothing to void, or no date to void it.  just return
-                    //
-                    invalidateThread = null;
-                    return;
-                }
-            }
-
-            long milldiff = expires.getMillis() - new DateTime().getMillis();
-
-            if (milldiff > 0) {
-                log.debug("Invalidate " + metadataURI + " sleeping for "+ milldiff);
-                try {
-                    Thread.sleep(milldiff);
-                } catch (InterruptedException e) {
-                    log.debug("Invalidate " + metadataURI + " was interrupted");
-                }
-            }
-            synchronized (mutex) {
-                invalidateThread = null;
-                doClear = generation == this.generation;
-            }
-            
-            if (doClear) {
-                clear();
-            }
-            log.debug("Invalidated " + metadataURI);
-
-        }
-        
-        /**
-         * Thread to asyncrhonously load the data
-         */
-        private class LoadThread extends Thread {
-            
-            LoadThread() {
-                super("Load " + metadataURI);
-            }
-            /*
-             * @see java.lang.Runnable#run()
-             */
-            public void run () {
-                /*
-                 * We really don't care that if this load fails, it is an optimization.  Maybe someone
-                 * will have better luck next time.
-                 */
-                try {
-                    log.debug("Loading " + metadataURI);
-                    load();
-                    log.debug("Loaded " + metadataURI);
-                } catch (ResolutionException e) {
-                    ; //
-                } catch (UnmarshallingException e) {
-                    ; //
-                } catch (FilterException e) {
-                    ; //
-                }
-            }
-        }
+        }        
     }
     
     /**
@@ -701,5 +650,87 @@ public class MetadataCacheImpl implements MetadataCache {
                 lruList[lruList.length-1] = null;
             }
         }
+    }
+
+    /** Helper routine for the tests to get the threads to dies quickly */
+    
+    protected void stopWorker() {
+        log.debug("Instructing thread to exit");
+        keepLooping = false;
+        workerThread.interrupt();
+    }
+    
+    /*
+     * @see java.lang.Runnable#run()
+     */
+    public void run() {
+       /*
+        * This thread does the loading and invalidating for the cache
+        */
+        log.debug("Load thread started");
+        while (keepLooping) {
+            LookupEntry entry = null;
+            DateTime time = null;
+            
+            // 
+            // Go through our work list and find something needing immediate loading
+            // or the date when the most likely member will awaken
+            //
+            
+            log.debug("Considering my options");
+            
+            synchronized (map) {
+                for (Map.Entry<String,LookupEntry> mapEntry : map.entrySet()) {
+                    LookupEntry what = mapEntry.getValue(); 
+                    if (what.getExpires() == null) {
+                        entry = what;
+                        time = null;
+                        break;
+                    }
+                    if (time == null || time.isAfter(what.getExpires())) {
+                        entry = what;
+                        time = what.getExpires();
+                    }
+                }
+            } // syncrhonized block
+            if (entry == null) {
+                //
+                // Nothing to do.  Sleep for an hour
+                //
+                log.debug("No entries to load, sleeping an hour");
+                try {
+                    Thread.sleep(1000*3600);
+                } catch (InterruptedException e) {
+                    log.debug("Awoken");
+                    ; // nothing
+                }
+            } else if (time == null || time.isBeforeNow()) {
+                //
+                // immediate load
+                //
+                try {
+                    entry.load();
+                } catch (ResolutionException e) {
+                    log.warn("Load of " + entry.getURI() + " threw " + e.toString());
+                } catch (UnmarshallingException e) {
+                    log.warn("Load of " + entry.getURI() + " threw " + e.toString());
+                } catch (FilterException e) {
+                    log.warn("Load of " + entry.getURI() + " threw " + e.toString());
+                }
+            } else {
+                //
+                // Do a sleep for the correct amount of time plus one second
+                //
+                long count = time.getMillis() - (new DateTime()).getMillis();
+                log.debug("Sleeping until " + entry.getURI() + " is invalid : " + count/1000 + "sec");
+                try {
+                    Thread.sleep(count);
+                } catch (InterruptedException e) {
+                    log.debug("Awoken");
+                    ; // nothing
+                }
+            }
+        }
+        log.debug("Thread Exit");
     }
 }

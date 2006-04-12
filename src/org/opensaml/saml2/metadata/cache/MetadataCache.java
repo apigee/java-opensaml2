@@ -89,4 +89,10 @@ public interface MetadataCache {
      * metadata in it changes.
      */
     public void invalidateMetadata(String metadataURI);
+    
+    /**
+     * Invalidate all metadata.  
+     */
+    public void invalidateAllMetadata();
+    
 }

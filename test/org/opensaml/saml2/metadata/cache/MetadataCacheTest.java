@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.metadata.impl;
+package org.opensaml.saml2.metadata.cache;
 
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
-import org.opensaml.saml2.metadata.cache.MetadataCache;
-import org.opensaml.saml2.metadata.cache.MetadataCacheImpl;
 import org.opensaml.saml2.metadata.resolver.MetadataResolver;
 import org.opensaml.saml2.metadata.resolver.MetadataResolverFactory;
 import org.opensaml.saml2.metadata.resolver.ResolutionException;
@@ -40,7 +38,7 @@ import org.xml.sax.InputSource;
 public class MetadataCacheTest extends SAMLObjectBaseTestCase {
 
     private static String TIMEOUT_URI = "timeout"; 
-    private MetadataCache cache;
+    private MetadataCacheImpl cache;
     private final ResolverFactory factory;
     private Document document; 
     
@@ -55,7 +53,7 @@ public class MetadataCacheTest extends SAMLObjectBaseTestCase {
     
     protected void setUp() throws Exception {
         super.setUp();
-        cache = new MetadataCacheImpl(Configuration.getUnmarshallerFactory(), 3, false);
+        cache = new MetadataCacheImpl(Configuration.getUnmarshallerFactory(), 3, 20*60);
         try {
             cache.loadMetadata("one", factory);
             cache.loadMetadata("two", factory);
@@ -64,6 +62,10 @@ public class MetadataCacheTest extends SAMLObjectBaseTestCase {
         } catch (UnmarshallingException e) {
             fail(e.toString());
         }
+    }
+    
+    protected void tearDown() {
+        cache.stopWorker();
     }
 
     public void testLookup() {
