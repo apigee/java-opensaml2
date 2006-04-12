@@ -26,6 +26,7 @@ import org.opensaml.saml2.metadata.OrganizationName;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
@@ -48,6 +49,18 @@ public class OrganizationNameMarshaller extends AbstractSAMLObjectMarshaller {
      */
     protected OrganizationNameMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
+        OrganizationName name = (OrganizationName) samlObject;
+
+        Attr attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), SAMLConstants.XML_NS,
+                OrganizationName.LANG_ATTRIB_NAME, SAMLConstants.XML_PREFIX);
+        attribute.setValue(name.getName().getLanguage());
+        domElement.setAttributeNode(attribute);
     }
 
     /*
