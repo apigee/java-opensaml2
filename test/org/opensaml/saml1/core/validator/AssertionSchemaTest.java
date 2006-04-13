@@ -33,7 +33,7 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
     /** Constructor */
     public AssertionSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new AssertionSchemaValidator();
     }
 
@@ -46,7 +46,7 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         assertion.setIssuer("Issuer");
         assertion.setID("ident");
         assertion.setIssueInstant(new DateTime());
-        QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         assertion.getStatements().add((AttributeStatement)buildXMLObject(name));
         
     }

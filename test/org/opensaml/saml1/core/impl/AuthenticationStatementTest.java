@@ -60,7 +60,7 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAuthenticationStatementAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/AuthenticationStatementWithChildren.xml";
         
-        qname = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -135,10 +135,10 @@ public class AuthenticationStatementTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) buildXMLObject(qname);
 
-        authenticationStatement.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        authenticationStatement.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
 
-        authenticationStatement.setSubjectLocality((SubjectLocality) buildXMLObject(new QName(SAMLConstants.SAML1_NS, SubjectLocality.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
-        QName authQname = new QName(SAMLConstants.SAML1_NS, AuthorityBinding.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        authenticationStatement.setSubjectLocality((SubjectLocality) buildXMLObject(new QName(SAMLConstants.SAML1_NS, SubjectLocality.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        QName authQname = new QName(SAMLConstants.SAML1_NS, AuthorityBinding.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         authenticationStatement.getAuthorityBindings().add((AuthorityBinding) buildXMLObject(authQname));
         authenticationStatement.getAuthorityBindings().add((AuthorityBinding) buildXMLObject(authQname));
 

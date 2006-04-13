@@ -59,7 +59,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         // will only contain <AssertionIDReferences> explicit code in IndexedXMLObjectChildrenList$ListView.indexCheck
         // helps us be sure.
 
-        QName assertionIDRefQName = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
+        QName assertionIDRefQName = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AssertionIDReference>) orderedChildren.subList(assertionIDRefQName);
     }
 
@@ -68,7 +68,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      */
     public List<Assertion> getAssertions() {
         // See Comment for getAssertionIDReference as to why this unsafe casting is OK
-        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME);
+        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<Assertion>) orderedChildren.subList(assertionQname);
     }
 

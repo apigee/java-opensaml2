@@ -14,37 +14,31 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml1.core;
-
 
 /**
  * A type safe "enumeration" of {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} Decision types.
- * 
  */
-public final class DecisionType {
+public final class DecisionTypeEnumeration {
     
     /** "Permit" decision type */
-    public final static DecisionType PERMIT = new DecisionType("Permit");
+    public final static DecisionTypeEnumeration PERMIT = new DecisionTypeEnumeration("Permit");
     
     /** "Deny" decision type */
-    public final static DecisionType DENY = new DecisionType("Deny");
+    public final static DecisionTypeEnumeration DENY = new DecisionTypeEnumeration("Deny");
     
     /** "Indeterminate" decision type */
-    public final static DecisionType INDETERMINATE = new DecisionType("Indeterminate");
+    public final static DecisionTypeEnumeration INDETERMINATE = new DecisionTypeEnumeration("Indeterminate");
     
     /** The decision type sting */
     private String decisionType;
-    
     
     /**
      *  Constructor
      *  
      *  @param newDecisionType
      */
-    private DecisionType(String newDecisionType) {
+    private DecisionTypeEnumeration(String newDecisionType) {
         this.decisionType = newDecisionType;
     }
 

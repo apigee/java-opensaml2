@@ -36,7 +36,7 @@ public class AssertionArtifactBuilder extends AbstractSAMLObjectBuilder<Assertio
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AssertionArtifact buildObject() {
-        return buildObject(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        return buildObject(SAMLConstants.SAML1P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*

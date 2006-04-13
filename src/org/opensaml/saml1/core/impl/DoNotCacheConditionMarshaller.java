@@ -29,6 +29,6 @@ public class DoNotCacheConditionMarshaller extends AbstractSAMLObjectMarshaller 
      * Constructor
      */
     public DoNotCacheConditionMarshaller() {
-        super(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 }

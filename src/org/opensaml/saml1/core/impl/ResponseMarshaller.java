@@ -28,7 +28,7 @@ public class ResponseMarshaller extends ResponseAbstractTypeMarshaller {
      * Constructor
      */
     public ResponseMarshaller() {
-        super(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME);
+        super(SAMLConstants.SAML1P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
  

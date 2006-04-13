@@ -36,7 +36,7 @@ public class RequestBuilder extends AbstractSAMLObjectBuilder<Request> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Request buildObject() {
-        return buildObject(SAMLConstants.SAML1_NS, Request.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        return buildObject(SAMLConstants.SAML1_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*

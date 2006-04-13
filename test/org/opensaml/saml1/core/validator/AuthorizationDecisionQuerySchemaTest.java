@@ -30,7 +30,7 @@ public class AuthorizationDecisionQuerySchemaTest extends SubjectQuerySchemaTest
     /** Constructor */
     public AuthorizationDecisionQuerySchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         validator = new AuthorizationDecisionQuerySchemaValidator();
     }
 
@@ -42,7 +42,7 @@ public class AuthorizationDecisionQuerySchemaTest extends SubjectQuerySchemaTest
         AuthorizationDecisionQuery query = (AuthorizationDecisionQuery) target;
         
         query.setResource("resource");
-        QName qname = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         query.getActions().add((Action)buildXMLObject(qname));
     }
     

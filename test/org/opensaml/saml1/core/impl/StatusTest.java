@@ -45,7 +45,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml1/impl/FullStatus.xml";
         singleElementFile = "/data/org/opensaml/saml1/impl/singleStatus.xml";
         
-        qname = new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname = new QName(SAMLConstants.SAML1P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*
@@ -79,7 +79,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     public void testSingleElementMarshall() {
         Status status = (Status) buildXMLObject(qname);
 
-        QName oqname = new QName(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName oqname = new QName(SAMLConstants.SAML1P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         
         status.setStatusCode((StatusCode)buildXMLObject(oqname));
 
@@ -95,10 +95,10 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Status status = (Status) buildXMLObject(qname);
 
-        QName oqname = new QName(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName oqname = new QName(SAMLConstants.SAML1P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         
         status.setStatusCode((StatusCode)buildXMLObject(oqname));
-        oqname = new QName(SAMLConstants.SAML1P_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        oqname = new QName(SAMLConstants.SAML1P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         status.setStatusMessage((StatusMessage)buildXMLObject(oqname));
 
         status.getStatusCode().setValue("samlp:Sucess");

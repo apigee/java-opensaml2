@@ -49,7 +49,7 @@ public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAttributeDesignatorAttributes.xml";
         expectedAttributeName = "AttributeName";
         expectedAttributeNamespace = "namespace";
-        qname = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*

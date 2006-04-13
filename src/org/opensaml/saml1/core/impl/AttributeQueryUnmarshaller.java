@@ -30,7 +30,7 @@ public class AttributeQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
     /** Constructor */
     public AttributeQueryUnmarshaller() {
-        super(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
+        super(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

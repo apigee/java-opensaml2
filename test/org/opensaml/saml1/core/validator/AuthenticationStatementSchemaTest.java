@@ -30,7 +30,7 @@ public class AuthenticationStatementSchemaTest extends SubjectStatementSchemaTes
     /** Constructor */
     public AuthenticationStatementSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new AuthenticationStatementValidator();
 
     }

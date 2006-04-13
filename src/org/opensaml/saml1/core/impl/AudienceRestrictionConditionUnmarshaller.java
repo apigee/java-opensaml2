@@ -32,7 +32,7 @@ public class AudienceRestrictionConditionUnmarshaller extends AbstractSAMLObject
      * Constructor
      */
     public AudienceRestrictionConditionUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

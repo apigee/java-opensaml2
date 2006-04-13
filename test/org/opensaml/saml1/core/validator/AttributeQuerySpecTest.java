@@ -29,7 +29,7 @@ public class AttributeQuerySpecTest extends SubjectQuerySpecTest  {
     /** Constructor */
     public AttributeQuerySpecTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         validator = new AttributeQuerySpecValidator();
     }
 

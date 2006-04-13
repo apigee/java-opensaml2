@@ -49,7 +49,7 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAttributeQueryAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/AttributeQueryWithChildren.xml";
         expectedResource = "resource";
-        qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /**
@@ -112,9 +112,9 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         AttributeQuery attributeQuery = (AttributeQuery) buildXMLObject(qname);
 
-        attributeQuery.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        attributeQuery.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
         List <AttributeDesignator> list = attributeQuery.getAttributeDesignators();
-        QName attqname = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);  
+        QName attqname = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);  
         list.add((AttributeDesignator) buildXMLObject(attqname));
         list.add((AttributeDesignator) buildXMLObject(attqname));
         list.add((AttributeDesignator) buildXMLObject(attqname)); 

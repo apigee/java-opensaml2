@@ -31,7 +31,7 @@ public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCa
     /** Constructor */
     public SubjectConfirmationSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new SubjectConfirmationValidator();
     }
 
@@ -43,7 +43,7 @@ public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCa
 
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) target;
         
-        QName qname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod)buildXMLObject(qname));
     }
     

@@ -45,7 +45,7 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
         super();
         singleElementFile = "/data/org/opensaml/saml1/impl/singleAttributeStatement.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/AttributeStatementWithChildren.xml";
-        qname = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -102,9 +102,9 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
 
         AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
 
-        attributeStatement.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        attributeStatement.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
 
-        QName oqname = new QName(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName oqname = new QName(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         for (int i = 0; i < 5; i++) {
             attributeStatement.getAttributes().add((Attribute) buildXMLObject(oqname));
         }

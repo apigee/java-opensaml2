@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
-import org.opensaml.saml1.core.DecisionType;
+import org.opensaml.saml1.core.DecisionTypeEnumeration;
 import org.opensaml.saml1.core.Evidence;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -71,12 +71,12 @@ public class AuthorizationDecisionStatementUnmarshaller extends SubjectStatement
 
         if (AuthorizationDecisionStatement.DECISION_ATTRIB_NAME.equals(attribute.getLocalName())) {
             String value = attribute.getValue();
-            if (value.equals(DecisionType.PERMIT.toString())) {
-                authorizationDecisionStatement.setDecision(DecisionType.PERMIT);
-            } else if (value.equals(DecisionType.DENY.toString())) {
-                authorizationDecisionStatement.setDecision(DecisionType.DENY);
-            } else  if (value.equals(DecisionType.INDETERMINATE.toString())) {
-                authorizationDecisionStatement.setDecision(DecisionType.INDETERMINATE);
+            if (value.equals(DecisionTypeEnumeration.PERMIT.toString())) {
+                authorizationDecisionStatement.setDecision(DecisionTypeEnumeration.PERMIT);
+            } else if (value.equals(DecisionTypeEnumeration.DENY.toString())) {
+                authorizationDecisionStatement.setDecision(DecisionTypeEnumeration.DENY);
+            } else  if (value.equals(DecisionTypeEnumeration.INDETERMINATE.toString())) {
+                authorizationDecisionStatement.setDecision(DecisionTypeEnumeration.INDETERMINATE);
             }  else {
                 log.error("Unknown value for DecisionType '" + value + "'");
                 throw new UnmarshallingException("Unknown value for DecisionType '" + value + "'");

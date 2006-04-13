@@ -33,7 +33,7 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTest  {
     /** Constructor */
     public RequestSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, Request.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         validator = new RequestSchemaValidator();
     }
 
@@ -44,7 +44,7 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTest  {
         super.populateRequiredData();
         
         Request request = (Request) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         request.setQuery((Query)buildXMLObject(qname));
     }
     
@@ -56,7 +56,7 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTest  {
 
     public void testQueryAndAssertionIDReference() {
         Request request = (Request) target;
-        QName qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
 
         request.getAssertionIDReferences().add((AssertionIDReference)buildXMLObject(qname));        
         
@@ -65,7 +65,7 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTest  {
 
     public void testQueryAndAssertionArtifact() {
         Request request = (Request) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
 
         request.getAssertionArtifacts().add((AssertionArtifact)buildXMLObject(qname));        
         assertValidationFail("Both Query & AssertionArtifact element present, should raise a Validation Exception");
@@ -73,9 +73,9 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTest  {
 
     public void testAssertionIDRefAndAssertionArtifact() {
         Request request = (Request) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         request.getAssertionArtifacts().add((AssertionArtifact)buildXMLObject(qname));        
-        qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         request.getAssertionIDReferences().add((AssertionIDReference)buildXMLObject(qname));        
         request.setQuery(null);
         

@@ -30,7 +30,7 @@ public class AssertionArtifactUnmarshaller extends AbstractSAMLObjectUnmarshalle
      * Constructor
      */
     public AssertionArtifactUnmarshaller() {
-        super(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
+        super(SAMLConstants.SAML1P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

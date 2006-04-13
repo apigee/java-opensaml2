@@ -31,7 +31,7 @@ public class AttributeUnmarshaller extends AttributeDesignatorUnmarshaller {
      * Constructor
      */
     public AttributeUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

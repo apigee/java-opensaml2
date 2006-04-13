@@ -40,7 +40,7 @@ public abstract class SubjectQuerySchemaTest extends SAMLObjectValidatorBaseTest
         super.populateRequiredData();
         
         SubjectQuery query = (SubjectQuery) target;
-        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         query.setSubject((Subject) buildXMLObject(qname));
     }
     

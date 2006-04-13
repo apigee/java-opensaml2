@@ -32,7 +32,7 @@ public class SubjectSchemaTest extends SAMLObjectValidatorBaseTestCase {
     /** Constructor */
     public SubjectSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new SubjectValidator();
     }
 
@@ -44,9 +44,9 @@ public class SubjectSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
         Subject subject = (Subject) target;
         
-        QName qname = new QName(SAMLConstants.SAML1_NS, NameIdentifier.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1_NS, NameIdentifier.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         subject.setNameIdentifier((NameIdentifier)buildXMLObject(qname));
-        qname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         subject.setSubjectConfirmation((SubjectConfirmation)buildXMLObject(qname));
     }
     

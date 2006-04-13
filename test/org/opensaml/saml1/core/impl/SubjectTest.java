@@ -44,7 +44,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
 
         singleElementFile = "/data/org/opensaml/saml1/impl/singleSubject.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/SubjectWithChildren.xml";
-        qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -81,9 +81,9 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Subject subject = (Subject) buildXMLObject(qname);
 
-        QName oqname = new QName(SAMLConstants.SAML1_NS, NameIdentifier.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName oqname = new QName(SAMLConstants.SAML1_NS, NameIdentifier.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         subject.setNameIdentifier((NameIdentifier) buildXMLObject(oqname));
-        oqname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        oqname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         subject.setSubjectConfirmation((SubjectConfirmation) buildXMLObject(oqname));
 
         assertEquals(expectedChildElementsDOM, subject);

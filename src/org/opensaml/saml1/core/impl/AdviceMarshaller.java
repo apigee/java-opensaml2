@@ -29,6 +29,6 @@ public class AdviceMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public AdviceMarshaller() {
-        super(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 }

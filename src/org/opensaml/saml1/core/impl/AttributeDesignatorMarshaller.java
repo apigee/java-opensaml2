@@ -39,7 +39,7 @@ public class AttributeDesignatorMarshaller extends AbstractSAMLObjectMarshaller 
      * @throws NullPointerException
      */
     public AttributeDesignatorMarshaller() {
-        super(SAMLConstants.SAML1_NS, AttributeDesignator.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME);
     }
     
     /**

@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
-import org.opensaml.saml1.core.DecisionType;
+import org.opensaml.saml1.core.DecisionTypeEnumeration;
 import org.opensaml.saml1.core.Evidence;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -36,7 +36,7 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
     private String resource;
 
     /** Contains the Decision attribute */
-    private DecisionType decision;
+    private DecisionTypeEnumeration decision;
 
     /** Contains the list of Action elements */
     private final XMLObjectChildrenList<Action> actions;
@@ -73,14 +73,14 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
     /*
      * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#getDecision()
      */
-    public DecisionType getDecision() {
+    public DecisionTypeEnumeration getDecision() {
         return decision;
     }
 
     /*
      * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#setDecision(org.opensaml.saml1.core.DecisionType)
      */
-    public void setDecision(DecisionType decision) {
+    public void setDecision(DecisionTypeEnumeration decision) {
         this.decision = prepareForAssignment(this.decision, decision);
     }
 

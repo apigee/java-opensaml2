@@ -21,13 +21,26 @@ package org.opensaml.saml1.core;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
+
 /**
  * Description of the behaviour of the <code> AuthorizationDecisionQuery </code> element
  */
 public interface AuthorizationDecisionQuery extends SubjectQuery {
 
     /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "AuthorizationDecisionQuery";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthorizationDecisionQuery";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AuthorizationDecisionQueryType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     
     /** AuthenticationMethod attribute name */
     public final static String RESOURCE_ATTRIB_NAME = "Resource"; 

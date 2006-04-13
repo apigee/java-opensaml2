@@ -35,7 +35,7 @@ public class AuthorityBindingMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public AuthorityBindingMarshaller() {
-        super(SAMLConstants.SAML1_NS, AuthorityBinding.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, AuthorityBinding.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

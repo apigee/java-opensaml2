@@ -36,7 +36,7 @@ public class AssertionSpecTest extends SAMLObjectValidatorBaseTestCase {
     /** Constructor */
     public AssertionSpecTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new AssertionSpecValidator();
     }
 
@@ -49,16 +49,16 @@ public class AssertionSpecTest extends SAMLObjectValidatorBaseTestCase {
         assertion.setIssuer("Issuer");
         assertion.setID("ident");
         assertion.setIssueInstant(new DateTime());
-        QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName name = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         assertion.getStatements().add((AttributeStatement)buildXMLObject(name));
     }
     
     public void testDoNotCache() {
         Assertion assertion = (Assertion) target;
-        QName oqname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName oqname = new QName(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         Conditions conditions = (Conditions) buildXMLObject(oqname);
         assertion.setConditions(conditions);
-        oqname = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        oqname = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         conditions.getConditions().add((Condition) buildXMLObject(oqname));
         assertValidationPass("DoNotCache allowed in SAML 1.1");
         assertion.setVersion(SAMLVersion.VERSION_10);

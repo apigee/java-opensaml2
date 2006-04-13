@@ -31,7 +31,7 @@ public class AuthorizationDecisionQueryMarshaller extends SubjectQueryMarshaller
      * Constructor
      */
     public AuthorizationDecisionQueryMarshaller() {
-        super(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME);
+        super(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

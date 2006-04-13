@@ -38,7 +38,7 @@ public class AttributeImpl extends AttributeDesignatorImpl implements Attribute 
      * Constructor
      */
     protected AttributeImpl() {
-        super(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        super(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
     }
 

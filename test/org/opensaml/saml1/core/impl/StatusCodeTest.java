@@ -46,7 +46,7 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         value = "samlp:Success";
         childValue = "samlp:VersionMismatch";
         
-        qname = new QName(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname = new QName(SAMLConstants.SAML1P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*

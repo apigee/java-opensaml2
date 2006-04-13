@@ -62,7 +62,7 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
 
         expectedResource = "resource";
         
-        qname =new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname =new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /**
@@ -141,15 +141,15 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
     public void testFullElementsMarshall() {
         AuthorizationDecisionQuery authorizationDecisionQuery;
         authorizationDecisionQuery = (AuthorizationDecisionQuery) buildXMLObject(qname);
-        authorizationDecisionQuery.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        authorizationDecisionQuery.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
 
-        QName actionQname = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName actionQname = new QName(SAMLConstants.SAML1_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         List <Action> list = authorizationDecisionQuery.getActions();
         list.add((Action) buildXMLObject(actionQname));
         list.add((Action) buildXMLObject(actionQname));
         list.add((Action) buildXMLObject(actionQname));
         
-        authorizationDecisionQuery.setEvidence((Evidence) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        authorizationDecisionQuery.setEvidence((Evidence) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
         assertEquals(expectedFullDOM, authorizationDecisionQuery);
 
     }

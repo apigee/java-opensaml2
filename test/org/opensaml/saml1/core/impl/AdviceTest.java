@@ -44,7 +44,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
 
         singleElementFile = "/data/org/opensaml/saml1/impl/singleAdvice.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/AdviceWithChildren.xml";
-        qname = new QName(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -81,8 +81,8 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Advice advice = (Advice) buildXMLObject(qname);
         
-        QName assertionIDRefQname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName assertionIDRefQname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         
         advice.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(assertionIDRefQname));
         advice.getAssertions().add((Assertion) buildXMLObject(assertionQname) );

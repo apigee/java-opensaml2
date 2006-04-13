@@ -42,10 +42,10 @@ public interface AuthorizationDecisionStatement extends SAMLObject, SubjectState
     public void setResource(String resource);
     
     /** Return the contents of the Decision attribute */
-    public DecisionType getDecision();
+    public DecisionTypeEnumeration getDecision();
     
     /** Set the contents of the Decision attribute */
-    public void setDecision(DecisionType decision);
+    public void setDecision(DecisionTypeEnumeration decision);
     
     /** Get the Action Elements */
     public List<Action> getActions();

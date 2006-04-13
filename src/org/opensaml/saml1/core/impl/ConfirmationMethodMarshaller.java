@@ -33,7 +33,7 @@ public class ConfirmationMethodMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public ConfirmationMethodMarshaller() {
-        super(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

@@ -44,14 +44,14 @@ public class AssertionIDReferenceImpl extends AbstractSAMLObject implements Asse
     /*
      * @see org.opensaml.saml1.core.AssertionIDReference#getNCName()
      */
-    public String getNCName() {
+    public String getReference() {
         return NCName;
     }
 
     /*
      * @see org.opensaml.saml1.core.AssertionIDReference#setNCName(java.lang.String)
      */
-    public void setNCName(String NCName) {
+    public void setReference(String NCName) {
         this.NCName = prepareForAssignment(this.NCName, NCName);
     }
 

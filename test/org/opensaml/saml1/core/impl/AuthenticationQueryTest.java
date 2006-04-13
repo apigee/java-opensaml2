@@ -45,7 +45,7 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAuthenticationQueryAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/AuthenticationQueryWithChildren.xml";
         expectedAuthenticationMethod = "Trust Me";
-        qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /**
@@ -107,7 +107,7 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         AuthenticationQuery authenticationQuery = (AuthenticationQuery) buildXMLObject(qname);
 
-        authenticationQuery.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        authenticationQuery.setSubject((Subject) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
         assertEquals(expectedChildElementsDOM, authenticationQuery);
 
     }

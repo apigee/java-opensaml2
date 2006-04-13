@@ -33,7 +33,7 @@ public class ActionMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public ActionMarshaller() {
-        super(SAMLConstants.SAML1_NS, Action.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

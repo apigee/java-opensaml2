@@ -35,7 +35,7 @@ public class AuthenticationStatementUnmarshaller extends SubjectStatementUnmarsh
      * Constructor
      */
     public AuthenticationStatementUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

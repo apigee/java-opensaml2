@@ -32,7 +32,7 @@ public class NameIdentifierUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public NameIdentifierUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, NameIdentifier.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, NameIdentifier.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

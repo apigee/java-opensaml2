@@ -30,7 +30,7 @@ public abstract class AttributeDesignatorSchemaTest extends SAMLObjectValidatorB
     /** Constructor */
     public AttributeDesignatorSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new AttributeDesignatorValidator();
 
     }

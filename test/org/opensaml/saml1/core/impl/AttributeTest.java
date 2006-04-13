@@ -51,7 +51,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml1/impl/AttributeWithChildren.xml";
         expectedAttributeName = "AttributeName";
         expectedAttributeNamespace = "namespace";
-        qname = new QName(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*

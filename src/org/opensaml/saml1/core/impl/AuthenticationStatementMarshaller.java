@@ -32,7 +32,7 @@ public class AuthenticationStatementMarshaller extends SubjectStatementMarshalle
      * Constructor
      */
     public AuthenticationStatementMarshaller() {
-        super(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

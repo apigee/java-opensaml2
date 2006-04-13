@@ -104,7 +104,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml1.core.Conditions#getAudienceRestrictionConditions()
      */
     public List<AudienceRestrictionCondition> getAudienceRestrictionConditions() {
-        QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AudienceRestrictionCondition>) conditions.subList(qname);
     }
 
@@ -112,7 +112,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml1.core.Conditions#getDoNotCacheConditions()
      */
     public List<DoNotCacheCondition> getDoNotCacheConditions() {
-        QName qname = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<DoNotCacheCondition>) conditions.subList(qname);
     }
 

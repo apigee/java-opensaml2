@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
@@ -31,8 +32,16 @@ import org.opensaml.xml.signature.SignableXMLObject;
 public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
 
     /** Element name, no namespace. */
-
-    public final static String LOCAL_NAME = "Assertion";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Assertion";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML1_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AssertionType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
 
     /** Name for the attribute which defines Major Version (attribute's value must be 1) */
     public final static String MAJORVERSION_ATTRIB_NAME = "MajorVersion";

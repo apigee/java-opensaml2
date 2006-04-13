@@ -41,7 +41,7 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
     public AudienceRestrictionConditionTest() {
         singleElementFile = "/data/org/opensaml/saml1/impl/singleAudienceRestrictionCondition.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/AudienceRestrictionConditionWithChildren.xml";
-        qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -87,7 +87,7 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
 
         audienceRestrictionCondition = (AudienceRestrictionCondition) buildXMLObject(qname);
 
-        QName audienceName = new QName(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName audienceName = new QName(SAMLConstants.SAML1_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         audienceRestrictionCondition.getAudiences().add((Audience) buildXMLObject(audienceName));
         audienceRestrictionCondition.getAudiences().add((Audience) buildXMLObject(audienceName));
 

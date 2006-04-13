@@ -31,7 +31,7 @@ public class ConditionsSpecTest extends SAMLObjectValidatorBaseTestCase  {
     /** Constructor */
     public ConditionsSpecTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new ConditionsSpecValidator();
     }
 
@@ -42,7 +42,7 @@ public class ConditionsSpecTest extends SAMLObjectValidatorBaseTestCase  {
         super.populateRequiredData();
         
         Conditions conditions = (Conditions) target;
-        QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         conditions.getConditions().add((AudienceRestrictionCondition) buildXMLObject(qname));
     }
     

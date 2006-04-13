@@ -30,7 +30,7 @@ public class ConfirmationMethodUnmarshaller extends AbstractSAMLObjectUnmarshall
      * Constructor
      */
     public ConfirmationMethodUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

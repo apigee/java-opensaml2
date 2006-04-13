@@ -33,7 +33,7 @@ public class AssertionArtifactMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public AssertionArtifactMarshaller() {
-        super(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
+        super(SAMLConstants.SAML1P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

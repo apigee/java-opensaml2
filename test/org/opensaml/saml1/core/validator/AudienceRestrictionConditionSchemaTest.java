@@ -31,7 +31,7 @@ public class AudienceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
     /** Constructor */
     public AudienceRestrictionConditionSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new AudienceRestrictionConditionSchemaValidator();
     }
 
@@ -42,7 +42,7 @@ public class AudienceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
         super.populateRequiredData();
         
         AudienceRestrictionCondition audienceRestrictionCondition = (AudienceRestrictionCondition) target;
-        QName name = new QName(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName name = new QName(SAMLConstants.SAML1_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         audienceRestrictionCondition.getAudiences().add((Audience)buildXMLObject(name));
     }
     

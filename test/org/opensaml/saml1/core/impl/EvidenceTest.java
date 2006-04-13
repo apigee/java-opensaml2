@@ -45,7 +45,7 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/impl/singleEvidence.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/EvidenceWithChildren.xml";
         
-        qname = new QName(SAMLConstants.SAML1_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -85,8 +85,8 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Evidence evidence = (Evidence) buildXMLObject(qname);
 
-        QName refQname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName refQname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         
         evidence.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(refQname));
         evidence.getAssertions().add((Assertion) buildXMLObject(assertionQname));

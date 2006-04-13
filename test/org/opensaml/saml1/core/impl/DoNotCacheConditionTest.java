@@ -53,7 +53,7 @@ public class DoNotCacheConditionTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testSingleElementMarshall() {
-        assertEquals(expectedDOM, buildXMLObject(new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        assertEquals(expectedDOM, buildXMLObject(new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
     }
 
 }

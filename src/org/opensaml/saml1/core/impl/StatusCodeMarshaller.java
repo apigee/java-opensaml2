@@ -32,7 +32,7 @@ public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public StatusCodeMarshaller() {
-        super(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME);
+        super(SAMLConstants.SAML1P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

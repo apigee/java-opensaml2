@@ -65,7 +65,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         //
         expectedNotOnOfAfter = new DateTime(1970, 1, 01, 00, 00, 01, 0, ISOChronology.getInstanceUTC());
         
-        qname = new QName(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -139,10 +139,10 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
 
         Conditions conditions = (Conditions) buildXMLObject(qname);
 
-        QName arcQname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName arcQname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         
         conditions.getConditions().add((AudienceRestrictionCondition) buildXMLObject(arcQname));
-        conditions.getConditions().add((DoNotCacheCondition) buildXMLObject(new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        conditions.getConditions().add((DoNotCacheCondition) buildXMLObject(new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
         // conditions.addCondition(condition);
 
         conditions.getConditions().add((AudienceRestrictionCondition) buildXMLObject(arcQname));

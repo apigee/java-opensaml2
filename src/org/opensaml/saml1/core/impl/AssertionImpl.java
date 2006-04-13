@@ -187,7 +187,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml1.core.Assertion#getSubjectStatements()
      */
     public List<SubjectStatement> getSubjectStatements() {
-        QName statementQName = new QName(SAMLConstants.SAML1_NS, SubjectStatement.LOCAL_NAME);
+        QName statementQName = new QName(SAMLConstants.SAML1_NS, SubjectStatement.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<SubjectStatement>) statements.subList(statementQName);
     }
 
@@ -195,7 +195,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml1.core.Assertion#getAuthenticationStatements()
      */
     public List<AuthenticationStatement> getAuthenticationStatements() {
-        QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.LOCAL_NAME);
+        QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AuthenticationStatement>) statements.subList(statementQName);
     }
 
@@ -211,7 +211,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml1.core.Assertion#getAttributeStatements()
      */
     public List<AttributeStatement> getAttributeStatements() {
-        QName statementQName = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME);
+        QName statementQName = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AttributeStatement>) statements.subList(statementQName);
     }
 

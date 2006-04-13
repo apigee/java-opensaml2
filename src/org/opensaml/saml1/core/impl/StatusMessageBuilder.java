@@ -36,7 +36,7 @@ public class StatusMessageBuilder extends AbstractSAMLObjectBuilder<StatusMessag
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public StatusMessage buildObject() {
-        return buildObject(SAMLConstants.SAML1P_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        return buildObject(SAMLConstants.SAML1P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /*

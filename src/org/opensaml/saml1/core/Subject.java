@@ -19,14 +19,26 @@
  */
 package org.opensaml.saml1.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * Interface to describe how the <code> Subject </code> elements work.
  */
 public interface Subject extends SAMLObject {
     /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "Subject";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Subject";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML1_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "ActionType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     
     /** Gets the NameIdentifier of this Subject */
     public NameIdentifier getNameIdentifier();

@@ -30,7 +30,7 @@ public class AttributeSchemaTest extends AttributeDesignatorSchemaTest {
     /** Constructor */
     public AttributeSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new AttributeValidator();
 
     }

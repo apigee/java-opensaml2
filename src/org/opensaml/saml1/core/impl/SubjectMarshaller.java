@@ -29,6 +29,6 @@ public class SubjectMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public SubjectMarshaller() {
-        super(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 }

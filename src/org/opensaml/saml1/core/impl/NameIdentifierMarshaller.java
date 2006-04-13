@@ -35,7 +35,7 @@ public class NameIdentifierMarshaller extends AbstractSAMLObjectMarshaller {
      * @throws IllegalArgumentException
      */
     public NameIdentifierMarshaller() throws IllegalArgumentException {
-        super(SAMLConstants.SAML1_NS, NameIdentifier.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, NameIdentifier.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

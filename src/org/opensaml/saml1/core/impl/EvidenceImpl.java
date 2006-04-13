@@ -55,7 +55,7 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
      * @see org.opensaml.saml1.core.Evidence#getAssertionIDReferences()
      */
     public List<AssertionIDReference> getAssertionIDReferences() {
-        QName qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AssertionIDReference>) evidence.subList(qname);
     }
 
@@ -63,7 +63,7 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
      * @see org.opensaml.saml1.core.Evidence#getAssertions()
      */
     public List<Assertion> getAssertions() {
-        QName qname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<Assertion>) evidence.subList(qname);
     }
 

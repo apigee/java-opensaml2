@@ -30,7 +30,7 @@ public class AttributeStatementSchemaTest extends SubjectStatementSchemaTest {
     /** Constructor */
     public AttributeStatementSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new AttributeStatementValidator();
 
     }
@@ -43,7 +43,7 @@ public class AttributeStatementSchemaTest extends SubjectStatementSchemaTest {
 
         AttributeStatement attributeStatement = (AttributeStatement) target;
  
-        QName qname = new QName(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         attributeStatement.getAttributes().add((Attribute)buildXMLObject(qname));
     }
     

@@ -47,7 +47,7 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
         expectedFormat = "format";
         expectedNameIdentifier = "IdentifierText";
         expectedNameQualifier = "Qualifier";
-        qname = new QName(SAMLConstants.SAML1_NS, NameIdentifier.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, NameIdentifier.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*

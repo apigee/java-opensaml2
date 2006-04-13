@@ -31,7 +31,7 @@ public class AttributeQueryMarshaller extends SubjectQueryMarshaller {
      * Constructor
      */
     public AttributeQueryMarshaller() {
-        super(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
+        super(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

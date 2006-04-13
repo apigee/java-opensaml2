@@ -32,7 +32,7 @@ public class StatusSchemaTest extends SAMLObjectValidatorBaseTestCase {
     /** Constructor */
     public StatusSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         validator = new StatusSchemaValidator();
     }
 
@@ -43,7 +43,7 @@ public class StatusSchemaTest extends SAMLObjectValidatorBaseTestCase {
         super.populateRequiredData();
 
         Status status = (Status) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         status.setStatusCode((StatusCode)buildXMLObject(qname));
     }
     

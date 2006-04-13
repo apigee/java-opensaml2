@@ -36,7 +36,7 @@ public class SubjectConfirmationDataBuilder extends AbstractSAMLObjectBuilder<Su
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public SubjectConfirmationData buildObject() {
-        return buildObject(SAMLConstants.SAML1_NS, SubjectConfirmationData.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        return buildObject(SAMLConstants.SAML1_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*

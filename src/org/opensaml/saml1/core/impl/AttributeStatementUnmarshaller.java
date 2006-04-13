@@ -31,7 +31,7 @@ public class AttributeStatementUnmarshaller extends SubjectStatementUnmarshaller
      * Constructor
      */
     public AttributeStatementUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, AttributeStatement.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

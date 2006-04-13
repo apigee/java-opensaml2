@@ -27,6 +27,6 @@ public class DoNotCacheConditionUnmarshaller extends AbstractSAMLObjectUnmarshal
 
     /** Constructor */
     public DoNotCacheConditionUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, DoNotCacheCondition.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 }

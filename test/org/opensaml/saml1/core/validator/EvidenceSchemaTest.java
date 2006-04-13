@@ -32,7 +32,7 @@ public class EvidenceSchemaTest extends SAMLObjectValidatorBaseTestCase {
     /** Constructor */
     public EvidenceSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new EvidenceSchemaValidator();
     }
 
@@ -43,8 +43,8 @@ public class EvidenceSchemaTest extends SAMLObjectValidatorBaseTestCase {
         super.populateRequiredData();
         
         Evidence evidence = (Evidence) target;
-        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        QName assertionIDRefQname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName assertionIDRefQname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         evidence.getAssertions().add((Assertion)buildXMLObject(assertionQname));
         evidence.getAssertionIDReferences().add((AssertionIDReference)buildXMLObject(assertionIDRefQname));
         evidence.getAssertions().add((Assertion)buildXMLObject(assertionQname));

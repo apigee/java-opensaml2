@@ -45,7 +45,7 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/impl/singleAssertionIDReference.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAssertionIDReferenceContents.xml";
         expectedNCName = "NibbleAHappyWarthog";
-        qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -57,8 +57,8 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
 
         assertionIDReference = (AssertionIDReference) unmarshallElement(singleElementFile);
 
-        assertNull("NCName was " + assertionIDReference.getNCName() + " expected null", assertionIDReference
-                .getNCName());
+        assertNull("NCName was " + assertionIDReference.getReference() + " expected null", assertionIDReference
+                .getReference());
     }
 
     /*
@@ -71,7 +71,7 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
 
         assertionIDReference = (AssertionIDReference) unmarshallElement(singleElementOptionalAttributesFile);
 
-        assertEquals("NCName ", expectedNCName, assertionIDReference.getNCName());
+        assertEquals("NCName ", expectedNCName, assertionIDReference.getReference());
     }
 
     /*
@@ -90,7 +90,7 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
     public void testSingleElementOptionalAttributesMarshall() {
         AssertionIDReference assertionIDReference = (AssertionIDReference) buildXMLObject(qname);
 
-        assertionIDReference.setNCName(expectedNCName);
+        assertionIDReference.setReference(expectedNCName);
         assertEquals(expectedOptionalAttributesDOM, assertionIDReference);
     }
 }

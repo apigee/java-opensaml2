@@ -32,7 +32,7 @@ public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public StatusUnmarshaller() {
-        super(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME);
+        super(SAMLConstants.SAML1P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

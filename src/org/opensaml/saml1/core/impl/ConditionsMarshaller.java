@@ -33,7 +33,7 @@ public class ConditionsMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public ConditionsMarshaller() {
-        super(SAMLConstants.SAML1_NS, Conditions.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

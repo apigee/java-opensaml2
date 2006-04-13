@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
-import org.opensaml.saml1.core.DecisionType;
+import org.opensaml.saml1.core.DecisionTypeEnumeration;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AuthorizationDecisionStatementValidator}.
@@ -45,9 +45,9 @@ public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSc
         AuthorizationDecisionStatement authorizationDecisionStatement = (AuthorizationDecisionStatement) target;
  
         authorizationDecisionStatement.setResource("resource");
-        authorizationDecisionStatement.setDecision(DecisionType.DENY);
+        authorizationDecisionStatement.setDecision(DecisionTypeEnumeration.DENY);
         
-        QName qname = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         authorizationDecisionStatement.getActions().add((Action)buildXMLObject(qname));
     }
     

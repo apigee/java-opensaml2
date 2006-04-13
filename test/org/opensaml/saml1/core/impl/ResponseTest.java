@@ -70,7 +70,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         expectedMinorVersion=1;
         expectedRecipient="recipient";
         
-        qname = new QName(SAMLConstants.SAML1P_NS, Response.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname = new QName(SAMLConstants.SAML1P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /**
@@ -153,8 +153,8 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall() {
         Response response = (Response) buildXMLObject(qname);
 
-        response.getAssertions().add((Assertion) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
-        response.setStatus((Status)buildXMLObject(new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX)));
+        response.getAssertions().add((Assertion) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
+        response.setStatus((Status)buildXMLObject(new QName(SAMLConstants.SAML1P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX)));
 
         assertEquals(expectedChildElementsDOM, response);
 

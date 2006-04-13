@@ -31,7 +31,7 @@ public class StatusCodeSchemaTest extends SAMLObjectValidatorBaseTestCase {
     /** Constructor */
     public StatusCodeSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         validator = new StatusCodeSchemaValidator();
     }
 

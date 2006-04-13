@@ -33,7 +33,7 @@ public class AssertionIDReferenceMarshaller extends AbstractSAMLObjectMarshaller
      * Constructor
      */
     public AssertionIDReferenceMarshaller() {
-        super(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*
@@ -42,8 +42,8 @@ public class AssertionIDReferenceMarshaller extends AbstractSAMLObjectMarshaller
      */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         AssertionIDReference assertionIDReference = (AssertionIDReference) samlObject;
-        if (assertionIDReference.getNCName() != null) {
-            XMLHelper.appendTextContent(domElement,assertionIDReference.getNCName());
+        if (assertionIDReference.getReference() != null) {
+            XMLHelper.appendTextContent(domElement,assertionIDReference.getReference());
         }
     }
 }

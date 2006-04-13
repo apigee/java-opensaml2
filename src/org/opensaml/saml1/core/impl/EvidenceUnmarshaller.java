@@ -33,7 +33,7 @@ public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public EvidenceUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, Evidence.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

@@ -30,7 +30,7 @@ public class ActionSpecTest extends SAMLObjectValidatorBaseTestCase {
     /** Constructor */
     public ActionSpecTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, Action.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new ActionSpecValidator();
     }
 

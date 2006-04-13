@@ -41,7 +41,7 @@ public abstract class SubjectStatementSchemaTest extends SAMLObjectValidatorBase
 
         SubjectStatement subjectStatement= (SubjectStatement) target;
         
-        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         subjectStatement.setSubject((Subject)buildXMLObject(qname));
     }
     

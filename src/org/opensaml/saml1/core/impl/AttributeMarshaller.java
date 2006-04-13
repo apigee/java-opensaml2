@@ -28,7 +28,7 @@ public class AttributeMarshaller extends AttributeDesignatorMarshaller {
      * Constructor
      */
     public AttributeMarshaller() {
-        super(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME);
     }
     
  

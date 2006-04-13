@@ -19,13 +19,24 @@
  */
 package org.opensaml.saml1.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * Interface to describe how a <code> StatusDetail <\code> element behaves 
  */
 public interface StatusDetail extends SAMLObject {
     /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "StatusDetail";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "StatusDetail";
     
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "StatusDetailype"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
 }

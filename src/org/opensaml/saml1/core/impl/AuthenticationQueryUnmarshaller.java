@@ -31,7 +31,7 @@ public class AuthenticationQueryUnmarshaller extends SubjectQueryUnmarshaller {
      * Constructor
      */
     public AuthenticationQueryUnmarshaller() {
-        super(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME);
+        super(SAMLConstants.SAML1P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

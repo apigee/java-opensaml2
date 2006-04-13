@@ -33,7 +33,7 @@ public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshal
      * Constructor
      */
     public SubjectConfirmationUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /*

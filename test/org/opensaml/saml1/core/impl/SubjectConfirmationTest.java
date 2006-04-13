@@ -52,7 +52,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml1/impl/singleSubjectConfirmation.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleSubjectConfirmation.xml";
         fullElementsFile = "/data/org/opensaml/saml1/impl/SubjectConfirmationWithChildren.xml";
-        qname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /*
@@ -117,10 +117,10 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
     public void testFullElementsMarshall() {
         SubjectConfirmation subjectConfirmation = (SubjectConfirmationImpl) buildXMLObject(qname);
 
-        QName oqname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName oqname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod) buildXMLObject(oqname));
         subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod) buildXMLObject(oqname));
-        oqname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmationData.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        oqname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) buildXMLObject(oqname));
 
         assertEquals(expectedFullDOM, subjectConfirmation);

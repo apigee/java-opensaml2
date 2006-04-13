@@ -16,7 +16,10 @@
 
 package org.opensaml.saml1.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * This interface defines how the object representing a SAML1 <code> StatusMessage </code> element behaves. 
@@ -24,7 +27,16 @@ import org.opensaml.common.SAMLObject;
 public interface StatusMessage extends SAMLObject {
 
     /** Element name, no namespace. */
-    public final static String LOCAL_NAME = "StatusMessage";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "StatusMessage";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "ActionType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
 
     /** Return the contents of this */
     String getMessage();
