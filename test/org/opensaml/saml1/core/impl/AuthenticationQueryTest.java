@@ -41,9 +41,9 @@ public class AuthenticationQueryTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
     public AuthenticationQueryTest() {
-        singleElementFile = "/data/org/opensaml/saml1/singleAuthenticationQuery.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthenticationQueryAttributes.xml";
-        childElementsFile = "/data/org/opensaml/saml1/AuthenticationQueryWithChildren.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAuthenticationQuery.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAuthenticationQueryAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml1/impl/AuthenticationQueryWithChildren.xml";
         expectedAuthenticationMethod = "Trust Me";
         qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }

@@ -46,9 +46,9 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      */
     public AttributeTest() {
         super();
-        singleElementFile = "/data/org/opensaml/saml1/singleAttribute.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeAttributes.xml";
-        childElementsFile = "/data/org/opensaml/saml1/AttributeWithChildren.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAttribute.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAttributeAttributes.xml";
+        childElementsFile = "/data/org/opensaml/saml1/impl/AttributeWithChildren.xml";
         expectedAttributeName = "AttributeName";
         expectedAttributeNamespace = "namespace";
         qname = new QName(SAMLConstants.SAML1_NS, Attribute.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);

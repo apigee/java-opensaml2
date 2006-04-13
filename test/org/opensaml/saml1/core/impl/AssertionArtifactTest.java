@@ -40,8 +40,8 @@ public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
      */
     public AssertionArtifactTest() {
         super();
-        singleElementFile = "/data/org/opensaml/saml1/singleAssertionArtifact.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAssertionArtifactAttribute.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAssertionArtifact.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAssertionArtifactAttribute.xml";
         expectedAssertionArtifact = "Test Text";
         qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }

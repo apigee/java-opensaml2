@@ -52,8 +52,8 @@ public class AuthorityBindingTest extends SAMLObjectBaseTestCase {
         expectedAuthorityKind = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         expectedLocation = "here";
         expectedBinding = "binding";
-        singleElementFile = "/data/org/opensaml/saml1/singleAuthorityBinding.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthorityBindingAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAuthorityBinding.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAuthorityBindingAttributes.xml";
         qname = new QName(SAMLConstants.SAML1_NS, AuthorityBinding.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 

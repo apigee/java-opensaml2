@@ -45,8 +45,8 @@ public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
      */
     public AttributeDesignatorTest() {
         super();
-        singleElementFile = "/data/org/opensaml/saml1/singleAttributeDesignator.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeDesignatorAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAttributeDesignator.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAttributeDesignatorAttributes.xml";
         expectedAttributeName = "AttributeName";
         expectedAttributeNamespace = "namespace";
         qname = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);

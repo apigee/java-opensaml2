@@ -41,8 +41,8 @@ public class AttributeValueTest extends SAMLObjectBaseTestCase {
     public AttributeValueTest() {
         super();
         expectedAttributeValue = "Test Attribute Value";
-        singleElementFile = "/data/org/opensaml/saml1/singleAttributeValue.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAttributeValueContents.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAttributeValue.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAttributeValueContents.xml";
         qname = new QName(SAMLConstants.SAML1_NS, AttributeValue.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 

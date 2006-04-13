@@ -41,8 +41,8 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
      * 
      */
     public StatusCodeTest() {
-        childElementsFile = "/data/org/opensaml/saml1/FullStatusCode.xml";
-        singleElementFile = "/data/org/opensaml/saml1/singleStatusCode.xml";
+        childElementsFile = "/data/org/opensaml/saml1/impl/FullStatusCode.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleStatusCode.xml";
         value = "samlp:Success";
         childValue = "samlp:VersionMismatch";
         

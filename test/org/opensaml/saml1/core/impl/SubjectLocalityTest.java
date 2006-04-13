@@ -46,8 +46,8 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
         super();
         expectedIPAddress = "207.75.164.30";
         expectedDNSAddress = "shibboleth.internet2.edu";
-        singleElementFile = "/data/org/opensaml/saml1/singleSubjectLocality.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleSubjectLocalityAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleSubjectLocality.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleSubjectLocalityAttributes.xml";
         qname = new QName(SAMLConstants.SAML1_NS, SubjectLocality.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 

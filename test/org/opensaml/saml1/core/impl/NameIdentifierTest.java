@@ -42,8 +42,8 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
      */
     public NameIdentifierTest() {
         super();
-        singleElementFile = "/data/org/opensaml/saml1/singleNameIdentifier.xml";
-        singleElementOptionalAttributesFile  = "/data/org/opensaml/saml1/singleNameIdentifierAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleNameIdentifier.xml";
+        singleElementOptionalAttributesFile  = "/data/org/opensaml/saml1/impl/singleNameIdentifierAttributes.xml";
         expectedFormat = "format";
         expectedNameIdentifier = "IdentifierText";
         expectedNameQualifier = "Qualifier";

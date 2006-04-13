@@ -40,8 +40,8 @@ public class AudienceTest extends SAMLObjectBaseTestCase {
      */
     public AudienceTest() {
         super();
-        singleElementFile = "/data/org/opensaml/saml1/singleAudience.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAudienceAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAudience.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAudienceAttributes.xml";
         expectedUri = "urn:oasis:names:tc:SAML:1.0:assertion";
         qname = new QName(SAMLConstants.SAML1_NS, Audience.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }

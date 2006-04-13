@@ -50,8 +50,8 @@ public class RequestTest extends SAMLObjectBaseTestCase {
     
     public RequestTest() {
         expectedID = "ident";
-        singleElementFile = "/data/org/opensaml/saml1/singleRequest.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleRequestAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleRequest.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleRequestAttributes.xml";
         expectedIssueInstant = new DateTime(1970, 1, 1, 0, 0, 0, 100, ISOChronology.getInstanceUTC());
         expectedMinorVersion = 1;
         qname = new QName(SAMLConstants.SAML1P_NS, Request.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
@@ -93,19 +93,19 @@ public class RequestTest extends SAMLObjectBaseTestCase {
     public void testSingleElementChildrenUnmarshall() {
         Request request; 
         
-        request = (Request) unmarshallElement("/data/org/opensaml/saml1/RequestWithAssertionArtifact.xml");
+        request = (Request) unmarshallElement("/data/org/opensaml/saml1/impl/RequestWithAssertionArtifact.xml");
         
         assertNull("Query is not null", request.getQuery());
         assertEquals("AssertionId count", 0, request.getAssertionIDReferences().size());
         assertEquals("AssertionArtifact count", 2, request.getAssertionArtifacts().size());
         
-        request = (Request) unmarshallElement("/data/org/opensaml/saml1/RequestWithQuery.xml");
+        request = (Request) unmarshallElement("/data/org/opensaml/saml1/impl/RequestWithQuery.xml");
         
         assertNotNull("Query is null", request.getQuery());
         assertEquals("AssertionId count", 0, request.getAssertionIDReferences().size());
         assertEquals("AssertionArtifact count", 0, request.getAssertionArtifacts().size());
         
-        request = (Request) unmarshallElement("/data/org/opensaml/saml1/RequestWithAssertionIDReference.xml");
+        request = (Request) unmarshallElement("/data/org/opensaml/saml1/impl/RequestWithAssertionIDReference.xml");
         assertNull("Query is not null", request.getQuery());
         assertNotNull("AssertionId", request.getAssertionIDReferences());
         assertEquals("AssertionId count", 3, request.getAssertionIDReferences().size());
@@ -143,7 +143,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
         
         try {
             dom = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                        .getResourceAsStream("/data/org/opensaml/saml1/RequestWithAssertionArtifact.xml")));
+                        .getResourceAsStream("/data/org/opensaml/saml1/impl/RequestWithAssertionArtifact.xml")));
             request = (Request) buildXMLObject(qname); 
             oqname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.LOCAL_NAME);
             request.getAssertionArtifacts().add((AssertionArtifact) buildXMLObject(oqname));
@@ -151,7 +151,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
             assertEquals(dom, request);
           
             dom = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                    .getResourceAsStream("/data/org/opensaml/saml1/RequestWithAssertionIDReference.xml")));
+                    .getResourceAsStream("/data/org/opensaml/saml1/impl/RequestWithAssertionIDReference.xml")));
             request = (Request) buildXMLObject(qname); 
             oqname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.LOCAL_NAME);
             request.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(oqname));
@@ -160,7 +160,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
             assertEquals(dom, request);
 
             dom = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
-                    .getResourceAsStream("/data/org/opensaml/saml1/RequestWithQuery.xml")));
+                    .getResourceAsStream("/data/org/opensaml/saml1/impl/RequestWithQuery.xml")));
             request = (Request) buildXMLObject(qname); 
             oqname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.LOCAL_NAME);
             request.setQuery((AttributeQuery) buildXMLObject(oqname));

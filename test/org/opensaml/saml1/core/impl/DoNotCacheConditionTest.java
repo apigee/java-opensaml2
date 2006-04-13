@@ -35,7 +35,7 @@ public class DoNotCacheConditionTest extends SAMLObjectBaseTestCase {
      */
     public DoNotCacheConditionTest() {
         super();
-        singleElementFile = "/data/org/opensaml/saml1/singleDoNotCacheCondition.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleDoNotCacheCondition.xml";
     }
 
     /*

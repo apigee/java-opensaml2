@@ -42,8 +42,8 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     public StatusTest() {
         super();
 
-        childElementsFile = "/data/org/opensaml/saml1/FullStatus.xml";
-        singleElementFile = "/data/org/opensaml/saml1/singleStatus.xml";
+        childElementsFile = "/data/org/opensaml/saml1/impl/FullStatus.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleStatus.xml";
         
         qname = new QName(SAMLConstants.SAML1P_NS, Status.LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }

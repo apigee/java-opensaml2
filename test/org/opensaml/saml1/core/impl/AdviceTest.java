@@ -42,8 +42,8 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     public AdviceTest() {
         super();
 
-        singleElementFile = "/data/org/opensaml/saml1/singleAdvice.xml";
-        childElementsFile = "/data/org/opensaml/saml1/AdviceWithChildren.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAdvice.xml";
+        childElementsFile = "/data/org/opensaml/saml1/impl/AdviceWithChildren.xml";
         qname = new QName(SAMLConstants.SAML1_NS, Advice.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 

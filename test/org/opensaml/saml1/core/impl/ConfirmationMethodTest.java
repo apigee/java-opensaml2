@@ -41,8 +41,8 @@ public class ConfirmationMethodTest extends SAMLObjectBaseTestCase {
      */
     public ConfirmationMethodTest() {
         super();
-        singleElementFile = "/data/org/opensaml/saml1/singleConfirmationMethod.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleConfirmationMethodAttributes.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleConfirmationMethod.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleConfirmationMethodAttributes.xml";
         expectedConfirmationMethod = "confirmation";
         
         qname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);

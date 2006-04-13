@@ -39,8 +39,8 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
     public AudienceRestrictionConditionTest() {
-        singleElementFile = "/data/org/opensaml/saml1/singleAudienceRestrictionCondition.xml";
-        childElementsFile = "/data/org/opensaml/saml1/AudienceRestrictionConditionWithChildren.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAudienceRestrictionCondition.xml";
+        childElementsFile = "/data/org/opensaml/saml1/impl/AudienceRestrictionConditionWithChildren.xml";
         qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 

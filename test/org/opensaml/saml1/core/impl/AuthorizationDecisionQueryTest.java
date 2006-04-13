@@ -56,9 +56,9 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
      * Constructor
      */
     public AuthorizationDecisionQueryTest() {
-        singleElementFile = "/data/org/opensaml/saml1/singleAuthorizationDecisionQuery.xml";
-        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/singleAuthorizationDecisionQueryAttributes.xml";
-        fullElementsFile = "/data/org/opensaml/saml1/AuthorizationDecisionQueryWithChildren.xml";
+        singleElementFile = "/data/org/opensaml/saml1/impl/singleAuthorizationDecisionQuery.xml";
+        singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAuthorizationDecisionQueryAttributes.xml";
+        fullElementsFile = "/data/org/opensaml/saml1/impl/AuthorizationDecisionQueryWithChildren.xml";
 
         expectedResource = "resource";
         
