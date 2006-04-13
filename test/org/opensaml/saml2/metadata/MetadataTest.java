@@ -31,12 +31,12 @@ import org.w3c.dom.Document;
  * Test cases that parses real, "in-the-wild", metadata files. Currently uses the InCommon and SWITCH federation
  * metadata files (current as of the time this test was written).
  */
-public class MetadataParseTest extends SAMLObjectTestCaseConfigInitializer {
+public class MetadataTest extends SAMLObjectTestCaseConfigInitializer {
 
     /**
      * Constructor
      */
-    public MetadataParseTest() {
+    public MetadataTest() {
 
     }
 
@@ -53,12 +53,12 @@ public class MetadataParseTest extends SAMLObjectTestCaseConfigInitializer {
      * @throws XMLParserException
      * @throws UnmarshallingException
      */
-    public void testInCommonMDUnmarshall() throws XMLParserException, UnmarshallingException {
+    public void testInCommonUnmarshall() throws XMLParserException, UnmarshallingException {
         String inCommonMDFile = "/data/org/opensaml/saml2/metadata/InCommon-metadata.xml";
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
         try {
-            InputStream in = MetadataParseTest.class.getResourceAsStream(inCommonMDFile);
+            InputStream in = MetadataTest.class.getResourceAsStream(inCommonMDFile);
             Document inCommonMDDoc = ppMgr.parse(in);
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
                     inCommonMDDoc.getDocumentElement());
@@ -80,12 +80,12 @@ public class MetadataParseTest extends SAMLObjectTestCaseConfigInitializer {
      * @throws XMLParserException
      * @throws UnmarshallingException
      */
-    public void testSWITCHMDParse() {
+    public void testSWITCHUnmarshall() {
         String switchMDFile = "/data/org/opensaml/saml2/metadata/metadata.switchaai_signed.xml";
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
         try {
-            InputStream in = MetadataParseTest.class.getResourceAsStream(switchMDFile);
+            InputStream in = MetadataTest.class.getResourceAsStream(switchMDFile);
             Document switchMDDoc = ppMgr.parse(in);
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
                     switchMDDoc.getDocumentElement());
@@ -99,5 +99,12 @@ public class MetadataParseTest extends SAMLObjectTestCaseConfigInitializer {
         } catch (UnmarshallingException ue) {
             fail("Unable to unmarshall XML: " + ue);
         }
+    }
+    
+    /**
+     * Tests marshalling a full metadata document.
+     */
+    public void testMetadataMarshall(){
+        //TODO
     }
 }
