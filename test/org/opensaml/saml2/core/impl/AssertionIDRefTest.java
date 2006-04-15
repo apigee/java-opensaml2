@@ -66,7 +66,7 @@ public class AssertionIDRefTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AssertionIDRef assertionIDRef = (AssertionIDRef) buildXMLObject(qname);
 
         assertionIDRef.setAssertionID(expectedAssertionID);

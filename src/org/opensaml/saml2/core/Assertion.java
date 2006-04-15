@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
@@ -31,8 +32,18 @@ import org.opensaml.xml.signature.SignableXMLObject;
 public interface Assertion extends SignableXMLObject, SAMLObject, Evidentiary {
 
     /** Element local name */
-    public final static String LOCAL_NAME = "Assertion";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Assertion";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AssertionType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
+    /** Version attribute name*/
     public final static String VERSION_ATTRIB_NAME = "Version";
     
     /** IssueInstant attribute name */

@@ -32,7 +32,7 @@ public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public SubjectUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

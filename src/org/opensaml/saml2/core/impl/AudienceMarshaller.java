@@ -35,7 +35,7 @@ public class AudienceMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public AudienceMarshaller() {
-        super(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

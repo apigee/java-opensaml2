@@ -23,7 +23,7 @@ package org.opensaml.saml2.core.impl;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextClassRef;
-import org.opensaml.saml2.core.AuthnContextComparisonType;
+import org.opensaml.saml2.core.AuthnContextComparisonTypeEnumeration;
 import org.opensaml.saml2.core.AuthnContextDeclRef;
 import org.opensaml.saml2.core.RequestedAuthnContext;
 import org.opensaml.xml.XMLObject;
@@ -40,7 +40,7 @@ public class RequestedAuthnContextUnmarshaller extends AbstractSAMLObjectUnmarsh
      * 
      */
     public RequestedAuthnContextUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
@@ -62,13 +62,13 @@ public class RequestedAuthnContextUnmarshaller extends AbstractSAMLObjectUnmarsh
 
         if (attribute.getLocalName().equals(RequestedAuthnContext.COMPARISON_ATTRIB_NAME)) {
             if ("exact".equals(attribute.getValue()))
-                rac.setComparison(AuthnContextComparisonType.EXACT);
+                rac.setComparison(AuthnContextComparisonTypeEnumeration.EXACT);
             else if ("minimum".equals(attribute.getValue()))
-                rac.setComparison(AuthnContextComparisonType.MINIMUM);
+                rac.setComparison(AuthnContextComparisonTypeEnumeration.MINIMUM);
             else if ("maximum".equals(attribute.getValue()))
-                rac.setComparison(AuthnContextComparisonType.MAXIMUM);
+                rac.setComparison(AuthnContextComparisonTypeEnumeration.MAXIMUM);
             else if ("better".equals(attribute.getValue()))
-                rac.setComparison(AuthnContextComparisonType.BETTER);
+                rac.setComparison(AuthnContextComparisonTypeEnumeration.BETTER);
             else
                 throw new UnmarshallingException("Saw an invalid value for Comparison attribute: "
                         + attribute.getValue());

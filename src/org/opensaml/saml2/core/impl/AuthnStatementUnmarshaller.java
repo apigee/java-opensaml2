@@ -38,7 +38,7 @@ public class AuthnStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public AuthnStatementUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

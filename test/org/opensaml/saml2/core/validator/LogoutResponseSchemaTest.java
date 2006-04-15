@@ -35,7 +35,7 @@ public class LogoutResponseSchemaTest extends StatusResponseSchemaTest {
      */
     public LogoutResponseSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new LogoutResponseSchemaValidator();
     }
 

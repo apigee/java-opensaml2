@@ -34,7 +34,7 @@ public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public ActionUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, Action.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

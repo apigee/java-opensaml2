@@ -37,7 +37,7 @@ public class GetCompleteMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public GetCompleteMarshaller() {
-        super(SAMLConstants.SAML20P_NS, GetComplete.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, GetComplete.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

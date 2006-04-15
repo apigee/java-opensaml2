@@ -37,7 +37,7 @@ public class NameIDPolicyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * 
      */
     public NameIDPolicyUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

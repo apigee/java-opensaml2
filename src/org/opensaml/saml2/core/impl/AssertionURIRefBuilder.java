@@ -38,7 +38,7 @@ public class AssertionURIRefBuilder extends AbstractSAMLObjectBuilder<AssertionU
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AssertionURIRef buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*

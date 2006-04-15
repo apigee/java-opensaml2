@@ -30,7 +30,7 @@ public class IssuerSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public IssuerSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, Issuer.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new IssuerSchemaValidator();
     }
 

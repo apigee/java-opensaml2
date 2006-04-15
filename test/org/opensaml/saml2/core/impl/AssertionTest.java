@@ -107,7 +107,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
         assertion.setIssueInstant(expectedIssueInstant);
@@ -118,7 +118,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
         assertion.setIssueInstant(expectedIssueInstant);
@@ -150,32 +150,32 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
-        QName issuerQName = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName issuerQName = new QName(SAMLConstants.SAML20_NS, Issuer.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         assertion.setIssuer((Issuer) buildXMLObject(issuerQName));
         
-        QName subjectQName = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName subjectQName = new QName(SAMLConstants.SAML20_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         assertion.setSubject((Subject) buildXMLObject(subjectQName));
         
-        QName conditionsQName = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName conditionsQName = new QName(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         assertion.setConditions((Conditions) buildXMLObject(conditionsQName));
         
-        QName adviceQName = new QName(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName adviceQName = new QName(SAMLConstants.SAML20_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         assertion.setAdvice((Advice) buildXMLObject(adviceQName));
 
-        QName authnStatementQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName authnStatementQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < authnStatementCount; i++) {
             assertion.getAuthnStatements().add((AuthnStatement) buildXMLObject(authnStatementQName));
         }
         
-        QName authzDecisionStatementQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName authzDecisionStatementQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < authzDecisionStatementCount; i++) {
             assertion.getAuthzDecisionStatements().add((AuthzDecisionStatement) buildXMLObject(authzDecisionStatementQName));
         }
         
-        QName attributeStatementQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName attributeStatementQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < attributeStatementCount; i++) {
             assertion.getAttributeStatement().add((AttributeStatement) buildXMLObject(attributeStatementQName));
         }

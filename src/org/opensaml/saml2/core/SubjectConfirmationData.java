@@ -16,8 +16,11 @@
 
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.AttributeExtensibleXMLObject;
 import org.opensaml.xml.ElementExtensibleXMLObject;
 
@@ -27,7 +30,16 @@ import org.opensaml.xml.ElementExtensibleXMLObject;
 public interface SubjectConfirmationData extends SAMLObject, ElementExtensibleXMLObject, AttributeExtensibleXMLObject {
 
     /** Element local name */
-    public final static String LOCAL_NAME = "SubjectConfirmationData";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "SubjectConfirmationData";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "SubjectConfirmationDataType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
     /** NotBefore attribute name */
     public final static String NOT_BEFORE_ATTRIB_NAME = "NotBefore";

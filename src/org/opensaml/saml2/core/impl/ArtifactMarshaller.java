@@ -38,7 +38,7 @@ public class ArtifactMarshaller extends AbstractSAMLObjectMarshaller {
      * 
      */
     public ArtifactMarshaller() {
-        super(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

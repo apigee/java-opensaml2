@@ -35,7 +35,7 @@ public class StatusMessageUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public StatusMessageUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, StatusMessage.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

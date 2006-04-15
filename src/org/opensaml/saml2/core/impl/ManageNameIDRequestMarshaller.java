@@ -33,7 +33,7 @@ public class ManageNameIDRequestMarshaller extends RequestMarshaller {
      * 
      */
     public ManageNameIDRequestMarshaller() {
-        super(SAMLConstants.SAML20P_NS, ManageNameIDRequest.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, ManageNameIDRequest.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

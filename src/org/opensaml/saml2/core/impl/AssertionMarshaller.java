@@ -35,7 +35,7 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public AssertionMarshaller() {
-        super(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

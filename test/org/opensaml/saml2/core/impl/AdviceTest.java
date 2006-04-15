@@ -72,7 +72,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Advice advice = (Advice) buildXMLObject(qname);
 
         assertEquals(expectedDOM, advice);
@@ -102,20 +102,20 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Advice advice = (Advice) buildXMLObject(qname);
 
-        QName assertionIDRefQName = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName assertionIDRefQName = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < assertionIDRefCount; i++) {
             advice.getAssertionIDReferences().add((AssertionIDRef) buildXMLObject(assertionIDRefQName));
         }
         
-        QName assertionURIRefQName = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName assertionURIRefQName = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < assertionURIRefCount; i++) {
             advice.getAssertionURIReferences().add((AssertionURIRef) buildXMLObject(assertionURIRefQName));
         }
         
-        QName assertionQName = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName assertionQName = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < assertionCount; i++) {
             advice.getAssertions().add((org.opensaml.saml2.core.Assertion) buildXMLObject(assertionQName));
         }

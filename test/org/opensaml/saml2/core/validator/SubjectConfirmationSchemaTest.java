@@ -30,7 +30,7 @@ public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCa
 
     /** Constructor */
     public SubjectConfirmationSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, SubjectConfirmation.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new SubjectConfirmationSchemaValidator();
     }
 

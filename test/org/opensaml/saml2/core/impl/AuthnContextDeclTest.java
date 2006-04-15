@@ -66,7 +66,7 @@ public class AuthnContextDeclTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnContextDecl authnContextDecl = (AuthnContextDecl) buildXMLObject(qname);
 
         authnContextDecl.setDeclaration(expectedDeclartion);

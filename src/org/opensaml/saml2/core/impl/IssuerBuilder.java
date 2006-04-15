@@ -38,7 +38,7 @@ public class IssuerBuilder extends AbstractSAMLObjectBuilder<Issuer> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Issuer buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, Issuer.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*

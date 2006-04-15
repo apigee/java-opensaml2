@@ -41,7 +41,7 @@ public class ArtifactResponseBuilder extends AbstractSAMLObjectBuilder<ArtifactR
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public ArtifactResponse buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

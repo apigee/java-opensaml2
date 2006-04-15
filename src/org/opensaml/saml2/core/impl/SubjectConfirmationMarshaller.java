@@ -34,7 +34,7 @@ public class SubjectConfirmationMarshaller extends AbstractSAMLObjectMarshaller 
 
     /** Constructor */
     public SubjectConfirmationMarshaller() {
-        super(SAMLConstants.SAML20_NS, SubjectConfirmation.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

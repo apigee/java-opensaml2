@@ -67,7 +67,7 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
      * @see org.opensaml.saml2.core.Evidence#getAssertionIDRef()
      */
     public List<AssertionIDRef> getAssertionIDReferences() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         return (List<AssertionIDRef>) evidence.subList(qname);
     }
 
@@ -75,7 +75,7 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
      * @see org.opensaml.saml2.core.Evidence#getAssertionURIRef()
      */
     public List<AssertionURIRef> getAssertionURIReferences() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         return (List<AssertionURIRef>) evidence.subList(qname);
     }
 
@@ -83,7 +83,7 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
      * @see org.opensaml.saml2.core.Evidence#getAssertion()
      */
     public List<Assertion> getAssertions() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         return (List<Assertion>) evidence.subList(qname);
     }
 

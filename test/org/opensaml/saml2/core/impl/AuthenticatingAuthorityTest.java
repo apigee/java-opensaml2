@@ -66,7 +66,7 @@ public class AuthenticatingAuthorityTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME,
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         AuthenticatingAuthority authenticatingAuthority = (AuthenticatingAuthority) buildXMLObject(qname);
 

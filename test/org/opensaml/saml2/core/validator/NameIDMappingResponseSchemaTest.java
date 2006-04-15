@@ -36,7 +36,7 @@ public class NameIDMappingResponseSchemaTest extends StatusResponseSchemaTest {
      */
     public NameIDMappingResponseSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new NameIDMappingResponseSchemaValidator();
     }
 
@@ -47,7 +47,7 @@ public class NameIDMappingResponseSchemaTest extends StatusResponseSchemaTest {
         super.populateRequiredData();
         
         NameIDMappingResponse response = (NameIDMappingResponse) target;
-        NameID nameid = (NameID) buildXMLObject(new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME));
+        NameID nameid = (NameID) buildXMLObject(new QName(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME));
         response.setNameID(nameid);
     }
     

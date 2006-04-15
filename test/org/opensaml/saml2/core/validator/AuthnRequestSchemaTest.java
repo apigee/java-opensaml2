@@ -35,7 +35,7 @@ public class AuthnRequestSchemaTest extends RequestSchemaTest {
      */
     public AuthnRequestSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new AuthnRequestSchemaValidator();
     }
     

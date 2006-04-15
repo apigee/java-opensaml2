@@ -40,7 +40,7 @@ public class StatusBuilder extends AbstractSAMLObjectBuilder<Status> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Status buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

@@ -20,7 +20,10 @@
 
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core AuthenticatingAuthority.
@@ -28,7 +31,10 @@ import org.opensaml.common.SAMLObject;
 public interface AuthenticatingAuthority extends SAMLObject {
 
     /** Local Name of AuthenticatingAuthority */
-    public final static String LOCAL_NAME = "AuthenticatingAuthority";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthenticatingAuthority";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
     /**
      * Gets the URI of this Authenticating Authority

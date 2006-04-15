@@ -34,7 +34,7 @@ public class TerminateMarshaller extends AbstractSAMLObjectMarshaller {
      * 
      */
     public TerminateMarshaller() {
-        super(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, Terminate.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

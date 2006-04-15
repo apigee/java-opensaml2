@@ -40,7 +40,7 @@ public class AssertionIDRequestBuilder extends AbstractSAMLObjectBuilder<Asserti
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AssertionIDRequest buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AssertionIDRequest.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AssertionIDRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*

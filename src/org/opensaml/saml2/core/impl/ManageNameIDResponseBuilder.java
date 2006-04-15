@@ -41,7 +41,7 @@ public class ManageNameIDResponseBuilder extends AbstractSAMLObjectBuilder<Manag
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public ManageNameIDResponse buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, ManageNameIDResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

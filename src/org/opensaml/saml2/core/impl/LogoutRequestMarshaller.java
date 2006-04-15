@@ -37,7 +37,7 @@ public class LogoutRequestMarshaller extends RequestMarshaller {
      * 
      */
     public LogoutRequestMarshaller() {
-        super(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

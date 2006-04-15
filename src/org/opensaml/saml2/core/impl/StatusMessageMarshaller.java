@@ -38,7 +38,7 @@ public class StatusMessageMarshaller extends AbstractSAMLObjectMarshaller {
      * 
      */
     public StatusMessageMarshaller() {
-        super(SAMLConstants.SAML20P_NS, StatusMessage.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

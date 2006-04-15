@@ -36,7 +36,7 @@ public class NewIDSchemaTest extends SAMLObjectValidatorBaseTestCase {
      */
     public NewIDSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, NewID.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, NewID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new NewIDSchemaValidator();
     }
 

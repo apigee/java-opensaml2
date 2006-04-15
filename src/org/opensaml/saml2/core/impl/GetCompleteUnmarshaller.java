@@ -35,7 +35,7 @@ public class GetCompleteUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * 
      */
     public GetCompleteUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, GetComplete.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, GetComplete.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

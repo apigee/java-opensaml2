@@ -39,7 +39,7 @@ public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * 
      */
     public StatusUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME);
         ;
     }
 

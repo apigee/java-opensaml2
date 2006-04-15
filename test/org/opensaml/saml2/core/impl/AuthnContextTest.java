@@ -67,7 +67,7 @@ public class AuthnContextTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContext.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnContext authnContext = (AuthnContext) buildXMLObject(qname);
 
         assertEquals(expectedDOM, authnContext);
@@ -97,19 +97,19 @@ public class AuthnContextTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContext.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnContext authnContext = (AuthnContext) buildXMLObject(qname);
 
-        QName authnContextClassRefQName = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName authnContextClassRefQName = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         authnContext.setAuthnContextClassRef((AuthnContextClassRef) buildXMLObject(authnContextClassRefQName));
         
-        QName authnContextDeclQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName authnContextDeclQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         authnContext.setAuthnContextDecl((AuthnContextDecl) buildXMLObject(authnContextDeclQName));
         
-        QName authnContextDeclRefQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName authnContextDeclRefQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         authnContext.setAuthnContextDeclRef((AuthnContextDeclRef) buildXMLObject(authnContextDeclRefQName));
         
-        QName authenticatingAuthorityQName = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName authenticatingAuthorityQName = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < expectedAuthenticatingAuthorityCount; i++) {
             authnContext.getAuthenticatingAuthorities().add((AuthenticatingAuthority) buildXMLObject(authenticatingAuthorityQName));
         }

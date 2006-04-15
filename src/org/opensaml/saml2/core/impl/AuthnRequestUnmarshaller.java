@@ -41,7 +41,7 @@ public class AuthnRequestUnmarshaller extends RequestUnmarshaller {
      * 
      */
     public AuthnRequestUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

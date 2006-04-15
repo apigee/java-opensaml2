@@ -41,7 +41,7 @@ public class AuthzDecisionQueryBuilder extends AbstractSAMLObjectBuilder<AuthzDe
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthzDecisionQuery buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

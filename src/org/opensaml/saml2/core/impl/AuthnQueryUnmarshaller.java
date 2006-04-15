@@ -37,7 +37,7 @@ public class AuthnQueryUnmarshaller extends SubjectQueryUnmarshaller {
      * 
      */
     public AuthnQueryUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -18,8 +18,11 @@ package org.opensaml.saml2.core;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core Conditions
@@ -27,7 +30,16 @@ import org.opensaml.common.SAMLObject;
 public interface Conditions extends SAMLObject {
 
     /** Element local name */
-    public final static String LOCAL_NAME = "Conditions";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Conditions";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "ConditionsType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
     /** NotBefore attribute name */
     public final static String NOT_BEFORE_ATTRIB_NAME = "NotBefore";

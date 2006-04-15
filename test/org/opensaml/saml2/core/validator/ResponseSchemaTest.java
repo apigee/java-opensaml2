@@ -35,7 +35,7 @@ public class ResponseSchemaTest extends StatusResponseSchemaTest {
      */
     public ResponseSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME);
         validator = new ResponseSchemaValidator();
     }
     

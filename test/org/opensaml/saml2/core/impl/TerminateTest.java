@@ -51,7 +51,7 @@ public class TerminateTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Terminate.DEFAULT_ELEMENT_LOCAL_NAME);
         Terminate term = (Terminate) buildXMLObject(qname);
         
         assertEquals(expectedDOM, term);

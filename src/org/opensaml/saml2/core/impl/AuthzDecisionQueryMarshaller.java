@@ -36,7 +36,7 @@ public class AuthzDecisionQueryMarshaller extends SubjectQueryMarshaller {
      * 
      */
     public AuthzDecisionQueryMarshaller() {
-        super(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core Audience
@@ -24,7 +27,16 @@ import org.opensaml.common.SAMLObject;
 public interface Audience extends SAMLObject {
     
     /** Element local name */
-    public final static String LOCAL_NAME = "Audience";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Audience";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AudienceType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
     /**
      * Gets the URI of the audience for the assertion.

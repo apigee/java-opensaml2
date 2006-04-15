@@ -32,7 +32,7 @@ public class AssertionIDRefUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public AssertionIDRefUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

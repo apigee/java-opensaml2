@@ -84,10 +84,10 @@ public abstract class StatusResponseTest extends SAMLObjectBaseTestCase {
         expectedDestination = "http://sp.example.org/endpoint";
         expectedConsent = "urn:string:consent";
         
-        QName issuerQName = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName issuerQName = new QName(SAMLConstants.SAML20_NS, Issuer.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         expectedIssuer = (Issuer) buildXMLObject(issuerQName);
         
-        QName statusQName = new QName(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName statusQName = new QName(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         expectedStatus = (Status) buildXMLObject(statusQName);
     }
 

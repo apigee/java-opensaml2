@@ -16,9 +16,12 @@
 
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.xml.signature.SignableXMLObject;
 
@@ -26,6 +29,18 @@ import org.opensaml.xml.signature.SignableXMLObject;
  * SAML 2.0 Core RequestAbstractType
  */
 public interface Request extends SAMLObject, SignableXMLObject {
+    
+    /** Element local name */
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Request";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "RequestAbstractType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
     /** ID attribute name */
     public final static String ID_ATTRIB_NAME = "ID";

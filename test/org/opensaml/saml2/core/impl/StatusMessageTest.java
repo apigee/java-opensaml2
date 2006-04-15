@@ -53,7 +53,7 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, StatusMessage.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME);
         StatusMessage message = (StatusMessage) buildXMLObject(qname);
         
         message.setMessage(expectedMessage);

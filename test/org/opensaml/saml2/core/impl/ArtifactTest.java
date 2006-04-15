@@ -62,7 +62,7 @@ public class ArtifactTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME);
         Artifact artifact = (Artifact) buildXMLObject(qname);
         
         artifact.setArtifact(expectedContent);

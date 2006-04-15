@@ -41,11 +41,11 @@ public class RequestedAuthnContextSchemaTest extends SAMLObjectValidatorBaseTest
      */
     public RequestedAuthnContextSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new RequestedAuthnContextSchemaValidator();
         
-        authnContextClassRef = (AuthnContextClassRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME));
-        authnContextDeclRef = (AuthnContextDeclRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME));
+        authnContextClassRef = (AuthnContextClassRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.DEFAULT_ELEMENT_LOCAL_NAME));
+        authnContextDeclRef = (AuthnContextDeclRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.DEFAULT_ELEMENT_LOCAL_NAME));
     }
 
     /*

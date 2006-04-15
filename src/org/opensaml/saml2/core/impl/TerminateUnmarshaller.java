@@ -34,7 +34,7 @@ public class TerminateUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * 
      */
     public TerminateUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, Terminate.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

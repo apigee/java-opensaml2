@@ -40,7 +40,7 @@ public class ArtifactBuilder extends AbstractSAMLObjectBuilder<Artifact> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Artifact buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

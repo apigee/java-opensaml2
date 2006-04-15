@@ -56,7 +56,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME);
         Status status = (Status) buildXMLObject(qname);
         
         assertEquals(expectedDOM, status);
@@ -68,13 +68,13 @@ public class StatusTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME);
         Status status = (Status) buildXMLObject(qname);
         
-        QName statusCodeQName = new QName(SAMLConstants.SAML20P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName statusCodeQName = new QName(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         status.setStatusCode((StatusCode) buildXMLObject(statusCodeQName));
         
-        QName statusMessageQName = new QName(SAMLConstants.SAML20P_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName statusMessageQName = new QName(SAMLConstants.SAML20P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         status.setStatusMessage((StatusMessage) buildXMLObject(statusMessageQName));
         
         assertEquals(expectedChildElementsDOM, status);

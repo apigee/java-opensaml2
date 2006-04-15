@@ -37,7 +37,7 @@ public class IDPListUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public IDPListUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, IDPList.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

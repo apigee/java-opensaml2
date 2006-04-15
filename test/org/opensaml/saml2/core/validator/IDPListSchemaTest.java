@@ -37,7 +37,7 @@ public class IDPListSchemaTest extends SAMLObjectValidatorBaseTestCase {
      */
     public IDPListSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, IDPList.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new IDPListSchemaValidator();
     }
 
@@ -47,7 +47,7 @@ public class IDPListSchemaTest extends SAMLObjectValidatorBaseTestCase {
     protected void populateRequiredData() {
         super.populateRequiredData();
         IDPList list = (IDPList) target;
-        IDPEntry entry = (IDPEntry) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME));
+        IDPEntry entry = (IDPEntry) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, IDPEntry.DEFAULT_ELEMENT_LOCAL_NAME));
         list.getIDPEntrys().add(entry);
     }
     

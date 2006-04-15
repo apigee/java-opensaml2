@@ -68,7 +68,7 @@ public class IDPEntryTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPEntry.DEFAULT_ELEMENT_LOCAL_NAME);
         IDPEntry entry = (IDPEntry) buildXMLObject(qname);
         
         entry.setProviderID(expectedProviderID);
@@ -82,7 +82,7 @@ public class IDPEntryTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPEntry.DEFAULT_ELEMENT_LOCAL_NAME);
         IDPEntry entry = (IDPEntry) buildXMLObject(qname);
         
         entry.setProviderID(expectedProviderID);

@@ -33,7 +33,7 @@ public class LogoutResponseMarshaller extends StatusResponseMarshaller {
      * 
      */
     public LogoutResponseMarshaller() {
-        super(SAMLConstants.SAML20P_NS, LogoutResponse.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, LogoutResponse.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

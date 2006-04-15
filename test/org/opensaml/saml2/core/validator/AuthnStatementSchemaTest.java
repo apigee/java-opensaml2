@@ -33,7 +33,7 @@ public class AuthnStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AuthnStatementSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new AuthnStatementSchemaValidator();
     }
 
@@ -44,7 +44,7 @@ public class AuthnStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
         super.populateRequiredData();
         AuthnStatement authnStatement = (AuthnStatement) target;
         AuthnContext authnContext = (AuthnContext) buildXMLObject(new QName(SAMLConstants.SAML20_NS,
-                AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
+                AuthnContext.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
         authnStatement.setAuthnInstant(new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC()));
         authnStatement.setAuthnContext(authnContext);
     }

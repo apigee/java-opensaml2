@@ -39,7 +39,7 @@ public class IDPListBuilder extends AbstractSAMLObjectBuilder<IDPList> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public IDPList buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, IDPList.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

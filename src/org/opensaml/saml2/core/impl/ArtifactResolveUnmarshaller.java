@@ -36,7 +36,7 @@ public class ArtifactResolveUnmarshaller extends RequestUnmarshaller {
      * 
      */
     public ArtifactResolveUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

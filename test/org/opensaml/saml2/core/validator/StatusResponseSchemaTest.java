@@ -53,7 +53,7 @@ public abstract class StatusResponseSchemaTest extends SAMLObjectValidatorBaseTe
     protected void populateRequiredData() {
         super.populateRequiredData();
         StatusResponse sr = (StatusResponse) target;
-        Status status = (Status) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Status.LOCAL_NAME));
+        Status status = (Status) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME));
         sr.setStatus(status);
         sr.setID("abc123");
         sr.setIssueInstant(new DateTime());

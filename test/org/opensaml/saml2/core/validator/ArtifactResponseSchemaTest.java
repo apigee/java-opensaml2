@@ -35,7 +35,7 @@ public class ArtifactResponseSchemaTest extends StatusResponseSchemaTest {
      */
     public ArtifactResponseSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new ArtifactResponseSchemaValidator();
     }
     

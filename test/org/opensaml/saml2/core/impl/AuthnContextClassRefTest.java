@@ -65,7 +65,7 @@ public class AuthnContextClassRefTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnContextClassRef authnContextClassRef = (AuthnContextClassRef) buildXMLObject(qname);
 
         authnContextClassRef.setAuthnContextClassRef(expectedClassRef);

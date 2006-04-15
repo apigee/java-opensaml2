@@ -30,7 +30,7 @@ public class AuthnContextDeclSchemaTest extends SAMLObjectValidatorBaseTestCase 
 
     /** Constructor */
     public AuthnContextDeclSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new AuthnContextDeclSchemaValidator();
     }
 

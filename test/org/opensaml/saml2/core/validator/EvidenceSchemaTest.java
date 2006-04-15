@@ -33,7 +33,7 @@ public class EvidenceSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public EvidenceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new EvidenceSchemaValidator();
     }
 
@@ -41,13 +41,13 @@ public class EvidenceSchemaTest extends SAMLObjectValidatorBaseTestCase {
         super.populateRequiredData();
         Evidence evidence = (Evidence) target;
         
-        Assertion assertion = (Assertion) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
+        Assertion assertion = (Assertion) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
         evidence.getAssertions().add(assertion);
         
-        AssertionIDRef assertionIDRef = (AssertionIDRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
+        AssertionIDRef assertionIDRef = (AssertionIDRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
         evidence.getAssertionIDReferences().add(assertionIDRef);
         
-        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
+        AssertionURIRef assertionURIRef = (AssertionURIRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX));
         evidence.getAssertionURIReferences().add(assertionURIRef);
     }
 

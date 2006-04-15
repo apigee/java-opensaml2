@@ -74,7 +74,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml2.core.Conditions#getAudienceRestriction()
      */
     public List<AudienceRestriction> getAudienceRestrictions() {
-        QName conditionQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME,
+        QName conditionQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         return (List<AudienceRestriction>) conditions.subList(conditionQName);
     }
@@ -83,7 +83,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml2.core.Conditions#getOneTimeUse()
      */
     public OneTimeUse getOneTimeUse() {
-        QName conditionQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName conditionQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         List<OneTimeUse> list = (List<OneTimeUse>) conditions.subList(conditionQName);
         if (list == null || list.size() == 0) {
             return null;
@@ -95,7 +95,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
      * @see org.opensaml.saml2.core.Conditions#getProxyRestriction()
      */
     public ProxyRestriction getProxyRestriction() {
-        QName conditionQName = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME,
+        QName conditionQName = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         List<ProxyRestriction> list = (List<ProxyRestriction>) conditions.subList(conditionQName);
         if (list == null || list.size() == 0) {

@@ -41,7 +41,7 @@ public class ResponseBuilder extends AbstractSAMLObjectBuilder<Response> {
      * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
      */
     public Response buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

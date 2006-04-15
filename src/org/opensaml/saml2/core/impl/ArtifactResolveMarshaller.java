@@ -33,7 +33,7 @@ public class ArtifactResolveMarshaller extends RequestMarshaller {
      * 
      */
     public ArtifactResolveMarshaller() {
-        super(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

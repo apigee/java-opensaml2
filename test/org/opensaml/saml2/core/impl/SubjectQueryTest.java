@@ -67,7 +67,7 @@ public abstract class SubjectQueryTest extends RequestTest {
         
         super.populateChildElements(sq);
         
-        QName subjectQName = new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName subjectQName = new QName(SAMLConstants.SAML20_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         sq.setSubject((Subject) buildXMLObject(subjectQName));
     }
 

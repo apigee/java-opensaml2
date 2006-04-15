@@ -36,7 +36,7 @@ public class ArtifactSchemaTest extends SAMLObjectValidatorBaseTestCase {
      */
     public ArtifactSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new ArtifactSchemaValidator();
     }
 

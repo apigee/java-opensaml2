@@ -24,7 +24,7 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
-import org.opensaml.saml2.core.DecisionType;
+import org.opensaml.saml2.core.DecisionTypeEnumeration;
 import org.opensaml.saml2.core.Evidence;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -37,7 +37,7 @@ public class AuthzDecisionStatementUnmarshaller extends AbstractSAMLObjectUnmars
 
     /** Constructor */
     public AuthzDecisionStatementUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
@@ -77,12 +77,12 @@ public class AuthzDecisionStatementUnmarshaller extends AbstractSAMLObjectUnmars
             authzDS.setResource(attribute.getValue());
         } else if (attribute.getLocalName().equals(AuthzDecisionStatement.DECISION_ATTRIB_NAME)) {
             String value = attribute.getValue();
-            if (value.equals(DecisionType.PERMIT.toString())) {
-                authzDS.setDecision(DecisionType.PERMIT);
-            } else if (value.equals(DecisionType.DENY.toString())) {
-                authzDS.setDecision(DecisionType.DENY);
-            } else if (value.equals(DecisionType.INDETERMINATE.toString())) {
-                authzDS.setDecision(DecisionType.INDETERMINATE);
+            if (value.equals(DecisionTypeEnumeration.PERMIT.toString())) {
+                authzDS.setDecision(DecisionTypeEnumeration.PERMIT);
+            } else if (value.equals(DecisionTypeEnumeration.DENY.toString())) {
+                authzDS.setDecision(DecisionTypeEnumeration.DENY);
+            } else if (value.equals(DecisionTypeEnumeration.INDETERMINATE.toString())) {
+                authzDS.setDecision(DecisionTypeEnumeration.INDETERMINATE);
             } else {
                 throw new UnmarshallingException("Unknown value for DecisionType '" + value + "'");
             }

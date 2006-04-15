@@ -36,7 +36,7 @@ public class StatusMessageSchemaTest extends SAMLObjectValidatorBaseTestCase {
      */
     public StatusMessageSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, StatusMessage.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new StatusMessageSchemaValidator();
     }
 

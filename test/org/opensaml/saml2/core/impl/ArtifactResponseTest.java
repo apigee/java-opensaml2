@@ -54,7 +54,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
      * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(ar);
@@ -66,7 +66,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(ar);
@@ -80,7 +80,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
         
         super.populateChildElements(ar);

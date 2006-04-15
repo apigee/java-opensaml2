@@ -35,7 +35,7 @@ public class AssertionURIRefMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public AssertionURIRefMarshaller() {
-        super(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

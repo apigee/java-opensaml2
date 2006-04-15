@@ -32,7 +32,7 @@ public class AudienceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public AudienceUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

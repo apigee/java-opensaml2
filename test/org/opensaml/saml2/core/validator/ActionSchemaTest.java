@@ -31,7 +31,7 @@ public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
     /** Constructor */
     public ActionSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new ActionSchemaValidator();
     }
 

@@ -36,7 +36,7 @@ public class AuthzDecisionQuerySchemaTest extends SubjectQuerySchemaTest {
      */
     public AuthzDecisionQuerySchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new AuthzDecisionQuerySchemaValidator();
     }
 
@@ -47,7 +47,7 @@ public class AuthzDecisionQuerySchemaTest extends SubjectQuerySchemaTest {
         super.populateRequiredData();
         AuthzDecisionQuery query = (AuthzDecisionQuery) target;
         query.setResource("urn:string:resource");
-        Action action  = (Action) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME));
+        Action action  = (Action) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME));
         query.getActions().add(action);
     }
     

@@ -36,7 +36,7 @@ public class SessionIndexSchemaTest extends SAMLObjectValidatorBaseTestCase {
      */
     public SessionIndexSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, SessionIndex.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new SessionIndexSchemaValidator();
     }
 

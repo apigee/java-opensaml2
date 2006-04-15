@@ -31,7 +31,7 @@ public class AudienceRestrictionMarshaller extends AbstractSAMLObjectMarshaller 
 
     /** Constructor */
     public AudienceRestrictionMarshaller() {
-        super(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AudienceRestriction.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

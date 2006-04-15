@@ -30,7 +30,7 @@ public class AuthenticatingAuthoritySchemaTest extends SAMLObjectValidatorBaseTe
 
     /** Constructor */
     public AuthenticatingAuthoritySchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthenticatingAuthority.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         validator = new AuthenticatingAuthoritySchemaValidator();
     }

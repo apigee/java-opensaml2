@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core AuthnStatement
@@ -24,7 +27,16 @@ import org.joda.time.DateTime;
 public interface AuthnStatement extends Statement {
     
     /** Element local name */
-    public final static String LOCAL_NAME = "AuthnStatement";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnStatement";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AuthnStatementType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
     /** AuthnInstant attribute name */
     public final static String AUTHN_INSTANT_ATTRIB_NAME = "AuthnInstant";

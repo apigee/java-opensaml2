@@ -18,7 +18,10 @@ package org.opensaml.saml2.core;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
@@ -27,7 +30,16 @@ import org.opensaml.xml.ElementExtensibleXMLObject;
 public interface Advice extends SAMLObject, ElementExtensibleXMLObject {
     
     /** Element local name */
-    public final static String LOCAL_NAME = "Advice";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Advice";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AdviceType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
     /**
      * Gets the list of AssertionID references used as advice.

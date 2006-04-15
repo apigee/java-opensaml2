@@ -36,7 +36,7 @@ public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public AdviceUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, Advice.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

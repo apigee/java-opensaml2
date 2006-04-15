@@ -42,7 +42,7 @@ public class ManageNameIDRequestSchemaTest extends RequestSchemaTest {
      */
     public ManageNameIDRequestSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, ManageNameIDRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, ManageNameIDRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new ManageNameIDRequestSchemaValidator();
     }
 
@@ -53,9 +53,9 @@ public class ManageNameIDRequestSchemaTest extends RequestSchemaTest {
         super.populateRequiredData();
         ManageNameIDRequest request = (ManageNameIDRequest) target;
         
-        nameid  = (NameID) buildXMLObject(new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME));
-        newid = (NewID) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, NewID.LOCAL_NAME));
-        terminate = (Terminate) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME));
+        nameid  = (NameID) buildXMLObject(new QName(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME));
+        newid = (NewID) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, NewID.DEFAULT_ELEMENT_LOCAL_NAME));
+        terminate = (Terminate) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Terminate.DEFAULT_ELEMENT_LOCAL_NAME));
         
         request.setNameID(nameid);
         request.setNewID(newid);

@@ -64,7 +64,7 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME);
         NameIDPolicy policy = (NameIDPolicy) buildXMLObject(qname);
         
         assertEquals(expectedDOM, policy);
@@ -74,7 +74,7 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME);
         NameIDPolicy policy = (NameIDPolicy) buildXMLObject(qname);
         
         policy.setFormat(expectedFormat);

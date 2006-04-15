@@ -36,7 +36,7 @@ public class IDPEntryUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public IDPEntryUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, IDPEntry.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

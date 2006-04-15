@@ -19,7 +19,10 @@
  */
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core Artifact
@@ -27,7 +30,16 @@ import org.opensaml.common.SAMLObject;
 public interface Artifact extends SAMLObject {
     
     /** Element local name */
-    public static final String LOCAL_NAME = "Artifact";
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "Artifact";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "ArtifactType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
     /**
      *  Get artifact value 

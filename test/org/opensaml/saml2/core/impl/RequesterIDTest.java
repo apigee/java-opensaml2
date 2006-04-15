@@ -64,7 +64,7 @@ public class RequesterIDTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, RequesterID.DEFAULT_ELEMENT_LOCAL_NAME);
         RequesterID reqID = (RequesterID) buildXMLObject(qname);
 
         reqID.setRequesterID(expectedRequesterID);

@@ -22,7 +22,10 @@ package org.opensaml.saml2.core;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core Scoping
@@ -30,7 +33,16 @@ import org.opensaml.common.SAMLObject;
 public interface Scoping extends SAMLObject {
 
     /** Element Local Name */
-    public final static String LOCAL_NAME = "Scoping";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Scoping";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "ActionType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
 
     /** ProxyCount attribute name */
     public final static String PROXY_COUNT_ATTRIB_NAME = "ProxyCount";

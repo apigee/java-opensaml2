@@ -38,7 +38,7 @@ public class ScopingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public ScopingUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

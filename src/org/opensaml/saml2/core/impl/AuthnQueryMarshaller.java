@@ -36,7 +36,7 @@ public class AuthnQueryMarshaller extends SubjectQueryMarshaller {
      * 
      */
     public AuthnQueryMarshaller() {
-        super(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -65,7 +65,7 @@ public class SessionIndexTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, SessionIndex.DEFAULT_ELEMENT_LOCAL_NAME);
         SessionIndex si = (SessionIndex) buildXMLObject(qname);
         
         si.setSessionIndex(expectedSessionIndex);

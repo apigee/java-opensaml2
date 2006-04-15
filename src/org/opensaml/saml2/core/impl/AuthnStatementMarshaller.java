@@ -35,7 +35,7 @@ public class AuthnStatementMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public AuthnStatementMarshaller() {
-        super(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

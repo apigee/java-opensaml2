@@ -30,7 +30,7 @@ public class AudienceSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AudienceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new AudienceSchemaValidator();
     }
 

@@ -35,7 +35,7 @@ public class AuthnContextDeclRefMarshaller extends AbstractSAMLObjectMarshaller 
 
     /** Constructor */
     public AuthnContextDeclRefMarshaller() {
-        super(SAMLConstants.SAML20_NS, AuthnContextDeclRef.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AuthnContextDeclRef.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

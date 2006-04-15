@@ -34,7 +34,7 @@ public class ProxyRestrictionMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public ProxyRestrictionMarshaller() {
-        super(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

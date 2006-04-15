@@ -19,16 +19,16 @@ package org.opensaml.saml2.core;
 /**
  * A type safe enumeration of {@link org.opensaml.saml2.core.AuthzDecisionStatement} decision types.
  */
-public final class DecisionType {
+public final class DecisionTypeEnumeration {
 
     /** Permit decision type */
-    public final static DecisionType PERMIT = new DecisionType("Permit");
+    public final static DecisionTypeEnumeration PERMIT = new DecisionTypeEnumeration("Permit");
 
     /** Deny decision type */
-    public final static DecisionType DENY = new DecisionType("Deny");
+    public final static DecisionTypeEnumeration DENY = new DecisionTypeEnumeration("Deny");
 
     /** Indeterminate decision type */
-    public final static DecisionType INDETERMINATE = new DecisionType("Indeterminate");
+    public final static DecisionTypeEnumeration INDETERMINATE = new DecisionTypeEnumeration("Indeterminate");
 
     /** The decision type string */
     private String decisionType;
@@ -38,7 +38,7 @@ public final class DecisionType {
      * 
      * @param decisionType the decision type string
      */
-    private DecisionType(String decisionType) {
+    private DecisionTypeEnumeration(String decisionType) {
         this.decisionType = decisionType;
     }
 

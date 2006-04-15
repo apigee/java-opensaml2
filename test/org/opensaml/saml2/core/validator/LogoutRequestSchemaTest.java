@@ -36,7 +36,7 @@ public class LogoutRequestSchemaTest extends RequestSchemaTest {
      */
     public LogoutRequestSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new LogoutRequestSchemaValidator();
     }
 
@@ -46,7 +46,7 @@ public class LogoutRequestSchemaTest extends RequestSchemaTest {
     protected void populateRequiredData() {
         super.populateRequiredData();
         LogoutRequest request = (LogoutRequest) target;
-        NameID nameid = (NameID) buildXMLObject(new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME));
+        NameID nameid = (NameID) buildXMLObject(new QName(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME));
         request.setNameID(nameid);
     }
     

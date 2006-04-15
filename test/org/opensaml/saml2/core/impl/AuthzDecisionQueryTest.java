@@ -62,7 +62,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
      * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthzDecisionQuery query = (AuthzDecisionQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
@@ -77,7 +77,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthzDecisionQuery query = (AuthzDecisionQuery) buildXMLObject(qname);
         
         super.populateRequiredAttributes(query);
@@ -93,17 +93,17 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthzDecisionQuery query = (AuthzDecisionQuery) buildXMLObject(qname);
         
         super.populateChildElements(query);
         
-        QName actionQName = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName actionQName = new QName(SAMLConstants.SAML20_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i=0; i<expectedNumActions; i++){
             query.getActions().add((Action) buildXMLObject(actionQName));
         }
         
-        QName evidenceQName = new QName(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName evidenceQName = new QName(SAMLConstants.SAML20_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         query.setEvidence((Evidence) buildXMLObject(evidenceQName));
         
         assertEquals(expectedChildElementsDOM, query);

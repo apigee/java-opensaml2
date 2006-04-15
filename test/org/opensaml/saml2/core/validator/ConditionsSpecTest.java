@@ -32,7 +32,7 @@ public class ConditionsSpecTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public ConditionsSpecTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new ConditionsSpecValidator();
     }
 
@@ -48,10 +48,10 @@ public class ConditionsSpecTest extends SAMLObjectValidatorBaseTestCase {
     public void testOneTimeUseFailure() throws ValidationException {
         Conditions conditions = (Conditions) target;
 
-        OneTimeUse oneTimeUse1 = (OneTimeUse) buildXMLObject(new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME,
+        OneTimeUse oneTimeUse1 = (OneTimeUse) buildXMLObject(new QName(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
 
-        OneTimeUse oneTimeUse2 = (OneTimeUse) buildXMLObject(new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME,
+        OneTimeUse oneTimeUse2 = (OneTimeUse) buildXMLObject(new QName(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
         
         conditions.getConditions().add(oneTimeUse1);
@@ -62,10 +62,10 @@ public class ConditionsSpecTest extends SAMLObjectValidatorBaseTestCase {
     public void testProxyRestrictionFailure() throws ValidationException {
         Conditions conditions = (Conditions) target;
         
-        ProxyRestriction proxyRestriction1 = (ProxyRestriction) buildXMLObject(new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME,
+        ProxyRestriction proxyRestriction1 = (ProxyRestriction) buildXMLObject(new QName(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
 
-        ProxyRestriction proxyRestriction2 = (ProxyRestriction) buildXMLObject(new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME,
+        ProxyRestriction proxyRestriction2 = (ProxyRestriction) buildXMLObject(new QName(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
         
         conditions.getConditions().add(proxyRestriction1);

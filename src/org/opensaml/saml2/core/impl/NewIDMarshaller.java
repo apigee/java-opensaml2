@@ -38,7 +38,7 @@ public class NewIDMarshaller extends AbstractSAMLObjectMarshaller {
      * 
      */
     public NewIDMarshaller() {
-        super(SAMLConstants.SAML20P_NS, NewID.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, NewID.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

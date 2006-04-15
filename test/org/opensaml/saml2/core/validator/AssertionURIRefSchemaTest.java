@@ -30,7 +30,7 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AssertionURIRefSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new AssertionURIRefSchemaValidator();
     }
 

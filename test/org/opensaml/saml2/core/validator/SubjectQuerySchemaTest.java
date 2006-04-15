@@ -46,7 +46,7 @@ public abstract class SubjectQuerySchemaTest extends RequestSchemaTest {
     protected void populateRequiredData() {
         super.populateRequiredData();
         SubjectQuery query = (SubjectQuery) target;
-        Subject subject = (Subject) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME));
+        Subject subject = (Subject) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME));
         query.setSubject(subject);
     }
     

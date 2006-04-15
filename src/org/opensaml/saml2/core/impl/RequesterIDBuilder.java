@@ -39,7 +39,7 @@ public class RequesterIDBuilder extends AbstractSAMLObjectBuilder<RequesterID> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public RequesterID buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, RequesterID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

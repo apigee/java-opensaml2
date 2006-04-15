@@ -31,7 +31,7 @@ public class AttributeStatementSchemaTest extends SAMLObjectValidatorBaseTestCas
 
     /** Constructor */
     public AttributeStatementSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new AttributeStatementSchemaValidator();
     }
 
@@ -41,7 +41,7 @@ public class AttributeStatementSchemaTest extends SAMLObjectValidatorBaseTestCas
     protected void populateRequiredData() {
         super.populateRequiredData();
         AttributeStatement attributeStatement = (AttributeStatement) target;
-        Attribute attribute = (Attribute) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Attribute.LOCAL_NAME,
+        Attribute attribute = (Attribute) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
         attributeStatement.getAttributes().add(attribute);
     }

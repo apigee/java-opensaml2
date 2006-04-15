@@ -30,7 +30,7 @@ public class AssertionIDRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AssertionIDRefSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new AssertionIDRefSchemaValidator();
     }
 

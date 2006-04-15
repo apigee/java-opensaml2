@@ -54,7 +54,7 @@ public class NameIDMappingResponseTest extends StatusResponseTest {
      * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         NameIDMappingResponse resp = (NameIDMappingResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -66,7 +66,7 @@ public class NameIDMappingResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         NameIDMappingResponse resp = (NameIDMappingResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -79,12 +79,12 @@ public class NameIDMappingResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         NameIDMappingResponse req = (NameIDMappingResponse) buildXMLObject(qname);
         
         super.populateChildElements(req);
         
-        QName nameIDQName = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName nameIDQName = new QName(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         req.setNameID((NameID) buildXMLObject(nameIDQName));
         
         assertEquals(expectedChildElementsDOM, req);

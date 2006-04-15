@@ -34,7 +34,7 @@ public class AssertionSpecTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AssertionSpecTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, Assertion.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new AssertionSpecValidator();
     }
 
@@ -44,7 +44,7 @@ public class AssertionSpecTest extends SAMLObjectValidatorBaseTestCase {
     protected void populateRequiredData() {
         super.populateRequiredData();
         Assertion assertion = (Assertion) target;
-        Subject subject = (Subject) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Subject.LOCAL_NAME,
+        Subject subject = (Subject) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
 
         assertion.setSubject(subject);
@@ -57,11 +57,11 @@ public class AssertionSpecTest extends SAMLObjectValidatorBaseTestCase {
      */
     public void testSubjectFailure() throws ValidationException {
         Assertion assertion = (Assertion) target;
-        AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME,
+        AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
-        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME,
+        AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
-        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME,
+        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
         
         assertion.setSubject(null);

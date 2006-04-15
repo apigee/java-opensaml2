@@ -38,7 +38,7 @@ public class ArtifactResponseUnmarshaller extends StatusResponseUnmarshaller {
      * 
      */
     public ArtifactResponseUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, ArtifactResponse.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -37,7 +37,7 @@ public class NameIDMappingRequestSchemaTest extends RequestSchemaTest {
      */
     public NameIDMappingRequestSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new NameIDMappingRequestSchemaValidator();
     }
 
@@ -48,8 +48,8 @@ public class NameIDMappingRequestSchemaTest extends RequestSchemaTest {
         super.populateRequiredData();
         
         NameIDMappingRequest request = (NameIDMappingRequest) target;
-        NameID nameid = (NameID) buildXMLObject(new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME));
-        NameIDPolicy policy = (NameIDPolicy) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME));
+        NameID nameid = (NameID) buildXMLObject(new QName(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME));
+        NameIDPolicy policy = (NameIDPolicy) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME));
         
         request.setNameID(nameid);
         request.setNameIDPolicy(policy);

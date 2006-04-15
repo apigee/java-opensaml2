@@ -59,7 +59,7 @@ public class OneTimeUseTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         OneTimeUse oneTimeUse = (OneTimeUse) buildXMLObject(qname);
 
         assertEquals(expectedDOM, oneTimeUse);

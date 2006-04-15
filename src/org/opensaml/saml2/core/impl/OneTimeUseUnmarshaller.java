@@ -31,7 +31,7 @@ public class OneTimeUseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public OneTimeUseUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

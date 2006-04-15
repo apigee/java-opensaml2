@@ -57,7 +57,7 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.DEFAULT_ELEMENT_LOCAL_NAME);
         IDPList list = (IDPList) buildXMLObject(qname);
 
         assertEquals(expectedDOM, list);
@@ -68,15 +68,15 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.DEFAULT_ELEMENT_LOCAL_NAME);
         IDPList list = (IDPList) buildXMLObject(qname);
         
-        QName idpEntryQName = new QName(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName idpEntryQName = new QName(SAMLConstants.SAML20P_NS, IDPEntry.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         for (int i=0; i<expectedNumIDPEntryChildren; i++){
             list.getIDPEntrys().add((IDPEntry) buildXMLObject(idpEntryQName));
         }
         
-        QName getCompelteQName = new QName(SAMLConstants.SAML20P_NS, GetComplete.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName getCompelteQName = new QName(SAMLConstants.SAML20P_NS, GetComplete.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         list.setGetComplete((GetComplete) buildXMLObject(getCompelteQName));
         
         assertEquals(expectedChildElementsDOM, list);

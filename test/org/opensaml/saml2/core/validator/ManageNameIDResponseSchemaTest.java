@@ -35,7 +35,7 @@ public class ManageNameIDResponseSchemaTest extends StatusResponseSchemaTest {
      */
     public ManageNameIDResponseSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new ManageNameIDResponseSchemaValidator();
     }
     

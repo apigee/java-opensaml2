@@ -35,7 +35,7 @@ public class AuthnQuerySchemaTest extends SubjectQuerySchemaTest {
      */
     public AuthnQuerySchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new AuthnQuerySchemaValidator();
     }
     

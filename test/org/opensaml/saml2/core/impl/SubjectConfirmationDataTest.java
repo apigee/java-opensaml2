@@ -101,7 +101,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME,
+        QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         SubjectConfirmationData subjectCD = (SubjectConfirmationData) buildXMLObject(qname);
 
@@ -113,7 +113,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.LOCAL_NAME,
+        QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         SubjectConfirmationData subjectCD = (SubjectConfirmationData) buildXMLObject(qname);
 

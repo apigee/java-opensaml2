@@ -36,7 +36,7 @@ public class ScopingMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public ScopingMarshaller() {
-        super(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

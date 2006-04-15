@@ -36,7 +36,7 @@ public class AssertionIDRequestSchemaTest extends RequestSchemaTest {
      */
     public AssertionIDRequestSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new AssertionIDRequestSchemaValidator();
     }
 
@@ -53,7 +53,7 @@ public class AssertionIDRequestSchemaTest extends RequestSchemaTest {
     protected void populateRequiredData() {
         super.populateRequiredData();
         AssertionIDRequest request = (AssertionIDRequest) target;
-        AssertionIDRef ref = (AssertionIDRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME));
+        AssertionIDRef ref = (AssertionIDRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME));
         request.getAssertionIDRefs().add(ref);
     }
     

@@ -67,7 +67,7 @@ public class LogoutRequestTest extends RequestTest {
      * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -79,7 +79,7 @@ public class LogoutRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateRequiredAttributes(req);
@@ -94,15 +94,15 @@ public class LogoutRequestTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
         
         super.populateChildElements(req);
         
-        QName nameIDQName = new QName(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName nameIDQName = new QName(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         req.setNameID((NameID) buildXMLObject(nameIDQName));
         
-        QName sessionIndexQName = new QName(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName sessionIndexQName = new QName(SAMLConstants.SAML20P_NS, SessionIndex.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         for (int i=0; i<expectedNumSessionIndexes; i++){
             req.getSessionIndexes().add((SessionIndex) buildXMLObject(sessionIndexQName));
         }

@@ -218,7 +218,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml2.core.Assertion#getAuthnStatements()
      */
     public List<AuthnStatement> getAuthnStatements() {
-        QName statementQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME,
+        QName statementQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         return (List<AuthnStatement>) statements.subList(statementQName);
     }
@@ -227,7 +227,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml2.core.Assertion#getAuthzDecisionStatements()
      */
     public List<AuthzDecisionStatement> getAuthzDecisionStatements() {
-        QName statementQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME,
+        QName statementQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         return (List<AuthzDecisionStatement>) statements.subList(statementQName);
     }
@@ -236,7 +236,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
      * @see org.opensaml.saml2.core.Assertion#getAttributeStatement()
      */
     public List<AttributeStatement> getAttributeStatement() {
-        QName statementQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME,
+        QName statementQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         return (List<AttributeStatement>) statements.subList(statementQName);
     }

@@ -62,7 +62,7 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
         Scoping scoping = (Scoping) buildXMLObject(qname);
         
         assertEquals(expectedDOM, scoping);
@@ -73,7 +73,7 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
         Scoping scoping = (Scoping) buildXMLObject(qname);
         
         scoping.setProxyCount(new Integer(expectedProxyCount));
@@ -85,13 +85,13 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
         Scoping scoping = (Scoping) buildXMLObject(qname);
         
-        QName idpListQName = new QName(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName idpListQName = new QName(SAMLConstants.SAML20P_NS, IDPList.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         scoping.setIDPList((IDPList) buildXMLObject(idpListQName));
         
-        QName requesterIDQName = new QName(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName requesterIDQName = new QName(SAMLConstants.SAML20P_NS, RequesterID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         for (int i = 0; i<expectedNumRequestIDs; i++){
             scoping.getRequesterIDs().add((RequesterID) buildXMLObject(requesterIDQName));
         }

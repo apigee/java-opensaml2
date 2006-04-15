@@ -36,7 +36,7 @@ public class IDPEntrySchemaTest extends SAMLObjectValidatorBaseTestCase {
      */
     public IDPEntrySchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, IDPEntry.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, IDPEntry.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new IDPEntrySchemaValidator();
     }
 

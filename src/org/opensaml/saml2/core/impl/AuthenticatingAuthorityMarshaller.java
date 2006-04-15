@@ -35,7 +35,7 @@ public class AuthenticatingAuthorityMarshaller extends AbstractSAMLObjectMarshal
 
     /** Constructor */
     public AuthenticatingAuthorityMarshaller() {
-        super(SAMLConstants.SAML20_NS, AuthenticatingAuthority.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AuthenticatingAuthority.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

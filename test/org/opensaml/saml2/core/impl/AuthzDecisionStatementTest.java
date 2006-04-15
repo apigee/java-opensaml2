@@ -22,7 +22,7 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
-import org.opensaml.saml2.core.DecisionType;
+import org.opensaml.saml2.core.DecisionTypeEnumeration;
 import org.opensaml.saml2.core.Evidence;
 
 /**
@@ -35,7 +35,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
     protected String expectedResource;
 
     /** Expected Decision value */
-    protected DecisionType expectedDecision;
+    protected DecisionTypeEnumeration expectedDecision;
 
     /** Count of Action subelements */
     protected int expectedActionCount = 3;
@@ -53,7 +53,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         expectedResource = "resource name";
-        expectedDecision = DecisionType.DENY;
+        expectedDecision = DecisionTypeEnumeration.DENY;
     }
 
     /**
@@ -75,7 +75,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
         String resource = authzDecisionStatement.getResource();
         assertEquals("Resource not as expected", expectedResource, resource);
 
-        DecisionType decision = authzDecisionStatement.getDecision();
+        DecisionTypeEnumeration decision = authzDecisionStatement.getDecision();
         assertEquals("Decision not as expected", expectedDecision.toString(), decision.toString());
     }
 
@@ -83,7 +83,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
 
         authzDecisionStatement.setResource(expectedResource);
@@ -94,7 +94,7 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
 
         authzDecisionStatement.setResource(expectedResource);
@@ -116,15 +116,15 @@ public class AuthzDecisionStatementTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) buildXMLObject(qname);
 
-        QName actionQName = new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName actionQName = new QName(SAMLConstants.SAML20_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < expectedActionCount; i++) {
             authzDecisionStatement.getActions().add((Action) buildXMLObject(actionQName));
         }
         
-        QName evidenceQName = new QName(SAMLConstants.SAML20_NS, Evidence.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName evidenceQName = new QName(SAMLConstants.SAML20_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         authzDecisionStatement.setEvidence((Evidence) buildXMLObject(evidenceQName));
         
         assertEquals(expectedChildElementsDOM, authzDecisionStatement);

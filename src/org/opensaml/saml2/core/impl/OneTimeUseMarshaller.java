@@ -31,7 +31,7 @@ public class OneTimeUseMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public OneTimeUseMarshaller() {
-        super(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

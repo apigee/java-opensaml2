@@ -36,7 +36,7 @@ public class AuthnRequestMarshaller extends RequestMarshaller {
      * 
      */
     public AuthnRequestMarshaller() {
-        super(SAMLConstants.SAML20P_NS, AuthnRequest.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

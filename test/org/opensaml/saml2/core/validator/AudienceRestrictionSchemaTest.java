@@ -31,14 +31,14 @@ public class AudienceRestrictionSchemaTest extends SAMLObjectValidatorBaseTestCa
 
     /** Constructor */
     public AudienceRestrictionSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new AudienceRestrictionSchemaValidator();
     }
 
     protected void populateRequiredData() {
         super.populateRequiredData();
         AudienceRestriction audienceRestriction = (AudienceRestriction) target;
-        Audience audience = (Audience) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Audience.LOCAL_NAME,
+        Audience audience = (Audience) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
         audienceRestriction.getAudiences().add(audience);
     }

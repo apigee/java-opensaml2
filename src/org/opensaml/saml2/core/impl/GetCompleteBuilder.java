@@ -39,7 +39,7 @@ public class GetCompleteBuilder extends AbstractSAMLObjectBuilder<GetComplete> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public GetComplete buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, GetComplete.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, GetComplete.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

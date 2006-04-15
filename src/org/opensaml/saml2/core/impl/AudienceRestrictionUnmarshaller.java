@@ -34,7 +34,7 @@ public class AudienceRestrictionUnmarshaller extends AbstractSAMLObjectUnmarshal
 
     /** Constructor */
     public AudienceRestrictionUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AudienceRestriction.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -56,7 +56,7 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, StatusCode.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
         StatusCode statusCode = (StatusCode) buildXMLObject(qname);
         
         statusCode.setValue(expectedValue);
@@ -69,10 +69,10 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, StatusCode.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
         StatusCode statusCode = (StatusCode) buildXMLObject(qname);
         
-        QName statusCodeQName = new QName(SAMLConstants.SAML20P_NS, StatusCode.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName statusCodeQName = new QName(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         statusCode.setStatusCode((StatusCode) buildXMLObject(statusCodeQName));
         
         assertEquals(expectedChildElementsDOM, statusCode);

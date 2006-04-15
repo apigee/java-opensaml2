@@ -35,7 +35,7 @@ public class RequesterIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * 
      */
     public RequesterIDUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, RequesterID.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

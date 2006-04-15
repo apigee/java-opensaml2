@@ -41,7 +41,7 @@ public class AuthnQueryBuilder extends AbstractSAMLObjectBuilder<AuthnQuery> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthnQuery buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, AuthnQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

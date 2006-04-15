@@ -51,7 +51,7 @@ public class ManageNameIDResponseTest extends StatusResponseTest {
      * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ManageNameIDResponse resp = (ManageNameIDResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -63,7 +63,7 @@ public class ManageNameIDResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ManageNameIDResponse resp = (ManageNameIDResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -76,7 +76,7 @@ public class ManageNameIDResponseTest extends StatusResponseTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ManageNameIDResponse resp = (ManageNameIDResponse) buildXMLObject(qname);
         
         super.populateChildElements(resp);

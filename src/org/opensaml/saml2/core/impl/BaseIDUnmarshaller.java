@@ -34,7 +34,7 @@ public class BaseIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public BaseIDUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, BaseID.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, BaseID.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

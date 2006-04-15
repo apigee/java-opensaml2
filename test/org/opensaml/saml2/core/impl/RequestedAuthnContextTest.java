@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextClassRef;
-import org.opensaml.saml2.core.AuthnContextComparisonType;
+import org.opensaml.saml2.core.AuthnContextComparisonTypeEnumeration;
 import org.opensaml.saml2.core.RequestedAuthnContext;
 
 
@@ -34,7 +34,7 @@ import org.opensaml.saml2.core.RequestedAuthnContext;
 public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
     
     /** Expected Comparison attribute */
-    private AuthnContextComparisonType expectedComparison;
+    private AuthnContextComparisonTypeEnumeration expectedComparison;
     
     /** Expected Comparison attribute */
     private int expectedNumClassRefs;
@@ -55,7 +55,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
-        expectedComparison = AuthnContextComparisonType.EXACT;
+        expectedComparison = AuthnContextComparisonTypeEnumeration.EXACT;
         expectedNumClassRefs = 3;
     }
 
@@ -64,7 +64,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME);
         RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
         
         assertEquals(expectedDOM, rac);
@@ -75,10 +75,10 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME);
         RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
         
-        rac.setComparison(AuthnContextComparisonType.EXACT);
+        rac.setComparison(AuthnContextComparisonTypeEnumeration.EXACT);
         
         assertEquals(expectedOptionalAttributesDOM, rac);
     }
@@ -87,10 +87,10 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME);
         RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
         
-        QName authnContextClassRefQName = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName authnContextClassRefQName = new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i=0; i< expectedNumClassRefs; i++){
             rac.getAuthnContextClassRefs().add((AuthnContextClassRef) buildXMLObject(authnContextClassRefQName));
         }

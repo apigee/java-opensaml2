@@ -36,7 +36,7 @@ public class AssertionIDRequestUnmarshaller extends RequestUnmarshaller {
      * 
      */
     public AssertionIDRequestUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, AssertionIDRequest.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, AssertionIDRequest.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

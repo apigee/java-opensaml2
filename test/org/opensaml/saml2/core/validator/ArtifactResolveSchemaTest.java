@@ -36,7 +36,7 @@ public class ArtifactResolveSchemaTest extends RequestSchemaTest {
      */
     public ArtifactResolveSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new ArtifactResolveSchemaValidator();
     }
 
@@ -46,7 +46,7 @@ public class ArtifactResolveSchemaTest extends RequestSchemaTest {
     protected void populateRequiredData() {
         super.populateRequiredData();
         ArtifactResolve ar = (ArtifactResolve) target;
-        Artifact artifact = (Artifact) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME));
+        Artifact artifact = (Artifact) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME));
         ar.setArtifact(artifact);
     }
     

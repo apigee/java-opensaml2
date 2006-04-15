@@ -35,7 +35,7 @@ public class SessionIndexUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * 
      */
     public SessionIndexUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, SessionIndex.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

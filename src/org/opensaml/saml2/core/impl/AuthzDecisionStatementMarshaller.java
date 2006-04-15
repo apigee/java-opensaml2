@@ -34,7 +34,7 @@ public class AuthzDecisionStatementMarshaller extends AbstractSAMLObjectMarshall
 
     /** Constructor */
     public AuthzDecisionStatementMarshaller() {
-        super(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

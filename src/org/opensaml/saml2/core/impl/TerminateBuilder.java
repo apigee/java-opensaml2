@@ -40,7 +40,7 @@ public class TerminateBuilder extends AbstractSAMLObjectBuilder<Terminate> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Terminate buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, Terminate.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, Terminate.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

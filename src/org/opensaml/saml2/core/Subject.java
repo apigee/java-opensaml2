@@ -18,7 +18,10 @@ package org.opensaml.saml2.core;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core Subject
@@ -26,7 +29,16 @@ import org.opensaml.common.SAMLObject;
 public interface Subject extends SAMLObject {
 
     /** Element local name */
-    public final static String LOCAL_NAME = "Subject";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Subject";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "SubjectType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
     /**
      * Gets the base identifier of the principal for this request.

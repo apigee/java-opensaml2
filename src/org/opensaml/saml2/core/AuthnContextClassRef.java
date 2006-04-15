@@ -19,7 +19,10 @@
  */
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core AuthnContextClassRef
@@ -27,7 +30,10 @@ import org.opensaml.common.SAMLObject;
 public interface AuthnContextClassRef extends SAMLObject {
     
     /** Element local name*/
-    public static final String LOCAL_NAME = "AuthnContextClassRef";
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnContextClassRef";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
     /**
      * Gets the URI reference to an authentication context class

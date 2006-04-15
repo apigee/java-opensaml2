@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core Action
@@ -24,7 +27,16 @@ import org.opensaml.common.SAMLObject;
 public interface Action extends SAMLObject {
     
     /** Element local name */
-    public final static String LOCAL_NAME = "Action";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Action";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "ActionType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
     /** Name of the Namespace attribute */
     public final static String NAMEPSACE_ATTRIB_NAME = "Namespace";

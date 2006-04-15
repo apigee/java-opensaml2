@@ -89,7 +89,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Conditions conditions = (Conditions) buildXMLObject(qname);
 
         conditions.setNotBefore(expectedNotBefore);
@@ -100,7 +100,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Conditions conditions = (Conditions) buildXMLObject(qname);
 
         conditions.setNotBefore(expectedNotBefore);
@@ -123,20 +123,20 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Conditions conditions = (Conditions) buildXMLObject(qname);
 
-        QName oneTimeUserQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName oneTimeUserQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         conditions.getConditions().add((Condition) buildXMLObject(oneTimeUserQName));
         
-        QName audienceRestrictionQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName audienceRestrictionQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < audienceRestrictionCount; i++) {
             conditions.getAudienceRestrictions().add((AudienceRestriction) buildXMLObject(audienceRestrictionQName));
         }
         
         conditions.getConditions().add((Condition) buildXMLObject(oneTimeUserQName));
         
-        QName proxyRestrictionQName = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName proxyRestrictionQName = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         conditions.getConditions().add((Condition) buildXMLObject(proxyRestrictionQName));
         
         assertEquals(expectedChildElementsDOM, conditions);

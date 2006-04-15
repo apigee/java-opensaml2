@@ -40,7 +40,7 @@ public class SessionIndexBuilder extends AbstractSAMLObjectBuilder<SessionIndex>
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public SessionIndex buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, SessionIndex.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

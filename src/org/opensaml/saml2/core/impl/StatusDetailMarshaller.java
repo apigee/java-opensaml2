@@ -29,6 +29,6 @@ public class StatusDetailMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public StatusDetailMarshaller(){
-        super(SAMLConstants.SAML20P_NS, StatusDetail.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, StatusDetail.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 }

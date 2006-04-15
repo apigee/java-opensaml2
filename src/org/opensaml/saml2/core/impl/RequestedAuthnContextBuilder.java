@@ -40,7 +40,7 @@ public class RequestedAuthnContextBuilder extends AbstractSAMLObjectBuilder<Requ
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public RequestedAuthnContext buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, RequestedAuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*

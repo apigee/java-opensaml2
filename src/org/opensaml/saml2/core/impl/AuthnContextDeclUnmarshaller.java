@@ -32,7 +32,7 @@ public class AuthnContextDeclUnmarshaller extends AbstractSAMLObjectUnmarshaller
 
     /** Constructor */
     public AuthnContextDeclUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, AuthnContextDecl.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

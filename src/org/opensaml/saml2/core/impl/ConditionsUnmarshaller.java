@@ -37,7 +37,7 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public ConditionsUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, Conditions.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

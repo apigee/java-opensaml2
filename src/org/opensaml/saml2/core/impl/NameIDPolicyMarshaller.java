@@ -36,7 +36,7 @@ public class NameIDPolicyMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public NameIDPolicyMarshaller() {
-        super(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

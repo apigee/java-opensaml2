@@ -33,7 +33,7 @@ public class NameIDMappingResponseMarshaller extends StatusResponseMarshaller {
      * 
      */
     public NameIDMappingResponseMarshaller() {
-        super(SAMLConstants.SAML20P_NS, NameIDMappingResponse.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

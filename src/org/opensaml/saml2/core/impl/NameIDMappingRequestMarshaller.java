@@ -33,7 +33,7 @@ public class NameIDMappingRequestMarshaller extends RequestMarshaller {
      * 
      */
     public NameIDMappingRequestMarshaller() {
-        super(SAMLConstants.SAML20P_NS, NameIDMappingRequest.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, NameIDMappingRequest.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

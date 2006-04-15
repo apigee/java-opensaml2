@@ -38,7 +38,7 @@ public class AuthnStatementBuilder extends AbstractSAMLObjectBuilder<AuthnStatem
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthnStatement buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
     /*

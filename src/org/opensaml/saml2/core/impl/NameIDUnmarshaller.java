@@ -26,7 +26,7 @@ public class NameIDUnmarshaller extends AbstractNameIDTypeUnmarshaller {
 
     /** Constructor */
     public NameIDUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, NameID.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

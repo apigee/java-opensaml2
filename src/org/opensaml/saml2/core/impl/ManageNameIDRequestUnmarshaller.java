@@ -40,7 +40,7 @@ public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
      * 
      */
     public ManageNameIDRequestUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, ManageNameIDRequest.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, ManageNameIDRequest.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

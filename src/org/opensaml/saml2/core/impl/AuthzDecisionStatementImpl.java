@@ -27,7 +27,7 @@ import java.util.List;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
-import org.opensaml.saml2.core.DecisionType;
+import org.opensaml.saml2.core.DecisionTypeEnumeration;
 import org.opensaml.saml2.core.Evidence;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -41,7 +41,7 @@ public class AuthzDecisionStatementImpl extends AbstractSAMLObject implements Au
     private String resource;
 
     /** Decision of the authorization request */
-    private DecisionType decision;
+    private DecisionTypeEnumeration decision;
 
     /** Actions authorized to be performed */
     private final XMLObjectChildrenList<Action> actions;
@@ -78,14 +78,14 @@ public class AuthzDecisionStatementImpl extends AbstractSAMLObject implements Au
     /*
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#getDecision()
      */
-    public DecisionType getDecision() {
+    public DecisionTypeEnumeration getDecision() {
         return decision;
     }
 
     /*
      * @see org.opensaml.saml2.core.AuthzDecisionStatement#setDecision(org.opensaml.saml2.core.DecisionType)
      */
-    public void setDecision(DecisionType newDecision) {
+    public void setDecision(DecisionTypeEnumeration newDecision) {
         this.decision = prepareForAssignment(this.decision, newDecision);
     }
 

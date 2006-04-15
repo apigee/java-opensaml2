@@ -35,7 +35,7 @@ public class AttributeQuerySchemaTest extends SubjectQuerySchemaTest {
      */
     public AttributeQuerySchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new AttributeQuerySchemaValidator();
     }
     

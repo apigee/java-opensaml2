@@ -39,7 +39,7 @@ public class NameIDPolicyBuilder extends AbstractSAMLObjectBuilder<NameIDPolicy>
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public NameIDPolicy buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, NameIDPolicy.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

@@ -26,7 +26,7 @@ public class IssuerUnmarshaller extends AbstractNameIDTypeUnmarshaller {
 
     /** Constructor */
     public IssuerUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, Issuer.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

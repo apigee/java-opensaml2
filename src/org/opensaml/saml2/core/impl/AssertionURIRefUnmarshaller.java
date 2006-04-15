@@ -32,7 +32,7 @@ public class AssertionURIRefUnmarshaller extends AbstractSAMLObjectUnmarshaller 
 
     /** Constructor */
     public AssertionURIRefUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, AssertionURIRef.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

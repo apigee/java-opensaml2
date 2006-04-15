@@ -33,7 +33,7 @@ public class ResponseMarshaller extends StatusResponseMarshaller {
      * 
      */
     public ResponseMarshaller() {
-        super(SAMLConstants.SAML20P_NS, Response.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -37,7 +37,7 @@ public class RequesterIDMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public RequesterIDMarshaller() {
-        super(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, RequesterID.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

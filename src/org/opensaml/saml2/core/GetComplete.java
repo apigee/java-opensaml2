@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core GetComplete
@@ -24,7 +27,10 @@ import org.opensaml.common.SAMLObject;
 public interface GetComplete extends SAMLObject {
 
     /** Element Local Name */
-    public final static String LOCAL_NAME = "GetComplete";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "GetComplete";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
 
     /**
      * Gets the GetComplete URI value

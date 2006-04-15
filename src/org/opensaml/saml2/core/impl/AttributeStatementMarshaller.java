@@ -31,7 +31,7 @@ public class AttributeStatementMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public AttributeStatementMarshaller() {
-        super(SAMLConstants.SAML20_NS, AttributeStatement.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

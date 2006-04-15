@@ -41,7 +41,7 @@ public class LogoutRequestBuilder extends AbstractSAMLObjectBuilder<LogoutReques
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public LogoutRequest buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, LogoutRequest.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /*

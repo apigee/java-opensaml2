@@ -32,7 +32,7 @@ public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshalle
      * 
      */
     public NameIDMappingResponseUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, NameIDMappingResponse.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

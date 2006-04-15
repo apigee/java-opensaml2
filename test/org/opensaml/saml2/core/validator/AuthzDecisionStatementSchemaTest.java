@@ -22,7 +22,7 @@ import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
-import org.opensaml.saml2.core.DecisionType;
+import org.opensaml.saml2.core.DecisionTypeEnumeration;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
@@ -32,17 +32,17 @@ public class AuthzDecisionStatementSchemaTest extends SAMLObjectValidatorBaseTes
 
     /** Constructor */
     public AuthzDecisionStatementSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         validator = new AuthzDecisionStatementSchemaValidator();
     }
 
     protected void populateRequiredData() {
         super.populateRequiredData();
         AuthzDecisionStatement authzDecisionStatement = (AuthzDecisionStatement) target;
-        Action action = (Action) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Action.LOCAL_NAME,
+        Action action = (Action) buildXMLObject(new QName(SAMLConstants.SAML20_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX));
         authzDecisionStatement.setResource("resource");
-        authzDecisionStatement.setDecision(DecisionType.DENY);
+        authzDecisionStatement.setDecision(DecisionTypeEnumeration.DENY);
         authzDecisionStatement.getActions().add(action);
     }
 

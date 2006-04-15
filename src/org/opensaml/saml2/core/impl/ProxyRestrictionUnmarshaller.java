@@ -35,7 +35,7 @@ public class ProxyRestrictionUnmarshaller extends AbstractSAMLObjectUnmarshaller
 
     /** Constructor */
     public ProxyRestrictionUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, ProxyRestriction.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

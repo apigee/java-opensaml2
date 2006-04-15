@@ -52,7 +52,7 @@ public class ArtifactResolveTest extends RequestTest {
      * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResolve ar = (ArtifactResolve) buildXMLObject(qname);
         
         super.populateRequiredAttributes(ar);
@@ -64,7 +64,7 @@ public class ArtifactResolveTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResolve ar = (ArtifactResolve) buildXMLObject(qname);
         
         super.populateRequiredAttributes(ar);
@@ -77,12 +77,12 @@ public class ArtifactResolveTest extends RequestTest {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResolve ar = (ArtifactResolve) buildXMLObject(qname);
         
         super.populateChildElements(ar);
         
-        QName artifactQName = new QName(SAMLConstants.SAML20P_NS, Artifact.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName artifactQName = new QName(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ar.setArtifact((Artifact) buildXMLObject(artifactQName));
         
         assertEquals(expectedChildElementsDOM, ar);

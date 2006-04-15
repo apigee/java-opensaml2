@@ -18,7 +18,10 @@ package org.opensaml.saml2.core;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.AttributeExtensibleXMLObject;
 import org.opensaml.xml.XMLObject;
 
@@ -28,7 +31,16 @@ import org.opensaml.xml.XMLObject;
 public interface Attribute extends SAMLObject, AttributeExtensibleXMLObject {
 
     /** Local name of the Attribute element */
-    public static final String LOCAL_NAME = "Attribute";
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "Attribute";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AttributeType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
     /** Name of the Name attribute */
     public static final String NAME_ATTTRIB_NAME = "Name";

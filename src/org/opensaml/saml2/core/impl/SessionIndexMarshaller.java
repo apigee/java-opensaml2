@@ -38,7 +38,7 @@ public class SessionIndexMarshaller extends AbstractSAMLObjectMarshaller {
      * 
      */
     public SessionIndexMarshaller() {
-        super(SAMLConstants.SAML20P_NS, SessionIndex.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, SessionIndex.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

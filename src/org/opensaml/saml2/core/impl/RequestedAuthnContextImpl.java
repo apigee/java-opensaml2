@@ -26,7 +26,7 @@ import java.util.List;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AuthnContextClassRef;
-import org.opensaml.saml2.core.AuthnContextComparisonType;
+import org.opensaml.saml2.core.AuthnContextComparisonTypeEnumeration;
 import org.opensaml.saml2.core.AuthnContextDeclRef;
 import org.opensaml.saml2.core.RequestedAuthnContext;
 import org.opensaml.xml.XMLObject;
@@ -44,7 +44,7 @@ public class RequestedAuthnContextImpl extends AbstractSAMLObject implements Req
     private final XMLObjectChildrenList<AuthnContextDeclRef> authnContextDeclRefs;
 
     /** Comparison attribute */
-    private AuthnContextComparisonType comparison;
+    private AuthnContextComparisonTypeEnumeration comparison;
 
     /**
      * Constructor
@@ -62,14 +62,14 @@ public class RequestedAuthnContextImpl extends AbstractSAMLObject implements Req
     /**
      * @see org.opensaml.saml2.core.RequestedAuthnContext#getComparison()
      */
-    public AuthnContextComparisonType getComparison() {
+    public AuthnContextComparisonTypeEnumeration getComparison() {
         return this.comparison;
     }
 
     /**
-     * @see org.opensaml.saml2.core.RequestedAuthnContext#setComparison(org.opensaml.saml2.core.AuthnContextComparisonType)
+     * @see org.opensaml.saml2.core.RequestedAuthnContext#setComparison(org.opensaml.saml2.core.AuthnContextComparisonTypeEnumeration)
      */
-    public void setComparison(AuthnContextComparisonType newComparison) {
+    public void setComparison(AuthnContextComparisonTypeEnumeration newComparison) {
         this.comparison = prepareForAssignment(this.comparison, newComparison);
     }
 

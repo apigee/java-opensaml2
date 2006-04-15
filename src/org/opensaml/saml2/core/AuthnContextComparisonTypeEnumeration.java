@@ -19,19 +19,19 @@ package org.opensaml.saml2.core;
 /**
  * A type safe enumeration of {@link org.opensaml.saml2.core.RequestedAuthnContext} comparison types.
  */
-public final class AuthnContextComparisonType {
+public final class AuthnContextComparisonTypeEnumeration {
 
     /** "exact" comparison type */
-    public final static AuthnContextComparisonType EXACT = new AuthnContextComparisonType("exact");
+    public final static AuthnContextComparisonTypeEnumeration EXACT = new AuthnContextComparisonTypeEnumeration("exact");
 
     /** "minimum" comparison type */
-    public final static AuthnContextComparisonType MINIMUM = new AuthnContextComparisonType("minimum");
+    public final static AuthnContextComparisonTypeEnumeration MINIMUM = new AuthnContextComparisonTypeEnumeration("minimum");
 
     /** "maximum" comparison type */
-    public final static AuthnContextComparisonType MAXIMUM = new AuthnContextComparisonType("maximum");
+    public final static AuthnContextComparisonTypeEnumeration MAXIMUM = new AuthnContextComparisonTypeEnumeration("maximum");
 
     /** "better" comparison type */
-    public final static AuthnContextComparisonType BETTER = new AuthnContextComparisonType("better");
+    public final static AuthnContextComparisonTypeEnumeration BETTER = new AuthnContextComparisonTypeEnumeration("better");
 
     /** The comparison type string */
     private String comparisonType;
@@ -41,7 +41,7 @@ public final class AuthnContextComparisonType {
      * 
      * @param comparisonType the comparison type string
      */
-    private AuthnContextComparisonType(String comparisonType) {
+    private AuthnContextComparisonTypeEnumeration(String comparisonType) {
         this.comparisonType= comparisonType;
     }
 

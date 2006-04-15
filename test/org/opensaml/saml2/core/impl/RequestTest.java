@@ -73,7 +73,7 @@ public abstract class RequestTest extends SAMLObjectBaseTestCase {
         expectedDestination = "http://idp.example.org/endpoint";
         expectedConsent = "urn:string:consent";
         
-        QName issuerQName = new QName(SAMLConstants.SAML20_NS, Issuer.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName issuerQName = new QName(SAMLConstants.SAML20_NS, Issuer.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         expectedIssuer = (Issuer) buildXMLObject(issuerQName);
     }
 

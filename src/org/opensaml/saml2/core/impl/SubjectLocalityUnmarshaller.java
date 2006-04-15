@@ -34,7 +34,7 @@ public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller 
 
     /** Constructor */
     public SubjectLocalityUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, SubjectLocality.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, SubjectLocality.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

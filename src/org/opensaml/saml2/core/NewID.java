@@ -19,7 +19,10 @@
  */
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Core NewID
@@ -27,7 +30,10 @@ import org.opensaml.common.SAMLObject;
 public interface NewID extends SAMLObject {
 
     /** Element local name */
-    public static final String LOCAL_NAME = "NewID";
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "NewID";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
     /**
      * Get NewID value
@@ -41,6 +47,5 @@ public interface NewID extends SAMLObject {
      * 
      * @param the new NewID value
      */
-    public void setNewID(String newNewID);
-    
+    public void setNewID(String newNewID);   
 }

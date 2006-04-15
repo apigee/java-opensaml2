@@ -33,7 +33,7 @@ public class IDPListMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public IDPListMarshaller() {
-        super(SAMLConstants.SAML20P_NS, IDPList.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, IDPList.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

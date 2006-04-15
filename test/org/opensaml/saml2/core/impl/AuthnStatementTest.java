@@ -91,7 +91,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);
 
         authnStatement.setAuthnInstant(expectedAuthnInstant);
@@ -102,7 +102,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);
 
         authnStatement.setAuthnInstant(expectedAuthnInstant);
@@ -125,13 +125,13 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);
 
-        QName subjectLocalityQName = new QName(SAMLConstants.SAML20_NS, SubjectLocality.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName subjectLocalityQName = new QName(SAMLConstants.SAML20_NS, SubjectLocality.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         authnStatement.setSubjectLocality((SubjectLocality) buildXMLObject(subjectLocalityQName));
         
-        QName authnContextQName = new QName(SAMLConstants.SAML20_NS, AuthnContext.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName authnContextQName = new QName(SAMLConstants.SAML20_NS, AuthnContext.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         authnStatement.setAuthnContext((AuthnContext) buildXMLObject(authnContextQName));
         
         assertEquals(expectedChildElementsDOM, authnStatement);

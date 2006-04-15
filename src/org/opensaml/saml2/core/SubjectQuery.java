@@ -19,13 +19,26 @@
  */
 package org.opensaml.saml2.core;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
+
 /**
  * SAML 2.0 Core SubjectQuery
  */
 public interface SubjectQuery extends Request {
     
     /** Element local name */
-    public final static String LOCAL_NAME = "SubjectQuery";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "SubjectQuery";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "SubjectQueryAbstractType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
     /**
      * Gets the Subject of this request.

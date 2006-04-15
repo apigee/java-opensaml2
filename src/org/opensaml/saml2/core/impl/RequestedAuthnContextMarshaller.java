@@ -37,7 +37,7 @@ public class RequestedAuthnContextMarshaller extends AbstractSAMLObjectMarshalle
      * 
      */
     public RequestedAuthnContextMarshaller() {
-        super(SAMLConstants.SAML20P_NS, RequestedAuthnContext.LOCAL_NAME);
+        super(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

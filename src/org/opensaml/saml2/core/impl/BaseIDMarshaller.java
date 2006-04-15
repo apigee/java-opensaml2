@@ -34,7 +34,7 @@ public class BaseIDMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public BaseIDMarshaller() {
-        super(SAMLConstants.SAML20_NS, BaseID.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, BaseID.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

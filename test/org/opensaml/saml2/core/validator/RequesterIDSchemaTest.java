@@ -36,7 +36,7 @@ public class RequesterIDSchemaTest extends SAMLObjectValidatorBaseTestCase {
      */
     public RequesterIDSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, RequesterID.LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20P_NS, RequesterID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new RequesterIDSchemaValidator();
     }
 

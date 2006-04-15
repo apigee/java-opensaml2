@@ -18,13 +18,26 @@ package org.opensaml.saml2.core;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
+
 /**
  * SAML 2.0 Core AuthzDecisionStatement
  */
 public interface AuthzDecisionStatement extends Statement {
     
     /** Element local name */
-    public final static String LOCAL_NAME = "AuthzDecisionStatement";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthzDecisionStatement";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AuthzDecisionStatementType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
     /** Resource attribute name */
     public final static String RESOURCE_ATTRIB_NAME = "Resource";
@@ -51,14 +64,14 @@ public interface AuthzDecisionStatement extends Statement {
      * 
      * @return the decision of the authorization request
      */
-    public DecisionType getDecision();
+    public DecisionTypeEnumeration getDecision();
 
     /**
      * Sets the decision of the authorization request.
      * 
      * @param newDescision the decision of the authorization request
      */
-    public void setDecision(DecisionType newDecision);
+    public void setDecision(DecisionTypeEnumeration newDecision);
 
     /**
      * Gets the actions authorized to be performed.

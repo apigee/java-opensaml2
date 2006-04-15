@@ -35,7 +35,7 @@ public class AssertionIDRefMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public AssertionIDRefMarshaller() {
-        super(SAMLConstants.SAML20_NS, AssertionIDRef.LOCAL_NAME);
+        super(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
