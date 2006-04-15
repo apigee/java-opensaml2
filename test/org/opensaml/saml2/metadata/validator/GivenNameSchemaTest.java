@@ -30,7 +30,7 @@ public class GivenNameSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public GivenNameSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, GivenName.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, GivenName.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new GivenNameSchemaValidator();
     }

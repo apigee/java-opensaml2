@@ -20,7 +20,10 @@ import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
@@ -34,7 +37,16 @@ public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBound
         AttributeExtensibleXMLObject {
 
     /** Element name, no namespace */
-    public final static String LOCAL_NAME = "RoleDescriptor";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "RoleDescriptor";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "RoleDescriptorType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
 
     /** "ID" attribute's local name */
     public final static String ID_ATTRIB_NAME = "ID";

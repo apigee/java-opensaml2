@@ -40,7 +40,7 @@ public class GivenNameBuilder extends AbstractSAMLObjectBuilder<GivenName> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public GivenName buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, GivenName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, GivenName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

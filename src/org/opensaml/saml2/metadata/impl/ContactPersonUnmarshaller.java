@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.Company;
 import org.opensaml.saml2.metadata.ContactPerson;
-import org.opensaml.saml2.metadata.ContactPersonType;
+import org.opensaml.saml2.metadata.ContactPersonTypeEnumeration;
 import org.opensaml.saml2.metadata.EmailAddress;
 import org.opensaml.saml2.metadata.GivenName;
 import org.opensaml.saml2.metadata.SurName;
@@ -44,7 +44,7 @@ public class ContactPersonUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public ContactPersonUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
@@ -90,16 +90,16 @@ public class ContactPersonUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         ContactPerson person = (ContactPerson) samlObject;
 
         if (attribute.getLocalName().equals(ContactPerson.CONTACT_TYPE_ATTRIB_NAME)) {
-            if (ContactPersonType.TECHNICAL.toString().equals(attribute.getValue())) {
-                person.setType(ContactPersonType.TECHNICAL);
-            } else if (ContactPersonType.SUPPORT.toString().equals(attribute.getValue())) {
-                person.setType(ContactPersonType.SUPPORT);
-            } else if (ContactPersonType.ADMINISTRATIVE.toString().equals(attribute.getValue())) {
-                person.setType(ContactPersonType.ADMINISTRATIVE);
-            } else if (ContactPersonType.BILLING.toString().equals(attribute.getValue())) {
-                person.setType(ContactPersonType.BILLING);
-            } else if (ContactPersonType.OTHER.toString().equals(attribute.getValue())) {
-                person.setType(ContactPersonType.OTHER);
+            if (ContactPersonTypeEnumeration.TECHNICAL.toString().equals(attribute.getValue())) {
+                person.setType(ContactPersonTypeEnumeration.TECHNICAL);
+            } else if (ContactPersonTypeEnumeration.SUPPORT.toString().equals(attribute.getValue())) {
+                person.setType(ContactPersonTypeEnumeration.SUPPORT);
+            } else if (ContactPersonTypeEnumeration.ADMINISTRATIVE.toString().equals(attribute.getValue())) {
+                person.setType(ContactPersonTypeEnumeration.ADMINISTRATIVE);
+            } else if (ContactPersonTypeEnumeration.BILLING.toString().equals(attribute.getValue())) {
+                person.setType(ContactPersonTypeEnumeration.BILLING);
+            } else if (ContactPersonTypeEnumeration.OTHER.toString().equals(attribute.getValue())) {
+                person.setType(ContactPersonTypeEnumeration.OTHER);
             } else {
                 super.processAttribute(samlObject, attribute);
             }

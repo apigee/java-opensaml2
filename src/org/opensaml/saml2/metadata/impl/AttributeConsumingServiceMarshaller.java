@@ -36,7 +36,7 @@ public class AttributeConsumingServiceMarshaller extends AbstractSAMLObjectMarsh
      * Constructor
      */
     public AttributeConsumingServiceMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

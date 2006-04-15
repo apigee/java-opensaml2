@@ -18,13 +18,25 @@ package org.opensaml.saml2.metadata;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.signature.KeyInfo;
 
 public interface KeyDescriptor extends SAMLObject {
 
     /** Element name, no namespace */
-    public final static String LOCAL_NAME = "KeyDescriptor";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "KeyDescriptor";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "KeyDescriptorType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
 
     /** "use" attribute's local name */
     public final static String USE_ATTRIB_NAME = "use";
@@ -34,14 +46,14 @@ public interface KeyDescriptor extends SAMLObject {
      * 
      * @return the use of this key
      */
-    public KeyUseType getUse();
+    public KeyUseTypeEnumeration getUse();
 
     /**
      * Sets the use of this key.
      * 
      * @param newType the use of this key
      */
-    public void setUse(KeyUseType newType);
+    public void setUse(KeyUseTypeEnumeration newType);
 
     /**
      * Gets information about the key, including the key itself.

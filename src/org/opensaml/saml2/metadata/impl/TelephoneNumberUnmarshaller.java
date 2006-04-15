@@ -34,7 +34,7 @@ public class TelephoneNumberUnmarshaller extends AbstractSAMLObjectUnmarshaller 
      * Constructor
      */
     public TelephoneNumberUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, TelephoneNumber.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, TelephoneNumber.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

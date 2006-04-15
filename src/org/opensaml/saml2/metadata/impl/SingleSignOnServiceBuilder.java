@@ -40,7 +40,7 @@ public class SingleSignOnServiceBuilder extends AbstractSAMLObjectBuilder<Single
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public SingleSignOnService buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

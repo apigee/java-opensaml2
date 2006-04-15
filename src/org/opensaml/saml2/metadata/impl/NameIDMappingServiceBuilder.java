@@ -40,7 +40,7 @@ public class NameIDMappingServiceBuilder extends AbstractSAMLObjectBuilder<NameI
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public NameIDMappingService buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, NameIDMappingService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

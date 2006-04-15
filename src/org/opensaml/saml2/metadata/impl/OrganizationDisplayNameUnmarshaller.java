@@ -38,7 +38,7 @@ public class OrganizationDisplayNameUnmarshaller extends AbstractSAMLObjectUnmar
      * Constructor
      */
     public OrganizationDisplayNameUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

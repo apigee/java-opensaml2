@@ -32,7 +32,7 @@ public class AssertionIDRequestServiceUnmarshaller extends EndpointUnmarshaller 
      * Constructor
      */
     public AssertionIDRequestServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

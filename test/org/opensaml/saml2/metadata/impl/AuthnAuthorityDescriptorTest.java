@@ -162,7 +162,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);
 
         descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
@@ -174,7 +174,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);
 
         descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
@@ -190,7 +190,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
      */
     @Override
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);
 
         descriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
@@ -200,25 +200,25 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         
         // TODO KeyDescriptor
         
-        QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.setOrganization((Organization) buildXMLObject(orgQName));
         
-        QName contactPersonQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName contactPersonQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedContactPersons; i++) {
             descriptor.getContactPersons().add((ContactPerson) buildXMLObject(contactPersonQName));
         }
         
-        QName authnQueryServiceQName = new QName(SAMLConstants.SAML20MD_NS, AuthnQueryService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName authnQueryServiceQName = new QName(SAMLConstants.SAML20MD_NS, AuthnQueryService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedAuthnQueryServices; i++) {
             descriptor.getAuthnQueryServices().add((AuthnQueryService) buildXMLObject(authnQueryServiceQName));
         }
 
-        QName assertionIDRequestServiceQName = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName assertionIDRequestServiceQName = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedAssertionIdRequestServices; i++) {
             descriptor.getAssertionIDRequestServices().add((AssertionIDRequestService) buildXMLObject(assertionIDRequestServiceQName));
         }
         
-        QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < expectedNameIdFormats; i++) {
             descriptor.getNameIDFormats().add((NameIDFormat) buildXMLObject(nameIDFormatQName));
         }

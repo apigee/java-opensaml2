@@ -18,7 +18,10 @@ package org.opensaml.saml2.metadata;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
@@ -32,7 +35,16 @@ public interface AffiliationDescriptor extends SAMLObject, SignableXMLObject, Ti
         AttributeExtensibleXMLObject {
 
     /** Element name, no namespace */
-    public final static String LOCAL_NAME = "AffiliationDescriptor";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AffiliationDescriptor";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AffiliationDescriptorType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
 
     /** "affiliationOwnerID" attribute's local name */
     public final static String OWNER_ID_ATTRIB_NAME = "affiliationOwnerID";

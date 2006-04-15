@@ -38,7 +38,7 @@ public class OrganizationDisplayNameMarshaller extends AbstractSAMLObjectMarshal
      * Constructor
      */
     public OrganizationDisplayNameMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

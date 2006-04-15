@@ -40,7 +40,7 @@ public class ManageNameIDServiceBuilder extends AbstractSAMLObjectBuilder<Manage
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public ManageNameIDService buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, ManageNameIDService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, ManageNameIDService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

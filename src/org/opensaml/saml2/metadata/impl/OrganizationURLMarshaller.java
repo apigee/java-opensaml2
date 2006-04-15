@@ -38,7 +38,7 @@ public class OrganizationURLMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public OrganizationURLMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, OrganizationURL.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, OrganizationURL.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

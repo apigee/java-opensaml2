@@ -38,7 +38,7 @@ public class ServiceDescriptionUnmarshaller extends AbstractSAMLObjectUnmarshall
      * Constructor
      */
     public ServiceDescriptionUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ServiceDescription.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, ServiceDescription.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

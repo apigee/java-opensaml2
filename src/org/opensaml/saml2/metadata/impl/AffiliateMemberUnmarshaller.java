@@ -30,7 +30,7 @@ public class AffiliateMemberUnmarshaller extends AbstractSAMLObjectUnmarshaller 
      * Constructor
      */
     public AffiliateMemberUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AffiliateMember.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

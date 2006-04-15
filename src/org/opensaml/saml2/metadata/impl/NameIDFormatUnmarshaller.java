@@ -34,7 +34,7 @@ public class NameIDFormatUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public NameIDFormatUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, NameIDFormat.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

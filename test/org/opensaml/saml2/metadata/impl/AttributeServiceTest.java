@@ -79,7 +79,7 @@ public class AttributeServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AttributeService service = (AttributeService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
@@ -92,7 +92,7 @@ public class AttributeServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AttributeService service = (AttributeService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);

@@ -43,7 +43,7 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
      * Constructor
      */
     public EntityDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

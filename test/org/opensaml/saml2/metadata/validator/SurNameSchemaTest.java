@@ -30,7 +30,7 @@ public class SurNameSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public SurNameSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, SurName.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new SurNameSchemaValidator();
     }

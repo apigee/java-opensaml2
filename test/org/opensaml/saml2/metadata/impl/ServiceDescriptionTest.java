@@ -64,7 +64,7 @@ public class ServiceDescriptionTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, ServiceDescription.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, ServiceDescription.DEFAULT_ELEMENT_LOCAL_NAME);
         ServiceDescription description = (ServiceDescription) buildXMLObject(qname);
         
         description.setDescription(expectedDescription);

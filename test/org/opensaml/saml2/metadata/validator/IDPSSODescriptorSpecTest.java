@@ -31,7 +31,7 @@ public class IDPSSODescriptorSpecTest extends SSODescriptorSpecTest {
 
     /** Constructor */
     public IDPSSODescriptorSpecTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new IDPSSODescriptorSpecValidator();
     }
 
@@ -42,10 +42,10 @@ public class IDPSSODescriptorSpecTest extends SSODescriptorSpecTest {
         super.populateRequiredData();
         IDPSSODescriptor idpssoDescriptor = (IDPSSODescriptor) target;
         SingleSignOnService singleSignOnService = (SingleSignOnService) buildXMLObject(new QName(
-                SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                SAMLConstants.SAML20MD_NS, SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         idpssoDescriptor.getSingleSignOnServices().add(singleSignOnService);
         NameIDMappingService nameIDMappingService = (NameIDMappingService) buildXMLObject(new QName(
-                SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                SAMLConstants.SAML20MD_NS, NameIDMappingService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         idpssoDescriptor.getNameIDMappingServices().add(nameIDMappingService);
     }
 

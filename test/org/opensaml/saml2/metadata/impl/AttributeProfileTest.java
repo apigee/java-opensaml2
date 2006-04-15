@@ -60,7 +60,7 @@ public class AttributeProfileTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall(){
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeProfile.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeProfile.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AttributeProfile profile = (AttributeProfile) buildXMLObject(qname);
         
         profile.setProfileURI(expectedProfileURI);

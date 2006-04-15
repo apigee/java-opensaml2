@@ -32,7 +32,7 @@ public class SingleLogoutServiceMarshaller extends EndpointMarshaller {
      * Constructor
      */
     public SingleLogoutServiceMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, SingleLogoutService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

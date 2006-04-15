@@ -31,7 +31,7 @@ public class AffiliationDescriptorSchemaTest extends SAMLObjectValidatorBaseTest
 
     /** Constructor */
     public AffiliationDescriptorSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new AffiliationDescriptorSchemaValidator();
     }
@@ -43,7 +43,7 @@ public class AffiliationDescriptorSchemaTest extends SAMLObjectValidatorBaseTest
         super.populateRequiredData();
         AffiliationDescriptor affiliationDescriptor = (AffiliationDescriptor) target;
         AffiliateMember affiliateMember = (AffiliateMember) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                AffiliateMember.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                AffiliateMember.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         affiliationDescriptor.setOwnerID("owner id");
         affiliationDescriptor.getMembers().add(affiliateMember);
     }

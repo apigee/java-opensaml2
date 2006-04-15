@@ -30,7 +30,7 @@ public class PDPDescriptorSchemaTest extends RoleDescriptorSchemaTest {
 
     /** Constructor */
     public PDPDescriptorSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new PDPDescriptorSchemaValidator();
     }
     
@@ -41,7 +41,7 @@ public class PDPDescriptorSchemaTest extends RoleDescriptorSchemaTest {
         super.populateRequiredData();
         PDPDescriptor pdpDescriptor = (PDPDescriptor) target;
         AuthzService authzService = (AuthzService) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                AuthzService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                AuthzService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         pdpDescriptor.getAuthzServices().add(authzService);
     }
     

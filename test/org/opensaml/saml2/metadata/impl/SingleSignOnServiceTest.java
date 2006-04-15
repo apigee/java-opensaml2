@@ -79,7 +79,7 @@ public class SingleSignOnServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS,  SingleSignOnService.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS,  SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME);
         SingleSignOnService service = ( SingleSignOnService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
@@ -92,7 +92,7 @@ public class SingleSignOnServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS,  SingleSignOnService.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS,  SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME);
         SingleSignOnService service = ( SingleSignOnService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);

@@ -30,7 +30,7 @@ public class IDPSSODescriptorSchemaTest extends SSODescriptorSchemaTest {
 
     /** Constructor */
     public IDPSSODescriptorSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new IDPSSODescriptorSchemaValidator();
     }
@@ -42,7 +42,7 @@ public class IDPSSODescriptorSchemaTest extends SSODescriptorSchemaTest {
         super.populateRequiredData();
         IDPSSODescriptor idpssoDescriptor = (IDPSSODescriptor) target;
         SingleSignOnService singleSignOnService = (SingleSignOnService) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                SingleSignOnService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         idpssoDescriptor.getSingleSignOnServices().add(singleSignOnService);
     }
 

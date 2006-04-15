@@ -32,7 +32,7 @@ public class ManageNameIDServiceUnmarshaller extends EndpointUnmarshaller {
      * Constructor
      */
     public ManageNameIDServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ManageNameIDService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, ManageNameIDService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -30,7 +30,7 @@ public class NameIDFormatSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public NameIDFormatSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new NameIDFormatSchemaValidator();
     }

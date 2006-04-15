@@ -35,7 +35,7 @@ public class SPSSODescriptorMarshaller extends SSODescriptorMarshaller {
      * Constructor
      */
     public SPSSODescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

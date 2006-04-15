@@ -28,7 +28,7 @@ public class ManageNameIDServiceSchemaTest extends EndpointSchemaTest {
 
     /** Constructor */
     public ManageNameIDServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, ManageNameIDService.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, ManageNameIDService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new ManageNameIDServiceSchemaValidator();
     }

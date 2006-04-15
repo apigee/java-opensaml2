@@ -32,7 +32,7 @@ public class AuthzServiceMarshaller extends EndpointMarshaller {
      * Constructor
      */
     public AuthzServiceMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AuthzService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AuthzService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -68,7 +68,7 @@ public class AdditionalMetadataLocationTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AdditionalMetadataLocation location = (AdditionalMetadataLocation) buildXMLObject(qname);
         location.setLocationURI(expectedContent);
         location.setNamespaceURI(expectedNamespace);

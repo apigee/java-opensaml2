@@ -31,7 +31,7 @@ import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.Company;
 import org.opensaml.saml2.metadata.ContactPerson;
-import org.opensaml.saml2.metadata.ContactPersonType;
+import org.opensaml.saml2.metadata.ContactPersonTypeEnumeration;
 import org.opensaml.saml2.metadata.EmailAddress;
 import org.opensaml.saml2.metadata.GivenName;
 import org.opensaml.saml2.metadata.SurName;
@@ -46,7 +46,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class ContactPersonImpl extends AbstractSAMLObject implements ContactPerson {
 
     /** Contact person type */
-    private ContactPersonType type;
+    private ContactPersonTypeEnumeration type;
 
     /** Extensions child object */
     private Extensions extensions;
@@ -86,14 +86,14 @@ public class ContactPersonImpl extends AbstractSAMLObject implements ContactPers
     /*
      * @see org.opensaml.saml2.metadata.ContactPerson#getContactPersonType()
      */
-    public ContactPersonType getType() {
+    public ContactPersonTypeEnumeration getType() {
         return type;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.ContactPerson#setType(org.opensaml.saml2.metadata.ContactPersonType)
      */
-    public void setType(ContactPersonType type) {
+    public void setType(ContactPersonTypeEnumeration type) {
         this.type = prepareForAssignment(this.type, type);
     }
 

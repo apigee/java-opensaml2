@@ -28,7 +28,7 @@ public class AssertionConsumerServiceSchemaTest extends IndexedEndpointSchemaTes
 
     /** Constructor */
     public AssertionConsumerServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AssertionConsumerServiceSchemaValidator();
     }
 }

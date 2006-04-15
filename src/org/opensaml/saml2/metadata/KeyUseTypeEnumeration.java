@@ -19,13 +19,13 @@ package org.opensaml.saml2.metadata;
 /**
  * Type safe enumeration of key types for use in {@link org.opensaml.saml2.metadata.KeyDescriptor}.
  */
-public class KeyUseType {
+public class KeyUseTypeEnumeration {
 
     /** Encryption key type */
-    public final static KeyUseType ENCRYPTION = new KeyUseType("encryption");
+    public final static KeyUseTypeEnumeration ENCRYPTION = new KeyUseTypeEnumeration("encryption");
     
     /** Signing key type */
-    public final static KeyUseType SIGNING = new KeyUseType("signing");
+    public final static KeyUseTypeEnumeration SIGNING = new KeyUseTypeEnumeration("signing");
     
     /** The key type */
     private String type;
@@ -35,7 +35,7 @@ public class KeyUseType {
      * 
      * @param type the contact type
      */
-    private KeyUseType(String type) {
+    private KeyUseTypeEnumeration(String type) {
         this.type = type;
     }
 

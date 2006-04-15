@@ -30,7 +30,7 @@ public class SPSSODescriptorSchemaTest extends SSODescriptorSchemaTest {
 
     /** Constructor */
     public SPSSODescriptorSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new SPSSODescriptorSchemaValidator();
     }
@@ -42,7 +42,7 @@ public class SPSSODescriptorSchemaTest extends SSODescriptorSchemaTest {
         super.populateRequiredData();
         SPSSODescriptor spssoDescriptor = (SPSSODescriptor) target;
         AttributeConsumingService attributeConsumingService = (AttributeConsumingService) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                AttributeConsumingService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         spssoDescriptor.getAttributeConsumingServices().add(attributeConsumingService);
     }
 

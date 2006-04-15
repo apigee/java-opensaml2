@@ -40,7 +40,7 @@ public class ServiceDescriptionBuilder extends AbstractSAMLObjectBuilder<Service
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public ServiceDescription buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, ServiceDescription.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, ServiceDescription.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

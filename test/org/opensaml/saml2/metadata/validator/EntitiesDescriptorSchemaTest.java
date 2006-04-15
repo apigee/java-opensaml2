@@ -31,7 +31,7 @@ public class EntitiesDescriptorSchemaTest extends SAMLObjectValidatorBaseTestCas
 
     /** Constructor */
     public EntitiesDescriptorSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new EntitiesDescriptorSchemaValidator();
     }
@@ -42,7 +42,7 @@ public class EntitiesDescriptorSchemaTest extends SAMLObjectValidatorBaseTestCas
     protected void populateRequiredData() {
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) target;
         EntityDescriptor entityDescriptor = (EntityDescriptor) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         entitiesDescriptor.getEntityDescriptors().add(entityDescriptor);
     }
 

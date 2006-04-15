@@ -40,7 +40,7 @@ public class ArtifactResolutionServiceBuilder extends AbstractSAMLObjectBuilder<
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public ArtifactResolutionService buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME,
+        return buildObject(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
     }
 

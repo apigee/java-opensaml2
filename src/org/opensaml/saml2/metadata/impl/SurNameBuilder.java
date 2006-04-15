@@ -40,7 +40,7 @@ public class SurNameBuilder extends AbstractSAMLObjectBuilder<SurName> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public SurName buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, SurName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

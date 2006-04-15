@@ -34,7 +34,7 @@ public class SurNameUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public SurNameUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, SurName.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

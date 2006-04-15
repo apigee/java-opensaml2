@@ -32,7 +32,7 @@ public class AdditionalMetadataLocationUnmarshaller extends AbstractSAMLObjectUn
      * Constructor
      */
     public AdditionalMetadataLocationUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

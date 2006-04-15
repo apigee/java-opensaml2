@@ -32,7 +32,7 @@ public class EntityDescriptorSchemaTest extends SAMLObjectValidatorBaseTestCase 
 
     /** Constructor */
     public EntityDescriptorSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new EntityDescriptorSchemaValidator();
     }
 
@@ -42,7 +42,7 @@ public class EntityDescriptorSchemaTest extends SAMLObjectValidatorBaseTestCase 
     protected void populateRequiredData() {
         EntityDescriptor entityDescriptor = (EntityDescriptor) target;
         AttributeAuthorityDescriptor attributeAuthorityDescriptor = (AttributeAuthorityDescriptor) buildXMLObject(new QName(
-                SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         entityDescriptor.getAttributeAuthorityDescriptor().add(attributeAuthorityDescriptor);
         entityDescriptor.setEntityID("entity id");
     }
@@ -74,7 +74,7 @@ public class EntityDescriptorSchemaTest extends SAMLObjectValidatorBaseTestCase 
         EntityDescriptor entityDescriptor = (EntityDescriptor) target;
 
         AffiliationDescriptor affiliationDescriptor = (AffiliationDescriptor) buildXMLObject(new QName(
-                SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         entityDescriptor.setAffiliationDescriptor(affiliationDescriptor);
         assertValidationFail("Contains RoleDescriptor and AffiliationDescriptor, should raise Validation Exception.");
 

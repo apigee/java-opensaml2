@@ -32,7 +32,7 @@ public class AssertionConsumerServiceUnmarshaller extends IndexedEndpointUnmarsh
      * Constructor
      */
     public AssertionConsumerServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

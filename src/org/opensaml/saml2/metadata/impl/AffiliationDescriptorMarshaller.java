@@ -51,7 +51,7 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
      * Constructor
      */
     public AffiliationDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

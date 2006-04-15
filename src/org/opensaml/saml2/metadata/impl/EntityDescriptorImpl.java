@@ -208,7 +208,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getIDPSSODescriptor()
      */
     public List<IDPSSODescriptor> getIDPSSODescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME);
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<IDPSSODescriptor>) roleDescriptors.subList(descriptorQName);
     }
 
@@ -216,7 +216,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getSPSSODescriptor()
      */
     public List<SPSSODescriptor> getSPSSODescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME);
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<SPSSODescriptor>) roleDescriptors.subList(descriptorQName);
     }
 
@@ -224,7 +224,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAuthnAuthorityDescriptor()
      */
     public List<AuthnAuthorityDescriptor> getAuthnAuthorityDescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AuthnAuthorityDescriptor>) roleDescriptors.subList(descriptorQName);
     }
 
@@ -232,7 +232,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAttributeAuthorityDescriptor()
      */
     public List<AttributeAuthorityDescriptor> getAttributeAuthorityDescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AttributeAuthorityDescriptor>) roleDescriptors.subList(descriptorQName);
     }
 
@@ -240,7 +240,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getPDPDescriptor()
      */
     public List<PDPDescriptor> getPDPDescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME);
+        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<PDPDescriptor>) roleDescriptors.subList(descriptorQName);
     }
 

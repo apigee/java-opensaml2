@@ -36,7 +36,7 @@ public class AdditionalMetadataLocationBuilder extends AbstractSAMLObjectBuilder
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AdditionalMetadataLocation buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

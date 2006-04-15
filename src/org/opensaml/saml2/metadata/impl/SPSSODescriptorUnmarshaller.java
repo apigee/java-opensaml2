@@ -37,7 +37,7 @@ public class SPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
      * Constructor
      */
     public SPSSODescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

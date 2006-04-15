@@ -86,7 +86,7 @@ public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME);
         ArtifactResolutionService service = (ArtifactResolutionService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
@@ -100,7 +100,7 @@ public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME);
         ArtifactResolutionService service = (ArtifactResolutionService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);

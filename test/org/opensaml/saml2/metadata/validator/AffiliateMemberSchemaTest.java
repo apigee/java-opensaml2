@@ -30,7 +30,7 @@ public class AffiliateMemberSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AffiliateMemberSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AffiliateMember.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new AffiliateMemberSchemaValidator();
     }

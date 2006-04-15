@@ -33,7 +33,7 @@ public class OrganizationSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public OrganizationSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new OrganizationSchemaValidator();
     }
 
@@ -44,11 +44,11 @@ public class OrganizationSchemaTest extends SAMLObjectValidatorBaseTestCase {
         super.populateRequiredData();
         Organization organization = (Organization) target;
         OrganizationName organizationName = (OrganizationName) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                OrganizationName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                OrganizationName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         OrganizationDisplayName organizationDisplayName = (OrganizationDisplayName) buildXMLObject(new QName(
-                SAMLConstants.SAML20MD_NS, OrganizationDisplayName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                SAMLConstants.SAML20MD_NS, OrganizationDisplayName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         OrganizationURL organizationURL = (OrganizationURL) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                OrganizationURL.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                OrganizationURL.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         organization.getOrganizationNames().add(organizationName);
         organization.getDisplayNames().add(organizationDisplayName);
         organization.getURLs().add(organizationURL);

@@ -34,13 +34,13 @@ public interface Response extends StatusResponse {
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "Response";
     
     /** Default element name */
-    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
     /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "ResponseAbstractType"; 
+    public final static String TYPE_LOCAL_NAME = "ResponseType"; 
         
     /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
     /**
      * Return the list of Assertion child elements

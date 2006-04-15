@@ -30,7 +30,7 @@ public class AttributeAuthorityDescriptorSchemaTest extends RoleDescriptorSchema
 
     /** Constructor */
     public AttributeAuthorityDescriptorSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AttributeAuthorityDescriptorSchemaValidator();
     }
     
@@ -41,7 +41,7 @@ public class AttributeAuthorityDescriptorSchemaTest extends RoleDescriptorSchema
         super.populateRequiredData();
         AttributeAuthorityDescriptor attributeAuthorityDescriptor = (AttributeAuthorityDescriptor) target;
         AttributeService attributeService = (AttributeService) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                AttributeService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                AttributeService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         attributeAuthorityDescriptor.getAttributeServices().add(attributeService);
     }
     

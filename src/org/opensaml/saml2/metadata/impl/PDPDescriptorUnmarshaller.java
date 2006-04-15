@@ -37,7 +37,7 @@ public class PDPDescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
      * Constructor
      */
     public PDPDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

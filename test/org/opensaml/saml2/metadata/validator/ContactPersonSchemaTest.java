@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ContactPerson;
-import org.opensaml.saml2.metadata.ContactPersonType;
+import org.opensaml.saml2.metadata.ContactPersonTypeEnumeration;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
@@ -31,7 +31,7 @@ public class ContactPersonSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public ContactPersonSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new ContactPersonSchemaValidator();
     }
@@ -42,7 +42,7 @@ public class ContactPersonSchemaTest extends SAMLObjectValidatorBaseTestCase {
     protected void populateRequiredData() {
         super.populateRequiredData();
         ContactPerson contactPerson = (ContactPerson) target;
-        contactPerson.setType(ContactPersonType.TECHNICAL);
+        contactPerson.setType(ContactPersonTypeEnumeration.TECHNICAL);
     }
 
     /**

@@ -117,7 +117,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
 
         for (String protocol : expectedSupportedProtocol) {
@@ -131,7 +131,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
 
         for (String protocol : expectedSupportedProtocol) {
@@ -149,7 +149,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
 
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME,
@@ -157,19 +157,19 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
         // TODO KeyDescriptor
 
-        QName authzQName = new QName(SAMLConstants.SAML20MD_NS, AuthzService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName authzQName = new QName(SAMLConstants.SAML20MD_NS, AuthzService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 3; i++) {
             descriptor.getAuthzServices().add((AuthzService) buildXMLObject(authzQName));
         }
 
-        QName assertIDReqQName = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME,
+        QName assertIDReqQName = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 2; i++) {
             descriptor.getAssertionIDRequestServices()
                     .add((AssertionIDRequestService) buildXMLObject(assertIDReqQName));
         }
 
-        QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME,
+        QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         descriptor.getNameIDFormats().add((NameIDFormat) buildXMLObject(nameIDFormatQName));
 

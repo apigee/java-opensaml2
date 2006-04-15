@@ -32,7 +32,7 @@ public class AssertionConsumerServiceMarshaller extends IndexedEndpointMarshalle
      * Constructor
      */
     public AssertionConsumerServiceMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -16,11 +16,18 @@
 
 package org.opensaml.saml2.metadata;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
+
 /**
  * SAML 2.0 Metadata SingleSignOnService
  */
 public interface SingleSignOnService extends Endpoint {
 
     /** Element local name */
-    public final static String LOCAL_NAME = "SingleSignOnService";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "SingleSignOnService";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
 }

@@ -43,7 +43,7 @@ public class ContactPersonMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public ContactPersonMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

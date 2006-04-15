@@ -30,7 +30,7 @@ public class AttributeProfileSchemaTest extends SAMLObjectValidatorBaseTestCase 
 
     /** Constructor */
     public AttributeProfileSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeProfile.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeProfile.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new AttributeProfileSchemaValidator();
     }

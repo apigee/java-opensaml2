@@ -30,7 +30,7 @@ public class AdditionalMetadataLocationSchemaTest extends SAMLObjectValidatorBas
 
     /** Constructor */
     public AdditionalMetadataLocationSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new AdditionalMetadataLocationSchemaValidator();
     }

@@ -28,7 +28,7 @@ public class AuthnAuthorityDescriptorSpecTest extends RoleDescriptorSpecTest {
 
     /** Constructor */
     public AuthnAuthorityDescriptorSpecTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AuthnAuthorityDescriptorSpecValidator();
     }
 }

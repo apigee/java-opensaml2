@@ -33,7 +33,7 @@ public class ServiceNameUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public ServiceNameUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, ServiceName.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

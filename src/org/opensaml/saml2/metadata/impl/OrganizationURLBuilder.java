@@ -40,7 +40,7 @@ public class OrganizationURLBuilder extends AbstractSAMLObjectBuilder<Organizati
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public OrganizationURL buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, OrganizationURL.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, OrganizationURL.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

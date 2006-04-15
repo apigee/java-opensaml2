@@ -40,7 +40,7 @@ public class OrganizationNameBuilder extends AbstractSAMLObjectBuilder<Organizat
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public OrganizationName buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, OrganizationName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, OrganizationName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

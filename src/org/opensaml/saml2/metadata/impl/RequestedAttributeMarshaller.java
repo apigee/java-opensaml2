@@ -34,7 +34,7 @@ public class RequestedAttributeMarshaller extends AttributeMarshaller {
 
     /** Constructor */
     public RequestedAttributeMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, RequestedAttribute.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, RequestedAttribute.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

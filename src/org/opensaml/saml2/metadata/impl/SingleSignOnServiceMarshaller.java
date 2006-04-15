@@ -32,7 +32,7 @@ public class SingleSignOnServiceMarshaller extends EndpointMarshaller {
      * Constructor
      */
     public SingleSignOnServiceMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

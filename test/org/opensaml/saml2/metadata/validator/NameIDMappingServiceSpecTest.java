@@ -28,7 +28,7 @@ public class NameIDMappingServiceSpecTest extends EndpointSchemaTest {
 
     /** Constructor */
     public NameIDMappingServiceSpecTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, NameIDMappingService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new NameIDMappingServiceSpecValidator();
     }

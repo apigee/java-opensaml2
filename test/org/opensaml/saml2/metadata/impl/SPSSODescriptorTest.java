@@ -124,7 +124,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
     }
 
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
 
         for (String protocol : expectedSupportedProtocol) {
@@ -135,7 +135,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
     }
 
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
 
         descriptor.setAuthnRequestsSigned(expectedAuthnRequestSigned);
@@ -155,7 +155,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
 
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME,
@@ -164,43 +164,43 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
         // TODO KeyDescriptor
 
-        QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.setOrganization((Organization) buildXMLObject(orgQName));
 
-        QName contactQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME,
+        QName contactQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 2; i++) {
             descriptor.getContactPersons().add((ContactPerson) buildXMLObject(contactQName));
         }
 
-        QName artResQName = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME,
+        QName artResQName = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         descriptor.getArtifactResolutionServices().add((ArtifactResolutionService) buildXMLObject(artResQName));
 
-        QName sloQName = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME,
+        QName sloQName = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 2; i++) {
             descriptor.getSingleLogoutServices().add((SingleLogoutService) buildXMLObject(sloQName));
         }
 
-        QName mngNameIDQName = new QName(SAMLConstants.SAML20MD_NS, ManageNameIDService.LOCAL_NAME,
+        QName mngNameIDQName = new QName(SAMLConstants.SAML20MD_NS, ManageNameIDService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 4; i++) {
             descriptor.getManageNameIDServices().add((ManageNameIDService) buildXMLObject(mngNameIDQName));
         }
 
-        QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME,
+        QName nameIDFormatQName = new QName(SAMLConstants.SAML20MD_NS, NameIDFormat.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         descriptor.getNameIDFormats().add((NameIDFormat) buildXMLObject(nameIDFormatQName));
 
-        QName assertConsumeQName = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.LOCAL_NAME,
+        QName assertConsumeQName = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 2; i++) {
             descriptor.getAssertionConsumerServices()
                     .add((AssertionConsumerService) buildXMLObject(assertConsumeQName));
         }
 
-        QName attribConsumeQName = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME,
+        QName attribConsumeQName = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         descriptor.getAttributeConsumingServices().add((AttributeConsumingService) buildXMLObject(attribConsumeQName));
 

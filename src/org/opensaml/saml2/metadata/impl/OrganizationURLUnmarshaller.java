@@ -37,7 +37,7 @@ public class OrganizationURLUnmarshaller extends AbstractSAMLObjectUnmarshaller 
      * Constructor
      */
     public OrganizationURLUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, OrganizationURL.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, OrganizationURL.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

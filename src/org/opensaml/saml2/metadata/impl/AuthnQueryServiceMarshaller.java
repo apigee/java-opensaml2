@@ -32,7 +32,7 @@ public class AuthnQueryServiceMarshaller extends EndpointMarshaller {
      * Constructor
      */
     public AuthnQueryServiceMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AuthnQueryService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AuthnQueryService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -79,7 +79,7 @@ public class SingleLogoutServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.DEFAULT_ELEMENT_LOCAL_NAME);
         SingleLogoutService service = (SingleLogoutService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);
@@ -92,7 +92,7 @@ public class SingleLogoutServiceTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.DEFAULT_ELEMENT_LOCAL_NAME);
         SingleLogoutService service = (SingleLogoutService) buildXMLObject(qname);
         
         service.setBinding(expectedBinding);

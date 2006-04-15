@@ -28,7 +28,7 @@ public class SingleSignOnServiceSchemaTest extends EndpointSchemaTest {
 
     /** Constructor */
     public SingleSignOnServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new SingleSignOnServiceSchemaValidator();
     }

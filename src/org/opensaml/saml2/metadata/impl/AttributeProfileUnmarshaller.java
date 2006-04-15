@@ -34,7 +34,7 @@ public class AttributeProfileUnmarshaller extends AbstractSAMLObjectUnmarshaller
      * Constructor
      */
     public AttributeProfileUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeProfile.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AttributeProfile.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

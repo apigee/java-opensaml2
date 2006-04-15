@@ -32,7 +32,7 @@ public class NameIDMappingServiceMarshaller extends EndpointMarshaller {
      * Constructor
      */
     public NameIDMappingServiceMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, NameIDMappingService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, NameIDMappingService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

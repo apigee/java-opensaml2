@@ -28,7 +28,7 @@ public class AttributeServiceSchemaTest extends EndpointSchemaTest {
 
     /** Constructor */
     public AttributeServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AttributeServiceSchemaValidator();
     }
 }

@@ -32,7 +32,7 @@ public class AffiliateMemberMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public AffiliateMemberMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AffiliateMember.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

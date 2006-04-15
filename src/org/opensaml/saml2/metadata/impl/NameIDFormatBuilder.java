@@ -40,7 +40,7 @@ public class NameIDFormatBuilder extends AbstractSAMLObjectBuilder<NameIDFormat>
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public NameIDFormat buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, NameIDFormat.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

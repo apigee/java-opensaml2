@@ -32,7 +32,7 @@ public class AttributeAuthorityDescriptorMarshaller extends RoleDescriptorMarsha
      * Constructor
      */
     public AttributeAuthorityDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

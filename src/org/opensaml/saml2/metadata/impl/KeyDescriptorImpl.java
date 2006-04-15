@@ -23,7 +23,7 @@ import java.util.List;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.EncryptionMethod;
 import org.opensaml.saml2.metadata.KeyDescriptor;
-import org.opensaml.saml2.metadata.KeyUseType;
+import org.opensaml.saml2.metadata.KeyUseTypeEnumeration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -34,7 +34,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class KeyDescriptorImpl extends AbstractSAMLObject implements KeyDescriptor {
 
     /** Key usage type */
-    private KeyUseType keyUseType;
+    private KeyUseTypeEnumeration keyUseType;
 
     /** Key information */
     private KeyInfo keyInfo;
@@ -57,14 +57,14 @@ public class KeyDescriptorImpl extends AbstractSAMLObject implements KeyDescript
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptor#getUse()
      */
-    public KeyUseType getUse() {
+    public KeyUseTypeEnumeration getUse() {
         return keyUseType;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.KeyDescriptor#setUse(org.opensaml.saml2.metadata.KeyUseType)
      */
-    public void setUse(KeyUseType newType) {
+    public void setUse(KeyUseTypeEnumeration newType) {
         keyUseType = prepareForAssignment(keyUseType, newType);
     }
 

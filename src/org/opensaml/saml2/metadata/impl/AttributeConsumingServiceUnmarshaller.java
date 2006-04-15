@@ -39,7 +39,7 @@ public class AttributeConsumingServiceUnmarshaller extends AbstractSAMLObjectUnm
      * Constructor
      */
     public AttributeConsumingServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

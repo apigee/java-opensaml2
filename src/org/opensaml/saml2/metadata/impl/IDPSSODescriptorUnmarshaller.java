@@ -40,7 +40,7 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
      * Constructor
      */
     public IDPSSODescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

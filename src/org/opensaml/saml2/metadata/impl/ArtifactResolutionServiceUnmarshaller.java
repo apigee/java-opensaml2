@@ -32,7 +32,7 @@ public class ArtifactResolutionServiceUnmarshaller extends IndexedEndpointUnmars
      * Constructor
      */
     public ArtifactResolutionServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

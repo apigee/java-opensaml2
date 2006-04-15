@@ -28,7 +28,7 @@ public class AuthnQueryServiceSchemaTest extends EndpointSchemaTest {
 
     /** Constructor */
     public AuthnQueryServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AuthnQueryService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AuthnQueryService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AuthnQueryServiceSchemaValidator();
     }
 }

@@ -44,7 +44,7 @@ public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshall
      * @throws XMLParserException thrown if this Marshaller is unable to create a {@link DatatypeFactory}
      */
     public EntitiesDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

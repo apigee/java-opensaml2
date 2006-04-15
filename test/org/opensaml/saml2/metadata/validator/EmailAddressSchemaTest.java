@@ -30,7 +30,7 @@ public class EmailAddressSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public EmailAddressSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, EmailAddress.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, EmailAddress.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new EmailAddressSchemaValidator();
     }

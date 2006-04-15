@@ -16,11 +16,18 @@
 
 package org.opensaml.saml2.metadata;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
+
 /**
  * SAML 2.0 Metadata AssertionConsumerService
  */
 public interface AssertionConsumerService extends IndexedEndpoint {
 
     /** Element local name */
-    public final static String LOCAL_NAME = "AssertionConsumerService";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionConsumerService";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
 }

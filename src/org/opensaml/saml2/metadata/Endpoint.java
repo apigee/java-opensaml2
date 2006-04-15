@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.metadata;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.AttributeExtensibleXMLObject;
 import org.opensaml.xml.ElementExtensibleXMLObject;
 
@@ -24,6 +27,18 @@ import org.opensaml.xml.ElementExtensibleXMLObject;
  * SAML 2.0 Metadata Endpoint data type interface
  */
 public interface Endpoint extends SAMLObject, ElementExtensibleXMLObject, AttributeExtensibleXMLObject{
+    
+    /** Element local name */
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Endpoint";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "EndpointType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     
     /** "Binding" attribute name */
     public final static String BINDING_ATTRIB_NAME = "Binding";

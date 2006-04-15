@@ -30,7 +30,7 @@ public class EntityDescriptorSpecTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public EntityDescriptorSpecTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new EntityDescriptorSpecValidator();
     }

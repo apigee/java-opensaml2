@@ -40,7 +40,7 @@ public class AttributeAuthorityDescriptorBuilder extends AbstractSAMLObjectBuild
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AttributeAuthorityDescriptor buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME,
+        return buildObject(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
     }
 

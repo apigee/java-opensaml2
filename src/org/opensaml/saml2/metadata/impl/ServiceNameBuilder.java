@@ -40,7 +40,7 @@ public class ServiceNameBuilder extends AbstractSAMLObjectBuilder<ServiceName> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public ServiceName buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, ServiceName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

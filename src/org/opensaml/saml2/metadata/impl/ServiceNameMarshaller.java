@@ -38,7 +38,7 @@ public class ServiceNameMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public ServiceNameMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, ServiceName.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

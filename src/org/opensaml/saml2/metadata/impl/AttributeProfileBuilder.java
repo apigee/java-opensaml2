@@ -40,7 +40,7 @@ public class AttributeProfileBuilder extends AbstractSAMLObjectBuilder<Attribute
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AttributeProfile buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, AttributeProfile.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, AttributeProfile.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

@@ -36,7 +36,7 @@ public class AffiliateMemberBuilder extends AbstractSAMLObjectBuilder<AffiliateM
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AffiliateMember buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, AffiliateMember.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

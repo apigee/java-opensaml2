@@ -16,7 +16,10 @@
 
 package org.opensaml.saml2.metadata;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
  * SAML 2.0 Metadata TelephoneNumber
@@ -24,7 +27,10 @@ import org.opensaml.common.SAMLObject;
 public interface TelephoneNumber extends SAMLObject {
 
     /** Element local name */
-    public final static String LOCAL_NAME = "TelephoneNumber";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "TelephoneNumber";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     
     /**
      * Gets the telephone number.

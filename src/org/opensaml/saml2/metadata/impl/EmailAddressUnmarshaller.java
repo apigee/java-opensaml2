@@ -34,7 +34,7 @@ public class EmailAddressUnmarshaller extends AbstractSAMLObjectUnmarshaller {
      * Constructor
      */
     public EmailAddressUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, EmailAddress.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, EmailAddress.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

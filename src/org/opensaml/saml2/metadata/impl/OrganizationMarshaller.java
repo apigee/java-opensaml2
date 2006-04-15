@@ -42,7 +42,7 @@ public class OrganizationMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public OrganizationMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, Organization.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

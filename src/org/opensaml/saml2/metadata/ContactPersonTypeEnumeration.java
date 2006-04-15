@@ -19,22 +19,22 @@ package org.opensaml.saml2.metadata;
 /**
  * A type safe enumeration of contact types used by {@link org.opensaml.saml2.metadata.ContactPerson}.
  */
-public final class ContactPersonType {
+public final class ContactPersonTypeEnumeration {
 
     /** "technical" contact type */
-    public static final ContactPersonType TECHNICAL = new ContactPersonType("technical");
+    public static final ContactPersonTypeEnumeration TECHNICAL = new ContactPersonTypeEnumeration("technical");
 
     /** "support" contact type */
-    public static final ContactPersonType SUPPORT = new ContactPersonType("support");
+    public static final ContactPersonTypeEnumeration SUPPORT = new ContactPersonTypeEnumeration("support");
 
     /** "administrative" contact type */
-    public static final ContactPersonType ADMINISTRATIVE = new ContactPersonType("administrative");
+    public static final ContactPersonTypeEnumeration ADMINISTRATIVE = new ContactPersonTypeEnumeration("administrative");
 
     /** "billing" contact type */
-    public static final ContactPersonType BILLING = new ContactPersonType("billing");
+    public static final ContactPersonTypeEnumeration BILLING = new ContactPersonTypeEnumeration("billing");
 
     /** "other" contact type */
-    public static final ContactPersonType OTHER = new ContactPersonType("other");
+    public static final ContactPersonTypeEnumeration OTHER = new ContactPersonTypeEnumeration("other");
 
     /** the contact type */
     private String type;
@@ -44,7 +44,7 @@ public final class ContactPersonType {
      * 
      * @param type the contact type
      */
-    private ContactPersonType(String type) {
+    private ContactPersonTypeEnumeration(String type) {
         this.type = type;
     }
 

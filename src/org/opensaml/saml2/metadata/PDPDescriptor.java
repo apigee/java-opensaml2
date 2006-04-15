@@ -18,13 +18,26 @@ package org.opensaml.saml2.metadata;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
+
 /**
  * SAML 2.0 Metadata PDPDescriptor
  */
 public interface PDPDescriptor extends RoleDescriptor {
     
     /** Local name, no namespace */
-    public final static String LOCAL_NAME = "PDPDescriptor";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "PDPDescriptor";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "PDPDescriptorType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
 
     /**
      * Gets an list of authz services for this service.

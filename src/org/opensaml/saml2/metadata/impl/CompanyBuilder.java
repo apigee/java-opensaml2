@@ -40,7 +40,7 @@ public class CompanyBuilder extends AbstractSAMLObjectBuilder<Company> {
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public Company buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, Company.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, Company.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

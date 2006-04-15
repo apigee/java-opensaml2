@@ -37,7 +37,7 @@ public class NameIDFormatMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public NameIDFormatMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, NameIDFormat.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, NameIDFormat.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

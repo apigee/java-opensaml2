@@ -18,7 +18,10 @@ package org.opensaml.saml2.metadata;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.xml.AttributeExtensibleXMLObject;
 
@@ -28,7 +31,16 @@ import org.opensaml.xml.AttributeExtensibleXMLObject;
 public interface ContactPerson extends SAMLObject, AttributeExtensibleXMLObject{
 
     /** Element name, no namespace */
-    public final static String LOCAL_NAME = "ContactPerson";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "ContactPerson";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "ContactPersonType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     
     /** "contactType" attribute's local name */
     public final static String CONTACT_TYPE_ATTRIB_NAME = "contactType";
@@ -38,14 +50,14 @@ public interface ContactPerson extends SAMLObject, AttributeExtensibleXMLObject{
      * 
      * @return the type of contact this person
      */
-	public ContactPersonType getType();
+	public ContactPersonTypeEnumeration getType();
     
     /**
      * Sets the type of contact this person.
      * 
      * @param type the type of contact this person
      */
-    public void setType(ContactPersonType type);
+    public void setType(ContactPersonTypeEnumeration type);
     
     /**
      * Gets the Extensions child of this object.

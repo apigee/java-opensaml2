@@ -28,7 +28,7 @@ public class PDPDescriptorSpecTest extends RoleDescriptorSpecTest {
 
     /** Constructor */
     public PDPDescriptorSpecTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new PDPDescriptorSpecValidator();
     }
 }

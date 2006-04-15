@@ -36,7 +36,7 @@ public class AuthnAuthorityDescriptorBuilder extends AbstractSAMLObjectBuilder<A
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthnAuthorityDescriptor buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME,
+        return buildObject(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
     }
 

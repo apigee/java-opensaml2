@@ -29,7 +29,7 @@ public class RequestedAttributeSchemaTest extends AttributeSchemaTest {
 
     /** Constructor */
     public RequestedAttributeSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, RequestedAttribute.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, RequestedAttribute.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new RequestedAttributeSchemaValidator();
     }

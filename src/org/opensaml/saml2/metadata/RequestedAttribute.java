@@ -16,6 +16,9 @@
 
 package org.opensaml.saml2.metadata;
 
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 
 /**
@@ -25,7 +28,16 @@ import org.opensaml.saml2.core.Attribute;
 public interface RequestedAttribute extends Attribute {
 
     /** Local name, no namespace */
-    public final static String LOCAL_NAME = "RequestedAttribute";
+    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "RequestedAttribute";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "RequestedAttributeType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     
     /** "isRequired" attribute's local name */
     public final static String IS_REQUIRED_ATTRIB_NAME = "isRequired";

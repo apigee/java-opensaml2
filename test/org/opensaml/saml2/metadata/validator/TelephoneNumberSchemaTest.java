@@ -30,7 +30,7 @@ public class TelephoneNumberSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public TelephoneNumberSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, TelephoneNumber.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, TelephoneNumber.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new TelephoneNumberSchemaValidator();
     }

@@ -33,7 +33,7 @@ import org.w3c.dom.Attr;
 public class RequestedAttributeUnmarshaller extends AttributeUnmarshaller {
 
     public RequestedAttributeUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, RequestedAttribute.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, RequestedAttribute.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -31,7 +31,7 @@ public class ServiceNameSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public ServiceNameSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, ServiceName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new ServiceNameSchemaValidator();
     }
 

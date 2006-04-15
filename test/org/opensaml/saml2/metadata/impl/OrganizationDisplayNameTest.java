@@ -64,7 +64,7 @@ public class OrganizationDisplayNameTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.DEFAULT_ELEMENT_LOCAL_NAME);
         OrganizationDisplayName name = (OrganizationDisplayName) buildXMLObject(qname);
         
         name.setName(expectName);

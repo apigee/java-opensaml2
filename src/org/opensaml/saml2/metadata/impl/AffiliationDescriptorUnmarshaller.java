@@ -41,7 +41,7 @@ public class AffiliationDescriptorUnmarshaller extends AbstractSAMLObjectUnmarsh
      * Constructor
      */
     public AffiliationDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

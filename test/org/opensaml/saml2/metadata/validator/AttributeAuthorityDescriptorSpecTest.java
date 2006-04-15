@@ -28,7 +28,7 @@ public class AttributeAuthorityDescriptorSpecTest extends RoleDescriptorSpecTest
 
     /** Constructor */
     public AttributeAuthorityDescriptorSpecTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AttributeAuthorityDescriptorSpecValidator();
     }
 }

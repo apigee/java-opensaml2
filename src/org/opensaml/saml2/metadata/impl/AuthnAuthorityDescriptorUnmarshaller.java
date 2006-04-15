@@ -33,7 +33,7 @@ public class AuthnAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarsha
      * Constructor
      */
     public AuthnAuthorityDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

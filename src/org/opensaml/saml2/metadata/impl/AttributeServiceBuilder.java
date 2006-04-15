@@ -40,7 +40,7 @@ public class AttributeServiceBuilder extends AbstractSAMLObjectBuilder<Attribute
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AttributeService buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, AttributeService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

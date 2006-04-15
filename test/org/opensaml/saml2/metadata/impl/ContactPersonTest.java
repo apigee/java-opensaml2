@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.Company;
 import org.opensaml.saml2.metadata.ContactPerson;
-import org.opensaml.saml2.metadata.ContactPersonType;
+import org.opensaml.saml2.metadata.ContactPersonTypeEnumeration;
 import org.opensaml.saml2.metadata.EmailAddress;
 import org.opensaml.saml2.metadata.GivenName;
 import org.opensaml.saml2.metadata.SurName;
@@ -36,7 +36,7 @@ import org.opensaml.saml2.metadata.TelephoneNumber;
 public class ContactPersonTest extends SAMLObjectBaseTestCase {
     
     /** Expected company name */
-    protected ContactPersonType expectedPersonType;
+    protected ContactPersonTypeEnumeration expectedPersonType;
     
     /** Count of EmailAddress subelements */
     protected int emailAddressCount = 2;
@@ -58,7 +58,7 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        expectedPersonType = ContactPersonType.TECHNICAL;
+        expectedPersonType = ContactPersonTypeEnumeration.TECHNICAL;
     }
 
     /*
@@ -88,7 +88,7 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME);
         ContactPerson person = (ContactPerson) buildXMLObject(qname);
         
         person.setType(expectedPersonType);
@@ -101,7 +101,7 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
      */
     public void testChildElementsMarshall()
     {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME);
         ContactPerson person = (ContactPerson) buildXMLObject(qname);
         
         person.setType(expectedPersonType);
@@ -109,21 +109,21 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         person.setExtensions((Extensions) buildXMLObject(extensionsQName));
         
-        QName companuQName = new QName(SAMLConstants.SAML20MD_NS, Company.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName companuQName = new QName(SAMLConstants.SAML20MD_NS, Company.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         person.setCompany((Company) buildXMLObject(companuQName));
         
-        QName givenNameQName = new QName(SAMLConstants.SAML20MD_NS, GivenName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName givenNameQName = new QName(SAMLConstants.SAML20MD_NS, GivenName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         person.setGivenName((GivenName) buildXMLObject(givenNameQName));
         
-        QName surnameQName = new QName(SAMLConstants.SAML20MD_NS, SurName.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName surnameQName = new QName(SAMLConstants.SAML20MD_NS, SurName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         person.setSurName((SurName) buildXMLObject(surnameQName));
         
-        QName teleQName = new QName(SAMLConstants.SAML20MD_NS, TelephoneNumber.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName teleQName = new QName(SAMLConstants.SAML20MD_NS, TelephoneNumber.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < telephoneNumberCount; i++) {
             person.getTelephoneNumbers().add((TelephoneNumber) buildXMLObject(teleQName));
         }
         
-        QName emailQName = new QName(SAMLConstants.SAML20MD_NS, EmailAddress.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName emailQName = new QName(SAMLConstants.SAML20MD_NS, EmailAddress.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < emailAddressCount; i++) {
             person.getEmailAddresses().add((EmailAddress) buildXMLObject(emailQName));
         }

@@ -28,7 +28,7 @@ public class AssertionIDRequestServiceSchemaTest extends EndpointSchemaTest {
 
     /** Constructor */
     public AssertionIDRequestServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AssertionIDRequestServiceSchemaValidator();
     }
 }

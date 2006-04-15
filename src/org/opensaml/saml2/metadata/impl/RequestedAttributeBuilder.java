@@ -38,7 +38,7 @@ public class RequestedAttributeBuilder extends AbstractSAMLObjectBuilder<Request
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public RequestedAttribute buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, RequestedAttribute.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, RequestedAttribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

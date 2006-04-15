@@ -40,7 +40,7 @@ public class ContactPersonBuilder extends AbstractSAMLObjectBuilder<ContactPerso
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public ContactPerson buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, ContactPerson.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

@@ -32,7 +32,7 @@ public class SingleSignOnServiceUnmarshaller extends EndpointUnmarshaller {
      * Constructor
      */
     public SingleSignOnServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, SingleSignOnService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

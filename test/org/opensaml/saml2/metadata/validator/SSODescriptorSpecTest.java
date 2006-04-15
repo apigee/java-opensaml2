@@ -40,7 +40,7 @@ public abstract class SSODescriptorSpecTest extends RoleDescriptorSpecTest {
         super.populateRequiredData();
         SSODescriptor ssoDescriptor = (SSODescriptor) target;
         ArtifactResolutionService artifactResolutionService = (ArtifactResolutionService) buildXMLObject(new QName(
-                SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         ssoDescriptor.getArtifactResolutionServices().add(artifactResolutionService);
     }
 

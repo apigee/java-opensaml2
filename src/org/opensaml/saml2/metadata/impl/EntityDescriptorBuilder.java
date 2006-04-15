@@ -36,7 +36,7 @@ public class EntityDescriptorBuilder extends AbstractSAMLObjectBuilder<EntityDes
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public EntityDescriptor buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

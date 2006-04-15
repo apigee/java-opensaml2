@@ -28,7 +28,7 @@ public class SingleLogoutServiceSchemaTest extends EndpointSchemaTest {
 
     /** Constructor */
     public SingleLogoutServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, SingleLogoutService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new SingleLogoutServiceSchemaValidator();
     }

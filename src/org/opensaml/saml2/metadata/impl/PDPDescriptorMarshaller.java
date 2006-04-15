@@ -32,7 +32,7 @@ public class PDPDescriptorMarshaller extends RoleDescriptorMarshaller {
      * Constructor
      */
     public PDPDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

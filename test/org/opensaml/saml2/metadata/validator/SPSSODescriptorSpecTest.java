@@ -28,7 +28,7 @@ public class SPSSODescriptorSpecTest extends SSODescriptorSpecTest {
 
     /** Constructor */
     public SPSSODescriptorSpecTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new SPSSODescriptorSpecValidator();
     }
 }

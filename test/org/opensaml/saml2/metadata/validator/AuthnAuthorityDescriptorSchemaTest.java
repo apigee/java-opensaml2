@@ -30,7 +30,7 @@ public class AuthnAuthorityDescriptorSchemaTest extends RoleDescriptorSchemaTest
 
     /** Constructor */
     public AuthnAuthorityDescriptorSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AuthnAuthorityDescriptorSchemaValidator();
     }
     
@@ -41,7 +41,7 @@ public class AuthnAuthorityDescriptorSchemaTest extends RoleDescriptorSchemaTest
         super.populateRequiredData();
         AuthnAuthorityDescriptor authnAuthorityDescriptor = (AuthnAuthorityDescriptor) target;
         AuthnQueryService authnQueryService = (AuthnQueryService) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                AuthnQueryService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                AuthnQueryService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         authnAuthorityDescriptor.getAuthnQueryServices().add(authnQueryService);
     }
     

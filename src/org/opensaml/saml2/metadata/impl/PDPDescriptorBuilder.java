@@ -40,7 +40,7 @@ public class PDPDescriptorBuilder extends AbstractSAMLObjectBuilder<PDPDescripto
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public PDPDescriptor buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, PDPDescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

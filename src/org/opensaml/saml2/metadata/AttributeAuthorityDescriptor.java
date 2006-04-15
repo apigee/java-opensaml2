@@ -19,7 +19,10 @@ package org.opensaml.saml2.metadata;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 
 /**
@@ -28,7 +31,16 @@ import org.opensaml.saml2.core.Attribute;
 public interface AttributeAuthorityDescriptor extends SAMLObject, RoleDescriptor {
 	
 	/** Element name, no namespace */
-	public final static String LOCAL_NAME = "AttributeAuthorityDescriptor";
+	public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AttributeAuthorityDescriptor";
+    
+    /** Default element name */
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    
+    /** Local name of the XSI type */
+    public final static String TYPE_LOCAL_NAME = "AttributeAuthorityDescriptorType"; 
+        
+    /** QName of the XSI type */
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
 
     /**
      * Gets a list of attribute service {@link Endpoint}s for this authority.

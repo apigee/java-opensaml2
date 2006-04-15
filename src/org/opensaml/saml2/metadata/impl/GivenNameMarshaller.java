@@ -37,7 +37,7 @@ public class GivenNameMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public GivenNameMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, GivenName.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, GivenName.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

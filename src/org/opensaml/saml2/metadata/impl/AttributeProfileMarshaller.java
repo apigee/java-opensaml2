@@ -37,7 +37,7 @@ public class AttributeProfileMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public AttributeProfileMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeProfile.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AttributeProfile.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

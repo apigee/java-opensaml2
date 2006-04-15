@@ -40,7 +40,7 @@ public class AttributeConsumingServiceBuilder extends AbstractSAMLObjectBuilder<
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AttributeConsumingService buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME,
+        return buildObject(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
     }
 

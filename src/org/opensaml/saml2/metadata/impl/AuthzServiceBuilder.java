@@ -36,7 +36,7 @@ public class AuthzServiceBuilder extends AbstractSAMLObjectBuilder<AuthzService>
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public AuthzService buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, AuthzService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, AuthzService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

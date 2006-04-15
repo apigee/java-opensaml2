@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
 public class TelephoneNumberMarshaller extends AbstractSAMLObjectMarshaller {
 
     public TelephoneNumberMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, TelephoneNumber.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, TelephoneNumber.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

@@ -35,7 +35,7 @@ public class IDPSSODescriptorMarshaller extends SSODescriptorMarshaller {
      * Constructor
      */
     public IDPSSODescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

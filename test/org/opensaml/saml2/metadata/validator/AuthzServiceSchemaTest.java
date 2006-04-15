@@ -28,7 +28,7 @@ public class AuthzServiceSchemaTest extends EndpointSchemaTest {
 
     /** Constructor */
     public AuthzServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AuthzService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AuthzService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new AuthzServiceSchemaValidator();
     }
 }

@@ -40,7 +40,7 @@ public class IDPSSODescriptorBuilder extends AbstractSAMLObjectBuilder<IDPSSODes
      * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
      */
     public IDPSSODescriptor buildObject() {
-        return buildObject(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /*

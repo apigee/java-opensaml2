@@ -117,7 +117,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME,
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
 
@@ -130,7 +130,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME,
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
 
@@ -143,7 +143,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
     }
 
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.LOCAL_NAME,
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
 
@@ -153,7 +153,7 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
         descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
         // TODO KeyDescriptor to be tested
 
-        QName affilMemberQName = new QName(SAMLConstants.SAML20MD_NS, AffiliateMember.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName affilMemberQName = new QName(SAMLConstants.SAML20MD_NS, AffiliateMember.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.getMembers().add((AffiliateMember) buildXMLObject(affilMemberQName));
         descriptor.getMembers().add((AffiliateMember) buildXMLObject(affilMemberQName));
         descriptor.getMembers().add((AffiliateMember) buildXMLObject(affilMemberQName));

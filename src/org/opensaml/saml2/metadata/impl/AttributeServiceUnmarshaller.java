@@ -32,7 +32,7 @@ public class AttributeServiceUnmarshaller extends EndpointUnmarshaller {
      * Constructor
      */
     public AttributeServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeService.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, AttributeService.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

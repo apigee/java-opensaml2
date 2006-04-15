@@ -32,7 +32,7 @@ public class AttributeConsumingServiceSchemaTest extends SAMLObjectValidatorBase
 
     /** Constructor */
     public AttributeConsumingServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.LOCAL_NAME,
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         validator = new AttributeConsumingServiceSchemaValidator();
     }
@@ -43,10 +43,10 @@ public class AttributeConsumingServiceSchemaTest extends SAMLObjectValidatorBase
     protected void populateRequiredData() {
         super.populateRequiredData();
         AttributeConsumingService attributeConsumingService = (AttributeConsumingService) target;
-        ServiceName name = (ServiceName) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS, ServiceName.LOCAL_NAME,
+        ServiceName name = (ServiceName) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS, ServiceName.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX));
         RequestedAttribute attribute = (RequestedAttribute) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                RequestedAttribute.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+                RequestedAttribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
         attributeConsumingService.setIndex(5);
         attributeConsumingService.getNames().add(name);
         attributeConsumingService.getRequestAttributes().add(attribute);

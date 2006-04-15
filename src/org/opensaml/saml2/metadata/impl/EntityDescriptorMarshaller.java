@@ -47,7 +47,7 @@ public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
      * Constructor
      */
     public EntityDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, EntityDescriptor.LOCAL_NAME);
+        super(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**

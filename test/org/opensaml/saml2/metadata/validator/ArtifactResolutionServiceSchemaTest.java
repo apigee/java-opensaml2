@@ -28,7 +28,7 @@ public class ArtifactResolutionServiceSchemaTest extends IndexedEndpointSchemaTe
 
     /** Constructor */
     public ArtifactResolutionServiceSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new ArtifactResolutionServiceSchemaValidator();
     }
 }

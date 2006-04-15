@@ -31,7 +31,7 @@ public class OrganizationURLSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public OrganizationURLSchemaTest() {
-        targetQName = new QName(SAMLConstants.SAML20MD_NS, OrganizationURL.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML20MD_NS, OrganizationURL.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         validator = new OrganizationURLSchemaValidator();
     }
 
