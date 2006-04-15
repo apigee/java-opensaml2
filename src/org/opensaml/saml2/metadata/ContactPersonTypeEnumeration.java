@@ -44,7 +44,7 @@ public final class ContactPersonTypeEnumeration {
      * 
      * @param type the contact type
      */
-    private ContactPersonTypeEnumeration(String type) {
+    protected ContactPersonTypeEnumeration(String type) {
         this.type = type;
     }
 

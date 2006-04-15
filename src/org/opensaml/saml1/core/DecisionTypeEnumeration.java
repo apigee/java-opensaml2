@@ -38,7 +38,7 @@ public final class DecisionTypeEnumeration {
      *  
      *  @param newDecisionType
      */
-    private DecisionTypeEnumeration(String newDecisionType) {
+    protected DecisionTypeEnumeration(String newDecisionType) {
         this.decisionType = newDecisionType;
     }
 

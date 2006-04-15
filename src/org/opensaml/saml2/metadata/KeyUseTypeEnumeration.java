@@ -35,7 +35,7 @@ public class KeyUseTypeEnumeration {
      * 
      * @param type the contact type
      */
-    private KeyUseTypeEnumeration(String type) {
+    protected KeyUseTypeEnumeration(String type) {
         this.type = type;
     }
 
