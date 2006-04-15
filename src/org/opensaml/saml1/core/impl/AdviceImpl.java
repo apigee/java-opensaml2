@@ -16,6 +16,7 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.Advice} Object
@@ -35,7 +37,10 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 public class AdviceImpl extends AbstractSAMLObject implements Advice {
 
     /** Contains all the SAML objects we have added */
-    private final IndexedXMLObjectChildrenList<XMLObject> orderedChildren;
+    private final IndexedXMLObjectChildrenList<XMLObject> assertionChildren;
+    
+    /** "any" children */
+    private final XMLObjectChildrenList<XMLObject> unknownChildren;
 
     /**
      * Constructor
@@ -46,7 +51,8 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      */
     protected AdviceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        orderedChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
+        assertionChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
+        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
     
     /*
@@ -60,7 +66,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         // helps us be sure.
 
         QName assertionIDRefQName = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME);
-        return (List<AssertionIDReference>) orderedChildren.subList(assertionIDRefQName);
+        return (List<AssertionIDReference>) assertionChildren.subList(assertionIDRefQName);
     }
 
     /*
@@ -69,16 +75,25 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     public List<Assertion> getAssertions() {
         // See Comment for getAssertionIDReference as to why this unsafe casting is OK
         QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
-        return (List<Assertion>) orderedChildren.subList(assertionQname);
+        return (List<Assertion>) assertionChildren.subList(assertionQname);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<XMLObject> getUnknownXMLObjects() {
+        return unknownChildren;
     }
 
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-        if (orderedChildren.size() == 0) {
-            return null;
-        }
-        return Collections.unmodifiableList(orderedChildren);
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+        
+        children.addAll(assertionChildren);
+        children.addAll(unknownChildren);
+        
+        return Collections.unmodifiableList(children);
     }
 }

@@ -23,11 +23,12 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
  * Interface to describe how a <code> StatusDetail <\code> element behaves 
  */
-public interface StatusDetail extends SAMLObject {
+public interface StatusDetail extends SAMLObject, ElementExtensibleXMLObject {
     /** Element name, no namespace. */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "StatusDetail";
     

@@ -18,39 +18,29 @@ package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Advice;
-import org.opensaml.saml1.core.Assertion;
-import org.opensaml.saml1.core.AssertionIDReference;
+import org.opensaml.saml1.core.StatusDetail;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.Advice} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusDetail} objects.
  */
-public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class StatusDetailUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
      */
-    public AdviceUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME);
+    public StatusDetailUnmarshaller() {
+        super(SAMLConstants.SAML1P_NS, StatusDetail.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
+    /**
+     * {@inheritDoc}
      */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
+        StatusDetail statusDetail = (StatusDetail) parentSAMLObject;
 
-        Advice advice = (Advice) parentSAMLObject;
-
-        if (childSAMLObject instanceof Assertion) {
-            advice.getAssertions().add((Assertion) childSAMLObject);
-        } else if (childSAMLObject instanceof AssertionIDReference) {
-            advice.getAssertionIDReferences().add((AssertionIDReference) childSAMLObject);
-        } else {
-            advice.getUnknownXMLObjects().add(childSAMLObject);
-        }
+        statusDetail.getUnknownXMLObjects().add(childSAMLObject);
     }
 }

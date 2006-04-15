@@ -22,11 +22,12 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
  * This interface defines how the object representing a SAML 1 <code> Advice </code> element behaves.
  */
-public interface Advice extends SAMLObject {
+public interface Advice extends SAMLObject, ElementExtensibleXMLObject {
 
     /** Element name, no namespace. */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Advice";
@@ -53,5 +54,4 @@ public interface Advice extends SAMLObject {
      * @return the assertions (in order)
      */
     public List<Assertion> getAssertions();
-
 }
