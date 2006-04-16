@@ -16,9 +16,10 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
-import org.opensaml.saml1.core.AttributeValue;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
@@ -42,11 +43,11 @@ public class AttributeUnmarshaller extends AttributeDesignatorUnmarshaller {
 
         Attribute attribute = (Attribute) parentSAMLObject;
 
-        if (childSAMLObject instanceof AttributeValue) {
-            attribute.getAttributeValues().add((AttributeValue) childSAMLObject);
+        QName childQName = childSAMLObject.getElementQName();
+        if (childQName.getLocalPart().equals("AttributeValue") && childQName.getNamespaceURI().equals(SAMLConstants.SAML1_NS)) {
+            attribute.getAttributeValues().add(childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
-  
 }

@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
@@ -25,7 +27,7 @@ import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AttributeValue} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Attribute} objects.
  */
 public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
@@ -55,7 +57,12 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         Attribute attribute = (Attribute) parentSAMLObject;
 
-        attribute.getAttributeValues().add(childSAMLObject);
+        QName childQName = childSAMLObject.getElementQName();
+        if (childQName.getLocalPart().equals("AttributeValue") && childQName.getNamespaceURI().equals(SAMLConstants.SAML1_NS)) {
+            attribute.getAttributeValues().add(childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 
     /*

@@ -21,6 +21,8 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
+import org.opensaml.xml.schema.XSIString;
+import org.opensaml.xml.schema.impl.XSIStringBuilder;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AttributeValidator}.
@@ -42,9 +44,9 @@ public class AttributeSchemaTest extends AttributeDesignatorSchemaTest {
         super.populateRequiredData();
 
         Attribute attribute = (Attribute) target;
-        QName qname = new QName(SAMLConstants.SAML1_NS, AttributeValue.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         
-        attribute.getAttributeValues().add((AttributeValue)buildXMLObject(qname));
+        XSIStringBuilder attributeValueBuilder = (XSIStringBuilder) builderFactory.getBuilder(XSIString.TYPE_NAME);
+        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME));
     }
     
     public void testMissingValue() {
@@ -53,5 +55,4 @@ public class AttributeSchemaTest extends AttributeDesignatorSchemaTest {
         
         assertValidationFail("No AttributeValue elements");
     }
-
 }

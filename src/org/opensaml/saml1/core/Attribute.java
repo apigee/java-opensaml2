@@ -16,12 +16,12 @@
 
 package org.opensaml.saml1.core;
 
-
 import java.util.List;
 
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.XMLObject;
 
 /**
  * This interface defines how the object representing a SAML 1 <code> Attribute </code> element behaves.
@@ -42,5 +42,5 @@ public interface Attribute extends AttributeDesignator {
     public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
 
     /** Get all the subsiduary AttributeValue elements */
-    public List <AttributeValue> getAttributeValues();
+    public List <XMLObject> getAttributeValues();
 }

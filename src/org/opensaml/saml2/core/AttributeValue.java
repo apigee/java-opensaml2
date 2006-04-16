@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.core;
+package org.opensaml.saml2.core;
 
 import javax.xml.namespace.QName;
 
@@ -22,7 +22,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * This interface defines how the object representing a SAML 1 <code> AttributeValue </code> element behaves.
+ * This interface defines how the object representing a SAML 12 <code> AttributeValue </code> element behaves.
  */
 public interface AttributeValue extends SAMLObject  {
 
@@ -30,5 +30,5 @@ public interface AttributeValue extends SAMLObject  {
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AttributeValue";
  
     /** Default element name */
-    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML1_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 }

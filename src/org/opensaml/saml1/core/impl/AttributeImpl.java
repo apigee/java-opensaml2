@@ -16,13 +16,10 @@
 
 package org.opensaml.saml1.core.impl;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
-import org.opensaml.saml1.core.AttributeValue;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
@@ -32,15 +29,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class AttributeImpl extends AttributeDesignatorImpl implements Attribute {
 
     /** Contains the AttributeValues */
-    private final XMLObjectChildrenList<AttributeValue> attributeValues;
-
-    /**
-     * Constructor
-     */
-    protected AttributeImpl() {
-        super(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
-    }
+    private final XMLObjectChildrenList<XMLObject> attributeValues;
 
     /**
      * Constructor
@@ -51,13 +40,13 @@ public class AttributeImpl extends AttributeDesignatorImpl implements Attribute 
      */
     protected AttributeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        attributeValues = new XMLObjectChildrenList<AttributeValue>(this);
+        attributeValues = new XMLObjectChildrenList<XMLObject>(this);
     }
 
     /*
      * @see org.opensaml.saml1.core.Attribute#getAttributeValues()
      */
-    public List<AttributeValue> getAttributeValues() {
+    public List<XMLObject> getAttributeValues() {
         return attributeValues;
     }
 
@@ -65,12 +54,6 @@ public class AttributeImpl extends AttributeDesignatorImpl implements Attribute 
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-        if (attributeValues.size() == 0) {
-            return null;
-        }
-
-        List<XMLObject> list = new ArrayList<XMLObject>(attributeValues.size() + 1);
-        list.addAll(attributeValues);
-        return Collections.unmodifiableList(list);
+        return Collections.unmodifiableList(attributeValues);
     }
 }
