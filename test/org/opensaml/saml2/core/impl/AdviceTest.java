@@ -119,6 +119,7 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         for (int i = 0; i < assertionCount; i++) {
             advice.getAssertions().add((org.opensaml.saml2.core.Assertion) buildXMLObject(assertionQName));
         }
+
         assertEquals(expectedChildElementsDOM, advice);
     }
 }

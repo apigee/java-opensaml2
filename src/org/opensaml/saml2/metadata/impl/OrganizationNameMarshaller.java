@@ -57,10 +57,12 @@ public class OrganizationNameMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         OrganizationName name = (OrganizationName) samlObject;
 
-        Attr attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), SAMLConstants.XML_NS,
-                OrganizationName.LANG_ATTRIB_NAME, SAMLConstants.XML_PREFIX);
-        attribute.setValue(name.getName().getLanguage());
-        domElement.setAttributeNode(attribute);
+        if (name.getName() != null) {
+            Attr attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), SAMLConstants.XML_NS,
+                    OrganizationName.LANG_ATTRIB_NAME, SAMLConstants.XML_PREFIX);
+            attribute.setValue(name.getName().getLanguage());
+            domElement.setAttributeNode(attribute);
+        }
     }
 
     /*
@@ -71,8 +73,7 @@ public class OrganizationNameMarshaller extends AbstractSAMLObjectMarshaller {
         OrganizationName name = (OrganizationName) samlObject;
 
         if (name.getName() != null) {
-            XMLHelper.appendTextContent(domElement, name.getName().getLocalString() + ","
-                    + name.getName().getLanguage());
+            XMLHelper.appendTextContent(domElement, name.getName().getLocalString());
         }
     }
 }

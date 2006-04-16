@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd"
+    xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol" 
+    xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    xmlns="http://www.opensaml.org/xmltooling-config">
+    
+    <ObjectProviders>
+
+        <!-- XSI String -->
+        <ObjectProvider qualifiedName="xsi:String">
+            <BuilderClass className="org.opensaml.xml.schema.impl.XSIStringBuilder" />
+            <MarshallingClass className="org.opensaml.xml.schema.impl.XSIStringMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xml.schema.impl.XSIStringUnmarshaller" />
+        </ObjectProvider>
+        
+    </ObjectProviders>
+</XMLTooling>

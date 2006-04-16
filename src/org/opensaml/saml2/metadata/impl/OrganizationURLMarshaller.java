@@ -57,10 +57,12 @@ public class OrganizationURLMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         OrganizationURL url = (OrganizationURL) samlObject;
 
-        Attr attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), SAMLConstants.XML_NS,
-                OrganizationURL.LANG_ATTRIB_NAME, SAMLConstants.XML_PREFIX);
-        attribute.setValue(url.getURL().getLanguage());
-        domElement.setAttributeNode(attribute);
+        if (url.getURL() != null) {
+            Attr attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), SAMLConstants.XML_NS,
+                    OrganizationURL.LANG_ATTRIB_NAME, SAMLConstants.XML_PREFIX);
+            attribute.setValue(url.getURL().getLanguage());
+            domElement.setAttributeNode(attribute);
+        }
     }
 
     /*
@@ -71,7 +73,7 @@ public class OrganizationURLMarshaller extends AbstractSAMLObjectMarshaller {
         OrganizationURL url = (OrganizationURL) samlObject;
 
         if (url.getURL() != null) {
-            XMLHelper.appendTextContent(domElement, url.getURL().getLocalString() + "," + url.getURL().getLanguage());
+            XMLHelper.appendTextContent(domElement, url.getURL().getLocalString());
         }
     }
 }

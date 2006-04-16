@@ -57,10 +57,12 @@ public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         ServiceDescription description = (ServiceDescription) samlObject;
 
-        Attr attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), SAMLConstants.XML_NS,
-                ServiceDescription.LANG_ATTRIB_NAME, SAMLConstants.XML_PREFIX);
-        attribute.setValue(description.getDescription().getLanguage());
-        domElement.setAttributeNode(attribute);
+        if (description.getDescription() != null) {
+            Attr attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), SAMLConstants.XML_NS,
+                    ServiceDescription.LANG_ATTRIB_NAME, SAMLConstants.XML_PREFIX);
+            attribute.setValue(description.getDescription().getLanguage());
+            domElement.setAttributeNode(attribute);
+        }
     }
 
     /*
@@ -71,8 +73,7 @@ public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
         ServiceDescription description = (ServiceDescription) samlObject;
 
         if (description.getDescription() != null) {
-            XMLHelper.appendTextContent(domElement, description.getDescription().getLocalString() + ","
-                    + description.getDescription().getLanguage());
+            XMLHelper.appendTextContent(domElement, description.getDescription().getLocalString());
         }
     }
 }

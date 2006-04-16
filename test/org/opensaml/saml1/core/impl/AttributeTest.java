@@ -26,8 +26,10 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
+import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.schema.XSIString;
 import org.opensaml.xml.schema.impl.XSIStringBuilder;
+import org.opensaml.xml.util.XMLHelper;
 
 /**
  * 
@@ -114,15 +116,15 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     @Override
-    public void testChildElementsMarshall() {
+    public void testChildElementsMarshall(){
         Attribute attribute = (Attribute) buildXMLObject(qname);
 
         XSIStringBuilder attributeValueBuilder = (XSIStringBuilder) builderFactory.getBuilder(XSIString.TYPE_NAME);
         
-        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME)); 
-        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME)); 
-        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME)); 
-        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME)); 
+        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME, XSIString.TYPE_NAME)); 
+        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME, XSIString.TYPE_NAME)); 
+        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME, XSIString.TYPE_NAME)); 
+        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME, XSIString.TYPE_NAME)); 
 
         assertEquals(expectedChildElementsDOM, attribute);
     }

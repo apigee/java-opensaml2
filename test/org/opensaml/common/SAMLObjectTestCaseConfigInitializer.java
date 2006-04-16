@@ -57,6 +57,11 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         
         try {
+            // Common Object Provider Configuration
+            Document commonConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
+                    .getResourceAsStream("/conf/common-config.xml"));
+            Configuration.load(commonConfig);
+            
             // SAML 1.X Assertion Object Provider Configuration
             Document saml1AssertionConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
                     .getResourceAsStream("/conf/saml1-assertion-config.xml"));

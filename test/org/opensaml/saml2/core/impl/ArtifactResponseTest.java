@@ -58,7 +58,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
         ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
         
         super.populateRequiredAttributes(ar);
-        
+
         assertEquals(expectedDOM, ar);
     }
     

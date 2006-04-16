@@ -80,6 +80,13 @@ public class LocalizedString {
     public void setLanguage(String newLanguage){
         language = newLanguage;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public int hashCode(){
+        return new String(language + ":" + localizedString).hashCode();
+    }
 	
 	/**
 	 * Determines if two LocalizedStrings are equal, that is, if both thier localized string and language have case-sentivite equality.

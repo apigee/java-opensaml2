@@ -105,6 +105,7 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
 
         QName urlQName = new QName(SAMLConstants.SAML20MD_NS, OrganizationURL.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         org.getURLs().add((OrganizationURL) buildXMLObject(urlQName));
+        
         assertEquals(expectedChildElementsDOM, org);
     }
 }

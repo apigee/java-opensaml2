@@ -217,9 +217,6 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
         if (status != null)
             children.add(status);
 
-        if (children.size() == 0)
-            return null;
-
         return Collections.unmodifiableList(children);
     }
 }

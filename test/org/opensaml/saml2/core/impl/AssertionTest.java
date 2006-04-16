@@ -111,6 +111,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         Assertion assertion = (Assertion) buildXMLObject(qname);
 
         assertion.setIssueInstant(expectedIssueInstant);
+
         assertEquals(expectedDOM, assertion);
     }
 
@@ -179,6 +180,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         for (int i = 0; i < attributeStatementCount; i++) {
             assertion.getAttributeStatement().add((AttributeStatement) buildXMLObject(attributeStatementQName));
         }
+        
         assertEquals(expectedChildElementsDOM, assertion);
     }
 }
