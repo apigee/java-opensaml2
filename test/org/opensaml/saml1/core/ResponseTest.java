@@ -20,7 +20,6 @@ import java.io.InputStream;
 
 import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
 import org.opensaml.common.xml.ParserPoolManager;
-import org.opensaml.saml2.metadata.MetadataTest;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -49,7 +48,7 @@ public class ResponseTest extends SAMLObjectTestCaseConfigInitializer {
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
         try {
-            InputStream in = MetadataTest.class.getResourceAsStream(fullResponsePath);
+            InputStream in = ResponseTest.class.getResourceAsStream(fullResponsePath);
             Document responseDoc = ppMgr.parse(in);
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
                     responseDoc.getDocumentElement());
