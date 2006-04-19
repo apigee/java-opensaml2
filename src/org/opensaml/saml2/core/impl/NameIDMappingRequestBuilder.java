@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameIDMappingRequest;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.NameIDMappingRequest}
+ * Builder of {@link org.opensaml.saml2.core.impl.NameIDMappingRequestImpl}
  */
 public class NameIDMappingRequestBuilder extends AbstractSAMLObjectBuilder<NameIDMappingRequest> {
 

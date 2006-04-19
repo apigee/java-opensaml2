@@ -29,7 +29,7 @@ import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
- * A thread-safe Marshaller for {@link orgopensaml.saml2.core.Artifact}
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.Artifact}
  */
 public class ArtifactMarshaller extends AbstractSAMLObjectMarshaller {
 

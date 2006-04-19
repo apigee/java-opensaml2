@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.IDPEntry;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.IDPEntry}
+ * Builder of {@link org.opensaml.saml2.core.impl.IDPEntryImpl}
  */
 public class IDPEntryBuilder extends AbstractSAMLObjectBuilder<IDPEntry> {
 

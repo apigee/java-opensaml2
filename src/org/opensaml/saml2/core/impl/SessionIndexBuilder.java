@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SessionIndex;
 
 /**
- * A Builder for {@link org.opensaml.saml2.core.impl.SessionIndex} objects.
+ * A Builder for {@link org.opensaml.saml2.core.impl.SessionIndexImpl} objects.
  */
 public class SessionIndexBuilder extends AbstractSAMLObjectBuilder<SessionIndex> {
 

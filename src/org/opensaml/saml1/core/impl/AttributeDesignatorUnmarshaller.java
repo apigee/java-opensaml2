@@ -33,10 +33,6 @@ public class AttributeDesignatorUnmarshaller extends AbstractSAMLObjectUnmarshal
 
     /**
      * Constructor
-     *
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws IllegalArgumentException
      */
     public AttributeDesignatorUnmarshaller() {
         super(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME);

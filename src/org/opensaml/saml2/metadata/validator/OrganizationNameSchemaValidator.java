@@ -46,7 +46,7 @@ public class OrganizationNameSchemaValidator implements Validator {
     /**
      * Checks that Name is present.
      * 
-     * @param serviceName
+     * @param organizationName
      * @throws ValidationException
      */
     protected void validateName(OrganizationName organizationName) throws ValidationException {

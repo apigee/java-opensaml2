@@ -48,7 +48,7 @@ public class ResponseAbstractTypeSchemaValidator implements Validator {
     /**
      * Validates that this is SAML1.0 or SAML 1.1
      * 
-     * @param request
+     * @param response
      * @throws ValidationException
      */
     protected void validateVersion(ResponseAbstractType response) throws ValidationException {
@@ -60,7 +60,7 @@ public class ResponseAbstractTypeSchemaValidator implements Validator {
     /**
      * Validate that the ID is present and valid
      * 
-     * @param request
+     * @param response
      * @throws ValidationException
      */
     protected void validateID(ResponseAbstractType response) throws ValidationException {
@@ -72,7 +72,7 @@ public class ResponseAbstractTypeSchemaValidator implements Validator {
     /**
      * Validate that the IssueInstant is present.
      * 
-     * @param request
+     * @param response
      * @throws ValidationException
      */
     protected void validateIssueInstant(ResponseAbstractType response) throws ValidationException {

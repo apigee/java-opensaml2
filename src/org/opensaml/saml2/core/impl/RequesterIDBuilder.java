@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.RequesterID;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.RequesterID}
+ * Builder of {@link org.opensaml.saml2.core.impl.RequesterIDImpl}
  */
 public class RequesterIDBuilder extends AbstractSAMLObjectBuilder<RequesterID> {
 

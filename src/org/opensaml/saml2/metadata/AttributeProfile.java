@@ -48,7 +48,7 @@ public interface AttributeProfile extends SAMLObject {
     /**
      * Sets the URI of this attribute profile.
      * 
-     * @param profileID the URI of this attribute profile
+     * @param profileURI the URI of this attribute profile
      */
     public void setProfileURI(String profileURI);
 }

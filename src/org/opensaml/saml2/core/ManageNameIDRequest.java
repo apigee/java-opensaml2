@@ -93,7 +93,7 @@ public interface ManageNameIDRequest extends Request {
     /**
      * Set the NewEncryptedID of the request
      * 
-     * @param newEncryptedID the new NewEncryptedID of the request
+     * @param newNewEncryptedID the new NewEncryptedID of the request
      */
     public void setNewEncryptedID(NewEncryptedID newNewEncryptedID);
 
@@ -107,7 +107,7 @@ public interface ManageNameIDRequest extends Request {
     /**
      * Set the Terminate of the request
      * 
-     * @param the new NewID Terminate of the request
+     * @param newTerminate the new NewID Terminate of the request
      */
     public void setTerminate(Terminate newTerminate);
 

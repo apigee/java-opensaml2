@@ -31,7 +31,7 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Unmarshaller} for
+ * A thread safe unmarshaller for
  * {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor}s.
  */
 public class AttributeAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarshaller {

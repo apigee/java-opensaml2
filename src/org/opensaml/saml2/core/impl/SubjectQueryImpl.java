@@ -55,7 +55,7 @@ public abstract class SubjectQueryImpl extends RequestImpl implements SubjectQue
     }
 
     /**
-     * @see org.opensaml.saml2.core.SubjectQuery#setSubject(org.opensaml.saml2.core.Issuer)
+     * {@inheritDoc}
      */
     public void setSubject(Subject newSubject) {
         this.subject = prepareForAssignment(this.subject, newSubject);

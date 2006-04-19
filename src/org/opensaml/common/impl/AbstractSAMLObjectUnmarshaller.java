@@ -50,13 +50,7 @@ public abstract class AbstractSAMLObjectUnmarshaller extends AbstractDOMCachingX
     }
 
     /**
-     * Called after this unmarshaller has unmarshalled a child element in order to add that child to the parent element.
-     * 
-     * @param parentSAMLObject the parent element
-     * @param childSAMLObject the child element
-     * 
-     * @throws UnmarshallingException thrown if the child element is not a valid child of the parent or if an element
-     *             that the unmarshaller does not understand is encountered
+     * {@inheritDoc}
      */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
@@ -71,14 +65,7 @@ public abstract class AbstractSAMLObjectUnmarshaller extends AbstractDOMCachingX
     }
 
     /**
-     * Called after this unmarshaller has unmarshalled an attribute in order to add it to the SAML element
-     * 
-     * @param samlObject the SAML element
-     * @param attributeName the attributes name
-     * @param attributeValue the attributes value
-     * 
-     * @throws UnmarshallingException thrown if the given attribute is not a valid attribute for this SAML element or if
-     *             an attribute that the unmarshaller does not understand is encountered
+     * {@inheritDoc}
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         if (Configuration.ignoreUnknownAttributes()) {
@@ -92,10 +79,7 @@ public abstract class AbstractSAMLObjectUnmarshaller extends AbstractDOMCachingX
     }
 
     /**
-     * Called to process the content of a DOM element
-     * 
-     * @param samlObject SAML object the content will be given to
-     * @param elementContent the DOM element content
+     * {@inheritDoc}
      */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         if (log.isDebugEnabled()) {

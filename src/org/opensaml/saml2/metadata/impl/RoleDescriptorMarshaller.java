@@ -48,7 +48,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
      * Constructor
      * 
      * @param targetNamespaceURI the namespaceURI of the SAMLObject this marshaller operates on
-     * @param localName the local name of the SAMLObject this marshaller operates on
+     * @param targetLocalName the local name of the SAMLObject this marshaller operates on
      */
     protected RoleDescriptorMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);

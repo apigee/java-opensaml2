@@ -46,7 +46,7 @@ public class OrganizationURLSchemaValidator implements Validator {
     /**
      * Checks that URL is present.
      * 
-     * @param serviceName
+     * @param organizationURL
      * @throws ValidationException
      */
     protected void validateName(OrganizationURL organizationURL) throws ValidationException {

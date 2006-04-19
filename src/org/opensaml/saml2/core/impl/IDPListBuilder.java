@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.IDPList;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.IDPListImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.IDPListImpl}
  */
 public class IDPListBuilder extends AbstractSAMLObjectBuilder<IDPList> {
 

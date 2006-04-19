@@ -51,7 +51,7 @@ public interface OrganizationURL extends SAMLObject {
     /**
      * Sets the organization URL.
      * 
-     * @param newName organization URL
+     * @param newURL organization URL
      */
     public void setURL(LocalizedString newURL);
 }

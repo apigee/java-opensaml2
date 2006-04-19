@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameIDPolicy;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.NameIDPolcyImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.NameIDPolicyImpl}
  */
 public class NameIDPolicyBuilder extends AbstractSAMLObjectBuilder<NameIDPolicy> {
 

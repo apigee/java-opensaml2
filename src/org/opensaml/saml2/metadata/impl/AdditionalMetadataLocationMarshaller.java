@@ -24,7 +24,7 @@ import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for
+ * A thread safe marshaller for
  * {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation} objects.
  */
 public class AdditionalMetadataLocationMarshaller extends AbstractSAMLObjectMarshaller {

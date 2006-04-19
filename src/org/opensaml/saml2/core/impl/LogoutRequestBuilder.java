@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.LogoutRequest;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.LogoutRequest}
+ * Builder of {@link org.opensaml.saml2.core.impl.LogoutRequestImpl}
  */
 public class LogoutRequestBuilder extends AbstractSAMLObjectBuilder<LogoutRequest> {
 

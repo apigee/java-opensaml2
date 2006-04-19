@@ -20,7 +20,7 @@
 package org.opensaml.saml1.core.validator;
 
 /**
- * Spec validator for {@link org.opensaml.saml1.AttributeQuery}
+ * Spec validator for {@link org.opensaml.saml1.core.AttributeQuery}
  */
 public class AttributeQuerySpecValidator extends SAML1ObjectSpecValidator {
 

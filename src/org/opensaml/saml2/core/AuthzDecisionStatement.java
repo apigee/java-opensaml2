@@ -69,7 +69,7 @@ public interface AuthzDecisionStatement extends Statement {
     /**
      * Sets the decision of the authorization request.
      * 
-     * @param newDescision the decision of the authorization request
+     * @param newDecision the decision of the authorization request
      */
     public void setDecision(DecisionTypeEnumeration newDecision);
 

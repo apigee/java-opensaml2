@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.GetComplete;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.GetComplete}
+ * Builder of {@link org.opensaml.saml2.core.impl.GetCompleteImpl}
  */
 public class GetCompleteBuilder extends AbstractSAMLObjectBuilder<GetComplete> {
 

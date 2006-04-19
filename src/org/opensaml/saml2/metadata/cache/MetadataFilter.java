@@ -35,5 +35,5 @@ public interface MetadataFilter {
      * 
      * @throws FilterException thrown if an error occurs during the filtering process
      */
-    public void doFilter(XMLObject object) throws FilterException;
+    public void doFilter(XMLObject metadata) throws FilterException;
 }

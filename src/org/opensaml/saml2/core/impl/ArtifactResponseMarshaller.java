@@ -24,7 +24,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.ArtifactResponse;
 
 /**
- * A thread-safe Marshaller for {@link orgopensaml.saml2.core.ArtifactResponse}
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.ArtifactResponse}
  */
 public class ArtifactResponseMarshaller extends StatusResponseMarshaller {
 

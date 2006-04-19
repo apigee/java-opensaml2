@@ -45,7 +45,7 @@ public interface NewID extends SAMLObject {
     /**
      * Set NewID value
      * 
-     * @param the new NewID value
+     * @param newNewID the new NewID value
      */
     public void setNewID(String newNewID);   
 }

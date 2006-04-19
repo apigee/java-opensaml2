@@ -24,7 +24,7 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Spec validator for {@link org.opensaml.saml1.AttributeQuery}
+ * Spec validator for {@link org.opensaml.saml1.core.Conditions}
  */
 public class ConditionsSpecValidator extends SAML1ObjectSpecValidator {
 

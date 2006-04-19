@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Status;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.StatusImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.StatusImpl}
  */
 public class StatusBuilder extends AbstractSAMLObjectBuilder<Status> {
 

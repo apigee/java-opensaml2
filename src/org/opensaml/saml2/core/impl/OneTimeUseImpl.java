@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.OneTimeUse;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.IDNameQualifiers}
+ * Concrete implementation of {@link org.opensaml.saml2.core.OneTimeUse}
  */
 public class OneTimeUseImpl extends AbstractSAMLObject implements OneTimeUse {
 

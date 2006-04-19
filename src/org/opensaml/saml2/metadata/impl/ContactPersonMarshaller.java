@@ -34,7 +34,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.metadata.ContactPerson}
+ * A thread safe marshaller for {@link org.opensaml.saml2.metadata.ContactPerson}
  * objects.
  */
 public class ContactPersonMarshaller extends AbstractSAMLObjectMarshaller {

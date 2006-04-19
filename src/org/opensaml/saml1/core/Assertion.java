@@ -164,7 +164,7 @@ public interface Assertion extends SAMLObject, SignableXMLObject, Evidentiary {
     /**
      * Return the List representing all the <code> Statement </code> sub elements with a given schema type or element name.
      * 
-     * @param the schema type or element name
+     * @param typeOrName the schema type or element name
      * 
      * @return the List representing all the statements
      */

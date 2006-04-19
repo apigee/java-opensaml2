@@ -29,7 +29,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for
+ * A thread-safe unmarshaller for
  * {@link org.opensaml.saml2.metadata.OrganizationDisplayName} objects.
  */
 public class OrganizationDisplayNameUnmarshaller extends AbstractSAMLObjectUnmarshaller {

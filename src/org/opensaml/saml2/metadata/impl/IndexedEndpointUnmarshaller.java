@@ -26,7 +26,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.IndexedEndpoint}
+ * A thread-safe unmarshaller for {@link org.opensaml.saml2.metadata.IndexedEndpoint}
  * objects.
  */
 public class IndexedEndpointUnmarshaller extends EndpointUnmarshaller {

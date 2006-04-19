@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.StatusMessage;
 
 /**
- * Builder of {@link org.opensaml.saml2.metadata.core.StatusMessageImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.StatusMessageImpl}
  */
 public class StatusMessageBuilder extends AbstractSAMLObjectBuilder<StatusMessage> {
 

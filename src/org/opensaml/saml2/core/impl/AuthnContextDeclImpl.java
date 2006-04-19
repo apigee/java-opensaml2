@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.AuthnContextDecl;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A concrete implementation of {@link org.opensaml.saml2.core.AuthnContextDeclImpl}.
+ * A concrete implementation of {@link org.opensaml.saml2.core.AuthnContextDecl}.
  */
 public class AuthnContextDeclImpl extends AbstractSAMLObject implements AuthnContextDecl {
 

@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Marshaller} for {@link org.opensaml.saml2.core.Advice}.
+ * A thread-safe marshaller for {@link org.opensaml.saml2.core.Advice}.
  */
 public class AdviceMarshaller extends AbstractSAMLObjectMarshaller {
 

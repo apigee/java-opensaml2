@@ -33,10 +33,6 @@ public class AttributeDesignatorMarshaller extends AbstractSAMLObjectMarshaller 
 
     /**
      * Constructor
-     *
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws NullPointerException
      */
     public AttributeDesignatorMarshaller() {
         super(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME);

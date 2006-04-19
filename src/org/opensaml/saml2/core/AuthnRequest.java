@@ -85,7 +85,7 @@ public interface AuthnRequest extends Request {
      * Sets whether the IdP should refrain from interacting with the
      * user during the authentication process
      * 
-     * @param newForceAuthn the new value of the ForceAuthn attribute
+     * @param newIsPassive the new value of the ForceAuthn attribute
      */
     public void setIsPassive(Boolean newIsPassive);
     

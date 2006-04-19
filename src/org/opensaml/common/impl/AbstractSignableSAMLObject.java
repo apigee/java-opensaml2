@@ -22,7 +22,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.AbstractValidatingSignableXMLObject;
 
 /**
- * Abstract SAMLObject implementation that also implements {@link org.opensaml.xml.SignableXMLObject}
+ * Abstract SAMLObject implementation that also implements {@link org.opensaml.xml.signature.SignableXMLObject}
  */
 public abstract class AbstractSignableSAMLObject extends AbstractValidatingSignableXMLObject implements SAMLObject {
 

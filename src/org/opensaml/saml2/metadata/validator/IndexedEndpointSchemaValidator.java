@@ -47,7 +47,7 @@ public class IndexedEndpointSchemaValidator extends EndpointSchemaValidator impl
     /**
      * Checks that Index is non-negative.
      * 
-     * @param endpoint
+     * @param indexedEndpoint
      * @throws ValidationException
      */
     protected void validateIndex(IndexedEndpoint indexedEndpoint) throws ValidationException {

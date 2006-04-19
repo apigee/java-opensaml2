@@ -25,7 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Terminate;
 
 /**
- * A Builder for {@link org.opensaml.saml2.core.impl.Terminate} objects.
+ * A Builder for {@link org.opensaml.saml2.core.impl.TerminateImpl} objects.
  */
 public class TerminateBuilder extends AbstractSAMLObjectBuilder<Terminate> {
 

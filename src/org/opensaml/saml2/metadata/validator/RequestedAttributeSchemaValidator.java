@@ -24,7 +24,7 @@ import org.opensaml.saml2.core.validator.AttributeSchemaValidator;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.metadata.RequestedAttributeService} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.metadata.RequestedAttribute} for Schema compliance.
  */
 public class RequestedAttributeSchemaValidator extends AttributeSchemaValidator implements Validator {
 

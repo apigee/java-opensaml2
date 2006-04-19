@@ -32,8 +32,8 @@ public class IndexedEndpointMarshaller extends EndpointMarshaller {
     /**
      * Constructor
      * 
-     * @param namespaceURI the namespace URI for the element of the SAML object this marshalls
-     * @param localName the local name of the element of the SAML object this marshalls
+     * @param targetNamespaceURI the namespace URI for the element of the SAML object this marshalls
+     * @param targetLocalName the local name of the element of the SAML object this marshalls
      */
     public IndexedEndpointMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);

@@ -24,7 +24,7 @@ import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe {@link org.opensaml.common.io.Unmarshaller} for {@link org.opensaml.saml2.metadata.Endpoint} objects.
+ * A thread-safe unmarshaller for {@link org.opensaml.saml2.metadata.Endpoint} objects.
  */
 public class EndpointUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

@@ -89,7 +89,7 @@ public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy
     }
 
     /**
-     * @see org.opensaml.saml2.core.NameIDPolicy#setAllowCreate(java.lang.String)
+     * {@inheritDoc}
      */
     public void setAllowCreate(Boolean newAllowCreate) {
         this.allowCreate = prepareForAssignment(this.allowCreate, newAllowCreate);

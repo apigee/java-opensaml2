@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.AuthnContextDeclRef;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AutnContextDeclRef}.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AuthnContextDecl}.
  */
 public class AuthnContextDeclRefUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
