@@ -5,6 +5,7 @@
     <property name="lib.dir" value="${basedir}/lib" />
     <property name="core-src.dir" value="${basedir}/src" />
     <property name="schema.dir" value="${core-src.dir}/schema" />
+	<property name="conf.dir" value="${basedir}/conf" />
     <property name="test-src.dir" value="${basedir}/test" />
     <property name="doc.dir" value="${basedir}/doc" />
     <property name="javadoc.dir" value="${doc.dir}/javadoc" />
@@ -37,6 +38,7 @@
         <pathelement location="${core-src.dir}" />
         <pathelement location="${test-classes.dir}" />
         <pathelement location="${test-src.dir}" />
+    	<pathelement location="${conf.dir}" />
     </path>
 
     <!-- Prepare directory structure for build -->

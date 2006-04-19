@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.common;
 
 import org.opensaml.common.xml.ParserPoolManager;
@@ -25,19 +26,18 @@ import org.opensaml.xml.XMLObjectBaseTestCase;
 import org.w3c.dom.Document;
 
 /**
- * Intermediate class that serves to initialize the configuration environment for other base
- * test classes.
+ * Intermediate class that serves to initialize the configuration environment for other base test classes.
  */
 public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseTestCase {
 
     /**
      * Constructor
-     *
+     * 
      */
     public SAMLObjectTestCaseConfigInitializer() {
         super();
     }
-    
+
     /*
      * @see junit.framework.TestCase#setUp()
      */
@@ -51,40 +51,34 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-    
 
     static {
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-        
+
+        Class clazz = SAMLObjectTestCaseConfigInitializer.class;
         try {
             // Common Object Provider Configuration
-            Document commonConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                    .getResourceAsStream("/conf/common-config.xml"));
+            Document commonConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/common-config.xml"));
             Configuration.load(commonConfig);
-            
+
             // SAML 1.X Assertion Object Provider Configuration
-            Document saml1AssertionConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                    .getResourceAsStream("/conf/saml1-assertion-config.xml"));
+            Document saml1AssertionConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml1-assertion-config.xml"));
             Configuration.load(saml1AssertionConfig);
-            
+
             // SAML 1.X Protocol Object Provider Configuration
-            Document saml1ProtocolConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                    .getResourceAsStream("/conf/saml1-protocol-config.xml"));
+            Document saml1ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml1-protocol-config.xml"));
             Configuration.load(saml1ProtocolConfig);
-            
-            //SAML 2.0 Metadata Object Provider Configuration
-            Document saml2mdConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                    .getResourceAsStream("/conf/saml2-metadata-config.xml"));
+
+            // SAML 2.0 Metadata Object Provider Configuration
+            Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml2-metadata-config.xml"));
             Configuration.load(saml2mdConfig);
-            
-            //SAML 2.0 Assertion Object Provider Configuration
-            Document saml2assertionConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                     .getResourceAsStream("/conf/saml2-assertion-config.xml"));
+
+            // SAML 2.0 Assertion Object Provider Configuration
+            Document saml2assertionConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml2-assertion-config.xml"));
             Configuration.load(saml2assertionConfig);
 
-            //SAML 2.0 Protocol Object Provider Configuration
-            Document saml2protocolConfig = ppMgr.parse(SAMLObjectBaseTestCase.class
-                     .getResourceAsStream("/conf/saml2-protocol-config.xml"));
+            // SAML 2.0 Protocol Object Provider Configuration
+            Document saml2protocolConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml2-protocol-config.xml"));
             Configuration.load(saml2protocolConfig);
 
         } catch (Exception e) {
