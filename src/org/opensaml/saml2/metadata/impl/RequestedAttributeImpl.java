@@ -50,7 +50,7 @@ public class RequestedAttributeImpl extends AttributeImpl implements RequestedAt
     }
 
     public void setIsRequired(boolean isRequired) {
-        this.isRequired = prepareForAssignment(this.isRequired, isRequired);
+        this.isRequired = prepareForAssignment(new Boolean(this.isRequired), new Boolean(isRequired)).booleanValue();
 
     }
 
