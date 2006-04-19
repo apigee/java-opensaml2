@@ -3,9 +3,17 @@
     xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd"
     xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol" 
     xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+    xmlns:xt="http://www.opensaml.org/xmltooling-config"
     xmlns="http://www.opensaml.org/xmltooling-config">
     
     <ObjectProviders>
+    
+        <!-- Default Provider -->
+        <ObjectProvider qualifiedName="xt:DEFAULT">
+            <BuilderClass className="org.opensaml.xml.ElementProxyBuilder" />
+            <MarshallingClass className="org.opensaml.xml.ElementProxyMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xml.ElementProxyUnmarshaller" />
+        </ObjectProvider>
 
         <!-- XSI String -->
         <ObjectProvider qualifiedName="xsi:String">
