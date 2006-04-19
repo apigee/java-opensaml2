@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata.cache;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -47,54 +46,11 @@ public class MetadataFilterChain implements MetadataFilter {
     }
     
     /**
-     * Gets the immutable list of {@link MetadataFilter}s that make up this chain.
+     * Gets the list of {@link MetadataFilter}s that make up this chain.
      * 
-     * @return the filters that make up this cain
+     * @return the filters that make up this chain
      */
     public List<MetadataFilter> getFilters() {
-        return Collections.unmodifiableList(filters);
-    }
-    
-    /**
-     * Adds a filter to the end of the chain.
-     * 
-     * @param filter the filter to add
-     */
-    public void addFilter(MetadataFilter filter) {
-        filters.add(filter);
-    }
-    
-    /**
-     * Adds the set of filters to the end of the chain.
-     * 
-     * @param filters the filters to add
-     */
-    public void addFilters(List<MetadataFilter> filters) {
-        this.filters.addAll(filters);
-    }
-    
-    /**
-     * Removes a filter from the chain.
-     * 
-     * @param filter the filter to remove
-     */
-    public void removeFilter(MetadataFilter filter) {
-        filters.remove(filter);
-    }
-    
-    /**
-     * Removes a set of filters from the chain.
-     * 
-     * @param filters the filters to remove
-     */
-    public void removeFilters(List<MetadataFilter> filters) {
-        this.filters.removeAll(filters);
-    }
-
-    /**
-     * Removes all the filters from the chain.
-     */
-    public void removeAll() {
-        filters.clear();
+        return filters;
     }
 }
