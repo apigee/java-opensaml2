@@ -58,27 +58,27 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
         Class clazz = SAMLObjectTestCaseConfigInitializer.class;
         try {
             // Common Object Provider Configuration
-            Document commonConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/common-config.xml"));
+            Document commonConfig = ppMgr.parse(clazz.getResourceAsStream("/common-config.xml"));
             Configuration.load(commonConfig);
 
             // SAML 1.X Assertion Object Provider Configuration
-            Document saml1AssertionConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml1-assertion-config.xml"));
+            Document saml1AssertionConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-assertion-config.xml"));
             Configuration.load(saml1AssertionConfig);
 
             // SAML 1.X Protocol Object Provider Configuration
-            Document saml1ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml1-protocol-config.xml"));
+            Document saml1ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-protocol-config.xml"));
             Configuration.load(saml1ProtocolConfig);
 
             // SAML 2.0 Metadata Object Provider Configuration
-            Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml2-metadata-config.xml"));
+            Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-config.xml"));
             Configuration.load(saml2mdConfig);
 
             // SAML 2.0 Assertion Object Provider Configuration
-            Document saml2assertionConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml2-assertion-config.xml"));
+            Document saml2assertionConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-assertion-config.xml"));
             Configuration.load(saml2assertionConfig);
 
             // SAML 2.0 Protocol Object Provider Configuration
-            Document saml2protocolConfig = ppMgr.parse(clazz.getResourceAsStream("/conf/saml2-protocol-config.xml"));
+            Document saml2protocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-protocol-config.xml"));
             Configuration.load(saml2protocolConfig);
 
         } catch (Exception e) {
