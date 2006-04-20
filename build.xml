@@ -18,7 +18,7 @@
 
     <property name="target.jdk" value="1.5" />
 
-    <property name="version" value="2.0" />
+    <property name="version" value="2.0-TP1" />
     <property name="year" value="2002-2005" />
     <property name="copyright" value="Copyright &#169; ${year} UCAID. All Rights Reserved." />
 
@@ -97,7 +97,15 @@
     <!-- Javadoc core (non-test) OpenSAML classes -->
     <target name="javadoc">
         <mkdir dir="${javadoc.dir}" />
-        <javadoc packagenames="org.opensaml.*" sourcepath="${core-src.dir}" destdir="${javadoc.dir}" author="false" version="true" windowtitle="OpenSAML ${version} Java API" doctitle="OpenSAML ${version} Java API" bottom="${copyright}">
+        <javadoc packagenames="org.opensaml.*" 
+        	     sourcepath="${core-src.dir}" 
+        	     destdir="${javadoc.dir}" 
+        	     author="false" 
+        	     version="true" 
+        	     windowtitle="OpenSAML ${version} Java API" 
+        	     doctitle="OpenSAML ${version} Java API" 
+        	     bottom="${copyright}"
+        	     overview="${core-src.dir}/overview.html">
             <classpath refid="build-path" />
         </javadoc>
     </target>
