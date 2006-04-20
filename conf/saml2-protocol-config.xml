@@ -107,13 +107,13 @@
         </ObjectProvider>
                  
         <!--  Extensions provider -->
-        <ObjectProvider qualifiedName="saml2:Extensions">
+        <ObjectProvider qualifiedName="saml2p:Extensions">
             <BuilderClass className="org.opensaml.saml2.common.impl.ExtensionsBuilder" />
             <MarshallingClass className="org.opensaml.saml2.common.impl.ExtensionsMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.common.impl.ExtensionsUnmarshaller" />
         </ObjectProvider>
         
-        <ObjectProvider qualifiedName="saml2:ExtensionsType">
+        <ObjectProvider qualifiedName="saml2p:ExtensionsType">
             <BuilderClass className="org.opensaml.saml2.common.impl.ExtensionsBuilder" />
             <MarshallingClass className="org.opensaml.saml2.common.impl.ExtensionsMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.common.impl.ExtensionsUnmarshaller" />
