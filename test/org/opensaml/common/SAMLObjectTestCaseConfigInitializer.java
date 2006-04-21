@@ -88,6 +88,10 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
             // SAML 2.0 Metadata Object Provider Configuration
             Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-config.xml"));
             Configuration.load(saml2mdConfig);
+            
+            // SAML 2.0 Metadata Validation Configuration
+            Document saml2mdValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-validation-config.xml"));
+            Configuration.load(saml2mdValidationConfig);
 
         } catch (Exception e) {
             System.err.println("Unable to configure OpenSAML: " + e);
