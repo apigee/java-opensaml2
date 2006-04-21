@@ -69,13 +69,9 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
             Document saml1ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-protocol-config.xml"));
             Configuration.load(saml1ProtocolConfig);
             
-            // SAML 1.X Protocol Object Provider Configuration
-            Document saml1ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-validation-config.xml"));
+            // SAML 1.X Core (Asserion + Protocol) Validation Configuration
+            Document saml1ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-core-validation-config.xml"));
             Configuration.load(saml1ValidationConfig);
-
-            // SAML 2.0 Metadata Object Provider Configuration
-            Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-config.xml"));
-            Configuration.load(saml2mdConfig);
 
             // SAML 2.0 Assertion Object Provider Configuration
             Document saml2assertionConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-assertion-config.xml"));
@@ -84,6 +80,14 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
             // SAML 2.0 Protocol Object Provider Configuration
             Document saml2protocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-protocol-config.xml"));
             Configuration.load(saml2protocolConfig);
+            
+            // SAML 2.0 Core (Asserion + Protocol) Validation Configuration
+            Document saml2ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-core-validation-config.xml"));
+            Configuration.load(saml2ValidationConfig);
+            
+            // SAML 2.0 Metadata Object Provider Configuration
+            Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-config.xml"));
+            Configuration.load(saml2mdConfig);
 
         } catch (Exception e) {
             System.err.println("Unable to configure OpenSAML: " + e);
