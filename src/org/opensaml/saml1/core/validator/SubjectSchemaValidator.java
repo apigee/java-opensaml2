@@ -20,26 +20,25 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.SubjectStatement;
+import org.opensaml.saml1.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml1.core.SubjectStatement} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.Subject} for Schema compliance.
  */
-public class SubjectStatementValidator implements Validator {
+public class SubjectSchemaValidator implements Validator  {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        
-         SubjectStatement subjectStatement = (SubjectStatement) xmlObject;
-         
-         // TODO split out into separate method.
-         if (subjectStatement.getSubject() == null) {
-             throw new ValidationException("No Subject present");
+        Subject subject = (Subject) xmlObject;
+        // TODO separate methods
+         if (subject.getNameIdentifier() == null &&
+             subject.getSubjectConfirmation() == null) {
+             throw new ValidationException("Either a NameIdentifier or SubjectConfirmation should be present");
          }
     }
 }

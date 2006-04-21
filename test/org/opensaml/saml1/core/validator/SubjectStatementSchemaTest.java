@@ -24,7 +24,7 @@ import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectStatement;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.SubjectStatementValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.SubjectStatementSchemaValidator}.
  */
 public abstract class SubjectStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
 

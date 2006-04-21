@@ -20,25 +20,32 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.Subject;
+import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml1.core.Subject} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.AuthenticationStatement} for Schema compliance.
  */
-public class SubjectValidator implements Validator  {
+public class AuthenticationStatementSchemaValidator extends SubjectStatementSchemaValidator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        Subject subject = (Subject) xmlObject;
-        // TODO separate methods
-         if (subject.getNameIdentifier() == null &&
-             subject.getSubjectConfirmation() == null) {
-             throw new ValidationException("Either a NameIdentifier or SubjectConfirmation should be present");
-         }
-    }
+        
+        super.validate(xmlObject);
+        
+        AuthenticationStatement authenticationStatement = (AuthenticationStatement) xmlObject;
+        // TODO separate out into distinct method
+
+        if (DatatypeHelper.isEmpty(authenticationStatement.getAuthenticationMethod())) {
+            throw new ValidationException("No authenticationStatement URI is null");
+        }
+        
+        if (authenticationStatement.getAuthenticationInstant() == null) {
+            throw new ValidationException("No authenticationInstant present");
+        }
+   }
 }

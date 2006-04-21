@@ -23,7 +23,7 @@ import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AttributeStatementValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AttributeStatementSchemaValidator}.
  */
 public class AttributeStatementSchemaTest extends SubjectStatementSchemaTest {
 
@@ -31,7 +31,7 @@ public class AttributeStatementSchemaTest extends SubjectStatementSchemaTest {
     public AttributeStatementSchemaTest() {
         super();
         targetQName = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AttributeStatementValidator();
+        validator = new AttributeStatementSchemaValidator();
 
     }
 

@@ -24,7 +24,7 @@ import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionTypeEnumeration;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AuthorizationDecisionStatementValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AuthorizationDecisionStatementSchemaValidator}.
  */
 public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSchemaTest {
 
@@ -32,7 +32,7 @@ public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSc
     public AuthorizationDecisionStatementSchemaTest() {
         super();
         targetQName = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AuthorizationDecisionStatementValidator();
+        validator = new AuthorizationDecisionStatementSchemaValidator();
 
     }
 

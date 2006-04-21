@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectConfirmation;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.SubjectValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.SubjectSchemaValidator}.
  */
 public class SubjectSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
@@ -33,7 +33,7 @@ public class SubjectSchemaTest extends SAMLObjectValidatorBaseTestCase {
     public SubjectSchemaTest() {
         super();
         targetQName = new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new SubjectValidator();
+        validator = new SubjectSchemaValidator();
     }
 
     /*

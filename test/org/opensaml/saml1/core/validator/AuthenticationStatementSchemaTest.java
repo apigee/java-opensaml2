@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AuthenticationStatementValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AuthenticationStatementSchemaValidator}.
  */
 public class AuthenticationStatementSchemaTest extends SubjectStatementSchemaTest {
 
@@ -31,7 +31,7 @@ public class AuthenticationStatementSchemaTest extends SubjectStatementSchemaTes
     public AuthenticationStatementSchemaTest() {
         super();
         targetQName = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AuthenticationStatementValidator();
+        validator = new AuthenticationStatementSchemaValidator();
 
     }
 

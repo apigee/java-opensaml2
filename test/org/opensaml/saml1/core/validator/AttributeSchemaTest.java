@@ -25,7 +25,7 @@ import org.opensaml.xml.schema.XSIString;
 import org.opensaml.xml.schema.impl.XSIStringBuilder;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AttributeValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AttributeSchemaValidator}.
  */
 public class AttributeSchemaTest extends AttributeDesignatorSchemaTest {
 
@@ -33,7 +33,7 @@ public class AttributeSchemaTest extends AttributeDesignatorSchemaTest {
     public AttributeSchemaTest() {
         super();
         targetQName = new QName(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AttributeValidator();
+        validator = new AttributeSchemaValidator();
 
     }
 

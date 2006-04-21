@@ -23,7 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AttributeDesignatorValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.AttributeDesignatorSchemaValidator}.
  */
 public abstract class AttributeDesignatorSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
@@ -31,7 +31,7 @@ public abstract class AttributeDesignatorSchemaTest extends SAMLObjectValidatorB
     public AttributeDesignatorSchemaTest() {
         super();
         targetQName = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        validator = new AttributeDesignatorValidator();
+        validator = new AttributeDesignatorSchemaValidator();
 
     }
 

@@ -29,7 +29,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.AttributeDesignator} for Schema compliance.
  */
-public class AttributeDesignatorValidator implements Validator {
+public class AttributeDesignatorSchemaValidator implements Validator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)

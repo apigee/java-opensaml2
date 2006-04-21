@@ -28,7 +28,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} for Schema compliance.
  */
-public class AuthorizationDecisionStatementValidator extends SubjectStatementValidator {
+public class AuthorizationDecisionStatementSchemaValidator extends SubjectStatementSchemaValidator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)

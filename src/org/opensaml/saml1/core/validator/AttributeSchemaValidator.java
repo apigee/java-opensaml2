@@ -20,24 +20,26 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.saml1.core.SubjectConfirmation;
+import org.opensaml.saml1.core.Attribute;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml1.core.SubjectConfirmation} for Schema compliance.
+ * Checks {@link org.opensaml.saml1.core.Attribute} for Schema compliance.
  */
-public class SubjectConfirmationValidator implements Validator  {
+public class AttributeSchemaValidator extends AttributeDesignatorSchemaValidator {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
     public void validate(XMLObject xmlObject) throws ValidationException {
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) xmlObject;
-        // TODO separate methods
-         if (subjectConfirmation.getConfirmationMethods().size() == 0) {
-             throw new ValidationException("At least Confirmation Method should be present");
-         }
+        
+        super.validate(xmlObject);
+        // TODO Separate out into method
+        Attribute attribute = (Attribute) xmlObject;
+        
+        if (attribute.getAttributeValues().size() == 0) {
+            throw new ValidationException("No AttributeValue elements present");
+        }
     }
 }

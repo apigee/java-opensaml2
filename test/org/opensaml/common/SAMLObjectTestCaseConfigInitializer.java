@@ -68,6 +68,10 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
             // SAML 1.X Protocol Object Provider Configuration
             Document saml1ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-protocol-config.xml"));
             Configuration.load(saml1ProtocolConfig);
+            
+            // SAML 1.X Protocol Object Provider Configuration
+            Document saml1ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-validation-config.xml"));
+            Configuration.load(saml1ValidationConfig);
 
             // SAML 2.0 Metadata Object Provider Configuration
             Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-config.xml"));
