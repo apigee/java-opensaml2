@@ -31,7 +31,7 @@ public interface AttributeStatement extends Statement {
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AttributeStatement";
     
     /** Default element name */
-    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
     /** Local name of the XSI type */
     public final static String TYPE_LOCAL_NAME = "AttributeStatementType"; 

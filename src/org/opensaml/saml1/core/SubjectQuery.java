@@ -29,7 +29,7 @@ public interface SubjectQuery extends Query {
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "SubjectQuery";
     
     /** Default element name */
-    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     
     /** Local name of the XSI type */
     public final static String TYPE_LOCAL_NAME = "SubjectQueryAbstractType"; 

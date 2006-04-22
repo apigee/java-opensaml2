@@ -33,7 +33,7 @@ public interface AuthnContextDeclRef extends SAMLObject {
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnContextDeclRef";
     
     /** Default element name */
-    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
     /**
      * Gets the URI reference to an authentication context declaration

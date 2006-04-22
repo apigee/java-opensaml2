@@ -33,7 +33,7 @@ public interface SessionIndex extends SAMLObject {
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "SessionIndex";
     
     /** Default element name */
-    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
     /**
      * Gets the session index value of the request

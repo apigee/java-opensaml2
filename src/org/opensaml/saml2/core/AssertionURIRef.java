@@ -30,7 +30,7 @@ public interface AssertionURIRef extends SAMLObject, Evidentiary {
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionURIRef";
     
     /** Default element name */
-    public final static QName DEFUALT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
     /**
      * Gets the URI of the assertion this references.

@@ -62,29 +62,29 @@ public class AuthnRequestTest extends ComplexSAMLObjectBaseTestCase {
      * @see org.opensaml.common.ComplexSAMLObjectBaseTestCase#testMarshall()
      */
     public void testMarshall() {
-        NameID nameid = (NameID) buildXMLObject(NameID.DEFUALT_ELEMENT_NAME);
+        NameID nameid = (NameID) buildXMLObject(NameID.DEFAULT_ELEMENT_NAME);
         nameid.setFormat("urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress");
         nameid.setValue("j.doe@company.com");
         
-        Subject subject = (Subject) buildXMLObject(Subject.DEFUALT_ELEMENT_NAME);
+        Subject subject = (Subject) buildXMLObject(Subject.DEFAULT_ELEMENT_NAME);
         subject.setNameID(nameid);
         
-        Audience audience = (Audience) buildXMLObject(Audience.DEFUALT_ELEMENT_NAME);
+        Audience audience = (Audience) buildXMLObject(Audience.DEFAULT_ELEMENT_NAME);
         audience.setAudienceURI("urn:foo:sp.example.org");
         
-        AudienceRestriction ar = (AudienceRestriction) buildXMLObject(AudienceRestriction.DEFUALT_ELEMENT_NAME);
+        AudienceRestriction ar = (AudienceRestriction) buildXMLObject(AudienceRestriction.DEFAULT_ELEMENT_NAME);
         ar.getAudiences().add(audience);
         
-        Conditions conditions = (Conditions) buildXMLObject(Conditions.DEFUALT_ELEMENT_NAME);
+        Conditions conditions = (Conditions) buildXMLObject(Conditions.DEFAULT_ELEMENT_NAME);
         conditions.getAudienceRestrictions().add(ar);
         
-        AuthnContextClassRef classRef = (AuthnContextClassRef) buildXMLObject(AuthnContextClassRef.DEFUALT_ELEMENT_NAME);
+        AuthnContextClassRef classRef = (AuthnContextClassRef) buildXMLObject(AuthnContextClassRef.DEFAULT_ELEMENT_NAME);
         classRef.setAuthnContextClassRef("urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport");
         
-        RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(RequestedAuthnContext.DEFUALT_ELEMENT_NAME);
+        RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(RequestedAuthnContext.DEFAULT_ELEMENT_NAME);
         rac.getAuthnContextClassRefs().add(classRef);
         
-        AuthnRequest request = (AuthnRequest) buildXMLObject(AuthnRequest.DEFUALT_ELEMENT_NAME);
+        AuthnRequest request = (AuthnRequest) buildXMLObject(AuthnRequest.DEFAULT_ELEMENT_NAME);
         request.setSubject(subject);
         request.setConditions(conditions);
         request.setRequestedAuthnContext(rac);

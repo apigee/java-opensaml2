@@ -26,10 +26,8 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
-import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.schema.XSIString;
-import org.opensaml.xml.schema.impl.XSIStringBuilder;
-import org.opensaml.xml.util.XMLHelper;
+import org.opensaml.xml.schema.XSString;
+import org.opensaml.xml.schema.impl.XSStringBuilder;
 
 /**
  * 
@@ -119,12 +117,12 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     public void testChildElementsMarshall(){
         Attribute attribute = (Attribute) buildXMLObject(qname);
 
-        XSIStringBuilder attributeValueBuilder = (XSIStringBuilder) builderFactory.getBuilder(XSIString.TYPE_NAME);
+        XSStringBuilder attributeValueBuilder = (XSStringBuilder) builderFactory.getBuilder(XSString.TYPE_NAME);
         
-        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME, XSIString.TYPE_NAME)); 
-        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME, XSIString.TYPE_NAME)); 
-        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME, XSIString.TYPE_NAME)); 
-        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFUALT_ELEMENT_NAME, XSIString.TYPE_NAME)); 
+        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME)); 
+        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME)); 
+        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME)); 
+        attribute.getAttributeValues().add(attributeValueBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME)); 
 
         assertEquals(expectedChildElementsDOM, attribute);
     }
