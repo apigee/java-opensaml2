@@ -14,22 +14,41 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.common;
 
+import javax.xml.namespace.QName;
+
+import org.apache.log4j.Logger;
+import org.custommonkey.xmlunit.XMLTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
-import org.opensaml.xml.XMLObjectBaseTestCase;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
+import org.opensaml.xml.XMLObjectBuilderFactory;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallerFactory;
+import org.opensaml.xml.io.UnmarshallerFactory;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Intermediate class that serves to initialize the configuration environment for other base test classes.
  */
-public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseTestCase {
+public abstract class SAMLObjectTestCaseConfigInitializer extends XMLTestCase {
 
+    /** Logger */
+    private static Logger log = Logger.getLogger(SAMLObjectTestCaseConfigInitializer.class);
+    
+    /** XMLObject builder factory */
+    protected static XMLObjectBuilderFactory builderFactory;
+
+    /** XMLObject marshaller factory */
+    protected static MarshallerFactory marshallerFactory;
+
+    /** XMLObject unmarshaller factory */
+    protected static UnmarshallerFactory unmarshallerFactory;
+    
     /**
      * Constructor
      * 
@@ -51,7 +70,57 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
     protected void tearDown() throws Exception {
         super.tearDown();
     }
+    /**
+     * Asserts a given XMLObject is equal to an expected DOM. The XMLObject is marshalled and the resulting DOM object
+     * is compared against the expected DOM object for equality.
+     * 
+     * @param expectedDOM the expected DOM
+     * @param xmlObject the XMLObject to be marshalled and compared against the expected DOM
+     */
+    public void assertEquals(Document expectedDOM, XMLObject xmlObject) {
+        assertEquals("Marshalled DOM was not the same as the expected DOM", expectedDOM, xmlObject);
+    }
 
+    /**
+     * Asserts a given XMLObject is equal to an expected DOM. The XMLObject is marshalled and the resulting DOM object
+     * is compared against the expected DOM object for equality.
+     * 
+     * @param failMessage the message to display if the DOMs are not equal
+     * @param expectedDOM the expected DOM
+     * @param xmlObject the XMLObject to be marshalled and compared against the expected DOM
+     */
+    public void assertEquals(String failMessage, Document expectedDOM, XMLObject xmlObject) {
+        Marshaller marshaller = marshallerFactory.getMarshaller(xmlObject);
+        if(marshaller == null){
+            fail("Unable to locate marshaller for " + xmlObject.getElementQName() + " can not perform equality check assertion");
+        }
+        
+        try {
+            Element generatedDOM = marshaller.marshall(xmlObject, ParserPoolManager.getInstance().newDocument());
+            if(log.isDebugEnabled()) {
+                log.debug("Marshalled DOM was " + XMLHelper.nodeToString(generatedDOM));
+            }
+            assertXMLEqual(failMessage, expectedDOM, generatedDOM.getOwnerDocument());
+        } catch (Exception e) {
+            fail("Marshalling failed with the following error: " + e);
+        }
+    }
+    
+    /**
+     * Builds the requested XMLObject.
+     * 
+     * @param objectQName name of the XMLObject
+     * 
+     * @return the build XMLObject
+     */
+    public XMLObject buildXMLObject(QName objectQName){
+        XMLObjectBuilder builder = Configuration.getBuilderFactory().getBuilder(objectQName);
+        if(builder == null){
+            fail("Unable to retrieve builder for object QName " + objectQName);
+        }
+        return builder.buildObject(objectQName.getNamespaceURI(), objectQName.getLocalPart(), objectQName.getPrefix());
+    }
+    
     static {
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
@@ -92,6 +161,10 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLObjectBaseT
             // SAML 2.0 Metadata Validation Configuration
             Document saml2mdValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-validation-config.xml"));
             Configuration.load(saml2mdValidationConfig);
+            
+            builderFactory = Configuration.getBuilderFactory();
+            marshallerFactory = Configuration.getMarshallerFactory();
+            unmarshallerFactory = Configuration.getUnmarshallerFactory();
 
         } catch (Exception e) {
             System.err.println("Unable to configure OpenSAML: " + e);
