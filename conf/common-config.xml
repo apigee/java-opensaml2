@@ -3,7 +3,6 @@
     xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol" 
-    xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
     xmlns:xt="http://www.opensaml.org/xmltooling-config"
     xmlns="http://www.opensaml.org/xmltooling-config">
     
@@ -18,9 +17,9 @@
 
         <!-- XML Schema String -->
         <ObjectProvider qualifiedName="xs:String">
-            <BuilderClass className="org.opensaml.xml.schema.impl.XSIStringBuilder" />
-            <MarshallingClass className="org.opensaml.xml.schema.impl.XSIStringMarshaller" />
-            <UnmarshallingClass className="org.opensaml.xml.schema.impl.XSIStringUnmarshaller" />
+            <BuilderClass className="org.opensaml.xml.schema.impl.XSStringBuilder" />
+            <MarshallingClass className="org.opensaml.xml.schema.impl.XSStringMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xml.schema.impl.XSStringUnmarshaller" />
         </ObjectProvider>
         
     </ObjectProviders>
