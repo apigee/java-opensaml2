@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.ManageNameIDResponse;
 /**
  *
  */
-public class ManageNameIDResponseTest extends StatusResponseTest {
+public class ManageNameIDResponseTest extends StatusResponseTestBase {
 
     /**
      * Constructor
@@ -41,14 +41,14 @@ public class ManageNameIDResponseTest extends StatusResponseTest {
     }
     
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTest#setUp()
+     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ManageNameIDResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
@@ -85,7 +85,7 @@ public class ManageNameIDResponseTest extends StatusResponseTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         ManageNameIDResponse resp = (ManageNameIDResponse) unmarshallElement(singleElementFile);

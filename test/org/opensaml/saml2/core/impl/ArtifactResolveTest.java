@@ -28,7 +28,7 @@ import org.opensaml.saml2.core.ArtifactResolve;
 /**
  *
  */
-public class ArtifactResolveTest extends RequestTest {
+public class ArtifactResolveTest extends RequestTestBase {
 
     /**
      * Constructor
@@ -42,14 +42,14 @@ public class ArtifactResolveTest extends RequestTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#setUp()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
@@ -90,7 +90,7 @@ public class ArtifactResolveTest extends RequestTest {
  
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         ArtifactResolve ar = (ArtifactResolve) unmarshallElement(singleElementFile);

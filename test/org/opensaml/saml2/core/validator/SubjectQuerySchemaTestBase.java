@@ -30,13 +30,13 @@ import org.opensaml.saml2.core.SubjectQuery;
 /**
  *
  */
-public abstract class SubjectQuerySchemaTest extends RequestSchemaTest {
+public abstract class SubjectQuerySchemaTestBase extends RequestSchemaTestBase {
 
     /**
      * Constructor
      *
      */
-    public SubjectQuerySchemaTest() {
+    public SubjectQuerySchemaTestBase() {
         super();
     }
   

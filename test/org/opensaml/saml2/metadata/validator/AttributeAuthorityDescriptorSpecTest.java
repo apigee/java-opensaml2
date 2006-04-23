@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor}.
  */
-public class AttributeAuthorityDescriptorSpecTest extends RoleDescriptorSpecTest {
+public class AttributeAuthorityDescriptorSpecTest extends RoleDescriptorSpecTestBase {
 
     /** Constructor */
     public AttributeAuthorityDescriptorSpecTest() {

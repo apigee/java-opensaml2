@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.AssertionConsumerService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AssertionConsumerService}.
  */
-public class AssertionConsumerServiceSchemaTest extends IndexedEndpointSchemaTest {
+public class AssertionConsumerServiceSchemaTest extends IndexedEndpointSchemaTestBase {
 
     /** Constructor */
     public AssertionConsumerServiceSchemaTest() {

@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.AttributeService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AttributeService}.
  */
-public class AttributeServiceSchemaTest extends EndpointSchemaTest {
+public class AttributeServiceSchemaTest extends EndpointSchemaTestBase {
 
     /** Constructor */
     public AttributeServiceSchemaTest() {

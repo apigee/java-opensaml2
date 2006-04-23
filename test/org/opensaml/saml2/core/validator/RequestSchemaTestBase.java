@@ -19,24 +19,21 @@
  */
 package org.opensaml.saml2.core.validator;
 
-import javax.xml.namespace.QName;
-
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Status;
-import org.opensaml.saml2.core.StatusResponse;
+import org.opensaml.saml2.core.Request;
+
 
 /**
  *
  */
-public abstract class StatusResponseSchemaTest extends SAMLObjectValidatorBaseTestCase {
-
+public abstract class RequestSchemaTestBase extends SAMLObjectValidatorBaseTestCase {
+    
     /**
      * Constructor
      *
      */
-    public StatusResponseSchemaTest() {
+    public RequestSchemaTestBase() {
         super();
     }
 
@@ -47,52 +44,53 @@ public abstract class StatusResponseSchemaTest extends SAMLObjectValidatorBaseTe
         super.setUp();
     }
     
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
+    /**
+     *  Populate the XMLObject argument with valid values for required elements and attributes.
+     *  Useful to subclasses of this test.
      */
     protected void populateRequiredData() {
-        super.populateRequiredData();
-        StatusResponse sr = (StatusResponse) target;
-        Status status = (Status) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME));
-        sr.setStatus(status);
-        sr.setID("abc123");
-        sr.setIssueInstant(new DateTime());
-        // note: Version attribute is set automatically by the implementation
+        Request request = (Request) target;
+        request.setID("abc123");
+        request.setIssueInstant(new DateTime());
+        // note: Version attrib is set automatically by the implementation
     }
     
     /**
-     *  Tests invalid Status child element.
-     */
-    public void testStatusFailure() {
-        StatusResponse sr = (StatusResponse) target;
-        sr.setStatus(null);
-        assertValidationFail("Status was null");
-    }
-    
-    /**
-     *  Tests invalid ID attribute.
+     *  Tests empty ID attribute
      */
     public void testIDFailure() {
-        StatusResponse sr = (StatusResponse) target;
+        Request request = (Request) target;
         
-        sr.setID(null);
+        request.setID(null);
         assertValidationFail("ID attribute was null");
         
-        sr.setID("");
-        assertValidationFail("ID attribute was empty");
+        request.setID("");
+        assertValidationFail("ID attribute was empty string");
         
-        sr.setID("               ");
+        
+        request.setID("               ");
         assertValidationFail("ID attribute was all whitespace");
     }
+    
+    // TODO don't know that we can really test this since can't change the SAMLVersion
+    /**
+     *  Tests null or invalid Version attribute
+     */
+    /*
+    public void testVersionFailure() {
+        testTarget = (Request) buildXMLObject(qname);
+        populateRequired(testTarget);
+        
+    }
+    */
     
     /**
      *  Tests invalid IssueInstant attribute
      */
     public void testIssueInstantFailure() {
-        StatusResponse sr = (StatusResponse) target;
-        sr.setIssueInstant(null);
+        Request request = (Request) target;
+        request.setIssueInstant(null);
         assertValidationFail("IssueInstant attribute was null");
     }
-    
 
 }

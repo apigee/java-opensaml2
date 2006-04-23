@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.Status;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.ResponseSchemaValidator}.
  */
-public class ResponseSchemaTest extends ResponseAbstractTypeSchemaTest  {
+public class ResponseSchemaTest extends ResponseAbstractTypeSchemaTestBase  {
 
     /** Constructor */
     public ResponseSchemaTest() {

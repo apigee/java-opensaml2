@@ -21,15 +21,15 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Subject;
-import org.opensaml.saml1.core.SubjectStatement;
+import org.opensaml.saml1.core.SubjectQuery;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.SubjectStatementSchemaValidator}.
+ * Test class for {@link org.opensaml.saml1.core.validator.SubjectQuerySchemaValidator}.
  */
-public abstract class SubjectStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class SubjectQuerySpecTestBase extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SubjectStatementSchemaTest() {
+    public SubjectQuerySpecTestBase() {
         super();
     }
 
@@ -38,17 +38,10 @@ public abstract class SubjectStatementSchemaTest extends SAMLObjectValidatorBase
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
-
-        SubjectStatement subjectStatement= (SubjectStatement) target;
         
+        SubjectQuery query = (SubjectQuery) target;
         QName qname = new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        subjectStatement.setSubject((Subject)buildXMLObject(qname));
+        query.setSubject((Subject) buildXMLObject(qname));
     }
     
-    public void testMissingSubject(){
-        SubjectStatement subjectStatement= (SubjectStatement) target;
-
-        subjectStatement.setSubject(null);
-        assertValidationFail("No Subject methods - should fail");
-    }
 }

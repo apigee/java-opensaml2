@@ -28,7 +28,7 @@ import org.opensaml.saml2.core.AssertionIDRequest;
 /**
  *
  */
-public class AssertionIDRequestSchemaTest extends RequestSchemaTest {
+public class AssertionIDRequestSchemaTest extends RequestSchemaTestBase {
 
     /**
      * Constructor

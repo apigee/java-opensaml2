@@ -23,10 +23,10 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.RoleDescriptor}.
  */
-public abstract class RoleDescriptorSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class RoleDescriptorSpecTestBase extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public RoleDescriptorSchemaTest() {
+    public RoleDescriptorSpecTestBase() {
  
     }
  
@@ -35,8 +35,7 @@ public abstract class RoleDescriptorSchemaTest extends SAMLObjectValidatorBaseTe
      */
     protected void populateRequiredData() {
         RoleDescriptor roleDescriptor = (RoleDescriptor) target;
-
-        roleDescriptor.addSupportedProtocol("protocol");
+        roleDescriptor.addSupportedProtocol("urn:oasis:names:tc:SAML:2.0:protocol");
     }
 
 
@@ -48,7 +47,7 @@ public abstract class RoleDescriptorSchemaTest extends SAMLObjectValidatorBaseTe
     public void testProtocol() throws ValidationException {
         RoleDescriptor roleDescriptor = (RoleDescriptor) target;
 
-        roleDescriptor.removeSupportedProtocol("protocol");
-        assertValidationFail("Protocols list was empty, should raise a Validation Exception.");
+        roleDescriptor.removeSupportedProtocol("urn:oasis:names:tc:SAML:2.0:protocol");
+        assertValidationFail("Protocols did not contain SAML protocol namespace, should raise a Validation Exception.");
     }
 }

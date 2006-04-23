@@ -14,34 +14,41 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.core.validator;
-
-import javax.xml.namespace.QName;
+package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Subject;
-import org.opensaml.saml1.core.SubjectQuery;
+import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Test class for {@link org.opensaml.saml1.core.validator.SubjectQuerySchemaValidator}.
+ * Test case for {@link org.opensaml.saml2.metadata.RoleDescriptor}.
  */
-public abstract class SubjectQuerySpecTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class RoleDescriptorSchemaTestBase extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public SubjectQuerySpecTest() {
-        super();
+    public RoleDescriptorSchemaTestBase() {
+ 
     }
-
+ 
     /*
      * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
      */
     protected void populateRequiredData() {
-        super.populateRequiredData();
-        
-        SubjectQuery query = (SubjectQuery) target;
-        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        query.setSubject((Subject) buildXMLObject(qname));
+        RoleDescriptor roleDescriptor = (RoleDescriptor) target;
+
+        roleDescriptor.addSupportedProtocol("protocol");
     }
-    
+
+
+    /**
+     * Tests for Protocol failure.
+     * 
+     * @throws ValidationException
+     */
+    public void testProtocol() throws ValidationException {
+        RoleDescriptor roleDescriptor = (RoleDescriptor) target;
+
+        roleDescriptor.removeSupportedProtocol("protocol");
+        assertValidationFail("Protocols list was empty, should raise a Validation Exception.");
+    }
 }

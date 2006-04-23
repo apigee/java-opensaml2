@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
@@ -28,26 +25,22 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Status;
-import org.opensaml.saml2.core.StatusResponse;
+import org.opensaml.saml2.core.Request;
 
 /**
  *
  */
-public abstract class StatusResponseTest extends SAMLObjectBaseTestCase {
+public abstract class RequestTestBase extends SAMLObjectBaseTestCase {
     
-    /** Expected ID attribute */
+    /** Expected ID value */
     protected String expectedID;
     
-    /** Expected InResponseTo attribute */
-    protected String expectedInResponseTo;
-    
-    /** Expected Version attribute */
+    /** Expected SAML version */
     protected SAMLVersion expectedSAMLVersion;
     
     /** Expected IssueInstant attribute */
     protected DateTime expectedIssueInstant;
-    
+
     /** Expected Destination attribute */
     protected String expectedDestination;
     
@@ -57,39 +50,33 @@ public abstract class StatusResponseTest extends SAMLObjectBaseTestCase {
     /** Expected Issuer child element */
     protected Issuer expectedIssuer;
     
-    /** Expected Status child element */
-    protected Status expectedStatus;
-    
-    
     //TODO Signature tests ?
     //TODO Extensions tests - need implementation
-
+    
     /**
      * Constructor
      *
      */
-    public StatusResponseTest() {
+    public RequestTestBase() {
         
     }
+    
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
-        expectedID = "def456";
-        expectedInResponseTo = "abc123";
+        expectedID = "abc123";
         expectedSAMLVersion = SAMLVersion.VERSION_20;
         expectedIssueInstant = new DateTime(2006, 2, 21, 16, 40, 0, 0, ISOChronology.getInstanceUTC());
-        expectedDestination = "http://sp.example.org/endpoint";
+        expectedDestination = "http://idp.example.org/endpoint";
         expectedConsent = "urn:string:consent";
         
         QName issuerQName = new QName(SAMLConstants.SAML20_NS, Issuer.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         expectedIssuer = (Issuer) buildXMLObject(issuerQName);
-        
-        QName statusQName = new QName(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-        expectedStatus = (Status) buildXMLObject(statusQName);
     }
+
 
     /**
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
@@ -109,12 +96,12 @@ public abstract class StatusResponseTest extends SAMLObjectBaseTestCase {
      * @param samlObject
      */
     protected void populateRequiredAttributes(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        Request req = (Request) samlObject;
         
-        sr.setID(expectedID);
-        sr.setIssueInstant(expectedIssueInstant);
-        // NOTE:  the SAML Version attribute is set automatically by the impl superclas
-        
+        req.setID(expectedID);
+        req.setIssueInstant(expectedIssueInstant);
+        // NOTE:  the SAML Version attribute is set automatically by the impl superclass
+          
     }
     
     /**
@@ -124,11 +111,10 @@ public abstract class StatusResponseTest extends SAMLObjectBaseTestCase {
      * @param samlObject
      */
     protected void populateOptionalAttributes(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        Request req = (Request) samlObject;
         
-        sr.setInResponseTo(expectedInResponseTo);
-        sr.setConsent(expectedConsent);
-        sr.setDestination(expectedDestination);
+        req.setConsent(expectedConsent);
+        req.setDestination(expectedDestination);
         
     }
     
@@ -139,46 +125,42 @@ public abstract class StatusResponseTest extends SAMLObjectBaseTestCase {
      * @param samlObject
      */
     protected void populateChildElements(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        Request req = (Request) samlObject;
         
-        sr.setIssuer(expectedIssuer);
-        sr.setStatus(expectedStatus);
+        req.setIssuer(expectedIssuer);
         
     }
     
     protected void helperTestSingleElementUnmarshall(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        Request req = (Request) samlObject;
         
-        assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, sr.getID());
+        assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, req.getID());
         //TODO Should SAMLVersion  implement equals() ?
-        assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), sr.getVersion().toString());
-        assertEquals("Unmarshalled IssueInstant attribute was not the expected value", 0, expectedIssueInstant.compareTo(sr.getIssueInstant()));
+        assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), req.getVersion().toString());
+        assertEquals("Unmarshalled IssueInstant attribute was not the expected value", 0, expectedIssueInstant.compareTo(req.getIssueInstant()));
         
-        assertNull("InResponseTo was not null", sr.getInResponseTo());
-        assertNull("Consent was not null", sr.getConsent());
-        assertNull("Destination was not null", sr.getDestination());
+        assertNull("Consent was not null", req.getConsent());
+        assertNull("Destination was not null", req.getDestination());
         
     }
     
     protected void helperTestSingleElementOptionalAttributesUnmarshall(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        Request req = (Request) samlObject;
         
-        assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, sr.getID());
+        assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, req.getID());
         //TODO Should SAMLVersion  implement equals() ?
-        assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), sr.getVersion().toString());
-        assertEquals("Unmarshalled IssueInstant attribute was not the expected value", 0, expectedIssueInstant.compareTo(sr.getIssueInstant()));
+        assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), req.getVersion().toString());
+        assertEquals("Unmarshalled IssueInstant attribute was not the expected value", 0, expectedIssueInstant.compareTo(req.getIssueInstant()));
         
-        assertEquals("Unmarshalled InResponseTo attribute was not the expected value", expectedInResponseTo, sr.getInResponseTo());
-        assertEquals("Unmarshalled Consent attribute was not the expected value", expectedConsent, sr.getConsent());
-        assertEquals("Unmarshalled Destination attribute was not the expected value", expectedDestination, sr.getDestination());
+        assertEquals("Unmarshalled Consent attribute was not the expected value", expectedConsent, req.getConsent());
+        assertEquals("Unmarshalled Destination attribute was not the expected value", expectedDestination, req.getDestination());
         
     }
 
     protected void helperTestChildElementsUnmarshall(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        Request req = (Request) samlObject;
         
-        assertNotNull("Issuer was null", sr.getIssuer());
-        assertNotNull("Status was null", sr.getIssuer());
+        assertNotNull("Issuer was null", req.getIssuer());
+        
     }
-
 }

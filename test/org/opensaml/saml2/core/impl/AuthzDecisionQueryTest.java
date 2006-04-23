@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.Evidence;
 /**
  *
  */
-public class AuthzDecisionQueryTest extends SubjectQueryTest {
+public class AuthzDecisionQueryTest extends SubjectQueryTestBase {
     
     /** Expected Resource attribute value */
     private String expectedResource;
@@ -50,7 +50,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTest#setUp()
+     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
@@ -59,7 +59,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
@@ -111,7 +111,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTest {
 
     /**
      * 
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         AuthzDecisionQuery query = (AuthzDecisionQuery) unmarshallElement(singleElementFile);

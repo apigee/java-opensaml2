@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.Response;
 /**
  *
  */
-public class ResponseSchemaTest extends StatusResponseSchemaTest {
+public class ResponseSchemaTest extends StatusResponseSchemaTestBase {
 
     /**
      * Constructor

@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.ManageNameIDService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.ManageNameIDService}.
  */
-public class ManageNameIDServiceSchemaTest extends EndpointSchemaTest {
+public class ManageNameIDServiceSchemaTest extends EndpointSchemaTestBase {
 
     /** Constructor */
     public ManageNameIDServiceSchemaTest() {

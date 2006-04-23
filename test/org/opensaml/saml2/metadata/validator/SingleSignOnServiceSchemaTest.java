@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.SingleSignOnService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.SingleSignOnService}.
  */
-public class SingleSignOnServiceSchemaTest extends EndpointSchemaTest {
+public class SingleSignOnServiceSchemaTest extends EndpointSchemaTestBase {
 
     /** Constructor */
     public SingleSignOnServiceSchemaTest() {

@@ -18,15 +18,15 @@ package org.opensaml.saml1.core.validator;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
-import org.opensaml.saml1.core.ResponseAbstractType;
+import org.opensaml.saml1.core.RequestAbstractType;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.ResponseAbstractTypeSchemaValidator}.
+ * Test case for {@link org.opensaml.saml1.core.validator.RequestSchemaValidator}.
  */
-public abstract class ResponseAbstractTypeSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class RequestAbstractTypeSchemaTestBase extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public ResponseAbstractTypeSchemaTest() {
+    public RequestAbstractTypeSchemaTestBase() {
         super();
     }
 
@@ -36,27 +36,31 @@ public abstract class ResponseAbstractTypeSchemaTest extends SAMLObjectValidator
     protected void populateRequiredData() {
         super.populateRequiredData();
         
-        ResponseAbstractType response = (ResponseAbstractType) target;
-        response.setID("Ident");
-        response.setIssueInstant(new DateTime());
+        // TODO - remove when builder always takes a context
+        target = buildXMLObject(targetQName);
+        RequestAbstractType request = (RequestAbstractType) target;
+        request.setID("Ident");
+        request.setIssueInstant(new DateTime());
     }
     
+
     public void testMissingID() {
-        ResponseAbstractType response = (ResponseAbstractType) target;
-
-        response.setID(null);
+        RequestAbstractType request = (RequestAbstractType) target;
+        
+        request.setID(null);
         assertValidationFail("RequestID is null, should raise a Validation Exception");
-
-        response.setID("");
+        
+        request.setID("");
         assertValidationFail("RequestID is empty, should raise a Validation Exception");
-
-        response.setID(" ");
-        assertValidationFail("RequestID is whitespace, should raise a Validation Exception");
+        
+        request.setID(" ");
+        assertValidationFail("RequestID is invalid, should raise a Validation Exception");
     }
 
     public void testMissingIssueInstant() {
-        ResponseAbstractType response = (ResponseAbstractType) target;
-        response.setIssueInstant(null);
-        assertValidationFail("No IssueInstant attribute present, should raise a Validation Exception");
+        RequestAbstractType request = (RequestAbstractType) target;
+        request.setIssueInstant(null);
+        assertValidationFail("Both IssueInstant attribute present, should raise a Validation Exception");
     }
+    
 }

@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.ArtifactResponse;
 /**
  *
  */
-public class ArtifactResponseSchemaTest extends StatusResponseSchemaTest {
+public class ArtifactResponseSchemaTest extends StatusResponseSchemaTestBase {
 
     /**
      * Constructor

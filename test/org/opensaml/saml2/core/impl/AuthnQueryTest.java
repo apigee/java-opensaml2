@@ -28,7 +28,7 @@ import org.opensaml.saml2.core.RequestedAuthnContext;
 /**
  *
  */
-public class AuthnQueryTest extends SubjectQueryTest {
+public class AuthnQueryTest extends SubjectQueryTestBase {
     
     /** Expected SessionIndex attribute value */
     private String expectedSessionIndex;
@@ -46,7 +46,7 @@ public class AuthnQueryTest extends SubjectQueryTest {
     
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTest#setUp()
+     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
@@ -56,7 +56,7 @@ public class AuthnQueryTest extends SubjectQueryTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
@@ -98,7 +98,7 @@ public class AuthnQueryTest extends SubjectQueryTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         AuthnQuery query = (AuthnQuery) unmarshallElement(singleElementFile);

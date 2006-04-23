@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.ArtifactResponse;
 /**
  *
  */
-public class ArtifactResponseTest extends StatusResponseTest {
+public class ArtifactResponseTest extends StatusResponseTestBase {
 
     /**
      * Constructor
@@ -43,7 +43,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
     
     
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTest#setUp()
+     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
@@ -51,7 +51,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
@@ -90,7 +90,7 @@ public class ArtifactResponseTest extends StatusResponseTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         ArtifactResponse ar = (ArtifactResponse) unmarshallElement(singleElementFile);

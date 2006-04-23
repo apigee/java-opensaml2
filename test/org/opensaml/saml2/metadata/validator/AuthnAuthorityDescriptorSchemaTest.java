@@ -26,7 +26,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor}.
  */
-public class AuthnAuthorityDescriptorSchemaTest extends RoleDescriptorSchemaTest {
+public class AuthnAuthorityDescriptorSchemaTest extends RoleDescriptorSchemaTestBase {
 
     /** Constructor */
     public AuthnAuthorityDescriptorSchemaTest() {

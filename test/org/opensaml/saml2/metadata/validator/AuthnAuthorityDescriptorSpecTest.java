@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor}.
  */
-public class AuthnAuthorityDescriptorSpecTest extends RoleDescriptorSpecTest {
+public class AuthnAuthorityDescriptorSpecTest extends RoleDescriptorSpecTestBase {
 
     /** Constructor */
     public AuthnAuthorityDescriptorSpecTest() {

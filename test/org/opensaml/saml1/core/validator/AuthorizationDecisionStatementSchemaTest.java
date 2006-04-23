@@ -26,7 +26,7 @@ import org.opensaml.saml1.core.DecisionTypeEnumeration;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AuthorizationDecisionStatementSchemaValidator}.
  */
-public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSchemaTest {
+public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSchemaTestBase {
 
     /** Constructor */
     public AuthorizationDecisionStatementSchemaTest() {

@@ -27,7 +27,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.IDPSSODescriptor}.
  */
-public class IDPSSODescriptorSpecTest extends SSODescriptorSpecTest {
+public class IDPSSODescriptorSpecTest extends SSODescriptorSpecTestBase {
 
     /** Constructor */
     public IDPSSODescriptorSpecTest() {

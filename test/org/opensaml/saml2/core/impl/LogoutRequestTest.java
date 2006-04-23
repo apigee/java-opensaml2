@@ -31,7 +31,7 @@ import org.opensaml.saml2.core.SessionIndex;
 /**
  *
  */
-public class LogoutRequestTest extends RequestTest {
+public class LogoutRequestTest extends RequestTestBase {
     
     /** Expected Reason attribute value */
     private String expectedReason;
@@ -54,7 +54,7 @@ public class LogoutRequestTest extends RequestTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#setUp()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
@@ -64,7 +64,7 @@ public class LogoutRequestTest extends RequestTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
@@ -111,7 +111,7 @@ public class LogoutRequestTest extends RequestTest {
     }
     
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         LogoutRequest req = (LogoutRequest) unmarshallElement(singleElementFile);

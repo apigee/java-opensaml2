@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.SPSSODescriptor;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.SPSSODescriptor}.
  */
-public class SPSSODescriptorSpecTest extends SSODescriptorSpecTest {
+public class SPSSODescriptorSpecTest extends SSODescriptorSpecTestBase {
 
     /** Constructor */
     public SPSSODescriptorSpecTest() {

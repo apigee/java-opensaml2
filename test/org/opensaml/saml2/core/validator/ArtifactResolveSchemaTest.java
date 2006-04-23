@@ -28,7 +28,7 @@ import org.opensaml.saml2.core.ArtifactResolve;
 /**
  *
  */
-public class ArtifactResolveSchemaTest extends RequestSchemaTest {
+public class ArtifactResolveSchemaTest extends RequestSchemaTestBase {
 
     /**
      * Constructor

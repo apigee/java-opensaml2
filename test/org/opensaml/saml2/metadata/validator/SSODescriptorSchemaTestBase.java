@@ -19,10 +19,10 @@ package org.opensaml.saml2.metadata.validator;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.SSODescriptor}.
  */
-public abstract class SSODescriptorSchemaTest extends RoleDescriptorSchemaTest {
+public abstract class SSODescriptorSchemaTestBase extends RoleDescriptorSchemaTestBase {
 
     /** Constructor */
-    public SSODescriptorSchemaTest() {
+    public SSODescriptorSchemaTestBase() {
 
     }
 }

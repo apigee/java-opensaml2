@@ -4,7 +4,7 @@
 
     <property name="lib.dir" value="${basedir}/lib" />
     <property name="core-src.dir" value="${basedir}/src" />
-    <property name="schema.dir" value="${core-src.dir}/schema" />
+	<property name="core-schema.dir" value="${basedir}/src/schema" />
 	<property name="conf.dir" value="${basedir}/conf" />
     <property name="test-src.dir" value="${basedir}/test" />
     <property name="doc.dir" value="${basedir}/doc" />
@@ -13,12 +13,16 @@
     <property name="build.dir" value="${basedir}/build" />
     <property name="core-classes.dir" value="${build.dir}/core" />
     <property name="test-classes.dir" value="${build.dir}/test" />
-    <property name="test-results.dir" value="${doc.dir}/test" />
+    <property name="test-results.dir" value="${build.dir}/test-results" />
+	<property name="test-report.dir" value="${doc.dir}/test-report" />
     <property name="dist.dir" value="${basedir}/dist" />
 
-    <property name="target.jdk" value="1.5" />
+    <property name="jdk.target" value="1.5" />
 
     <property name="version" value="2.0-TP1" />
+	<property name="jar.name" value="opensaml-${version}-jdk-${jdk.target}.jar" />
+	<property name="src-dist.name" value="opensaml-${version}-jdk-${jdk.target}-src" />
+	<property name="bin-dist.name" value="opensaml-${version}-jdk-${jdk.target}-bin" />
     <property name="year" value="2002-2005" />
     <property name="copyright" value="Copyright &#169; ${year} UCAID. All Rights Reserved." />
 
@@ -28,7 +32,9 @@
     <!-- Classpath for building OpenSAML -->
     <path id="build-path">
         <fileset dir="${build-lib.dir}" includes="**/*.jar" />
-        <fileset dir="${lib.dir}" includes="**/*.jar" />
+        <fileset dir="${lib.dir}" includes="**/*.jar">
+        	<exclude name="xmltooling-*-jdk-1.4.jar"/>
+    	</fileset>
     </path>
 
     <!-- Classpath for testing OpenSAML classes-->
@@ -67,16 +73,6 @@
             <classpath refid="test-path" />
         </javac>
 
-        <copy toDir="${test-classes.dir}/conf">
-            <fileset dir="${test-src.dir}/conf" />
-        </copy>
-        
-        <copy toDir="${test-classes.dir}/data">
-            <fileset dir="${test-src.dir}/data" />
-        </copy>
-
-        <copy file="${test-src.dir}/log4j.xml" tofile="${test-classes.dir}/log4j.xml"/>
-
     </target>
 
     <!-- Compile and run OpenSAML unit tests -->
@@ -85,13 +81,19 @@
 
         <junit printsummary="off" fork="yes" haltonerror="true" haltonfailure="true" dir="${basedir}">
             <classpath refid="test-path" />
-            <formatter type="plain" />
+            <formatter type="xml" />
             <batchtest todir="${test-results.dir}">
                 <fileset dir="${test-classes.dir}">
                     <include name="**/*Test.class" />
                 </fileset>
             </batchtest>
         </junit>
+    	<junitreport todir="${test-results.dir}">
+    	  <fileset dir="${test-results.dir}">
+    	    <include name="TEST-*.xml"/>
+    	  </fileset>
+    	  <report format="frames" todir="${test-report.dir}"/>
+    	</junitreport>
     </target>
 
     <!-- Javadoc core (non-test) OpenSAML classes -->
@@ -118,16 +120,17 @@
     <!-- Removes all build generated content -->
     <target name="clean" depends="clean-compile">
         <delete dir="${javadoc.dir}" />
+    	<delete dir="${test-report.dir}" />
         <delete dir="${test-results.dir}" />
         <delete dir="${dist.dir}" />
     </target>
 
     <!-- Create OpenSAML JAR file -->
-    <target name="package" depends="compile-core">
+    <target name="package" depends="compile-core, test">
         <mkdir dir="${dist.dir}" />
 
         <if>
-            <equals arg1="${target.jdk}" arg2="1.4" />
+            <equals arg1="${jdk.target}" arg2="1.4" />
             <then>
                 <java classname="com.rc.retroweaver.Weaver">
                     <arg value="-source" />
@@ -140,17 +143,18 @@
                 </java>
 
                 <echo message="**************************************************************" />
-                <echo message="***  Remember, you must include the retroweaver-1.1-rt.jar ***" />
-                <echo message="***  file, located in the lib directory, along with the    ***" />
-                <echo message="***  opensaml-${version}-jdk-${jdk.target}.jar on your     ***" />
-                <echo message="***  classpath in order to use this with JDK 1.4           ***" />
+                <echo message="     Remember, you must include the retroweaver-rt-1.2.2.jar" />
+                <echo message="     file, located in the lib directory, along with the" />
+                <echo message="     ${jar.name} on your" />
+                <echo message="     classpath in order to use this with JDK 1.4" />
                 <echo message="**************************************************************" />
 
             </then>
         </if>
 
-        <jar destfile="${dist.dir}/opensaml-${version}-jdk-${target.jdk}.jar" basedir="${core-classes.dir}" whenempty="fail" />
-
+        <jar destfile="${dist.dir}/${jar.name}" basedir="${core-classes.dir}" whenempty="fail">
+        	<zipfileset dir="${core-schema.dir}" prefix="schema"/>
+    	</jar>
     </target>
 
     <!-- **************************************************************** -->
@@ -160,67 +164,50 @@
     <!-- **************************************************************** -->
 
     <!-- Create TGZ source distribution -->
-    <target name="tgz-src-dist" depends="package, javadoc, test">
-        <tar tarfile="${dist.dir}/opensaml-${version}-jdk-${target.jdk}-src.tgz" compression="gzip" basedir="${basedir}">
-            <tarfileset dir="${basedir}">
-                <include name="${build-lib.dir}" />
-                <include name="${doc.dir}" />
-                <include name="${lib.dir}" />
-                <include name="${core-src.dir}" />
-                <include name="${test-src.dir}" />
-                <include name="./*.*" />
-                <include name="${dist.dir}" />
-
-                <!-- Don't want to include the results of our jUnit tests -->
-                <exclude name="${test-results.dir}" />
-            </tarfileset>
+    <target name="tgz-src-dist" depends="package, javadoc">
+        <tar tarfile="${dist.dir}/${src-dist.name}.tgz" compression="gzip">
+        	<tarfileset dir="${build-lib.dir}" prefix="/build-lib/"/>
+        	<tarfileset dir="${lib.dir}" prefix="/lib/"/>
+        	<tarfileset dir="${core-src.dir}" prefix="/src/"/>
+    		<tarfileset dir="${test-src.dir}" prefix="/test/"/>
+        	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
+        	<tarfileset dir="${dist.dir}" prefix="/dist/"/>
+        	<tarfileset file="${basedir}/*.*" prefix="/"/>
         </tar>
+    	<checksum file="${dist.dir}/${src-dist.name}.tgz" />
     </target>
 
     <!-- Create TGZ binary distribution -->
-    <target name="tgz-bin-dist" depends="package, javadoc, test">
-        <tar tarfile="${build.dir}/opensaml-${version}-jdk-${target.jdk}-bin.tgz" compression="gzip" basedir="${basedir}">
-            <tarfileset dir="${basedir}">
-                <include name="${doc.dir}" />
-                <include name="${lib.dir}" />
-                <include name="${dist.dir}" />
-
-                <!-- Don't want to include the results of our jUnit tests -->
-                <exclude name="${test-results.dir}" />
-            </tarfileset>
+    <target name="tgz-bin-dist" depends="package, javadoc">
+        <tar tarfile="${dist.dir}/${bin-dist.name}.tgz" compression="gzip">
+        	<tarfileset dir="${lib.dir}" prefix="/lib/"/>
+        	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
+        	<tarfileset dir="${dist.dir}" prefix="/dist/"/>
         </tar>
+    	<checksum file="${dist.dir}/${bin-dist.name}.tgz" />
     </target>
 
     <!-- Create ZIP source distribution -->
-    <target name="zip-src-dist" depends="package, javadoc, test">
-        <zip zipfile="opensaml-${version}-jdk-${target.jdk}-src.zip" whenempty="fail" basedir="${basedir}">
-            <zipfileset dir="${basedir}">
-                <include name="${build-lib.dir}" />
-                <include name="${doc.dir}" />
-                <include name="${lib.dir}" />
-                <include name="${core-src.dir}" />
-                <include name="${test-src.dir}" />
-                <include name="./*.*" />
-                <include name="${dist.dir}" />
-
-                <!-- Don't want to include the results of our jUnit tests -->
-                <exclude name="${test-results.dir}" />
-            </zipfileset>
+    <target name="zip-src-dist" depends="package, javadoc">
+        <zip zipfile="${dist.dir}/${src-dist.name}.zip" whenempty="fail">
+        	<zipfileset dir="${build-lib.dir}" prefix="build-lib/"/>
+        	<zipfileset dir="${lib.dir}" prefix="lib/"/>
+        	<zipfileset dir="${core-src.dir}" prefix="src/"/>
+    		<zipfileset dir="${test-src.dir}" prefix="test/"/>
+        	<zipfileset dir="${doc.dir}" prefix="doc/"/>
+        	<zipfileset dir="${dist.dir}" prefix="dist/"/>
+        	<zipfileset file="${basedir}/*.*" prefix=""/>
         </zip>
+    	<checksum file="${dist.dir}/${src-dist.name}.zip" />
     </target>
 
     <!-- Create ZIP binary distribution -->
-    <target name="zip-bin-dist" depends="package, javadoc, test">
-        <zip zipfile="opensaml-${version}-jdk-${target.jdk}-bin.zip" whenempty="fail" basedir="${basedir}">
-            <zipfileset dir="${basedir}">
-                <include name="${doc.dir}" />
-                <include name="${lib.dir}" />
-                <include name="${dist.dir}" />
-
-                <!-- Don't want to include the results of our jUnit tests -->
-                <exclude name="${test-results.dir}" />
-            </zipfileset>
+    <target name="zip-bin-dist" depends="package, javadoc">
+        <zip zipfile="${dist.dir}/${bin-dist.name}.zip" whenempty="fail">
+        	<zipfileset dir="${lib.dir}" prefix="lib/"/>
+        	<zipfileset dir="${doc.dir}" prefix="doc/"/>
+        	<zipfileset dir="${dist.dir}" prefix="dist/"/>
         </zip>
+    	<checksum file="${dist.dir}/${bin-dist.name}.zip" />
     </target>
-
 </project>

@@ -23,10 +23,10 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AddtionalMetadataLocation}.
  */
-public abstract class EndpointSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public abstract class EndpointSchemaTestBase extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public EndpointSchemaTest() {
+    public EndpointSchemaTestBase() {
 
     }
 

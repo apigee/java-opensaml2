@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.NameIDMappingService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.NameIDMappingService}.
  */
-public class NameIDMappingServiceSchemaTest extends EndpointSchemaTest {
+public class NameIDMappingServiceSchemaTest extends EndpointSchemaTestBase {
 
     /** Constructor */
     public NameIDMappingServiceSchemaTest() {

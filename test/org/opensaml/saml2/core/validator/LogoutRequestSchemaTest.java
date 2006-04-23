@@ -28,7 +28,7 @@ import org.opensaml.saml2.core.NameID;
 /**
  *
  */
-public class LogoutRequestSchemaTest extends RequestSchemaTest {
+public class LogoutRequestSchemaTest extends RequestSchemaTestBase {
 
     /**
      * Constructor

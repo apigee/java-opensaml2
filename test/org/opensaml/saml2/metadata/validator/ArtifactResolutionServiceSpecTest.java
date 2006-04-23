@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.ArtifactResolutionService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.ArtifactResolutionService}.
  */
-public class ArtifactResolutionServiceSpecTest extends IndexedEndpointSchemaTest {
+public class ArtifactResolutionServiceSpecTest extends IndexedEndpointSchemaTestBase {
 
     /** Constructor */
     public ArtifactResolutionServiceSpecTest() {

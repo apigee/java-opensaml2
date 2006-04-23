@@ -18,19 +18,19 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AuthenticationQuery;
+import org.opensaml.saml1.core.Subject;
+import org.opensaml.saml1.core.SubjectQuery;
 
 /**
- * Test case for {@link org.opensaml.saml1.core.validator.AuthenticationQuerySchemaValidator}.
+ * Test class for {@link org.opensaml.saml1.core.validator.SubjectQuerySchemaValidator}.
  */
-public class AuthenticationQuerySchemaTest extends SubjectQuerySchemaTestBase  {
+public abstract class SubjectQuerySchemaTestBase extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
-    public AuthenticationQuerySchemaTest() {
+    public SubjectQuerySchemaTestBase() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
-        validator = new AuthenticationQuerySchemaValidator();
     }
 
     /*
@@ -38,6 +38,15 @@ public class AuthenticationQuerySchemaTest extends SubjectQuerySchemaTestBase  {
      */
     protected void populateRequiredData() {
         super.populateRequiredData();
+        
+        SubjectQuery query = (SubjectQuery) target;
+        QName qname = new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        query.setSubject((Subject) buildXMLObject(qname));
     }
     
+    public void testSubject() {
+        SubjectQuery query = (SubjectQuery) target;
+        query.setSubject(null);
+        assertValidationFail("No Subject, should raise a Validation Exception");
+    }
 }

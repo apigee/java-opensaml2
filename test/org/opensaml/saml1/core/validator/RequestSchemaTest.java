@@ -28,7 +28,7 @@ import org.opensaml.saml1.core.Request;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.RequestSchemaValidator}.
  */
-public class RequestSchemaTest extends RequestAbstractTypeSchemaTest  {
+public class RequestSchemaTest extends RequestAbstractTypeSchemaTestBase  {
 
     /** Constructor */
     public RequestSchemaTest() {

@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.NameIDPolicy;
 /**
  *
  */
-public class NameIDMappingRequestSchemaTest extends RequestSchemaTest {
+public class NameIDMappingRequestSchemaTest extends RequestSchemaTestBase {
 
     /**
      * Constructor

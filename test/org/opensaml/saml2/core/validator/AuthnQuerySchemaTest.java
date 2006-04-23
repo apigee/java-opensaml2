@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.AuthnQuery;
 /**
  *
  */
-public class AuthnQuerySchemaTest extends SubjectQuerySchemaTest {
+public class AuthnQuerySchemaTest extends SubjectQuerySchemaTestBase {
 
     /**
      * Constructor

@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AuthorizationDecisionQuerySchemaValidator}.
  */
-public class AuthorizationDecisionQuerySchemaTest extends SubjectQuerySchemaTest  {
+public class AuthorizationDecisionQuerySchemaTest extends SubjectQuerySchemaTestBase  {
 
     /** Constructor */
     public AuthorizationDecisionQuerySchemaTest() {

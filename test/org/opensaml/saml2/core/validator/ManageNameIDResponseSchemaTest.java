@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.ManageNameIDResponse;
 /**
  *
  */
-public class ManageNameIDResponseSchemaTest extends StatusResponseSchemaTest {
+public class ManageNameIDResponseSchemaTest extends StatusResponseSchemaTestBase {
 
     /**
      * Constructor

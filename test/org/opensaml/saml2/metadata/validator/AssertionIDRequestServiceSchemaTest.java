@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.AssertionIDRequestService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AssertionIDRequestService}.
  */
-public class AssertionIDRequestServiceSchemaTest extends EndpointSchemaTest {
+public class AssertionIDRequestServiceSchemaTest extends EndpointSchemaTestBase {
 
     /** Constructor */
     public AssertionIDRequestServiceSchemaTest() {

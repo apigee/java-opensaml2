@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.SingleLogoutService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.SingleLogoutService}.
  */
-public class SingleLogoutServiceSchemaTest extends EndpointSchemaTest {
+public class SingleLogoutServiceSchemaTest extends EndpointSchemaTestBase {
 
     /** Constructor */
     public SingleLogoutServiceSchemaTest() {

@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.AuthzService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AuthzService}.
  */
-public class AuthzServiceSchemaTest extends EndpointSchemaTest {
+public class AuthzServiceSchemaTest extends EndpointSchemaTestBase {
 
     /** Constructor */
     public AuthzServiceSchemaTest() {

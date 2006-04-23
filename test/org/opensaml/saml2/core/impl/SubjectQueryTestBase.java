@@ -29,19 +29,19 @@ import org.opensaml.saml2.core.SubjectQuery;
 /**
  *
  */
-public abstract class SubjectQueryTest extends RequestTest {
+public abstract class SubjectQueryTestBase extends RequestTestBase {
 
     /**
      * Constructor
      *
      */
-    public SubjectQueryTest() {
+    public SubjectQueryTestBase() {
         super();
     }
     
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#setUp()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
@@ -49,18 +49,18 @@ public abstract class SubjectQueryTest extends RequestTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
      */
     public abstract void testSingleElementUnmarshall();
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
      */
     public abstract void testSingleElementMarshall();
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#populateChildElements(org.opensaml.common.SAMLObject)
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#populateChildElements(org.opensaml.common.SAMLObject)
      */
     protected void populateChildElements(SAMLObject samlObject) {
         SubjectQuery sq = (SubjectQuery) samlObject;
@@ -73,7 +73,7 @@ public abstract class SubjectQueryTest extends RequestTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#populateOptionalAttributes(org.opensaml.common.SAMLObject)
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#populateOptionalAttributes(org.opensaml.common.SAMLObject)
      */
     protected void populateOptionalAttributes(SAMLObject samlObject) {
         super.populateOptionalAttributes(samlObject);
@@ -81,7 +81,7 @@ public abstract class SubjectQueryTest extends RequestTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#populateRequiredAttributes(org.opensaml.common.SAMLObject)
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#populateRequiredAttributes(org.opensaml.common.SAMLObject)
      */
     protected void populateRequiredAttributes(SAMLObject samlObject) {
         super.populateRequiredAttributes(samlObject);
@@ -89,7 +89,7 @@ public abstract class SubjectQueryTest extends RequestTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#helperTestChildElementsUnmarshall(org.opensaml.common.SAMLObject)
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#helperTestChildElementsUnmarshall(org.opensaml.common.SAMLObject)
      */
     protected void helperTestChildElementsUnmarshall(SAMLObject samlObject) {
         SubjectQuery sq = (SubjectQuery) samlObject;
@@ -99,7 +99,7 @@ public abstract class SubjectQueryTest extends RequestTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#helperTestSingleElementOptionalAttributesUnmarshall(org.opensaml.common.SAMLObject)
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#helperTestSingleElementOptionalAttributesUnmarshall(org.opensaml.common.SAMLObject)
      */
     protected void helperTestSingleElementOptionalAttributesUnmarshall(SAMLObject samlObject) {
         super.helperTestSingleElementOptionalAttributesUnmarshall(samlObject);
@@ -107,7 +107,7 @@ public abstract class SubjectQueryTest extends RequestTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#helperTestSingleElementUnmarshall(org.opensaml.common.SAMLObject)
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#helperTestSingleElementUnmarshall(org.opensaml.common.SAMLObject)
      */
     protected void helperTestSingleElementUnmarshall(SAMLObject samlObject) {
         super.helperTestSingleElementUnmarshall(samlObject);

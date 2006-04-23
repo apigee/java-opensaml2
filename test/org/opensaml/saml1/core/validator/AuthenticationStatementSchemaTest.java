@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.AuthenticationStatement;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AuthenticationStatementSchemaValidator}.
  */
-public class AuthenticationStatementSchemaTest extends SubjectStatementSchemaTest {
+public class AuthenticationStatementSchemaTest extends SubjectStatementSchemaTestBase {
 
     /** Constructor */
     public AuthenticationStatementSchemaTest() {

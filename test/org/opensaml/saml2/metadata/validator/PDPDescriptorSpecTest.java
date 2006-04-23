@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.PDPDescriptor;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.PDPDescriptor}.
  */
-public class PDPDescriptorSpecTest extends RoleDescriptorSpecTest {
+public class PDPDescriptorSpecTest extends RoleDescriptorSpecTestBase {
 
     /** Constructor */
     public PDPDescriptorSpecTest() {

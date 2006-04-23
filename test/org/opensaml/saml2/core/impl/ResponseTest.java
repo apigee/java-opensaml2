@@ -28,7 +28,7 @@ import org.opensaml.saml2.core.Response;
 /**
  *
  */
-public class ResponseTest extends StatusResponseTest {
+public class ResponseTest extends StatusResponseTestBase {
     
     // TODO may need more depending on the EncryptedAssertion implementation
     
@@ -47,7 +47,7 @@ public class ResponseTest extends StatusResponseTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTest#setUp()
+     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
@@ -55,7 +55,7 @@ public class ResponseTest extends StatusResponseTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
@@ -97,7 +97,7 @@ public class ResponseTest extends StatusResponseTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         Response resp = (Response) unmarshallElement(singleElementFile);

@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.LogoutResponse;
 /**
  *
  */
-public class LogoutResponseSchemaTest extends StatusResponseSchemaTest {
+public class LogoutResponseSchemaTest extends StatusResponseSchemaTestBase {
 
     /**
      * Constructor

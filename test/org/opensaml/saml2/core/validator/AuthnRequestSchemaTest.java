@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.AuthnRequest;
 /**
  *
  */
-public class AuthnRequestSchemaTest extends RequestSchemaTest {
+public class AuthnRequestSchemaTest extends RequestSchemaTestBase {
 
     /**
      * Constructor

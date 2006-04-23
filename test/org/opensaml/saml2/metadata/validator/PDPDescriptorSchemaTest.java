@@ -26,7 +26,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.PDPDescriptor}.
  */
-public class PDPDescriptorSchemaTest extends RoleDescriptorSchemaTest {
+public class PDPDescriptorSchemaTest extends RoleDescriptorSchemaTestBase {
 
     /** Constructor */
     public PDPDescriptorSchemaTest() {

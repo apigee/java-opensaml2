@@ -28,7 +28,7 @@ import org.opensaml.saml2.core.AuthzDecisionQuery;
 /**
  *
  */
-public class AuthzDecisionQuerySchemaTest extends SubjectQuerySchemaTest {
+public class AuthzDecisionQuerySchemaTest extends SubjectQuerySchemaTestBase {
 
     /**
      * Constructor

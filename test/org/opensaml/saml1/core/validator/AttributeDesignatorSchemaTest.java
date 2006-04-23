@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.AttributeDesignator;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AttributeDesignatorSchemaValidator}.
  */
-public abstract class AttributeDesignatorSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AttributeDesignatorSchemaTest extends SAMLObjectValidatorBaseTestCase {
 
     /** Constructor */
     public AttributeDesignatorSchemaTest() {

@@ -28,7 +28,7 @@ import org.opensaml.saml2.core.AttributeQuery;
 /**
  *
  */
-public class AttributeQueryTest extends SubjectQueryTest {
+public class AttributeQueryTest extends SubjectQueryTestBase {
     
     /** Expected number of Attribute child elements */
     private int expectedNumAttributes;
@@ -47,7 +47,7 @@ public class AttributeQueryTest extends SubjectQueryTest {
     
     
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTest#setUp()
+     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
@@ -55,7 +55,7 @@ public class AttributeQueryTest extends SubjectQueryTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
@@ -103,7 +103,7 @@ public class AttributeQueryTest extends SubjectQueryTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         AttributeQuery query = (AttributeQuery) unmarshallElement(singleElementFile);

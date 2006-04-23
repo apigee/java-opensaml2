@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.AttributeStatement;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AttributeStatementSchemaValidator}.
  */
-public class AttributeStatementSchemaTest extends SubjectStatementSchemaTest {
+public class AttributeStatementSchemaTest extends SubjectStatementSchemaTestBase {
 
     /** Constructor */
     public AttributeStatementSchemaTest() {

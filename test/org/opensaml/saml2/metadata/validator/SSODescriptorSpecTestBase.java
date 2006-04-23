@@ -26,10 +26,10 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.SSODescriptor}.
  */
-public abstract class SSODescriptorSpecTest extends RoleDescriptorSpecTest {
+public abstract class SSODescriptorSpecTestBase extends RoleDescriptorSpecTestBase {
 
     /** Constructor */
-    public SSODescriptorSpecTest() {
+    public SSODescriptorSpecTestBase() {
 
     }
 

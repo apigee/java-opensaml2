@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.custommonkey.xmlunit.XMLTestCase;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
@@ -62,6 +63,7 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLTestCase {
      */
     protected void setUp() throws Exception {
         super.setUp();
+        XMLUnit.setIgnoreWhitespace(true);
     }
 
     /*

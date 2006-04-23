@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.AuthnQueryService;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AuthnQueryService}.
  */
-public class AuthnQueryServiceSchemaTest extends EndpointSchemaTest {
+public class AuthnQueryServiceSchemaTest extends EndpointSchemaTestBase {
 
     /** Constructor */
     public AuthnQueryServiceSchemaTest() {

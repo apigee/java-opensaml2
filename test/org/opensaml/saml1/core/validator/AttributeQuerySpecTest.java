@@ -24,7 +24,7 @@ import org.opensaml.saml1.core.AttributeQuery;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AttributeQuerySchemaValidator}.
  */
-public class AttributeQuerySpecTest extends SubjectQuerySpecTest  {
+public class AttributeQuerySpecTest extends SubjectQuerySpecTestBase  {
 
     /** Constructor */
     public AttributeQuerySpecTest() {

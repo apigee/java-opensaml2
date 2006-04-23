@@ -30,7 +30,7 @@ import org.opensaml.saml2.core.Terminate;
 /**
  *
  */
-public class ManageNameIDRequestSchemaTest extends RequestSchemaTest {
+public class ManageNameIDRequestSchemaTest extends RequestSchemaTestBase {
     
     private NameID nameid;
     private NewID newid;

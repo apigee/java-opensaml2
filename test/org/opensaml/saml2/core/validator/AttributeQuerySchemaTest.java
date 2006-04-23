@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.AttributeQuery;
 /**
  *
  */
-public class AttributeQuerySchemaTest extends SubjectQuerySchemaTest {
+public class AttributeQuerySchemaTest extends SubjectQuerySchemaTestBase {
 
     /**
      * Constructor

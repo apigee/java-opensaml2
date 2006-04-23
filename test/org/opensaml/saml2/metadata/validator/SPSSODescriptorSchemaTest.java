@@ -26,7 +26,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.SPSSODescriptor}.
  */
-public class SPSSODescriptorSchemaTest extends SSODescriptorSchemaTest {
+public class SPSSODescriptorSchemaTest extends SSODescriptorSchemaTestBase {
 
     /** Constructor */
     public SPSSODescriptorSchemaTest() {

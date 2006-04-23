@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.NameIDPolicy;
 /**
  *
  */
-public class NameIDMappingRequestTest extends RequestTest {
+public class NameIDMappingRequestTest extends RequestTestBase {
 
     /**
      * Constructor
@@ -44,7 +44,7 @@ public class NameIDMappingRequestTest extends RequestTest {
     
     
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#setUp()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
      */
     protected void setUp() throws Exception {
         super.setUp();
@@ -52,7 +52,7 @@ public class NameIDMappingRequestTest extends RequestTest {
 
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementMarshall()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
      */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
@@ -95,7 +95,7 @@ public class NameIDMappingRequestTest extends RequestTest {
     }
 
     /**
-     * @see org.opensaml.saml2.core.impl.RequestTest#testSingleElementUnmarshall()
+     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
      */
     public void testSingleElementUnmarshall() {
         NameIDMappingRequest req = (NameIDMappingRequest) unmarshallElement(singleElementFile);
