@@ -168,6 +168,7 @@
         <tar tarfile="${dist.dir}/${src-dist.name}.tgz" compression="gzip">
         	<tarfileset dir="${build-lib.dir}" prefix="/build-lib/"/>
         	<tarfileset dir="${lib.dir}" prefix="/lib/"/>
+        	<tarfileset dir="${conf.dir}" prefix="/conf/"/>
         	<tarfileset dir="${core-src.dir}" prefix="/src/"/>
     		<tarfileset dir="${test-src.dir}" prefix="/test/"/>
         	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
@@ -181,6 +182,7 @@
     <target name="tgz-bin-dist" depends="package, javadoc">
         <tar tarfile="${dist.dir}/${bin-dist.name}.tgz" compression="gzip">
         	<tarfileset dir="${lib.dir}" prefix="/lib/"/>
+        	<tarfileset dir="${conf.dir}" prefix="/conf/"/>
         	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
         	<tarfileset dir="${dist.dir}" prefix="/dist/"/>
         </tar>
@@ -192,6 +194,7 @@
         <zip zipfile="${dist.dir}/${src-dist.name}.zip" whenempty="fail">
         	<zipfileset dir="${build-lib.dir}" prefix="build-lib/"/>
         	<zipfileset dir="${lib.dir}" prefix="lib/"/>
+        	<zipfileset dir="${conf.dir}" prefix="conf/"/>
         	<zipfileset dir="${core-src.dir}" prefix="src/"/>
     		<zipfileset dir="${test-src.dir}" prefix="test/"/>
         	<zipfileset dir="${doc.dir}" prefix="doc/"/>
@@ -205,6 +208,7 @@
     <target name="zip-bin-dist" depends="package, javadoc">
         <zip zipfile="${dist.dir}/${bin-dist.name}.zip" whenempty="fail">
         	<zipfileset dir="${lib.dir}" prefix="lib/"/>
+        	<zipfileset dir="${conf.dir}" prefix="conf/"/>
         	<zipfileset dir="${doc.dir}" prefix="doc/"/>
         	<zipfileset dir="${dist.dir}" prefix="dist/"/>
         </zip>
