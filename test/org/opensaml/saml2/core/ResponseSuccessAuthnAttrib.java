@@ -41,6 +41,13 @@ public class ResponseSuccessAuthnAttrib extends ComplexSAMLObjectBaseTestCase {
     public void testUnmarshall() {
         Response response = (Response) unmarshallElement(elementFile);
         
+//      TODO comment out....
+        // just for looking at the serialized XML when debugging
+        try {
+            //System.out.println("Unmarshalling...");
+            //printXML(marshallerFactory.getMarshaller(response).marshall(response).getOwnerDocument());
+        } catch (Exception e) {e.printStackTrace();}
+        
         assertNotNull("Response was null", response);
         assertEquals("Response ID", "_c7055387-af61-4fce-8b98-e2927324b306", response.getID());
         assertEquals("InResponseTo", "_abcdef123456", response.getInResponseTo());
@@ -70,20 +77,26 @@ public class ResponseSuccessAuthnAttrib extends ComplexSAMLObjectBaseTestCase {
         
         AttributeStatement  attribStatement = (AttributeStatement) assertion.getAttributeStatement().get(0);
         Attribute attrib = null;
-        AttributeValue value = null;
+        XSString value = null;
         
         //TODO testing attribute values and other element attributes, e.g. x500:Encoding for x500/LDAP attribs
         attrib = attribStatement.getAttributes().get(0);
         assertEquals("Attribute/@FriendlyName", "fooAttrib", attrib.getFriendlyName());
         assertEquals("Attribute/@Name", "urn:foo:attrib", attrib.getName());
         assertEquals("Attribute/@NameFormat", "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", attrib.getNameFormat());
-        //value = (AttributeValue) attrib.getAttributeValues().get(0);
+        assertEquals("Number of fooAttrib AttributeValues", 2, attrib.getAttributeValues().size());
+        value = (XSString) attrib.getAttributeValues().get(0);
+        assertEquals("Attribute content", "SomeValue", value.getValue());
+        value = (XSString) attrib.getAttributeValues().get(1);
+        assertEquals("Attribute content", "SomeOtherValue", value.getValue());
         
         attrib = attribStatement.getAttributes().get(1);
         assertEquals("Attribute/@FriendlyName", "eduPersonPrincipalName", attrib.getFriendlyName());
         assertEquals("Attribute/@Name", "urn:oid:1.3.6.1.4.1.5923.1.1.1.6", attrib.getName());
         assertEquals("Attribute/@NameFormat", "urn:oasis:names:tc:SAML:2.0:attrname-format:uri", attrib.getNameFormat());
-        //value = (AttributeValue) attrib.getAttributeValues().get(0);
+        assertEquals("Number of ldapAttrib AttributeValues", 1, attrib.getAttributeValues().size());
+        value = (XSString) attrib.getAttributeValues().get(0);
+        assertEquals("Attribute content", "j.doe@idp.example.org", value.getValue());
     }
 
     /*
@@ -141,8 +154,12 @@ public class ResponseSuccessAuthnAttrib extends ComplexSAMLObjectBaseTestCase {
         fooAttrib.setFriendlyName("fooAttrib");
         fooAttrib.setName("urn:foo:attrib");
         fooAttrib.setNameFormat("urn:oasis:names:tc:SAML:2.0:attrname-format:uri");
-        XSString fooAttribValue = (XSString) stringBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME);
+        XSString fooAttribValue = null;
+        fooAttribValue = (XSString) stringBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME);
         fooAttribValue.setValue("SomeValue");
+        fooAttrib.getAttributeValues().add(fooAttribValue);
+        fooAttribValue = (XSString) stringBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME);
+        fooAttribValue.setValue("SomeOtherValue");
         fooAttrib.getAttributeValues().add(fooAttribValue);
         
         Attribute ldapAttrib = (Attribute) buildXMLObject(Attribute.DEFAULT_ELEMENT_NAME);
@@ -179,7 +196,8 @@ public class ResponseSuccessAuthnAttrib extends ComplexSAMLObjectBaseTestCase {
         // TODO comment out....
         // just for looking at the serialized XML when debugging
         try {
-            printXML(marshallerFactory.getMarshaller(response).marshall(response).getOwnerDocument());
+            //System.out.println("Marshalling...");
+            //printXML(marshallerFactory.getMarshaller(response).marshall(response).getOwnerDocument());
         } catch (Exception e) {e.printStackTrace();}
         assertEquals("Marshalled Response was not the expected value", expectedDOM, response);
     }

@@ -38,16 +38,13 @@
             <saml:Attribute
                 FriendlyName="fooAttrib" Name="urn:foo:attrib"
                 NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
-                <saml:AttributeValue xsi:type="xs:string">
-								SomeValue
-                </saml:AttributeValue>
+                <saml:AttributeValue xsi:type="xs:string">SomeValue</saml:AttributeValue>
+                <saml:AttributeValue xsi:type="xs:string">SomeOtherValue</saml:AttributeValue>
             </saml:Attribute>
             <saml:Attribute xmlns:x500="urn:oasis:names:tc:SAML:2.0:profiles:attribute:X500"
                 FriendlyName="eduPersonPrincipalName" Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.6"
                 NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri">
-                <saml:AttributeValue x500:Encoding="LDAP" xsi:type="xs:string">
-                    j.doe@idp.example.org
-                </saml:AttributeValue>
+                <saml:AttributeValue x500:Encoding="LDAP" xsi:type="xs:string">j.doe@idp.example.org</saml:AttributeValue>
             </saml:Attribute>
         </saml:AttributeStatement>
     </saml:Assertion>
