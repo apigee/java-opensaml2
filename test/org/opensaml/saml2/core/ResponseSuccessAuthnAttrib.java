@@ -135,28 +135,24 @@ public class ResponseSuccessAuthnAttrib extends ComplexSAMLObjectBaseTestCase {
         classRef.setAuthnContextClassRef("urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport");
         
         AttributeStatement attribStatement = (AttributeStatement) buildXMLObject(AttributeStatement.DEFAULT_ELEMENT_NAME);
-        //TODO is this right for xs:string AttributeValue types ?
         XMLObjectBuilder stringBuilder = builderFactory.getBuilder(XSString.TYPE_NAME);
         
         Attribute fooAttrib = (Attribute) buildXMLObject(Attribute.DEFAULT_ELEMENT_NAME);
         fooAttrib.setFriendlyName("fooAttrib");
         fooAttrib.setName("urn:foo:attrib");
         fooAttrib.setNameFormat("urn:oasis:names:tc:SAML:2.0:attrname-format:uri");
-        //TODO attribute values
-        //AttributeValue fooAttribValue = (AttributeValue) buildXMLObject(AttributeValue.DEFUALT_ELEMENT_NAME);
-        XSString fooAttribValue = (XSString) stringBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME);
+        XSString fooAttribValue = (XSString) stringBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME);
         fooAttribValue.setValue("SomeValue");
-        //fooAttrib.getAttributeValues().add(fooAttribValue);
+        fooAttrib.getAttributeValues().add(fooAttribValue);
         
         Attribute ldapAttrib = (Attribute) buildXMLObject(Attribute.DEFAULT_ELEMENT_NAME);
         ldapAttrib.setFriendlyName("eduPersonPrincipalName");
         ldapAttrib.setName("urn:oid:1.3.6.1.4.1.5923.1.1.1.6");
         ldapAttrib.setNameFormat("urn:oasis:names:tc:SAML:2.0:attrname-format:uri");
-        //TODO attribute values
-        //AttributeValue ldapAttribValue = (AttributeValue) buildXMLObject(AttributeValue.DEFUALT_ELEMENT_NAME);
-        XSString ldapAttribValue = (XSString) stringBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME);
+        XSString ldapAttribValue = (XSString) stringBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME);
+        //TODO how to handle the x500:Encoding attribute on AttributeValue ?
         ldapAttribValue.setValue("j.doe@idp.example.org");
-        //ldapAttrib.getAttributeValues().add(ldapAttribValue);
+        ldapAttrib.getAttributeValues().add(ldapAttribValue);
         
         response.setIssuer(rIssuer);
         status.setStatusCode(statusCode);
