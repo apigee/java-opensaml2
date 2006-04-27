@@ -27,7 +27,7 @@
                 </saml:Audience>
             </saml:AudienceRestriction>
         </saml:Conditions>
-        <saml:AuthnStatement AuthnInstant="2006-01-26T13:35:05Z">
+        <saml:AuthnStatement AuthnInstant="2006-01-26T13:35:05.000Z">
             <saml:AuthnContext>
                 <saml:AuthnContextClassRef>
                     urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport
