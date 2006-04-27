@@ -16,7 +16,7 @@
         </ObjectProvider>
 
         <!-- XML Schema String -->
-        <ObjectProvider qualifiedName="xs:String">
+        <ObjectProvider qualifiedName="xs:string">
             <BuilderClass className="org.opensaml.xml.schema.impl.XSStringBuilder" />
             <MarshallingClass className="org.opensaml.xml.schema.impl.XSStringMarshaller" />
             <UnmarshallingClass className="org.opensaml.xml.schema.impl.XSStringUnmarshaller" />
