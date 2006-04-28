@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.metadata.cache;
+package org.opensaml.saml2.metadata.resolver;
 
 /**
- * An exception thrown during the evaluation of a {@link org.opensaml.saml2.metadata.cache.MetadataFilter}.
+ * An exception thrown during the evaluation of a {@link org.opensaml.saml2.metadata.resolver.MetadataFilter}.
  */
 public class FilterException extends Exception {
 

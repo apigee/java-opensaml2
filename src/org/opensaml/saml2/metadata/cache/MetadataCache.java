@@ -18,6 +18,8 @@ package org.opensaml.saml2.metadata.cache;
 
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.resolver.FilterException;
+import org.opensaml.saml2.metadata.resolver.MetadataFilter;
 import org.opensaml.saml2.metadata.resolver.MetadataResolverFactory;
 import org.opensaml.saml2.metadata.resolver.ResolutionException;
 import org.opensaml.xml.io.UnmarshallingException;

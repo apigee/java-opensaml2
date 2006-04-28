@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.metadata.cache;
+package org.opensaml.saml2.metadata.resolver.impl;
 
 import java.util.List;
 import java.util.Vector;
 
+import org.opensaml.saml2.metadata.resolver.FilterException;
+import org.opensaml.saml2.metadata.resolver.MetadataFilter;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A filter that allows the composition of {@link org.opensaml.saml2.metadata.cache.MetadataFilter}s.
+ * A filter that allows the composition of {@link org.opensaml.saml2.metadata.resolver.MetadataFilter}s.
  * Filters will be executed on the given metadata document in the order they were added to the chain.
  */
 public class MetadataFilterChain implements MetadataFilter {

@@ -31,6 +31,8 @@ import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.resolver.FilterException;
+import org.opensaml.saml2.metadata.resolver.MetadataFilter;
 import org.opensaml.saml2.metadata.resolver.MetadataResolver;
 import org.opensaml.saml2.metadata.resolver.MetadataResolverFactory;
 import org.opensaml.saml2.metadata.resolver.ResolutionException;

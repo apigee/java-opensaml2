@@ -16,36 +16,34 @@
 
 package org.opensaml.saml2.metadata.resolver;
 
-import org.w3c.dom.Document;
+import org.opensaml.xml.XMLObject;
 
 /**
- * A resolver that takes a URI and resolves it to a DOM, level 3, 
- * document containing SAML2 Metadata.
+ * Resolves a metadata location into metadata.
  */
 public interface MetadataResolver {
 
     /**
-     * Resolves a URI into a DOM document containing SAML2 metadata.
-     * 
-     * @param metadataURI the URI
+     * Performs the resolution, fetching the metadata and creating a DOM document from it.
      * 
      * @return the DOM document
      * 
-     * @throws ResolutionException thrown if a problem creating the DOM document occurs
+     * @throws ResolutionException thrown if there is a problem creating the DOM document, or unmarshalling it
+     * @throws FilterException thrown if there is a problem applying the metadata filter
      */
-    public Document resolve(String metadataURI) throws ResolutionException;
-    
+    public XMLObject resolve() throws ResolutionException, FilterException;
+
     /**
-     * Gets whether the resolver will perform schema validation on the received XML.
+     * Gets the metadata filter applied to the resolved metadata.
      * 
-     * @return true to validate, false otherwise
+     * @return the metadata filter applied to the resolved metadata
      */
-    public boolean validateXML();
-    
+    public MetadataFilter getMetadataFilter();
+
     /**
-     * Gets whether the resolver will validate digital signatures in the XML document.
+     * Sets the metadata filter applied to the resolved metadata.
      * 
-     * @return true to validate, false otherwise
+     * @param newFilter the metadata filter applied to the resolved metadata
      */
-    public boolean validateDigitalSignature();
+    public void setMetadataFilter(MetadataFilter newFilter);
 }

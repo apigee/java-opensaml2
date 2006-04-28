@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.metadata.cache;
+package org.opensaml.saml2.metadata.resolver;
 
 import org.opensaml.xml.XMLObject;
 
 /**
- * A metadata filter is used to remove unwanted portions of a metadata document
- * after it has been unmarshalled into object but before it's loaded into the repository.
+ * A metadata filter is used to process a metadata document after it has been unmarshalled into object.
  * 
- * For example, a service provider might filter out the all other service provider roles 
- * and all the roles for IdPs that it does not except assertions from.  This could 
- * result in a significant reduction of the memory footprint need to cache the metadata.
+ * Some example filters might remove everything but identity providers roles, decreasing the data a service provider
+ * needs to work with, or a filter could be used to perform integrity checking on the retrieved metadata by verifying
+ * a digital signature.
  */
 public interface MetadataFilter {
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.metadata.resolver.provider;
+package org.opensaml.saml2.metadata.resolver.impl;
 
 import java.net.URL;
 
@@ -29,11 +29,21 @@ import org.w3c.dom.Document;
  * This metadata resolver takes a URL pointing to a SAML2 Metadata 
  * document and constructs a DOM document from it.
  * 
- * This resolver is completely stateless.
+ * This resolver is thread-safe and reusable.
  */
 public class URLResolver extends AbstractMetadataResolver implements MetadataResolver {
     
-    private String errorMessage = "Unable to obtain metadata document from URL ";
+    /** Metadata location URL */
+    private String metadataURL;
+    
+    /**
+     * Constructor
+     *
+     * @param metadataURL the URL to the metadata
+     */
+    public URLResolver(String metadataURL){
+        this.metadataURL = metadataURL;
+    }
 
     /**
      * Resolves a URL pointing to a metadata document and creates a DOM document from it.
@@ -46,7 +56,7 @@ public class URLResolver extends AbstractMetadataResolver implements MetadataRes
      * not be fetched from the server, the information fetched is not proper SAML2
      * metadata, or the DOM, level 3, parser can not be created
      */
-    public Document doResolve(String metadataURL) throws ResolutionException {
+    public Document retrieveDOM() throws ResolutionException {
         URL metadata;
         try {
             metadata = new URL(metadataURL);
@@ -54,7 +64,7 @@ public class URLResolver extends AbstractMetadataResolver implements MetadataRes
             DocumentBuilder domBuilder = domBuilderFactory.newDocumentBuilder();
             return domBuilder.parse(metadata.openStream());
         } catch (Exception e) {
-            throw new ResolutionException(errorMessage + metadataURL, e);
+            throw new ResolutionException("Unable to obtain metadata document from URL " + metadataURL, e);
         }
     }
 }
