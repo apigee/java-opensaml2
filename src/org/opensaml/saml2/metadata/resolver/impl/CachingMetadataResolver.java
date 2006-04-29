@@ -152,9 +152,11 @@ public class CachingMetadataResolver implements MetadataResolver {
             }
         }
 
+        // Inspect children
         for (XMLObject child : metadata.getOrderedChildren()) {
             earliestExpiration = getEarliestExpiration(child, earliestExpiration, now);
         }
+        
         return earliestExpiration;
     }
 }
