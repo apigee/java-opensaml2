@@ -58,7 +58,7 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         Attribute attribute = (Attribute) parentSAMLObject;
 
         QName childQName = childSAMLObject.getElementQName();
-        if (childQName.getLocalPart().equals("AttributeValue") && childQName.getNamespaceURI().equals(SAMLConstants.SAML1_NS)) {
+        if (childQName.getLocalPart().equals("AttributeValue") && childQName.getNamespaceURI().equals(SAMLConstants.SAML20_NS)) {
             attribute.getAttributeValues().add(childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
