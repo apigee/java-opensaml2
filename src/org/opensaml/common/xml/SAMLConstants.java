@@ -53,7 +53,7 @@ public class SAMLConstants extends XMLConstants{
     public final static String SOAP11ENV_PREFIX = "SOAP-ENV";
     
     /**  Liberty PAOS XML Namespace */
-    public final static String PAOS_NA = "urn:liberty:paos:2003-08";
+    public final static String PAOS_NS = "urn:liberty:paos:2003-08";
     
     /**  Liberty PAOS QName prefix */
     public final static String PAOS_PREFIX = "paos";
