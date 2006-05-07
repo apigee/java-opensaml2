@@ -16,10 +16,7 @@
 
 package org.opensaml.saml2.metadata.provider;
 
-import java.util.List;
-
 import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.resolver.MetadataResolver;
 
 /**
  * A local store into which metadata can be loaded and queried. Specific implemenations may perform additional logic
@@ -37,11 +34,4 @@ public interface MetadataProvider {
      * @return the entity's metadata or null if there is no metadata or no valid metadata
      */
     public EntityDescriptor getEntityDescriptor(String entityID, boolean requiredValidMetadata);
-
-    /**
-     * Gets the list of metadata resolvers that the provider will use to fetch metadata.
-     * 
-     * @return the list of metadata resolvers that the provider will use to fetch metadata
-     */
-    public List<MetadataResolver> getMetadataResolvers();
 }

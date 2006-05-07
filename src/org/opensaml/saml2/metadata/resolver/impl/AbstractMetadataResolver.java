@@ -16,12 +16,12 @@
 
 package org.opensaml.saml2.metadata.resolver.impl;
 
+import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.metadata.resolver.FilterException;
 import org.opensaml.saml2.metadata.resolver.MetadataFilter;
 import org.opensaml.saml2.metadata.resolver.MetadataResolver;
 import org.opensaml.saml2.metadata.resolver.ResolutionException;
 import org.opensaml.xml.Configuration;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallerFactory;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -59,14 +59,14 @@ public abstract class AbstractMetadataResolver implements MetadataResolver {
      * @throws ResolutionException {@inheritDoc}
      * @throws FilterException {@inheritDoc}
      */
-    public XMLObject resolve() throws ResolutionException, FilterException {
+    public SAMLObject resolve() throws ResolutionException, FilterException {
         Document metadataDocument = retrieveDOM();
 
         UnmarshallerFactory unmarshallerFactory = Configuration.getUnmarshallerFactory();
         Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(metadataDocument.getDocumentElement());
-        XMLObject metadata;
+        SAMLObject metadata;
         try {
-            metadata = unmarshaller.unmarshall(metadataDocument.getDocumentElement());
+            metadata = (SAMLObject) unmarshaller.unmarshall(metadataDocument.getDocumentElement());
         } catch (UnmarshallingException e) {
             throw new ResolutionException("Unable to unmarshall metadata document", e);
         }

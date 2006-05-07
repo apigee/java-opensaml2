@@ -16,12 +16,19 @@
 
 package org.opensaml.saml2.metadata.resolver;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.common.SAMLObject;
 
 /**
  * Resolves a metadata location into metadata.
  */
 public interface MetadataResolver {
+    
+    /**
+     * Gets a unique ID for an instance of this resolver.
+     * 
+     * @return a unique ID for an instance of this resolver
+     */
+    public String getID();
 
     /**
      * Performs the resolution, fetching the metadata and creating a DOM document from it.
@@ -31,7 +38,7 @@ public interface MetadataResolver {
      * @throws ResolutionException thrown if there is a problem creating the DOM document, or unmarshalling it
      * @throws FilterException thrown if there is a problem applying the metadata filter
      */
-    public XMLObject resolve() throws ResolutionException, FilterException;
+    public SAMLObject resolve() throws ResolutionException, FilterException;
 
     /**
      * Gets the metadata filter applied to the resolved metadata.

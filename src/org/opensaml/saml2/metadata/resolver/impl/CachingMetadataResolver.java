@@ -18,8 +18,11 @@ package org.opensaml.saml2.metadata.resolver.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
+import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
+import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.resolver.FilterException;
 import org.opensaml.saml2.metadata.resolver.MetadataFilter;
 import org.opensaml.saml2.metadata.resolver.MetadataResolver;
@@ -33,7 +36,7 @@ import org.opensaml.xml.XMLObject;
  * occurs first.
  * 
  * This resolver does not maintain it's own Metadata filter but instead relies on the wrapped resolver's filter which
- * can be set and retrieved through this resolvers methods.
+ * can be set and retrieved through this resolvers methods.  Nor does it have its own ID.
  */
 public class CachingMetadataResolver implements MetadataResolver {
 
@@ -44,7 +47,7 @@ public class CachingMetadataResolver implements MetadataResolver {
     private Duration maxCacheDuration;
 
     /** The cached metadata */
-    private XMLObject cachedMetadata;
+    private SAMLObject cachedMetadata;
 
     /** The date/time after which the cache is expired */
     private DateTime cacheExpiration;
@@ -70,11 +73,18 @@ public class CachingMetadataResolver implements MetadataResolver {
             this.maxCacheDuration = new Duration(maxCacheDuration * 1000);
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String getID(){
+        return wrappedResolver.getID();
+    }
 
     /**
      * {@inheritDoc}
      */
-    public XMLObject resolve() throws ResolutionException, FilterException {
+    public SAMLObject resolve() throws ResolutionException, FilterException {
         try {
             if (cachedMetadata == null) {
                 synchronized (wrappedResolver) {
@@ -124,6 +134,11 @@ public class CachingMetadataResolver implements MetadataResolver {
      * @return the earliest expiration instant within a metadata tree
      */
     private DateTime getEarliestExpiration(XMLObject metadata, DateTime earliestExpiration, DateTime now) {
+        // We only care about EntitiesDescriptor and EntityDescriptors
+        if(!(metadata instanceof EntitiesDescriptor || metadata instanceof EntityDescriptor)){
+            return earliestExpiration; 
+        }
+        
         // earliest time thus far
         DateTime expirationTime = earliestExpiration;
         

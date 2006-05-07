@@ -33,6 +33,9 @@ import org.w3c.dom.Document;
  */
 public class URLResolver extends AbstractMetadataResolver implements MetadataResolver {
     
+    /** Unique ID for this resolver */
+    private String resolverID;
+    
     /** Metadata location URL */
     private String metadataURL;
     
@@ -41,8 +44,16 @@ public class URLResolver extends AbstractMetadataResolver implements MetadataRes
      *
      * @param metadataURL the URL to the metadata
      */
-    public URLResolver(String metadataURL){
+    public URLResolver(String resolverID, String metadataURL){
         this.metadataURL = metadataURL;
+        this.resolverID = resolverID;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String getID(){
+        return resolverID;
     }
 
     /**
