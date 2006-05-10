@@ -16,17 +16,22 @@
 
 package org.opensaml.saml2.metadata.provider.impl;
 
+import java.util.List;
+
 import javolution.util.FastMap;
 
+import org.opensaml.common.SAMLObject;
+import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataCache;
 import org.opensaml.saml2.metadata.provider.MetadataCacheObserver;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
+import org.opensaml.saml2.metadata.provider.MetadataCache.CacheEntry;
 
 /**
- * This metadata provider caches metadata and maintains a single background thread that refreshes the cached metadata
- * when it expires. Metadata is considered expired when either the shortest cache duration, the earliest valid until
- * time has been reached, or the max cache duration has been reached, whichever occurs first.
+ * This metadata provider leverages a metadata cache instance in order to cache and refresh the underlying metadata. In
+ * the event that an entity ID appears in more than one metadata file, the first one encountered, while iterating
+ * through the list of cache entries from the metadata cache, will be used.
  */
 public class CachingMetadataProvider implements MetadataProvider {
 
@@ -64,23 +69,11 @@ public class CachingMetadataProvider implements MetadataProvider {
             metadataCache.getCacheObservers().add(this);
         }
 
-        /** {@inheritDoc  */
+        /** {@inheritDoc   */
         public void notify(String resolverID, short operation) {
-            switch(operation){
-                case MetadataCache.ADD_RESOLVER:
-                    
-                    break;
-                    
-                case MetadataCache.UPDATE_CACHE:
-                    
-                    break;
-                    
-                case MetadataCache.REMOVE_RESOLVER:
-                    
-                    break;
-            }
+            rebuildIndex();
         }
-        
+
         /**
          * Gets the EntityDescriptor for the given entity ID.
          * 
@@ -90,6 +83,60 @@ public class CachingMetadataProvider implements MetadataProvider {
          */
         protected EntityDescriptor getEntityDescriptor(String entityID) {
             return entityDescIndex.get(entityID);
+        }
+
+        /**
+         * Rebuilds the entity descriptor index for the given metadata cache.
+         */
+        protected void rebuildIndex() {
+            SAMLObject metadata;
+
+            for (CacheEntry entry : metadataCache.getCacheEntries()) {
+                metadata = entry.getMetadata();
+                if (metadata != null) {
+                    if (metadata instanceof EntitiesDescriptor) {
+                        indexEntitiesDecriptor((EntitiesDescriptor) metadata);
+                    }
+
+                    if (metadata instanceof EntityDescriptor) {
+                        indexEntityDescriptor((EntityDescriptor) metadata);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Reads an EntitiesDescriptor and indexes all of it's children EntityDescriptors.
+         * 
+         * @param descriptor the EntitiesDescriptor to index
+         */
+        protected void indexEntitiesDecriptor(EntitiesDescriptor descriptor) {
+            List<EntityDescriptor> entityDescriptors = descriptor.getEntityDescriptors();
+            if (entityDescriptors != null) {
+                for (EntityDescriptor entityDescriptor : entityDescriptors) {
+                    indexEntityDescriptor(entityDescriptor);
+                }
+            }
+            
+            List<EntitiesDescriptor> entitiesDescriptors = descriptor.getEntitiesDescriptors();
+            if(entitiesDescriptors != null){
+                for(EntitiesDescriptor entitiesDescriptor : entitiesDescriptors){
+                    indexEntitiesDecriptor(entitiesDescriptor);
+                }
+            }
+        }
+
+        /**
+         * Reads an EntityDescriptor and adds it to the index if another descriptor with its ID is not already
+         * registered.
+         * 
+         * @param descriptor the EntityDescriptor to index
+         */
+        protected void indexEntityDescriptor(EntityDescriptor descriptor) {
+            String entityID = descriptor.getEntityID();
+            if (!entityDescIndex.containsKey(entityID)) {
+                entityDescIndex.put(entityID, descriptor);
+            }
         }
     }
 }

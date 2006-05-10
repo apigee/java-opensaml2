@@ -258,6 +258,8 @@ public class SoftReferenceMetadataCache implements MetadataCache {
         private void reloadMetadata() {
             try {
                 SAMLObject newMetadata = metadataResolver.resolve();
+                newMetadata.releaseDOM();
+                newMetadata.releaseChildrenDOM(true);
                 DateTime now = new DateTime();
                 expirationDate = getEarliestExpiration(newMetadata, now.plus(maxCacheDuration), now);
                 cachedMetadata = new SoftReference<SAMLObject>(newMetadata);
