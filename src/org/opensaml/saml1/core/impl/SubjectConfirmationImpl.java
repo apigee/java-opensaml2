@@ -23,7 +23,6 @@ import java.util.List;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
-import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -37,7 +36,7 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
     private final XMLObjectChildrenList<ConfirmationMethod> confirmationMethods;
 
     /** Contains the SubjectConfirmationData element */
-    private SubjectConfirmationData subjectConfirmationData;
+    private XMLObject subjectConfirmationData;
 
     /** Contains the KeyInfo element */
     private KeyInfo keyInfo;
@@ -64,7 +63,7 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
     /*
      * @see org.opensaml.saml1.core.SubjectConfirmation#setSubjectConfirmationData(org.opensaml.saml1.core.SubjectConfirmationData)
      */
-    public void setSubjectConfirmationData(SubjectConfirmationData subjectConfirmationData)
+    public void setSubjectConfirmationData(XMLObject subjectConfirmationData)
             throws IllegalArgumentException {
 
         this.subjectConfirmationData = prepareForAssignment(this.subjectConfirmationData, subjectConfirmationData);
@@ -73,7 +72,7 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
     /*
      * @see org.opensaml.saml1.core.SubjectConfirmation#getSubjectConfirmationData()
      */
-    public SubjectConfirmationData getSubjectConfirmationData() {
+    public XMLObject getSubjectConfirmationData() {
         return subjectConfirmationData;
     }
 

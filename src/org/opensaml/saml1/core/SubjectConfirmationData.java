@@ -33,8 +33,4 @@ public interface SubjectConfirmationData extends SAMLObject {
     
     /** Default element name */
     public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-    
-    public String getConfirmationData();
-    
-    public void setConfirmationData(String confirmationData);
 }

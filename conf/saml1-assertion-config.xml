@@ -237,13 +237,6 @@
             <MarshallingClass className="org.opensaml.saml1.core.impl.SubjectConfirmationMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.SubjectConfirmationUnmarshaller" />
         </ObjectProvider>
-        
-        <!-- SubjectConfirmationData -->
-        <ObjectProvider qualifiedName="saml1:SubjectConfirmationData">
-            <BuilderClass className="org.opensaml.saml1.core.impl.SubjectConfirmationDataBuilder" />
-            <MarshallingClass className="org.opensaml.saml1.core.impl.SubjectConfirmationDataMarshaller" />
-            <UnmarshallingClass className="org.opensaml.saml1.core.impl.SubjectConfirmationDataUnmarshaller" />
-        </ObjectProvider>
 
         <!-- SubjectLocality -->
         <ObjectProvider qualifiedName="saml1:SubjectLocality">

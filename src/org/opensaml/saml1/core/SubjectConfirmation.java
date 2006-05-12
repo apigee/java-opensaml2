@@ -26,6 +26,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.signature.KeyInfo;
 
 /**
@@ -49,10 +50,10 @@ public interface SubjectConfirmation extends SAMLObject {
     public List<ConfirmationMethod> getConfirmationMethods();
 
     /** Set the SubjectConfirmationData */
-    public void setSubjectConfirmationData(SubjectConfirmationData subjectConfirmationData) throws IllegalArgumentException;
+    public void setSubjectConfirmationData(XMLObject subjectConfirmationData) throws IllegalArgumentException;
 
     /** Return the SubjectConfirmationData */
-    public SubjectConfirmationData getSubjectConfirmationData();
+    public XMLObject getSubjectConfirmationData();
     
     /**
      * Gets the key information for the subject.

@@ -48,9 +48,7 @@ public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshal
         if (childSAMLObject instanceof ConfirmationMethod) {
             subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod) childSAMLObject);
         } else if (childSAMLObject instanceof SubjectConfirmationData) {
-            subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) childSAMLObject);
-        } else {
-            super.processChildElement(parentSAMLObject, childSAMLObject);
+            subjectConfirmation.setSubjectConfirmationData(childSAMLObject);
         }
     }
 }
