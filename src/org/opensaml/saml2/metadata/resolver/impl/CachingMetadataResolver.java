@@ -16,6 +16,7 @@
 
 package org.opensaml.saml2.metadata.resolver.impl;
 
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.opensaml.common.SAMLObject;
@@ -36,13 +37,16 @@ import org.opensaml.xml.XMLObject;
  * occurs first.
  * 
  * This resolver does not maintain it's own Metadata filter but instead relies on the wrapped resolver's filter which
- * can be set and retrieved through this resolvers methods.  Nor does it have its own ID.
+ * can be set and retrieved through this resolvers methods. Nor does it have its own ID.
  */
 public class CachingMetadataResolver implements MetadataResolver {
 
+    /** Logger */
+    private final Logger log = Logger.getLogger(URLResolver.class);
+
     /** The wrapped resolver */
     private MetadataResolver wrappedResolver;
-    
+
     /** Maximum amount of time, in seconds, metadata will be cached */
     private Duration maxCacheDuration;
 
@@ -58,6 +62,9 @@ public class CachingMetadataResolver implements MetadataResolver {
      * @param resolver the resolver whose returned metadata will be cached
      */
     public CachingMetadataResolver(MetadataResolver resolver) {
+        if (log.isDebugEnabled()) {
+            log.debug("Wrapping resolver " + resolver.getID() + " of type " + resolver.getClass().getName());
+        }
         wrappedResolver = resolver;
     }
 
@@ -69,15 +76,15 @@ public class CachingMetadataResolver implements MetadataResolver {
      */
     public CachingMetadataResolver(MetadataResolver resolver, long maxCacheDuration) {
         wrappedResolver = resolver;
-        if(maxCacheDuration > 0){
+        if (maxCacheDuration > 0) {
             this.maxCacheDuration = new Duration(maxCacheDuration * 1000);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    public String getID(){
+    public String getID() {
         return wrappedResolver.getID();
     }
 
@@ -85,18 +92,24 @@ public class CachingMetadataResolver implements MetadataResolver {
      * {@inheritDoc}
      */
     public SAMLObject resolve() throws ResolutionException, FilterException {
+        if (log.isDebugEnabled()) {
+            log.debug("Attempting to resolve metadata");
+        }
         try {
             if (cachedMetadata == null) {
-                synchronized (wrappedResolver) {
-                    cachedMetadata = wrappedResolver.resolve();
+                if (log.isDebugEnabled()) {
+                    log.debug("Metadata was not cached, attempting to fetch it through the wrapped resolver");
                 }
+                updateMetadata();
             } else {
+                if (log.isDebugEnabled()) {
+                    log.debug("Metadata currently cached, checking to see if it is expired");
+                }
                 if (cacheExpiration.isBeforeNow()) {
-                    synchronized (wrappedResolver) {
-                        cachedMetadata = wrappedResolver.resolve();
-                        DateTime now = new DateTime();
-                        cacheExpiration = getEarliestExpiration(cachedMetadata, now.plus(maxCacheDuration), now);
+                    if (log.isDebugEnabled()) {
+                        log.debug("Cached metadata is expired, refreshing it");
                     }
+                    updateMetadata();
                 }
             }
         } catch (ResolutionException e) {
@@ -123,7 +136,36 @@ public class CachingMetadataResolver implements MetadataResolver {
     public void setMetadataFilter(MetadataFilter newFilter) {
         wrappedResolver.setMetadataFilter(newFilter);
     }
-    
+
+    /**
+     * Gets a new set of metadata from the wrapped resolver and caches it.
+     */
+    private void updateMetadata() throws ResolutionException, FilterException {
+        try {
+            synchronized (wrappedResolver) {
+                if(log.isDebugEnabled()){
+                    log.debug("Attempting to fetch metadata from wrapped resolver");
+                }
+                cachedMetadata = wrappedResolver.resolve();
+                
+                if(log.isDebugEnabled()){
+                    log.debug("Metadata fetched, determining when it expires");
+                }
+                DateTime now = new DateTime();
+                cacheExpiration = getEarliestExpiration(cachedMetadata, now.plus(maxCacheDuration), now);
+                if(log.isDebugEnabled()){
+                    log.debug("Cached metadata will expire on " + cacheExpiration.toString());
+                }
+            }
+        } catch (ResolutionException e) {
+            cachedMetadata = null;
+            throw e;
+        } catch (FilterException e) {
+            cachedMetadata = null;
+            throw e;
+        }
+    }
+
     /**
      * Gets the earliest expiration instant within a metadata tree.
      * 
@@ -135,23 +177,23 @@ public class CachingMetadataResolver implements MetadataResolver {
      */
     private DateTime getEarliestExpiration(XMLObject metadata, DateTime earliestExpiration, DateTime now) {
         // We only care about EntitiesDescriptor and EntityDescriptors
-        if(!(metadata instanceof EntitiesDescriptor || metadata instanceof EntityDescriptor)){
-            return earliestExpiration; 
+        if (!(metadata instanceof EntitiesDescriptor || metadata instanceof EntityDescriptor)) {
+            return earliestExpiration;
         }
-        
+
         // earliest time thus far
         DateTime expirationTime = earliestExpiration;
-        
+
         // expiration time for a specific element
         DateTime elementExpirationTime;
-        
+
         // Test duration based times
         if (metadata instanceof CacheableSAMLObject) {
             CacheableSAMLObject cacheInfo = (CacheableSAMLObject) metadata;
-            
+
             if (cacheInfo.getCacheDuration() != null && cacheInfo.getCacheDuration().longValue() > 0) {
                 elementExpirationTime = now.plus(cacheInfo.getCacheDuration().longValue());
-                if(elementExpirationTime.isBefore(expirationTime)){
+                if (elementExpirationTime.isBefore(expirationTime)) {
                     expirationTime = elementExpirationTime;
                 }
             }
@@ -161,8 +203,8 @@ public class CachingMetadataResolver implements MetadataResolver {
         if (metadata instanceof TimeBoundSAMLObject) {
             TimeBoundSAMLObject timeBoundObject = (TimeBoundSAMLObject) metadata;
             elementExpirationTime = timeBoundObject.getValidUntil();
-            
-            if(elementExpirationTime != null && elementExpirationTime.isBefore(earliestExpiration)){
+
+            if (elementExpirationTime != null && elementExpirationTime.isBefore(earliestExpiration)) {
                 earliestExpiration = elementExpirationTime;
             }
         }
@@ -171,7 +213,7 @@ public class CachingMetadataResolver implements MetadataResolver {
         for (XMLObject child : metadata.getOrderedChildren()) {
             earliestExpiration = getEarliestExpiration(child, earliestExpiration, now);
         }
-        
+
         return earliestExpiration;
     }
 }

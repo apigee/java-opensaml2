@@ -24,6 +24,7 @@ import java.util.List;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
+import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 import org.opensaml.common.SAMLObject;
@@ -42,6 +43,9 @@ import org.opensaml.xml.XMLObject;
  * reached, or the max cache duration has been reached, whichever occurs first.
  */
 public class SoftReferenceMetadataCache implements MetadataCache {
+
+    /** Logger */
+    private final Logger log = Logger.getLogger(SoftReferenceMetadataCache.class);
 
     /** Registered cache observers */
     private FastList<MetadataCacheObserver> observers;
@@ -118,14 +122,18 @@ public class SoftReferenceMetadataCache implements MetadataCache {
 
         return null;
     }
-    
+
     /** {@inheritDoc} */
-    public CacheEntry getCacheEntry(String resolverID){
+    public CacheEntry getCacheEntry(String resolverID) {
         return metadataCache.get(resolverID);
     }
-    
-    /** {@inheritDoc} */
-    public Collection<? extends CacheEntry> getCacheEntries(){
+
+    /**
+     * Cache entries are returned in the order that the resolvers they wrap were added.
+     * 
+     * {@inheritDoc}
+     */
+    public Collection<? extends CacheEntry> getCacheEntries() {
         return metadataCache.values();
     }
 
@@ -188,11 +196,11 @@ public class SoftReferenceMetadataCache implements MetadataCache {
     /**
      * A class that represents an entry within the metadata cache.
      */
-    private class CacheEntryImpl implements MetadataCache.CacheEntry{
+    private class CacheEntryImpl implements MetadataCache.CacheEntry {
 
         /** Number of consecutive failed attempts to load metadata */
         private short failedAttempts;
-        
+
         private Exception lastFailure;
 
         /** The resolver used to get the metadata */
@@ -241,14 +249,14 @@ public class SoftReferenceMetadataCache implements MetadataCache {
         public DateTime getExpirationTime() {
             return expirationDate;
         }
-        
+
         /** {@inheritDoc} */
-        public int getFailedResolveAttempts(){
+        public int getFailedResolveAttempts() {
             return failedAttempts;
         }
-        
+
         /** {@inheritDoc} */
-        public Exception getFailure(){
+        public Exception getFailure() {
             return lastFailure;
         }
 
@@ -257,16 +265,41 @@ public class SoftReferenceMetadataCache implements MetadataCache {
          */
         private void reloadMetadata() {
             try {
+                if (log.isDebugEnabled()) {
+                    log.debug("Fetching metadata from resolver " + metadataResolver.getID());
+                }
                 SAMLObject newMetadata = metadataResolver.resolve();
+
+                if (log.isDebugEnabled()) {
+                    log.debug("Metadata fetched, releasing DOM model to save space");
+                }
                 newMetadata.releaseDOM();
                 newMetadata.releaseChildrenDOM(true);
+
+                if (log.isDebugEnabled()) {
+                    log.debug("Determining expiration time of metadata");
+                }
                 DateTime now = new DateTime();
                 expirationDate = getEarliestExpiration(newMetadata, now.plus(maxCacheDuration), now);
+                if (log.isDebugEnabled()) {
+                    log.debug("Metadata expiration time determined to be " + expirationDate.toString());
+                }
+
+                if (log.isDebugEnabled()) {
+                    log.debug("Creating SoftReference to metadata and caching the metadata");
+                }
                 cachedMetadata = new SoftReference<SAMLObject>(newMetadata);
                 failedAttempts = 0;
                 lastFailure = null;
             } catch (Exception e) {
+                log.error("Failed to fetch metadata from resolver " + metadataResolver.getID(), e);
+
                 if (failedAttempts >= maxFailedAttempts) {
+                    log.error("Fetching metadata from "
+                                    + metadataResolver.getClass().getName()
+                                    + " has failed "
+                                    + maxFailedAttempts
+                                    + " times.  Removing it from list of cached metadata, no further attempts to fetch this metadata will be made.");
                     removeMetadataResolver(metadataResolver);
                 }
 
@@ -358,6 +391,10 @@ public class SoftReferenceMetadataCache implements MetadataCache {
          * {@inheritDoc}
          */
         public void run() {
+            if(log.isDebugEnabled()){
+                log.debug("Cache update thread waking up");
+            }
+            
             while (continueRunning) {
                 CacheEntryImpl cacheEntry;
                 DateTime nextRefresh = null;
@@ -365,6 +402,9 @@ public class SoftReferenceMetadataCache implements MetadataCache {
                 for (FastMap.Entry<String, CacheEntryImpl> entry = metadataCache.head(); entry != lastEntry; entry = entry
                         .getNext()) {
                     cacheEntry = entry.getValue();
+                    if(log.isDebugEnabled()){
+                        log.debug("Updating cache entry for resolver " + cacheEntry.getMetadataResolver().getID());
+                    }
                     if (cacheEntry.isExpired()) {
                         cacheEntry.reloadMetadata();
                         if (nextRefresh == null || cacheEntry.getExpirationTime().isBefore(nextRefresh)) {
@@ -374,10 +414,18 @@ public class SoftReferenceMetadataCache implements MetadataCache {
                 }
 
                 try {
-                    sleep(new Duration(new DateTime(), nextRefresh).getMillis());
+                    long timeTillNextRefresh = new Duration(new DateTime(), nextRefresh).getMillis();
+                    if(log.isDebugEnabled()){
+                        log.debug("All cache entries have been updated, sleeping until the next refresh in " + timeTillNextRefresh + "ms");
+                    }
+                    sleep(timeTillNextRefresh);
                 } catch (InterruptedException e) {
                     // Do nothing
                 }
+            }
+            
+            if(log.isDebugEnabled()){
+                log.debug("Cache update thread has been requested to shut down.  Terminating now.");
             }
         }
     }

@@ -16,6 +16,7 @@
 
 package org.opensaml.saml2.metadata.resolver.impl;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.metadata.resolver.FilterException;
 import org.opensaml.saml2.metadata.resolver.MetadataFilter;
@@ -32,10 +33,32 @@ import org.w3c.dom.Document;
  * and digital signature validation.
  */
 public abstract class AbstractMetadataResolver implements MetadataResolver {
+    
+    /** Logger */
+    private final Logger log = Logger.getLogger(AbstractMetadataResolver.class);
+    
+    /** The ID for this resolver */
+    private String resolverID;
 
     /** Metadata filter to apply to resolved metadata */
     private MetadataFilter metadataFilter;
 
+    /**
+     * {@inheritDoc}
+     */
+    public String getID(){
+        return resolverID;
+    }
+    
+    /**
+     * Sets the ID of this resolver.
+     * 
+     * @param newID the ID for this resolver
+     */
+    protected void setID(String newID){
+        resolverID = newID;
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -60,8 +83,14 @@ public abstract class AbstractMetadataResolver implements MetadataResolver {
      * @throws FilterException {@inheritDoc}
      */
     public SAMLObject resolve() throws ResolutionException, FilterException {
+        if(log.isDebugEnabled()){
+            log.debug("Fetching metadata DOM");
+        }
         Document metadataDocument = retrieveDOM();
 
+        if(log.isDebugEnabled()){
+            log.debug("Unmarshalling metadata DOM");
+        }
         UnmarshallerFactory unmarshallerFactory = Configuration.getUnmarshallerFactory();
         Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(metadataDocument.getDocumentElement());
         SAMLObject metadata;
@@ -72,6 +101,9 @@ public abstract class AbstractMetadataResolver implements MetadataResolver {
         }
 
         if (metadataFilter != null) {
+            if(log.isDebugEnabled()){
+                log.debug("Applying filter to metadata");
+            }
             metadataFilter.doFilter(metadata);
         }
 

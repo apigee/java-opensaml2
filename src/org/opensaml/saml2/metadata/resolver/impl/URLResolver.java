@@ -21,6 +21,7 @@ import java.net.URL;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.log4j.Logger;
 import org.opensaml.saml2.metadata.resolver.MetadataResolver;
 import org.opensaml.saml2.metadata.resolver.ResolutionException;
 import org.w3c.dom.Document;
@@ -32,6 +33,9 @@ import org.w3c.dom.Document;
  * This resolver is thread-safe and reusable.
  */
 public class URLResolver extends AbstractMetadataResolver implements MetadataResolver {
+    
+    /** Logger */
+    private final Logger log = Logger.getLogger(URLResolver.class);
     
     /** Unique ID for this resolver */
     private String resolverID;
@@ -70,11 +74,15 @@ public class URLResolver extends AbstractMetadataResolver implements MetadataRes
     public Document retrieveDOM() throws ResolutionException {
         URL metadata;
         try {
+            if(log.isDebugEnabled()){
+                log.debug("Attempting fetch metadata from " + metadataURL + " and generate a DOM from it.");
+            }
             metadata = new URL(metadataURL);
             DocumentBuilderFactory domBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder domBuilder = domBuilderFactory.newDocumentBuilder();
             return domBuilder.parse(metadata.openStream());
         } catch (Exception e) {
+            log.error("Unable to obtain metadata document from URL " + metadataURL, e);
             throw new ResolutionException("Unable to obtain metadata document from URL " + metadataURL, e);
         }
     }

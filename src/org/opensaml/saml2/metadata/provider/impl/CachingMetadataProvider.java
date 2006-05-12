@@ -20,6 +20,7 @@ import java.util.List;
 
 import javolution.util.FastMap;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -34,6 +35,9 @@ import org.opensaml.saml2.metadata.provider.MetadataCache.CacheEntry;
  * through the list of cache entries from the metadata cache, will be used.
  */
 public class CachingMetadataProvider implements MetadataProvider {
+    
+    /** Logger */
+    private final Logger log = Logger.getLogger(CachingMetadataProvider.class);
 
     /** Entity IDs to entity descriptors index */
     private CacheIndex cacheIndex;
@@ -71,6 +75,9 @@ public class CachingMetadataProvider implements MetadataProvider {
 
         /** {@inheritDoc   */
         public void notify(String resolverID, short operation) {
+            if(log.isDebugEnabled()){
+                log.debug("Cache change detected, rebuilding index");
+            }
             rebuildIndex();
         }
 
@@ -89,9 +96,13 @@ public class CachingMetadataProvider implements MetadataProvider {
          * Rebuilds the entity descriptor index for the given metadata cache.
          */
         protected void rebuildIndex() {
+            entityDescIndex = new FastMap<String, EntityDescriptor>();
             SAMLObject metadata;
 
             for (CacheEntry entry : metadataCache.getCacheEntries()) {
+                if(log.isDebugEnabled()){
+                    log.debug("Preparing to index metadata from resolver " + entry.getMetadataResolver().getID());
+                }
                 metadata = entry.getMetadata();
                 if (metadata != null) {
                     if (metadata instanceof EntitiesDescriptor) {
@@ -135,7 +146,14 @@ public class CachingMetadataProvider implements MetadataProvider {
         protected void indexEntityDescriptor(EntityDescriptor descriptor) {
             String entityID = descriptor.getEntityID();
             if (!entityDescIndex.containsKey(entityID)) {
+                if(log.isDebugEnabled()){
+                    log.debug("Adding EntityDescriptor " + entityID + " to the cache index");
+                }
                 entityDescIndex.put(entityID, descriptor);
+            }else{
+                if(log.isDebugEnabled()){
+                    log.debug("Previous EntityDescriptor " + entityID + " already cached, skipping this one");
+                }
             }
         }
     }
