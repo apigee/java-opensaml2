@@ -34,6 +34,13 @@ public interface EntityCredentialStore {
     public EntityCredential getCredential(String entityID, CredentialUsageTypeEnumeration usageType);
     
     /**
+     * Gets all the credentials loaded into this store.
+     * 
+     * @return the credentials loaded into this store
+     */
+    public List<EntityCredential> getCredentials();
+    
+    /**
      * Loads the given credentials into the store.
      * 
      * @param credentials the credentials to load
