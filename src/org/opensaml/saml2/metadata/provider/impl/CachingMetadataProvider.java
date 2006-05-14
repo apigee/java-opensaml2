@@ -71,6 +71,7 @@ public class CachingMetadataProvider implements MetadataProvider {
         protected CacheIndex(MetadataCache cache) {
             metadataCache = cache;
             metadataCache.getCacheObservers().add(this);
+            entityDescIndex = new FastMap<String, EntityDescriptor>();
         }
 
         /** {@inheritDoc   */
@@ -96,7 +97,7 @@ public class CachingMetadataProvider implements MetadataProvider {
          * Rebuilds the entity descriptor index for the given metadata cache.
          */
         protected void rebuildIndex() {
-            entityDescIndex = new FastMap<String, EntityDescriptor>();
+            entityDescIndex.clear();
             SAMLObject metadata;
 
             for (CacheEntry entry : metadataCache.getCacheEntries()) {
