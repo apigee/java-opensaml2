@@ -23,7 +23,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
  * Evaluates the trustworthyness and validity of various claims against SAML 2 metadata information. Specific
  * implementations define what it means to be trustworthy and valid.
  */
-public interface TrustEngine {
+public interface TrustEngine<CredentialType extends EntityCredential> {
 
     /**
      * Verifies that the given credential is a valid and trustworthy credential for the given role.
@@ -33,7 +33,7 @@ public interface TrustEngine {
      * 
      * @return true if the credential is valid and trustworthy, false if not
      */
-    public boolean evaluate(EntityCredential entityCredential, RoleDescriptor descriptor);
+    public boolean evaluate(CredentialType entityCredential, RoleDescriptor descriptor);
 
     /**
      * Verifies that the given signable SAML object bear credentials that are valid and trustworthy for the given role.
