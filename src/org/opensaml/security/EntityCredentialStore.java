@@ -23,15 +23,24 @@ import java.util.List;
  * A container for loaded credentials.
  */
 public interface EntityCredentialStore {
-
+    
     /**
-     * Gets the credential for the given entity.
+     * Gets the credentials for a given entity.
      * 
      * @param entityID the ID of the entity
      * 
-     * @return the credential for that entity
+     * @return the credentials for that entity
      */
-    public EntityCredential getCredential(String entityID, CredentialUsageTypeEnumeration usageType);
+    public List<EntityCredential> getCredential(String entityID);
+
+    /**
+     * Gets the credentials for the given entity.
+     * 
+     * @param entityID the ID of the entity
+     * 
+     * @return the credentials for that entity
+     */
+    public List<EntityCredential> getCredential(String entityID, CredentialUsageTypeEnumeration usageType);
     
     /**
      * Gets all the credentials loaded into this store.
