@@ -23,7 +23,7 @@ import java.util.List;
  * EntityCredentialResolvers are responsible for reading credentials in different formats (files, SAML2 metadata, java keystores)
  * and constructing {@link org.opensaml.security.EntityCredential}s from the information.
  */
-public interface EntityCredentialResolver {
+public interface EntityCredentialResolver<CredentialType extends EntityCredential> {
 
     /**
      * Fetches all the credentials in the underlying store.
@@ -32,5 +32,5 @@ public interface EntityCredentialResolver {
      * 
      * @throws GeneralSecurityException thrown if there is a problem fetching the credentials
      */
-    public List<EntityCredential> resolveCredential() throws GeneralSecurityException;
+    public List<CredentialType> resolveCredential() throws GeneralSecurityException;
 }

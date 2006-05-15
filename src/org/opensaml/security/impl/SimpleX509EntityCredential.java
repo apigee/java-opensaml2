@@ -17,11 +17,12 @@
 package org.opensaml.security.impl;
 
 import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
 import javolution.util.FastList;
+
+import org.opensaml.security.CredentialUsageTypeEnumeration;
 
 /**
  * A basic implementation of {@link org.opensaml.security.X509EntityCredential}.
@@ -29,54 +30,51 @@ import javolution.util.FastList;
 public class SimpleX509EntityCredential extends AbstractX509EntityCredential {
 
     /**
-     * Constructor. If the given entityID is null the subject DN of the entity certificate will be used as the entityID.
-     * If that is null as well an exception will be raised.  If the given entity certificate is not within the given certificate 
-     * chain it will be added as the 0th element.  If a certificate chain does not exist and an entity certificate is given a list 
-     * will be created and the entity certificate will be added to it.
+     * Constructor.  Uses the public key in the entity certificate as this credential's public key.
      * 
-     * @param entityID the ID of the entity this credential belongs to
-     * @param privateKey the entity's public key
-     * @param publicKey the entity's private key
-     * @param entityCertificate the public certificate for the entity
+     * @param entityID the ID of the entity this credential belongs to, may not be null
+     * @param privateKey the entity's private key
+     * @param entityCertificate the public certificate for the entity, may not be null
      * @param entityCertificateChain the certificate chain for this entity
      * 
-     * @throws IllegalArgumentException thrown if the public key is null or the entity ID can not be determined
+     * @throws IllegalArgumentException thrown if the entityID or entity certificate is null
      */
-    public SimpleX509EntityCredential(String entityID, PrivateKey privateKey, PublicKey publicKey,
-            X509Certificate entityCertificate, List<X509Certificate> entityCertificateChain)
-            throws IllegalArgumentException {
+    public SimpleX509EntityCredential(String entityID, PrivateKey privateKey, X509Certificate entityCertificate,
+            List<X509Certificate> entityCertificateChain) throws IllegalArgumentException {
 
-        if (entityID != null && entityID.trim().length() > 0) {
-            this.entityID = new String(entityID.trim());
+        if (entityID != null && entityID.length() > 0) {
+            this.entityID = new String(entityID);
+        } else {
+            throw new IllegalArgumentException("Entity ID may not be null or empty");
+        }
+
+        if (entityCertificate == null) {
+            throw new IllegalArgumentException("Entity certificate may not be null");
+        }
+        this.entityCertificate = entityCertificate;
+
+        if (entityCertificateChain == null) {
+            certificateChain = new FastList<X509Certificate>();
+        }
+        certificateChain.addAll(entityCertificateChain);
+
+        if (!certificateChain.contains(entityCertificate)) {
+            certificateChain.add(0, entityCertificate);
         }
 
         if (publicKey == null) {
             throw new IllegalArgumentException("Public key may not be null");
         }
-        
-        if(entityCertificate != null){
-            this.entityCertificate = entityCertificate;
-            
-            if(this.entityID == null){
-                this.entityID = new String(this.entityCertificate.getSubjectX500Principal().getName());
-            }
-            
-            if(entityCertificateChain == null){
-                certificateChain = new FastList<X509Certificate>();
-            }
-            
-            certificateChain.addAll(entityCertificateChain);
-            
-            if (!certificateChain.contains(entityCertificate)) {
-                certificateChain.add(0, entityCertificate);
-            }
-        }
-        
-        if(this.entityID == null){
-            throw new IllegalArgumentException("Unable to determine entity ID");
-        }
-
-        this.publicKey = publicKey;
+        publicKey = entityCertificate.getPublicKey();
         this.privateKey = privateKey;
+    }
+
+    /**
+     * Sets the usage type for this credential.
+     * 
+     * @param usageType usage type for this credential
+     */
+    public void setCredentialUsageType(CredentialUsageTypeEnumeration usageType) {
+        this.usageType = usageType;
     }
 }

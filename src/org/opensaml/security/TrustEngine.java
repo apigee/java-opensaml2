@@ -33,7 +33,7 @@ public interface TrustEngine<CredentialType extends EntityCredential> {
      * 
      * @return true if the credential is valid and trustworthy, false if not
      */
-    public boolean evaluate(CredentialType entityCredential, RoleDescriptor descriptor);
+    public boolean validate(CredentialType entityCredential, RoleDescriptor descriptor);
 
     /**
      * Verifies that the given signable SAML object bear credentials that are valid and trustworthy for the given role.
@@ -43,5 +43,5 @@ public interface TrustEngine<CredentialType extends EntityCredential> {
      * 
      * @return true if the credential is valid and trustworthy, false if not or if the object is not signed
      */
-    public boolean evaluate(SignableSAMLObject samlObject, RoleDescriptor descriptor);
+    public boolean validate(SignableSAMLObject samlObject, RoleDescriptor descriptor);
 }
