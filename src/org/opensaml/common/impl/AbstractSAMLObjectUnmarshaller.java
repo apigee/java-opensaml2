@@ -17,7 +17,6 @@
 package org.opensaml.common.impl;
 
 import org.apache.log4j.Logger;
-import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.AbstractDOMCachingXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -54,13 +53,8 @@ public abstract class AbstractSAMLObjectUnmarshaller extends AbstractDOMCachingX
      */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
-        if (Configuration.ignoreUnknownElements()) {
-            if (log.isDebugEnabled()) {
-                log.debug("Ignoring unknown element " + childSAMLObject.getElementQName());
-            }
-        } else {
-            throw new UnmarshallingException(childSAMLObject.getElementQName()
-                    + " is not an element supported by this unmarshaller");
+        if (log.isDebugEnabled()) {
+            log.debug("Ignoring unknown element " + childSAMLObject.getElementQName());
         }
     }
 
@@ -68,13 +62,8 @@ public abstract class AbstractSAMLObjectUnmarshaller extends AbstractDOMCachingX
      * {@inheritDoc}
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-        if (Configuration.ignoreUnknownAttributes()) {
-            if (log.isDebugEnabled()) {
-                log.debug("Ignorning unknown attribute " + attribute.getLocalName());
-            }
-        } else {
-            throw new UnmarshallingException(attribute.getLocalName()
-                    + " is not an attribute supported by this attribute");
+        if (log.isDebugEnabled()) {
+            log.debug("Ignorning unknown attribute " + attribute.getLocalName());
         }
     }
 

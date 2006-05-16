@@ -53,13 +53,8 @@ public class ExtensionsUnmarshaller extends AbstractDOMCachingXMLObjectUnmarshal
      * {@inheritDoc}
      */
     protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-        if (Configuration.ignoreUnknownAttributes()) {
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("Ignorning unknown attribute " + attribute.getLocalName());
-            }
-        } else {
-            throw new UnmarshallingException(attribute.getLocalName()
-                    + " is not an attribute supported by this attribute");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Ignorning unknown attribute " + attribute.getLocalName());
         }
     }
 
