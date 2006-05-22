@@ -29,6 +29,8 @@ import org.opensaml.security.CredentialUsageTypeEnumeration;
 import org.opensaml.security.TrustEngine;
 import org.opensaml.security.X509EntityCredential;
 import org.opensaml.xml.signature.KeyInfo;
+import org.opensaml.xml.signature.SignatureValidator;
+import org.opensaml.xml.validation.ValidationException;
 
 /**
  * A trust engine that uses cryptographic keys located within a role descriptor's key descriptor.
@@ -92,7 +94,7 @@ public class InlinePKIKeyTrustEngine implements TrustEngine<X509EntityCredential
                 }
             }
 
-            if(log.isDebugEnabled()){
+            if (log.isDebugEnabled()) {
                 log.debug("Checking if certificates contained within match end-entity certificate");
             }
             for (X509Certificate roleCertificate : keyInfo.getCertificates()) {
@@ -116,8 +118,39 @@ public class InlinePKIKeyTrustEngine implements TrustEngine<X509EntityCredential
         return false;
     }
 
+    /**
+     * Validates that the given signed SAMLObject was signed using a Signing key for the given descriptor.
+     * 
+     * @return false if SAMLObject is not signed or the descriptor does not have any signing keys that validate the
+     *         signature
+     */
     public boolean validate(SignableSAMLObject samlObject, RoleDescriptor descriptor) {
-        // TODO same as current BasicTrust code
+        if (samlObject.getSignature() == null) {
+            return false;
+        }
+
+        List<KeyDescriptor> keyDescriptors = descriptor.getKeyDescriptors();
+        if (keyDescriptors == null || keyDescriptors.size() == 0) {
+            return false;
+        }
+
+        KeyInfo keyInfo;
+        SignatureValidator signatureValidator;
+        for (KeyDescriptor keyDescriptor : keyDescriptors) {
+            if (keyDescriptor.getUse() == CredentialUsageTypeEnumeration.SIGNING) {
+                keyInfo = keyDescriptor.getKeyInfo();
+                if (keyInfo.getPublicKey() != null) {
+                    signatureValidator = new SignatureValidator(keyInfo.getPublicKey());
+                    try {
+                        signatureValidator.validate(samlObject.getSignature());
+                        return true;
+                    } catch (ValidationException e) {
+                        // Don't do anything, another key may work
+                    }
+                }
+            }
+        }
+
         return false;
     }
 }
