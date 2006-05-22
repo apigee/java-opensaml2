@@ -202,6 +202,11 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
     public void setStatus(Status newStatus) {
         this.status = prepareForAssignment(this.status, newStatus);
     }
+    
+    /** {@inheritDoc} */
+    public String getSignatureReferenceID(){
+        return id;
+    }
 
     /**
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
@@ -209,13 +214,18 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (issuer != null)
+        if (issuer != null){
             children.add(issuer);
-        // TODO Signature
-        if (extensions != null)
+        }
+        if(getSignature() != null){
+            children.add(getSignature());
+        }
+        if (extensions != null){
             children.add(extensions);
-        if (status != null)
+        }
+        if (status != null){
             children.add(status);
+        }
 
         return Collections.unmodifiableList(children);
     }

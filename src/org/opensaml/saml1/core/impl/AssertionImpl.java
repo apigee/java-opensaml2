@@ -214,6 +214,11 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AttributeStatement>) statements.subList(statementQName);
     }
+    
+    /** {@inheritDoc} */
+    public String getSignatureReferenceID(){
+        return id;
+    }
 
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
@@ -231,6 +236,10 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         }
 
         children.addAll(statements);
+        
+        if(getSignature() != null){
+            children.add(getSignature());
+        }
 
         if (children.size() == 0) {
             return null;

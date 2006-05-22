@@ -113,17 +113,24 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject
     public List<RespondWith> getRespondWiths() {
         return respondWiths;
     }
+    
+    /** {@inheritDoc} */
+    public String getSignatureReferenceID(){
+        return id;
+    }
 
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-        if (respondWiths.size() == 0) {
-            return null;
-        }
-
         List<XMLObject> children = new ArrayList<XMLObject>();
+
         children.addAll(respondWiths);
+        
+        if(getSignature() != null){
+            children.add(getSignature());
+        }
+        
         return Collections.unmodifiableList(children);
     }
 }

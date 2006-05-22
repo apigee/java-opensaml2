@@ -292,6 +292,11 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     public Map<QName, String> getUnknownAttributes() {
         return unknownAttributes;
     }
+    
+    /** {@inheritDoc} */
+    public String getSignatureReferenceID(){
+        return id;
+    }
 
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
@@ -299,6 +304,9 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
+        if(getSignature() != null){
+            children.add(getSignature());
+        }
         children.add(getExtensions());
         children.addAll(roleDescriptors);
         children.add(getAffiliationDescriptor());

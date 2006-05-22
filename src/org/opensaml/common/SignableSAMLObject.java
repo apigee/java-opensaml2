@@ -23,4 +23,10 @@ import org.opensaml.xml.signature.SignableXMLObject;
  */
 public interface SignableSAMLObject extends SignableXMLObject, SAMLObject {
 
+    /**
+     * Gets the value of the ID attribute for this SAML object which will be used as its signature reference.
+     * 
+     * @return the value of this SAMLObject ID attribute
+     */
+    public String getSignatureReferenceID();
 }

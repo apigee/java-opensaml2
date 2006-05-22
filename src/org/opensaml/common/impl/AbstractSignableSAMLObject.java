@@ -20,11 +20,13 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.xml.AbstractValidatingSignableXMLObject;
+import org.opensaml.xml.signature.Signature;
 
 /**
  * Abstract SAMLObject implementation that also implements {@link org.opensaml.xml.signature.SignableXMLObject}
  */
-public abstract class AbstractSignableSAMLObject extends AbstractValidatingSignableXMLObject implements SignableSAMLObject {
+public abstract class AbstractSignableSAMLObject extends AbstractValidatingSignableXMLObject implements
+        SignableSAMLObject {
 
     /**
      * Constructor
@@ -36,14 +38,28 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
     protected AbstractSignableSAMLObject(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
-    
+
     /*
      * @see java.lang.Object#equals(java.lang.Object)
      */
     public final boolean equals(Object obj) {
         return super.equals(obj);
     }
-    
+
+    /**
+     * {@inheritDoc}
+     * 
+     * When a signature is added a content reference that uses the ID of this object, at the time of signing will be
+     * created and added to the signature. The message digest method will be set to
+     * {@link org.apache.xml.security.algorithms.MessageDigestAlgorithm#ALGO_ID_DIGEST_SHA256} and the transforms will
+     * be set to {@link org.apache.xml.security.transforms.Transforms#TRANSFORM_ENVELOPED_SIGNATURE} and
+     * {@link org.apache.xml.security.transforms.Transforms#TRANSFORM_C14N_EXCL_WITH_COMMENTS}.
+     */
+    public void setSignature(Signature newSignature) {
+        newSignature.getContentReferences().add(new SAMLObjectContentReference(this));
+        super.setSignature(newSignature);
+    }
+
     /**
      * A helper function for derived classes that checks to see if the old and new value are equal and if so releases
      * the cached dom. Derived classes are expected to use this thus: <code>
@@ -59,11 +75,11 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
      * 
      * @throws IllegalAddException if the child already has a parent.
      */
-    protected DateTime prepareForAssignment(DateTime oldValue, DateTime newValue){
-        if(newValue != null){
+    protected DateTime prepareForAssignment(DateTime oldValue, DateTime newValue) {
+        if (newValue != null) {
             newValue = newValue.withZone(DateTimeZone.UTC);
         }
-        
+
         return super.prepareForAssignment(oldValue, newValue);
     }
 }

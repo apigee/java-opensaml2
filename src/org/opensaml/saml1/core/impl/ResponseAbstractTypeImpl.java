@@ -16,6 +16,8 @@
 
 package org.opensaml.saml1.core.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -132,12 +134,22 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObjec
     public void setRecipient(String recipient) {
         this.recipient = prepareForAssignment(this.recipient, recipient);
     }
+    
+    /** {@inheritDoc} */
+    public String getSignatureReferenceID(){
+        return id;
+    }
 
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
      */
     public List<XMLObject> getOrderedChildren() {
-        // TODO Signature ?
-        return null;
+        List<XMLObject> children = new ArrayList<XMLObject>();
+        
+        if(getSignature() != null){
+            children.add(getSignature());
+        }
+        
+        return Collections.unmodifiableList(children);
     }
 }

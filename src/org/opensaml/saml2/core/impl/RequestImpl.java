@@ -167,6 +167,11 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
     public void setExtensions(Extensions newExtensions) {
         this.extensions = prepareForAssignment(this.extensions, newExtensions);
     }
+    
+    /** {@inheritDoc} */
+    public String getSignatureReferenceID(){
+        return id;
+    }
 
     /**
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
@@ -174,11 +179,15 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (issuer != null)
+        if (issuer != null){
             children.add(issuer);
-        // TODO Signature ??? necessary? if so, get from superclass ?
-        if (extensions != null)
+        }
+        if(getSignature() != null){
+            children.add(getSignature());
+        }
+        if (extensions != null){
             children.add(extensions);
+        }
 
         if (children.size() == 0)
             return null;

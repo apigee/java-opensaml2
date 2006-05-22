@@ -257,6 +257,11 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     public Map<QName, String> getUnknownAttributes() {
         return unknownAttributes;
     }
+    
+    /** {@inheritDoc} */
+    public String getSignatureReferenceID(){
+        return id;
+    }
 
     /*
      * @see org.opensaml.common.SAMLObject#getOrderedChildren()
@@ -264,6 +269,10 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
+        if(getSignature() != null){
+            children.add(getSignature());
+        }
+        
         if (extensions != null) {
             children.add(getExtensions());
         }

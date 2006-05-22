@@ -154,6 +154,11 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     public List<EntityDescriptor> getEntityDescriptors() {
         return (List<EntityDescriptor>) orderedDescriptors.subList(EntityDescriptor.ELEMENT_QNAME);
     }
+    
+    /** {@inheritDoc} */
+    public String getSignatureReferenceID(){
+        return id;
+    }
 
     /*
      * @see org.opensaml.xml.XMLObject#getOrderedChildren()
@@ -161,6 +166,10 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
+        if(getSignature() != null){
+            children.add(getSignature());
+        }
+        
         children.add(getExtensions());
         children.addAll(orderedDescriptors);
 
