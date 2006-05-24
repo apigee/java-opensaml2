@@ -26,12 +26,12 @@ import org.opensaml.xml.schema.XSString;
 /**
  * Tests unmarshalling and marshalling for various response messages.
  */
-public class ResponseSuccessAuthnAttrib extends ComplexSAMLObjectBaseTestCase {
+public class ResponseSuccessAuthnAttribTest extends ComplexSAMLObjectBaseTestCase {
     
     /**
      * Constructor
      */
-    public ResponseSuccessAuthnAttrib(){
+    public ResponseSuccessAuthnAttribTest(){
         elementFile = "/data/org/opensaml/saml2/core/ResponseSuccessAuthnAttrib.xml";
     }
 
