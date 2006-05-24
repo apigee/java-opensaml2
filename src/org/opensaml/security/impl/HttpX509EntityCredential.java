@@ -16,9 +16,7 @@
 
 package org.opensaml.security.impl;
 
-import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
-import java.util.List;
 
 import javax.security.auth.x500.X500Principal;
 import javax.servlet.http.HttpServletRequest;
@@ -26,42 +24,37 @@ import javax.servlet.http.HttpServletRequest;
 import javolution.util.FastList;
 
 import org.opensaml.security.CredentialUsageTypeEnumeration;
-import org.opensaml.security.EntityCredentialResolver;
-import org.opensaml.security.X509EntityCredential;
 
 /**
- * An entity credential built from the X.509 certificates contained in the HTTP request header
- * <code>javax.servlet.request.X509Certificate</code>. The entity certificate is considered to be the first
- * certificate in the certs list returned by the request. The entity ID is the RFC2253 Subject DN of the entity
- * certificate, the public key is the public key contained within the same certificate.
+ * An adapter that exposes the X.509 certificates contained in the HTTP request header as an
+ * {@link org.opensaml.security.X509EntityCredential}. The entity certificate is considered to be the first certificate
+ * in the certs list returned by the request. The entity ID is the RFC2253 Subject DN of the entity certificate, the
+ * public key is the public key contained within the same certificate.
  */
-public class HttpX509EntityCredentialResolver implements EntityCredentialResolver<X509EntityCredential> {
+public class HttpX509EntityCredential extends AbstractX509EntityCredential {
 
     /** HTTP header to pull certificate info from */
     public final static String X509_HEADER = "javax.servlet.request.X509Certificate";
-
-    /** Resolved credential */
-    private List<X509EntityCredential> credentials;
 
     /**
      * Constructor
      * 
      * @param httpRequest the HTTP request
      */
-    public HttpX509EntityCredentialResolver(HttpServletRequest httpRequest) {
+    public HttpX509EntityCredential(HttpServletRequest httpRequest) {
         X509Certificate[] chain = (X509Certificate[]) httpRequest.getAttribute(X509_HEADER);
         if (chain == null | chain.length == 0) {
             throw new IllegalArgumentException(
                     "HTTP Request does not contain X.509 certificates in header javax.servlet.request.X509Certificate");
         }
-        X509Certificate entityCertificate = chain[0];
+        entityCertificate = chain[0];
 
-        List<X509Certificate> certificateChain = new FastList<X509Certificate>();
+        certificateChain = new FastList<X509Certificate>();
         for (int i = 0; i < chain.length; i++) {
             certificateChain.add(chain[i]);
         }
 
-        String entityID = entityCertificate.getSubjectX500Principal().getName(X500Principal.RFC2253);
+        entityID = entityCertificate.getSubjectX500Principal().getName(X500Principal.RFC2253);
         if (entityID != null) {
             entityID = entityID.trim();
         }
@@ -70,16 +63,8 @@ public class HttpX509EntityCredentialResolver implements EntityCredentialResolve
             throw new IllegalArgumentException("End-entity certificate does not contain a Subject DN");
         }
 
-        SimpleX509EntityCredential credential = new SimpleX509EntityCredential(entityID, null, entityCertificate,
-                certificateChain);
-        credential.setCredentialUsageType(CredentialUsageTypeEnumeration.SIGNING);
+        publicKey = entityCertificate.getPublicKey();
 
-        credentials = new FastList<X509EntityCredential>(2);
-        credentials.add(credential);
-    }
-
-    /** {@inheritDoc} */
-    public List<X509EntityCredential> resolveCredential() throws GeneralSecurityException {
-        return credentials;
+        usageType = CredentialUsageTypeEnumeration.SIGNING;
     }
 }
