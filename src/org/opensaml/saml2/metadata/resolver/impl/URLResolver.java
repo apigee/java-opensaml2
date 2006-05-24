@@ -63,8 +63,6 @@ public class URLResolver extends AbstractMetadataResolver implements MetadataRes
     /**
      * Resolves a URL pointing to a metadata document and creates a DOM document from it.
      * 
-     * @param metadataURL the URL
-     * 
      * @return the DOM document
      * 
      * @throws ResolutionException thrown if the URL is malformed, information can 

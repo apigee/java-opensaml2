@@ -34,12 +34,12 @@ public abstract class AbstractX509EntityCredential extends AbstractEntityCredent
     /** Certificate chain for the entity, includes entity certificate */
     protected FastList<X509Certificate> certificateChain;
 
-    /** {@inheritDoc  */
+    /** {@inheritDoc}  */
     public X509Certificate getEntityCertificate() {
         return entityCertificate;
     }
 
-    /** {@inheritDoc  */
+    /** {@inheritDoc}  */
     public List<X509Certificate> getEntityCertificateChain() {
        return certificateChain.unmodifiable();
     }

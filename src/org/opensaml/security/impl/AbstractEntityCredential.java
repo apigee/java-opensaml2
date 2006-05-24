@@ -38,27 +38,27 @@ public abstract class AbstractEntityCredential implements EntityCredential {
     /** Private key of the entity */
     protected Key privateKey;
     
-    /** {@inheritDoc  */
+    /** {@inheritDoc}  */
     public String getEntityID() {
         return entityID;
     }
 
-    /** {@inheritDoc  */
+    /** {@inheritDoc}  */
     public CredentialUsageTypeEnumeration getUsageType() {
         return usageType;
     }
     
-    /** {@inheritDoc  */
+    /** {@inheritDoc}  */
     public String getKeyAlgorithm() {
         return publicKey.getAlgorithm();
     }
 
-    /** {@inheritDoc  */
+    /** {@inheritDoc}  */
     public Key getPublicKey() {
         return publicKey;
     }
 
-    /** {@inheritDoc  */
+    /** {@inheritDoc}  */
     public Key getPrivateKey() {
         return privateKey;
     }
