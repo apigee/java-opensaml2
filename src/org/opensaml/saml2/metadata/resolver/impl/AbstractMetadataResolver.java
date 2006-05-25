@@ -26,7 +26,9 @@ import org.opensaml.xml.Configuration;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallerFactory;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * A base class for implementations of {@link org.opensaml.saml2.metadata.resolver.MetadataResolver} that handles schema
@@ -87,15 +89,24 @@ public abstract class AbstractMetadataResolver implements MetadataResolver {
             log.debug("Fetching metadata DOM");
         }
         Document metadataDocument = retrieveDOM();
+        Element metadataElement = metadataDocument.getDocumentElement();
 
+        if(log.isTraceEnabled()){
+            log.trace("Retrieved the following DOM:\n" + XMLHelper.nodeToString(metadataElement));
+        }
+        
         if(log.isDebugEnabled()){
-            log.debug("Unmarshalling metadata DOM");
+            log.debug("Fetching unmarshaller for DOM");
         }
         UnmarshallerFactory unmarshallerFactory = Configuration.getUnmarshallerFactory();
-        Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(metadataDocument.getDocumentElement());
+        Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(metadataElement);
+        
+        if(log.isDebugEnabled()){
+            log.debug("Using unmarshaller " + unmarshaller.getClass().getName() + " to unmarshall document");
+        }
         SAMLObject metadata;
         try {
-            metadata = (SAMLObject) unmarshaller.unmarshall(metadataDocument.getDocumentElement());
+            metadata = (SAMLObject) unmarshaller.unmarshall(metadataElement);
         } catch (UnmarshallingException e) {
             throw new ResolutionException("Unable to unmarshall metadata document", e);
         }
