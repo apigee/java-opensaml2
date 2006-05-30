@@ -21,14 +21,13 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.EntityDescriptor} for Spec compliance.
  */
-public class EntityDescriptorSpecValidator implements Validator {
+public class EntityDescriptorSpecValidator implements Validator<EntityDescriptor> {
 
     /** Constructor */
     public EntityDescriptorSpecValidator() {
@@ -38,8 +37,7 @@ public class EntityDescriptorSpecValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        EntityDescriptor entityDescriptor = (EntityDescriptor) xmlObject;
+    public void validate(EntityDescriptor entityDescriptor) throws ValidationException {
         validateRoot(entityDescriptor);
     }
 

@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.EmailAddress;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.EmailAddress} for Schema compliance.
  */
-public class EmailAddressSchemaValidator implements Validator {
+public class EmailAddressSchemaValidator implements Validator<EmailAddress> {
 
     /** Constructor */
     public EmailAddressSchemaValidator() {
@@ -39,8 +38,7 @@ public class EmailAddressSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        EmailAddress emailAddress = (EmailAddress) xmlObject;
+    public void validate(EmailAddress emailAddress) throws ValidationException {
         validateAddress(emailAddress);
     }
 

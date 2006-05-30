@@ -21,7 +21,6 @@ package org.opensaml.saml2.core.validator;
 
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml2.core.StatusResponse;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.StatusResponse} for Schema compliance.
  */
-public abstract class StatusResponseSchemaValidator implements Validator {
+public abstract class StatusResponseSchemaValidator<StatusResponseType extends StatusResponse> implements Validator<StatusResponseType> {
 
     /**
      * Constructor
@@ -41,8 +40,7 @@ public abstract class StatusResponseSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        StatusResponse response = (StatusResponse) xmlObject;
+    public void validate(StatusResponseType response) throws ValidationException {
         validateStatus(response);
         validateID(response);
         validateVersion(response);

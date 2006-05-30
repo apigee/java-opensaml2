@@ -21,20 +21,18 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.SubjectConfirmation;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml1.core.SubjectConfirmation} for Schema compliance.
  */
-public class SubjectConfirmationSchemaValidator implements Validator  {
+public class SubjectConfirmationSchemaValidator implements Validator<SubjectConfirmation>  {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) xmlObject;
+    public void validate(SubjectConfirmation subjectConfirmation) throws ValidationException {
         // TODO separate methods
          if (subjectConfirmation.getConfirmationMethods().size() == 0) {
              throw new ValidationException("At least Confirmation Method should be present");

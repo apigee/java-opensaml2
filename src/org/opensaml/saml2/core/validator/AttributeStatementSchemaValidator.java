@@ -21,14 +21,13 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AttributeStatement;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.AttributeStatement} for Schema compliance.
  */
-public class AttributeStatementSchemaValidator implements Validator {
+public class AttributeStatementSchemaValidator implements Validator<AttributeStatement> {
 
     /** Constructor */
     public AttributeStatementSchemaValidator() {
@@ -38,9 +37,7 @@ public class AttributeStatementSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AttributeStatement attributeStatement = (AttributeStatement) xmlObject;
-
+    public void validate(AttributeStatement attributeStatement) throws ValidationException {
         validateAttributes(attributeStatement);
     }
 

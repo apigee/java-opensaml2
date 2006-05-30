@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.NameIDFormat;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.NameIDFormat} for Schema compliance.
  */
-public class NameIDFormatSchemaValidator implements Validator {
+public class NameIDFormatSchemaValidator implements Validator<NameIDFormat> {
 
     /** Constructor */
     public NameIDFormatSchemaValidator() {
@@ -39,8 +38,7 @@ public class NameIDFormatSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        NameIDFormat nameIDFormat = (NameIDFormat) xmlObject;
+    public void validate(NameIDFormat nameIDFormat) throws ValidationException {
         validateFormat(nameIDFormat);
     }
 

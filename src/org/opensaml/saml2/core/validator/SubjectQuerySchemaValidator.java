@@ -20,14 +20,12 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.SubjectQuery;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.SubjectQuery} for Schema compliance.
  */
-public abstract class SubjectQuerySchemaValidator extends RequestSchemaValidator implements Validator {
+public abstract class SubjectQuerySchemaValidator<SubjectQueryType extends SubjectQuery> extends RequestSchemaValidator<SubjectQueryType> {
 
     /**
      * Constructor
@@ -39,10 +37,8 @@ public abstract class SubjectQuerySchemaValidator extends RequestSchemaValidator
     /*
      * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        SubjectQuery query = (SubjectQuery) xmlObject;
-        
+    public void validate(SubjectQueryType query) throws ValidationException {
+        super.validate(query);
         validateSubject(query);
     }
 

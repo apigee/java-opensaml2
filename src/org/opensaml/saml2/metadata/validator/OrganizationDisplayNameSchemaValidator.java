@@ -21,14 +21,13 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.OrganizationDisplayName;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.OrganizationDisplayName} for Schema compliance.
  */
-public class OrganizationDisplayNameSchemaValidator implements Validator {
+public class OrganizationDisplayNameSchemaValidator implements Validator<OrganizationDisplayName> {
 
     /** Constructor */
     public OrganizationDisplayNameSchemaValidator() {
@@ -38,9 +37,8 @@ public class OrganizationDisplayNameSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        OrganizationDisplayName serviceName = (OrganizationDisplayName) xmlObject;
-        validateName(serviceName);
+    public void validate(OrganizationDisplayName name) throws ValidationException {
+        validateName(name);
     }
 
     /**

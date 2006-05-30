@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.SubjectConfirmation;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.SubjectConfirmation} for Schema compliance.
  */
-public class SubjectConfirmationSchemaValidator implements Validator {
+public class SubjectConfirmationSchemaValidator implements Validator<SubjectConfirmation> {
 
     /** Constructor */
     public SubjectConfirmationSchemaValidator() {
@@ -39,9 +38,7 @@ public class SubjectConfirmationSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) xmlObject;
-
+    public void validate(SubjectConfirmation subjectConfirmation) throws ValidationException {
         validateMethod(subjectConfirmation);
     }
 

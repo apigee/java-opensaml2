@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.saml2.metadata.AssertionConsumerService;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.AssertionConsumerService} for Schema compliance.
  */
-public class AssertionConsumerServiceSchemaValidator extends IndexedEndpointSchemaValidator implements Validator {
+public class AssertionConsumerServiceSchemaValidator extends IndexedEndpointSchemaValidator<AssertionConsumerService> {
 
     /** Constructor */
     public AssertionConsumerServiceSchemaValidator() {

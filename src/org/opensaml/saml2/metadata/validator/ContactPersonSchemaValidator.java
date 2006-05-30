@@ -21,14 +21,13 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.ContactPerson;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.ContactPerson} for Schema compliance.
  */
-public class ContactPersonSchemaValidator implements Validator {
+public class ContactPersonSchemaValidator implements Validator<ContactPerson> {
 
     /** Constructor */
     public ContactPersonSchemaValidator() {
@@ -38,8 +37,7 @@ public class ContactPersonSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        ContactPerson contactPerson = (ContactPerson) xmlObject;
+    public void validate(ContactPerson contactPerson) throws ValidationException {
         validateType(contactPerson);
     }
 

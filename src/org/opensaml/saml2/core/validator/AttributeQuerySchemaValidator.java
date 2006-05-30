@@ -19,14 +19,13 @@
  */
 package org.opensaml.saml2.core.validator;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.AttributeQuery;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.AttributeQuery} for Schema compliance.
  */
-public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator implements Validator {
+public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator<AttributeQuery> {
 
     /**
      * Constructor
@@ -39,12 +38,9 @@ public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator i
     /*
      * @see org.opensaml.saml2.core.validator.SubjectQuerySchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+    public void validate(AttributeQuery query) throws ValidationException {
+        super.validate(query);
     }
     
-    // Only validation requirments are in the superclasses
-    
     // TODO need to validate uniqure Attribute/@Name and Attribute/@NameFormat combos
-
 }

@@ -20,14 +20,12 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.NameIDMappingRequest;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.NameIDMappingRequest} for Schema compliance.
  */
-public class NameIDMappingRequestSchemaValidator extends RequestSchemaValidator implements Validator {
+public class NameIDMappingRequestSchemaValidator extends RequestSchemaValidator<NameIDMappingRequest> {
 
     /**
      * Constructor
@@ -40,10 +38,8 @@ public class NameIDMappingRequestSchemaValidator extends RequestSchemaValidator 
     /*
      * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        NameIDMappingRequest request = (NameIDMappingRequest) xmlObject;
-        
+    public void validate(NameIDMappingRequest request) throws ValidationException {
+        super.validate(request);
         validateIdentifiers(request);
         validateNameIDPolicy(request);
     }

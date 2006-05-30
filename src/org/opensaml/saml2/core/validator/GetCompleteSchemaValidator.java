@@ -20,7 +20,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.GetComplete;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -28,7 +27,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.GetComplete} for Schema compliance.
  */
-public class GetCompleteSchemaValidator implements Validator {
+public class GetCompleteSchemaValidator implements Validator<GetComplete> {
 
     /**
      * Constructor
@@ -41,9 +40,7 @@ public class GetCompleteSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        GetComplete gc = (GetComplete) xmlObject;
-        
+    public void validate(GetComplete gc) throws ValidationException {
         validateGetComplete(gc);
     }
 

@@ -20,19 +20,18 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml1.core.AttributeQuery} for Schema compliance.
  */
-public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator implements Validator {
+public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator<AttributeQuery> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+    public void validate(AttributeQuery attributeQuery) throws ValidationException {
+        super.validate(attributeQuery);
     }
 }

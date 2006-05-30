@@ -21,14 +21,12 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.PDPDescriptor;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.PDPDescriptor} for Schema compliance.
  */
-public class PDPDescriptorSchemaValidator extends RoleDescriptorSchemaValidator implements Validator {
+public class PDPDescriptorSchemaValidator extends RoleDescriptorSchemaValidator<PDPDescriptor> {
 
     /** Constructor */
     public PDPDescriptorSchemaValidator() {
@@ -38,10 +36,8 @@ public class PDPDescriptorSchemaValidator extends RoleDescriptorSchemaValidator 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        PDPDescriptor pdpDescriptor = (PDPDescriptor) xmlObject;
-
+    public void validate(PDPDescriptor pdpDescriptor) throws ValidationException {
+        super.validate(pdpDescriptor);
         validateAuthzServices(pdpDescriptor);
     }
 

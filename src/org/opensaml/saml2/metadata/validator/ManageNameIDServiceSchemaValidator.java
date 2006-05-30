@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.saml2.metadata.ManageNameIDService;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.ManageNameIDService} for Schema compliance.
  */
-public class ManageNameIDServiceSchemaValidator extends EndpointSchemaValidator implements Validator {
+public class ManageNameIDServiceSchemaValidator extends EndpointSchemaValidator<ManageNameIDService> {
 
     /** Constructor */
     public ManageNameIDServiceSchemaValidator() {

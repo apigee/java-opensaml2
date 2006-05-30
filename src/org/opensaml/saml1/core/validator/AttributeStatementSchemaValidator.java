@@ -21,23 +21,19 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AttributeStatement;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Checks {@link org.opensaml.saml1.core.AttributeStatement} for Schema compliance.
  */
-public class AttributeStatementSchemaValidator extends SubjectStatementSchemaValidator {
+public class AttributeStatementSchemaValidator extends SubjectStatementSchemaValidator<AttributeStatement> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
-        super.validate(xmlObject);
-        // TODO Split into separate method.
-        AttributeStatement attributeStatement = (AttributeStatement) xmlObject;
-        
+    public void validate(AttributeStatement attributeStatement) throws ValidationException {        
+        super.validate(attributeStatement);
+
         if (attributeStatement.getAttributes().size() == 0) {
             throw new ValidationException("No Attribute Element present");
         }

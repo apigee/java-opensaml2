@@ -21,7 +21,6 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.RequestAbstractType;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,15 +28,12 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.RequestAbstractType} for Schema compliance.
  */
-public class RequestAbstractTypeSchemaValidator implements Validator {
+public class RequestAbstractTypeSchemaValidator<RequestType extends RequestAbstractType> implements Validator<RequestType> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-
-        RequestAbstractType requestAbstractType = (RequestAbstractType) xmlObject;
-
+    public void validate(RequestType requestAbstractType) throws ValidationException {
         validateVersion(requestAbstractType);
 
         validateID(requestAbstractType);

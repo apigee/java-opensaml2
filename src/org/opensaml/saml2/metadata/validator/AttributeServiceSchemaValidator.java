@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.saml2.metadata.AttributeService;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.AttributeService} for Schema compliance.
  */
-public class AttributeServiceSchemaValidator extends EndpointSchemaValidator implements Validator {
+public class AttributeServiceSchemaValidator extends EndpointSchemaValidator<AttributeService> {
 
     /** Constructor */
     public AttributeServiceSchemaValidator() {

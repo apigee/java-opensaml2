@@ -21,31 +21,28 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml1.core.AuthorizationDecisionQuery} for Schema compliance.
  */
-public class AuthorizationDecisionQuerySchemaValidator extends SubjectQuerySchemaValidator implements Validator {
+public class AuthorizationDecisionQuerySchemaValidator extends SubjectQuerySchemaValidator<AuthorizationDecisionQuery> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        AuthorizationDecisionQuery query = (AuthorizationDecisionQuery) xmlObject;
-        
-       validateActions(query);
-       
-       validateResourcePresent(query);
-        
+    public void validate(AuthorizationDecisionQuery query) throws ValidationException {
+        super.validate(query);
+        validateActions(query);
+
+        validateResourcePresent(query);
+
     }
-    
+
     /**
      * Validates that the Resource attribute is present and valid
+     * 
      * @param query
      * @throws ValidationException
      */
@@ -54,9 +51,10 @@ public class AuthorizationDecisionQuerySchemaValidator extends SubjectQuerySchem
             throw new ValidationException("No Resource attribute present");
         }
     }
- 
+
     /**
      * Validates that there is at least one Action Element present.
+     * 
      * @param query
      * @throws ValidationException
      */

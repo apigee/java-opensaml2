@@ -20,14 +20,13 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.RequestedAuthnContext;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.RequestedAuthnContext} for Schema compliance.
  */
-public class RequestedAuthnContextSchemaValidator implements Validator {
+public class RequestedAuthnContextSchemaValidator implements Validator<RequestedAuthnContext> {
 
     /**
      * Constructor
@@ -40,11 +39,8 @@ public class RequestedAuthnContextSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        RequestedAuthnContext rac = (RequestedAuthnContext) xmlObject;
-        
-        validateChildren(rac);
-
+    public void validate(RequestedAuthnContext requestedAuthnContext) throws ValidationException {
+        validateChildren(requestedAuthnContext);
     }
 
     /**

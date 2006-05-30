@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.NameID;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.NameID} for Schema compliance.
  */
-public class NameIDSchemaValidator implements Validator {
+public class NameIDSchemaValidator implements Validator<NameID> {
 
     /** Constructor */
     public NameIDSchemaValidator() {
@@ -39,9 +38,7 @@ public class NameIDSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        NameID nameID = (NameID) xmlObject;
-
+    public void validate(NameID nameID) throws ValidationException {
         validateName(nameID);
     }
 

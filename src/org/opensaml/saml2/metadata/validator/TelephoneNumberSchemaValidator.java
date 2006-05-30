@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.TelephoneNumber;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.TelephoneNumber} for Schema compliance.
  */
-public class TelephoneNumberSchemaValidator implements Validator {
+public class TelephoneNumberSchemaValidator implements Validator<TelephoneNumber> {
 
     /** Constructor */
     public TelephoneNumberSchemaValidator() {
@@ -39,8 +38,7 @@ public class TelephoneNumberSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        TelephoneNumber telephoneNumber = (TelephoneNumber) xmlObject;
+    public void validate(TelephoneNumber telephoneNumber) throws ValidationException {
         validateNumber(telephoneNumber);
     }
 

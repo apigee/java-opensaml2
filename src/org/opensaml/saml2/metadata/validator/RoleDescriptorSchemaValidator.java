@@ -21,14 +21,13 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.RoleDescriptor} for Schema compliance.
  */
-public class RoleDescriptorSchemaValidator implements Validator {
+public class RoleDescriptorSchemaValidator<RoleDescriptorType extends RoleDescriptor> implements Validator<RoleDescriptorType> {
 
     /** Constructor */
     public RoleDescriptorSchemaValidator() {
@@ -38,8 +37,7 @@ public class RoleDescriptorSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        RoleDescriptor roleDescriptor = (RoleDescriptor) xmlObject;
+    public void validate(RoleDescriptorType roleDescriptor) throws ValidationException {
         validateProtocols(roleDescriptor);
     }
 

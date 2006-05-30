@@ -21,22 +21,18 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.Request;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Checks {@link org.opensaml.saml1.core.Request} for Schema compliance.
  */
-public class RequestSchemaValidator extends RequestAbstractTypeSchemaValidator  {
+public class RequestSchemaValidator extends RequestAbstractTypeSchemaValidator<Request>  {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-       
-        super.validate(xmlObject);
-        
-        Request request = (Request) xmlObject;
+    public void validate(Request request) throws ValidationException {
+        super.validate(request);
         // TODO separate method... 
         if (request.getQuery() != null) {
             if (request.getAssertionArtifacts().size() != 0) {

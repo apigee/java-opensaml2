@@ -21,21 +21,18 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Schema compliance.
  */
-public class AudienceRestrictionConditionSchemaValidator implements Validator {
+public class AudienceRestrictionConditionSchemaValidator implements Validator<AudienceRestrictionCondition> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
-         AudienceRestrictionCondition audienceRestrictionCondition= (AudienceRestrictionCondition) xmlObject;
+    public void validate(AudienceRestrictionCondition audienceRestrictionCondition) throws ValidationException {
          // TODO split out into a separate method
          if (audienceRestrictionCondition.getAudiences() == null || 
              audienceRestrictionCondition.getAudiences().size() == 0) {

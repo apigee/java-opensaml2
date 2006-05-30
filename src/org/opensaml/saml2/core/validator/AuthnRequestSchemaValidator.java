@@ -19,14 +19,13 @@
  */
 package org.opensaml.saml2.core.validator;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.AuthnRequest} for Schema compliance.
  */
-public class AuthnRequestSchemaValidator extends RequestSchemaValidator implements Validator {
+public class AuthnRequestSchemaValidator extends RequestSchemaValidator<AuthnRequest>{
 
     /**
      * Constructor
@@ -39,12 +38,9 @@ public class AuthnRequestSchemaValidator extends RequestSchemaValidator implemen
     /*
      * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+    public void validate(AuthnRequest request) throws ValidationException {
+        super.validate(request);
     }
     
-    // All requirements are validated in the superclasses
-    
     // TODO verify spec conditions on combos of attributes?
-
 }

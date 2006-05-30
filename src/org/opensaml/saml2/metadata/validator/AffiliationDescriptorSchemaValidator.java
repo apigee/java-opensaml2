@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.AffiliationDescriptor} for Schema compliance.
  */
-public class AffiliationDescriptorSchemaValidator implements Validator {
+public class AffiliationDescriptorSchemaValidator implements Validator<AffiliationDescriptor> {
 
     /** Constructor */
     public AffiliationDescriptorSchemaValidator() {
@@ -39,8 +38,7 @@ public class AffiliationDescriptorSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AffiliationDescriptor affiliationDescriptor = (AffiliationDescriptor) xmlObject;
+    public void validate(AffiliationDescriptor affiliationDescriptor) throws ValidationException {
         validateOwner(affiliationDescriptor);
         validateMember(affiliationDescriptor);
     }

@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} for Spec compliance.
  */
-public class AuthnAuthorityDescriptorSpecValidator extends RoleDescriptorSpecValidator implements Validator {
+public class AuthnAuthorityDescriptorSpecValidator extends RoleDescriptorSpecValidator<AuthnAuthorityDescriptor> {
 
     /** Constructor */
     public AuthnAuthorityDescriptorSpecValidator() {

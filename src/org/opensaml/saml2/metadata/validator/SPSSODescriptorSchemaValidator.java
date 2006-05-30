@@ -21,14 +21,12 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.SPSSODescriptor;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.SPSSODescriptor} for Schema compliance.
  */
-public class SPSSODescriptorSchemaValidator extends SSODescriptorSchemaValidator implements Validator {
+public class SPSSODescriptorSchemaValidator extends SSODescriptorSchemaValidator<SPSSODescriptor> {
 
     /** Constructor */
     public SPSSODescriptorSchemaValidator() {
@@ -38,9 +36,8 @@ public class SPSSODescriptorSchemaValidator extends SSODescriptorSchemaValidator
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        SPSSODescriptor spssoDescriptor = (SPSSODescriptor) xmlObject;
+    public void validate(SPSSODescriptor spssoDescriptor) throws ValidationException {
+        super.validate(spssoDescriptor);
         validateAttributeConsumingServices(spssoDescriptor);
     }
 

@@ -20,14 +20,12 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.ManageNameIDRequest;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.ManageNameIDRequest} for Schema compliance.
  */
-public class ManageNameIDRequestSchemaValidator extends RequestSchemaValidator implements Validator {
+public class ManageNameIDRequestSchemaValidator extends RequestSchemaValidator<ManageNameIDRequest> {
 
     /**
      * Constructor
@@ -40,10 +38,8 @@ public class ManageNameIDRequestSchemaValidator extends RequestSchemaValidator i
     /*
      * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        ManageNameIDRequest request = (ManageNameIDRequest) xmlObject;
-        
+    public void validate(ManageNameIDRequest request) throws ValidationException {
+        super.validate(request);
         validateNameID(request);
         validateNewIDAndTerminate(request);
     }

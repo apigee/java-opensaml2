@@ -21,14 +21,13 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.AttributeConsumingService;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.AttributeConsumingService} for Schema compliance.
  */
-public class AttributeConsumingServiceSchemaValidator implements Validator {
+public class AttributeConsumingServiceSchemaValidator implements Validator<AttributeConsumingService> {
 
     /** Constructor */
     public AttributeConsumingServiceSchemaValidator() {
@@ -38,9 +37,7 @@ public class AttributeConsumingServiceSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AttributeConsumingService attributeConsumingService = (AttributeConsumingService) xmlObject;
-
+    public void validate(AttributeConsumingService attributeConsumingService) throws ValidationException {
         validateIndex(attributeConsumingService);
         validateServiceNames(attributeConsumingService);
         validateRequestedAttributes(attributeConsumingService);

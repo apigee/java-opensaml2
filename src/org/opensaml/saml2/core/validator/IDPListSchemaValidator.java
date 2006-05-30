@@ -20,14 +20,13 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.IDPList;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.IDPList} for Schema compliance.
  */
-public class IDPListSchemaValidator implements Validator {
+public class IDPListSchemaValidator implements Validator<IDPList> {
 
     /**
      * Constructor
@@ -40,9 +39,7 @@ public class IDPListSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        IDPList list = (IDPList) xmlObject;
-        
+    public void validate(IDPList list) throws ValidationException {
         validateIDPEntries(list);
     }
 
@@ -57,5 +54,4 @@ public class IDPListSchemaValidator implements Validator {
             throw new ValidationException("IDPList must contain at least one IDPEntry");
         }
     }
-
 }

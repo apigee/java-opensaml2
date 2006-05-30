@@ -21,24 +21,19 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Checks {@link org.opensaml.saml1.core.AuthorizationDecisionStatement} for Schema compliance.
  */
-public class AuthorizationDecisionStatementSchemaValidator extends SubjectStatementSchemaValidator {
+public class AuthorizationDecisionStatementSchemaValidator extends SubjectStatementSchemaValidator<AuthorizationDecisionStatement> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
-        super.validate(xmlObject);
-
-        AuthorizationDecisionStatement authorizationDecisionStatement;
-        authorizationDecisionStatement = (AuthorizationDecisionStatement) xmlObject;
+    public void validate(AuthorizationDecisionStatement authorizationDecisionStatement) throws ValidationException {
+        super.validate(authorizationDecisionStatement);
         
         validateResource(authorizationDecisionStatement);
         

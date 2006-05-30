@@ -20,7 +20,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.IDPEntry;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -28,7 +27,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.IDPEntry} for Schema compliance.
  */
-public class IDPEntrySchemaValidator implements Validator {
+public class IDPEntrySchemaValidator implements Validator<IDPEntry> {
 
     /**
      * Constructor
@@ -41,11 +40,8 @@ public class IDPEntrySchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        IDPEntry entry = (IDPEntry) xmlObject;
-        
+    public void validate(IDPEntry entry) throws ValidationException {
         validateProviderID(entry);
-
     }
 
     /**
@@ -59,5 +55,4 @@ public class IDPEntrySchemaValidator implements Validator {
             throw new ValidationException("ProviderID attribute is required");
         }
     }
-
 }

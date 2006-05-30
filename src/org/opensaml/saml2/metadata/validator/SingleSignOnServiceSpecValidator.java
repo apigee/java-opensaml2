@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.saml2.metadata.SingleSignOnService;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.SingleSignOnService} for Spec compliance.
  */
-public class SingleSignOnServiceSpecValidator extends EndpointSchemaValidator implements Validator {
+public class SingleSignOnServiceSpecValidator extends EndpointSchemaValidator<SingleSignOnService> {
 
     /** Constructor */
     public SingleSignOnServiceSpecValidator() {

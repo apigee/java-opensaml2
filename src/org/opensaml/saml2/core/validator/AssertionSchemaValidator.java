@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.Assertion} for Schema compliance.
  */
-public class AssertionSchemaValidator implements Validator {
+public class AssertionSchemaValidator implements Validator<Assertion> {
 
     /** Constructor */
     public AssertionSchemaValidator() {
@@ -39,9 +38,7 @@ public class AssertionSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        Assertion assertion = (Assertion) xmlObject;
-
+    public void validate(Assertion assertion) throws ValidationException {
         validateIssuer(assertion);
         validateVersion(assertion);
         validateID(assertion);

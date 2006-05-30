@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AssertionIDRef;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.AssertionIDRef} for Schema compliance.
  */
-public class AssertionIDRefSchemaValidator implements Validator {
+public class AssertionIDRefSchemaValidator implements Validator<AssertionIDRef> {
 
     /** Constructor */
     public AssertionIDRefSchemaValidator() {
@@ -39,9 +38,7 @@ public class AssertionIDRefSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AssertionIDRef assertionIDRef = (AssertionIDRef) xmlObject;
-
+    public void validate(AssertionIDRef assertionIDRef) throws ValidationException {
         validateIDRef(assertionIDRef);
     }
 

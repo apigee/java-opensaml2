@@ -24,7 +24,6 @@ import java.util.List;
 
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Statement;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -32,15 +31,12 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.Assertion} for Schema compliance.
  */
-public class AssertionSchemaValidator implements Validator {
+public class AssertionSchemaValidator implements Validator<Assertion> {
 
     /**
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
-         Assertion assertion= (Assertion) xmlObject;
-         
+    public void validate(Assertion assertion) throws ValidationException {
          validateVersion(assertion);
          validateId(assertion);
          validateIssuer(assertion);

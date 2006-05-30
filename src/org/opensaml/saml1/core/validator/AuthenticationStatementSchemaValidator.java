@@ -21,23 +21,19 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AuthenticationStatement;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Checks {@link org.opensaml.saml1.core.AuthenticationStatement} for Schema compliance.
  */
-public class AuthenticationStatementSchemaValidator extends SubjectStatementSchemaValidator {
+public class AuthenticationStatementSchemaValidator extends SubjectStatementSchemaValidator<AuthenticationStatement> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
-        super.validate(xmlObject);
-        
-        AuthenticationStatement authenticationStatement = (AuthenticationStatement) xmlObject;
+    public void validate(AuthenticationStatement authenticationStatement) throws ValidationException {
+        super.validate(authenticationStatement);
         // TODO separate out into distinct method
 
         if (DatatypeHelper.isEmpty(authenticationStatement.getAuthenticationMethod())) {

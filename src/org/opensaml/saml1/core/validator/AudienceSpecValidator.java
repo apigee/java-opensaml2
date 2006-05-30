@@ -21,7 +21,6 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.Audience;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,13 +28,12 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.AudienceRestrictionCondition} for Spec compliance.
  */
-public class AudienceSpecValidator implements Validator {
+public class AudienceSpecValidator implements Validator<Audience> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-         Audience audience = (Audience) xmlObject;
+    public void validate(Audience audience) throws ValidationException {
          validateURIPresent(audience);
     }
     

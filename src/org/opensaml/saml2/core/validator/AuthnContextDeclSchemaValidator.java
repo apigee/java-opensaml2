@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AuthnContextDecl;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.AuthnContextDecl} for Schema compliance.
  */
-public class AuthnContextDeclSchemaValidator implements Validator {
+public class AuthnContextDeclSchemaValidator implements Validator<AuthnContextDecl> {
 
     /** Constructor */
     public AuthnContextDeclSchemaValidator() {
@@ -39,9 +38,7 @@ public class AuthnContextDeclSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AuthnContextDecl authnCD = (AuthnContextDecl) xmlObject;
-
+    public void validate(AuthnContextDecl authnCD) throws ValidationException {
         validateDecl(authnCD);
     }
 

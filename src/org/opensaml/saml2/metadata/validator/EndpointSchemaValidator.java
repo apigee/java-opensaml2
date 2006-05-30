@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.Endpoint;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.Endpoint} for Schema compliance.
  */
-public class EndpointSchemaValidator implements Validator {
+public class EndpointSchemaValidator<EndpointType extends Endpoint> implements Validator<EndpointType> {
 
     /** Constructor */
     public EndpointSchemaValidator() {
@@ -39,8 +38,7 @@ public class EndpointSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        Endpoint endpoint = (Endpoint) xmlObject;
+    public void validate(EndpointType endpoint) throws ValidationException {
         validateBinding(endpoint);
         validateLocation(endpoint);
     }

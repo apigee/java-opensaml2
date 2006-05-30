@@ -21,22 +21,18 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.SubjectStatement;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml1.core.SubjectStatement} for Schema compliance.
  */
-public class SubjectStatementSchemaValidator implements Validator {
+public class SubjectStatementSchemaValidator<SubjectStatementType extends SubjectStatement> implements Validator<SubjectStatementType> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
-         SubjectStatement subjectStatement = (SubjectStatement) xmlObject;
-         
+    public void validate(SubjectStatementType subjectStatement) throws ValidationException {
          // TODO split out into separate method.
          if (subjectStatement.getSubject() == null) {
              throw new ValidationException("No Subject present");

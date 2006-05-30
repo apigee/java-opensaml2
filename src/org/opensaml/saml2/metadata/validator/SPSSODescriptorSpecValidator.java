@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.saml2.metadata.SPSSODescriptor;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.SPSSODescriptor} for Spec compliance.
  */
-public class SPSSODescriptorSpecValidator extends SSODescriptorSpecValidator implements Validator {
+public class SPSSODescriptorSpecValidator extends SSODescriptorSpecValidator<SPSSODescriptor> {
 
     /** Constructor */
     public SPSSODescriptorSpecValidator() {

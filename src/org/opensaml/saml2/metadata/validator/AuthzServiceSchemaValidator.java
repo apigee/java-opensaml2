@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.saml2.metadata.AuthzService;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.AuthzService} for Schema compliance.
  */
-public class AuthzServiceSchemaValidator extends EndpointSchemaValidator implements Validator {
+public class AuthzServiceSchemaValidator extends EndpointSchemaValidator<AuthzService> {
 
     /** Constructor */
     public AuthzServiceSchemaValidator() {

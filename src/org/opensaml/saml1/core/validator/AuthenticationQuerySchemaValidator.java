@@ -20,19 +20,18 @@
 
 package org.opensaml.saml1.core.validator;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml1.core.AuthenticationQuery;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml1.core.AuthenticationQuery} for Schema compliance.
  */
-public class AuthenticationQuerySchemaValidator extends SubjectQuerySchemaValidator implements Validator {
+public class AuthenticationQuerySchemaValidator extends SubjectQuerySchemaValidator<AuthenticationQuery> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+    public void validate(AuthenticationQuery authnQuery) throws ValidationException {
+        super.validate(authnQuery);
     }
 }

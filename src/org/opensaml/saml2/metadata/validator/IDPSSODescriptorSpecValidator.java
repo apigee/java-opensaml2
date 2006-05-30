@@ -21,24 +21,21 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.IDPSSODescriptor} for Spec compliance.
  */
-public class IDPSSODescriptorSpecValidator extends SSODescriptorSpecValidator implements Validator {
+public class IDPSSODescriptorSpecValidator extends SSODescriptorSpecValidator<IDPSSODescriptor> {
 
     /** Constructor */
     public IDPSSODescriptorSpecValidator() {
 
     }
 
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        IDPSSODescriptor idpssoDescriptor = (IDPSSODescriptor) xmlObject;
+    public void validate(IDPSSODescriptor idpssoDescriptor) throws ValidationException {
+        super.validate(idpssoDescriptor);
         validateSingleSign(idpssoDescriptor);
         validateNameIDMapping(idpssoDescriptor);
     }

@@ -19,14 +19,13 @@
  */
 package org.opensaml.saml2.core.validator;
 
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.AuthnQuery;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.AuthnQuery} for Schema compliance.
  */
-public class AuthnQuerySchemaValidator extends SubjectQuerySchemaValidator implements Validator {
+public class AuthnQuerySchemaValidator extends SubjectQuerySchemaValidator<AuthnQuery> {
 
     /**
      * Constructor
@@ -38,9 +37,7 @@ public class AuthnQuerySchemaValidator extends SubjectQuerySchemaValidator imple
     /*
      * @see org.opensaml.saml2.core.validator.SubjectQuerySchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
+    public void validate(AuthnQuery query) throws ValidationException {
+        super.validate(query);
     }
-    
-
 }

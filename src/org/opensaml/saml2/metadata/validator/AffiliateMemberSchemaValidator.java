@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.AffiliateMember;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.AffiliateMember} for Schema compliance.
  */
-public class AffiliateMemberSchemaValidator implements Validator {
+public class AffiliateMemberSchemaValidator implements Validator<AffiliateMember> {
 
     /** Constructor */
     public AffiliateMemberSchemaValidator() {
@@ -39,8 +38,7 @@ public class AffiliateMemberSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AffiliateMember affiliateMember = (AffiliateMember) xmlObject;
+    public void validate(AffiliateMember affiliateMember) throws ValidationException {
         validateID(affiliateMember);
     }
 

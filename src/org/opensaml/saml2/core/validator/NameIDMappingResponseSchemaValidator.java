@@ -20,14 +20,12 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.NameIDMappingResponse;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.NameIDMappingResponse} for Schema compliance.
  */
-public class NameIDMappingResponseSchemaValidator extends StatusResponseSchemaValidator implements Validator {
+public class NameIDMappingResponseSchemaValidator extends StatusResponseSchemaValidator<NameIDMappingResponse> {
 
     /**
      * Constructor
@@ -40,11 +38,9 @@ public class NameIDMappingResponseSchemaValidator extends StatusResponseSchemaVa
     /*
      * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        NameIDMappingResponse resp = (NameIDMappingResponse) xmlObject;
-        
-        validateIdentifiers(resp);
+    public void validate(NameIDMappingResponse response) throws ValidationException {
+        super.validate(response);
+        validateIdentifiers(response);
     }
 
     /**

@@ -21,14 +21,13 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.Subject;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.Subject} for Schema compliance.
  */
-public class SubjectSchemaValidator implements Validator {
+public class SubjectSchemaValidator implements Validator<Subject> {
 
     /** Constructor */
     public SubjectSchemaValidator() {
@@ -38,8 +37,7 @@ public class SubjectSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        Subject subject = (Subject) xmlObject;
+    public void validate(Subject subject) throws ValidationException {
         if (subject.getBaseID() == null && subject.getNameID() == null
                 && (subject.getSubjectConfirmations() == null || subject.getSubjectConfirmations().size() == 0)) {
             throw new ValidationException("ID or SubjectConfirmation required");

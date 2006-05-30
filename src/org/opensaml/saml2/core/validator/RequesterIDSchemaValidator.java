@@ -20,7 +20,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.RequesterID;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -28,7 +27,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.RequesterID} for Schema compliance.
  */
-public class RequesterIDSchemaValidator implements Validator {
+public class RequesterIDSchemaValidator implements Validator<RequesterID> {
 
     /**
      * Constructor
@@ -41,10 +40,8 @@ public class RequesterIDSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        RequesterID reqid = (RequesterID) xmlObject;
-        
-        validateRequesterID(reqid);
+    public void validate(RequesterID requesterID) throws ValidationException {
+        validateRequesterID(requesterID);
     }
 
     protected void validateRequesterID(RequesterID reqid) throws ValidationException {

@@ -20,14 +20,13 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.Status;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.Status} for Schema compliance.
  */
-public class StatusSchemaValidator implements Validator {
+public class StatusSchemaValidator implements Validator<Status> {
 
     /**
      * Constructor
@@ -39,9 +38,7 @@ public class StatusSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        Status status = (Status) xmlObject;
-        
+    public void validate(Status status) throws ValidationException {
         validateStatusCode(status);
 
     }

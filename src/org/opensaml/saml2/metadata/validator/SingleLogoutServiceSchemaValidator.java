@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.saml2.metadata.SingleLogoutService;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.SingleLogoutService} for Schema compliance.
  */
-public class SingleLogoutServiceSchemaValidator extends EndpointSchemaValidator implements Validator {
+public class SingleLogoutServiceSchemaValidator extends EndpointSchemaValidator<SingleLogoutService> {
 
     /** Constructor */
     public SingleLogoutServiceSchemaValidator() {

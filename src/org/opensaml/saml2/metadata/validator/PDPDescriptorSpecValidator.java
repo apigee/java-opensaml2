@@ -20,12 +20,12 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.saml2.metadata.PDPDescriptor;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.PDPDescriptor} for Spec compliance.
  */
-public class PDPDescriptorSpecValidator extends RoleDescriptorSpecValidator implements Validator {
+public class PDPDescriptorSpecValidator extends RoleDescriptorSpecValidator<PDPDescriptor> {
 
     /** Constructor */
     public PDPDescriptorSpecValidator() {

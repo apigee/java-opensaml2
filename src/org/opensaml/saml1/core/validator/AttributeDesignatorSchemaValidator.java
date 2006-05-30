@@ -21,7 +21,6 @@
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AttributeDesignator;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,14 +28,12 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.AttributeDesignator} for Schema compliance.
  */
-public class AttributeDesignatorSchemaValidator implements Validator {
+public class AttributeDesignatorSchemaValidator<AttributeDesignatorType extends AttributeDesignator> implements Validator<AttributeDesignatorType> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AttributeDesignator attributeDesignator = (AttributeDesignator) xmlObject;
-        
+    public void validate(AttributeDesignatorType attributeDesignator) throws ValidationException {
         validateName(attributeDesignator);
         validateNameSpace(attributeDesignator);
     }

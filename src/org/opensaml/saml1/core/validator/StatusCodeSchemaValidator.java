@@ -24,14 +24,13 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml1.core.StatusCode} for Schema compliance.
  */
-public class StatusCodeSchemaValidator implements Validator {
+public class StatusCodeSchemaValidator implements Validator<StatusCode> {
 
     private final static String[] allowedCodes = {"Success", 
                                                   "VersionMismatch",
@@ -47,11 +46,8 @@ public class StatusCodeSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
+    public void validate(StatusCode statusCode) throws ValidationException {        
         // TODO separate methods
-        StatusCode statusCode = (StatusCode) xmlObject;
-        
         String value = statusCode.getValue();
         //
         // Schema compliance

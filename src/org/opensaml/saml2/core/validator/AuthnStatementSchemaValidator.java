@@ -21,14 +21,13 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AuthnStatement;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.AuthnStatement} for Schema compliance.
  */
-public class AuthnStatementSchemaValidator implements Validator {
+public class AuthnStatementSchemaValidator implements Validator<AuthnStatement> {
 
     /** Constructor */
     public AuthnStatementSchemaValidator() {
@@ -38,9 +37,7 @@ public class AuthnStatementSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AuthnStatement authnStatement = (AuthnStatement) xmlObject;
-
+    public void validate(AuthnStatement authnStatement) throws ValidationException {
         validateAuthnInstant(authnStatement);
         validateAuthnContext(authnStatement);
     }

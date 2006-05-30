@@ -21,14 +21,12 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor} for Schema compliance.
  */
-public class AttributeAuthorityDescriptorSchemaValidator extends RoleDescriptorSchemaValidator implements Validator {
+public class AttributeAuthorityDescriptorSchemaValidator extends RoleDescriptorSchemaValidator<AttributeAuthorityDescriptor> {
 
     /** Constructor */
     public AttributeAuthorityDescriptorSchemaValidator() {
@@ -38,9 +36,8 @@ public class AttributeAuthorityDescriptorSchemaValidator extends RoleDescriptorS
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        AttributeAuthorityDescriptor attributeAuthorityDescriptor = (AttributeAuthorityDescriptor) xmlObject;
+    public void validate(AttributeAuthorityDescriptor attributeAuthorityDescriptor) throws ValidationException {
+        super.validate(attributeAuthorityDescriptor);
         validateAttributeServices(attributeAuthorityDescriptor);
     }
 

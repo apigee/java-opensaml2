@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.AdditionalMetadataLocation} for Schema compliance.
  */
-public class AdditionalMetadataLocationSchemaValidator implements Validator {
+public class AdditionalMetadataLocationSchemaValidator implements Validator<AdditionalMetadataLocation> {
 
     /** Constructor */
     public AdditionalMetadataLocationSchemaValidator() {
@@ -39,8 +38,7 @@ public class AdditionalMetadataLocationSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AdditionalMetadataLocation aml = (AdditionalMetadataLocation) xmlObject;
+    public void validate(AdditionalMetadataLocation aml) throws ValidationException {
         validateLocation(aml);
         validateNamespace(aml);
     }

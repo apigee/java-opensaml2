@@ -23,18 +23,16 @@ import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.DoNotCacheCondition;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
+import org.opensaml.xml.validation.Validator;
 
 /**
  * Spec validator for {@link org.opensaml.saml1.core.Assertion}
  */
-public class AssertionSpecValidator extends SAML1ObjectSpecValidator {
+public class AssertionSpecValidator implements Validator<Assertion> {
 
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
-        super.validate(xmlObject);
-        validateDoNotCache((Assertion) xmlObject);
+    public void validate(Assertion assertion) throws ValidationException {
+        validateDoNotCache(assertion);
     }
     
     protected void validateDoNotCache(Assertion assertion) throws ValidationException {

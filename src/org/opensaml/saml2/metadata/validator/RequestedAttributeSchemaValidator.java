@@ -20,16 +20,35 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.saml2.core.validator.AttributeSchemaValidator;
+import org.opensaml.saml2.metadata.RequestedAttribute;
+import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.RequestedAttribute} for Schema compliance.
  */
-public class RequestedAttributeSchemaValidator extends AttributeSchemaValidator implements Validator {
+public class RequestedAttributeSchemaValidator implements Validator<RequestedAttribute> {
 
     /** Constructor */
     public RequestedAttributeSchemaValidator() {
 
+    }
+    
+    /** {@inheritDoc} */
+    public void validate(RequestedAttribute attribute) throws ValidationException {
+        validateName(attribute);
+    }
+    
+    /**
+     * Checks that the Name attribute is present.
+     * 
+     * @param attribute
+     * @throws ValidationException
+     */
+    protected void validateName(RequestedAttribute attribute) throws ValidationException {
+        if (DatatypeHelper.isEmpty(attribute.getName())) {
+            throw new ValidationException("Name is required attribute");
+        }
     }
 }

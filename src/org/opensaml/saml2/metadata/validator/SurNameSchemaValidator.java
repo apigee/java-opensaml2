@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.SurName;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.SurName} for Schema compliance.
  */
-public class SurNameSchemaValidator implements Validator {
+public class SurNameSchemaValidator implements Validator<SurName> {
 
     /** Constructor */
     public SurNameSchemaValidator() {
@@ -39,8 +38,7 @@ public class SurNameSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        SurName surName = (SurName) xmlObject;
+    public void validate(SurName surName) throws ValidationException {
         validateName(surName);
     }
 

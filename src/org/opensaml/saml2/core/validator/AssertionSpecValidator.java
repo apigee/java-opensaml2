@@ -21,14 +21,13 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.Assertion;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.Assertion} for Spec compliance.
  */
-public class AssertionSpecValidator implements Validator {
+public class AssertionSpecValidator implements Validator<Assertion> {
 
     /** Constructor */
     public AssertionSpecValidator() {
@@ -38,9 +37,7 @@ public class AssertionSpecValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        Assertion assertion = (Assertion) xmlObject;
-
+    public void validate(Assertion assertion) throws ValidationException {
         validateSubject(assertion);
     }
 

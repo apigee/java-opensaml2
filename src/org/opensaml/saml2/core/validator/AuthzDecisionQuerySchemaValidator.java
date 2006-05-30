@@ -20,15 +20,13 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AuthzDecisionQuery;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.AuthzDecisionQuery} for Schema compliance.
  */
-public class AuthzDecisionQuerySchemaValidator extends SubjectQuerySchemaValidator implements Validator {
+public class AuthzDecisionQuerySchemaValidator extends SubjectQuerySchemaValidator<AuthzDecisionQuery> {
 
     /**
      * Constructor
@@ -41,10 +39,8 @@ public class AuthzDecisionQuerySchemaValidator extends SubjectQuerySchemaValidat
     /*
      * @see org.opensaml.saml2.core.validator.SubjectQuerySchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        AuthzDecisionQuery query = (AuthzDecisionQuery) xmlObject;
-        
+    public void validate(AuthzDecisionQuery query) throws ValidationException {
+        super.validate(query);
         validateActions(query);
         validateResource(query);
     }

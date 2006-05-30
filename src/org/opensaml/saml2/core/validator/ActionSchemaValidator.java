@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.Action;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.Action} for Schema compliance.
  */
-public class ActionSchemaValidator implements Validator {
+public class ActionSchemaValidator implements Validator<Action> {
 
     /** Constructor */
     public ActionSchemaValidator() {
@@ -39,9 +38,7 @@ public class ActionSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        Action action = (Action) xmlObject;
-
+    public void validate(Action action) throws ValidationException {
         validateAction(action);
         validateNamespace(action);
     }

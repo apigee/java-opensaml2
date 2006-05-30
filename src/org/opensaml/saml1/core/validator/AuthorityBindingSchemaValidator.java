@@ -23,7 +23,6 @@ package org.opensaml.saml1.core.validator;
 import javax.xml.namespace.QName;
 
 import org.opensaml.saml1.core.AuthorityBinding;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -31,15 +30,12 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.AuthorityBinding} for Schema compliance.
  */
-public class AuthorityBindingSchemaValidator implements Validator {
+public class AuthorityBindingSchemaValidator implements Validator<AuthorityBinding> {
 
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        
-        AuthorityBinding authorityBinding = (AuthorityBinding) xmlObject;
- 
+    public void validate(AuthorityBinding authorityBinding) throws ValidationException {
         validateAuthorityKind(authorityBinding);
         validateBinding(authorityBinding);
         validateLocation(authorityBinding);

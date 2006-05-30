@@ -12,7 +12,6 @@
         <ValidatorSuite id="saml1-schema-validator">
             <Validator qualifiedName="saml1:Assertion" className="org.opensaml.saml1.core.validator.AssertionSchemaValidator" />
             <Validator qualifiedName="saml1:AttributeDesignator" className="org.opensaml.saml1.core.validator.AttributeDesignatorSchemaValidator" />
-            <Validator qualifiedName="saml1p:AttributeQuery" className="org.opensaml.saml1.core.validator.AttributeQuerySchemaValidator" />
             <Validator qualifiedName="saml1:Attribute" className="org.opensaml.saml1.core.validator.AttributeSchemaValidator" />
             <Validator qualifiedName="saml1:AttributeStatement" className="org.opensaml.saml1.core.validator.AttributeStatementSchemaValidator" />
             <Validator qualifiedName="saml1:AudienceRestrictionCondition" className="org.opensaml.saml1.core.validator.AudienceRestrictionConditionSchemaValidator" />
@@ -35,9 +34,7 @@
         <ValidatorSuite id="saml1-spec-validator">
             <Validator qualifiedName="saml1:Action" className="org.opensaml.saml1.core.validator.ActionSpecValidator" />
             <Validator qualifiedName="saml1:Assertion" className="org.opensaml.saml1.core.validator.AssertionSpecValidator" />
-            <Validator qualifiedName="saml1p:AttributeQuery" className="org.opensaml.saml1.core.validator.AttributeQuerySpecValidator" />
             <Validator qualifiedName="saml1:Audience" className="org.opensaml.saml1.core.validator.AudienceSpecValidator" />
-            <Validator qualifiedName="saml1:Conditions" className="org.opensaml.saml1.core.validator.ConditionsSpecValidator" />
         </ValidatorSuite>
         
     </ValidatorSuites>

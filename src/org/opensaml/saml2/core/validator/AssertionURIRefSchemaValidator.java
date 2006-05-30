@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AssertionURIRef;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.AssertionURIRef} for Schema compliance.
  */
-public class AssertionURIRefSchemaValidator implements Validator {
+public class AssertionURIRefSchemaValidator implements Validator<AssertionURIRef> {
 
     /** Constructor */
     public AssertionURIRefSchemaValidator() {
@@ -39,9 +38,7 @@ public class AssertionURIRefSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AssertionURIRef assertionURIRef = (AssertionURIRef) xmlObject;
-
+    public void validate(AssertionURIRef assertionURIRef) throws ValidationException {
         validateURIRef(assertionURIRef);
     }
 

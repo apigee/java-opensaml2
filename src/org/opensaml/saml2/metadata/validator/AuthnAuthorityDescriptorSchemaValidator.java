@@ -21,14 +21,12 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} for Schema compliance.
  */
-public class AuthnAuthorityDescriptorSchemaValidator extends RoleDescriptorSchemaValidator implements Validator {
+public class AuthnAuthorityDescriptorSchemaValidator extends RoleDescriptorSchemaValidator<AuthnAuthorityDescriptor> {
 
     /** Constructor */
     public AuthnAuthorityDescriptorSchemaValidator() {
@@ -38,10 +36,9 @@ public class AuthnAuthorityDescriptorSchemaValidator extends RoleDescriptorSchem
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        AuthnAuthorityDescriptor attributeAuthorityDescriptor = (AuthnAuthorityDescriptor) xmlObject;
-        validateAuthnQueryServices(attributeAuthorityDescriptor);
+    public void validate(AuthnAuthorityDescriptor authnAuthorityDescriptor) throws ValidationException {
+        super.validate(authnAuthorityDescriptor);
+        validateAuthnQueryServices(authnAuthorityDescriptor);
     }
 
     /**
@@ -50,10 +47,10 @@ public class AuthnAuthorityDescriptorSchemaValidator extends RoleDescriptorSchem
      * @param attributeAuthorityDescriptor
      * @throws ValidationException
      */
-    protected void validateAuthnQueryServices(AuthnAuthorityDescriptor attributeAuthorityDescriptor)
+    protected void validateAuthnQueryServices(AuthnAuthorityDescriptor authnAuthorityDescriptor)
             throws ValidationException {
-        if (attributeAuthorityDescriptor.getAuthnQueryServices() == null
-                || attributeAuthorityDescriptor.getAuthnQueryServices().size() == 0) {
+        if (authnAuthorityDescriptor.getAuthnQueryServices() == null
+                || authnAuthorityDescriptor.getAuthnQueryServices().size() == 0) {
             throw new ValidationException("Must have one or more AuthnQueryServices.");
         }
     }

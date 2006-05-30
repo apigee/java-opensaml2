@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AuthenticatingAuthority;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.AuthenticatingAuthority} for Schema compliance.
  */
-public class AuthenticatingAuthoritySchemaValidator implements Validator {
+public class AuthenticatingAuthoritySchemaValidator implements Validator<AuthenticatingAuthority> {
 
     /** Constructor */
     public AuthenticatingAuthoritySchemaValidator() {
@@ -39,9 +38,7 @@ public class AuthenticatingAuthoritySchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        AuthenticatingAuthority authenAuthority = (AuthenticatingAuthority) xmlObject;
-
+    public void validate(AuthenticatingAuthority authenAuthority) throws ValidationException {
         validateURI(authenAuthority);
     }
 

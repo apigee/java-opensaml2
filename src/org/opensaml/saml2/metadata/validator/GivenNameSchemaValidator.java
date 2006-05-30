@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.GivenName;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.metadata.GivenName} for Schema compliance.
  */
-public class GivenNameSchemaValidator implements Validator {
+public class GivenNameSchemaValidator implements Validator<GivenName> {
 
     /** Constructor */
     public GivenNameSchemaValidator() {
@@ -39,8 +38,7 @@ public class GivenNameSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        GivenName givenName = (GivenName) xmlObject;
+    public void validate(GivenName givenName) throws ValidationException {
         validateName(givenName);
     }
 

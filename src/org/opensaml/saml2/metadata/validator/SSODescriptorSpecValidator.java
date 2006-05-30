@@ -21,15 +21,13 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.SSODescriptor;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.SSODescriptor} for Spec compliance.
  */
-public class SSODescriptorSpecValidator extends RoleDescriptorSpecValidator implements Validator {
+public class SSODescriptorSpecValidator<SSODescriptorType extends SSODescriptor> extends RoleDescriptorSpecValidator<SSODescriptorType> {
 
     /** Constructor */
     public SSODescriptorSpecValidator() {
@@ -39,10 +37,9 @@ public class SSODescriptorSpecValidator extends RoleDescriptorSpecValidator impl
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        SSODescriptor ssoDescriptor = (SSODescriptor) xmlObject;
+    public void validate(SSODescriptorType ssoDescriptor) throws ValidationException {
         validateResponseLocation(ssoDescriptor);
-        super.validate(xmlObject);
+        super.validate(ssoDescriptor);
     }
 
     /**

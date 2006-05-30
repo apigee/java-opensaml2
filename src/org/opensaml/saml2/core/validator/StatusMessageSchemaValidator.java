@@ -20,7 +20,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.StatusMessage;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -28,7 +27,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * hecks {@link org.opensaml.saml2.core.StatusMessage} for Schema compliance.
  */
-public class StatusMessageSchemaValidator implements Validator {
+public class StatusMessageSchemaValidator implements Validator<StatusMessage> {
 
     /**
      * Constructor
@@ -41,10 +40,8 @@ public class StatusMessageSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        StatusMessage sm = (StatusMessage) xmlObject;
-        
-        validateMessage(sm);
+    public void validate(StatusMessage statusMessage) throws ValidationException {
+        validateMessage(statusMessage);
     }
 
     protected void validateMessage(StatusMessage sm) throws ValidationException {

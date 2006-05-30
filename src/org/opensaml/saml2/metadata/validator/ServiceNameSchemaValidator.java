@@ -21,14 +21,13 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.ServiceName;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.ServiceName} for Schema compliance.
  */
-public class ServiceNameSchemaValidator implements Validator {
+public class ServiceNameSchemaValidator implements Validator<ServiceName> {
 
     /** Constructor */
     public ServiceNameSchemaValidator() {
@@ -38,8 +37,7 @@ public class ServiceNameSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        ServiceName serviceName = (ServiceName) xmlObject;
+    public void validate(ServiceName serviceName) throws ValidationException {
         validateName(serviceName);
     }
 

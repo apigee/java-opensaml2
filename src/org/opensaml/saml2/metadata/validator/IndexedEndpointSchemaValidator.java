@@ -21,14 +21,12 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.IndexedEndpoint;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.metadata.IndexedEndpoint} for Schema compliance.
  */
-public class IndexedEndpointSchemaValidator extends EndpointSchemaValidator implements Validator {
+public class IndexedEndpointSchemaValidator<EndpointType extends IndexedEndpoint> extends EndpointSchemaValidator<EndpointType> {
 
     /** Constructor */
     public IndexedEndpointSchemaValidator() {
@@ -38,9 +36,8 @@ public class IndexedEndpointSchemaValidator extends EndpointSchemaValidator impl
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        IndexedEndpoint indexedEndpoint = (IndexedEndpoint) xmlObject;
+    public void validate(EndpointType indexedEndpoint) throws ValidationException {
+        super.validate(indexedEndpoint);
         validateIndex(indexedEndpoint);
     }
 

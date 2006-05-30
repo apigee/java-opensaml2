@@ -20,14 +20,12 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AssertionIDRequest;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.AssertionIDRequest} for Schema compliance.
  */
-public class AssertionIDRequestSchemaValidator extends RequestSchemaValidator implements Validator {
+public class AssertionIDRequestSchemaValidator extends RequestSchemaValidator<AssertionIDRequest> {
 
     /**
      * Constructor
@@ -40,9 +38,8 @@ public class AssertionIDRequestSchemaValidator extends RequestSchemaValidator im
     /*
      * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        super.validate(xmlObject);
-        AssertionIDRequest request = (AssertionIDRequest) xmlObject;
+    public void validate(AssertionIDRequest request) throws ValidationException {
+        super.validate(request);
         validateAssertionIDRefs(request);
     }
     
@@ -56,6 +53,4 @@ public class AssertionIDRequestSchemaValidator extends RequestSchemaValidator im
         if (request.getAssertionIDRefs().size() < 1)
             throw new ValidationException("Request must contain at least one AssertionIDRef");
     }
-    
-
 }

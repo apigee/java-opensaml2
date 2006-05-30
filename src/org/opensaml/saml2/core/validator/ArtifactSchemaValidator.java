@@ -21,7 +21,6 @@ package org.opensaml.saml2.core.validator;
 
 
 import org.opensaml.saml2.core.Artifact;
-import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -29,7 +28,7 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml2.core.Artifact} for Schema compliance.
  */
-public class ArtifactSchemaValidator implements Validator {
+public class ArtifactSchemaValidator implements Validator<Artifact> {
 
     /**
      * Constructor
@@ -41,9 +40,7 @@ public class ArtifactSchemaValidator implements Validator {
     /*
      * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
      */
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        Artifact artifact = (Artifact) xmlObject;
-        
+    public void validate(Artifact artifact) throws ValidationException {
         validateArtifact(artifact);
     }
     
