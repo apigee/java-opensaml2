@@ -18,12 +18,12 @@ package org.opensaml.common.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.opensaml.xml.validation.AbstractValidatingDOMCachingXMLObject;
+import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * An abstract implementation of SAMLObject.
  */
-public abstract class AbstractSAMLObject extends AbstractValidatingDOMCachingXMLObject {
+public abstract class AbstractSAMLObject extends AbstractValidatingXMLObject {
 
     /**
      * Constructor
