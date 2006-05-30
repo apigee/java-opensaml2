@@ -34,4 +34,14 @@ public interface MetadataProvider {
      * @return the entity's metadata or null if there is no metadata or no valid metadata
      */
     public EntityDescriptor getEntityDescriptor(String entityID, boolean requiredValidMetadata);
+
+    /**
+     * Gets the metadata for a given entity if the metadata is valid. This is the same as calling
+     * {@link #getEntityDescriptor(String, boolean)} passing in true for the second parameter;
+     * 
+     * @param entityID the ID of the entity
+     * 
+     * @return the entity's metadata or null if there is no metadata or no valid metadata
+     */
+    public EntityDescriptor getEntityDescriptor(String entityID);
 }

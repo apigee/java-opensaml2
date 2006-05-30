@@ -36,6 +36,7 @@ import org.opensaml.saml2.metadata.provider.MetadataCache;
 import org.opensaml.saml2.metadata.provider.MetadataCacheObserver;
 import org.opensaml.saml2.metadata.resolver.MetadataResolver;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A metadata cache that keeps caches metadata using soft references and refreshes cached metadata when it expires.
@@ -144,7 +145,13 @@ public class SoftReferenceMetadataCache implements MetadataCache {
 
     /** {@inheritDoc} */
     public void addMetadataResolver(MetadataResolver newResolver) {
+        if(DatatypeHelper.isEmpty(newResolver.getID())){
+            throw new IllegalArgumentException("Resolver must have an ID");
+        }
+        
         resolvers.put(newResolver.getID(), newResolver);
+        // Signal thread to wake up and load the information from the new resolver
+        cacheRefreshThread.interrupt();
         notifyObservers(newResolver.getID(), ADD_RESOLVER);
 
     }
@@ -295,7 +302,8 @@ public class SoftReferenceMetadataCache implements MetadataCache {
                 log.error("Failed to fetch metadata from resolver " + metadataResolver.getID(), e);
 
                 if (failedAttempts >= maxFailedAttempts) {
-                    log.error("Fetching metadata from "
+                    log
+                            .error("Fetching metadata from "
                                     + metadataResolver.getClass().getName()
                                     + " has failed "
                                     + maxFailedAttempts
@@ -391,40 +399,44 @@ public class SoftReferenceMetadataCache implements MetadataCache {
          * {@inheritDoc}
          */
         public void run() {
-            if(log.isDebugEnabled()){
+            if (log.isDebugEnabled()) {
                 log.debug("Cache update thread waking up");
             }
-            
+
             while (continueRunning) {
                 CacheEntryImpl cacheEntry;
-                DateTime nextRefresh = null;
-                FastMap.Entry<String, CacheEntryImpl> lastEntry = metadataCache.tail();
-                for (FastMap.Entry<String, CacheEntryImpl> entry = metadataCache.head(); entry != lastEntry; entry = entry
-                        .getNext()) {
-                    cacheEntry = entry.getValue();
-                    if(log.isDebugEnabled()){
-                        log.debug("Updating cache entry for resolver " + cacheEntry.getMetadataResolver().getID());
-                    }
-                    if (cacheEntry.isExpired()) {
-                        cacheEntry.reloadMetadata();
-                        if (nextRefresh == null || cacheEntry.getExpirationTime().isBefore(nextRefresh)) {
-                            nextRefresh = cacheEntry.getExpirationTime();
+                DateTime nextRefresh = new DateTime().plus(maxCacheDuration);
+                if (metadataCache.size() > 0) {
+                    //We do this in a for lopp instead of via an iterator because it allows the map to be edited concurrently
+                    FastMap.Entry<String, CacheEntryImpl> lastEntry = metadataCache.tail();
+                    for (FastMap.Entry<String, CacheEntryImpl> entry = metadataCache.head(); entry != lastEntry; entry = entry
+                            .getNext()) {
+                        cacheEntry = entry.getValue();
+                        if (log.isDebugEnabled()) {
+                            log.debug("Updating cache entry for resolver " + cacheEntry.getMetadataResolver().getID());
+                        }
+                        if (cacheEntry.isExpired()) {
+                            cacheEntry.reloadMetadata();
+                            if (nextRefresh == null || cacheEntry.getExpirationTime().isBefore(nextRefresh)) {
+                                nextRefresh = cacheEntry.getExpirationTime();
+                            }
                         }
                     }
                 }
 
                 try {
                     long timeTillNextRefresh = new Duration(new DateTime(), nextRefresh).getMillis();
-                    if(log.isDebugEnabled()){
-                        log.debug("All cache entries have been updated, sleeping until the next refresh in " + timeTillNextRefresh + "ms");
+                    if (log.isDebugEnabled()) {
+                        log.debug("All cache entries have been updated, sleeping until the next refresh in "
+                                + timeTillNextRefresh + "ms");
                     }
                     sleep(timeTillNextRefresh);
                 } catch (InterruptedException e) {
                     // Do nothing
                 }
             }
-            
-            if(log.isDebugEnabled()){
+
+            if (log.isDebugEnabled()) {
                 log.debug("Cache update thread has been requested to shut down.  Terminating now.");
             }
         }

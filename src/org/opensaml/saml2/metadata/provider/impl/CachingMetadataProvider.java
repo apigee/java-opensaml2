@@ -18,7 +18,9 @@ package org.opensaml.saml2.metadata.provider.impl;
 
 import java.util.List;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastList.Node;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
@@ -46,7 +48,16 @@ public class CachingMetadataProvider implements MetadataProvider {
      * Constructor
      */
     public CachingMetadataProvider(MetadataCache metadataCache) {
-        cacheIndex = new CacheIndex(metadataCache);
+        FastList<MetadataCache> metadataCaches = new FastList<MetadataCache>(2);
+        metadataCaches.add(metadataCache);
+        cacheIndex = new CacheIndex(metadataCaches);
+    }
+    
+    /**
+     * Constructor
+     */
+    public CachingMetadataProvider(List<MetadataCache> metadataCaches) {
+        cacheIndex = new CacheIndex(metadataCaches);
     }
 
     /**
@@ -56,6 +67,13 @@ public class CachingMetadataProvider implements MetadataProvider {
         EntityDescriptor descriptor = cacheIndex.getEntityDescriptor(entityID);
         return descriptor;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public EntityDescriptor getEntityDescriptor(String entityID){
+        return getEntityDescriptor(entityID, true);
+    }
 
     /**
      * An index over the metadata cache to allow for fast lookups of EntityDescriptors given their ID.
@@ -63,15 +81,21 @@ public class CachingMetadataProvider implements MetadataProvider {
     private class CacheIndex implements MetadataCacheObserver {
 
         /** Metadata cache */
-        private MetadataCache metadataCache;
+        private FastList<MetadataCache> metadataCaches;
 
         /** Entity ID to EntityDescriptor index */
         private FastMap<String, EntityDescriptor> entityDescIndex;
 
-        protected CacheIndex(MetadataCache cache) {
-            metadataCache = cache;
-            metadataCache.getCacheObservers().add(this);
+        protected CacheIndex(List<MetadataCache> caches) {
+            metadataCaches = new FastList<MetadataCache>(caches.size() + 1);
+            metadataCaches.addAll(caches);
+            
+            Node<MetadataCache> lastEntry = metadataCaches.tail();
+            for(Node<MetadataCache> entry = metadataCaches.head(); entry != lastEntry; entry = entry.getNext()){
+                entry.getValue().getCacheObservers().add(this);
+            }
             entityDescIndex = new FastMap<String, EntityDescriptor>();
+            rebuildIndex();
         }
 
         /** {@inheritDoc   */
@@ -100,18 +124,23 @@ public class CachingMetadataProvider implements MetadataProvider {
             entityDescIndex.clear();
             SAMLObject metadata;
 
-            for (CacheEntry entry : metadataCache.getCacheEntries()) {
-                if(log.isDebugEnabled()){
-                    log.debug("Preparing to index metadata from resolver " + entry.getMetadataResolver().getID());
-                }
-                metadata = entry.getMetadata();
-                if (metadata != null) {
-                    if (metadata instanceof EntitiesDescriptor) {
-                        indexEntitiesDecriptor((EntitiesDescriptor) metadata);
+            MetadataCache metadataCache;
+            Node<MetadataCache> lastEntry = metadataCaches.tail();
+            for(Node<MetadataCache> cachesEntry = metadataCaches.head(); cachesEntry != lastEntry; cachesEntry = cachesEntry.getNext()){
+                metadataCache = cachesEntry.getValue();
+                for (CacheEntry entry : metadataCache.getCacheEntries()) {
+                    if(log.isDebugEnabled()){
+                        log.debug("Preparing to index metadata from resolver " + entry.getMetadataResolver().getID());
                     }
-
-                    if (metadata instanceof EntityDescriptor) {
-                        indexEntityDescriptor((EntityDescriptor) metadata);
+                    metadata = entry.getMetadata();
+                    if (metadata != null) {
+                        if (metadata instanceof EntitiesDescriptor) {
+                            indexEntitiesDecriptor((EntitiesDescriptor) metadata);
+                        }
+    
+                        if (metadata instanceof EntityDescriptor) {
+                            indexEntityDescriptor((EntityDescriptor) metadata);
+                        }
                     }
                 }
             }
