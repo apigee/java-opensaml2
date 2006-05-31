@@ -23,7 +23,10 @@ import org.opensaml.xml.XMLObject;
 
 /**
  * A client that uses the SAML Enhanced Client/Proxy profile to authenticate a user to service provider using
- * credentials conveyed in WS-Security header tokens.
+ * credentials conveyed in WS-Security header tokens. The Liberty WSF SOAP binding is used to communicate to the IdP.
+ * 
+ * <strong>NOTE:</strong> Clients are not thread-safe and are not reusbable. You must create a new client for each new
+ * ECP "session".
  */
 public class EnhancedClient {
 
@@ -33,8 +36,12 @@ public class EnhancedClient {
      * @param metadata the metadata provider that will return metadata information for the SP and IDP
      * @param spEntityID the entity ID of the service provider
      * @param idpEntityID the entity ID of the identity provider
+     * 
+     * @throws IllegalArgumentException thrown if any of the arguments are null, if an ECP supporting endpoint for the
+     *             SP can not be found, or a Liberty WSF SOAP supporting endpoint can not be found on the IdP
      */
-    public EnhancedClient(MetadataProvider metadata, String spEntityID, String idpEntityID) {
+    public EnhancedClient(MetadataProvider metadata, String spEntityID, String idpEntityID)
+            throws IllegalArgumentException {
 
     }
 
