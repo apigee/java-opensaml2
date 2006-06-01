@@ -21,6 +21,7 @@ import java.util.List;
 import javolution.util.FastList;
 import javolution.util.FastList.Node;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.binding.MessageFilter;
 import org.opensaml.common.binding.MessageFilterException;
 
@@ -31,6 +32,9 @@ import org.opensaml.common.binding.MessageFilterException;
  * @param <ResponseType> the response message type
  */
 public abstract class AbstractBindingClient<RequestType, ResponseType> implements BindingClient<RequestType, ResponseType> {
+    
+    /** Logger */
+    private final Logger log = Logger.getLogger(AbstractBindingClient.class);
 
     /** Message filters applied to outgoing methods */
     private FastList<MessageFilter<RequestType>> outgoingFilters;
@@ -59,6 +63,9 @@ public abstract class AbstractBindingClient<RequestType, ResponseType> implement
      * @param request the request message
      */
     protected void applyOutgoingFilters(RequestType request) throws MessageFilterException{
+        if(log.isDebugEnabled()){
+            log.debug("Applying outgoing messages filters to response object " + request.getClass().getName());
+        }
         if(outgoingFilters.size() > 0){
             MessageFilter<RequestType> filter;
             Node<MessageFilter<RequestType>> finalNode = outgoingFilters.tail();
@@ -74,7 +81,10 @@ public abstract class AbstractBindingClient<RequestType, ResponseType> implement
      * 
      * @param response the response message
      */
-    protected void processIncomingFilters(ResponseType response) throws MessageFilterException{
+    protected void applyIncomingFilters(ResponseType response) throws MessageFilterException{
+        if(log.isDebugEnabled()){
+            log.debug("Applying incoming messages filters to response object " + response.getClass().getName());
+        }
         if(incomingFilters.size() > 0){
             MessageFilter<ResponseType> filter;
             Node<MessageFilter<ResponseType>> finalNode = incomingFilters.tail();

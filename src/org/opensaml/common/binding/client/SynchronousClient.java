@@ -17,6 +17,8 @@
 package org.opensaml.common.binding.client;
 
 import org.opensaml.common.binding.CommunicationException;
+import org.opensaml.common.binding.MessageFilterException;
+import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
@@ -34,5 +36,5 @@ public interface SynchronousClient<RequestType, ResponseType> extends BindingCli
      * 
      * @return the reply
      */
-    public ResponseType sendRequest(RequestType request) throws CommunicationException, UnmarshallingException;
+    public ResponseType sendRequest(RequestType request) throws CommunicationException, MarshallingException, UnmarshallingException, MessageFilterException;
 }
