@@ -103,16 +103,38 @@ public class PAOSSynchronousClient extends AbstractBindingClient<XMLObject, Inpu
     public PAOSSynchronousClient(String serviceURL, String extension, List<String> services)
             throws IllegalArgumentException {
         super();
-        this.serviceURL = DatatypeHelper.safeTrimOrNullString(serviceURL);
-        if (serviceURL == null) {
-            throw new IllegalArgumentException("ServiceURL may not be null or empty");
-        }
 
+        setServiceURL(serviceURL);
         setExtension(extension);
         services = new FastList<String>(services);
         constructPAOSHeader();
         previousRequestMade = false;
         httpClient = new HttpClient();
+    }
+
+    /**
+     * Get the service URL used to initiate the PAOS session.
+     * 
+     * @return the service URL used to initiate the PAOS session
+     */
+    public String getServiceURL() {
+        return serviceURL;
+    }
+
+    /**
+     * Sets the service URL used to initiate the PAOS session.
+     * 
+     * @param newServiceURL the service URL used to initiate the PAOS session
+     * 
+     * @throws IllegalArgumentException thrown if the service URL is null or empty
+     */
+    private void setServiceURL(String newServiceURL) throws IllegalArgumentException {
+        String tempURL = DatatypeHelper.safeTrimOrNullString(serviceURL);
+        if (tempURL == null) {
+            throw new IllegalArgumentException("ServiceURL may not be null or empty");
+        }
+        
+        serviceURL = tempURL;
     }
 
     /**
@@ -132,9 +154,12 @@ public class PAOSSynchronousClient extends AbstractBindingClient<XMLObject, Inpu
      * @throws IllegalArgumentException thrown if the extension string contains a semicolon (";")
      */
     private void setExtension(String newExtension) throws IllegalArgumentException, IllegalStateException {
-        if (newExtension.indexOf(";") != -1) {
-            throw new IllegalArgumentException("Extension string may not contain a semicolon (\";\")");
+        if (newExtension != null) {
+            if (newExtension.indexOf(";") != -1) {
+                throw new IllegalArgumentException("Extension string may not contain a semicolon (\";\")");
+            }
         }
+        
         extension = DatatypeHelper.safeTrimOrNullString(newExtension);
     }
 
