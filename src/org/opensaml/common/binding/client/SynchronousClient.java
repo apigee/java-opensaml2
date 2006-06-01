@@ -16,6 +16,9 @@
 
 package org.opensaml.common.binding.client;
 
+import org.opensaml.common.binding.CommunicationException;
+import org.opensaml.xml.io.UnmarshallingException;
+
 /**
  * A client that waits for a response after a request has been sent.
  * 
@@ -31,5 +34,5 @@ public interface SynchronousClient<RequestType, ResponseType> extends BindingCli
      * 
      * @return the reply
      */
-    public ResponseType sendRequest(RequestType request);
+    public ResponseType sendRequest(RequestType request) throws CommunicationException, UnmarshallingException;
 }

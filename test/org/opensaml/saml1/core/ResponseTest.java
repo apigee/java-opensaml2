@@ -38,7 +38,7 @@ public class ResponseTest extends SAMLObjectTestCaseConfigInitializer {
      * Constructor
      */
     public ResponseTest(){
-        fullResponsePath = "/data/org/opensaml/saml1/FullResponse.xml";
+        fullResponsePath = "/data/org/opensaml/saml1/core/FullResponse.xml";
     }
     
     /**

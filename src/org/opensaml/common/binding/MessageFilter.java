@@ -18,5 +18,5 @@ package org.opensaml.common.binding;
 
 public interface MessageFilter<MessageType> {
 
-    public void doFilter(MessageType message);
+    public void doFilter(MessageType message) throws MessageFilterException;
 }
