@@ -22,16 +22,12 @@ package org.opensaml.saml2.core.impl;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import javax.xml.namespace.QName;
-
-import org.apache.commons.collections.map.TypedMap;
 import org.joda.time.DateTime;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DOMCachingXMLObjectAwareMap;
+import org.opensaml.xml.util.AttributeMap;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -55,7 +51,7 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
     private String address;
     
     /** "anyAttribute" attributes */
-    private final Map<QName, String> unknownAttributes;
+    private final AttributeMap unknownAttributes;
     
     /** "any" children */
     private final XMLObjectChildrenList<XMLObject> unknownChildren;
@@ -69,7 +65,7 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
      */
     protected SubjectConfirmationDataImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        unknownAttributes = TypedMap.decorate(new DOMCachingXMLObjectAwareMap(this), QName.class, String.class);
+        unknownAttributes = new AttributeMap(this);
         unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
 
@@ -146,7 +142,7 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
     /**
      * {@inheritDoc}
      */
-    public Map<QName, String> getUnknownAttributes() {
+    public AttributeMap getUnknownAttributes() {
         return unknownAttributes;
     }
     

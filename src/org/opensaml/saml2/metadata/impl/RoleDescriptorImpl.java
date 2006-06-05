@@ -20,11 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import javax.xml.namespace.QName;
-
-import org.apache.commons.collections.map.TypedMap;
 import org.joda.time.DateTime;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
@@ -33,7 +29,7 @@ import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DOMCachingXMLObjectAwareMap;
+import org.opensaml.xml.util.AttributeMap;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
@@ -64,7 +60,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     private Organization organization;
     
     /** "anyAttribute" attributes */
-    private final Map<QName, String> unknownAttributes;
+    private final AttributeMap unknownAttributes;
 
     /** Contact persons for this role */
     private final XMLObjectChildrenList<ContactPerson> contactPersons;
@@ -81,7 +77,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
      */
     protected RoleDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        unknownAttributes = TypedMap.decorate(new DOMCachingXMLObjectAwareMap(this), QName.class, String.class);
+        unknownAttributes = new AttributeMap(this);
         supportedProtocols = new ArrayList<String>();
         contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
@@ -254,7 +250,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     /**
      * {@inheritDoc}
      */
-    public Map<QName, String> getUnknownAttributes() {
+    public AttributeMap getUnknownAttributes() {
         return unknownAttributes;
     }
     

@@ -22,11 +22,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.xml.namespace.QName;
-
-import org.apache.commons.collections.map.TypedMap;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.Organization;
@@ -34,7 +30,7 @@ import org.opensaml.saml2.metadata.OrganizationDisplayName;
 import org.opensaml.saml2.metadata.OrganizationName;
 import org.opensaml.saml2.metadata.OrganizationURL;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DOMCachingXMLObjectAwareMap;
+import org.opensaml.xml.util.AttributeMap;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -55,7 +51,7 @@ public class OrganizationImpl extends AbstractSAMLObject implements Organization
     private final XMLObjectChildrenList<OrganizationURL> urls;
     
     /** "anyAttribute" attributes */
-    private final Map<QName, String> unknownAttributes;
+    private final AttributeMap unknownAttributes;
 
     /**
      * Constructor
@@ -69,7 +65,7 @@ public class OrganizationImpl extends AbstractSAMLObject implements Organization
         names = new XMLObjectChildrenList<OrganizationName>(this);
         displayNames = new XMLObjectChildrenList<OrganizationDisplayName>(this);
         urls = new XMLObjectChildrenList<OrganizationURL>(this);
-        unknownAttributes = TypedMap.decorate(new DOMCachingXMLObjectAwareMap(this), QName.class, String.class);
+        unknownAttributes = new AttributeMap(this);
     }
 
     /*
@@ -110,7 +106,7 @@ public class OrganizationImpl extends AbstractSAMLObject implements Organization
     /**
      * {@inheritDoc}
      */
-    public Map<QName, String> getUnknownAttributes() {
+    public AttributeMap getUnknownAttributes() {
         return unknownAttributes;
     }
 

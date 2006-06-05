@@ -84,8 +84,8 @@ public class AssertionIDRequestTest extends RequestTestBase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-        AssertionIDRequest req = (AssertionIDRequest) buildXMLObject(qname);
+        AssertionIDRequestBuilder builder = (AssertionIDRequestBuilder) builderFactory.getBuilder(AssertionIDRequest.DEFAULT_ELEMENT_NAME);
+        AssertionIDRequest req = builder.buildObject();
         
         super.populateChildElements(req);
         

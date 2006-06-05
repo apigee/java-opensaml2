@@ -23,11 +23,7 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import javax.xml.namespace.QName;
-
-import org.apache.commons.collections.map.TypedMap;
 import org.joda.time.DateTime;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
@@ -35,7 +31,7 @@ import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DOMCachingXMLObjectAwareMap;
+import org.opensaml.xml.util.AttributeMap;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -59,7 +55,7 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
     private Extensions extensions;
     
     /** "anyAttribute" attributes */
-    private final Map<QName, String> unknownAttributes;
+    private final AttributeMap unknownAttributes;
 
     /** Members of this affiliation */
     private final XMLObjectChildrenList<AffiliateMember> members;
@@ -76,7 +72,7 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
      */
     protected AffiliationDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        unknownAttributes = TypedMap.decorate(new DOMCachingXMLObjectAwareMap(this), QName.class, String.class);
+        unknownAttributes = new AttributeMap(this);
         members = new XMLObjectChildrenList<AffiliateMember>(this);
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
@@ -172,7 +168,7 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
     /**
      * {@inheritDoc}
      */
-    public Map<QName, String> getUnknownAttributes() {
+    public AttributeMap getUnknownAttributes() {
         return unknownAttributes;
     }
     
