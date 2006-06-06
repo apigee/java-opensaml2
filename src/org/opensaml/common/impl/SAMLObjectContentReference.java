@@ -89,12 +89,20 @@ public class SAMLObjectContentReference implements ContentReference {
      * @param signatureContent the XMLObject whose namespace prefixes will be used to populate the set
      */
     private void populateNamespacePrefixes(FastSet<String> namespacePrefixes, XMLObject signatureContent) {
-        for (Namespace namespace : signatureContent.getNamespaces()) {
-            namespacePrefixes.add(namespace.getNamespacePrefix());
+        if (signatureContent.getNamespaces() != null) {
+            for (Namespace namespace : signatureContent.getNamespaces()) {
+                if (namespace != null) {
+                    namespacePrefixes.add(namespace.getNamespacePrefix());
+                }
+            }
         }
 
-        for (XMLObject xmlObject : signatureContent.getOrderedChildren()) {
-            populateNamespacePrefixes(namespacePrefixes, xmlObject);
+        if (signatureContent.getOrderedChildren() != null) {
+            for (XMLObject xmlObject : signatureContent.getOrderedChildren()) {
+                if (xmlObject != null) {
+                    populateNamespacePrefixes(namespacePrefixes, xmlObject);
+                }
+            }
         }
     }
 }

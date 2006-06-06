@@ -22,18 +22,17 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.xml.AttributeExtensibleXMLObject;
-import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
  * SAML 2.0 Metadata RoleDescriptor
  */
-public interface RoleDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject,
+public interface RoleDescriptor extends SignableSAMLObject, TimeBoundSAMLObject, CacheableSAMLObject,
         AttributeExtensibleXMLObject {
 
     /** Element name, no namespace */

@@ -20,19 +20,18 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
-import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
  * SAML 2.0 Metadata EntitiesDescriptor.
  * 
  * @author Chad La Joie
  */
-public interface EntitiesDescriptor extends SAMLObject, SignableXMLObject, TimeBoundSAMLObject, CacheableSAMLObject {
+public interface EntitiesDescriptor extends SignableSAMLObject, TimeBoundSAMLObject, CacheableSAMLObject {
 
     /** Element name, no namespace */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "EntitiesDescriptor";

@@ -22,15 +22,14 @@ package org.opensaml.saml1.core;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
-import org.opensaml.xml.signature.SignableXMLObject;
+import org.opensaml.common.SignableSAMLObject;
 
 /**
  * This interface describes the base class for types derived from
  * <code> RequestAbstractType </code>
  */
-public interface RequestAbstractType extends SAMLObject, SignableXMLObject {
+public interface RequestAbstractType extends SignableSAMLObject {
 
     /** Name for the attribute which defines the Major Version (which must be "1". */
     public final static String MAJORVERSION_ATTRIB_NAME = "MajorVersion";

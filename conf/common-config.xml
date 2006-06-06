@@ -3,6 +3,7 @@
     xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol" 
+    xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
     xmlns:xt="http://www.opensaml.org/xmltooling-config"
     xmlns="http://www.opensaml.org/xmltooling-config">
     
@@ -20,6 +21,20 @@
             <BuilderClass className="org.opensaml.xml.schema.impl.XSStringBuilder" />
             <MarshallingClass className="org.opensaml.xml.schema.impl.XSStringMarshaller" />
             <UnmarshallingClass className="org.opensaml.xml.schema.impl.XSStringUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- XML Digital Signature -->
+        <ObjectProvider qualifiedName="ds:Signature">
+            <BuilderClass className="org.opensaml.xml.signature.SignatureBuilder" />
+            <MarshallingClass className="org.opensaml.xml.signature.SignatureMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xml.signature.SignatureUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- XML Digital Signature KeyInfo -->
+        <ObjectProvider qualifiedName="ds:KeyInfo">
+            <BuilderClass className="org.opensaml.xml.signature.KeyInfoBuilder" />
+            <MarshallingClass className="org.opensaml.xml.signature.KeyInfoMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xml.signature.KeyInfoUnmarshaller" />
         </ObjectProvider>
         
     </ObjectProviders>

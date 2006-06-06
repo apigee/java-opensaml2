@@ -21,15 +21,14 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.xml.signature.SignableXMLObject;
 
 /**
  * SAML 2.0 Core Assertion
  */
-public interface Assertion extends SignableXMLObject, SAMLObject, Evidentiary {
+public interface Assertion extends SignableSAMLObject, Evidentiary {
 
     /** Element local name */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Assertion";

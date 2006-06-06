@@ -17,14 +17,13 @@
 package org.opensaml.saml1.core;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLVersion;
-import org.opensaml.xml.signature.SignableXMLObject;
+import org.opensaml.common.SignableSAMLObject;
 
 /**
  * This interface defines the base class for type derived from the SAML1 <code> ResponseAbstractType </code> .
  */
-public interface ResponseAbstractType extends SAMLObject, SignableXMLObject {
+public interface ResponseAbstractType extends SignableSAMLObject {
 
     /** Name for the attribute which defines InResponseTo. */
     public final static String INRESPONSETO_ATTRIB_NAME = "InResponseTo";
