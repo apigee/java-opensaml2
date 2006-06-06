@@ -47,7 +47,7 @@ public class AuthorityBindingMarshaller extends AbstractSAMLObjectMarshaller {
 
         if (authorityBinding.getAuthorityKind() != null) {
             QName authKind = authorityBinding.getAuthorityKind();
-            domElement.setAttributeNS(null, AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, XMLHelper.getQNameAsAttributeValue(authKind));
+            domElement.setAttributeNS(null, AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, XMLHelper.qnameToContentString(authKind));
         }
 
         if (authorityBinding.getBinding() != null) {

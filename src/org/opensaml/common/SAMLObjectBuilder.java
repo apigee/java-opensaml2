@@ -18,6 +18,11 @@ package org.opensaml.common;
 
 import org.opensaml.xml.XMLObjectBuilder;
 
+/**
+ * Builder for SAMLObjects.
+ *
+ * @param <SAMLObjectType> the type of SAMLObject being built
+ */
 public interface SAMLObjectBuilder<SAMLObjectType extends SAMLObject> extends XMLObjectBuilder<SAMLObjectType> {
 
     /**
