@@ -53,7 +53,7 @@ public class SimpleX509EntityCredential extends AbstractX509EntityCredential {
         }
         this.entityCertificate = entityCertificate;
 
-        if (entityCertificateChain == null) {
+        if (entityCertificateChain != null) {
             certificateChain = new FastList<X509Certificate>();
         }
         certificateChain.addAll(entityCertificateChain);
@@ -62,9 +62,6 @@ public class SimpleX509EntityCredential extends AbstractX509EntityCredential {
             certificateChain.add(0, entityCertificate);
         }
 
-        if (publicKey == null) {
-            throw new IllegalArgumentException("Public key may not be null");
-        }
         publicKey = entityCertificate.getPublicKey();
         this.privateKey = privateKey;
     }
