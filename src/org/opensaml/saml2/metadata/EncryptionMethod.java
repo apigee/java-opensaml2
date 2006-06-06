@@ -26,6 +26,8 @@ import org.opensaml.xml.XMLObject;
  */
 public interface EncryptionMethod extends XMLObject {
     
+    //TODO Implementation
+    
     /** Element local name */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "EncryptionMethod";
     

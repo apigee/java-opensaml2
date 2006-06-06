@@ -54,44 +54,32 @@ public class KeyDescriptorImpl extends AbstractSAMLObject implements KeyDescript
         encryptionMethods = new XMLObjectChildrenList<EncryptionMethod>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptor#getUse()
-     */
+    /** {@inheritDoc} */
     public CredentialUsageTypeEnumeration getUse() {
         return keyUseType;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptor#setUse(org.opensaml.saml2.metadata.KeyUseType)
-     */
+    /** {@inheritDoc} */
     public void setUse(CredentialUsageTypeEnumeration newType) {
         keyUseType = prepareForAssignment(keyUseType, newType);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptor#getKeyInfo()
-     */
+    /** {@inheritDoc} */
     public KeyInfo getKeyInfo() {
         return keyInfo;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptor#setKeyInfo(org.opensaml.xml.signature.KeyInfo)
-     */
+    /** {@inheritDoc} */
     public void setKeyInfo(KeyInfo newKeyInfo) {
         keyInfo = prepareForAssignment(keyInfo, newKeyInfo);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptor#getEncryptionMethods()
-     */
+    /** {@inheritDoc} */
     public List<EncryptionMethod> getEncryptionMethods() {
         return encryptionMethods;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

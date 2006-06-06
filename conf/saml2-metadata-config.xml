@@ -216,6 +216,19 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.IDPSSODescriptorUnmarshaller" />
         </ObjectProvider>
         
+        <!-- KeyDescriptor -->
+        <ObjectProvider qualifiedName="saml2md:KeyDescriptor">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.KeyDescriptorBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.KeyDescriptorMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.KeyDescriptorUnmarshaller" />
+        </ObjectProvider>
+        
+        <ObjectProvider qualifiedName="saml2md:KeyDescriptorType">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.KeyDescriptorBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.KeyDescriptorMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.KeyDescriptorUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- ManageNameIDService -->
         <ObjectProvider qualifiedName="saml2md:ManageNameIDService">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.ManageNameIDServiceBuilder" />
