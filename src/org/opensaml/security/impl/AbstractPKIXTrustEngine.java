@@ -16,12 +16,24 @@
 
 package org.opensaml.security.impl;
 
+import java.security.GeneralSecurityException;
+import java.security.cert.CertPath;
+import java.security.cert.CertPathBuilder;
+import java.security.cert.CertPathValidator;
+import java.security.cert.CertStore;
 import java.security.cert.CertificateException;
+import java.security.cert.CollectionCertStoreParameters;
+import java.security.cert.PKIXBuilderParameters;
+import java.security.cert.PKIXCertPathBuilderResult;
+import java.security.cert.TrustAnchor;
 import java.security.cert.X509CRL;
+import java.security.cert.X509CertSelector;
 import java.security.cert.X509Certificate;
+import java.util.List;
 import java.util.Set;
 
 import javolution.util.FastList;
+import javolution.util.FastSet;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SignableSAMLObject;
@@ -42,8 +54,37 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
     /** Logger */
     private static Logger log = Logger.getLogger(AbstractPKIXTrustEngine.class);
 
+    /** Number of certificates that may be in chain before it is considered invalid */
+    private int verificationDepth = 5;
+
+    /**
+     * Gets the max number of certificates that may be in a chain before it's considered invalid.
+     * 
+     * @return max number of certificates that may be in a chain
+     */
+    public int getVerificationDepth() {
+        return verificationDepth;
+    }
+
+    /**
+     * Sets the max number of certificates that may be in a chain before it's considered invalid.
+     * 
+     * @param newDepth max number of certificates that may be in a chain
+     * 
+     * @throws IllegalArgumentException thrown if the new depth is less than 1
+     */
+    public void setVerificationDepth(int newDepth) throws IllegalArgumentException {
+        if (newDepth < 1) {
+            throw new IllegalArgumentException("Verification depth must be greater than 0");
+        }
+        verificationDepth = newDepth;
+    }
+
     /** {@inheritDoc} */
     public X509EntityCredential validate(SignableSAMLObject samlObject, RoleDescriptor descriptor) {
+
+        // TODO add verification depth check
+
         if (samlObject.getSignature() == null) {
             if (log.isDebugEnabled()) {
                 log.debug("Signature validation requested on unsigned object, returning");
@@ -54,7 +95,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
         EntityDescriptor owningEntity = (EntityDescriptor) descriptor.getParent();
         PKIXValidationInformation pkixInfo = getValidationInformation(descriptor);
 
-        Set<X509Certificate> trustAnchors = pkixInfo.getTrustAnchors();
+        Set<X509Certificate> trustAnchors = pkixInfo.getTrustChain();
         Set<X509CRL> crls = pkixInfo.getCRLs();
 
         if (trustAnchors == null || trustAnchors.size() < 1) {
@@ -83,7 +124,8 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
                     log.debug("Certificate with subject DN " + subjectDN + " is not valid.");
                 }
                 if (signatureValidated) {
-                    log.warn("Signature had been validated but certificate with subject DN "
+                    log
+                            .warn("Signature had been validated but certificate with subject DN "
                                     + subjectDN
                                     + ", found in the cert chain, was invalid."
                                     + " Signature validation is invalid, attempting to re-validate signature with remaining certificates");
@@ -140,6 +182,106 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
         return null;
     }
 
+    /** {@inheritDoc} */
+    public boolean validate(X509EntityCredential entityCredential, RoleDescriptor descriptor) {
+        EntityDescriptor owningEntity = (EntityDescriptor) descriptor.getParent();
+        PKIXValidationInformation pkixInfo = getValidationInformation(descriptor);
+
+        Set<X509Certificate> trustChain = pkixInfo.getTrustChain();
+        Set<X509CRL> crls = pkixInfo.getCRLs();
+
+        if (trustChain == null || trustChain.size() < 1) {
+            if (log.isDebugEnabled()) {
+                log
+                        .debug("Unable to validate signature, no trust anchors found in the PKIX validation information provided for entity"
+                                + owningEntity.getEntityID());
+            }
+            return false;
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("Attempting PKIX path validation on entity credential for role owned by entity "
+                    + owningEntity.getEntityID());
+        }
+        try {
+            if(log.isDebugEnabled()){
+                log.debug("Constructring trust anchors");
+            }
+            Set<TrustAnchor> trustAnchors = new FastSet<TrustAnchor>();
+            for (X509Certificate cert : trustChain) {
+                trustAnchors.add(new TrustAnchor(cert, null));
+            }
+
+            X509CertSelector selector = new X509CertSelector();
+            selector.setCertificate(entityCredential.getEntityCertificate());
+
+            if(log.isDebugEnabled()){
+                log.debug("Adding trust anchors to PKIX validator parameters");
+            }
+            PKIXBuilderParameters params = new PKIXBuilderParameters(trustAnchors, selector);
+            
+            if(log.isDebugEnabled()){
+                log.debug("Setting verification depth to " + verificationDepth);
+            }
+            params.setMaxPathLength(verificationDepth);
+
+            if(log.isDebugEnabled()){
+                log.debug("Adding entity ceritifcate chain to certificate store");
+            }
+            List storeMaterial = new FastList(entityCredential.getEntityCertificateChain());
+            
+            if(crls.size() > 0){
+                if(log.isDebugEnabled()){
+                    log.debug("Enabling CRL support and adding CRLs to certificate store");
+                }
+                storeMaterial.addAll(crls);
+                params.setRevocationEnabled(true);
+            }else{
+                params.setRevocationEnabled(false);
+            }
+
+            if(log.isDebugEnabled()){
+                log.debug("Adding certificate store to PKIX validator parameters");
+            }
+            CertStore store = CertStore.getInstance("Collection", new CollectionCertStoreParameters(storeMaterial));
+            List<CertStore> stores = new FastList<CertStore>();
+            stores.add(store);
+            params.setCertStores(stores);
+
+            if(log.isDebugEnabled()){
+                log.debug("Building certificate validation path");
+            }
+            CertPathBuilder builder = CertPathBuilder.getInstance("PKIX");
+            PKIXCertPathBuilderResult buildResult = (PKIXCertPathBuilderResult) builder.build(params);
+            CertPath certificatePath = buildResult.getCertPath();
+
+            if(log.isDebugEnabled()){
+                log.debug("Validating given entity credentials using built PKIX validator");
+            }
+            CertPathValidator validator = CertPathValidator.getInstance("PKIX");
+            validator.validate(certificatePath, params);
+            
+            if(log.isDebugEnabled()){
+                log.debug("PKIX validation of credentials for entity " + entityCredential.getEntityID() + " successful");
+            }
+            return true;
+
+        } catch (GeneralSecurityException e) {
+            if(log.isDebugEnabled()){
+                log.debug("PKIX validation of credentials for entity " + entityCredential + " failed.", e);
+            }
+            
+            return false;
+        }
+    }
+
+    /**
+     * Gets the X509 certificates and CRLs for the given role that should be used during the PKIX validation.
+     * 
+     * @return the X509 certificates and CRLs for the given role that should be used during the PKIX validation
+     */
+    protected abstract PKIXValidationInformation getValidationInformation(RoleDescriptor descriptor);
+
     /**
      * Checks that a certificate is currently valid and that it is not on a revocation list.
      * 
@@ -166,28 +308,13 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
         return true;
     }
 
-    /** {@inheritDoc} */
-    public boolean validate(X509EntityCredential entityCredential, RoleDescriptor descriptor) {
-        PKIXValidationInformation pkixInfo = getValidationInformation(descriptor);
-
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /**
-     * Gets the X509 certificates and CRLs for the given role that should be used during the PKIX validation.
-     * 
-     * @return the X509 certificates and CRLs for the given role that should be used during the PKIX validation
-     */
-    protected abstract PKIXValidationInformation getValidationInformation(RoleDescriptor descriptor);
-
     /**
      * Collection of X509 certificates to be used as trust anchors and CRLs that will be used during PKIX validation.
      */
     protected final class PKIXValidationInformation {
 
         /** X509 Certificates to be used as trust anchors */
-        private Set<X509Certificate> trustAnchors;
+        private Set<X509Certificate> trustChain;
 
         /** CRLs used during PKIX validation */
         private Set<X509CRL> crls;
@@ -199,7 +326,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
          * @param crls CRLs used during PKIX validation
          */
         public PKIXValidationInformation(Set<X509Certificate> trustAnchors, Set<X509CRL> crls) {
-            this.trustAnchors = trustAnchors;
+            this.trustChain = trustAnchors;
             this.crls = crls;
         }
 
@@ -208,8 +335,8 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
          * 
          * @return trust anchors used during PKIX validation
          */
-        public Set<X509Certificate> getTrustAnchors() {
-            return trustAnchors;
+        public Set<X509Certificate> getTrustChain() {
+            return trustChain;
         }
 
         /**
