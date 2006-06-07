@@ -17,12 +17,14 @@
 package org.opensaml.security.impl;
 
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
 import javolution.util.FastList;
 
 import org.opensaml.security.CredentialUsageTypeEnumeration;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A basic implementation of {@link org.opensaml.security.X509EntityCredential}.
@@ -30,28 +32,24 @@ import org.opensaml.security.CredentialUsageTypeEnumeration;
 public class SimpleX509EntityCredential extends AbstractX509EntityCredential {
 
     /**
-     * Constructor.  Uses the public key in the entity certificate as this credential's public key.
+     * Constructor. Uses the public key in the entity certificate as this credential's public key.
      * 
      * @param entityID the ID of the entity this credential belongs to, may not be null
      * @param privateKey the entity's private key
-     * @param entityCertificate the public certificate for the entity, may not be null
-     * @param entityCertificateChain the certificate chain for this entity
+     * @param entityCertificateChain the certificate chain for this entity, the entity cert must be the first element in
+     *            the list
      * 
      * @throws IllegalArgumentException thrown if the entityID or entity certificate is null
      */
-    public SimpleX509EntityCredential(String entityID, PrivateKey privateKey, X509Certificate entityCertificate,
+    public SimpleX509EntityCredential(String entityID, PrivateKey privateKey,
             List<X509Certificate> entityCertificateChain) throws IllegalArgumentException {
 
-        if (entityID != null && entityID.length() > 0) {
-            this.entityID = new String(entityID);
-        } else {
-            throw new IllegalArgumentException("Entity ID may not be null or empty");
-        }
+        setEntityID(entityID);
 
-        if (entityCertificate == null) {
-            throw new IllegalArgumentException("Entity certificate may not be null");
+        if (entityCertificateChain == null || entityCertificateChain.size() < 1) {
+            throw new IllegalArgumentException("Entity certificate chain may not be null or empty");
         }
-        this.entityCertificate = entityCertificate;
+        this.entityCertificate = entityCertificateChain.get(0);
 
         if (entityCertificateChain != null) {
             certificateChain = new FastList<X509Certificate>();
@@ -67,11 +65,47 @@ public class SimpleX509EntityCredential extends AbstractX509EntityCredential {
     }
 
     /**
+     * Constructor
+     * 
+     * @param entityID the ID of the entity this credential is for, may not be null
+     * @param privateKey the entity's private key
+     * @param publicKey the entity's public key, may not be null
+     * 
+     * @throws IllegalArgumentException thrown if the entity ID or public key is null or empty
+     */
+    public SimpleX509EntityCredential(String entityID, PrivateKey privateKey, PublicKey publicKey)
+            throws IllegalArgumentException {
+        setEntityID(entityID);
+
+        if (publicKey == null) {
+            throw new IllegalArgumentException("Public key may not be null");
+        }
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
+
+    }
+
+    /**
      * Sets the usage type for this credential.
      * 
      * @param usageType usage type for this credential
      */
     public void setCredentialUsageType(CredentialUsageTypeEnumeration usageType) {
         this.usageType = usageType;
+    }
+
+    /**
+     * Sets the entityID.
+     * 
+     * @param newEntityID the new entity id
+     * 
+     * @throws IllegalArgumentException thrown if the entityID is null or empty
+     */
+    protected void setEntityID(String newEntityID) throws IllegalArgumentException {
+        if (DatatypeHelper.isEmpty(entityID)) {
+            entityID = new String(newEntityID);
+        } else {
+            throw new IllegalArgumentException("Entity ID may not be null or empty");
+        }
     }
 }

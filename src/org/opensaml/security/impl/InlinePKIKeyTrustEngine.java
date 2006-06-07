@@ -16,6 +16,7 @@
 
 package org.opensaml.security.impl;
 
+import java.security.PublicKey;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
@@ -23,12 +24,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SignableSAMLObject;
+import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.security.CredentialUsageTypeEnumeration;
 import org.opensaml.security.TrustEngine;
 import org.opensaml.security.X509EntityCredential;
 import org.opensaml.xml.signature.KeyInfo;
+import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureValidator;
 import org.opensaml.xml.validation.ValidationException;
 
@@ -38,13 +41,13 @@ import org.opensaml.xml.validation.ValidationException;
 public class InlinePKIKeyTrustEngine implements TrustEngine<X509EntityCredential> {
 
     /** Logger */
-    private static Logger log = Logger.getLogger(InlinePKIKeyTrustEngine.class.getName());
-    
+    private static Logger log = Logger.getLogger(InlinePKIKeyTrustEngine.class);
+
     /**
      * Constructor
      */
-    public InlinePKIKeyTrustEngine(){
-        
+    public InlinePKIKeyTrustEngine() {
+
     }
 
     /**
@@ -128,36 +131,75 @@ public class InlinePKIKeyTrustEngine implements TrustEngine<X509EntityCredential
     /**
      * Validates that the given signed SAMLObject was signed using a Signing key for the given descriptor.
      * 
-     * @return false if SAMLObject is not signed or the descriptor does not have any signing keys that validate the
-     *         signature
+     * @return the credential that validated the SAMLObject or null if the signature did not validate or the SAMLObject
+     *         was not signedf
      */
-    public boolean validate(SignableSAMLObject samlObject, RoleDescriptor descriptor) {
+    public X509EntityCredential validate(SignableSAMLObject samlObject, RoleDescriptor descriptor) {
         if (samlObject.getSignature() == null) {
-            return false;
+            if (log.isDebugEnabled()) {
+                log.debug("Signature validation requested on unsigned object, returning");
+            }
+            return null;
         }
+
+        EntityDescriptor owningEntity = (EntityDescriptor) descriptor.getParent();
 
         List<KeyDescriptor> keyDescriptors = descriptor.getKeyDescriptors();
         if (keyDescriptors == null || keyDescriptors.size() == 0) {
-            return false;
+            if (log.isDebugEnabled()) {
+                log.warn("Unable to validate signature, entity " + owningEntity.getEntityID()
+                        + " does not contain any keying information for role this role");
+            }
+            return null;
         }
 
+        if (log.isDebugEnabled()) {
+            log.debug("Attempting to validate signature with the keying information for entity "
+                    + owningEntity.getEntityID());
+        }
+        Signature signature = samlObject.getSignature();
         KeyInfo keyInfo;
+        PublicKey publicKey;
         SignatureValidator signatureValidator;
         for (KeyDescriptor keyDescriptor : keyDescriptors) {
             if (keyDescriptor.getUse() == CredentialUsageTypeEnumeration.SIGNING) {
                 keyInfo = keyDescriptor.getKeyInfo();
-                if (keyInfo.getPublicKey() != null) {
-                    signatureValidator = new SignatureValidator(keyInfo.getPublicKey());
-                    try {
-                        signatureValidator.validate(samlObject.getSignature());
-                        return true;
-                    } catch (ValidationException e) {
-                        // Don't do anything, another key may work
+                publicKey = keyInfo.getPublicKey();
+                
+                if (publicKey != null) {
+                    if(log.isDebugEnabled()){
+                        log.debug("Attempting to validate signature with public key");
                     }
+                    signatureValidator = new SignatureValidator(publicKey);
+                    try {
+                        signatureValidator.validate(signature);
+                        if(log.isDebugEnabled()){
+                            log.debug("Signature validated with public key");
+                        }
+                        SimpleX509EntityCredential validatingCredential;
+                        validatingCredential = new SimpleX509EntityCredential(owningEntity.getEntityID(), null,
+                                publicKey);
+                        return validatingCredential;
+                    } catch (ValidationException e) {
+                        if(log.isDebugEnabled()){
+                            log.debug("Public key did not validate signature");
+                        }
+                    }
+                }else{
+                    if(log.isDebugEnabled()){
+                        log.debug("Signing key information does not contain a public key, skipping it");
+                    }
+                }
+            }else{
+                if(log.isDebugEnabled()){
+                    log.debug("Found keying information, but was not for signing, skipping it");
                 }
             }
         }
 
-        return false;
+        if(log.isDebugEnabled()){
+            log.debug("No keying information validated the signature");
+        }
+        return null;
     }
 }
