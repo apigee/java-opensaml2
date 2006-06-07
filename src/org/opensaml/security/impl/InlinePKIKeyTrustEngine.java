@@ -39,6 +39,13 @@ public class InlinePKIKeyTrustEngine implements TrustEngine<X509EntityCredential
 
     /** Logger */
     private static Logger log = Logger.getLogger(InlinePKIKeyTrustEngine.class.getName());
+    
+    /**
+     * Constructor
+     */
+    public InlinePKIKeyTrustEngine(){
+        
+    }
 
     /**
      * Validates that the end-entity certificate within the credential is identical to one of the certificates within
