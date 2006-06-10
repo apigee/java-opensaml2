@@ -45,6 +45,7 @@ public class URLResolver extends AbstractMetadataResolver implements MetadataRes
     /**
      * Constructor
      *
+     * @param resolverID ID of this resolver
      * @param metadataURL the URL to the metadata
      */
     public URLResolver(String resolverID, String metadataURL){

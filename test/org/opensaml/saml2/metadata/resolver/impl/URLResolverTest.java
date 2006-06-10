@@ -40,7 +40,24 @@ public class URLResolverTest extends SAMLObjectTestCaseConfigInitializer {
         URLResolver resolver = new URLResolver("incommonMD", metadataURL);
         
         SAMLObject metadata = resolver.resolve();
-        
         assertNotNull("Metadata was null", metadata);
+    }
+    
+    /**
+     * Tests that during resolution attached filters are executed.
+     * 
+     * @throws ResolutionException thrown if the metadata can not be resolved
+     * @throws FilterException should never be thrown
+     */
+    public void testResolveAndFilter() throws ResolutionException, FilterException{
+        URLResolver resolver = new URLResolver("incommonMD", metadataURL);
+        
+        SimpleFilter filter = new SimpleFilter();
+        resolver.setMetadataFilter(filter);
+        
+        SAMLObject metadata = resolver.resolve();
+        assertNotNull("Metadata was null", metadata);
+        
+        assertTrue("Filter was not executed", filter.wasExecuted());
     }
 }
