@@ -17,8 +17,9 @@
 package org.opensaml.saml2.metadata.provider.impl;
 
 import java.lang.ref.SoftReference;
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -95,8 +96,8 @@ public class SoftReferenceMetadataCache implements MetadataCache {
      * @param resolveRetryInterval time, in seconds, between when a metadata resolver failed to resolve metadata and
      *            when it should be retried
      */
-    public SoftReferenceMetadataCache(int initialResolverCapacity, long maxCacheDuration,
-            int maxFailedResolveAttempts, long resolveRetryInterval) {
+    public SoftReferenceMetadataCache(int initialResolverCapacity, long maxCacheDuration, int maxFailedResolveAttempts,
+            long resolveRetryInterval) {
         observers = new FastList<MetadataCacheObserver>();
         metadataCache = new FastMap<String, CacheEntryImpl>();
         this.maxCacheDuration = maxCacheDuration * 1000;
@@ -111,8 +112,8 @@ public class SoftReferenceMetadataCache implements MetadataCache {
      */
     public SAMLObject getMetadata(String resolverID) {
         CacheEntry cacheEntry = metadataCache.get(resolverID);
-        
-        if(cacheEntry != null){
+
+        if (cacheEntry != null) {
             return cacheEntry.getMetadata();
         }
 
@@ -129,14 +130,14 @@ public class SoftReferenceMetadataCache implements MetadataCache {
      * 
      * {@inheritDoc}
      */
-    public Collection<? extends CacheEntry> getCacheEntries() {
-        return metadataCache.values();
+    public List<? extends CacheEntry> getCacheEntries() {
+        return new FastList<CacheEntryImpl>(metadataCache.values()).unmodifiable();
     }
 
     /** {@inheritDoc} */
-    public Collection<MetadataResolver> getMetadataResolvers() {
+    public List<MetadataResolver> getMetadataResolvers() {
         FastList<MetadataResolver> resolvers = new FastList<MetadataResolver>();
-        
+
         FastMap.Entry<String, CacheEntryImpl> lastEntry = metadataCache.tail();
         for (FastMap.Entry<String, CacheEntryImpl> n = metadataCache.head(); (n = n.getNext()) != lastEntry;) {
             resolvers.add(n.getValue().getMetadataResolver());
@@ -147,10 +148,10 @@ public class SoftReferenceMetadataCache implements MetadataCache {
     /** {@inheritDoc} */
     public void addMetadataResolver(MetadataResolver newResolver) {
         String resolverID = newResolver.getID();
-        if(DatatypeHelper.isEmpty(resolverID)){
+        if (DatatypeHelper.isEmpty(resolverID)) {
             throw new IllegalArgumentException("Resolver must have an ID");
         }
-        
+
         metadataCache.put(resolverID, new CacheEntryImpl(newResolver));
         notifyObservers(newResolver.getID(), ADD_RESOLVER);
 
@@ -159,16 +160,16 @@ public class SoftReferenceMetadataCache implements MetadataCache {
     /** {@inheritDoc} */
     public void removeMetadataResolver(MetadataResolver oldResolver) {
         String resolverID = oldResolver.getID();
-        if(metadataCache.remove(resolverID) != null){
+        if (metadataCache.remove(resolverID) != null) {
             notifyObservers(resolverID, REMOVE_RESOLVER);
         }
     }
 
     /** {@inheritDoc} */
     public void clearCache() {
-        FastMap.Entry<String, CacheEntryImpl> lastEntry = metadataCache.tail();
-        for (FastMap.Entry<String, CacheEntryImpl> n = metadataCache.head(); (n = n.getNext()) != lastEntry;) {
-            removeMetadataResolver(n.getValue().getMetadataResolver());
+        Iterator<Entry<String, CacheEntryImpl>> entries = metadataCache.entrySet().iterator();
+        while(entries.hasNext()){
+            removeMetadataResolver(entries.next().getValue().getMetadataResolver());
         }
     }
 
@@ -237,11 +238,11 @@ public class SoftReferenceMetadataCache implements MetadataCache {
         public SAMLObject getMetadata() {
             if (cachedMetadata != null) {
                 SAMLObject metadata = cachedMetadata.get();
-                if(metadata == null){
+                if (metadata == null) {
                     // Reference was released by VM, refetch it
                     reloadMetadata();
                 }
-                
+
                 return cachedMetadata.get();
             }
 
@@ -411,15 +412,14 @@ public class SoftReferenceMetadataCache implements MetadataCache {
                 CacheEntryImpl cacheEntry;
                 DateTime nextRefresh = new DateTime().plus(maxCacheDuration);
                 if (metadataCache.size() > 0) {
-                    
-                    //We do this in a for loop instead of via an iterator because it allows the map to be edited concurrently
-                    FastMap.Entry<String, CacheEntryImpl> lastEntry = metadataCache.tail();
-                    for (FastMap.Entry<String, CacheEntryImpl> entry = metadataCache.head(); entry != lastEntry; entry = entry
-                            .getNext()) {
-                        cacheEntry = entry.getValue();
+
+                    Iterator<Entry<String, CacheEntryImpl>> entries = metadataCache.entrySet().iterator();
+                    while (entries.hasNext()) {
+                        cacheEntry = entries.next().getValue();
                         if (log.isDebugEnabled()) {
                             log.debug("Updating cache entry for resolver " + cacheEntry.getMetadataResolver().getID());
                         }
+                        
                         if (cacheEntry.isExpired()) {
                             cacheEntry.reloadMetadata();
                             if (nextRefresh == null || cacheEntry.getExpirationTime().isBefore(nextRefresh)) {

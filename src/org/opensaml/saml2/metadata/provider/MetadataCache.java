@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata.provider;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -64,14 +63,14 @@ public interface MetadataCache {
      * 
      * @return cache entries for this cache
      */
-    public Collection<? extends CacheEntry> getCacheEntries();
+    public List<? extends CacheEntry> getCacheEntries();
 
     /**
      * Gets an immutable list of the resolvers registered with this cache.
      * 
      * @return an immutable list of the resolvers registered with this cache
      */
-    public Collection<MetadataResolver> getMetadataResolvers();
+    public List<MetadataResolver> getMetadataResolvers();
 
     /**
      * Adds a resolver to this cache.
