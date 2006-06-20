@@ -18,6 +18,8 @@ package org.opensaml.saml2.metadata.provider.impl;
 
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastList.Node;
@@ -26,6 +28,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataCache;
 import org.opensaml.saml2.metadata.provider.MetadataCacheObserver;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
@@ -60,19 +63,44 @@ public class CachingMetadataProvider implements MetadataProvider {
         cacheIndex = new CacheIndex(metadataCaches);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public EntityDescriptor getEntityDescriptor(String entityID, boolean requiredValidMetadata) {
+    /** {@inheritDoc} */
+    public EntityDescriptor getEntityDescriptor(String entityID){
+        return getEntityDescriptor(entityID, true);
+    }
+    
+    /** {@inheritDoc} */
+    public EntityDescriptor getEntityDescriptor(String entityID, boolean requireValidMetadata) {
         EntityDescriptor descriptor = cacheIndex.getEntityDescriptor(entityID);
         return descriptor;
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    public EntityDescriptor getEntityDescriptor(String entityID){
-        return getEntityDescriptor(entityID, true);
+    /** {@inheritDoc} */
+    public List<RoleDescriptor> getRole(String entityID, QName roleName){
+        return getRole(entityID, roleName, true);
+    }
+    
+    /** {@inheritDoc} */
+    public List<RoleDescriptor> getRole(String entityID, QName roleName, boolean requireValidMetadata){
+        EntityDescriptor descriptor = getEntityDescriptor(entityID, requireValidMetadata);
+        return descriptor.getRoleDescriptors(roleName);
+    }
+    
+    /** {@inheritDoc} */
+    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol){
+        return getRole(entityID, roleName, supportedProtocol, true);
+    }
+    
+    /** {@inheritDoc} */
+    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol, boolean requireValidMetadata){
+        List<RoleDescriptor> roles = getRole(entityID, roleName);
+        FastList<RoleDescriptor> supportingRoles = new FastList<RoleDescriptor>();
+        for(RoleDescriptor role : roles){
+            if(role.getSupportedProtocols().contains(supportedProtocol)){
+                supportingRoles.add(role);
+            }
+        }
+        
+        return supportingRoles;
     }
 
     /**
