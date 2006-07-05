@@ -17,16 +17,12 @@
 package org.opensaml.saml2.metadata.provider;
 
 /**
- * Observer that can be registered with a {@link org.opensaml.saml2.metadata.provider.MetadataCache} 
- * to be notified of changes that occur within the cache.
+ * A metadata provider that pulls metadata using an HTTP GET.  Metadata is cached until one of these criteria is met:
+ * <ul>
+ *    <li>The smallest cacheDuration within the metadata is exceeded</li>
+ *    <li>The earliest validUntil time within the metadata is exceeded</li>
+ * </ul>
  */
-public interface MetadataCacheObserver {
+public class URLMetadataProvider extends AbstractMetadataProvider {
 
-    /**
-     * Inidicates that a change has occured within a cache.
-     * 
-     * @param resolverID the ID of the resolver, or it's cached metadata, that was changed
-     * @param operation the change
-     */
-    public void notify(String resolverID, short operation);
 }

@@ -22,12 +22,42 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.saml2.metadata.resolver.MetadataFilter;
 
 /**
  * A local store into which metadata can be loaded and queried. Specific implemenations may perform additional logic
  * such as caching (and refreshing) metadata and merging metadata, about a single entity, from multiple sources.
  */
 public interface MetadataProvider {
+    
+    /**
+     * Gets whether the metadata returned by queries must be valid.  At a minimum, metadata is valid only if the date expressed in entity's 
+     * validUntil attribute has not passed.  Specific implementations may add additional constratins.
+
+     * @return whether the metadata returned by queries must be valid
+     */
+    public boolean requireValidMetadata();
+    
+    /**
+     * Sets whether the metadata returned by queries must be valid.
+     * 
+     * @param requireValidMetadata whether the metadata returned by queries must be valid
+     */
+    public void setRequireValidMetadata(boolean requireValidMetadata);
+    
+    /**
+     * Gets the metadata filter applied to the metadata.
+     * 
+     * @return the metadata filter applied to the metadata
+     */
+    public MetadataFilter getMetadataFilter();
+
+    /**
+     * Sets the metadata filter applied to the metadata.
+     * 
+     * @param newFilter the metadata filter applied to the metadata
+     */
+    public void setMetadataFilter(MetadataFilter newFilter);
 
     /**
      * Gets the metadata for a given entity if the metadata is valid. This is the same as calling
