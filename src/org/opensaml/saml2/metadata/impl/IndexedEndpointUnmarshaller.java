@@ -23,6 +23,7 @@ package org.opensaml.saml2.metadata.impl;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
 /**
@@ -51,7 +52,7 @@ public class IndexedEndpointUnmarshaller extends EndpointUnmarshaller {
         if (attribute.getLocalName().equals(IndexedEndpoint.INDEX_ATTRIB_NAME)) {
             iEndpoint.setIndex(Integer.valueOf(attribute.getValue()));
         } else if (attribute.getLocalName().equals(IndexedEndpoint.IS_DEFAULT_ATTRIB_NAME)) {
-            iEndpoint.setDefault(Boolean.valueOf(attribute.getValue()));
+            iEndpoint.setDefault(XSBooleanValue.valueOf(attribute.getValue()));
         } else {
             super.processAttribute(samlObject, attribute);
         }

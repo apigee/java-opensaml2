@@ -23,6 +23,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.saml2.metadata.ServiceName;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -31,7 +32,7 @@ import org.opensaml.saml2.metadata.ServiceName;
 public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
     
     protected int expectedIndex;
-    protected Boolean expectedIsDefault;
+    protected XSBooleanValue expectedIsDefault;
     protected int expectedServiceNameCount;
     protected int expectedServiceDecsriptionCount;
     protected int expectedRequestedAttributeCount;
@@ -52,7 +53,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         super.setUp();
         
         expectedIndex = 1;
-        expectedIsDefault = Boolean.TRUE;
+        expectedIsDefault = new XSBooleanValue(Boolean.TRUE, false);
         expectedServiceNameCount = 2;
         expectedServiceDecsriptionCount = 3;
         expectedRequestedAttributeCount = 4;
@@ -75,7 +76,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         AttributeConsumingService service = (AttributeConsumingService) unmarshallElement(singleElementOptionalAttributesFile);
         
         assertEquals("Index was not expected value", expectedIndex, service.getIndex());
-        assertEquals("isDefault was not expected value", expectedIsDefault, service.isDefault());
+        assertEquals("isDefault was not expected value", expectedIsDefault.getValue(), service.isDefault().getValue());
     }
     
     /*

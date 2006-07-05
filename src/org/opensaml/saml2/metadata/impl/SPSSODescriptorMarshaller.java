@@ -55,12 +55,12 @@ public class SPSSODescriptorMarshaller extends SSODescriptorMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         SPSSODescriptor descriptor = (SPSSODescriptor) samlObject;
 
-        if (descriptor.authnRequestsSigned()) {
-            domElement.setAttributeNS(null, SPSSODescriptor.AUTH_REQUETS_SIGNED_ATTRIB_NAME, "true");
+        if (descriptor.authnRequestsSigned() != null) {
+            domElement.setAttributeNS(null, SPSSODescriptor.AUTH_REQUETS_SIGNED_ATTRIB_NAME, descriptor.authnRequestsSigned().toString());
         }
 
-        if (descriptor.wantAssertionsSigned()) {
-            domElement.setAttributeNS(null, SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME, "true");
+        if (descriptor.wantAssertionsSigned() != null) {
+            domElement.setAttributeNS(null, SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME, descriptor.wantAssertionsSigned().toString());
         }
 
         super.marshallAttributes(samlObject, domElement);

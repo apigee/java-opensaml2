@@ -28,6 +28,7 @@ import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.saml2.metadata.ServiceName;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
 /**
@@ -81,7 +82,7 @@ public class AttributeConsumingServiceUnmarshaller extends AbstractSAMLObjectUnm
         if (attribute.getLocalName().equals(AttributeConsumingService.INDEX_ATTRIB_NAME)) {
             service.setIndex(Integer.valueOf(attribute.getValue()));
         } else if (attribute.getLocalName().equals(AttributeConsumingService.IS_DEFAULT_ATTRIB_NAME)) {
-            service.setIsDefault(Boolean.valueOf(attribute.getValue()));
+            service.setIsDefault(XSBooleanValue.valueOf(attribute.getValue()));
         } else {
             super.processAttribute(samlObject, attribute);
         }

@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameIDPolicy;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -38,7 +39,7 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
     private String expectedSPNameQualifer;
 
     /** Expected AllowCreate */
-    private Boolean expectedAllowCreate;
+    private XSBooleanValue expectedAllowCreate;
 
     /**
      * Constructor
@@ -56,7 +57,7 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
         
         expectedFormat = "urn:string:format";
         expectedSPNameQualifer = "urn:string:spname";
-        expectedAllowCreate = new Boolean(true);
+        expectedAllowCreate = new XSBooleanValue(Boolean.TRUE, false);
 
     }
 
@@ -101,6 +102,6 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
         
         assertEquals("Unmarshalled name Format URI attribute value was not the expected value", expectedFormat, policy.getFormat());
         assertEquals("Unmarshalled SPNameQualifier URI attribute value was not the expected value", expectedSPNameQualifer, policy.getSPNameQualifier());
-        assertEquals("Unmarshalled AllowCreate attribute value was not the expected value", expectedAllowCreate, policy.getAllowCreate());
+        assertEquals("Unmarshalled AllowCreate attribute value was not the expected value", expectedAllowCreate.getValue(), policy.getAllowCreate().getValue());
     }
 }

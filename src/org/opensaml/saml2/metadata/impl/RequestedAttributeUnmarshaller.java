@@ -25,6 +25,7 @@ import org.opensaml.saml2.core.impl.AttributeUnmarshaller;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
 /**
@@ -55,7 +56,7 @@ public class RequestedAttributeUnmarshaller extends AttributeUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         RequestedAttribute requestedAttribute = (RequestedAttribute) samlObject;
         if (attribute.getLocalName().equals(RequestedAttribute.IS_REQUIRED_ATTRIB_NAME)) {
-            requestedAttribute.setIsRequired(new Boolean(Boolean.parseBoolean(attribute.getValue())));
+            requestedAttribute.setIsRequired(XSBooleanValue.valueOf(attribute.getValue()));
         } else {
             super.processAttribute(samlObject, attribute);
         }

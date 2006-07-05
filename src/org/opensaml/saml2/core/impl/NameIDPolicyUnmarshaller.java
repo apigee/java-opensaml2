@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
 /**
@@ -62,7 +63,7 @@ public class NameIDPolicyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         if (attribute.getLocalName().equals(NameIDPolicy.SP_NAME_QUALIFIER_ATTRIB_NAME))
             policy.setSPNameQualifier(attribute.getValue());
         if (attribute.getLocalName().equals(NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME))
-            policy.setAllowCreate(Boolean.valueOf(attribute.getValue()));
+            policy.setAllowCreate(XSBooleanValue.valueOf(attribute.getValue()));
         else
             super.processAttribute(samlObject, attribute);
     }

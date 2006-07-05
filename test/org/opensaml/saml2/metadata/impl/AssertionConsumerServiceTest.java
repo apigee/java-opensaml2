@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -35,7 +36,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
     protected String expectedLocation;
     protected String expectedResponseLocation;
     protected Integer expectedIndex;
-    protected Boolean expectedIsDefault;
+    protected XSBooleanValue expectedIsDefault;
     
     /**
      * Constructor
@@ -55,7 +56,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
         expectedLocation = "example.org";
         expectedResponseLocation = "example.org/response";
         expectedIndex = new Integer(3);
-        expectedIsDefault = Boolean.TRUE;
+        expectedIsDefault = new XSBooleanValue(Boolean.TRUE, false);
     }
 
     /*
@@ -79,7 +80,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
         assertEquals("Location was not expected value", expectedLocation, service.getLocation());
         assertEquals("Index was not expected value", expectedIndex, service.getIndex());
         assertEquals("ResponseLocation was not expected value", expectedResponseLocation, service.getResponseLocation());
-        assertEquals("isDefault was not expected value", expectedIsDefault, service.isDefault());
+        assertEquals("isDefault was not expected value", expectedIsDefault.getValue(), service.isDefault().getValue());
     }
 
     /*

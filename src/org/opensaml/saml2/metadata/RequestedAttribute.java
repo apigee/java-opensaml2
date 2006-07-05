@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * SAML 2.0 Metadata RequestedAttribute
@@ -47,12 +48,12 @@ public interface RequestedAttribute extends Attribute {
      * 
      * @return true if this attribute is required
      */
-    public boolean isRequired();
+    public XSBooleanValue isRequired();
     
     /**
      * Sets if this requested attribute is also required.
      * 
      * @param isRequired true if this attribute is required
      */
-    public void setIsRequired(boolean isRequired);
+    public void setIsRequired(XSBooleanValue isRequired);
 }

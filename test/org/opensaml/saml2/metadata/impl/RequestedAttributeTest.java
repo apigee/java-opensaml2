@@ -21,6 +21,7 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.RequestedAttribute;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -38,7 +39,7 @@ public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
     protected String expectedFriendlyName;
 
     /** Excpected isRequired attribute value */
-    protected boolean expectedIsRequired;
+    protected XSBooleanValue expectedIsRequired;
 
     /**
      * Constructor
@@ -57,7 +58,7 @@ public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
         expectedName = "attribName";
         expectedNameFormat = "urn:string";
         expectedFriendlyName = "Attribute Name";
-        expectedIsRequired = true;
+        expectedIsRequired = new XSBooleanValue(Boolean.TRUE, false);
     }
 
     /**
@@ -88,9 +89,9 @@ public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
         assertEquals("FriendlyName was " + friendlyName + ", expected " + expectedFriendlyName, expectedFriendlyName,
                 friendlyName);
 
-        boolean isRequired = requestedAttribute.isRequired();
-        assertEquals("Is Required was " + isRequired + ", expected " + expectedIsRequired, expectedIsRequired,
-                isRequired);
+        boolean isRequired = requestedAttribute.isRequired().getValue().booleanValue();
+        assertEquals("Is Required was " + isRequired + ", expected " + expectedIsRequired, expectedIsRequired.getValue(),
+                requestedAttribute.isRequired().getValue());
     }
 
     /**

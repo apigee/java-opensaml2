@@ -36,6 +36,7 @@ import org.opensaml.saml2.metadata.NameIDMappingService;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.SingleLogoutService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * 
@@ -55,7 +56,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
     protected String expectedErrorURL;
 
     /** expected value for WantAuthnRequestSigned attribute */
-    protected Boolean expectedWantAuthnReqSigned;
+    protected XSBooleanValue expectedWantAuthnReqSigned;
 
     /**
      * Constructor
@@ -78,7 +79,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
         expectedErrorURL = "http://example.org";
 
-        expectedWantAuthnReqSigned = Boolean.TRUE;
+        expectedWantAuthnReqSigned = new XSBooleanValue(Boolean.TRUE, false);
     }
 
     public void testSingleElementUnmarshall() {
@@ -94,8 +95,8 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("Cache duration was not expected value", expectedCacheDuration, descriptor.getCacheDuration()
                 .longValue());
         assertEquals("ValidUntil was not expected value", expectedValidUntil, descriptor.getValidUntil());
-        assertEquals("WantAuthnRequestsSigned attribute was not expected value", expectedWantAuthnReqSigned, descriptor
-                .wantAuthnRequestsSigned());
+        assertEquals("WantAuthnRequestsSigned attribute was not expected value", expectedWantAuthnReqSigned.getValue(), descriptor
+                .wantAuthnRequestsSigned().getValue());
     }
 
     /*

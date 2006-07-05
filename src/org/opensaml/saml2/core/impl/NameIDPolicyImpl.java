@@ -25,6 +25,7 @@ import java.util.List;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.NameIDPolicy}
@@ -38,7 +39,7 @@ public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy
     private String spNameQualifier;
 
     /** NameID Format URI */
-    private Boolean allowCreate;
+    private XSBooleanValue allowCreate;
 
     /**
      * Constructor
@@ -84,14 +85,14 @@ public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy
     /**
      * @see org.opensaml.saml2.core.NameIDPolicy#getAllowCreate()
      */
-    public Boolean getAllowCreate() {
+    public XSBooleanValue getAllowCreate() {
         return this.allowCreate;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setAllowCreate(Boolean newAllowCreate) {
+    public void setAllowCreate(XSBooleanValue newAllowCreate) {
         this.allowCreate = prepareForAssignment(this.allowCreate, newAllowCreate);
 
     }

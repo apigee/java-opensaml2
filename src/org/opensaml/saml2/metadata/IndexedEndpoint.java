@@ -19,6 +19,7 @@ package org.opensaml.saml2.metadata;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 
 /**
@@ -63,12 +64,12 @@ public interface IndexedEndpoint extends Endpoint {
      * 
      * @return whether this is the default endpoint in a list
      */
-    public Boolean isDefault();
+    public XSBooleanValue isDefault();
     
     /**
      * Sets whether this is the default endpoint in a list.
      * 
      * @param isDefault whether this is the default endpoint in a list
      */
-    public void setDefault(Boolean isDefault);
+    public void setDefault(XSBooleanValue isDefault);
 }

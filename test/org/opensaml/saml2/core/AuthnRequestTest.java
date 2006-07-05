@@ -20,6 +20,7 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.ComplexSAMLObjectBaseTestCase;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Tests unmarshalling and marshalling for various request messages.
@@ -41,7 +42,7 @@ public class AuthnRequestTest extends ComplexSAMLObjectBaseTestCase {
         AuthnRequest request = (AuthnRequest) unmarshallElement(elementFile);
         
         assertNotNull("AuthnRequest was null", request);
-        assertEquals("ForceAuthn", true, request.getForceAuthn().booleanValue());
+        assertEquals("ForceAuthn", true, request.getForceAuthn().getValue().booleanValue());
         assertEquals("AssertionConsumerServiceURL", "http://www.example.com/", request.getAssertionConsumerServiceURL());
         assertEquals("AttributeConsumingServiceIndex", 0, request.getAttributeConsumingServiceIndex().intValue());
         assertEquals("ProviderName", "SomeProvider", request.getProviderName());
@@ -89,7 +90,7 @@ public class AuthnRequestTest extends ComplexSAMLObjectBaseTestCase {
         request.setConditions(conditions);
         request.setRequestedAuthnContext(rac);
         
-        request.setForceAuthn(true);
+        request.setForceAuthn(XSBooleanValue.valueOf("true"));
         request.setAssertionConsumerServiceURL("http://www.example.com/");
         request.setAttributeConsumingServiceIndex(0);
         request.setProviderName("SomeProvider");

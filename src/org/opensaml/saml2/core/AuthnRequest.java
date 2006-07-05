@@ -19,6 +19,7 @@ package org.opensaml.saml2.core;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 
 /**
@@ -64,14 +65,14 @@ public interface AuthnRequest extends Request {
      * 
      * @return the value of the ForceAuthn attribute
      */
-    public Boolean getForceAuthn();
+    public XSBooleanValue getForceAuthn();
     
     /**
      * Sets whether the IdP should force the user to reauthenticate
      * 
      * @param newForceAuthn the new value of the ForceAuthn attribute
      */
-    public void setForceAuthn(Boolean newForceAuthn);
+    public void setForceAuthn(XSBooleanValue newForceAuthn);
     
     /**
      * Gets whether the IdP should refrain from interacting with the
@@ -79,7 +80,7 @@ public interface AuthnRequest extends Request {
      * 
      * @return the value of the ForceAuthn attribute
      */
-    public Boolean getIsPassive();
+    public XSBooleanValue getIsPassive();
     
     /**
      * Sets whether the IdP should refrain from interacting with the
@@ -87,7 +88,7 @@ public interface AuthnRequest extends Request {
      * 
      * @param newIsPassive the new value of the ForceAuthn attribute
      */
-    public void setIsPassive(Boolean newIsPassive);
+    public void setIsPassive(XSBooleanValue newIsPassive);
     
     /**
      * Gets the protocol binding URI for the request 

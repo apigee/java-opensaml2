@@ -25,6 +25,7 @@ import java.util.List;
 import org.opensaml.saml2.core.impl.AttributeImpl;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.RequestedAttribute}
@@ -32,7 +33,7 @@ import org.opensaml.xml.XMLObject;
 public class RequestedAttributeImpl extends AttributeImpl implements RequestedAttribute {
 
     /** isRequired attribute */
-    private boolean isRequired;
+    private XSBooleanValue isRequired;
 
     /**
      * Constructor
@@ -45,12 +46,12 @@ public class RequestedAttributeImpl extends AttributeImpl implements RequestedAt
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    public boolean isRequired() {
+    public XSBooleanValue isRequired() {
         return isRequired;
     }
 
-    public void setIsRequired(boolean isRequired) {
-        this.isRequired = prepareForAssignment(new Boolean(this.isRequired), new Boolean(isRequired)).booleanValue();
+    public void setIsRequired(XSBooleanValue isRequired) {
+        this.isRequired = prepareForAssignment(this.isRequired, isRequired);
 
     }
 

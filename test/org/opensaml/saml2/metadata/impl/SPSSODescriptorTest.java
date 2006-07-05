@@ -34,6 +34,7 @@ import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.saml2.metadata.SingleLogoutService;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * 
@@ -41,10 +42,10 @@ import org.opensaml.saml2.metadata.SingleLogoutService;
 public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
     /** expected value for AuthnRequestSigned attribute */
-    protected Boolean expectedAuthnRequestSigned;
+    protected XSBooleanValue expectedAuthnRequestSigned;
 
     /** expected value for WantAssertionsSigned attribute */
-    protected Boolean expectedWantAssertionsSigned;
+    protected XSBooleanValue expectedWantAssertionsSigned;
 
     /** List of expected supported protocols */
     protected ArrayList<String> expectedSupportedProtocol;
@@ -67,8 +68,8 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        expectedAuthnRequestSigned = Boolean.TRUE;
-        expectedWantAssertionsSigned = Boolean.TRUE;
+        expectedAuthnRequestSigned = new XSBooleanValue(Boolean.TRUE, false);
+        expectedWantAssertionsSigned = new XSBooleanValue(Boolean.TRUE, false);
 
         expectedSupportedProtocol = new ArrayList<String>();
         expectedSupportedProtocol.add("urn:foo:bar");
@@ -96,10 +97,10 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
         assertEquals("Supported protocols not equal to expected value", expectedSupportedProtocol, descriptor
                 .getSupportedProtocols());
-        assertEquals("AuthnRequestsSigned attribute was not expected value", expectedAuthnRequestSigned.booleanValue(),
-                descriptor.authnRequestsSigned());
+        assertEquals("AuthnRequestsSigned attribute was not expected value", expectedAuthnRequestSigned.getValue(),
+                descriptor.authnRequestsSigned().getValue());
         assertEquals("WantAssertionsSigned attribute was not expected value", expectedWantAssertionsSigned
-                .booleanValue(), descriptor.wantAssertionsSigned());
+                .getValue(), descriptor.wantAssertionsSigned().getValue());
     }
 
     /*

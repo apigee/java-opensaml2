@@ -30,6 +30,7 @@ import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.saml2.metadata.ServiceName;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -41,7 +42,7 @@ public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements
     private int index;
 
     /** isDefault attribute of this service */
-    private Boolean isDefault;
+    private XSBooleanValue isDefault;
 
     /** ServiceName children */
     private final XMLObjectChildrenList<ServiceName> serviceNames;
@@ -86,14 +87,14 @@ public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements
     /*
      * @see org.opensaml.saml2.metadata.AttributeConsumingService#isDefault()
      */
-    public Boolean isDefault() {
+    public XSBooleanValue isDefault() {
         return isDefault;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.AttributeConsumingService#setIsDefault(boolean)
      */
-    public void setIsDefault(Boolean isDefault) {
+    public void setIsDefault(XSBooleanValue isDefault) {
         this.isDefault = prepareForAssignment(this.isDefault, isDefault);
     }
 

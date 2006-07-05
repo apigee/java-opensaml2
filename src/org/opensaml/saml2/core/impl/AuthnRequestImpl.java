@@ -31,6 +31,7 @@ import org.opensaml.saml2.core.RequestedAuthnContext;
 import org.opensaml.saml2.core.Scoping;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnRequest}.
@@ -53,10 +54,10 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
     private Scoping scoping;
 
     /** ForeceAuthn attribute */
-    private Boolean forceAuthn;
+    private XSBooleanValue forceAuthn;
 
     /** IsPassive attribute */
-    private Boolean isPassive;
+    private XSBooleanValue isPassive;
 
     /** ProtocolBinding attribute */
     private String protocolBinding;
@@ -87,28 +88,28 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
     /**
      * @see org.opensaml.saml2.core.AuthnRequest#getForceAuthn()
      */
-    public Boolean getForceAuthn() {
+    public XSBooleanValue getForceAuthn() {
         return this.forceAuthn;
     }
 
     /**
      * @see org.opensaml.saml2.core.AuthnRequest#setForceAuthn(java.lang.Boolean)
      */
-    public void setForceAuthn(Boolean newForceAuthn) {
+    public void setForceAuthn(XSBooleanValue newForceAuthn) {
         this.forceAuthn = prepareForAssignment(this.forceAuthn, newForceAuthn);
     }
 
     /**
      * @see org.opensaml.saml2.core.AuthnRequest#getIsPassive()
      */
-    public Boolean getIsPassive() {
+    public XSBooleanValue getIsPassive() {
         return this.isPassive;
     }
 
     /**
      * @see org.opensaml.saml2.core.AuthnRequest#setIsPassive(java.lang.Boolean)
      */
-    public void setIsPassive(Boolean newIsPassive) {
+    public void setIsPassive(XSBooleanValue newIsPassive) {
         this.isPassive = prepareForAssignment(this.isPassive, newIsPassive);
     }
 

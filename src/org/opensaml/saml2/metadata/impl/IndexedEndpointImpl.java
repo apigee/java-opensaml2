@@ -21,6 +21,7 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.saml2.metadata.IndexedEndpoint;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.IndexedEndpoint}
@@ -31,7 +32,7 @@ public abstract class IndexedEndpointImpl extends EndpointImpl implements Indexe
     private Integer index;
 
     /** isDefault attribute */
-    private Boolean isDefault;
+    private XSBooleanValue isDefault;
     
     /**
      * Constructor
@@ -61,14 +62,14 @@ public abstract class IndexedEndpointImpl extends EndpointImpl implements Indexe
     /*
      * @see org.opensaml.saml2.metadata.IndexedEndpoint#isDefault()
      */
-    public Boolean isDefault() {
+    public XSBooleanValue isDefault() {
         return isDefault;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.IndexedEndpoint#setDefault(java.lang.Boolean)
      */
-    public void setDefault(Boolean isDefault) {
+    public void setDefault(XSBooleanValue isDefault) {
         this.isDefault = prepareForAssignment(this.isDefault, isDefault);
     }
 }

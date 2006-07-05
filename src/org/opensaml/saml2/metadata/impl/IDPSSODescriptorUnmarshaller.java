@@ -29,6 +29,7 @@ import org.opensaml.saml2.metadata.NameIDMappingService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
 /**
@@ -83,7 +84,7 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) samlObject;
 
         if (attribute.getLocalName().equals(IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME)) {
-            descriptor.setWantAuthnRequestSigned(new Boolean(Boolean.parseBoolean(attribute.getValue())));
+            descriptor.setWantAuthnRequestSigned(XSBooleanValue.valueOf(attribute.getValue()));
         } else {
             super.processAttribute(samlObject, attribute);
         }

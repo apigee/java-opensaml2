@@ -22,6 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * SAML 2.0 Metadata IDPSSODescriptorType
@@ -48,14 +49,14 @@ public interface IDPSSODescriptor extends SSODescriptor{
      * 
      * @return true is signing is desired, false if not
      */
-	public Boolean wantAuthnRequestsSigned();
+	public XSBooleanValue wantAuthnRequestsSigned();
     
     /**
      * Sets whether the IDP SSO service wants authentication requests signed.
      * 
      * @param wantSigned true if request should be signed, false if not
      */
-    public void setWantAuthnRequestSigned(Boolean wantSigned);
+    public void setWantAuthnRequestSigned(XSBooleanValue wantSigned);
     
     /**
      * Gets the list of single sign on services for this IDP.

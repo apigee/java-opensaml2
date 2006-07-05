@@ -28,6 +28,7 @@ import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.saml2.core.RequestedAuthnContext;
 import org.opensaml.saml2.core.Scoping;
 import org.opensaml.saml2.core.Subject;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  *
@@ -36,10 +37,10 @@ public class AuthnRequestTest extends RequestTestBase {
     
             
         /** Expected ForceAuthn attribute */    
-        private Boolean expectedForceAuthn;
+        private XSBooleanValue expectedForceAuthn;
         
         /** Expected IsPassive attribute */    
-        private Boolean expectedIsPassive;
+        private XSBooleanValue expectedIsPassive;
         
         /** Expected ProtocolBinding attribute */    
         private String expectedProtocolBinding;
@@ -75,8 +76,8 @@ public class AuthnRequestTest extends RequestTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        expectedForceAuthn = new Boolean(true);
-        expectedIsPassive = new Boolean(true);
+        expectedForceAuthn = new XSBooleanValue(Boolean.TRUE, false);
+        expectedIsPassive = new XSBooleanValue(Boolean.TRUE, false);
         expectedProtocolBinding = "urn:string:protocol-binding";
         expectedAssertionConsumerServiceIndex = new Integer(3);
         expectedAssertionConsumerServiceURL = "http://sp.example.org/acs";
@@ -172,8 +173,8 @@ public class AuthnRequestTest extends RequestTestBase {
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthnRequest req = (AuthnRequest) unmarshallElement(singleElementOptionalAttributesFile);
         
-        assertEquals("Unmarshalled ForceAuthn was not the expected value", expectedForceAuthn, req.getForceAuthn());
-        assertEquals("Unmarshalled IsPassive was not the expected value", expectedIsPassive, req.getIsPassive());
+        assertEquals("Unmarshalled ForceAuthn was not the expected value", expectedForceAuthn.getValue(), req.getForceAuthn().getValue());
+        assertEquals("Unmarshalled IsPassive was not the expected value", expectedIsPassive.getValue(), req.getIsPassive().getValue());
         assertEquals("Unmarshalled ProtocolBinding was not the expected value", expectedProtocolBinding, req.getProtocolBinding());
         assertEquals("Unmarshalled AssertionConsumerServiceIndex was not the expected value", expectedAssertionConsumerServiceIndex, req.getAssertionConsumerServiceIndex());
         assertEquals("Unmarshalled AssertionConsumerServiceURL was not the expected value", expectedAssertionConsumerServiceURL, req.getAssertionConsumerServiceURL());

@@ -31,6 +31,7 @@ import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.NameIDMappingService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -39,7 +40,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODescriptor {
 
     /** wantAuthnRequestSigned attribute */
-    private Boolean wantAuthnRequestsSigned;
+    private XSBooleanValue wantAuthnRequestsSigned;
 
     /** SingleSignOn services for this entity */
     private final XMLObjectChildrenList<SingleSignOnService> singleSignOnServices;
@@ -75,14 +76,14 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     /*
      * @see org.opensaml.saml2.metadata.IDPSSODescriptor#wantAuthnRequestsSigned()
      */
-    public Boolean wantAuthnRequestsSigned() {
+    public XSBooleanValue wantAuthnRequestsSigned() {
         return wantAuthnRequestsSigned;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.IDPSSODescriptor#setWantAuthnRequestSigned(boolean)
      */
-    public void setWantAuthnRequestSigned(Boolean wantSigned) {
+    public void setWantAuthnRequestSigned(XSBooleanValue wantSigned) {
         wantAuthnRequestsSigned = prepareForAssignment(wantAuthnRequestsSigned, wantSigned);
     }
 

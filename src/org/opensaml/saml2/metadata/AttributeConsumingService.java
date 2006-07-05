@@ -22,6 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * SAML 2.0 Metadata AttributeAuthorityDescriptor
@@ -65,14 +66,14 @@ public interface AttributeConsumingService extends SAMLObject {
      * 
      * @return true if this is the default service, false if not
      */
-    public Boolean isDefault();
+    public XSBooleanValue isDefault();
     
     /**
      * Sets if this is the default service for the service provider.
      * 
      * @param isDefault true if this is the default service, false if not
      */
-    public void setIsDefault(Boolean isDefault);
+    public void setIsDefault(XSBooleanValue isDefault);
     
     /**
      * Gets the list of names this service has.

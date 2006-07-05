@@ -55,8 +55,8 @@ public class RequestedAttributeMarshaller extends AttributeMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         RequestedAttribute requestedAttribute = (RequestedAttribute) samlObject;
 
-        if (requestedAttribute.isRequired()) {
-            domElement.setAttributeNS(null, RequestedAttribute.IS_REQUIRED_ATTRIB_NAME, "true");
+        if (requestedAttribute.isRequired() != null) {
+            domElement.setAttributeNS(null, RequestedAttribute.IS_REQUIRED_ATTRIB_NAME, requestedAttribute.isRequired().toString());
         }
 
         super.marshallAttributes(samlObject, domElement);

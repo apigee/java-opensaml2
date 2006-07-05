@@ -26,6 +26,7 @@ import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
 /**
@@ -75,9 +76,9 @@ public class SPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
         SPSSODescriptor descriptor = (SPSSODescriptor) samlObject;
 
         if (attribute.getLocalName().equals(SPSSODescriptor.AUTH_REQUETS_SIGNED_ATTRIB_NAME)) {
-            descriptor.setAuthnRequestsSigned(Boolean.valueOf(attribute.getValue()));
+            descriptor.setAuthnRequestsSigned(XSBooleanValue.valueOf(attribute.getValue()));
         } else if (attribute.getLocalName().equals(SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME)) {
-            descriptor.setWantAssertionsSigned(Boolean.valueOf(attribute.getValue()));
+            descriptor.setWantAssertionsSigned(XSBooleanValue.valueOf(attribute.getValue()));
         } else {
             super.processAttribute(samlObject, attribute);
         }

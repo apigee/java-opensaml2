@@ -29,6 +29,7 @@ import org.opensaml.saml2.core.Scoping;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
 /**
@@ -62,9 +63,9 @@ public class AuthnRequestUnmarshaller extends RequestUnmarshaller {
         AuthnRequest req = (AuthnRequest) samlObject;
 
         if (attribute.getLocalName().equals(AuthnRequest.FORCE_AUTHN_ATTRIB_NAME))
-            req.setForceAuthn(Boolean.valueOf(attribute.getValue()));
+            req.setForceAuthn(XSBooleanValue.valueOf(attribute.getValue()));
         else if (attribute.getLocalName().equals(AuthnRequest.IS_PASSIVE_ATTRIB_NAME))
-            req.setIsPassive(Boolean.valueOf(attribute.getValue()));
+            req.setIsPassive(XSBooleanValue.valueOf(attribute.getValue()));
         else if (attribute.getLocalName().equals(AuthnRequest.PROTOCOL_BINDING_ATTRIB_NAME))
             req.setProtocolBinding(attribute.getValue());
         else if (attribute.getLocalName().equals(AuthnRequest.ASSERTION_CONSUMER_SERVICE_INDEX_ATTRIB_NAME))

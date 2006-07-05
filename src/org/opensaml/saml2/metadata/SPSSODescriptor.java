@@ -21,6 +21,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * SAML 2.0 Metadata SPSSODescriptorType
@@ -49,28 +50,28 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @return true of this service signs requests, false if not
      */
-	public boolean authnRequestsSigned();
+	public XSBooleanValue authnRequestsSigned();
     
     /**
      * Sets whether this service signs AuthN requests.
      * 
      * @param isSigned true of this service signs requests, false if not
      */
-    public void setAuthnRequestsSigned(Boolean isSigned);
+    public void setAuthnRequestsSigned(XSBooleanValue isSigned);
 
     /**
      * Gets whether this service wants assertions signed.
      * 
      * @return true if this service wants assertions signed, false if not
      */
-	public boolean wantAssertionsSigned();
+	public XSBooleanValue wantAssertionsSigned();
     
     /**
      * Sets whether this service wants assertions signed.
      * 
      * @param wantAssestionSigned true if this service wants assertions signed, false if not
      */
-    public void setWantAssertionsSigned(Boolean wantAssestionSigned);
+    public void setWantAssertionsSigned(XSBooleanValue wantAssestionSigned);
     
     /**
      * Gets an immutable list of assertion consumer service {@link Endpoint}s for this service.

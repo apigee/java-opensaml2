@@ -28,6 +28,7 @@ import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
@@ -36,10 +37,10 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescriptor {
 
     /** value for isAuthnRequestSigned attribute */
-    private Boolean authnRequestSigned;
+    private XSBooleanValue authnRequestSigned;
 
     /** value for the want assertion signed attribute */
-    private Boolean wantAssertionSigned;
+    private XSBooleanValue assertionSigned;
 
     /** AssertionConsumerService children */
     private final XMLObjectChildrenList<AssertionConsumerService> assertionConsumerServices;
@@ -63,37 +64,29 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     /*
      * @see org.opensaml.saml2.metadata.SPSSODescriptor#isAuthnRequestsSigned()
      */
-    public boolean authnRequestsSigned() {
-        if (authnRequestSigned != null) {
-            return authnRequestSigned;
-        } else {
-            return false;
-        }
+    public XSBooleanValue authnRequestsSigned() {
+        return authnRequestSigned;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.SPSSODescriptor#setAuthnRequestsSigned(Boolean)
      */
-    public void setAuthnRequestsSigned(Boolean isSigned) {
+    public void setAuthnRequestsSigned(XSBooleanValue isSigned) {
         authnRequestSigned = prepareForAssignment(authnRequestSigned, isSigned);
     }
 
     /*
      * @see org.opensaml.saml2.metadata.SPSSODescriptor#wantAssertionsSigned()
      */
-    public boolean wantAssertionsSigned() {
-        if (wantAssertionSigned != null) {
-            return wantAssertionSigned;
-        } else {
-            return false;
-        }
+    public XSBooleanValue wantAssertionsSigned() {
+        return assertionSigned;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.SPSSODescriptor#setWantAssertionsSigned(Boolean)
      */
-    public void setWantAssertionsSigned(Boolean wantAssestionSigned) {
-        this.wantAssertionSigned = prepareForAssignment(this.wantAssertionSigned, wantAssestionSigned);
+    public void setWantAssertionsSigned(XSBooleanValue wantAssestionSigned) {
+        this.assertionSigned = prepareForAssignment(this.assertionSigned, wantAssestionSigned);
     }
 
     /*

@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * SAML 2.0 Core NameIDPolicy.
@@ -80,13 +81,13 @@ public interface NameIDPolicy extends SAMLObject {
      * 
      * @return the AllowCreate value
      */
-    public Boolean getAllowCreate();
+    public XSBooleanValue getAllowCreate();
 
     /**
      * Sets the AllowCreate value.
      * 
      * @param newAllowCreate the AllowCreate value
      */
-    public void setAllowCreate(Boolean newAllowCreate);
+    public void setAllowCreate(XSBooleanValue newAllowCreate);
 
 }
