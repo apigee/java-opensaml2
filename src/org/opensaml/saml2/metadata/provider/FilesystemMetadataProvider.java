@@ -16,10 +16,17 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import org.opensaml.saml2.metadata.EntityDescriptor;
+
 /**
  * A metadata provider that pulls metadata from a file on the local filesystem.  Metadata is cached and 
  * automatically refreshed when the file changes.
  */
 public class FilesystemMetadataProvider extends AbstractMetadataProvider {
+
+    public EntityDescriptor getEntityDescriptor(String entityID) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

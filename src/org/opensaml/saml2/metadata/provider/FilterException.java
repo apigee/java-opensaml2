@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.metadata.resolver;
+package org.opensaml.saml2.metadata.provider;
 
 /**
- * An exception thrown during the resolution of a metadata URI by a {@link org.opensaml.saml2.metadata.resolver.MetadataResolver}.
+ * An exception thrown during the evaluation of a {@link org.opensaml.saml2.metadata.provider.MetadataFilter}.
  */
-public class ResolutionException extends Exception {
+public class FilterException extends Exception {
 
     /**
      * Serial version UID
      */
-    private static final long serialVersionUID = 6952599085295798685L;
+    private static final long serialVersionUID = 6214474330141026496L;
 
     /**
      * Constructor.
      */
-    public ResolutionException() {
+    public FilterException() {
         
     }
     
@@ -38,7 +38,7 @@ public class ResolutionException extends Exception {
      * 
      * @param message exception message
      */
-    public ResolutionException(String message) {
+    public FilterException(String message) {
         super(message);
     }
     
@@ -47,7 +47,7 @@ public class ResolutionException extends Exception {
      * 
      * @param wrappedException exception to be wrapped by this one
      */
-    public ResolutionException(Exception wrappedException) {
+    public FilterException(Exception wrappedException) {
         super(wrappedException);
     }
     
@@ -57,7 +57,7 @@ public class ResolutionException extends Exception {
      * @param message exception message
      * @param wrappedException exception to be wrapped by this one
      */
-    public ResolutionException(String message, Exception wrappedException) {
+    public FilterException(String message, Exception wrappedException) {
         super(message, wrappedException);
     }
 }

@@ -20,64 +20,93 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import javolution.util.FastList;
+
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.saml2.metadata.resolver.MetadataFilter;
 
 /**
  * A metadata provider that uses registered providers, in turn, to answer queries.
  */
 public class ChainingMetadataProvider implements MetadataProvider {
 
+    /** Registred providers */
+    private FastList<MetadataProvider> providers;
+    
+    /**
+     * Constructor
+     */
+    public ChainingMetadataProvider(){
+        providers = new FastList<MetadataProvider>();
+    }
+    
+    /**
+     * Gets the list of currently registered providers which with new providers may be registered/unregistered.
+     * 
+     * @return list of currently registered providers
+     */
+    public List<MetadataProvider> getProviders(){
+        return providers;
+    }
+    
+    /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID, boolean requireValidMetadata) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** {@inheritDoc} */
     public MetadataFilter getMetadataFilter() {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName, boolean requireValidMetadata) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol,
             boolean requireValidMetadata) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    /** {@inheritDoc} */
     public boolean requireValidMetadata() {
         // TODO Auto-generated method stub
         return false;
     }
 
+    /** {@inheritDoc} */
     public void setMetadataFilter(MetadataFilter newFilter) {
         // TODO Auto-generated method stub
 
     }
 
+    /** {@inheritDoc} */
     public void setRequireValidMetadata(boolean requireValidMetadata) {
         // TODO Auto-generated method stub
 
     }
-
 }

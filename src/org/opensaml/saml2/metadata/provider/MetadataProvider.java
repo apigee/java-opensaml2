@@ -22,7 +22,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.saml2.metadata.resolver.MetadataFilter;
 
 /**
  * A local store into which metadata can be loaded and queried. Specific implemenations may perform additional logic
@@ -70,17 +69,6 @@ public interface MetadataProvider {
     public EntityDescriptor getEntityDescriptor(String entityID);
     
     /**
-     * Gets the metadata for a given entity.
-     * 
-     * @param entityID the ID of the entity
-     * @param requireValidMetadata whether the metadata must be valid, based on the validUntil and cacheDuration
-     *            attributes of the entity descritpor
-     * 
-     * @return the entity's metadata or null if there is no metadata or no valid metadata
-     */
-    public EntityDescriptor getEntityDescriptor(String entityID, boolean requireValidMetadata);
-    
-    /**
      * Gets the role descriptors of a given type for a given entity from valid metadata.
      * 
      * @param entityID the ID of the entity
@@ -89,18 +77,6 @@ public interface MetadataProvider {
      * @return the role descriptors
      */
     public List<RoleDescriptor> getRole(String entityID, QName roleName);
-    
-    /**
-     * Gets the role descriptors of a given type for a given entity.
-     * 
-     * @param entityID the ID of the entity
-     * @param roleName the role type
-     * @param requireValidMetadata whether the metadata must be valid, based on the validUntil and cacheDuration
-     *            attributes of the entity descritpor
-     * 
-     * @return the role descriptors
-     */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, boolean requireValidMetadata);
     
     /**
      * Gets the role descriptors of a given type for a given entity that support the given protocol from valid metadata.
@@ -112,17 +88,4 @@ public interface MetadataProvider {
      * @return the role descriptors
      */
     public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol);
-    
-    /**
-     * Gets the role descriptors of a given type for a given entity that support the given protocol.
-     * 
-     * @param entityID the ID of the entity
-     * @param roleName the role type
-     * @param supportedProtocol the protocol supported by the role
-     * @param requireValidMetadata whether the metadata must be valid, based on the validUntil and cacheDuration
-     *            attributes of the entity descritpor
-     * 
-     * @return the role descriptors
-     */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol, boolean requireValidMetadata);
 }

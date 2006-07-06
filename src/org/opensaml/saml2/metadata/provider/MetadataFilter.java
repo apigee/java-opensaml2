@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.metadata.resolver;
+package org.opensaml.saml2.metadata.provider;
 
 import org.opensaml.xml.XMLObject;
 

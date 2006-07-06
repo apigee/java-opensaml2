@@ -16,65 +16,68 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import javolution.util.FastList;
+
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.saml2.metadata.resolver.MetadataFilter;
 
+/**
+ * An abstract, base, implementation of a metadata provider.
+ */
 public abstract class AbstractMetadataProvider implements MetadataProvider {
+    
+    /** Whether metadata is required to be valid */
+    private boolean requireValidMetadata;
+    
+    /** Filter applied to all metadata */
+    private MetadataFilter mdFilter;
 
-    public EntityDescriptor getEntityDescriptor(String entityID) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    /** {@inheritDoc} */
+    public abstract EntityDescriptor getEntityDescriptor(String entityID);
 
-    public EntityDescriptor getEntityDescriptor(String entityID, boolean requireValidMetadata) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public MetadataFilter getMetadataFilter() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) {
-        // TODO Auto-generated method stub
-        return null;
+        EntityDescriptor entity = getEntityDescriptor(entityID);
+        return entity.getRoleDescriptors(roleName);
     }
 
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, boolean requireValidMetadata) {
-        // TODO Auto-generated method stub
-        return null;
+    /** {@inheritDoc} */
+    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol) { 
+        Iterator<RoleDescriptor> roles = getRole(entityID, roleName).iterator();
+        RoleDescriptor role;
+        FastList<RoleDescriptor> protocolSupportingRoles = new FastList<RoleDescriptor>();
+        while(roles.hasNext()){
+            role = roles.next();
+            if(role.getSupportedProtocols().contains(supportedProtocol)){
+                protocolSupportingRoles.add(role);
+            }
+        }
+        
+        return protocolSupportingRoles;
     }
 
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol,
-            boolean requireValidMetadata) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    /** {@inheritDoc} */
     public boolean requireValidMetadata() {
-        // TODO Auto-generated method stub
-        return false;
+        return requireValidMetadata;
     }
-
-    public void setMetadataFilter(MetadataFilter newFilter) {
-        // TODO Auto-generated method stub
-
-    }
-
+ 
+    /** {@inheritDoc} */
     public void setRequireValidMetadata(boolean requireValidMetadata) {
-        // TODO Auto-generated method stub
-
+        this.requireValidMetadata = requireValidMetadata;
     }
 
+    /** {@inheritDoc} */
+    public MetadataFilter getMetadataFilter() {
+        return mdFilter;
+    }
+
+    /** {@inheritDoc} */
+    public void setMetadataFilter(MetadataFilter newFilter) {
+        mdFilter = newFilter;
+    }
 }

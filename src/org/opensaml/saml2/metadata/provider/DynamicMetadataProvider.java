@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import org.opensaml.saml2.metadata.EntityDescriptor;
+
 /**
  * Attempts to use the entityID to resolve the location of the metadata.
  * 
@@ -23,5 +25,10 @@ package org.opensaml.saml2.metadata.provider;
  *
  */
 public class DynamicMetadataProvider extends AbstractMetadataProvider {
+
+    public EntityDescriptor getEntityDescriptor(String entityID) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
