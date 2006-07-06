@@ -125,7 +125,8 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     }
 
     /**
-     * Unmarshalls the metadata from the given stream. The stream is closed by this method.
+     * Unmarshalls the metadata from the given stream. The stream is closed by this method and the returned metadata 
+     * released its DOM representation.
      * 
      * @param metadataInputstream the input stream to the metadata.
      * 
@@ -144,7 +145,10 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
                 log.debug("Unmarshalling and caching metdata DOM");
             }
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(mdDocument.getDocumentElement());
-            return unmarshaller.unmarshall(mdDocument.getDocumentElement());
+            XMLObject metadata = unmarshaller.unmarshall(mdDocument.getDocumentElement());
+            metadata.releaseDOM();
+            metadata.releaseChildrenDOM(true);
+            return metadata;
         } catch (Exception e) {
             throw new UnmarshallingException(e);
         } finally {
