@@ -16,12 +16,8 @@
 
 package org.opensaml.saml2.metadata.provider;
 
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
-
-import javolution.util.FastMap;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -32,15 +28,8 @@ import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml2.common.SAML2Helper;
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
-import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.Unmarshaller;
-import org.opensaml.xml.io.UnmarshallerFactory;
-import org.w3c.dom.Document;
 
 /**
  * A metadata provider that pulls metadata using an HTTP GET. Metadata is cached until one of these criteria is met:
@@ -67,12 +56,6 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     /** URL scope that requires authentication */
     private AuthScope authScope;
 
-    /** Unmarshaller factory used to get an unmarshaller for the metadata DOM */
-    private UnmarshallerFactory unmarshallerFactory;
-
-    /** Cache of entity IDs to their descriptors */
-    private FastMap<String, EntityDescriptor> indexedDescriptors;
-
     /** Cached, filtered, unmarshalled metadata */
     private XMLObject cachedMetadata;
 
@@ -90,16 +73,13 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * @throws URISyntaxException thrown if the given URL is valid
      */
     public URLMetadataProvider(String metadataURL, int requestTimeout) throws URISyntaxException {
+        super();
         metadataURI = new URI(metadataURL);
 
         HttpClientParams clientParams = new HttpClientParams();
         clientParams.setSoTimeout(requestTimeout);
         httpClient = new HttpClient(clientParams);
         authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
-
-        unmarshallerFactory = Configuration.getUnmarshallerFactory();
-
-        indexedDescriptors = new FastMap<String, EntityDescriptor>();
 
         maxCacheDuration = 1000 * 60 * 60 * 24; // 24 hours
 
@@ -175,49 +155,15 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     }
 
     /** {@inheritDoc} */
-    public EntityDescriptor getEntityDescriptor(String entityID) {
-        if (log.isDebugEnabled()) {
-            log.debug("Getting descriptor for entity " + entityID);
-        }
+    protected XMLObject fetchMetadata(){
         if (mdExpirationTime.isBeforeNow()) {
             if (log.isDebugEnabled()) {
                 log.debug("Cached metadata is stale, refreshing");
             }
             refreshMetadata();
         }
-
-        EntityDescriptor descriptor = getEntityDescriptorById(entityID);
-        if (descriptor == null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Metadata document does not contain an entity descriptor with the ID " + entityID);
-            }
-            return null;
-        }
-
-        if (log.isDebugEnabled()) {
-            log.debug("Entity descriptor found with the ID " + entityID);
-        }
-
-        if (requireValidMetadata()) {
-            if (log.isDebugEnabled()) {
-                log.debug("Valid metadata is required, checking descriptor's validity");
-            }
-            if (SAML2Helper.isValid(descriptor)) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Entity descriptor with ID " + entityID + " is valid, returning");
-                }
-                return descriptor;
-            } else {
-                if (log.isDebugEnabled()) {
-                    log
-                            .debug("Entity descriptor with ID " + entityID
-                                    + " was not valid and valid metadata is required");
-                }
-                return null;
-            }
-        } else {
-            return descriptor;
-        }
+        
+        return cachedMetadata;
     }
 
     /**
@@ -233,7 +179,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
             if (log.isDebugEnabled()) {
                 log.debug("Clearing entity descriptor index");
             }
-            indexedDescriptors.clear();
+            clearDescriptorIndex();
 
             if (log.isDebugEnabled()) {
                 log.debug("Fetching metadata document from HTTP server");
@@ -250,25 +196,9 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
                 log.trace("Retrieved the following metadata document\n" + getMethod.getResponseBodyAsString());
             }
 
-            InputStream mdInput = getMethod.getResponseBodyAsStream();
+            cachedMetadata = unmarshallMetadata(getMethod.getResponseBodyAsStream());
 
-            if (log.isDebugEnabled()) {
-                log.debug("Parsing retrieved metadata into a DOM object");
-            }
-            Document mdDocument = ParserPoolManager.getInstance().parse(mdInput);
-
-            if (log.isDebugEnabled()) {
-                log.debug("Unmarshalling and caching metdata DOM");
-            }
-            Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(mdDocument.getDocumentElement());
-            cachedMetadata = unmarshaller.unmarshall(mdDocument.getDocumentElement());
-
-            if (getMetadataFilter() != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Applying metadata filter");
-                }
-                getMetadataFilter().doFilter(cachedMetadata);
-            }
+            filterMetadata(cachedMetadata);
 
             if (log.isDebugEnabled()) {
                 log.debug("Calculating expiration time");
@@ -281,101 +211,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
                 log.debug("Metadata cache expires on " + mdExpirationTime);
             }
         } catch (Exception e) {
-            log.error("Error while fetching metdata from metadata URL " + metadataURI, e);
+            log.error("Error fetching metdata from metadata URL " + metadataURI, e);
         }
-    }
-
-    /**
-     * Gets the EntityDescriptor with the given ID from the cached metadata.
-     * 
-     * @param entityID the ID of the entity to get the descriptor for
-     * 
-     * @return the EntityDescriptor
-     */
-    private EntityDescriptor getEntityDescriptorById(String entityID) {
-        if (log.isDebugEnabled()) {
-            log.debug("Searching for entity descriptor with an entity ID of " + entityID);
-        }
-
-        if (indexedDescriptors.containsKey(entityID)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Entity descriptor for the ID " + entityID + " was found in index cache, returning");
-            }
-            return indexedDescriptors.get(entityID);
-        }
-
-        EntityDescriptor descriptor = null;
-
-        if (cachedMetadata != null) {
-            if (cachedMetadata instanceof EntityDescriptor) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Metadata root is an entity descriptor, checking if it's the one we're looking for.");
-                }
-                descriptor = (EntityDescriptor) cachedMetadata;
-                if (!descriptor.getEntityID().equals(entityID)) {
-                    if (log.isDebugEnabled()) {
-                        log.debug("Entity descriptor does not have the correct entity ID, returning null");
-                    }
-                    descriptor = null;
-                }
-            } else {
-                if (log.isDebugEnabled()) {
-                    log.debug("Metadata was an entities descriptor, checking if any of it's descendant entity descriptors is the one we're looking for.");
-                }
-                if (cachedMetadata instanceof EntitiesDescriptor) {
-                    descriptor = getEntityDescriptorById(entityID, (EntitiesDescriptor) cachedMetadata);
-                }
-            }
-        }
-
-        if (descriptor != null) {
-            if(log.isDebugEnabled()){
-                log.debug("Located entity descriptor, creating an index to it for faster lookups");
-            }
-            indexedDescriptors.put(entityID, descriptor);
-        }
-
-        return descriptor;
-    }
-
-    /**
-     * Gets the entity descriptor with the given ID that is a descedant of the given entities descriptor.
-     * 
-     * @param entityID the ID of the entity whose descriptor is to be fetched
-     * @param descriptor the entities descriptor
-     * 
-     * @return the entity descriptor
-     */
-    private EntityDescriptor getEntityDescriptorById(String entityID, EntitiesDescriptor descriptor) {
-        if(log.isDebugEnabled()){
-            log.debug("Checking to see if any of the child entity descriptors of this entities descriptor is the requested descriptor");
-        }
-        List<EntityDescriptor> entityDescriptors = descriptor.getEntityDescriptors();
-        if (entityDescriptors != null) {
-            for (EntityDescriptor entityDescriptor : entityDescriptors) {
-                if(log.isDebugEnabled()){
-                    log.debug("Checking entity descriptor with entity ID " + entityDescriptor.getEntityID());
-                }
-                if (entityDescriptor.getEntityID().equals(entityID)) {
-                    return entityDescriptor;
-                }
-            }
-        }
-
-        if(log.isDebugEnabled()){
-            log.debug("Checking to see if any of the child entities descriptors contains the entity descriptor requested");
-        }
-        EntityDescriptor entityDescriptor;
-        List<EntitiesDescriptor> entitiesDescriptors = descriptor.getEntitiesDescriptors();
-        if (entitiesDescriptors != null) {
-            for (EntitiesDescriptor entitiesDescriptor : descriptor.getEntitiesDescriptors()) {
-                entityDescriptor = getEntityDescriptorById(entityID, entitiesDescriptor);
-                if (entityDescriptor != null) {
-                    return entityDescriptor;
-                }
-            }
-        }
-
-        return null;
     }
 }
