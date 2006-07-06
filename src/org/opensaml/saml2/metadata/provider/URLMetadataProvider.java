@@ -59,7 +59,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     private final Logger log = Logger.getLogger(URLMetadataProvider.class);
 
     /** URL to the Metadata */
-    private URI metadataURL;
+    private URI metadataURI;
 
     /** HTTP Client used to pull the metadata */
     private HttpClient httpClient;
@@ -77,7 +77,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     private XMLObject cachedMetadata;
 
     /** Maximum amount of time to keep metadata cached */
-    private long maxCacheDuration = Long.MAX_VALUE;
+    private long maxCacheDuration;
 
     /** When the cached metadata becomes stale */
     private DateTime mdExpirationTime;
@@ -90,16 +90,18 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * @throws URISyntaxException thrown if the given URL is valid
      */
     public URLMetadataProvider(String metadataURL, int requestTimeout) throws URISyntaxException {
+        metadataURI = new URI(metadataURL);
+
         HttpClientParams clientParams = new HttpClientParams();
         clientParams.setSoTimeout(requestTimeout);
         httpClient = new HttpClient(clientParams);
+        authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
 
         unmarshallerFactory = Configuration.getUnmarshallerFactory();
 
         indexedDescriptors = new FastMap<String, EntityDescriptor>();
 
-        this.metadataURL = new URI(metadataURL);
-        authScope = new AuthScope(this.metadataURL.getHost(), this.metadataURL.getPort());
+        maxCacheDuration = 1000 * 60 * 60 * 24; // 24 hours
 
         refreshMetadata();
     }
@@ -109,8 +111,8 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * 
      * @return the URL to fetch the metadata
      */
-    public String getMetadataURL() {
-        return metadataURL.toASCIIString();
+    public String getMetadataURI() {
+        return metadataURI.toASCIIString();
     }
 
     /**
@@ -137,21 +139,23 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     public int getRequestTimeout() {
         return httpClient.getParams().getSoTimeout();
     }
-    
+
     /**
-     * Sets the socket factory used to create sockets to the HTTP server.  See {@linkplain http://jakarta.apache.org/commons/httpclient/sslguide.html}
-     * for how to use this to perform SSL/TLS client cert authentication to the server.
+     * Sets the socket factory used to create sockets to the HTTP server. See
+     * {@linkplain http://jakarta.apache.org/commons/httpclient/sslguide.html} for how to use this to perform SSL/TLS
+     * client cert authentication to the server.
      * 
      * @param newSocketFactory the socket factory used to produce sockets used to connect to the server
      */
-    public void setSocketFactory(ProtocolSocketFactory newSocketFactory){
-        if(log.isDebugEnabled()){
-            log.debug("Using the custom socket factory " + newSocketFactory.getClass().getName() + " to connect to the HTTP server");
+    public void setSocketFactory(ProtocolSocketFactory newSocketFactory) {
+        if (log.isDebugEnabled()) {
+            log.debug("Using the custom socket factory " + newSocketFactory.getClass().getName()
+                    + " to connect to the HTTP server");
         }
-        Protocol protocol = new Protocol(metadataURL.getScheme(), newSocketFactory, metadataURL.getPort());
-        httpClient.getHostConfiguration().setHost(metadataURL.getHost(), metadataURL.getPort(), protocol);
+        Protocol protocol = new Protocol(metadataURI.getScheme(), newSocketFactory, metadataURI.getPort());
+        httpClient.getHostConfiguration().setHost(metadataURI.getHost(), metadataURI.getPort(), protocol);
     }
-    
+
     /**
      * Gets the maximum amount of time, in milliseconds, metadata will be cached for.
      * 
@@ -222,7 +226,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      */
     private void refreshMetadata() {
         if (log.isDebugEnabled()) {
-            log.debug("Refreshing cache of metadata from URL " + metadataURL + ", max cache duration set to "
+            log.debug("Refreshing cache of metadata from URL " + metadataURI + ", max cache duration set to "
                     + maxCacheDuration + "ms");
         }
         try {
@@ -234,7 +238,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
             if (log.isDebugEnabled()) {
                 log.debug("Fetching metadata document from HTTP server");
             }
-            GetMethod getMethod = new GetMethod(getMetadataURL());
+            GetMethod getMethod = new GetMethod(getMetadataURI());
             if (httpClient.getState().getCredentials(authScope) != null) {
                 if (log.isDebugEnabled()) {
                     log.debug("Using BASIC authentication when retrieving metadata");
@@ -242,6 +246,10 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
                 getMethod.setDoAuthentication(true);
             }
             httpClient.executeMethod(getMethod);
+            if (log.isTraceEnabled()) {
+                log.trace("Retrieved the following metadata document\n" + getMethod.getResponseBodyAsString());
+            }
+
             InputStream mdInput = getMethod.getResponseBodyAsStream();
 
             if (log.isDebugEnabled()) {
@@ -255,13 +263,15 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(mdDocument.getDocumentElement());
             cachedMetadata = unmarshaller.unmarshall(mdDocument.getDocumentElement());
 
-            if (log.isDebugEnabled()) {
-                log.debug("Applying metadata filter");
+            if (getMetadataFilter() != null) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Applying metadata filter");
+                }
+                getMetadataFilter().doFilter(cachedMetadata);
             }
-            getMetadataFilter().doFilter(cachedMetadata);
 
             if (log.isDebugEnabled()) {
-                log.debug("Determing expiration time");
+                log.debug("Calculating expiration time");
             }
 
             DateTime now = new DateTime();
@@ -271,7 +281,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
                 log.debug("Metadata cache expires on " + mdExpirationTime);
             }
         } catch (Exception e) {
-            log.error("Error while fetching metdata from metadata URL " + metadataURL, e);
+            log.error("Error while fetching metdata from metadata URL " + metadataURI, e);
         }
     }
 
@@ -283,7 +293,14 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * @return the EntityDescriptor
      */
     private EntityDescriptor getEntityDescriptorById(String entityID) {
+        if (log.isDebugEnabled()) {
+            log.debug("Searching for entity descriptor with an entity ID of " + entityID);
+        }
+
         if (indexedDescriptors.containsKey(entityID)) {
+            if (log.isDebugEnabled()) {
+                log.debug("Entity descriptor for the ID " + entityID + " was found in index cache, returning");
+            }
             return indexedDescriptors.get(entityID);
         }
 
@@ -291,11 +308,20 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
 
         if (cachedMetadata != null) {
             if (cachedMetadata instanceof EntityDescriptor) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Metadata root is an entity descriptor, checking if it's the one we're looking for.");
+                }
                 descriptor = (EntityDescriptor) cachedMetadata;
-                if (!descriptor.getID().equals(entityID)) {
+                if (!descriptor.getEntityID().equals(entityID)) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("Entity descriptor does not have the correct entity ID, returning null");
+                    }
                     descriptor = null;
                 }
             } else {
+                if (log.isDebugEnabled()) {
+                    log.debug("Metadata was an entities descriptor, checking if any of it's descendant entity descriptors is the one we're looking for.");
+                }
                 if (cachedMetadata instanceof EntitiesDescriptor) {
                     descriptor = getEntityDescriptorById(entityID, (EntitiesDescriptor) cachedMetadata);
                 }
@@ -303,10 +329,13 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
         }
 
         if (descriptor != null) {
+            if(log.isDebugEnabled()){
+                log.debug("Located entity descriptor, creating an index to it for faster lookups");
+            }
             indexedDescriptors.put(entityID, descriptor);
         }
 
-        return null;
+        return descriptor;
     }
 
     /**
@@ -318,15 +347,24 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * @return the entity descriptor
      */
     private EntityDescriptor getEntityDescriptorById(String entityID, EntitiesDescriptor descriptor) {
+        if(log.isDebugEnabled()){
+            log.debug("Checking to see if any of the child entity descriptors of this entities descriptor is the requested descriptor");
+        }
         List<EntityDescriptor> entityDescriptors = descriptor.getEntityDescriptors();
         if (entityDescriptors != null) {
             for (EntityDescriptor entityDescriptor : entityDescriptors) {
-                if (entityDescriptor.getID().equals(entityID)) {
+                if(log.isDebugEnabled()){
+                    log.debug("Checking entity descriptor with entity ID " + entityDescriptor.getEntityID());
+                }
+                if (entityDescriptor.getEntityID().equals(entityID)) {
                     return entityDescriptor;
                 }
             }
         }
 
+        if(log.isDebugEnabled()){
+            log.debug("Checking to see if any of the child entities descriptors contains the entity descriptor requested");
+        }
         EntityDescriptor entityDescriptor;
         List<EntitiesDescriptor> entitiesDescriptors = descriptor.getEntitiesDescriptors();
         if (entitiesDescriptors != null) {

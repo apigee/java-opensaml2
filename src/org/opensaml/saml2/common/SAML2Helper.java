@@ -16,49 +16,51 @@
 
 package org.opensaml.saml2.common;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.opensaml.xml.XMLObject;
 
 public class SAML2Helper {
-    
+
     /**
-     * Checks to see if the given XMLObject is still valid.  An XMLObject is valid if, and only if, every descendant 
+     * Checks to see if the given XMLObject is still valid. An XMLObject is valid if, and only if, every descendant
      * {@link TimeBoundSAMLObject} is valid.
-     *  
+     * 
      * @param xmlObject the XML object tree to check
      * 
      * @return true of the tree is valid, false if not
      */
-    public static boolean isValid(XMLObject xmlObject){
-        if(xmlObject instanceof TimeBoundSAMLObject){
-            TimeBoundSAMLObject timeBoundObject = (TimeBoundSAMLObject)xmlObject;
-            if(!timeBoundObject.isValid()){
+    public static boolean isValid(XMLObject xmlObject) {
+        if (xmlObject instanceof TimeBoundSAMLObject) {
+            TimeBoundSAMLObject timeBoundObject = (TimeBoundSAMLObject) xmlObject;
+            if (!timeBoundObject.isValid()) {
                 return false;
             }
         }
-        
-        for(XMLObject child : xmlObject.getOrderedChildren()){
-            if(!isValid(child)){
+
+        for (XMLObject child : xmlObject.getOrderedChildren()) {
+            if (!isValid(child)) {
                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     /**
-     * Gets the earliest expiration instant for a XMLObject.  This method traverses the tree of SAMLObject rooted at 
-     * the given object and caculates the earliest expiration as the earliest of the following two items:
+     * Gets the earliest expiration instant for a XMLObject. This method traverses the tree of SAMLObject rooted at the
+     * given object and caculates the earliest expiration as the earliest of the following two items:
      * <ul>
-     *   <li>the earliest validUntil time on a {@link TimeBoundSAMLObject}</li>
-     *   <li>the shortest duration on a {@link CacheableSAMLObject} added to the current time</li>
+     * <li>the earliest validUntil time on a {@link TimeBoundSAMLObject}</li>
+     * <li>the shortest duration on a {@link CacheableSAMLObject} added to the current time</li>
      * </ul>
      * 
      * @param xmlObject the XML object tree to get the earliest expiration time from
      * 
      * @return the earliest expiration time
      */
-    public static DateTime getEarliestExpiration(XMLObject xmlObject){
+    public static DateTime getEarliestExpiration(XMLObject xmlObject) {
         DateTime now = new DateTime();
         return getEarliestExpiration(xmlObject, now, now);
     }
@@ -103,8 +105,13 @@ public class SAML2Helper {
         }
 
         // Inspect children
-        for (XMLObject child : xmlObject.getOrderedChildren()) {
-            earliestExpiration = getEarliestExpiration(child, earliestExpiration, now);
+        List<XMLObject> children = xmlObject.getOrderedChildren();
+        if (children != null) {
+            for (XMLObject child : xmlObject.getOrderedChildren()) {
+                if(child != null){
+                    earliestExpiration = getEarliestExpiration(child, earliestExpiration, now);
+                }
+            }
         }
 
         return earliestExpiration;
