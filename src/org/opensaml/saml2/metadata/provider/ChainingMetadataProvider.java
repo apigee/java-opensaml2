@@ -26,9 +26,9 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 
 /**
- * A metadata provider that uses registered providers, in turn, to answer queries.
+ * A metadata provider that uses registered providers, in turn, to answer queries.  
  */
-public class ChainingMetadataProvider implements MetadataProvider {
+public class ChainingMetadataProvider extends BaseMetadataProvider {
 
     /** Registred providers */
     private FastList<MetadataProvider> providers;
@@ -41,72 +41,107 @@ public class ChainingMetadataProvider implements MetadataProvider {
     }
     
     /**
-     * Gets the list of currently registered providers which with new providers may be registered/unregistered.
+     * Gets an immutable the list of currently registered providers.
      * 
      * @return list of currently registered providers
      */
     public List<MetadataProvider> getProviders(){
-        return providers;
+        return providers.unmodifiable();
+    }
+    
+    /**
+     * Adds a metadata provider to the list of registered providers.
+     * 
+     * @param newProvider the provider to be added
+     */
+    public void addMetadataProvider(MetadataProvider newProvider){
+        if(newProvider != null){
+            newProvider.setRequireValidMetadata(requireValidMetadata());
+            newProvider.setMetadataFilter(getMetadataFilter());
+            providers.add(newProvider);
+        }
+    }
+    
+    /**
+     * Removes a metadata provider from the list of registered providers.
+     * 
+     * @param provider provider to be removed
+     */
+    public void removeMetadataProvider(MetadataProvider provider){
+        providers.remove(provider);
+    }
+   
+    /** {@inheritDoc} */
+    public void setRequireValidMetadata(boolean requireValidMetadata) {
+        super.setRequireValidMetadata(requireValidMetadata);
+        
+        MetadataProvider provider;
+        FastList.Node<MetadataProvider> head = providers.head();
+        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+            provider = current.getValue();
+            provider.setRequireValidMetadata(requireValidMetadata);
+        }
+        
+        
     }
     
     /** {@inheritDoc} */
+    public void setMetadataFilter(MetadataFilter newFilter) {
+        super.setMetadataFilter(newFilter);
+        
+        MetadataProvider provider;
+        FastList.Node<MetadataProvider> head = providers.head();
+        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+            provider = current.getValue();
+            provider.setMetadataFilter(newFilter);
+        }
+    }
+
+    /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /** {@inheritDoc} */
-    public EntityDescriptor getEntityDescriptor(String entityID, boolean requireValidMetadata) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /** {@inheritDoc} */
-    public MetadataFilter getMetadataFilter() {
-        // TODO Auto-generated method stub
+        MetadataProvider provider;
+        EntityDescriptor descriptor;
+        FastList.Node<MetadataProvider> head = providers.head();
+        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+            provider = current.getValue();
+            descriptor = provider.getEntityDescriptor(entityID);
+            if(descriptor != null){
+                return descriptor;
+            }
+        }
+        
         return null;
     }
 
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /** {@inheritDoc} */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, boolean requireValidMetadata) {
-        // TODO Auto-generated method stub
+        MetadataProvider provider;
+        List<RoleDescriptor> roles;
+        FastList.Node<MetadataProvider> head = providers.head();
+        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+            provider = current.getValue();
+            roles = provider.getRole(entityID, roleName);
+            if(roles != null && roles.size() > 0){
+                return roles;
+            }
+        }
+        
         return null;
     }
 
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol) {
-        // TODO Auto-generated method stub
+        MetadataProvider provider;
+        List<RoleDescriptor> roles;
+        FastList.Node<MetadataProvider> head = providers.head();
+        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+            provider = current.getValue();
+            roles = provider.getRole(entityID, roleName, supportedProtocol);
+            if(roles != null && roles.size() > 0){
+                return roles;
+            }
+        }
+        
         return null;
-    }
-
-    /** {@inheritDoc} */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol,
-            boolean requireValidMetadata) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /** {@inheritDoc} */
-    public boolean requireValidMetadata() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /** {@inheritDoc} */
-    public void setMetadataFilter(MetadataFilter newFilter) {
-        // TODO Auto-generated method stub
-
-    }
-
-    /** {@inheritDoc} */
-    public void setRequireValidMetadata(boolean requireValidMetadata) {
-        // TODO Auto-generated method stub
-
     }
 }

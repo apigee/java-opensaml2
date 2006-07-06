@@ -32,29 +32,18 @@ import org.opensaml.saml2.common.SAML2Helper;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
-import org.opensaml.xml.io.UnmarshallerFactory;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Document;
 
 /**
  * An abstract, base, implementation of a metadata provider.
  */
-public abstract class AbstractMetadataProvider implements MetadataProvider {
+public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
     /** Logger */
     private final Logger log = Logger.getLogger(AbstractMetadataProvider.class);
-
-    /** Whether metadata is required to be valid */
-    private boolean requireValidMetadata;
-
-    /** Unmarshaller factory used to get an unmarshaller for the metadata DOM */
-    protected UnmarshallerFactory unmarshallerFactory;
-
-    /** Filter applied to all metadata */
-    private MetadataFilter mdFilter;
 
     /** Cache of entity IDs to their descriptors */
     private FastMap<String, EntityDescriptor> indexedDescriptors;
@@ -63,7 +52,6 @@ public abstract class AbstractMetadataProvider implements MetadataProvider {
      * Constructor
      */
     public AbstractMetadataProvider() {
-        unmarshallerFactory = Configuration.getUnmarshallerFactory();
         indexedDescriptors = new FastMap<String, EntityDescriptor>();
     }
 
@@ -127,26 +115,6 @@ public abstract class AbstractMetadataProvider implements MetadataProvider {
         }
 
         return protocolSupportingRoles;
-    }
-
-    /** {@inheritDoc} */
-    public boolean requireValidMetadata() {
-        return requireValidMetadata;
-    }
-
-    /** {@inheritDoc} */
-    public void setRequireValidMetadata(boolean requireValidMetadata) {
-        this.requireValidMetadata = requireValidMetadata;
-    }
-
-    /** {@inheritDoc} */
-    public MetadataFilter getMetadataFilter() {
-        return mdFilter;
-    }
-
-    /** {@inheritDoc} */
-    public void setMetadataFilter(MetadataFilter newFilter) {
-        mdFilter = newFilter;
     }
 
     /**
