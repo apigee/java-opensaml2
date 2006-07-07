@@ -33,6 +33,9 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
 
     /** The metadata file */
     private File metadataFile;
+    
+    /** Whether cached metadata should be discarded if it expires and can't be refreshed */
+    private boolean maintainExpiredMetadata;
 
     /** Last time the cached metadata was updated */
     private long lastUpdate;
@@ -44,6 +47,7 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
      * Constructor
      * 
      * @param metadataFile the metadata file
+     * @param maintainExpiredMetadata whether cached metadata should be discarded if it expires and can not be refreshed
      */
     public FilesystemMetadataProvider(File metadataFile) throws IllegalArgumentException{
         if(metadataFile == null){
@@ -59,8 +63,27 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
         }
         
         this.metadataFile = metadataFile;
+        maintainExpiredMetadata = true;
 
         refreshMetadata();
+    }
+    
+    /**
+     * Gets whether cached metadata should be discarded if it expires and can not be refreshed.
+     * 
+     * @return whether cached metadata should be discarded if it expires and can not be refreshed
+     */
+    public boolean maintainExpiredMetadata() {
+        return maintainExpiredMetadata;
+    }
+
+    /**
+     * Sets whether cached metadata should be discarded if it expires and can not be refreshed
+     * 
+     * @param maintainExpiredMetadata whether cached metadata should be discarded if it expires and can not be refreshed
+     */
+    public void setMaintainExpiredMetadata(boolean maintainExpiredMetadata) {
+        this.maintainExpiredMetadata = maintainExpiredMetadata;
     }
 
     /** {@inheritDoc} */
@@ -75,13 +98,22 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
     /**
      * Retrieves, unmarshalls, and filters the metadata from the metadata file.
      */
-    private void refreshMetadata() {
+    private synchronized void refreshMetadata() {
+        if (lastUpdate >= metadataFile.lastModified()) {
+            // In case other requests stacked up behind the synchronize lock
+            return;
+        }
+        
         try {
             cachedMetadata = unmarshallMetadata(new FileInputStream(metadataFile));
 
             filterMetadata(cachedMetadata);
+            lastUpdate = metadataFile.lastModified();
         } catch (Exception e) {
             log.error("Error fetching metdata from metadata file " + metadataFile.getAbsolutePath(), e);
+            if (!maintainExpiredMetadata) {
+                cachedMetadata = null;
+            }
         }
     }
 }

@@ -50,6 +50,9 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     /** URL to the Metadata */
     private URI metadataURI;
 
+    /** Whether cached metadata should be discarded if it expires and can't be refreshed */
+    private boolean maintainExpiredMetadata;
+
     /** HTTP Client used to pull the metadata */
     private HttpClient httpClient;
 
@@ -69,12 +72,15 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * Constructor
      * 
      * @param metadataURL the URL to fetch the metadata
+     * @param requestTimeout the time, in milliseconds, to wait for the metadata server to respond
      * 
      * @throws URISyntaxException thrown if the given URL is valid
      */
-    public URLMetadataProvider(String metadataURL, int requestTimeout) throws URISyntaxException {
+    public URLMetadataProvider(String metadataURL, int requestTimeout)
+            throws URISyntaxException {
         super();
         metadataURI = new URI(metadataURL);
+        maintainExpiredMetadata = true;
 
         HttpClientParams clientParams = new HttpClientParams();
         clientParams.setSoTimeout(requestTimeout);
@@ -93,6 +99,24 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      */
     public String getMetadataURI() {
         return metadataURI.toASCIIString();
+    }
+
+    /**
+     * Gets whether cached metadata should be discarded if it expires and can not be refreshed.
+     * 
+     * @return whether cached metadata should be discarded if it expires and can not be refreshed
+     */
+    public boolean maintainExpiredMetadata() {
+        return maintainExpiredMetadata;
+    }
+
+    /**
+     * Sets whether cached metadata should be discarded if it expires and can not be refreshed
+     * 
+     * @param maintainExpiredMetadata whether cached metadata should be discarded if it expires and can not be refreshed
+     */
+    public void setMaintainExpiredMetadata(boolean maintainExpiredMetadata) {
+        this.maintainExpiredMetadata = maintainExpiredMetadata;
     }
 
     /**
@@ -155,14 +179,14 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     }
 
     /** {@inheritDoc} */
-    protected XMLObject fetchMetadata(){
+    protected XMLObject fetchMetadata() {
         if (mdExpirationTime.isBeforeNow()) {
             if (log.isDebugEnabled()) {
                 log.debug("Cached metadata is stale, refreshing");
             }
             refreshMetadata();
         }
-        
+
         return cachedMetadata;
     }
 
@@ -170,7 +194,12 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * Refreshes the metadata cache. Metadata is fetched fromt he URL through an HTTP get, unmarshalled, and then
      * filtered. This method also clears out the entity ID to entity descriptor cache.
      */
-    private void refreshMetadata() {
+    private synchronized void refreshMetadata() {
+        if(!mdExpirationTime.isBeforeNow()){
+            // In case other requests stacked up behind the synchronize lock
+            return;
+        }
+        
         if (log.isDebugEnabled()) {
             log.debug("Refreshing cache of metadata from URL " + metadataURI + ", max cache duration set to "
                     + maxCacheDuration + "ms");
@@ -212,6 +241,9 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
             }
         } catch (Exception e) {
             log.error("Error fetching metdata from metadata URL " + metadataURI, e);
+            if (!maintainExpiredMetadata) {
+                cachedMetadata = null;
+            }
         }
     }
 }
