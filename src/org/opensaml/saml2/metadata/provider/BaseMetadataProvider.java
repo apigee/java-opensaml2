@@ -50,7 +50,7 @@ public abstract class BaseMetadataProvider implements MetadataProvider {
     }
 
     /** {@inheritDoc} */
-    public void setMetadataFilter(MetadataFilter newFilter) {
+    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
         mdFilter = newFilter;
     }
 }

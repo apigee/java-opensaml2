@@ -16,6 +16,7 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -30,6 +31,7 @@ import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.opensaml.saml2.common.SAML2Helper;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A metadata provider that pulls metadata using an HTTP GET. Metadata is cached until one of these criteria is met:
@@ -77,7 +79,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * @throws URISyntaxException thrown if the given URL is valid
      */
     public URLMetadataProvider(String metadataURL, int requestTimeout)
-            throws URISyntaxException {
+            throws URISyntaxException, MetadataProviderException {
         super();
         metadataURI = new URI(metadataURL);
         maintainExpiredMetadata = true;
@@ -177,9 +179,15 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     public void setMaxDuration(long newDuration) {
         maxCacheDuration = newDuration;
     }
-
+    
     /** {@inheritDoc} */
-    protected XMLObject fetchMetadata() {
+    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException{
+        super.setMetadataFilter(newFilter);
+        refreshMetadata();
+    }
+    
+    /** {@inheritDoc} */
+    public XMLObject getMetadata() throws MetadataProviderException {
         if (mdExpirationTime.isBeforeNow()) {
             if (log.isDebugEnabled()) {
                 log.debug("Cached metadata is stale, refreshing");
@@ -193,8 +201,10 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     /**
      * Refreshes the metadata cache. Metadata is fetched fromt he URL through an HTTP get, unmarshalled, and then
      * filtered. This method also clears out the entity ID to entity descriptor cache.
+     * 
+     * @throws MetadataProviderException thrown if the metadata can not be read, unmarshalled, and filtered
      */
-    private synchronized void refreshMetadata() {
+    private synchronized void refreshMetadata() throws MetadataProviderException {
         if(!mdExpirationTime.isBeforeNow()){
             // In case other requests stacked up behind the synchronize lock
             return;
@@ -239,11 +249,18 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
             if (log.isDebugEnabled()) {
                 log.debug("Metadata cache expires on " + mdExpirationTime);
             }
-        } catch (Exception e) {
-            log.error("Error fetching metdata from metadata URL " + metadataURI, e);
-            if (!maintainExpiredMetadata) {
-                cachedMetadata = null;
-            }
+        }catch(IOException e){
+            String errorMsg = "Unable to read metadata from server";
+            log.error(errorMsg, e);
+            throw new MetadataProviderException(errorMsg, e);
+        }catch(UnmarshallingException e){
+            String errorMsg = "Unable to unmarshall metadata";
+            log.error(errorMsg, e);
+            throw new MetadataProviderException(errorMsg, e);
+        }catch(FilterException e){
+            String errorMsg = "Unable to filter metadata";
+            log.error(errorMsg, e);
+            throw new MetadataProviderException(errorMsg, e);
         }
     }
 }

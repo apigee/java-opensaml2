@@ -18,9 +18,11 @@ package org.opensaml.saml2.metadata.provider;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import org.apache.log4j.Logger;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
 
 /**
  * A metadata provider that pulls metadata from a file on the local filesystem. Metadata is cached and automatically
@@ -48,8 +50,13 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
      * 
      * @param metadataFile the metadata file
      * @param maintainExpiredMetadata whether cached metadata should be discarded if it expires and can not be refreshed
+     * 
+     * @throws IllegalArgumentException thrown if the given file path is null, does not exist, or does not represent a file
+     * @throws MetadataProviderException thrown if the metadata can not be parsed
      */
-    public FilesystemMetadataProvider(File metadataFile) throws IllegalArgumentException{
+    public FilesystemMetadataProvider(File metadataFile) throws IllegalArgumentException, MetadataProviderException{
+        super();
+        
         if(metadataFile == null){
             throw new IllegalArgumentException("Give metadata file may not be null");
         }
@@ -85,9 +92,15 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
     public void setMaintainExpiredMetadata(boolean maintainExpiredMetadata) {
         this.maintainExpiredMetadata = maintainExpiredMetadata;
     }
+    
+    /** {@inheritDoc} */
+    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException{
+        super.setMetadataFilter(newFilter);
+        refreshMetadata();
+    }
 
     /** {@inheritDoc} */
-    protected XMLObject fetchMetadata() {
+    public XMLObject getMetadata() throws MetadataProviderException {
         if (lastUpdate < metadataFile.lastModified()) {
             refreshMetadata();
         }
@@ -98,7 +111,7 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
     /**
      * Retrieves, unmarshalls, and filters the metadata from the metadata file.
      */
-    private synchronized void refreshMetadata() {
+    private synchronized void refreshMetadata() throws MetadataProviderException{
         if (lastUpdate >= metadataFile.lastModified()) {
             // In case other requests stacked up behind the synchronize lock
             return;
@@ -106,14 +119,20 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
         
         try {
             cachedMetadata = unmarshallMetadata(new FileInputStream(metadataFile));
-
             filterMetadata(cachedMetadata);
             lastUpdate = metadataFile.lastModified();
-        } catch (Exception e) {
-            log.error("Error fetching metdata from metadata file " + metadataFile.getAbsolutePath(), e);
-            if (!maintainExpiredMetadata) {
-                cachedMetadata = null;
-            }
+        }catch(FileNotFoundException e){
+            String errorMsg = "Unable to read metadata file";
+            log.error(errorMsg, e);
+            throw new MetadataProviderException(errorMsg, e);
+        }catch(UnmarshallingException e){
+            String errorMsg = "Unable to unmarshall metadata";
+            log.error(errorMsg, e);
+            throw new MetadataProviderException(errorMsg, e);
+        }catch(FilterException e){
+            String errorMsg = "Unable to filter metadata";
+            log.error(errorMsg, e);
+            throw new MetadataProviderException(errorMsg, e);
         }
     }
 }

@@ -22,126 +22,165 @@ import javax.xml.namespace.QName;
 
 import javolution.util.FastList;
 
+import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.Configuration;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilderFactory;
 
 /**
- * A metadata provider that uses registered providers, in turn, to answer queries.  
+ * A metadata provider that uses registered providers, in turn, to answer queries.
  */
 public class ChainingMetadataProvider extends BaseMetadataProvider {
 
     /** Registred providers */
     private FastList<MetadataProvider> providers;
-    
+
     /**
      * Constructor
      */
-    public ChainingMetadataProvider(){
+    public ChainingMetadataProvider() {
+        super();
         providers = new FastList<MetadataProvider>();
     }
-    
+
     /**
      * Gets an immutable the list of currently registered providers.
      * 
      * @return list of currently registered providers
      */
-    public List<MetadataProvider> getProviders(){
+    public List<MetadataProvider> getProviders() {
         return providers.unmodifiable();
     }
-    
+
     /**
      * Adds a metadata provider to the list of registered providers.
      * 
      * @param newProvider the provider to be added
      */
-    public void addMetadataProvider(MetadataProvider newProvider){
-        if(newProvider != null){
+    public void addMetadataProvider(MetadataProvider newProvider) throws MetadataProviderException {
+        if (newProvider != null) {
             newProvider.setRequireValidMetadata(requireValidMetadata());
             newProvider.setMetadataFilter(getMetadataFilter());
             providers.add(newProvider);
         }
     }
-    
+
     /**
      * Removes a metadata provider from the list of registered providers.
      * 
      * @param provider provider to be removed
      */
-    public void removeMetadataProvider(MetadataProvider provider){
+    public void removeMetadataProvider(MetadataProvider provider) {
         providers.remove(provider);
     }
-   
+
     /** {@inheritDoc} */
     public void setRequireValidMetadata(boolean requireValidMetadata) {
         super.setRequireValidMetadata(requireValidMetadata);
-        
+
         MetadataProvider provider;
         FastList.Node<MetadataProvider> head = providers.head();
-        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
+                .getNext()) {
             provider = current.getValue();
             provider.setRequireValidMetadata(requireValidMetadata);
         }
-        
-        
+
     }
-    
+
     /** {@inheritDoc} */
-    public void setMetadataFilter(MetadataFilter newFilter) {
+    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
         super.setMetadataFilter(newFilter);
-        
+
         MetadataProvider provider;
         FastList.Node<MetadataProvider> head = providers.head();
-        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
+                .getNext()) {
             provider = current.getValue();
             provider.setMetadataFilter(newFilter);
         }
     }
 
+    /**
+     * Gets the metadata from every registered provider and places each within a newly created EntitiesDescriptor.
+     * 
+     * {@inheritDoc}
+     */
+    public XMLObject getMetadata() throws MetadataProviderException {
+        XMLObjectBuilderFactory builderFactory = Configuration.getBuilderFactory();
+        SAMLObjectBuilder<EntitiesDescriptor> builder = (SAMLObjectBuilder<EntitiesDescriptor>) builderFactory
+                .getBuilder(EntitiesDescriptor.DEFAULT_ELEMENT_NAME);
+        EntitiesDescriptor metadataRoot = builder.buildObject();
+
+        MetadataProvider provider;
+        XMLObject providerMetadata;
+        FastList.Node<MetadataProvider> head = providers.head();
+        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
+                .getNext()) {
+            provider = current.getValue();
+            providerMetadata = provider.getMetadata();
+            if (providerMetadata instanceof EntitiesDescriptor) {
+                metadataRoot.getEntitiesDescriptors().add((EntitiesDescriptor) providerMetadata);
+            } else if (providerMetadata instanceof EntityDescriptor) {
+                metadataRoot.getEntityDescriptors().add((EntityDescriptor) providerMetadata);
+            }
+        }
+
+        return metadataRoot;
+    }
+
     /** {@inheritDoc} */
-    public EntityDescriptor getEntityDescriptor(String entityID) {
+    public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException {
         MetadataProvider provider;
         EntityDescriptor descriptor;
         FastList.Node<MetadataProvider> head = providers.head();
-        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
+                .getNext()) {
             provider = current.getValue();
             descriptor = provider.getEntityDescriptor(entityID);
-            if(descriptor != null){
+            if (descriptor != null) {
                 return descriptor;
             }
         }
-        
+
         return null;
     }
 
     /** {@inheritDoc} */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName) {
+    public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException {
         MetadataProvider provider;
         List<RoleDescriptor> roles;
         FastList.Node<MetadataProvider> head = providers.head();
-        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
+                .getNext()) {
             provider = current.getValue();
             roles = provider.getRole(entityID, roleName);
-            if(roles != null && roles.size() > 0){
+            if (roles != null && roles.size() > 0) {
                 return roles;
             }
         }
-        
+
         return null;
     }
 
     /** {@inheritDoc} */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol) {
+    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol)
+            throws MetadataProviderException {
         MetadataProvider provider;
         List<RoleDescriptor> roles;
         FastList.Node<MetadataProvider> head = providers.head();
-        for(FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current.getNext()){
+        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
+                .getNext()) {
             provider = current.getValue();
             roles = provider.getRole(entityID, roleName, supportedProtocol);
-            if(roles != null && roles.size() > 0){
+            if (roles != null && roles.size() > 0) {
                 return roles;
             }
         }
-        
+
         return null;
     }
 }

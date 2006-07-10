@@ -52,16 +52,17 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * Constructor
      */
     public AbstractMetadataProvider() {
+        super();
         indexedDescriptors = new FastMap<String, EntityDescriptor>();
     }
 
     /** {@inheritDoc} */
-    public EntityDescriptor getEntityDescriptor(String entityID) {
+    public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException {
         if (log.isDebugEnabled()) {
             log.debug("Getting descriptor for entity " + entityID);
         }
 
-        XMLObject metadata = fetchMetadata();
+        XMLObject metadata = getMetadata();
         EntityDescriptor descriptor = getEntityDescriptorById(entityID, metadata);
         if (descriptor == null) {
             if (log.isDebugEnabled()) {
@@ -97,13 +98,14 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     }
 
     /** {@inheritDoc} */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName) {
+    public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException {
         EntityDescriptor entity = getEntityDescriptor(entityID);
         return entity.getRoleDescriptors(roleName);
     }
 
     /** {@inheritDoc} */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol) {
+    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol)
+            throws MetadataProviderException {
         Iterator<RoleDescriptor> roles = getRole(entityID, roleName).iterator();
         RoleDescriptor role;
         FastList<RoleDescriptor> protocolSupportingRoles = new FastList<RoleDescriptor>();
@@ -125,7 +127,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     }
 
     /**
-     * Unmarshalls the metadata from the given stream. The stream is closed by this method and the returned metadata 
+     * Unmarshalls the metadata from the given stream. The stream is closed by this method and the returned metadata
      * released its DOM representation.
      * 
      * @param metadataInputstream the input stream to the metadata.
@@ -159,7 +161,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             }
         }
     }
-    
+
     /**
      * Filters the given metadata.
      * 
@@ -167,7 +169,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * 
      * @throws FilterException thrown if there is an error filtering the metadata
      */
-    protected void filterMetadata(XMLObject metadata) throws FilterException{
+    protected void filterMetadata(XMLObject metadata) throws FilterException {
         if (getMetadataFilter() != null) {
             if (log.isDebugEnabled()) {
                 log.debug("Applying metadata filter");
@@ -272,12 +274,4 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
         return null;
     }
-
-    /**
-     * Fetches the filtered metadata for this provider. Implementations should clear the descriptor index everytime a
-     * new metadata document it retrieved using {@link #clearDescriptorIndex()}.
-     * 
-     * @return the metadata
-     */
-    protected abstract XMLObject fetchMetadata();
 }

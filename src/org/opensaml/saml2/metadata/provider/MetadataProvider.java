@@ -22,6 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A local store into which metadata can be loaded and queried. Specific implemenations may perform additional logic
@@ -55,9 +56,20 @@ public interface MetadataProvider {
      * Sets the metadata filter applied to the metadata.
      * 
      * @param newFilter the metadata filter applied to the metadata
+     * 
+     * @throws MetadataProviderException thrown if the provider can not apply the filter to the metadata
      */
-    public void setMetadataFilter(MetadataFilter newFilter);
+    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException;
 
+    /**
+     * Gets the entire metadata tree, after the registered filter has been applied.
+     * 
+     * @return the entire metadata tree
+     * 
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
+     */
+    public XMLObject getMetadata() throws MetadataProviderException;
+    
     /**
      * Gets the metadata for a given entity if the metadata is valid. This is the same as calling
      * {@link #getEntityDescriptor(String, boolean)} passing in true for the second parameter;
@@ -65,8 +77,10 @@ public interface MetadataProvider {
      * @param entityID the ID of the entity
      * 
      * @return the entity's metadata or null if there is no metadata or no valid metadata
+     * 
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
-    public EntityDescriptor getEntityDescriptor(String entityID);
+    public EntityDescriptor getEntityDescriptor(String entityID)  throws MetadataProviderException;
     
     /**
      * Gets the role descriptors of a given type for a given entity from valid metadata.
@@ -75,8 +89,10 @@ public interface MetadataProvider {
      * @param roleName the role type
      * 
      * @return the role descriptors
+     * 
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName);
+    public List<RoleDescriptor> getRole(String entityID, QName roleName)  throws MetadataProviderException;
     
     /**
      * Gets the role descriptors of a given type for a given entity that support the given protocol from valid metadata.
@@ -86,6 +102,8 @@ public interface MetadataProvider {
      * @param supportedProtocol the protocol supported by the role
      * 
      * @return the role descriptors
+     * 
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol);
+    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol)  throws MetadataProviderException;
 }
