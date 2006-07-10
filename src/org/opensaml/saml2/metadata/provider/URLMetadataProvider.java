@@ -90,7 +90,6 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
             authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
 
             maxCacheDuration = 1000 * 60 * 60 * 24; // 24 hours
-            mdExpirationTime = new DateTime();
 
             refreshMetadata();
         } catch (URISyntaxException e) {
@@ -209,7 +208,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * @throws MetadataProviderException thrown if the metadata can not be read, unmarshalled, and filtered
      */
     private synchronized void refreshMetadata() throws MetadataProviderException {
-        if (!mdExpirationTime.isBeforeNow()) {
+        if (mdExpirationTime != null && !mdExpirationTime.isBeforeNow()) {
             // In case other requests stacked up behind the synchronize lock
             return;
         }
