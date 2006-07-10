@@ -52,7 +52,7 @@ public class ChainingMetadataProviderTest extends SAMLObjectTestCaseConfigInitia
     /**
      * Tests the {@link URLMetadataProvider#getEntityDescriptor(String)} method.
      */
-    public void testGetEntityDescriptor(){
+    public void testGetEntityDescriptor() throws MetadataProviderException{
         EntityDescriptor descriptor = metadataProvider.getEntityDescriptor(entityID);
         assertNotNull("Retrieved entity descriptor was null", descriptor);
         assertEquals("Entity's ID does not match requested ID", entityID, descriptor.getEntityID());
@@ -61,7 +61,7 @@ public class ChainingMetadataProviderTest extends SAMLObjectTestCaseConfigInitia
     /**
      * Tests the {@link URLMetadataProvider#getRole(String, javax.xml.namespace.QName) method.
      */
-    public void testGetRole(){
+    public void testGetRole() throws MetadataProviderException{
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
         assertNotNull("Roles for entity descriptor was null", roles);
         assertEquals("Unexpected number of roles", 1, roles.size());
@@ -70,7 +70,7 @@ public class ChainingMetadataProviderTest extends SAMLObjectTestCaseConfigInitia
     /**
      * Test the {@link URLMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
      */
-    public void testGetRoleWithSupportedProtocol(){
+    public void testGetRoleWithSupportedProtocol() throws MetadataProviderException{
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
         assertNotNull("Roles for entity descriptor was null", roles);
         assertEquals("Unexpected number of roles", 1, roles.size());
