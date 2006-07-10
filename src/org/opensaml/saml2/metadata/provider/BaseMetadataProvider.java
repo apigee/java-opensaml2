@@ -31,6 +31,7 @@ public abstract class BaseMetadataProvider implements MetadataProvider {
     private MetadataFilter mdFilter;
 
     public BaseMetadataProvider(){
+        requireValidMetadata = false;
         unmarshallerFactory = Configuration.getUnmarshallerFactory();
     }
 

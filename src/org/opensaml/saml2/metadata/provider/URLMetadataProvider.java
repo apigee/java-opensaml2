@@ -76,22 +76,26 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * @param metadataURL the URL to fetch the metadata
      * @param requestTimeout the time, in milliseconds, to wait for the metadata server to respond
      * 
-     * @throws URISyntaxException thrown if the given URL is valid
+     * @throws MetadataProviderException thrown if the URL is not a valid URL or the metadata can not be retrieved from the URL
      */
-    public URLMetadataProvider(String metadataURL, int requestTimeout)
-            throws URISyntaxException, MetadataProviderException {
+    public URLMetadataProvider(String metadataURL, int requestTimeout) throws MetadataProviderException {
         super();
-        metadataURI = new URI(metadataURL);
-        maintainExpiredMetadata = true;
+        try {
+            metadataURI = new URI(metadataURL);
+            maintainExpiredMetadata = true;
 
-        HttpClientParams clientParams = new HttpClientParams();
-        clientParams.setSoTimeout(requestTimeout);
-        httpClient = new HttpClient(clientParams);
-        authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
+            HttpClientParams clientParams = new HttpClientParams();
+            clientParams.setSoTimeout(requestTimeout);
+            httpClient = new HttpClient(clientParams);
+            authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
 
-        maxCacheDuration = 1000 * 60 * 60 * 24; // 24 hours
+            maxCacheDuration = 1000 * 60 * 60 * 24; // 24 hours
+            mdExpirationTime = new DateTime();
 
-        refreshMetadata();
+            refreshMetadata();
+        } catch (URISyntaxException e) {
+            throw new MetadataProviderException("Illegal URL syntax", e);
+        }
     }
 
     /**
@@ -179,13 +183,13 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     public void setMaxDuration(long newDuration) {
         maxCacheDuration = newDuration;
     }
-    
+
     /** {@inheritDoc} */
-    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException{
+    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
         super.setMetadataFilter(newFilter);
         refreshMetadata();
     }
-    
+
     /** {@inheritDoc} */
     public XMLObject getMetadata() throws MetadataProviderException {
         if (mdExpirationTime.isBeforeNow()) {
@@ -205,11 +209,11 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * @throws MetadataProviderException thrown if the metadata can not be read, unmarshalled, and filtered
      */
     private synchronized void refreshMetadata() throws MetadataProviderException {
-        if(!mdExpirationTime.isBeforeNow()){
+        if (!mdExpirationTime.isBeforeNow()) {
             // In case other requests stacked up behind the synchronize lock
             return;
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Refreshing cache of metadata from URL " + metadataURI + ", max cache duration set to "
                     + maxCacheDuration + "ms");
@@ -249,15 +253,15 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
             if (log.isDebugEnabled()) {
                 log.debug("Metadata cache expires on " + mdExpirationTime);
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             String errorMsg = "Unable to read metadata from server";
             log.error(errorMsg, e);
             throw new MetadataProviderException(errorMsg, e);
-        }catch(UnmarshallingException e){
+        } catch (UnmarshallingException e) {
             String errorMsg = "Unable to unmarshall metadata";
             log.error(errorMsg, e);
             throw new MetadataProviderException(errorMsg, e);
-        }catch(FilterException e){
+        } catch (FilterException e) {
             String errorMsg = "Unable to filter metadata";
             log.error(errorMsg, e);
             throw new MetadataProviderException(errorMsg, e);

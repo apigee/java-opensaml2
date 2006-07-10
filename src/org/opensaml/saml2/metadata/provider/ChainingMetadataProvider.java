@@ -131,6 +131,23 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
 
         return metadataRoot;
     }
+    
+    /** {@inheritDoc} */
+    public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException {
+        MetadataProvider provider;
+        EntitiesDescriptor descriptor;
+        FastList.Node<MetadataProvider> head = providers.head();
+        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
+                .getNext()) {
+            provider = current.getValue();
+            descriptor = provider.getEntitiesDescriptor(name);
+            if (descriptor != null) {
+                return descriptor;
+            }
+        }
+
+        return null;
+    }
 
     /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException {

@@ -118,6 +118,7 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
         }
         
         try {
+            clearDescriptorIndex();
             cachedMetadata = unmarshallMetadata(new FileInputStream(metadataFile));
             filterMetadata(cachedMetadata);
             lastUpdate = metadataFile.lastModified();

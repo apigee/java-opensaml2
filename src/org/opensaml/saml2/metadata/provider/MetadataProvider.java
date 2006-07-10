@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
@@ -69,6 +70,17 @@ public interface MetadataProvider {
      * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
     public XMLObject getMetadata() throws MetadataProviderException;
+    
+    /**
+     * Gets a named EntitiesDescriptor from the metadata.
+     * 
+     * @param name the name of the EntitiesDescriptor
+     * 
+     * @return the EntitiesDescriptor or null
+     * 
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
+     */
+    public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException;
     
     /**
      * Gets the metadata for a given entity if the metadata is valid. This is the same as calling

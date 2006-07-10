@@ -64,6 +64,7 @@ public class DOMMetadataProvider extends AbstractMetadataProvider implements Met
     
     private void refreshMetadata() throws MetadataProviderException{
         try {
+            clearDescriptorIndex();
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(metadataElement);
             metadata = unmarshaller.unmarshall(metadataElement);
             metadata.releaseDOM();

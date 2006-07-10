@@ -35,6 +35,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 
 /**
@@ -57,6 +58,17 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     }
 
     /** {@inheritDoc} */
+    public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException{
+        XMLObject metadata = getMetadata();
+        if(metadata instanceof EntitiesDescriptor){
+            EntitiesDescriptor descriptor = (EntitiesDescriptor) metadata;
+            return getEntitiesDescriptorByName(name, descriptor);
+        }
+        
+        return null;
+    }
+
+    /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException {
         if (log.isDebugEnabled()) {
             log.debug("Getting descriptor for entity " + entityID);
@@ -71,46 +83,32 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             return null;
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Entity descriptor found with the ID " + entityID);
-        }
-
-        if (requireValidMetadata()) {
-            if (log.isDebugEnabled()) {
-                log.debug("Valid metadata is required, checking descriptor's validity");
-            }
-            if (SAML2Helper.isValid(descriptor)) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Entity descriptor with ID " + entityID + " is valid, returning");
-                }
-                return descriptor;
-            } else {
-                if (log.isDebugEnabled()) {
-                    log
-                            .debug("Entity descriptor with ID " + entityID
-                                    + " was not valid and valid metadata is required");
-                }
-                return null;
-            }
-        } else {
-            return descriptor;
-        }
+        return descriptor;
     }
 
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException {
         EntityDescriptor entity = getEntityDescriptor(entityID);
-        return entity.getRoleDescriptors(roleName);
+        if(entity != null){
+            return entity.getRoleDescriptors(roleName);
+        }else{
+            return null;
+        }
     }
 
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol)
             throws MetadataProviderException {
-        Iterator<RoleDescriptor> roles = getRole(entityID, roleName).iterator();
+        List<RoleDescriptor> roles = getRole(entityID, roleName);
+        if(roles == null){
+            return null;
+        }
+        
+        Iterator<RoleDescriptor> rolesItr = roles.iterator();
         RoleDescriptor role;
         FastList<RoleDescriptor> protocolSupportingRoles = new FastList<RoleDescriptor>();
-        while (roles.hasNext()) {
-            role = roles.next();
+        while (rolesItr.hasNext()) {
+            role = rolesItr.next();
             if (role.getSupportedProtocols().contains(supportedProtocol)) {
                 protocolSupportingRoles.add(role);
             }
@@ -186,6 +184,8 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * @return the EntityDescriptor
      */
     protected EntityDescriptor getEntityDescriptorById(String entityID, XMLObject metadata) {
+        EntityDescriptor descriptor = null;
+
         if (log.isDebugEnabled()) {
             log.debug("Searching for entity descriptor with an entity ID of " + entityID);
         }
@@ -194,10 +194,13 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             if (log.isDebugEnabled()) {
                 log.debug("Entity descriptor for the ID " + entityID + " was found in index cache, returning");
             }
-            return indexedDescriptors.get(entityID);
+            descriptor = indexedDescriptors.get(entityID);
+            if (isValid(descriptor)) {
+                return descriptor;
+            } else {
+                indexedDescriptors.remove(descriptor);
+            }
         }
-
-        EntityDescriptor descriptor = null;
 
         if (metadata != null) {
             if (metadata instanceof EntityDescriptor) {
@@ -205,9 +208,10 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
                     log.debug("Metadata root is an entity descriptor, checking if it's the one we're looking for.");
                 }
                 descriptor = (EntityDescriptor) metadata;
-                if (!descriptor.getEntityID().equals(entityID)) {
+                if (!descriptor.getEntityID().equals(entityID) || !isValid(descriptor)) {
                     if (log.isDebugEnabled()) {
-                        log.debug("Entity descriptor does not have the correct entity ID, returning null");
+                        log
+                                .debug("Entity descriptor does not have the correct entity ID or is not valid, returning null");
                     }
                     descriptor = null;
                 }
@@ -251,7 +255,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
                 if (log.isDebugEnabled()) {
                     log.debug("Checking entity descriptor with entity ID " + entityDescriptor.getEntityID());
                 }
-                if (entityDescriptor.getEntityID().equals(entityID)) {
+                if (entityDescriptor.getEntityID().equals(entityID) && isValid(entityDescriptor)) {
                     return entityDescriptor;
                 }
             }
@@ -267,11 +271,56 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             for (EntitiesDescriptor entitiesDescriptor : descriptor.getEntitiesDescriptors()) {
                 entityDescriptor = getEntityDescriptorById(entityID, entitiesDescriptor);
                 if (entityDescriptor != null) {
+                    // We don't need to check for validity because getEntityDescriptorById only returns a valid
+                    // descriptor
                     return entityDescriptor;
                 }
             }
         }
 
         return null;
+    }
+
+    /**
+     * Gets the entities descriptor with the given name.
+     * 
+     * @param name name of the entities descriptor
+     * @param rootDescriptor the root descriptor to search in
+     * 
+     * @return the EntitiesDescriptor with the given name
+     */
+    protected EntitiesDescriptor getEntitiesDescriptorByName(String name, EntitiesDescriptor rootDescriptor) {
+        EntitiesDescriptor descriptor = null;
+
+        if (DatatypeHelper.safeEquals(name, rootDescriptor.getName()) && isValid(rootDescriptor)) {
+            descriptor = rootDescriptor;
+        } else {
+            List<EntitiesDescriptor> childDescriptors = rootDescriptor.getEntitiesDescriptors();
+            if (childDescriptors != null) {
+                for (EntitiesDescriptor childDescriptor : childDescriptors) {
+                    childDescriptor = getEntitiesDescriptorByName(name, childDescriptor);
+                    if (childDescriptor != null) {
+                        descriptor = childDescriptor;
+                    }
+                }
+            }
+        }
+
+        return descriptor;
+    }
+
+    /**
+     * Returns whether the given descriptor is valid. If valid metadata is not required this method always returns true.
+     * 
+     * @param descriptor the descriptor to check
+     * 
+     * @return true if valid metadata is not required or the given descriptor is valid, false otherwise
+     */
+    protected boolean isValid(XMLObject descriptor) {
+        if (!requireValidMetadata()) {
+            return true;
+        }
+
+        return SAML2Helper.isValid(descriptor);
     }
 }
