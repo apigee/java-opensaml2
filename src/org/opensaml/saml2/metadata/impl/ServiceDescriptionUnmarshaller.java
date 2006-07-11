@@ -23,7 +23,6 @@ package org.opensaml.saml2.metadata.impl;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.LocalizedString;
-import org.opensaml.saml2.metadata.OrganizationName;
 import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
