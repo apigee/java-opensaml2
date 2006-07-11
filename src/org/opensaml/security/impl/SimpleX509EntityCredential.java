@@ -32,6 +32,28 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class SimpleX509EntityCredential extends AbstractX509EntityCredential {
 
     /**
+     * Constructor. Uses the entity certificate's (the 0th cert in the chain) principal common name as the entity ID and
+     * the certificate's public key as this credential's public key.
+     * 
+     * @param entityCertificateChain the entity's certificate chain
+     */
+    public SimpleX509EntityCredential(List<X509Certificate> entityCertificateChain) {
+        if (entityCertificateChain == null || entityCertificateChain.size() < 1) {
+            throw new IllegalArgumentException("Entity certificate chain may not be null or empty");
+        }
+        this.entityCertificate = entityCertificateChain.get(0);
+
+        if (entityCertificateChain != null) {
+            certificateChain = new FastList<X509Certificate>();
+        }
+        certificateChain.addAll(entityCertificateChain);
+
+        entityID = entityCertificate.getSubjectX500Principal().getName();
+        publicKey = entityCertificate.getPublicKey();
+
+    }
+
+    /**
      * Constructor. Uses the public key in the entity certificate as this credential's public key.
      * 
      * @param entityID the ID of the entity this credential belongs to, may not be null
@@ -55,10 +77,6 @@ public class SimpleX509EntityCredential extends AbstractX509EntityCredential {
             certificateChain = new FastList<X509Certificate>();
         }
         certificateChain.addAll(entityCertificateChain);
-
-        if (!certificateChain.contains(entityCertificate)) {
-            certificateChain.add(0, entityCertificate);
-        }
 
         publicKey = entityCertificate.getPublicKey();
         this.privateKey = privateKey;
