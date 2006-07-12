@@ -117,12 +117,12 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
         EntityDescriptor descriptor = (EntityDescriptor) unmarshallElement(childElementsFile);
 
         assertNotNull("Extensions child", descriptor.getExtensions());
-        assertEquals("IDPSSODescriptor count", 2, descriptor.getIDPSSODescriptor().size());
-        assertEquals("SPSSODescriptor count", 3, descriptor.getSPSSODescriptor().size());
-        assertEquals("AuthnAuthorityDescriptor count", 2, descriptor.getAuthnAuthorityDescriptor().size());
+        assertEquals("IDPSSODescriptor count", 2, descriptor.getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME).size());
+        assertEquals("SPSSODescriptor count", 3, descriptor.getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME).size());
+        assertEquals("AuthnAuthorityDescriptor count", 2, descriptor.getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME).size());
         // TODO AttributeAuthorityDescriptor
         // assertEquals("AttributeAuthorityDescriptor count", 2, descriptor.getAttributeAuthorityDescriptor().size());
-        assertEquals("PDPDescriptor count", 2, descriptor.getPDPDescriptor().size());
+        assertEquals("PDPDescriptor count", 2, descriptor.getRoleDescriptors(PDPDescriptor.DEFAULT_ELEMENT_NAME).size());
         assertNotNull("AffiliationDescriptor ", descriptor.getAffiliationDescriptor());
         assertNotNull("Organization ", descriptor.getOrganization());
         assertEquals("ContactPerson count", 1, descriptor.getContactPersons().size());
@@ -171,15 +171,15 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
         QName authnAuthQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         QName pdpQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         QName affilQName = new QName(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-        descriptor.getIDPSSODescriptor().add((IDPSSODescriptor) buildXMLObject(idpSSOQName));
-        descriptor.getSPSSODescriptor().add((SPSSODescriptor) buildXMLObject(spSSOQName));
-        descriptor.getSPSSODescriptor().add((SPSSODescriptor) buildXMLObject(spSSOQName));
-        descriptor.getAuthnAuthorityDescriptor().add((AuthnAuthorityDescriptor) buildXMLObject(authnAuthQName));
-        descriptor.getPDPDescriptor().add((PDPDescriptor) buildXMLObject(pdpQName));
-        descriptor.getIDPSSODescriptor().add((IDPSSODescriptor) buildXMLObject(idpSSOQName));
-        descriptor.getSPSSODescriptor().add((SPSSODescriptor) buildXMLObject(spSSOQName));
-        descriptor.getAuthnAuthorityDescriptor().add((AuthnAuthorityDescriptor) buildXMLObject(authnAuthQName));
-        descriptor.getPDPDescriptor().add((PDPDescriptor) buildXMLObject(pdpQName));
+        descriptor.getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME).add((IDPSSODescriptor) buildXMLObject(idpSSOQName));
+        descriptor.getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME).add((SPSSODescriptor) buildXMLObject(spSSOQName));
+        descriptor.getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME).add((SPSSODescriptor) buildXMLObject(spSSOQName));
+        descriptor.getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME).add((AuthnAuthorityDescriptor) buildXMLObject(authnAuthQName));
+        descriptor.getRoleDescriptors(PDPDescriptor.DEFAULT_ELEMENT_NAME).add((PDPDescriptor) buildXMLObject(pdpQName));
+        descriptor.getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME).add((IDPSSODescriptor) buildXMLObject(idpSSOQName));
+        descriptor.getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME).add((SPSSODescriptor) buildXMLObject(spSSOQName));
+        descriptor.getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME).add((AuthnAuthorityDescriptor) buildXMLObject(authnAuthQName));
+        descriptor.getRoleDescriptors(PDPDescriptor.DEFAULT_ELEMENT_NAME).add((PDPDescriptor) buildXMLObject(pdpQName));
         descriptor.setAffiliationDescriptor((AffiliationDescriptor) buildXMLObject(affilQName));
         
         QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);

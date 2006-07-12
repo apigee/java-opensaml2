@@ -43,7 +43,7 @@ public class EntityDescriptorSchemaTest extends SAMLObjectValidatorBaseTestCase 
         EntityDescriptor entityDescriptor = (EntityDescriptor) target;
         AttributeAuthorityDescriptor attributeAuthorityDescriptor = (AttributeAuthorityDescriptor) buildXMLObject(new QName(
                 SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
-        entityDescriptor.getAttributeAuthorityDescriptor().add(attributeAuthorityDescriptor);
+        entityDescriptor.getRoleDescriptors(AttributeAuthorityDescriptor.DEFAULT_ELEMENT_NAME).add(attributeAuthorityDescriptor);
         entityDescriptor.setEntityID("entity id");
     }
 

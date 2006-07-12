@@ -22,9 +22,10 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import javolution.util.FastList;
+
 import org.joda.time.DateTime;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
@@ -192,54 +193,75 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName, java.lang.String)
      */
-    public RoleDescriptor getRoleDescriptors(QName type, String protocol) {
+    public List<RoleDescriptor> getRoleDescriptors(QName type, String supportedProtocol) {
+        FastList<RoleDescriptor> supportingRoleDescriptors = new FastList<RoleDescriptor>();
         for (RoleDescriptor descriptor : roleDescriptors.subList(type)) {
-            if (descriptor.isSupportedProtocol(protocol)) {
-                return descriptor;
+            if (descriptor.isSupportedProtocol(supportedProtocol)) {
+                supportingRoleDescriptors.add(descriptor);
             }
         }
 
-        return null;
+        return supportingRoleDescriptors;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getIDPSSODescriptor()
      */
-    public List<IDPSSODescriptor> getIDPSSODescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-        return (List<IDPSSODescriptor>) roleDescriptors.subList(descriptorQName);
+    public IDPSSODescriptor getIDPSSODescriptor(String supportedProtocol) {
+        List<RoleDescriptor> descriptors = getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+        if(descriptors.size() > 0){
+            return (IDPSSODescriptor) descriptors.get(0);
+        }
+        
+        return null;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getSPSSODescriptor()
      */
-    public List<SPSSODescriptor> getSPSSODescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-        return (List<SPSSODescriptor>) roleDescriptors.subList(descriptorQName);
+    public SPSSODescriptor getSPSSODescriptor(String supportedProtocol) {
+        List<RoleDescriptor> descriptors = getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+        if(descriptors.size() > 0){
+            return (SPSSODescriptor) descriptors.get(0);
+        }
+        
+        return null;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAuthnAuthorityDescriptor()
      */
-    public List<AuthnAuthorityDescriptor> getAuthnAuthorityDescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-        return (List<AuthnAuthorityDescriptor>) roleDescriptors.subList(descriptorQName);
+    public AuthnAuthorityDescriptor getAuthnAuthorityDescriptor(String supportedProtocol) {
+        List<RoleDescriptor> descriptors = getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+        if(descriptors.size() > 0){
+            return (AuthnAuthorityDescriptor) descriptors.get(0);
+        }
+        
+        return null;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getAttributeAuthorityDescriptor()
      */
-    public List<AttributeAuthorityDescriptor> getAttributeAuthorityDescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-        return (List<AttributeAuthorityDescriptor>) roleDescriptors.subList(descriptorQName);
+    public AttributeAuthorityDescriptor getAttributeAuthorityDescriptor(String supportedProtocol) {
+        List<RoleDescriptor> descriptors = getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+        if(descriptors.size() > 0){
+            return (AttributeAuthorityDescriptor) descriptors.get(0);
+        }
+        
+        return null;
     }
 
     /*
      * @see org.opensaml.saml2.metadata.EntityDescriptor#getPDPDescriptor()
      */
-    public List<PDPDescriptor> getPDPDescriptor() {
-        QName descriptorQName = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-        return (List<PDPDescriptor>) roleDescriptors.subList(descriptorQName);
+    public PDPDescriptor getPDPDescriptor(String supportedProtocol) {
+        List<RoleDescriptor> descriptors = getRoleDescriptors(PDPDescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+        if(descriptors.size() > 0){
+            return (PDPDescriptor) descriptors.get(0);
+        }
+        
+        return null;
     }
 
     /*

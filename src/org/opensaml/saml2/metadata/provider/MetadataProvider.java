@@ -117,5 +117,5 @@ public interface MetadataProvider {
      * 
      * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol)  throws MetadataProviderException;
+    public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)  throws MetadataProviderException;
 }

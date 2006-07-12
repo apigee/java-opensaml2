@@ -108,44 +108,56 @@ public interface EntityDescriptor extends SignableSAMLObject, TimeBoundSAMLObjec
     /**
      * Gets all the role descriptors for this entity descriptor that match the supplied QName parameter.
      * 
+     * @param typeOrName the name of the role
+     * 
      * @return the role descriptors for this entity descriptor
      */
     public List<RoleDescriptor> getRoleDescriptors(QName typeOrName);
+    
+    /**
+     * Gets all the role descriptors for this entity that support the given protocol.
+     * 
+     * @param typeOrName the name of the role
+     * @param supportedProtocol the supported protocol
+     * 
+     * @return the list of role descriptors that support the given protocol
+     */
+    public List<RoleDescriptor> getRoleDescriptors(QName typeOrName, String supportedProtocol);
 
     /**
-     * Gets all the {@link IDPSSODescriptor}s role descriptor for this entity.
+     * Gets the first {@link IDPSSODescriptor} role descriptor for this entity that supports the given protocol.
      * 
-     * @return the {@link IDPSSODescriptor}s role descriptor for this entity
+     * @return the {@link IDPSSODescriptor} role descriptor
      */
-    public List<IDPSSODescriptor> getIDPSSODescriptor();
+    public IDPSSODescriptor getIDPSSODescriptor(String supportedProtocol);
 
     /**
-     * Gets all the {@link SPSSODescriptor}s role descriptor for this entity.
+     * Gets the first {@link SPSSODescriptor} role descriptor for this entity that supports the given protocol.
      * 
-     * @return the {@link SPSSODescriptor}s role descriptor for this entity
+     * @return the {@link SPSSODescriptor} role descriptor
      */
-    public List<SPSSODescriptor> getSPSSODescriptor();
+    public SPSSODescriptor getSPSSODescriptor(String supportedProtocol);
 
     /**
-     * Gets all the {@link AuthnAuthorityDescriptor}s role descriptor for this entity.
+     * Gets the first {@link AuthnAuthorityDescriptor} role descriptor for this entity that supports the given protocol.
      * 
-     * @return the {@link AuthnAuthorityDescriptor}s role descriptor for this entity
+     * @return the {@link AuthnAuthorityDescriptor} role descriptor
      */
-    public List<AuthnAuthorityDescriptor> getAuthnAuthorityDescriptor();
+    public AuthnAuthorityDescriptor getAuthnAuthorityDescriptor(String supportedProtocol);
 
     /**
-     * Gets all the {@link AttributeAuthorityDescriptor}s role descriptor for this entity.
+     * Gets the first {@link AttributeAuthorityDescriptor} role descriptor for this entity that supports the given protocol.
      * 
-     * @return the {@link AttributeAuthorityDescriptor}s role descriptor for this entity
+     * @return the {@link AttributeAuthorityDescriptor} role descriptor
      */
-    public List<AttributeAuthorityDescriptor> getAttributeAuthorityDescriptor();
+    public AttributeAuthorityDescriptor getAttributeAuthorityDescriptor(String supportedProtocol);
 
     /**
-     * Gets all the {@link PDPDescriptor}s role descriptor for this entity.
+     * Gets the first {@link PDPDescriptor} role descriptor for this entity that supports the given protocol.
      * 
-     * @return the {@link PDPDescriptor}s role descriptor for this entity
+     * @return the {@link PDPDescriptor} role descriptor
      */
-    public List<PDPDescriptor> getPDPDescriptor();
+    public PDPDescriptor getPDPDescriptor(String supportedProtocol);
 
     /**
      * Gets the affiliation descriptor for this entity.

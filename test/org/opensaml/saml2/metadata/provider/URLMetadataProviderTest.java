@@ -33,6 +33,7 @@ public class URLMetadataProviderTest extends SAMLObjectTestCaseConfigInitializer
     private String entitiesDescriptorName;
     private String entityID;
     private String supportedProtocol;
+    private URLMetadataProvider metadataProvider;
     
     /**{@inheritDoc} */
     protected void setUp() throws Exception {
@@ -42,13 +43,13 @@ public class URLMetadataProviderTest extends SAMLObjectTestCaseConfigInitializer
         entitiesDescriptorName = "urn:mace:incommon";
         entityID = "urn:mace:incommon:washington.edu";
         supportedProtocol ="urn:oasis:names:tc:SAML:1.1:protocol";
+        metadataProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
     }
     
     /**
      * Tests the {@link URLMetadataProvider#getMetadata()} method.
      */
     public void testGetMetadata() throws MetadataProviderException {
-        URLMetadataProvider metadataProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
         EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
         assertNotNull("Retrieved metadata was null", descriptor);
         assertEquals("EntitiesDescriptor name was not expected value", entitiesDescriptorName, descriptor.getName());
@@ -58,7 +59,6 @@ public class URLMetadataProviderTest extends SAMLObjectTestCaseConfigInitializer
      * Tests the {@link URLMetadataProvider#getEntitiesDescriptor(String)} method.
      */
     public void testGetEntitiesDescriptor() throws MetadataProviderException{
-        URLMetadataProvider metadataProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
         EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getEntitiesDescriptor(entitiesDescriptorName);
         assertNotNull("Retrieved metadata was null", descriptor);
         assertEquals("EntitiesDescriptor name was not expected value", entitiesDescriptorName, descriptor.getName());
@@ -68,7 +68,6 @@ public class URLMetadataProviderTest extends SAMLObjectTestCaseConfigInitializer
      * Tests the {@link URLMetadataProvider#getEntityDescriptor(String)} method.
      */
     public void testGetEntityDescriptor() throws MetadataProviderException{
-        URLMetadataProvider metadataProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
         EntityDescriptor descriptor = metadataProvider.getEntityDescriptor(entityID);
         assertNotNull("Retrieved entity descriptor was null", descriptor);
         assertEquals("Entity's ID does not match requested ID", entityID, descriptor.getEntityID());
@@ -78,7 +77,6 @@ public class URLMetadataProviderTest extends SAMLObjectTestCaseConfigInitializer
      * Tests the {@link URLMetadataProvider#getRole(String, javax.xml.namespace.QName) method.
      */
     public void testGetRole() throws MetadataProviderException{
-        URLMetadataProvider metadataProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
         assertNotNull("Roles for entity descriptor was null", roles);
         assertEquals("Unexpected number of roles", 1, roles.size());
@@ -88,9 +86,7 @@ public class URLMetadataProviderTest extends SAMLObjectTestCaseConfigInitializer
      * Test the {@link URLMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
      */
     public void testGetRoleWithSupportedProtocol() throws MetadataProviderException{
-        URLMetadataProvider metadataProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
-        List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
-        assertNotNull("Roles for entity descriptor was null", roles);
-        assertEquals("Unexpected number of roles", 1, roles.size());
+        RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+        assertNotNull("Roles for entity descriptor was null", role);
     }
 }

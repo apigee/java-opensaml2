@@ -71,8 +71,7 @@ public class ChainingMetadataProviderTest extends SAMLObjectTestCaseConfigInitia
      * Test the {@link URLMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
      */
     public void testGetRoleWithSupportedProtocol() throws MetadataProviderException{
-        List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
-        assertNotNull("Roles for entity descriptor was null", roles);
-        assertEquals("Unexpected number of roles", 1, roles.size());
+        RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+        assertNotNull("Roles for entity descriptor was null", role);
     }
 }

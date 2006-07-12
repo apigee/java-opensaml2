@@ -184,18 +184,14 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
     }
 
     /** {@inheritDoc} */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol)
+    public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)
             throws MetadataProviderException {
         MetadataProvider provider;
-        List<RoleDescriptor> roles;
         FastList.Node<MetadataProvider> head = providers.head();
         for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
                 .getNext()) {
             provider = current.getValue();
-            roles = provider.getRole(entityID, roleName, supportedProtocol);
-            if (roles != null && roles.size() > 0) {
-                return roles;
-            }
+            return provider.getRole(entityID, roleName, supportedProtocol);
         }
 
         return null;

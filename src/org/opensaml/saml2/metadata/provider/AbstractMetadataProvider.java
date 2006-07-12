@@ -23,7 +23,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.log4j.Logger;
@@ -97,7 +96,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     }
 
     /** {@inheritDoc} */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName, String supportedProtocol)
+    public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)
             throws MetadataProviderException {
         List<RoleDescriptor> roles = getRole(entityID, roleName);
         if(roles == null){
@@ -106,15 +105,14 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         
         Iterator<RoleDescriptor> rolesItr = roles.iterator();
         RoleDescriptor role;
-        FastList<RoleDescriptor> protocolSupportingRoles = new FastList<RoleDescriptor>();
         while (rolesItr.hasNext()) {
             role = rolesItr.next();
-            if (role.getSupportedProtocols().contains(supportedProtocol)) {
-                protocolSupportingRoles.add(role);
+            if (role.isSupportedProtocol(supportedProtocol)) {
+                return role;
             }
         }
 
-        return protocolSupportingRoles;
+        return null;
     }
 
     /**
