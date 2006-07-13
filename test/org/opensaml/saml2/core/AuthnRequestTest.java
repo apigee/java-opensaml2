@@ -42,7 +42,7 @@ public class AuthnRequestTest extends ComplexSAMLObjectBaseTestCase {
         AuthnRequest request = (AuthnRequest) unmarshallElement(elementFile);
         
         assertNotNull("AuthnRequest was null", request);
-        assertEquals("ForceAuthn", true, request.getForceAuthn().getValue().booleanValue());
+        assertEquals("ForceAuthn", true, request.isForceAuthn().booleanValue());
         assertEquals("AssertionConsumerServiceURL", "http://www.example.com/", request.getAssertionConsumerServiceURL());
         assertEquals("AttributeConsumingServiceIndex", 0, request.getAttributeConsumingServiceIndex().intValue());
         assertEquals("ProviderName", "SomeProvider", request.getProviderName());

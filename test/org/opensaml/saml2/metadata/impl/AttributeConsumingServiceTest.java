@@ -76,7 +76,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         AttributeConsumingService service = (AttributeConsumingService) unmarshallElement(singleElementOptionalAttributesFile);
         
         assertEquals("Index was not expected value", expectedIndex, service.getIndex());
-        assertEquals("isDefault was not expected value", expectedIsDefault.getValue(), service.isDefault().getValue());
+        assertEquals("isDefault was not expected value", expectedIsDefault, service.isDefaultXSBoolean());
     }
     
     /*

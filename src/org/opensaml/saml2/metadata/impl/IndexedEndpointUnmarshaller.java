@@ -52,7 +52,7 @@ public class IndexedEndpointUnmarshaller extends EndpointUnmarshaller {
         if (attribute.getLocalName().equals(IndexedEndpoint.INDEX_ATTRIB_NAME)) {
             iEndpoint.setIndex(Integer.valueOf(attribute.getValue()));
         } else if (attribute.getLocalName().equals(IndexedEndpoint.IS_DEFAULT_ATTRIB_NAME)) {
-            iEndpoint.setDefault(XSBooleanValue.valueOf(attribute.getValue()));
+            iEndpoint.setIsDefault(XSBooleanValue.valueOf(attribute.getValue()));
         } else {
             super.processAttribute(samlObject, attribute);
         }

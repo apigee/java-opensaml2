@@ -52,54 +52,58 @@ public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NameIDPolicy#getFormat()
-     */
+    /** {@inheritDoc} */
     public String getFormat() {
-        return this.format;
+        return format;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NameIDPolicy#setFormat(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setFormat(String newFormat) {
-        this.format = prepareForAssignment(this.format, newFormat);
+        format = prepareForAssignment(format, newFormat);
 
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NameIDPolicy#getSPNameQualifier()
-     */
+    /** {@inheritDoc} */
     public String getSPNameQualifier() {
-        return this.spNameQualifier;
+        return spNameQualifier;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NameIDPolicy#setSPNameQualifier(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setSPNameQualifier(String newSPNameQualifier) {
-        this.spNameQualifier = prepareForAssignment(this.spNameQualifier, newSPNameQualifier);
+        spNameQualifier = prepareForAssignment(spNameQualifier, newSPNameQualifier);
 
     }
-
-    /**
-     * @see org.opensaml.saml2.core.NameIDPolicy#getAllowCreate()
-     */
-    public XSBooleanValue getAllowCreate() {
-        return this.allowCreate;
+    
+    /** {@inheritDoc} */
+    public Boolean getAllowCreate(){
+        if(allowCreate != null){
+            return allowCreate.getValue();
+        }
+        
+        return null;
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    /** {@inheritDoc} */
+    public XSBooleanValue getAllowCreateXSBoolean() {
+        return allowCreate;
+    }
+
+    /** {@inheritDoc} */
+    public void setAllowCreate(Boolean newAllowCreate){
+        if(newAllowCreate == null){
+            allowCreate = prepareForAssignment(allowCreate, new XSBooleanValue(newAllowCreate, false));
+        }else{
+            allowCreate = prepareForAssignment(allowCreate, null);
+        }
+    }
+    
+    /** {@inheritDoc} */
     public void setAllowCreate(XSBooleanValue newAllowCreate) {
-        this.allowCreate = prepareForAssignment(this.allowCreate, newAllowCreate);
+        allowCreate = prepareForAssignment(allowCreate, newAllowCreate);
 
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // no children
         return null;

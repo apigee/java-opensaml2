@@ -60,7 +60,7 @@ public class AttributeConsumingServiceMarshaller extends AbstractSAMLObjectMarsh
                 .getIndex()));
 
         if (service.isDefault() != null) {
-            domElement.setAttributeNS(null, AttributeConsumingService.IS_DEFAULT_ATTRIB_NAME, service.isDefault()
+            domElement.setAttributeNS(null, AttributeConsumingService.IS_DEFAULT_ATTRIB_NAME, service.isDefaultXSBoolean()
                     .toString());
         }
     }

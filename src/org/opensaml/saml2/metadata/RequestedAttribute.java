@@ -24,36 +24,52 @@ import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * SAML 2.0 Metadata RequestedAttribute
- *
+ * 
  */
 public interface RequestedAttribute extends Attribute {
 
     /** Local name, no namespace */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "RequestedAttribute";
-    
+
     /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-    
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20MD_PREFIX);
+
     /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "RequestedAttributeType"; 
-        
+    public final static String TYPE_LOCAL_NAME = "RequestedAttributeType";
+
     /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-    
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20MD_PREFIX);
+
     /** "isRequired" attribute's local name */
     public final static String IS_REQUIRED_ATTRIB_NAME = "isRequired";
-    
+
     /**
      * Checks to see if this requested attribute is also required.
      * 
      * @return true if this attribute is required
      */
-    public XSBooleanValue isRequired();
-    
+    public Boolean isRequired();
+
+    /**
+     * Checks to see if this requested attribute is also required.
+     * 
+     * @return true if this attribute is required
+     */
+    public XSBooleanValue isRequiredXSBoolean();
+
+    /**
+     * Sets if this requested attribute is also required. Boolean values will be marshalled to either "true" or "false".
+     * 
+     * @param newIsRequire true if this attribute is required
+     */
+    public void setIsRequired(Boolean newIsRequire);
+
     /**
      * Sets if this requested attribute is also required.
      * 
-     * @param isRequired true if this attribute is required
+     * @param newIsRequire true if this attribute is required
      */
-    public void setIsRequired(XSBooleanValue isRequired);
+    public void setIsRequired(XSBooleanValue newIsRequire);
 }

@@ -31,7 +31,7 @@ import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
- *
+ * Unit test for {@link AuthnRequest}.
  */
 public class AuthnRequestTest extends RequestTestBase {
     
@@ -155,8 +155,8 @@ public class AuthnRequestTest extends RequestTestBase {
         AuthnRequest req = (AuthnRequest) unmarshallElement(singleElementFile);
         
         assertNotNull("AuthnRequest was null", req);
-        assertNull("ForceAuthn was not null", req.getForceAuthn());
-        assertNull("IsPassive was not null", req.getIsPassive());
+        assertNull("ForceAuthn was not null", req.isForceAuthn());
+        assertNull("IsPassive was not null", req.isPassive());
         assertNull("ProtocolBinding was not null", req.getProtocolBinding());
         assertNull("AssertionConsumerServiceIndex was not null", req.getAssertionConsumerServiceIndex());
         assertNull("AssertionConsumerServiceURL was not null", req.getAssertionConsumerServiceURL());
@@ -173,8 +173,8 @@ public class AuthnRequestTest extends RequestTestBase {
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthnRequest req = (AuthnRequest) unmarshallElement(singleElementOptionalAttributesFile);
         
-        assertEquals("Unmarshalled ForceAuthn was not the expected value", expectedForceAuthn.getValue(), req.getForceAuthn().getValue());
-        assertEquals("Unmarshalled IsPassive was not the expected value", expectedIsPassive.getValue(), req.getIsPassive().getValue());
+        assertEquals("Unmarshalled ForceAuthn was not the expected value", expectedForceAuthn, req.isForceAuthnXSBoolean());
+        assertEquals("Unmarshalled IsPassive was not the expected value", expectedIsPassive, req.isPassiveXSBoolean());
         assertEquals("Unmarshalled ProtocolBinding was not the expected value", expectedProtocolBinding, req.getProtocolBinding());
         assertEquals("Unmarshalled AssertionConsumerServiceIndex was not the expected value", expectedAssertionConsumerServiceIndex, req.getAssertionConsumerServiceIndex());
         assertEquals("Unmarshalled AssertionConsumerServiceURL was not the expected value", expectedAssertionConsumerServiceURL, req.getAssertionConsumerServiceURL());

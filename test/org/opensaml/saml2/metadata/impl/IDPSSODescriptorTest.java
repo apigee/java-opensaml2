@@ -95,8 +95,8 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("Cache duration was not expected value", expectedCacheDuration, descriptor.getCacheDuration()
                 .longValue());
         assertEquals("ValidUntil was not expected value", expectedValidUntil, descriptor.getValidUntil());
-        assertEquals("WantAuthnRequestsSigned attribute was not expected value", expectedWantAuthnReqSigned.getValue(), descriptor
-                .wantAuthnRequestsSigned().getValue());
+        assertEquals("WantAuthnRequestsSigned attribute was not expected value", expectedWantAuthnReqSigned, descriptor
+                .getWantAuthnRequestsSignedXSBoolean());
     }
 
     /*

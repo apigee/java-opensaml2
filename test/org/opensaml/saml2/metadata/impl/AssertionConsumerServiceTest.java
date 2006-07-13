@@ -80,7 +80,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
         assertEquals("Location was not expected value", expectedLocation, service.getLocation());
         assertEquals("Index was not expected value", expectedIndex, service.getIndex());
         assertEquals("ResponseLocation was not expected value", expectedResponseLocation, service.getResponseLocation());
-        assertEquals("isDefault was not expected value", expectedIsDefault.getValue(), service.isDefault().getValue());
+        assertEquals("isDefault was not expected value", expectedIsDefault, service.isDefaultXSBoolean());
     }
 
     /*
@@ -108,7 +108,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
         service.setLocation(expectedLocation);
         service.setIndex(expectedIndex);
         service.setResponseLocation(expectedResponseLocation);
-        service.setDefault(expectedIsDefault);
+        service.setIsDefault(expectedIsDefault);
 
         assertEquals(expectedOptionalAttributesDOM, service);
     }

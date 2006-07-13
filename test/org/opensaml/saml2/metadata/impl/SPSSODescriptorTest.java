@@ -97,10 +97,10 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
         assertEquals("Supported protocols not equal to expected value", expectedSupportedProtocol, descriptor
                 .getSupportedProtocols());
-        assertEquals("AuthnRequestsSigned attribute was not expected value", expectedAuthnRequestSigned.getValue(),
-                descriptor.authnRequestsSigned().getValue());
-        assertEquals("WantAssertionsSigned attribute was not expected value", expectedWantAssertionsSigned
-                .getValue(), descriptor.wantAssertionsSigned().getValue());
+        assertEquals("AuthnRequestsSigned attribute was not expected value", expectedAuthnRequestSigned, descriptor
+                .isAuthnRequestsSignedXSBoolean());
+        assertEquals("WantAssertionsSigned attribute was not expected value", expectedWantAssertionsSigned, descriptor
+                .getWantAssertionsSignedXSBoolean());
     }
 
     /*
@@ -125,7 +125,8 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
     }
 
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
 
         for (String protocol : expectedSupportedProtocol) {
@@ -136,7 +137,8 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
     }
 
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
 
         descriptor.setAuthnRequestsSigned(expectedAuthnRequestSigned);
@@ -156,7 +158,8 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
         SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(qname);
 
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME,
@@ -165,7 +168,8 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
 
         // TODO KeyDescriptor
 
-        QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+        QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20MD_PREFIX);
         descriptor.setOrganization((Organization) buildXMLObject(orgQName));
 
         QName contactQName = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME,
@@ -194,15 +198,15 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
                 SAMLConstants.SAML20MD_PREFIX);
         descriptor.getNameIDFormats().add((NameIDFormat) buildXMLObject(nameIDFormatQName));
 
-        QName assertConsumeQName = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME,
-                SAMLConstants.SAML20MD_PREFIX);
+        QName assertConsumeQName = new QName(SAMLConstants.SAML20MD_NS,
+                AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 2; i++) {
             descriptor.getAssertionConsumerServices()
                     .add((AssertionConsumerService) buildXMLObject(assertConsumeQName));
         }
 
-        QName attribConsumeQName = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME,
-                SAMLConstants.SAML20MD_PREFIX);
+        QName attribConsumeQName = new QName(SAMLConstants.SAML20MD_NS,
+                AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.getAttributeConsumingServices().add((AttributeConsumingService) buildXMLObject(attribConsumeQName));
 
         assertEquals(expectedChildElementsDOM, descriptor);

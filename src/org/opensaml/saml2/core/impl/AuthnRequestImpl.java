@@ -84,31 +84,59 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
     protected AuthnRequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
-
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getForceAuthn()
-     */
-    public XSBooleanValue getForceAuthn() {
-        return this.forceAuthn;
+    
+    /** {@inheritDoc} */
+    public Boolean isForceAuthn(){
+        if(forceAuthn != null){
+            return forceAuthn.getValue();
+        }
+        
+        return null;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setForceAuthn(java.lang.Boolean)
-     */
+    /** {@inheritDoc} */
+    public XSBooleanValue isForceAuthnXSBoolean() {
+        return forceAuthn;
+    }
+    
+    /** {@inheritDoc} */
+    public void setForceAuthn(Boolean newForceAuth){
+        if(newForceAuth == null){
+            forceAuthn = prepareForAssignment(forceAuthn, new XSBooleanValue(newForceAuth, false));
+        }else{
+            forceAuthn = prepareForAssignment(forceAuthn, null);
+        }
+    }
+
+    /** {@inheritDoc} */
     public void setForceAuthn(XSBooleanValue newForceAuthn) {
-        this.forceAuthn = prepareForAssignment(this.forceAuthn, newForceAuthn);
+        forceAuthn = prepareForAssignment(this.forceAuthn, newForceAuthn);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getIsPassive()
-     */
-    public XSBooleanValue getIsPassive() {
-        return this.isPassive;
+    /** {@inheritDoc} */
+    public Boolean isPassive(){
+        if(isPassive != null){
+            return isPassive.getValue();
+        }
+        
+        return null;
+    }
+    
+    /** {@inheritDoc} */
+    public XSBooleanValue isPassiveXSBoolean() {
+        return isPassive;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setIsPassive(java.lang.Boolean)
-     */
+    /** {@inheritDoc} */
+    public void setIsPassive(Boolean newIsPassive){
+        if(newIsPassive == null){
+            isPassive = prepareForAssignment(isPassive, new XSBooleanValue(newIsPassive, false));
+        }else{
+            isPassive = prepareForAssignment(isPassive, null);
+        }
+    }
+    
+    /** {@inheritDoc} */
     public void setIsPassive(XSBooleanValue newIsPassive) {
         this.isPassive = prepareForAssignment(this.isPassive, newIsPassive);
     }

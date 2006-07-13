@@ -67,61 +67,63 @@ public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements
         requestAttributes = new XMLObjectChildrenList<RequestedAttribute>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeConsumingService#getIndex()
-     */
+    /** {@inheritDoc} */
     public int getIndex() {
         return index;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeConsumingService#setIndex(int)
-     */
+    /** {@inheritDoc} */
     public void setIndex(int index) {
         if (this.index != index) {
             releaseThisandParentDOM();
             this.index = index;
         }
     }
+    
+    /** {@inheritDoc} */
+    public Boolean isDefault(){
+        if(isDefault != null){
+            return isDefault.getValue();
+        }
+        
+        return null;
+    }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeConsumingService#isDefault()
-     */
-    public XSBooleanValue isDefault() {
+    /** {@inheritDoc} */
+    public XSBooleanValue isDefaultXSBoolean() {
         return isDefault;
     }
-
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeConsumingService#setIsDefault(boolean)
-     */
-    public void setIsDefault(XSBooleanValue isDefault) {
-        this.isDefault = prepareForAssignment(this.isDefault, isDefault);
+    
+    /** {@inheritDoc} */
+    public void setIsDefault(Boolean newIsDefault){
+        if(newIsDefault == null){
+            isDefault = prepareForAssignment(isDefault, new XSBooleanValue(newIsDefault, false));
+        }else{
+            isDefault = prepareForAssignment(isDefault, null);
+        }
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeConsumingService#getNames()
-     */
+    /** {@inheritDoc} */
+    public void setIsDefault(XSBooleanValue newIsDefault) {
+        isDefault = prepareForAssignment(isDefault, newIsDefault);
+    }
+
+    /** {@inheritDoc} */
     public List<ServiceName> getNames() {
         return serviceNames;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeConsumingService#getDescriptions()
-     */
+    /** {@inheritDoc} */
     public List<ServiceDescription> getDescriptions() {
         return serviceDescriptions;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeConsumingService#getRequestAttributes()
-     */
+    /** {@inheritDoc} */
     public List<RequestedAttribute> getRequestAttributes() {
         return requestAttributes;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

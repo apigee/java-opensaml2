@@ -45,16 +45,37 @@ public class RequestedAttributeImpl extends AttributeImpl implements RequestedAt
     protected RequestedAttributeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
+    
+    /** {@inheritDoc} */
+    public Boolean isRequired(){
+        if(isRequired != null){
+            return isRequired.getValue();
+        }
+        
+        return null;
+    }
 
-    public XSBooleanValue isRequired() {
+    /** {@inheritDoc} */
+    public XSBooleanValue isRequiredXSBoolean() {
         return isRequired;
     }
+    
+    /** {@inheritDoc} */
+    public void setIsRequired(Boolean newIsRequired){
+        if(newIsRequired == null){
+            isRequired = prepareForAssignment(isRequired, new XSBooleanValue(newIsRequired, false));
+        }else{
+            isRequired = prepareForAssignment(isRequired, null);
+        }
+    }
 
-    public void setIsRequired(XSBooleanValue isRequired) {
-        this.isRequired = prepareForAssignment(this.isRequired, isRequired);
+    /** {@inheritDoc} */
+    public void setIsRequired(XSBooleanValue newIsRequired) {
+        isRequired = prepareForAssignment(isRequired, newIsRequired);
 
     }
 
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

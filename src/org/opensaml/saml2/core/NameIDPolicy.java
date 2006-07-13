@@ -26,28 +26,30 @@ import org.opensaml.xml.schema.XSBooleanValue;
  * SAML 2.0 Core NameIDPolicy.
  */
 public interface NameIDPolicy extends SAMLObject {
-    
+
     /** Element local name */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "NameIDPolicy";
-    
+
     /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
     /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "NameIDPolicyType"; 
-        
+    public final static String TYPE_LOCAL_NAME = "NameIDPolicyType";
+
     /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
     /** Format attribute name */
     public final static String FORMAT_ATTRIB_NAME = "Format";
 
     /** SPNameQualifier attribute name */
     public final static String SP_NAME_QUALIFIER_ATTRIB_NAME = "SPNameQualifier";
-    
+
     /** AllowCreate attribute name */
     public final static String ALLOW_CREATE_ATTRIB_NAME = "AllowCreate";
-    
+
     /**
      * Gets the format of the NameIDPolicy.
      * 
@@ -81,7 +83,21 @@ public interface NameIDPolicy extends SAMLObject {
      * 
      * @return the AllowCreate value
      */
-    public XSBooleanValue getAllowCreate();
+    public Boolean getAllowCreate();
+
+    /**
+     * Gets the AllowCreate value.
+     * 
+     * @return the AllowCreate value
+     */
+    public XSBooleanValue getAllowCreateXSBoolean();
+
+    /**
+     * Sets the AllowCreate value. Boolean values will be marshalled to either "true" or "false".
+     * 
+     * @param newAllowCreate the AllowCreate value
+     */
+    public void setAllowCreate(Boolean newAllowCreate);
 
     /**
      * Sets the AllowCreate value.

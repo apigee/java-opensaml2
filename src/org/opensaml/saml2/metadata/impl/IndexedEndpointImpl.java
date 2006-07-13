@@ -45,31 +45,41 @@ public abstract class IndexedEndpointImpl extends EndpointImpl implements Indexe
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IndexedEndpoint#getIndex()
-     */
+    /** {@inheritDoc} */
     public Integer getIndex() {
         return index;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IndexedEndpoint#setIndex(int)
-     */
+    /** {@inheritDoc} */
     public void setIndex(Integer index) {
         this.index = prepareForAssignment(this.index, index);
     }
-
-    /*
-     * @see org.opensaml.saml2.metadata.IndexedEndpoint#isDefault()
-     */
-    public XSBooleanValue isDefault() {
-        return isDefault;
+    
+    /** {@inheritDoc} */
+    public Boolean isDefault(){
+        if(isDefault != null){
+            return isDefault.getValue();
+        }
+        
+        return null;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IndexedEndpoint#setDefault(java.lang.Boolean)
-     */
-    public void setDefault(XSBooleanValue isDefault) {
+    /** {@inheritDoc} */
+    public XSBooleanValue isDefaultXSBoolean() {
+        return isDefault;
+    }
+    
+    /** {@inheritDoc} */
+    public void setIsDefault(Boolean newIsDefault){
+        if(newIsDefault == null){
+            isDefault = prepareForAssignment(isDefault, new XSBooleanValue(newIsDefault, false));
+        }else{
+            isDefault = prepareForAssignment(isDefault, null);
+        }
+    }
+
+    /** {@inheritDoc} */
+    public void setIsDefault(XSBooleanValue isDefault) {
         this.isDefault = prepareForAssignment(this.isDefault, isDefault);
     }
 }

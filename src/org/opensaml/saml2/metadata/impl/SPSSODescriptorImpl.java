@@ -60,52 +60,74 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
         assertionConsumerServices = new XMLObjectChildrenList<AssertionConsumerService>(this);
         attributeConsumingServices = new XMLObjectChildrenList<AttributeConsumingService>(this);
     }
-
-    /*
-     * @see org.opensaml.saml2.metadata.SPSSODescriptor#isAuthnRequestsSigned()
-     */
-    public XSBooleanValue authnRequestsSigned() {
-        return authnRequestSigned;
+    
+    /** {@inheritDoc} */
+    public Boolean isAuthnRequestSigned(){
+        if(authnRequestSigned != null){
+            return authnRequestSigned.getValue();
+        }
+        
+        return null;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SPSSODescriptor#setAuthnRequestsSigned(Boolean)
-     */
+    /** {@inheritDoc} */
+    public XSBooleanValue isAuthnRequestsSignedXSBoolean() {
+        return authnRequestSigned;
+    }
+    
+    /** {@inheritDoc} */
+    public void setAuthnRequestsSigned(Boolean newIsSigned) {
+        if(newIsSigned == null){
+            authnRequestSigned = prepareForAssignment(authnRequestSigned, new XSBooleanValue(newIsSigned, false));
+        }else{
+            authnRequestSigned = prepareForAssignment(authnRequestSigned, null);
+        }
+    }
+
+    /** {@inheritDoc} */
     public void setAuthnRequestsSigned(XSBooleanValue isSigned) {
         authnRequestSigned = prepareForAssignment(authnRequestSigned, isSigned);
     }
-
-    /*
-     * @see org.opensaml.saml2.metadata.SPSSODescriptor#wantAssertionsSigned()
-     */
-    public XSBooleanValue wantAssertionsSigned() {
-        return assertionSigned;
+    
+    /** {@inheritDoc} */
+    public Boolean getWantAssertionsSigned(){
+        if(assertionSigned != null){
+            return assertionSigned.getValue();
+        }
+        
+        return null;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SPSSODescriptor#setWantAssertionsSigned(Boolean)
-     */
+    /** {@inheritDoc} */
+    public XSBooleanValue getWantAssertionsSignedXSBoolean() {
+        return assertionSigned;
+    }
+    
+    /** {@inheritDoc} */
+    public void setWantAssertionsSigned(Boolean wantAssestionSigned) {
+        if(wantAssestionSigned == null){
+            assertionSigned = prepareForAssignment(assertionSigned, new XSBooleanValue(wantAssestionSigned, false));
+        }else{
+            assertionSigned = prepareForAssignment(assertionSigned, null);
+        }
+    }
+
+    /** {@inheritDoc} */
     public void setWantAssertionsSigned(XSBooleanValue wantAssestionSigned) {
         this.assertionSigned = prepareForAssignment(this.assertionSigned, wantAssestionSigned);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SPSSODescriptor#getAssertionConsumerServices()
-     */
+    /** {@inheritDoc} */
     public List<AssertionConsumerService> getAssertionConsumerServices() {
         return assertionConsumerServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SPSSODescriptor#getAttributeConsumingServices()
-     */
+    /** {@inheritDoc} */
     public List<AttributeConsumingService> getAttributeConsumingServices() {
         return attributeConsumingServices;
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

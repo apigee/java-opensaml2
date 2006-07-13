@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.schema.XSBooleanValue;
 
-
 /**
  * SAML 2.0 Metadata IndexedEndpoint
  */
@@ -29,47 +28,64 @@ public interface IndexedEndpoint extends Endpoint {
 
     /** Local name, no namespace */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "IndexedEndpoint";
-    
+
     /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-    
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20MD_PREFIX);
+
     /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "IndexedEndpointType"; 
-        
+    public final static String TYPE_LOCAL_NAME = "IndexedEndpointType";
+
     /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-    
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20MD_PREFIX);
+
     /** index attribute name */
     public final static String INDEX_ATTRIB_NAME = "index";
-    
+
     /** isDeault attribute name */
     public final static String IS_DEFAULT_ATTRIB_NAME = "isDefault";
-    
+
     /**
      * Gets the index of the endpoint.
      * 
      * @return index of the endpoint
      */
-	public Integer getIndex();
-    
+    public Integer getIndex();
+
     /**
      * Sets the index of the endpoint.
      * 
      * @param index index of the endpoint
      */
     public void setIndex(Integer index);
-    
+
     /**
      * Gets whether this is the default endpoint in a list.
      * 
      * @return whether this is the default endpoint in a list
      */
-    public XSBooleanValue isDefault();
-    
+    public Boolean isDefault();
+
+    /**
+     * Gets whether this is the default endpoint in a list.
+     * 
+     * @return whether this is the default endpoint in a list
+     */
+    public XSBooleanValue isDefaultXSBoolean();
+
+    /**
+     * Sets whether this is the default endpoint in a list. Boolean values will be marshalled to either "true" or
+     * "false".
+     * 
+     * @param newIsDefault whether this is the default endpoint in a list
+     */
+    public void setIsDefault(Boolean newIsDefault);
+
     /**
      * Sets whether this is the default endpoint in a list.
      * 
-     * @param isDefault whether this is the default endpoint in a list
+     * @param newIsDefault whether this is the default endpoint in a list
      */
-    public void setDefault(XSBooleanValue isDefault);
+    public void setIsDefault(XSBooleanValue newIsDefault);
 }

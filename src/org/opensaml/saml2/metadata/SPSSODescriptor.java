@@ -29,57 +29,87 @@ import org.opensaml.xml.schema.XSBooleanValue;
 public interface SPSSODescriptor extends SSODescriptor {
     /** Element name, no namespace */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "SPSSODescriptor";
-    
+
     /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-    
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20MD_PREFIX);
+
     /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "SPSSODescriptorType"; 
-        
+    public final static String TYPE_LOCAL_NAME = "SPSSODescriptorType";
+
     /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-    
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20MD_PREFIX);
+
     /** "AuthnRequestsSigned" attribute's local name */
     public final static String AUTH_REQUETS_SIGNED_ATTRIB_NAME = "AuthnRequestsSigned";
-    
+
     /** "WantAssertionsSigned" attribute's local name */
     public final static String WANT_ASSERTIONS_SIGNED_ATTRIB_NAME = "WantAssertionsSigned";
-    
+
     /**
      * Gets whether this service signs AuthN requests.
      * 
      * @return true of this service signs requests, false if not
      */
-	public XSBooleanValue authnRequestsSigned();
-    
+    public Boolean isAuthnRequestSigned();
+
+    /**
+     * Gets whether this service signs AuthN requests.
+     * 
+     * @return true of this service signs requests, false if not
+     */
+    public XSBooleanValue isAuthnRequestsSignedXSBoolean();
+
+    /**
+     * Sets whether this service signs AuthN requests. Boolean values will be marshalled to either "true" or "false".
+     * 
+     * @param newIsSigned true of this service signs requests, false if not
+     */
+    public void setAuthnRequestsSigned(Boolean newIsSigned);
+
     /**
      * Sets whether this service signs AuthN requests.
      * 
-     * @param isSigned true of this service signs requests, false if not
+     * @param newIsSigned true of this service signs requests, false if not
      */
-    public void setAuthnRequestsSigned(XSBooleanValue isSigned);
+    public void setAuthnRequestsSigned(XSBooleanValue newIsSigned);
 
     /**
      * Gets whether this service wants assertions signed.
      * 
      * @return true if this service wants assertions signed, false if not
      */
-	public XSBooleanValue wantAssertionsSigned();
-    
+    public Boolean getWantAssertionsSigned();
+
+    /**
+     * Gets whether this service wants assertions signed.
+     * 
+     * @return true if this service wants assertions signed, false if not
+     */
+    public XSBooleanValue getWantAssertionsSignedXSBoolean();
+
+    /**
+     * Sets whether this service wants assertions signed. Boolean values will be marshalled to either "true" or "false".
+     * 
+     * @param newWantAssestionSigned true if this service wants assertions signed, false if not
+     */
+    public void setWantAssertionsSigned(Boolean newWantAssestionSigned);
+
     /**
      * Sets whether this service wants assertions signed.
      * 
-     * @param wantAssestionSigned true if this service wants assertions signed, false if not
+     * @param newWantAssestionSigned true if this service wants assertions signed, false if not
      */
-    public void setWantAssertionsSigned(XSBooleanValue wantAssestionSigned);
-    
+    public void setWantAssertionsSigned(XSBooleanValue newWantAssestionSigned);
+
     /**
      * Gets an immutable list of assertion consumer service {@link Endpoint}s for this service.
      * 
      * @return list of assertion consumer service {@link Endpoint}s for this service
      */
     public List<AssertionConsumerService> getAssertionConsumerServices();
-    
+
     /**
      * Gets an immutable list of attribute consuming service {@link Endpoint}s for this service.
      * 

@@ -89,9 +89,9 @@ public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
         assertEquals("FriendlyName was " + friendlyName + ", expected " + expectedFriendlyName, expectedFriendlyName,
                 friendlyName);
 
-        boolean isRequired = requestedAttribute.isRequired().getValue().booleanValue();
-        assertEquals("Is Required was " + isRequired + ", expected " + expectedIsRequired, expectedIsRequired.getValue(),
-                requestedAttribute.isRequired().getValue());
+        boolean isRequired = requestedAttribute.isRequired().booleanValue();
+        assertEquals("Is Required was " + isRequired + ", expected " + expectedIsRequired, expectedIsRequired,
+                requestedAttribute.isRequiredXSBoolean());
     }
 
     /**

@@ -73,58 +73,60 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IDPSSODescriptor#wantAuthnRequestsSigned()
-     */
-    public XSBooleanValue wantAuthnRequestsSigned() {
+    /** {@inheritDoc} */
+    public Boolean getWantAuthnRequestsSigned(){
+        if(wantAuthnRequestsSigned != null){
+            return wantAuthnRequestsSigned.getValue();
+        }
+        
+        return null;
+    }
+    
+    /** {@inheritDoc} */
+    public XSBooleanValue getWantAuthnRequestsSignedXSBoolean() {
         return wantAuthnRequestsSigned;
     }
+    
+    /** {@inheritDoc} */
+    public void setWantAuthnRequestSigned(Boolean newWantSigned){
+        if(newWantSigned == null){
+            wantAuthnRequestsSigned = prepareForAssignment(wantAuthnRequestsSigned, new XSBooleanValue(newWantSigned, false));
+        }else{
+            wantAuthnRequestsSigned = prepareForAssignment(wantAuthnRequestsSigned, null);
+        }
+    }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IDPSSODescriptor#setWantAuthnRequestSigned(boolean)
-     */
+    /** {@inheritDoc} */
     public void setWantAuthnRequestSigned(XSBooleanValue wantSigned) {
         wantAuthnRequestsSigned = prepareForAssignment(wantAuthnRequestsSigned, wantSigned);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IDPSSODescriptor#getSingleSignOnServices()
-     */
+    /** {@inheritDoc} */
     public List<SingleSignOnService> getSingleSignOnServices() {
         return singleSignOnServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IDPSSODescriptor#getNameIDMappingServices()
-     */
+    /** {@inheritDoc} */
     public List<NameIDMappingService> getNameIDMappingServices() {
         return nameIDMappingServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IDPSSODescriptor#getAssertionIDRequestServices()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDRequestService> getAssertionIDRequestServices() {
         return assertionIDRequestServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IDPSSODescriptor#getAttributeProfiles()
-     */
+    /** {@inheritDoc} */
     public List<AttributeProfile> getAttributeProfiles() {
         return attributeProfiles;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.IDPSSODescriptor#getAttributes()
-     */
+    /** {@inheritDoc} */
     public List<Attribute> getAttributes() {
         return attributes;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

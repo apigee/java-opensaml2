@@ -56,7 +56,7 @@ public class RequestedAttributeMarshaller extends AttributeMarshaller {
         RequestedAttribute requestedAttribute = (RequestedAttribute) samlObject;
 
         if (requestedAttribute.isRequired() != null) {
-            domElement.setAttributeNS(null, RequestedAttribute.IS_REQUIRED_ATTRIB_NAME, requestedAttribute.isRequired().toString());
+            domElement.setAttributeNS(null, RequestedAttribute.IS_REQUIRED_ATTRIB_NAME, requestedAttribute.isRequiredXSBoolean().toString());
         }
 
         super.marshallAttributes(samlObject, domElement);
