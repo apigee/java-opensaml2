@@ -121,10 +121,32 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     public List<AssertionConsumerService> getAssertionConsumerServices() {
         return assertionConsumerServices;
     }
+    
+    /** {@inheritDoc} */
+    public AssertionConsumerService getDefaultAssertionConsumerService(){
+        for(AssertionConsumerService service : assertionConsumerServices){
+            if(service.isDefault()){
+                return service;
+            }
+        }
+        
+        return null;
+    }
 
     /** {@inheritDoc} */
     public List<AttributeConsumingService> getAttributeConsumingServices() {
         return attributeConsumingServices;
+    }
+    
+    /** {@inheritDoc} */
+    public AttributeConsumingService getDefaultAttributeConsumingService(){
+        for(AttributeConsumingService service : attributeConsumingServices){
+            if(service.isDefault()){
+                return service;
+            }
+        }
+        
+        return null;
     }
 
     /** {@inheritDoc} */

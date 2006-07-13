@@ -64,37 +64,38 @@ public abstract class SSODescriptorImpl extends RoleDescriptorImpl implements SS
         nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SSODescriptor#getArtifactResolutionServices()
-     */
+    /** {@inheritDoc} */
     public List<ArtifactResolutionService> getArtifactResolutionServices() {
         return artifactResolutionServices;
     }
+    
+    /** {@inheritDoc} */
+    public ArtifactResolutionService getDefaultArtificateResolutionService(){
+        for(ArtifactResolutionService service : artifactResolutionServices){
+            if(service.isDefault()){
+                return service;
+            }
+        }
+        
+        return null;
+    }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SSODescriptor#getSingleLogoutServices()
-     */
+    /** {@inheritDoc} */
     public List<SingleLogoutService> getSingleLogoutServices() {
         return singleLogoutServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SSODescriptor#getManageNameIDServices()
-     */
+    /** {@inheritDoc} */
     public List<ManageNameIDService> getManageNameIDServices() {
         return manageNameIDServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SSODescriptor#getNameIDFormats()
-     */
+    /** {@inheritDoc} */
     public List<NameIDFormat> getNameIDFormats() {
         return nameIDFormats;
     }
     
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         

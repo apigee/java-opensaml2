@@ -46,6 +46,13 @@ public interface SSODescriptor extends RoleDescriptor {
      * @return list of artifact resolution services for this service
      */
 	public List<ArtifactResolutionService> getArtifactResolutionServices();
+    
+    /**
+     * Gets the default artifact resolution service or null if no service is marked as the default.
+     * 
+     * @return default artifact resolution service or null if no service is marked as the default
+     */
+    public ArtifactResolutionService getDefaultArtificateResolutionService();
 
     /**
      * Gets a list of single logout services for this service.

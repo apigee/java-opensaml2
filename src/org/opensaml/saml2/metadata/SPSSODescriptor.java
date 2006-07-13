@@ -104,16 +104,30 @@ public interface SPSSODescriptor extends SSODescriptor {
     public void setWantAssertionsSigned(XSBooleanValue newWantAssestionSigned);
 
     /**
-     * Gets an immutable list of assertion consumer service {@link Endpoint}s for this service.
+     * Gets an list of assertion consumer service {@link Endpoint}s for this service.
      * 
      * @return list of assertion consumer service {@link Endpoint}s for this service
      */
     public List<AssertionConsumerService> getAssertionConsumerServices();
+    
+    /**
+     * Gets the default assertion consumer service or null if no service is marked as the default.
+     * 
+     * @return default assertion consumer service or null if no service is marked as the default
+     */
+    public AssertionConsumerService getDefaultAssertionConsumerService();
 
     /**
-     * Gets an immutable list of attribute consuming service {@link Endpoint}s for this service.
+     * Gets an list of attribute consuming service {@link Endpoint}s for this service.
      * 
      * @return list of attribute consuming service {@link Endpoint}s for this service
      */
     public List<AttributeConsumingService> getAttributeConsumingServices();
+    
+    /**
+     * Gets the default attribute consumer service or null if no service is marked as the default.
+     * 
+     * @return default attribute consumer service or null if no service is marked as the default
+     */
+    public AttributeConsumingService getDefaultAttributeConsumingService();
 }
