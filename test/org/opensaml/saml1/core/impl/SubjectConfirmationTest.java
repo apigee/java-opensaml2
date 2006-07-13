@@ -28,6 +28,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.saml1.core.SubjectConfirmationData;
+import org.opensaml.xml.ElementProxyBuilder;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -120,8 +121,10 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
         QName oqname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod) buildXMLObject(oqname));
         subjectConfirmation.getConfirmationMethods().add((ConfirmationMethod) buildXMLObject(oqname));
+        
+        ElementProxyBuilder proxyBuilder = new ElementProxyBuilder();
         oqname = new QName(SAMLConstants.SAML1_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) buildXMLObject(oqname));
+        subjectConfirmation.setSubjectConfirmationData(proxyBuilder.buildObject(oqname));
 
         assertEquals(expectedFullDOM, subjectConfirmation);
     }

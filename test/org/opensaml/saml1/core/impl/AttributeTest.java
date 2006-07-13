@@ -59,7 +59,6 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
      */
-    @Override
     public void testSingleElementUnmarshall() {
         Attribute attribute = (Attribute) unmarshallElement(singleElementFile);
 
@@ -71,7 +70,6 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesUnmarshall() {
         Attribute attribute = (Attribute) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -82,7 +80,6 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
      */
-    @Override
     public void testChildElementsUnmarshall() {
         Attribute attribute = (Attribute) unmarshallElement(childElementsFile);
 
@@ -93,7 +90,6 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
      */
-    @Override
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
@@ -101,7 +97,6 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
      */
-    @Override
     public void testSingleElementOptionalAttributesMarshall() {
         Attribute attribute = (Attribute) buildXMLObject(qname);
 
@@ -113,7 +108,6 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
     /*
      * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
      */
-    @Override
     public void testChildElementsMarshall(){
         Attribute attribute = (Attribute) buildXMLObject(qname);
 
