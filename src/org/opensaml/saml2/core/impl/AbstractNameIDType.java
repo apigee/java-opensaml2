@@ -39,8 +39,8 @@ public class AbstractNameIDType extends AbstractSAMLObject implements NameIDType
     /** Format of the Name ID */
     private String format;
 
-    /** SP Proivder ID of the NameID */
-    private String spProviderID;
+    /** SP ProvidedID of the NameID */
+    private String spProvidedID;
 
     /**
      * Constructor
@@ -110,17 +110,17 @@ public class AbstractNameIDType extends AbstractSAMLObject implements NameIDType
     }
 
     /*
-     * @see org.opensaml.saml2.core.NameID#getSPProviderID()
+     * @see org.opensaml.saml2.core.NameID#getSPProvidedID()
      */
-    public String getSPProviderID() {
-        return spProviderID;
+    public String getSPProvidedID() {
+        return spProvidedID;
     }
 
     /*
-     * @see org.opensaml.saml2.core.NameID#setSPProviderID(java.lang.String)
+     * @see org.opensaml.saml2.core.NameID#setSPProvidedID(java.lang.String)
      */
-    public void setSPProviderID(String newSPProviderID) {
-        this.spProviderID = prepareForAssignment(this.spProviderID, newSPProviderID);
+    public void setSPProvidedID(String newSPProvidedID) {
+        this.spProvidedID = prepareForAssignment(this.spProvidedID, newSPProvidedID);
     }
 
     /*

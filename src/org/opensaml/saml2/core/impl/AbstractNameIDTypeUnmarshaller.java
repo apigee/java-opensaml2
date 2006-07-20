@@ -54,8 +54,8 @@ public abstract class AbstractNameIDTypeUnmarshaller extends AbstractSAMLObjectU
             nameID.setSPNameQualifier(attribute.getValue());
         } else if (attribute.getLocalName().equals(NameID.FORMAT_ATTRIB_NAME)) {
             nameID.setFormat(attribute.getValue());
-        } else if (attribute.getLocalName().equals(NameID.SPPROVIDER_ID_ATTRIB_NAME)) {
-            nameID.setSPProviderID(attribute.getValue());
+        } else if (attribute.getLocalName().equals(NameID.SPPROVIDED_ID_ATTRIB_NAME)) {
+            nameID.setSPProvidedID(attribute.getValue());
         } else {
             super.processAttribute(samlObject, attribute);
         }

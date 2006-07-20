@@ -39,7 +39,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
     /** Expected Format value */
     private String expectedFormat;
 
-    /** Expected SPProviderID value */
+    /** Expected SPProvidedID value */
     private String expectedSPID;
 
     /** Constructor */
@@ -89,8 +89,8 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         String format = nameID.getFormat();
         assertEquals("Format not as expected", format, expectedFormat);
 
-        String spProviderID = nameID.getSPProviderID();
-        assertEquals("SPProviderID not as expected", spProviderID, expectedSPID);
+        String spProvidedID = nameID.getSPProvidedID();
+        assertEquals("SPProviderID not as expected", spProvidedID, expectedSPID);
     }
 
     /**
@@ -115,7 +115,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         nameID.setNameQualifier(expectedNameQualifier);
         nameID.setSPNameQualifier(expectedSPNameQualifier);
         nameID.setFormat(expectedFormat);
-        nameID.setSPProviderID(expectedSPID);
+        nameID.setSPProvidedID(expectedSPID);
         assertEquals(expectedOptionalAttributesDOM, nameID);
     }
 }

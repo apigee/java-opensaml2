@@ -61,8 +61,8 @@ public abstract class AbstractNameIDTypeMarshaller extends AbstractSAMLObjectMar
             domElement.setAttributeNS(null, NameID.FORMAT_ATTRIB_NAME, nameID.getFormat());
         }
 
-        if (nameID.getSPProviderID() != null) {
-            domElement.setAttributeNS(null, NameID.SPPROVIDER_ID_ATTRIB_NAME, nameID.getSPProviderID());
+        if (nameID.getSPProvidedID() != null) {
+            domElement.setAttributeNS(null, NameID.SPPROVIDED_ID_ATTRIB_NAME, nameID.getSPProvidedID());
         }
     }
 
