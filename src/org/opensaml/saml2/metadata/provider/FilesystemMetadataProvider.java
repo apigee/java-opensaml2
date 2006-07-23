@@ -28,7 +28,7 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A metadata provider that pulls metadata from a file on the local filesystem. Metadata is cached and automatically
  * refreshed when the file changes.
  */
-public class FilesystemMetadataProvider extends AbstractMetadataProvider {
+public class FilesystemMetadataProvider extends AbstractObservableMetadataProvider {
 
     /** Logger */
     private final Logger log = Logger.getLogger(FilesystemMetadataProvider.class);
@@ -118,10 +118,10 @@ public class FilesystemMetadataProvider extends AbstractMetadataProvider {
         }
         
         try {
-            clearDescriptorIndex();
             cachedMetadata = unmarshallMetadata(new FileInputStream(metadataFile));
             filterMetadata(cachedMetadata);
             lastUpdate = metadataFile.lastModified();
+            emitChangeEvent();
         }catch(FileNotFoundException e){
             String errorMsg = "Unable to read metadata file";
             log.error(errorMsg, e);

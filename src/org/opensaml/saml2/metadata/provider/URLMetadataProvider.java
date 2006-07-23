@@ -44,7 +44,7 @@ import org.opensaml.xml.io.UnmarshallingException;
  * Metadata is filtered prior to determining the cache expiration data. This allows a filter to remove XMLObjects that
  * may effect the cache duration but for which the user of this provider does not care about.
  */
-public class URLMetadataProvider extends AbstractMetadataProvider {
+public class URLMetadataProvider extends AbstractObservableMetadataProvider {
 
     /** Logger */
     private final Logger log = Logger.getLogger(URLMetadataProvider.class);
@@ -62,7 +62,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
     private AuthScope authScope;
 
     /** Cached, filtered, unmarshalled metadata */
-    private XMLObject cachedMetadata;
+    protected XMLObject cachedMetadata;
 
     /** Maximum amount of time to keep metadata cached */
     private long maxCacheDuration;
@@ -207,7 +207,7 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
      * 
      * @throws MetadataProviderException thrown if the metadata can not be read, unmarshalled, and filtered
      */
-    private synchronized void refreshMetadata() throws MetadataProviderException {
+    protected synchronized void refreshMetadata() throws MetadataProviderException {
         if (mdExpirationTime != null && !mdExpirationTime.isBeforeNow()) {
             // In case other requests stacked up behind the synchronize lock
             return;
@@ -218,11 +218,6 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
                     + maxCacheDuration + "ms");
         }
         try {
-            if (log.isDebugEnabled()) {
-                log.debug("Clearing entity descriptor index");
-            }
-            clearDescriptorIndex();
-
             if (log.isDebugEnabled()) {
                 log.debug("Fetching metadata document from HTTP server");
             }
@@ -252,6 +247,8 @@ public class URLMetadataProvider extends AbstractMetadataProvider {
             if (log.isDebugEnabled()) {
                 log.debug("Metadata cache expires on " + mdExpirationTime);
             }
+            
+            emitChangeEvent();
         } catch (IOException e) {
             String errorMsg = "Unable to read metadata from server";
             log.error(errorMsg, e);

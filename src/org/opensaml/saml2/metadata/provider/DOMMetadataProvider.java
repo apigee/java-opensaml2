@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
  * A <code>MetadataProvider</code> implementation that retrieves metadata from a DOM <code>Element</code> as
  * supplied by the user.
  */
-public class DOMMetadataProvider extends AbstractMetadataProvider implements MetadataProvider {
+public class DOMMetadataProvider extends AbstractObservableMetadataProvider implements MetadataProvider {
 
     /** Logger */
     private final Logger log = Logger.getLogger(DOMMetadataProvider.class);
@@ -62,14 +62,14 @@ public class DOMMetadataProvider extends AbstractMetadataProvider implements Met
         refreshMetadata();
     }
     
-    private void refreshMetadata() throws MetadataProviderException{
+    private synchronized void refreshMetadata() throws MetadataProviderException{
         try {
-            clearDescriptorIndex();
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(metadataElement);
             metadata = unmarshaller.unmarshall(metadataElement);
             metadata.releaseDOM();
             metadata.releaseChildrenDOM(true);
             filterMetadata(metadata);
+            emitChangeEvent();
         } catch (UnmarshallingException e) {
             String errorMsg = "Unable to unmarshall metadata element";
             log.error(errorMsg, e);
