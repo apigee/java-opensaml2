@@ -50,6 +50,15 @@ public interface Attribute extends SAMLObject, AttributeExtensibleXMLObject {
 
     /** Name of the FriendlyName attribute */
     public static final String FRIENDLY_NAME_ATTRIB_NAME = "FriendlyName";
+    
+    /** Unspecified attribute format ID */
+    public final static String UNSPECIFIED = "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified";
+    
+    /** URI reference attribute format ID */
+    public final static String URI_REFERENCE = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
+    
+    /** Basic attribute format ID */
+    public final static String BASIC = "urn:oasis:names:tc:SAML:2.0:attrname-format:basic";
 
     /**
      * Get the name of this attribute.

@@ -56,6 +56,27 @@ public interface Request extends SignableSAMLObject {
     /** Consent attribute name */
     public final static String CONSENT_ATTRIB_NAME = "Consent";
     
+    /** Unspecified consent URI */
+    public final static String UNSPECIFIED_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:unspecified";
+    
+    /** Obtained consent URI */
+    public final static String OBTAINED_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:obtained";
+    
+    /** Prior consent URI */
+    public final static String PRIOR_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:prior";
+    
+    /** Implicit consent URI */
+    public final static String IMPLICIT_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:implicit";
+    
+    /** Explicit consent URI */
+    public final static String EXPLICIT_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:explicit";
+    
+    /** Unavailable consent URI */
+    public final static String UNAVAILABLE_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:unavailable";
+    
+    /** Inapplicable consent URI */
+    public final static String INAPPLICABLE_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:inapplicable";
+    
     /**
      * Gets the SAML Version of this request.
      * 

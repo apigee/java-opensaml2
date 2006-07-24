@@ -44,7 +44,74 @@ public interface StatusCode extends SAMLObject {
 
     /** Local Name of the Value attribute */
     public final static String VALUE_ATTRIB_NAME = "Value";
-
+    
+    /** URI for Success status code */
+    public final static String SUCCESS_URI = "urn:oasis:names:tc:SAML:2.0:status:Success";
+    
+    /** URI for Requester status code */
+    public final static String REQUESTER_URI = "urn:oasis:names:tc:SAML:2.0:status:Requester";
+    
+    /** URI for Responder status code */
+    public final static String RESPONDER_URI = "urn:oasis:names:tc:SAML:2.0:status:Responder";
+    
+    /** URI for VersionMismatch status code */
+    public final static String VERSION_MISMATH_URI = "urn:oasis:names:tc:SAML:2.0:status:VersionMismatch";
+    
+    /** URI for AuthnFailed status code */
+    public final static String AUTHN_FAILED_URI = "urn:oasis:names:tc:SAML:2.0:status:AuthnFailed";
+    
+    /** URI for InvalidAttrNameOrValue status code */
+    public final static String INVALID_ATTR_NAME_VALUE_URI = "urn:oasis:names:tc:SAML:2.0:status:InvalidAttrNameOrValue";
+    
+    /** URI for InvalidNameIDPolicy status code */
+    public final static String INVALID_NAMEID_POLICY_URI = "urn:oasis:names:tc:SAML:2.0:status:InvalidNameIDPolicy";
+    
+    /** URI for NoAuthnContext status code */
+    public final static String NO_AUTHN_CONTEXT_URI = "urn:oasis:names:tc:SAML:2.0:status:NoAuthnContext";
+    
+    /** URI for NoAvailableIDP status code */
+    public final static String NO_AVAILABLE_IDP_URI = "urn:oasis:names:tc:SAML:2.0:status:NoAvailableIDP";
+    
+    /** URI for NoPassive status code */
+    public final static String NO_PASSIVE_URI = "urn:oasis:names:tc:SAML:2.0:status:NoPassive";
+    
+    /** URI for NoSupportedIDP status code */
+    public final static String NO_SUPPOERTED_IDP_URI = "urn:oasis:names:tc:SAML:2.0:status:NoSupportedIDP";
+    
+    /** URI for PartialLogout status code */
+    public final static String PARTIAL_LOGOUT_URI = "urn:oasis:names:tc:SAML:2.0:status:PartialLogout";
+    
+    /** URI for ProxyCountExceeded status code */
+    public final static String PROXY_COUNT_EXCEEDED_URI = "urn:oasis:names:tc:SAML:2.0:status:ProxyCountExceeded";
+    
+    /** URI for RequestDenied status code */
+    public final static String REQUEST_DENIED_URI = "urn:oasis:names:tc:SAML:2.0:status:RequestDenied";
+    
+    /** URI for RequestUnsupported status code */
+    public final static String REQUEST_UNSUPPORTED_URI = "urn:oasis:names:tc:SAML:2.0:status:RequestUnsupported";
+    
+    /** URI for RequestVersionDeprecated status code */
+    public final static String REQUEST_VERSION_DEPRECATED_URI = "urn:oasis:names:tc:SAML:2.0:status:RequestVersionDeprecated";
+    
+    /** URI for RequestVersionTooHigh status code */
+    public final static String REQUEST_VERSION_TOO_HIGH_URI = "urn:oasis:names:tc:SAML:2.0:status:RequestVersionTooHigh";
+    
+    /** URI for ResourceNotRecognized status code */
+    public final static String RESOURCE_NOT_RECOGNIZED_URI = "urn:oasis:names:tc:SAML:2.0:status:ResourceNotRecognized";
+    
+    /** URI for TooManyResponses status code */
+    public final static String TOO_MANY_RESPONSES = "urn:oasis:names:tc:SAML:2.0:status:TooManyResponses";
+    
+    /** URI for UnknownAttrProfile status code */
+    public final static String UNKNOWN_ATTR_PROFILE_URI = "urn:oasis:names:tc:SAML:2.0:status:UnknownAttrProfile";
+    
+    /** URI for UnknownPrincipal status code */
+    public final static String UNKNOWN_PRINCIPAL_URI = "urn:oasis:names:tc:SAML:2.0:status:UnknownPrincipal";
+    
+    /** URI for UnsupportedBinding status code */
+    public final static String UNSUPPORTED_BINDING_URI = "urn:oasis:names:tc:SAML:2.0:status:UnsupportedBinding";
+    
+    
     /**
      * Gets the Status Code of this Status Code.
      * 

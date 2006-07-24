@@ -40,6 +40,60 @@ public interface Action extends SAMLObject {
     
     /** Name of the Namespace attribute */
     public final static String NAMEPSACE_ATTRIB_NAME = "Namespace";
+    
+    /** Read/Write/Execute/Delete/Control action namespace */
+    public final static String RWEDC_NS_URI = "urn:oasis:names:tc:SAML:1.0:action:rwedc";
+    
+    /** Read/Write/Execute/Delete/Control negation action namespace */
+    public final static String RWEDC_NEGATION_NS_URI = "urn:oasis:names:tc:SAML:1.0:action:rwedc-negation";
+    
+    /** Get/Head/Put/Post action namespace */
+    public final static String GHPP_NS_URI = "urn:oasis:names:tc:SAML:1.0:action:ghpp";
+    
+    /** UNIX file permission action namespace */
+    public final static String UNIX_NS_URI = "urn:oasis:names:tc:SAML:1.0:action:unix";
+    
+    /** Read action */
+    public final static String READ_ACTION = "Read";
+    
+    /** Write action */
+    public final static String WRITE_ACTION = "Write";
+    
+    /** Execute action */
+    public final static String EXECUTE_ACTION = "Execute";
+    
+    /** Delete action */
+    public final static String DELETE_ACTION = "Delete";
+    
+    /** Control action */
+    public final static String CONTROL_ACTION = "Control";
+    
+    /** Negated Read action */
+    public final static String NEG_READ_ACTION = "~Read";
+    
+    /** Negated Write action */
+    public final static String NEG_WRITE_ACTION = "~Write";
+    
+    /** Negated Execute action */
+    public final static String NEG_EXECUTE_ACTION = "~Execute";
+    
+    /** Negated Delete action */
+    public final static String NEG_DELETE_ACTION = "~Delete";
+    
+    /** Negated Control action */
+    public final static String NEG_CONTROL_ACTION = "~Control";
+    
+    /** HTTP GET action */
+    public final static String HTTP_GET_ACTION = "GET";
+    
+    /** HTTP HEAD action */
+    public final static String HTTP_HEAD_ACTION = "HEAD";
+    
+    /** HTTP PUT action */
+    public final static String HTTP_PUT_ACTION = "PUT";
+    
+    /** HTTP POST action */
+    public final static String HTTP_POST_ACTION = "POST";
 
     /**
      * Gets the namespace scope of the specified action.

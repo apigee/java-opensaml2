@@ -39,4 +39,17 @@ public interface LogoutResponse extends StatusResponse {
         
     /** QName of the XSI type */
     public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);   
+    
+    /** URI for User logout reason */
+    public final static String USER_LOGOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:user";
+    
+    /** URI for Admin logout reason */
+    public final static String ADMIN_LOGOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:admin";
+    
+    /** URI for global timeout logout reason */
+    public final static String GLOBAL_TIMEOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:global-timeout";
+    
+    /** URI for SP timeout logout reason */
+    public final static String SP_TIMEOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:sp-timeout";
+    
 }
