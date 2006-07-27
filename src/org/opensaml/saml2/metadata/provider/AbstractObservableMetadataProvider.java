@@ -51,7 +51,9 @@ public abstract class AbstractObservableMetadataProvider extends AbstractMetadat
         Node<Observer> tail = observers.tail();
         for (Node<Observer> current = observers.head(); current != tail; current = current.getNext()) {
             observer = current.getValue();
-            observer.onEvent(this);
+            if (observer != null) {
+                observer.onEvent(this);
+            }
         }
     }
 
