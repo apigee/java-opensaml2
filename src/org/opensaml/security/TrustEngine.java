@@ -29,19 +29,19 @@ public interface TrustEngine<CredentialType extends EntityCredential> {
      * Verifies that the given credential is a valid and trustworthy credential for the given role.
      * 
      * @param entityCredential the entity credential to verify
-     * @param descriptor the metadata role to verify the credential against
+     * @param roleDescriptor the metadata role to verify the credential against
      * 
      * @return true if the credential is valid and trustworthy, false if not
      */
-    public boolean validate(CredentialType entityCredential, RoleDescriptor descriptor);
+    public boolean validate(CredentialType entityCredential, RoleDescriptor roleDescriptor);
 
     /**
      * Verifies that the given signable SAML object bear credentials that are valid and trustworthy for the given role.
      * 
      * @param samlObject the singable SAML object
-     * @param descriptor the metadata role to verify the credential against
+     * @param roleDescriptor the metadata role to verify the credential against
      * 
      * @return the credential used that validated the signature
      */
-    public CredentialType validate(SignableSAMLObject samlObject, RoleDescriptor descriptor);
+    public CredentialType validate(SignableSAMLObject samlObject, RoleDescriptor roleDescriptor);
 }
