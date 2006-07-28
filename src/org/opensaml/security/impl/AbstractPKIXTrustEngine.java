@@ -114,15 +114,24 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
         }
         EntityDescriptor entityDescriptor = (EntityDescriptor) roleDescriptor.getParent();
         X509Certificate entityCerficate = entityCredential.getEntityCertificate();
+        
+        // NAME MATCHING:
+        // First, check to see if the entity's ID is in the certificate
         if(!matchId(entityDescriptor.getEntityID(), entityCerficate)){
+            
+            // If not, try matching <KeyName/> elsements from the metadata
             boolean keyNameMatched = false;
-            List<KeyDescriptor> keyDescriptors = roleDescriptor.getKeyDescriptors();
-            for(KeyDescriptor keyDescriptor : keyDescriptors){
-                if(keyNameMatched){
-                    break;
-                }
-                
-                if(keyDescriptor.getUse() == CredentialUsageTypeEnumeration.SIGNING){
+            //
+            for(KeyDescriptor keyDescriptor : roleDescriptor.getKeyDescriptors()){
+         
+                // If it's not applicable for signing, skip it and move on
+                if(keyDescriptor.getUse() != CredentialUsageTypeEnumeration.SIGNING){
+                    if (log.isDebugEnabled()){
+                        log.debug("Key descriptor is not for signing, skipping it");
+                    }
+                    continue;
+                    
+                } else {
                     List<String> keyNames = keyDescriptor.getKeyInfo().getKeyNames();
                     for(String keyName : keyNames){
                         if(matchKeyName(keyName, entityCerficate)){
@@ -133,8 +142,10 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
                 }
             }
             
-            log.error("Entity credentials are not valid for the given role descriptor");
-            return false;
+            if (!keyNameMatched){
+                log.error("Entity credentials are not valid for the given role descriptor");
+                return false;
+            }
         }
         
         Iterator<PKIXValidationInformation> pkixInfo = getValidationInformation(roleDescriptor);
@@ -360,7 +371,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
      */
     private boolean matchKeyName(String keyName, X509Certificate certificate){
         if(log.isDebugEnabled()){
-            log.debug("Attempting to match key name " + keyName + " against cetificate information");
+            log.debug("Attempting to match key name " + keyName + " against certificate information");
         }
         
         if(DatatypeHelper.isEmpty(keyName)){
@@ -381,8 +392,8 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
             if(subjectPrincipal.equals(new X500Principal(keyName))){
                 if(log.isDebugEnabled()){
                     log.debug("Key name matched certificate's subject DN");
-                    return true;
                 }
+                return true;
             }
         }catch(IllegalArgumentException e){
             // ingore this exception, this occurs if the key name
