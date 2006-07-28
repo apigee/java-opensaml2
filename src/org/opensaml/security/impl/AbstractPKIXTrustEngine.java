@@ -129,7 +129,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
                     if (log.isDebugEnabled()){
                         log.debug("Key descriptor is not for signing, skipping it");
                     }
-                    continue;
+                    continue KEYNAMECHECK;
                     
                 } else {
                     List<String> keyNames = keyDescriptor.getKeyInfo().getKeyNames();
