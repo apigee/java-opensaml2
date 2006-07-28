@@ -122,7 +122,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
             // If not, try matching <KeyName/> elsements from the metadata
             boolean keyNameMatched = false;
             //
-            for(KeyDescriptor keyDescriptor : roleDescriptor.getKeyDescriptors()){
+            KEYNAMECHECK: for(KeyDescriptor keyDescriptor : roleDescriptor.getKeyDescriptors()){
          
                 // If it's not applicable for signing, skip it and move on
                 if(keyDescriptor.getUse() != CredentialUsageTypeEnumeration.SIGNING){
@@ -136,7 +136,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
                     for(String keyName : keyNames){
                         if(matchKeyName(keyName, entityCerficate)){
                             keyNameMatched = true;
-                            break;
+                            break KEYNAMECHECK;
                         }
                     }
                 }
