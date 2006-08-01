@@ -131,6 +131,12 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
      * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
      */
     public boolean isValid() {
+        if (null == validUntil) {
+            //
+            // No date, so by default it is valid
+            //
+            return true;
+        }
         return validUntil.isBeforeNow();
     }
 
