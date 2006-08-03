@@ -50,7 +50,9 @@ import org.opensaml.security.TrustEngine;
 import org.opensaml.security.X509EntityCredential;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureValidator;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.validation.ValidationException;
 
 /**
  * A trust engine that uses the X509 certificate and CRLs associated with a role to perform PKIX validation on security
@@ -64,25 +66,35 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
     /** {@inheritDoc} */
     public X509EntityCredential validate(SignableSAMLObject samlObject, RoleDescriptor roleDescriptor) {
         if (samlObject.isSigned()) {
+            if (log.isDebugEnabled()) {
+                log.debug("Beginning validation of digitally signed SAML object");
+            }
             Signature signature = samlObject.getSignature();
             KeyInfo keyInfo = signature.getKeyInfo();
             List<X509Certificate> entityCerts = keyInfo.getCertificates();
 
             if (entityCerts == null || entityCerts.size() == 0) {
                 if (log.isDebugEnabled()) {
-                    log
-                            .debug("Requested validation on signed SAML object however no certificate information was included with the signature.  Unable to perform PKIX validation.");
+                    log.debug("Unable to perform PKIX validation, signed SAML object does not contain");
                 }
                 return null;
             }
 
             if (log.isDebugEnabled()) {
-                log.debug("Validating signed SAML object using PKIX validation.");
+                log.debug("Validating signature verification information using PKIX validation.");
             }
             X509EntityCredential entityCredential = new SimpleX509EntityCredential(entityCerts);
-
             if (validate(entityCredential, roleDescriptor)) {
-                return entityCredential;
+                if (log.isDebugEnabled()) {
+                    log.debug("Verifying digital signature");
+                }
+                SignatureValidator sigValidator = new SignatureValidator(entityCredential.getPublicKey());
+                try {
+                    sigValidator.validate(samlObject.getSignature());
+                    return entityCredential;
+                } catch (ValidationException e) {
+                    log.error("Unable to validate digital signature with verified credential.", e);
+                }
             }
         }
 
@@ -95,6 +107,25 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
 
     /** {@inheritDoc} */
     public boolean validate(X509EntityCredential entityCredential, RoleDescriptor roleDescriptor) {
+        return validate(entityCredential, roleDescriptor, true);
+    }
+
+    /**
+     * Validates an entity's credential against a given role. A credential is valid if:
+     * <ul>
+     * <li>The ID of the entity owning the role or the key names within the role match the subject, or alternate
+     * subject, names of the entity's certificate. This check is only performed if name checking is used. </li>
+     * <li>The entity's certificate validates, per the PKIX validation rules, against at least one of the sets of
+     * information provided by {@link #getValidationInformation(RoleDescriptor)}</li>
+     * </ul>
+     * 
+     * @param entityCredential the entity credential to validate
+     * @param roleDescriptor the role to validate the credential against
+     * @param checkName whether to enable name checking
+     * 
+     * @return true of the credentials validate, false if not
+     */
+    public boolean validate(X509EntityCredential entityCredential, RoleDescriptor roleDescriptor, boolean checkName) {
         if (log.isDebugEnabled()) {
             log.debug("Attempting to validate X.509 credential against role descriptor");
         }
@@ -108,53 +139,69 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
             log.error("Role descriptor was null, unable to perform validation");
             return false;
         }
-        
-        if(log.isDebugEnabled()){
-            log.debug("Attempting to match entity credential information with role credential information");
+
+        if (checkName) {
+            if (log.isDebugEnabled()) {
+                log
+                        .debug("Checking that the entity certificate information matches either the entity ID or role key names");
+            }
+            if (!checkEntityNames(entityCredential, roleDescriptor)) {
+                return false;
+            }
         }
+
+        if (log.isDebugEnabled()) {
+            log.debug("Beginning PKIX validation process");
+        }
+        Iterator<PKIXValidationInformation> pkixInfo = getValidationInformation(roleDescriptor);
+        while (pkixInfo.hasNext()) {
+            if (pkixValidate(entityCredential, pkixInfo.next())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks that either the ID for the entity with the given role or the key names for the given role match the
+     * subject or subject alternate names of the entity certificate.
+     * 
+     * @param entityCredential the credential for the entity to validate
+     * @param roleDescriptor the descriptor of the role the entity is supposed to be acting in
+     * 
+     * @return true the name check succeeds, false if not
+     */
+    protected boolean checkEntityNames(X509EntityCredential entityCredential, RoleDescriptor roleDescriptor) {
         EntityDescriptor entityDescriptor = (EntityDescriptor) roleDescriptor.getParent();
         X509Certificate entityCerficate = entityCredential.getEntityCertificate();
-        
-        // NAME MATCHING:
+
         // First, check to see if the entity's ID is in the certificate
-        if(!matchId(entityDescriptor.getEntityID(), entityCerficate)){
-            
+        if (matchId(entityDescriptor.getEntityID(), entityCerficate)) {
+            return true;
+        } else {
             // If not, try matching <KeyName/> elsements from the metadata
-            boolean keyNameMatched = false;
-            //
-            KEYNAMECHECK: for(KeyDescriptor keyDescriptor : roleDescriptor.getKeyDescriptors()){
-         
+            KEYNAMECHECK: for (KeyDescriptor keyDescriptor : roleDescriptor.getKeyDescriptors()) {
+
                 // If it's not applicable for signing, skip it and move on
-                if(keyDescriptor.getUse() != CredentialUsageTypeEnumeration.SIGNING){
-                    if (log.isDebugEnabled()){
+                if (keyDescriptor.getUse() != CredentialUsageTypeEnumeration.SIGNING) {
+                    if (log.isDebugEnabled()) {
                         log.debug("Key descriptor is not for signing, skipping it");
                     }
                     continue KEYNAMECHECK;
-                    
+
                 } else {
                     List<String> keyNames = keyDescriptor.getKeyInfo().getKeyNames();
-                    for(String keyName : keyNames){
-                        if(matchKeyName(keyName, entityCerficate)){
-                            keyNameMatched = true;
-                            break KEYNAMECHECK;
+                    for (String keyName : keyNames) {
+                        if (matchKeyName(keyName, entityCerficate)) {
+                            return true;
                         }
                     }
                 }
             }
-            
-            if (!keyNameMatched){
-                log.error("Entity credentials are not valid for the given role descriptor");
-                return false;
-            }
         }
-        
-        Iterator<PKIXValidationInformation> pkixInfo = getValidationInformation(roleDescriptor);
-        while(pkixInfo.hasNext()){
-            if(pkixValidate(entityCredential, pkixInfo.next())){
-                return true;
-            }
-        }
-        
+
+        log.error("Entity credentials are not valid for the given role descriptor");
         return false;
     }
 
@@ -166,14 +213,13 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
      * 
      * @return true if the given credential is valid, false if not
      */
-    public boolean pkixValidate(X509EntityCredential entityCredential, PKIXValidationInformation pkixInfo) {
+    protected boolean pkixValidate(X509EntityCredential entityCredential, PKIXValidationInformation pkixInfo) {
         Set<X509Certificate> trustChain = pkixInfo.getTrustChain();
         Set<X509CRL> crls = pkixInfo.getCRLs();
 
         if (trustChain == null || trustChain.size() < 1) {
             if (log.isDebugEnabled()) {
-                log
-                        .debug("Unable to validate signature, no trust anchors found in the PKIX validation information");
+                log.debug("Unable to validate signature, no trust anchors found in the PKIX validation information");
             }
             return false;
         }
@@ -264,8 +310,8 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
     protected abstract Iterator<PKIXValidationInformation> getValidationInformation(RoleDescriptor descriptor);
 
     /**
-     * Checks to see if the given ID matches either the first CN component on the certificate's subject DN or any
-     * of the certificate's DNS or URI subject alternate names. Matching is case-insensitive.
+     * Checks to see if the given ID matches either the first CN component on the certificate's subject DN or any of the
+     * certificate's DNS or URI subject alternate names. Matching is case-insensitive.
      * 
      * @param id the entity ID to match
      * @param certificate the certificate to match against
@@ -273,7 +319,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
      * @return true if the entity ID matches the subject DN or subject alternate names of the certificate
      */
     private boolean matchId(String id, X509Certificate certificate) {
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Attempting to match entity ID " + id + " with certificate subject information");
         }
         if (DatatypeHelper.isEmpty(id)) {
@@ -288,20 +334,21 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
 
         String loweredEntityId = id.trim().toLowerCase();
 
-        if(log.isDebugEnabled()){
-            log.debug("Attempting to match entity ID " + id + " with the first CN component of the certificate's subject DN");
+        if (log.isDebugEnabled()) {
+            log.debug("Attempting to match entity ID " + id
+                    + " with the first CN component of the certificate's subject DN");
         }
         String firstCNComponent = getFirstCN(certificate.getSubjectX500Principal());
         if (!DatatypeHelper.isEmpty(firstCNComponent)) {
             if (loweredEntityId.equals(firstCNComponent.toLowerCase())) {
-                if(log.isDebugEnabled()){
+                if (log.isDebugEnabled()) {
                     log.debug("Entity ID matched the first CN component of the certificate's subject DN");
                 }
                 return true;
             }
         }
 
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Attempting to match entity ID with certificate's DNS and URI subject alt names");
         }
         try {
@@ -312,7 +359,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
                     // 1st position contains the actual data to match
                     if (altName.get(0).equals(new Integer(2)) || altName.get(0).equals(new Integer(6))) {
                         if (altName.get(1).equals(id)) {
-                            if(log.isDebugEnabled()){
+                            if (log.isDebugEnabled()) {
                                 log.debug("ID matched against subject alt name");
                             }
                             return true;
@@ -324,12 +371,12 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
             log.error("Unable to extract subject alt names from certificate", e);
         }
 
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Unable to match ID against subject alt names");
         }
         return false;
     }
-    
+
     /**
      * Gets the value of the first CN component in the given distinguished name.
      * 
@@ -343,7 +390,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
         }
 
         String canonicalDN = principal.getName(X500Principal.CANONICAL);
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Extracting first CN component from DN " + canonicalDN);
         }
         StringTokenizer dnTokens = new StringTokenizer(canonicalDN, ",");
@@ -361,45 +408,45 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
     }
 
     /**
-     * Checks if the given key name matches the certificate's Subject DN, the first CN component 
-     * of the subject DN, or any DNS or URI subject alt names.
+     * Checks if the given key name matches the certificate's Subject DN, the first CN component of the subject DN, or
+     * any DNS or URI subject alt names.
      * 
      * @param keyName the key name to check
      * @param certificate the certificate to check the key name against
      * 
      * @return true if the key name matches, false if not
      */
-    private boolean matchKeyName(String keyName, X509Certificate certificate){
-        if(log.isDebugEnabled()){
+    private boolean matchKeyName(String keyName, X509Certificate certificate) {
+        if (log.isDebugEnabled()) {
             log.debug("Attempting to match key name " + keyName + " against certificate information");
         }
-        
-        if(DatatypeHelper.isEmpty(keyName)){
+
+        if (DatatypeHelper.isEmpty(keyName)) {
             log.error("Key name is null or empty");
             return false;
         }
-        
-        if(certificate == null){
+
+        if (certificate == null) {
             log.error("Certificate is null");
             return false;
         }
-        
-        if(log.isDebugEnabled()){
+
+        if (log.isDebugEnabled()) {
             log.debug("Attempting to match key name against certificate's subject DN");
         }
         X500Principal subjectPrincipal = certificate.getSubjectX500Principal();
-        try{
-            if(subjectPrincipal.equals(new X500Principal(keyName))){
-                if(log.isDebugEnabled()){
+        try {
+            if (subjectPrincipal.equals(new X500Principal(keyName))) {
+                if (log.isDebugEnabled()) {
                     log.debug("Key name matched certificate's subject DN");
                 }
                 return true;
             }
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             // ingore this exception, this occurs if the key name
             // is not a valid DN, which is okay
         }
-        
+
         return matchId(keyName, certificate);
     }
 
