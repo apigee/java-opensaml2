@@ -474,6 +474,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
         public PKIXValidationInformation(int verificationDepth, Set<X509Certificate> trustAnchors, Set<X509CRL> crls) {
             this.trustChain = trustAnchors;
             this.crls = crls;
+            this.verificationDepth = verificationDepth;
         }
 
         /**
