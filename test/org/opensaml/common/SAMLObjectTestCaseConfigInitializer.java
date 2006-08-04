@@ -23,6 +23,7 @@ import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
+import org.opensaml.xml.XMLConfigurator;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.XMLObjectBuilderFactory;
@@ -128,41 +129,43 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLTestCase {
 
         Class clazz = SAMLObjectTestCaseConfigInitializer.class;
         try {
+            XMLConfigurator configurator = new XMLConfigurator();
+            
             // Common Object Provider Configuration
             Document commonConfig = ppMgr.parse(clazz.getResourceAsStream("/common-config.xml"));
-            Configuration.load(commonConfig);
+            configurator.load(commonConfig);
 
             // SAML 1.X Assertion Object Provider Configuration
             Document saml1AssertionConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-assertion-config.xml"));
-            Configuration.load(saml1AssertionConfig);
+            configurator.load(saml1AssertionConfig);
 
             // SAML 1.X Protocol Object Provider Configuration
             Document saml1ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-protocol-config.xml"));
-            Configuration.load(saml1ProtocolConfig);
+            configurator.load(saml1ProtocolConfig);
             
             // SAML 1.X Core (Asserion + Protocol) Validation Configuration
             Document saml1ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-core-validation-config.xml"));
-            Configuration.load(saml1ValidationConfig);
+            configurator.load(saml1ValidationConfig);
 
             // SAML 2.0 Assertion Object Provider Configuration
             Document saml2assertionConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-assertion-config.xml"));
-            Configuration.load(saml2assertionConfig);
+            configurator.load(saml2assertionConfig);
 
             // SAML 2.0 Protocol Object Provider Configuration
             Document saml2protocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-protocol-config.xml"));
-            Configuration.load(saml2protocolConfig);
+            configurator.load(saml2protocolConfig);
             
             // SAML 2.0 Core (Asserion + Protocol) Validation Configuration
             Document saml2ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-core-validation-config.xml"));
-            Configuration.load(saml2ValidationConfig);
+            configurator.load(saml2ValidationConfig);
             
             // SAML 2.0 Metadata Object Provider Configuration
             Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-config.xml"));
-            Configuration.load(saml2mdConfig);
+            configurator.load(saml2mdConfig);
             
             // SAML 2.0 Metadata Validation Configuration
             Document saml2mdValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-validation-config.xml"));
-            Configuration.load(saml2mdValidationConfig);
+            configurator.load(saml2mdValidationConfig);
             
             builderFactory = Configuration.getBuilderFactory();
             marshallerFactory = Configuration.getMarshallerFactory();
