@@ -16,13 +16,19 @@
 
 package org.opensaml.saml1.binding;
 
-/**
- * SAML 1.X Type 0x0001 Artifact
- */
-public class SAML1ArtifactType0001 extends BaseSAML1Artifact {
+import org.opensaml.common.SAMLArtifact;
 
-    /** SAML 2 artifact type code (0x0001) */
+/**
+ * SAML 1.X Type 0x0001 Artifact. SAML 1, type 1, artifacts contains a 2 byte type code with a value of 1 followed by a
+ * 20 byte source ID followed by a 20 byte assertion handle.
+ */
+public class SAML1ArtifactType0001 extends SAMLArtifact {
+
+    /** Artifact type code (0x0001) */
     public final static byte[] TYPE_CODE = { 0, 1 };
+
+    /** 20 byte artifact source ID */
+    private byte[] sourceID;
 
     /**
      * Constructor
@@ -34,7 +40,10 @@ public class SAML1ArtifactType0001 extends BaseSAML1Artifact {
      *             (20 bytes)
      */
     public SAML1ArtifactType0001(byte[] sourceID, byte[] messageHandle) throws IllegalArgumentException {
-        super(TYPE_CODE, sourceID, messageHandle);
+        super(TYPE_CODE);
+        setTypeCode(TYPE_CODE);
+        setSourceID(sourceID);
+        setMessageHandle(messageHandle);
     }
 
     /**
@@ -46,6 +55,73 @@ public class SAML1ArtifactType0001 extends BaseSAML1Artifact {
      *             the correct type (0x0001)
      */
     public SAML1ArtifactType0001(byte[] artifact) throws IllegalArgumentException {
-        super(TYPE_CODE, artifact);
+        super(TYPE_CODE);
+
+        if (artifact.length != 42) {
+            throw new IllegalArgumentException("Artifact length must be 42 bytes it was " + artifact.length + "bytes");
+        }
+
+        byte[] typeCode = { artifact[0], artifact[1] };
+        if (typeCode.length != 2) {
+            throw new IllegalArgumentException("Artifact type code must be two bytes");
+        }
+        setTypeCode(typeCode);
+
+        byte[] sourceID = new byte[20];
+        for (int i = 0, j = 2; j < 22; i++, j++) {
+            sourceID[i] = artifact[j];
+        }
+        setSourceID(sourceID);
+
+        byte[] messageHandle = new byte[20];
+        for (int i = 0, j = 22; j < 42; i++, j++) {
+            messageHandle[i] = artifact[j];
+        }
+        setMessageHandle(messageHandle);
+    }
+
+    /**
+     * Gets the 20 byte source ID of the artifact.
+     * 
+     * @return the source ID of the artifact
+     */
+    public byte[] getSourceID() {
+        return sourceID;
+    }
+    
+    /**
+     * Sets the 20 byte source ID of the artifact.
+     * 
+     * @param newSourceID 20 byte source ID of the artifact
+     * 
+     * @throws IllegalArgumentException thrown if the given source ID is not 20 bytes
+     */
+    protected void setSourceID(byte[] newSourceID) throws IllegalArgumentException {
+        if (newSourceID.length != 20) {
+            throw new IllegalArgumentException("Artifact source ID must be 20 bytes long");
+        }
+        sourceID = newSourceID;
+    }
+
+    /** {@inheritDoc} */
+    public byte[] getArtifactBytes() {
+        byte[] artifact = new byte[42];
+
+        byte[] typeCode = getTypeCode();
+        byte[] sourceID = getSourceID();
+        byte[] messageHandle = getMessageHandle();
+
+        artifact[0] = typeCode[0];
+        artifact[1] = typeCode[1];
+
+        for (int i = 2, j = 0; i < 22; i++, j++) {
+            artifact[i] = sourceID[j];
+        }
+
+        for (int i = 22, j = 0; i < 42; i++, j++) {
+            artifact[i] = messageHandle[j];
+        }
+
+        return artifact;
     }
 }

@@ -29,6 +29,9 @@ public class SAML2Artifact extends SAMLArtifact {
 
     /** 2 byte artifact endpoint index */
     private byte[] endpointIndex;
+    
+    /** 20 byte artifact source ID */
+    private byte[] sourceID;
 
     /**
      * Constructor
@@ -41,6 +44,7 @@ public class SAML2Artifact extends SAMLArtifact {
      *             right size
      */
     public SAML2Artifact(byte[] endpointIndex, byte[] sourceID, byte[] messageHandle) throws IllegalArgumentException {
+        super(TYPE_CODE);
         setTypeCode(TYPE_CODE);
         setEndpointIndex(endpointIndex);
         setSourceID(sourceID);
@@ -55,6 +59,8 @@ public class SAML2Artifact extends SAMLArtifact {
      * @throws IllegalArgumentException thrown if the artifact is not the right type or lenght (44 bytes)
      */
     public SAML2Artifact(byte[] artifact) throws IllegalArgumentException {
+        super(TYPE_CODE);
+        
         if (artifact.length != 44) {
             throw new IllegalArgumentException("Artifact length must be 44 bytes it was " + artifact.length + "bytes");
         }
@@ -128,5 +134,28 @@ public class SAML2Artifact extends SAMLArtifact {
         }
 
         endpointIndex = newIndex;
+    }
+
+    /**
+     * Gets the 20 byte source ID of the artifact.
+     * 
+     * @return the source ID of the artifact
+     */
+    public byte[] getSourceID(){
+        return sourceID;
+    }
+    
+    /**
+     * Sets the 20 byte source ID of the artifact.
+     * 
+     * @param newSourceID 20 byte source ID of the artifact
+     * 
+     * @throws IllegalArgumentException thrown if the given source ID is not 20 bytes
+     */
+    protected void setSourceID(byte[] newSourceID) throws IllegalArgumentException{
+        if(newSourceID.length != 20){
+            throw new IllegalArgumentException("Artifact source ID must be 20 bytes long");
+        }
+        sourceID = newSourceID;
     }
 }

@@ -24,14 +24,28 @@ import org.apache.commons.codec.binary.Hex;
  */
 public abstract class SAMLArtifact {
 
+    /** 2 byte artifact type code expected for the artifact */
+    private byte[] expectedTypeCode;
+    
     /** 2 byte artifact type code */
     private byte[] typeCode;
     
-    /** 20 byte artifact source ID */
-    private byte[] sourceID;
-    
     /** 20 byte artifact message handle */
     private byte[] messageHandle;
+    
+    /**
+     * Constructor
+     *
+     * @param requiredTypeCode the artifact type code required for this artifact
+     * 
+     * @throws IllegalArgumentException thrown if the given type code is not two bytes in length
+     */
+    protected SAMLArtifact(byte[] requiredTypeCode) throws IllegalArgumentException{
+        if(requiredTypeCode.length != 2){
+            throw new IllegalArgumentException("Artifact type code must be two bytes in length");
+        }
+        this.expectedTypeCode = requiredTypeCode;
+    }
     
     /**
      * Gets the bytes for the artifact.
@@ -57,33 +71,10 @@ public abstract class SAMLArtifact {
      * @throws IllegalArgumentException thrown if the given type code is not two bytes
      */
     protected void setTypeCode(byte[] newTypeCode) throws IllegalArgumentException{
-        if(newTypeCode.length != 2){
-            throw new IllegalArgumentException("Artifact type code must be two bytes long");
+        if(newTypeCode != expectedTypeCode){
+            throw new IllegalArgumentException("Unexpected artifact type code");
         }
         typeCode = newTypeCode;
-    }
-    
-    /**
-     * Gets the 20 byte source ID of the artifact.
-     * 
-     * @return the source ID of the artifact
-     */
-    public byte[] getSourceID(){
-        return sourceID;
-    }
-    
-    /**
-     * Sets the 20 byte source ID of the artifact.
-     * 
-     * @param newSourceID 20 byte source ID of the artifact
-     * 
-     * @throws IllegalArgumentException thrown if the given source ID is not 20 bytes
-     */
-    protected void setSourceID(byte[] newSourceID) throws IllegalArgumentException{
-        if(newSourceID.length != 20){
-            throw new IllegalArgumentException("Artifact source ID must be 20 bytes long");
-        }
-        sourceID = newSourceID;
     }
     
     /**
