@@ -215,7 +215,6 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
      */
     protected boolean pkixValidate(X509EntityCredential entityCredential, PKIXValidationInformation pkixInfo) {
         Set<X509Certificate> trustChain = pkixInfo.getTrustChain();
-        Set<X509CRL> crls = pkixInfo.getCRLs();
 
         if (trustChain == null || trustChain.size() < 1) {
             if (log.isDebugEnabled()) {
@@ -254,9 +253,10 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
             }
             List storeMaterial = new FastList(entityCredential.getEntityCertificateChain());
 
+            Set<X509CRL> crls = pkixInfo.getCRLs();
             if (crls.size() > 0) {
                 if (log.isDebugEnabled()) {
-                    log.debug("Enabling CRL support and adding CRLs to certificate store");
+                    log.debug(crls.size() + " CRLs available, enabling CRL support and adding CRLs to certificate store");
                 }
                 storeMaterial.addAll(crls);
                 params.setRevocationEnabled(true);
