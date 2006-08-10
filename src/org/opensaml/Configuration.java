@@ -17,7 +17,6 @@
 package org.opensaml;
 
 import org.apache.xml.security.Init;
-import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.XMLConfigurator;
 import org.w3c.dom.Document;
@@ -32,7 +31,7 @@ public class Configuration extends org.opensaml.xml.Configuration {
         
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
-        Class clazz = SAMLObjectTestCaseConfigInitializer.class;
+        Class clazz = Configuration.class;
         try {
             XMLConfigurator configurator = new XMLConfigurator();
             
