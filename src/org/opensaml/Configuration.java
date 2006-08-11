@@ -26,6 +26,9 @@ import org.w3c.dom.Document;
  */
 public class Configuration extends org.opensaml.xml.Configuration {
 
+    /**
+     * Initializes the OpenSAML library, loading default configurations.
+     */
     public static synchronized void init() {
         Init.init();
         
