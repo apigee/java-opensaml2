@@ -16,8 +16,8 @@
 
 package org.opensaml.common;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
+import org.bouncycastle.util.encoders.Hex;
+import org.bouncycastle.util.encoders.Base64;
 
 /**
  * Base class for SAML artifacts.
@@ -106,7 +106,7 @@ public abstract class SAMLArtifact {
      * @return Base64 encoded artifact.
      */
     public String base64Encode(){
-        return new String(Base64.encodeBase64(getArtifactBytes()));
+        return new String(Base64.encode(getArtifactBytes()));
     }
     
     /**
@@ -115,7 +115,7 @@ public abstract class SAMLArtifact {
      * @return hex encoded artifact
      */
     public String hexEncode(){
-        return new String(Hex.encodeHex(getArtifactBytes()));
+        return new String(Hex.encode(getArtifactBytes()));
     }
     
     /** {@inheritDoc} */

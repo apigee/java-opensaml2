@@ -18,7 +18,7 @@ package org.opensaml.common.impl;
 
 import java.security.SecureRandom;
 
-import org.apache.commons.codec.binary.Hex;
+import org.bouncycastle.util.encoders.Hex;
 import org.opensaml.common.IdentifierGenerator;
 
 /**
@@ -42,7 +42,7 @@ public class SecureRandomIdentifierGenerator implements IdentifierGenerator {
     public String generateIdentifier() {
         byte[] buf = new byte[16];
         random.nextBytes(buf);
-        return "_".concat(new String(Hex.encodeHex(buf)));
+        return "_".concat(new String(Hex.encode(buf)));
     }
 
 }
