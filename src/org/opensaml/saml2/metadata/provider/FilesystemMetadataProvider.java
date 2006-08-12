@@ -35,7 +35,7 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
 
     /** The metadata file */
     private File metadataFile;
-    
+
     /** Whether cached metadata should be discarded if it expires and can't be refreshed */
     private boolean maintainExpiredMetadata;
 
@@ -51,30 +51,32 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
      * @param metadataFile the metadata file
      * @param maintainExpiredMetadata whether cached metadata should be discarded if it expires and can not be refreshed
      * 
-     * @throws IllegalArgumentException thrown if the given file path is null, does not exist, or does not represent a file
-     * @throws MetadataProviderException thrown if the metadata can not be parsed
+     * @throws MetadataProviderException thrown if the given file path is null, does not exist, does not represent a
+     *             file, or if the metadata can not be parsed
      */
-    public FilesystemMetadataProvider(File metadataFile) throws IllegalArgumentException, MetadataProviderException{
+    public FilesystemMetadataProvider(File metadataFile) throws MetadataProviderException {
         super();
-        
-        if(metadataFile == null){
-            throw new IllegalArgumentException("Give metadata file may not be null");
+
+        if (metadataFile == null) {
+            throw new MetadataProviderException("Give metadata file may not be null");
         }
-        
-        if(!metadataFile.exists()){
-            throw new IllegalArgumentException("Give metadata file, " + metadataFile.getAbsolutePath() + " does not exist");
+
+        if (!metadataFile.exists()) {
+            throw new MetadataProviderException("Give metadata file, " + metadataFile.getAbsolutePath()
+                    + " does not exist");
         }
-        
-        if(!metadataFile.isFile()){
-            throw new IllegalArgumentException("Give metadata file, " + metadataFile.getAbsolutePath() + " is not a file");
+
+        if (!metadataFile.isFile()) {
+            throw new MetadataProviderException("Give metadata file, " + metadataFile.getAbsolutePath()
+                    + " is not a file");
         }
-        
+
         this.metadataFile = metadataFile;
         maintainExpiredMetadata = true;
 
         refreshMetadata();
     }
-    
+
     /**
      * Gets whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
@@ -92,9 +94,9 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
     public void setMaintainExpiredMetadata(boolean maintainExpiredMetadata) {
         this.maintainExpiredMetadata = maintainExpiredMetadata;
     }
-    
+
     /** {@inheritDoc} */
-    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException{
+    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
         super.setMetadataFilter(newFilter);
         refreshMetadata();
     }
@@ -111,26 +113,26 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
     /**
      * Retrieves, unmarshalls, and filters the metadata from the metadata file.
      */
-    private synchronized void refreshMetadata() throws MetadataProviderException{
+    private synchronized void refreshMetadata() throws MetadataProviderException {
         if (lastUpdate >= metadataFile.lastModified()) {
             // In case other requests stacked up behind the synchronize lock
             return;
         }
-        
+
         try {
             cachedMetadata = unmarshallMetadata(new FileInputStream(metadataFile));
             filterMetadata(cachedMetadata);
             lastUpdate = metadataFile.lastModified();
             emitChangeEvent();
-        }catch(FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             String errorMsg = "Unable to read metadata file";
             log.error(errorMsg, e);
             throw new MetadataProviderException(errorMsg, e);
-        }catch(UnmarshallingException e){
+        } catch (UnmarshallingException e) {
             String errorMsg = "Unable to unmarshall metadata";
             log.error(errorMsg, e);
             throw new MetadataProviderException(errorMsg, e);
-        }catch(FilterException e){
+        } catch (FilterException e) {
             String errorMsg = "Unable to filter metadata";
             log.error(errorMsg, e);
             throw new MetadataProviderException(errorMsg, e);
