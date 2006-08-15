@@ -67,7 +67,7 @@ public class SAMLConstants extends XMLConstants{
     /** SAML 1.1 Assertion schema system Id */
     public final static String SAML11_SCHEMA_LOCATION = SCHEMA_DIR + "cs-sstc-schema-assertion-1.1.xsd";
     
-    /**  SAML 1.X XML namespace */
+    /** SAML 1.X XML namespace */
     public final static String SAML1_NS = "urn:oasis:names:tc:SAML:1.0:assertion";
     
     /** SAML 1.0 Protocol schema system Id */
@@ -76,14 +76,23 @@ public class SAMLConstants extends XMLConstants{
     /** SAML 1.1 Protocol schema system Id */
     public final static String SAML11P_SCHEMA_LOCATION = SCHEMA_DIR + "cs-sstc-schema-protocol-1.1.xsd";
 
-    /**  SAML 1.X protocol XML namespace */
+    /** SAML 1.X protocol XML namespace */
     public final static String SAML1P_NS = "urn:oasis:names:tc:SAML:1.0:protocol";
     
     /** SAML 1.X Protocol QName prefix */
-    public final static String SAML1P_PREFIX ="samlp";
+    public final static String SAML1P_PREFIX = "samlp";
 
     /** SAML 1.X Assertion QName prefix */
-    public final static String SAML1_PREFIX ="saml";
+    public final static String SAML1_PREFIX = "saml";
+    
+    /** SAML 1 Metadata extension XML namespace */
+    public final static String SAML1MD_NS = "urn:oasis:names:tc:SAML:profiles:v1metadata";
+    
+    /** SAML 1 Metadata extension schema system Id */
+    public final static String SAML1MD_SCHEMA_LOCATION = SCHEMA_DIR + "sstc-saml1x-metadata.xsd";
+    
+    /** SAML 1 Metadata extension namespace prefix */
+    public final static String SAML1MD_PREFIX = "saml1md";
     
     //****************************
     //    SAML 2.0
@@ -106,11 +115,29 @@ public class SAMLConstants extends XMLConstants{
     /** SAML 2.0 Protocol QName prefix */
     public final static String SAML20P_PREFIX ="samlp";
     
+    /** SAML 2.0 Protocol Third-party extension schema Id */
+    public final static String SAML20PTHRPTY_SCHEMA_LOCATION = SCHEMA_DIR + "sstc-saml-protocol-ext-thirdparty.xsd";
+    
+    /** SAML 2.0 Protocol XML Namespace */
+    public final static String SAML20PTHRPTY_NS = "urn:oasis:names:tc:SAML:protocol:ext:third-party";
+    
+    /** SAML 2.0 Protocol QName prefix */
+    public final static String SAML20PTHRPTY_PREFIX ="thrpty";
+    
     /** SAML 2.0 Metadata schema Id */
     public final static String SAML20MD_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-metadata-2.0.xsd";
     
     /** SAML 2.0 Metadata XML Namespace */
     public final static String SAML20MD_NS ="urn:oasis:names:tc:SAML:2.0:metadata";
+    
+    /** SAML 2.0 Standalone Query Metadata extension XML namespace */
+    public final static String SAML20MDQUERY_NS = "urn:oasis:names:tc:SAML:metadata:ext:query";
+    
+    /** SAML 2.0 Standalone Query Metadata extension schema system Id */
+    public final static String SAML20MDQUERY_SCHEMA_LOCATION = SCHEMA_DIR + "sstc-saml-metadata-ext-query.xsd";
+    
+    /** SAML 2.0 Standalone Query Metadata extension prefix */
+    public final static String SAML20MDQUERY_PREFIX = "query";
     
     /** SAML 2.0 Metadata QName prefix */
     public final static String SAML20MD_PREFIX = "md";
