@@ -71,6 +71,7 @@ public class ParserPoolManager {
         features.put("http://apache.org/xml/features/dom/defer-node-expansion", Boolean.FALSE);
 
         parserPool = new ParserPool(true, null, features);
+        schemaExtensions = new TreeMap<String, EntityResolver>();
     }
 
     /**
@@ -186,13 +187,7 @@ public class ParserPoolManager {
             LOG.info("Registering new extension schemas");
         }
         // Merge the new extensions into the existing ones set.
-        if (exts != null) {
-            if (schemaExtensions == null) {
-                schemaExtensions = new TreeMap<String, EntityResolver>();
-            }
-
-            schemaExtensions.putAll(exts);
-        }
+        schemaExtensions.putAll(exts);
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Destroying existing SAML pools");
