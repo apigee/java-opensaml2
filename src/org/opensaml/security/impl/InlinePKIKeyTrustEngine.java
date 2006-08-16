@@ -146,10 +146,8 @@ public class InlinePKIKeyTrustEngine implements TrustEngine<X509EntityCredential
 
         List<KeyDescriptor> keyDescriptors = descriptor.getKeyDescriptors();
         if (keyDescriptors == null || keyDescriptors.size() == 0) {
-            if (log.isDebugEnabled()) {
-                log.warn("Unable to validate signature, entity " + owningEntity.getEntityID()
-                        + " does not contain any keying information for role this role");
-            }
+            log.warn("Unable to validate signature, entity " + owningEntity.getEntityID()
+                    + " does not contain any keying information for role this role");
             return null;
         }
 
