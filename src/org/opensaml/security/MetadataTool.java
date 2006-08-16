@@ -20,8 +20,11 @@ import jargs.gnu.CmdLineParser;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -31,18 +34,30 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
-import org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider;
-import org.opensaml.saml2.metadata.provider.MetadataProviderException;
-import org.opensaml.saml2.metadata.provider.URLMetadataProvider;
+import org.opensaml.Configuration;
+import org.opensaml.common.SignableSAMLObject;
+import org.opensaml.common.impl.SAMLObjectContentReference;
+import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.Unmarshaller;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureBuilder;
+import org.opensaml.xml.signature.SignatureValidator;
+import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
+import org.opensaml.xml.validation.ValidationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * A tool for retrieving, verifying, and signing metadata.
  */
 public class MetadataTool {
 
+    /** Logger */
     private static Logger log;
 
     /**
@@ -51,51 +66,34 @@ public class MetadataTool {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        CmdLineParser parser = new CmdLineParser();
-        CmdLineParser.Option helpOption = parser.addBooleanOption('h', "help");
-        CmdLineParser.Option inputFileOption = parser.addStringOption('f', "inputfile");
-        CmdLineParser.Option inputURLOption = parser.addStringOption('u', "inputurl");
-        CmdLineParser.Option keystoreOption = parser.addStringOption('e', "keystore");
-        CmdLineParser.Option storeTypeOption = parser.addStringOption('t', "storetype");
-        CmdLineParser.Option aliasOption = parser.addStringOption('a', "alias");
-        CmdLineParser.Option storePassOption = parser.addStringOption('p', "storepass");
-        CmdLineParser.Option keyPassOption = parser.addStringOption('k', "keypass");
-        CmdLineParser.Option outFileOption = parser.addStringOption('o', "outfile");
-        CmdLineParser.Option signOption = parser.addBooleanOption('s', "sign");
+        Configuration.init();
+        configureLogging();
+
+        CmdLineParser parser = CLIParserBuilder.buildParser();
 
         try {
             parser.parse(args);
         } catch (CmdLineParser.OptionException e) {
-            System.err.println(e.getMessage());
-            printHelp(System.out);
-            System.out.flush();
-            System.exit(-1);
+            errorAndExit(e.getMessage(), e);
         }
 
-        Boolean helpEnabled = (Boolean) parser.getOptionValue(helpOption);
-        if (helpEnabled != null && helpEnabled.booleanValue()) {
+        Boolean helpEnabled = (Boolean) parser.getOptionValue(CLIParserBuilder.HELP_ARG);
+        if (helpEnabled != null) {
             printHelp(System.out);
             System.out.flush();
             System.exit(0);
         }
 
-        configureLogging();
+        Boolean verify = (Boolean) parser.getOptionValue(CLIParserBuilder.VALIDATE_ARG);
+        String inputFile = (String) parser.getOptionValue(CLIParserBuilder.INPUT_FILE_ARG);
+        SignableSAMLObject metadata = (SignableSAMLObject) fetchMetadata(inputFile, verify);
 
-        XMLObject metadata = null;
-        try {
-            metadata = fetchMetadata((String) parser.getOptionValue(inputFileOption), (String) parser
-                    .getOptionValue(inputURLOption));
-        } catch (MetadataProviderException e) {
-            log.error("Unable to fetch metadata", e);
-            System.exit(1);
-        }
-
-        String keystorePath = (String) parser.getOptionValue(keystoreOption);
-        String storeType = (String) parser.getOptionValue(storeTypeOption);
-        String alias = (String) parser.getOptionValue(aliasOption);
-        String storePass = (String) parser.getOptionValue(storePassOption);
-        String keyPass = (String) parser.getOptionValue(keyPassOption);
-        Boolean sign = (Boolean) parser.getOptionValue(signOption);
+        String keystorePath = (String) parser.getOptionValue(CLIParserBuilder.KEYSTORE_ARG);
+        String storeType = (String) parser.getOptionValue(CLIParserBuilder.KEYSTORE_TYPE_ARG);
+        String storePass = (String) parser.getOptionValue(CLIParserBuilder.KEYSTORE_PASS_ARG);
+        String alias = (String) parser.getOptionValue(CLIParserBuilder.ALIAS_ARG);
+        String keyPass = (String) parser.getOptionValue(CLIParserBuilder.KEY_PASS_ARG);
+        Boolean sign = (Boolean) parser.getOptionValue(CLIParserBuilder.SIGN_ARG);
         if (sign != null && sign.booleanValue()) {
             KeyStore keystore = getKeyStore(keystorePath, storeType, storePass);
             PrivateKey signingKey = getPrivateKey(keystore, alias, keyPass);
@@ -108,7 +106,8 @@ public class MetadataTool {
             }
         }
 
-        printMetadata(metadata, (String) parser.getOptionValue(outFileOption));
+        String outputFile = (String) parser.getOptionValue(CLIParserBuilder.OUTPUT_FILE_ARG);
+        printMetadata(metadata, outputFile);
     }
 
     /**
@@ -118,21 +117,37 @@ public class MetadataTool {
      * @param inputURL the URL to the metadata file
      * 
      * @return the metadata
-     * 
-     * @throws MetadataProviderException thrown if the metadata can not be fetched
      */
-    private static XMLObject fetchMetadata(String inputFile, String inputURL) throws MetadataProviderException {
-        if (!DatatypeHelper.isEmpty(inputFile) && !DatatypeHelper.isEmpty(inputURL)) {
-            log.error("inputfile and inputurl may not both be specified.");
+    private static XMLObject fetchMetadata(String inputFile, Boolean validate) {
+        if (DatatypeHelper.isEmpty(inputFile)) {
+            errorAndExit("No input file was specified.", null);
         }
 
-        if (!DatatypeHelper.isEmpty(inputFile)) {
-            log.debug("Fetching metadata from file " + inputFile);
-            return new FilesystemMetadataProvider(new File(inputFile)).getMetadata();
-        } else {
-            log.debug("Fetching metadata from URL " + inputURL);
-            return new URLMetadataProvider(inputURL, 30 * 1000).getMetadata();
+        try {
+            log.debug("Fetching metadata from input " + inputFile);
+            URL inputURL = new URL(inputFile);
+            ParserPoolManager parser = ParserPoolManager.getInstance();
+            Document metadatDocument = parser.parse(inputURL.openStream());
+
+            if (validate != null && validate.booleanValue()) {
+                parser.validate(metadatDocument);
+                log.info("Metadata document passed validation");
+            }
+
+            Element metadataRoot = metadatDocument.getDocumentElement();
+            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(metadataRoot);
+            return unmarshaller.unmarshall(metadataRoot);
+        } catch (MalformedURLException e) {
+            errorAndExit("Input file/url was not properly formed", e);
+        } catch (XMLParserException e) {
+            errorAndExit("Unable to parse and validate metadata document", e);
+        } catch (IOException e) {
+            errorAndExit("Unable to read input file/url", e);
+        } catch (UnmarshallingException e) {
+            errorAndExit("Unable to unmarshall metadata", e);
         }
+
+        return null;
     }
 
     /**
@@ -193,7 +208,7 @@ public class MetadataTool {
         } catch (Exception e) {
             log.error("Unable to retrieve private key " + alias, e);
         }
-        
+
         return null;
     }
 
@@ -212,23 +227,52 @@ public class MetadataTool {
             System.exit(1);
         }
 
-        try{
+        try {
             Certificate cert = keystore.getCertificate(alias);
             return cert.getPublicKey();
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error("Unable to retrieve certificate " + alias, e);
             System.exit(1);
         }
-        
+
         return null;
     }
 
-    private static void sign(XMLObject metadata, PrivateKey signingKey) {
+    /**
+     * Signs the given metadata document root.
+     * 
+     * @param metadata metadata document
+     * @param signingKey key used to sign the document
+     */
+    private static void sign(SignableSAMLObject metadata, PrivateKey signingKey) {
+        Signature signature = new SignatureBuilder().buildObject();
+        SAMLObjectContentReference contentRef = new SAMLObjectContentReference(metadata);
+        signature.getContentReferences().add(contentRef);
+        signature.setSigningKey(signingKey);
+        metadata.setSignature(signature);
 
+        Signer.signObject(signature);
     }
 
-    private static void verifySiganture(XMLObject metadata, PublicKey verificationKey) {
+    /**
+     * Verifies the signatures of the metadata document.
+     * 
+     * @param metadata the metadata document
+     * @param verificationKey the key to use to verify it
+     */
+    private static void verifySiganture(SignableSAMLObject metadata, PublicKey verificationKey) {
+        SignatureValidator signatureValidator = new SignatureValidator(verificationKey);
 
+        try {
+            Signature signature = metadata.getSignature();
+            if (signature != null) {
+                signatureValidator.validate(signature);
+            } else {
+                log.info("Metadata root was not signed, skipping signature checking");
+            }
+        } catch (ValidationException e) {
+            errorAndExit("Signature can not be verified", e);
+        }
     }
 
     /**
@@ -239,7 +283,15 @@ public class MetadataTool {
      */
     private static void printMetadata(XMLObject metadata, String outputFile) {
         PrintStream out = System.out;
-
+        
+        if(outputFile != null){
+            try{
+                out = new PrintStream(new File(outputFile));
+            }catch(Exception e){
+                errorAndExit("Unable to open output file for writing", e);
+            }
+        }
+        
         try {
             if (!DatatypeHelper.isEmpty(outputFile)) {
                 File outFile = new File(outputFile);
@@ -279,24 +331,117 @@ public class MetadataTool {
     private static void printHelp(PrintStream out) {
         out.println("usage: java org.opensaml.security.MetadataTool");
         out.println();
-        out.println("when signing:");
-        out.println("  -f <path> | -u <url> -s -e <keystore> [-s <storetype>] -a <alias> -s <pass> [-k <pass>] [-o <outfile>]");
         out.println("when retrieving:");
-        out.println("  -f <path> | -u <url> [-o <outfile>]");
+        out.println("  --input <fileOrUrl> [--ouput <outfile>]");
+        out.println("when signing:");
+        out.println("  --input <fileOrUrl> --sign --keystore <keystore> [--storetype <storetype>] "
+                + "--storepass <password> --alias <alias> [--keypass <password>] [--output <outfile>]");
         out.println("when retrieving and verifying signature:");
-        out.println("  -f <path> | -u <url> -e <keystore> [-s <storetype>] -a <alias> [-o <outfile>]");
+        out.println("  --input <fileOrUrl> --validate --keystore <keystore> [--storetype <storetype>] "
+                + "--storepass <password> --alias <alias> [--output <outfile>]");
         out.println();
         out.println();
-        out.println("  -f, --inputfile       filesystem path to metadata file");
-        out.println("  -u, --inputurl        URL where metadata file will be fetched from");
-        out.println("  -e, --keystore        filesystem path to Java keystore");
-        out.println("  -t, --storetype       the keystore type (default: JKS)");
-        out.println("  -a, --alias           alias of signing or verification key");
-        out.println("  -p, --storepass       keystore password");
-        out.println("  -k, --keypass         private key password");
-        out.println("  -o, --outfile         filesystem path where metadata will be written");
-        out.println("  -s, --sign            sign the input file and write out a signed version");
-        out.println("  -h, --help            print this message");
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.HELP, "print this message"));
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.VALIDATE,
+                "validate the digital signature on the metadata if it is signed"));
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.SIGN,
+                "sign the input file and write out a signed version"));
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.INPUT_FILE,
+                "filesystem path or URL to fetch metadata from"));
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.KEYSTORE, "filesystem path to Java keystore"));
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.KEYSTORE_TYPE, "the keystore type (default: JKS)"));
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.KEYSTORE_PASS, "keystore password"));
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.ALIAS, "alias of signing or verification key"));
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.KEY_PASS, "private key password"));
+        out.println(String.format("  --%-16s %s", CLIParserBuilder.OUTPUT_FILE,
+                "filesystem path where metadata will be written"));
         out.println();
+    }
+
+    /**
+     * Logs, as an error, the error message and exits the program.
+     * 
+     * @param errorMessage error message
+     * @param e exception that caused it
+     */
+    private static void errorAndExit(String errorMessage, Exception e) {
+        if (e == null) {
+            log.error(errorMessage);
+        } else {
+            log.error(errorMessage, e);
+        }
+        printHelp(System.out);
+        System.out.flush();
+        System.exit(1);
+    }
+
+    /**
+     * Helper class that creates the command line argument parser.
+     */
+    private static class CLIParserBuilder {
+
+        // Command line arguments
+        public static final String HELP = "help";
+
+        public static final String SIGN = "sign";
+
+        public static final String VALIDATE = "validate";
+
+        public static final String INPUT_FILE = "input";
+
+        public static final String KEYSTORE = "keystore";
+
+        public static final String KEYSTORE_TYPE = "storetype";
+
+        public static final String KEYSTORE_PASS = "storepass";
+
+        public static final String ALIAS = "alias";
+
+        public static final String KEY_PASS = "keypass";
+
+        public static final String OUTPUT_FILE = "output";
+
+        // Command line parser arguments
+        public static CmdLineParser.Option HELP_ARG;
+
+        public static CmdLineParser.Option SIGN_ARG;
+
+        public static CmdLineParser.Option VALIDATE_ARG;
+
+        public static CmdLineParser.Option INPUT_FILE_ARG;
+
+        public static CmdLineParser.Option KEYSTORE_ARG;
+
+        public static CmdLineParser.Option KEYSTORE_TYPE_ARG;
+
+        public static CmdLineParser.Option KEYSTORE_PASS_ARG;
+
+        public static CmdLineParser.Option ALIAS_ARG;
+
+        public static CmdLineParser.Option KEY_PASS_ARG;
+
+        public static CmdLineParser.Option OUTPUT_FILE_ARG;
+
+        /**
+         * Create a new command line parser.
+         * 
+         * @return command line parser
+         */
+        public static CmdLineParser buildParser() {
+            CmdLineParser parser = new CmdLineParser();
+
+            HELP_ARG = parser.addBooleanOption(HELP);
+            SIGN_ARG = parser.addBooleanOption(SIGN);
+            VALIDATE_ARG = parser.addBooleanOption(VALIDATE);
+            INPUT_FILE_ARG = parser.addStringOption(INPUT_FILE);
+            KEYSTORE_ARG = parser.addStringOption(KEYSTORE);
+            KEYSTORE_TYPE_ARG = parser.addStringOption(KEYSTORE_TYPE);
+            KEYSTORE_PASS_ARG = parser.addStringOption(KEYSTORE_PASS);
+            ALIAS_ARG = parser.addStringOption(ALIAS);
+            KEY_PASS_ARG = parser.addStringOption(KEY_PASS);
+            OUTPUT_FILE_ARG = parser.addStringOption(OUTPUT_FILE);
+
+            return parser;
+        }
     }
 }
