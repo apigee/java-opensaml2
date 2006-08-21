@@ -63,8 +63,12 @@ public class Configuration extends org.opensaml.xml.Configuration {
             configurator.load(saml2assertionConfig);
 
             // SAML 2.0 Protocol Object Provider Configuration
-            Document saml2protocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-protocol-config.xml"));
-            configurator.load(saml2protocolConfig);
+            Document saml2ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-protocol-config.xml"));
+            configurator.load(saml2ProtocolConfig);
+            
+            // SAML 2.0 Protocol Object Provider Configuration
+            Document saml2ProtocolExtConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-protocol-thirdparty-config.xml"));
+            configurator.load(saml2ProtocolExtConfig);
             
             // SAML 2.0 Core (Asserion + Protocol) Validation Configuration
             Document saml2ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-core-validation-config.xml"));
