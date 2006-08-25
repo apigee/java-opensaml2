@@ -2,13 +2,12 @@
 <XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd"
 	xmlns:thrpty="urn:oasis:names:tc:SAML:protocol:ext:third-party"
-	xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
 	xmlns="http://www.opensaml.org/xmltooling-config">
 
-	<!-- SAML 2.0 Protocol Object providers -->
+	<!-- SAML 2.0 Protocol Third-party Object providers -->
 	<ObjectProviders>
 
-		<!-- Artifact provider -->
+		<!-- RespondTo provider -->
 		<ObjectProvider qualifiedName="thrpty:RespondTo">
 			<BuilderClass className="org.opensaml.samlext.samlpthrpty.impl.RespondToBuilder" />
 			<MarshallingClass className="org.opensaml.samlext.samlpthrpty.impl.RespondToMarshaller" />
