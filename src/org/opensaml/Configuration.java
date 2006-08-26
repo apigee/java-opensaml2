@@ -50,10 +50,6 @@ public class Configuration extends org.opensaml.xml.Configuration {
             Document saml1ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-protocol-config.xml"));
             configurator.load(saml1ProtocolConfig);
             
-            // SAML 1.X Metadata Provider Configuration
-            Document saml1mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-metadata-config.xml"));
-            configurator.load(saml1mdConfig);
-            
             // SAML 1.X Core (Asserion + Protocol) Validation Configuration
             Document saml1ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-core-validation-config.xml"));
             configurator.load(saml1ValidationConfig);
@@ -77,6 +73,14 @@ public class Configuration extends org.opensaml.xml.Configuration {
             // SAML 2.0 Metadata Object Provider Configuration
             Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-config.xml"));
             configurator.load(saml2mdConfig);
+            
+            // SAML 1.X Metadata Provider Configuration
+            Document saml1mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-metadata-config.xml"));
+            configurator.load(saml1mdConfig);
+            
+            // SAML 2.0 Metadata Query Extension Object Provider Configuration
+            Document saml2mdqConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-query-config.xml"));
+            configurator.load(saml2mdqConfig);
             
             // SAML 2.0 Metadata Validation Configuration
             Document saml2mdValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-validation-config.xml"));
