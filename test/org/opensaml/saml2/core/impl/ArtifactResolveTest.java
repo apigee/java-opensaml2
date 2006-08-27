@@ -41,16 +41,12 @@ public class ArtifactResolveTest extends RequestTestBase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/ArtifactResolveChildElements.xml";
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResolve ar = (ArtifactResolve) buildXMLObject(qname);
@@ -60,9 +56,7 @@ public class ArtifactResolveTest extends RequestTestBase {
         assertEquals(expectedDOM, ar);
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResolve ar = (ArtifactResolve) buildXMLObject(qname);
@@ -73,9 +67,7 @@ public class ArtifactResolveTest extends RequestTestBase {
         assertEquals(expectedOptionalAttributesDOM, ar);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResolve ar = (ArtifactResolve) buildXMLObject(qname);
@@ -89,9 +81,7 @@ public class ArtifactResolveTest extends RequestTestBase {
     }
  
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         ArtifactResolve ar = (ArtifactResolve) unmarshallElement(singleElementFile);
         
@@ -99,9 +89,7 @@ public class ArtifactResolveTest extends RequestTestBase {
         super.helperTestSingleElementUnmarshall(ar);
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         ArtifactResolve ar = (ArtifactResolve) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -110,9 +98,7 @@ public class ArtifactResolveTest extends RequestTestBase {
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         ArtifactResolve ar = (ArtifactResolve) unmarshallElement(childElementsFile);
         

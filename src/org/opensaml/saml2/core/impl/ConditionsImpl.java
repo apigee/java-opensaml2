@@ -63,25 +63,19 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
         conditions = new IndexedXMLObjectChildrenList<Condition>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Conditions#getCondition()
-     */
+    /** {@inheritDoc} */
     public List<Condition> getConditions() {
         return conditions;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Conditions#getAudienceRestriction()
-     */
+    /** {@inheritDoc} */
     public List<AudienceRestriction> getAudienceRestrictions() {
         QName conditionQName = new QName(SAMLConstants.SAML20_NS, AudienceRestriction.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         return (List<AudienceRestriction>) conditions.subList(conditionQName);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Conditions#getOneTimeUse()
-     */
+    /** {@inheritDoc} */
     public OneTimeUse getOneTimeUse() {
         QName conditionQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         List<OneTimeUse> list = (List<OneTimeUse>) conditions.subList(conditionQName);
@@ -91,9 +85,7 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
             return list.get(0);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Conditions#getProxyRestriction()
-     */
+    /** {@inheritDoc} */
     public ProxyRestriction getProxyRestriction() {
         QName conditionQName = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
@@ -104,37 +96,27 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
             return list.get(0);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Conditions#getNotBefore()
-     */
+    /** {@inheritDoc} */
     public DateTime getNotBefore() {
         return notBefore;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Conditions#setNotBefore(org.joda.time.DateTime)
-     */
+    /** {@inheritDoc} */
     public void setNotBefore(DateTime newNotBefore) {
         this.notBefore = prepareForAssignment(this.notBefore, newNotBefore);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Conditions#getNotOnOrAfter()
-     */
+    /** {@inheritDoc} */
     public DateTime getNotOnOrAfter() {
         return notOnOrAfter;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Conditions#setNotOnOrAfter(org.joda.time.DateTime)
-     */
+    /** {@inheritDoc} */
     public void setNotOnOrAfter(DateTime newNotOnOrAfter) {
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

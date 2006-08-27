@@ -47,30 +47,22 @@ public class NameIdentifierImpl extends AbstractSAMLObject implements NameIdenti
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.NameIdentifier#getNameQualifier()
-     */
+    /** {@inheritDoc} */
     public String getNameQualifier() {
         return nameQualifier;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.NameIdentifier#getFormat()
-     */
+    /** {@inheritDoc} */
     public String getFormat() {
         return this.format;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.NameIdentifier#getNameIdentifier()
-     */
+    /** {@inheritDoc} */
     public String getNameIdentifier() {
         return nameIdentifier;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.NameIdentifier#setNameQualifier(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setNameQualifier(String nameQualifier) {
         this.nameQualifier = prepareForAssignment(this.nameQualifier, nameQualifier);
     }
@@ -83,9 +75,7 @@ public class NameIdentifierImpl extends AbstractSAMLObject implements NameIdenti
         this.nameIdentifier = prepareForAssignment(this.nameIdentifier, nameIdentifier);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

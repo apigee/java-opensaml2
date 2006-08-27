@@ -51,10 +51,7 @@ public class NewIDMarshaller extends AbstractSAMLObjectMarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         NewID newID = (NewID) samlObject;
 

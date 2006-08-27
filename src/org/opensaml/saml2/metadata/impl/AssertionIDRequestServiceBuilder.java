@@ -36,17 +36,13 @@ public class AssertionIDRequestServiceBuilder extends AbstractSAMLObjectBuilder<
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AssertionIDRequestService buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, AssertionIDRequestService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AssertionIDRequestService buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AssertionIDRequestServiceImpl(namespaceURI, localName, namespacePrefix);
     }

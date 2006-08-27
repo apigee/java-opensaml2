@@ -41,9 +41,7 @@ public class AdditionalMetadataLocationTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AdditionalMetadataLocation.xml";
     }
 
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -51,9 +49,7 @@ public class AdditionalMetadataLocationTest extends SAMLObjectBaseTestCase {
         expectedContent = "http://example.org";
     }
 
-    /*
-     * @see org.opensaml.common.BaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AdditionalMetadataLocation locationObj = (AdditionalMetadataLocation) unmarshallElement(singleElementFile);
 
@@ -64,9 +60,7 @@ public class AdditionalMetadataLocationTest extends SAMLObjectBaseTestCase {
         assertEquals("Namepsace URI was " + namespace + ", expected " + expectedNamespace, expectedNamespace, namespace);
     }
 
-    /*
-     * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AdditionalMetadataLocation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AdditionalMetadataLocation location = (AdditionalMetadataLocation) buildXMLObject(qname);

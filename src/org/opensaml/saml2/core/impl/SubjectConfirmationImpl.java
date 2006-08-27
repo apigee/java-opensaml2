@@ -55,66 +55,48 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#getBaseID()
-     */
+    /** {@inheritDoc} */
     public BaseID getBaseID() {
         return baseID;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#setBaseID(org.opensaml.saml2.core.BaseID)
-     */
+    /** {@inheritDoc} */
     public void setBaseID(BaseID newBaseID) {
         baseID = prepareForAssignment(baseID, newBaseID);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#getNameID()
-     */
+    /** {@inheritDoc} */
     public NameID getNameID() {
         return nameID;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#setNameID(org.opensaml.saml2.core.NameID)
-     */
+    /** {@inheritDoc} */
     public void setNameID(NameID newNameID) {
         nameID = prepareForAssignment(nameID, newNameID);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmation#getSubjectConfirmationData()
-     */
+    /** {@inheritDoc} */
     public SubjectConfirmationData getSubjectConfirmationData() {
         return subjectConfirmationData;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmation#setSubjectConfirmationData(org.opensaml.saml1.core.SubjectConfirmationData)
-     */
+    /** {@inheritDoc} */
     public void setSubjectConfirmationData(SubjectConfirmationData newSubjectConfirmationData) {
         this.subjectConfirmationData = prepareForAssignment(this.subjectConfirmationData, newSubjectConfirmationData);
 
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmation#getMethod()
-     */
+    /** {@inheritDoc} */
     public String getMethod() {
         return method;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmation#setMethod(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setMethod(String newMethod) {
         this.method = prepareForAssignment(this.method, newMethod);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

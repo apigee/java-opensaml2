@@ -43,10 +43,7 @@ public abstract class RequestMarshaller extends AbstractSAMLObjectMarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         Request req = (Request) samlObject;
 

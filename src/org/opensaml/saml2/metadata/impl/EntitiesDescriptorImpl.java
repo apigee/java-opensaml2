@@ -64,93 +64,67 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
         orderedDescriptors = new IndexedXMLObjectChildrenList<SAMLObject>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getName()
-     */
+    /** {@inheritDoc} */
     public String getName() {
         return name;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#setName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setName(String newName) {
         this.name = prepareForAssignment(this.name, newName);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return id;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String newID) {
         this.id = prepareForAssignment(this.id, newID);
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
-     */
+    /** {@inheritDoc} */
     public boolean isValid() {
         return validUntil.isBeforeNow();
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
-     */
+    /** {@inheritDoc} */
     public DateTime getValidUntil() {
         return validUntil;
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
-     */
+    /** {@inheritDoc} */
     public void setValidUntil(DateTime validUntil) {
         this.validUntil = prepareForAssignment(this.validUntil, validUntil);
     }
 
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#getCacheDuration()
-     */
+    /** {@inheritDoc} */
     public Long getCacheDuration() {
         return cacheDuration;
     }
 
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#setCacheDuration(java.lang.Long)
-     */
+    /** {@inheritDoc} */
     public void setCacheDuration(Long duration) {
         cacheDuration = prepareForAssignment(cacheDuration, duration);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getExtensions()
-     */
+    /** {@inheritDoc} */
     public Extensions getExtensions() {
         return extensions;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
-     */
+    /** {@inheritDoc} */
     public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getEntitiesDescriptors()
-     */
+    /** {@inheritDoc} */
     public List<EntitiesDescriptor> getEntitiesDescriptors() {
         return (List<EntitiesDescriptor>) orderedDescriptors.subList(EntitiesDescriptor.ELEMENT_QNAME);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntitiesDescriptor#getEntityDescriptors()
-     */
+    /** {@inheritDoc} */
     public List<EntityDescriptor> getEntityDescriptors() {
         return (List<EntityDescriptor>) orderedDescriptors.subList(EntityDescriptor.ELEMENT_QNAME);
     }
@@ -160,9 +134,7 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
         return id;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

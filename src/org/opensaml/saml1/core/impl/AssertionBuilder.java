@@ -32,16 +32,12 @@ public class AssertionBuilder extends AbstractSAMLObjectBuilder<Assertion> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AssertionImpl buildObject() {
         return new AssertionImpl(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AssertionImpl buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AssertionImpl(namespaceURI, localName, namespacePrefix);
     }

@@ -57,10 +57,8 @@ public class AuthorityBindingTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, AuthorityBinding.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
         AuthorityBinding authorityBinding = (AuthorityBinding) unmarshallElement(singleElementFile);
         assertNull("AuthorityKind attribute present", authorityBinding.getAuthorityKind());
@@ -68,10 +66,8 @@ public class AuthorityBindingTest extends SAMLObjectBaseTestCase {
         assertNull("Location attribute present", authorityBinding.getLocation());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthorityBinding authorityBinding = (AuthorityBinding) unmarshallElement(singleElementOptionalAttributesFile);
         assertEquals("AuthorityKind attribute", expectedAuthorityKind, authorityBinding.getAuthorityKind());
@@ -79,18 +75,14 @@ public class AuthorityBindingTest extends SAMLObjectBaseTestCase {
         assertEquals("Location attribute", expectedLocation, authorityBinding.getLocation());        
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesMarshall() {
         AuthorityBinding authorityBinding = (AuthorityBinding) buildXMLObject(qname);
         authorityBinding.setAuthorityKind(expectedAuthorityKind);

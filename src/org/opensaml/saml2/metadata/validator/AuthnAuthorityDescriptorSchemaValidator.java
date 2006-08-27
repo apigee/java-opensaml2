@@ -33,9 +33,7 @@ public class AuthnAuthorityDescriptorSchemaValidator extends RoleDescriptorSchem
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthnAuthorityDescriptor authnAuthorityDescriptor) throws ValidationException {
         super.validate(authnAuthorityDescriptor);
         validateAuthnQueryServices(authnAuthorityDescriptor);

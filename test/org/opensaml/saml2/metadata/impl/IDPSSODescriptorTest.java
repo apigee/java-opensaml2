@@ -99,9 +99,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
                 .getWantAuthnRequestsSignedXSBoolean());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) unmarshallElement(childElementsFile);
 
@@ -152,9 +150,7 @@ public class IDPSSODescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         IDPSSODescriptor descriptor = (IDPSSODescriptor) buildXMLObject(qname);

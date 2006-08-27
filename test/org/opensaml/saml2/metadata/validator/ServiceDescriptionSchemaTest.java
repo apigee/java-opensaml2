@@ -35,9 +35,7 @@ public class ServiceDescriptionSchemaTest extends SAMLObjectValidatorBaseTestCas
         validator = new ServiceDescriptionSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         ServiceDescription serviceDescription = (ServiceDescription) target;

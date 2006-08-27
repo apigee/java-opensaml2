@@ -42,27 +42,21 @@ public class OrganizationDisplayNameTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/OrganizationDisplayName.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
         expectName = new LocalizedString("MyOrg", "Language");
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         OrganizationDisplayName name = (OrganizationDisplayName) unmarshallElement(singleElementFile);
         
         assertEquals("Name was not expected value", expectName, name.getName());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.DEFAULT_ELEMENT_LOCAL_NAME);
         OrganizationDisplayName name = (OrganizationDisplayName) buildXMLObject(qname);

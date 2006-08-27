@@ -42,27 +42,21 @@ public class ServiceNameTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/ServiceName.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
         expectedName = new LocalizedString("Name", "Language");
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         ServiceName name = (ServiceName) unmarshallElement(singleElementFile);
         
         assertEquals("Name was not expected value", expectedName, name.getName());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ServiceName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         ServiceName name = (ServiceName) buildXMLObject(qname);

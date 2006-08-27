@@ -39,9 +39,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/ActionOptionalAttributes.xml";
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -49,9 +47,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         expectedNamespace = "ns";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Action action = (Action) unmarshallElement(singleElementFile);
 
@@ -59,9 +55,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         assertEquals("Action was " + actionname + ", expected " + expectedAction, expectedAction, actionname);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Action action = (Action) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -72,9 +66,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         assertEquals("Namespace was " + namespace + ", expected " + expectedNamespace, expectedNamespace, namespace);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Action action = (Action) buildXMLObject(qname);
@@ -83,9 +75,7 @@ public class ActionTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, action);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Action action = (Action) buildXMLObject(qname);

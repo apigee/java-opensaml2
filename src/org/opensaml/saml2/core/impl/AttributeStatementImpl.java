@@ -50,16 +50,12 @@ public class AttributeStatementImpl extends AbstractSAMLObject implements Attrib
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AttributeStatement#getAttributes()
-     */
+    /** {@inheritDoc} */
     public List<Attribute> getAttributes() {
         return attributes;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

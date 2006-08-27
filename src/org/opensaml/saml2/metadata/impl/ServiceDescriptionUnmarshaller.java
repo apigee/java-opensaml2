@@ -68,10 +68,7 @@ public class ServiceDescriptionUnmarshaller extends AbstractSAMLObjectUnmarshall
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         ServiceDescription description = (ServiceDescription) samlObject;
 

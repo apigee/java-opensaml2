@@ -37,16 +37,12 @@ public class NameIDMappingResponseBuilder extends AbstractSAMLObjectBuilder<Name
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public NameIDMappingResponse buildObject() {
         return buildObject(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public NameIDMappingResponse buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new NameIDMappingResponseImpl(namespaceURI, localName, namespacePrefix);
     }

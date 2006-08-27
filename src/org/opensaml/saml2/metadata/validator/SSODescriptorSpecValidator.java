@@ -34,9 +34,7 @@ public class SSODescriptorSpecValidator<SSODescriptorType extends SSODescriptor>
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(SSODescriptorType ssoDescriptor) throws ValidationException {
         validateResponseLocation(ssoDescriptor);
         super.validate(ssoDescriptor);

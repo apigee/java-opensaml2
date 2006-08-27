@@ -28,9 +28,7 @@ import org.opensaml.xml.validation.ValidationException;
  */
 public class AuthenticationQuerySchemaValidator extends SubjectQuerySchemaValidator<AuthenticationQuery> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthenticationQuery authnQuery) throws ValidationException {
         super.validate(authnQuery);
     }

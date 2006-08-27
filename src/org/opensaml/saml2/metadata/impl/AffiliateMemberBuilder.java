@@ -32,16 +32,12 @@ public class AffiliateMemberBuilder extends AbstractSAMLObjectBuilder<AffiliateM
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AffiliateMember buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, AffiliateMember.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AffiliateMember buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AffiliateMemberImpl(namespaceURI, localName, namespacePrefix);
     }

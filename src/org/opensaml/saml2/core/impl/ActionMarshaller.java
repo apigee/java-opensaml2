@@ -48,10 +48,7 @@ public class ActionMarshaller extends AbstractSAMLObjectMarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         Action action = (Action) samlObject;
 
@@ -60,10 +57,7 @@ public class ActionMarshaller extends AbstractSAMLObjectMarshaller {
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         Action action = (Action) samlObject;
         XMLHelper.appendTextContent(domElement, action.getAction());

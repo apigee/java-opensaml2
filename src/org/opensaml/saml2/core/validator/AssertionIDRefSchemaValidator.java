@@ -35,9 +35,7 @@ public class AssertionIDRefSchemaValidator implements Validator<AssertionIDRef> 
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AssertionIDRef assertionIDRef) throws ValidationException {
         validateIDRef(assertionIDRef);
     }

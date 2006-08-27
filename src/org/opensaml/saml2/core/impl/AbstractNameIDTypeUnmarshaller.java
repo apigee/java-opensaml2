@@ -42,10 +42,7 @@ public abstract class AbstractNameIDTypeUnmarshaller extends AbstractSAMLObjectU
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         NameIDType nameID = (NameIDType) samlObject;
         if (attribute.getLocalName().equals(NameID.NAME_QUALIFIER_ATTRIB_NAME)) {
@@ -61,10 +58,7 @@ public abstract class AbstractNameIDTypeUnmarshaller extends AbstractSAMLObjectU
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         NameIDType nameID = (NameIDType) samlObject;
         nameID.setValue(elementContent);

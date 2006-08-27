@@ -35,10 +35,7 @@ public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller 
         super(SAMLConstants.SAML1_NS, SubjectLocality.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
 
         SubjectLocality subjectLocality = (SubjectLocality) samlObject;

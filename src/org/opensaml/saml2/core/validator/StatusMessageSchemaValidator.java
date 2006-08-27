@@ -37,9 +37,7 @@ public class StatusMessageSchemaValidator implements Validator<StatusMessage> {
         super();
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(StatusMessage statusMessage) throws ValidationException {
         validateMessage(statusMessage);
     }

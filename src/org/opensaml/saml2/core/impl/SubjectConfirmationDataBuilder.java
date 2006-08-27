@@ -34,16 +34,12 @@ public class SubjectConfirmationDataBuilder extends AbstractSAMLObjectBuilder<Su
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public SubjectConfirmationData buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public SubjectConfirmationData buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new SubjectConfirmationDataImpl(namespaceURI, localName, namespacePrefix);
     }

@@ -42,9 +42,7 @@ public class TerminateImpl extends AbstractSAMLObject implements Terminate {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // no children
         return null;

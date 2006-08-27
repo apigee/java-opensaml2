@@ -62,79 +62,57 @@ public class AuthnStatementImpl extends AbstractSAMLObject implements AuthnState
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#getSubjectLocality()
-     */
+    /** {@inheritDoc} */
     public SubjectLocality getSubjectLocality() {
         return subjectLocality;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#setSubjectLocality(org.opensaml.saml2.core.SubjectLocality)
-     */
+    /** {@inheritDoc} */
     public void setSubjectLocality(SubjectLocality newSubjectLocality) {
         this.subjectLocality = prepareForAssignment(this.subjectLocality, newSubjectLocality);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#getAuthnContext()
-     */
+    /** {@inheritDoc} */
     public AuthnContext getAuthnContext() {
         return authnContext;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#setAuthnContext(org.opensaml.saml2.core.AuthnContext)
-     */
+    /** {@inheritDoc} */
     public void setAuthnContext(AuthnContext newAuthnContext) {
         this.authnContext = prepareForAssignment(this.authnContext, newAuthnContext);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#getAuthnInstant()
-     */
+    /** {@inheritDoc} */
     public DateTime getAuthnInstant() {
         return authnInstant;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#setAuthnInstant(org.joda.time.DateTime)
-     */
+    /** {@inheritDoc} */
     public void setAuthnInstant(DateTime newAuthnInstant) {
         this.authnInstant = prepareForAssignment(this.authnInstant, newAuthnInstant);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#getSessionIndex()
-     */
+    /** {@inheritDoc} */
     public String getSessionIndex() {
         return sessionIndex;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#setSessionIndex(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setSessionIndex(String newSessionIndex) {
         this.sessionIndex = prepareForAssignment(this.sessionIndex, newSessionIndex);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#getSessionNotOnOrAfter()
-     */
+    /** {@inheritDoc} */
     public DateTime getSessionNotOnOrAfter() {
         return sessionNotOnOrAfter;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnStatement#setSessionNotOnOrAfter(org.joda.time.DateTime)
-     */
+    /** {@inheritDoc} */
     public void setSessionNotOnOrAfter(DateTime newSessionNotOnOrAfter) {
         this.sessionNotOnOrAfter = prepareForAssignment(this.sessionNotOnOrAfter, newSessionNotOnOrAfter);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

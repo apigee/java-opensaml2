@@ -34,9 +34,7 @@ public class OrganizationSchemaValidator implements Validator<Organization> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Organization organization) throws ValidationException {
         validateName(organization);
         validateDisplayName(organization);

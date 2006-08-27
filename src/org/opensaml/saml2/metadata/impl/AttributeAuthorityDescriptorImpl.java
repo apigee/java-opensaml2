@@ -65,44 +65,32 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeAuthorityDescriptor#getAttributeServices()
-     */
+    /** {@inheritDoc} */
     public List<AttributeService> getAttributeServices() {
         return attributeServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#getAssertionIDRequestServices()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDRequestService> getAssertionIDRequestServices() {
         return assertionIDRequestServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#getNameIDFormats()
-     */
+    /** {@inheritDoc} */
     public List<NameIDFormat> getNameIDFormats() {
         return nameFormats;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeProfileDescriptorComp#getAttributeProfiles()
-     */
+    /** {@inheritDoc} */
     public List<AttributeProfile> getAttributeProfiles() {
         return attributeProfiles;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeDescriptorComp#getAttributes()
-     */
+    /** {@inheritDoc} */
     public List<Attribute> getAttributes() {
         return attributes;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

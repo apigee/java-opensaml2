@@ -51,51 +51,37 @@ public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappi
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#getBaseID()
-     */
+    /** {@inheritDoc} */
     public BaseID getBaseID() {
         return baseID;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#setBaseID(org.opensaml.saml2.core.BaseID)
-     */
+    /** {@inheritDoc} */
     public void setBaseID(BaseID newBaseID) {
         baseID = prepareForAssignment(baseID, newBaseID);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#getNameID()
-     */
+    /** {@inheritDoc} */
     public NameID getNameID() {
         return nameID;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#setNameID(org.opensaml.saml2.core.NameID)
-     */
+    /** {@inheritDoc} */
     public void setNameID(NameID newNameID) {
         nameID = prepareForAssignment(nameID, newNameID);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NameIDMappingRequest#getNameIDPolicy()
-     */
+    /** {@inheritDoc} */
     public NameIDPolicy getNameIDPolicy() {
         return this.nameIDPolicy;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NameIDMappingRequest#setNameIDPolicy(org.opensaml.saml2.core.NameIDPolicy)
-     */
+    /** {@inheritDoc} */
     public void setNameIDPolicy(NameIDPolicy newNameIDPolicy) {
         this.nameIDPolicy = prepareForAssignment(this.nameIDPolicy, newNameIDPolicy);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

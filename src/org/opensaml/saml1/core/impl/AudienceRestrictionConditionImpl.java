@@ -46,16 +46,12 @@ public class AudienceRestrictionConditionImpl extends AbstractSAMLObject impleme
         audiences = new XMLObjectChildrenList<Audience>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AudienceRestrictionCondition#getAudiences()
-     */
+    /** {@inheritDoc} */
     public List<Audience> getAudiences() {
         return audiences;
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
 
         if (audiences.size() == 0) {

@@ -40,9 +40,7 @@ public class AssertionSpecTest extends SAMLObjectValidatorBaseTestCase {
         validator = new AssertionSpecValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         Assertion assertion = (Assertion) target;

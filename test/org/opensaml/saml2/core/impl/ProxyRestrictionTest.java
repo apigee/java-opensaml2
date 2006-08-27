@@ -40,16 +40,12 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/ProxyRestrictionChildElements.xml";
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         ProxyRestriction proxyRestriction = (ProxyRestriction) unmarshallElement(singleElementFile);
 
@@ -57,16 +53,12 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
         assertEquals("ProxyCount not as expected", expectedCount, count);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         // do nothing
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         ProxyRestriction proxyRestriction = (ProxyRestriction) buildXMLObject(qname);
@@ -76,24 +68,18 @@ public class ProxyRestrictionTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, proxyRestriction);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         // do nothing
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         ProxyRestriction proxyRestriction = (ProxyRestriction) unmarshallElement(childElementsFile);
         assertEquals("Audience Count", expectedAudienceCount, proxyRestriction.getAudiences().size());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         ProxyRestriction proxyRestriction = (ProxyRestriction) buildXMLObject(qname);

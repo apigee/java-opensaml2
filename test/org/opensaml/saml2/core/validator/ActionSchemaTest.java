@@ -35,9 +35,7 @@ public class ActionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new ActionSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         Action action = (Action) target;

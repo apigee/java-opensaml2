@@ -62,58 +62,42 @@ public class AuthnContextImpl extends AbstractSAMLObject implements AuthnContext
         authenticatingAuthority = new XMLObjectChildrenList<AuthenticatingAuthority>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContext#getAuthnContextClassRef()
-     */
+    /** {@inheritDoc} */
     public AuthnContextClassRef getAuthnContextClassRef() {
         return authnContextClassRef;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContext#setAuthnContextClassRef(org.opensaml.saml2.core.AuthnContextClassRef)
-     */
+    /** {@inheritDoc} */
     public void setAuthnContextClassRef(AuthnContextClassRef newAuthnContextClassRef) {
         this.authnContextClassRef = prepareForAssignment(this.authnContextClassRef, newAuthnContextClassRef);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContext#getAuthContextDecl()
-     */
+    /** {@inheritDoc} */
     public AuthnContextDecl getAuthContextDecl() {
         return authnContextDecl;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContext#setAuthnContextDecl(org.opensaml.saml2.core.AuthnContextDecl)
-     */
+    /** {@inheritDoc} */
     public void setAuthnContextDecl(AuthnContextDecl newAuthnContextDecl) {
         this.authnContextDecl = prepareForAssignment(this.authnContextDecl, newAuthnContextDecl);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContext#getAuthnContextDeclRef()
-     */
+    /** {@inheritDoc} */
     public AuthnContextDeclRef getAuthnContextDeclRef() {
         return authnContextDeclRef;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContext#setAuthnContextDeclRef(org.opensaml.saml2.core.AuthnContextDeclRef)
-     */
+    /** {@inheritDoc} */
     public void setAuthnContextDeclRef(AuthnContextDeclRef newAuthnContextDeclRef) {
         this.authnContextDeclRef = prepareForAssignment(this.authnContextDeclRef, newAuthnContextDeclRef);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContext#getAuthenticatingAuthorities()
-     */
+    /** {@inheritDoc} */
     public List<AuthenticatingAuthority> getAuthenticatingAuthorities() {
         return authenticatingAuthority;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

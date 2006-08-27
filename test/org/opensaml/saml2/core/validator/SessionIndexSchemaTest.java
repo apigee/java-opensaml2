@@ -40,9 +40,7 @@ public class SessionIndexSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new SessionIndexSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         SessionIndex si = (SessionIndex) target;
         si.setSessionIndex("abc123");

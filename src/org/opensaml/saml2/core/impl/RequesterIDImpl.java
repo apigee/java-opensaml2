@@ -45,23 +45,17 @@ public class RequesterIDImpl extends AbstractSAMLObject implements RequesterID {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.RequesterID#getRequesterID()
-     */
+    /** {@inheritDoc} */
     public String getRequesterID() {
         return this.requesterID;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.RequesterID#setRequesterID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setRequesterID(String newRequesterID) {
         this.requesterID = prepareForAssignment(this.requesterID, newRequesterID);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // No children
         return null;

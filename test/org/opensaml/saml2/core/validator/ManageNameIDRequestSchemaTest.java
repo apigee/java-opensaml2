@@ -46,9 +46,7 @@ public class ManageNameIDRequestSchemaTest extends RequestSchemaTestBase {
         validator = new ManageNameIDRequestSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         ManageNameIDRequest request = (ManageNameIDRequest) target;

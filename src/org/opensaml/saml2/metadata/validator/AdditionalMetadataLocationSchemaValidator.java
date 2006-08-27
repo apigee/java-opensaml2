@@ -35,9 +35,7 @@ public class AdditionalMetadataLocationSchemaValidator implements Validator<Addi
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AdditionalMetadataLocation aml) throws ValidationException {
         validateLocation(aml);
         validateNamespace(aml);

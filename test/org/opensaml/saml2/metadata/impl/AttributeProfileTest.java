@@ -38,27 +38,21 @@ public class AttributeProfileTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AttributeProfile.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
         expectedProfileURI = "http://example.org";
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall(){
         AttributeProfile profile = (AttributeProfile) unmarshallElement(singleElementFile);
         
         assertEquals("Profile URI has a value of " + profile.getProfileURI() + ", expected a value of " + expectedProfileURI, expectedProfileURI, profile.getProfileURI());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall(){
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeProfile.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AttributeProfile profile = (AttributeProfile) buildXMLObject(qname);

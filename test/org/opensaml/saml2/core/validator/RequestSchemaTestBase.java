@@ -37,9 +37,7 @@ public abstract class RequestSchemaTestBase extends SAMLObjectValidatorBaseTestC
         super();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
     }

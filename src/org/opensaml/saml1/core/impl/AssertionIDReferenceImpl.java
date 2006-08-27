@@ -41,23 +41,17 @@ public class AssertionIDReferenceImpl extends AbstractSAMLObject implements Asse
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AssertionIDReference#getNCName()
-     */
+    /** {@inheritDoc} */
     public String getReference() {
         return NCName;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AssertionIDReference#setNCName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setReference(String NCName) {
         this.NCName = prepareForAssignment(this.NCName, NCName);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

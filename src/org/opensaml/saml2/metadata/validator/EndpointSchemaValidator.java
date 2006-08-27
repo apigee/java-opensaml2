@@ -35,9 +35,7 @@ public class EndpointSchemaValidator<EndpointType extends Endpoint> implements V
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(EndpointType endpoint) throws ValidationException {
         validateBinding(endpoint);
         validateLocation(endpoint);

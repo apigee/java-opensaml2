@@ -40,16 +40,12 @@ public class AssertionIDRequestSchemaTest extends RequestSchemaTestBase {
         validator = new AssertionIDRequestSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#populateRequired(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AssertionIDRequest request = (AssertionIDRequest) target;

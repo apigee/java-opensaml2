@@ -50,10 +50,8 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, NameIdentifier.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
         NameIdentifier nameIdentifier = (NameIdentifier) unmarshallElement(singleElementFile);
         
@@ -62,10 +60,8 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
         assertNull("Format present", nameIdentifier.getFormat());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesUnmarshall() {
         NameIdentifier nameIdentifier = (NameIdentifier) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -74,18 +70,14 @@ public class NameIdentifierTest extends SAMLObjectBaseTestCase {
         assertEquals("Format attribute", expectedFormat, nameIdentifier.getFormat());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesMarshall() {
         NameIdentifier nameIdentifier = (NameIdentifier) buildXMLObject(qname);
         

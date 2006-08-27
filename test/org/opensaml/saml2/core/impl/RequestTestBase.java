@@ -62,9 +62,7 @@ public abstract class RequestTestBase extends SAMLObjectBaseTestCase {
     }
     
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedID = "abc123";
@@ -78,14 +76,10 @@ public abstract class RequestTestBase extends SAMLObjectBaseTestCase {
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public abstract void testSingleElementUnmarshall();
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public abstract void testSingleElementMarshall();
     
     

@@ -37,9 +37,7 @@ public class RequesterIDSchemaValidator implements Validator<RequesterID> {
         super();
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(RequesterID requesterID) throws ValidationException {
         validateRequesterID(requesterID);
     }

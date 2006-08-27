@@ -50,10 +50,7 @@ public class AuthnContextUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         AuthnContext authnContext = (AuthnContext) parentObject;
         if (childObject instanceof AuthnContextClassRef) {

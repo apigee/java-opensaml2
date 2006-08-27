@@ -35,9 +35,7 @@ public class AuthnContextDeclSchemaValidator implements Validator<AuthnContextDe
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthnContextDecl authnCD) throws ValidationException {
         validateDecl(authnCD);
     }

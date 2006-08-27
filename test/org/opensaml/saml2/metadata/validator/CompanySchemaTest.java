@@ -35,9 +35,7 @@ public class CompanySchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new CompanySchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         Company company = (Company) target;

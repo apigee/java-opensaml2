@@ -51,10 +51,7 @@ public class SPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         SPSSODescriptor descriptor = (SPSSODescriptor) parentSAMLObject;
@@ -68,10 +65,7 @@ public class SPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         SPSSODescriptor descriptor = (SPSSODescriptor) samlObject;
 

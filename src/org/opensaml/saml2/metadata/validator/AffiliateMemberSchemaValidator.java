@@ -35,9 +35,7 @@ public class AffiliateMemberSchemaValidator implements Validator<AffiliateMember
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AffiliateMember affiliateMember) throws ValidationException {
         validateID(affiliateMember);
     }

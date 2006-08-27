@@ -33,9 +33,7 @@ public class SPSSODescriptorSchemaValidator extends SSODescriptorSchemaValidator
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(SPSSODescriptor spssoDescriptor) throws ValidationException {
         super.validate(spssoDescriptor);
         validateAttributeConsumingServices(spssoDescriptor);

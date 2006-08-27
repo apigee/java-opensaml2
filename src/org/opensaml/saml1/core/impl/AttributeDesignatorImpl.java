@@ -48,37 +48,27 @@ public class AttributeDesignatorImpl extends AbstractSAMLObject implements Attri
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeDesignator#getAttributeName()
-     */
+    /** {@inheritDoc} */
     public String getAttributeName() {
         return attributeName;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeDesignator#setAttributeName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAttributeName(String attributeName) {
         this.attributeName = prepareForAssignment(this.attributeName, attributeName);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeDesignator#getAttributeNamespace()
-     */
+    /** {@inheritDoc} */
     public String getAttributeNamespace() {
         return attributeNamespace;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeDesignator#setAttributeNamespace(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAttributeNamespace(String attributeNamespace) {
         this.attributeNamespace = prepareForAssignment(this.attributeNamespace, attributeNamespace);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

@@ -51,9 +51,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/SubjectConfirmationDataOptionalAttributes.xml";
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedNotBefore = new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC());
@@ -63,9 +61,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         expectedAddress = "address";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         SubjectConfirmationData subjectCD = (SubjectConfirmationData) unmarshallElement(singleElementFile);
 
@@ -73,9 +69,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         assertEquals("NotBefore was " + notBefore + ", expected " + expectedNotBefore, expectedNotBefore, notBefore);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         SubjectConfirmationData subjectCD = (SubjectConfirmationData) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -97,9 +91,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         assertEquals("Address was " + address + ", expected " + expectedAddress, expectedAddress, address);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
@@ -109,9 +101,7 @@ public class SubjectConfirmationDataTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, subjectCD);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);

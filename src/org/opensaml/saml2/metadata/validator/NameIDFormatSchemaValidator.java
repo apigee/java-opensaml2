@@ -35,9 +35,7 @@ public class NameIDFormatSchemaValidator implements Validator<NameIDFormat> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(NameIDFormat nameIDFormat) throws ValidationException {
         validateFormat(nameIDFormat);
     }

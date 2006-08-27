@@ -37,9 +37,7 @@ public abstract class StatusResponseSchemaValidator<StatusResponseType extends S
     public StatusResponseSchemaValidator() {
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(StatusResponseType response) throws ValidationException {
         validateStatus(response);
         validateID(response);

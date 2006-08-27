@@ -40,9 +40,7 @@ public class NameIDMappingResponseSchemaTest extends StatusResponseSchemaTestBas
         validator = new NameIDMappingResponseSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaTest#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         

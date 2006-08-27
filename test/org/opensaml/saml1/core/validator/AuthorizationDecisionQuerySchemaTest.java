@@ -34,9 +34,7 @@ public class AuthorizationDecisionQuerySchemaTest extends SubjectQuerySchemaTest
         validator = new AuthorizationDecisionQuerySchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AuthorizationDecisionQuery query = (AuthorizationDecisionQuery) target;

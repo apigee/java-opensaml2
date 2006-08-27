@@ -35,10 +35,7 @@ public class NameIdentifierUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML1_NS, NameIdentifier.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         NameIdentifier nameIdentifier = (NameIdentifier) samlObject;
 
@@ -51,10 +48,7 @@ public class NameIdentifierUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         NameIdentifier nameIdentifier = (NameIdentifier) samlObject;
         nameIdentifier.setNameIdentifier(elementContent);

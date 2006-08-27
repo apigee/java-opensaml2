@@ -41,27 +41,21 @@ public class EmailAddressTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/EmailAddress.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
         expectedAddress = "foo@example.org";
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         EmailAddress address = (EmailAddress) unmarshallElement(singleElementFile);
         
         assertEquals("Email address was not expected value", expectedAddress, address.getAddress());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EmailAddress.DEFAULT_ELEMENT_LOCAL_NAME);
         EmailAddress address = (EmailAddress) buildXMLObject(qname);

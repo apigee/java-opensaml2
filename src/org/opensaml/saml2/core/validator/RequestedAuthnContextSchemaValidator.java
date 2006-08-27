@@ -36,9 +36,7 @@ public class RequestedAuthnContextSchemaValidator implements Validator<Requested
         super();
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(RequestedAuthnContext requestedAuthnContext) throws ValidationException {
         validateChildren(requestedAuthnContext);
     }

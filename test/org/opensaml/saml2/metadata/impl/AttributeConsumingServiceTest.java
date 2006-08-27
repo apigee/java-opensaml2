@@ -46,9 +46,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/metadata/impl/AttributeConsumingServiceChildElements.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
@@ -60,18 +58,14 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AttributeConsumingService service = (AttributeConsumingService) unmarshallElement(singleElementFile);
         
         assertEquals("Index was not expected value", expectedIndex, service.getIndex());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AttributeConsumingService service = (AttributeConsumingService) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -79,10 +73,8 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         assertEquals("isDefault was not expected value", expectedIsDefault, service.isDefaultXSBoolean());
     }
     
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsUnmarshall(){
         AttributeConsumingService service = (AttributeConsumingService) unmarshallElement(childElementsFile);
         
@@ -93,9 +85,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
        
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME);
         AttributeConsumingService service = (AttributeConsumingService) buildXMLObject(qname);
@@ -105,9 +95,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, service);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME);
         AttributeConsumingService service = (AttributeConsumingService) buildXMLObject(qname);
@@ -118,7 +106,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, service);
     }
     
-    @Override
+
     public void testChildElementsMarshall()
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME);

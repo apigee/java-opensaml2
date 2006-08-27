@@ -48,10 +48,8 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
         AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(singleElementFile);
 
@@ -59,10 +57,8 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
         assertEquals("Non zero count of <Attribute> elements", 0, attributeStatement.getAttributes().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsUnmarshall() {
         AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(childElementsFile);
 
@@ -86,18 +82,14 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
                 .getAttributes().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsMarshall() {
 
         AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);

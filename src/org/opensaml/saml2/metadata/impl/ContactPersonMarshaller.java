@@ -56,10 +56,7 @@ public class ContactPersonMarshaller extends AbstractSAMLObjectMarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         ContactPerson person = (ContactPerson) samlObject;
 

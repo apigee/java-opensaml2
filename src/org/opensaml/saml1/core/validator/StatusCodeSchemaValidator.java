@@ -43,9 +43,7 @@ public class StatusCodeSchemaValidator implements Validator<StatusCode> {
                                                   "RequestDenied",
                                                   "ResourceNotRecognized"};
     
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(StatusCode statusCode) throws ValidationException {        
         // TODO separate methods
         String value = statusCode.getValue();

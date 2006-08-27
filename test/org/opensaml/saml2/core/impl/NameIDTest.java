@@ -48,9 +48,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/NameIDOptionalAttributes.xml";
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -61,9 +59,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         expectedSPID = "spID";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         NameID nameID = (NameID) unmarshallElement(singleElementFile);
 
@@ -71,9 +67,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         assertEquals("Name not as expected", name, expectedName);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         NameID nameID = (NameID) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -93,9 +87,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         assertEquals("SPProviderID not as expected", spProvidedID, expectedSPID);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         NameID nameID = (NameID) buildXMLObject(qname);
@@ -104,9 +96,7 @@ public class NameIDTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, nameID);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         NameID nameID = (NameID) buildXMLObject(qname);

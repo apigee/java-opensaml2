@@ -33,9 +33,7 @@ public class AttributeAuthorityDescriptorSchemaValidator extends RoleDescriptorS
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AttributeAuthorityDescriptor attributeAuthorityDescriptor) throws ValidationException {
         super.validate(attributeAuthorityDescriptor);
         validateAttributeServices(attributeAuthorityDescriptor);

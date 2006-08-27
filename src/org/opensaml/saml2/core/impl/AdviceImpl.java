@@ -64,23 +64,17 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Advice#getAssertionIDReferences()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDRef> getAssertionIDReferences() {
         return assertionIDRef;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Advice#getAssertionURIReferences()
-     */
+    /** {@inheritDoc} */
     public List<AssertionURIRef> getAssertionURIReferences() {
         return assertionURIRef;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Advice#getAssertions()
-     */
+    /** {@inheritDoc} */
     public List<Assertion> getAssertions() {
         return assertion;
     }
@@ -92,9 +86,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         return unknownChildren;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

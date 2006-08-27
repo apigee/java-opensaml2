@@ -35,9 +35,7 @@ public class AuthnRequestTest extends ComplexSAMLObjectBaseTestCase {
     }
     
 
-    /*
-     * @see org.opensaml.common.ComplexSAMLObjectBaseTestCase#testUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testUnmarshall() {
         AuthnRequest request = (AuthnRequest) unmarshallElement(elementFile);
         
@@ -59,9 +57,7 @@ public class AuthnRequestTest extends ComplexSAMLObjectBaseTestCase {
         assertEquals("RequestedAuthnContext/AuthnContextClassRef[1] contents", "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport", classRef.getAuthnContextClassRef());
     }
 
-    /*
-     * @see org.opensaml.common.ComplexSAMLObjectBaseTestCase#testMarshall()
-     */
+    /** {@inheritDoc} */
     public void testMarshall() {
         NameID nameid = (NameID) buildXMLObject(NameID.DEFAULT_ELEMENT_NAME);
         nameid.setFormat("urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress");

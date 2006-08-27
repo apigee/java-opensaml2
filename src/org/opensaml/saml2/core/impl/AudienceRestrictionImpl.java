@@ -50,16 +50,12 @@ public class AudienceRestrictionImpl extends AbstractSAMLObject implements Audie
         audience = new XMLObjectChildrenList<Audience>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AudienceRestriction#getAudiences()
-     */
+    /** {@inheritDoc} */
     public List<Audience> getAudiences() {
         return audience;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

@@ -47,9 +47,7 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Subject subject = (Subject) unmarshallElement(singleElementFile);
 
@@ -67,17 +65,13 @@ public class SubjectTest extends SAMLObjectBaseTestCase {
         assertNotNull("Zero child SubjectConfirmation elements", subject.getSubjectConfirmation());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsMarshall() {
         Subject subject = (Subject) buildXMLObject(qname);
 

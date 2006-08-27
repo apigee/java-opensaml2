@@ -35,9 +35,7 @@ public class AuthenticationStatementSchemaTest extends SubjectStatementSchemaTes
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
 

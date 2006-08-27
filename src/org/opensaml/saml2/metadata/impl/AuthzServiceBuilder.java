@@ -32,16 +32,12 @@ public class AuthzServiceBuilder extends AbstractSAMLObjectBuilder<AuthzService>
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AuthzService buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, AuthzService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AuthzService buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AuthzServiceImpl(namespaceURI, localName, namespacePrefix);
     }

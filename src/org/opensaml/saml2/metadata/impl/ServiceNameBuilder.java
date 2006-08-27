@@ -36,16 +36,12 @@ public class ServiceNameBuilder extends AbstractSAMLObjectBuilder<ServiceName> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public ServiceName buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, ServiceName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public ServiceName buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ServiceNameImpl(namespaceURI, localName, namespacePrefix);
     }

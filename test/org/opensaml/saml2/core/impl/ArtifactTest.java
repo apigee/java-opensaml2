@@ -41,26 +41,20 @@ public class ArtifactTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/Artifact.xml";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedContent = "abc123";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Artifact artifact = (Artifact) unmarshallElement(singleElementFile);
         
         assertEquals("Artifact content is not the expected value", expectedContent, artifact.getArtifact());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME);
         Artifact artifact = (Artifact) buildXMLObject(qname);

@@ -44,18 +44,14 @@ public class AssertionIDRequestTest extends RequestTestBase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/AssertionIDRequestChildElements.xml";
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedNumAssertionIDRefs = 3;
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AssertionIDRequest req = (AssertionIDRequest) buildXMLObject(qname);
@@ -66,9 +62,7 @@ public class AssertionIDRequestTest extends RequestTestBase {
     }
     
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AssertionIDRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AssertionIDRequest req = (AssertionIDRequest) buildXMLObject(qname);
@@ -80,9 +74,7 @@ public class AssertionIDRequestTest extends RequestTestBase {
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         AssertionIDRequestBuilder builder = (AssertionIDRequestBuilder) builderFactory.getBuilder(AssertionIDRequest.DEFAULT_ELEMENT_NAME);
         AssertionIDRequest req = builder.buildObject();
@@ -96,27 +88,21 @@ public class AssertionIDRequestTest extends RequestTestBase {
         assertEquals(expectedChildElementsDOM, req);
     }
     
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AssertionIDRequest req = (AssertionIDRequest) unmarshallElement(singleElementFile);
         
         super.helperTestSingleElementUnmarshall(req);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AssertionIDRequest req = (AssertionIDRequest) unmarshallElement(singleElementOptionalAttributesFile);
         
         super.helperTestSingleElementOptionalAttributesUnmarshall(req);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         AssertionIDRequest req = (AssertionIDRequest) unmarshallElement(childElementsFile);
         

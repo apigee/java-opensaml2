@@ -45,23 +45,17 @@ public class TelephoneNumberImpl extends AbstractSAMLObject implements Telephone
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.TelephoneNumber#getNumber()
-     */
+    /** {@inheritDoc} */
     public String getNumber() {
         return number;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.TelephoneNumber#setNumber(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setNumber(String newNumber) {
         number = prepareForAssignment(number, newNumber);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

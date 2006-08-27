@@ -43,18 +43,14 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
        childElementsFile = "/data/org/opensaml/saml2/core/impl/StatusCodeChildElements.xml";
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
         expectedValue = "urn:string";
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
         StatusCode statusCode = (StatusCode) buildXMLObject(qname);
@@ -65,9 +61,7 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
         StatusCode statusCode = (StatusCode) buildXMLObject(qname);
@@ -80,18 +74,14 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
 
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         StatusCode statusCode = (StatusCode) unmarshallElement(singleElementFile);
         
         assertEquals("Unmarshalled status code URI value was not the expected value", expectedValue, statusCode.getValue());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         StatusCode statusCode = (StatusCode) unmarshallElement(childElementsFile);
         

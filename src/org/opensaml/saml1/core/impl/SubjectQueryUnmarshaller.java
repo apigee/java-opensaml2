@@ -41,9 +41,7 @@ public abstract class SubjectQueryUnmarshaller extends AbstractSAMLObjectUnmarsh
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         SubjectQuery query = (SubjectQuery) parentSAMLObject;
         

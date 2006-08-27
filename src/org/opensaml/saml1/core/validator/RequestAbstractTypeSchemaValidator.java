@@ -30,9 +30,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class RequestAbstractTypeSchemaValidator<RequestType extends RequestAbstractType> implements Validator<RequestType> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(RequestType requestAbstractType) throws ValidationException {
         validateVersion(requestAbstractType);
 

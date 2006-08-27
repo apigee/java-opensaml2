@@ -37,9 +37,7 @@ public class IDPEntrySchemaValidator implements Validator<IDPEntry> {
         super();
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(IDPEntry entry) throws ValidationException {
         validateProviderID(entry);
     }

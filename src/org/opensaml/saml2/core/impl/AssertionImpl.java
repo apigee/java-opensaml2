@@ -88,153 +88,111 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         statements = new IndexedXMLObjectChildrenList<Statement>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getVersion()
-     */
+    /** {@inheritDoc} */
     public SAMLVersion getVersion() {
         return version;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#setVersion(org.opensaml.common.SAMLVersion)
-     */
+    /** {@inheritDoc} */
     public void setVersion(SAMLVersion newVersion) {
         this.version = prepareForAssignment(this.version, newVersion);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getIssueInstant()
-     */
+    /** {@inheritDoc} */
     public DateTime getIssueInstant() {
         return issueInstant;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#setIssueInstant(org.joda.time.DateTime)
-     */
+    /** {@inheritDoc} */
     public void setIssueInstant(DateTime newIssueInstance) {
         this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstance);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return id;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String newID) {
         this.id = prepareForAssignment(this.id, newID);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getIssuer()
-     */
+    /** {@inheritDoc} */
     public Issuer getIssuer() {
         return issuer;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#setIssuer(org.opensaml.saml2.core.Issuer)
-     */
+    /** {@inheritDoc} */
     public void setIssuer(Issuer newIssuer) {
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
 
-    /*
-     * @see org.opensaml.xml.signature.SignableXMLObject#getSignature()
-     */
+    /** {@inheritDoc} */
     public Signature getSignature() {
         return signature;
     }
 
-    /*
-     * @see org.opensaml.xml.signature.SignableXMLObject#setSignature(org.opensaml.xml.signature.Signature)
-     */
+    /** {@inheritDoc} */
     public void setSignature(Signature newSignature) {
         this.signature = prepareForAssignment(this.signature, newSignature);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getSubject()
-     */
+    /** {@inheritDoc} */
     public Subject getSubject() {
         return subject;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#setSubject(org.opensaml.saml2.core.Subject)
-     */
+    /** {@inheritDoc} */
     public void setSubject(Subject newSubject) {
         this.subject = prepareForAssignment(this.subject, newSubject);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getConditions()
-     */
+    /** {@inheritDoc} */
     public Conditions getConditions() {
         return conditions;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#setConditions(org.opensaml.saml2.core.Conditions)
-     */
+    /** {@inheritDoc} */
     public void setConditions(Conditions newConditions) {
         this.conditions = prepareForAssignment(this.conditions, newConditions);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getAdvice()
-     */
+    /** {@inheritDoc} */
     public Advice getAdvice() {
         return advice;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#setAdvice(org.opensaml.saml2.core.Advice)
-     */
+    /** {@inheritDoc} */
     public void setAdvice(Advice newAdvice) {
         this.advice = prepareForAssignment(this.advice, newAdvice);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getStatements()
-     */
+    /** {@inheritDoc} */
     public List<Statement> getStatements() {
         return statements;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getStatements(javax.xml.namespace.QName)
-     */
+    /** {@inheritDoc} */
     public List<Statement> getStatements(QName typeOrName) {
         return (List<Statement>) statements.subList(typeOrName);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getAuthnStatements()
-     */
+    /** {@inheritDoc} */
     public List<AuthnStatement> getAuthnStatements() {
         QName statementQName = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         return (List<AuthnStatement>) statements.subList(statementQName);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getAuthzDecisionStatements()
-     */
+    /** {@inheritDoc} */
     public List<AuthzDecisionStatement> getAuthzDecisionStatements() {
         QName statementQName = new QName(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         return (List<AuthzDecisionStatement>) statements.subList(statementQName);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Assertion#getAttributeStatement()
-     */
+    /** {@inheritDoc} */
     public List<AttributeStatement> getAttributeStatement() {
         QName statementQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
@@ -246,9 +204,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         return id;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

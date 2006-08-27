@@ -96,16 +96,12 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         unknownAttributes = new AttributeMap(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getEntityID()
-     */
+    /** {@inheritDoc} */
     public String getEntityID() {
         return entityID;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#setEntityID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setEntityID(String id) {
         if (id != null && id.length() > 1024) {
             throw new IllegalArgumentException("Entity ID can not exceed 1024 characters in length");
@@ -113,23 +109,17 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         entityID = prepareForAssignment(entityID, id);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return id;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String newID) {
         this.id = prepareForAssignment(this.id, newID);
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
-     */
+    /** {@inheritDoc} */
     public boolean isValid() {
         if (null == validUntil) {
             //
@@ -140,65 +130,47 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return validUntil.isBeforeNow();
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
-     */
+    /** {@inheritDoc} */
     public DateTime getValidUntil() {
         return validUntil;
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
-     */
+    /** {@inheritDoc} */
     public void setValidUntil(DateTime validUntil) {
         this.validUntil = prepareForAssignment(this.validUntil, validUntil);
     }
 
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#getCacheDuration()
-     */
+    /** {@inheritDoc} */
     public Long getCacheDuration() {
         return cacheDuration;
     }
 
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#setCacheDuration(java.lang.Long)
-     */
+    /** {@inheritDoc} */
     public void setCacheDuration(Long duration) {
         cacheDuration = prepareForAssignment(cacheDuration, duration);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getExtensions()
-     */
+    /** {@inheritDoc} */
     public Extensions getExtensions() {
         return extensions;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
-     */
+    /** {@inheritDoc} */
     public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors()
-     */
+    /** {@inheritDoc} */
     public List<RoleDescriptor> getRoleDescriptors() {
         return roleDescriptors;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName)
-     */
+    /** {@inheritDoc} */
     public List<RoleDescriptor> getRoleDescriptors(QName typeOrName) {
         return (List<RoleDescriptor>) roleDescriptors.subList(typeOrName);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getRoleDescriptors(javax.xml.namespace.QName, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public List<RoleDescriptor> getRoleDescriptors(QName type, String supportedProtocol) {
         FastList<RoleDescriptor> supportingRoleDescriptors = new FastList<RoleDescriptor>();
         for (RoleDescriptor descriptor : roleDescriptors.subList(type)) {
@@ -210,9 +182,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return supportingRoleDescriptors;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getIDPSSODescriptor()
-     */
+    /** {@inheritDoc} */
     public IDPSSODescriptor getIDPSSODescriptor(String supportedProtocol) {
         List<RoleDescriptor> descriptors = getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
         if(descriptors.size() > 0){
@@ -222,9 +192,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return null;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getSPSSODescriptor()
-     */
+    /** {@inheritDoc} */
     public SPSSODescriptor getSPSSODescriptor(String supportedProtocol) {
         List<RoleDescriptor> descriptors = getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
         if(descriptors.size() > 0){
@@ -234,9 +202,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return null;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getAuthnAuthorityDescriptor()
-     */
+    /** {@inheritDoc} */
     public AuthnAuthorityDescriptor getAuthnAuthorityDescriptor(String supportedProtocol) {
         List<RoleDescriptor> descriptors = getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
         if(descriptors.size() > 0){
@@ -246,9 +212,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return null;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getAttributeAuthorityDescriptor()
-     */
+    /** {@inheritDoc} */
     public AttributeAuthorityDescriptor getAttributeAuthorityDescriptor(String supportedProtocol) {
         List<RoleDescriptor> descriptors = getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
         if(descriptors.size() > 0){
@@ -258,9 +222,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return null;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getPDPDescriptor()
-     */
+    /** {@inheritDoc} */
     public PDPDescriptor getPDPDescriptor(String supportedProtocol) {
         List<RoleDescriptor> descriptors = getRoleDescriptors(PDPDescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
         if(descriptors.size() > 0){
@@ -270,44 +232,32 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return null;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getAffiliationDescriptor()
-     */
+    /** {@inheritDoc} */
     public AffiliationDescriptor getAffiliationDescriptor() {
         return affiliationDescriptor;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#setAffiliationDescriptor(org.opensaml.saml2.metadata.AffiliationDescriptor)
-     */
+    /** {@inheritDoc} */
     public void setAffiliationDescriptor(AffiliationDescriptor descriptor) throws IllegalArgumentException {
         affiliationDescriptor = prepareForAssignment(affiliationDescriptor, descriptor);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getOrganization()
-     */
+    /** {@inheritDoc} */
     public Organization getOrganization() {
         return organization;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#setOrganization(org.opensaml.saml2.metadata.Organization)
-     */
+    /** {@inheritDoc} */
     public void setOrganization(Organization organization) throws IllegalArgumentException {
         this.organization = prepareForAssignment(this.organization, organization);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getContactPersons()
-     */
+    /** {@inheritDoc} */
     public List<ContactPerson> getContactPersons() {
         return contactPersons;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getAdditionalMetadataLocations()
-     */
+    /** {@inheritDoc} */
     public List<AdditionalMetadataLocation> getAdditionalMetadataLocations() {
         return additionalMetadata;
     }
@@ -324,9 +274,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
         return id;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

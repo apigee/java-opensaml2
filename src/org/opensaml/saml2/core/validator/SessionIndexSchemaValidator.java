@@ -37,9 +37,7 @@ public class SessionIndexSchemaValidator implements Validator<SessionIndex> {
         super();
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(SessionIndex sessionIndex) throws ValidationException {
         validateSessionIndex(sessionIndex);
     }

@@ -29,9 +29,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class StatusSchemaValidator implements Validator<Status> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Status status) throws ValidationException {
         // TODO separate methods
         if (status.getStatusCode() == null) {

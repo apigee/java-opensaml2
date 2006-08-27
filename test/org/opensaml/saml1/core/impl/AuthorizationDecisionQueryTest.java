@@ -65,9 +65,7 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
         qname =new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -77,9 +75,7 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
                 .getResourceAsStream(fullElementsFile)));
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
 
         AuthorizationDecisionQuery authorizationDecisionQuery;
@@ -91,9 +87,7 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
         assertNull("Evidence element present", authorizationDecisionQuery.getEvidence());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthorizationDecisionQuery authorizationDecisionQuery;
         authorizationDecisionQuery = (AuthorizationDecisionQuery) unmarshallElement(singleElementOptionalAttributesFile);
@@ -116,16 +110,12 @@ public class AuthorizationDecisionQueryTest extends SAMLObjectBaseTestCase {
         assertNotNull("Evidence element present", authorizationDecisionQuery.getEvidence());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     } 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         AuthorizationDecisionQuery authorizationDecisionQuery;
         authorizationDecisionQuery = (AuthorizationDecisionQuery) buildXMLObject(qname);

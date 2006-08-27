@@ -60,72 +60,52 @@ public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
         sessionIndexes = new XMLObjectChildrenList<SessionIndex>(this);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.LogoutRequest#getReason()
-     */
+    /** {@inheritDoc} */
     public String getReason() {
         return this.reason;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.LogoutRequest#setReason(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setReason(String newReason) {
         this.reason = prepareForAssignment(this.reason, newReason);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.LogoutRequest#getNotOnOrAfter()
-     */
+    /** {@inheritDoc} */
     public DateTime getNotOnOrAfter() {
         return this.notOnOrAfter;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.LogoutRequest#setNotOnOrAfter(org.joda.time.DateTime)
-     */
+    /** {@inheritDoc} */
     public void setNotOnOrAfter(DateTime newNotOnOrAfter) {
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#getBaseID()
-     */
+    /** {@inheritDoc} */
     public BaseID getBaseID() {
         return baseID;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#setBaseID(org.opensaml.saml2.core.BaseID)
-     */
+    /** {@inheritDoc} */
     public void setBaseID(BaseID newBaseID) {
         baseID = prepareForAssignment(baseID, newBaseID);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#getNameID()
-     */
+    /** {@inheritDoc} */
     public NameID getNameID() {
         return nameID;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#setNameID(org.opensaml.saml2.core.NameID)
-     */
+    /** {@inheritDoc} */
     public void setNameID(NameID newNameID) {
         nameID = prepareForAssignment(nameID, newNameID);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.LogoutRequest#getSessionIndexes()
-     */
+    /** {@inheritDoc} */
     public List<SessionIndex> getSessionIndexes() {
         return sessionIndexes;
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

@@ -38,9 +38,7 @@ public class ResponseSuccessAuthnAttribTest extends ComplexSAMLObjectBaseTestCas
         elementFile = "/data/org/opensaml/saml2/core/ResponseSuccessAuthnAttrib.xml";
     }
 
-    /*
-     * @see org.opensaml.common.ComplexSAMLObjectBaseTestCase#testUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testUnmarshall() {
         Response response = (Response) unmarshallElement(elementFile);
         
@@ -95,9 +93,7 @@ public class ResponseSuccessAuthnAttribTest extends ComplexSAMLObjectBaseTestCas
         assertEquals("Attribute content", "j.doe@idp.example.org", value.getValue());
     }
 
-    /*
-     * @see org.opensaml.common.ComplexSAMLObjectBaseTestCase#testMarshall()
-     */
+    /** {@inheritDoc} */
     public void testMarshall(){
         Response response = (Response) buildXMLObject(Response.DEFAULT_ELEMENT_NAME);
         response.setID("_c7055387-af61-4fce-8b98-e2927324b306");

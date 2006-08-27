@@ -37,9 +37,7 @@ public class ArtifactSchemaValidator implements Validator<Artifact> {
     public ArtifactSchemaValidator() {
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Artifact artifact) throws ValidationException {
         validateArtifact(artifact);
     }

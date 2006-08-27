@@ -49,10 +49,7 @@ public class RequestedAttributeUnmarshaller extends AttributeUnmarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         RequestedAttribute requestedAttribute = (RequestedAttribute) samlObject;
         if (attribute.getLocalName().equals(RequestedAttribute.IS_REQUIRED_ATTRIB_NAME)) {

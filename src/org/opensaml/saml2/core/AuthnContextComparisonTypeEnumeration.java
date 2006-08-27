@@ -45,9 +45,7 @@ public final class AuthnContextComparisonTypeEnumeration {
         this.comparisonType= comparisonType;
     }
 
-    /*
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     public String toString() {
         return comparisonType;
     }

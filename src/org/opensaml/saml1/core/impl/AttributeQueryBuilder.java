@@ -32,16 +32,12 @@ public class AttributeQueryBuilder extends AbstractSAMLObjectBuilder<AttributeQu
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AttributeQuery buildObject() {
         return buildObject(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AttributeQuery buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeQueryImpl(namespaceURI, localName, namespacePrefix);
     }

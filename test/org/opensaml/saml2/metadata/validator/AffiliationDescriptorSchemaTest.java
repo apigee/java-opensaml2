@@ -36,9 +36,7 @@ public class AffiliationDescriptorSchemaTest extends SAMLObjectValidatorBaseTest
         validator = new AffiliationDescriptorSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AffiliationDescriptor affiliationDescriptor = (AffiliationDescriptor) target;

@@ -49,10 +49,7 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         RoleDescriptor roleDescriptor = (RoleDescriptor) parentSAMLObject;
@@ -70,10 +67,7 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         RoleDescriptor roleDescriptor = (RoleDescriptor) samlObject;
 

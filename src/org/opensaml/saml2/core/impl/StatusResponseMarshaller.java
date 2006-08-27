@@ -42,9 +42,7 @@ public abstract class StatusResponseMarshaller extends AbstractSAMLObjectMarshal
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         StatusResponse sr = (StatusResponse) samlObject;
         

@@ -44,18 +44,14 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/IDPListChildElements.xml";
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedNumIDPEntryChildren = 3;
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.DEFAULT_ELEMENT_LOCAL_NAME);
         IDPList list = (IDPList) buildXMLObject(qname);
@@ -64,9 +60,7 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
     }
  
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, IDPList.DEFAULT_ELEMENT_LOCAL_NAME);
         IDPList list = (IDPList) buildXMLObject(qname);
@@ -83,9 +77,7 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
         
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         IDPList list = (IDPList) unmarshallElement(singleElementFile);
         
@@ -94,9 +86,7 @@ public class IDPListTest extends SAMLObjectBaseTestCase {
         assertNull("GetComplete", list.getGetComplete());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         IDPList list = (IDPList) unmarshallElement(childElementsFile);
         

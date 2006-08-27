@@ -72,9 +72,7 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
         
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedID = "def456";
@@ -91,14 +89,10 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
         expectedStatus = (Status) buildXMLObject(statusQName);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public abstract void testSingleElementUnmarshall();
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public abstract void testSingleElementMarshall();
     
     

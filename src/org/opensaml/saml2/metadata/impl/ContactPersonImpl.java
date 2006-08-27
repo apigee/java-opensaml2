@@ -79,86 +79,62 @@ public class ContactPersonImpl extends AbstractSAMLObject implements ContactPers
         telephoneNumbers = new XMLObjectChildrenList<TelephoneNumber>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#getContactPersonType()
-     */
+    /** {@inheritDoc} */
     public ContactPersonTypeEnumeration getType() {
         return type;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#setType(org.opensaml.saml2.metadata.ContactPersonType)
-     */
+    /** {@inheritDoc} */
     public void setType(ContactPersonTypeEnumeration type) {
         this.type = prepareForAssignment(this.type, type);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#getExtensions()
-     */
+    /** {@inheritDoc} */
     public Extensions getExtensions() {
         return extensions;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#setExtensions(org.opensaml.saml2.core.Extensions)
-     */
+    /** {@inheritDoc} */
     public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#getCompany()
-     */
+    /** {@inheritDoc} */
     public Company getCompany() {
         return company;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#setCompany(org.opensaml.saml2.metadata.Company)
-     */
+    /** {@inheritDoc} */
     public void setCompany(Company company) {
         this.company = prepareForAssignment(this.company, company);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#getGivenName()
-     */
+    /** {@inheritDoc} */
     public GivenName getGivenName() {
         return givenName;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#setGivenName(org.opensaml.saml2.metadata.GivenName)
-     */
+    /** {@inheritDoc} */
     public void setGivenName(GivenName name) {
         givenName = prepareForAssignment(givenName, name);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#getSurName()
-     */
+    /** {@inheritDoc} */
     public SurName getSurName() {
         return surName;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#setSurName(org.opensaml.saml2.metadata.SurName)
-     */
+    /** {@inheritDoc} */
     public void setSurName(SurName name) {
         surName = prepareForAssignment(surName, name);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#getEmailAddresses()
-     */
+    /** {@inheritDoc} */
     public List<EmailAddress> getEmailAddresses() {
         return emailAddresses;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ContactPerson#getTelephoneNumbers()
-     */
+    /** {@inheritDoc} */
     public List<TelephoneNumber> getTelephoneNumbers() {
         return telephoneNumbers;
     }
@@ -170,9 +146,7 @@ public class ContactPersonImpl extends AbstractSAMLObject implements ContactPers
         return unknownAttributes;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

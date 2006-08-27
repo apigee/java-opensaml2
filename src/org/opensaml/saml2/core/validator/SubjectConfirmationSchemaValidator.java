@@ -35,9 +35,7 @@ public class SubjectConfirmationSchemaValidator implements Validator<SubjectConf
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(SubjectConfirmation subjectConfirmation) throws ValidationException {
         validateMethod(subjectConfirmation);
     }

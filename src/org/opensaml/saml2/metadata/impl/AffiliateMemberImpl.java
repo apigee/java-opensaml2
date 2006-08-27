@@ -41,16 +41,12 @@ public class AffiliateMemberImpl extends AbstractSAMLObject implements Affiliate
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliateMember#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return id;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliateMember#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String newID) throws IllegalArgumentException {
         if (newID != null && newID.length() > 1024) {
             throw new IllegalArgumentException("Member ID can not exceed 1024 characters in length");
@@ -59,9 +55,7 @@ public class AffiliateMemberImpl extends AbstractSAMLObject implements Affiliate
         id = prepareForAssignment(id, newID);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // No children
         return null;

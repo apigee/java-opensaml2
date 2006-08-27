@@ -32,16 +32,12 @@ public class RequestBuilder extends AbstractSAMLObjectBuilder<Request> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public Request buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Request buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new RequestImpl(namespaceURI, localName, namespacePrefix);
     }

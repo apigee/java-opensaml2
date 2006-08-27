@@ -42,26 +42,20 @@ public class NewIDTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/NewID.xml";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedNewID = "SomeSAMLNameID";
     }
 
-    /** 
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         NewID newID = (NewID) unmarshallElement(singleElementFile);
         
        assertEquals("The unmarshalled NewID was not the expected value", expectedNewID, newID.getNewID());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NewID.DEFAULT_ELEMENT_LOCAL_NAME);
         NewID newID = (NewID) buildXMLObject(qname);

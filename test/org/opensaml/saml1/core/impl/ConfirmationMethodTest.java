@@ -48,10 +48,8 @@ public class ConfirmationMethodTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
         ConfirmationMethod confirmationMethod = (ConfirmationMethod) unmarshallElement(singleElementFile);
         
@@ -59,28 +57,22 @@ public class ConfirmationMethodTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesUnmarshall() {
         ConfirmationMethod confirmationMethod = (ConfirmationMethod) unmarshallElement(singleElementOptionalAttributesFile);
         
         assertEquals("Contents of Confirmation Method", expectedConfirmationMethod, confirmationMethod.getConfirmationMethod());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesMarshall() {
         ConfirmationMethod confirmationMethod = (ConfirmationMethod) buildXMLObject(qname);
         confirmationMethod.setConfirmationMethod(expectedConfirmationMethod);

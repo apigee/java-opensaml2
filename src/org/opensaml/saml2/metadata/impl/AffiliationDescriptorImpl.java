@@ -77,16 +77,12 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#getOwnerID()
-     */
+    /** {@inheritDoc} */
     public String getOwnerID() {
         return ownerID;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#setOwnerID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setOwnerID(String newOwnerID) {
         if (newOwnerID != null && newOwnerID.length() > 1024) {
             throw new IllegalArgumentException("Owner ID can not exceed 1024 characters in length");
@@ -102,65 +98,47 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
         this.id = prepareForAssignment(this.id, newID);
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
-     */
+    /** {@inheritDoc} */
     public boolean isValid() {
         return validUntil.isBeforeNow();
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
-     */
+    /** {@inheritDoc} */
     public DateTime getValidUntil() {
         return validUntil;
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
-     */
+    /** {@inheritDoc} */
     public void setValidUntil(DateTime validUntil) {
         this.validUntil = prepareForAssignment(this.validUntil, validUntil);
     }
 
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#getCacheDuration()
-     */
+    /** {@inheritDoc} */
     public Long getCacheDuration() {
         return cacheDuration;
     }
 
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#setCacheDuration(java.lang.Long)
-     */
+    /** {@inheritDoc} */
     public void setCacheDuration(Long duration) {
         cacheDuration = prepareForAssignment(cacheDuration, duration);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#getExtensions()
-     */
+    /** {@inheritDoc} */
     public Extensions getExtensions() {
         return extensions;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
-     */
+    /** {@inheritDoc} */
     public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AffiliationDescriptor#getMembers()
-     */
+    /** {@inheritDoc} */
     public List<AffiliateMember> getMembers() {
         return members;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#getKeyDescriptors()
-     */
+    /** {@inheritDoc} */
     public List<KeyDescriptor> getKeyDescriptors() {
         return keyDescriptors;
     }
@@ -177,9 +155,7 @@ public class AffiliationDescriptorImpl extends AbstractSignableSAMLObject implem
         return id;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

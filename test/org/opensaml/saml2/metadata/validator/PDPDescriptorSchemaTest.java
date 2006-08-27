@@ -34,9 +34,7 @@ public class PDPDescriptorSchemaTest extends RoleDescriptorSchemaTestBase {
         validator = new PDPDescriptorSchemaValidator();
     }
     
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         PDPDescriptor pdpDescriptor = (PDPDescriptor) target;

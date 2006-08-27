@@ -35,16 +35,12 @@ public class AttributeDesignatorBuilder extends AbstractSAMLObjectBuilder<Attrib
     public AttributeDesignatorBuilder() {
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AttributeDesignator buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AttributeDesignator buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeDesignatorImpl(namespaceURI, localName, namespacePrefix);
     }

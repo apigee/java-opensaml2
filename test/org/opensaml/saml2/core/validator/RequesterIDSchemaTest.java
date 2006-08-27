@@ -40,9 +40,7 @@ public class RequesterIDSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new RequesterIDSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         RequesterID reqid = (RequesterID) target;

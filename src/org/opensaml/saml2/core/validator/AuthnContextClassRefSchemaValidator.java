@@ -35,9 +35,7 @@ public class AuthnContextClassRefSchemaValidator implements Validator<AuthnConte
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthnContextClassRef authnContextClassRef) throws ValidationException {
         validateClassRef(authnContextClassRef);
     }

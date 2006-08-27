@@ -52,9 +52,7 @@ public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AttributeDesignator ad = (AttributeDesignator) unmarshallElement(singleElementFile);
 
@@ -62,9 +60,7 @@ public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
         assertNull("AttributeNamespace", ad.getAttributeNamespace());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AttributeDesignator ad = (AttributeDesignator) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -72,16 +68,12 @@ public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
         assertEquals("AttributeNamespace", expectedAttributeNamespace, ad.getAttributeNamespace());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         AttributeDesignator ad = (AttributeDesignator) buildXMLObject(qname);
 

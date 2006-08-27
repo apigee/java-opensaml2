@@ -35,9 +35,7 @@ public class EmailAddressSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new EmailAddressSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         EmailAddress emailAddress = (EmailAddress) target;

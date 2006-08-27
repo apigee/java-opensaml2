@@ -47,10 +47,7 @@ public class AuthzDecisionStatementMarshaller extends AbstractSAMLObjectMarshall
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthzDecisionStatement authzDS = (AuthzDecisionStatement) samlObject;
 

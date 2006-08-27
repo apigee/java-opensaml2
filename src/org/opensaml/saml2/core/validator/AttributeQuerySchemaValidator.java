@@ -35,9 +35,7 @@ public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator<A
         super();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.SubjectQuerySchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AttributeQuery query) throws ValidationException {
         super.validate(query);
     }

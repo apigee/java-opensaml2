@@ -45,23 +45,17 @@ public class AuthnContextDeclImpl extends AbstractSAMLObject implements AuthnCon
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContextDecl#getDeclartion()
-     */
+    /** {@inheritDoc} */
     public String getDeclaration() {
         return declaration;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContextDecl#setDeclaration(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setDeclaration(String newDeclaration) {
         this.declaration = prepareForAssignment(this.declaration, newDeclaration);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

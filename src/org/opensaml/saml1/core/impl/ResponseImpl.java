@@ -49,30 +49,22 @@ public class ResponseImpl extends ResponseAbstractTypeImpl implements Response {
         assertions = new XMLObjectChildrenList<Assertion>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#getAssertions()
-     */
+    /** {@inheritDoc} */
     public List<Assertion> getAssertions() {
         return assertions;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#getStatus()
-     */
+    /** {@inheritDoc} */
     public Status getStatus() {
         return status;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#getStatus(org.opensaml.saml1.core.Status)
-     */
+    /** {@inheritDoc} */
     public void setStatus(Status status) throws IllegalArgumentException {
         this.status = prepareForAssignment(this.status, status);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>(1 + assertions.size());
 

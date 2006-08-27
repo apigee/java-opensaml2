@@ -77,128 +77,92 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
         version = SAMLVersion.VERSION_20;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.StatusResponse#getVersion()
-     */
+    /** {@inheritDoc} */
     public SAMLVersion getVersion() {
         return version;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.StatusResponse#setVersion(org.opensaml.common.SAMLVersion)
-     */
+    /** {@inheritDoc} */
     public void setVersion(SAMLVersion newVersion) {
         this.version = prepareForAssignment(this.version, newVersion);
     }
     
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return this.id;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String newID) {
         this.id = prepareForAssignment(this.id, newID);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#getInResponseTo()
-     */
+    /** {@inheritDoc} */
     public String getInResponseTo() {
         return this.inResponseTo;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#setInResponseTo(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setInResponseTo(String newInResponseTo) {
         this.inResponseTo = prepareForAssignment(this.inResponseTo, newInResponseTo);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#getIssueInstant()
-     */
+    /** {@inheritDoc} */
     public DateTime getIssueInstant() {
         return this.issueInstant;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#setIssueInstant(org.joda.time.DateTime)
-     */
+    /** {@inheritDoc} */
     public void setIssueInstant(DateTime newIssueInstant) {
         this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstant);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#getDestination()
-     */
+    /** {@inheritDoc} */
     public String getDestination() {
         return this.destination;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#setDestination(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setDestination(String newDestination) {
         this.destination = prepareForAssignment(this.destination, newDestination);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#getConsent()
-     */
+    /** {@inheritDoc} */
     public String getConsent() {
         return this.consent;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#setConsent(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setConsent(String newConsent) {
         this.consent = prepareForAssignment(this.consent, newConsent);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#getIssuer()
-     */
+    /** {@inheritDoc} */
     public Issuer getIssuer() {
         return this.issuer;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#setIssuer(org.opensaml.saml2.core.Issuer)
-     */
+    /** {@inheritDoc} */
     public void setIssuer(Issuer newIssuer) {
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#getExtensions()
-     */
+    /** {@inheritDoc} */
     public Extensions getExtensions() {
         return this.extensions;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#setExtensions(org.opensaml.saml2.common.Extensions)
-     */
+    /** {@inheritDoc} */
     public void setExtensions(Extensions newExtensions) {
         this.extensions = prepareForAssignment(this.extensions, newExtensions);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#getStatus()
-     */
+    /** {@inheritDoc} */
     public Status getStatus() {
         return this.status;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusResponse#setStatus(org.opensaml.saml2.core.Status)
-     */
+    /** {@inheritDoc} */
     public void setStatus(Status newStatus) {
         this.status = prepareForAssignment(this.status, newStatus);
     }
@@ -208,9 +172,7 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
         return id;
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

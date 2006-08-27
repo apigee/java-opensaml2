@@ -32,9 +32,7 @@ public class AuthorityBindingBuilder extends AbstractSAMLObjectBuilder<Authority
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AuthorityBinding buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, AuthorityBinding.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }

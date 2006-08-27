@@ -32,16 +32,12 @@ public class AuthenticationStatementBuilder extends AbstractSAMLObjectBuilder<Au
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AuthenticationStatement buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AuthenticationStatement buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AuthenticationStatementImpl(namespaceURI, localName, namespacePrefix);
     }

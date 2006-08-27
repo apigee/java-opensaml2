@@ -48,37 +48,27 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Subject#getNameIdentifier()
-     */
+    /** {@inheritDoc} */
     public NameIdentifier getNameIdentifier() {
         return nameIdentifier;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Subject#setNameIdentifier(org.opensaml.saml1.core.NameIdentifier)
-     */
+    /** {@inheritDoc} */
     public void setNameIdentifier(NameIdentifier nameIdentifier) throws IllegalArgumentException {
         this.nameIdentifier = prepareForAssignment(this.nameIdentifier, nameIdentifier);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Subject#getSubjectConfirmation()
-     */
+    /** {@inheritDoc} */
     public SubjectConfirmation getSubjectConfirmation() {
         return subjectConfirmation;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Subject#setSubjectConfirmation(org.opensaml.saml1.core.SubjectConfirmation)
-     */
+    /** {@inheritDoc} */
     public void setSubjectConfirmation(SubjectConfirmation subjectConfirmation) throws IllegalArgumentException {
         this.subjectConfirmation = prepareForAssignment(this.subjectConfirmation, subjectConfirmation);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
 
         List<XMLObject> list = new ArrayList<XMLObject>(2);

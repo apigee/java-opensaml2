@@ -51,32 +51,24 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
         evidence = new IndexedXMLObjectChildrenList<Evidentiary>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Evidence#getAssertionIDReferences()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDReference> getAssertionIDReferences() {
         QName qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AssertionIDReference>) evidence.subList(qname);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Evidence#getAssertions()
-     */
+    /** {@inheritDoc} */
     public List<Assertion> getAssertions() {
         QName qname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<Assertion>) evidence.subList(qname);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Evidence#getEvidences()
-     */
+    /** {@inheritDoc} */
     public List<Evidentiary> getEvidence() {
         return evidence;
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         if (evidence.size() == 0) {
             return null;

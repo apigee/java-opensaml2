@@ -46,23 +46,17 @@ public class OrganizationNameImpl extends AbstractSAMLObject implements Organiza
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.OrganizationDisplayName#getName()
-     */
+    /** {@inheritDoc} */
     public LocalizedString getName() {
         return name;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.OrganizationDisplayName#setName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setName(LocalizedString newName) {
         name = prepareForAssignment(name, newName);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

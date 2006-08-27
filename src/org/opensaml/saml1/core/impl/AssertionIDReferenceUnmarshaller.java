@@ -33,10 +33,7 @@ public class AssertionIDReferenceUnmarshaller extends AbstractSAMLObjectUnmarsha
         super(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         AssertionIDReference assertionIDReference = (AssertionIDReference) samlObject;
 

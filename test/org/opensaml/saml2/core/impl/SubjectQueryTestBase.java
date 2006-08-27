@@ -40,28 +40,20 @@ public abstract class SubjectQueryTestBase extends RequestTestBase {
     }
     
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public abstract void testSingleElementUnmarshall();
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public abstract void testSingleElementMarshall();
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#populateChildElements(org.opensaml.common.SAMLObject)
-     */
+    /** {@inheritDoc} */
     protected void populateChildElements(SAMLObject samlObject) {
         SubjectQuery sq = (SubjectQuery) samlObject;
         
@@ -72,25 +64,19 @@ public abstract class SubjectQueryTestBase extends RequestTestBase {
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#populateOptionalAttributes(org.opensaml.common.SAMLObject)
-     */
+    /** {@inheritDoc} */
     protected void populateOptionalAttributes(SAMLObject samlObject) {
         super.populateOptionalAttributes(samlObject);
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#populateRequiredAttributes(org.opensaml.common.SAMLObject)
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredAttributes(SAMLObject samlObject) {
         super.populateRequiredAttributes(samlObject);
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#helperTestChildElementsUnmarshall(org.opensaml.common.SAMLObject)
-     */
+    /** {@inheritDoc} */
     protected void helperTestChildElementsUnmarshall(SAMLObject samlObject) {
         SubjectQuery sq = (SubjectQuery) samlObject;
         super.helperTestChildElementsUnmarshall(sq);
@@ -98,17 +84,13 @@ public abstract class SubjectQueryTestBase extends RequestTestBase {
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#helperTestSingleElementOptionalAttributesUnmarshall(org.opensaml.common.SAMLObject)
-     */
+    /** {@inheritDoc} */
     protected void helperTestSingleElementOptionalAttributesUnmarshall(SAMLObject samlObject) {
         super.helperTestSingleElementOptionalAttributesUnmarshall(samlObject);
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#helperTestSingleElementUnmarshall(org.opensaml.common.SAMLObject)
-     */
+    /** {@inheritDoc} */
     protected void helperTestSingleElementUnmarshall(SAMLObject samlObject) {
         super.helperTestSingleElementUnmarshall(samlObject);
     }

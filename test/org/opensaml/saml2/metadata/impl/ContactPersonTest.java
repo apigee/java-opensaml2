@@ -52,27 +52,21 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/metadata/impl/ContactPersonChildElements.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
         expectedPersonType = ContactPersonTypeEnumeration.TECHNICAL;
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         ContactPerson person = (ContactPerson) unmarshallElement(singleElementFile);
         
         assertEquals("Contact type was not expected value", expectedPersonType, person.getType());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall()
     {
         ContactPerson person = (ContactPerson) unmarshallElement(childElementsFile);
@@ -84,9 +78,7 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
         assertEquals("Telephone Number count", telephoneNumberCount, person.getTelephoneNumbers().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME);
         ContactPerson person = (ContactPerson) buildXMLObject(qname);
@@ -96,9 +88,7 @@ public class ContactPersonTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, person);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall()
     {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME);

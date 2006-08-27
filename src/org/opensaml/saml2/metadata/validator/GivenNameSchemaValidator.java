@@ -35,9 +35,7 @@ public class GivenNameSchemaValidator implements Validator<GivenName> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(GivenName givenName) throws ValidationException {
         validateName(givenName);
     }

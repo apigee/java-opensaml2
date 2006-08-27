@@ -35,9 +35,7 @@ public class AffiliateMemberSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new AffiliateMemberSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AffiliateMember affiliateMember = (AffiliateMember) target;

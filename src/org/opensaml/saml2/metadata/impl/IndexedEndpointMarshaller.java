@@ -39,10 +39,7 @@ public class IndexedEndpointMarshaller extends EndpointMarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     public void marshallAttributes(XMLObject samlObject, Element domElement) {
         IndexedEndpoint iEndpoint = (IndexedEndpoint) samlObject;
 

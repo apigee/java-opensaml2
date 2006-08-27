@@ -30,9 +30,7 @@ public abstract class RoleDescriptorSchemaTestBase extends SAMLObjectValidatorBa
  
     }
  
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         RoleDescriptor roleDescriptor = (RoleDescriptor) target;
 

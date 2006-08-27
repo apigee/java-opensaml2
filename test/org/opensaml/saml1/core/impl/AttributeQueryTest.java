@@ -52,9 +52,7 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
 
         AttributeQuery attributeQuery;
@@ -65,9 +63,7 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         assertEquals("Count of AttributeDesignator elements", 0, attributeQuery.getAttributeDesignators().size());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AttributeQuery attributeQuery;
         attributeQuery = (AttributeQuery) unmarshallElement(singleElementOptionalAttributesFile);
@@ -77,9 +73,7 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         assertEquals("Count of AttributeDesignator elements", 0, attributeQuery.getAttributeDesignators().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         AttributeQuery attributeQuery;
         attributeQuery = (AttributeQuery) unmarshallElement(childElementsFile);
@@ -88,16 +82,12 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         assertEquals("Count of AttributeDesignator elements", 4, attributeQuery.getAttributeDesignators().size());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         AttributeQuery attributeQuery;
         attributeQuery = (AttributeQuery) buildXMLObject(qname);
@@ -106,9 +96,7 @@ public class AttributeQueryTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, attributeQuery);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         AttributeQuery attributeQuery = (AttributeQuery) buildXMLObject(qname);
 

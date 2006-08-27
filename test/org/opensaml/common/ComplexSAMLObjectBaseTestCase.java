@@ -46,9 +46,7 @@ public abstract class ComplexSAMLObjectBaseTestCase extends SAMLObjectTestCaseCo
 
     /** The expected result of a marshalled single element with no optional attributes */
     protected Document expectedDOM;
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -59,9 +57,7 @@ public abstract class ComplexSAMLObjectBaseTestCase extends SAMLObjectTestCaseCo
         }
     }
 
-    /*
-     * @see junit.framework.TestCase#tearDown()
-     */
+    /** {@inheritDoc} */
     protected void tearDown() throws Exception {
         super.tearDown();
     }

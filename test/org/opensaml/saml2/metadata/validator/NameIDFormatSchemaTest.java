@@ -35,9 +35,7 @@ public class NameIDFormatSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new NameIDFormatSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         NameIDFormat nameIDFormat = (NameIDFormat) target;

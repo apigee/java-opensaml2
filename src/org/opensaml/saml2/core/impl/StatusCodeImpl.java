@@ -50,37 +50,27 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusCode#getStatusCode()
-     */
+    /** {@inheritDoc} */
     public StatusCode getStatusCode() {
         return childStatusCode;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusCode#setStatusCode(org.opensaml.saml2.core.StatusCode)
-     */
+    /** {@inheritDoc} */
     public void setStatusCode(StatusCode newStatusCode) {
         this.childStatusCode = prepareForAssignment(this.childStatusCode, newStatusCode);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusCode#getValue()
-     */
+    /** {@inheritDoc} */
     public String getValue() {
         return value;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.StatusCode#setValue(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setValue(String newValue) {
         this.value = prepareForAssignment(this.value, newValue);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         if (childStatusCode != null) {
             ArrayList<XMLObject> children = new ArrayList<XMLObject>();

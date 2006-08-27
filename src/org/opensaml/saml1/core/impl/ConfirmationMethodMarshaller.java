@@ -36,10 +36,7 @@ public class ConfirmationMethodMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         ConfirmationMethod confirmationMethod = (ConfirmationMethod) samlObject;
 

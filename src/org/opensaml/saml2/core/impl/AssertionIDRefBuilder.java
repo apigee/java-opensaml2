@@ -34,16 +34,12 @@ public class AssertionIDRefBuilder extends AbstractSAMLObjectBuilder<AssertionID
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AssertionIDRef buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AssertionIDRef buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AssertionIDRefImpl(namespaceURI, localName, namespacePrefix);
     }

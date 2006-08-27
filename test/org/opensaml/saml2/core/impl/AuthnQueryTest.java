@@ -45,9 +45,7 @@ public class AuthnQueryTest extends SubjectQueryTestBase {
     }
     
 
-    /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedSessionIndex = "session12345";
@@ -55,9 +53,7 @@ public class AuthnQueryTest extends SubjectQueryTestBase {
 
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnQuery query = (AuthnQuery) buildXMLObject(qname);
@@ -67,9 +63,7 @@ public class AuthnQueryTest extends SubjectQueryTestBase {
         assertEquals(expectedDOM, query);
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnQuery query = (AuthnQuery) buildXMLObject(qname);
@@ -81,9 +75,7 @@ public class AuthnQueryTest extends SubjectQueryTestBase {
         assertEquals(expectedOptionalAttributesDOM, query);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnQuery query = (AuthnQuery) buildXMLObject(qname);
@@ -97,9 +89,7 @@ public class AuthnQueryTest extends SubjectQueryTestBase {
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AuthnQuery query = (AuthnQuery) unmarshallElement(singleElementFile);
         
@@ -109,9 +99,7 @@ public class AuthnQueryTest extends SubjectQueryTestBase {
 
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthnQuery query = (AuthnQuery) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -119,9 +107,7 @@ public class AuthnQueryTest extends SubjectQueryTestBase {
         assertEquals("Unmarshalled SessionIndex was not the expected value", expectedSessionIndex, query.getSessionIndex());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         AuthnQuery query = (AuthnQuery) unmarshallElement(childElementsFile);
         

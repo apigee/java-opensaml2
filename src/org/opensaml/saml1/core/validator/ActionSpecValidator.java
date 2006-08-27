@@ -30,9 +30,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class ActionSpecValidator implements Validator<Action> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Action action) throws ValidationException {
          if (DatatypeHelper.isEmpty(action.getContents())) {
              throw new ValidationException("Action label must be specified");

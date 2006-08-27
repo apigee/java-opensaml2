@@ -68,10 +68,8 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
 
         Assertion assertion = (Assertion) unmarshallElement(singleElementFile);
@@ -90,10 +88,8 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertEquals("AuthorizationDecisionStatements element count", 0, assertion.getAuthorizationDecisionStatements().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesUnmarshall() {
         Assertion assertion = (Assertion) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -137,18 +133,14 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
                 .size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesMarshall() {
         Assertion assertion = (Assertion) buildXMLObject(qname);
 

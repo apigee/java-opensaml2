@@ -41,24 +41,18 @@ public class AudienceImpl extends AbstractSAMLObject implements Audience {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Audience#getUri()
-     */
+    /** {@inheritDoc} */
     public String getUri() {
         return uri;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Audience#setUri()
-     */
+    /** {@inheritDoc} */
     public void setUri(String uri) {
 
         this.uri = prepareForAssignment(this.uri, uri);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

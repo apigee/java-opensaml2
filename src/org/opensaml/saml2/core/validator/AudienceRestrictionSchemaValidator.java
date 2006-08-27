@@ -34,9 +34,7 @@ public class AudienceRestrictionSchemaValidator implements Validator<AudienceRes
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AudienceRestriction audienceRestriction) throws ValidationException {
         validateAudiences(audienceRestriction);
     }

@@ -45,23 +45,17 @@ public class GivenNameImpl extends AbstractSAMLObject implements GivenName {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.GivenName#getName()
-     */
+    /** {@inheritDoc} */
     public String getName() {
         return name;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.GivenName#setName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setName(String newName) {
         name = prepareForAssignment(name, newName);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

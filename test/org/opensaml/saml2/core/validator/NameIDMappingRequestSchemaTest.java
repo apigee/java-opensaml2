@@ -41,9 +41,7 @@ public class NameIDMappingRequestSchemaTest extends RequestSchemaTestBase {
         validator = new NameIDMappingRequestSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         

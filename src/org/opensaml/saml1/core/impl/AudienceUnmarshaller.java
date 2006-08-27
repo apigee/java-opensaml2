@@ -32,10 +32,7 @@ public class AudienceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML1_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         Audience audience = (Audience) samlObject;
         audience.setUri(elementContent);

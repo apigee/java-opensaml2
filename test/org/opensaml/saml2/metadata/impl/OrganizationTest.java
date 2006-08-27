@@ -43,24 +43,18 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/metadata/impl/OrganizationChildElements.xml";
     }
 
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Organization org = (Organization) unmarshallElement(singleElementFile);
         assertEquals("Display names", 0, org.getDisplayNames().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Organization org = (Organization) unmarshallElement(childElementsFile);
 
@@ -70,9 +64,7 @@ public class OrganizationTest extends SAMLObjectBaseTestCase {
         assertEquals("URL count", 1, org.getURLs().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME);
         Organization org = (Organization) buildXMLObject(qname);

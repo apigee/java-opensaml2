@@ -35,9 +35,7 @@ public class AuthnRequestSchemaValidator extends RequestSchemaValidator<AuthnReq
         super();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthnRequest request) throws ValidationException {
         super.validate(request);
     }

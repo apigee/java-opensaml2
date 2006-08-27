@@ -34,9 +34,7 @@ public class AuthnContextDeclRefSchemaTest extends SAMLObjectValidatorBaseTestCa
         validator = new AuthnContextDeclRefSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AuthnContextDeclRef authnContextDeclRef = (AuthnContextDeclRef) target;

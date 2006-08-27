@@ -34,10 +34,7 @@ public class AuthenticationQueryMarshaller extends SubjectQueryMarshaller {
         super(SAMLConstants.SAML1P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthenticationQuery authenticationQuery = (AuthenticationQuery) samlObject;
 

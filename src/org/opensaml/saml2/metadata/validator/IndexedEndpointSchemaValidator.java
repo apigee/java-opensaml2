@@ -33,9 +33,7 @@ public class IndexedEndpointSchemaValidator<EndpointType extends IndexedEndpoint
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(EndpointType indexedEndpoint) throws ValidationException {
         super.validate(indexedEndpoint);
         validateIndex(indexedEndpoint);

@@ -35,9 +35,7 @@ public class AssertionURIRefSchemaValidator implements Validator<AssertionURIRef
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AssertionURIRef assertionURIRef) throws ValidationException {
         validateURIRef(assertionURIRef);
     }

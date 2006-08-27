@@ -106,9 +106,7 @@ public class SAMLVersion {
         return minorVersion;
     }
     
-    /*
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     public String toString() {
         return versionString;
     }

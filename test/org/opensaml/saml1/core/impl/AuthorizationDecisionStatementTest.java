@@ -66,10 +66,8 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
 
         AuthorizationDecisionStatement authorizationDecisionStatement;
@@ -81,10 +79,8 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         assertNull("<Evidence> element present", authorizationDecisionStatement.getEvidence());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesUnmarshall() {
 
         AuthorizationDecisionStatement authorizationDecisionStatement;
@@ -112,10 +108,8 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         }
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsUnmarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
 
@@ -127,18 +121,14 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         assertEquals("Count of <Action> elements ", 3, authorizationDecisionStatement.getActions().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesMarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
 
@@ -149,10 +139,8 @@ public class AuthorizationDecisionStatementTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, authorizationDecisionStatement);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsMarshall() {
         AuthorizationDecisionStatement authorizationDecisionStatement;
 

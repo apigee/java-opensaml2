@@ -41,9 +41,7 @@ public abstract class SubjectStatementUnmarshaller extends AbstractSAMLObjectUnm
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         SubjectStatement statement = (SubjectStatement) parentSAMLObject;
         

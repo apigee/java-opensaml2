@@ -32,16 +32,12 @@ public class AffiliationDescriptorBuilder extends AbstractSAMLObjectBuilder<Affi
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AffiliationDescriptor buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AffiliationDescriptor buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AffiliationDescriptorImpl(namespaceURI, localName, namespacePrefix);
     }

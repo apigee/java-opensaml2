@@ -35,9 +35,7 @@ public class AffiliationDescriptorSchemaValidator implements Validator<Affiliati
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AffiliationDescriptor affiliationDescriptor) throws ValidationException {
         validateOwner(affiliationDescriptor);
         validateMember(affiliationDescriptor);

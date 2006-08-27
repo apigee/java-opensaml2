@@ -36,9 +36,7 @@ public class ContactPersonSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new ContactPersonSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         ContactPerson contactPerson = (ContactPerson) target;

@@ -33,10 +33,7 @@ public class AssertionArtifactUnmarshaller extends AbstractSAMLObjectUnmarshalle
         super(SAMLConstants.SAML1P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         AssertionArtifact assertionArtifact = (AssertionArtifact) samlObject;
 

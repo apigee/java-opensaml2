@@ -33,9 +33,7 @@ public class PDPDescriptorSchemaValidator extends RoleDescriptorSchemaValidator<
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(PDPDescriptor pdpDescriptor) throws ValidationException {
         super.validate(pdpDescriptor);
         validateAuthzServices(pdpDescriptor);

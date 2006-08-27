@@ -38,10 +38,7 @@ public class AuthenticationStatementUnmarshaller extends SubjectStatementUnmarsh
         super(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
 
@@ -56,10 +53,7 @@ public class AuthenticationStatementUnmarshaller extends SubjectStatementUnmarsh
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute)
             throws UnmarshallingException {
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) samlObject;

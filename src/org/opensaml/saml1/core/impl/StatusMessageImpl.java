@@ -43,23 +43,17 @@ public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessa
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.StatusMessage#getMessage()
-     */
+    /** {@inheritDoc} */
     public String getMessage() {
         return message;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.StatusMessage#setMessage(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setMessage(String message) {
         this.message = prepareForAssignment(this.message, message);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

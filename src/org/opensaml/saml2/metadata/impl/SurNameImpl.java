@@ -45,23 +45,17 @@ public class SurNameImpl extends AbstractSAMLObject implements SurName {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SurName#getName()
-     */
+    /** {@inheritDoc} */
     public String getName() {
         return name;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.SurName#setName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setName(String newName) {
         name = prepareForAssignment(name, newName);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

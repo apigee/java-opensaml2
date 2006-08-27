@@ -29,9 +29,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class SubjectQuerySchemaValidator<QueryType extends SubjectQuery> implements Validator<QueryType> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(QueryType subjectQuery) throws ValidationException { 
         if (subjectQuery.getSubject() == null) {
             throw new ValidationException("Subject element is missing");

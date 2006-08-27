@@ -73,9 +73,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
 
         Response response = (Response) unmarshallElement(singleElementFile);
@@ -93,9 +91,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         assertNull("Status element has a value of " + status + ", expected no value", status);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Response response;
         response = (Response) unmarshallElement(singleElementOptionalAttributesFile);
@@ -113,9 +109,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         assertEquals("MinorVersion attribute ", expectedMinorVersion, i);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Response response = (Response) unmarshallElement(childElementsFile);
 
@@ -126,16 +120,12 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         assertNotNull("No Status element found", status);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         Response response = (Response) buildXMLObject(qname);
 
@@ -147,9 +137,7 @@ public class ResponseTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, response);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         Response response = (Response) buildXMLObject(qname);
 

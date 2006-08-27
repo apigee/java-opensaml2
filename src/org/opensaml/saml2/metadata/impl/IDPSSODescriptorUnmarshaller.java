@@ -54,10 +54,7 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) parentObject;
 
@@ -76,10 +73,7 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) samlObject;
 

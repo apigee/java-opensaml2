@@ -32,9 +32,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class AuthorityBindingSchemaValidator implements Validator<AuthorityBinding> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthorityBinding authorityBinding) throws ValidationException {
         validateAuthorityKind(authorityBinding);
         validateBinding(authorityBinding);

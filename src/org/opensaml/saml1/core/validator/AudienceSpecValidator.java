@@ -30,9 +30,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class AudienceSpecValidator implements Validator<Audience> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Audience audience) throws ValidationException {
          validateURIPresent(audience);
     }

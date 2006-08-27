@@ -34,9 +34,7 @@ public class AttributeStatementSchemaValidator implements Validator<AttributeSta
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AttributeStatement attributeStatement) throws ValidationException {
         validateAttributes(attributeStatement);
     }

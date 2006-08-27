@@ -40,9 +40,7 @@ public class ArtifactSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new ArtifactSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         Artifact artifact = (Artifact) target;

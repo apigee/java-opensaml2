@@ -46,23 +46,17 @@ public class OrganizationURLImpl extends AbstractSAMLObject implements Organizat
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.OrganizationURL#getURL()
-     */
+    /** {@inheritDoc} */
     public LocalizedString getURL() {
         return url;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.OrganizationURL#setURL(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setURL(LocalizedString newURL) {
         url = prepareForAssignment(url, newURL);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

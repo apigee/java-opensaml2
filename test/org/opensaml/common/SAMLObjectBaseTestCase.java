@@ -49,9 +49,7 @@ public abstract class SAMLObjectBaseTestCase extends  SAMLObjectTestCaseConfigIn
     /** The expected result of a marshalled single element with child elements */
     protected Document expectedChildElementsDOM;
 
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -72,9 +70,7 @@ public abstract class SAMLObjectBaseTestCase extends  SAMLObjectTestCaseConfigIn
         }
     }
 
-    /*
-     * @see junit.framework.TestCase#tearDown()
-     */
+    /** {@inheritDoc} */
     protected void tearDown() throws Exception {
         super.tearDown();
     }

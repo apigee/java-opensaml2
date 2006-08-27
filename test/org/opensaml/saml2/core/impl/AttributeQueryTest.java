@@ -46,17 +46,13 @@ public class AttributeQueryTest extends SubjectQueryTestBase {
     
     
     
-    /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedNumAttributes = 4;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AttributeQuery query = (AttributeQuery) buildXMLObject(qname);
@@ -68,9 +64,7 @@ public class AttributeQueryTest extends SubjectQueryTestBase {
     
     
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AttributeQuery query = (AttributeQuery) buildXMLObject(qname);
@@ -83,9 +77,7 @@ public class AttributeQueryTest extends SubjectQueryTestBase {
 
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AttributeQuery query = (AttributeQuery) buildXMLObject(qname);
@@ -102,9 +94,7 @@ public class AttributeQueryTest extends SubjectQueryTestBase {
 
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AttributeQuery query = (AttributeQuery) unmarshallElement(singleElementFile);
         
@@ -113,9 +103,7 @@ public class AttributeQueryTest extends SubjectQueryTestBase {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AttributeQuery query = (AttributeQuery) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -124,9 +112,7 @@ public class AttributeQueryTest extends SubjectQueryTestBase {
     }
     
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         AttributeQuery query = (AttributeQuery) unmarshallElement(childElementsFile);
         

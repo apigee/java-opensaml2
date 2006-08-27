@@ -55,30 +55,22 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
         nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AuthnAuthorityDescriptor#getAuthnQueryServices()
-     */
+    /** {@inheritDoc} */
     public List<AuthnQueryService> getAuthnQueryServices() {
         return authnQueryServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AssertionIDRequestDescriptorComp#getAssertionIDRequestServices()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDRequestService> getAssertionIDRequestServices() {
         return assertionIDRequestServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.NameIDFormatDescriptorComp#getNameIDFormats()
-     */
+    /** {@inheritDoc} */
     public List<NameIDFormat> getNameIDFormats() {
         return nameIDFormats;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

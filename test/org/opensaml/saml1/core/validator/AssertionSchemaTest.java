@@ -50,9 +50,7 @@ public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
         assertion.getStatements().add((AttributeStatement)buildXMLObject(name));
         
     }
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         setupRequiredData();

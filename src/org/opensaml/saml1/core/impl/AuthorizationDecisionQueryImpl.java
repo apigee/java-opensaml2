@@ -54,44 +54,32 @@ public class AuthorizationDecisionQueryImpl extends SubjectQueryImpl implements 
         actions = new XMLObjectChildrenList<Action>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeQuery#getResource()
-     */
+    /** {@inheritDoc} */
     public String getResource() {
         return resource;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeQuery#setResource(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setResource(String resource) {
         this.resource = prepareForAssignment(this.resource, resource);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionQuery#getActions()
-     */
+    /** {@inheritDoc} */
     public List<Action> getActions() {
         return actions;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionQuery#getEvidence()
-     */
+    /** {@inheritDoc} */
     public Evidence getEvidence() {
         return evidence;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionQuery#setEvidence(org.opensaml.saml1.core.Evidence)
-     */
+    /** {@inheritDoc} */
     public void setEvidence(Evidence evidence) {
         this.evidence = prepareForAssignment(this.evidence, evidence);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>(actions.size() + 2);
         

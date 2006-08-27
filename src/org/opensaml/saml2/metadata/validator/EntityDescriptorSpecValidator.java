@@ -34,9 +34,7 @@ public class EntityDescriptorSpecValidator implements Validator<EntityDescriptor
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(EntityDescriptor entityDescriptor) throws ValidationException {
         validateRoot(entityDescriptor);
     }

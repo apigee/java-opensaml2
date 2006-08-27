@@ -35,9 +35,7 @@ public class AuthenticatingAuthoritySchemaValidator implements Validator<Authent
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthenticatingAuthority authenAuthority) throws ValidationException {
         validateURI(authenAuthority);
     }

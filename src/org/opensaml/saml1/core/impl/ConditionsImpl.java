@@ -58,67 +58,49 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
         conditions = new IndexedXMLObjectChildrenList<Condition>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Conditions#getNotBefore()
-     */
+    /** {@inheritDoc} */
     public DateTime getNotBefore() {
         return notBefore;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Conditions#setNotBefore()
-     */
+    /** {@inheritDoc} */
     public void setNotBefore(DateTime notBefore) {
         this.notBefore = prepareForAssignment(this.notBefore, notBefore);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Conditions#getNotOnOrAfter()
-     */
+    /** {@inheritDoc} */
     public DateTime getNotOnOrAfter() {
         return notOnOrAfter;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Conditions#setNotOnOrAfter()
-     */
+    /** {@inheritDoc} */
     public void setNotOnOrAfter(DateTime notOnOrAfter) {
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, notOnOrAfter);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Conditions#getConditions()
-     */
+    /** {@inheritDoc} */
     public List<Condition> getConditions() {
         return conditions;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Conditions#getConditions(javax.xml.namespace.QName)
-     */
+    /** {@inheritDoc} */
     public List<Condition> getConditions(QName typeOrName) {
         return conditions;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Conditions#getAudienceRestrictionConditions()
-     */
+    /** {@inheritDoc} */
     public List<AudienceRestrictionCondition> getAudienceRestrictionConditions() {
         QName qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AudienceRestrictionCondition>) conditions.subList(qname);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Conditions#getDoNotCacheConditions()
-     */
+    /** {@inheritDoc} */
     public List<DoNotCacheCondition> getDoNotCacheConditions() {
         QName qname = new QName(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<DoNotCacheCondition>) conditions.subList(qname);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         if (conditions.size() == 0) {
             return null;

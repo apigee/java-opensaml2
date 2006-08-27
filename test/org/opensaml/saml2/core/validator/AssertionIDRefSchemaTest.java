@@ -34,9 +34,7 @@ public class AssertionIDRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new AssertionIDRefSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AssertionIDRef assertionIDRef = (AssertionIDRef) target;

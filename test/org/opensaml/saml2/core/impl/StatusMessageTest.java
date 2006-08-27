@@ -39,9 +39,7 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/StatusMessage.xml";
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
@@ -49,9 +47,7 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
     }
     
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME);
         StatusMessage message = (StatusMessage) buildXMLObject(qname);
@@ -61,9 +57,7 @@ public class StatusMessageTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, message);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         StatusMessage message = (StatusMessage) unmarshallElement(singleElementFile);
         

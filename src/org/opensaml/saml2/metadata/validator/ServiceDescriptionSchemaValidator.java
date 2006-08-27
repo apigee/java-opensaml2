@@ -34,9 +34,7 @@ public class ServiceDescriptionSchemaValidator implements Validator<ServiceDescr
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(ServiceDescription serviceDescription) throws ValidationException {
         validateDescription(serviceDescription);
     }

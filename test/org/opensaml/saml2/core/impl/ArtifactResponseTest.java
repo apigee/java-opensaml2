@@ -42,17 +42,13 @@ public class ArtifactResponseTest extends StatusResponseTestBase {
     
     
     
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
@@ -62,9 +58,7 @@ public class ArtifactResponseTest extends StatusResponseTestBase {
         assertEquals(expectedDOM, ar);
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
@@ -76,9 +70,7 @@ public class ArtifactResponseTest extends StatusResponseTestBase {
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         ArtifactResponse ar = (ArtifactResponse) buildXMLObject(qname);
@@ -89,9 +81,7 @@ public class ArtifactResponseTest extends StatusResponseTestBase {
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         ArtifactResponse ar = (ArtifactResponse) unmarshallElement(singleElementFile);
         
@@ -100,9 +90,7 @@ public class ArtifactResponseTest extends StatusResponseTestBase {
 
   
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         ArtifactResponse ar = (ArtifactResponse) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -112,9 +100,7 @@ public class ArtifactResponseTest extends StatusResponseTestBase {
 
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         ArtifactResponse ar = (ArtifactResponse) unmarshallElement(childElementsFile);
         

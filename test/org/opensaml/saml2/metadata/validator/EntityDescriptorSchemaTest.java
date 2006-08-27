@@ -36,9 +36,7 @@ public class EntityDescriptorSchemaTest extends SAMLObjectValidatorBaseTestCase 
         validator = new EntityDescriptorSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         EntityDescriptor entityDescriptor = (EntityDescriptor) target;
         AttributeAuthorityDescriptor attributeAuthorityDescriptor = (AttributeAuthorityDescriptor) buildXMLObject(new QName(

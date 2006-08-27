@@ -40,9 +40,7 @@ public class AuthzDecisionQuerySchemaTest extends SubjectQuerySchemaTestBase {
         validator = new AuthzDecisionQuerySchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.SubjectQuerySchemaTest#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AuthzDecisionQuery query = (AuthzDecisionQuery) target;

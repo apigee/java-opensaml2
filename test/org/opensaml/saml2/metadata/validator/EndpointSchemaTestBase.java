@@ -30,9 +30,7 @@ public abstract class EndpointSchemaTestBase extends SAMLObjectValidatorBaseTest
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         Endpoint endpoint = (Endpoint) target;
         

@@ -34,18 +34,14 @@ public class AffiliateMemberTest extends SAMLObjectBaseTestCase {
         singleElementFile = "/data/org/opensaml/saml2/metadata/impl/AffiliateMember.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
         expectedMemberID = "urn:example.org:members:foo";
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AffiliateMember member = (AffiliateMember)unmarshallElement(singleElementFile);
         
@@ -53,9 +49,7 @@ public class AffiliateMemberTest extends SAMLObjectBaseTestCase {
         assertEquals("Affiliation memeber ID was " + memberID + ", expected " + expectedMemberID, expectedMemberID, memberID);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AffiliateMember.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AffiliateMember member = (AffiliateMember) buildXMLObject(qname);

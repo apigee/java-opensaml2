@@ -34,9 +34,7 @@ public class ContactPersonSchemaValidator implements Validator<ContactPerson> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(ContactPerson contactPerson) throws ValidationException {
         validateType(contactPerson);
     }

@@ -59,37 +59,27 @@ public class RequestedAuthnContextImpl extends AbstractSAMLObject implements Req
         authnContextDeclRefs = new XMLObjectChildrenList<AuthnContextDeclRef>(this);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.RequestedAuthnContext#getComparison()
-     */
+    /** {@inheritDoc} */
     public AuthnContextComparisonTypeEnumeration getComparison() {
         return this.comparison;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.RequestedAuthnContext#setComparison(org.opensaml.saml2.core.AuthnContextComparisonTypeEnumeration)
-     */
+    /** {@inheritDoc} */
     public void setComparison(AuthnContextComparisonTypeEnumeration newComparison) {
         this.comparison = prepareForAssignment(this.comparison, newComparison);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.RequestedAuthnContext#getAuthnContextClassRefs()
-     */
+    /** {@inheritDoc} */
     public List<AuthnContextClassRef> getAuthnContextClassRefs() {
         return this.authnContextClassRefs;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.RequestedAuthnContext#getAuthnContextDeclRefs()
-     */
+    /** {@inheritDoc} */
     public List<AuthnContextDeclRef> getAuthnContextDeclRefs() {
         return this.authnContextDeclRefs;
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

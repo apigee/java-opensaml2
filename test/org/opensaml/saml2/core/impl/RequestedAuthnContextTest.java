@@ -50,9 +50,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/RequestedAuthnContextChildElements.xml";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedComparison = AuthnContextComparisonTypeEnumeration.EXACT;
@@ -60,9 +58,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME);
         RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
@@ -71,9 +67,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME);
         RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
@@ -83,9 +77,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, rac);
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME);
         RequestedAuthnContext rac = (RequestedAuthnContext) buildXMLObject(qname);
@@ -98,9 +90,7 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedChildElementsDOM, rac);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         RequestedAuthnContext rac = (RequestedAuthnContext) unmarshallElement(singleElementFile);
         
@@ -108,18 +98,14 @@ public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
         assertNull("Comparison", rac.getComparison());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         RequestedAuthnContext rac = (RequestedAuthnContext) unmarshallElement(singleElementOptionalAttributesFile);
         assertNotNull("Comparison", rac.getComparison());
         assertEquals("The unmarshalled Comparison attribute was not the expected value", expectedComparison.toString(), rac.getComparison().toString());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         RequestedAuthnContext rac = (RequestedAuthnContext) unmarshallElement(childElementsFile);
        

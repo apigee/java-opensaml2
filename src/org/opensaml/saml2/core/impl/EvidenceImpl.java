@@ -56,40 +56,30 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
         evidence = new IndexedXMLObjectChildrenList<Evidentiary>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Evidence#getEvidence()
-     */
+    /** {@inheritDoc} */
     public List<Evidentiary> getEvidence() {
         return evidence;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Evidence#getAssertionIDRef()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDRef> getAssertionIDReferences() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         return (List<AssertionIDRef>) evidence.subList(qname);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Evidence#getAssertionURIRef()
-     */
+    /** {@inheritDoc} */
     public List<AssertionURIRef> getAssertionURIReferences() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         return (List<AssertionURIRef>) evidence.subList(qname);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Evidence#getAssertion()
-     */
+    /** {@inheritDoc} */
     public List<Assertion> getAssertions() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         return (List<Assertion>) evidence.subList(qname);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

@@ -49,18 +49,14 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/ScopingChildElements.xml";
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedProxyCount = 5;
         expectedNumRequestIDs = 3;
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
         Scoping scoping = (Scoping) buildXMLObject(qname);
@@ -69,9 +65,7 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
         Scoping scoping = (Scoping) buildXMLObject(qname);
@@ -81,9 +75,7 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, scoping);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
         Scoping scoping = (Scoping) buildXMLObject(qname);
@@ -99,9 +91,7 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedChildElementsDOM, scoping);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Scoping scoping = (Scoping) unmarshallElement(singleElementFile);
         
@@ -111,9 +101,7 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Scoping scoping = (Scoping) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -122,9 +110,7 @@ public class ScopingTest extends SAMLObjectBaseTestCase {
         assertEquals("RequesterID count", 0, scoping.getRequesterIDs().size());
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Scoping scoping = (Scoping) unmarshallElement(childElementsFile);
         

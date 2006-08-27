@@ -44,10 +44,8 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
         AudienceRestrictionCondition audienceRestrictionCondition;
 
@@ -56,10 +54,8 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
         assertEquals("Count of child Audience elements !=0", 0, audienceRestrictionCondition.getAudiences().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsUnmarshall() {
 
         AudienceRestrictionCondition audienceRestrictionCondition;
@@ -70,18 +66,14 @@ public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsMarshall() {
         AudienceRestrictionCondition audienceRestrictionCondition;
 

@@ -58,23 +58,17 @@ public class PDPDescriptorImpl extends RoleDescriptorImpl implements PDPDescript
         nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.PDPDescriptor#getAuthzServices()
-     */
+    /** {@inheritDoc} */
     public List<AuthzService> getAuthzServices() {
         return authzServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.PDPDescriptor#getAssertionIDRequestService()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDRequestService> getAssertionIDRequestServices() {
         return assertionIDRequestServices;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.PDPDescriptor#getNameIDFormats()
-     */
+    /** {@inheritDoc} */
     public List<NameIDFormat> getNameIDFormats() {
         return nameIDFormats;
     }

@@ -36,9 +36,7 @@ public class AuthzDecisionQuerySchemaValidator extends SubjectQuerySchemaValidat
         super();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.SubjectQuerySchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthzDecisionQuery query) throws ValidationException {
         super.validate(query);
         validateActions(query);

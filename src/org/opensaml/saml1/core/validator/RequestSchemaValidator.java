@@ -28,9 +28,7 @@ import org.opensaml.xml.validation.ValidationException;
  */
 public class RequestSchemaValidator extends RequestAbstractTypeSchemaValidator<Request>  {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Request request) throws ValidationException {
         super.validate(request);
         // TODO separate method... 

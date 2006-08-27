@@ -45,23 +45,17 @@ public class AuthnContextDeclRefImpl extends AbstractSAMLObject implements Authn
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContextDeclRef#getURI()
-     */
+    /** {@inheritDoc} */
     public String getAuthnContextDeclRef() {
         return authnContextDeclRef;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContextDeclRef#setURI(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAuthnContextDeclRef(String newAuthnContextDeclRef) {
         this.authnContextDeclRef = prepareForAssignment(this.authnContextDeclRef, newAuthnContextDeclRef);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

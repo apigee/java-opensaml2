@@ -46,10 +46,7 @@ public class AdditionalMetadataLocationMarshaller extends AbstractSAMLObjectMars
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) samlElement;
 
@@ -58,10 +55,7 @@ public class AdditionalMetadataLocationMarshaller extends AbstractSAMLObjectMars
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         super.marshallElementContent(samlObject, domElement);
 

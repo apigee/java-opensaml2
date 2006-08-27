@@ -32,16 +32,12 @@ public class SubjectBuilder extends AbstractSAMLObjectBuilder<Subject> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public Subject buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Subject buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new SubjectImpl(namespaceURI, localName, namespacePrefix);
     }

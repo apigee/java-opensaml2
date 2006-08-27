@@ -50,37 +50,27 @@ public class AuthnQueryImpl extends SubjectQueryImpl implements AuthnQuery {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnQuery#getSessionIndex()
-     */
+    /** {@inheritDoc} */
     public String getSessionIndex() {
         return this.sessionIndex;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnQuery#setSessionIndex(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setSessionIndex(String newSessionIndex) {
         this.sessionIndex = prepareForAssignment(this.sessionIndex, newSessionIndex);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnQuery#getRequestedAuthnContext()
-     */
+    /** {@inheritDoc} */
     public RequestedAuthnContext getRequestedAuthnContext() {
         return this.requestedAuthnContext;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnQuery#setRequestedAuthnContext(org.opensaml.saml2.core.RequestedAuthnContext)
-     */
+    /** {@inheritDoc} */
     public void setRequestedAuthnContext(RequestedAuthnContext newRequestedAuthnContext) {
         this.requestedAuthnContext = prepareForAssignment(this.requestedAuthnContext, newRequestedAuthnContext);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

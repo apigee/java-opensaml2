@@ -35,9 +35,7 @@ public class LogoutRequestSchemaValidator extends RequestSchemaValidator<LogoutR
         super();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(LogoutRequest request) throws ValidationException {
         super.validate(request);
         validateIdentifiers(request);

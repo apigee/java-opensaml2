@@ -49,16 +49,12 @@ public class AssertionIDRequestImpl extends RequestImpl implements AssertionIDRe
         assertionIDRefs = new XMLObjectChildrenList<AssertionIDRef>(this);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AssertionIDRequest#getAssertionIDRefs()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDRef> getAssertionIDRefs() {
         return assertionIDRefs;
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

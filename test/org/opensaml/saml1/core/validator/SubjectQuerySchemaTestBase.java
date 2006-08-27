@@ -33,9 +33,7 @@ public abstract class SubjectQuerySchemaTestBase extends SAMLObjectValidatorBase
         super();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         

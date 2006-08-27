@@ -36,10 +36,7 @@ public class RequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
         super(SAMLConstants.SAML1P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {
         Request request = (Request) parentElement;
 

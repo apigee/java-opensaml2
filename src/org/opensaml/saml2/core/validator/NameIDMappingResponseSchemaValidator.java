@@ -35,9 +35,7 @@ public class NameIDMappingResponseSchemaValidator extends StatusResponseSchemaVa
         super();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(NameIDMappingResponse response) throws ValidationException {
         super.validate(response);
         validateIdentifiers(response);

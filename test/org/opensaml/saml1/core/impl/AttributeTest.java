@@ -56,9 +56,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Attribute attribute = (Attribute) unmarshallElement(singleElementFile);
 
@@ -67,9 +65,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         assertEquals("<AttributeValue> subelement found", 0, attribute.getAttributeValues().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Attribute attribute = (Attribute) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -77,9 +73,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         assertEquals("AttributeNamespace", expectedAttributeNamespace, attribute.getAttributeNamespace());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Attribute attribute = (Attribute) unmarshallElement(childElementsFile);
 
@@ -87,16 +81,12 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         assertEquals("Number of <AttributeValue> subelement not found", 4, attribute.getAttributeValues().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         Attribute attribute = (Attribute) buildXMLObject(qname);
 
@@ -105,9 +95,7 @@ public class AttributeTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, attribute);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall(){
         Attribute attribute = (Attribute) buildXMLObject(qname);
 

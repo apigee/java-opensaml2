@@ -50,9 +50,7 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
         super(targetNamespaceURI, targetLocalName);
     }
     
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         RequestAbstractType request = (RequestAbstractType) parentSAMLObject;
         
@@ -63,9 +61,7 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlElement, Attr attribute) throws UnmarshallingException {
         RequestAbstractType request = (RequestAbstractType) samlElement;
 

@@ -36,16 +36,12 @@ public class SPSSODescriptorBuilder extends AbstractSAMLObjectBuilder<SPSSODescr
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public SPSSODescriptor buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public SPSSODescriptor buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new SPSSODescriptorImpl(namespaceURI, localName, namespacePrefix);
     }

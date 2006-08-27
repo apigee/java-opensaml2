@@ -32,16 +32,12 @@ public class AudienceRestrictionConditionBuilder extends AbstractSAMLObjectBuild
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AudienceRestrictionCondition buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AudienceRestrictionCondition buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AudienceRestrictionConditionImpl(namespaceURI, localName, namespacePrefix);
     }

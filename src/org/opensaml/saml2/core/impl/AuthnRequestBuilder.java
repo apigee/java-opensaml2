@@ -37,16 +37,12 @@ public class AuthnRequestBuilder extends AbstractSAMLObjectBuilder<AuthnRequest>
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AuthnRequest buildObject() {
         return buildObject(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AuthnRequest buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AuthnRequestImpl(namespaceURI, localName, namespacePrefix);
     }

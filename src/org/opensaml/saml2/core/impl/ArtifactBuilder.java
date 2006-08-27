@@ -36,16 +36,12 @@ public class ArtifactBuilder extends AbstractSAMLObjectBuilder<Artifact> {
     public ArtifactBuilder() {
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public Artifact buildObject() {
         return buildObject(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Artifact buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ArtifactImpl(namespaceURI, localName, namespacePrefix);
     }

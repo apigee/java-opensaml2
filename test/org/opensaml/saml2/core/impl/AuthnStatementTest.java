@@ -47,9 +47,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/AuthnStatementChildElements.xml";
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedAuthnInstant = new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC());
@@ -57,9 +55,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         expectedSessionNotOnOrAfter = new DateTime(1984, 8, 26, 10, 11, 30, 43, ISOChronology.getInstanceUTC());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AuthnStatement authnStatement = (AuthnStatement) unmarshallElement(singleElementFile);
 
@@ -68,9 +64,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
                 authnInstant);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthnStatement authnStatement = (AuthnStatement) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -87,9 +81,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
                 expectedSessionNotOnOrAfter, sessionNotOnOrAfter);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);
@@ -98,9 +90,7 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, authnStatement);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);
@@ -112,18 +102,14 @@ public class AuthnStatementTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, authnStatement);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         AuthnStatement authnStatement = (AuthnStatement) unmarshallElement(childElementsFile);
         assertNotNull("AuthnContext element not present", authnStatement.getAuthnContext());
         assertNotNull("SubjectLocality element not present", authnStatement.getSubjectLocality());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         AuthnStatement authnStatement = (AuthnStatement) buildXMLObject(qname);

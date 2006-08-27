@@ -74,9 +74,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/metadata/impl/AuthnAuthorityDescriptorChildElements.xml";
     }
 
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -95,9 +93,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         expectedNameIdFormats = 1;
     }
 
-    /*
-     * @see org.opensaml.common.BaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AuthnAuthorityDescriptor authnAuthorityObj = (AuthnAuthorityDescriptor) unmarshallElement(singleElementFile);
 
@@ -115,9 +111,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         assertNull("errorURL attribute has a value of " + errorURL + ", expected no value", errorURL);
     }
 
-    /*
-     * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthnAuthorityDescriptor authnAuthorityObj = (AuthnAuthorityDescriptor) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -138,10 +132,8 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
                 expectedErrorURL, errorURL);
     }
     
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsUnmarshall()
     {
         AuthnAuthorityDescriptor authnAuthorityObj = (AuthnAuthorityDescriptor) unmarshallElement(childElementsFile);
@@ -158,9 +150,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("NameIdFormats count", expectedNameIdFormats, authnAuthorityObj.getNameIDFormats().size());
     }
 
-    /*
-     * @see org.opensaml.common.BaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);
@@ -170,9 +160,7 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, descriptor);
     }
 
-    /*
-     * @see org.opensaml.common.BaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);
@@ -185,10 +173,8 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         AuthnAuthorityDescriptor descriptor = (AuthnAuthorityDescriptor) buildXMLObject(qname);

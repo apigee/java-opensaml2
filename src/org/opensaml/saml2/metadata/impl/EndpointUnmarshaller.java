@@ -38,10 +38,7 @@ public class EndpointUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.common.io.impl.AbstractUnmarshaller#addAttribute(org.opensaml.common.SAMLObject,
-     *      java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Endpoint endpoint = (Endpoint) samlObject;
         

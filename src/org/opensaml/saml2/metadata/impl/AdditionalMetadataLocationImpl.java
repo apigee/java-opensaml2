@@ -44,37 +44,27 @@ public class AdditionalMetadataLocationImpl extends AbstractSAMLObject implement
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AdditionalMetadataLocation#getLocationURI()
-     */
+    /** {@inheritDoc} */
     public String getLocationURI() {
         return location;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AdditionalMetadataLocation#setLocationURI(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setLocationURI(String locationURI) {
         location = prepareForAssignment(location, locationURI);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AdditionalMetadataLocation#getNamespaceURI()
-     */
+    /** {@inheritDoc} */
     public String getNamespaceURI() {
         return namespace;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AdditionalMetadataLocation#setNamespaceURI(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setNamespaceURI(String namespaceURI) {
         namespace = prepareForAssignment(namespace, namespaceURI);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // No children for this element
         return null;

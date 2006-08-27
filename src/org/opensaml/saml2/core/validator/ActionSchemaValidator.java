@@ -35,9 +35,7 @@ public class ActionSchemaValidator implements Validator<Action> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Action action) throws ValidationException {
         validateAction(action);
         validateNamespace(action);

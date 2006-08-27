@@ -35,9 +35,7 @@ public class AudienceRestrictionConditionSchemaTest extends SAMLObjectValidatorB
         validator = new AudienceRestrictionConditionSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         

@@ -36,16 +36,12 @@ public class AttributeServiceBuilder extends AbstractSAMLObjectBuilder<Attribute
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AttributeService buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, AttributeService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AttributeService buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeServiceImpl(namespaceURI, localName, namespacePrefix);
     }

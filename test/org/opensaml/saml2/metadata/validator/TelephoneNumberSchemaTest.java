@@ -35,9 +35,7 @@ public class TelephoneNumberSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new TelephoneNumberSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         TelephoneNumber telephoneNumber = (TelephoneNumber) target;

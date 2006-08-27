@@ -50,10 +50,7 @@ public class RequestedAuthnContextMarshaller extends AbstractSAMLObjectMarshalle
         super(namespaceURI, elementLocalName);
     }
 
-    /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         RequestedAuthnContext rac = (RequestedAuthnContext) samlObject;
 

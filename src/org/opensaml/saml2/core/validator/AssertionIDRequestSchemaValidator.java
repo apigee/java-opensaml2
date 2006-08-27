@@ -35,9 +35,7 @@ public class AssertionIDRequestSchemaValidator extends RequestSchemaValidator<As
         super();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AssertionIDRequest request) throws ValidationException {
         super.validate(request);
         validateAssertionIDRefs(request);

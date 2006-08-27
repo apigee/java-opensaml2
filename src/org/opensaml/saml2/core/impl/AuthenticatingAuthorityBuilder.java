@@ -34,16 +34,12 @@ public class AuthenticatingAuthorityBuilder extends AbstractSAMLObjectBuilder<Au
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AuthenticatingAuthority buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, AuthenticatingAuthority.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AuthenticatingAuthority buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AuthenticatingAuthorityImpl(namespaceURI, localName, namespacePrefix);
     }

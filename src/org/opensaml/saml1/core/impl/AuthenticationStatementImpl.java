@@ -56,30 +56,22 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
         authorityBindings = new XMLObjectChildrenList<AuthorityBinding>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#getAuthenticationMethod()
-     */
+    /** {@inheritDoc} */
     public String getAuthenticationMethod() {
         return authenticationMethod;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#setAuthenticationMethod(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAuthenticationMethod(String authenticationMethod) {
         this.authenticationMethod = prepareForAssignment(this.authenticationMethod, authenticationMethod);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#getAuthenticationInstant()
-     */
+    /** {@inheritDoc} */
     public DateTime getAuthenticationInstant() {
         return authenticationInstant;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#setAuthenticationInstant(java.util.GregorianCalendar)
-     */
+    /** {@inheritDoc} */
     public void setAuthenticationInstant(DateTime authenticationInstant) {
         this.authenticationInstant = prepareForAssignment(this.authenticationInstant, authenticationInstant);
     }
@@ -88,30 +80,22 @@ public class AuthenticationStatementImpl extends SubjectStatementImpl implements
     // Elements
     //
 
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#getSubjectLocality()
-     */
+    /** {@inheritDoc} */
     public SubjectLocality getSubjectLocality() {
         return subjectLocality;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#setSubjectLocality(org.opensaml.saml1.core.SubjectLocality)
-     */
+    /** {@inheritDoc} */
     public void setSubjectLocality(SubjectLocality subjectLocality) throws IllegalArgumentException {
         this.subjectLocality = prepareForAssignment(this.subjectLocality, subjectLocality);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationStatement#getAuthorityBindings()
-     */
+    /** {@inheritDoc} */
     public List<AuthorityBinding> getAuthorityBindings() {
         return authorityBindings;
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>(authorityBindings.size() + 2);
 

@@ -47,10 +47,7 @@ public class NameIDFormatUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         NameIDFormat format = (NameIDFormat) samlObject;
 

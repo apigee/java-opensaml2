@@ -49,9 +49,7 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/core/impl/NameIDPolicyOptionalAttributes.xml";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
@@ -61,9 +59,7 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME);
         NameIDPolicy policy = (NameIDPolicy) buildXMLObject(qname);
@@ -71,9 +67,7 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, policy);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME);
         NameIDPolicy policy = (NameIDPolicy) buildXMLObject(qname);
@@ -85,18 +79,14 @@ public class NameIDPolicyTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, policy);
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         NameIDPolicy policy = (NameIDPolicy) unmarshallElement(singleElementFile);
         
         assertNotNull(policy);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         NameIDPolicy policy = (NameIDPolicy) unmarshallElement(singleElementOptionalAttributesFile);
         

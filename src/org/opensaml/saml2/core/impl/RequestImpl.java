@@ -70,100 +70,72 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
         version = SAMLVersion.VERSION_20;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Request#getVersion()
-     */
+    /** {@inheritDoc} */
     public SAMLVersion getVersion() {
         return version;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Request#setVersion(org.opensaml.common.SAMLVersion)
-     */
+    /** {@inheritDoc} */
     public void setVersion(SAMLVersion newVersion) {
         this.version = prepareForAssignment(this.version, newVersion);
     }
     
-    /**
-     * @see org.opensaml.saml2.core.Request#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return id;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String newID) {
         this.id = prepareForAssignment(this.id, newID);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#getIssueInstant()
-     */
+    /** {@inheritDoc} */
     public DateTime getIssueInstant() {
         return issueInstant;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#setIssueInstant(org.joda.time.DateTime)
-     */
+    /** {@inheritDoc} */
     public void setIssueInstant(DateTime newIssueInstant) {
         this.issueInstant = prepareForAssignment(this.issueInstant, newIssueInstant);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#getDestination()
-     */
+    /** {@inheritDoc} */
     public String getDestination() {
         return destination;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#setDestination(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setDestination(String newDestination) {
         this.destination = prepareForAssignment(this.destination, newDestination);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#getConsent()
-     */
+    /** {@inheritDoc} */
     public String getConsent() {
         return consent;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#setConsent(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setConsent(String newConsent) {
         this.consent = prepareForAssignment(this.consent, newConsent);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#getIssuer()
-     */
+    /** {@inheritDoc} */
     public Issuer getIssuer() {
         return issuer;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#setIssuer(org.opensaml.saml2.core.Issuer)
-     */
+    /** {@inheritDoc} */
     public void setIssuer(Issuer newIssuer) {
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#getExtensions()
-     */
+    /** {@inheritDoc} */
     public Extensions getExtensions() {
         return this.extensions;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Request#setExtensions(org.opensaml.saml2.common.Extensions)
-     */
+    /** {@inheritDoc} */
     public void setExtensions(Extensions newExtensions) {
         this.extensions = prepareForAssignment(this.extensions, newExtensions);
     }
@@ -173,9 +145,7 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
         return id;
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

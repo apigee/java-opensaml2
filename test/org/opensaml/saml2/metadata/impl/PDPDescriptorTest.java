@@ -60,9 +60,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/metadata/impl/PDPDescriptorChildElements.xml";
     }
 
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -76,9 +74,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         expectedErrorURL = "http://example.org";
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         PDPDescriptor descriptor = (PDPDescriptor) unmarshallElement(singleElementFile);
 
@@ -86,9 +82,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
                 .getSupportedProtocols());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         PDPDescriptor descriptor = (PDPDescriptor) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -98,9 +92,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("ErrorURL was not expected value", expectedErrorURL, descriptor.getErrorURL());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         PDPDescriptor descriptor = (PDPDescriptor) unmarshallElement(childElementsFile);
 
@@ -113,9 +105,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("NameIDFormat count", 1, descriptor.getNameIDFormats().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
@@ -127,9 +117,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, descriptor);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);
@@ -145,9 +133,7 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         PDPDescriptor descriptor = (PDPDescriptor) buildXMLObject(qname);

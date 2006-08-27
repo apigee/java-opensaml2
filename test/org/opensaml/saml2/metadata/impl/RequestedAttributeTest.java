@@ -49,9 +49,7 @@ public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/RequestedAttributeOptionalAttributes.xml";
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
@@ -61,9 +59,7 @@ public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
         expectedIsRequired = new XSBooleanValue(Boolean.TRUE, false);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         RequestedAttribute attribute = (RequestedAttribute) unmarshallElement(singleElementFile);
 
@@ -72,9 +68,7 @@ public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalRequestedAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         RequestedAttribute requestedAttribute = (RequestedAttribute) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -94,9 +88,7 @@ public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
                 requestedAttribute.isRequiredXSBoolean());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, RequestedAttribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         RequestedAttribute requestedAttribute = (RequestedAttribute) buildXMLObject(qname);
@@ -106,9 +98,7 @@ public class RequestedAttributeTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, requestedAttribute);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalRequestedAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, RequestedAttribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         RequestedAttribute requestedAttribute = (RequestedAttribute) buildXMLObject(qname);

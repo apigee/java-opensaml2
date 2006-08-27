@@ -34,9 +34,7 @@ public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new AssertionURIRefSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AssertionURIRef assertionURIRef = (AssertionURIRef) target;

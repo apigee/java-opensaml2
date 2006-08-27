@@ -39,9 +39,7 @@ public class LogoutResponseSchemaTest extends StatusResponseSchemaTestBase {
         validator = new LogoutResponseSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaTest#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
     }

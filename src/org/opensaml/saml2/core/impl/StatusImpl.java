@@ -56,52 +56,38 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Status#getStatusCode()
-     */
+    /** {@inheritDoc} */
     public StatusCode getStatusCode() {
         return this.statusCode;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Status#setStatusCode(org.opensaml.saml2.core.StatusCode)
-     */
+    /** {@inheritDoc} */
     public void setStatusCode(StatusCode newStatusCode) {
         this.statusCode = prepareForAssignment(this.statusCode, newStatusCode);
 
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Status#getStatusMessage()
-     */
+    /** {@inheritDoc} */
     public StatusMessage getStatusMessage() {
         return this.statusMessage;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Status#setStatusMessage(org.opensaml.saml2.core.StatusMessage)
-     */
+    /** {@inheritDoc} */
     public void setStatusMessage(StatusMessage newStatusMessage) {
         this.statusMessage = prepareForAssignment(this.getStatusMessage(), newStatusMessage);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Status#getStatusDetail()
-     */
+    /** {@inheritDoc} */
     public StatusDetail getStatusDetail() {
         return this.statusDetail;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Status#setStatusDetail(org.opensaml.saml2.core.StatusDetail)
-     */
+    /** {@inheritDoc} */
     public void setStatusDetail(StatusDetail newStatusDetail) {
         this.statusDetail = prepareForAssignment(this.statusDetail, newStatusDetail);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

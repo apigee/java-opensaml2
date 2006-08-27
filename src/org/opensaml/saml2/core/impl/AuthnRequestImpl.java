@@ -141,152 +141,110 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
         this.isPassive = prepareForAssignment(this.isPassive, newIsPassive);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getProtocolBinding()
-     */
+    /** {@inheritDoc} */
     public String getProtocolBinding() {
         return this.protocolBinding;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setProtocolBinding(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setProtocolBinding(String newProtocolBinding) {
         this.protocolBinding = prepareForAssignment(this.protocolBinding, newProtocolBinding);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getAssertionConsumerServiceIndex()
-     */
+    /** {@inheritDoc} */
     public Integer getAssertionConsumerServiceIndex() {
         return assertionConsumerServiceIndex;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setAssertionConsumerServiceIndex(java.lang.Integer)
-     */
+    /** {@inheritDoc} */
     public void setAssertionConsumerServiceIndex(Integer newAssertionConsumerServiceIndex) {
         this.assertionConsumerServiceIndex = prepareForAssignment(this.assertionConsumerServiceIndex,
                 newAssertionConsumerServiceIndex);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getAssertionConsumerServiceURL()
-     */
+    /** {@inheritDoc} */
     public String getAssertionConsumerServiceURL() {
         return this.assertionConsumerServiceURL;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setAssertionConsumerServiceURL(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAssertionConsumerServiceURL(String newAssertionConsumerServiceURL) {
         this.assertionConsumerServiceURL = prepareForAssignment(this.assertionConsumerServiceURL,
                 newAssertionConsumerServiceURL);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getAttributeConsumingServiceIndex()
-     */
+    /** {@inheritDoc} */
     public Integer getAttributeConsumingServiceIndex() {
         return this.attributeConsumingServiceIndex;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setAttributeConsumingServiceIndex(java.lang.Integer)
-     */
+    /** {@inheritDoc} */
     public void setAttributeConsumingServiceIndex(Integer newAttributeConsumingServiceIndex) {
         this.attributeConsumingServiceIndex = prepareForAssignment(this.attributeConsumingServiceIndex,
                 newAttributeConsumingServiceIndex);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getProviderName()
-     */
+    /** {@inheritDoc} */
     public String getProviderName() {
         return this.providerName;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setProviderName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setProviderName(String newProviderName) {
         this.providerName = prepareForAssignment(this.providerName, newProviderName);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getSubject()
-     */
+    /** {@inheritDoc} */
     public Subject getSubject() {
         return this.subject;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setSubject(org.opensaml.saml2.core.Subject)
-     */
+    /** {@inheritDoc} */
     public void setSubject(Subject newSubject) {
         this.subject = prepareForAssignment(this.subject, newSubject);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getNameIDPolicy()
-     */
+    /** {@inheritDoc} */
     public NameIDPolicy getNameIDPolicy() {
         return this.nameIDPolicy;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setNameIDPolicy(org.opensaml.saml2.core.NameIDPolicy)
-     */
+    /** {@inheritDoc} */
     public void setNameIDPolicy(NameIDPolicy newNameIDPolicy) {
         this.nameIDPolicy = prepareForAssignment(this.nameIDPolicy, newNameIDPolicy);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getConditions()
-     */
+    /** {@inheritDoc} */
     public Conditions getConditions() {
         return this.conditions;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setConditions(org.opensaml.saml2.core.Conditions)
-     */
+    /** {@inheritDoc} */
     public void setConditions(Conditions newConditions) {
         this.conditions = prepareForAssignment(this.conditions, newConditions);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getRequestedAuthnContext()
-     */
+    /** {@inheritDoc} */
     public RequestedAuthnContext getRequestedAuthnContext() {
         return this.requestedAuthnContext;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setRequestedAuthnContext(org.opensaml.saml2.core.RequestedAuthnContext)
-     */
+    /** {@inheritDoc} */
     public void setRequestedAuthnContext(RequestedAuthnContext newRequestedAuthnContext) {
         this.requestedAuthnContext = prepareForAssignment(this.requestedAuthnContext, newRequestedAuthnContext);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#getScoping()
-     */
+    /** {@inheritDoc} */
     public Scoping getScoping() {
         return this.scoping;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthnRequest#setScoping(org.opensaml.saml2.core.Scoping)
-     */
+    /** {@inheritDoc} */
     public void setScoping(Scoping newScoping) {
         this.scoping = prepareForAssignment(this.scoping, newScoping);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

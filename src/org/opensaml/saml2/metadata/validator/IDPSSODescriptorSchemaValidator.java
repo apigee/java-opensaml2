@@ -33,9 +33,7 @@ public class IDPSSODescriptorSchemaValidator extends SSODescriptorSchemaValidato
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(IDPSSODescriptor idpssoDescriptor) throws ValidationException {
         super.validate(idpssoDescriptor);
         validateSingleSignOnService(idpssoDescriptor);

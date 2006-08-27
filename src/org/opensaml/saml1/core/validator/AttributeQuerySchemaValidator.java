@@ -28,9 +28,7 @@ import org.opensaml.xml.validation.ValidationException;
  */
 public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator<AttributeQuery> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AttributeQuery attributeQuery) throws ValidationException {
         super.validate(attributeQuery);
     }

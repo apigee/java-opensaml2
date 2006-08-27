@@ -30,9 +30,7 @@ public abstract class ResponseAbstractTypeSchemaTestBase extends SAMLObjectValid
         super();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         

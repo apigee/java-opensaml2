@@ -43,10 +43,7 @@ public class AffiliateMemberUnmarshaller extends AbstractSAMLObjectUnmarshaller 
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         AffiliateMember member = (AffiliateMember) samlObject;
         member.setID(elementContent);

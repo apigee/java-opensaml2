@@ -53,10 +53,7 @@ public class AttributeAuthorityDescriptorUnmarshaller extends RoleDescriptorUnma
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {
         AttributeAuthorityDescriptor descriptor = (AttributeAuthorityDescriptor) parentElement;
 

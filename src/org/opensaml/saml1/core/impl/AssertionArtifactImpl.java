@@ -41,23 +41,17 @@ public class AssertionArtifactImpl extends AbstractSAMLObject implements Asserti
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AssertionArtifact#getAssertionArtifact()
-     */
+    /** {@inheritDoc} */
     public String getAssertionArtifact() {
         return assertionArtifact;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AssertionArtifact#setAssertionArtifact(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAssertionArtifact(String assertionArtifact) {
         this.assertionArtifact = prepareForAssignment(this.assertionArtifact, assertionArtifact);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

@@ -40,9 +40,7 @@ public class IDPEntrySchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new IDPEntrySchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         IDPEntry entry = (IDPEntry) target;

@@ -70,9 +70,7 @@ public class AuthnRequestTest extends RequestTestBase {
     }
     
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
@@ -87,9 +85,7 @@ public class AuthnRequestTest extends RequestTestBase {
 
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnRequest req = (AuthnRequest) buildXMLObject(qname);
@@ -100,9 +96,7 @@ public class AuthnRequestTest extends RequestTestBase {
 
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnRequest req = (AuthnRequest) buildXMLObject(qname);
@@ -121,9 +115,7 @@ public class AuthnRequestTest extends RequestTestBase {
         assertEquals(expectedOptionalAttributesDOM, req);
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthnRequest req = (AuthnRequest) buildXMLObject(qname);
@@ -148,9 +140,7 @@ public class AuthnRequestTest extends RequestTestBase {
         assertEquals(expectedChildElementsDOM, req);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AuthnRequest req = (AuthnRequest) unmarshallElement(singleElementFile);
         
@@ -167,9 +157,7 @@ public class AuthnRequestTest extends RequestTestBase {
 
     }
  
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthnRequest req = (AuthnRequest) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -184,9 +172,7 @@ public class AuthnRequestTest extends RequestTestBase {
         super.helperTestSingleElementOptionalAttributesUnmarshall(req);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         AuthnRequest req = (AuthnRequest) unmarshallElement(childElementsFile);
         

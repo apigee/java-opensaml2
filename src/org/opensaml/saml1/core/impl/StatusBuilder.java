@@ -32,16 +32,12 @@ public class StatusBuilder extends AbstractSAMLObjectBuilder<Status> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public Status buildObject() {
         return buildObject(SAMLConstants.SAML1P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Status buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new StatusImpl(namespaceURI, localName, namespacePrefix);
     }

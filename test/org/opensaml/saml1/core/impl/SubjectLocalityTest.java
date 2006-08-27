@@ -51,10 +51,8 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, SubjectLocality.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
         SubjectLocality subjectLocality = (SubjectLocality) unmarshallElement(singleElementFile);
         
@@ -62,10 +60,8 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
         assertNull("DNSAddress present", subjectLocality.getDNSAddress());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesUnmarshall() {
         SubjectLocality subjectLocality = (SubjectLocality) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -73,18 +69,14 @@ public class SubjectLocalityTest extends SAMLObjectBaseTestCase {
         assertEquals("DNSAddress", expectedDNSAddress, subjectLocality.getDNSAddress());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesMarshall() {
         SubjectLocality subjectLocality = (SubjectLocality) buildXMLObject(qname);
         

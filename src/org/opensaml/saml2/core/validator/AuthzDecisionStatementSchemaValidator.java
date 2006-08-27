@@ -35,9 +35,7 @@ public class AuthzDecisionStatementSchemaValidator implements Validator<AuthzDec
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthzDecisionStatement authzDS) throws ValidationException {
         validateResource(authzDS);
         validateDecision(authzDS);

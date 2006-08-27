@@ -76,140 +76,100 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         version = SAMLVersion.VERSION_11;
     }
     
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getMajorVersion()
-     */
+    /** {@inheritDoc} */
     public int getMajorVersion(){
         return version.getMajorVersion();
     }
     
-    /*
-     * @see org.opensaml.saml1.core.Assertion#removeSubjectStatements(java.util.Set)
-     */
+    /** {@inheritDoc} */
     public int getMinorVersion() {
         return version.getMinorVersion();
     }
     
-    /*
-     * @see org.opensaml.saml1.core.Assertion#setVersion(org.opensaml.common.SAMLVersion)
-     */
+    /** {@inheritDoc} */
     public void setVersion(SAMLVersion newVersion){
         version = prepareForAssignment(version, newVersion);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return id;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String id) {
         this.id = prepareForAssignment(this.id, id);   
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getIssuer()
-     */
+    /** {@inheritDoc} */
     public String getIssuer() {
         return this.issuer;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#setIssuer(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setIssuer(String issuer) {
         this.issuer = prepareForAssignment(this.issuer, issuer);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getIssueInstant()
-     */
+    /** {@inheritDoc} */
     public DateTime getIssueInstant() {
         return this.issueInstant;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#setIssueInstant(java.util.Date)
-     * 
-     * There is (as yet) no helper function for Date values so all the logic is in here.
-     */
+    /** {@inheritDoc} */
     public void setIssueInstant(DateTime issueInstant) {
         this.issueInstant = prepareForAssignment(this.issueInstant, issueInstant);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getConditions()
-     */
+    /** {@inheritDoc} */
     public Conditions getConditions() {
         return conditions;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#setConditions(org.opensaml.saml1.core.Conditions)
-     */
+    /** {@inheritDoc} */
     public void setConditions(Conditions conditions) throws IllegalArgumentException {
         this.conditions = prepareForAssignment(this.conditions, conditions);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getAdvice()
-     */
+    /** {@inheritDoc} */
     public Advice getAdvice() {
         return advice;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#setAdvice(org.opensaml.saml1.core.Advice)
-     */
+    /** {@inheritDoc} */
     public void setAdvice(Advice advice) throws IllegalArgumentException {
         this.advice = prepareForAssignment(this.advice, advice);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getStatements()
-     */
+    /** {@inheritDoc} */
     public List<Statement> getStatements() {
         return statements;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getStatements(javax.xml.namespace.QName)
-     */
+    /** {@inheritDoc} */
     public List<Statement> getStatements(QName typeOrName) {
         return (List<Statement>) statements.subList(typeOrName);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getSubjectStatements()
-     */
+    /** {@inheritDoc} */
     public List<SubjectStatement> getSubjectStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, SubjectStatement.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<SubjectStatement>) statements.subList(statementQName);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getAuthenticationStatements()
-     */
+    /** {@inheritDoc} */
     public List<AuthenticationStatement> getAuthenticationStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AuthenticationStatement>) statements.subList(statementQName);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getAuthorizationDecisionStatements()
-     */
+    /** {@inheritDoc} */
     public List<AuthorizationDecisionStatement> getAuthorizationDecisionStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME);
         return (List<AuthorizationDecisionStatement>) statements.subList(statementQName);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Assertion#getAttributeStatements()
-     */
+    /** {@inheritDoc} */
     public List<AttributeStatement> getAttributeStatements() {
         QName statementQName = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AttributeStatement>) statements.subList(statementQName);
@@ -220,9 +180,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
         return id;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
 
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();

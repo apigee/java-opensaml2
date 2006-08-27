@@ -52,51 +52,37 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Status#getStatusMessage()
-     */
+    /** {@inheritDoc} */
     public StatusMessage getStatusMessage() {
         return statusMessage;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Status#setStatusMessage(org.opensaml.saml1.core.StatusMessage)
-     */
+    /** {@inheritDoc} */
     public void setStatusMessage(StatusMessage statusMessage) throws IllegalArgumentException {
         this.statusMessage = prepareForAssignment(this.statusMessage, statusMessage);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Status#getStatusCode()
-     */
+    /** {@inheritDoc} */
     public StatusCode getStatusCode() {
         return statusCode;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Status#getStatusCode(org.opensaml.saml1.core.StatusCode)
-     */
+    /** {@inheritDoc} */
     public void setStatusCode(StatusCode statusCode) throws IllegalArgumentException {
         this.statusCode = prepareForAssignment(this.statusCode, statusCode);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Status#getStatusDetail()
-     */
+    /** {@inheritDoc} */
     public StatusDetail getStatusDetail() {
         return statusDetail;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Status#setStatusDetail(org.opensaml.common.SAMLObject)
-     */
+    /** {@inheritDoc} */
     public void setStatusDetail(StatusDetail statusDetail) throws IllegalArgumentException {
         this.statusDetail = prepareForAssignment(this.statusDetail, statusDetail);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>(3);
 

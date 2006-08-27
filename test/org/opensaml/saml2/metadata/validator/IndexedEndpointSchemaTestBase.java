@@ -29,9 +29,7 @@ public abstract class IndexedEndpointSchemaTestBase extends EndpointSchemaTestBa
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         IndexedEndpoint indexedEndpoint = (IndexedEndpoint) target;

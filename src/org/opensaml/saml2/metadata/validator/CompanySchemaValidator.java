@@ -35,9 +35,7 @@ public class CompanySchemaValidator implements Validator<Company> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Company company) throws ValidationException {
         validateName(company);
     }

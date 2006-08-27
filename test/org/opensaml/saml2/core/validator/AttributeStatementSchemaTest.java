@@ -35,9 +35,7 @@ public class AttributeStatementSchemaTest extends SAMLObjectValidatorBaseTestCas
         validator = new AttributeStatementSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AttributeStatement attributeStatement = (AttributeStatement) target;

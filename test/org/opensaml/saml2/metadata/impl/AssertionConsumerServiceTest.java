@@ -46,9 +46,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/AssertionConsumerServiceOptionalAttributes.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
@@ -59,9 +57,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
         expectedIsDefault = new XSBooleanValue(Boolean.TRUE, false);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AssertionConsumerService service = (AssertionConsumerService) unmarshallElement(singleElementFile);
         
@@ -70,9 +66,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
         assertEquals("Index was not expected value", expectedIndex, service.getIndex());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AssertionConsumerService service = (AssertionConsumerService) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -83,9 +77,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
         assertEquals("isDefault was not expected value", expectedIsDefault, service.isDefaultXSBoolean());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME);
         AssertionConsumerService service = (AssertionConsumerService) buildXMLObject(qname);
@@ -97,9 +89,7 @@ public class AssertionConsumerServiceTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, service);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME);
         AssertionConsumerService service = (AssertionConsumerService) buildXMLObject(qname);

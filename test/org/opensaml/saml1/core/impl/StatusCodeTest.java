@@ -49,10 +49,8 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
 
         StatusCode code = (StatusCode) unmarshallElement(singleElementFile);
@@ -60,10 +58,8 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         assertEquals("Single Element Value wrong", value, code.getValue());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsUnmarshall() {
 
         StatusCode code = (StatusCode) unmarshallElement(childElementsFile);
@@ -71,10 +67,8 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         assertNotNull("Child StatusCode", code.getStatusCode());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         StatusCode code = (StatusCode) buildXMLObject(qname);
 
@@ -83,10 +77,8 @@ public class StatusCodeTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, code);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsMarshall() {
 
         StatusCode code = (StatusCode) buildXMLObject(qname);

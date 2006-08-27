@@ -34,16 +34,12 @@ public class AudienceBuilder extends AbstractSAMLObjectBuilder<Audience> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public Audience buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Audience buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AudienceImpl(namespaceURI, localName, namespacePrefix);
     }

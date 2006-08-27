@@ -45,10 +45,7 @@ public class AuthnContextDeclUnmarshaller extends AbstractSAMLObjectUnmarshaller
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         AuthnContextDecl authnContextDecl = (AuthnContextDecl) samlObject;
         authnContextDecl.setDeclaration(elementContent);

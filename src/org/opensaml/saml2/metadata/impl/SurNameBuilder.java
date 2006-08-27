@@ -36,16 +36,12 @@ public class SurNameBuilder extends AbstractSAMLObjectBuilder<SurName> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public SurName buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, SurName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public SurName buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new SurNameImpl(namespaceURI, localName, namespacePrefix);
     }

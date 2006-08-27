@@ -52,18 +52,14 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/ConditionsChildElements.xml";
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedNotBefore = new DateTime(1984, 8, 26, 10, 01, 30, 43, ISOChronology.getInstanceUTC());
         expectedNotOnOrAfter = new DateTime(1984, 8, 26, 10, 11, 30, 43, ISOChronology.getInstanceUTC());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Conditions conditions = (Conditions) unmarshallElement(singleElementFile);
 
@@ -71,9 +67,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals("NotBefore was " + notBefore + ", expected " + expectedNotBefore, expectedNotBefore, notBefore);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Conditions conditions = (Conditions) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -85,9 +79,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
                 notOnOrAfter);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Conditions conditions = (Conditions) buildXMLObject(qname);
@@ -96,9 +88,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, conditions);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Conditions conditions = (Conditions) buildXMLObject(qname);
@@ -109,9 +99,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, conditions);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Conditions conditions = (Conditions) unmarshallElement(childElementsFile);
         assertEquals("Condition count not as expected", conditionCount, conditions.getConditions().size());
@@ -119,9 +107,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertNotNull("ProxyRestriction absent", conditions.getProxyRestriction());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Conditions conditions = (Conditions) buildXMLObject(qname);

@@ -45,23 +45,17 @@ public class AssertionURIRefImpl extends AbstractSAMLObject implements Assertion
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AssertionURIRef#getURIRef()
-     */
+    /** {@inheritDoc} */
     public String getAssertionURI() {
         return assertionURI;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AssertionURIRef#setURIRef(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAssertionURI(String newAssertionURI) {
         this.assertionURI = prepareForAssignment(this.assertionURI, newAssertionURI);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

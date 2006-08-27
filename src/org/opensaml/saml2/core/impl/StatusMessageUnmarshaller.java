@@ -48,10 +48,7 @@ public class StatusMessageUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         StatusMessage message = (StatusMessage) samlObject;
 

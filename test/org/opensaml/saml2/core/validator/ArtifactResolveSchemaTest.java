@@ -40,9 +40,7 @@ public class ArtifactResolveSchemaTest extends RequestSchemaTestBase {
         validator = new ArtifactResolveSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         ArtifactResolve ar = (ArtifactResolve) target;

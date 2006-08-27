@@ -41,9 +41,7 @@ public class IDPListSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new IDPListSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         IDPList list = (IDPList) target;

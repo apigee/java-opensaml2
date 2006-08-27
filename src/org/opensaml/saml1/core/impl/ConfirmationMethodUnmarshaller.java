@@ -33,10 +33,7 @@ public class ConfirmationMethodUnmarshaller extends AbstractSAMLObjectUnmarshall
         super(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         ConfirmationMethod confirmationMethod = (ConfirmationMethod) samlObject;
 

@@ -49,9 +49,7 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
         super();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectTestCaseConfigInitializer#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
@@ -64,9 +62,7 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
         populateRequiredData();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectTestCaseConfigInitializer#tearDown()
-     */
+    /** {@inheritDoc} */
     protected void tearDown() throws Exception {
         super.tearDown();
     }

@@ -36,16 +36,12 @@ public class ServiceDescriptionBuilder extends AbstractSAMLObjectBuilder<Service
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public ServiceDescription buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, ServiceDescription.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public ServiceDescription buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ServiceDescriptionImpl(namespaceURI, localName, namespacePrefix);
     }

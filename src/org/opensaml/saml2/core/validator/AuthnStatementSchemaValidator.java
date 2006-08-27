@@ -34,9 +34,7 @@ public class AuthnStatementSchemaValidator implements Validator<AuthnStatement> 
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthnStatement authnStatement) throws ValidationException {
         validateAuthnInstant(authnStatement);
         validateAuthnContext(authnStatement);

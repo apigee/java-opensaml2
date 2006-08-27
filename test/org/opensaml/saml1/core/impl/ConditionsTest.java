@@ -68,9 +68,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Conditions conditions;
 
@@ -84,9 +82,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Conditions conditions;
 
@@ -110,9 +106,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals("Wrong number of Condition children", 4, conditions.getConditions().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         Conditions conditions = (Conditions) buildXMLObject(qname);
 
@@ -120,9 +114,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         Conditions conditions = (Conditions) buildXMLObject(qname);
 
@@ -132,9 +124,7 @@ public class ConditionsTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, conditions);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
 
         Conditions conditions = (Conditions) buildXMLObject(qname);

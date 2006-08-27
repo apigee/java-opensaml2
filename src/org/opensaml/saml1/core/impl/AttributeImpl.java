@@ -43,16 +43,12 @@ public class AttributeImpl extends AttributeDesignatorImpl implements Attribute 
         attributeValues = new XMLObjectChildrenList<XMLObject>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Attribute#getAttributeValues()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getAttributeValues() {
         return attributeValues;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return Collections.unmodifiableList(attributeValues);
     }

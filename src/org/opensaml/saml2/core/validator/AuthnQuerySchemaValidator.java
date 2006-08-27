@@ -34,9 +34,7 @@ public class AuthnQuerySchemaValidator extends SubjectQuerySchemaValidator<Authn
     public AuthnQuerySchemaValidator() {
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.SubjectQuerySchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthnQuery query) throws ValidationException {
         super.validate(query);
     }

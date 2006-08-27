@@ -44,23 +44,17 @@ public abstract class SubjectStatementImpl extends AbstractSAMLObject implements
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.SubjectStatement#getSubject()
-     */
+    /** {@inheritDoc} */
     public Subject getSubject() {
         return subject;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.SubjectStatement#setSubject(org.opensaml.saml1.core.Subject)
-     */
+    /** {@inheritDoc} */
     public void setSubject(Subject subject) throws IllegalArgumentException {
         this.subject = prepareForAssignment(this.subject, subject);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         if (subject == null) {
             return null;

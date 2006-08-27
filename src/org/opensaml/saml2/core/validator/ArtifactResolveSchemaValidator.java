@@ -36,9 +36,7 @@ public class ArtifactResolveSchemaValidator extends RequestSchemaValidator<Artif
         
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(ArtifactResolve artifactResolve) throws ValidationException {
         super.validate(artifactResolve);
         validateArtifact(artifactResolve);

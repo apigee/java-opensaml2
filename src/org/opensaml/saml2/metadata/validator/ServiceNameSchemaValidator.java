@@ -34,9 +34,7 @@ public class ServiceNameSchemaValidator implements Validator<ServiceName> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(ServiceName serviceName) throws ValidationException {
         validateName(serviceName);
     }

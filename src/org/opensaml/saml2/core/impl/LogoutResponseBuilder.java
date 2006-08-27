@@ -37,16 +37,12 @@ public class LogoutResponseBuilder extends AbstractSAMLObjectBuilder<LogoutRespo
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public LogoutResponse buildObject() {
         return buildObject(SAMLConstants.SAML20P_NS, LogoutResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public LogoutResponse buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new LogoutResponseImpl(namespaceURI, localName, namespacePrefix);
     }

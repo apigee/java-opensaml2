@@ -28,9 +28,7 @@ import org.opensaml.xml.validation.ValidationException;
  */
 public class AttributeStatementSchemaValidator extends SubjectStatementSchemaValidator<AttributeStatement> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AttributeStatement attributeStatement) throws ValidationException {        
         super.validate(attributeStatement);
 

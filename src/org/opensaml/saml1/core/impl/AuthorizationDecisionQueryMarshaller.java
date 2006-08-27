@@ -34,10 +34,7 @@ public class AuthorizationDecisionQueryMarshaller extends SubjectQueryMarshaller
         super(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         AuthorizationDecisionQuery authorizationDecisionQuery = (AuthorizationDecisionQuery) samlElement;
 

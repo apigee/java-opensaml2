@@ -37,16 +37,12 @@ public class ArtifactResolveBuilder extends AbstractSAMLObjectBuilder<ArtifactRe
 
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public ArtifactResolve buildObject() {
         return buildObject(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public ArtifactResolve buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ArtifactResolveImpl(namespaceURI, localName, namespacePrefix);
     }

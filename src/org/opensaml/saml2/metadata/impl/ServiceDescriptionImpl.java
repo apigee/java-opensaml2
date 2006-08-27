@@ -46,23 +46,17 @@ public class ServiceDescriptionImpl extends AbstractSAMLObject implements Servic
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ServiceDescription#getDescription()
-     */
+    /** {@inheritDoc} */
     public LocalizedString getDescription() {
         return description;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ServiceDescription#setDescription(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setDescription(LocalizedString newDescription) {
         description = prepareForAssignment(description, newDescription);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

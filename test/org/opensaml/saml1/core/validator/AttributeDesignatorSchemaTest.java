@@ -35,9 +35,7 @@ public class AttributeDesignatorSchemaTest extends SAMLObjectValidatorBaseTestCa
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
 

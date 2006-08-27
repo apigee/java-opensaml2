@@ -35,9 +35,7 @@ public class AdditionalMetadataLocationSchemaTest extends SAMLObjectValidatorBas
         validator = new AdditionalMetadataLocationSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AdditionalMetadataLocation aml = (AdditionalMetadataLocation) target;

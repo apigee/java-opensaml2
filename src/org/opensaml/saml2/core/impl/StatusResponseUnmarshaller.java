@@ -50,9 +50,7 @@ public abstract class StatusResponseUnmarshaller extends AbstractSAMLObjectUnmar
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject, org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         StatusResponse sr = (StatusResponse) samlObject;
         
@@ -72,9 +70,7 @@ public abstract class StatusResponseUnmarshaller extends AbstractSAMLObjectUnmar
             super.processAttribute(samlObject, attribute);
     }
 
-    /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject, org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         StatusResponse sr = (StatusResponse) parentSAMLObject;
         

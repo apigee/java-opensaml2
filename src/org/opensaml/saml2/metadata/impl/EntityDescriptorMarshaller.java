@@ -60,10 +60,7 @@ public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) {
         EntityDescriptor entityDescriptor = (EntityDescriptor) samlElement;
 

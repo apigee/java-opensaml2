@@ -42,17 +42,13 @@ public class NameIDMappingResponseTest extends StatusResponseTestBase {
     }
     
     
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         NameIDMappingResponse resp = (NameIDMappingResponse) buildXMLObject(qname);
@@ -62,9 +58,7 @@ public class NameIDMappingResponseTest extends StatusResponseTestBase {
         assertEquals(expectedDOM, resp);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         NameIDMappingResponse resp = (NameIDMappingResponse) buildXMLObject(qname);
@@ -75,9 +69,7 @@ public class NameIDMappingResponseTest extends StatusResponseTestBase {
         assertEquals(expectedOptionalAttributesDOM, resp);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         NameIDMappingResponse req = (NameIDMappingResponse) buildXMLObject(qname);
@@ -90,9 +82,7 @@ public class NameIDMappingResponseTest extends StatusResponseTestBase {
         assertEquals(expectedChildElementsDOM, req);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         NameIDMappingResponse resp = (NameIDMappingResponse) unmarshallElement(singleElementFile);
         
@@ -100,9 +90,7 @@ public class NameIDMappingResponseTest extends StatusResponseTestBase {
         super.helperTestSingleElementUnmarshall(resp);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         NameIDMappingResponse resp = (NameIDMappingResponse) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -110,9 +98,7 @@ public class NameIDMappingResponseTest extends StatusResponseTestBase {
         super.helperTestSingleElementOptionalAttributesUnmarshall(resp);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         NameIDMappingResponse resp = (NameIDMappingResponse) unmarshallElement(childElementsFile);
         

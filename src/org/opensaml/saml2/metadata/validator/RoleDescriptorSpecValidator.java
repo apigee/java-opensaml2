@@ -34,9 +34,7 @@ public class RoleDescriptorSpecValidator<RoleDescriptorType extends RoleDescript
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(RoleDescriptorType roleDescriptor) throws ValidationException {
         validateProtocols(roleDescriptor);
     }

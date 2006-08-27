@@ -32,16 +32,12 @@ public class ConditionsBuilder extends AbstractSAMLObjectBuilder<Conditions> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public Conditions buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Conditions buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ConditionsImpl(namespaceURI, localName, namespacePrefix);
     }

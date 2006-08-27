@@ -46,23 +46,17 @@ public class ServiceNameImpl extends AbstractSAMLObject implements ServiceName {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ServiceName#getName()
-     */
+    /** {@inheritDoc} */
     public LocalizedString getName() {
         return name;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.ServiceName#setName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setName(LocalizedString newName) {
         name = prepareForAssignment(name, newName);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

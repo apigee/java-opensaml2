@@ -33,16 +33,12 @@ public class ProxyRestrictionBuilder extends AbstractSAMLObjectBuilder<ProxyRest
     public ProxyRestrictionBuilder() {
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public ProxyRestriction buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public ProxyRestriction buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ProxyRestrictionImpl(namespaceURI, localName, namespacePrefix);
     }

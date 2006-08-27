@@ -36,16 +36,12 @@ public class StatusCodeBuilder extends AbstractSAMLObjectBuilder<StatusCode> {
     public StatusCodeBuilder() {
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public StatusCode buildObject() {
         return buildObject(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public StatusCode buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new StatusCodeImpl(namespaceURI, localName, namespacePrefix);
     }

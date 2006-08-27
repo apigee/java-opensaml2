@@ -40,9 +40,7 @@ public abstract class SubjectQuerySchemaTestBase extends RequestSchemaTestBase {
         super();
     }
   
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         SubjectQuery query = (SubjectQuery) target;

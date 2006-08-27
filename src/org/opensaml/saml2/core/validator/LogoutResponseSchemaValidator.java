@@ -35,9 +35,7 @@ public class LogoutResponseSchemaValidator extends StatusResponseSchemaValidator
         super();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.StatusResponseSchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(LogoutResponse response) throws ValidationException {
         super.validate(response);
     }

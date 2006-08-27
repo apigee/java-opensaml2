@@ -35,9 +35,7 @@ public class SurNameSchemaValidator implements Validator<SurName> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(SurName surName) throws ValidationException {
         validateName(surName);
     }

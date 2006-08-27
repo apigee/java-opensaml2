@@ -58,44 +58,32 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
         unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Endpoint#getBinding()
-     */
+    /** {@inheritDoc} */
     public String getBinding() {
         return bindingId;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Endpoint#setBinding(java.net.URI)
-     */
+    /** {@inheritDoc} */
     public void setBinding(String binding) {
         bindingId = prepareForAssignment(bindingId, binding);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Endpoint#getLocation()
-     */
+    /** {@inheritDoc} */
     public String getLocation() {
         return location;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Endpoint#setLocation(java.net.URI)
-     */
+    /** {@inheritDoc} */
     public void setLocation(String location) {
         this.location = prepareForAssignment(this.location, location);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Endpoint#getResponseLocation()
-     */
+    /** {@inheritDoc} */
     public String getResponseLocation() {
         return responseLocation;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Endpoint#setResponseLocation(java.net.URI)
-     */
+    /** {@inheritDoc} */
     public void setResponseLocation(String location) {
         responseLocation = prepareForAssignment(responseLocation, location);
     }

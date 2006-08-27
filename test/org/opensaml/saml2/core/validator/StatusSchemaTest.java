@@ -41,9 +41,7 @@ public class StatusSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new StatusSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         Status status = (Status) target;

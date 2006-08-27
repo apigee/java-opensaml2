@@ -45,23 +45,17 @@ public class AuthnContextClassRefImpl extends AbstractSAMLObject implements Auth
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContextClassRef#getAuthnContextClassRef()
-     */
+    /** {@inheritDoc} */
     public String getAuthnContextClassRef() {
         return authnContextClassRef;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthnContextClassRef#setAuthnContextClassRef(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAuthnContextClassRef(String newAuthnContextClassRef) {
         this.authnContextClassRef = prepareForAssignment(this.authnContextClassRef, newAuthnContextClassRef);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

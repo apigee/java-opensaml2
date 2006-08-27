@@ -36,16 +36,12 @@ public class TelephoneNumberBuilder extends AbstractSAMLObjectBuilder<TelephoneN
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public TelephoneNumber buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, TelephoneNumber.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public TelephoneNumber buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new TelephoneNumberImpl(namespaceURI, localName, namespacePrefix);
     }

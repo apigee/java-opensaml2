@@ -29,9 +29,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class SubjectConfirmationSchemaValidator implements Validator<SubjectConfirmation>  {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(SubjectConfirmation subjectConfirmation) throws ValidationException {
         // TODO separate methods
          if (subjectConfirmation.getConfirmationMethods().size() == 0) {

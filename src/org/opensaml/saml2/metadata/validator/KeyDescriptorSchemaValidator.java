@@ -34,9 +34,7 @@ public class KeyDescriptorSchemaValidator implements Validator<KeyDescriptor> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(KeyDescriptor keyDescriptor) throws ValidationException {
         validateKeyInfo(keyDescriptor);
     }

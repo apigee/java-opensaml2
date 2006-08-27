@@ -41,23 +41,17 @@ public class ConfirmationMethodImpl extends AbstractSAMLObject implements Confir
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.ConfirmationMethod#getConfirmationMethod()
-     */
+    /** {@inheritDoc} */
     public String getConfirmationMethod() {
         return confirmationMethod;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.ConfirmationMethod#setConfirmationMethod(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setConfirmationMethod(String confirmationMethod) {
         this.confirmationMethod = prepareForAssignment(this.confirmationMethod, confirmationMethod);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

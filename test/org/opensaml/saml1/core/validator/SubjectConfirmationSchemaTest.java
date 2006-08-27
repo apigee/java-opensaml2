@@ -35,9 +35,7 @@ public class SubjectConfirmationSchemaTest extends SAMLObjectValidatorBaseTestCa
         validator = new SubjectConfirmationSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
 

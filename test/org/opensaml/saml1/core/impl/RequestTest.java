@@ -57,9 +57,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
     
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Request request = (Request) unmarshallElement(singleElementFile);
 
@@ -75,9 +73,7 @@ public class RequestTest extends SAMLObjectBaseTestCase {
         assertNull("IssueInstance has value", request.getIssueInstant());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Request request = (Request) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -112,16 +108,12 @@ public class RequestTest extends SAMLObjectBaseTestCase {
         assertEquals("AssertionArtifact count", 0, request.getAssertionArtifacts().size());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         
         Request request = (Request) buildXMLObject(qname);

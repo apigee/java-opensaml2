@@ -53,46 +53,34 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
         confirmationMethods = new XMLObjectChildrenList<ConfirmationMethod>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.SubjectConfirmation#getSubjectConfirmationMethods()
-     */
+    /** {@inheritDoc} */
     public List<ConfirmationMethod> getConfirmationMethods() {
         return confirmationMethods;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.SubjectConfirmation#setSubjectConfirmationData(org.opensaml.saml1.core.SubjectConfirmationData)
-     */
+    /** {@inheritDoc} */
     public void setSubjectConfirmationData(XMLObject subjectConfirmationData)
             throws IllegalArgumentException {
 
         this.subjectConfirmationData = prepareForAssignment(this.subjectConfirmationData, subjectConfirmationData);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.SubjectConfirmation#getSubjectConfirmationData()
-     */
+    /** {@inheritDoc} */
     public XMLObject getSubjectConfirmationData() {
         return subjectConfirmationData;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.SubjectConfirmation#getKeyInfo()
-     */
+    /** {@inheritDoc} */
     public KeyInfo getKeyInfo() {
         return keyInfo;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.SubjectConfirmation#setKeyInfo(org.apache.xml.security.keys.KeyInfo)
-     */
+    /** {@inheritDoc} */
     public void setKeyInfo(KeyInfo keyInfo) {
         this.keyInfo = prepareForAssignment(this.keyInfo, keyInfo);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
 
         List<XMLObject> list = new ArrayList<XMLObject>(confirmationMethods.size() + 1);

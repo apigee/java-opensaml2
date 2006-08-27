@@ -45,23 +45,17 @@ public class SessionIndexImpl extends AbstractSAMLObject implements SessionIndex
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.SessionIndex#getSessionIndex()
-     */
+    /** {@inheritDoc} */
     public String getSessionIndex() {
         return this.sessionIndex;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.SessionIndex#setSessionIndex(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setSessionIndex(String newSessionIndex) {
         this.sessionIndex = prepareForAssignment(this.sessionIndex, newSessionIndex);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // no children
         return null;

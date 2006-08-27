@@ -38,9 +38,7 @@ public class DoNotCacheConditionImpl extends AbstractSAMLObject implements DoNot
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

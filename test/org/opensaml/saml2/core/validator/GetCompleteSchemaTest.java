@@ -40,9 +40,7 @@ public class GetCompleteSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new GetCompleteSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         GetComplete gc = (GetComplete) target;

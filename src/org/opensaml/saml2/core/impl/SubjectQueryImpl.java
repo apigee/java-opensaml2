@@ -47,9 +47,7 @@ public abstract class SubjectQueryImpl extends RequestImpl implements SubjectQue
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.SubjectQuery#getSubject()
-     */
+    /** {@inheritDoc} */
     public Subject getSubject() {
         return this.subject;
     }
@@ -61,9 +59,7 @@ public abstract class SubjectQueryImpl extends RequestImpl implements SubjectQue
         this.subject = prepareForAssignment(this.subject, newSubject);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

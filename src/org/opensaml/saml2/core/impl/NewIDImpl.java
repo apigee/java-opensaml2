@@ -45,23 +45,17 @@ public class NewIDImpl extends AbstractSAMLObject implements NewID {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NewID#getNewID()
-     */
+    /** {@inheritDoc} */
     public String getNewID() {
         return newID;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.NewID#setNewID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setNewID(String newNewID) {
         this.newID = prepareForAssignment(this.newID, newNewID);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // no children
         return null;

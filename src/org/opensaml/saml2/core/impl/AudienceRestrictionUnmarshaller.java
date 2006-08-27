@@ -47,10 +47,7 @@ public class AudienceRestrictionUnmarshaller extends AbstractSAMLObjectUnmarshal
         super(namespaceURI, elementLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         AudienceRestriction audienceRestriction = (AudienceRestriction) parentObject;
 

@@ -36,9 +36,7 @@ public class EvidenceSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new EvidenceSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         

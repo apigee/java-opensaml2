@@ -45,23 +45,17 @@ public class EmailAddressImpl extends AbstractSAMLObject implements EmailAddress
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EmailAddress#getAddress()
-     */
+    /** {@inheritDoc} */
     public String getAddress() {
         return address;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EmailAddress#setAddress(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAddress(String address) {
         this.address = prepareForAssignment(this.address, address);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

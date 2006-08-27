@@ -53,79 +53,57 @@ public class AbstractNameIDType extends AbstractSAMLObject implements NameIDType
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.NameID#getName()
-     */
+    /** {@inheritDoc} */
     public String getValue() {
         return name;
     }
     
-    /*
-     * @see org.opensaml.saml2.core.NameID#setName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setValue(String newName) {
         this.name = prepareForAssignment(this.name, newName);
     }
     
-    /*
-     * @see org.opensaml.saml2.core.NameID#getNameQualifier()
-     */
+    /** {@inheritDoc} */
     public String getNameQualifier() {
         return nameQualifier;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.NameID#setNameQualifier(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setNameQualifier(String newNameQualifier) {
         this.nameQualifier = prepareForAssignment(this.nameQualifier, newNameQualifier);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.NameID#getSPNameQualifier()
-     */
+    /** {@inheritDoc} */
     public String getSPNameQualifier() {
         return spNameQualifier;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.NameID#setSPNameQualifier(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setSPNameQualifier(String newSPNameQualifier) {
         this.spNameQualifier = prepareForAssignment(this.spNameQualifier, newSPNameQualifier);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.NameID#getFormat()
-     */
+    /** {@inheritDoc} */
     public String getFormat() {
         return format;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.NameID#setFormat(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setFormat(String newFormat) {
         this.format = prepareForAssignment(this.format, newFormat);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.NameID#getSPProvidedID()
-     */
+    /** {@inheritDoc} */
     public String getSPProvidedID() {
         return spProvidedID;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.NameID#setSPProvidedID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setSPProvidedID(String newSPProvidedID) {
         this.spProvidedID = prepareForAssignment(this.spProvidedID, newSPProvidedID);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

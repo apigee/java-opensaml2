@@ -51,16 +51,12 @@ public class ResponseImpl extends StatusResponseImpl implements Response {
         assertions = new XMLObjectChildrenList<Assertion>(this);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Response#getAssertions()
-     */
+    /** {@inheritDoc} */
     public List<Assertion> getAssertions() {
         return this.assertions;
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

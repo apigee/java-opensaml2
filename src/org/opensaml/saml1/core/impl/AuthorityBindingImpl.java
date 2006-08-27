@@ -49,51 +49,37 @@ public class AuthorityBindingImpl extends AbstractSAMLObject implements Authorit
         super(namespaceURI, elementLocalName, namespacePrefix);
    }
     
-    /*
-     * @see org.opensaml.saml1.core.AuthorityBinding#getAuthorityKind()
-     */
+    /** {@inheritDoc} */
     public QName getAuthorityKind() {
         return authorityKind;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorityBinding#setAuthorityKind(javax.xml.namespace.QName)
-     */
+    /** {@inheritDoc} */
     public void setAuthorityKind(QName authorityKind) {
         this.authorityKind = prepareForAssignment(this.authorityKind, authorityKind);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorityBinding#getLocation()
-     */
+    /** {@inheritDoc} */
     public String getLocation() {
         return location;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorityBinding#setLocation(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setLocation(String location) {
         this.location = prepareForAssignment(this.location, location);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorityBinding#getBinding()
-     */
+    /** {@inheritDoc} */
     public String getBinding() {
         return binding;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorityBinding#setBinding(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setBinding(String binding) {
         this.binding = prepareForAssignment(this.binding, binding);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // No children
         return null;

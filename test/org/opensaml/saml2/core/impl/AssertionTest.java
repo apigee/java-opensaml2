@@ -65,9 +65,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/AssertionChildElements.xml";
     }
 
-    /**
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedVersion = SAMLVersion.VERSION_20;
@@ -75,9 +73,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         expectedID = "id";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Assertion assertion = (Assertion) unmarshallElement(singleElementFile);
 
@@ -86,9 +82,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
                 notBefore);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Assertion assertion = (Assertion) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -103,9 +97,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertEquals("Version was " + version + ", expected " + expectedVersion, expectedVersion, version);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
@@ -115,9 +107,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, assertion);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);
@@ -129,9 +119,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, assertion);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Assertion assertion = (Assertion) unmarshallElement(childElementsFile);
 
@@ -147,9 +135,7 @@ public class AssertionTest extends SAMLObjectBaseTestCase {
                 .getAttributeStatement().size());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Assertion assertion = (Assertion) buildXMLObject(qname);

@@ -33,9 +33,7 @@ public class AttributeQuerySchemaTest extends SubjectQuerySchemaTestBase  {
         validator = new AttributeQuerySchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
     }

@@ -45,16 +45,12 @@ public class AttributeStatementImpl extends SubjectStatementImpl implements Attr
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeStatement#getAttributes()
-     */
+    /** {@inheritDoc} */
     public List<Attribute> getAttributes() {
         return attributes;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>(attributes.size() + 1);
 

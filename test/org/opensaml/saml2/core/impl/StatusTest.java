@@ -43,18 +43,14 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     }
 
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME);
         Status status = (Status) buildXMLObject(qname);
@@ -64,9 +60,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     
     
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME);
         Status status = (Status) buildXMLObject(qname);
@@ -81,9 +75,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Status status = (Status) unmarshallElement(singleElementFile);
         
@@ -93,9 +85,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Status status = (Status) unmarshallElement(childElementsFile);
         

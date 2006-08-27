@@ -48,10 +48,8 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
         AssertionIDReference assertionIDReference;
 
@@ -61,11 +59,8 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
                 .getReference());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall() No attributes -
-     *      test contents
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesUnmarshall() {
         AssertionIDReference assertionIDReference;
 
@@ -74,19 +69,14 @@ public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
         assertEquals("NCName ", expectedNCName, assertionIDReference.getReference());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         assertEquals(expectedDOM, buildXMLObject(qname));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall() No attributes -
-     *      test contents
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementOptionalAttributesMarshall() {
         AssertionIDReference assertionIDReference = (AssertionIDReference) buildXMLObject(qname);
 

@@ -42,23 +42,17 @@ public class AuthenticationQueryImpl extends SubjectQueryImpl implements Authent
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationQuery#getAuthenticationMethod()
-     */
+    /** {@inheritDoc} */
     public String getAuthenticationMethod() {
         return authenticationMethod;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthenticationQuery#setAuthenticationMethod(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAuthenticationMethod(String authenticationMethod) {
         this.authenticationMethod = prepareForAssignment(this.authenticationMethod, authenticationMethod);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>();
 

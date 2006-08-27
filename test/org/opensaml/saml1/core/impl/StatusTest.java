@@ -48,10 +48,8 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         qname = new QName(SAMLConstants.SAML1P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementUnmarshall() {
 
         Status status = (Status) unmarshallElement(singleElementFile);
@@ -64,7 +62,7 @@ public class StatusTest extends SAMLObjectBaseTestCase {
     /**
      * Test an Response file with children
      */
-    @Override
+
     public void testChildElementsUnmarshall() {
         Status status = (Status) unmarshallElement(childElementsFile);
 
@@ -72,10 +70,8 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         assertNotNull("StatusMessage", status.getStatusMessage());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testSingleElementMarshall() {
         Status status = (Status) buildXMLObject(qname);
 
@@ -88,10 +84,8 @@ public class StatusTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, status);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
-    @Override
+    /** {@inheritDoc} */
+
     public void testChildElementsMarshall() {
         Status status = (Status) buildXMLObject(qname);
 

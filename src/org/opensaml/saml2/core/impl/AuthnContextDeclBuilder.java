@@ -34,16 +34,12 @@ public class AuthnContextDeclBuilder extends AbstractSAMLObjectBuilder<AuthnCont
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AuthnContextDecl buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AuthnContextDecl buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AuthnContextDeclImpl(namespaceURI, localName, namespacePrefix);
     }

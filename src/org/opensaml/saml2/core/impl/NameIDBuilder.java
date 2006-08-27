@@ -34,16 +34,12 @@ public class NameIDBuilder extends AbstractSAMLObjectBuilder<NameID> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public NameID buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public NameID buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new NameIDImpl(namespaceURI, localName, namespacePrefix);
     }

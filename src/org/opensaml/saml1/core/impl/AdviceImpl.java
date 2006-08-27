@@ -55,9 +55,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
     
-    /*
-     * @see org.opensaml.saml1.core.Advice#getAssertionIDReferences()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDReference> getAssertionIDReferences() {
         //
         // The cast in the line below is unsafe. (it's checking against the erasure of l - which is List.
@@ -69,9 +67,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         return (List<AssertionIDReference>) assertionChildren.subList(assertionIDRefQName);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Advice#getAssertions()
-     */
+    /** {@inheritDoc} */
     public List<Assertion> getAssertions() {
         // See Comment for getAssertionIDReference as to why this unsafe casting is OK
         QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
@@ -85,9 +81,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
         return unknownChildren;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         

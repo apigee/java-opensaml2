@@ -45,23 +45,17 @@ public class AssertionIDRefImpl extends AbstractSAMLObject implements AssertionI
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AssertionIDRef#getIDRef()
-     */
+    /** {@inheritDoc} */
     public String getAssertionID() {
         return assertionID;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AssertionIDRef#setIDRef(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAssertionID(String newIDRef) {
         this.assertionID = prepareForAssignment(this.assertionID, newIDRef);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

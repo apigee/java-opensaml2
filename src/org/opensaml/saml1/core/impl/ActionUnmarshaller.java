@@ -35,10 +35,7 @@ public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         super(SAMLConstants.SAML1_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
 
         if (Action.NAMESPACEATTRIB_NAME.equals(attribute.getLocalName())) {
@@ -49,10 +46,7 @@ public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         Action action = (Action) samlObject;
         action.setContents(elementContent);

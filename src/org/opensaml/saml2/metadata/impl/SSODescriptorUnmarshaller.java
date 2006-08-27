@@ -39,10 +39,7 @@ public abstract class SSODescriptorUnmarshaller extends RoleDescriptorUnmarshall
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {
         SSODescriptor descriptor = (SSODescriptor) parentElement;
         if (childElement instanceof ArtifactResolutionService) {

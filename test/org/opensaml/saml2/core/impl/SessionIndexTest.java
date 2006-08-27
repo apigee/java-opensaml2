@@ -43,27 +43,21 @@ public class SessionIndexTest extends SAMLObjectBaseTestCase {
     
     
 
-    /** 
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedSessionIndex = "Session1234";
     }
 
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         SessionIndex si = (SessionIndex) unmarshallElement(singleElementFile);
         
         assertEquals("The unmarshalled session index as not the expected value", expectedSessionIndex, si.getSessionIndex());
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, SessionIndex.DEFAULT_ELEMENT_LOCAL_NAME);
         SessionIndex si = (SessionIndex) buildXMLObject(qname);

@@ -54,30 +54,22 @@ public class IDPListImpl extends AbstractSAMLObject implements IDPList {
         idpEntries = new XMLObjectChildrenList<IDPEntry>(this);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.IDPList#getIDPEntrys()
-     */
+    /** {@inheritDoc} */
     public List<IDPEntry> getIDPEntrys() {
         return idpEntries;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.IDPList#getGetComplete()
-     */
+    /** {@inheritDoc} */
     public GetComplete getGetComplete() {
         return getComplete;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.IDPList#setGetComplete(org.opensaml.saml2.core.GetComplete)
-     */
+    /** {@inheritDoc} */
     public void setGetComplete(GetComplete newGetComplete) {
         this.getComplete = prepareForAssignment(this.getComplete, newGetComplete);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         children.addAll(idpEntries);

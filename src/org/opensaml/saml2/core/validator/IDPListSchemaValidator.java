@@ -36,9 +36,7 @@ public class IDPListSchemaValidator implements Validator<IDPList> {
         super();
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(IDPList list) throws ValidationException {
         validateIDPEntries(list);
     }

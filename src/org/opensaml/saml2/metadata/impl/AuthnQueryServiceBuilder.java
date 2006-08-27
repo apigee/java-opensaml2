@@ -36,16 +36,12 @@ public class AuthnQueryServiceBuilder extends AbstractSAMLObjectBuilder<AuthnQue
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AuthnQueryService buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, AuthnQueryService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AuthnQueryService buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AuthnQueryServiceImpl(namespaceURI, localName, namespacePrefix);
     }

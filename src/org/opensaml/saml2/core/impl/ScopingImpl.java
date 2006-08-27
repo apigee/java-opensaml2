@@ -57,45 +57,33 @@ public class ScopingImpl extends AbstractSAMLObject implements Scoping {
         requesterIDs = new XMLObjectChildrenList<RequesterID>(this);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Scoping#getProxyCount()
-     */
+    /** {@inheritDoc} */
     public Integer getProxyCount() {
         return this.proxyCount;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Scoping#setProxyCount(java.lang.Integer)
-     */
+    /** {@inheritDoc} */
     public void setProxyCount(Integer newProxyCount) {
         this.proxyCount = prepareForAssignment(this.proxyCount, newProxyCount);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Scoping#getIDPList()
-     */
+    /** {@inheritDoc} */
     public IDPList getIDPList() {
         return idpList;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Scoping#setIDPList(org.opensaml.saml2.core.IDPList)
-     */
+    /** {@inheritDoc} */
     public void setIDPList(IDPList newIDPList) {
         this.idpList = prepareForAssignment(this.idpList, newIDPList);
 
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Scoping#getRequesterIDs()
-     */
+    /** {@inheritDoc} */
     public List<RequesterID> getRequesterIDs() {
         return requesterIDs;
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

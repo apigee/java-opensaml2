@@ -37,9 +37,7 @@ public abstract class RequestSchemaValidator<RequestType extends Request> implem
     public RequestSchemaValidator() {
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(RequestType request) throws ValidationException {
         validateID(request);
         validateVersion(request);

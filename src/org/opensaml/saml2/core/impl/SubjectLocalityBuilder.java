@@ -34,16 +34,12 @@ public class SubjectLocalityBuilder extends AbstractSAMLObjectBuilder<SubjectLoc
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public SubjectLocality buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, SubjectLocality.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public SubjectLocality buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new SubjectLocalityImpl(namespaceURI, localName, namespacePrefix);
     }

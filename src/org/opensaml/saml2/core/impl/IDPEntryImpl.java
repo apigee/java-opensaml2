@@ -54,54 +54,40 @@ public class IDPEntryImpl extends AbstractSAMLObject implements IDPEntry {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.IDPEntry#getProviderID()
-     */
+    /** {@inheritDoc} */
     public String getProviderID() {
         return this.providerID;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.IDPEntry#setProviderID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setProviderID(String newProviderID) {
         this.providerID = prepareForAssignment(this.providerID, newProviderID);
 
     }
 
-    /**
-     * @see org.opensaml.saml2.core.IDPEntry#getName()
-     */
+    /** {@inheritDoc} */
     public String getName() {
         return this.name;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.IDPEntry#setName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setName(String newName) {
         this.name = prepareForAssignment(this.name, newName);
 
     }
 
-    /**
-     * @see org.opensaml.saml2.core.IDPEntry#getLoc()
-     */
+    /** {@inheritDoc} */
     public String getLoc() {
         return this.loc;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.IDPEntry#setLoc(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setLoc(String newLoc) {
         this.loc = prepareForAssignment(this.loc, newLoc);
 
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // no children
         return null;

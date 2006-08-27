@@ -34,16 +34,12 @@ public class ActionBuilder extends AbstractSAMLObjectBuilder<Action> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public Action buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Action buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ActionImpl(namespaceURI, localName, namespacePrefix);
     }

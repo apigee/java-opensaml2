@@ -33,9 +33,7 @@ public abstract class SSODescriptorSpecTestBase extends RoleDescriptorSpecTestBa
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         SSODescriptor ssoDescriptor = (SSODescriptor) target;

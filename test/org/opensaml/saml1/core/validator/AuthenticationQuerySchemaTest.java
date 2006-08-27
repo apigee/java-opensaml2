@@ -33,9 +33,7 @@ public class AuthenticationQuerySchemaTest extends SubjectQuerySchemaTestBase  {
         validator = new AuthenticationQuerySchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
     }

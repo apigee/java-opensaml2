@@ -47,10 +47,7 @@ public class NameIDMappingRequestUnmarshaller extends RequestUnmarshaller {
         super(namespaceURI, elementLocalName);
     }
 
-    /**
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processChildElement(org.opensaml.xml.XMLObject,
-     *      org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         NameIDMappingRequest req = (NameIDMappingRequest) parentSAMLObject;

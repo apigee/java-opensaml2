@@ -63,17 +63,13 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLTestCase {
         unmarshallerFactory = Configuration.getUnmarshallerFactory();
     }
 
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         XMLUnit.setIgnoreWhitespace(true);
     }
 
-    /*
-     * @see junit.framework.TestCase#tearDown()
-     */
+    /** {@inheritDoc} */
     protected void tearDown() throws Exception {
         super.tearDown();
     }

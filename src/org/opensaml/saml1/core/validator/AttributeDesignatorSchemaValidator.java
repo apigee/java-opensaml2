@@ -30,9 +30,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class AttributeDesignatorSchemaValidator<AttributeDesignatorType extends AttributeDesignator> implements Validator<AttributeDesignatorType> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AttributeDesignatorType attributeDesignator) throws ValidationException {
         validateName(attributeDesignator);
         validateNameSpace(attributeDesignator);

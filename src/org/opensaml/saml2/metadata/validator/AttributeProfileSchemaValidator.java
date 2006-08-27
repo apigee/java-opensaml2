@@ -35,9 +35,7 @@ public class AttributeProfileSchemaValidator implements Validator<AttributeProfi
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AttributeProfile attributeProfile) throws ValidationException {
         validateProfileURI(attributeProfile);
     }

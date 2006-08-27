@@ -68,37 +68,27 @@ public class OrganizationImpl extends AbstractSAMLObject implements Organization
         unknownAttributes = new AttributeMap(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Organization#getExtensions()
-     */
+    /** {@inheritDoc} */
     public Extensions getExtensions() {
         return extensions;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Organization#setExtensions(org.opensaml.saml2.core.Extensions)
-     */
+    /** {@inheritDoc} */
     public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Organization#getOrganizationNames()
-     */
+    /** {@inheritDoc} */
     public List<OrganizationName> getOrganizationNames() {
         return names;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Organization#getDisplayNames()
-     */
+    /** {@inheritDoc} */
     public List<OrganizationDisplayName> getDisplayNames() {
         return displayNames;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Organization#getURLs()
-     */
+    /** {@inheritDoc} */
     public List<OrganizationURL> getURLs() {
         return urls;
     }
@@ -110,9 +100,7 @@ public class OrganizationImpl extends AbstractSAMLObject implements Organization
         return unknownAttributes;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

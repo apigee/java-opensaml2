@@ -34,9 +34,7 @@ public class AudienceSpecTest extends SAMLObjectValidatorBaseTestCase {
         validator = new AudienceSpecValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         

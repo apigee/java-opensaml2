@@ -34,9 +34,7 @@ public class AuthnAuthorityDescriptorSchemaTest extends RoleDescriptorSchemaTest
         validator = new AuthnAuthorityDescriptorSchemaValidator();
     }
     
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AuthnAuthorityDescriptor authnAuthorityDescriptor = (AuthnAuthorityDescriptor) target;

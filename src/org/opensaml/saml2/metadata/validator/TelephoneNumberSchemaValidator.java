@@ -35,9 +35,7 @@ public class TelephoneNumberSchemaValidator implements Validator<TelephoneNumber
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(TelephoneNumber telephoneNumber) throws ValidationException {
         validateNumber(telephoneNumber);
     }

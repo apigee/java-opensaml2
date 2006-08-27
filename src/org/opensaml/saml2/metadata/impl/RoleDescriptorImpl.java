@@ -83,23 +83,17 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return id;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String newID) {
         this.id = prepareForAssignment(this.id, newID);
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#isValid()
-     */
+    /** {@inheritDoc} */
     public boolean isValid() {
         if (validUntil != null) {
             return validUntil.isBeforeNow();
@@ -108,51 +102,37 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
         }
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#getValidUntil()
-     */
+    /** {@inheritDoc} */
     public DateTime getValidUntil() {
         return validUntil;
     }
 
-    /*
-     * @see org.opensaml.saml2.common.TimeBoundSAMLObject#setValidUntil(java.util.GregorianCalendar)
-     */
+    /** {@inheritDoc} */
     public void setValidUntil(DateTime validUntil) {
         this.validUntil = prepareForAssignment(this.validUntil, validUntil);
     }
 
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#getCacheDuration()
-     */
+    /** {@inheritDoc} */
     public Long getCacheDuration() {
         return cacheDuration;
     }
 
-    /*
-     * @see org.opensaml.saml2.common.CacheableSAMLObject#setCacheDuration(java.lang.Long)
-     */
+    /** {@inheritDoc} */
     public void setCacheDuration(Long duration) {
         cacheDuration = prepareForAssignment(cacheDuration, duration);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#getSupportedProtocols()
-     */
+    /** {@inheritDoc} */
     public List<String> getSupportedProtocols() {
         return Collections.unmodifiableList(supportedProtocols);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#isSupportedProtocol(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public boolean isSupportedProtocol(String protocol) {
         return supportedProtocols.contains(protocol);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#addSupportedProtocol(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void addSupportedProtocol(String protocol) {
         protocol = DatatypeHelper.safeTrimOrNullString(protocol);
         if (protocol != null && !supportedProtocols.contains(protocol)) {
@@ -161,9 +141,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
         }
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#removeProtocol(java.net.URI)
-     */
+    /** {@inheritDoc} */
     public void removeSupportedProtocol(String protocol) {
         protocol = DatatypeHelper.safeTrimOrNullString(protocol);
         if (protocol != null && supportedProtocols.contains(protocol)) {
@@ -172,77 +150,57 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
         }
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#removeProtocols(java.util.Set)
-     */
+    /** {@inheritDoc} */
     public void removeSupportedProtocols(Collection<String> protocols) {
         for (String protocol : protocols) {
             removeSupportedProtocol(protocol);
         }
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#removeAllProtocols()
-     */
+    /** {@inheritDoc} */
     public void removeAllSupportedProtocols() {
         for (String protocol : supportedProtocols) {
             removeSupportedProtocol(protocol);
         }
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#getErrorURL()
-     */
+    /** {@inheritDoc} */
     public String getErrorURL() {
         return errorURL;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#setErrorURL(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setErrorURL(String errorURL) {
 
         this.errorURL = prepareForAssignment(this.errorURL, errorURL);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#getExtensions()
-     */
+    /** {@inheritDoc} */
     public Extensions getExtensions() {
         return extensions;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#setExtensions(org.opensaml.saml2.core.Extensions)
-     */
+    /** {@inheritDoc} */
     public void setExtensions(Extensions extensions) throws IllegalArgumentException {
         this.extensions = prepareForAssignment(this.extensions, extensions);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#getOrganization()
-     */
+    /** {@inheritDoc} */
     public Organization getOrganization() {
         return organization;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.RoleDescriptor#setOrganization(org.opensaml.saml2.metadata.Organization)
-     */
+    /** {@inheritDoc} */
     public void setOrganization(Organization organization) throws IllegalArgumentException {
         this.organization = prepareForAssignment(this.organization, organization);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.EntityDescriptor#getContactPersons()
-     */
+    /** {@inheritDoc} */
     public List<ContactPerson> getContactPersons() {
         return contactPersons;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.KeyDescriptorDescriptorComp#getKeyDescriptors()
-     */
+    /** {@inheritDoc} */
     public List<KeyDescriptor> getKeyDescriptors() {
         return keyDescriptors;
     }
@@ -259,9 +217,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
         return id;
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

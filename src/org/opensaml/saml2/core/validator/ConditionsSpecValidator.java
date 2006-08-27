@@ -36,9 +36,7 @@ public class ConditionsSpecValidator implements Validator<Conditions> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Conditions conditions) throws ValidationException {
         validateOneTimeUseCondition(conditions);
         validateProxyRestrictionCondition(conditions);

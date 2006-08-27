@@ -34,9 +34,7 @@ public class ResponseSchemaTest extends ResponseAbstractTypeSchemaTestBase  {
         validator = new ResponseSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         

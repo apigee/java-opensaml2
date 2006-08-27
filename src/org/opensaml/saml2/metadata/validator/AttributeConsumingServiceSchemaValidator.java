@@ -34,9 +34,7 @@ public class AttributeConsumingServiceSchemaValidator implements Validator<Attri
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AttributeConsumingService attributeConsumingService) throws ValidationException {
         validateIndex(attributeConsumingService);
         validateServiceNames(attributeConsumingService);

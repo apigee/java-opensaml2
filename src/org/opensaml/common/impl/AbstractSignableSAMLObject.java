@@ -39,9 +39,7 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public final boolean equals(Object obj) {
         return super.equals(obj);
     }

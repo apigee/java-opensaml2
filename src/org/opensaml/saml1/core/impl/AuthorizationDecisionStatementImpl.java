@@ -56,58 +56,42 @@ public class AuthorizationDecisionStatementImpl extends SubjectStatementImpl imp
         actions = new XMLObjectChildrenList<Action>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#getResource()
-     */
+    /** {@inheritDoc} */
     public String getResource() {
         return resource;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#setResource(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setResource(String resource) {
         this.resource = prepareForAssignment(this.resource, resource);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#getDecision()
-     */
+    /** {@inheritDoc} */
     public DecisionTypeEnumeration getDecision() {
         return decision;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#setDecision(org.opensaml.saml1.core.DecisionType)
-     */
+    /** {@inheritDoc} */
     public void setDecision(DecisionTypeEnumeration decision) {
         this.decision = prepareForAssignment(this.decision, decision);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#getActions()
-     */
+    /** {@inheritDoc} */
     public List<Action> getActions() {
         return actions;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#getEvidence()
-     */
+    /** {@inheritDoc} */
     public Evidence getEvidence() {
         return evidence;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AuthorizationDecisionStatement#setEvidence(org.opensaml.saml1.core.Evidence)
-     */
+    /** {@inheritDoc} */
     public void setEvidence(Evidence evidence) throws IllegalArgumentException {
         this.evidence = prepareForAssignment(this.evidence, evidence);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>(actions.size() + 2);
 

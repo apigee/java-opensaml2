@@ -45,23 +45,17 @@ public class CompanyImpl extends AbstractSAMLObject implements Company {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Company#getName()
-     */
+    /** {@inheritDoc} */
     public String getName() {
         return companyName;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.Company#setName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setName(String newName) {
         companyName = prepareForAssignment(companyName, newName);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

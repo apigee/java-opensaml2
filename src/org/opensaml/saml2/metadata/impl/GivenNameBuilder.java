@@ -36,16 +36,12 @@ public class GivenNameBuilder extends AbstractSAMLObjectBuilder<GivenName> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public GivenName buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, GivenName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public GivenName buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new GivenNameImpl(namespaceURI, localName, namespacePrefix);
     }

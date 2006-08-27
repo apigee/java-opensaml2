@@ -48,30 +48,22 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
         attributeDesignators = new XMLObjectChildrenList<AttributeDesignator>(this);
     }
     
-    /*
-     * @see org.opensaml.saml1.core.AttributeQuery#getResource()
-     */
+    /** {@inheritDoc} */
     public String getResource() {
         return resource;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeQuery#setResource(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setResource(String resource) {
         this.resource = prepareForAssignment(this.resource, resource);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.AttributeQuery#getAttributeDesignators()
-     */
+    /** {@inheritDoc} */
     public List<AttributeDesignator> getAttributeDesignators() {
         return attributeDesignators;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> list = new ArrayList<XMLObject>(attributeDesignators.size() + 1);
         

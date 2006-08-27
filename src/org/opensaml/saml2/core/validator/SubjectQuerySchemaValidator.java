@@ -34,9 +34,7 @@ public abstract class SubjectQuerySchemaValidator<SubjectQueryType extends Subje
     public SubjectQuerySchemaValidator() {
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(SubjectQueryType query) throws ValidationException {
         super.validate(query);
         validateSubject(query);

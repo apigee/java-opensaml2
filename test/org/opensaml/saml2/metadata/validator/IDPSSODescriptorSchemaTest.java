@@ -35,9 +35,7 @@ public class IDPSSODescriptorSchemaTest extends SSODescriptorSchemaTestBase {
         validator = new IDPSSODescriptorSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         IDPSSODescriptor idpssoDescriptor = (IDPSSODescriptor) target;

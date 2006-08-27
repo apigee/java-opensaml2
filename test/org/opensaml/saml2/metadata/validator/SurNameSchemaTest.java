@@ -35,9 +35,7 @@ public class SurNameSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new SurNameSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         SurName surName = (SurName) target;

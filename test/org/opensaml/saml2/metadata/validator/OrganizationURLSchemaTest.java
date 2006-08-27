@@ -35,9 +35,7 @@ public class OrganizationURLSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new OrganizationURLSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         OrganizationURL organizationURL = (OrganizationURL) target;

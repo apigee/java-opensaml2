@@ -36,9 +36,7 @@ public class AuthorityBindingSchemaTest extends SAMLObjectValidatorBaseTestCase 
 
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
 

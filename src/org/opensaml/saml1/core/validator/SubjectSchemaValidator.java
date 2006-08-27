@@ -29,9 +29,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class SubjectSchemaValidator implements Validator<Subject>  {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Subject subject) throws ValidationException {
         // TODO separate methods
          if (subject.getNameIdentifier() == null &&

@@ -36,17 +36,13 @@ public class AttributeAuthorityDescriptorBuilder extends AbstractSAMLObjectBuild
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AttributeAuthorityDescriptor buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AttributeAuthorityDescriptor buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeAuthorityDescriptorImpl(namespaceURI, localName, namespacePrefix);
     }

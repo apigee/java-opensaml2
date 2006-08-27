@@ -45,23 +45,17 @@ public class GetCompleteImpl extends AbstractSAMLObject implements GetComplete {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.GetComplete#getGetComplete()
-     */
+    /** {@inheritDoc} */
     public String getGetComplete() {
         return this.getComplete;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.GetComplete#setGetComplete(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setGetComplete(String newGetComplete) {
         this.getComplete = prepareForAssignment(this.getComplete, newGetComplete);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // No children
         return null;

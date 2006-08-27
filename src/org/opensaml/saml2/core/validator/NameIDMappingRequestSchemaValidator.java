@@ -35,9 +35,7 @@ public class NameIDMappingRequestSchemaValidator extends RequestSchemaValidator<
         super();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(NameIDMappingRequest request) throws ValidationException {
         super.validate(request);
         validateIdentifiers(request);

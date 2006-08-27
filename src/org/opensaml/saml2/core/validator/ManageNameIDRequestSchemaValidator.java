@@ -35,9 +35,7 @@ public class ManageNameIDRequestSchemaValidator extends RequestSchemaValidator<M
         super();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaValidator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(ManageNameIDRequest request) throws ValidationException {
         super.validate(request);
         validateNameID(request);

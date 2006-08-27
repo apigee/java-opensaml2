@@ -29,9 +29,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class AudienceRestrictionConditionSchemaValidator implements Validator<AudienceRestrictionCondition> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AudienceRestrictionCondition audienceRestrictionCondition) throws ValidationException {
          // TODO split out into a separate method
          if (audienceRestrictionCondition.getAudiences() == null || 

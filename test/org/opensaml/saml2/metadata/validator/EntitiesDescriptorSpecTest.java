@@ -35,9 +35,7 @@ public class EntitiesDescriptorSpecTest extends SAMLObjectValidatorBaseTestCase 
         validator = new EntitiesDescriptorSpecValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) target;
         entitiesDescriptor.setParent(null);

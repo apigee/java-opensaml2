@@ -35,9 +35,7 @@ public class EmailAddressSchemaValidator implements Validator<EmailAddress> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(EmailAddress emailAddress) throws ValidationException {
         validateAddress(emailAddress);
     }

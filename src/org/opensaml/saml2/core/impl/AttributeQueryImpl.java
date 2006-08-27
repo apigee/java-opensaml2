@@ -49,16 +49,12 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
         attributes = new XMLObjectChildrenList<Attribute>(this);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AttributeQuery#getAttributes()
-     */
+    /** {@inheritDoc} */
     public List<Attribute> getAttributes() {
         return attributes;
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

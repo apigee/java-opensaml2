@@ -43,9 +43,7 @@ public class SingleSignOnServiceTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/SingleSignOnServiceOptionalAttributes.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
@@ -54,9 +52,7 @@ public class SingleSignOnServiceTest extends SAMLObjectBaseTestCase {
         expectedResponseLocation = "example.org/response";
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         SingleSignOnService service = ( SingleSignOnService) unmarshallElement(singleElementFile);
         
@@ -64,9 +60,7 @@ public class SingleSignOnServiceTest extends SAMLObjectBaseTestCase {
         assertEquals("Location was not expected value", expectedLocation, service.getLocation());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         SingleSignOnService service = ( SingleSignOnService) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -75,9 +69,7 @@ public class SingleSignOnServiceTest extends SAMLObjectBaseTestCase {
         assertEquals("ResponseLocation was not expected value", expectedResponseLocation, service.getResponseLocation());;
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS,  SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME);
         SingleSignOnService service = ( SingleSignOnService) buildXMLObject(qname);
@@ -88,9 +80,7 @@ public class SingleSignOnServiceTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, service);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS,  SingleSignOnService.DEFAULT_ELEMENT_LOCAL_NAME);
         SingleSignOnService service = ( SingleSignOnService) buildXMLObject(qname);

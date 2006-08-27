@@ -68,10 +68,7 @@ public class OrganizationNameUnmarshaller extends AbstractSAMLObjectUnmarshaller
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processElementContent(org.opensaml.xml.XMLObject,
-     *      java.lang.String)
-     */
+    /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         OrganizationName name = (OrganizationName) samlObject;
 

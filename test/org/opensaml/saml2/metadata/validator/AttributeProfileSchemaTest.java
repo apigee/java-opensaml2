@@ -35,9 +35,7 @@ public class AttributeProfileSchemaTest extends SAMLObjectValidatorBaseTestCase 
         validator = new AttributeProfileSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AttributeProfile attributeProfile = (AttributeProfile) target;

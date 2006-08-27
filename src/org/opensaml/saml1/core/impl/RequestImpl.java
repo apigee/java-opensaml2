@@ -58,65 +58,47 @@ public class RequestImpl extends RequestAbstractTypeImpl implements Request {
         assertionArtifacts = new XMLObjectChildrenList<AssertionArtifact>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Request#getQuery()
-     */
+    /** {@inheritDoc} */
     public Query getQuery() {
         return query;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Request#getSubjectQuery()
-     */
+    /** {@inheritDoc} */
     public SubjectQuery getSubjectQuery() {
         return (query instanceof SubjectQuery ? (SubjectQuery) query : null);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Request#getAttributeQuery()
-     */
+    /** {@inheritDoc} */
     public AttributeQuery getAttributeQuery() {
         return (query instanceof AttributeQuery ? (AttributeQuery) query : null);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Request#getAuthenticationQuery()
-     */
+    /** {@inheritDoc} */
     public AuthenticationQuery getAuthenticationQuery() {
         return (query instanceof AuthenticationQuery ? (AuthenticationQuery) query : null);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Request#getAuthorizationDecisionQuery()
-     */
+    /** {@inheritDoc} */
     public AuthorizationDecisionQuery getAuthorizationDecisionQuery() {
         return (query instanceof AuthorizationDecisionQuery ? (AuthorizationDecisionQuery) query : null);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Request#setQuery(org.opensaml.saml1.core.Query)
-     */
+    /** {@inheritDoc} */
     public void setQuery(Query query) throws IllegalArgumentException {
         this.query = prepareForAssignment(this.query, query);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Request#getAssertionIDReferences()
-     */
+    /** {@inheritDoc} */
     public List<AssertionIDReference> getAssertionIDReferences() {
         return assertionIDReferences;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Request#getAssertionArtifacts()
-     */
+    /** {@inheritDoc} */
     public List<AssertionArtifact> getAssertionArtifacts() {
         return assertionArtifacts;
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
 
         List<XMLObject> list = new ArrayList<XMLObject>();

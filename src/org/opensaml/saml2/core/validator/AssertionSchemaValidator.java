@@ -35,9 +35,7 @@ public class AssertionSchemaValidator implements Validator<Assertion> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Assertion assertion) throws ValidationException {
         validateIssuer(assertion);
         validateVersion(assertion);

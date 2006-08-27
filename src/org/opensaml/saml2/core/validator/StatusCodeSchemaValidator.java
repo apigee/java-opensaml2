@@ -37,9 +37,7 @@ public class StatusCodeSchemaValidator implements Validator<StatusCode> {
         super();
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(StatusCode statusCode) throws ValidationException {
         validateValue(statusCode);
     }

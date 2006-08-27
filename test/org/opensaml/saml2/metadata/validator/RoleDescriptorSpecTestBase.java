@@ -30,9 +30,7 @@ public abstract class RoleDescriptorSpecTestBase extends SAMLObjectValidatorBase
  
     }
  
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         RoleDescriptor roleDescriptor = (RoleDescriptor) target;
         roleDescriptor.addSupportedProtocol("urn:oasis:names:tc:SAML:2.0:protocol");

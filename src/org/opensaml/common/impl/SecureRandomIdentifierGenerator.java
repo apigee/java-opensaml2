@@ -36,9 +36,7 @@ public class SecureRandomIdentifierGenerator implements IdentifierGenerator {
 
     }
 
-    /*
-     * @see org.opensaml.common.IdentifierGenerator#generateIdentifier()
-     */
+    /** {@inheritDoc} */
     public String generateIdentifier() {
         byte[] buf = new byte[16];
         random.nextBytes(buf);

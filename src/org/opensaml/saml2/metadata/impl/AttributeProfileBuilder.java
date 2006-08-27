@@ -36,16 +36,12 @@ public class AttributeProfileBuilder extends AbstractSAMLObjectBuilder<Attribute
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AttributeProfile buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, AttributeProfile.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AttributeProfile buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeProfileImpl(namespaceURI, localName, namespacePrefix);
     }

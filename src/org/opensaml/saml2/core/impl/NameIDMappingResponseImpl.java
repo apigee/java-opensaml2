@@ -43,23 +43,17 @@ public class NameIDMappingResponseImpl extends StatusResponseImpl implements Nam
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#getNameID()
-     */
+    /** {@inheritDoc} */
     public NameID getNameID() {
         return nameID;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.LogoutRequest#setNameID(org.opensaml.saml2.core.NameID)
-     */
+    /** {@inheritDoc} */
     public void setNameID(NameID newNameID) {
         nameID = prepareForAssignment(nameID, newNameID);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

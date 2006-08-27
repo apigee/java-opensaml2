@@ -36,17 +36,13 @@ public class AttributeConsumingServiceBuilder extends AbstractSAMLObjectBuilder<
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AttributeConsumingService buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AttributeConsumingService buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeConsumingServiceImpl(namespaceURI, localName, namespacePrefix);
     }

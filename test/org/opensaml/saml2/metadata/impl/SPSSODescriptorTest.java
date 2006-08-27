@@ -79,9 +79,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
         expectedValidUntil = new DateTime(2005, 12, 7, 10, 21, 0, 0, ISOChronology.getInstanceUTC());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         SPSSODescriptor descriptor = (SPSSODescriptor) unmarshallElement(singleElementFile);
 
@@ -89,9 +87,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
                 .getSupportedProtocols());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         SPSSODescriptor descriptor = (SPSSODescriptor) unmarshallElement(singleElementOptionalAttributesFile);
 
@@ -103,9 +99,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
                 .getWantAssertionsSignedXSBoolean());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         SPSSODescriptor descriptor = (SPSSODescriptor) unmarshallElement(childElementsFile);
 
@@ -154,9 +148,7 @@ public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);

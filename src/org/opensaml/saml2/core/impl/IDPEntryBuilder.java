@@ -35,16 +35,12 @@ public class IDPEntryBuilder extends AbstractSAMLObjectBuilder<IDPEntry> {
     public IDPEntryBuilder() {
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public IDPEntry buildObject() {
         return buildObject(SAMLConstants.SAML20P_NS, IDPEntry.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public IDPEntry buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new IDPEntryImpl(namespaceURI, localName, namespacePrefix);
     }

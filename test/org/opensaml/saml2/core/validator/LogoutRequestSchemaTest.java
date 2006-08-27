@@ -40,9 +40,7 @@ public class LogoutRequestSchemaTest extends RequestSchemaTestBase {
         validator = new LogoutRequestSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.saml2.core.validator.RequestSchemaTest#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         LogoutRequest request = (LogoutRequest) target;

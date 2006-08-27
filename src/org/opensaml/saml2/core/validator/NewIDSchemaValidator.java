@@ -37,9 +37,7 @@ public class NewIDSchemaValidator implements Validator<NewID> {
         super();
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(NewID newid) throws ValidationException {
         validateNewID(newid);
     }

@@ -37,9 +37,7 @@ public class GetCompleteSchemaValidator implements Validator<GetComplete> {
         super();
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(GetComplete gc) throws ValidationException {
         validateGetComplete(gc);
     }

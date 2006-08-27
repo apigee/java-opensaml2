@@ -37,9 +37,7 @@ public class AuthnStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new AuthnStatementSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AuthnStatement authnStatement = (AuthnStatement) target;

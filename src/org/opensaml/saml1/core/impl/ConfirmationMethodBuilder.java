@@ -32,16 +32,12 @@ public class ConfirmationMethodBuilder extends AbstractSAMLObjectBuilder<Confirm
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public ConfirmationMethod buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public ConfirmationMethod buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ConfirmationMethodImpl(namespaceURI, localName, namespacePrefix);
     }

@@ -40,16 +40,12 @@ public class LogoutResponseTest extends StatusResponseTestBase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/LogoutResponseChildElements.xml";
     }
     
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutResponse resp = (LogoutResponse) buildXMLObject(qname);
@@ -59,9 +55,7 @@ public class LogoutResponseTest extends StatusResponseTestBase {
         assertEquals(expectedDOM, resp);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutResponse resp = (LogoutResponse) buildXMLObject(qname);
@@ -72,9 +66,7 @@ public class LogoutResponseTest extends StatusResponseTestBase {
         assertEquals(expectedOptionalAttributesDOM, resp);
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutResponse resp = (LogoutResponse) buildXMLObject(qname);
@@ -84,27 +76,21 @@ public class LogoutResponseTest extends StatusResponseTestBase {
         assertEquals(expectedChildElementsDOM, resp);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         LogoutResponse resp = (LogoutResponse) unmarshallElement(singleElementFile);
         
         super.helperTestSingleElementUnmarshall(resp);
     }
  
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         LogoutResponse resp = (LogoutResponse) unmarshallElement(singleElementOptionalAttributesFile);
 
         super.helperTestSingleElementOptionalAttributesUnmarshall(resp);
     }
  
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         LogoutResponse resp = (LogoutResponse) unmarshallElement(childElementsFile);
         

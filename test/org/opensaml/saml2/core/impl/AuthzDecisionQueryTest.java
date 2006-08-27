@@ -49,18 +49,14 @@ public class AuthzDecisionQueryTest extends SubjectQueryTestBase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/AuthzDecisionQueryChildElements.xml";
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedResource = "urn:string:resource";
         expectedNumActions = 2;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthzDecisionQuery query = (AuthzDecisionQuery) buildXMLObject(qname);
@@ -73,9 +69,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTestBase {
     
     
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthzDecisionQuery query = (AuthzDecisionQuery) buildXMLObject(qname);
@@ -89,9 +83,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTestBase {
     
     
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         AuthzDecisionQuery query = (AuthzDecisionQuery) buildXMLObject(qname);
@@ -109,10 +101,7 @@ public class AuthzDecisionQueryTest extends SubjectQueryTestBase {
         assertEquals(expectedChildElementsDOM, query);
     }
 
-    /**
-     * 
-     * @see org.opensaml.saml2.core.impl.SubjectQueryTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         AuthzDecisionQuery query = (AuthzDecisionQuery) unmarshallElement(singleElementFile);
         
@@ -122,18 +111,14 @@ public class AuthzDecisionQueryTest extends SubjectQueryTestBase {
 
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         AuthzDecisionQuery query = (AuthzDecisionQuery) unmarshallElement(singleElementOptionalAttributesFile);
         
         super.helperTestSingleElementOptionalAttributesUnmarshall(query);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         AuthzDecisionQuery query = (AuthzDecisionQuery) unmarshallElement(childElementsFile);
         

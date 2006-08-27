@@ -32,16 +32,12 @@ public class ResponseBuilder extends AbstractSAMLObjectBuilder<Response> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public Response buildObject() {
         return buildObject(SAMLConstants.SAML1P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Response buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new ResponseImpl(namespaceURI, localName, namespacePrefix);
     }

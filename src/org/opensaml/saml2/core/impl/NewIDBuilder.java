@@ -36,16 +36,12 @@ public class NewIDBuilder extends AbstractSAMLObjectBuilder<NewID> {
     public NewIDBuilder() {
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public NewID buildObject() {
         return buildObject(SAMLConstants.SAML20P_NS, NewID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public NewID buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new NewIDImpl(namespaceURI, localName, namespacePrefix);
     }

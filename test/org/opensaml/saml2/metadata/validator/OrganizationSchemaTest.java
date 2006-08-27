@@ -37,9 +37,7 @@ public class OrganizationSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new OrganizationSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         Organization organization = (Organization) target;

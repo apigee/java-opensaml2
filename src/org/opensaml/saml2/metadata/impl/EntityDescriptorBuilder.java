@@ -32,16 +32,12 @@ public class EntityDescriptorBuilder extends AbstractSAMLObjectBuilder<EntityDes
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public EntityDescriptor buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public EntityDescriptor buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new EntityDescriptorImpl(namespaceURI, localName, namespacePrefix);
     }

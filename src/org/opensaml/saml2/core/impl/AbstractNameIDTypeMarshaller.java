@@ -43,9 +43,7 @@ public abstract class AbstractNameIDTypeMarshaller extends AbstractSAMLObjectMar
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject, org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameIDType nameID = (NameIDType) samlObject;
 
@@ -66,10 +64,7 @@ public abstract class AbstractNameIDTypeMarshaller extends AbstractSAMLObjectMar
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameIDType nameID = (NameIDType) samlObject;
         XMLHelper.appendTextContent(domElement, nameID.getValue());

@@ -34,16 +34,12 @@ public class AudienceRestrictionBuilder extends AbstractSAMLObjectBuilder<Audien
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AudienceRestriction buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, AudienceRestriction.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AudienceRestriction buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AudienceRestrictionImpl(namespaceURI, localName, namespacePrefix);
     }

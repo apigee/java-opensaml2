@@ -29,9 +29,7 @@ import org.opensaml.xml.validation.ValidationException;
  */
 public class AuthenticationStatementSchemaValidator extends SubjectStatementSchemaValidator<AuthenticationStatement> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthenticationStatement authenticationStatement) throws ValidationException {
         super.validate(authenticationStatement);
         // TODO separate out into distinct method

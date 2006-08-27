@@ -29,9 +29,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class EvidenceSchemaValidator implements Validator<Evidence> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Evidence evidence) throws ValidationException {
          validateEvidence(evidence);
     }

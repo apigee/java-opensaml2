@@ -45,23 +45,17 @@ public class AuthenticatingAuthorityImpl extends AbstractSAMLObject implements A
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthenticatingAuthority#getURI()
-     */
+    /** {@inheritDoc} */
     public String getURI() {
         return uri;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthenticatingAuthority#setURI(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setURI(String newURI) {
         this.uri = prepareForAssignment(this.uri, newURI);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

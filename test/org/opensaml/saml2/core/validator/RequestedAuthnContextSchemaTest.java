@@ -48,9 +48,7 @@ public class RequestedAuthnContextSchemaTest extends SAMLObjectValidatorBaseTest
         authnContextDeclRef = (AuthnContextDeclRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.DEFAULT_ELEMENT_LOCAL_NAME));
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         RequestedAuthnContext rac = (RequestedAuthnContext) target;

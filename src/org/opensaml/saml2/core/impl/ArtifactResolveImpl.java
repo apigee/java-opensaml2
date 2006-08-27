@@ -47,23 +47,17 @@ public class ArtifactResolveImpl extends RequestImpl implements ArtifactResolve 
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ArtifactResolve#getArtifact()
-     */
+    /** {@inheritDoc} */
     public Artifact getArtifact() {
         return this.artifact;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ArtifactResolve#setArtifact(org.opensaml.saml2.core.Artifact)
-     */
+    /** {@inheritDoc} */
     public void setArtifact(Artifact newArtifact) {
         this.artifact = prepareForAssignment(this.artifact, newArtifact);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

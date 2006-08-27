@@ -36,16 +36,12 @@ public class OrganizationNameBuilder extends AbstractSAMLObjectBuilder<Organizat
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public OrganizationName buildObject() {
         return buildObject(SAMLConstants.SAML20MD_NS, OrganizationName.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public OrganizationName buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new OrganizationNameImpl(namespaceURI, localName, namespacePrefix);
     }

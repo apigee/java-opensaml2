@@ -45,23 +45,17 @@ public class AttributeProfileImpl extends AbstractSAMLObject implements Attribut
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeProfile#getProfileURI()
-     */
+    /** {@inheritDoc} */
     public String getProfileURI() {
         return profileURI;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.AttributeProfile#setProfileURI(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setProfileURI(String profileURI) {
         this.profileURI = prepareForAssignment(this.profileURI, profileURI);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null; // No Children
     }

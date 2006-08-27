@@ -56,44 +56,32 @@ public class AuthzDecisionQueryImpl extends SubjectQueryImpl implements AuthzDec
         actions = new XMLObjectChildrenList<Action>(this);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthzDecisionQuery#getResource()
-     */
+    /** {@inheritDoc} */
     public String getResource() {
         return this.resource;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthzDecisionQuery#setResource(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setResource(String newResource) {
         this.resource = prepareForAssignment(this.resource, newResource);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthzDecisionQuery#getActions()
-     */
+    /** {@inheritDoc} */
     public List<Action> getActions() {
         return actions;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthzDecisionQuery#getEvidence()
-     */
+    /** {@inheritDoc} */
     public Evidence getEvidence() {
         return this.evidence;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.AuthzDecisionQuery#setEvidence(org.opensaml.saml2.core.Evidence)
-     */
+    /** {@inheritDoc} */
     public void setEvidence(Evidence newEvidence) {
         this.evidence = prepareForAssignment(this.evidence, newEvidence);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

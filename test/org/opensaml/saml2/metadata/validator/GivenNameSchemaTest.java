@@ -35,9 +35,7 @@ public class GivenNameSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new GivenNameSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         GivenName givenName = (GivenName) target;

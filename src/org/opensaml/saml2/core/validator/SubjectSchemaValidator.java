@@ -34,9 +34,7 @@ public class SubjectSchemaValidator implements Validator<Subject> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Subject subject) throws ValidationException {
         if (subject.getBaseID() == null && subject.getNameID() == null
                 && (subject.getSubjectConfirmations() == null || subject.getSubjectConfirmations().size() == 0)) {

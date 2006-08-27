@@ -36,9 +36,7 @@ public abstract class AbstractSAMLObject extends AbstractValidatingXMLObject {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
+    /** {@inheritDoc} */
     public final boolean equals(Object obj) {
         return super.equals(obj);
     }

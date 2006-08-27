@@ -45,23 +45,17 @@ public class NameIDFormatImpl extends AbstractSAMLObject implements NameIDFormat
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.NameIDFormat#getFormat()
-     */
+    /** {@inheritDoc} */
     public String getFormat() {
         return format;
     }
 
-    /*
-     * @see org.opensaml.saml2.metadata.NameIDFormat#setFormat(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setFormat(String format) {
         this.format = prepareForAssignment(this.format, format);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return null;
     }

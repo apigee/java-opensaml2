@@ -40,9 +40,7 @@ public class NewIDSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new NewIDSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         NewID newid = (NewID) target;

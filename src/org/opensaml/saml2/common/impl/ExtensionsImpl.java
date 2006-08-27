@@ -51,9 +51,7 @@ public class ExtensionsImpl extends AbstractSAMLObject implements Extensions {
         return unknownChildren;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return Collections.unmodifiableList(unknownChildren);
     }

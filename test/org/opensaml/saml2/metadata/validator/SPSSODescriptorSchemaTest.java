@@ -35,9 +35,7 @@ public class SPSSODescriptorSchemaTest extends SSODescriptorSchemaTestBase {
         validator = new SPSSODescriptorSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         SPSSODescriptor spssoDescriptor = (SPSSODescriptor) target;

@@ -61,58 +61,42 @@ public class AuthzDecisionStatementImpl extends AbstractSAMLObject implements Au
         actions = new XMLObjectChildrenList<Action>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthzDecisionStatement#getResource()
-     */
+    /** {@inheritDoc} */
     public String getResource() {
         return resource;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthzDecisionStatement#setResource(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setResource(String newResourceURI) {
         this.resource = prepareForAssignment(this.resource, newResourceURI);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthzDecisionStatement#getDecision()
-     */
+    /** {@inheritDoc} */
     public DecisionTypeEnumeration getDecision() {
         return decision;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthzDecisionStatement#setDecision(org.opensaml.saml2.core.DecisionType)
-     */
+    /** {@inheritDoc} */
     public void setDecision(DecisionTypeEnumeration newDecision) {
         this.decision = prepareForAssignment(this.decision, newDecision);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthzDecisionStatement#getActions()
-     */
+    /** {@inheritDoc} */
     public List<Action> getActions() {
         return actions;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthzDecisionStatement#getEvidence()
-     */
+    /** {@inheritDoc} */
     public Evidence getEvidence() {
         return evidence;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.AuthzDecisionStatement#setEvidence(org.opensaml.saml2.core.Evidence)
-     */
+    /** {@inheritDoc} */
     public void setEvidence(Evidence newEvidence) {
         this.evidence = prepareForAssignment(this.evidence, newEvidence);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

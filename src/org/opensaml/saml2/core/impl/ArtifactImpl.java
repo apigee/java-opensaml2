@@ -45,23 +45,17 @@ public class ArtifactImpl extends AbstractSAMLObject implements Artifact {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Artifact#getArtifact()
-     */
+    /** {@inheritDoc} */
     public String getArtifact() {
         return this.artifact;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.Artifact#setArtifact(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setArtifact(String newArtifact) {
         this.artifact = prepareForAssignment(this.artifact, newArtifact);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         // no children
         return null;

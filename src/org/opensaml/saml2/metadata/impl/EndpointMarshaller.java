@@ -43,10 +43,7 @@ public class EndpointMarshaller extends AbstractSAMLObjectMarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     public void marshallAttributes(XMLObject samlElement, Element domElement) {
         Endpoint endpoint = (Endpoint) samlElement;
 

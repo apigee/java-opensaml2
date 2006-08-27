@@ -24,8 +24,6 @@ import org.w3c.dom.Element;
 /**
  * A thread safe, abstract implementation of the {@link org.opensaml.xml.io.Marshaller} interface that handles most of
  * the boilerplate code for Marshallers.
- * 
- * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller
  */
 public abstract class AbstractSAMLObjectMarshaller extends AbstractXMLObjectMarshaller {
 
@@ -47,8 +45,7 @@ public abstract class AbstractSAMLObjectMarshaller extends AbstractXMLObjectMars
      * No-op method. Extending implementations should override this method if they have attributes to marshall into the
      * Element.
      * 
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
+     * {@inheritDoc}
      */
     protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
 
@@ -58,8 +55,7 @@ public abstract class AbstractSAMLObjectMarshaller extends AbstractXMLObjectMars
      * No-op method. Extending implementations should override this method if they have text content to marshall into
      * the Element.
      * 
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
+     * {@inheritDoc}
      */
     protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
 

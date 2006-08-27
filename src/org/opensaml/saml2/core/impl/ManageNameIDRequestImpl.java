@@ -65,79 +65,57 @@ public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameID
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#getNameID()
-     */
+    /** {@inheritDoc} */
     public NameID getNameID() {
         return this.nameID;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#setNameID(org.opensaml.saml2.core.NameID)
-     */
+    /** {@inheritDoc} */
     public void setNameID(NameID newNameID) {
         this.nameID = prepareForAssignment(this.nameID, newNameID);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#getEncryptedID()
-     */
+    /** {@inheritDoc} */
     public EncryptedID getEncryptedID() {
         return this.encryptedID;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#setEncryptedID(org.opensaml.saml2.core.EncryptedID)
-     */
+    /** {@inheritDoc} */
     public void setEncryptedID(EncryptedID newEncryptedID) {
         this.encryptedID = prepareForAssignment(this.encryptedID, newEncryptedID);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#getNewID()
-     */
+    /** {@inheritDoc} */
     public NewID getNewID() {
         return this.newID;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#setNewID(org.opensaml.saml2.core.NewID)
-     */
+    /** {@inheritDoc} */
     public void setNewID(NewID newNewID) {
         this.newID = prepareForAssignment(this.newID, newNewID);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#getNewEncryptedID()
-     */
+    /** {@inheritDoc} */
     public NewEncryptedID getNewEncryptedID() {
         return this.newEncryptedID;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#setNewEncryptedID(org.opensaml.saml2.core.NewEncryptedID)
-     */
+    /** {@inheritDoc} */
     public void setNewEncryptedID(NewEncryptedID newNewEncryptedID) {
         this.newEncryptedID = prepareForAssignment(this.newEncryptedID, newNewEncryptedID);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#getTerminate()
-     */
+    /** {@inheritDoc} */
     public Terminate getTerminate() {
         return this.terminate;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.ManageNameIDRequest#setTerminate(org.opensaml.saml2.core.Terminate)
-     */
+    /** {@inheritDoc} */
     public void setTerminate(Terminate newTerminate) {
         this.terminate = prepareForAssignment(this.terminate, newTerminate);
     }
 
-    /**
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

@@ -42,10 +42,7 @@ public class IndexedEndpointUnmarshaller extends EndpointUnmarshaller {
         super(targetNamespaceURI, targetLocalName);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectUnmarshaller#processAttribute(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Attr)
-     */
+    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         IndexedEndpoint iEndpoint = (IndexedEndpoint) samlObject;
 

@@ -35,9 +35,7 @@ public class IssuerSchemaValidator implements Validator<Issuer> {
 
     }
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(Issuer issuer) throws ValidationException {
         validateName(issuer);
     }

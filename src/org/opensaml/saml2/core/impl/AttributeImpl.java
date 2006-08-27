@@ -59,44 +59,32 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
         attributeValues = new XMLObjectChildrenList<XMLObject>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Attribute#getName()
-     */
+    /** {@inheritDoc} */
     public String getName() {
         return name;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Attribute#setName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setName(String name) {
         this.name = prepareForAssignment(this.name, name);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Attribute#getNameFormat()
-     */
+    /** {@inheritDoc} */
     public String getNameFormat() {
         return nameFormat;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Attribute#setNameFormat(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setNameFormat(String nameFormat) {
         this.nameFormat = prepareForAssignment(this.nameFormat, nameFormat);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Attribute#getFriendlyName()
-     */
+    /** {@inheritDoc} */
     public String getFriendlyName() {
         return friendlyName;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Attribute#setFriendlyName(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setFriendlyName(String friendlyName) {
         this.friendlyName = prepareForAssignment(this.friendlyName, friendlyName);
     }
@@ -108,16 +96,12 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
         return unknownAttributes;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.Attribute#getAttributeValues()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getAttributeValues() {
         return attributeValues;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

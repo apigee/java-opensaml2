@@ -35,9 +35,7 @@ public class OrganizationDisplayNameSchemaTest extends SAMLObjectValidatorBaseTe
         validator = new OrganizationDisplayNameSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         OrganizationDisplayName organizationDisplayName = (OrganizationDisplayName) target;

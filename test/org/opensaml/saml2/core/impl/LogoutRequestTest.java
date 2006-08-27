@@ -53,9 +53,7 @@ public class LogoutRequestTest extends RequestTestBase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/LogoutRequestChildElements.xml";
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedReason = "urn:string:reason";
@@ -63,9 +61,7 @@ public class LogoutRequestTest extends RequestTestBase {
         expectedNumSessionIndexes = 2;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
@@ -75,9 +71,7 @@ public class LogoutRequestTest extends RequestTestBase {
         assertEquals(expectedDOM, req);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
@@ -90,9 +84,7 @@ public class LogoutRequestTest extends RequestTestBase {
         assertEquals(expectedOptionalAttributesDOM, req);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         LogoutRequest req = (LogoutRequest) buildXMLObject(qname);
@@ -110,9 +102,7 @@ public class LogoutRequestTest extends RequestTestBase {
         assertEquals(expectedChildElementsDOM, req);
     }
     
-    /**
-     * @see org.opensaml.saml2.core.impl.RequestTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         LogoutRequest req = (LogoutRequest) unmarshallElement(singleElementFile);
         
@@ -122,9 +112,7 @@ public class LogoutRequestTest extends RequestTestBase {
         super.helperTestSingleElementUnmarshall(req);
     }
  
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         LogoutRequest req = (LogoutRequest) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -133,9 +121,7 @@ public class LogoutRequestTest extends RequestTestBase {
         super.helperTestSingleElementOptionalAttributesUnmarshall(req);
     }
     
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         LogoutRequest req = (LogoutRequest) unmarshallElement(childElementsFile);
         

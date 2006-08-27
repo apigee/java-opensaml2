@@ -32,16 +32,12 @@ public class AttributeStatementBuilder extends AbstractSAMLObjectBuilder<Attribu
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public AttributeStatement buildObject() {
         return buildObject(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public AttributeStatement buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new AttributeStatementImpl(namespaceURI, localName, namespacePrefix);
     }

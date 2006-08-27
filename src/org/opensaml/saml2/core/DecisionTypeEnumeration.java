@@ -42,9 +42,7 @@ public final class DecisionTypeEnumeration {
         this.decisionType = decisionType;
     }
 
-    /*
-     * @see java.lang.Object#toString()
-     */
+    /** {@inheritDoc} */
     public String toString() {
         return decisionType;
     }

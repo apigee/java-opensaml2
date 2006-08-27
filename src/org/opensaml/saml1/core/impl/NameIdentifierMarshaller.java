@@ -38,10 +38,7 @@ public class NameIdentifierMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML1_NS, NameIdentifier.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         NameIdentifier nameIdentifier = (NameIdentifier) samlElement;
 
@@ -54,10 +51,7 @@ public class NameIdentifierMarshaller extends AbstractSAMLObjectMarshaller {
         }
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallElementContent(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameIdentifier nameIdentifier = (NameIdentifier) samlObject;
 

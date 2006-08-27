@@ -35,9 +35,7 @@ public class ServiceNameSchemaTest extends SAMLObjectValidatorBaseTestCase {
         validator = new ServiceNameSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         ServiceName serviceName = (ServiceName) target;

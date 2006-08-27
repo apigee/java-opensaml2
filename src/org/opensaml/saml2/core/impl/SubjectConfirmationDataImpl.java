@@ -69,72 +69,52 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
         unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#getNotBefore()
-     */
+    /** {@inheritDoc} */
     public DateTime getNotBefore() {
         return notBefore;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#setNotBefore(java.util.Date)
-     */
+    /** {@inheritDoc} */
     public void setNotBefore(DateTime newNotBefore) {
         this.notBefore = prepareForAssignment(this.notBefore, newNotBefore);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#getNotOnOrAfter()
-     */
+    /** {@inheritDoc} */
     public DateTime getNotOnOrAfter() {
         return notOnOrAfter;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#setNotOnOrAfter(java.util.Date)
-     */
+    /** {@inheritDoc} */
     public void setNotOnOrAfter(DateTime newNotOnOrAfter) {
         this.notOnOrAfter = prepareForAssignment(this.notOnOrAfter, newNotOnOrAfter);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#getRecipient()
-     */
+    /** {@inheritDoc} */
     public String getRecipient() {
         return recipient;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#setRecipient(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setRecipient(String newRecipient) {
         this.recipient = prepareForAssignment(this.recipient, newRecipient);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#getInResponseTo()
-     */
+    /** {@inheritDoc} */
     public String getInResponseTo() {
         return inResponseTo;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#setInResponseTo(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setInResponseTo(String newInResponseTo) {
         this.inResponseTo = prepareForAssignment(this.inResponseTo, newInResponseTo);
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#getAddress()
-     */
+    /** {@inheritDoc} */
     public String getAddress() {
         return address;
     }
 
-    /*
-     * @see org.opensaml.saml2.core.SubjectConfirmationData#setAddress(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setAddress(String newAddress) {
         this.address = prepareForAssignment(this.address, newAddress);
     }
@@ -153,9 +133,7 @@ public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements S
         return unknownChildren;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         return Collections.unmodifiableList(unknownChildren);
     }

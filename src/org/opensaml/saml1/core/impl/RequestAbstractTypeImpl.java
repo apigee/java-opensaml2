@@ -58,58 +58,42 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject
         respondWiths = new XMLObjectChildrenList<RespondWith>(this);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.RequestAbstractType#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return id;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.RequestAbstractType#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String id) {
         this.id = prepareForAssignment(this.id, id);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.RequestAbstractType#getMajorVersion()
-     */
+    /** {@inheritDoc} */
     public int getMajorVersion() {
         return version.getMajorVersion();
     }
 
-    /*
-     * @see org.opensaml.saml1.core.RequestAbstractType#setMinorVersion(int)
-     */
+    /** {@inheritDoc} */
     public int getMinorVersion() {
         return version.getMinorVersion();
     }
 
-    /*
-     * @see org.opensaml.saml1.core.RequestAbstractType#setVersion(org.opensaml.common.SAMLVersion)
-     */
+    /** {@inheritDoc} */
     public void setVersion(SAMLVersion newVersion) {
         version = prepareForAssignment(version, newVersion);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.RequestAbstractType#getIssueInstant()
-     */
+    /** {@inheritDoc} */
     public DateTime getIssueInstant() {
         return issueInstant;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.RequestAbstractType#setIssueInstant(org.joda.time.DateTime)
-     */
+    /** {@inheritDoc} */
     public void setIssueInstant(DateTime instant) {
         this.issueInstant = prepareForAssignment(this.issueInstant, instant);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.RequestAbstractType#getRespondWiths()
-     */
+    /** {@inheritDoc} */
     public List<RespondWith> getRespondWiths() {
         return respondWiths;
     }
@@ -119,9 +103,7 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject
         return id;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> children = new ArrayList<XMLObject>();
 

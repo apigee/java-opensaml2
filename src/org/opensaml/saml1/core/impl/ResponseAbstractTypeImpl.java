@@ -57,80 +57,58 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObjec
         version = SAMLVersion.VERSION_11;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.ResponseAbstractType#getID()
-     */
+    /** {@inheritDoc} */
     public String getID() {
         return id;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.ResponseAbstractType#setID(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setID(String id) {
         this.id = prepareForAssignment(this.id, id);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#getInResponseTo()
-     */
+    /** {@inheritDoc} */
     public String getInResponseTo() {
         return inResponseTo;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#setInResponseTo(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setInResponseTo(String inResponseTo) {
         this.inResponseTo = prepareForAssignment(this.inResponseTo, inResponseTo);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#getMinorVersion()
-     */
+    /** {@inheritDoc} */
     public int getMinorVersion() {
         return version.getMinorVersion();
     }
 
-    /*
-     * @see org.opensaml.saml1.core.ResponseAbstractType#getMajorVersion()
-     */
+    /** {@inheritDoc} */
     public int getMajorVersion() {
         return version.getMajorVersion();
     }
 
-    /*
-     * @see org.opensaml.saml1.core.ResponseAbstractType#setVersion(org.opensaml.common.SAMLVersion)
-     */
+    /** {@inheritDoc} */
     public void setVersion(SAMLVersion newVersion) {
         version = prepareForAssignment(version, newVersion);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#getIssueInstant()
-     */
+    /** {@inheritDoc} */
     public DateTime getIssueInstant() {
 
         return issueInstant;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#setIssueInstant(java.util.Date)
-     */
+    /** {@inheritDoc} */
     public void setIssueInstant(DateTime date) {
         this.issueInstant = prepareForAssignment(this.issueInstant, date);
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#getRecipient()
-     */
+    /** {@inheritDoc} */
     public String getRecipient() {
         return recipient;
     }
 
-    /*
-     * @see org.opensaml.saml1.core.Response#setRecipient(java.lang.String)
-     */
+    /** {@inheritDoc} */
     public void setRecipient(String recipient) {
         this.recipient = prepareForAssignment(this.recipient, recipient);
     }
@@ -140,9 +118,7 @@ public abstract class ResponseAbstractTypeImpl extends AbstractSignableSAMLObjec
         return id;
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObject#getOrderedChildren()
-     */
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         List<XMLObject> children = new ArrayList<XMLObject>();
         

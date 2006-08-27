@@ -43,17 +43,13 @@ public class GetCompleteTest extends SAMLObjectBaseTestCase {
        singleElementFile = "/data/org/opensaml/saml2/core/impl/GetComplete.xml";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedGetComplete = "http://sp.example.org/idplist.xml";
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         GetComplete gc = (GetComplete) unmarshallElement(singleElementFile);
         
@@ -61,9 +57,7 @@ public class GetCompleteTest extends SAMLObjectBaseTestCase {
 
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, GetComplete.DEFAULT_ELEMENT_LOCAL_NAME);
         GetComplete gc = (GetComplete) buildXMLObject(qname);

@@ -37,9 +37,7 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTestBase  {
         validator = new RequestSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         

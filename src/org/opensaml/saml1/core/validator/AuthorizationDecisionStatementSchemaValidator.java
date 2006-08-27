@@ -29,9 +29,7 @@ import org.opensaml.xml.validation.ValidationException;
  */
 public class AuthorizationDecisionStatementSchemaValidator extends SubjectStatementSchemaValidator<AuthorizationDecisionStatement> {
 
-    /*
-     * @see org.opensaml.xml.validation.Validator#validate(org.opensaml.xml.XMLObject)
-     */
+    /** {@inheritDoc} */
     public void validate(AuthorizationDecisionStatement authorizationDecisionStatement) throws ValidationException {
         super.validate(authorizationDecisionStatement);
         

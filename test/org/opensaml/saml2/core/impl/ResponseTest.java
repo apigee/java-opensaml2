@@ -46,17 +46,13 @@ public class ResponseTest extends StatusResponseTestBase {
         childElementsFile = "/data/org/opensaml/saml2/core/impl/ResponseChildElements.xml";
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         expectedNumAssertions = 3;
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         Response resp = (Response) buildXMLObject(qname);
@@ -66,9 +62,7 @@ public class ResponseTest extends StatusResponseTestBase {
         assertEquals(expectedDOM, resp);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         Response resp = (Response) buildXMLObject(qname);
@@ -79,9 +73,7 @@ public class ResponseTest extends StatusResponseTestBase {
         assertEquals(expectedOptionalAttributesDOM, resp);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsMarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         Response resp = (Response) buildXMLObject(qname);
@@ -96,9 +88,7 @@ public class ResponseTest extends StatusResponseTestBase {
         assertEquals(expectedChildElementsDOM, resp);
     }
 
-    /**
-     * @see org.opensaml.saml2.core.impl.StatusResponseTestBase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         Response resp = (Response) unmarshallElement(singleElementFile);
         
@@ -106,9 +96,7 @@ public class ResponseTest extends StatusResponseTestBase {
         super.helperTestSingleElementUnmarshall(resp);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         Response resp = (Response) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -116,9 +104,7 @@ public class ResponseTest extends StatusResponseTestBase {
         super.helperTestSingleElementOptionalAttributesUnmarshall(resp);
     }
 
-    /**
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testChildElementsUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Response resp = (Response) unmarshallElement(childElementsFile);
         

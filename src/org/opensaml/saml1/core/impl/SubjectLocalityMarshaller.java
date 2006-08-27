@@ -35,10 +35,7 @@ public class SubjectLocalityMarshaller extends AbstractSAMLObjectMarshaller {
         super(SAMLConstants.SAML1_NS, SubjectLocality.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
-    /*
-     * @see org.opensaml.xml.io.AbstractXMLObjectMarshaller#marshallAttributes(org.opensaml.xml.XMLObject,
-     *      org.w3c.dom.Element)
-     */
+    /** {@inheritDoc} */
     public void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         SubjectLocality subjectLocality = (SubjectLocality) samlElement;
 

@@ -33,9 +33,7 @@ public abstract class SubjectStatementSchemaTestBase extends SAMLObjectValidator
         super();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
 

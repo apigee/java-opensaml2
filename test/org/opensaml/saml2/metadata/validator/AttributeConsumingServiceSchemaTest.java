@@ -37,9 +37,7 @@ public class AttributeConsumingServiceSchemaTest extends SAMLObjectValidatorBase
         validator = new AttributeConsumingServiceSchemaValidator();
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectValidatorBaseTestCase#populateRequiredData()
-     */
+    /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
         AttributeConsumingService attributeConsumingService = (AttributeConsumingService) target;

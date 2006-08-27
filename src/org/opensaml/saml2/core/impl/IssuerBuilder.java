@@ -34,16 +34,12 @@ public class IssuerBuilder extends AbstractSAMLObjectBuilder<Issuer> {
 
     }
 
-    /*
-     * @see org.opensaml.common.impl.AbstractSAMLObjectBuilder#buildObject()
-     */
+    /** {@inheritDoc} */
     public Issuer buildObject() {
         return buildObject(SAMLConstants.SAML20_NS, Issuer.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     }
 
-    /*
-     * @see org.opensaml.xml.XMLObjectBuilder#buildObject(java.lang.String, java.lang.String, java.lang.String)
-     */
+    /** {@inheritDoc} */
     public Issuer buildObject(String namespaceURI, String localName, String namespacePrefix) {
         return new IssuerImpl(namespaceURI, localName, namespacePrefix);
     }

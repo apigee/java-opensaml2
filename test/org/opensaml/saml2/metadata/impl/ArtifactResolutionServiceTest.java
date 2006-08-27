@@ -46,9 +46,7 @@ public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml2/metadata/impl/ArtifactResolutionServiceOptionalAttributes.xml";
     }
     
-    /*
-     * @see junit.framework.TestCase#setUp()
-     */
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
@@ -59,9 +57,7 @@ public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
         expectedIsDefault = new XSBooleanValue(Boolean.TRUE, false);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
         ArtifactResolutionService service = (ArtifactResolutionService) unmarshallElement(singleElementFile);
         
@@ -70,9 +66,7 @@ public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
         assertEquals("Index was not expected value", expectedIndex, service.getIndex());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesUnmarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesUnmarshall() {
         ArtifactResolutionService service = (ArtifactResolutionService) unmarshallElement(singleElementOptionalAttributesFile);
         
@@ -83,9 +77,7 @@ public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
         assertEquals("isDefault was not expected value", expectedIsDefault, service.isDefaultXSBoolean());
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME);
         ArtifactResolutionService service = (ArtifactResolutionService) buildXMLObject(qname);
@@ -97,9 +89,7 @@ public class ArtifactResolutionServiceTest extends SAMLObjectBaseTestCase {
         assertEquals(expectedDOM, service);
     }
 
-    /*
-     * @see org.opensaml.common.SAMLObjectBaseTestCase#testSingleElementOptionalAttributesMarshall()
-     */
+    /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME);
         ArtifactResolutionService service = (ArtifactResolutionService) buildXMLObject(qname);
