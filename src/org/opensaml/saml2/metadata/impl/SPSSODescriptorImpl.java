@@ -62,12 +62,11 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     }
     
     /** {@inheritDoc} */
-    public Boolean isAuthnRequestSigned(){
-        if(authnRequestSigned != null){
-            return authnRequestSigned.getValue();
+    public Boolean isAuthnRequestSigned() {
+        if (authnRequestSigned == null) {
+            return Boolean.FALSE;
         }
-        
-        return null;
+        return authnRequestSigned.getValue();
     }
 
     /** {@inheritDoc} */
@@ -90,12 +89,11 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     }
     
     /** {@inheritDoc} */
-    public Boolean getWantAssertionsSigned(){
-        if(assertionSigned != null){
-            return assertionSigned.getValue();
+    public Boolean getWantAssertionsSigned() {
+        if (assertionSigned == null) {
+            return Boolean.FALSE;
         }
-        
-        return null;
+        return assertionSigned.getValue();
     }
 
     /** {@inheritDoc} */
