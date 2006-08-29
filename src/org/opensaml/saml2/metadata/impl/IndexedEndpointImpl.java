@@ -56,12 +56,11 @@ public abstract class IndexedEndpointImpl extends EndpointImpl implements Indexe
     }
     
     /** {@inheritDoc} */
-    public Boolean isDefault(){
-        if(isDefault != null){
-            return isDefault.getValue();
+    public Boolean isDefault() {
+        if (isDefault == null) {
+            return Boolean.FALSE;
         }
-        
-        return null;
+        return isDefault.getValue();
     }
 
     /** {@inheritDoc} */
