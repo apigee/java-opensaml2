@@ -29,7 +29,7 @@ public class ExtensionsBuilder extends AbstractSAMLObjectBuilder<Extensions> {
      * {@inheritDoc}
      */
     public Extensions buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     }
 
     /**
