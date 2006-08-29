@@ -121,13 +121,19 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     }
     
     /** {@inheritDoc} */
-    public AssertionConsumerService getDefaultAssertionConsumerService(){
-        for(AssertionConsumerService service : assertionConsumerServices){
-            if(service.isDefault()){
+    public AssertionConsumerService getDefaultAssertionConsumerService() {
+        for (AssertionConsumerService service : assertionConsumerServices) {
+            if (service.isDefault()) {
                 return service;
             }
         }
-        
+
+        if (assertionConsumerServices.size() > 0) {
+            return assertionConsumerServices.get(0);
+        } else {
+            System.err.println("FOOBAR");
+        }
+
         return null;
     }
 
