@@ -30,6 +30,7 @@ import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusResponse;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.signature.Signature;
 import org.w3c.dom.Attr;
 
 /**
@@ -74,13 +75,16 @@ public abstract class StatusResponseUnmarshaller extends AbstractSAMLObjectUnmar
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         StatusResponse sr = (StatusResponse) parentSAMLObject;
         
-        if (childSAMLObject instanceof Issuer)
+        if (childSAMLObject instanceof Issuer){
             sr.setIssuer((Issuer) childSAMLObject);
-        // TODO Signature
-        else if (childSAMLObject instanceof Extensions)
+        }else if(childSAMLObject instanceof Signature){
+            sr.setSignature((Signature) childSAMLObject);
+        }else if (childSAMLObject instanceof Extensions){
             sr.setExtensions((Extensions) childSAMLObject);
-        else if (childSAMLObject instanceof Status)
+        }else if (childSAMLObject instanceof Status){
             sr.setStatus((Status) childSAMLObject);
-        super.processChildElement(parentSAMLObject, childSAMLObject);
+        }else{
+            super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

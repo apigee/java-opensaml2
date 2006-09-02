@@ -27,6 +27,7 @@ import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.signature.Signature;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ArtifactResponse}.
@@ -56,7 +57,9 @@ public class ArtifactResponseUnmarshaller extends StatusResponseUnmarshaller {
         
         if (childSAMLObject instanceof Issuer){
             artifactResponse.setIssuer((Issuer) childSAMLObject);
-        }else if (childSAMLObject instanceof Extensions){  // TODO Signature
+        }else if(childSAMLObject instanceof Signature){
+            artifactResponse.setSignature((Signature) childSAMLObject);
+        }else if (childSAMLObject instanceof Extensions){
             artifactResponse.setExtensions((Extensions) childSAMLObject);
         }else if (childSAMLObject instanceof Status){
             artifactResponse.setStatus((Status) childSAMLObject);
