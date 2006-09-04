@@ -21,10 +21,7 @@ import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.ComplexSAMLObjectBaseTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.XMLObjectBuilder;
-import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.schema.XSString;
-import org.opensaml.xml.util.XMLHelper;
-import org.w3c.dom.Element;
 
 /**
  * Tests unmarshalling and marshalling for various response messages.
@@ -73,7 +70,6 @@ public class ResponseSuccessAuthnAttribTest extends ComplexSAMLObjectBaseTestCas
         Attribute attrib = null;
         XSString value = null;
         
-        //TODO testing attribute values and other element attributes, e.g. x500:Encoding for x500/LDAP attribs
         attrib = attribStatement.getAttributes().get(0);
         assertEquals("Attribute/@FriendlyName", "fooAttrib", attrib.getFriendlyName());
         assertEquals("Attribute/@Name", "urn:foo:attrib", attrib.getName());
@@ -159,7 +155,6 @@ public class ResponseSuccessAuthnAttribTest extends ComplexSAMLObjectBaseTestCas
         ldapAttrib.setName("urn:oid:1.3.6.1.4.1.5923.1.1.1.6");
         ldapAttrib.setNameFormat("urn:oasis:names:tc:SAML:2.0:attrname-format:uri");
         XSString ldapAttribValue = (XSString) stringBuilder.buildObject(AttributeValue.DEFAULT_ELEMENT_NAME, XSString.TYPE_NAME);
-        //TODO how to handle the x500:Encoding attribute on AttributeValue ?
         ldapAttribValue.setValue("j.doe@idp.example.org");
         ldapAttrib.getAttributeValues().add(ldapAttribValue);
         
@@ -184,14 +179,6 @@ public class ResponseSuccessAuthnAttribTest extends ComplexSAMLObjectBaseTestCas
         attribStatement.getAttributes().add(fooAttrib);
         attribStatement.getAttributes().add(ldapAttrib);
         assertion.getAttributeStatement().add(attribStatement);
-        
-        try{
-        Marshaller marshaller = marshallerFactory.getMarshaller(response);
-        Element result = marshaller.marshall(response);
-        System.out.println(XMLHelper.nodeToString(result));
-        }catch(Exception e){
-            
-        }
 
         assertEquals("Marshalled Response was not the expected value", expectedDOM, response);
     }

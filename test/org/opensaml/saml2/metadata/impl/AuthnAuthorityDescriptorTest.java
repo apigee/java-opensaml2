@@ -139,7 +139,6 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         AuthnAuthorityDescriptor authnAuthorityObj = (AuthnAuthorityDescriptor) unmarshallElement(childElementsFile);
 
         assertNotNull("<Extensions>", authnAuthorityObj.getExtensions());
-        // TODO KeyDescriptor
         assertEquals("KeyDescriptor", 0, authnAuthorityObj.getKeyDescriptors().size());
 
         assertEquals("KeyDescriptors count", expectedKeyDescriptors, authnAuthorityObj.getKeyDescriptors().size());
@@ -183,8 +182,6 @@ public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
         
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
-        
-        // TODO KeyDescriptor
         
         QName orgQName = new QName(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.setOrganization((Organization) buildXMLObject(orgQName));

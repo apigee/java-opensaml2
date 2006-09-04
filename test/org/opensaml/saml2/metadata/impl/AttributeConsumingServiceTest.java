@@ -21,6 +21,7 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
+import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml2.metadata.ServiceDescription;
 import org.opensaml.saml2.metadata.ServiceName;
 import org.opensaml.xml.schema.XSBooleanValue;
@@ -54,7 +55,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         expectedIsDefault = new XSBooleanValue(Boolean.TRUE, false);
         expectedServiceNameCount = 2;
         expectedServiceDecsriptionCount = 3;
-        expectedRequestedAttributeCount = 4;
+        expectedRequestedAttributeCount = 1;
         
     }
 
@@ -80,8 +81,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
         
         assertEquals("<ServiceName> count", expectedServiceNameCount, service.getNames().size());
         assertEquals("<ServiceDescription> count", expectedServiceDecsriptionCount, service.getDescriptions().size());
-        // TODO Requested Attriubute unmarshall
-        // assertEquals("<ReqestAttribute> count", expectedRequestedAttributeCount, service.getRequestAttributes().size());
+        assertEquals("<ReqestAttribute> count", expectedRequestedAttributeCount, service.getRequestAttributes().size());
        
     }
 
@@ -124,11 +124,7 @@ public class AttributeConsumingServiceTest extends SAMLObjectBaseTestCase {
             service.getDescriptions().add((ServiceDescription) buildXMLObject(serviceDescQName));
         }
 
-        // TODO Requested Attriubute marshall
-        /*
-        for (int i = 0; i < expectedRequestedAttributeCount; i++) {
-            service.getRequestAttributes().add(new RequestedAttributeImpl());
-        }*/
+        service.getRequestAttributes().add((RequestedAttribute) buildXMLObject(RequestedAttribute.DEFAULT_ELEMENT_NAME));
 
         assertEquals(expectedChildElementsDOM, service);
     

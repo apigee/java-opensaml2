@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
@@ -31,10 +27,20 @@ public class AudienceRestrictionConditionSchemaValidator implements Validator<Au
 
     /** {@inheritDoc} */
     public void validate(AudienceRestrictionCondition audienceRestrictionCondition) throws ValidationException {
-         // TODO split out into a separate method
-         if (audienceRestrictionCondition.getAudiences() == null || 
-             audienceRestrictionCondition.getAudiences().size() == 0) {
-             throw new ValidationException("No Audience statements present");
-         }
+         validateAudiences(audienceRestrictionCondition);
+    }
+    
+    /**
+     * Validates that the condition specifies at least one audience.
+     * 
+     * @param audienceRestrictionCondition condition to validate
+     * 
+     * @throws ValidationException thrown if now audience is specified in the condition
+     */
+    protected void validateAudiences(AudienceRestrictionCondition audienceRestrictionCondition) throws ValidationException{
+        if (audienceRestrictionCondition.getAudiences() == null || 
+                audienceRestrictionCondition.getAudiences().size() == 0) {
+                throw new ValidationException("No Audience statements present");
+            }
     }
 }

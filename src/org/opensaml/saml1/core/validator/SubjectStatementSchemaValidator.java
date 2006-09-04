@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.SubjectStatement;
@@ -27,13 +23,24 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.SubjectStatement} for Schema compliance.
  */
-public class SubjectStatementSchemaValidator<SubjectStatementType extends SubjectStatement> implements Validator<SubjectStatementType> {
+public class SubjectStatementSchemaValidator<SubjectStatementType extends SubjectStatement> implements
+        Validator<SubjectStatementType> {
 
     /** {@inheritDoc} */
     public void validate(SubjectStatementType subjectStatement) throws ValidationException {
-         // TODO split out into separate method.
-         if (subjectStatement.getSubject() == null) {
-             throw new ValidationException("No Subject present");
-         }
+        validateSubject(subjectStatement);
+    }
+
+    /**
+     * Validates that the statement has a subject.
+     * 
+     * @param subjectStatement statement to validate
+     * 
+     * @throws ValidationException thrown if the statement does not have a subject
+     */
+    protected void validateSubject(SubjectStatementType subjectStatement) throws ValidationException {
+        if (subjectStatement.getSubject() == null) {
+            throw new ValidationException("No Subject present");
+        }
     }
 }

@@ -31,7 +31,17 @@ public class ResponseSchemaValidator extends ResponseAbstractTypeSchemaValidator
     /** {@inheritDoc} */
     public void validate(Response response) throws ValidationException {
         super.validate(response);
-        // TODO separate method
+        validateStatus(response);
+    }
+    
+    /**
+     * Validates that the response has a status.
+     * 
+     * @param response response to validate
+     * 
+     * @throws ValidationException thrown if the response does not have a status
+     */
+    protected void validateStatus(Response response) throws ValidationException{
         if (response.getStatus() == null) {
             throw new ValidationException("No Status present");
         }

@@ -105,6 +105,7 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLTestCase {
             }
             assertXMLEqual(failMessage, expectedDOM, generatedDOM.getOwnerDocument());
         } catch (Exception e) {
+            log.error("Marshalling failed with the following error:", e);
             fail("Marshalling failed with the following error: " + e);
         }
     }

@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.SubjectConfirmation;
@@ -27,13 +23,24 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.SubjectConfirmation} for Schema compliance.
  */
-public class SubjectConfirmationSchemaValidator implements Validator<SubjectConfirmation>  {
+public class SubjectConfirmationSchemaValidator implements Validator<SubjectConfirmation> {
 
     /** {@inheritDoc} */
     public void validate(SubjectConfirmation subjectConfirmation) throws ValidationException {
-        // TODO separate methods
-         if (subjectConfirmation.getConfirmationMethods().size() == 0) {
-             throw new ValidationException("At least Confirmation Method should be present");
-         }
+        validateSubjectConfirmationMethods(subjectConfirmation);
+    }
+
+    /**
+     * Validates that the given subject confirmation has a confirmation method.
+     * 
+     * @param subjectConfirmation subject confirmation to validate
+     * 
+     * @throws ValidationException thrown if the given confirmation does not have a confirmation method
+     */
+    protected void validateSubjectConfirmationMethods(SubjectConfirmation subjectConfirmation)
+            throws ValidationException {
+        if (subjectConfirmation.getConfirmationMethods().size() == 0) {
+            throw new ValidationException("At least Confirmation Method should be present");
+        }
     }
 }

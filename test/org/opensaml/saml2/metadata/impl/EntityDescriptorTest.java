@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
+import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -112,8 +113,7 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
         assertEquals("IDPSSODescriptor count", 2, descriptor.getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME).size());
         assertEquals("SPSSODescriptor count", 3, descriptor.getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME).size());
         assertEquals("AuthnAuthorityDescriptor count", 2, descriptor.getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME).size());
-        // TODO AttributeAuthorityDescriptor
-        // assertEquals("AttributeAuthorityDescriptor count", 2, descriptor.getAttributeAuthorityDescriptor().size());
+        assertEquals("AttributeAuthorityDescriptor count", 1, descriptor.getRoleDescriptors(AttributeAuthorityDescriptor.DEFAULT_ELEMENT_NAME).size());
         assertEquals("PDPDescriptor count", 2, descriptor.getRoleDescriptors(PDPDescriptor.DEFAULT_ELEMENT_NAME).size());
         assertNotNull("AffiliationDescriptor ", descriptor.getAffiliationDescriptor());
         assertNotNull("Organization ", descriptor.getOrganization());
@@ -163,6 +163,7 @@ public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
         descriptor.getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME).add((AuthnAuthorityDescriptor) buildXMLObject(authnAuthQName));
         descriptor.getRoleDescriptors(PDPDescriptor.DEFAULT_ELEMENT_NAME).add((PDPDescriptor) buildXMLObject(pdpQName));
         descriptor.getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME).add((IDPSSODescriptor) buildXMLObject(idpSSOQName));
+        descriptor.getRoleDescriptors(AttributeAuthorityDescriptor.DEFAULT_ELEMENT_NAME).add((AttributeAuthorityDescriptor) buildXMLObject(AttributeAuthorityDescriptor.DEFAULT_ELEMENT_NAME));
         descriptor.getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME).add((SPSSODescriptor) buildXMLObject(spSSOQName));
         descriptor.getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME).add((AuthnAuthorityDescriptor) buildXMLObject(authnAuthQName));
         descriptor.getRoleDescriptors(PDPDescriptor.DEFAULT_ELEMENT_NAME).add((PDPDescriptor) buildXMLObject(pdpQName));

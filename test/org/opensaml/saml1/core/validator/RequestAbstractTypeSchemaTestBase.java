@@ -34,7 +34,6 @@ public abstract class RequestAbstractTypeSchemaTestBase extends SAMLObjectValida
     protected void populateRequiredData() {
         super.populateRequiredData();
         
-        // TODO - remove when builder always takes a context
         target = buildXMLObject(targetQName);
         RequestAbstractType request = (RequestAbstractType) target;
         request.setID("Ident");

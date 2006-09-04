@@ -26,12 +26,23 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml1.core.Request} for Schema compliance.
  */
-public class RequestSchemaValidator extends RequestAbstractTypeSchemaValidator<Request>  {
+public class RequestSchemaValidator extends RequestAbstractTypeSchemaValidator<Request> {
 
     /** {@inheritDoc} */
     public void validate(Request request) throws ValidationException {
         super.validate(request);
-        // TODO separate method... 
+        validateAssertion(request);
+    }
+
+    /**
+     * Validates thats the request has an some form of assertion (directly, reference, or artifact) or query, but not
+     * both.
+     * 
+     * @param request the request to validate
+     * 
+     * @throws ValidationException thrown if the request has more than one assertion or both an assertion and a query
+     */
+    protected void validateAssertion(Request request) throws ValidationException {
         if (request.getQuery() != null) {
             if (request.getAssertionArtifacts().size() != 0) {
                 throw new ValidationException("Both Query and one or more AssertionAtrifacts present");
@@ -41,7 +52,8 @@ public class RequestSchemaValidator extends RequestAbstractTypeSchemaValidator<R
             }
         } else if (request.getAssertionArtifacts().size() != 0) {
             if (request.getAssertionIDReferences().size() != 0) {
-                throw new ValidationException("Both one or more AssertionAtrifacts and one ore more AsertionIDReferences present");
+                throw new ValidationException(
+                        "Both one or more AssertionAtrifacts and one ore more AsertionIDReferences present");
             }
         } else if (request.getAssertionIDReferences().size() == 0) {
             throw new ValidationException("No AssertionAtrifacts, No Query, and No AsertionIDReferences present");

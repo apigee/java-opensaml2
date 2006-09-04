@@ -97,7 +97,6 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         PDPDescriptor descriptor = (PDPDescriptor) unmarshallElement(childElementsFile);
 
         assertNotNull("<Extensions>", descriptor.getExtensions());
-        // TODO KeyDescriptor
         assertEquals("KeyDescriptor", 0, descriptor.getKeyDescriptors().size());
 
         assertEquals("AuthzService count", 3, descriptor.getAuthzServices().size());
@@ -141,7 +140,6 @@ public class PDPDescriptorTest extends SAMLObjectBaseTestCase {
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME,
                 SAMLConstants.SAML20MD_PREFIX);
         descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
-        // TODO KeyDescriptor
 
         QName authzQName = new QName(SAMLConstants.SAML20MD_NS, AuthzService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         for (int i = 0; i < 3; i++) {

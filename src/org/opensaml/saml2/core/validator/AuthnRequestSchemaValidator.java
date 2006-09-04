@@ -39,6 +39,4 @@ public class AuthnRequestSchemaValidator extends RequestSchemaValidator<AuthnReq
     public void validate(AuthnRequest request) throws ValidationException {
         super.validate(request);
     }
-    
-    // TODO verify spec conditions on combos of attributes?
 }

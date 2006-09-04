@@ -47,7 +47,7 @@ public class IndexedEndpointMarshaller extends EndpointMarshaller {
             domElement.setAttributeNS(null, IndexedEndpoint.INDEX_ATTRIB_NAME, iEndpoint.getIndex().toString());
         }
 
-        if (iEndpoint.isDefault() != null) {
+        if (iEndpoint.isDefaultXSBoolean() != null) {
             domElement.setAttributeNS(null, IndexedEndpoint.IS_DEFAULT_ATTRIB_NAME, iEndpoint.isDefaultXSBoolean().toString());
         }
 

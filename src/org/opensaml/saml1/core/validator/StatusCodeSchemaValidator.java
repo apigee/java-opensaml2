@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -32,40 +33,59 @@ import org.opensaml.xml.validation.Validator;
  */
 public class StatusCodeSchemaValidator implements Validator<StatusCode> {
 
-    private final static String[] allowedCodes = {"Success", 
-                                                  "VersionMismatch",
-                                                  "Requester",
-                                                  "Responder",
-                                                  "RequestVersionTooHigh",
-                                                  "RequestVersionTooLow",
-                                                  "RequestVersionDeprecated",
-                                                  "TooManyResponses",
-                                                  "RequestDenied",
-                                                  "ResourceNotRecognized"};
-    
+    private final static String[] allowedCodes = { "Success", "VersionMismatch", "Requester", "Responder",
+            "RequestVersionTooHigh", "RequestVersionTooLow", "RequestVersionDeprecated", "TooManyResponses",
+            "RequestDenied", "ResourceNotRecognized" };
+
     /** {@inheritDoc} */
-    public void validate(StatusCode statusCode) throws ValidationException {        
-        // TODO separate methods
+    public void validate(StatusCode statusCode) throws ValidationException {
+
+        validateValue(statusCode);
+        validateValueQNameNamespace(statusCode);
+        validateValueContent(statusCode);
+    }
+
+    /**
+     * Validates that the status code has a value.
+     * 
+     * @param statusCode status code to validate
+     * 
+     * @throws ValidationException thrown if the status code does not have a value
+     */
+    protected void validateValue(StatusCode statusCode) throws ValidationException {
         String value = statusCode.getValue();
-        //
-        // Schema compliance
-        //
-        if (value == null || value.length() == 0) {
+        if (DatatypeHelper.isEmpty(value)) {
             throw new ValidationException("No Value attribute present");
         }
-        //
-        // TODO Spec compliance
-        //
+    }
+
+    /**
+     * Validates that the status code value is not in the SAML 1 namespace.
+     * 
+     * @param statusCode status code to validate
+     * 
+     * @throws ValidationException thrown if the status code is in the SAML 1 namespace
+     */
+    protected void validateValueQNameNamespace(StatusCode statusCode) throws ValidationException {
+        String value = statusCode.getValue();
         QName qname = QName.valueOf(value);
-        //
-        // Cannot be in SAML1 Assertion namespace
-        //
+
         if (SAMLConstants.SAML1_NS.equals(qname.getNamespaceURI())) {
             throw new ValidationException("value Qname cannot be in the SAML1 Assertion namespace");
         }
-        //
-        // Restrictions on what can be in the protocol namespace
-        //
+    }
+
+    /**
+     * Validates that the status code local name is one of the allowabled values.
+     * 
+     * @param statusCode the status code to validate
+     * 
+     * @throws ValidationException thrown if the status code local name is not an allowed value
+     */
+    protected void validateValueContent(StatusCode statusCode) throws ValidationException {
+        String value = statusCode.getValue();
+        QName qname = QName.valueOf(value);
+
         if (SAMLConstants.SAML1P_NS.equals(qname.getNamespaceURI())) {
             String localName = qname.getLocalPart();
             boolean allowedName = false;

@@ -102,7 +102,6 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
         AffiliationDescriptor descriptor = (AffiliationDescriptor) unmarshallElement(childElementsFile);
 
         assertNotNull("Extensions", descriptor.getExtensions());
-        // TODO KeyDescriptor unmarshall
         assertEquals("KeyDescriptor count", 0, descriptor.getKeyDescriptors().size());
         assertEquals("Affiliate Member count ", 3, descriptor.getMembers().size());
     }
@@ -141,7 +140,6 @@ public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
 
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
-        // TODO KeyDescriptor to be tested
 
         QName affilMemberQName = new QName(SAMLConstants.SAML20MD_NS, AffiliateMember.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.getMembers().add((AffiliateMember) buildXMLObject(affilMemberQName));

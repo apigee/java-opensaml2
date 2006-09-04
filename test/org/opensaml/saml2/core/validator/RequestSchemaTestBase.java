@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core.validator;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.saml2.core.Request;
 
-
 /**
- *
+ * Base test for testing Request objects.
  */
 public abstract class RequestSchemaTestBase extends SAMLObjectValidatorBaseTestCase {
-    
+
     /**
      * Constructor
-     *
+     * 
      */
     public RequestSchemaTestBase() {
         super();
@@ -41,54 +37,39 @@ public abstract class RequestSchemaTestBase extends SAMLObjectValidatorBaseTestC
     protected void setUp() throws Exception {
         super.setUp();
     }
-    
+
     /**
-     *  Populate the XMLObject argument with valid values for required elements and attributes.
-     *  Useful to subclasses of this test.
+     * Populate the XMLObject argument with valid values for required elements and attributes. Useful to subclasses of
+     * this test.
      */
     protected void populateRequiredData() {
         Request request = (Request) target;
         request.setID("abc123");
         request.setIssueInstant(new DateTime());
-        // note: Version attrib is set automatically by the implementation
     }
-    
+
     /**
-     *  Tests empty ID attribute
+     * Tests empty ID attribute
      */
     public void testIDFailure() {
         Request request = (Request) target;
-        
+
         request.setID(null);
         assertValidationFail("ID attribute was null");
-        
+
         request.setID("");
         assertValidationFail("ID attribute was empty string");
-        
-        
+
         request.setID("               ");
         assertValidationFail("ID attribute was all whitespace");
     }
-    
-    // TODO don't know that we can really test this since can't change the SAMLVersion
+
     /**
-     *  Tests null or invalid Version attribute
-     */
-    /*
-    public void testVersionFailure() {
-        testTarget = (Request) buildXMLObject(qname);
-        populateRequired(testTarget);
-        
-    }
-    */
-    
-    /**
-     *  Tests invalid IssueInstant attribute
+     * Tests invalid IssueInstant attribute
      */
     public void testIssueInstantFailure() {
         Request request = (Request) target;
         request.setIssueInstant(null);
         assertValidationFail("IssueInstant attribute was null");
     }
-
 }

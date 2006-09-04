@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.AuthenticationStatement;
@@ -32,14 +28,37 @@ public class AuthenticationStatementSchemaValidator extends SubjectStatementSche
     /** {@inheritDoc} */
     public void validate(AuthenticationStatement authenticationStatement) throws ValidationException {
         super.validate(authenticationStatement);
-        // TODO separate out into distinct method
 
+        validateAuthenticationMethod(authenticationStatement);
+
+        validateAuthenticationInstant(authenticationStatement);
+    }
+
+    /**
+     * Validates that the authentication statement has an authentication method.
+     * 
+     * @param authenticationStatement the statement to validate
+     * 
+     * @throws ValidationException thrown if the statement does not have an authentication method
+     */
+    protected void validateAuthenticationMethod(AuthenticationStatement authenticationStatement)
+            throws ValidationException {
         if (DatatypeHelper.isEmpty(authenticationStatement.getAuthenticationMethod())) {
             throw new ValidationException("No authenticationStatement URI is null");
         }
-        
+    }
+
+    /**
+     * Validates that the authentication statement has an authentication instant.
+     * 
+     * @param authenticationStatement the statement to validate
+     * 
+     * @throws ValidationException thrown if the statement does not have an authentication instant
+     */
+    protected void validateAuthenticationInstant(AuthenticationStatement authenticationStatement)
+            throws ValidationException {
         if (authenticationStatement.getAuthenticationInstant() == null) {
             throw new ValidationException("No authenticationInstant present");
         }
-   }
+    }
 }

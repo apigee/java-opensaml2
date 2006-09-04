@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.Status;
@@ -31,7 +27,17 @@ public class StatusSchemaValidator implements Validator<Status> {
 
     /** {@inheritDoc} */
     public void validate(Status status) throws ValidationException {
-        // TODO separate methods
+        validateStatusCode(status);
+    }
+
+    /**
+     * Validates that given status has a status code.
+     * 
+     * @param status status to validate
+     * 
+     * @throws ValidationException thrown if the status does not have a status code
+     */
+    protected void validateStatusCode(Status status) throws ValidationException {
         if (status.getStatusCode() == null) {
             throw new ValidationException("No StatusCode element present");
         }

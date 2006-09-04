@@ -59,10 +59,6 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
     
     /** Expected Status child element */
     protected Status expectedStatus;
-    
-    
-    //TODO Signature tests ?
-    //TODO Extensions tests - need implementation
 
     /**
      * Constructor
@@ -144,7 +140,6 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
         StatusResponse sr = (StatusResponse) samlObject;
         
         assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, sr.getID());
-        //TODO Should SAMLVersion  implement equals() ?
         assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), sr.getVersion().toString());
         assertEquals("Unmarshalled IssueInstant attribute was not the expected value", 0, expectedIssueInstant.compareTo(sr.getIssueInstant()));
         
@@ -158,7 +153,6 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
         StatusResponse sr = (StatusResponse) samlObject;
         
         assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, sr.getID());
-        //TODO Should SAMLVersion  implement equals() ?
         assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), sr.getVersion().toString());
         assertEquals("Unmarshalled IssueInstant attribute was not the expected value", 0, expectedIssueInstant.compareTo(sr.getIssueInstant()));
         

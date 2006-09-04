@@ -100,11 +100,4 @@ public class MetadataTest extends SAMLObjectTestCaseConfigInitializer {
             fail("Unable to unmarshall XML: " + ue);
         }
     }
-    
-    /**
-     * Tests marshalling a full metadata document.
-     */
-    public void testMetadataMarshall(){
-        //TODO
-    }
 }

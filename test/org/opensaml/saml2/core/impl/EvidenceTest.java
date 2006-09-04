@@ -24,8 +24,6 @@ import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.saml2.core.Evidence;
-import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.util.XMLHelper;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.EvidenceImpl}.
@@ -77,6 +75,7 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
         // do nothing
     }
 
+    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Evidence evidence = (Evidence) unmarshallElement(childElementsFile);
 
@@ -87,6 +86,7 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
         assertEquals("Assertion count not as expected", assertionCount, evidence.getAssertions().size());
     }
 
+    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         Evidence evidence = (Evidence) buildXMLObject(qname);
@@ -105,13 +105,6 @@ public class EvidenceTest extends SAMLObjectBaseTestCase {
         for (int i = 0; i < assertionCount; i++) {
             evidence.getAssertions().add((Assertion) buildXMLObject(assertionQName));
         }
-        try {
-            System.out.println(XMLHelper.nodeToString(marshallerFactory.getMarshaller(evidence).marshall(evidence)));
-        } catch (MarshallingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
         
         assertEquals(expectedChildElementsDOM, evidence);
     }

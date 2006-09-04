@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.Attribute;
@@ -31,7 +27,18 @@ public class AttributeSchemaValidator extends AttributeDesignatorSchemaValidator
     /** {@inheritDoc} */
     public void validate(Attribute attribute) throws ValidationException {
         super.validate(attribute);
-        // TODO Separate out into method
+
+        validateAttributeValue(attribute);
+    }
+
+    /**
+     * Validates that the attribute has at least one attribute value.
+     * 
+     * @param attribute attribute to validate
+     * 
+     * @throws ValidationException thrown if the attribute does not have any values
+     */
+    protected void validateAttributeValue(Attribute attribute) throws ValidationException {
         if (attribute.getAttributeValues().size() == 0) {
             throw new ValidationException("No AttributeValue elements present");
         }

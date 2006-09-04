@@ -17,9 +17,16 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.validator;
 
+import java.util.List;
+
+import javolution.util.FastMap;
+
+import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeQuery;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
@@ -29,7 +36,6 @@ public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator<A
 
     /**
      * Constructor
-     *
      */
     public AttributeQuerySchemaValidator() {
         super();
@@ -38,7 +44,32 @@ public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator<A
     /** {@inheritDoc} */
     public void validate(AttributeQuery query) throws ValidationException {
         super.validate(query);
+        validateUniqueAttributeIdentifiers(query);
     }
-    
-    // TODO need to validate uniqure Attribute/@Name and Attribute/@NameFormat combos
+
+    /**
+     * Checks that all the attributes have a unique Name/NameFormat pair.
+     * 
+     * @param query the attribute query to validate
+     * 
+     * @throws ValidationException thrown if more than on Name/NameFormat pair is found in the list of attributes in
+     *             this query
+     */
+    protected void validateUniqueAttributeIdentifiers(AttributeQuery query) throws ValidationException {
+        List<Attribute> attributes = query.getAttributes();
+
+        FastMap<String, String> encounteredNames = new FastMap<String, String>();
+        String attributeName;
+        String attributeNameFormat;
+        for (Attribute attribute : attributes) {
+            attributeName = attribute.getName();
+            attributeNameFormat = attribute.getNameFormat();
+            if (DatatypeHelper.safeEquals(attributeNameFormat, encounteredNames.get(attributeName))) {
+                throw new ValidationException(
+                        "Attribute query contains more than one attribute with the same Name and NameFormat");
+            } else {
+                encounteredNames.put(attributeName, attributeNameFormat);
+            }
+        }
+    }
 }

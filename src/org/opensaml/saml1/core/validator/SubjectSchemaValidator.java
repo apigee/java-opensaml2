@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.validator;
 
 import org.opensaml.saml1.core.Subject;
@@ -27,14 +23,23 @@ import org.opensaml.xml.validation.Validator;
 /**
  * Checks {@link org.opensaml.saml1.core.Subject} for Schema compliance.
  */
-public class SubjectSchemaValidator implements Validator<Subject>  {
+public class SubjectSchemaValidator implements Validator<Subject> {
 
     /** {@inheritDoc} */
     public void validate(Subject subject) throws ValidationException {
-        // TODO separate methods
-         if (subject.getNameIdentifier() == null &&
-             subject.getSubjectConfirmation() == null) {
-             throw new ValidationException("Either a NameIdentifier or SubjectConfirmation should be present");
-         }
+        validateNameIdentifierSubjectConfirmation(subject);
+    }
+
+    /**
+     * Validates that the subject has either a name identifier or subject confirmation
+     * 
+     * @param subject subject to validate
+     * 
+     * @throws ValidationException thrown if the subject has neither a name identifier or subject confirmation
+     */
+    protected void validateNameIdentifierSubjectConfirmation(Subject subject) throws ValidationException {
+        if (subject.getNameIdentifier() == null && subject.getSubjectConfirmation() == null) {
+            throw new ValidationException("Either a NameIdentifier or SubjectConfirmation should be present");
+        }
     }
 }
