@@ -18,7 +18,6 @@ package org.opensaml.common.xml;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -30,6 +29,8 @@ import javax.xml.transform.sax.SAXSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
+
+import javolution.util.FastList;
 
 import org.apache.log4j.Logger;
 import org.opensaml.xml.parse.ParserPool;
@@ -203,8 +204,8 @@ public class ParserPoolManager {
      * 
      * @return a list of SAML 1.0 schemas sources
      */
-    private ArrayList<SAXSource> getSAML10SchemaSources() {
-        ArrayList<SAXSource> sources = new ArrayList<SAXSource>();
+    private FastList<SAXSource> getSAML10SchemaSources() {
+        FastList<SAXSource> sources = new FastList<SAXSource>();
 
         SAXSource saml10Source = getSchemaSource(SAMLConstants.SAML10_SCHEMA_LOCATION);
         sources.add(saml10Source);
@@ -220,8 +221,8 @@ public class ParserPoolManager {
      * 
      * @return a list of SAML 1.1 schemas sources
      */
-    private ArrayList<SAXSource> getSAML11SchemaSources() {
-        ArrayList<SAXSource> sources = new ArrayList<SAXSource>();
+    private FastList<SAXSource> getSAML11SchemaSources() {
+        FastList<SAXSource> sources = new FastList<SAXSource>();
 
         SAXSource saml11Source = getSchemaSource(SAMLConstants.SAML11_SCHEMA_LOCATION);
         sources.add(saml11Source);
@@ -237,8 +238,8 @@ public class ParserPoolManager {
      * 
      * @return a list of {@link Source}s for core XML schemas
      */
-    private ArrayList<SAXSource> getXMLCoreSchemaSources() {
-        ArrayList<SAXSource> sources = new ArrayList<SAXSource>();
+    private FastList<SAXSource> getXMLCoreSchemaSources() {
+        FastList<SAXSource> sources = new FastList<SAXSource>();
 
         SAXSource xmlSource = getSchemaSource(SAMLConstants.XML_SCHEMA_LOCATION);
         sources.add(xmlSource);
@@ -257,8 +258,8 @@ public class ParserPoolManager {
      * 
      * @return a list of SAML 2.0 schemas sources
      */
-    private ArrayList<SAXSource> getSAML20SchemaSources() {
-        ArrayList<SAXSource> sources = new ArrayList<SAXSource>();
+    private FastList<SAXSource> getSAML20SchemaSources() {
+        FastList<SAXSource> sources = new FastList<SAXSource>();
 
         SAXSource saml20Source = getSchemaSource(SAMLConstants.SAML20_SCHEMA_LOCATION);
         sources.add(saml20Source);
@@ -294,8 +295,8 @@ public class ParserPoolManager {
      * 
      * @return the list of schema sources
      */
-    private ArrayList<SAXSource> getExtensionSchemaSources() {
-        ArrayList<SAXSource> extSources = new ArrayList<SAXSource>();
+    private FastList<SAXSource> getExtensionSchemaSources() {
+        FastList<SAXSource> extSources = new FastList<SAXSource>();
 
         EntityResolver extEntityResolver = null;
         String extSystemId = null;
@@ -346,7 +347,7 @@ public class ParserPoolManager {
      * @throws SAXException thrown if there is a problem creating the schema
      */
     private Schema createSchema(SchemaFactory factory, List<SAXSource> samlSchemaSources) throws SAXException {
-        ArrayList<SAXSource> schemaSources = new ArrayList<SAXSource>();
+        FastList<SAXSource> schemaSources = new FastList<SAXSource>();
         schemaSources.addAll(getXMLCoreSchemaSources());
         schemaSources.addAll(samlSchemaSources);
         schemaSources.addAll(getSAML20SchemaSources());
