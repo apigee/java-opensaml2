@@ -49,6 +49,8 @@ public class KeyDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
         KeyDescriptor keyDescriptor = (KeyDescriptor) xmlObject;
         
-        domElement.setAttribute(KeyDescriptor.USE_ATTRIB_NAME, keyDescriptor.getUse().toString());
+        if(keyDescriptor.getUse() != null){
+            domElement.setAttribute(KeyDescriptor.USE_ATTRIB_NAME, keyDescriptor.getUse().toString());
+        }
     }
 }

@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="lib/httpclient-3.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/jargs-1.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/OpenWS-J"/>
+	<classpathentry kind="lib" path="lib/httpclient-3.0.1-commons-codec-1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

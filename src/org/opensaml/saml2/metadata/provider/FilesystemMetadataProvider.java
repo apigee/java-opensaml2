@@ -122,6 +122,7 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
         try {
             cachedMetadata = unmarshallMetadata(new FileInputStream(metadataFile));
             filterMetadata(cachedMetadata);
+            releaseMetadataDOM(cachedMetadata);
             lastUpdate = metadataFile.lastModified();
             emitChangeEvent();
         } catch (FileNotFoundException e) {

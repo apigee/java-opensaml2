@@ -79,6 +79,19 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
      * @throws MetadataProviderException thrown if the URL is not a valid URL or the metadata can not be retrieved from the URL
      */
     public URLMetadataProvider(String metadataURL, int requestTimeout) throws MetadataProviderException {
+        this(metadataURL, requestTimeout, true);
+    }
+    
+    /**
+     * Constructor
+     * 
+     * @param metadataURL the URL to fetch the metadata
+     * @param requestTimeout the time, in milliseconds, to wait for the metadata server to respond
+     * @param fetchMetadata whether to fetch the metadata during construction or not
+     * 
+     * @throws MetadataProviderException thrown if the URL is not a valid URL or the metadata can not be retrieved from the URL
+     */
+    protected URLMetadataProvider(String metadataURL, int requestTimeout, boolean fetchMetadata) throws MetadataProviderException {
         super();
         try {
             metadataURI = new URI(metadataURL);
@@ -91,7 +104,9 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
 
             maxCacheDuration = 1000 * 60 * 60 * 24; // 24 hours
 
-            refreshMetadata();
+            if(fetchMetadata){
+                refreshMetadata();
+            }
         } catch (URISyntaxException e) {
             throw new MetadataProviderException("Illegal URL syntax", e);
         }
@@ -218,24 +233,11 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
                     + maxCacheDuration + "ms");
         }
         try {
-            if (log.isDebugEnabled()) {
-                log.debug("Fetching metadata document from HTTP server");
-            }
-            GetMethod getMethod = new GetMethod(getMetadataURI());
-            if (httpClient.getState().getCredentials(authScope) != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Using BASIC authentication when retrieving metadata");
-                }
-                getMethod.setDoAuthentication(true);
-            }
-            httpClient.executeMethod(getMethod);
-            if (log.isTraceEnabled()) {
-                log.trace("Retrieved the following metadata document\n" + getMethod.getResponseBodyAsString());
-            }
-
-            cachedMetadata = unmarshallMetadata(getMethod.getResponseBodyAsStream());
+            cachedMetadata = fetchMetadata();
 
             filterMetadata(cachedMetadata);
+            
+            releaseMetadataDOM(cachedMetadata);
 
             if (log.isDebugEnabled()) {
                 log.debug("Calculating expiration time");
@@ -262,5 +264,40 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
             log.error(errorMsg, e);
             throw new MetadataProviderException(errorMsg, e);
         }
+    }
+    
+    /**
+     * Fetches the metadata from the remote server and unmarshalls it.
+     * 
+     * @return the unmarshalled metadata
+     * 
+     * @throws IOException thrown if the metadata can not be fetched from the remote server
+     * @throws UnmarshallingException thrown if the metadata can not be unmarshalled
+     */
+    protected XMLObject fetchMetadata() throws IOException, UnmarshallingException{
+        if (log.isDebugEnabled()) {
+            log.debug("Fetching metadata document from remote server");
+        }
+        GetMethod getMethod = new GetMethod(getMetadataURI());
+        if (httpClient.getState().getCredentials(authScope) != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Using BASIC authentication when retrieving metadata");
+            }
+            getMethod.setDoAuthentication(true);
+        }
+        httpClient.executeMethod(getMethod);
+        
+        
+        if (log.isTraceEnabled()) {
+            log.trace("Retrieved the following metadata document\n" + getMethod.getResponseBodyAsString());
+        }
+        
+        XMLObject metadata = unmarshallMetadata(getMethod.getResponseBodyAsStream());
+        
+        if(log.isDebugEnabled()){
+            log.debug("Unmarshalled metadata from remote server");
+        }
+        return metadata;
+        
     }
 }

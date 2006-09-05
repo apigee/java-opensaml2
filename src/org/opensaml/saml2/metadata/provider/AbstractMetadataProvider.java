@@ -144,8 +144,6 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             }
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(mdDocument.getDocumentElement());
             XMLObject metadata = unmarshaller.unmarshall(mdDocument.getDocumentElement());
-            metadata.releaseDOM();
-            metadata.releaseChildrenDOM(true);
             return metadata;
         } catch (Exception e) {
             throw new UnmarshallingException(e);
@@ -171,6 +169,18 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
                 log.debug("Applying metadata filter");
             }
             getMetadataFilter().doFilter(metadata);
+        }
+    }
+    
+    /**
+     * Releases the DOM representation from the metadata object.
+     * 
+     * @param metadata the metadata object
+     */
+    protected void releaseMetadataDOM(XMLObject metadata) {
+        if(metadata != null){
+            metadata.releaseDOM();
+            metadata.releaseChildrenDOM(true);
         }
     }
 
