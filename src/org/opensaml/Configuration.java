@@ -25,11 +25,17 @@ import org.w3c.dom.Document;
  * OpenSAML configuration singleton.  This 
  */
 public class Configuration extends org.opensaml.xml.Configuration {
+    
+    private static boolean configured = false;
 
     /**
      * Initializes the OpenSAML library, loading default configurations.
      */
     public static synchronized void init() {
+        if(configured){
+            return;
+        }
+        
         Init.init();
         
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
@@ -85,6 +91,8 @@ public class Configuration extends org.opensaml.xml.Configuration {
             // SAML 2.0 Metadata Validation Configuration
             Document saml2mdValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-validation-config.xml"));
             configurator.load(saml2mdValidationConfig);
+            
+            configured = true;
         } catch (Exception e) {
             System.err.println("Unable to configure OpenSAML: " + e);
         }
