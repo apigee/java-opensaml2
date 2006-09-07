@@ -65,44 +65,61 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
 
     /** {@inheritDoc} */
     public X509EntityCredential validate(SignableSAMLObject samlObject, RoleDescriptor roleDescriptor) {
-        if (samlObject.isSigned()) {
+        if (!samlObject.isSigned()) {
             if (log.isDebugEnabled()) {
-                log.debug("Beginning validation of digitally signed SAML object");
-            }
-            Signature signature = samlObject.getSignature();
-            KeyInfo keyInfo = signature.getKeyInfo();
-            List<X509Certificate> entityCerts = keyInfo.getCertificates();
-
-            if (entityCerts == null || entityCerts.size() == 0) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Unable to perform PKIX validation, signed SAML object does not contain");
-                }
-                return null;
+                log.debug("Requested validation on unsigned SAML object, no validation performed.");
             }
 
+            return null;
+        }
+        
+        if (log.isDebugEnabled()) {
+            log.debug("Beginning validation of digitally signed SAML object");
+        }
+        Signature signature = samlObject.getSignature();
+        KeyInfo keyInfo = signature.getKeyInfo();
+        List<X509Certificate> sigCerts = keyInfo.getCertificates();
+
+        if (sigCerts == null || sigCerts.size() == 0) {
             if (log.isDebugEnabled()) {
-                log.debug("Validating signature verification information using PKIX validation.");
+                log.debug("Unable to perform PKIX validation, signed SAML object does not contain");
             }
-            X509EntityCredential entityCredential = new SimpleX509EntityCredential(entityCerts);
-            if (validate(entityCredential, roleDescriptor)) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Verifying digital signature");
-                }
-                SignatureValidator sigValidator = new SignatureValidator(entityCredential.getPublicKey());
-                try {
-                    sigValidator.validate(samlObject.getSignature());
-                    return entityCredential;
-                } catch (ValidationException e) {
-                    log.error("Unable to validate digital signature with verified credential.", e);
-                }
-            }
+            return null;
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("Requested validation on unsigned SAML object, no validation performed.");
+            log.debug("Determining key pair used to sign the signature.");
+        }
+        SignatureValidator sigValidator;
+        X509Certificate entityCert = null;
+        for (X509Certificate sigCert : sigCerts) {
+            try {
+                sigValidator = new SignatureValidator(sigCert.getPublicKey());
+                sigValidator.validate(signature);
+                entityCert = sigCert;
+                break;
+            } catch (ValidationException e) {
+                // wasn't the right cert for the signature, try next one
+            }
         }
 
-        return null;
+        if (entityCert == null) {
+            log.error("Unable to determine keypair used to sign certificate");
+            return null;
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("Validating signature verification information using PKIX validation.");
+        }
+        sigCerts.remove(entityCert);
+        sigCerts.add(0, entityCert);
+        X509EntityCredential entityCredential = new SimpleX509EntityCredential(sigCerts);
+        if (validate(entityCredential, roleDescriptor)) {
+            return entityCredential;
+        }else{
+            log.error("Certificate used to validate signature did not pass PKIX validation");
+            return null;
+        }
     }
 
     /** {@inheritDoc} */
@@ -256,7 +273,8 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
             Set<X509CRL> crls = pkixInfo.getCRLs();
             if (crls.size() > 0) {
                 if (log.isDebugEnabled()) {
-                    log.debug(crls.size() + " CRLs available, enabling CRL support and adding CRLs to certificate store");
+                    log.debug(crls.size()
+                            + " CRLs available, enabling CRL support and adding CRLs to certificate store");
                 }
                 storeMaterial.addAll(crls);
                 params.setRevocationEnabled(true);
