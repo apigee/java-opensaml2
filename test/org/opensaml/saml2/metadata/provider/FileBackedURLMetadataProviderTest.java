@@ -40,7 +40,7 @@ public class FileBackedURLMetadataProviderTest extends SAMLObjectTestCaseConfigI
 
         inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
         badMDURL = "http://www.google.com/";
-        backupFilePath = "/tmp/metadata.xml";
+        backupFilePath = "metadata.xml";
         metadataProvider = new FileBackedURLMetadataProvider(inCommonMDURL, 1000 * 5, backupFilePath);
     }
 

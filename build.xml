@@ -79,7 +79,7 @@
     <target name="test" depends="compile-core, compile-test">
         <mkdir dir="${test-results.dir}" />
 
-        <junit printsummary="off" fork="yes" haltonerror="true" haltonfailure="true" dir="${basedir}">
+        <junit printsummary="off" fork="yes" forkmode="once" haltonerror="false" haltonfailure="true" dir="${basedir}">
             <classpath refid="test-path" />
             <formatter type="xml" />
             <batchtest todir="${test-results.dir}">
