@@ -173,7 +173,7 @@
         	<tarfileset dir="${core-src.dir}" prefix="/src/"/>
     		<tarfileset dir="${test-src.dir}" prefix="/test/"/>
         	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
-        	<tarfileset dir="${dist.dir}" prefix="/dist/"/>
+        	<tarfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
         	<tarfileset file="${basedir}/*.*" prefix="/"/>
         </tar>
     	<checksum file="${dist.dir}/${src-dist.name}.tgz" />
@@ -185,7 +185,7 @@
         	<tarfileset dir="${lib.dir}" prefix="/lib/"/>
         	<tarfileset dir="${conf.dir}" prefix="/conf/"/>
         	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
-        	<tarfileset dir="${dist.dir}" prefix="/dist/"/>
+        	<tarfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
         </tar>
     	<checksum file="${dist.dir}/${bin-dist.name}.tgz" />
     </target>
@@ -194,12 +194,14 @@
     <target name="zip-src-dist" depends="package, javadoc">
         <zip zipfile="${dist.dir}/${src-dist.name}.zip" whenempty="fail">
         	<zipfileset dir="${build-lib.dir}" prefix="build-lib/"/>
-        	<zipfileset dir="${lib.dir}" prefix="lib/"/>
+        	<zipfileset dir="${lib.dir}" prefix="lib/">
+        		<exclude if=""/>
+        	</zipfileset>
         	<zipfileset dir="${conf.dir}" prefix="conf/"/>
         	<zipfileset dir="${core-src.dir}" prefix="src/"/>
     		<zipfileset dir="${test-src.dir}" prefix="test/"/>
         	<zipfileset dir="${doc.dir}" prefix="doc/"/>
-        	<zipfileset dir="${dist.dir}" prefix="dist/"/>
+        	<zipfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
         	<zipfileset file="${basedir}/*.*" prefix=""/>
         </zip>
     	<checksum file="${dist.dir}/${src-dist.name}.zip" />
@@ -211,7 +213,7 @@
         	<zipfileset dir="${lib.dir}" prefix="lib/"/>
         	<zipfileset dir="${conf.dir}" prefix="conf/"/>
         	<zipfileset dir="${doc.dir}" prefix="doc/"/>
-        	<zipfileset dir="${dist.dir}" prefix="dist/"/>
+        	<zipfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
         </zip>
     	<checksum file="${dist.dir}/${bin-dist.name}.zip" />
     </target>
