@@ -194,9 +194,7 @@
     <target name="zip-src-dist" depends="package, javadoc">
         <zip zipfile="${dist.dir}/${src-dist.name}.zip" whenempty="fail">
         	<zipfileset dir="${build-lib.dir}" prefix="build-lib/"/>
-        	<zipfileset dir="${lib.dir}" prefix="lib/">
-        		<exclude if=""/>
-        	</zipfileset>
+        	<zipfileset dir="${lib.dir}" prefix="lib/" />
         	<zipfileset dir="${conf.dir}" prefix="conf/"/>
         	<zipfileset dir="${core-src.dir}" prefix="src/"/>
     		<zipfileset dir="${test-src.dir}" prefix="test/"/>
