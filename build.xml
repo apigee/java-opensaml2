@@ -19,7 +19,7 @@
 
     <property name="jdk.target" value="1.5" />
 
-    <property name="version" value="2.0-TP1" />
+    <property name="version" value="2.0-trunk" />
 	<property name="jar.name" value="opensaml-${version}-jdk-${jdk.target}.jar" />
 	<property name="src-dist.name" value="opensaml-${version}-jdk-${jdk.target}-src" />
 	<property name="bin-dist.name" value="opensaml-${version}-jdk-${jdk.target}-bin" />
