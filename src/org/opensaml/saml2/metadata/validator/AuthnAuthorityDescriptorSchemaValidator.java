@@ -42,7 +42,7 @@ public class AuthnAuthorityDescriptorSchemaValidator extends RoleDescriptorSchem
     /**
      * Checks that at least one AuthnService is present.
      * 
-     * @param attributeAuthorityDescriptor
+     * @param authnAuthorityDescriptor
      * @throws ValidationException
      */
     protected void validateAuthnQueryServices(AuthnAuthorityDescriptor authnAuthorityDescriptor)

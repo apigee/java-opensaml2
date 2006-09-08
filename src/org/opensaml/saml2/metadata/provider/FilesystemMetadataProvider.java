@@ -49,7 +49,6 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
      * Constructor
      * 
      * @param metadataFile the metadata file
-     * @param maintainExpiredMetadata whether cached metadata should be discarded if it expires and can not be refreshed
      * 
      * @throws MetadataProviderException thrown if the given file path is null, does not exist, does not represent a
      *             file, or if the metadata can not be parsed

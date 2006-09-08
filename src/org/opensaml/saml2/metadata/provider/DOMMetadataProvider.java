@@ -41,7 +41,6 @@ public class DOMMetadataProvider extends AbstractObservableMetadataProvider impl
      * Constructor
      *
      * @param metadataElement the metadata element
-     * @param metadataFilter use to filter the metadata
      */
     public DOMMetadataProvider(Element metadataElement) throws MetadataProviderException {
         super();

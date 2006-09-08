@@ -23,7 +23,7 @@ import javolution.util.FastList;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A filter that allows the composition of {@link org.opensaml.saml2.metadata.resolver.MetadataFilter}s.
+ * A filter that allows the composition of {@link MetadataFilter}s.
  * Filters will be executed on the given metadata document in the order they were added to the chain.
  */
 public class MetadataFilterChain implements MetadataFilter {

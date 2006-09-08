@@ -83,8 +83,7 @@ public interface MetadataProvider {
     public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException;
     
     /**
-     * Gets the metadata for a given entity if the metadata is valid. This is the same as calling
-     * {@link #getEntityDescriptor(String, boolean)} passing in true for the second parameter;
+     * Gets the metadata for a given entity if the metadata is valid.
      * 
      * @param entityID the ID of the entity
      * 
