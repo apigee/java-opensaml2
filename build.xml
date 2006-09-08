@@ -154,6 +154,7 @@
 
         <jar destfile="${dist.dir}/${jar.name}" basedir="${core-classes.dir}" whenempty="fail">
         	<zipfileset dir="${core-schema.dir}" prefix="schema"/>
+        	<zipfileset dir="${conf.dir}"/>
     	</jar>
     </target>
 
