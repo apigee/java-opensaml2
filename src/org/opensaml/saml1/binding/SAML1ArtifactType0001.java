@@ -16,7 +16,7 @@
 
 package org.opensaml.saml1.binding;
 
-import org.opensaml.common.SAMLArtifact;
+import org.opensaml.common.binding.SAMLArtifact;
 
 /**
  * SAML 1.X Type 0x0001 Artifact. SAML 1, type 1, artifacts contains a 2 byte type code with a value of 1 followed by a

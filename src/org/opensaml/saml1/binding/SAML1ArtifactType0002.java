@@ -16,7 +16,7 @@
 
 package org.opensaml.saml1.binding;
 
-import org.opensaml.common.SAMLArtifact;
+import org.opensaml.common.binding.SAMLArtifact;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**

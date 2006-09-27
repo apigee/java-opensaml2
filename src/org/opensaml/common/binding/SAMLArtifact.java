@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.common;
+package org.opensaml.common.binding;
 
 import org.bouncycastle.util.encoders.Hex;
 import org.bouncycastle.util.encoders.Base64;
