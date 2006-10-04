@@ -214,7 +214,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
 
     /** {@inheritDoc} */
     public AttributeAuthorityDescriptor getAttributeAuthorityDescriptor(String supportedProtocol) {
-        List<RoleDescriptor> descriptors = getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+        List<RoleDescriptor> descriptors = getRoleDescriptors(AttributeAuthorityDescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
         if(descriptors.size() > 0){
             return (AttributeAuthorityDescriptor) descriptors.get(0);
         }
