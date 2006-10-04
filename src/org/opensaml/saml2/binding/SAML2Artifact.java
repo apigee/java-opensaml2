@@ -66,7 +66,7 @@ public class SAML2Artifact extends SAMLArtifact {
         }
 
         byte[] typeCode = { artifact[0], artifact[1] };
-        if (typeCode != TYPE_CODE) {
+        if (!(typeCode[0] == TYPE_CODE[0] && typeCode[1] == TYPE_CODE[1])) {
             throw new IllegalArgumentException("Illegal artifact type code");
         }
         setTypeCode(typeCode);
