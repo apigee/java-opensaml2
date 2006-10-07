@@ -347,12 +347,13 @@ public class ParserPoolManager {
      * @throws SAXException thrown if there is a problem creating the schema
      */
     private Schema createSchema(SchemaFactory factory, List<SAXSource> samlSchemaSources) throws SAXException {
-        FastList<SAXSource> schemaSources = new FastList<SAXSource>();
-        schemaSources.addAll(getXMLCoreSchemaSources());
-        schemaSources.addAll(samlSchemaSources);
-        schemaSources.addAll(getSAML20SchemaSources());
-        schemaSources.addAll(getExtensionSchemaSources());
-        return factory.newSchema(schemaSources.toArray(new Source[0]));
+        FastList<SAXSource> schemaSourceList = new FastList<SAXSource>();
+        schemaSourceList.addAll(getXMLCoreSchemaSources());
+        schemaSourceList.addAll(samlSchemaSources);
+        schemaSourceList.addAll(getSAML20SchemaSources());
+        schemaSourceList.addAll(getExtensionSchemaSources());
+        Source[] schemaSources = schemaSourceList.toArray(new Source[schemaSourceList.size()]);
+        return factory.newSchema(schemaSources);
     }
 
     /**
