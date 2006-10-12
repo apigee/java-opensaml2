@@ -57,9 +57,4 @@ public interface MessageDecoder {
      */
     public RoleDescriptor getIssuerMetadata();
 
-    /**
-     * Boolean indication of whether or not the decoded message was authenticated
-     */
-    public boolean issuerWasAuthenticated();
-
 }
