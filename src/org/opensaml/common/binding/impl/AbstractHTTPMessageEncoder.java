@@ -16,6 +16,9 @@
 
 package org.opensaml.common.binding.impl;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.opensaml.common.binding.HTTPMessageEncoder;
 
 /**
@@ -23,7 +26,34 @@ import org.opensaml.common.binding.HTTPMessageEncoder;
  */
 public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder implements HTTPMessageEncoder {
 
+    /** HTTP servlet request to decode */
+    private HttpServletRequest request;
+    
+    /** HTTP respones to use during decoding */
+    private HttpServletResponse response;
+    
+    /** Relay state */
     private String relayState;
+    
+    /** {@inheritDoc} */
+    public HttpServletRequest getRequest(){
+        return request;
+    }
+    
+    /** {@inheritDoc} */
+    public void setRequest(HttpServletRequest request){
+        this.request = request;
+    }
+    
+    /** {@inheritDoc} */
+    public HttpServletResponse getResponse(){
+        return response;
+    }
+    
+    /** {@inheritDoc} */
+    public void setResponse(HttpServletResponse response){
+        this.response = response;
+    }
     
     /** {@inheritDoc} */
     public String getRelayState() {
