@@ -19,35 +19,38 @@ package org.opensaml.common.binding;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Validates that the given request method is a particular method type.
+ * Validates that the requests content type matches the given content type.
+ * 
+ * When validating the request content type is checked to see if it contains the provided content type, not if 
+ * it exactly matches.
  */
-public class HTTPMethodValidator implements TransportValidator<HttpServletRequest> {
+public class HTTPContentTypeValidator implements TransportValidator<HttpServletRequest> {
 
-    /** Acceptable HTTP method */
-    private String httpMethod;
+    /** Expected content type */
+    private String contentType;
     
     /**
-     * Gets the HTTP method expected by a request.
+     * Gets the expected content type.
      * 
-     * @return HTTP method expected by a request
+     * @return expected content type
      */
-    public String getHTTPMethod(){
-        return httpMethod;
+    public String getContentType(){
+        return contentType;
     }
     
     /**
-     * Sets the HTTP method expected by a request.
-     * 
-     * @param method HTTP method expected by a request
+     * Sets the expected content type.
+     *
+     * @param type expected content type
      */
-    public void setHTTPMethod(String method){
-        httpMethod = method;
+    public void setContentType(String type){
+        contentType = type;
     }
     
     /** {@inheritDoc} */
     public void validate(HttpServletRequest request) throws BindingException {
-        if(!request.getMethod().equals(getHTTPMethod())){
-            throw new BindingException("Illegal HTTP method");
+        if(!request.getContentType().contains(getContentType())){
+            throw new BindingException("Illegal content type");
         }
     }
 }

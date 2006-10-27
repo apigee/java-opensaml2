@@ -35,5 +35,5 @@ public interface TransportValidator<RequestType extends ServletRequest> {
      * 
      * @throws BindingException thrown if the request does not meet the necessary security requirements
      */
-    public void valdate(RequestType request) throws BindingException;
+    public void validate(RequestType request) throws BindingException;
 }

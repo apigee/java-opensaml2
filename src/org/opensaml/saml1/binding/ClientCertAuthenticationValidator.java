@@ -85,7 +85,7 @@ public class ClientCertAuthenticationValidator implements TransportValidator<Htt
     }
 
     /** {@inheritDoc} */
-    public void valdate(HttpServletRequest request) throws BindingException {
+    public void validate(HttpServletRequest request) throws BindingException {
 
         HttpX509EntityCredential credential;
         try {
