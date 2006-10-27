@@ -26,10 +26,10 @@ import org.opensaml.common.binding.HTTPMessageEncoder;
  */
 public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder implements HTTPMessageEncoder {
 
-    /** HTTP servlet request to decode */
+    /** HTTP servlet request to encode */
     private HttpServletRequest request;
     
-    /** HTTP respones to use during decoding */
+    /** HTTP respones to use during encoding */
     private HttpServletResponse response;
     
     /** Relay state */

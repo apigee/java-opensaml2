@@ -21,7 +21,6 @@ import java.security.cert.CertPath;
 import java.security.cert.CertPathBuilder;
 import java.security.cert.CertPathValidator;
 import java.security.cert.CertStore;
-import java.security.cert.CertificateParsingException;
 import java.security.cert.CollectionCertStoreParameters;
 import java.security.cert.PKIXBuilderParameters;
 import java.security.cert.PKIXCertPathBuilderResult;
@@ -29,11 +28,9 @@ import java.security.cert.TrustAnchor;
 import java.security.cert.X509CRL;
 import java.security.cert.X509CertSelector;
 import java.security.cert.X509Certificate;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.StringTokenizer;
 
 import javax.security.auth.x500.X500Principal;
 
@@ -48,6 +45,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.security.CredentialUsageTypeEnumeration;
 import org.opensaml.security.TrustEngine;
 import org.opensaml.security.X509EntityCredential;
+import org.opensaml.security.X509Util;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureValidator;
@@ -356,7 +354,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
             log.debug("Attempting to match entity ID " + id
                     + " with the first CN component of the certificate's subject DN");
         }
-        String firstCNComponent = getFirstCN(certificate.getSubjectX500Principal());
+        String firstCNComponent = X509Util.getCommonNames(certificate.getSubjectX500Principal()).get(0);
         if (!DatatypeHelper.isEmpty(firstCNComponent)) {
             if (loweredEntityId.equals(firstCNComponent.toLowerCase())) {
                 if (log.isDebugEnabled()) {
@@ -369,60 +367,21 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
         if (log.isDebugEnabled()) {
             log.debug("Attempting to match entity ID with certificate's DNS and URI subject alt names");
         }
-        try {
-            Collection<List<?>> altNames = certificate.getSubjectAlternativeNames();
-            if (altNames != null && altNames.size() > 0) {
-                for (List altName : altNames) {
-                    // 0th position represents the data type; 2 = DNS, 6 = URI
-                    // 1st position contains the actual data to match
-                    if (altName.get(0).equals(new Integer(2)) || altName.get(0).equals(new Integer(6))) {
-                        if (altName.get(1).equals(id)) {
-                            if (log.isDebugEnabled()) {
-                                log.debug("ID matched against subject alt name");
-                            }
-                            return true;
-                        }
-                    }
+        
+        Integer[] altNameTypes = {X509Util.DNS_ALT_NAME, X509Util.URI_ALT_NAME};
+        for(Object altName : X509Util.getAltNames(certificate, altNameTypes)){
+            if(altName.equals(id)){
+                if (log.isDebugEnabled()) {
+                    log.debug("ID matched against subject alt name");
                 }
+                return true;
             }
-        } catch (CertificateParsingException e) {
-            log.error("Unable to extract subject alt names from certificate", e);
         }
 
         if (log.isDebugEnabled()) {
             log.debug("Unable to match ID against subject alt names");
         }
         return false;
-    }
-
-    /**
-     * Gets the value of the first CN component in the given distinguished name.
-     * 
-     * @param principal the distinguished name
-     * 
-     * @return the value of the fist CN attribute in the DN or null if there are no CN components
-     */
-    private String getFirstCN(X500Principal principal) {
-        if (principal == null) {
-            return null;
-        }
-
-        String canonicalDN = principal.getName(X500Principal.CANONICAL);
-        if (log.isDebugEnabled()) {
-            log.debug("Extracting first CN component from DN " + canonicalDN);
-        }
-        StringTokenizer dnTokens = new StringTokenizer(canonicalDN, ",");
-        String dnToken;
-
-        while (dnTokens.hasMoreTokens()) {
-            dnToken = dnTokens.nextToken();
-            dnToken = dnToken.trim();
-            if (dnToken.startsWith("cn=")) {
-                return dnToken.substring(dnToken.indexOf("=") + 1);
-            }
-        }
-
-        return null;
     }
 
     /**

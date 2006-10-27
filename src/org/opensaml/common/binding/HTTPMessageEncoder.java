@@ -25,30 +25,30 @@ import javax.servlet.http.HttpServletResponse;
 public interface HTTPMessageEncoder extends MessageEncoder {
     
     /**
-     * Sets the HTTP request to decode.
+     * Sets the HTTP request to encode.
      * 
-     * @return the HTTP request to decode
+     * @return the HTTP request to encode
      */
     public HttpServletRequest getRequest();
     
     /**
-     * Sets the HTTP request to decode.
+     * Sets the HTTP request to encode.
      * 
-     * @param request the HTTP request to decode
+     * @param request the HTTP request to encode
      */
     public void setRequest(HttpServletRequest request);
     
     /**
-     * Sets the HTTP response to use during the decoding process.
+     * Sets the HTTP response to use during the encoding process.
      * 
-     * @return response  the HTTP response to use during decoding
+     * @return response  the HTTP response to use during encoding
      */
     public HttpServletResponse getResponse();
     
     /**
-     * Sets the HTTP response to use during the decoding process.
+     * Sets the HTTP response to use during the encoding process.
      * 
-     * @param response the HTTP response to use during decoding
+     * @param response the HTTP response to use during encoding
      */
     public void setResponse(HttpServletResponse response);
     
