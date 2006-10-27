@@ -16,8 +16,6 @@
 
 package org.opensaml.common.binding;
 
-import java.util.List;
-
 import javax.servlet.ServletRequest;
 
 import org.opensaml.xml.XMLObject;
@@ -31,14 +29,6 @@ import org.opensaml.xml.XMLObject;
  * times and recieve a proper answer.
  */
 public interface SecurityPolicy<RequestType extends ServletRequest> {
-
-    /**
-     * Gets the list of security mechanisms that will be used to ensure the transport layer is secure.  
-     * Security mechanisms will be evaluated in the order they appear in the list.
-     * 
-     * @return security mechanisms that will be used to ensure the transport layer is secure
-     */
-    public List<SecurityPolicyRule<RequestType>> getPolicyRules();
     
     /**
      * Gets the issuer of the message as determined by the registered validators.
