@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.servlet.ServletRequest;
 
-import org.opensaml.xml.validation.ValidatorSuite;
+import org.opensaml.xml.XMLObject;
 
 /**
  * A policy used to verify the security of an incoming request.  Its security mechanisms may be used to 
@@ -38,27 +38,22 @@ public interface SecurityPolicy<RequestType extends ServletRequest> {
      * 
      * @return security mechanisms that will be used to ensure the transport layer is secure
      */
-    public List<TransportValidator<RequestType>> getSecurityMechanisms();
+    public List<SecurityPolicyRule<RequestType>> getPolicyRules();
     
     /**
-     * Gets the validators used to determine if the request payload is secure.  Validators are evaluated in 
-     * the order they appear in the list.
+     * Gets the issuer of the message as determined by the registered validators.
      * 
-     * @return validators used to determine if the request payload is secure
+     * @return issuer of the message as determined by the registered validators
      */
-    public List<ValidatorSuite> getPayloadValidation();
-    
-    /**
-     * Gets the entity ID of the relying party that issues the SAML request.
-     * 
-     * @return entity ID of the relying party that issues the SAML request
-     */
-    public String getRelyingParty();
+    public String getIssuer();
     
     /**
      * Evaluates this policy.
      * 
+     * @param request the protocol request
+     * @param message the incoming message
+     * 
      * @throws BindingException thrown if the request does not meet the requirements of this policy
      */
-    public void validate(RequestType request) throws BindingException;
+    public void evaluate(RequestType request, XMLObject message) throws BindingException;
 }
