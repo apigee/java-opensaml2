@@ -16,6 +16,8 @@
 
 package org.opensaml.saml1.binding;
 
+import java.util.Arrays;
+
 import org.opensaml.common.binding.SAMLArtifact;
 
 /**
@@ -29,6 +31,9 @@ public class SAML1ArtifactType0001 extends SAMLArtifact {
 
     /** 20 byte artifact source ID */
     private byte[] sourceID;
+    
+    /** 20 byte assertion handle */
+    private byte[] assertionHandle;
 
     /**
      * Constructor
@@ -39,11 +44,9 @@ public class SAML1ArtifactType0001 extends SAMLArtifact {
      * @throws IllegalArgumentException thrown if the given source ID or message handle are not of the current length
      *             (20 bytes)
      */
-    public SAML1ArtifactType0001(byte[] sourceID, byte[] messageHandle) throws IllegalArgumentException {
-        super(TYPE_CODE);
-        setTypeCode(TYPE_CODE);
+    public SAML1ArtifactType0001(byte[] sourceID, byte[] messageHandle, byte[] assertionHandle) throws IllegalArgumentException {
+        setTypeCode(TYPE_CODE);        
         setSourceID(sourceID);
-        setMessageHandle(messageHandle);
     }
 
     /**
@@ -55,29 +58,23 @@ public class SAML1ArtifactType0001 extends SAMLArtifact {
      *             the correct type (0x0001)
      */
     public SAML1ArtifactType0001(byte[] artifact) throws IllegalArgumentException {
-        super(TYPE_CODE);
-
         if (artifact.length != 42) {
             throw new IllegalArgumentException("Artifact length must be 42 bytes it was " + artifact.length + "bytes");
         }
 
         byte[] typeCode = { artifact[0], artifact[1] };
-        if (typeCode.length != 2) {
-            throw new IllegalArgumentException("Artifact type code must be two bytes");
+        if(Arrays.equals(typeCode, TYPE_CODE)){
+            throw new IllegalArgumentException("Artifact is not of appropriate type.");
         }
         setTypeCode(typeCode);
 
         byte[] sourceID = new byte[20];
-        for (int i = 0, j = 2; j < 22; i++, j++) {
-            sourceID[i] = artifact[j];
-        }
+        System.arraycopy(artifact, 2, sourceID, 0, 20);
         setSourceID(sourceID);
 
-        byte[] messageHandle = new byte[20];
-        for (int i = 0, j = 22; j < 42; i++, j++) {
-            messageHandle[i] = artifact[j];
-        }
-        setMessageHandle(messageHandle);
+        byte[] assertionHandle = new byte[20];
+        System.arraycopy(artifact, 22, assertionHandle, 0, 20);
+        setAssertionHandle(assertionHandle);
     }
 
     /**
@@ -102,26 +99,34 @@ public class SAML1ArtifactType0001 extends SAMLArtifact {
         }
         sourceID = newSourceID;
     }
-
+    
+    /**
+     * Gets the artifiact's 20 byte assertion handle.
+     * 
+     * @return artifiact's 20 byte assertion handle
+     */
+    public byte[] getAssertionHandle(){
+        return assertionHandle;
+    }
+    
+    /**
+     * Sets the artifiact's 20 byte assertion handle.
+     * 
+     * @param assertionHandle artifiact's 20 byte assertion handle
+     */
+    public void setAssertionHandle(byte[] assertionHandle){
+        if(assertionHandle.length != 20){
+            throw new IllegalArgumentException("Artifact assertion handle must be 20 bytes long");
+        }
+    }
+    
     /** {@inheritDoc} */
-    public byte[] getArtifactBytes() {
-        byte[] artifact = new byte[42];
+    public byte[] getRemainingArtifact(){
+        byte[] remainingArtifact = new byte[40];
 
-        byte[] typeCode = getTypeCode();
-        byte[] sourceID = getSourceID();
-        byte[] messageHandle = getMessageHandle();
-
-        artifact[0] = typeCode[0];
-        artifact[1] = typeCode[1];
-
-        for (int i = 2, j = 0; i < 22; i++, j++) {
-            artifact[i] = sourceID[j];
-        }
-
-        for (int i = 22, j = 0; i < 42; i++, j++) {
-            artifact[i] = messageHandle[j];
-        }
-
-        return artifact;
+        System.arraycopy(getSourceID(), 0, remainingArtifact, 0, 20);
+        System.arraycopy(getAssertionHandle(), 0, remainingArtifact, 20, 20);
+        
+        return remainingArtifact;
     }
 }

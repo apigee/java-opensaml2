@@ -16,6 +16,8 @@
 
 package org.opensaml.saml1.binding;
 
+import java.util.Arrays;
+
 import org.opensaml.common.binding.SAMLArtifact;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -27,6 +29,9 @@ public class SAML1ArtifactType0002 extends SAMLArtifact {
 
     /** Artifact type code (0x0002) */
     public final static byte[] TYPE_CODE = { 0, 2 };
+    
+    /** 20 byte assertion handle */
+    private byte[] assertionHandle;
 
     /** Artifact source location component */
     private String sourceLocation;
@@ -41,9 +46,8 @@ public class SAML1ArtifactType0002 extends SAMLArtifact {
      *             null or empty
      */
     public SAML1ArtifactType0002(byte[] assertionHandle, String sourceLocation) throws IllegalArgumentException {
-        super(TYPE_CODE);
         setTypeCode(TYPE_CODE);
-        setMessageHandle(assertionHandle);
+        setAssertionHandle(assertionHandle);
         setSourceLocation(sourceLocation);
     }
 
@@ -55,43 +59,40 @@ public class SAML1ArtifactType0002 extends SAMLArtifact {
      * @throws IllegalArgumentException thrown if the artifact type is not 0x0002
      */
     public SAML1ArtifactType0002(byte[] artifact) throws IllegalArgumentException {
-        super(TYPE_CODE);
-
         byte[] typeCode = { artifact[0], artifact[1] };
+        if(Arrays.equals(typeCode, TYPE_CODE)){
+            throw new IllegalArgumentException("Artifact is not of appropriate type.");
+        }
         setTypeCode(typeCode);
 
-        byte[] messageHandle = new byte[20];
-        for (int i = 0, j = 2; j < 22; i++, j++) {
-            messageHandle[i] = artifact[j];
-        }
-        setMessageHandle(messageHandle);
+        byte[] assertionHandle = new byte[20];
+        System.arraycopy(artifact, 2, assertionHandle, 0, 20);
+        setAssertionHandle(assertionHandle);
 
-        byte[] sourceLocation = new byte[artifact.length - 22];
-        for (int i = 0, j = 22; j < artifact.length; i++, j++) {
-            sourceLocation[i] = artifact[j];
-        }
+        int locationLength = artifact.length - 22;
+        byte[] sourceLocation = new byte[locationLength];
+        System.arraycopy(artifact, 22, sourceLocation, 0, locationLength);
         setSourceLocation(new String(sourceLocation));
     }
-
-    /** {@inheritDoc} */
-    public byte[] getArtifactBytes() {
-        byte[] typeCode = getTypeCode();
-        byte[] messageHandle = getMessageHandle();
-        byte[] sourceLocation = getSourceLocation().getBytes();
-        byte[] artifact = new byte[22 + sourceLocation.length];
-
-        artifact[0] = typeCode[0];
-        artifact[1] = typeCode[1];
-
-        for (int i = 2, j = 0; i < 22; i++, j++) {
-            artifact[i] = messageHandle[j];
+    
+    /**
+     * Gets the artifiact's 20 byte assertion handle.
+     * 
+     * @return artifiact's 20 byte assertion handle
+     */
+    public byte[] getAssertionHandle(){
+        return assertionHandle;
+    }
+    
+    /**
+     * Sets the artifiact's 20 byte assertion handle.
+     * 
+     * @param assertionHandle artifiact's 20 byte assertion handle
+     */
+    public void setAssertionHandle(byte[] assertionHandle){
+        if(assertionHandle.length != 20){
+            throw new IllegalArgumentException("Artifact assertion handle must be 20 bytes long");
         }
-
-        for (int i = 22, j = 0; j < sourceLocation.length; i++, j++) {
-            artifact[i] = sourceLocation[j];
-        }
-
-        return artifact;
     }
 
     /**
@@ -117,5 +118,17 @@ public class SAML1ArtifactType0002 extends SAMLArtifact {
         }
 
         sourceLocation = location;
+    }
+    
+    
+    /** {@inheritDoc} */
+    public byte[] getRemainingArtifact(){
+        byte[] sourceLocation = getSourceLocation().getBytes();
+        byte[] remainingArtifact = new byte[20 + sourceLocation.length];
+
+        System.arraycopy(getAssertionHandle(), 0, remainingArtifact, 0, 20);
+        System.arraycopy(sourceLocation, 0, remainingArtifact, 20, sourceLocation.length);
+        
+        return remainingArtifact;
     }
 }
