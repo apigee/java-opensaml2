@@ -52,6 +52,9 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
     /** The SAML role the issuer is meant to be operating in */
     private QName issuerRole;
 
+    /** The message protocol used by the issuer */
+    private String issuerProtocol;
+
     /**
      * Gets the metadata provider used to lookup issuer data.
      * 
@@ -106,9 +109,27 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
         this.issuerRole = issuerRole;
     }
 
+    /**
+     * Gets the message protocol used by the issuer.
+     * 
+     * @return message protocol used by the issuer
+     */
+    public String getIssuerProtocol() {
+        return issuerProtocol;
+    }
+
+    /**
+     * Sets message protocol used by the issuer.
+     * 
+     * @param protocol message protocol used by the issuer
+     */
+    public void setIssuerProtocol(String protocol) {
+        this.issuerProtocol = protocol;
+    }
+
     /** {@inheritDoc} */
     public SecurityPolicyRule<HttpServletRequest> createRuleInstance() {
-        return new ClientCertAuthRule(getMetadataProvider(), getTrustEngine(), getIssuerRole());
+        return new ClientCertAuthRule(getMetadataProvider(), getTrustEngine(), getIssuerRole(), getIssuerProtocol());
     }
 
     /**
@@ -125,20 +146,26 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
         /** SAML role the issuer is meant to be operating in */
         private QName issuerRole;
 
+        /** The message protocol used by the issuer */
+        private String issuerProtocol;
+
         /** Issuer as determined by this rule */
         private String issuer;
 
         /**
          * Constructor
-         *
+         * 
          * @param provider metadata provider used to look up entity information
          * @param engine trust engine used to validate client cert against issuer's metadata
          * @param role role the issuer is meant to be operating in
+         * @param protocol protocol the issuer used in the request
          */
-        public ClientCertAuthRule(MetadataProvider provider, TrustEngine<X509EntityCredential> engine, QName role) {
+        public ClientCertAuthRule(MetadataProvider provider, TrustEngine<X509EntityCredential> engine, QName role,
+                String protocol) {
             metadataProvider = provider;
             trustEngine = engine;
             issuerRole = role;
+            issuerProtocol = protocol;
         }
 
         /** {@inheritDoc} */
@@ -148,7 +175,6 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
 
         /** {@inheritDoc} */
         public void evaluate(HttpServletRequest request, XMLObject message) throws BindingException {
-
             HttpX509EntityCredential credential;
             try {
                 credential = new HttpX509EntityCredential(request);
@@ -158,24 +184,22 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
 
             POSSIBLE_ISSUERS: for (String issuerName : getIssuerNames(credential)) {
                 try {
-                    List<RoleDescriptor> roleDescriptors = metadataProvider.getRole(issuerName, issuerRole);
-                    if (roleDescriptors == null || roleDescriptors.size() == 0) {
+                    RoleDescriptor roleDescriptor = metadataProvider.getRole(issuerName, issuerRole, issuerProtocol);
+                    if (roleDescriptor == null) {
                         continue POSSIBLE_ISSUERS;
                     }
 
-                    for (RoleDescriptor roleDescriptor : roleDescriptors) {
-                        if (trustEngine.validate(credential, roleDescriptor)) {
-                            issuer = issuerName;
-                            break POSSIBLE_ISSUERS;
-                        } else {
-                            throw new BindingException("Issuer credentials do not match entity's credentials in metadata");
-                        }
+                    if (trustEngine.validate(credential, roleDescriptor)) {
+                        issuer = issuerName;
+                        break POSSIBLE_ISSUERS;
+                    } else {
+                        throw new BindingException("Issuer credentials do not match entity's credentials in metadata");
                     }
                 } catch (MetadataProviderException e) {
                     throw new BindingException("Unable to query metadata provider for issuer metadata", e);
                 }
             }
-            
+
             throw new BindingException("Issuer can bot be located in metadata");
         }
 
