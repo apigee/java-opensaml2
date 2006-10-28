@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.binding;
+package org.opensaml.saml2.binding;
 
 import java.util.List;
 
@@ -26,6 +26,9 @@ import javolution.util.FastList;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.SecurityPolicyRule;
 import org.opensaml.common.binding.SecurityPolicyRuleFactory;
+import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
@@ -34,13 +37,8 @@ import org.opensaml.security.X509EntityCredential;
 import org.opensaml.security.X509Util;
 import org.opensaml.security.impl.HttpX509EntityCredential;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 
-/**
- * Factory that produces rules that check if the client cert used to authenticate a request is valid and trusted. The
- * rule identifies the issuer as the entity identified by the cert's DN common name or subject alt names that match an
- * entity within the metadata from the given provider and where the trust engine validates the entity cert against the
- * information given in the assumed issuer's metadata.
- */
 public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<HttpServletRequest> {
 
     /** Metadata provider to lookup issuer information */
@@ -115,7 +113,6 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
      * Policy rule that checks if the client cert used to authenticate the request is valid and trusted.
      */
     protected class ClientCertAuthRule implements SecurityPolicyRule<HttpServletRequest> {
-
         /** Metadata provider to lookup issuer information */
         private MetadataProvider metadataProvider;
 
@@ -130,7 +127,7 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
 
         /**
          * Constructor
-         *
+         * 
          * @param provider metadata provider used to look up entity information
          * @param engine trust engine used to validate client cert against issuer's metadata
          * @param role role the issuer is meant to be operating in
@@ -148,7 +145,26 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
 
         /** {@inheritDoc} */
         public void evaluate(HttpServletRequest request, XMLObject message) throws BindingException {
+            String requestIssuerName = evaluateCredential(request);
+            String messageIssuerName = getSAML2IssuerName(message);
 
+            if (DatatypeHelper.safeEquals(requestIssuerName, messageIssuerName)) {
+                throw new BindingException("SAML 2 message issuer name does not match request issuer name");
+            }
+
+        }
+
+        /**
+         * Evaluates the client cert used by the request against the metadata for the given role using the given trust
+         * engine. The issuer is the cert subject DN common name or subject alt name for which metadata exists.
+         * 
+         * @param request the request to validate
+         * 
+         * @return the issuer name extracted from the credential
+         * 
+         * @throws BindingException thrown if the client cert can not be validated
+         */
+        private String evaluateCredential(HttpServletRequest request) throws BindingException {
             HttpX509EntityCredential credential;
             try {
                 credential = new HttpX509EntityCredential(request);
@@ -168,14 +184,15 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
                             issuer = issuerName;
                             break POSSIBLE_ISSUERS;
                         } else {
-                            throw new BindingException("Issuer credentials do not match entity's credentials in metadata");
+                            throw new BindingException(
+                                    "Issuer credentials do not match entity's credentials in metadata");
                         }
                     }
                 } catch (MetadataProviderException e) {
                     throw new BindingException("Unable to query metadata provider for issuer metadata", e);
                 }
             }
-            
+
             throw new BindingException("Issuer can bot be located in metadata");
         }
 
@@ -198,6 +215,29 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
             issuerNames.addAll(X509Util.getAltNames(credential.getEntityCertificate(), altNameTypes));
 
             return issuerNames;
+        }
+
+        /**
+         * Gets the issure name from the SAML 2 message.
+         * 
+         * @param message the SAML 2 message
+         * 
+         * @return the issuer name from the SAML 2 message
+         * 
+         * @throws BindingException thrown if the SAML 2 message does not contain a valid issuer name
+         */
+        private String getSAML2IssuerName(XMLObject message) throws BindingException {
+            Issuer issuer = null;
+            if (message instanceof Request) {
+                issuer = ((Request) message).getIssuer();
+            } else if (message instanceof Response) {
+                issuer = ((Response) message).getIssuer();
+            }
+
+            if (issuer == null || DatatypeHelper.isEmpty(issuer.getValue())) {
+                throw new BindingException("Expected SAML2 Request message does not contain a valid Issuer.");
+            }
+            return issuer.getValue();
         }
     }
 }
