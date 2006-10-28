@@ -18,6 +18,7 @@ package org.opensaml.common.binding;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 
 /**
@@ -224,6 +225,11 @@ public class HTTPRuleFactory implements SecurityPolicyRuleFactory<HttpServletReq
 
         /** {@inheritDoc} */
         public String getIssuer() {
+            return null;
+        }
+        
+        /** {@inheritDoc} */
+        public RoleDescriptor getIssuerMetadata() {
             return null;
         }
     }

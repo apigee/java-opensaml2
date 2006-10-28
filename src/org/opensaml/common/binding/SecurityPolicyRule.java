@@ -18,6 +18,7 @@ package org.opensaml.common.binding;
 
 import javax.servlet.ServletRequest;
 
+import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 
 /**
@@ -34,6 +35,13 @@ public interface SecurityPolicyRule<RequestType extends ServletRequest> {
      * @return the issuer as determined by this rule
      */
     public String getIssuer();
+    
+    /**
+     * Gets the metadata for the role the issuer is operating in.
+     * 
+     * @return metadata for the role the issuer is operating in
+     */
+    public RoleDescriptor getIssuerMetadata();
 
     /**
      * Evaluates the rule against the given request and message.

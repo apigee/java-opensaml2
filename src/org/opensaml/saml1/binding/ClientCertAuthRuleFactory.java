@@ -151,6 +151,9 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
 
         /** Issuer as determined by this rule */
         private String issuer;
+        
+        /** Role the issuer is operating in */
+        private RoleDescriptor issuerMetadata;
 
         /**
          * Constructor
@@ -172,6 +175,11 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
         public String getIssuer() {
             return issuer;
         }
+        
+        /** {@inheritDoc} */
+        public RoleDescriptor getIssuerMetadata(){
+            return issuerMetadata;
+        }
 
         /** {@inheritDoc} */
         public void evaluate(HttpServletRequest request, XMLObject message) throws BindingException {
@@ -191,6 +199,7 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
 
                     if (trustEngine.validate(credential, roleDescriptor)) {
                         issuer = issuerName;
+                        issuerMetadata = roleDescriptor;
                         break POSSIBLE_ISSUERS;
                     } else {
                         throw new BindingException("Issuer credentials do not match entity's credentials in metadata");

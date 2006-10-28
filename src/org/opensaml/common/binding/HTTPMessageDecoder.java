@@ -17,44 +17,14 @@
 package org.opensaml.common.binding;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Base interface for HTTP specific SAML bindings.
  */
-public interface HTTPMessageDecoder extends MessageDecoder {
-    
-    /**
-     * Sets the HTTP request to decode.
-     * 
-     * @return the HTTP request to decode
-     */
-    public HttpServletRequest getRequest();
-    
-    /**
-     * Sets the HTTP request to decode.
-     * 
-     * @param request the HTTP request to decode
-     */
-    public void setRequest(HttpServletRequest request);
-    
-    /**
-     * Sets the HTTP response to use during the decoding process.
-     * 
-     * @return response  the HTTP response to use during decoding
-     */
-    public HttpServletResponse getResponse();
-    
-    /**
-     * Sets the HTTP response to use during the decoding process.
-     * 
-     * @param response the HTTP response to use during decoding
-     */
-    public void setResponse(HttpServletResponse response);
+public interface HTTPMessageDecoder extends MessageDecoder<HttpServletRequest> {
 
     /**
      * Gets the relay state from the decoded message.
      */
     public String getRelayState();
-
 }

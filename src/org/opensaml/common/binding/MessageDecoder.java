@@ -16,27 +16,72 @@
 
 package org.opensaml.common.binding;
 
+import javax.servlet.ServletRequest;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.security.TrustEngine;
 
 /**
- * 
  * Decodes a SAML message in a binding specific mannger. The decode() method should be run before any accessor methods
  * are called.
- * 
- * @author Walter Hoehn
  */
-public interface MessageDecoder {
-
+public interface MessageDecoder<RequestType extends ServletRequest>{
+    
     /**
-     * Sets the metadata provider that can be used to look up information regarding message issuers
+     * Gets the request to decode.
+     * 
+     * @return request to decode
      */
-    public void setMetadataProvider(MetadataProvider metadatProvider);
+    public RequestType getRequest();
+    
+    /**
+     * Sets the request to decode.
+     * 
+     * @param request request to decode
+     */
+    public void setRequest(RequestType request);
+    
+    /**
+     * Gets the metadata provider used to lookup information about the issuer.
+     * 
+     * @return metadata provider used to lookup information about the issuer
+     */
+    public MetadataProvider getMetadataProvider();
 
     /**
-     * Sets the trust engine that can be used to authenticate messages
+     * Sets the metadata provider used to lookup information about the issuer.
+     * 
+     * @param metadataProvider metadata provider used to lookup information about the issuer
+     */
+    public void setMetadataProvider(MetadataProvider metadataProvider);
+
+    /**
+     * Gets the trust engine used to verify the credentials of a request.
+     * 
+     * @return the trust engine used to verify the credentials of a request
+     */
+    public TrustEngine getTrustEngine();
+    
+    /**
+     * Gets the security policy to apply to the request and its payload.
+     * 
+     * @return security policy to apply to the request and its payload
+     */
+    public SecurityPolicy<RequestType> getSecurityPolicy();
+    
+    /**
+     * Sets the security policy to apply to the request and its payload.
+     * 
+     * @param policy security policy to apply to the request and its payload
+     */
+    public void setSecurityPolicy(SecurityPolicy<RequestType> policy);
+    
+    /**
+     * Sets the the trust engine used to verify the credentials of a request.
+     * 
+     * @param the trust engine used to verify the credentials of a request
      */
     public void setTrustEngine(TrustEngine trustEngine);
 
@@ -49,12 +94,22 @@ public interface MessageDecoder {
 
     /**
      * Gets the SAML message that was received and decoded.
+     * 
+     * @return SAML message
      */
     public SAMLObject getSAMLMessage();
+    
+    /**
+     * Gets the issuer of the message.
+     * 
+     * @return issuer of the message
+     */
+    public String getIssuer();
 
     /**
-     * Gets the <code>RoleDescriptor</code> for the issuer of the decoded message.
+     * Gets the role metdata for the issuer of the decoded message.
+     * 
+     * @return role metdata for the issuer of the decoded message
      */
     public RoleDescriptor getIssuerMetadata();
-
 }
