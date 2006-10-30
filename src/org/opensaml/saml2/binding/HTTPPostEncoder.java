@@ -34,6 +34,8 @@ import org.w3c.dom.Element;
 
 /**
  * SAML 2.0 HTTP Post binding message encoder
+ * 
+ * TODO Consider adding attributes that might be released
  */
 public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
 
@@ -67,6 +69,7 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
     /** {@inheritDoc} */
     public void encode() throws BindingException {
         HttpServletResponse response = getResponse();
+        response.setCharacterEncoding("UTF-8");
 
         if (log.isDebugEnabled()) {
             log.debug("Adding cache headers to response");
@@ -95,7 +98,7 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
                 log.debug("Creating velocity context");
             }
             VelocityContext context = new VelocityContext();
-            context.put("action", actionURL);
+            context.put("action", getActionURL());
 
             if (getSAMLMessage() instanceof Request) {
                 context.put("SAMLRequest", base64Message);
@@ -110,7 +113,7 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
             if (log.isDebugEnabled()) {
                 log.debug("Invoking velocity template");
             }
-            Velocity.mergeTemplate(VELOCITY_TEMPLATE, Velocity.ENCODING_DEFAULT, context, response.getWriter());
+            Velocity.mergeTemplate(VELOCITY_TEMPLATE, "UTF-8", context, response.getWriter());
         } catch (MarshallingException e) {
             log.error("Unable to marshall SAML message", e);
             throw new BindingException("Unable to marshall SAML message", e);
