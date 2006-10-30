@@ -16,27 +16,12 @@
 
 package org.opensaml.common.binding;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  * Base interface for HTTP specific SAML bindings.
  */
 public interface HTTPMessageEncoder extends MessageEncoder {
-    
-    /**
-     * Sets the HTTP request to encode.
-     * 
-     * @return the HTTP request to encode
-     */
-    public HttpServletRequest getRequest();
-    
-    /**
-     * Sets the HTTP request to encode.
-     * 
-     * @param request the HTTP request to encode
-     */
-    public void setRequest(HttpServletRequest request);
     
     /**
      * Sets the HTTP response to use during the encoding process.

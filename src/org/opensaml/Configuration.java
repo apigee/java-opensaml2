@@ -16,6 +16,7 @@
 
 package org.opensaml;
 
+import org.apache.velocity.app.Velocity;
 import org.apache.xml.security.Init;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.XMLConfigurator;
@@ -35,13 +36,17 @@ public class Configuration extends org.opensaml.xml.Configuration {
         if(configured){
             return;
         }
-        
-        Init.init();
-        
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
-        Class clazz = Configuration.class;
         try {
+            // Initialize XML Security
+            Init.init();
+            
+            // Initialize Velocity
+            Velocity.init();
+            
+            ParserPoolManager ppMgr = ParserPoolManager.getInstance();    
+            Class clazz = Configuration.class;
+
             XMLConfigurator configurator = new XMLConfigurator();
             
             // Common Object Provider Configuration
