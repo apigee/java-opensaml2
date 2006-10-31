@@ -16,8 +16,10 @@
 
 package org.opensaml.common.binding;
 
-import org.bouncycastle.util.encoders.Hex;
+import java.security.SecureRandom;
+
 import org.bouncycastle.util.encoders.Base64;
+import org.bouncycastle.util.encoders.Hex;
 
 /**
  * Base class for SAML artifacts.
@@ -27,15 +29,23 @@ public abstract class SAMLArtifact {
     /** 2 byte artifact type code */
     private byte[] typeCode;
 
+    /** Random number generator */
+    protected SecureRandom randomGen;
+
     /**
      * Constructor
      * 
-     * @param requiredTypeCode the artifact type code required for this artifact
+     * @param typeCode the artifact type code
      * 
      * @throws IllegalArgumentException thrown if the given type code is not two bytes in length
      */
-    protected SAMLArtifact() throws IllegalArgumentException {
-
+    protected SAMLArtifact(byte[] typeCode) throws IllegalArgumentException {
+        setTypeCode(typeCode);
+        try {
+            randomGen = SecureRandom.getInstance("SHA1PRNG");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Unable to initialize random number generator", e);
+        }
     }
 
     /**

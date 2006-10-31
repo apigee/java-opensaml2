@@ -22,7 +22,7 @@ import java.util.Arrays;
  * SAML 2 Type 0x004 Artifact. SAML 2, type 4, artifacts contains a 2 byte type code with a value of 4 follwed by a 2
  * byte endpoint index followed by a 20 byte source ID followed by a 20 byte message handle.
  */
-public class SAML2ArtifactType0004 extends SAML2Artifact {
+public class SAML2ArtifactType0004 extends AbstractSAML2Artifact {
 
     /** SAML 2 artifact type code (0x0004) */
     public final static byte[] TYPE_CODE = { 0, 4 };
@@ -32,6 +32,29 @@ public class SAML2ArtifactType0004 extends SAML2Artifact {
 
     /** 20 byte message handle */
     private byte[] messageHandle;
+
+    /** Constructor */
+    public SAML2ArtifactType0004() {
+        super(TYPE_CODE);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param endpointIndex 2 byte endpoint index of the artifact
+     * @param sourceID 20 byte source ID of the artifact
+     * 
+     * @throws IllegalArgumentException thrown if the endpoint index, source ID, or message handle arrays are not of the
+     *             right size
+     */
+    public SAML2ArtifactType0004(byte[] endpointIndex, byte[] sourceID) throws IllegalArgumentException {
+        super(TYPE_CODE, endpointIndex);
+        setSourceID(sourceID);
+
+        byte[] messageHandle = new byte[20];
+        randomGen.nextBytes(messageHandle);
+        setMessageHandle(messageHandle);
+    }
 
     /**
      * Constructor
@@ -57,7 +80,7 @@ public class SAML2ArtifactType0004 extends SAML2Artifact {
      * 
      * @throws IllegalArgumentException thrown if the artifact is not the right type or lenght (44 bytes)
      */
-    public SAML2ArtifactType0004(byte[] artifact) throws IllegalArgumentException {
+    public static SAML2ArtifactType0004 parseArtifact(byte[] artifact) throws IllegalArgumentException {
         if (artifact.length != 44) {
             throw new IllegalArgumentException("Artifact length must be 44 bytes it was " + artifact.length + "bytes");
         }
@@ -66,18 +89,16 @@ public class SAML2ArtifactType0004 extends SAML2Artifact {
         if (Arrays.equals(typeCode, TYPE_CODE)) {
             throw new IllegalArgumentException("Illegal artifact type code");
         }
-        setTypeCode(typeCode);
 
         byte[] endpointIndex = { artifact[2], artifact[3] };
-        setEndpointIndex(endpointIndex);
 
         byte[] sourceID = new byte[20];
         System.arraycopy(artifact, 4, sourceID, 0, 20);
-        setSourceID(sourceID);
 
         byte[] messageHandle = new byte[20];
         System.arraycopy(artifact, 24, messageHandle, 0, 20);
-        setMessageHandle(messageHandle);
+
+        return new SAML2ArtifactType0004(endpointIndex, sourceID, messageHandle);
     }
 
     /**
@@ -96,7 +117,7 @@ public class SAML2ArtifactType0004 extends SAML2Artifact {
      * 
      * @throws IllegalArgumentException thrown if the given source ID is not 20 bytes
      */
-    protected void setSourceID(byte[] newSourceID) throws IllegalArgumentException {
+    public void setSourceID(byte[] newSourceID) throws IllegalArgumentException {
         if (newSourceID.length != 20) {
             throw new IllegalArgumentException("Artifact source ID must be 20 bytes long");
         }

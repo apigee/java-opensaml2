@@ -18,6 +18,7 @@ package org.opensaml;
 
 import org.apache.velocity.app.Velocity;
 import org.apache.xml.security.Init;
+import org.opensaml.common.binding.SAMLArtifactFactory;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.XMLConfigurator;
 import org.w3c.dom.Document;
@@ -27,7 +28,11 @@ import org.w3c.dom.Document;
  */
 public class Configuration extends org.opensaml.xml.Configuration {
     
+    /** Whether the library has been initialized */
     private static boolean configured = false;
+    
+    /** SAML Artifact Factory Instance */
+    private static SAMLArtifactFactory artifactFactory;
 
     /**
      * Initializes the OpenSAML library, loading default configurations.
@@ -97,9 +102,20 @@ public class Configuration extends org.opensaml.xml.Configuration {
             Document saml2mdValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-validation-config.xml"));
             configurator.load(saml2mdValidationConfig);
             
+            artifactFactory = new SAMLArtifactFactory();
+            
             configured = true;
         } catch (Exception e) {
             System.err.println("Unable to configure OpenSAML: " + e);
         }
+    }
+    
+    /**
+     * Gets the artifact factory for the library.
+     * 
+     * @return artifact factory for the library
+     */
+    public final static SAMLArtifactFactory getArtifactFactory(){
+        return artifactFactory;
     }
 }

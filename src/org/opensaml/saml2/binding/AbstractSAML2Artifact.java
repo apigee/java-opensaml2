@@ -22,28 +22,32 @@ import org.opensaml.common.binding.SAMLArtifact;
  * SAML 2 Artifact base class. SAML 2 artifacts contains a 2 byte type code follwed by a 2 byte endpoint index followed
  * by remaining artifact data.
  */
-public abstract class SAML2Artifact extends SAMLArtifact {
+public abstract class AbstractSAML2Artifact extends SAMLArtifact {
 
     /** 2 byte artifact endpoint index */
     private byte[] endpointIndex;
 
-    /** Constructor */
-    protected SAML2Artifact() {
-
+    /**
+     * Constructor
+     * 
+     * @param artifactType artifact type code
+     */
+    protected AbstractSAML2Artifact(byte[] artifactType) {
+        super(artifactType);
     }
 
     /**
      * Constructor
      * 
+     * @param artifactType artifact type code
      * @param endpointIndex 2 byte endpoint index of the artifact
      * @param sourceID 20 byte source ID of the artifact
-     * @param messageHandle 20 byte message handle of the artifact
      * 
      * @throws IllegalArgumentException thrown if the endpoint index, source ID, or message handle arrays are not of the
      *             right size
      */
-    public SAML2Artifact(byte[] artifactType, byte[] endpointIndex) throws IllegalArgumentException {
-        setTypeCode(artifactType);
+    public AbstractSAML2Artifact(byte[] artifactType, byte[] endpointIndex) throws IllegalArgumentException {
+        super(artifactType);
         setEndpointIndex(endpointIndex);
     }
 
@@ -79,7 +83,7 @@ public abstract class SAML2Artifact extends SAMLArtifact {
      * 
      * @throws IllegalArgumentException thrown if the given index is not 2 bytes
      */
-    protected void setEndpointIndex(byte[] newIndex) throws IllegalArgumentException {
+    public void setEndpointIndex(byte[] newIndex) throws IllegalArgumentException {
         if (newIndex.length != 2) {
             throw new IllegalArgumentException("Artifact endpoint index must be two bytes long");
         }
