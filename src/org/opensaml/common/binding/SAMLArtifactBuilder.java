@@ -17,4 +17,13 @@ public interface SAMLArtifactBuilder<ArtifactType extends SAMLArtifact> {
      * @return the artifact
      */
     public ArtifactType buildArtifact(String relyingParty);
+    
+    /**
+     * Builds a populated artifact given the artifact's byte-array representation.
+     * 
+     * @param artifact the byte representation of the artifact
+     * 
+     * @return populated artifact
+     */
+    public ArtifactType buildArtifact(byte[] artifact);
 }

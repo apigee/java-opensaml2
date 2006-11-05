@@ -20,6 +20,7 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 
+import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.binding.AbstractSAML1Artifact;
 import org.opensaml.saml1.binding.SAML1ArtifactType0001;
 import org.opensaml.saml1.binding.SAML1ArtifactType0001Builder;
@@ -48,25 +49,47 @@ public class SAMLArtifactFactory {
     }
 
     /**
-     * Builds a SAML 1 artifact of the given type for the given SAML message destined to the given relying party
-     * operating in the given role.
+     * Builds the the artifact for a specific version of SAML and artifact type.  Build artifacts are "empty" and must have their 
+     * appropriate data set before they can be used.
      * 
-     * @param artifactType the type of artifact to generate
-     * @param relyingParty the relying party the SAML message is destined for
-     * @param relyingPartyRole the role the relying party is operating in during this request
+     * @param samlVersion SAML version
+     * @param artifactType the type code of the artifact
+     * @param relyingParty the party the artifact is meant for
      * 
-     * @return the SAML 1 artifact for the given message
+     * @return the empty artifact
      * 
-     * @throws BindingException thrown if no builder is registered for the given type
+     * @throws BindingException thrown if the artifact can not be created usually because no builder was registered for the given version/type
      */
-    public AbstractSAML1Artifact buildSAML1Artifact(byte[] artifactType, String relyingParty) throws BindingException {
-        SAMLArtifactBuilder<? extends AbstractSAML1Artifact> artifactBuilder = saml1Builders.get(new String(
-                artifactType));
-        if (artifactBuilder == null) {
-            throw new BindingException("No SAML 1 artifact builder registered for type " + artifactType);
+    public SAMLArtifact buildArtifact(SAMLVersion samlVersion, byte[] artifactType, String relyingParty) throws BindingException {
+        SAMLArtifactBuilder builder = getBuilder(samlVersion, artifactType);
+        
+        if(builder == null){
+            throw new BindingException("No SAML " + samlVersion.toString() + " artifact builder registered for type " + artifactType);
         }
-
-        return artifactBuilder.buildArtifact(relyingParty);
+        
+        return builder.buildArtifact(relyingParty);
+    }
+    
+    /**
+     * Builds a populated artifact from its byte representation.
+     *  
+     * @param samlVersion SAML version
+     * @param artifact byte representation of the artifact
+     * 
+     * @return artifact representation of the artifact
+     * 
+     * @throws BindingException thrown if the given artifact can not be built, usually because there is not builder for the given SAML version/artifact type
+     */
+    public SAMLArtifact buildArtifact(SAMLVersion samlVersion, byte[] artifact) throws BindingException{
+        byte[] artifactType = {artifact[0], artifact[1]};
+        
+        SAMLArtifactBuilder builder = getBuilder(samlVersion, artifactType);
+        
+        if(builder == null){
+            throw new BindingException("No SAML " + samlVersion.toString() + " artifact builder registered for type " + artifactType);
+        }
+        
+        return builder.buildArtifact(artifact);
     }
 
     /**
@@ -81,28 +104,6 @@ public class SAMLArtifactFactory {
     }
 
     /**
-     * Builds a SAML 2 artifact of the given type for the given SAML message destined to the given relying party
-     * operating in the given role.
-     * 
-     * @param artifactType the type of artifact to generate
-     * @param relyingParty the relying party the SAML message is destined for
-     * @param relyingPartyRole the role the relying party is operating in during this request
-     * 
-     * @return the SAML 2 artifact for the given message
-     * 
-     * @throws BindingException thrown if no builder is registered for the given type
-     */
-    public AbstractSAML2Artifact buildSAML2Artifact(byte[] artifactType, String relyingParty) throws BindingException {
-        SAMLArtifactBuilder<? extends AbstractSAML2Artifact> artifactBuilder = saml2Builders.get(new String(
-                artifactType));
-        if (artifactBuilder == null) {
-            throw new BindingException("No SAML 2 artifact builder registered for type " + artifactType);
-        }
-
-        return artifactBuilder.buildArtifact(relyingParty);
-    }
-
-    /**
      * Gets the registered SAML 2 artifact builders. The map key is the string representation of the artifact type
      * (using the default encoding) and the value is the builder. This map is mutable and new builders my be registered
      * through it. Existing builders may be replaced by registering a new builder with the same type.
@@ -111,5 +112,24 @@ public class SAMLArtifactFactory {
      */
     public Map<String, SAMLArtifactBuilder<? extends AbstractSAML2Artifact>> getSAML2ArtifactBuilders() {
         return saml2Builders;
+    }
+    
+    /**
+     * Gets the artifact builder for a particular version of SAML and artifact type.
+     * 
+     * @param samlVersion the SAML version
+     * @param artifactType the artifact type
+     * 
+     * @return artifact builder for the given SAML version/artifact type or null if no builder is registered
+     */
+    protected SAMLArtifactBuilder getBuilder(SAMLVersion samlVersion, byte[] artifactType){
+        String type = new String(artifactType);
+        if(samlVersion == SAMLVersion.VERSION_10 || samlVersion == SAMLVersion.VERSION_11){
+            return saml1Builders.get(type);
+        }else if(samlVersion == SAMLVersion.VERSION_20){
+            return saml2Builders.get(type);
+        }
+        
+        return null;
     }
 }

@@ -30,4 +30,9 @@ public class SAML2ArtifactType0004Builder implements SAMLArtifactBuilder<SAML2Ar
 
         return artifact;
     }
+    
+    /** {@inheritDoc} */
+    public SAML2ArtifactType0004 buildArtifact(byte[] artifact){
+        return SAML2ArtifactType0004.parseArtifact(artifact);
+    }
 }

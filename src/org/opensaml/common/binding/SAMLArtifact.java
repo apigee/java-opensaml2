@@ -17,6 +17,7 @@
 package org.opensaml.common.binding;
 
 import java.security.SecureRandom;
+import java.util.Arrays;
 
 import org.bouncycastle.util.encoders.Base64;
 import org.bouncycastle.util.encoders.Hex;
@@ -112,7 +113,7 @@ public abstract class SAMLArtifact {
     public boolean equals(Object o) {
         if (o instanceof SAMLArtifact) {
             SAMLArtifact otherArtifact = (SAMLArtifact) o;
-            return getArtifactBytes() == otherArtifact.getArtifactBytes();
+            return Arrays.equals(getArtifactBytes(), otherArtifact.getArtifactBytes());
         }
 
         return false;
@@ -120,6 +121,11 @@ public abstract class SAMLArtifact {
 
     /** {@inheritDoc} */
     public int hashCode() {
-        return base64Encode().hashCode();
+        return Arrays.hashCode(getArtifactBytes());
+    }
+    
+    /** {@inheritDoc} */
+    public String toString(){
+        return new String(getArtifactBytes());
     }
 }

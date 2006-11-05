@@ -16,6 +16,7 @@
 
 package org.opensaml.common.binding;
 
+import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.xml.util.StorageService;
 
@@ -25,22 +26,22 @@ import org.opensaml.xml.util.StorageService;
 public class ArtifactMap {
     
     /** Backing storage service */
-    private StorageService<String, String> store;
+    private StorageService<String, SAMLObject> store;
     
     /** Storage context for the persisted artifacts */
     private String context;
     
-    /** Time to live for Artifacts */
-    private long artifactTTL; 
+    /** Time to live for Artifacts, in seconds */
+    private int artifactTTL; 
 
     /**
      * Constructor
      *
      * @param backingStore backing store used to persist the map
      * @param storageContext the context to use with the backing store
-     * @param artifactTTL time to live for persisted artifacts
+     * @param artifactTTL time to live for persisted artifacts, in seconds
      */
-    public ArtifactMap(StorageService<String, String> backingStore, String storageContext, long artifactTTL){
+    public ArtifactMap(StorageService<String, SAMLObject> backingStore, String storageContext, int artifactTTL){
         store = backingStore;
         context = storageContext;
         this.artifactTTL = artifactTTL;
@@ -53,7 +54,7 @@ public class ArtifactMap {
      * @param samlMessage the SAML message
      */
     public void put(SAMLArtifact artifact, SAMLObject samlMessage){
-        // TODO
+        store.put(context, artifact.toString(), samlMessage, new DateTime().plusSeconds(artifactTTL));
     }
     
     /**
@@ -64,7 +65,6 @@ public class ArtifactMap {
      * @return the SAML message or null if the artifact has already expired or did not exist
      */
     public SAMLObject get(SAMLArtifact artifact){
-        // TODO
-        return null;
+        return store.get(context, artifact.toString());
     }
 }

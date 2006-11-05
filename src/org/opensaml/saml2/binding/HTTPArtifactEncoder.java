@@ -24,25 +24,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.binding.ArtifactMap;
 import org.opensaml.common.binding.BindingException;
+import org.opensaml.common.binding.SAMLArtifact;
+import org.opensaml.common.binding.SAMLArtifactFactory;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * SAML 2 Artifact Binding encoder, support both HTTP GET and POST.
- * 
- * TODO creation of artifact
  */
 public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
 
     /** Location of the velocity template */
     public final static String VELOCITY_TEMPLATE = "/templates/saml2-post-artifact-binding.vm";
-
-    /** HTTP Method - POST */
-    public final static String POST_METHOD = "POST";
-
-    /** HTTP Method - GET */
-    public final static String GET_METHOD = "GET";
 
     /** Class logger */
     private final static Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
@@ -52,9 +49,18 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
 
     /** URL for the form action field */
     private String actionURL;
-
+    
+    /** Type code of artifacts to use */
+    private byte[] artifactType;
+    
+    /** Factory for building artifacts */
+    private SAMLArtifactFactory artifactFactory;
+    
+    /** Artifact map for built artifacts and messages */
+    private ArtifactMap artifactMap;
+    
     /** Artifact generated for the given SAML message */
-    private String artifact;
+    private SAMLArtifact artifact;
 
     /**
      * Gets the HTTP submit method to use.
@@ -91,13 +97,67 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     public void setActionURL(String url) {
         actionURL = url;
     }
+    
+    /**
+     * Gets the artifact factory used to create artifacts for this encoder.
+     * 
+     * @return artifact factory used to create artifacts for this encoder
+     */
+    public SAMLArtifactFactory getArtifactFactory() {
+        return artifactFactory;
+    }
+
+    /**
+     * Sets the artifact factory used to create artifacts for this encoder.
+     * 
+     * @param artifactFactory artifact factory used to create artifacts for this encoder
+     */
+    public void setArtifactFactory(SAMLArtifactFactory artifactFactory) {
+        this.artifactFactory = artifactFactory;
+    }
+
+    /**
+     * Gets the artifact map used to map artifacts and messages.
+     * 
+     * @return artifact map used to map artifacts and messages
+     */
+    public ArtifactMap getArtifactMap() {
+        return artifactMap;
+    }
+
+    /**
+     * Sets the artifact map used to map artifacts and messages.
+     * 
+     * @param artifactMap artifact map used to map artifacts and messages
+     */
+    public void setArtifactMap(ArtifactMap artifactMap) {
+        this.artifactMap = artifactMap;
+    }
+
+    /**
+     * Gets the type of artifact this encoder will use.
+     * 
+     * @return type of artifact this encoder will use
+     */
+    public byte[] getArtifactType() {
+        return artifactType;
+    }
+
+    /**
+     * Sets the type of artifact this encoder will use.
+     * 
+     * @param artifactType type of artifact this encoder will use
+     */
+    public void setArtifactType(byte[] artifactType) {
+        this.artifactType = artifactType;
+    }
 
     /**
      * Gets the artifact created for the given SAML message.
      * 
      * @return artifact created for the given SAML message
      */
-    public String getArtifact() {
+    public SAMLArtifact getArtifact() {
         return artifact;
     }
 
@@ -105,6 +165,11 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     public void encode() throws BindingException {
         HttpServletResponse response = getResponse();
         response.setCharacterEncoding("UTF-8");
+        
+        if(log.isDebugEnabled()){
+            log.debug("Generating SAML artifact and mapping SAML message to it");
+        }
+        generateArtifact();
 
         if (log.isDebugEnabled()) {
             log.debug("Creating velocity context");
@@ -117,9 +182,9 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
             context.put("RelayState", getRelayState());
         }
 
-        if (method.equalsIgnoreCase(POST_METHOD)) {
+        if (method.equalsIgnoreCase(SAMLConstants.POST_METHOD)) {
             postEncode(context);
-        } else {
+        } else if (method.equalsIgnoreCase(SAMLConstants.GET_METHOD)){
             getEncode(context);
         }
     }
@@ -129,7 +194,7 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
      * 
      * @throws BindingException thrown if there is a problem invoking the velocity template to create the form
      */
-    private void postEncode(VelocityContext context) throws BindingException {
+    protected void postEncode(VelocityContext context) throws BindingException {
         try {
             if (log.isDebugEnabled()) {
                 log.debug("Performing HTTP GET SAML 2 artifact encoding");
@@ -150,7 +215,7 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
      * 
      * @throws BindingException
      */
-    private void getEncode(VelocityContext context) throws BindingException {
+    protected void getEncode(VelocityContext context) throws BindingException {
         if (log.isDebugEnabled()) {
             log.debug("Performing HTTP GET SAML 2 artifact encoding");
         }
@@ -168,4 +233,15 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
             throw new BindingException("Error creating redirect URL", e);
         }
     }
+    
+    /**
+     * Generates the artifact to use and maps the given SAML message to it.
+     * 
+     * @throws BindingException thrown if the artifact can not be created
+     */
+    protected void generateArtifact() throws BindingException{
+        SAMLArtifactFactory factory = getArtifactFactory();
+        artifact = factory.buildArtifact(SAMLVersion.VERSION_20, getArtifactType(), getRelyingParty());
+        artifactMap.put(artifact, getSAMLMessage());
+    }    
 }

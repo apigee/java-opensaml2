@@ -17,22 +17,17 @@
 package org.opensaml.saml2.binding;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
-import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.SecurityPolicy;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageDecoder;
-import org.opensaml.common.xml.ParserPoolManager;
-import org.opensaml.xml.io.Unmarshaller;
-import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.DatatypeHelper;
-import org.w3c.dom.Document;
 
 /**
  * Message decoder implementing the SAML 2.0 HTTP POST profile.
@@ -40,7 +35,7 @@ import org.w3c.dom.Document;
 public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
 
     /** Class logger */
-    private final static Logger log = Logger.getLogger(HTTPPostDecoder.class);
+    public final static Logger log = Logger.getLogger(HTTPPostDecoder.class);
 
     /** HTTP request param name for SAML request */
     public final static String REQUEST_PARAM = "SAMLRequest";
@@ -58,6 +53,35 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
         }
         HttpServletRequest request = getRequest();
 
+        InputStream decodedMessage = getBase64DecodedMessage(request);
+        
+        SAMLObject samlMessage = unmarshallSAMLMessage(decodedMessage);
+        
+        SecurityPolicy<HttpServletRequest> securityPolicy = getSecurityPolicy();
+        if(securityPolicy != null){
+            evaluateSecurityPolicy(securityPolicy, request, samlMessage);
+            setIssuer(securityPolicy.getIssuer());
+            setIssuerMetadata(securityPolicy.getIssuerMetadata());
+        }
+
+        setRelayState(request.getParameter(RELAY_STATE_PARAM));
+        setSAMLMessage(samlMessage);
+        
+        if(log.isDebugEnabled()){
+            log.debug("HTTP request successfully decoded using SAML 2 HTTP POST binding");
+        }
+    }
+    
+    /**
+     * Gets the Base64 encoded message from the request and decodes it.
+     * 
+     * @param request HTTP request that carries the base64 encoded message
+     * 
+     * @return decoded message
+     * 
+     * @throws BindingException thrown if the message does not contain a base64 encoded SAML message
+     */
+    protected InputStream getBase64DecodedMessage(HttpServletRequest request) throws BindingException{
         if (log.isDebugEnabled()) {
             log.debug("Getting Base64 encoded message from request");
         }
@@ -76,39 +100,7 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
             log.debug("Base64 decoding SAML message");
         }
         byte[] decodedMessage = Base64.decode(encodedMessage);
-
-        try {
-            if (log.isDebugEnabled()) {
-                log.debug("Parsing message XML into a DOM");
-            }
-            Document domMessage = ParserPoolManager.getInstance().parse(new ByteArrayInputStream(decodedMessage));
-            
-            if(log.isDebugEnabled()){
-                log.debug("Unmarshalling DOM into SAMLObject");
-            }
-            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
-                    domMessage.getDocumentElement());
-            SAMLObject message = (SAMLObject) unmarshaller.unmarshall(domMessage.getDocumentElement());
-
-            if(log.isDebugEnabled()){
-                log.debug("Evaluating request and SAML message against security policy");
-            }
-            SecurityPolicy<HttpServletRequest> securityPolicy = getSecurityPolicy();
-            securityPolicy.evaluate(getRequest(), message);
-
-            if(log.isDebugEnabled()){
-                log.debug("HTTP request successfully decoded using SAML 2 HTTP POST binding");
-            }
-            setIssuer(securityPolicy.getIssuer());
-            setIssuerMetadata(securityPolicy.getIssuerMetadata());
-            setRelayState(request.getParameter(RELAY_STATE_PARAM));
-            setSAMLMessage(message);
-        } catch (XMLParserException e) {
-            log.error("Unable to parse SAML message XML", e);
-            throw new BindingException("Unable to parse SAML message XML", e);
-        } catch (UnmarshallingException e) {
-            log.error("Unable to unmarshall SAML message DOM", e);
-            throw new BindingException("Unable to unmarshaller SAML message DOM", e);
-        }
+        
+        return new ByteArrayInputStream(decodedMessage);
     }
 }

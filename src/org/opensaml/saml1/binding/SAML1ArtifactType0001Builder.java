@@ -27,4 +27,9 @@ public class SAML1ArtifactType0001Builder implements SAMLArtifactBuilder<SAML1Ar
     public SAML1ArtifactType0001 buildArtifact(String relyingParty) {
         return new SAML1ArtifactType0001();
     }
+    
+    /** {@inheritDoc} */
+    public SAML1ArtifactType0001 buildArtifact(byte[] artifact){
+        return SAML1ArtifactType0001.parseArtifact(artifact);
+    }
 }

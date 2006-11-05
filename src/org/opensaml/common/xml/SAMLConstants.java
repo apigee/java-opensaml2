@@ -23,6 +23,15 @@ import org.opensaml.xml.util.XMLConstants;
  */
 public class SAMLConstants extends XMLConstants{
     //****************************
+    // HTTP Constants
+    //****************************
+    /** HTTP Request Method - POST */
+    public final static String POST_METHOD = "POST";
+    
+    /** HTTP Method - GET */
+    public final static String GET_METHOD = "GET";
+    
+    //****************************
     // OpenSAML 2
     //****************************
     /** Directory, on the classpath, schemas are located in */

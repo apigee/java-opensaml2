@@ -24,6 +24,13 @@ import javax.servlet.http.HttpServletRequest;
 public interface HTTPMessageDecoder extends MessageDecoder<HttpServletRequest> {
 
     /**
+     * Gets the HTTP method used in the request.  Possible values are "GET" and "POST".
+     * 
+     * @return HTTP method used in the request
+     */
+    public String getMethod();
+    
+    /**
      * Gets the relay state from the decoded message.
      */
     public String getRelayState();
