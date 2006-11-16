@@ -16,17 +16,26 @@
 
 package org.opensaml.common.binding.impl;
 
+import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.MessageEncoder;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Element;
 
 /**
  * Base class handling boilerplate code for message encoders.
  */
 public abstract class AbstractMessageEncoder implements MessageEncoder {
-    
+
     private MetadataProvider metadataProvider;
+
     private String relyingParty;
+
     private SAMLObject samlMessage;
 
     /** {@inheritDoc} */
@@ -46,28 +55,47 @@ public abstract class AbstractMessageEncoder implements MessageEncoder {
 
     /** {@inheritDoc} */
     public void setMetadataProvider(MetadataProvider metadatProvider) {
-        if(metadatProvider != null){
+        if (metadatProvider != null) {
             this.metadataProvider = metadatProvider;
-        }else{
+        } else {
             throw new NullPointerException("MetadataProvider may not be null");
         }
     }
 
     /** {@inheritDoc} */
     public void setRelyingParty(String relyingParty) {
-        if(relyingParty != null){
+        if (relyingParty != null) {
             this.relyingParty = relyingParty;
-        }else{
+        } else {
             throw new NullPointerException("Relying party may not be null");
         }
     }
 
     /** {@inheritDoc} */
     public void setSAMLMessage(SAMLObject samlMessage) {
-        if(samlMessage != null){
+        if (samlMessage != null) {
             this.samlMessage = samlMessage;
-        }else{
+        } else {
             throw new NullPointerException("SAML message may not be null");
+        }
+    }
+
+    /**
+     * Marshalls an XML message and writes the element to a string using UTF-8 encoding.
+     * 
+     * @param message the message to marshall
+     * 
+     * @return the marshalled message
+     * 
+     * @throws BindingException thrown if the message can not be marshalled
+     */
+    protected String marshallMessage(XMLObject message) throws BindingException {
+        try {
+            Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(message);
+            Element messageDOM = marshaller.marshall(message);
+            return XMLHelper.nodeToString(messageDOM);
+        } catch (MarshallingException e) {
+            throw new BindingException("Unable to marshall XML message", e);
         }
     }
 }
