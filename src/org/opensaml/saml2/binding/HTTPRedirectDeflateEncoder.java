@@ -21,30 +21,37 @@ import java.io.IOException;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 
-import org.bouncycastle.util.encoders.Base64;
-import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
-import org.opensaml.xml.io.Marshaller;
-import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.util.XMLHelper;
-import org.w3c.dom.Element;
+import org.opensaml.xml.util.Base64;
 
 /**
  * SAML 2.0 HTTP Redirect encoder using the DEFLATE encoding method.
  */
 public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
+    
+    /** URL to send message to via HTTP redirect */
+    private String redirectURL;
 
+    /** Whether to sign URL params */
     private boolean signMessage = false;
+    
+    /**
+     * Gets whether the message was signed per the redirect binding specification.
+     * 
+     * @return whether the message was signed per the redirect binding specification
+     */
+    public boolean isSigned(){
+        return signMessage;
+    }
 
     /** {@inheritDoc} */
     public void encode() throws BindingException {
         SignableSAMLObject message = (SignableSAMLObject) getSAMLMessage();
         removeSignature(message);
-        byte[] deflatedMessage = compressMessage(message);
-        byte[] encodedMessage = base64EncodeMessage(deflatedMessage);
+        byte[] encodedMessage = defalteAndBase64Encode(message);;
 
     }
 
@@ -69,33 +76,19 @@ public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
      * 
      * @throws BindingException thrown if there is a problem compressing the message
      */
-    protected byte[] compressMessage(SAMLObject message) throws BindingException {
+    protected byte[] defalteAndBase64Encode(SAMLObject message) throws BindingException {
         try {
-            Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(message);
-            Element messageDOM = marshaller.marshall(message);
-            String messageStr = XMLHelper.nodeToString(messageDOM);
+            String messageStr = marshallMessage(message);
 
             ByteArrayOutputStream messageOut = new ByteArrayOutputStream();
+            Base64.OutputStream b64Out = new Base64.OutputStream(messageOut);
             Deflater deflater = new Deflater(Deflater.DEFLATED, true);
-            DeflaterOutputStream deflaterStream = new DeflaterOutputStream(messageOut, deflater);
+            DeflaterOutputStream deflaterStream = new DeflaterOutputStream(b64Out, deflater);
             deflaterStream.write(messageStr.getBytes());
             deflaterStream.close();
             return messageOut.toByteArray();
-        } catch (MarshallingException e) {
-            throw new BindingException("Unable to marshall SAML message", e);
         } catch (IOException e) {
-            throw new BindingException("Error DEFLATE compressing SAML message", e);
+            throw new BindingException("Unable to DEFLATE and Base64 encode SAML message", e);
         }
-    }
-
-    /**
-     * Base64 encodes the given message.
-     * 
-     * @param message message to encode
-     * 
-     * @return Base64 encoded message
-     */
-    protected byte[] base64EncodeMessage(byte[] message) {
-        return Base64.encode(message);
     }
 }
