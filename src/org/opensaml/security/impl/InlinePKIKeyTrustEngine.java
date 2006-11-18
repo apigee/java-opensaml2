@@ -18,6 +18,7 @@ package org.opensaml.security.impl;
 
 import java.security.PublicKey;
 import java.security.cert.CertificateEncodingException;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +32,7 @@ import org.opensaml.security.CredentialUsageTypeEnumeration;
 import org.opensaml.security.TrustEngine;
 import org.opensaml.security.X509EntityCredential;
 import org.opensaml.xml.signature.KeyInfo;
+import org.opensaml.xml.signature.KeyInfoHelper;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureValidator;
 import org.opensaml.xml.validation.ValidationException;
@@ -96,7 +98,14 @@ public class InlinePKIKeyTrustEngine implements TrustEngine<X509EntityCredential
             }
 
             keyInfo = keyDescriptor.getKeyInfo();
-            keyInfoCertificates = keyInfo.getCertificates();
+            keyInfoCertificates = null;
+            try {
+                keyInfoCertificates = KeyInfoHelper.getCertificates(keyInfo);
+            } catch (CertificateException e) {
+                log.error("Error extracting certificates from KeyInfo: " + e);
+                continue;
+            }
+            
             if (keyInfoCertificates == null || keyInfoCertificates.size() == 0) {
                 if (log.isDebugEnabled()) {
                     log.debug("Key descriptor does not contain any certificates, skipping this key descriptor");
@@ -107,7 +116,7 @@ public class InlinePKIKeyTrustEngine implements TrustEngine<X509EntityCredential
             if (log.isDebugEnabled()) {
                 log.debug("Checking if certificates contained within match end-entity certificate");
             }
-            for (X509Certificate roleCertificate : keyInfo.getCertificates()) {
+            for (X509Certificate roleCertificate : keyInfoCertificates) {
                 try {
                     if (Arrays.equals(roleCertificate.getEncoded(), entityCredential.getEntityCertificate()
                             .getEncoded())) {
@@ -162,7 +171,9 @@ public class InlinePKIKeyTrustEngine implements TrustEngine<X509EntityCredential
         for (KeyDescriptor keyDescriptor : keyDescriptors) {
             if (keyDescriptor.getUse() == CredentialUsageTypeEnumeration.SIGNING) {
                 keyInfo = keyDescriptor.getKeyInfo();
-                publicKey = keyInfo.getPublicKey();
+                //TODO this is broken until helper is finished.
+                //TODO KeyInfo can in theory have multiple public key reps, so what to do ?
+                publicKey = KeyInfoHelper.getPublicKeys(keyInfo).get(0);
                 
                 if (publicKey != null) {
                     if(log.isDebugEnabled()){

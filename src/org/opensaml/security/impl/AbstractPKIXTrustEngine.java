@@ -21,6 +21,7 @@ import java.security.cert.CertPath;
 import java.security.cert.CertPathBuilder;
 import java.security.cert.CertPathValidator;
 import java.security.cert.CertStore;
+import java.security.cert.CertificateException;
 import java.security.cert.CollectionCertStoreParameters;
 import java.security.cert.PKIXBuilderParameters;
 import java.security.cert.PKIXCertPathBuilderResult;
@@ -47,6 +48,7 @@ import org.opensaml.security.TrustEngine;
 import org.opensaml.security.X509EntityCredential;
 import org.opensaml.security.X509Util;
 import org.opensaml.xml.signature.KeyInfo;
+import org.opensaml.xml.signature.KeyInfoHelper;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureValidator;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -76,7 +78,13 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
         }
         Signature signature = samlObject.getSignature();
         KeyInfo keyInfo = signature.getKeyInfo();
-        List<X509Certificate> sigCerts = keyInfo.getCertificates();
+        List<X509Certificate> sigCerts;
+        try {
+            sigCerts = KeyInfoHelper.getCertificates(keyInfo);
+        } catch (CertificateException e) {
+            log.error("Error in extracting certificates from KeyInfo: " + e);
+            return null;
+        }
 
         if (sigCerts == null || sigCerts.size() == 0) {
             if (log.isDebugEnabled()) {
@@ -206,7 +214,7 @@ public abstract class AbstractPKIXTrustEngine implements TrustEngine<X509EntityC
                     continue KEYNAMECHECK;
 
                 } else {
-                    List<String> keyNames = keyDescriptor.getKeyInfo().getKeyNames();
+                    List<String> keyNames = KeyInfoHelper.getKeyNames(keyDescriptor.getKeyInfo());
                     for (String keyName : keyNames) {
                         if (matchKeyName(keyName, entityCerficate)) {
                             return true;
