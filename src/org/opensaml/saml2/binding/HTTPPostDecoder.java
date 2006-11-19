@@ -53,13 +53,13 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
         }
         HttpServletRequest request = getRequest();
 
-        InputStream decodedMessage = getBase64DecodedMessage(request);
+        InputStream decodedMessage = getBase64DecodedMessage();
         
         SAMLObject samlMessage = unmarshallSAMLMessage(decodedMessage);
         
         SecurityPolicy<HttpServletRequest> securityPolicy = getSecurityPolicy();
         if(securityPolicy != null){
-            evaluateSecurityPolicy(securityPolicy, request, samlMessage);
+            evaluateSecurityPolicy();
             setIssuer(securityPolicy.getIssuer());
             setIssuerMetadata(securityPolicy.getIssuerMetadata());
         }
@@ -81,18 +81,18 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
      * 
      * @throws BindingException thrown if the message does not contain a base64 encoded SAML message
      */
-    protected InputStream getBase64DecodedMessage(HttpServletRequest request) throws BindingException{
+    protected InputStream getBase64DecodedMessage() throws BindingException{
         if (log.isDebugEnabled()) {
             log.debug("Getting Base64 encoded message from request");
         }
-        String encodedMessage = request.getParameter(REQUEST_PARAM);
+        String encodedMessage = getRequest().getParameter(REQUEST_PARAM);
         if (DatatypeHelper.isEmpty(encodedMessage)) {
-            encodedMessage = request.getParameter(RESPONSE_PARAM);
+            encodedMessage = getRequest().getParameter(RESPONSE_PARAM);
         }
 
         if (DatatypeHelper.isEmpty(encodedMessage)) {
             log.error("Request did not contain either a " + REQUEST_PARAM + " or " + RESPONSE_PARAM
-                    + " paramter in request.  Invalid request for SAML 2 HTTP POST binding.");
+                    + " paramter.  Invalid request for SAML 2 HTTP POST binding.");
             throw new BindingException("No SAML message present in request");
         }
 

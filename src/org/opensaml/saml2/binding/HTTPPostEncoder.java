@@ -16,21 +16,19 @@
 
 package org.opensaml.saml2.binding;
 
+import java.io.IOException;
+import java.io.Writer;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.bouncycastle.util.encoders.Base64;
-import org.opensaml.Configuration;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
 import org.opensaml.saml2.core.Request;
-import org.opensaml.xml.io.Marshaller;
-import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
-import org.opensaml.xml.util.XMLHelper;
-import org.w3c.dom.Element;
 
 /**
  * SAML 2.0 HTTP Post binding message encoder
@@ -68,55 +66,72 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
 
     /** {@inheritDoc} */
     public void encode() throws BindingException {
+        if(log.isDebugEnabled()){
+            log.debug("Beginning SAML 2 HTTP POST encoding");
+        }
+        
         HttpServletResponse response = getResponse();
-        response.setCharacterEncoding("UTF-8");
 
         if (log.isDebugEnabled()) {
-            log.debug("Adding cache headers to response");
+            log.debug("Marshalling SAML message");
         }
-        response.addHeader("Cache-control", "no-cache, no-store");
-        response.addHeader("Pragma", "no-cache");
+        String messageXML = marshallMessage(getSAMLMessage());
 
+        if (log.isDebugEnabled()) {
+            log.debug("Base64 encoding message");
+        }
+        String encodedMessage = new String(Base64.encode(messageXML.getBytes()));
+
+        try{
+            if (log.isDebugEnabled()) {
+                log.debug("Adding cache headers to response");
+            }
+            response.setCharacterEncoding("UTF-8");
+            response.addHeader("Cache-control", "no-cache, no-store");
+            response.addHeader("Pragma", "no-cache");
+            
+            postEncode(response.getWriter(), encodedMessage);
+        }catch(IOException e){
+            log.error("Unable to access HttpServletResponse output writer", e);
+            throw new BindingException("Unable to access HttpServletResponse output writer", e);
+        }
+    }
+
+    /**
+     * POST encodes the SAML message.
+     * 
+     * @param responseWriter writer to write the encoded message to
+     * 
+     * @param message base64 encoded SAML message
+     * 
+     * @throws BindingException thrown if the message can not be written to the writer
+     */
+    protected void postEncode(Writer responseWriter, String message) throws BindingException {
+        if (log.isDebugEnabled()) {
+            log.debug("Performing SAML 2 HTTP POST encoding");
+        }
+        
+        if (log.isDebugEnabled()) {
+            log.debug("Creating velocity context");
+        }
+        VelocityContext context = new VelocityContext();
+        context.put("action", getActionURL());
+
+        if (getSAMLMessage() instanceof Request) {
+            context.put("SAMLRequest", message);
+        } else {
+            context.put("SAMLResponse", message);
+        }
+
+        if (!DatatypeHelper.isEmpty(getRelayState())) {
+            context.put("RelayState", getRelayState());
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("Invoking velocity template");
+        }
         try {
-            if (log.isDebugEnabled()) {
-                log.debug("Marshalling SAML message");
-            }
-            Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(getSAMLMessage());
-            Element messageElement = marshaller.marshall(getSAMLMessage());
-
-            if (log.isDebugEnabled()) {
-                log.debug("Writting message DOM Element to a string");
-            }
-            String messageXML = XMLHelper.nodeToString(messageElement);
-
-            if (log.isDebugEnabled()) {
-                log.debug("Base64 encoding message");
-            }
-            String base64Message = new String(Base64.encode(messageXML.getBytes()));
-
-            if (log.isDebugEnabled()) {
-                log.debug("Creating velocity context");
-            }
-            VelocityContext context = new VelocityContext();
-            context.put("action", getActionURL());
-
-            if (getSAMLMessage() instanceof Request) {
-                context.put("SAMLRequest", base64Message);
-            } else {
-                context.put("SAMLResponse", base64Message);
-            }
-
-            if (!DatatypeHelper.isEmpty(getRelayState())) {
-                context.put("RelayState", getRelayState());
-            }
-
-            if (log.isDebugEnabled()) {
-                log.debug("Invoking velocity template");
-            }
-            Velocity.mergeTemplate(VELOCITY_TEMPLATE, "UTF-8", context, response.getWriter());
-        } catch (MarshallingException e) {
-            log.error("Unable to marshall SAML message", e);
-            throw new BindingException("Unable to marshall SAML message", e);
+            Velocity.mergeTemplate(VELOCITY_TEMPLATE, "UTF-8", context, responseWriter);
         } catch (Exception e) {
             log.error("Error invoking velocity template", e);
             throw new BindingException("Error creating output document", e);

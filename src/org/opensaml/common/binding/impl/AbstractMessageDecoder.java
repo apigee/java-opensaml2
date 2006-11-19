@@ -16,15 +16,24 @@
 
 package org.opensaml.common.binding.impl;
 
+import java.io.InputStream;
+
 import javax.servlet.ServletRequest;
 
+import org.apache.log4j.Logger;
+import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.MessageDecoder;
 import org.opensaml.common.binding.SecurityPolicy;
+import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.security.TrustEngine;
+import org.opensaml.xml.io.Unmarshaller;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.XMLParserException;
+import org.w3c.dom.Document;
 
 /**
  * Base class for message decoder handling much of the boilerplate code.
@@ -32,6 +41,9 @@ import org.opensaml.security.TrustEngine;
  * @param <RequestType> request type that will be decoded
  */
 public abstract class AbstractMessageDecoder<RequestType extends ServletRequest> implements MessageDecoder<RequestType> {
+    
+    /** Class logger */
+    public final static Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
 
     /** Issuer of the request */
     private String issuer;
@@ -138,4 +150,60 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
     
     /** {@inheritDoc} */
     abstract public void decode() throws BindingException;
+
+
+    /**
+     * Parses the incoming message into a DOM and then unmarshalls it into a SAMLObject.
+     * 
+     * @param samlMessage message to unmarshall
+     * 
+     * @return SAMLObject representation of the message
+     * 
+     * @throws BindingException thrown if the incoming XML can not be parsed and unmarshalled
+     */
+    protected SAMLObject unmarshallSAMLMessage(InputStream samlMessage) throws BindingException {
+        if(log.isDebugEnabled()){
+            log.debug("Unmarshalling SAML message");
+        }
+        
+        try {
+            if (log.isDebugEnabled()) {
+                log.debug("Parsing message XML into a DOM");
+            }
+            Document domMessage = ParserPoolManager.getInstance().parse(samlMessage);
+            
+            if(log.isDebugEnabled()){
+                log.debug("Unmarshalling DOM into SAMLObject");
+            }
+            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
+                    domMessage.getDocumentElement());
+            return (SAMLObject) unmarshaller.unmarshall(domMessage.getDocumentElement());
+        } catch (XMLParserException e) {
+            log.error("Unable to parse SAML message XML", e);
+            throw new BindingException("Unable to parse SAML message XML", e);
+        } catch (UnmarshallingException e) {
+            log.error("Unable to unmarshall SAML message DOM", e);
+            throw new BindingException("Unable to unmarshaller SAML message DOM", e);
+        }
+    }
+
+    /**
+     * Evaluates the registered security policy, if there is one, against the provided request and message.
+     * 
+     * @param securityPolicy security policy to evaluate
+     * @param request HTTP request
+     * @param samlMessage SAML message
+     * 
+     * @throws BindingException thrown if the given request/message do not meet the requirements of the security policy
+     */
+    protected void evaluateSecurityPolicy() throws BindingException {
+        if(log.isDebugEnabled()){
+            log.debug("Evaluating request and SAML message against security policy");
+        }
+        
+        SecurityPolicy<RequestType> policy = getSecurityPolicy();
+        if(policy != null){
+            policy.evaluate(getRequest(), getSAMLMessage());
+        }
+    }
 }

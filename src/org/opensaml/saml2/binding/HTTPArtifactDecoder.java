@@ -18,6 +18,7 @@ package org.opensaml.saml2.binding;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.binding.BindingException;
@@ -31,6 +32,9 @@ import org.opensaml.xml.util.DatatypeHelper;
  */
 public class HTTPArtifactDecoder extends AbstractHTTPMessageDecoder {
 
+    /** Class logger */
+    private final static Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
+    
     /** Factory for building artifacts */
     private SAMLArtifactFactory artifactFactory;
 
@@ -66,6 +70,9 @@ public class HTTPArtifactDecoder extends AbstractHTTPMessageDecoder {
 
     /** {@inheritDoc} */
     public void decode() throws BindingException {
+        if(log.isDebugEnabled()){
+            log.debug("Beginning SAML 2 HTTP Artifact decoding");
+        }
         HttpServletRequest request = getRequest();
 
         if (getSecurityPolicy() != null) {
@@ -78,21 +85,23 @@ public class HTTPArtifactDecoder extends AbstractHTTPMessageDecoder {
             setRelayState(request.getParameter("RelayState"));
         }
 
-        artifact = decodeArtifact(request);
+        artifact = decodeArtifact();
     }
     
     /**
      * Extracts the Base64 encoded from the request, decodes it, and builds a {@link SAMLArtifact} from it.
      * 
-     * @param request request containing the SAML artifact
-     * 
      * @return the SAML artifact
      * 
      * @throws BindingException thrown if the SAML artifact could not be created
      */
-    protected SAMLArtifact decodeArtifact(HttpServletRequest request) throws BindingException{
-        String samlArt = request.getParameter("SAMLArt");
+    protected SAMLArtifact decodeArtifact() throws BindingException{
+        if(log.isDebugEnabled()){
+            log.debug("Decoding SAML artifact");
+        }
+        String samlArt = getRequest().getParameter("SAMLArt");
         if (DatatypeHelper.isEmpty(samlArt)) {
+            log.error("Request does not contain a SAML artifact");
             throw new BindingException("Request does not contain a SAML artifact");
         } else {
             byte[] artifactBytes = Base64.decode(samlArt);

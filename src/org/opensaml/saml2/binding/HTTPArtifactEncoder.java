@@ -17,7 +17,7 @@
 package org.opensaml.saml2.binding;
 
 import java.io.IOException;
-import java.io.StringWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,8 +30,10 @@ import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.SAMLArtifact;
 import org.opensaml.common.binding.SAMLArtifactFactory;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
+import org.opensaml.common.util.URLBuilder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.Pair;
 
 /**
  * SAML 2 Artifact Binding encoder, support both HTTP GET and POST.
@@ -47,8 +49,8 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     /** HTTP submit method */
     private String method;
 
-    /** URL for the form action field */
-    private String actionURL;
+    /** URL the artifact will be sent to */
+    private String endpointURL;
     
     /** Type code of artifacts to use */
     private byte[] artifactType;
@@ -81,21 +83,21 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     }
 
     /**
-     * Gets the URL for the form action field.
+     * Gets the URL the artifact will be sent to.
      * 
-     * @return URL for the form action field
+     * @return URL the artifact will be sent to
      */
-    public String getActionURL() {
-        return actionURL;
+    public String getEndpointURL() {
+        return endpointURL;
     }
 
     /**
-     * Sets the URL for the form action field.
+     * Sets the URL the artifact will be sent to.
      * 
-     * @param url URL for the form action field
+     * @param url URL the artifact will be sent to
      */
-    public void setActionURL(String url) {
-        actionURL = url;
+    public void setEndpointURL(String url) {
+        endpointURL = url;
     }
     
     /**
@@ -163,6 +165,10 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
 
     /** {@inheritDoc} */
     public void encode() throws BindingException {
+        if(log.isDebugEnabled()){
+            log.debug("Beginning SAML 2 HTTP Artifact encoding");
+        }
+        
         HttpServletResponse response = getResponse();
         response.setCharacterEncoding("UTF-8");
         
@@ -170,31 +176,37 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
             log.debug("Generating SAML artifact and mapping SAML message to it");
         }
         generateArtifact();
-
-        if (log.isDebugEnabled()) {
-            log.debug("Creating velocity context");
-        }
-        VelocityContext context = new VelocityContext();
-        context.put("action", getActionURL());
-        context.put("SAMLArt", getArtifact());
-
-        if (!DatatypeHelper.isEmpty(getRelayState())) {
-            context.put("RelayState", getRelayState());
-        }
-
+        
         if (method.equalsIgnoreCase(SAMLConstants.POST_METHOD)) {
-            postEncode(context);
+            postEncode(getArtifact().base64Encode());
         } else if (method.equalsIgnoreCase(SAMLConstants.GET_METHOD)){
-            getEncode(context);
+            getEncode(getArtifact().base64Encode());
         }
     }
 
     /**
      * Performs HTTP POST based encoding.
      * 
+     * @param artifact the base64 encoded artifact
+     * 
      * @throws BindingException thrown if there is a problem invoking the velocity template to create the form
      */
-    protected void postEncode(VelocityContext context) throws BindingException {
+    protected void postEncode(String artifact) throws BindingException {
+        if (log.isDebugEnabled()) {
+            log.debug("Performing HTTP POST SAML 2 artifact encoding");
+        }
+        
+        if (log.isDebugEnabled()) {
+            log.debug("Creating velocity context");
+        }
+        VelocityContext context = new VelocityContext();
+        context.put("action", getEndpointURL());
+        context.put("SAMLArt", artifact);
+
+        if (!DatatypeHelper.isEmpty(getRelayState())) {
+            context.put("RelayState", getRelayState());
+        }
+        
         try {
             if (log.isDebugEnabled()) {
                 log.debug("Performing HTTP GET SAML 2 artifact encoding");
@@ -213,24 +225,30 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     /**
      * Performs HTTP GET based econding.
      * 
+     * @param artifact the base64 encoded artifact
+     * 
      * @throws BindingException
      */
-    protected void getEncode(VelocityContext context) throws BindingException {
+    protected void getEncode(String artifact) throws BindingException {
         if (log.isDebugEnabled()) {
             log.debug("Performing HTTP GET SAML 2 artifact encoding");
         }
 
         try {
-            String redirectURLTemplate = "${action}?SAMLArt=${SAMLArt}#if($RelayState)&RelayState=${RelayState}#end";
-            StringWriter writer = new StringWriter();
-            Velocity.evaluate(context, writer, HTTPArtifactEncoder.class.getName(), redirectURLTemplate);
-            getResponse().sendRedirect(writer.toString());
+            URLBuilder urlBuilder = new URLBuilder(getEndpointURL());
+            
+            List<Pair<String, String>> params = urlBuilder.getQueryParams();
+            
+            params.add(new Pair<String, String>("SAMLArt", artifact));
+            
+            if(!DatatypeHelper.isEmpty(getRelayState())){
+                params.add(new Pair<String, String>("RelayState", getRelayState()));
+            }
+                
+            getResponse().sendRedirect(urlBuilder.buildURL());
         } catch (IOException e) {
             log.error("Unable to send HTTP redirect", e);
             throw new BindingException("Unable to send HTTP redirect", e);
-        } catch (Exception e) {
-            log.error("Error invoking velocity template to create redirect URL", e);
-            throw new BindingException("Error creating redirect URL", e);
         }
     }
     

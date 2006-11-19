@@ -299,9 +299,29 @@ public class URLBuilder {
             builder.append(path);
         }
 
+        String queryString = buildQueryString();
+        if(!DatatypeHelper.isEmpty(queryString)){
+            builder.append("?");
+            builder.append(queryString);
+        }
+
+        if (!DatatypeHelper.isEmpty(fragement)) {
+            builder.append("#");
+            builder.append(fragement);
+        }
+
+        return builder.toString();
+    }
+    
+    /**
+     * Builds the query string for the URL.
+     * 
+     * @return query string for the URL or null if there are now query parameters
+     */
+    public String buildQueryString(){
+        StringBuilder builder = new StringBuilder();
         try {
             if (queryParams.size() > 0) {
-                builder.append("?");
                 String name;
                 String value;
 
@@ -322,16 +342,14 @@ public class URLBuilder {
                         }
                     }
                 }
+                
+                return builder.toString();
             }
         } catch (UnsupportedEncodingException e) {
             // UTF-8 encoding is required to be supported by all JVMs
         }
-
-        if (!DatatypeHelper.isEmpty(fragement)) {
-            builder.append("#");
-            builder.append(fragement);
-        }
-
-        return builder.toString();
+        
+        
+        return null;
     }
 }
