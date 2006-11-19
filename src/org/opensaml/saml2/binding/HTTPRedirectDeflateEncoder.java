@@ -61,10 +61,7 @@ public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
      * @param message the protocol message
      */
     protected void removeSignature(SignableSAMLObject message) {
-        if (message.getSignature() != null) {
-            signMessage = true;
-            message.setSignature(null);
-        }
+        //TODO Remove signature
     }
 
     /**

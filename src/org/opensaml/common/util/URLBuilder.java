@@ -108,10 +108,11 @@ public class URLBuilder {
                     queryComp = queryComps[i];
                     if (!queryComp.contains("=")) {
                         paramName = URLDecoder.decode(queryComp, "UTF-8");
+                        queryParams.add(new Pair<String, String>(paramName, null));
                     } else {
                         paramComps = queryComp.split("=");
                         paramName = URLDecoder.decode(paramComps[0], "UTF-8");
-                        paramValue = URLDecoder.decode(paramComps[0], "UTF-8");
+                        paramValue = URLDecoder.decode(paramComps[1], "UTF-8");
                         queryParams.add(new Pair<String, String>(paramName, paramValue));
                     }
                 }
@@ -315,9 +316,9 @@ public class URLBuilder {
                         if (value != null) {
                             builder.append("=");
                             builder.append(URLEncoder.encode(value, "UTF-8"));
-                            if (i + 1 == queryParams.size()) {
-                                builder.append("&");
-                            }
+                        }
+                        if (i < queryParams.size() - 1) {
+                            builder.append("&");
                         }
                     }
                 }
