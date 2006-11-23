@@ -144,6 +144,9 @@ public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
             if(log.isDebugEnabled()){
                 log.debug("Redirect encoding complete, redirecting client to " + redirectURL);
             }
+            getResponse().setCharacterEncoding("UTF-8");
+            getResponse().addHeader("Cache-control", "no-cache, no-store");
+            getResponse().addHeader("Pragma", "no-cache");
             getResponse().sendRedirect(redirectURL);
         } catch (IOException e) {
             log.error("Unable to redirect client to " + redirectURL, e);
