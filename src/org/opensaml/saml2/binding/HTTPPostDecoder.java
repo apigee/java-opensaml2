@@ -25,7 +25,6 @@ import org.apache.log4j.Logger;
 import org.bouncycastle.util.encoders.Base64;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.SecurityPolicy;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageDecoder;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -54,24 +53,19 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
         HttpServletRequest request = getRequest();
 
         InputStream decodedMessage = getBase64DecodedMessage();
-        
-        SAMLObject samlMessage = unmarshallSAMLMessage(decodedMessage);
-        
-        SecurityPolicy<HttpServletRequest> securityPolicy = getSecurityPolicy();
-        if(securityPolicy != null){
-            evaluateSecurityPolicy();
-            setIssuer(securityPolicy.getIssuer());
-            setIssuerMetadata(securityPolicy.getIssuerMetadata());
-        }
+
+        SAMLObject samlMessage = (SAMLObject) unmarshallMessage(decodedMessage);
+
+        evaluateSecurityPolicy(samlMessage);
 
         setRelayState(request.getParameter(RELAY_STATE_PARAM));
         setSAMLMessage(samlMessage);
-        
-        if(log.isDebugEnabled()){
+
+        if (log.isDebugEnabled()) {
             log.debug("HTTP request successfully decoded using SAML 2 HTTP POST binding");
         }
     }
-    
+
     /**
      * Gets the Base64 encoded message from the request and decodes it.
      * 
@@ -81,7 +75,7 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
      * 
      * @throws BindingException thrown if the message does not contain a base64 encoded SAML message
      */
-    protected InputStream getBase64DecodedMessage() throws BindingException{
+    protected InputStream getBase64DecodedMessage() throws BindingException {
         if (log.isDebugEnabled()) {
             log.debug("Getting Base64 encoded message from request");
         }
@@ -100,7 +94,7 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
             log.debug("Base64 decoding SAML message");
         }
         byte[] decodedMessage = Base64.decode(encodedMessage);
-        
+
         return new ByteArrayInputStream(decodedMessage);
     }
 }

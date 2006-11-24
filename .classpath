@@ -14,5 +14,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/velocity-dep-1.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/velocity-1.4.jar"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/java-xmltooling"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/java-openws"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

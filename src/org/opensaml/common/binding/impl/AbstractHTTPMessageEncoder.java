@@ -23,23 +23,10 @@ import org.opensaml.common.binding.HTTPMessageEncoder;
 /**
  * Base class handling boilerplate code for HTTP message encoders.
  */
-public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder implements HTTPMessageEncoder {
-    
-    /** HTTP respones to use during encoding */
-    private HttpServletResponse response;
+public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder<HttpServletResponse> implements HTTPMessageEncoder {
     
     /** Relay state */
     private String relayState;
-    
-    /** {@inheritDoc} */
-    public HttpServletResponse getResponse(){
-        return response;
-    }
-    
-    /** {@inheritDoc} */
-    public void setResponse(HttpServletResponse response){
-        this.response = response;
-    }
     
     /** {@inheritDoc} */
     public String getRelayState() {

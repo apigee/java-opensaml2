@@ -16,10 +16,17 @@
 
 package org.opensaml.common.binding;
 
+import java.util.List;
+
+import javax.servlet.ServletRequest;
+
+import org.opensaml.soap.soap11.Envelope;
+import org.opensaml.xml.XMLObject;
+
 /**
- * Base interface for SOAP specific SAML bindings.
+ * Base interface for SAML SOAP bindings
  */
-public interface SOAPMessageEncoder extends MessageEncoder {
+public interface SOAPDecoder<RequesetType extends ServletRequest> extends MessageDecoder<RequesetType> {
 
     /**
      * Gets the SOAP version to use.
@@ -29,9 +36,16 @@ public interface SOAPMessageEncoder extends MessageEncoder {
     public String getSOAPVersion();
     
     /**
-     * Sets the SOAP version to use.  If not explicity set version 1.1 is assumed.
+     * Gets the SOAP message.
      * 
-     * @param version the SOAP version, may not be null
+     * @return SOAP message
      */
-    public void setSOAPVersion(String version);
+    public Envelope getSOAPMessage();
+    
+    /**
+     * Gets the SOAP headers to add to the message.
+     * 
+     * @return SOAP headers to add to the message
+     */
+    public List<XMLObject> getSOAPHeaders();
 }

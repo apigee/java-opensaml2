@@ -16,6 +16,8 @@
 
 package org.opensaml.common.binding;
 
+import javax.servlet.ServletResponse;
+
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 
@@ -25,7 +27,21 @@ import org.opensaml.saml2.metadata.provider.MetadataProvider;
  * message may be required to be signed in a specific manner, so prior to the encoding the message may not be signed 
  * while afterwords it may be.
  */
-public interface MessageEncoder {
+public interface MessageEncoder<ResponseType extends ServletResponse> {
+    
+    /**
+     * Sets the response to use during the encoding process.
+     * 
+     * @return response  the response to use during encoding
+     */
+    public ResponseType getResponse();
+    
+    /**
+     * Sets the response to use during the encoding process.
+     * 
+     * @param response the response to use during encoding
+     */
+    public void setResponse(ResponseType response);
     
     /**
      * Gets the relying party the message will be encoded for.

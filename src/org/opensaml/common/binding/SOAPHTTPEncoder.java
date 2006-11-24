@@ -16,16 +16,11 @@
 
 package org.opensaml.common.binding;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
- * Indicates that a SOAP processing error occurred in the context of the SAML SOAP binding. This subclass signals a
- * binding implementation to return a SOAP fault instead of a SAML error.
- * 
+ * Binding of SOAP to HTTP.
  */
-
-public class SOAPException extends BindingException {
-
-    public SOAPException(String message) {
-        super(message);
-    }
+public interface SOAPHTTPEncoder extends SOAPEncoder<HttpServletResponse>, HTTPMessageEncoder {
 
 }

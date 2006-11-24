@@ -30,6 +30,7 @@ import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.security.TrustEngine;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
@@ -106,7 +107,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
      * 
      * @param issuer issuer of the request
      */
-    public void setIssuer(String issuer){
+    protected void setIssuer(String issuer){
         this.issuer = issuer;
     }
     
@@ -115,7 +116,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
      * 
      * @param issuerMetadata request issuer's role metadata
      */
-    public void setIssuerMetadata(RoleDescriptor issuerMetadata){
+    protected void setIssuerMetadata(RoleDescriptor issuerMetadata){
         this.issuerMetadata = issuerMetadata;
     }
 
@@ -134,7 +135,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
      * 
      * @param message decoded SAML message
      */
-    public void setSAMLMessage(SAMLObject message){
+    protected void setSAMLMessage(SAMLObject message){
         this.message = message;
     }
 
@@ -161,9 +162,9 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
      * 
      * @throws BindingException thrown if the incoming XML can not be parsed and unmarshalled
      */
-    protected SAMLObject unmarshallSAMLMessage(InputStream samlMessage) throws BindingException {
+    protected XMLObject unmarshallMessage(InputStream samlMessage) throws BindingException {
         if(log.isDebugEnabled()){
-            log.debug("Unmarshalling SAML message");
+            log.debug("Unmarshalling message");
         }
         
         try {
@@ -173,37 +174,39 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
             Document domMessage = ParserPoolManager.getInstance().parse(samlMessage);
             
             if(log.isDebugEnabled()){
-                log.debug("Unmarshalling DOM into SAMLObject");
+                log.debug("Unmarshalling DOM");
             }
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
                     domMessage.getDocumentElement());
-            return (SAMLObject) unmarshaller.unmarshall(domMessage.getDocumentElement());
+            return unmarshaller.unmarshall(domMessage.getDocumentElement());
         } catch (XMLParserException e) {
-            log.error("Unable to parse SAML message XML", e);
-            throw new BindingException("Unable to parse SAML message XML", e);
+            log.error("Unable to parse message XML", e);
+            throw new BindingException("Unable to parse message XML", e);
         } catch (UnmarshallingException e) {
-            log.error("Unable to unmarshall SAML message DOM", e);
-            throw new BindingException("Unable to unmarshaller SAML message DOM", e);
+            log.error("Unable to unmarshall message DOM", e);
+            throw new BindingException("Unable to unmarshaller message DOM", e);
         }
     }
 
     /**
      * Evaluates the registered security policy, if there is one, against the provided request and message.
      * 
-     * @param securityPolicy security policy to evaluate
-     * @param request HTTP request
-     * @param samlMessage SAML message
+     * This method will also set the issuer and issuer role metadata if provided by the operating security rules.
+     * 
+     * @param message message to evaluate the policy against
      * 
      * @throws BindingException thrown if the given request/message do not meet the requirements of the security policy
      */
-    protected void evaluateSecurityPolicy() throws BindingException {
+    protected void evaluateSecurityPolicy(XMLObject message) throws BindingException {
         if(log.isDebugEnabled()){
             log.debug("Evaluating request and SAML message against security policy");
         }
         
         SecurityPolicy<RequestType> policy = getSecurityPolicy();
         if(policy != null){
-            policy.evaluate(getRequest(), getSAMLMessage());
+            policy.evaluate(getRequest(), message);
+            setIssuer(policy.getIssuer());
+            setIssuerMetadata(policy.getIssuerMetadata());
         }
     }
 }

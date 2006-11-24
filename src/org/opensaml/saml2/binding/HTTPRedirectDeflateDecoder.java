@@ -24,8 +24,8 @@ import java.util.zip.InflaterInputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.SecurityPolicy;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageDecoder;
 import org.opensaml.xml.util.Base64;
 
@@ -37,64 +37,61 @@ import org.opensaml.xml.util.Base64;
 public class HTTPRedirectDeflateDecoder extends AbstractHTTPMessageDecoder {
 
     /** Class logger */
-    private final static Logger log = Logger.getLogger(HTTPRedirectDeflateEncoder.class);
+    private final static Logger log = Logger.getLogger(HTTPRedirectDeflateDecoder.class);
 
     /** Whether the message was signed */
     private boolean isSigned;
 
     /** Signature used to sign message */
     private String signatureAlgorithm;
-    
+
     /**
      * Gets whether the decoded message was signed.
      * 
      * @return whether the decoded message was signed
      */
-    public boolean isSigned(){
+    public boolean isSigned() {
         return isSigned;
     }
-    
+
     /**
      * Gets the signature algorithm used to sign the message.
      * 
      * @return signature algorithm used to sign the message, or null if the message was not signed
      */
-    public String getSignatureAlgorithm(){
+    public String getSignatureAlgorithm() {
         return signatureAlgorithm;
     }
 
     /** {@inheritDoc} */
     public void decode() throws BindingException {
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Beginning SAML 2 HTTP Redirect decoding");
         }
-        
+
         HttpServletRequest request = getRequest();
         setHttpMethod("GET");
         setRelayState(request.getParameter("RelayState"));
-        
-        InputStream samlMessage;
-        if(request.getParameter("SAMLRequest") != null){
-            samlMessage = decodeMessage(request.getParameter("SAMLRequest"));
-        }else if(request.getParameter("SAMLResponse") != null){
-            samlMessage = decodeMessage(request.getParameter("SAMLResponse"));
-        }else{
-            throw new BindingException("No SAMLRequest or SAMLResponse query path parameter, invalid SAML 2 HTTP Redirect message");
+
+        InputStream samlMessageIns;
+        if (request.getParameter("SAMLRequest") != null) {
+            samlMessageIns = decodeMessage(request.getParameter("SAMLRequest"));
+        } else if (request.getParameter("SAMLResponse") != null) {
+            samlMessageIns = decodeMessage(request.getParameter("SAMLResponse"));
+        } else {
+            throw new BindingException(
+                    "No SAMLRequest or SAMLResponse query path parameter, invalid SAML 2 HTTP Redirect message");
         }
-        
-        setSAMLMessage(unmarshallSAMLMessage(samlMessage));
-        
-        if(request.getParameter("Signature") != null){
+
+        SAMLObject samlMessage = (SAMLObject) unmarshallMessage(samlMessageIns);
+        setSAMLMessage(samlMessage);
+
+        if (request.getParameter("Signature") != null) {
             isSigned = true;
             signatureAlgorithm = request.getParameter("SigAlg");
         }
-        
-        if(getSecurityPolicy() != null){
-            evaluateSecurityPolicy();
-            SecurityPolicy<HttpServletRequest> policy = getSecurityPolicy();
-            setIssuer(policy.getIssuer());
-            setIssuerMetadata(policy.getIssuerMetadata());
-        }
+
+        evaluateSecurityPolicy(samlMessage);
     }
 
     /**

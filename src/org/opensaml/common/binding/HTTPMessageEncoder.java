@@ -21,21 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Base interface for HTTP specific SAML bindings.
  */
-public interface HTTPMessageEncoder extends MessageEncoder {
-    
-    /**
-     * Sets the HTTP response to use during the encoding process.
-     * 
-     * @return response  the HTTP response to use during encoding
-     */
-    public HttpServletResponse getResponse();
-    
-    /**
-     * Sets the HTTP response to use during the encoding process.
-     * 
-     * @param response the HTTP response to use during encoding
-     */
-    public void setResponse(HttpServletResponse response);
+public interface HTTPMessageEncoder extends MessageEncoder<HttpServletResponse> {
     
     /**
      * Gets the relay state.

@@ -14,28 +14,13 @@
  * limitations under the License.
  */
 
-package org.opensaml.common.binding.impl;
+package org.opensaml.common.binding;
 
-import org.opensaml.common.binding.SOAPMessageEncoder;
+import javax.servlet.http.HttpServletRequest;
 
 /**
- * Base class handling boilerplate code for SOAP message encoders.
+ * Binding of SOAP to HTTP.
  */
-public abstract class AbstractSOAPMessageEncoder extends AbstractMessageEncoder implements SOAPMessageEncoder {
+public interface SOAPHTTPDecoder extends SOAPDecoder<HttpServletRequest>, HTTPMessageDecoder {
 
-    private String soapVersion;
-    
-    /** {@inheritDoc} */
-    public String getSOAPVersion() {
-       return soapVersion;
-    }
-
-    /** {@inheritDoc} */
-    public void setSOAPVersion(String version) {
-        if(version != null){
-            soapVersion = version;
-        }else{
-            throw new NullPointerException("SOAP version may not be null");
-        }
-    }
 }

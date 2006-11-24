@@ -16,6 +16,8 @@
 
 package org.opensaml.common.binding.impl;
 
+import javax.servlet.ServletResponse;
+
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
@@ -30,13 +32,25 @@ import org.w3c.dom.Element;
 /**
  * Base class handling boilerplate code for message encoders.
  */
-public abstract class AbstractMessageEncoder implements MessageEncoder {
+public abstract class AbstractMessageEncoder<ResponseType extends ServletResponse> implements MessageEncoder<ResponseType> {
 
+    private ResponseType response;
+    
     private MetadataProvider metadataProvider;
 
     private String relyingParty;
 
     private SAMLObject samlMessage;
+    
+    /** {@inheritDoc} */
+    public ResponseType getResponse(){
+        return response;
+    }
+    
+    /** {@inheritDoc} */
+    public void setResponse(ResponseType response){
+        this.response = response;
+    }
 
     /** {@inheritDoc} */
     public MetadataProvider getMetadataProvider() {
