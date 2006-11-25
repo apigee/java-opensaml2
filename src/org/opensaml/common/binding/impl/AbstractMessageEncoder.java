@@ -34,12 +34,16 @@ import org.w3c.dom.Element;
  */
 public abstract class AbstractMessageEncoder<ResponseType extends ServletResponse> implements MessageEncoder<ResponseType> {
 
+    /** Response to pack the message into */
     private ResponseType response;
     
+    /** Metadata provider used to look up information about the relying party */
     private MetadataProvider metadataProvider;
 
+    /** Party the emssage is being sent to */
     private String relyingParty;
 
+    /** SAML message to encode */
     private SAMLObject samlMessage;
     
     /** {@inheritDoc} */
