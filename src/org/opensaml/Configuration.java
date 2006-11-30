@@ -57,6 +57,18 @@ public class Configuration extends org.opensaml.xml.Configuration {
             // Common Object Provider Configuration
             Document commonConfig = ppMgr.parse(clazz.getResourceAsStream("/common-config.xml"));
             configurator.load(commonConfig);
+            
+            // XML Schema types Object Provider Configuration
+            Document schemaConfig = ppMgr.parse(clazz.getResourceAsStream("/schema-config.xml"));
+            configurator.load(schemaConfig);
+            
+            // XML Signature Object Provider Configuration
+            Document signatureConfig = ppMgr.parse(clazz.getResourceAsStream("/signature-config.xml"));
+            configurator.load(signatureConfig);
+            
+            // XML Encryption Object Provider Configuration
+            Document encryptionConfig = ppMgr.parse(clazz.getResourceAsStream("/encryption-config.xml"));
+            configurator.load(encryptionConfig);
 
             // SAML 1.X Assertion Object Provider Configuration
             Document saml1AssertionConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-assertion-config.xml"));

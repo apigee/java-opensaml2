@@ -15,27 +15,6 @@
             <MarshallingClass className="org.opensaml.xml.ElementProxyMarshaller" />
             <UnmarshallingClass className="org.opensaml.xml.ElementProxyUnmarshaller" />
         </ObjectProvider>
-
-        <!-- XML Schema String -->
-        <ObjectProvider qualifiedName="xs:string">
-            <BuilderClass className="org.opensaml.xml.schema.impl.XSStringBuilder" />
-            <MarshallingClass className="org.opensaml.xml.schema.impl.XSStringMarshaller" />
-            <UnmarshallingClass className="org.opensaml.xml.schema.impl.XSStringUnmarshaller" />
-        </ObjectProvider>
-        
-        <!-- XML Digital Signature -->
-        <ObjectProvider qualifiedName="ds:Signature">
-            <BuilderClass className="org.opensaml.xml.signature.SignatureBuilder" />
-            <MarshallingClass className="org.opensaml.xml.signature.SignatureMarshaller" />
-            <UnmarshallingClass className="org.opensaml.xml.signature.SignatureUnmarshaller" />
-        </ObjectProvider>
-        
-        <!-- XML Digital Signature KeyInfo -->
-        <ObjectProvider qualifiedName="ds:KeyInfo">
-            <BuilderClass className="org.opensaml.xml.signature.KeyInfoBuilder" />
-            <MarshallingClass className="org.opensaml.xml.signature.KeyInfoMarshaller" />
-            <UnmarshallingClass className="org.opensaml.xml.signature.KeyInfoUnmarshaller" />
-        </ObjectProvider>
         
     </ObjectProviders>
 </XMLTooling>
