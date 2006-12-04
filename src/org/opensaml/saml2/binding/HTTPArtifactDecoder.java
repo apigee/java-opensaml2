@@ -19,12 +19,12 @@ package org.opensaml.saml2.binding;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.bouncycastle.util.encoders.Base64;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.SAMLArtifact;
 import org.opensaml.common.binding.SAMLArtifactFactory;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageDecoder;
+import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**

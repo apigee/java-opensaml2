@@ -24,10 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-import org.bouncycastle.util.encoders.Base64;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
 import org.opensaml.saml2.core.Request;
+import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
@@ -80,7 +80,7 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
         if (log.isDebugEnabled()) {
             log.debug("Base64 encoding message");
         }
-        String encodedMessage = new String(Base64.encode(messageXML.getBytes()));
+        String encodedMessage = new String(Base64.encodeBytes(messageXML.getBytes()));
 
         try{
             if (log.isDebugEnabled()) {
