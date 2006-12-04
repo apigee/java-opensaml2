@@ -27,6 +27,7 @@ import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Statement;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.signature.Signature;
 import org.w3c.dom.Attr;
 
 /**
@@ -47,7 +48,9 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         Assertion assertion = (Assertion) parentSAMLObject;
 
-        if (childSAMLObject instanceof Conditions) {
+        if (childSAMLObject instanceof Signature) {
+            assertion.setSignature((Signature) childSAMLObject);
+        } else if (childSAMLObject instanceof Conditions) {
             assertion.setConditions((Conditions) childSAMLObject);
         } else if (childSAMLObject instanceof Advice) {
             assertion.setAdvice((Advice) childSAMLObject);
