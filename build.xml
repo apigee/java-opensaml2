@@ -1,8 +1,13 @@
 <project name="OpenSAML 2.0" basedir="." default="package">
 
+	<tstamp>
+		<format property="build-date" pattern="ddMMyyyy'T'kkmmss" timezone="GMT"/>
+	</tstamp>
+			
     <property file="build.properties" />
 
     <property name="lib.dir" value="${basedir}/lib" />
+	<property name="thirdpaty-lib.dir" value="${basedir}/thirdparty-lib" />
     <property name="core-src.dir" value="${basedir}/src" />
 	<property name="core-schema.dir" value="${basedir}/src/schema" />
 	<property name="conf.dir" value="${basedir}/conf" />
@@ -19,7 +24,7 @@
 
     <property name="jdk.target" value="1.5" />
 
-    <property name="version" value="2.0-trunk" />
+    <property name="version" value="${build-date}" />
 	<property name="jar.name" value="opensaml-${version}-jdk-${jdk.target}.jar" />
 	<property name="src-dist.name" value="opensaml-${version}-jdk-${jdk.target}-src" />
 	<property name="bin-dist.name" value="opensaml-${version}-jdk-${jdk.target}-bin" />
@@ -136,7 +141,7 @@
                     <arg value="-source" />
                     <arg value="${core-classes.dir}" />
                     <classpath>
-                        <fileset dir="${build-lib.dir}">
+                        <fileset dir="${thirdpaty-lib.dir}">
                             <include name="**/*.jar" />
                         </fileset>
                     </classpath>
@@ -144,7 +149,7 @@
 
                 <echo message="**************************************************************" />
                 <echo message="     Remember, you must include the retroweaver-rt jar" />
-                <echo message="     file, located in the lib directory, along with the" />
+                <echo message="     file, located in the thirdparty-lib directory, along with the" />
                 <echo message="     ${jar.name} on your" />
                 <echo message="     classpath in order to use this with JDK 1.4" />
                 <echo message="**************************************************************" />
