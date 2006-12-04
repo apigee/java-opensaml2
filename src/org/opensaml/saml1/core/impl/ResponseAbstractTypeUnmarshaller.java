@@ -25,9 +25,12 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.saml1.core.RequestAbstractType;
+import org.opensaml.saml1.core.RespondWith;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.signature.Signature;
 import org.w3c.dom.Attr;
 
 /**
@@ -49,6 +52,17 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
     protected ResponseAbstractTypeUnmarshaller(String targetNamespaceURI, String targetLocalName)
             throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
+    }
+
+    /** {@inheritDoc} */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+        ResponseAbstractType response = (ResponseAbstractType) parentSAMLObject;
+        
+        if (childSAMLObject instanceof Signature) {
+            response.setSignature((Signature) childSAMLObject);
+        } else {
+            super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 
     /** {@inheritDoc} */

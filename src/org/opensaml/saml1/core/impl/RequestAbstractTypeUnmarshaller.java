@@ -28,6 +28,7 @@ import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.RespondWith;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.signature.Signature;
 import org.w3c.dom.Attr;
 
 /**
@@ -54,7 +55,9 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
         RequestAbstractType request = (RequestAbstractType) parentSAMLObject;
         
-        if (childSAMLObject instanceof RespondWith) {
+        if (childSAMLObject instanceof Signature) {
+            request.setSignature((Signature) childSAMLObject);
+        } else if (childSAMLObject instanceof RespondWith) {
             request.getRespondWiths().add((RespondWith) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
