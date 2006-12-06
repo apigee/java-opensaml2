@@ -36,8 +36,7 @@
     <taskdef resource="net/sf/antcontrib/antlib.xml" />
 	
 	<!-- Load Checkstyle tasks -->
-	<taskdef resource="checkstyletask.properties"
-	         classpath="{${build-lib.dir}/checkstyle-all-4.2.jar"/>
+	<taskdef resource="checkstyletask.properties" />
 
     <!-- Classpath for building OpenSAML -->
     <path id="build-path">
