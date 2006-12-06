@@ -19,7 +19,8 @@
     <property name="core-classes.dir" value="${build.dir}/core" />
     <property name="test-classes.dir" value="${build.dir}/test" />
     <property name="test-results.dir" value="${build.dir}/test-results" />
-	<property name="test-report.dir" value="${doc.dir}/test-report" />
+	<property name="reports.dir" value="${doc.dir}/reports" />
+	<property name="test-report.dir" value="${reports.dir}/unit-test" />
     <property name="dist.dir" value="${basedir}/dist" />
 
     <property name="jdk.target" value="1.5" />
@@ -33,6 +34,10 @@
 
     <!-- Load ant-contrib tasks -->
     <taskdef resource="net/sf/antcontrib/antlib.xml" />
+	
+	<!-- Load Checkstyle tasks -->
+	<taskdef resource="checkstyletask.properties"
+	         classpath="{${build-lib.dir}/checkstyle-all-4.2.jar"/>
 
     <!-- Classpath for building OpenSAML -->
     <path id="build-path">
@@ -168,6 +173,19 @@
     <!-- ***               OpenSAML Developer Tasks                   *** -->
     <!-- ***                                                          *** -->
     <!-- **************************************************************** -->
+	
+	<!-- Checks code against style guidelines -->
+	<target name="checkstyle" >
+		<mkdir dir="${reports.dir}" />
+		
+		<checkstyle config="${basedir}/checkstyle.xml"
+					failOnViolation="false"
+	                classpathref="build-path">
+			<fileset dir="src" includes="**/*.java"/>
+			<formatter type="plain"
+					   toFile="${reports.dir}/checkstyle-report.txt" />
+		</checkstyle>
+	</target>
 
     <!-- Create TGZ source distribution -->
     <target name="tgz-src-dist" depends="package, javadoc">
