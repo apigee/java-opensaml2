@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core;
 
 import javax.xml.namespace.QName;
@@ -25,25 +22,26 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core AuthnContextDeclRef
+ * SAML 2.0 Core AuthnContextDeclRef.
  */
 public interface AuthnContextDeclRef extends SAMLObject {
     
-    /** Element local name*/
+    /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnContextDeclRef";
     
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = 
+        new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
     /**
-     * Gets the URI reference to an authentication context declaration
+     * Gets the URI reference to an authentication context declaration.
      * 
      * @return authentication context declaration reference URI
      */
     public String getAuthnContextDeclRef();
 
     /**
-     * Sets the URI reference to an authentication context declaration
+     * Sets the URI reference to an authentication context declaration.
      * 
      * @param newAuthnContextDeclRef the new AuthnContextDeclRef URI
      */

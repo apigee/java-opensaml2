@@ -22,54 +22,54 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
- * SAML 2.0 Core AuthnRequest
+ * SAML 2.0 Core AuthnRequest.
  */
 public interface AuthnRequest extends Request {
 
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnRequest";
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnRequest";
 
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
             SAMLConstants.SAML20P_PREFIX);
 
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "AuthnRequestType";
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "AuthnRequestType";
 
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
             SAMLConstants.SAML20P_PREFIX);
 
-    /** ForceAuthn attribute name */
-    public final static String FORCE_AUTHN_ATTRIB_NAME = "ForceAuthn";
+    /** ForceAuthn attribute name. */
+    public static final String FORCE_AUTHN_ATTRIB_NAME = "ForceAuthn";
 
-    /** IsPassive attribute name */
-    public final static String IS_PASSIVE_ATTRIB_NAME = "IsPassive";
+    /** IsPassive attribute name. */
+    public static final String IS_PASSIVE_ATTRIB_NAME = "IsPassive";
 
-    /** ProtocolBinding attribute name */
-    public final static String PROTOCOL_BINDING_ATTRIB_NAME = "ProtocolBinding";
+    /** ProtocolBinding attribute name. */
+    public static final String PROTOCOL_BINDING_ATTRIB_NAME = "ProtocolBinding";
 
-    /** AssertionConsumerServiceIndex attribute name */
-    public final static String ASSERTION_CONSUMER_SERVICE_INDEX_ATTRIB_NAME = "AssertionConsumerServiceIndex";
+    /** AssertionConsumerServiceIndex attribute name. */
+    public static final String ASSERTION_CONSUMER_SERVICE_INDEX_ATTRIB_NAME = "AssertionConsumerServiceIndex";
 
-    /** AssertionConsumerServiceURL attribute name */
-    public final static String ASSERTION_CONSUMER_SERVICE_URL_ATTRIB_NAME = "AssertionConsumerServiceURL";
+    /** AssertionConsumerServiceURL attribute name. */
+    public static final String ASSERTION_CONSUMER_SERVICE_URL_ATTRIB_NAME = "AssertionConsumerServiceURL";
 
-    /** AttributeConsumingServiceIndex attribute name */
-    public final static String ATTRIBUTE_CONSUMING_SERVICE_INDEX_ATTRIB_NAME = "AttributeConsumingServiceIndex";
+    /** AttributeConsumingServiceIndex attribute name. */
+    public static final String ATTRIBUTE_CONSUMING_SERVICE_INDEX_ATTRIB_NAME = "AttributeConsumingServiceIndex";
 
-    /** ProviderName attribute name */
-    public final static String PROVIDER_NAME_ATTRIB_NAME = "ProviderName";
+    /** ProviderName attribute name. */
+    public static final String PROVIDER_NAME_ATTRIB_NAME = "ProviderName";
 
     /**
-     * Gets whether the IdP should force the user to reauthenticate
+     * Gets whether the IdP should force the user to reauthenticate.
      * 
      * @return whether the IdP should force the user to reauthenticate
      */
     public Boolean isForceAuthn();
     
     /**
-     * Gets whether the IdP should force the user to reauthenticate
+     * Gets whether the IdP should force the user to reauthenticate.
      * 
      * @return whether the IdP should force the user to reauthenticate
      */
@@ -84,21 +84,21 @@ public interface AuthnRequest extends Request {
     public void setForceAuthn(Boolean newForceAuthn);
 
     /**
-     * Sets whether the IdP should force the user to reauthenticate
+     * Sets whether the IdP should force the user to reauthenticate.
      * 
      * @param newForceAuthn whether the IdP should force the user to reauthenticate
      */
     public void setForceAuthn(XSBooleanValue newForceAuthn);
 
     /**
-     * Gets whether the IdP should refrain from interacting with the user during the authentication process
+     * Gets whether the IdP should refrain from interacting with the user during the authentication process.
      * 
      * @return whether the IdP should refrain from interacting with the user during the authentication process
      */
     public Boolean isPassive();
     
     /**
-     * Gets whether the IdP should refrain from interacting with the user during the authentication process
+     * Gets whether the IdP should refrain from interacting with the user during the authentication process.
      * 
      * @return whether the IdP should refrain from interacting with the user during the authentication process
      */
@@ -113,21 +113,21 @@ public interface AuthnRequest extends Request {
     public void setIsPassive(Boolean newIsPassive);
 
     /**
-     * Sets whether the IdP should refrain from interacting with the user during the authentication process
+     * Sets whether the IdP should refrain from interacting with the user during the authentication process.
      * 
      * @param newIsPassive whether the IdP should refrain from interacting with the user during the authentication process
      */
     public void setIsPassive(XSBooleanValue newIsPassive);
 
     /**
-     * Gets the protocol binding URI for the request
+     * Gets the protocol binding URI for the request.
      * 
      * @return the value of the ProtocolBinding attribute
      */
     public String getProtocolBinding();
 
     /**
-     * Sets the protocol binding URI for the request
+     * Sets the protocol binding URI for the request.
      * 
      * @param newProtocolBinding the new value of the ProtocolBinding attribute
      */
@@ -135,7 +135,7 @@ public interface AuthnRequest extends Request {
 
     /**
      * Gets the index of the particular Assertion Consumer Service to which the response to this request should be
-     * delivered
+     * delivered.
      * 
      * @return the value of the AssertionConsumerServiceIndex attribute
      */
@@ -143,7 +143,7 @@ public interface AuthnRequest extends Request {
 
     /**
      * Sets the index of the particular Assertion Consumer Service to which the response to this request should be
-     * delivered
+     * delivered.
      * 
      * @param newAssertionConsumerServiceIndex the new value of the AssertionConsumerServiceIndex attribute
      */
@@ -151,7 +151,7 @@ public interface AuthnRequest extends Request {
 
     /**
      * Gets the URL of the particular Assertion Consumer Service to which the response to this request should be
-     * delivered
+     * delivered.
      * 
      * @return the value of the AssertionConsumerServiceURL attribute
      */
@@ -159,7 +159,7 @@ public interface AuthnRequest extends Request {
 
     /**
      * Sets the URL of the particular Assertion Consumer Service to which the response to this request should be
-     * delivered
+     * delivered.
      * 
      * @param newAssertionConsumerServiceURL the new value of the AssertionConsumerServiceURL attribute
      */
@@ -184,84 +184,84 @@ public interface AuthnRequest extends Request {
     public void setAttributeConsumingServiceIndex(Integer newAttributeConsumingServiceIndex);
 
     /**
-     * Gets the human-readable name of the requester for use by the presenter's user agent or the identity provider
+     * Gets the human-readable name of the requester for use by the presenter's user agent or the identity provider.
      * 
      * @return the value of the ProviderName attribute
      */
     public String getProviderName();
 
     /**
-     * Sets the human-readable name of the requester for use by the presenter's user agent or the identity provider
+     * Sets the human-readable name of the requester for use by the presenter's user agent or the identity provider.
      * 
      * @param newProviderName the new value of the ProviderName attribute
      */
     public void setProviderName(String newProviderName);
 
     /**
-     * Gets the Subject of the request
+     * Gets the {@link Subject} of the request.
      * 
      * @return the Subject of the request
      */
     public Subject getSubject();
 
     /**
-     * Sets the Subject of the request
+     * Sets the {@link Subject} of the request.
      * 
      * @param newSubject the new value of the Subject of the request
      */
     public void setSubject(Subject newSubject);
 
     /**
-     * Gets the NameIDPolicy of the request
+     * Gets the {@link NameIDPolicy} of the request.
      * 
      * @return the NameIDPolicy of the request
      */
     public NameIDPolicy getNameIDPolicy();
 
     /**
-     * Sets the NameIDPolicy of the request
+     * Sets the {@link NameIDPolicy} of the request.
      * 
      * @param newNameIDPolicy the new value of the NameIDPolicy of the request
      */
     public void setNameIDPolicy(NameIDPolicy newNameIDPolicy);
 
     /**
-     * Gets the Conditions of the request
+     * Gets the {@link Conditions} of the request.
      * 
      * @return the Conditions of the request
      */
     public Conditions getConditions();
 
     /**
-     * Sets the Conditions of the request
+     * Sets the {@link Conditions} of the request.
      * 
      * @param newConditions the new value of the Conditions of the request
      */
     public void setConditions(Conditions newConditions);
 
     /**
-     * Gets the RequestedAuthnContext of the request
+     * Gets the {@link RequestedAuthnContext} of the request.
      * 
      * @return the RequestedAuthnContext of the request
      */
     public RequestedAuthnContext getRequestedAuthnContext();
 
     /**
-     * Sets the RequestedAuthnContext of the request
+     * Sets the {@link RequestedAuthnContext} of the request.
      * 
      * @param newRequestedAuthnContext the new value of the RequestedAuthnContext of the request
      */
     public void setRequestedAuthnContext(RequestedAuthnContext newRequestedAuthnContext);
 
     /**
-     * Gets the Scoping of the request
+     * Gets the {@link Scoping} of the request.
      * 
      * @return the Scoping of the request
      */
     public Scoping getScoping();
 
     /**
-     * Sets the Scoping of the request
+     * Sets the {@link Scoping} of the request.
      * 
      * @param newScoping the new value of the Scoping of the request
      */

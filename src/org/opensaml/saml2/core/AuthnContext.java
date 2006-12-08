@@ -28,17 +28,19 @@ import org.opensaml.common.xml.SAMLConstants;
  */
 public interface AuthnContext extends SAMLObject {
 
-    /**Local Name of AuthnContext*/
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnContext";
+    /** Local Name of AuthnContext. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnContext";
     
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = 
+        new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "AuthnContextType"; 
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "AuthnContextType"; 
         
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME =
+        new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
     /**
      * Gets the URI identifying the Context Class of this Authentication Context.

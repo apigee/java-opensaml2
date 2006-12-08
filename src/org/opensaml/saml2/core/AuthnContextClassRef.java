@@ -25,25 +25,26 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core AuthnContextClassRef
+ * SAML 2.0 Core AuthnContextClassRef.
  */
 public interface AuthnContextClassRef extends SAMLObject {
     
-    /** Element local name*/
+    /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnContextClassRef";
     
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = 
+        new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
     
     /**
-     * Gets the URI reference to an authentication context class
+     * Gets the URI reference to an authentication context class.
      * 
      * @return authentication context class reference URI
      */
     public String getAuthnContextClassRef();
 
     /**
-     * Sets the URI reference to an authentication context class
+     * Sets the URI reference to an authentication context class.
      * 
      * @param newAuthnContextClassRef the new AuthnContextClassRef URI
      */

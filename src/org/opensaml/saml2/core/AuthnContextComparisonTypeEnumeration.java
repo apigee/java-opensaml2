@@ -21,23 +21,27 @@ package org.opensaml.saml2.core;
  */
 public final class AuthnContextComparisonTypeEnumeration {
 
-    /** "exact" comparison type */
-    public final static AuthnContextComparisonTypeEnumeration EXACT = new AuthnContextComparisonTypeEnumeration("exact");
+    /** "exact" comparison type. */
+    public static final AuthnContextComparisonTypeEnumeration EXACT = 
+        new AuthnContextComparisonTypeEnumeration("exact");
 
-    /** "minimum" comparison type */
-    public final static AuthnContextComparisonTypeEnumeration MINIMUM = new AuthnContextComparisonTypeEnumeration("minimum");
+    /** "minimum" comparison type. */
+    public static final AuthnContextComparisonTypeEnumeration MINIMUM = 
+        new AuthnContextComparisonTypeEnumeration("minimum");
 
-    /** "maximum" comparison type */
-    public final static AuthnContextComparisonTypeEnumeration MAXIMUM = new AuthnContextComparisonTypeEnumeration("maximum");
+    /** "maximum" comparison type. */
+    public static final AuthnContextComparisonTypeEnumeration MAXIMUM = 
+        new AuthnContextComparisonTypeEnumeration("maximum");
 
-    /** "better" comparison type */
-    public final static AuthnContextComparisonTypeEnumeration BETTER = new AuthnContextComparisonTypeEnumeration("better");
+    /** "better" comparison type. */
+    public static final AuthnContextComparisonTypeEnumeration BETTER = 
+        new AuthnContextComparisonTypeEnumeration("better");
 
-    /** The comparison type string */
+    /** The comparison type string. */
     private String comparisonType;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param comparisonType the comparison type string
      */

@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
 package org.opensaml.saml2.core;
 
 import javax.xml.namespace.QName;
@@ -24,24 +21,26 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 AuthnQuery
+ * SAML 2.0 AuthnQuery.
  */
 public interface AuthnQuery extends SubjectQuery {
     
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnQuery";
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnQuery";
     
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = 
+        new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "AuthnQueryType"; 
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "AuthnQueryType"; 
         
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = 
+        new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
-    /** SessionIndex attribute name */
-    public final static String SESSION_INDEX_ATTRIB_NAME = "SessionIndex";
+    /** SessionIndex attribute name. */
+    public static final String SESSION_INDEX_ATTRIB_NAME = "SessionIndex";
     
     /**
      * Gets the SessionIndex of this request.

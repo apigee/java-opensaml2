@@ -75,7 +75,7 @@ public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
     private String providerName;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName

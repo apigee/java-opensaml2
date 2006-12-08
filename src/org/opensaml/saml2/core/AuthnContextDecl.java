@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml2.core;
 
 import javax.xml.namespace.QName;
@@ -30,11 +26,12 @@ import org.opensaml.common.xml.SAMLConstants;
  */
 public interface AuthnContextDecl extends SAMLObject {
 
-    /** Local Name of AuthnContextDecl */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnContextDecl";
+    /** Local Name of AuthnContextDecl. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnContextDecl";
     
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = 
+        new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
     /**
      * Gets the Declaration of this Authentication Context.

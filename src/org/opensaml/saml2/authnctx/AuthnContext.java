@@ -19,7 +19,7 @@ package org.opensaml.saml2.authnctx;
 import org.opensaml.common.SAMLObject;
 
 /**
- * SAML 2.0 Authentication Context AuthnContext
+ * SAML 2.0 Authentication Context AuthnContext.
  */
 public interface AuthnContext extends SAMLObject {
 
