@@ -3,9 +3,9 @@
 	This configuration file was written by the eclipse-cs plugin configuration editor
 -->
 <!--
-Checkstyle-Configuration: Internet2
+Checkstyle-Configuration: Internet 2
 Description:
-Internet2 project checks
+Code standard checking for Internet 2 code
 -->
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
 <module name="Checker">
@@ -62,7 +62,6 @@ Internet2 project checks
         <module name="HiddenField"/>
         <module name="IllegalInstantiation"/>
         <module name="InnerAssignment"/>
-        <module name="MagicNumber"/>
         <module name="MissingSwitchDefault"/>
         <module name="RedundantThrows"/>
         <module name="SimplifyBooleanExpression"/>
@@ -100,9 +99,7 @@ Internet2 project checks
         <module name="ThrowsCount">
             <property name="max" value="3"/>
         </module>
-        <module name="CyclomaticComplexity">
-            <property name="max" value="7"/>
-        </module>
+        <module name="CyclomaticComplexity"/>
         <module name="TrailingComment"/>
     </module>
     <module name="PackageHtml">
