@@ -23,8 +23,8 @@ import java.util.List;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.EncryptionMethod;
 import org.opensaml.saml2.metadata.KeyDescriptor;
-import org.opensaml.security.CredentialUsageTypeEnumeration;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.security.UsageType;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
@@ -33,21 +33,21 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public class KeyDescriptorImpl extends AbstractSAMLObject implements KeyDescriptor {
 
-    /** Key usage type */
-    private CredentialUsageTypeEnumeration keyUseType;
+    /** Key usage type. */
+    private UsageType keyUseType;
 
-    /** Key information */
+    /** Key information. */
     private KeyInfo keyInfo;
 
-    /** Encryption methods supported by the entity */
+    /** Encryption methods supported by the entity. */
     private final XMLObjectChildrenList<EncryptionMethod> encryptionMethods;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected KeyDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -55,12 +55,12 @@ public class KeyDescriptorImpl extends AbstractSAMLObject implements KeyDescript
     }
 
     /** {@inheritDoc} */
-    public CredentialUsageTypeEnumeration getUse() {
+    public UsageType getUse() {
         return keyUseType;
     }
 
     /** {@inheritDoc} */
-    public void setUse(CredentialUsageTypeEnumeration newType) {
+    public void setUse(UsageType newType) {
         keyUseType = prepareForAssignment(keyUseType, newType);
     }
 

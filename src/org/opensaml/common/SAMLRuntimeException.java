@@ -21,9 +21,7 @@ package org.opensaml.common;
  */
 public class SAMLRuntimeException extends RuntimeException {
 
-    /**
-     * Serial version UID
-     */
+    /** Serial version UID. */
     private static final long serialVersionUID = -593201582585161250L;
 
     /**

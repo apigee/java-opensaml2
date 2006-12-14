@@ -28,23 +28,18 @@ import org.w3c.dom.Attr;
  */
 public abstract class AbstractSAMLObjectUnmarshaller extends AbstractXMLObjectUnmarshaller {
 
-    /**
-     * Logger
-     */
+    /** Class logger. */
     private static Logger log = Logger.getLogger(AbstractSAMLObjectUnmarshaller.class);
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
      * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
-     * 
-     * @throws NullPointerException if any of the arguments are null (or empty in the case of String parameters)
      */
-    protected AbstractSAMLObjectUnmarshaller(String targetNamespaceURI, String targetLocalName)
-            throws IllegalArgumentException {
+    protected AbstractSAMLObjectUnmarshaller(String targetNamespaceURI, String targetLocalName){
         super(targetNamespaceURI, targetLocalName);
     }
 

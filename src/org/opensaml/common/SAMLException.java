@@ -20,9 +20,7 @@ package org.opensaml.common;
  */
 public class SAMLException extends Exception {
 
-    /**
-     * Serial version UID
-     */
+    /** Serial version UID. */
     private static final long serialVersionUID = 6308450535247361691L;
 
     /**

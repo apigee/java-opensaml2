@@ -28,16 +28,14 @@ import org.w3c.dom.Element;
 public abstract class AbstractSAMLObjectMarshaller extends AbstractXMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
      * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
-     * 
-     * @throws NullPointerException if any of the arguments are null (or empty in the case of String parameters)
      */
-    protected AbstractSAMLObjectMarshaller(String targetNamespaceURI, String targetLocalName) throws NullPointerException {
+    protected AbstractSAMLObjectMarshaller(String targetNamespaceURI, String targetLocalName){
         super(targetNamespaceURI, targetLocalName);
     }
 

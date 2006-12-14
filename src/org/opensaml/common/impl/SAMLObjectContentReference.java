@@ -21,6 +21,8 @@ import javolution.util.FastSet;
 import org.apache.log4j.Logger;
 import org.apache.xml.security.algorithms.MessageDigestAlgorithm;
 import org.apache.xml.security.signature.XMLSignature;
+import org.apache.xml.security.signature.XMLSignatureException;
+import org.apache.xml.security.transforms.TransformationException;
 import org.apache.xml.security.transforms.Transforms;
 import org.apache.xml.security.transforms.params.InclusiveNamespaces;
 import org.opensaml.common.SignableSAMLObject;
@@ -37,19 +39,19 @@ import org.w3c.dom.Element;
  */
 public class SAMLObjectContentReference implements ContentReference {
 
-    /** Logger */
+    /** Class logger. */
     private static Logger log = Logger.getLogger(SAMLObjectContentReference.class);
 
-    /** SAMLObject this reference refers to */
+    /** SAMLObject this reference refers to. */
     private SignableSAMLObject signableObject;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param signableObject the SAMLObject this reference refers to
+     * @param newSignableObject the SAMLObject this reference refers to
      */
-    public SAMLObjectContentReference(SignableSAMLObject signableObject) {
-        this.signableObject = signableObject;
+    public SAMLObjectContentReference(SignableSAMLObject newSignableObject) {
+        signableObject = newSignableObject;
     }
 
     /** {@inheritDoc} */
@@ -77,8 +79,10 @@ public class SAMLObjectContentReference implements ContentReference {
 
             signature.addDocument("#" + signableObject.getSignatureReferenceID(), dsigTransforms,
                     MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA256);
-        } catch (Exception e) {
-            log.error("Error while adding content reference", e);
+        } catch (TransformationException e) {
+            log.error("Unsupported signature transformation", e);
+        } catch (XMLSignatureException e) {
+            log.error("Error adding content reference to signature", e);
         }
     }
 

@@ -23,13 +23,13 @@ import org.opensaml.xml.AbstractValidatingSignableXMLObject;
 import org.opensaml.xml.signature.Signature;
 
 /**
- * Abstract SAMLObject implementation that also implements {@link org.opensaml.xml.signature.SignableXMLObject}
+ * Abstract SAMLObject implementation that also implements {@link org.opensaml.xml.signature.SignableXMLObject}.
  */
 public abstract class AbstractSignableSAMLObject extends AbstractValidatingSignableXMLObject implements
         SignableSAMLObject {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
@@ -69,15 +69,14 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
      * @param oldValue - current value
      * @param newValue - proposed new value
      * 
-     * @return The value to assign to the saved Object.
-     * 
-     * @throws IllegalAddException if the child already has a parent.
+     * @return The value to assign to the saved Object
      */
     protected DateTime prepareForAssignment(DateTime oldValue, DateTime newValue) {
+        DateTime utcValue = null;
         if (newValue != null) {
-            newValue = newValue.withZone(DateTimeZone.UTC);
+            utcValue = newValue.withZone(DateTimeZone.UTC);
         }
 
-        return super.prepareForAssignment(oldValue, newValue);
+        return super.prepareForAssignment(oldValue, utcValue);
     }
 }

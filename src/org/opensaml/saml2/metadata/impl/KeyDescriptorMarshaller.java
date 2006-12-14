@@ -28,29 +28,29 @@ import org.w3c.dom.Element;
  */
 public class KeyDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     */
+    /** Constructor. */
     public KeyDescriptorMarshaller() {
         super(SAMLConstants.SAML20MD_NS, KeyDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected KeyDescriptorMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
     }
-    
+
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
         KeyDescriptor keyDescriptor = (KeyDescriptor) xmlObject;
-        
-        if(keyDescriptor.getUse() != null){
-            domElement.setAttribute(KeyDescriptor.USE_ATTRIB_NAME, keyDescriptor.getUse().toString());
+
+        if (keyDescriptor.getUse() != null) {
+            domElement.setAttribute(KeyDescriptor.USE_ATTRIB_NAME, keyDescriptor.getUse().toString().toLowerCase());
         }
     }
 }

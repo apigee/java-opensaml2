@@ -22,7 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.security.CredentialUsageTypeEnumeration;
+import org.opensaml.xml.security.UsageType;
 import org.opensaml.xml.signature.KeyInfo;
 
 public interface KeyDescriptor extends SAMLObject {
@@ -47,14 +47,14 @@ public interface KeyDescriptor extends SAMLObject {
      * 
      * @return the use of this key
      */
-    public CredentialUsageTypeEnumeration getUse();
+    public UsageType getUse();
 
     /**
      * Sets the use of this key.
      * 
      * @param newType the use of this key
      */
-    public void setUse(CredentialUsageTypeEnumeration newType);
+    public void setUse(UsageType newType);
 
     /**
      * Gets information about the key, including the key itself.

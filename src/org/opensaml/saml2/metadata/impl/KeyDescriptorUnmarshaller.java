@@ -20,9 +20,9 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EncryptionMethod;
 import org.opensaml.saml2.metadata.KeyDescriptor;
-import org.opensaml.security.CredentialUsageTypeEnumeration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.security.UsageType;
 import org.opensaml.xml.signature.KeyInfo;
 import org.w3c.dom.Attr;
 
@@ -31,18 +31,18 @@ import org.w3c.dom.Attr;
  */
 public class KeyDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Constructor
-     */
+    /** Constructor. */
     public KeyDescriptorUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, KeyDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected KeyDescriptorUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -67,13 +67,10 @@ public class KeyDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         KeyDescriptor keyDescriptor = (KeyDescriptor) samlObject;
 
         if (attribute.getName().equals(KeyDescriptor.USE_ATTRIB_NAME)) {
-            String attributeValue = attribute.getValue();
-            if (attributeValue.equals("signing")) {
-                keyDescriptor.setUse(CredentialUsageTypeEnumeration.SIGNING);
-            } else if (attributeValue.equals("encryption")) {
-                keyDescriptor.setUse(CredentialUsageTypeEnumeration.ENCRYPTION);
-            } else {
-                throw new UnmarshallingException("Unknown key usage type, " + attributeValue);
+            try {
+                keyDescriptor.setUse(UsageType.valueOf(UsageType.class, attribute.getValue().toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                throw new UnmarshallingException("Invalid key usage type: " + attribute.getValue());
             }
         }
 

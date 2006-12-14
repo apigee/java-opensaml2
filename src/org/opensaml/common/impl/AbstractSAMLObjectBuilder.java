@@ -22,6 +22,8 @@ import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Base builder for {@link org.opensaml.common.SAMLObject}s.
+ * 
+ * @param <SAMLObjectType> the SAML object type built
  */
 public abstract class AbstractSAMLObjectBuilder<SAMLObjectType extends SAMLObject> extends
         AbstractXMLObjectBuilder<SAMLObjectType> implements SAMLObjectBuilder<SAMLObjectType> {

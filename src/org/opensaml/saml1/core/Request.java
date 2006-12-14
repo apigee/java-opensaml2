@@ -59,7 +59,7 @@ public interface Request extends RequestAbstractType {
     public AuthorizationDecisionQuery getAuthorizationDecisionQuery();
     
     /** Set the query (Query, SubjectQuery, AuthenticationQuery, AttributeQuery, AuthorizationDecisioonQuery 
-     * @throws IllegalAddException */ 
+     */ 
     public void setQuery(Query query) throws IllegalArgumentException;
     
     /** Get the lists of AssertionIDReferences */
