@@ -20,6 +20,7 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.LogoutRequest;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.SessionIndex;
@@ -33,7 +34,7 @@ import org.w3c.dom.Attr;
 public class LogoutRequestUnmarshaller extends RequestUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public LogoutRequestUnmarshaller() {
@@ -41,7 +42,7 @@ public class LogoutRequestUnmarshaller extends RequestUnmarshaller {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -54,12 +55,13 @@ public class LogoutRequestUnmarshaller extends RequestUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         LogoutRequest req = (LogoutRequest) samlObject;
 
-        if (attribute.getLocalName().equals(LogoutRequest.REASON_ATTRIB_NAME))
+        if (attribute.getLocalName().equals(LogoutRequest.REASON_ATTRIB_NAME)) {
             req.setReason(attribute.getValue());
-        else if (attribute.getLocalName().equals(LogoutRequest.NOT_ON_OR_AFTER_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(LogoutRequest.NOT_ON_OR_AFTER_ATTRIB_NAME)) {
             req.setNotOnOrAfter(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
-        else
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */
@@ -71,6 +73,8 @@ public class LogoutRequestUnmarshaller extends RequestUnmarshaller {
             req.setBaseID((BaseID) childSAMLObject);
         } else if (childSAMLObject instanceof NameID) {
             req.setNameID((NameID) childSAMLObject);
+        } else if (childSAMLObject instanceof EncryptedID) {
+            req.setEncryptedID((EncryptedID) childSAMLObject);
         } else if (childSAMLObject instanceof SessionIndex) {
             req.getSessionIndexes().add((SessionIndex) childSAMLObject);
         } else {

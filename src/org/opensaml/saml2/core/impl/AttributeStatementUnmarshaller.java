@@ -24,6 +24,7 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.saml2.core.EncryptedAttribute;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
@@ -32,13 +33,13 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class AttributeStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AttributeStatementUnmarshaller() {
         super(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -53,6 +54,8 @@ public class AttributeStatementUnmarshaller extends AbstractSAMLObjectUnmarshall
 
         if (childObject instanceof Attribute) {
             attributeStatement.getAttributes().add((Attribute) childObject);
+        } else if (childObject instanceof EncryptedAttribute) {
+            attributeStatement.getEncryptedAttributes().add((EncryptedAttribute) childObject);
         } else {
             super.processChildElement(parentObject, childObject);
         }

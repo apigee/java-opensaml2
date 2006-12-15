@@ -34,13 +34,13 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AdviceUnmarshaller() {
         super(SAMLConstants.SAML20_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -52,15 +52,10 @@ public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         Advice advice = (Advice) parentObject;
+        
+        // This is an unbounded choice over several unrelated elements, and the <any> wildcard element.
+        advice.getChildren().add(childObject);
+        
 
-        if (childObject instanceof AssertionIDRef) {
-            advice.getAssertionIDReferences().add((AssertionIDRef) childObject);
-        } else if (childObject instanceof AssertionURIRef) {
-            advice.getAssertionURIReferences().add((AssertionURIRef) childObject);
-        } else if (childObject instanceof Assertion) {
-            advice.getAssertions().add((Assertion) childObject);
-        } else {
-            advice.getUnknownXMLObjects().add(childObject);
-        }
     }
 }

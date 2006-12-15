@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.LogoutRequest;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.SessionIndex;
@@ -29,27 +30,31 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * A concrete implementation of {@link org.opensaml.saml2.core.LogoutRequest}
+ * A concrete implementation of {@link org.opensaml.saml2.core.LogoutRequest}.
  */
 public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
 
-    /** Reason attribute */
+    /** Reason attribute. */
     private String reason;
 
-    /** NotOnOrAfter attribute */
+    /** NotOnOrAfter attribute. */
     private DateTime notOnOrAfter;
 
-    /** BaseID child element */
+    /** BaseID child element. */
     private BaseID baseID;
 
-    /** NameID child element */
+    /** NameID child element. */
     private NameID nameID;
+    
+    /** EncryptedID child element. */
+    private EncryptedID encryptedID;
 
-    /** SessionIndex child elements */
+
+    /** SessionIndex child elements. */
     private final XMLObjectChildrenList<SessionIndex> sessionIndexes;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -101,6 +106,16 @@ public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
     }
 
     /** {@inheritDoc} */
+    public EncryptedID getEncryptedID() {
+        return this.encryptedID;
+    }
+
+    /** {@inheritDoc} */
+    public void setEncryptedID(EncryptedID newEncryptedID) {
+        this.encryptedID = prepareForAssignment(this.encryptedID, newEncryptedID);
+    }
+
+    /** {@inheritDoc} */
     public List<SessionIndex> getSessionIndexes() {
         return sessionIndexes;
     }
@@ -119,6 +134,10 @@ public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
 
         if (nameID != null) {
             children.add(nameID);
+        }
+        
+        if (encryptedID != null) {
+            children.add(encryptedID);
         }
 
         children.addAll(sessionIndexes);

@@ -16,14 +16,12 @@
 
 package org.opensaml.saml2.core.impl;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.EncryptedAssertion;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AdviceImpl}.
@@ -37,7 +35,10 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     protected int assertionURIRefCount = 2;
 
     /** Count of Assertion subelements */
-    protected int assertionCount = 2;
+    protected int assertionCount = 3;
+
+    /** Count of Assertion subelements */
+    protected int encryptedAssertionCount = 2;
 
     /** Constructor */
     public AdviceTest() {
@@ -58,24 +59,6 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
     }
 
     /** {@inheritDoc} */
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // do nothing
-    }
-
-    /** {@inheritDoc} */
-    public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Advice advice = (Advice) buildXMLObject(qname);
-
-        assertEquals(expectedDOM, advice);
-    }
-
-    /** {@inheritDoc} */
-    public void testSingleElementOptionalAttributesMarshall() {
-        // do nothing
-    }
-
-    /** {@inheritDoc} */
     public void testChildElementsUnmarshall() {
         Advice advice = (Advice) unmarshallElement(childElementsFile);
 
@@ -84,27 +67,30 @@ public class AdviceTest extends SAMLObjectBaseTestCase {
         assertEquals("AssertionURIRef count not as expected", assertionURIRefCount, advice.getAssertionURIReferences()
                 .size());
         assertEquals("Assertion count not as expected", assertionCount, advice.getAssertions().size());
+        assertEquals("EncryptedAssertion count not as expected", encryptedAssertionCount, advice.getEncryptedAssertions().size());
+    }
+    
+    /** {@inheritDoc} */
+    public void testSingleElementMarshall() {
+        Advice advice = (Advice) buildXMLObject(Advice.DEFAULT_ELEMENT_NAME);
+
+        assertEquals(expectedDOM, advice);
     }
 
     /** {@inheritDoc} */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        Advice advice = (Advice) buildXMLObject(qname);
-
-        QName assertionIDRefQName = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        for (int i = 0; i < assertionIDRefCount; i++) {
-            advice.getAssertionIDReferences().add((AssertionIDRef) buildXMLObject(assertionIDRefQName));
-        }
+        Advice advice = (Advice) buildXMLObject(Advice.DEFAULT_ELEMENT_NAME);
         
-        QName assertionURIRefQName = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        for (int i = 0; i < assertionURIRefCount; i++) {
-            advice.getAssertionURIReferences().add((AssertionURIRef) buildXMLObject(assertionURIRefQName));
-        }
-        
-        QName assertionQName = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        for (int i = 0; i < assertionCount; i++) {
-            advice.getAssertions().add((org.opensaml.saml2.core.Assertion) buildXMLObject(assertionQName));
-        }
+        advice.getChildren().add(buildXMLObject(AssertionIDRef.DEFAULT_ELEMENT_NAME));
+        advice.getChildren().add(buildXMLObject(AssertionURIRef.DEFAULT_ELEMENT_NAME));
+        advice.getChildren().add(buildXMLObject(AssertionIDRef.DEFAULT_ELEMENT_NAME));
+        advice.getChildren().add(buildXMLObject(AssertionURIRef.DEFAULT_ELEMENT_NAME));
+        advice.getChildren().add(buildXMLObject(AssertionIDRef.DEFAULT_ELEMENT_NAME));
+        advice.getChildren().add(buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME));
+        advice.getChildren().add(buildXMLObject(EncryptedAssertion.DEFAULT_ELEMENT_NAME));
+        advice.getChildren().add(buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME));
+        advice.getChildren().add(buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME));
+        advice.getChildren().add(buildXMLObject(EncryptedAssertion.DEFAULT_ELEMENT_NAME));
 
         assertEquals(expectedChildElementsDOM, advice);
     }

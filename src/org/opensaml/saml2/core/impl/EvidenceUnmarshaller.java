@@ -25,6 +25,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.EncryptedAssertion;
 import org.opensaml.saml2.core.Evidence;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -34,13 +35,13 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public EvidenceUnmarshaller() {
         super(SAMLConstants.SAML20_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -59,6 +60,8 @@ public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             evidence.getAssertionURIReferences().add((AssertionURIRef) childObject);
         } else if (childObject instanceof Assertion) {
             evidence.getAssertions().add((Assertion) childObject);
+        } else if (childObject instanceof EncryptedAssertion) {
+            evidence.getEncryptedAssertions().add((EncryptedAssertion) childObject);
         } else {
             super.processChildElement(parentObject, childObject);
         }

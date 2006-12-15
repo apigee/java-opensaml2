@@ -19,6 +19,7 @@ package org.opensaml.saml2.core.impl;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectConfirmation;
@@ -53,6 +54,8 @@ public class SubjectUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             subject.setBaseID((BaseID) childObject);
         } else if (childObject instanceof NameID) {
             subject.setNameID((NameID) childObject);
+        } else if (childObject instanceof EncryptedID) {
+            subject.setEncryptedID((EncryptedID) childObject);
         } else if (childObject instanceof SubjectConfirmation) {
             subject.getSubjectConfirmations().add((SubjectConfirmation) childObject);
         } else {

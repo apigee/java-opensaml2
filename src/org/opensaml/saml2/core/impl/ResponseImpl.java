@@ -25,22 +25,21 @@ import java.util.Collections;
 import java.util.List;
 
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.EncryptedAssertion;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Response}
+ * Concrete implementation of {@link org.opensaml.saml2.core.Response}.
  */
 public class ResponseImpl extends StatusResponseImpl implements Response {
 
-    // TODO may need more for EncryptedAssertion pending Chad's encryption implementation
-
-    /** Assertion child elements */
-    private final XMLObjectChildrenList<Assertion> assertions;
+    /** Assertion child elements. */
+    private final IndexedXMLObjectChildrenList<XMLObject> indexedChildren;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -48,25 +47,32 @@ public class ResponseImpl extends StatusResponseImpl implements Response {
      */
     protected ResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        assertions = new XMLObjectChildrenList<Assertion>(this);
+        indexedChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
     }
 
     /** {@inheritDoc} */
     public List<Assertion> getAssertions() {
-        return this.assertions;
+        return (List<Assertion>) indexedChildren.subList(Assertion.DEFAULT_ELEMENT_NAME);
+    }
+
+    /** {@inheritDoc} */
+    public List<EncryptedAssertion> getEncryptedAssertions() {
+        return (List<EncryptedAssertion>) indexedChildren.subList(EncryptedAssertion.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
+        }
 
-        children.addAll(assertions);
+        children.addAll(indexedChildren);
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

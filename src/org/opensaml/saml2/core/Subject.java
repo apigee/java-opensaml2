@@ -68,7 +68,19 @@ public interface Subject extends SAMLObject {
      */
     public void setNameID(NameID newNameID);
 
-    // TODO EncryptedID
+    /**
+     * Gets the encrypted name identifier of the principal for this request.
+     * 
+     * @return the encrypted name identifier of the principal for this request
+     */
+    public EncryptedID getEncryptedID();
+
+    /**
+     * Sets the encrypted name identifier of the principal for this request.
+     * 
+     * @param newEncryptedID the new encrypted name identifier of the principal for this request
+     */
+    public void setEncryptedID(EncryptedID newEncryptedID);
 
     /**
      * Gets the confirmations made about this subject.

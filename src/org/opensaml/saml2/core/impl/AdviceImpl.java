@@ -24,30 +24,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.EncryptedAssertion;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.Advice}.
  */
 public class AdviceImpl extends AbstractSAMLObject implements Advice {
-
-    /** List of AssertionID references */
-    private final XMLObjectChildrenList<AssertionIDRef> assertionIDRef;
-
-    /** List of AssertionURI references */
-    private final XMLObjectChildrenList<AssertionURIRef> assertionURIRef;
-
-    /** List of Assertions */
-    private final XMLObjectChildrenList<Assertion> assertion;
-    
-    /** "any" children */
-    private final XMLObjectChildrenList<XMLObject> unknownChildren;
+    /** Children */
+    private final IndexedXMLObjectChildrenList<XMLObject> indexedChildren;
 
     /**
      * Constructor
@@ -58,42 +51,44 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      */
     protected AdviceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        assertionIDRef = new XMLObjectChildrenList<AssertionIDRef>(this);
-        assertionURIRef = new XMLObjectChildrenList<AssertionURIRef>(this);
-        assertion = new XMLObjectChildrenList<Assertion>(this);
-        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
+        indexedChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
+    }
+
+    /** {@inheritDoc} */
+    public List<XMLObject> getChildren() {
+        return indexedChildren;
+    }
+
+    /** {@inheritDoc} */
+    public List<XMLObject> getChildren(QName typeOrName) {
+        return (List<XMLObject>) indexedChildren.subList(typeOrName);
     }
 
     /** {@inheritDoc} */
     public List<AssertionIDRef> getAssertionIDReferences() {
-        return assertionIDRef;
+        return (List<AssertionIDRef>) indexedChildren.subList(AssertionIDRef.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */
     public List<AssertionURIRef> getAssertionURIReferences() {
-        return assertionURIRef;
+        return (List<AssertionURIRef>) indexedChildren.subList(AssertionURIRef.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */
     public List<Assertion> getAssertions() {
-        return assertion;
+        return (List<Assertion>) indexedChildren.subList(Assertion.DEFAULT_ELEMENT_NAME);
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    public List<XMLObject> getUnknownXMLObjects() {
-        return unknownChildren;
+    /** {@inheritDoc} */
+    public List<EncryptedAssertion> getEncryptedAssertions() {
+        return (List<EncryptedAssertion>) indexedChildren.subList(EncryptedAssertion.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        children.addAll(assertionIDRef);
-        children.addAll(assertionURIRef);
-        children.addAll(assertion);
-        children.addAll(unknownChildren);
+        children.addAll(indexedChildren);
 
         return Collections.unmodifiableList(children);
     }

@@ -19,6 +19,7 @@ package org.opensaml.saml2.core.impl;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.SubjectConfirmation;
 import org.opensaml.saml2.core.SubjectConfirmationData;
@@ -31,13 +32,13 @@ import org.w3c.dom.Attr;
  */
 public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public SubjectConfirmationUnmarshaller() {
         super(SAMLConstants.SAML20_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -54,6 +55,8 @@ public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshal
             subjectConfirmation.setBaseID((BaseID) childObject);
         } else if (childObject instanceof NameID) {
             subjectConfirmation.setNameID((NameID) childObject);
+        } else if (childObject instanceof EncryptedID) {
+            subjectConfirmation.setEncryptedID((EncryptedID) childObject);
         } else if (childObject instanceof SubjectConfirmationData) {
             subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) childObject);
         } else {

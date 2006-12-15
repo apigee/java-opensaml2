@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.SubjectConfirmation;
@@ -38,6 +39,9 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
 
     /** NameID child element */
     private NameID nameID;
+
+    /** EncryptedID child element */
+    private EncryptedID encryptedID;
 
     /** Subject Confirmations of the Subject */
     private final XMLObjectChildrenList<SubjectConfirmation> subjectConfirmations;
@@ -75,6 +79,16 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
     }
 
     /** {@inheritDoc} */
+    public EncryptedID getEncryptedID() {
+        return this.encryptedID;
+    }
+
+    /** {@inheritDoc} */
+    public void setEncryptedID(EncryptedID newEncryptedID) {
+        this.encryptedID = prepareForAssignment(this.encryptedID, newEncryptedID);
+    }
+
+    /** {@inheritDoc} */
     public List<SubjectConfirmation> getSubjectConfirmations() {
         return subjectConfirmations;
     }
@@ -89,6 +103,10 @@ public class SubjectImpl extends AbstractSAMLObject implements Subject {
 
         if (nameID != null) {
             children.add(nameID);
+        }
+
+        if (encryptedID != null) {
+            children.add(encryptedID);
         }
 
         children.addAll(subjectConfirmations);

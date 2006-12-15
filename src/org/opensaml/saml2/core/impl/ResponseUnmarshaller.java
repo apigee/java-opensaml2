@@ -22,6 +22,7 @@ package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.EncryptedAssertion;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -32,7 +33,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class ResponseUnmarshaller extends StatusResponseUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public ResponseUnmarshaller() {
@@ -40,7 +41,7 @@ public class ResponseUnmarshaller extends StatusResponseUnmarshaller {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -54,12 +55,13 @@ public class ResponseUnmarshaller extends StatusResponseUnmarshaller {
             throws UnmarshallingException {
         Response resp = (Response) parentSAMLObject;
 
-        // TODO may need more to handle EncryptedAssertion pending Chad's encryption implementation
-
-        if (childSAMLObject instanceof Assertion)
+        if (childSAMLObject instanceof Assertion) {
             resp.getAssertions().add((Assertion) childSAMLObject);
-        else
+        } else if (childSAMLObject instanceof EncryptedAssertion) {
+            resp.getEncryptedAssertions().add((EncryptedAssertion) childSAMLObject);
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 
 }

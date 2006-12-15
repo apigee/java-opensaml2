@@ -33,29 +33,27 @@ import org.opensaml.saml2.core.Terminate;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A concrete implementation of {@link org.opensaml.saml2.core.ManageNameIDRequest}
+ * A concrete implementation of {@link org.opensaml.saml2.core.ManageNameIDRequest}.
  */
 public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameIDRequest {
 
-    // TODO EncryptedID and NewEncryptedID stuff may change, pending Chad's encryption implementation
-
-    /** NameID child element */
+    /** NameID child element. */
     private NameID nameID;
 
-    /** EncryptedID child element */
+    /** EncryptedID child element. */
     private EncryptedID encryptedID;
 
-    /** NewID child element */
+    /** NewID child element. */
     private NewID newID;
 
-    /** NameID child element */
+    /** NameID child element. */
     private NewEncryptedID newEncryptedID;
 
-    /** Terminate child element */
+    /** Terminate child element. */
     private Terminate terminate;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -81,8 +79,8 @@ public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameID
     }
 
     /** {@inheritDoc} */
-    public void setEncryptedID(EncryptedID newEncryptedID) {
-        this.encryptedID = prepareForAssignment(this.encryptedID, newEncryptedID);
+    public void setEncryptedID(EncryptedID newEncID) {
+        this.encryptedID = prepareForAssignment(this.encryptedID, newEncID);
     }
 
     /** {@inheritDoc} */
@@ -119,21 +117,28 @@ public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameID
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
-        if (nameID != null)
+        }
+        if (nameID != null) {
             children.add(nameID);
-        if (encryptedID != null)
+        }
+        if (encryptedID != null) {
             children.add(encryptedID);
-        if (newID != null)
+        }
+        if (newID != null) {
             children.add(newID);
-        if (newEncryptedID != null)
+        }
+        if (newEncryptedID != null) {
             children.add(newEncryptedID);
-        if (terminate != null)
+        }
+        if (terminate != null) {
             children.add(terminate);
+        }
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

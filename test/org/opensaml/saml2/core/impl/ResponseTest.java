@@ -23,20 +23,24 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.EncryptedAssertion;
 import org.opensaml.saml2.core.Response;
 
 /**
- *
+ * Test case for creating, marshalling, and unmarshalling
+ * {@link org.opensaml.saml2.core.impl.ResponseImpl}.
  */
 public class ResponseTest extends StatusResponseTestBase {
     
-    // TODO may need more depending on the EncryptedAssertion implementation
-    
-    /** Expected number of Assertion child elements */
+    /** Expected number of Assertion child elements. */
     private int expectedNumAssertions;
+    
+    /** Expected number of EncryptedAssertion child elements. */
+    private int expectedNumEncryptedAssertions;
+
 
     /**
-     * Constructor
+     * Constructor.
      *
      */
     public ResponseTest() {
@@ -50,11 +54,13 @@ public class ResponseTest extends StatusResponseTestBase {
     protected void setUp() throws Exception {
         super.setUp();
         expectedNumAssertions = 3;
+        expectedNumEncryptedAssertions = 2;
     }
 
     /** {@inheritDoc} */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = 
+            new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         Response resp = (Response) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -64,7 +70,8 @@ public class ResponseTest extends StatusResponseTestBase {
 
     /** {@inheritDoc} */
     public void testSingleElementOptionalAttributesMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        QName qname = 
+            new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         Response resp = (Response) buildXMLObject(qname);
         
         super.populateRequiredAttributes(resp);
@@ -75,15 +82,15 @@ public class ResponseTest extends StatusResponseTestBase {
 
     /** {@inheritDoc} */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-        Response resp = (Response) buildXMLObject(qname);
+        Response resp = (Response) buildXMLObject(Response.DEFAULT_ELEMENT_NAME);
         
         super.populateChildElements(resp);
         
-        QName assetionQname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        for (int i=0; i<expectedNumAssertions; i++){
-            resp.getAssertions().add((Assertion) buildXMLObject(assetionQname));
-        }
+        resp.getAssertions().add((Assertion) buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME));
+        resp.getAssertions().add((Assertion) buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME));
+        resp.getEncryptedAssertions().add((EncryptedAssertion) buildXMLObject(EncryptedAssertion.DEFAULT_ELEMENT_NAME));
+        resp.getEncryptedAssertions().add((EncryptedAssertion) buildXMLObject(EncryptedAssertion.DEFAULT_ELEMENT_NAME));
+        resp.getAssertions().add((Assertion) buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME));
         
         assertEquals(expectedChildElementsDOM, resp);
     }
@@ -109,6 +116,7 @@ public class ResponseTest extends StatusResponseTestBase {
         Response resp = (Response) unmarshallElement(childElementsFile);
         
         assertEquals("Assertion count", expectedNumAssertions, resp.getAssertions().size());
+        assertEquals("EncryptedAssertion count", expectedNumEncryptedAssertions, resp.getEncryptedAssertions().size());
         super.helperTestChildElementsUnmarshall(resp);
     }
 

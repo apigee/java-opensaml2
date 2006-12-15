@@ -36,7 +36,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public ManageNameIDRequestUnmarshaller() {
@@ -44,7 +44,7 @@ public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -53,23 +53,23 @@ public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
         super(namespaceURI, elementLocalName);
     }
 
+    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         ManageNameIDRequest req = (ManageNameIDRequest) parentSAMLObject;
 
-        // TODO may change depending on Chad's encryption implementation
-
-        if (childSAMLObject instanceof NameID)
+        if (childSAMLObject instanceof NameID) {
             req.setNameID((NameID) childSAMLObject);
-        else if (childSAMLObject instanceof EncryptedID)
+        } else if (childSAMLObject instanceof EncryptedID) {
             req.setEncryptedID((EncryptedID) childSAMLObject);
-        else if (childSAMLObject instanceof NewID)
+        } else if (childSAMLObject instanceof NewID) {
             req.setNewID((NewID) childSAMLObject);
-        else if (childSAMLObject instanceof NewEncryptedID)
+        } else if (childSAMLObject instanceof NewEncryptedID) {
             req.setNewEncryptedID((NewEncryptedID) childSAMLObject);
-        else if (childSAMLObject instanceof Terminate)
+        } else if (childSAMLObject instanceof Terminate) {
             req.setTerminate((Terminate) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

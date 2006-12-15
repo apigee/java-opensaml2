@@ -26,34 +26,35 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core Response
+ * SAML 2.0 Core Response.
  */
 public interface Response extends StatusResponse {
     
-    /** Element local name*/
+    /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "Response";
     
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = 
+        new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "ResponseType"; 
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "ResponseType"; 
         
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = 
+        new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
     /**
-     * Return the list of Assertion child elements
+     * Return the list of Assertion child elements.
      * 
      * @return  the list of Assertion child elements
      */
     public List<Assertion> getAssertions();
 
     /**
-     * Return the list of EncryptedAssertion child elements
+     * Return the list of EncryptedAssertion child elements.
      * 
      * @return  the list of EncryptedAssertion child elements
      */
-    //TODO enable when EncryptedAssertion available
-    //public List<EncryptedAssertion> getEncryptedAssertions();
+    public List<EncryptedAssertion> getEncryptedAssertions();
 }

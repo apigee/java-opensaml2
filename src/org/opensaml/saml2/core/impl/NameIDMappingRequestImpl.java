@@ -21,27 +21,31 @@ import java.util.Collections;
 import java.util.List;
 
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingRequest;
 import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A concrete implementation of {@link org.opensaml.saml2.core.NameIDMappingRequest}
+ * A concrete implementation of {@link org.opensaml.saml2.core.NameIDMappingRequest}.
  */
 public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappingRequest {
 
-    /** BaseID child element */
+    /** BaseID child element. */
     private BaseID baseID;
 
-    /** NameID child element */
+    /** NameID child element. */
     private NameID nameID;
 
-    /** NameIDPolicy child element */
+    /** EncryptedID child element. */
+    private EncryptedID encryptedID;
+
+    /** NameIDPolicy child element. */
     private NameIDPolicy nameIDPolicy;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -72,6 +76,16 @@ public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappi
     }
 
     /** {@inheritDoc} */
+    public EncryptedID getEncryptedID() {
+        return this.encryptedID;
+    }
+
+    /** {@inheritDoc} */
+    public void setEncryptedID(EncryptedID newEncryptedID) {
+        this.encryptedID = prepareForAssignment(this.encryptedID, newEncryptedID);
+    }
+
+    /** {@inheritDoc} */
     public NameIDPolicy getNameIDPolicy() {
         return this.nameIDPolicy;
     }
@@ -85,8 +99,9 @@ public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappi
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
+        }
 
         if (baseID != null) {
             children.add(baseID);
@@ -95,12 +110,18 @@ public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappi
         if (nameID != null) {
             children.add(nameID);
         }
+        
+        if (encryptedID != null) {
+            children.add(encryptedID);
+        }
 
-        if (nameIDPolicy != null)
+        if (nameIDPolicy != null) {
             children.add(nameIDPolicy);
+        }
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

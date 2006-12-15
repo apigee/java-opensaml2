@@ -20,20 +20,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingResponse;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.NameIDMappingResponse}
+ * Concrete implementation of {@link org.opensaml.saml2.core.NameIDMappingResponse}.
  */
 public class NameIDMappingResponseImpl extends StatusResponseImpl implements NameIDMappingResponse {
 
-    /** NameID child element */
+    /** NameID child element. */
     private NameID nameID;
 
+    /** EncryptedID child element. */
+    private EncryptedID encryptedID;
+
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -45,27 +49,43 @@ public class NameIDMappingResponseImpl extends StatusResponseImpl implements Nam
 
     /** {@inheritDoc} */
     public NameID getNameID() {
-        return nameID;
+        return this.nameID;
     }
 
     /** {@inheritDoc} */
     public void setNameID(NameID newNameID) {
-        nameID = prepareForAssignment(nameID, newNameID);
+        this.nameID = prepareForAssignment(this.nameID, newNameID);
+    }
+
+    /** {@inheritDoc} */
+    public EncryptedID getEncryptedID() {
+        return this.encryptedID;
+    }
+
+    /** {@inheritDoc} */
+    public void setEncryptedID(EncryptedID newEncryptedID) {
+        this.encryptedID = prepareForAssignment(this.encryptedID, newEncryptedID);
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
+        }
 
         if (nameID != null) {
             children.add(nameID);
         }
+        
+        if (encryptedID != null) {
+            children.add(encryptedID);
+        }
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

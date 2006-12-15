@@ -27,19 +27,20 @@ import java.util.List;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.saml2.core.EncryptedAttribute;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AttributeStatement}.
  */
 public class AttributeStatementImpl extends AbstractSAMLObject implements AttributeStatement {
 
-    /** Attributes in this statement */
-    private final XMLObjectChildrenList<Attribute> attributes;
+    /** Attributes and EncryptedAttributes in this statement. */
+    private final IndexedXMLObjectChildrenList<XMLObject> indexedChildren;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -47,19 +48,26 @@ public class AttributeStatementImpl extends AbstractSAMLObject implements Attrib
      */
     protected AttributeStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        attributes = new XMLObjectChildrenList<Attribute>(this);
+        indexedChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
     }
 
     /** {@inheritDoc} */
     public List<Attribute> getAttributes() {
-        return attributes;
+        return (List<Attribute>) indexedChildren.subList(Attribute.DEFAULT_ELEMENT_NAME);
+    }
+    
+
+    /** {@inheritDoc} */
+    public List<EncryptedAttribute> getEncryptedAttributes() {
+        return (List<EncryptedAttribute>) indexedChildren.subList(EncryptedAttribute.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        children.addAll(attributes);
+        children.addAll(indexedChildren);
+        
         return Collections.unmodifiableList(children);
     }
 }

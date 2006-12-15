@@ -24,13 +24,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionURIRef;
+import org.opensaml.saml2.core.EncryptedAssertion;
 import org.opensaml.saml2.core.Evidence;
 import org.opensaml.saml2.core.Evidentiary;
 import org.opensaml.xml.XMLObject;
@@ -41,11 +39,11 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
  */
 public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
 
-    /** Assertion of the Evidence */
+    /** Assertion of the Evidence. */
     private final IndexedXMLObjectChildrenList<Evidentiary> evidence;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -63,20 +61,22 @@ public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
 
     /** {@inheritDoc} */
     public List<AssertionIDRef> getAssertionIDReferences() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        return (List<AssertionIDRef>) evidence.subList(qname);
+        return (List<AssertionIDRef>) evidence.subList(AssertionIDRef.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */
     public List<AssertionURIRef> getAssertionURIReferences() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        return (List<AssertionURIRef>) evidence.subList(qname);
+        return (List<AssertionURIRef>) evidence.subList(AssertionURIRef.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */
     public List<Assertion> getAssertions() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        return (List<Assertion>) evidence.subList(qname);
+        return (List<Assertion>) evidence.subList(Assertion.DEFAULT_ELEMENT_NAME);
+    }
+
+    /** {@inheritDoc} */
+    public List<EncryptedAssertion> getEncryptedAssertions() {
+        return (List<EncryptedAssertion>) evidence.subList(EncryptedAssertion.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */

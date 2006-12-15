@@ -18,6 +18,7 @@ package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.BaseID;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingRequest;
 import org.opensaml.saml2.core.NameIDPolicy;
@@ -30,7 +31,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class NameIDMappingRequestUnmarshaller extends RequestUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public NameIDMappingRequestUnmarshaller() {
@@ -38,7 +39,7 @@ public class NameIDMappingRequestUnmarshaller extends RequestUnmarshaller {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -56,6 +57,8 @@ public class NameIDMappingRequestUnmarshaller extends RequestUnmarshaller {
             req.setBaseID((BaseID) childSAMLObject);
         } else if (childSAMLObject instanceof NameID) {
             req.setNameID((NameID) childSAMLObject);
+        } else if (childSAMLObject instanceof EncryptedID) {
+            req.setEncryptedID((EncryptedID) childSAMLObject);
         } else if (childSAMLObject instanceof NameIDPolicy) {
             req.setNameIDPolicy((NameIDPolicy) childSAMLObject);
         } else {

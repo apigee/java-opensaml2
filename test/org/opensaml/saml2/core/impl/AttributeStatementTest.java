@@ -16,22 +16,24 @@
 
 package org.opensaml.saml2.core.impl;
 
-import javax.xml.namespace.QName;
-
 import org.opensaml.common.SAMLObjectBaseTestCase;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.saml2.core.EncryptedAttribute;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AttributeStatementImpl}.
  */
 public class AttributeStatementTest extends SAMLObjectBaseTestCase {
 
-    /** Count of Attribute subelements */
-    protected int expectedAttributeCount = 3;
+    /** Count of Attribute subelements. */
+    private int expectedAttributeCount = 3;
+    
+    /** Count of EncryptedAttribute subelements. */
+    private int expectedEncryptedAttributeCount = 3;
 
-    /** Constructor */
+
+    /** Constructor. */
     public AttributeStatementTest() {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/AttributeStatement.xml";
         childElementsFile = "/data/org/opensaml/saml2/core/impl/AttributeStatementChildElements.xml";
@@ -48,40 +50,41 @@ public class AttributeStatementTest extends SAMLObjectBaseTestCase {
 
         assertNotNull(attributeStatement);
     }
-
+    
     /** {@inheritDoc} */
-    public void testSingleElementOptionalAttributesUnmarshall() {
-        // do nothing
+    public void testChildElementsUnmarshall() {
+        AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(childElementsFile);
+        assertEquals("Attribute Count", expectedAttributeCount, attributeStatement.getAttributes().size());
+        assertEquals("EncryptedAttribute Count", 
+                expectedEncryptedAttributeCount, attributeStatement.getEncryptedAttributes().size());
     }
+
 
     /** {@inheritDoc} */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
+        AttributeStatement attributeStatement = 
+            (AttributeStatement) buildXMLObject(AttributeStatement.DEFAULT_ELEMENT_NAME);
 
         assertEquals(expectedDOM, attributeStatement);
     }
 
     /** {@inheritDoc} */
-    public void testSingleElementOptionalAttributesMarshall() {
-        // do nothing
-    }
-
-    /** {@inheritDoc} */
-    public void testChildElementsUnmarshall() {
-        AttributeStatement attributeStatement = (AttributeStatement) unmarshallElement(childElementsFile);
-        assertEquals("Attribute Count", expectedAttributeCount, attributeStatement.getAttributes().size());
-    }
-
-    /** {@inheritDoc} */
     public void testChildElementsMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        AttributeStatement attributeStatement = (AttributeStatement) buildXMLObject(qname);
+        AttributeStatement attributeStatement = 
+            (AttributeStatement) buildXMLObject(AttributeStatement.DEFAULT_ELEMENT_NAME);
 
-        QName attributeQName = new QName(SAMLConstants.SAML20_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-        for (int i = 0; i < expectedAttributeCount; i++) {
-            attributeStatement.getAttributes().add((Attribute) buildXMLObject(attributeQName));
-        }
+        attributeStatement.getAttributes()
+            .add((Attribute) buildXMLObject(Attribute.DEFAULT_ELEMENT_NAME));
+        attributeStatement.getEncryptedAttributes()
+            .add((EncryptedAttribute) buildXMLObject(EncryptedAttribute.DEFAULT_ELEMENT_NAME));
+        attributeStatement.getAttributes()
+            .add((Attribute) buildXMLObject(Attribute.DEFAULT_ELEMENT_NAME));
+        attributeStatement.getEncryptedAttributes()
+            .add((EncryptedAttribute) buildXMLObject(EncryptedAttribute.DEFAULT_ELEMENT_NAME));
+        attributeStatement.getEncryptedAttributes()
+            .add((EncryptedAttribute) buildXMLObject(EncryptedAttribute.DEFAULT_ELEMENT_NAME));
+        attributeStatement.getAttributes()
+            .add((Attribute) buildXMLObject(Attribute.DEFAULT_ELEMENT_NAME));
 
         assertEquals(expectedChildElementsDOM, attributeStatement);
     }

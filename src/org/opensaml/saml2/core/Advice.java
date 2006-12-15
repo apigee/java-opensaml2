@@ -22,12 +22,12 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.xml.ElementExtensibleXMLObject;
+import org.opensaml.xml.XMLObject;
 
 /**
  * SAML 2.0 Core Advice
  */
-public interface Advice extends SAMLObject, ElementExtensibleXMLObject {
+public interface Advice extends SAMLObject {
     
     /** Element local name */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Advice";
@@ -40,7 +40,22 @@ public interface Advice extends SAMLObject, ElementExtensibleXMLObject {
         
     /** QName of the XSI type */
     public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-
+    /**
+     * Gets the list of all child elements attached to this advice.
+     * 
+     * @return the list of all child elements attached to this advice
+     */
+    public List<XMLObject> getChildren();
+ 
+    /**
+     * Gets the list of child elements attached to this advice
+     * that match a particular QName.
+     * 
+     * @param typeOrName the QName of the child elements to return
+     * @return the list of matching child elements attached to this advice
+     */
+    public List<XMLObject> getChildren(QName typeOrName);
+    
     /**
      * Gets the list of AssertionID references used as advice.
      * 
@@ -49,7 +64,7 @@ public interface Advice extends SAMLObject, ElementExtensibleXMLObject {
     public List<AssertionIDRef> getAssertionIDReferences();
 
     /**
-     * Gets the list of AssertionURI references used as advice;
+     * Gets the list of AssertionURI references used as advice.
      * 
      * @return the list of AssertionURI references used as advice
      */
@@ -62,5 +77,10 @@ public interface Advice extends SAMLObject, ElementExtensibleXMLObject {
      */
     public List<Assertion> getAssertions();
 
-    // TODO encrypted assertions
+    /**
+     * Gets the list of EncryptedAssertions used as advice.
+     * 
+     * @return the list of EncryptedAssertions used as advice
+     */
+    public List<EncryptedAssertion> getEncryptedAssertions();
 }

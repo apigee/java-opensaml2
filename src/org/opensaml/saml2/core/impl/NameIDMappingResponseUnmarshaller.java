@@ -17,6 +17,7 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingResponse;
 import org.opensaml.xml.XMLObject;
@@ -28,7 +29,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public NameIDMappingResponseUnmarshaller() {
@@ -36,7 +37,7 @@ public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshalle
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -52,6 +53,8 @@ public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshalle
 
         if (childSAMLObject instanceof NameID) {
             resp.setNameID((NameID) childSAMLObject);
+        } else if (childSAMLObject instanceof EncryptedID) {
+            resp.setEncryptedID((EncryptedID) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }

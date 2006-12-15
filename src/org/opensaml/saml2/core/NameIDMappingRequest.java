@@ -25,21 +25,23 @@ import org.opensaml.common.xml.SAMLConstants;
 
 
 /**
- * SAML 2.0 Core NameIDMappingRequest
+ * SAML 2.0 Core NameIDMappingRequest.
  */
 public interface NameIDMappingRequest extends Request {
     
-    /** Element local name */
+    /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "NameIDMappingRequest";
     
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = 
+        new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "NameIDMappingRequestType"; 
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "NameIDMappingRequestType"; 
         
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = 
+        new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     
     /**
      * Gets the base identifier of the principal for this request.
@@ -69,17 +71,29 @@ public interface NameIDMappingRequest extends Request {
      */
     public void setNameID(NameID newNameID);
     
-    // TODO EncryptedID
+    /**
+     * Gets the encrypted name identifier of the principal for this request.
+     * 
+     * @return the encrypted name identifier of the principal for this request
+     */
+    public EncryptedID getEncryptedID();
     
     /**
-     * Get the NameIDPolicy of the request
+     * Sets the encrypted name identifier of the principal for this request.
+     * 
+     * @param newEncryptedID the new encrypted name identifier of the principal for this request
+     */
+    public void setEncryptedID(EncryptedID newEncryptedID);
+    
+    /**
+     * Get the NameIDPolicy of the request.
      * 
      * @return the NameIDPolicy of the request
      */
     public NameIDPolicy getNameIDPolicy();
 
     /**
-     * Set the NameIDPolicy of the request
+     * Set the NameIDPolicy of the request.
      * 
      * @param newNameIDPolicy the new NameIDPolicy of the request
      */
