@@ -187,6 +187,27 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.ConditionsUnmarshaller" />
         </ObjectProvider>
         
+        <!-- EncryptedAssertion -->
+        <ObjectProvider qualifiedName="saml2:EncryptedAssertion">
+            <BuilderClass className="org.opensaml.saml2.core.impl.EncryptedAssertionBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.EncryptedAssertionMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.EncryptedAssertionUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- EncryptedAttribute -->
+        <ObjectProvider qualifiedName="saml2:EncryptedAttribute">
+            <BuilderClass className="org.opensaml.saml2.core.impl.EncryptedAttributeBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.EncryptedAttributeMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.EncryptedAttributeUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- EncryptedID -->
+        <ObjectProvider qualifiedName="saml2:EncryptedID">
+            <BuilderClass className="org.opensaml.saml2.core.impl.EncryptedIDBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.EncryptedIDMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.EncryptedIDUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- Evidence -->
         <ObjectProvider qualifiedName="saml2:Evidence">
             <BuilderClass className="org.opensaml.saml2.core.impl.EvidenceBuilder" />
@@ -219,7 +240,7 @@
             <MarshallingClass className="org.opensaml.saml2.core.impl.NameIDMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.NameIDUnmarshaller" />
         </ObjectProvider>
-        
+ 
         <!-- OneTimeUse -->
         <ObjectProvider qualifiedName="saml2:OneTimeUse">
             <BuilderClass className="org.opensaml.saml2.core.impl.OneTimeUseBuilder" />

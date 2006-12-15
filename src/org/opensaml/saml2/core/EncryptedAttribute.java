@@ -21,15 +21,15 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core NewEncryptedID.
+ * SAML 2.0 Core EncryptedAttribute.
  */
-public interface NewEncryptedID extends EncryptedElementType {
+public interface EncryptedAttribute extends EncryptedElementType {
     
     /** Element local name. */
-    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "NewEncryptedID";
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "EncryptedAttribute";
     
     /** Default element name. */
-    public static final QName DEFAULT_ELEMENT_NAME = 
-        new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    public static final QName DEFAULT_ELEMENT_NAME =  
+        new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
 }

@@ -16,13 +16,20 @@
 
 package org.opensaml.saml2.core;
 
-import org.opensaml.common.SAMLObject;
+import javax.xml.namespace.QName;
+
+import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core Encrypted Element
+ * SAML 2.0 Core EncryptedAssertion.
  */
-public interface EncryptedElement extends SAMLObject {
+public interface EncryptedAssertion extends EncryptedElementType, Evidentiary {
+    
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "EncryptedAssertion";
+    
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME =  
+        new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
-    /** Local name of EncryptedElement */
-    public final static String LOCAL_NAME = "EncryptedElement";
 }

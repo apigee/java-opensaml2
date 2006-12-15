@@ -16,11 +16,20 @@
 
 package org.opensaml.saml2.core;
 
-/**
- * SAML 2.0 Core EncryptedID
- */
-public interface EncryptedID extends EncryptedElement {
+import javax.xml.namespace.QName;
 
-    /** Local Name of EncryptedID */
-    public final static String LOCAL_NAME = "EncryptedID";
+import org.opensaml.common.xml.SAMLConstants;
+
+/**
+ * SAML 2.0 Core EncryptedID.
+ */
+public interface EncryptedID extends EncryptedElementType {
+    
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "EncryptedID";
+    
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME =  
+        new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+
 }

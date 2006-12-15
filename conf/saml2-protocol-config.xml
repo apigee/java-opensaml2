@@ -242,6 +242,13 @@
             <MarshallingClass className="org.opensaml.saml2.core.impl.NameIDPolicyMarshaller" />
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.NameIDPolicyUnmarshaller" />
         </ObjectProvider>
+        
+        <!-- NewEncryptedID -->
+        <ObjectProvider qualifiedName="saml2p:NewEncryptedID">
+            <BuilderClass className="org.opensaml.saml2.core.impl.NewEncryptedIDBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.NewEncryptedIDMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.NewEncryptedIDUnmarshaller" />
+        </ObjectProvider>
                 
         <!-- NewID provider -->
         <ObjectProvider qualifiedName="saml2p:NewID">
