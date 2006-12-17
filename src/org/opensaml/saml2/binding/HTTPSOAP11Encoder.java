@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.impl.AbstractSOAPHTTPEncoder;
-import org.opensaml.soap.soap11.Envelope;
+import org.opensaml.ws.soap.soap11.Envelope;
 
 /**
  * SAML 2.0 SOAP 1.1 over HTTP binding encoder.

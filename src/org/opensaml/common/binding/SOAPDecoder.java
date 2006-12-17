@@ -20,7 +20,7 @@ import java.util.List;
 
 import javax.servlet.ServletRequest;
 
-import org.opensaml.soap.soap11.Envelope;
+import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
 
 /**

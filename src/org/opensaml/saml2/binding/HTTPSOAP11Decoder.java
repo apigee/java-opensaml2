@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.impl.AbstractSOAPHTTPDecoder;
-import org.opensaml.soap.soap11.Envelope;
+import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
 
 /**

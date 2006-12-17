@@ -24,7 +24,7 @@ import org.opensaml.Configuration;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.SOAPHTTPDecoder;
 import org.opensaml.common.xml.ParserPoolManager;
-import org.opensaml.soap.soap11.Envelope;
+import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
