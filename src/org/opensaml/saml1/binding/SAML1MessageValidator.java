@@ -16,8 +16,8 @@
 
 package org.opensaml.saml1.binding;
 
-import org.opensaml.saml2.core.Request;
-import org.opensaml.saml2.core.Response;
+import org.opensaml.saml1.core.RequestAbstractType;
+import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
@@ -25,10 +25,10 @@ import org.opensaml.xml.validation.Validator;
 public class SAML1MessageValidator implements Validator {
 
     public void validate(XMLObject xmlObject) throws ValidationException {
-        if(xmlObject instanceof Request || xmlObject instanceof Response){
+        if(xmlObject instanceof RequestAbstractType || xmlObject instanceof ResponseAbstractType){
             return;
         }else{
-            throw new ValidationException("XMLObject is not a SAML 2 request or response");
+            throw new ValidationException("XMLObject is not a SAML 1 request or response");
         }
     }
 }
