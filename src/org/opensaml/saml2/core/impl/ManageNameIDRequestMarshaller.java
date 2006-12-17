@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.ManageNameIDRequest;
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.core.ManageNameIDRequest} objects.
  */
-public class ManageNameIDRequestMarshaller extends RequestMarshaller {
+public class ManageNameIDRequestMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
      * Constructor

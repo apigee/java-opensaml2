@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.NameIDMappingResponse;
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.core.NameIDMappingResponse} objects.
  */
-public class NameIDMappingResponseMarshaller extends StatusResponseMarshaller {
+public class NameIDMappingResponseMarshaller extends StatusResponseTypeMarshaller {
 
     /**
      * Constructor

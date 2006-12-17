@@ -26,7 +26,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 /**
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.core.NameIDMappingResponse} objects.
  */
-public class NameIDMappingResponseUnmarshaller extends StatusResponseUnmarshaller {
+public class NameIDMappingResponseUnmarshaller extends StatusResponseTypeUnmarshaller {
 
     /**
      * Constructor.

@@ -30,7 +30,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Response} objects.
  */
-public class ResponseUnmarshaller extends StatusResponseUnmarshaller {
+public class ResponseUnmarshaller extends StatusResponseTypeUnmarshaller {
 
     /**
      * Constructor.

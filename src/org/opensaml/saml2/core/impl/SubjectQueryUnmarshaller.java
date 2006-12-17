@@ -27,7 +27,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.SubjectQuery}.
  */
-public abstract class SubjectQueryUnmarshaller extends RequestUnmarshaller {
+public abstract class SubjectQueryUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
     /**
      * Constructor

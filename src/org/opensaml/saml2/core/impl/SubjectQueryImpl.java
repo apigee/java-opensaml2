@@ -31,7 +31,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.SubjectQuery}
  */
-public abstract class SubjectQueryImpl extends RequestImpl implements SubjectQuery {
+public abstract class SubjectQueryImpl extends RequestAbstractTypeImpl implements SubjectQuery {
 
     /** Subject child element */
     private Subject subject;

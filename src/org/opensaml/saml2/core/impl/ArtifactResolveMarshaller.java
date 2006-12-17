@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.ArtifactResolve;
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.ArtifactResolve}
  */
-public class ArtifactResolveMarshaller extends RequestMarshaller {
+public class ArtifactResolveMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
      * Constructor

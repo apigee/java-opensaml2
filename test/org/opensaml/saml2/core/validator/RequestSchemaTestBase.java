@@ -18,10 +18,10 @@ package org.opensaml.saml2.core.validator;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.RequestAbstractType;
 
 /**
- * Base test for testing Request objects.
+ * Base test for testing RequestAbstractType objects.
  */
 public abstract class RequestSchemaTestBase extends SAMLObjectValidatorBaseTestCase {
 
@@ -43,7 +43,7 @@ public abstract class RequestSchemaTestBase extends SAMLObjectValidatorBaseTestC
      * this test.
      */
     protected void populateRequiredData() {
-        Request request = (Request) target;
+        RequestAbstractType request = (RequestAbstractType) target;
         request.setID("abc123");
         request.setIssueInstant(new DateTime());
     }
@@ -52,7 +52,7 @@ public abstract class RequestSchemaTestBase extends SAMLObjectValidatorBaseTestC
      * Tests empty ID attribute
      */
     public void testIDFailure() {
-        Request request = (Request) target;
+        RequestAbstractType request = (RequestAbstractType) target;
 
         request.setID(null);
         assertValidationFail("ID attribute was null");
@@ -68,7 +68,7 @@ public abstract class RequestSchemaTestBase extends SAMLObjectValidatorBaseTestC
      * Tests invalid IssueInstant attribute
      */
     public void testIssueInstantFailure() {
-        Request request = (Request) target;
+        RequestAbstractType request = (RequestAbstractType) target;
         request.setIssueInstant(null);
         assertValidationFail("IssueInstant attribute was null");
     }

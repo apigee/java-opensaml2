@@ -27,7 +27,7 @@ import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.SecurityPolicyRule;
 import org.opensaml.common.binding.SecurityPolicyRuleFactory;
 import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
@@ -260,14 +260,14 @@ public class ClientCertAuthRuleFactory implements SecurityPolicyRuleFactory<Http
          */
         private String getSAML2IssuerName(XMLObject message) throws BindingException {
             Issuer issuer = null;
-            if (message instanceof Request) {
-                issuer = ((Request) message).getIssuer();
+            if (message instanceof RequestAbstractType) {
+                issuer = ((RequestAbstractType) message).getIssuer();
             } else if (message instanceof Response) {
                 issuer = ((Response) message).getIssuer();
             }
 
             if (issuer == null || DatatypeHelper.isEmpty(issuer.getValue())) {
-                throw new BindingException("Expected SAML2 Request message does not contain a valid Issuer.");
+                throw new BindingException("Expected SAML2 RequestAbstractType message does not contain a valid Issuer.");
             }
             return issuer.getValue();
         }

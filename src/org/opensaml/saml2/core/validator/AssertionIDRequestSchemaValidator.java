@@ -25,7 +25,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml2.core.AssertionIDRequest} for Schema compliance.
  */
-public class AssertionIDRequestSchemaValidator extends RequestSchemaValidator<AssertionIDRequest> {
+public class AssertionIDRequestSchemaValidator extends RequestAbstractTypeSchemaValidator<AssertionIDRequest> {
 
     /**
      * Constructor

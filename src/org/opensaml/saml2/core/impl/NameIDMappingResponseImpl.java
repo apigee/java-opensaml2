@@ -28,7 +28,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.NameIDMappingResponse}.
  */
-public class NameIDMappingResponseImpl extends StatusResponseImpl implements NameIDMappingResponse {
+public class NameIDMappingResponseImpl extends StatusResponseTypeImpl implements NameIDMappingResponse {
 
     /** NameID child element. */
     private NameID nameID;

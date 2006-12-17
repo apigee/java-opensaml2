@@ -26,7 +26,7 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * SAML 2.0 Core ManageNameIDResponse
  */
-public interface ManageNameIDResponse extends StatusResponse {
+public interface ManageNameIDResponse extends StatusResponseType {
 
     /** Element local name */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "ManageNameIDResponse";

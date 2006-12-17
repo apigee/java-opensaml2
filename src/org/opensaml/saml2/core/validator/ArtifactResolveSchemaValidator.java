@@ -25,7 +25,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml2.core.ArtifactResolve} for Schema compliance.
  */
-public class ArtifactResolveSchemaValidator extends RequestSchemaValidator<ArtifactResolve> {
+public class ArtifactResolveSchemaValidator extends RequestAbstractTypeSchemaValidator<ArtifactResolve> {
 
     /**
      * Constructor

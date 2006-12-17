@@ -31,7 +31,7 @@ import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
 import org.opensaml.common.util.URLBuilder;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -204,7 +204,7 @@ public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
      * 
      * @return URL to redirect client to
      * 
-     * @throws BindingException thrown if the SAML message is neither a Request or Response
+     * @throws BindingException thrown if the SAML message is neither a RequestAbstractType or Response
      */
     protected String buildRedirectURL(String message) throws BindingException {
         if(log.isDebugEnabled()){
@@ -215,12 +215,12 @@ public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
         List<Pair<String, String>> queryParams = urlBuilder.getQueryParams();
         queryParams.clear();
 
-        if (getSAMLMessage() instanceof Request) {
+        if (getSAMLMessage() instanceof RequestAbstractType) {
             queryParams.add(new Pair<String, String>("SAMLRequest", message));
         } else if (getSAMLMessage() instanceof Response) {
             queryParams.add(new Pair<String, String>("SAMLResponse", message));
         } else {
-            throw new BindingException("SAML message is neither a SAML Request or Response");
+            throw new BindingException("SAML message is neither a SAML RequestAbstractType or Response");
         }
 
         if (!DatatypeHelper.isEmpty(getRelayState())) {

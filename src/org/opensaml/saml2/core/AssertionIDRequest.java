@@ -28,7 +28,7 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * SAML 2.0 Core AssertionIDRequest
  */
-public interface AssertionIDRequest extends Request {
+public interface AssertionIDRequest extends RequestAbstractType {
     
     /** Element local name */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionIDRequest";

@@ -35,7 +35,7 @@ import org.w3c.dom.Attr;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AuthnRequest} objects.
  */
-public class AuthnRequestUnmarshaller extends RequestUnmarshaller {
+public class AuthnRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
     /**
      * Constructor

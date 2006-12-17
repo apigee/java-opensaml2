@@ -25,7 +25,7 @@ import org.opensaml.saml2.core.ManageNameIDResponse;
 /**
  * A Builder for {@link org.opensaml.saml2.core.impl.ManageNameIDResponseImpl} objects.
  */
-public class ManageNameIDResponseImpl extends StatusResponseImpl implements ManageNameIDResponse {
+public class ManageNameIDResponseImpl extends StatusResponseTypeImpl implements ManageNameIDResponse {
 
     /**
      * Constructor

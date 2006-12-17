@@ -30,13 +30,7 @@ import org.opensaml.saml2.common.Extensions;
 /**
  * SAML 2.0 Core StatusResponseType
  */
-public interface StatusResponse extends SignableSAMLObject {
-    
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "StatusResponse";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+public interface StatusResponseType extends SignableSAMLObject {
     
     /** Local name of the XSI type */
     public final static String TYPE_LOCAL_NAME = "StatusResponseType"; 

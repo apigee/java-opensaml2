@@ -27,7 +27,7 @@ import org.opensaml.xml.ElementExtensibleXMLObject;
 /**
  * SAML 2.0 Core ArtifactResponse
  */
-public interface ArtifactResponse extends StatusResponse, ElementExtensibleXMLObject {
+public interface ArtifactResponse extends StatusResponseType, ElementExtensibleXMLObject {
     
     /** Element local name*/
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "ArtifactResponse";

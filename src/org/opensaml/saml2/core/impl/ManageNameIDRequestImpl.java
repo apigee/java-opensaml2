@@ -35,7 +35,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.ManageNameIDRequest}.
  */
-public class ManageNameIDRequestImpl extends RequestImpl implements ManageNameIDRequest {
+public class ManageNameIDRequestImpl extends RequestAbstractTypeImpl implements ManageNameIDRequest {
 
     /** NameID child element. */
     private NameID nameID;

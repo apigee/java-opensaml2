@@ -27,7 +27,7 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * SAML 2.0 Core ManageNameIDRequest.
  */
-public interface ManageNameIDRequest extends Request {
+public interface ManageNameIDRequest extends RequestAbstractType {
     
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "ManageNameIDRequest";

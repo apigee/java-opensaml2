@@ -32,7 +32,7 @@ import org.opensaml.xml.signature.Signature;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ArtifactResponse}.
  */
-public class ArtifactResponseUnmarshaller extends StatusResponseUnmarshaller {
+public class ArtifactResponseUnmarshaller extends StatusResponseTypeUnmarshaller {
 
     /**
      * Constructor

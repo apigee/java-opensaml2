@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AuthnRequest}.
  */
-public class AuthnRequestMarshaller extends RequestMarshaller {
+public class AuthnRequestMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
      * Constructor

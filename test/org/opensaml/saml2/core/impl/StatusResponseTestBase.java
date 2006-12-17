@@ -29,7 +29,7 @@ import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Status;
-import org.opensaml.saml2.core.StatusResponse;
+import org.opensaml.saml2.core.StatusResponseType;
 
 /**
  *
@@ -99,7 +99,7 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
      * @param samlObject
      */
     protected void populateRequiredAttributes(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        StatusResponseType sr = (StatusResponseType) samlObject;
         
         sr.setID(expectedID);
         sr.setIssueInstant(expectedIssueInstant);
@@ -114,7 +114,7 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
      * @param samlObject
      */
     protected void populateOptionalAttributes(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        StatusResponseType sr = (StatusResponseType) samlObject;
         
         sr.setInResponseTo(expectedInResponseTo);
         sr.setConsent(expectedConsent);
@@ -129,7 +129,7 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
      * @param samlObject
      */
     protected void populateChildElements(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        StatusResponseType sr = (StatusResponseType) samlObject;
         
         sr.setIssuer(expectedIssuer);
         sr.setStatus(expectedStatus);
@@ -137,7 +137,7 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
     }
     
     protected void helperTestSingleElementUnmarshall(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        StatusResponseType sr = (StatusResponseType) samlObject;
         
         assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, sr.getID());
         assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), sr.getVersion().toString());
@@ -150,7 +150,7 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
     }
     
     protected void helperTestSingleElementOptionalAttributesUnmarshall(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        StatusResponseType sr = (StatusResponseType) samlObject;
         
         assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, sr.getID());
         assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), sr.getVersion().toString());
@@ -163,7 +163,7 @@ public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
     }
 
     protected void helperTestChildElementsUnmarshall(SAMLObject samlObject) {
-        StatusResponse sr = (StatusResponse) samlObject;
+        StatusResponseType sr = (StatusResponseType) samlObject;
         
         assertNotNull("Issuer was null", sr.getIssuer());
         assertNotNull("Status was null", sr.getIssuer());

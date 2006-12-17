@@ -32,7 +32,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.LogoutRequest}.
  */
-public class LogoutRequestImpl extends RequestImpl implements LogoutRequest {
+public class LogoutRequestImpl extends RequestAbstractTypeImpl implements LogoutRequest {
 
     /** Reason attribute. */
     private String reason;

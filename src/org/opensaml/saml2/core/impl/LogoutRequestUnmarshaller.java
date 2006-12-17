@@ -31,7 +31,7 @@ import org.w3c.dom.Attr;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.LogoutRequest} objects.
  */
-public class LogoutRequestUnmarshaller extends RequestUnmarshaller {
+public class LogoutRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
     /**
      * Constructor.

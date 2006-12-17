@@ -25,7 +25,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml2.core.LogoutRequest} for Schema compliance.
  */
-public class LogoutResponseSchemaValidator extends StatusResponseSchemaValidator<LogoutResponse> {
+public class LogoutResponseSchemaValidator extends StatusResponseTypeSchemaValidator<LogoutResponse> {
 
     /**
      * Constructor

@@ -33,7 +33,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ManageNameIDRequest} objects.
  */
-public class ManageNameIDRequestUnmarshaller extends RequestUnmarshaller {
+public class ManageNameIDRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
     /**
      * Constructor.

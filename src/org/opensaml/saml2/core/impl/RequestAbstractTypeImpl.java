@@ -29,13 +29,13 @@ import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Request}
+ * Concrete implementation of {@link org.opensaml.saml2.core.RequestAbstractType}
  */
-public abstract class RequestImpl extends AbstractSignableSAMLObject implements Request {
+public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject implements RequestAbstractType {
 
     /** SAML Version of the request */
     private SAMLVersion version;
@@ -65,7 +65,7 @@ public abstract class RequestImpl extends AbstractSignableSAMLObject implements 
      * @param elementLocalName
      * @param namespacePrefix
      */
-    protected RequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+    protected RequestAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
         version = SAMLVersion.VERSION_20;
     }

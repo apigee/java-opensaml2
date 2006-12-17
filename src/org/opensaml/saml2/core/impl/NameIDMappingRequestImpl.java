@@ -30,7 +30,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.NameIDMappingRequest}.
  */
-public class NameIDMappingRequestImpl extends RequestImpl implements NameIDMappingRequest {
+public class NameIDMappingRequestImpl extends RequestAbstractTypeImpl implements NameIDMappingRequest {
 
     /** BaseID child element. */
     private BaseID baseID;

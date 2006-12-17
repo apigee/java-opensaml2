@@ -31,7 +31,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.ArtifactResponse}
  */
-public class ArtifactResponseImpl extends StatusResponseImpl implements ArtifactResponse {
+public class ArtifactResponseImpl extends StatusResponseTypeImpl implements ArtifactResponse {
 
     /** child "any" elements */
     private final XMLObjectChildrenList<XMLObject> unknownChildren;

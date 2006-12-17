@@ -25,7 +25,7 @@ import org.opensaml.saml2.core.LogoutResponse;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.LogoutResponse}
  */
-public class LogoutResponseImpl extends StatusResponseImpl implements LogoutResponse {
+public class LogoutResponseImpl extends StatusResponseTypeImpl implements LogoutResponse {
 
     /**
      * Constructor

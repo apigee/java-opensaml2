@@ -20,63 +20,77 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.common.SAMLVersion;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Request} for Schema compliance.
+ * Checks {@link org.opensaml.saml2.core.StatusResponseType} for Schema compliance.
  */
-public abstract class RequestSchemaValidator<RequestType extends Request> implements Validator<RequestType> {
+public abstract class StatusResponseTypeSchemaValidator<StatusResponse extends StatusResponseType> implements Validator<StatusResponse> {
 
     /**
      * Constructor
      *
      */
-    public RequestSchemaValidator() {
+    public StatusResponseTypeSchemaValidator() {
     }
 
     /** {@inheritDoc} */
-    public void validate(RequestType request) throws ValidationException {
-        validateID(request);
-        validateVersion(request);
-        validateIssueInstant(request);
+    public void validate(StatusResponse response) throws ValidationException {
+        validateStatus(response);
+        validateID(response);
+        validateVersion(response);
+        validateIssueInstant(response);
 
+    }
+
+    /**
+     * Validates the Status child element. 
+     * 
+     * @param response
+     * @throws ValidationException
+     */
+    protected void validateStatus(StatusResponse response) throws ValidationException {
+        if (response.getStatus() == null)
+            throw new ValidationException("Status is required");
+        
     }
     
     /**
      * Validates the ID attribute
      * 
-     * @param request
+     * @param response 
      * @throws ValidationException
      */
-    protected void validateID(Request request) throws ValidationException {
-        if (DatatypeHelper.isEmpty(request.getID()))
+    protected void validateID(StatusResponse response) throws ValidationException {
+        if (DatatypeHelper.isEmpty(response.getID()))
             throw new ValidationException("ID attribute must not be empty");
     }
 
     /**
      * Validates the Version attribute
      * 
-     * @param request
+     * @param response
      * @throws ValidationException
      */
-    protected void validateVersion(Request request) throws ValidationException {
-        if (request.getVersion() == null)
+    protected void validateVersion(StatusResponse response) throws ValidationException {
+        if (response.getVersion() == null)
             throw new ValidationException("Version attribute must not be null");
-        if (request.getVersion().toString() != SAMLVersion.VERSION_20.toString())
+        if (response.getVersion().toString() != SAMLVersion.VERSION_20.toString())
             throw new ValidationException("Wrong SAML Version");
     }
     
     /**
      * Validates the IsssueInstant attribute
      * 
-     * @param request
+     * @param response
      * @throws ValidationException
      */
-    protected void validateIssueInstant(Request request) throws ValidationException {
-        if (request.getIssueInstant() == null)
+    protected void validateIssueInstant(StatusResponse response) throws ValidationException {
+        if (response.getIssueInstant() == null)
             throw new ValidationException ("IssueInstant attribute must not be null");
     }
+
 }

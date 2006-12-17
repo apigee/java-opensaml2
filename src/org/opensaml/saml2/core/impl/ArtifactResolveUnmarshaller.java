@@ -29,7 +29,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ArtifactResolve}.
  */
-public class ArtifactResolveUnmarshaller extends RequestUnmarshaller {
+public class ArtifactResolveUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
     /**
      * Constructor

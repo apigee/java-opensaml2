@@ -26,7 +26,7 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * SAML 2.0 Core ArtifactResolve
  */
-public interface ArtifactResolve extends Request {
+public interface ArtifactResolve extends RequestAbstractType {
     
     /** Element local name*/
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "ArtifactResolve";

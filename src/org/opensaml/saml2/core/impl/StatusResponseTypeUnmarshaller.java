@@ -27,17 +27,17 @@ import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Status;
-import org.opensaml.saml2.core.StatusResponse;
+import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusResponse}
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusResponseType}
  * objects.
  */
-public abstract class StatusResponseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public abstract class StatusResponseTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
@@ -46,26 +46,26 @@ public abstract class StatusResponseUnmarshaller extends AbstractSAMLObjectUnmar
      * @param targetLocalName
      * @throws IllegalArgumentException
      */
-     protected StatusResponseUnmarshaller(String targetNamespaceURI, String targetLocalName)
+     protected StatusResponseTypeUnmarshaller(String targetNamespaceURI, String targetLocalName)
             throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-        StatusResponse sr = (StatusResponse) samlObject;
+        StatusResponseType sr = (StatusResponseType) samlObject;
         
-        if (attribute.getLocalName().equals(StatusResponse.VERSION_ATTRIB_NAME)) {
+        if (attribute.getLocalName().equals(StatusResponseType.VERSION_ATTRIB_NAME)) {
             sr.setVersion(SAMLVersion.valueOf(attribute.getValue()));
-        } else if (attribute.getLocalName().equals(StatusResponse.ID_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(StatusResponseType.ID_ATTRIB_NAME))
             sr.setID(attribute.getValue());
-        else if (attribute.getLocalName().equals(StatusResponse.IN_RESPONSE_TO_ATTRIB_NAME))
+        else if (attribute.getLocalName().equals(StatusResponseType.IN_RESPONSE_TO_ATTRIB_NAME))
             sr.setInResponseTo(attribute.getValue());
-        else if (attribute.getLocalName().equals(StatusResponse.ISSUE_INSTANT_ATTRIB_NAME))
+        else if (attribute.getLocalName().equals(StatusResponseType.ISSUE_INSTANT_ATTRIB_NAME))
             sr.setIssueInstant( new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()) );
-        else if (attribute.getLocalName().equals(StatusResponse.DESTINATION_ATTRIB_NAME))
+        else if (attribute.getLocalName().equals(StatusResponseType.DESTINATION_ATTRIB_NAME))
             sr.setDestination(attribute.getValue());
-        else if (attribute.getLocalName().equals(StatusResponse.CONSENT_ATTRIB_NAME))
+        else if (attribute.getLocalName().equals(StatusResponseType.CONSENT_ATTRIB_NAME))
             sr.setConsent(attribute.getValue());
         else
             super.processAttribute(samlObject, attribute);
@@ -73,7 +73,7 @@ public abstract class StatusResponseUnmarshaller extends AbstractSAMLObjectUnmar
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
-        StatusResponse sr = (StatusResponse) parentSAMLObject;
+        StatusResponseType sr = (StatusResponseType) parentSAMLObject;
         
         if (childSAMLObject instanceof Issuer){
             sr.setIssuer((Issuer) childSAMLObject);

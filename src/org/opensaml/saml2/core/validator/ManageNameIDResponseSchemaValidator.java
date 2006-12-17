@@ -25,7 +25,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml2.core.ManageNameIDResponse} for Schema compliance.
  */
-public class ManageNameIDResponseSchemaValidator extends StatusResponseSchemaValidator<ManageNameIDResponse> {
+public class ManageNameIDResponseSchemaValidator extends StatusResponseTypeSchemaValidator<ManageNameIDResponse> {
 
     /**
      * Constructor

@@ -32,7 +32,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AssertionIDRequest}
  */
-public class AssertionIDRequestImpl extends RequestImpl implements AssertionIDRequest {
+public class AssertionIDRequestImpl extends RequestAbstractTypeImpl implements AssertionIDRequest {
 
     /** List of AssertionIDRef child elements */
     private final XMLObjectChildrenList<AssertionIDRef> assertionIDRefs;

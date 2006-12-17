@@ -22,15 +22,15 @@ package org.opensaml.saml2.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe Marshaller for {@link org.opensaml.saml2.core.Request} objects.
+ * A thread safe Marshaller for {@link org.opensaml.saml2.core.RequestAbstractType} objects.
  */
-public abstract class RequestMarshaller extends AbstractSAMLObjectMarshaller {
+public abstract class RequestAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
      * Constructor
@@ -39,35 +39,35 @@ public abstract class RequestMarshaller extends AbstractSAMLObjectMarshaller {
      * @param targetLocalName
      * @throws IllegalArgumentException
      */
-    protected RequestMarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
+    protected RequestAbstractTypeMarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
-        Request req = (Request) samlObject;
+        RequestAbstractType req = (RequestAbstractType) samlObject;
 
         if (req.getVersion() != null) {
-            domElement.setAttributeNS(null, Request.VERSION_ATTRIB_NAME, req.getVersion().toString());
+            domElement.setAttributeNS(null, RequestAbstractType.VERSION_ATTRIB_NAME, req.getVersion().toString());
         }
 
         if (req.getID() != null) {
-            domElement.setAttributeNS(null, Request.ID_ATTRIB_NAME, req.getID());
-            domElement.setIdAttributeNS(null, Request.ID_ATTRIB_NAME, true);
+            domElement.setAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, req.getID());
+            domElement.setIdAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, true);
         }
 
         if (req.getVersion() != null)
-            domElement.setAttributeNS(null, Request.VERSION_ATTRIB_NAME, req.getVersion().toString());
+            domElement.setAttributeNS(null, RequestAbstractType.VERSION_ATTRIB_NAME, req.getVersion().toString());
 
         if (req.getIssueInstant() != null) {
             String iiStr = ISODateTimeFormat.dateTime().print(req.getIssueInstant());
-            domElement.setAttributeNS(null, Request.ISSUE_INSTANT_ATTRIB_NAME, iiStr);
+            domElement.setAttributeNS(null, RequestAbstractType.ISSUE_INSTANT_ATTRIB_NAME, iiStr);
         }
 
         if (req.getDestination() != null)
-            domElement.setAttributeNS(null, Request.DESTINATION_ATTRIB_NAME, req.getDestination());
+            domElement.setAttributeNS(null, RequestAbstractType.DESTINATION_ATTRIB_NAME, req.getDestination());
 
         if (req.getConsent() != null)
-            domElement.setAttributeNS(null, Request.CONSENT_ATTRIB_NAME, req.getConsent());
+            domElement.setAttributeNS(null, RequestAbstractType.CONSENT_ATTRIB_NAME, req.getConsent());
     }
 }

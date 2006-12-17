@@ -30,13 +30,13 @@ import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Status;
-import org.opensaml.saml2.core.StatusResponse;
+import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.StatusResponse}
+ * Concrete implementation of {@link org.opensaml.saml2.core.StatusResponseType}
  */
-public abstract class StatusResponseImpl extends AbstractSignableSAMLObject implements StatusResponse {
+public abstract class StatusResponseTypeImpl extends AbstractSignableSAMLObject implements StatusResponseType {
 
     /** SAML Version attribute */
     private SAMLVersion version;
@@ -72,7 +72,7 @@ public abstract class StatusResponseImpl extends AbstractSignableSAMLObject impl
      * @param elementLocalName
      * @param namespacePrefix
      */
-    protected StatusResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+    protected StatusResponseTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
         version = SAMLVersion.VERSION_20;
     }

@@ -33,7 +33,7 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.Response}.
  */
-public class ResponseImpl extends StatusResponseImpl implements Response {
+public class ResponseImpl extends StatusResponseTypeImpl implements Response {
 
     /** Assertion child elements. */
     private final IndexedXMLObjectChildrenList<XMLObject> indexedChildren;

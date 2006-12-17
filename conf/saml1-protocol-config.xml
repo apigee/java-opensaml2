@@ -62,12 +62,6 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.ResponseUnmarshaller" />
         </ObjectProvider>
 
-        <ObjectProvider qualifiedName="saml1p:ResponseType">
-            <BuilderClass className="org.opensaml.saml1.core.impl.ResponseBuilder" />
-            <MarshallingClass className="org.opensaml.saml1.core.impl.ResponseMarshaller" />
-            <UnmarshallingClass className="org.opensaml.saml1.core.impl.ResponseUnmarshaller" />
-        </ObjectProvider>
-
         <!-- Request -->
         <ObjectProvider qualifiedName="saml1p:Request">
             <BuilderClass className="org.opensaml.saml1.core.impl.RequestBuilder" />
@@ -75,12 +69,6 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.RequestUnmarshaller" />
         </ObjectProvider>
         
-        <ObjectProvider qualifiedName="saml1p:RequestType">
-            <BuilderClass className="org.opensaml.saml1.core.impl.RequestBuilder" />
-            <MarshallingClass className="org.opensaml.saml1.core.impl.RequestMarshaller" />
-            <UnmarshallingClass className="org.opensaml.saml1.core.impl.RequestUnmarshaller" />
-        </ObjectProvider>
-
         <!-- Status -->
         <ObjectProvider qualifiedName="saml1p:Status">
             <BuilderClass className="org.opensaml.saml1.core.impl.StatusBuilder" />

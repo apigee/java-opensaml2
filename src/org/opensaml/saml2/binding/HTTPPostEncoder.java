@@ -26,7 +26,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -117,7 +117,7 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
         VelocityContext context = new VelocityContext();
         context.put("action", getActionURL());
 
-        if (getSAMLMessage() instanceof Request) {
+        if (getSAMLMessage() instanceof RequestAbstractType) {
             context.put("SAMLRequest", message);
         } else {
             context.put("SAMLResponse", message);

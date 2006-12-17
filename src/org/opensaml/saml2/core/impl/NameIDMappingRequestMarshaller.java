@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.NameIDMappingRequest;
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.NameIDMappingRequest}.
  */
-public class NameIDMappingRequestMarshaller extends RequestMarshaller {
+public class NameIDMappingRequestMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
      * Constructor

@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Status;
-import org.opensaml.saml2.core.StatusResponse;
+import org.opensaml.saml2.core.StatusResponseType;
 
 /**
  *
@@ -48,7 +48,7 @@ public abstract class StatusResponseSchemaTestBase extends SAMLObjectValidatorBa
     /** {@inheritDoc} */
     protected void populateRequiredData() {
         super.populateRequiredData();
-        StatusResponse sr = (StatusResponse) target;
+        StatusResponseType sr = (StatusResponseType) target;
         Status status = (Status) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME));
         sr.setStatus(status);
         sr.setID("abc123");
@@ -60,7 +60,7 @@ public abstract class StatusResponseSchemaTestBase extends SAMLObjectValidatorBa
      *  Tests invalid Status child element.
      */
     public void testStatusFailure() {
-        StatusResponse sr = (StatusResponse) target;
+        StatusResponseType sr = (StatusResponseType) target;
         sr.setStatus(null);
         assertValidationFail("Status was null");
     }
@@ -69,7 +69,7 @@ public abstract class StatusResponseSchemaTestBase extends SAMLObjectValidatorBa
      *  Tests invalid ID attribute.
      */
     public void testIDFailure() {
-        StatusResponse sr = (StatusResponse) target;
+        StatusResponseType sr = (StatusResponseType) target;
         
         sr.setID(null);
         assertValidationFail("ID attribute was null");
@@ -85,7 +85,7 @@ public abstract class StatusResponseSchemaTestBase extends SAMLObjectValidatorBa
      *  Tests invalid IssueInstant attribute
      */
     public void testIssueInstantFailure() {
-        StatusResponse sr = (StatusResponse) target;
+        StatusResponseType sr = (StatusResponseType) target;
         sr.setIssueInstant(null);
         assertValidationFail("IssueInstant attribute was null");
     }

@@ -25,7 +25,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml2.core.SubjectQuery} for Schema compliance.
  */
-public abstract class SubjectQuerySchemaValidator<SubjectQueryType extends SubjectQuery> extends RequestSchemaValidator<SubjectQueryType> {
+public abstract class SubjectQuerySchemaValidator<SubjectQueryType extends SubjectQuery> extends RequestAbstractTypeSchemaValidator<SubjectQueryType> {
 
     /**
      * Constructor

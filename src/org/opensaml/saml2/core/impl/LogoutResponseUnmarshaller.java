@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.LogoutResponse;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.LogoutResponse} objects.
  */
-public class LogoutResponseUnmarshaller extends StatusResponseUnmarshaller {
+public class LogoutResponseUnmarshaller extends StatusResponseTypeUnmarshaller {
 
     /**
      * Constructor

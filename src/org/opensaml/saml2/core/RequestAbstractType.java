@@ -25,15 +25,9 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 
 /**
- * SAML 2.0 Core RequestAbstractType
+ * SAML 2.0 Core RequestAbstractType.
  */
-public interface Request extends SignableSAMLObject {
-    
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Request";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+public interface RequestAbstractType extends SignableSAMLObject {
     
     /** Local name of the XSI type */
     public final static String TYPE_LOCAL_NAME = "RequestAbstractType"; 

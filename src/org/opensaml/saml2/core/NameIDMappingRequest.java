@@ -27,7 +27,7 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * SAML 2.0 Core NameIDMappingRequest.
  */
-public interface NameIDMappingRequest extends Request {
+public interface NameIDMappingRequest extends RequestAbstractType {
     
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "NameIDMappingRequest";

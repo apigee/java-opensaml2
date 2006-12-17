@@ -28,7 +28,7 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * SAML 2.0 Core Response.
  */
-public interface Response extends StatusResponse {
+public interface Response extends StatusResponseType {
     
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "Response";

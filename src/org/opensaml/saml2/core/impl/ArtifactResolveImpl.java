@@ -31,7 +31,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.ArtifactResolve}
  */
-public class ArtifactResolveImpl extends RequestImpl implements ArtifactResolve {
+public class ArtifactResolveImpl extends RequestAbstractTypeImpl implements ArtifactResolve {
 
     /** Artifact child element */
     private Artifact artifact;

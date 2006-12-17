@@ -24,7 +24,7 @@ import org.opensaml.xml.schema.XSBooleanValue;
 /**
  * SAML 2.0 Core AuthnRequest.
  */
-public interface AuthnRequest extends Request {
+public interface AuthnRequest extends RequestAbstractType {
 
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnRequest";

@@ -29,7 +29,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 /**
  * A thead-safe Unmarshaller for {@link org.opensaml.saml2.core.AssertionIDRequest}
  */
-public class AssertionIDRequestUnmarshaller extends RequestUnmarshaller {
+public class AssertionIDRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
     /**
      * Constructor

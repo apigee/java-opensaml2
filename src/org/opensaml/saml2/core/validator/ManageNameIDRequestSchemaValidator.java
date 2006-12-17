@@ -22,7 +22,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml2.core.ManageNameIDRequest} for Schema compliance.
  */
-public class ManageNameIDRequestSchemaValidator extends RequestSchemaValidator<ManageNameIDRequest> {
+public class ManageNameIDRequestSchemaValidator extends RequestAbstractTypeSchemaValidator<ManageNameIDRequest> {
 
     /**
      * Constructor

@@ -26,16 +26,16 @@ import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Request} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.RequestAbstractType} objects.
  */
-public abstract class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
@@ -44,23 +44,23 @@ public abstract class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller
      * @param targetLocalName
      * @throws IllegalArgumentException
      */
-    protected RequestUnmarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
+    protected RequestAbstractTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-        Request req = (Request) samlObject;
+        RequestAbstractType req = (RequestAbstractType) samlObject;
 
-        if (attribute.getLocalName().equals(Request.VERSION_ATTRIB_NAME)) {
+        if (attribute.getLocalName().equals(RequestAbstractType.VERSION_ATTRIB_NAME)) {
             req.setVersion(SAMLVersion.valueOf(attribute.getValue()));
-        } else if (attribute.getLocalName().equals(Request.ID_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(RequestAbstractType.ID_ATTRIB_NAME))
             req.setID(attribute.getValue());
-        else if (attribute.getLocalName().equals(Request.ISSUE_INSTANT_ATTRIB_NAME))
+        else if (attribute.getLocalName().equals(RequestAbstractType.ISSUE_INSTANT_ATTRIB_NAME))
             req.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
-        else if (attribute.getLocalName().equals(Request.DESTINATION_ATTRIB_NAME))
+        else if (attribute.getLocalName().equals(RequestAbstractType.DESTINATION_ATTRIB_NAME))
             req.setDestination(attribute.getValue());
-        else if (attribute.getLocalName().equals(Request.CONSENT_ATTRIB_NAME))
+        else if (attribute.getLocalName().equals(RequestAbstractType.CONSENT_ATTRIB_NAME))
             req.setConsent(attribute.getValue());
         else
             super.processAttribute(samlObject, attribute);
@@ -69,7 +69,7 @@ public abstract class RequestUnmarshaller extends AbstractSAMLObjectUnmarshaller
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
-        Request req = (Request) parentSAMLObject;
+        RequestAbstractType req = (RequestAbstractType) parentSAMLObject;
 
         if (childSAMLObject instanceof Issuer){
             req.setIssuer((Issuer) childSAMLObject);

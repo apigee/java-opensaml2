@@ -26,7 +26,7 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * SAML 2.0 Core SubjectQuery
  */
-public interface SubjectQuery extends Request {
+public interface SubjectQuery extends RequestAbstractType {
     
     /** Element local name */
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "SubjectQuery";

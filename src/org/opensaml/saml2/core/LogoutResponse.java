@@ -26,7 +26,7 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * SAML 2.0 Core LogoutResponse
  */
-public interface LogoutResponse extends StatusResponse {
+public interface LogoutResponse extends StatusResponseType {
     
     /** Element local name*/
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "LogoutResponse";

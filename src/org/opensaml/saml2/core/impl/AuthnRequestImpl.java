@@ -36,7 +36,7 @@ import org.opensaml.xml.schema.XSBooleanValue;
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnRequest}.
  */
-public class AuthnRequestImpl extends RequestImpl implements AuthnRequest {
+public class AuthnRequestImpl extends RequestAbstractTypeImpl implements AuthnRequest {
 
     /** Subject child element */
     private Subject subject;

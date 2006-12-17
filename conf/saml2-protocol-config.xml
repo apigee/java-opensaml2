@@ -284,12 +284,6 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.ResponseUnmarshaller" />
         </ObjectProvider> 
         
-        <ObjectProvider qualifiedName="saml2p:ResponseType">
-            <BuilderClass className="org.opensaml.saml2.core.impl.ResponseBuilder" />
-            <MarshallingClass className="org.opensaml.saml2.core.impl.ResponseMarshaller" />
-            <UnmarshallingClass className="org.opensaml.saml2.core.impl.ResponseUnmarshaller" />
-        </ObjectProvider>
-        
         <!-- Scoping provider -->
         <ObjectProvider qualifiedName="saml2p:Scoping">
             <BuilderClass className="org.opensaml.saml2.core.impl.ScopingBuilder" />

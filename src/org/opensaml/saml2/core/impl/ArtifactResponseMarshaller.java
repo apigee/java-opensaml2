@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.ArtifactResponse;
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.ArtifactResponse}
  */
-public class ArtifactResponseMarshaller extends StatusResponseMarshaller {
+public class ArtifactResponseMarshaller extends StatusResponseTypeMarshaller {
 
     /**
      * Constructor

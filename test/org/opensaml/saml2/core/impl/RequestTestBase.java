@@ -25,7 +25,7 @@ import org.opensaml.common.SAMLObjectBaseTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Issuer;
-import org.opensaml.saml2.core.Request;
+import org.opensaml.saml2.core.RequestAbstractType;
 
 /**
  * 
@@ -84,7 +84,7 @@ public abstract class RequestTestBase extends SAMLObjectBaseTestCase {
      * @param samlObject
      */
     protected void populateRequiredAttributes(SAMLObject samlObject) {
-        Request req = (Request) samlObject;
+        RequestAbstractType req = (RequestAbstractType) samlObject;
 
         req.setID(expectedID);
         req.setIssueInstant(expectedIssueInstant);
@@ -98,7 +98,7 @@ public abstract class RequestTestBase extends SAMLObjectBaseTestCase {
      * @param samlObject
      */
     protected void populateOptionalAttributes(SAMLObject samlObject) {
-        Request req = (Request) samlObject;
+        RequestAbstractType req = (RequestAbstractType) samlObject;
 
         req.setConsent(expectedConsent);
         req.setDestination(expectedDestination);
@@ -112,14 +112,14 @@ public abstract class RequestTestBase extends SAMLObjectBaseTestCase {
      * @param samlObject
      */
     protected void populateChildElements(SAMLObject samlObject) {
-        Request req = (Request) samlObject;
+        RequestAbstractType req = (RequestAbstractType) samlObject;
 
         req.setIssuer(expectedIssuer);
 
     }
 
     protected void helperTestSingleElementUnmarshall(SAMLObject samlObject) {
-        Request req = (Request) samlObject;
+        RequestAbstractType req = (RequestAbstractType) samlObject;
 
         assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, req.getID());
         assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), req
@@ -133,7 +133,7 @@ public abstract class RequestTestBase extends SAMLObjectBaseTestCase {
     }
 
     protected void helperTestSingleElementOptionalAttributesUnmarshall(SAMLObject samlObject) {
-        Request req = (Request) samlObject;
+        RequestAbstractType req = (RequestAbstractType) samlObject;
 
         assertEquals("Unmarshalled ID attribute was not the expected value", expectedID, req.getID());
         assertEquals("Unmarshalled Version attribute was not the expected value", expectedSAMLVersion.toString(), req
@@ -148,7 +148,7 @@ public abstract class RequestTestBase extends SAMLObjectBaseTestCase {
     }
 
     protected void helperTestChildElementsUnmarshall(SAMLObject samlObject) {
-        Request req = (Request) samlObject;
+        RequestAbstractType req = (RequestAbstractType) samlObject;
 
         assertNotNull("Issuer was null", req.getIssuer());
 

@@ -25,7 +25,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml2.core.AuthnRequest} for Schema compliance.
  */
-public class AuthnRequestSchemaValidator extends RequestSchemaValidator<AuthnRequest>{
+public class AuthnRequestSchemaValidator extends RequestAbstractTypeSchemaValidator<AuthnRequest>{
 
     /**
      * Constructor

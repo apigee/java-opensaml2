@@ -30,7 +30,7 @@ import org.w3c.dom.Element;
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.LogoutRequest}.
  */
-public class LogoutRequestMarshaller extends RequestMarshaller {
+public class LogoutRequestMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
      * Constructor

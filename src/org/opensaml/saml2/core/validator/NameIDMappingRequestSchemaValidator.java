@@ -25,7 +25,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Checks {@link org.opensaml.saml2.core.NameIDMappingRequest} for Schema compliance.
  */
-public class NameIDMappingRequestSchemaValidator extends RequestSchemaValidator<NameIDMappingRequest> {
+public class NameIDMappingRequestSchemaValidator extends RequestAbstractTypeSchemaValidator<NameIDMappingRequest> {
 
     /**
      * Constructor

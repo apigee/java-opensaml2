@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.AssertionIDRequest;
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AssertionIDRequest}
  */
-public class AssertionIDRequestMarshaller extends RequestMarshaller {
+public class AssertionIDRequestMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
      * Constructor

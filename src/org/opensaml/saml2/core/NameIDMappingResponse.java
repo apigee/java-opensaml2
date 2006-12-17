@@ -24,7 +24,7 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * SAML 2.0 Core NameIDMappingResponse .
  */
-public interface NameIDMappingResponse extends StatusResponse {
+public interface NameIDMappingResponse extends StatusResponseType {
     
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "NameIDMappingResponse";
