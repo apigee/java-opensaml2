@@ -88,7 +88,7 @@
     <target name="test" depends="compile-core, compile-test">
         <mkdir dir="${test-results.dir}" />
 
-        <junit printsummary="off" fork="yes" forkmode="once" haltonerror="false" haltonfailure="true" dir="${basedir}">
+        <junit printsummary="off" fork="yes" forkmode="once" haltonerror="false" haltonfailure="false" dir="${basedir}" errorproperty="testFailed">
             <classpath refid="test-path" />
             <formatter type="xml" />
             <batchtest todir="${test-results.dir}">
@@ -103,6 +103,8 @@
     	  </fileset>
     	  <report format="frames" todir="${test-report.dir}"/>
     	</junitreport>
+    	
+    	<fail if="testFailed" message="Test failure; see ${test-report.dir} for more information."/>
     </target>
 
     <!-- Javadoc core (non-test) OpenSAML classes -->

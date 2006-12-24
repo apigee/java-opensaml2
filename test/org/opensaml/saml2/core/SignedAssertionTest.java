@@ -34,9 +34,8 @@ import org.opensaml.saml2.core.impl.IssuerBuilder;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.signature.Signature;
-import org.opensaml.xml.signature.SignatureBuilder;
-import org.opensaml.xml.signature.SignatureValidator;
 import org.opensaml.xml.signature.Signer;
+import org.opensaml.xml.signature.impl.SignatureBuilder;
 import org.opensaml.xml.validation.ValidationException;
 
 public class SignedAssertionTest extends SAMLObjectTestCaseConfigInitializer {
@@ -120,15 +119,6 @@ public class SignedAssertionTest extends SAMLObjectTestCaseConfigInitializer {
         marshaller.marshall(assertion);
         Signer.signObject(signature);
         
-        SignatureValidator signatureValidator = new SignatureValidator(verificationKey);
-        signatureValidator.validate(signature);
-        
-        signatureValidator = new SignatureValidator(badVerificationKey);
-        try{
-            signatureValidator.validate(signature);
-            fail("Signature validated with an bad verification key");
-        }catch(ValidationException e){
-            // this is supposed to fail
-        }
+        //TODO verify signature with new trust engine
     }
 }

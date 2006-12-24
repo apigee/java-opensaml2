@@ -21,7 +21,7 @@ import javax.servlet.ServletRequest;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
-import org.opensaml.security.TrustEngine;
+import org.opensaml.xml.security.TrustEngine;
 
 /**
  * Decodes a SAML message in a binding specific mannger. The decode() method should be run before any accessor methods
@@ -81,7 +81,7 @@ public interface MessageDecoder<RequestType extends ServletRequest>{
     /**
      * Sets the the trust engine used to verify the credentials of a request.
      * 
-     * @param the trust engine used to verify the credentials of a request
+     * @param trustEngine the trust engine used to verify the credentials of a request
      */
     public void setTrustEngine(TrustEngine trustEngine);
 

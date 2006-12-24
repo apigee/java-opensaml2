@@ -39,12 +39,11 @@ import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.impl.SAMLObjectContentReference;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.signature.Signature;
-import org.opensaml.xml.signature.SignatureBuilder;
-import org.opensaml.xml.signature.SignatureValidator;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
@@ -57,8 +56,8 @@ import org.w3c.dom.Element;
  */
 public class MetadataTool {
 
-    /** Logger */
-    private static Logger log;
+    /** Class Logger. */
+    private static Logger log = Logger.getLogger(MetadataTool.class);
 
     /**
      * Main entry point to program.
@@ -245,7 +244,8 @@ public class MetadataTool {
      * @param signingKey key used to sign the document
      */
     private static void sign(SignableSAMLObject metadata, PrivateKey signingKey) {
-        Signature signature = new SignatureBuilder().buildObject();
+        XMLObjectBuilder<Signature> sigBuilder = Configuration.getBuilderFactory().getBuilder(Signature.DEFAULT_ELEMENT_NAME);
+        Signature signature = sigBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
         SAMLObjectContentReference contentRef = new SAMLObjectContentReference(metadata);
         signature.getContentReferences().add(contentRef);
         signature.setSigningKey(signingKey);
@@ -261,18 +261,7 @@ public class MetadataTool {
      * @param verificationKey the key to use to verify it
      */
     private static void verifySiganture(SignableSAMLObject metadata, PublicKey verificationKey) {
-        SignatureValidator signatureValidator = new SignatureValidator(verificationKey);
-
-        try {
-            Signature signature = metadata.getSignature();
-            if (signature != null) {
-                signatureValidator.validate(signature);
-            } else {
-                log.info("Metadata root was not signed, skipping signature checking");
-            }
-        } catch (ValidationException e) {
-            errorAndExit("Signature can not be verified", e);
-        }
+        //TODO use new trust engine to verify signature
     }
 
     /**

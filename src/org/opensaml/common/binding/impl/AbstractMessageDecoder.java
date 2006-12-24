@@ -29,11 +29,11 @@ import org.opensaml.common.binding.SecurityPolicy;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
-import org.opensaml.security.TrustEngine;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.security.TrustEngine;
 import org.w3c.dom.Document;
 
 /**

@@ -30,24 +30,25 @@ import org.opensaml.xml.XMLObject;
  * such as caching (and refreshing) metadata and merging metadata, about a single entity, from multiple sources.
  */
 public interface MetadataProvider {
-    
-    /**
-     * Gets whether the metadata returned by queries must be valid.  At a minimum, metadata is valid only if the date expressed in entity's 
-     * validUntil attribute has not passed.  Specific implementations may add additional constratins.
 
+    /**
+     * Gets whether the metadata returned by queries must be valid. At a minimum, metadata is valid only if the date
+     * expressed in entity's validUntil attribute has not passed. Specific implementations may add additional
+     * constratins.
+     * 
      * @return whether the metadata returned by queries must be valid
      */
     public boolean requireValidMetadata();
-    
+
     /**
      * Sets whether the metadata returned by queries must be valid.
      * 
      * @param requireValidMetadata whether the metadata returned by queries must be valid
      */
     public void setRequireValidMetadata(boolean requireValidMetadata);
-    
+
     /**
-     * Gets the metadata filter applied to the metadata.
+     * Gets the metadata filter applied to the metadata. ьз
      * 
      * @return the metadata filter applied to the metadata
      */
@@ -70,7 +71,7 @@ public interface MetadataProvider {
      * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
     public XMLObject getMetadata() throws MetadataProviderException;
-    
+
     /**
      * Gets a named EntitiesDescriptor from the metadata.
      * 
@@ -81,7 +82,7 @@ public interface MetadataProvider {
      * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
     public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException;
-    
+
     /**
      * Gets the metadata for a given entity if the metadata is valid.
      * 
@@ -91,8 +92,8 @@ public interface MetadataProvider {
      * 
      * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
-    public EntityDescriptor getEntityDescriptor(String entityID)  throws MetadataProviderException;
-    
+    public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException;
+
     /**
      * Gets the role descriptors of a given type for a given entity from valid metadata.
      * 
@@ -103,8 +104,8 @@ public interface MetadataProvider {
      * 
      * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
-    public List<RoleDescriptor> getRole(String entityID, QName roleName)  throws MetadataProviderException;
-    
+    public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException;
+
     /**
      * Gets the role descriptors of a given type for a given entity that support the given protocol from valid metadata.
      * 
@@ -116,5 +117,6 @@ public interface MetadataProvider {
      * 
      * @throws MetadataProviderException thrown if the provider can not fetch the metadata
      */
-    public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)  throws MetadataProviderException;
+    public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)
+            throws MetadataProviderException;
 }
