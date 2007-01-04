@@ -35,6 +35,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.opensaml.Configuration;
+import org.opensaml.DefaultBootstrap;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.impl.SAMLObjectContentReference;
 import org.opensaml.common.xml.ParserPoolManager;
@@ -63,9 +64,11 @@ public class MetadataTool {
      * Main entry point to program.
      * 
      * @param args command line arguments
+     * 
+     * @throws Exception thrown if there is a problem running the application
      */
-    public static void main(String[] args) {
-        Configuration.init();
+    public static void main(String[] args) throws Exception {
+        DefaultBootstrap.bootstrap();
         configureLogging();
 
         CmdLineParser parser = CLIParserBuilder.buildParser();
