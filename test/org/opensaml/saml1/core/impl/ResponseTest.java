@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
@@ -33,7 +33,7 @@ import org.opensaml.saml1.core.Status;
 /**
  * Test class for org.opensaml.saml1.core.Response
  */
-public class ResponseTest extends SAMLObjectBaseTestCase {
+public class ResponseTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

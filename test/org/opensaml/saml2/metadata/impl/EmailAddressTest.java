@@ -21,7 +21,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EmailAddress;
 
@@ -29,7 +29,7 @@ import org.opensaml.saml2.metadata.EmailAddress;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.metadata.impl.EmailAddressImpl}.
  */
-public class EmailAddressTest extends SAMLObjectBaseTestCase {
+public class EmailAddressTest extends BaseSAMLObjectProviderTestCase {
     
     /** Expected email address */
     protected String expectedAddress;

@@ -21,7 +21,7 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextClassRef;
 import org.opensaml.saml2.core.AuthnContextComparisonTypeEnumeration;
@@ -31,7 +31,7 @@ import org.opensaml.saml2.core.RequestedAuthnContext;
 /**
  *
  */
-public class RequestedAuthnContextTest extends SAMLObjectBaseTestCase {
+public class RequestedAuthnContextTest extends BaseSAMLObjectProviderTestCase {
     
     /** Expected Comparison attribute */
     private AuthnContextComparisonTypeEnumeration expectedComparison;

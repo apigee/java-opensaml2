@@ -18,7 +18,7 @@ package org.opensaml.saml2.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.xml.validation.ValidationException;
@@ -26,7 +26,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.core.validator.AssertionURIRefSchemaValidator}.
  */
-public class AssertionURIRefSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AssertionURIRefSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public AssertionURIRefSchemaTest() {

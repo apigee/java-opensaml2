@@ -22,14 +22,14 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionIDReference;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.impl.AssertionIDReferenceImpl}
  */
-public class AssertionIDReferenceTest extends SAMLObjectBaseTestCase {
+public class AssertionIDReferenceTest extends BaseSAMLObjectProviderTestCase {
 
     private final String expectedNCName;
 

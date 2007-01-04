@@ -18,7 +18,7 @@ package org.opensaml.saml2.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
@@ -28,7 +28,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.core.validator.AuthzDecisionStatementSchemaValidator}.
  */
-public class AuthzDecisionStatementSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AuthzDecisionStatementSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public AuthzDecisionStatementSchemaTest() {

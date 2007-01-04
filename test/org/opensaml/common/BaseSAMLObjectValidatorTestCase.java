@@ -29,35 +29,29 @@ import org.opensaml.xml.validation.Validator;
  * Base test case for all OpenSAML tests that test the {@link org.opensaml.xml.validation.Validator}'s
  * that validate SAML objects.
  */
-public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCaseConfigInitializer {
+public abstract class BaseSAMLObjectValidatorTestCase extends BaseTestCase {
     
-    /** The primary XMLObject which will be the target of a given test run */
+    /** The primary XMLObject which will be the target of a given test run. */
     protected XMLObject target;
 
-    /** QName of the object to be tested */
+    /** QName of the object to be tested. */
     protected QName targetQName;
 
-    /** Validator for the type corresponding to the test target */
+    /** Validator for the type corresponding to the test target. */
     protected Validator validator;
-
-    /**
-    /**
-     * Constructor
-     *
-     */
-    public SAMLObjectValidatorBaseTestCase() {
-        super();
-    }
 
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
-        if (targetQName == null)
+        if (targetQName == null){
             throw new Exception("targetQName was null");
+        }
         
-        if (validator == null)
+        if (validator == null){
             throw new Exception("validator was null");
+        }
+        
         target = buildXMLObject(targetQName);
         populateRequiredData();
     }
@@ -68,7 +62,7 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
     }
     
     /**
-     *  Subclasses should override to populate required elements and attributes
+     *  Subclasses should override to populate required elements and attributes.
      */
     protected void populateRequiredData() {
         
@@ -78,7 +72,7 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
      * Asserts that the validation of default test XMLObject target 
      * was successful, as expected.
      * 
-     * @param message
+     * @param message failure message if the validation does not pass
      */
     protected void assertValidationPass(String message) {
         assertValidationPass(message, target);
@@ -88,8 +82,8 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
      * Asserts that the validation of the specified XMLObject target 
      * was successful, as expected.
      * 
-     * @param message
-     * @param validateTarget
+     * @param message failure message if the validation does not pass
+     * @param validateTarget the XMLObject to validate
      */
     protected void assertValidationPass(String message, XMLObject validateTarget) {
        try {
@@ -103,7 +97,7 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
      * Asserts that the validation of the default test XMLObject target 
      * failed, as expected.
      * 
-     * @param message
+     * @param message failure message if the validation does not fail
      */
     protected void assertValidationFail(String message) {
         assertValidationFail(message, target);
@@ -113,8 +107,8 @@ public abstract class SAMLObjectValidatorBaseTestCase extends SAMLObjectTestCase
      * Asserts that the validation of the specified XMLObject target 
      * failed, as expected.
      * 
-     * @param message
-     * @param validateTarget
+     * @param message failure message if the validation does not fail
+     * @param validateTarget XMLObject to validate
      */
     protected void assertValidationFail(String message, XMLObject validateTarget) {
        try {

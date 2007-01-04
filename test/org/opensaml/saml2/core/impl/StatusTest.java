@@ -21,7 +21,7 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusCode;
@@ -31,7 +31,7 @@ import org.opensaml.saml2.core.StatusMessage;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.core.impl.StatusImpl}.
  */
-public class StatusTest extends SAMLObjectBaseTestCase {
+public class StatusTest extends BaseSAMLObjectProviderTestCase {
 
     /**
      * Constructor

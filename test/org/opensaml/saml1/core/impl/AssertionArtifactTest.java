@@ -21,14 +21,14 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 
 /**
  * Test for {@link org.opensaml.saml1.core.AssertionArtifact}
  */
-public class AssertionArtifactTest extends SAMLObjectBaseTestCase {
+public class AssertionArtifactTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

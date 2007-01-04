@@ -21,14 +21,14 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NewID;
 
 /**
  * 
  */
-public class NewIDTest extends SAMLObjectBaseTestCase {
+public class NewIDTest extends BaseSAMLObjectProviderTestCase {
     
     /** Expected element content */
     private String expectedNewID;

@@ -18,13 +18,13 @@ package org.opensaml.saml2.metadata.provider;
 
 import java.io.File;
 
-import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
+import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 
 /**
  * Test case for {@link FileBackedURLMetadataProvider}.
  */
-public class FileBackedURLMetadataProviderTest extends SAMLObjectTestCaseConfigInitializer {
+public class FileBackedURLMetadataProviderTest extends BaseTestCase {
 
     private String inCommonMDURL;
 

@@ -38,7 +38,7 @@ import org.w3c.dom.Element;
 /**
  * Intermediate class that serves to initialize the configuration environment for other base test classes.
  */
-public abstract class SAMLObjectTestCaseConfigInitializer extends XMLTestCase {
+public abstract class BaseTestCase extends XMLTestCase {
     
     /** XMLObject builder factory. */
     protected static XMLObjectBuilderFactory builderFactory;
@@ -50,10 +50,10 @@ public abstract class SAMLObjectTestCaseConfigInitializer extends XMLTestCase {
     protected static UnmarshallerFactory unmarshallerFactory;
     
     /** Class logger. */
-    private static Logger log = Logger.getLogger(SAMLObjectTestCaseConfigInitializer.class);
+    private static Logger log = Logger.getLogger(BaseTestCase.class);
     
     /** Constructor. */
-    public SAMLObjectTestCaseConfigInitializer(){
+    public BaseTestCase(){
         super();
         
         try{

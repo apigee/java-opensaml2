@@ -18,7 +18,7 @@ package org.opensaml.saml2.metadata.provider;
 
 import java.util.List;
 
-import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
+import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
@@ -27,7 +27,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 /**
  * Unit tests for {@link URLMetadataProvider}.
  */
-public class URLMetadataProviderTest extends SAMLObjectTestCaseConfigInitializer {
+public class URLMetadataProviderTest extends BaseTestCase {
 
     private String inCommonMDURL;
     private String entitiesDescriptorName;

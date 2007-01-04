@@ -18,14 +18,14 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AttributeDesignatorSchemaValidator}.
  */
-public class AttributeDesignatorSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AttributeDesignatorSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public AttributeDesignatorSchemaTest() {

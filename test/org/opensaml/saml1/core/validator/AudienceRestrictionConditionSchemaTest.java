@@ -18,7 +18,7 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
@@ -26,7 +26,7 @@ import org.opensaml.saml1.core.AudienceRestrictionCondition;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AudienceRestrictionConditionSchemaValidator}.
  */
-public class AudienceRestrictionConditionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AudienceRestrictionConditionSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public AudienceRestrictionConditionSchemaTest() {

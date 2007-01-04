@@ -19,7 +19,7 @@ package org.opensaml.saml1.core.validator;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
@@ -28,7 +28,7 @@ import org.opensaml.saml1.core.AttributeStatement;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AssertionSchemaValidator}.
  */
-public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AssertionSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public AssertionSchemaTest() {

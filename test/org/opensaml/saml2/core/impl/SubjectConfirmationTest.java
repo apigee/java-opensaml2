@@ -18,7 +18,7 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.SubjectConfirmation;
@@ -27,7 +27,7 @@ import org.opensaml.saml2.core.SubjectConfirmationData;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.SubjectConfirmationImpl}.
  */
-public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
+public class SubjectConfirmationTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected Method value */
     private String expectedMethod;

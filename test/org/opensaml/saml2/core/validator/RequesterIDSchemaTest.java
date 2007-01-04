@@ -21,14 +21,14 @@ package org.opensaml.saml2.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.RequesterID;
 
 /**
  *
  */
-public class RequesterIDSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class RequesterIDSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /**
      * Constructor

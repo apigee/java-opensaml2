@@ -18,14 +18,14 @@ package org.opensaml.saml2.core;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.ComplexSAMLObjectBaseTestCase;
+import org.opensaml.common.BaseComplexSAMLObjectTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Tests unmarshalling and marshalling for various request messages.
  */
-public class AuthnRequestTest extends ComplexSAMLObjectBaseTestCase {
+public class AuthnRequestTest extends BaseComplexSAMLObjectTestCase {
 
     /**
      * Constructor

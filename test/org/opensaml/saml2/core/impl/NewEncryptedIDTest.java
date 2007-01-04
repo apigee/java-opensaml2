@@ -16,7 +16,7 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.saml2.core.NewEncryptedID;
 import org.opensaml.xml.encryption.EncryptedData;
 import org.opensaml.xml.encryption.EncryptedKey;
@@ -24,7 +24,7 @@ import org.opensaml.xml.encryption.EncryptedKey;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.NewEncryptedIDImpl}.
  */
-public class NewEncryptedIDTest extends SAMLObjectBaseTestCase {
+public class NewEncryptedIDTest extends BaseSAMLObjectProviderTestCase {
 
     /** Count of EncryptedKey subelements. */
     private int encryptedKeyCount = 3;

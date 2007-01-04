@@ -21,14 +21,14 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SessionIndex;
 
 /**
  *
  */
-public class SessionIndexTest extends SAMLObjectBaseTestCase {
+public class SessionIndexTest extends BaseSAMLObjectProviderTestCase {
     
     /** Expected element content */
     private String expectedSessionIndex;

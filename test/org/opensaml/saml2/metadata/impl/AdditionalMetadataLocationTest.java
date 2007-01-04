@@ -18,7 +18,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 
@@ -26,7 +26,7 @@ import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.metadata.impl.AdditionalMetadataLocationImpl}.
  */
-public class AdditionalMetadataLocationTest extends SAMLObjectBaseTestCase {
+public class AdditionalMetadataLocationTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected value of namespace attribute */
     protected String expectedNamespace;

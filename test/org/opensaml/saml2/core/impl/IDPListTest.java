@@ -21,7 +21,7 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.GetComplete;
 import org.opensaml.saml2.core.IDPEntry;
@@ -31,7 +31,7 @@ import org.opensaml.saml2.core.IDPList;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.core.impl.IDPEntryImpl}.
  */
-public class IDPListTest extends SAMLObjectBaseTestCase {
+public class IDPListTest extends BaseSAMLObjectProviderTestCase {
     
     /** The expected number of IDPEntry children */
     private int expectedNumIDPEntryChildren;

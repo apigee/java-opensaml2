@@ -18,14 +18,14 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
 
 /**
  * Test class for org.opensaml.saml1.core.StatusCode
  */
-public class StatusCodeTest extends SAMLObjectBaseTestCase {
+public class StatusCodeTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

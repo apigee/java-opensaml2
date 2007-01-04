@@ -22,7 +22,7 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
@@ -31,7 +31,7 @@ import org.opensaml.saml1.core.AssertionIDReference;
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Advice}
  */
-public class AdviceTest extends SAMLObjectBaseTestCase {
+public class AdviceTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

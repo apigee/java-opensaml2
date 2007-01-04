@@ -22,7 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
@@ -39,7 +39,7 @@ import org.opensaml.xml.schema.XSBooleanValue;
 /**
  * 
  */
-public class SPSSODescriptorTest extends SAMLObjectBaseTestCase {
+public class SPSSODescriptorTest extends BaseSAMLObjectProviderTestCase {
 
     /** expected value for AuthnRequestSigned attribute */
     protected XSBooleanValue expectedAuthnRequestSigned;

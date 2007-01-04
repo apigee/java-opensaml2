@@ -20,12 +20,12 @@ import java.io.File;
 import java.net.URL;
 import java.util.List;
 
-import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
+import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 
-public class ChainingMetadataProviderTest extends SAMLObjectTestCaseConfigInitializer {
+public class ChainingMetadataProviderTest extends BaseTestCase {
 
     private ChainingMetadataProvider metadataProvider;
     private String entityID;

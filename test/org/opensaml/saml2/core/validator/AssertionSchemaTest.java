@@ -20,7 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
@@ -29,7 +29,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.core.validator.AssertionSchemaValidator}.
  */
-public class AssertionSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AssertionSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public AssertionSchemaTest() {

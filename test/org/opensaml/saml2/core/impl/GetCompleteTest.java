@@ -21,7 +21,7 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.GetComplete;
 
@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.GetComplete;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.core.impl.GetCompleteImpl}.
  */
-public class GetCompleteTest extends SAMLObjectBaseTestCase {
+public class GetCompleteTest extends BaseSAMLObjectProviderTestCase {
     
     /** Expected element content*/
     private String expectedGetComplete;

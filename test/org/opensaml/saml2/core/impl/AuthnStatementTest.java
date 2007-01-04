@@ -20,7 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContext;
 import org.opensaml.saml2.core.AuthnStatement;
@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.SubjectLocality;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AuthnStatementImpl}.
  */
-public class AuthnStatementTest extends SAMLObjectBaseTestCase {
+public class AuthnStatementTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected AuthnInstant value */
     private DateTime expectedAuthnInstant;

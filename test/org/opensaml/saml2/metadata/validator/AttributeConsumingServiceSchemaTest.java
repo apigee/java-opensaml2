@@ -18,7 +18,7 @@ package org.opensaml.saml2.metadata.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.RequestedAttribute;
@@ -28,7 +28,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.AttributeConsumingService}.
  */
-public class AttributeConsumingServiceSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class AttributeConsumingServiceSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public AttributeConsumingServiceSchemaTest() {

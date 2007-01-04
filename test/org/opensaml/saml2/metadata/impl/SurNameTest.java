@@ -21,7 +21,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SurName;
 
@@ -29,7 +29,7 @@ import org.opensaml.saml2.metadata.SurName;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.metadata.SurName}.
  */
-public class SurNameTest extends SAMLObjectBaseTestCase {
+public class SurNameTest extends BaseSAMLObjectProviderTestCase {
     
     /** Expected description */
     protected String expectedName;

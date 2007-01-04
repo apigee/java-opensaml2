@@ -16,14 +16,14 @@
 
 package org.opensaml.saml2.metadata.validator;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
  * Test case for {@link org.opensaml.saml2.metadata.RoleDescriptor}.
  */
-public abstract class RoleDescriptorSpecTestBase extends SAMLObjectValidatorBaseTestCase {
+public abstract class RoleDescriptorSpecTestBase extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public RoleDescriptorSpecTestBase() {

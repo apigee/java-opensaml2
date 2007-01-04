@@ -22,14 +22,14 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 
 /**
  * 
  */
-public class AttributeDesignatorTest extends SAMLObjectBaseTestCase {
+public class AttributeDesignatorTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

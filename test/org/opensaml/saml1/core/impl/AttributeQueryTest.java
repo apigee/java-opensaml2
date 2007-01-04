@@ -24,7 +24,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeQuery;
@@ -33,7 +33,7 @@ import org.opensaml.saml1.core.Subject;
 /**
  * Test class for org.opensaml.saml1.core.AttributeQuery
  */
-public class AttributeQueryTest extends SAMLObjectBaseTestCase {
+public class AttributeQueryTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

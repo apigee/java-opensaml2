@@ -18,7 +18,7 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
@@ -27,7 +27,7 @@ import org.opensaml.saml1.core.SubjectConfirmation;
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.SubjectSchemaValidator}.
  */
-public class SubjectSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class SubjectSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public SubjectSchemaTest() {

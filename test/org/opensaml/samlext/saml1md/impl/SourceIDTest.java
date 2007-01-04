@@ -16,13 +16,13 @@
 
 package org.opensaml.samlext.saml1md.impl;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.samlext.saml1md.SourceID;
 
 /**
  * Tests {@link SourceIDImpl}
  */
-public class SourceIDTest extends SAMLObjectBaseTestCase {
+public class SourceIDTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected source ID value */
     private String expectedValue;

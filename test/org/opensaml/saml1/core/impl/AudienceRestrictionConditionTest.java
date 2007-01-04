@@ -22,7 +22,7 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
@@ -30,7 +30,7 @@ import org.opensaml.saml1.core.AudienceRestrictionCondition;
 /**
  * Test class for data.org.opensaml.saml1.AudienceRestrictionCondition
  */
-public class AudienceRestrictionConditionTest extends SAMLObjectBaseTestCase {
+public class AudienceRestrictionConditionTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

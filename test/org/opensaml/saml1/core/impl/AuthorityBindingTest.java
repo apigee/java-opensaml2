@@ -21,7 +21,7 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.saml1.core.AuthorityBinding;
@@ -29,7 +29,7 @@ import org.opensaml.saml1.core.AuthorityBinding;
 /**
  *  Test for {@link org.opensaml.saml1.core.impl.AuthorityBinding}
  */
-public class AuthorityBindingTest extends SAMLObjectBaseTestCase {
+public class AuthorityBindingTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

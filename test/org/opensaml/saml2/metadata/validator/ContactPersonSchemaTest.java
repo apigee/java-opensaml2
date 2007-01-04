@@ -18,7 +18,7 @@ package org.opensaml.saml2.metadata.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.saml2.metadata.ContactPersonTypeEnumeration;
@@ -27,7 +27,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.ContactPerson}.
  */
-public class ContactPersonSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class ContactPersonSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public ContactPersonSchemaTest() {

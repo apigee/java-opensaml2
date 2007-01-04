@@ -21,14 +21,14 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 
 /**
  * Test for org.opensaml.saml1.core.Audience Objects
  */
-public class AudienceTest extends SAMLObjectBaseTestCase {
+public class AudienceTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

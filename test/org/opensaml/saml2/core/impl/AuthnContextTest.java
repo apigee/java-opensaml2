@@ -18,7 +18,7 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthenticatingAuthority;
 import org.opensaml.saml2.core.AuthnContext;
@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.AuthnContextDeclRef;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AuthnContextImpl}.
  */
-public class AuthnContextTest extends SAMLObjectBaseTestCase {
+public class AuthnContextTest extends BaseSAMLObjectProviderTestCase {
 
     /** Count of AuthenticatingAuthority subelements */
     protected int expectedAuthenticatingAuthorityCount = 2;

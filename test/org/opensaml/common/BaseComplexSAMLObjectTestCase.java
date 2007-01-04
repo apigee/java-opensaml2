@@ -16,15 +16,6 @@
 
 package org.opensaml.common;
 
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
@@ -36,23 +27,24 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 /**
- * Base test case for OpenSAML tests that work with {@link org.opensaml.common.SAMLObject}s
- * which represent full, complex, typical "real world" examples of SAML documents.
+ * Base test case for OpenSAML tests that work with {@link org.opensaml.common.SAMLObject}s which represent full,
+ * complex, typical "real world" examples of SAML documents.
  */
-public abstract class ComplexSAMLObjectBaseTestCase extends SAMLObjectTestCaseConfigInitializer {
+public abstract class BaseComplexSAMLObjectTestCase extends BaseTestCase {
 
-    /** Location of file containing a single element with NO optional attributes */
+    /** Location of file containing a single element with NO optional attributes. */
     protected String elementFile;
 
-    /** The expected result of a marshalled single element with no optional attributes */
+    /** The expected result of a marshalled single element with no optional attributes. */
     protected Document expectedDOM;
+
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
 
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         if (elementFile != null) {
-            expectedDOM = ppMgr.parse(new InputSource(ComplexSAMLObjectBaseTestCase.class
+            expectedDOM = ppMgr.parse(new InputSource(BaseComplexSAMLObjectTestCase.class
                     .getResourceAsStream(elementFile)));
         }
     }
@@ -65,12 +57,15 @@ public abstract class ComplexSAMLObjectBaseTestCase extends SAMLObjectTestCaseCo
     /**
      * Unmarshalls an element file into its SAMLObject.
      * 
+     * @param elementFile classpath path to XML file to be unmarshalled
+     * 
      * @return the SAMLObject from the file
      */
     protected XMLObject unmarshallElement(String elementFile) {
         try {
             ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-            Document doc = ppMgr.parse(new InputSource(ComplexSAMLObjectBaseTestCase.class.getResourceAsStream(elementFile)));
+            Document doc = ppMgr.parse(new InputSource(BaseComplexSAMLObjectTestCase.class
+                    .getResourceAsStream(elementFile)));
             Element samlElement = doc.getDocumentElement();
 
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlElement);
@@ -87,36 +82,6 @@ public abstract class ComplexSAMLObjectBaseTestCase extends SAMLObjectTestCaseCo
 
         return null;
     }
-    
-    
-    /**
-     * For debugging purposes, serialize and print a DOM document to the system console.
-     * 
-     * @param dom
-     */
-    public void printXML(Document dom) {
-        
-        Transformer tr = null;
-        try {
-            tr = TransformerFactory.newInstance().newTransformer();
-        } catch (TransformerConfigurationException e) {
-            e.printStackTrace();
-        } catch (TransformerFactoryConfigurationError e) {
-            e.printStackTrace();
-        }
-        tr.setOutputProperty(OutputKeys.METHOD,"xml");
-        tr.setOutputProperty(OutputKeys.INDENT, "yes");
-        tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "3");
-
-
-        try {
-            tr.transform( new DOMSource(dom),new StreamResult(System.out));
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
-        
-    }
-
 
     /**
      * Tests unmarshalling a document.
@@ -127,5 +92,5 @@ public abstract class ComplexSAMLObjectBaseTestCase extends SAMLObjectTestCaseCo
      * Tests marshalling the contents of a complex element to a DOM document.
      */
     public abstract void testMarshall();
-    
+
 }

@@ -21,7 +21,7 @@ package org.opensaml.saml2.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusCode;
@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.StatusCode;
 /**
  *
  */
-public class StatusSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class StatusSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /**
      * Constructor

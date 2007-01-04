@@ -21,7 +21,7 @@ package org.opensaml.saml2.metadata.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationName;
@@ -30,7 +30,7 @@ import org.opensaml.saml2.metadata.OrganizationName;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.metadata.OrganizationName}.
  */
-public class OrganizationNameTest extends SAMLObjectBaseTestCase {
+public class OrganizationNameTest extends BaseSAMLObjectProviderTestCase {
     
     /** Expected name */
     protected LocalizedString expectName;

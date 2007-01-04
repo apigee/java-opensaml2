@@ -16,12 +16,12 @@
 
 package org.opensaml.saml1.core;
 
-import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
+import org.opensaml.common.BaseTestCase;
 
 /**
  * Tests unmarshalling and marshalling for various request messages.
  */
-public class RequestTest extends SAMLObjectTestCaseConfigInitializer {
+public class RequestTest extends BaseTestCase {
 
     /**
      * Constructor

@@ -20,7 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
@@ -35,7 +35,7 @@ import org.opensaml.saml2.core.Subject;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AssertionImpl}.
  */
-public class AssertionTest extends SAMLObjectBaseTestCase {
+public class AssertionTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected Version value */
     private SAMLVersion expectedVersion;

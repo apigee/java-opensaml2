@@ -18,7 +18,7 @@ package org.opensaml.saml2.metadata;
 
 import java.io.InputStream;
 
-import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
+import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
@@ -31,7 +31,7 @@ import org.w3c.dom.Document;
  * Test cases that parses real, "in-the-wild", metadata files. Currently uses the InCommon and SWITCH federation
  * metadata files (current as of the time this test was written).
  */
-public class MetadataTest extends SAMLObjectTestCaseConfigInitializer {
+public class MetadataTest extends BaseTestCase {
 
     /**
      * Constructor
@@ -94,6 +94,40 @@ public class MetadataTest extends SAMLObjectTestCaseConfigInitializer {
 
             assertEquals("First element of SWITCH data was not expected EntitiesDescriptor", "EntitiesDescriptor",
                     switchMD.getElementQName().getLocalPart());
+        } catch (XMLParserException xe) {
+            fail("Unable to parse XML file: " + xe);
+        } catch (UnmarshallingException ue) {
+            fail("Unable to unmarshall XML: " + ue);
+        }
+    }
+    
+    /**
+     * Tests unmarshalling an SWITCH metadata document.
+     * 
+     * @throws XMLParserException
+     * @throws UnmarshallingException
+     */
+    public void testUKFedUnmarshall() {
+        String switchMDFile = "/data/org/opensaml/saml2/metadata/ukfederation-metadata.xml";
+        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+
+        try {
+            long parseStart = System.currentTimeMillis();
+            InputStream in = MetadataTest.class.getResourceAsStream(switchMDFile);
+            Document ukFedDoc = ppMgr.parse(in);
+            long parseEnd = System.currentTimeMillis();
+            
+            long unmarshallStart = System.currentTimeMillis();
+            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
+                    ukFedDoc.getDocumentElement());
+            XMLObject ukFedMD = unmarshaller.unmarshall(ukFedDoc.getDocumentElement());
+            long unmarshallEnd = System.currentTimeMillis();
+            
+            System.out.println("Parse time: " + (parseEnd - parseStart));
+            System.out.println("Unmarshall time: " + ( unmarshallEnd - unmarshallStart));
+
+            assertEquals("First element of UK Federation data was not expected EntitiesDescriptor", "EntitiesDescriptor",
+                    ukFedMD.getElementQName().getLocalPart());
         } catch (XMLParserException xe) {
             fail("Unable to parse XML file: " + xe);
         } catch (UnmarshallingException ue) {

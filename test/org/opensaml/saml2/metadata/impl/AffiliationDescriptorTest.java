@@ -20,7 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.AffiliateMember;
@@ -30,7 +30,7 @@ import org.opensaml.saml2.metadata.AffiliationDescriptor;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.metadata.impl.AffiliationDescriptorImpl}.
  */
-public class AffiliationDescriptorTest extends SAMLObjectBaseTestCase {
+public class AffiliationDescriptorTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected affiliationOwnerID value */
     protected String expectedOwnerID;

@@ -24,7 +24,7 @@ import java.security.PublicKey;
 import org.apache.xml.security.c14n.Canonicalizer;
 import org.apache.xml.security.signature.XMLSignature;
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
+import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.SAMLObjectContentReference;
 import org.opensaml.common.impl.SecureRandomIdentifierGenerator;
@@ -38,7 +38,7 @@ import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.signature.impl.SignatureBuilder;
 import org.opensaml.xml.validation.ValidationException;
 
-public class SignedAssertionTest extends SAMLObjectTestCaseConfigInitializer {
+public class SignedAssertionTest extends BaseTestCase {
     
     /** Key used for signing */
     private PrivateKey signingKey;

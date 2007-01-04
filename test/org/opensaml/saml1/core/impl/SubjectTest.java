@@ -22,7 +22,7 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
@@ -31,7 +31,7 @@ import org.opensaml.saml1.core.SubjectConfirmation;
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Subject}
  */
-public class SubjectTest extends SAMLObjectBaseTestCase {
+public class SubjectTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

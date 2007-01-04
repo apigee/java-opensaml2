@@ -18,7 +18,7 @@ package org.opensaml.saml2.metadata.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationName;
@@ -27,7 +27,7 @@ import org.opensaml.xml.validation.ValidationException;
 /**
  * Test case for {@link org.opensaml.saml2.metadata.OrganizationName}.
  */
-public class OrganizationNameSchemaTest extends SAMLObjectValidatorBaseTestCase {
+public class OrganizationNameSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public OrganizationNameSchemaTest() {

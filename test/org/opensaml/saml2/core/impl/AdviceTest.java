@@ -16,7 +16,7 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AssertionIDRef;
@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.EncryptedAssertion;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AdviceImpl}.
  */
-public class AdviceTest extends SAMLObjectBaseTestCase {
+public class AdviceTest extends BaseSAMLObjectProviderTestCase {
 
     /** Count of AssertionIDRef subelements */
     protected int assertionIDRefCount = 3;

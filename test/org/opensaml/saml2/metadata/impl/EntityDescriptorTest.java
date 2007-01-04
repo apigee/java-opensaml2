@@ -20,7 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
@@ -37,7 +37,7 @@ import org.opensaml.saml2.metadata.SPSSODescriptor;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.metadata.impl.EntityDescriptorImpl}.
  */
-public class EntityDescriptorTest extends SAMLObjectBaseTestCase {
+public class EntityDescriptorTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected entityID value */
     protected String expectedEntityID;

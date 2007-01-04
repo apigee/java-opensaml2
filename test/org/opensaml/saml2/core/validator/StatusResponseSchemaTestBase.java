@@ -22,7 +22,7 @@ package org.opensaml.saml2.core.validator;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusResponseType;
@@ -30,7 +30,7 @@ import org.opensaml.saml2.core.StatusResponseType;
 /**
  *
  */
-public abstract class StatusResponseSchemaTestBase extends SAMLObjectValidatorBaseTestCase {
+public abstract class StatusResponseSchemaTestBase extends BaseSAMLObjectValidatorTestCase {
 
     /**
      * Constructor

@@ -22,7 +22,7 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeValue;
@@ -32,7 +32,7 @@ import org.opensaml.xml.schema.impl.XSStringBuilder;
 /**
  * 
  */
-public class AttributeTest extends SAMLObjectBaseTestCase {
+public class AttributeTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

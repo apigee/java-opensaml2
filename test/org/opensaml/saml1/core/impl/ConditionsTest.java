@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AudienceRestrictionCondition;
 import org.opensaml.saml1.core.Conditions;
@@ -33,7 +33,7 @@ import org.opensaml.saml1.core.DoNotCacheCondition;
 /**
  * Test class for org.opensaml.saml1.core.Conditions
  */
-public class ConditionsTest extends SAMLObjectBaseTestCase {
+public class ConditionsTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;

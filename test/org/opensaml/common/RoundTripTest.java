@@ -37,7 +37,7 @@ import org.w3c.dom.Element;
 /**
  * Round trip messaging test case.
  */
-public class RoundTripTest extends SAMLObjectTestCaseConfigInitializer {
+public class RoundTripTest extends BaseTestCase {
     
     /** Organization to marshall */
     private Organization organization;

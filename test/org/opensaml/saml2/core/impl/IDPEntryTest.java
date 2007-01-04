@@ -21,7 +21,7 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.IDPEntry;
 
@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.IDPEntry;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.core.impl.IDPEntryImpl}.
  */
-public class IDPEntryTest extends SAMLObjectBaseTestCase {
+public class IDPEntryTest extends BaseSAMLObjectProviderTestCase {
     
     /** Expected ProviderID */
     private String expectedProviderID;

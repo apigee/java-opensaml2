@@ -18,7 +18,7 @@ package org.opensaml.saml1.core;
 
 import java.io.InputStream;
 
-import org.opensaml.common.SAMLObjectTestCaseConfigInitializer;
+import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.io.Unmarshaller;
@@ -29,7 +29,7 @@ import org.w3c.dom.Document;
 /**
  * Tests unmarshalling and marshalling for various response messages.
  */
-public class ResponseTest extends SAMLObjectTestCaseConfigInitializer {
+public class ResponseTest extends BaseTestCase {
 
     /** Path to file with full response message */
     private String fullResponsePath;

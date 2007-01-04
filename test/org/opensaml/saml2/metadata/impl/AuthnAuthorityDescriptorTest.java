@@ -23,7 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
@@ -37,7 +37,7 @@ import org.opensaml.saml2.metadata.Organization;
  * Test case for creating, marshalling, and unmarshalling
  * {@link org.opensaml.saml2.metadata.impl.AuthnAuthorityDescriptorImpl}.
  */
-public class AuthnAuthorityDescriptorTest extends SAMLObjectBaseTestCase {
+public class AuthnAuthorityDescriptorTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected supported protocol enumeration */
     protected List<String> expectedSupportedProtocols;

@@ -18,14 +18,14 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameID;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.NameIDImpl}.
  */
-public class NameIDTest extends SAMLObjectBaseTestCase {
+public class NameIDTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected Name value */
     private String expectedName;

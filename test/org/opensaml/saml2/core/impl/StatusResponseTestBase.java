@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Issuer;
@@ -34,7 +34,7 @@ import org.opensaml.saml2.core.StatusResponseType;
 /**
  *
  */
-public abstract class StatusResponseTestBase extends SAMLObjectBaseTestCase {
+public abstract class StatusResponseTestBase extends BaseSAMLObjectProviderTestCase {
     
     /** Expected ID attribute */
     protected String expectedID;

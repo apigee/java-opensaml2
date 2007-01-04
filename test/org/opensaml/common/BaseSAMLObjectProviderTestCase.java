@@ -29,24 +29,24 @@ import org.xml.sax.InputSource;
 /**
  * Base test case for all OpenSAML tests that work with {@link org.opensaml.common.SAMLObject}s.
  */
-public abstract class SAMLObjectBaseTestCase extends  SAMLObjectTestCaseConfigInitializer {
+public abstract class BaseSAMLObjectProviderTestCase extends BaseTestCase {
 
-    /** Location of file containing a single element with NO optional attributes */
+    /** Location of file containing a single element with NO optional attributes. */
     protected String singleElementFile;
 
-    /** Location of file containing a single element with all optional attributes */
+    /** Location of file containing a single element with all optional attributes. */
     protected String singleElementOptionalAttributesFile;
 
-    /** Location of file containing a single element with child elements */
+    /** Location of file containing a single element with child elements. */
     protected String childElementsFile;
 
-    /** The expected result of a marshalled single element with no optional attributes */
+    /** The expected result of a marshalled single element with no optional attributes. */
     protected Document expectedDOM;
 
-    /** The expected result of a marshalled single element with all optional attributes */
+    /** The expected result of a marshalled single element with all optional attributes. */
     protected Document expectedOptionalAttributesDOM;
 
-    /** The expected result of a marshalled single element with child elements */
+    /** The expected result of a marshalled single element with child elements. */
     protected Document expectedChildElementsDOM;
 
     /** {@inheritDoc} */
@@ -55,17 +55,17 @@ public abstract class SAMLObjectBaseTestCase extends  SAMLObjectTestCaseConfigIn
 
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         if (singleElementFile != null) {
-            expectedDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
+            expectedDOM = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
                     .getResourceAsStream(singleElementFile)));
         }
 
         if (singleElementOptionalAttributesFile != null) {
-            expectedOptionalAttributesDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
+            expectedOptionalAttributesDOM = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
                     .getResourceAsStream(singleElementOptionalAttributesFile)));
         }
 
         if (childElementsFile != null) {
-            expectedChildElementsDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
+            expectedChildElementsDOM = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
                     .getResourceAsStream(childElementsFile)));
         }
     }
@@ -78,12 +78,15 @@ public abstract class SAMLObjectBaseTestCase extends  SAMLObjectTestCaseConfigIn
     /**
      * Unmarshalls an element file into its SAMLObject.
      * 
+     * @param elementFile the classpath path to an XML document to unmarshall
+     * 
      * @return the SAMLObject from the file
      */
     protected XMLObject unmarshallElement(String elementFile) {
         try {
             ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-            Document doc = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class.getResourceAsStream(elementFile)));
+            Document doc = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
+                    .getResourceAsStream(elementFile)));
             Element samlElement = doc.getDocumentElement();
 
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlElement);

@@ -18,14 +18,14 @@ package org.opensaml.saml2.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextDecl;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.AuthnContextDeclImpl}.
  */
-public class AuthnContextDeclTest extends SAMLObjectBaseTestCase {
+public class AuthnContextDeclTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected Declaration value */
     protected String expectedDeclartion;

@@ -20,7 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.saml2.core.Condition;
@@ -31,7 +31,7 @@ import org.opensaml.saml2.core.ProxyRestriction;
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.ConditionsImpl}.
  */
-public class ConditionsTest extends SAMLObjectBaseTestCase {
+public class ConditionsTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected NotBefore value */
     private DateTime expectedNotBefore;

@@ -22,7 +22,7 @@ package org.opensaml.saml1.core.impl;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
@@ -35,7 +35,7 @@ import org.xml.sax.InputSource;
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Subject}
  */
-public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
+public class SubjectConfirmationTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
     private final QName qname;
@@ -62,7 +62,7 @@ public class SubjectConfirmationTest extends SAMLObjectBaseTestCase {
 
         ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
-        expectedFullDOM = ppMgr.parse(new InputSource(SAMLObjectBaseTestCase.class
+        expectedFullDOM = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
                 .getResourceAsStream(fullElementsFile)));
     }
 

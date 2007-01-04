@@ -18,14 +18,14 @@ package org.opensaml.saml1.core.validator;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectValidatorBaseTestCase;
+import org.opensaml.common.BaseSAMLObjectValidatorTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 
 /**
  * Test case for {@link org.opensaml.saml1.core.validator.AudienceSpecValidator}.
  */
-public class AudienceSpecTest extends SAMLObjectValidatorBaseTestCase {
+public class AudienceSpecTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */
     public AudienceSpecTest() {
