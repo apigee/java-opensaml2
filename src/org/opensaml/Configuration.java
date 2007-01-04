@@ -16,118 +16,35 @@
 
 package org.opensaml;
 
-import org.apache.velocity.app.Velocity;
-import org.apache.xml.security.Init;
 import org.opensaml.common.binding.SAMLArtifactFactory;
-import org.opensaml.common.xml.ParserPoolManager;
-import org.opensaml.xml.XMLConfigurator;
-import org.w3c.dom.Document;
 
 /**
- * OpenSAML configuration singleton.  This 
+ * OpenSAML configuration singleton.
+ * 
+ * The library must be initialized with a set of configurations prior to usage.  This is often done by invoking
+ * {@link DefaultBootstrap#bootstrap()} but may done in any manner so long as all the needed object providers and 
+ * artifact factory are created and registered with the configuration.
  */
 public class Configuration extends org.opensaml.xml.Configuration {
     
-    /** Whether the library has been initialized */
-    private static boolean configured = false;
-    
-    /** SAML Artifact Factory Instance */
+    /** SAML Artifact factory. */
     private static SAMLArtifactFactory artifactFactory;
 
-    /**
-     * Initializes the OpenSAML library, loading default configurations.
-     */
-    public static synchronized void init() {
-        if(configured){
-            return;
-        }
-
-        try {
-            // Initialize XML Security
-            Init.init();
-            
-            // Initialize Velocity
-            Velocity.init();
-            
-            ParserPoolManager ppMgr = ParserPoolManager.getInstance();    
-            Class clazz = Configuration.class;
-
-            XMLConfigurator configurator = new XMLConfigurator();
-            
-            // Common Object Provider Configuration
-            Document commonConfig = ppMgr.parse(clazz.getResourceAsStream("/common-config.xml"));
-            configurator.load(commonConfig);
-            
-            // XML Schema types Object Provider Configuration
-            Document schemaConfig = ppMgr.parse(clazz.getResourceAsStream("/schema-config.xml"));
-            configurator.load(schemaConfig);
-            
-            // XML Signature Object Provider Configuration
-            Document signatureConfig = ppMgr.parse(clazz.getResourceAsStream("/signature-config.xml"));
-            configurator.load(signatureConfig);
-            
-            // XML Encryption Object Provider Configuration
-            Document encryptionConfig = ppMgr.parse(clazz.getResourceAsStream("/encryption-config.xml"));
-            configurator.load(encryptionConfig);
-
-            // SAML 1.X Assertion Object Provider Configuration
-            Document saml1AssertionConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-assertion-config.xml"));
-            configurator.load(saml1AssertionConfig);
-
-            // SAML 1.X Protocol Object Provider Configuration
-            Document saml1ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-protocol-config.xml"));
-            configurator.load(saml1ProtocolConfig);
-            
-            // SAML 1.X Core (Asserion + Protocol) Validation Configuration
-            Document saml1ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-core-validation-config.xml"));
-            configurator.load(saml1ValidationConfig);
-
-            // SAML 2.0 Assertion Object Provider Configuration
-            Document saml2assertionConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-assertion-config.xml"));
-            configurator.load(saml2assertionConfig);
-
-            // SAML 2.0 Protocol Object Provider Configuration
-            Document saml2ProtocolConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-protocol-config.xml"));
-            configurator.load(saml2ProtocolConfig);
-            
-            // SAML 2.0 Protocol Object Provider Configuration
-            Document saml2ProtocolExtConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-protocol-thirdparty-config.xml"));
-            configurator.load(saml2ProtocolExtConfig);
-            
-            // SAML 2.0 Core (Asserion + Protocol) Validation Configuration
-            Document saml2ValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-core-validation-config.xml"));
-            configurator.load(saml2ValidationConfig);
-            
-            // SAML 2.0 Metadata Object Provider Configuration
-            Document saml2mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-config.xml"));
-            configurator.load(saml2mdConfig);
-            
-            // SAML 1.X Metadata Provider Configuration
-            Document saml1mdConfig = ppMgr.parse(clazz.getResourceAsStream("/saml1-metadata-config.xml"));
-            configurator.load(saml1mdConfig);
-            
-            // SAML 2.0 Metadata Query Extension Object Provider Configuration
-            Document saml2mdqConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-query-config.xml"));
-            configurator.load(saml2mdqConfig);
-            
-            // SAML 2.0 Metadata Validation Configuration
-            Document saml2mdValidationConfig = ppMgr.parse(clazz.getResourceAsStream("/saml2-metadata-validation-config.xml"));
-            configurator.load(saml2mdValidationConfig);
-            
-            artifactFactory = new SAMLArtifactFactory();
-            
-            configured = true;
-        } catch (Exception e) {
-            System.err.println("Unable to configure OpenSAML: " + e);
-        }
-    }
-    
     /**
      * Gets the artifact factory for the library.
      * 
      * @return artifact factory for the library
      */
-    public final static SAMLArtifactFactory getArtifactFactory(){
+    public static SAMLArtifactFactory getArtifactFactory(){
         return artifactFactory;
+    }
+    
+    /**
+     * Sets the artifact factory for the library.
+     * 
+     * @param factory artifact factory for the library
+     */
+    public static void setArtifactFactory(SAMLArtifactFactory factory){
+        artifactFactory = factory;
     }
 }

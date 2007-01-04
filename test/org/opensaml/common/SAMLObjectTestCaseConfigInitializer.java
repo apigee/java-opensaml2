@@ -22,7 +22,9 @@ import org.apache.log4j.Logger;
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.opensaml.Configuration;
+import org.opensaml.DefaultBootstrap;
 import org.opensaml.common.xml.ParserPoolManager;
+import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.XMLObjectBuilderFactory;
@@ -37,27 +39,28 @@ import org.w3c.dom.Element;
  * Intermediate class that serves to initialize the configuration environment for other base test classes.
  */
 public abstract class SAMLObjectTestCaseConfigInitializer extends XMLTestCase {
-
-    /** Logger */
-    private static Logger log = Logger.getLogger(SAMLObjectTestCaseConfigInitializer.class);
     
-    /** XMLObject builder factory */
+    /** XMLObject builder factory. */
     protected static XMLObjectBuilderFactory builderFactory;
 
-    /** XMLObject marshaller factory */
+    /** XMLObject marshaller factory. */
     protected static MarshallerFactory marshallerFactory;
 
-    /** XMLObject unmarshaller factory */
+    /** XMLObject unmarshaller factory. */
     protected static UnmarshallerFactory unmarshallerFactory;
     
-    /**
-     * Constructor
-     * 
-     */
-    public SAMLObjectTestCaseConfigInitializer() {
+    /** Class logger. */
+    private static Logger log = Logger.getLogger(SAMLObjectTestCaseConfigInitializer.class);
+    
+    /** Constructor. */
+    public SAMLObjectTestCaseConfigInitializer(){
         super();
         
-        Configuration.init();
+        try{
+            DefaultBootstrap.bootstrap();
+        }catch(ConfigurationException e){
+            fail(e.getMessage());
+        }
         builderFactory = Configuration.getBuilderFactory();
         marshallerFactory = Configuration.getMarshallerFactory();
         unmarshallerFactory = Configuration.getUnmarshallerFactory();
