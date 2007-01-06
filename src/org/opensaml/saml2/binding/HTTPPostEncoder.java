@@ -31,19 +31,19 @@ import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
- * SAML 2.0 HTTP Post binding message encoder
+ * SAML 2.0 HTTP Post binding message encoder.
  * 
  * TODO Consider adding attributes that might be released
  */
 public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
 
-    /** Location of the velocity template */
-    public final static String VELOCITY_TEMPLATE = "/templates/saml2-post-binding.vm";
+    /** Location of the velocity template. */
+    public static final String VELOCITY_TEMPLATE = "/templates/saml2-post-binding.vm";
 
-    /** Class logger */
-    private final static Logger log = Logger.getLogger(HTTPPostEncoder.class);
+    /** Class logger. */
+    private final Logger log = Logger.getLogger(HTTPPostEncoder.class);
 
-    /** URL for the form action field */
+    /** URL for the form action field. */
     private String actionURL;
 
     /**
@@ -80,12 +80,13 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
         if (log.isDebugEnabled()) {
             log.debug("Base64 encoding message");
         }
-        String encodedMessage = new String(Base64.encodeBytes(messageXML.getBytes()));
+        String encodedMessage = new String(Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES));
 
         try{
             if (log.isDebugEnabled()) {
                 log.debug("Adding cache headers to response");
             }
+            response.setContentType("application/xhtml+xml");
             response.setCharacterEncoding("UTF-8");
             response.addHeader("Cache-control", "no-cache, no-store");
             response.addHeader("Pragma", "no-cache");

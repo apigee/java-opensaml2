@@ -18,14 +18,12 @@ package org.opensaml.common.binding.impl;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.opensaml.common.binding.HTTPMessageEncoder;
-
 /**
  * Base class handling boilerplate code for HTTP message encoders.
  */
-public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder<HttpServletResponse> implements HTTPMessageEncoder {
+public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder<HttpServletResponse> {
     
-    /** Relay state */
+    /** Relay state. */
     private String relayState;
     
     /** {@inheritDoc} */

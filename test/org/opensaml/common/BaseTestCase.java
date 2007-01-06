@@ -40,6 +40,9 @@ import org.w3c.dom.Element;
  */
 public abstract class BaseTestCase extends XMLTestCase {
     
+    /** Parser manager used to parse XML. */
+    protected static ParserPoolManager parser;
+    
     /** XMLObject builder factory. */
     protected static XMLObjectBuilderFactory builderFactory;
 
@@ -61,6 +64,8 @@ public abstract class BaseTestCase extends XMLTestCase {
         }catch(ConfigurationException e){
             fail(e.getMessage());
         }
+        
+        parser = ParserPoolManager.getInstance();
         builderFactory = Configuration.getBuilderFactory();
         marshallerFactory = Configuration.getMarshallerFactory();
         unmarshallerFactory = Configuration.getUnmarshallerFactory();

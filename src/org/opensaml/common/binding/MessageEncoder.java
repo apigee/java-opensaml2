@@ -26,6 +26,8 @@ import org.opensaml.saml2.metadata.provider.MetadataProvider;
  * reusable.  The process of encoding a message may change some of the properties set on this encoder.  For example, a 
  * message may be required to be signed in a specific manner, so prior to the encoding the message may not be signed 
  * while afterwords it may be.
+ * 
+ * @param <ResponseType> the type of response the message is encoded to
  */
 public interface MessageEncoder<ResponseType extends ServletResponse> {
     

@@ -2,6 +2,7 @@
 
 	<tstamp>
 		<format property="build-date" pattern="ddMMyyyy'T'kkmmss" timezone="GMT"/>
+		<format property="current-year" pattern="yyyy" timezone="GMT" />
 	</tstamp>
 			
     <property file="build.properties" />
@@ -29,7 +30,7 @@
 	<property name="jar.name" value="opensaml-${version}-jdk-${jdk.target}.jar" />
 	<property name="src-dist.name" value="opensaml-${version}-jdk-${jdk.target}-src" />
 	<property name="bin-dist.name" value="opensaml-${version}-jdk-${jdk.target}-bin" />
-    <property name="year" value="2002-2005" />
+    <property name="year" value="2002-${current-year}" />
     <property name="copyright" value="Copyright &#169; ${year} UCAID. All Rights Reserved." />
 
     <!-- Load ant-contrib tasks -->

@@ -31,28 +31,31 @@ import org.w3c.dom.Element;
 
 /**
  * Base class handling boilerplate code for message encoders.
+ * 
+ * @param <ResponseType> the type of response the message is encoded to
  */
-public abstract class AbstractMessageEncoder<ResponseType extends ServletResponse> implements MessageEncoder<ResponseType> {
+public abstract class AbstractMessageEncoder<ResponseType extends ServletResponse> implements
+        MessageEncoder<ResponseType> {
 
-    /** Response to pack the message into */
+    /** Response to pack the message into. */
     private ResponseType response;
-    
-    /** Metadata provider used to look up information about the relying party */
+
+    /** Metadata provider used to look up information about the relying party. */
     private MetadataProvider metadataProvider;
 
-    /** Party the emssage is being sent to */
+    /** Party the emssage is being sent to. */
     private String relyingParty;
 
-    /** SAML message to encode */
+    /** SAML message to encode. */
     private SAMLObject samlMessage;
-    
+
     /** {@inheritDoc} */
-    public ResponseType getResponse(){
+    public ResponseType getResponse() {
         return response;
     }
-    
+
     /** {@inheritDoc} */
-    public void setResponse(ResponseType response){
+    public void setResponse(ResponseType response) {
         this.response = response;
     }
 

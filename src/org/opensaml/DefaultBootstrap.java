@@ -18,6 +18,7 @@ package org.opensaml;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.app.Velocity;
+import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.xml.security.Init;
 import org.opensaml.common.binding.SAMLArtifactFactory;
 import org.opensaml.common.xml.ParserPoolManager;
@@ -33,7 +34,7 @@ public class DefaultBootstrap {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(DefaultBootstrap.class);
-
+    
     /** List of default XMLTooling configuration files. */
     private static String[] xmlToolingConfigs = { 
             "/common-config.xml",
@@ -98,9 +99,14 @@ public class DefaultBootstrap {
             if (log.isDebugEnabled()) {
                 log.debug("Initializing Velocity template engine");
             }
+            Velocity.setProperty(RuntimeConstants.ENCODING_DEFAULT, "UTF-8");
+            Velocity.setProperty(RuntimeConstants.OUTPUT_ENCODING, "UTF-8");
+            Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+            Velocity.setProperty("classpath.resource.loader.class",
+                    "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
             Velocity.init();
         } catch (Exception e) {
-            throw new ConfigurationException("Unable to initialize Velocity template engine");
+            throw new ConfigurationException("Unable to initialize Velocity template engine", e);
         }
     }
 
