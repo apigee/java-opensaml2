@@ -25,16 +25,14 @@ import org.opensaml.saml1.core.Request;
  */
 public class RequestBuilder extends AbstractSAMLObjectBuilder<Request> {
 
-    /**
-     * Constructor
-     */
+    /** Constructor. */
     public RequestBuilder() {
 
     }
 
     /** {@inheritDoc} */
     public Request buildObject() {
-        return buildObject(SAMLConstants.SAML1_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        return buildObject(SAMLConstants.SAML1P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /** {@inheritDoc} */
