@@ -27,21 +27,30 @@ import org.opensaml.common.xml.SAMLConstants;
 public interface AssertionArtifact extends SAMLObject {
 
     /** Element name, no namespace. */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionArtifact";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "AssertionArtifactType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-    
-    /** Get the contents */
-    public String getAssertionArtifact();
-    
-    /** Set the contents */
-    public void setAssertionArtifact(String assertionArtifact);
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionArtifact";
 
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML1_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "AssertionArtifactType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML1P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML1_PREFIX);
+
+    /**
+     * Get the contents of the artifact.
+     * 
+     * @return contents of the artifact
+     */
+    public String getAssertionArtifact();
+
+    /**
+     * Set the contents of the artficat.
+     * 
+     * @param assertionArtifact contents of the artifact
+     */
+    public void setAssertionArtifact(String assertionArtifact);
 }
