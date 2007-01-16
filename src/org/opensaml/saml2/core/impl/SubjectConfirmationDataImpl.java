@@ -31,37 +31,37 @@ import org.opensaml.xml.util.AttributeMap;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.SubjectConfirmationData}
+ * Concrete implementation of {@link org.opensaml.saml2.core.SubjectConfirmationData}.
  */
 public class SubjectConfirmationDataImpl extends AbstractSAMLObject implements SubjectConfirmationData {
 
-    /** NotBefore of the Confirmation Data */
+    /** NotBefore of the Confirmation Data. */
     private DateTime notBefore;
 
-    /** NotOnOrAfter of the Confirmation Data */
+    /** NotOnOrAfter of the Confirmation Data. */
     private DateTime notOnOrAfter;
 
-    /** Recipient of the Confirmation Data */
+    /** Recipient of the Confirmation Data. */
     private String recipient;
 
-    /** InResponseTo of the Confirmation Data */
+    /** InResponseTo of the Confirmation Data. */
     private String inResponseTo;
 
-    /** Address of the Confirmation Data */
+    /** Address of the Confirmation Data. */
     private String address;
     
-    /** "anyAttribute" attributes */
+    /** "anyAttribute" attributes. */
     private final AttributeMap unknownAttributes;
     
-    /** "any" children */
+    /** "any" children. */
     private final XMLObjectChildrenList<XMLObject> unknownChildren;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected SubjectConfirmationDataImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

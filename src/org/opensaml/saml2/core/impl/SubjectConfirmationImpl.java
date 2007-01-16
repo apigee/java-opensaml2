@@ -29,31 +29,31 @@ import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.SubjectConfirmation}
+ * Concrete implementation of {@link org.opensaml.saml2.core.SubjectConfirmation}.
  */
 public class SubjectConfirmationImpl extends AbstractSAMLObject implements SubjectConfirmation {
 
-    /** BaseID child element */
+    /** BaseID child element. */
     private BaseID baseID;
 
-    /** NameID child element */
+    /** NameID child element. */
     private NameID nameID;
 
-    /** EncryptedID child element */
+    /** EncryptedID child element. */
     private EncryptedID encryptedID;
     
-    /** SubjectConfirmationData of the Confirmation */
+    /** SubjectConfirmationData of the Confirmation. */
     private SubjectConfirmationData subjectConfirmationData;
 
-    /** Method of the Confirmation */
+    /** Method of the Confirmation. */
     private String method;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected SubjectConfirmationImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

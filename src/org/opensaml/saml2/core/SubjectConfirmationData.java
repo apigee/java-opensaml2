@@ -25,36 +25,38 @@ import org.opensaml.xml.AttributeExtensibleXMLObject;
 import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
- * SAML 2.0 Core SubjectConfirmationData
+ * SAML 2.0 Core SubjectConfirmationData.
  */
 public interface SubjectConfirmationData extends SAMLObject, ElementExtensibleXMLObject, AttributeExtensibleXMLObject {
 
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "SubjectConfirmationData";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "SubjectConfirmationDataType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "SubjectConfirmationData";
 
-    /** NotBefore attribute name */
-    public final static String NOT_BEFORE_ATTRIB_NAME = "NotBefore";
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
 
-    /** NotOnOrAfter attribute name */
-    public final static String NOT_ON_OR_AFTER_ATTRIB_NAME = "NotOnOrAfter";
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "SubjectConfirmationDataType";
 
-    /** Recipient attribute name */
-    public final static String RECIPIENT_ATTRIB_NAME = "Recipient";
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
 
-    /** InResponseTo attribute name */
-    public final static String IN_RESPONSE_TO_ATTRIB_NAME = "InResponseTo";
+    /** NotBefore attribute name. */
+    public static final String NOT_BEFORE_ATTRIB_NAME = "NotBefore";
 
-    /** Address attribute name */
-    public final static String ADDRESS_ATTRIB_NAME = "Address";
+    /** NotOnOrAfter attribute name. */
+    public static final String NOT_ON_OR_AFTER_ATTRIB_NAME = "NotOnOrAfter";
+
+    /** Recipient attribute name. */
+    public static final String RECIPIENT_ATTRIB_NAME = "Recipient";
+
+    /** InResponseTo attribute name. */
+    public static final String IN_RESPONSE_TO_ATTRIB_NAME = "InResponseTo";
+
+    /** Address attribute name. */
+    public static final String ADDRESS_ATTRIB_NAME = "Address";
 
     /**
      * Gets the time before which this subject is not valid.
