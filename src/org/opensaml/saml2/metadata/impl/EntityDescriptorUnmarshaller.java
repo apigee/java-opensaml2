@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -91,7 +93,11 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
         } else if (attribute.getLocalName().equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entityDescriptor.setCacheDuration(DatatypeHelper.durationToLong(attribute.getValue()));
         } else {
-            entityDescriptor.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
+            QName attribQName = XMLHelper.getNodeQName(attribute);
+            if (attribute.isId()) {
+               entityDescriptor.getUnknownAttributes().registerID(attribQName);
+            }
+            entityDescriptor.getUnknownAttributes().put(attribQName, attribute.getValue());
         }
     }
 }

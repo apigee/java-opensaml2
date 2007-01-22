@@ -81,7 +81,9 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
 
     /** {@inheritDoc} */
     public void setID(String newID) {
+        String oldID = this.id;
         this.id = prepareForAssignment(this.id, newID);
+        registerOwnID(oldID, this.id);
     }
 
     /** {@inheritDoc} */

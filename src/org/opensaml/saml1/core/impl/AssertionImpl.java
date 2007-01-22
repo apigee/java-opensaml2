@@ -98,7 +98,9 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
 
     /** {@inheritDoc} */
     public void setID(String id) {
+        String oldID = this.id;
         this.id = prepareForAssignment(this.id, id);   
+        registerOwnID(oldID, this.id);
     }
 
     /** {@inheritDoc} */

@@ -20,6 +20,8 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
@@ -98,7 +100,11 @@ public class ContactPersonUnmarshaller extends AbstractSAMLObjectUnmarshaller {
                 super.processAttribute(samlObject, attribute);
             }
         } else {
-            person.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
+            QName attribQName = XMLHelper.getNodeQName(attribute);
+            if (attribute.isId()) {
+               person.getUnknownAttributes().registerID(attribQName);
+            }
+            person.getUnknownAttributes().put(attribQName, attribute.getValue());
         }
     }
 }

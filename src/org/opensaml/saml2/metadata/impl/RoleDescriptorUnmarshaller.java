@@ -18,6 +18,8 @@ package org.opensaml.saml2.metadata.impl;
 
 import java.util.StringTokenizer;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -85,7 +87,11 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (attribute.getLocalName().equals(RoleDescriptor.ERROR_URL_ATTRIB_NAME)) {
             roleDescriptor.setErrorURL(attribute.getValue());
         } else {
-            roleDescriptor.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
+            QName attribQName = XMLHelper.getNodeQName(attribute);
+            if (attribute.isId()) {
+               roleDescriptor.getUnknownAttributes().registerID(attribQName);
+            }
+            roleDescriptor.getUnknownAttributes().put(attribQName, attribute.getValue());
         }
     }
 }

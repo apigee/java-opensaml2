@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.XMLObject;
@@ -49,7 +51,11 @@ public class EndpointUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (attribute.getLocalName().equals(Endpoint.RESPONSE_LOCATION_ATTRIB_NAME)) {
             endpoint.setResponseLocation(attribute.getValue());
         } else {
-            endpoint.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
+            QName attribQName = XMLHelper.getNodeQName(attribute);
+            if (attribute.isId()) {
+               endpoint.getUnknownAttributes().registerID(attribQName);
+            }
+            endpoint.getUnknownAttributes().put(attribQName, attribute.getValue());
         }
     }
 

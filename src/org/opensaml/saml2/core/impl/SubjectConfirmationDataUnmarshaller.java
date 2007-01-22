@@ -20,6 +20,8 @@
 
 package org.opensaml.saml2.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -75,7 +77,11 @@ public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmar
         } else if (attribute.getLocalName().equals(SubjectConfirmationData.ADDRESS_ATTRIB_NAME)) {
             subjectCD.setAddress(attribute.getValue());
         } else {
-            subjectCD.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
+            QName attribQName = XMLHelper.getNodeQName(attribute);
+            if (attribute.isId()) {
+               subjectCD.getUnknownAttributes().registerID(attribQName);
+            }
+            subjectCD.getUnknownAttributes().put(attribQName, attribute.getValue());
         }
     }
 }

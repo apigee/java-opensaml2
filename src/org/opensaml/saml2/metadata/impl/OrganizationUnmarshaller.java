@@ -20,6 +20,8 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
@@ -78,6 +80,10 @@ public class OrganizationUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Organization org = (Organization) samlObject;
         
-        org.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
+        QName attribQName = XMLHelper.getNodeQName(attribute);
+        if (attribute.isId()) {
+           org.getUnknownAttributes().registerID(attribQName);
+        }
+        org.getUnknownAttributes().put(attribQName, attribute.getValue());
     }
 }

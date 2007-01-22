@@ -74,7 +74,11 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else if (attribute.getLocalName().equals(Attribute.FRIENDLY_NAME_ATTRIB_NAME)) {
             attrib.setFriendlyName(attribute.getValue());
         } else {
-            attrib.getUnknownAttributes().put(XMLHelper.getNodeQName(attribute), attribute.getValue());
+            QName attribQName = XMLHelper.getNodeQName(attribute);
+            if (attribute.isId()) {
+               attrib.getUnknownAttributes().registerID(attribQName);
+            }
+            attrib.getUnknownAttributes().put(attribQName, attribute.getValue());
         }
     }
 }
