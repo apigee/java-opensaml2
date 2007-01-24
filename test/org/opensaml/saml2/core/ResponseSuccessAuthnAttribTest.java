@@ -66,7 +66,7 @@ public class ResponseSuccessAuthnAttribTest extends BaseComplexSAMLObjectTestCas
         assertEquals("Assertion/AuthnStatement/@AuthnInstant", new DateTime(2006, 1, 26, 13, 35, 5, 0, ISOChronology.getInstanceUTC()), authnStatement.getAuthnInstant());
         assertEquals("Assertion/AuthnStatement/AuthnContext/AuthnContextClassRef contents", "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport", authnStatement.getAuthnContext().getAuthnContextClassRef().getAuthnContextClassRef());
         
-        AttributeStatement  attribStatement = (AttributeStatement) assertion.getAttributeStatement().get(0);
+        AttributeStatement  attribStatement = (AttributeStatement) assertion.getAttributeStatements().get(0);
         Attribute attrib = null;
         XSString value = null;
         
@@ -178,7 +178,7 @@ public class ResponseSuccessAuthnAttribTest extends BaseComplexSAMLObjectTestCas
         
         attribStatement.getAttributes().add(fooAttrib);
         attribStatement.getAttributes().add(ldapAttrib);
-        assertion.getAttributeStatement().add(attribStatement);
+        assertion.getAttributeStatements().add(attribStatement);
 
         assertEquals("Marshalled Response was not the expected value", expectedDOM, response);
     }

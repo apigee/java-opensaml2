@@ -132,7 +132,7 @@ public class AssertionTest extends BaseSAMLObjectProviderTestCase {
         assertEquals("AuthzDecisionStatment count not as expected", authzDecisionStatementCount, assertion
                 .getAuthzDecisionStatements().size());
         assertEquals("AttributeStatement count not as expected", attributeStatementCount, assertion
-                .getAttributeStatement().size());
+                .getAttributeStatements().size());
     }
 
     /** {@inheritDoc} */
@@ -164,7 +164,7 @@ public class AssertionTest extends BaseSAMLObjectProviderTestCase {
         
         QName attributeStatementQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         for (int i = 0; i < attributeStatementCount; i++) {
-            assertion.getAttributeStatement().add((AttributeStatement) buildXMLObject(attributeStatementQName));
+            assertion.getAttributeStatements().add((AttributeStatement) buildXMLObject(attributeStatementQName));
         }
         
         assertEquals(expectedChildElementsDOM, assertion);

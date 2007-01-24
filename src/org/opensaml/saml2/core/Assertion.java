@@ -26,30 +26,32 @@ import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core Assertion
+ * SAML 2.0 Core Assertion.
  */
 public interface Assertion extends SignableSAMLObject, Evidentiary {
 
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Assertion";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "AssertionType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "Assertion";
 
-    /** Version attribute name*/
-    public final static String VERSION_ATTRIB_NAME = "Version";
-    
-    /** IssueInstant attribute name */
-    public final static String ISSUE_INSTANT_ATTRIB_NAME = "IssueInstant";
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
 
-    /** ID attribute name */
-    public final static String ID_ATTRIB_NAME = "ID";
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "AssertionType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
+
+    /** Version attribute name. */
+    public static final String VERSION_ATTRIB_NAME = "Version";
+
+    /** IssueInstant attribute name. */
+    public static final String ISSUE_INSTANT_ATTRIB_NAME = "IssueInstant";
+
+    /** ID attribute name. */
+    public static final String ID_ATTRIB_NAME = "ID";
 
     /**
      * Gets the SAML Version of this assertion.
@@ -57,14 +59,14 @@ public interface Assertion extends SignableSAMLObject, Evidentiary {
      * @return the SAML Version of this assertion.
      */
     public SAMLVersion getVersion();
-    
+
     /**
      * Sets the SAML Version of this assertion.
      * 
      * @param newVersion the SAML Version of this assertion
      */
     public void setVersion(SAMLVersion newVersion);
-    
+
     /**
      * Gets the issue instance of this assertion.
      * 
@@ -155,10 +157,9 @@ public interface Assertion extends SignableSAMLObject, Evidentiary {
      * @return the list of statements attached to this assertion
      */
     public List<Statement> getStatements();
-    
+
     /**
-     * Gets the list of statements attached to this assertion
-     * that match a particular QName.
+     * Gets the list of statements attached to this assertion that match a particular QName.
      * 
      * @param typeOrName the QName of the statements to return
      * @return the list of statements attached to this assertion
@@ -184,5 +185,5 @@ public interface Assertion extends SignableSAMLObject, Evidentiary {
      * 
      * @return the list of AttributeStatement attached to this assertion
      */
-    public List<AttributeStatement> getAttributeStatement();
+    public List<AttributeStatement> getAttributeStatements();
 }

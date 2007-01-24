@@ -195,7 +195,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     }
 
     /** {@inheritDoc} */
-    public List<AttributeStatement> getAttributeStatement() {
+    public List<AttributeStatement> getAttributeStatements() {
         QName statementQName = new QName(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML20_PREFIX);
         return (List<AttributeStatement>) statements.subList(statementQName);

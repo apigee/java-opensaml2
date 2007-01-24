@@ -73,7 +73,7 @@ public class AssertionSpecTest extends BaseSAMLObjectValidatorTestCase {
         assertValidationFail("Subject was null in the presence of AuthzDecisionStatement, should raise a Validation Exception.");
         
         assertion.getAuthzDecisionStatements().clear();
-        assertion.getAttributeStatement().add(attributeStatement);
+        assertion.getAttributeStatements().add(attributeStatement);
         assertValidationFail("Subject was null in the presence of AttributeStatement, should raise a Validation Exception.");
     }
 }

@@ -48,7 +48,7 @@ public class AssertionSpecValidator implements Validator<Assertion> {
     protected void validateSubject(Assertion assertion) throws ValidationException {
         if ((assertion.getStatements() == null || assertion.getStatements().size() == 0)
                 && (assertion.getAuthnStatements() == null || assertion.getAuthnStatements().size() == 0)
-                && (assertion.getAttributeStatement() == null || assertion.getAttributeStatement().size() == 0)
+                && (assertion.getAttributeStatements() == null || assertion.getAttributeStatements().size() == 0)
                 && (assertion.getAuthzDecisionStatements() == null || assertion.getAuthzDecisionStatements().size() == 0)
                 && assertion.getSubject() == null) {
             throw new ValidationException("Subject is required when Statements are absent");
@@ -60,7 +60,7 @@ public class AssertionSpecValidator implements Validator<Assertion> {
         if (assertion.getAuthzDecisionStatements().size() > 0 && assertion.getSubject() == null) {
             throw new ValidationException("Assertions containing AuthzDecisionStatements require a Subject");
         }
-        if (assertion.getAttributeStatement().size() > 0 && assertion.getSubject() == null) {
+        if (assertion.getAttributeStatements().size() > 0 && assertion.getSubject() == null) {
             throw new ValidationException("Assertions containing AttributeStatements require a Subject");
         }
     }
