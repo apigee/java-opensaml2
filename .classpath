@@ -30,6 +30,6 @@
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/java-openws"/>
 	<classpathentry kind="lib" path="build-lib/spring-2.0.1-mock.jar"/>
 	<classpathentry kind="lib" path="build-lib/spring-2.0.1-core.jar"/>
-	<classpathentry kind="lib" path="lib/velocity-dep-1.5-beta2.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/velocity-dep-1.5-beta2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
