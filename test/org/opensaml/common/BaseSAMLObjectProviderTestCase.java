@@ -17,13 +17,7 @@
 package org.opensaml.common;
 
 import org.opensaml.common.xml.ParserPoolManager;
-import org.opensaml.xml.Configuration;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.Unmarshaller;
-import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
 /**
@@ -73,35 +67,6 @@ public abstract class BaseSAMLObjectProviderTestCase extends BaseTestCase {
     /** {@inheritDoc} */
     protected void tearDown() throws Exception {
         super.tearDown();
-    }
-
-    /**
-     * Unmarshalls an element file into its SAMLObject.
-     * 
-     * @param elementFile the classpath path to an XML document to unmarshall
-     * 
-     * @return the SAMLObject from the file
-     */
-    protected XMLObject unmarshallElement(String elementFile) {
-        try {
-            ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-            Document doc = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
-                    .getResourceAsStream(elementFile)));
-            Element samlElement = doc.getDocumentElement();
-
-            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlElement);
-            if (unmarshaller == null) {
-                fail("Unable to retrieve unmarshaller by DOM Element");
-            }
-
-            return unmarshaller.unmarshall(samlElement);
-        } catch (XMLParserException e) {
-            fail("Unable to parse element file " + elementFile);
-        } catch (UnmarshallingException e) {
-            fail("Unmarshalling failed when parsing element file " + elementFile + ": " + e);
-        }
-
-        return null;
     }
 
     /**

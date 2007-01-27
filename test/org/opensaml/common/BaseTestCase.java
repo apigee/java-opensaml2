@@ -30,10 +30,14 @@ import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallerFactory;
+import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallerFactory;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 
 /**
  * Intermediate class that serves to initialize the configuration environment for other base test classes.
@@ -131,5 +135,34 @@ public abstract class BaseTestCase extends XMLTestCase {
             fail("Unable to retrieve builder for object QName " + objectQName);
         }
         return builder.buildObject(objectQName.getNamespaceURI(), objectQName.getLocalPart(), objectQName.getPrefix());
+    }
+    
+    /**
+     * Unmarshalls an element file into its SAMLObject.
+     * 
+     * @param elementFile the classpath path to an XML document to unmarshall
+     * 
+     * @return the SAMLObject from the file
+     */
+    protected XMLObject unmarshallElement(String elementFile) {
+        try {
+            ParserPoolManager ppMgr = ParserPoolManager.getInstance();
+            Document doc = ppMgr.parse(new InputSource(BaseTestCase.class
+                    .getResourceAsStream(elementFile)));
+            Element samlElement = doc.getDocumentElement();
+
+            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlElement);
+            if (unmarshaller == null) {
+                fail("Unable to retrieve unmarshaller by DOM Element");
+            }
+
+            return unmarshaller.unmarshall(samlElement);
+        } catch (XMLParserException e) {
+            fail("Unable to parse element file " + elementFile);
+        } catch (UnmarshallingException e) {
+            fail("Unmarshalling failed when parsing element file " + elementFile + ": " + e);
+        }
+
+        return null;
     }
 }
