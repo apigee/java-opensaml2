@@ -1,4 +1,4 @@
-<project name="Open SAML" basedir="." default="package">
+<project name="OpenSAML" basedir="." default="package">
 	
 	<tstamp>
 		<format property="build-date" pattern="ddMMyyyy'T'kkmmss" timezone="GMT"/>
@@ -9,32 +9,6 @@
 		
 	<!-- Project based property file -->
     <property file="build.properties" />
-
-    <property name="build-lib.dir" value="${basedir}/build-lib" />
-    <property name="lib.dir" value="${basedir}/lib" />
-	<property name="thirdpaty-lib.dir" value="${basedir}/thirdparty-lib" />
-
-	<property name="resources.dir" value="${basedir}/resources" />
-	<property name="classpathres.dir" value="${resources.dir}/classpath" />
-		
-    <property name="core-src.dir" value="${basedir}/src" />
-    <property name="test-src.dir" value="${basedir}/test" />
-    	
-    <property name="doc.dir" value="${basedir}/doc" />
-    <property name="javadoc.dir" value="${doc.dir}/javadoc" />
-	<property name="reports.dir" value="${doc.dir}/reports" />
-	<property name="test-report.dir" value="${reports.dir}/unit-test" />
-
-    <property name="build.dir" value="${basedir}/build" />
-    <property name="core-classes.dir" value="${build.dir}/core" />
-    <property name="test-classes.dir" value="${build.dir}/test" />
-    <property name="test-results.dir" value="${build.dir}/test-results" />
-
-    <property name="dist.dir" value="${basedir}/dist" />
-    <property name="version" value="${build-date}" />
-	<property name="jar.name" value="${project.name}-${version}-jdk-${jdk.target}.jar" />
-	<property name="src-dist.name" value="${project.name}-${version}-jdk-${jdk.target}-src" />
-	<property name="bin-dist.name" value="${project.name}-${version}-jdk-${jdk.target}-bin" />
 
     <!-- Load ant-contrib tasks -->
     <taskdef resource="net/sf/antcontrib/antlib.xml" />
@@ -173,7 +147,7 @@
 
     <!-- **************************************************************** -->
     <!-- ***                                                          *** -->
-    <!-- ***                     Developer Tasks                *** -->
+    <!-- ***                     Developer Tasks                      *** -->
     <!-- ***                                                          *** -->
     <!-- **************************************************************** -->
 	
@@ -194,7 +168,7 @@
         <tar tarfile="${dist.dir}/${src-dist.name}.tgz" compression="gzip">
         	<tarfileset dir="${build-lib.dir}" prefix="/build-lib/"/>
         	<tarfileset dir="${lib.dir}" prefix="/lib/"/>
-        	<tarfileset dir="${conf.dir}" prefix="/conf/"/>
+        	<tarfileset dir="${resources.dir}" prefix="/resources/" />
         	<tarfileset dir="${core-src.dir}" prefix="/src/"/>
     		<tarfileset dir="${test-src.dir}" prefix="/test/"/>
         	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
@@ -208,7 +182,7 @@
     <target name="tgz-bin-dist" depends="package, javadoc" description="Developer task: Creates the tar, gzipped binary distribution.">
         <tar tarfile="${dist.dir}/${bin-dist.name}.tgz" compression="gzip">
         	<tarfileset dir="${lib.dir}" prefix="/lib/"/>
-        	<tarfileset dir="${conf.dir}" prefix="/conf/"/>
+        	<tarfileset dir="${resources.dir}" prefix="/resources/" />
         	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
         	<tarfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
         </tar>
@@ -220,7 +194,7 @@
         <zip zipfile="${dist.dir}/${src-dist.name}.zip" whenempty="fail">
         	<zipfileset dir="${build-lib.dir}" prefix="build-lib/"/>
         	<zipfileset dir="${lib.dir}" prefix="lib/"/>
-        	<zipfileset dir="${conf.dir}" prefix="conf/"/>
+        	<zipfileset dir="${resources.dir}" prefix="/resources/" />
         	<zipfileset dir="${core-src.dir}" prefix="src/"/>
     		<zipfileset dir="${test-src.dir}" prefix="test/"/>
         	<zipfileset dir="${doc.dir}" prefix="doc/"/>
@@ -234,7 +208,7 @@
     <target name="zip-bin-dist" depends="package, javadoc"  description="Developer task: Creates the zipped binary distribution.">
         <zip zipfile="${dist.dir}/${bin-dist.name}.zip" whenempty="fail">
         	<zipfileset dir="${lib.dir}" prefix="lib/"/>
-        	<zipfileset dir="${conf.dir}" prefix="conf/"/>
+        	<zipfileset dir="${resources.dir}" prefix="/resources/" />
         	<zipfileset dir="${doc.dir}" prefix="doc/"/>
         	<zipfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
         </zip>
