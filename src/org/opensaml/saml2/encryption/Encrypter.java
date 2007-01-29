@@ -47,31 +47,34 @@ import org.opensaml.xml.encryption.EncryptionException;
 import org.opensaml.xml.encryption.EncryptionParameters;
 import org.opensaml.xml.encryption.KeyEncryptionParameters;
 import org.opensaml.xml.encryption.ReferenceList;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
 import org.opensaml.xml.signature.RetrievalMethod;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Class which implements SAML2-specific options for {@link org.opensaml.saml2.core.EncryptedElementType} objects.
  */
 public class Encrypter {
     
-    // TODO support KEK input as list of recipient(s) + resolver(s) + algorithm(s) + ?
+    // TODO possibly support KEK input as list of recipient(s) + resolver(s) + algorithm(s) + ?
     // - need more key resolver work
+
+    /**
+     * Options for where to place the resulting EncryptedKey elements with respect
+     * to the associated EncryptedData element.
+     */
+    public enum KeyPlacement {
+        /** Place the EncryptedKey element(s) as a peer to the EncryptedData inside the EncryptedElementType. */
+        PEER,
     
-    // TODO refactor key placement constants as a (nested?) enum? 
-    
-    // TODO data enc key reuse issue
-    // TODO related - KeyInfo etc, object reuse
-    
-    // TODO need unit test
-    
-    /** Place the EncryptedKey element(s) as a peer to the EncryptedData inside the EncryptedElementType. */
-    public static final int KEY_PLACEMENT_PEER = 0;
-    
-    /** Place the EncryptedKey element(s) within the KeyInfo of the EncryptedData. */
-    public static final int KEY_PLACEMENT_INLINE = 1;
+        /** Place the EncryptedKey element(s) within the KeyInfo of the EncryptedData. */
+        INLINE
+    }
     
     /** Factory for building XMLObject instances. */
     private XMLObjectBuilderFactory builderFactory;
@@ -86,7 +89,7 @@ public class Encrypter {
     private List<KeyEncryptionParameters> kekParams;
     
     /** The option for where to place the generated EncryptedKey elements. */
-    private int keyPlacement;
+    private KeyPlacement keyPlacement;
     
     /** The XML encrypter instance to use. */
     private org.opensaml.xml.encryption.Encrypter xmlEncrypter;
@@ -94,6 +97,12 @@ public class Encrypter {
     /** Specifies whether to reuse a generated data encryption key 
      * across multiple calls to a given Encrypter instance. */
     private boolean reuseDataEncryptionKey;
+    
+    /** Specifies whether an Encrypter instance can be reused. */
+    private boolean reusable;
+
+    /** Internal flag to track whether is first use or not. */
+    private boolean firstUse;
 
     /** Class logger. */
     private Logger log = Logger.getLogger(Encrypter.class);
@@ -106,10 +115,10 @@ public class Encrypter {
      * @param keyEncParams the key encryption parameters
      */
     public Encrypter(EncryptionParameters dataEncParams, List<KeyEncryptionParameters> keyEncParams) {
-        init();
-        
         this.encParams = dataEncParams;
         this.kekParams = keyEncParams;
+        
+        init();
     }
  
     /**
@@ -119,13 +128,13 @@ public class Encrypter {
      * @param keyEncParam the key encryption parameter
      */
     public Encrypter(EncryptionParameters dataEncParams, KeyEncryptionParameters keyEncParam) {
-        init();
-        
         List<KeyEncryptionParameters> keks = new FastList<KeyEncryptionParameters>();
         keks.add(keyEncParam);
         
         this.encParams = dataEncParams;
         this.kekParams = keks;
+        
+        init();
     }
     
     /**
@@ -136,8 +145,20 @@ public class Encrypter {
         idGenerator = new SecureRandomIdentifierGenerator();
         xmlEncrypter = new org.opensaml.xml.encryption.Encrypter();
         
-        keyPlacement = KEY_PLACEMENT_PEER;
+        keyPlacement = KeyPlacement.PEER;
         reuseDataEncryptionKey = false;
+        
+        firstUse = true;
+        reusable = true;
+        if (encParams.getKeyInfo() != null) {
+            reusable = false;
+        }
+        for (KeyEncryptionParameters kekParam: kekParams) {
+            if (kekParam.getKeyInfo() != null) {
+                reusable = false;
+                return;
+            }
+        }
     }
     
     /**
@@ -154,7 +175,7 @@ public class Encrypter {
      * 
      * @return returns the key placement option.
      */
-    public int getKeyPlacement() {
+    public KeyPlacement getKeyPlacement() {
         return this.keyPlacement;
     }
 
@@ -163,7 +184,7 @@ public class Encrypter {
      * 
      * @param newKeyPlacement The new key placement option to set
      */
-    public void setKeyPlacement(int newKeyPlacement) {
+    public void setKeyPlacement(KeyPlacement newKeyPlacement) {
         this.keyPlacement = newKeyPlacement;
     }
 
@@ -184,6 +205,15 @@ public class Encrypter {
     public void setReuseDataEncryptionKey(boolean newReuseDataEncryptionKey) {
         this.reuseDataEncryptionKey = newReuseDataEncryptionKey;
     }
+    
+    /**
+     * Check whether this Encrypter instance may be used to encrypt multiple objects.
+     * 
+     * @return true if Encrypter is reusable
+     */
+    public boolean isReusable() {
+        return reusable;
+    }
 
     /**
      * Encrypt the specified Assertion.
@@ -196,6 +226,18 @@ public class Encrypter {
         return (EncryptedAssertion) encrypt(assertion, EncryptedAssertion.DEFAULT_ELEMENT_NAME);
     }
 
+    /**
+     * Encrypt the specified Assertion, treating as an identifier and returning
+     * an EncryptedID.
+     * 
+     * @param assertion the Assertion to encrypt
+     * @return an EncryptedID 
+     * @throws EncryptionException thrown when encryption generates an error
+     */
+    public EncryptedID encryptAsID(Assertion assertion) throws EncryptionException {
+        return (EncryptedID) encrypt(assertion, EncryptedID.DEFAULT_ELEMENT_NAME);
+    }
+    
     /**
      * Encrypt the specified Attribute.
      * 
@@ -249,9 +291,24 @@ public class Encrypter {
      * @return a specialization of {@link org.opensaml.saml2.core.EncryptedElementType}
      * @throws EncryptionException thrown when encryption generates an error
      */
-    protected EncryptedElementType encrypt(XMLObject xmlObject, QName encElementName) throws EncryptionException {
+    private EncryptedElementType encrypt(XMLObject xmlObject, QName encElementName) throws EncryptionException {
+        if (!isReusable() && !firstUse) {
+            throw new EncryptionException("Encrypter instance has already been used and is not reusable");
+        }
+       
         EncryptedElementType encElement = 
             (EncryptedElementType) builderFactory.getBuilder(encElementName).buildObject(encElementName);
+        
+        // Marshall the containing element, we will need its Document context to pass 
+        // to the key encryption method
+        Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(encElement);
+        Element domElement;
+        try {
+            domElement = marshaller.marshall(encElement);
+        } catch (MarshallingException e) {
+            throw new EncryptionException("Error marshalling target XMLObject", e);
+        }
+        Document ownerDocument = domElement.getOwnerDocument();
         
         try {
             if (encParams.getEncryptionKey() == null) {
@@ -263,12 +320,30 @@ public class Encrypter {
         }
         
         EncryptedData encData = encryptElement(xmlObject);
-        List<EncryptedKey> encKeys = encryptKeys();
+        List<EncryptedKey> encKeys = encryptKeys(ownerDocument);
         
         if (!reuseDataEncryptionKey()) {
             encParams.setEncryptionKey(null);
         }
         
+        firstUse = false;
+        
+        return processElements(encElement, encData, encKeys);
+    }
+
+    /**
+     * Handle post-processing of generated EncryptedData and EncryptedKey(s) and storage in the appropriate
+     * EncryptedElementType instance.
+     * 
+     * @param encElement the EncryptedElementType instance which will hold the encrypted data and keys
+     * @param encData the EncryptedData object
+     * @param encKeys the list of EncryptedKey objects
+     * @return the processed EncryptedElementType instance
+     * 
+     * @throws EncryptionException thrown when processing encounters an error
+     */
+    protected EncryptedElementType processElements(EncryptedElementType encElement,
+            EncryptedData encData, List<EncryptedKey> encKeys) throws EncryptionException {
         // First ensure certain elements/attributes are non-null, common to all cases.
         if (encData.getID() == null) {
             encData.setID(idGenerator.generateIdentifier());
@@ -294,20 +369,33 @@ public class Encrypter {
         }
         
         switch (keyPlacement) {
-            case KEY_PLACEMENT_INLINE:
-                // If key placement is inline, just embed the keys inline and return the new element.
-                encData.getKeyInfo().getEncryptedKeys().addAll(encKeys);
-                encElement.setEncryptedData(encData);
-                return encElement;
-            case KEY_PLACEMENT_PEER:
-                // If key placement is peer, follow SAML Errata E43 guidelines for forward and back referencing
-                // between encrypted keys and encrytped data.
+            case INLINE:
+                return placeKeysInline(encElement, encData, encKeys);
+            case PEER:
                 return placeKeysAsPeers(encElement, encData, encKeys);
             default:
-                //TODO 
-                return null;
+                //Shouldn't be able to get here, but just in case...
+                throw new EncryptionException("Unsupported key placement option was specified: " + keyPlacement);
         }
+    }
+
+    /**
+     * Place the EncryptedKey elements inside the KeyInfo element within the EncryptedData element.
+     * 
+     * Although operationally trivial, this method is provided so that subclasses may 
+     * override or augment as desired.
+     * 
+     * @param encElement the EncryptedElementType instance which will hold the encrypted data and keys
+     * @param encData the EncryptedData object
+     * @param encKeys the list of EncryptedKey objects
+     * @return the processed EncryptedElementType instance
+     */
+    protected EncryptedElementType placeKeysInline(EncryptedElementType encElement,
+            EncryptedData encData, List<EncryptedKey> encKeys) {
         
+        encData.getKeyInfo().getEncryptedKeys().addAll(encKeys);
+        encElement.setEncryptedData(encData);
+        return encElement;
     }
     
     /**
@@ -320,7 +408,8 @@ public class Encrypter {
      * @param encKeys the EncryptedKey(s) to store
      * @return the resulting specialization of EncryptedElementType
      */
-    protected EncryptedElementType placeKeysAsPeers(EncryptedElementType encElement, EncryptedData encData, List<EncryptedKey> encKeys) {
+    protected EncryptedElementType placeKeysAsPeers(EncryptedElementType encElement,
+            EncryptedData encData, List<EncryptedKey> encKeys) {
         
         for (EncryptedKey encKey : encKeys) {
             if (encKey.getReferenceList() == null) {
@@ -333,64 +422,11 @@ public class Encrypter {
         
         // If there is only 1 EncryptedKey we have a simple forward reference (RetrievalMethod) 
         // and back reference (ReferenceList/DataReference) requirement.
+        // Multiple "multicast" keys use back reference + CarriedKeyName
         if (encKeys.size() == 1) {
-            EncryptedKey encKey = encKeys.get(0);
-            
-            // Forward reference from EncryptedData to the EncryptedKey
-            RetrievalMethod rm = 
-                (RetrievalMethod) builderFactory
-                    .getBuilder(RetrievalMethod.DEFAULT_ELEMENT_NAME).buildObject(RetrievalMethod.DEFAULT_ELEMENT_NAME);
-            rm.setURI("#" + encKey.getID());
-            rm.setType(EncryptionConstants.TYPE_ENCRYPTED_KEY);
-            encData.getKeyInfo().getRetrievalMethods().add(rm);
-            
-            // Back reference from the EncryptedKey to the EncryptedData
-            DataReference dr = 
-                (DataReference) builderFactory
-                    .getBuilder(DataReference.DEFAULT_ELEMENT_NAME).buildObject(DataReference.DEFAULT_ELEMENT_NAME);
-            dr.setURI("#" + encData.getID());
-            encKey.getReferenceList().getDataReferences().add(dr);
-            
+            linkSinglePeerKey(encData, encKeys.get(0));
         } else if (encKeys.size() > 1) {
-            // Get the name of the data encryption key
-            List<KeyName> dataEncKeyNames = encData.getKeyInfo().getKeyNames();
-            String carriedKeyNameValue;
-            if (dataEncKeyNames.size() == 0  || DatatypeHelper.isEmpty(dataEncKeyNames.get(0).getValue()) ) {
-                // TODO - should we do this, or just not use CarriedKeyName at all - what are SAML recs?
-                //
-                // If there isn't one, autogenerate a random key name
-                String keyNameValue = idGenerator.generateIdentifier();
-                
-                KeyName keyName = dataEncKeyNames.get(0);
-                if (keyName == null) {
-                    keyName = (KeyName) builderFactory
-                        .getBuilder(KeyName.DEFAULT_ELEMENT_NAME).buildObject(KeyName.DEFAULT_ELEMENT_NAME);
-                    dataEncKeyNames.add(keyName);
-                }
-                keyName.setValue(keyNameValue);
-                carriedKeyNameValue = keyNameValue;
-            } else {
-                carriedKeyNameValue = dataEncKeyNames.get(0).getValue();
-            }
-            
-            for (EncryptedKey encKey : encKeys) {
-                // Set carried key name of the multicast key
-                if (encKey.getCarriedKeyName() == null) {
-                    CarriedKeyName ckn = (CarriedKeyName) builderFactory
-                        .getBuilder(CarriedKeyName.DEFAULT_ELEMENT_NAME)
-                        .buildObject(CarriedKeyName.DEFAULT_ELEMENT_NAME);
-                    encKey.setCarriedKeyName(ckn);
-                }
-                encKey.getCarriedKeyName().setValue(carriedKeyNameValue);
-                
-                // Back reference from the EncryptedKeys to the EncryptedData
-                DataReference dr = 
-                    (DataReference) builderFactory
-                    .getBuilder(DataReference.DEFAULT_ELEMENT_NAME).buildObject(DataReference.DEFAULT_ELEMENT_NAME);
-                dr.setURI("#" + encData.getID());
-                encKey.getReferenceList().getDataReferences().add(dr);
-                
-            }
+            linkMultiplePeerKeys(encData, encKeys);
         }
         
         encElement.setEncryptedData(encData);
@@ -398,9 +434,81 @@ public class Encrypter {
         
         return encElement;
     }
+    
+    /**
+     * Link a single EncryptedKey to the EncryptedData according to guidelines in SAML Errata E43.
+     * 
+     * @param encData the EncryptedData
+     * @param encKey the EncryptedKey
+     */
+    protected void linkSinglePeerKey(EncryptedData encData, EncryptedKey encKey) {
+        // Forward reference from EncryptedData to the EncryptedKey
+        RetrievalMethod rm = 
+            (RetrievalMethod) builderFactory
+                .getBuilder(RetrievalMethod.DEFAULT_ELEMENT_NAME).buildObject(RetrievalMethod.DEFAULT_ELEMENT_NAME);
+        rm.setURI("#" + encKey.getID());
+        rm.setType(EncryptionConstants.TYPE_ENCRYPTED_KEY);
+        encData.getKeyInfo().getRetrievalMethods().add(rm);
+        
+        // Back reference from the EncryptedKey to the EncryptedData
+        DataReference dr = 
+            (DataReference) builderFactory
+                .getBuilder(DataReference.DEFAULT_ELEMENT_NAME).buildObject(DataReference.DEFAULT_ELEMENT_NAME);
+        dr.setURI("#" + encData.getID());
+        encKey.getReferenceList().getDataReferences().add(dr);
+    }
+
+    /**
+     * Link multiple "multicast" EncryptedKeys to the EncryptedData according 
+     * to guidelines in SAML Errata E43.
+     * 
+     * @param encData the EncryptedData
+     * @param encKeys the list of EncryptedKeys
+     */
+    protected void linkMultiplePeerKeys(EncryptedData encData, List<EncryptedKey> encKeys) {
+        // Get the name of the data encryption key
+        List<KeyName> dataEncKeyNames = encData.getKeyInfo().getKeyNames();
+        String carriedKeyNameValue;
+        if (dataEncKeyNames.size() == 0  || DatatypeHelper.isEmpty(dataEncKeyNames.get(0).getValue()) ) {
+            // If there isn't one, autogenerate a random key name.
+            // TODO - should we do this, or just not use CarriedKeyName at all - what are SAML recs?
+            String keyNameValue = idGenerator.generateIdentifier();
+            
+            KeyName keyName = dataEncKeyNames.get(0);
+            if (keyName == null) {
+                keyName = (KeyName) builderFactory
+                    .getBuilder(KeyName.DEFAULT_ELEMENT_NAME).buildObject(KeyName.DEFAULT_ELEMENT_NAME);
+                dataEncKeyNames.add(keyName);
+            }
+            keyName.setValue(keyNameValue);
+            carriedKeyNameValue = keyNameValue;
+        } else {
+            carriedKeyNameValue = dataEncKeyNames.get(0).getValue();
+        }
+        
+        // Set carried key name of the multicast key in each EncryptedKey
+        for (EncryptedKey encKey : encKeys) {
+            if (encKey.getCarriedKeyName() == null) {
+                CarriedKeyName ckn = (CarriedKeyName) builderFactory
+                    .getBuilder(CarriedKeyName.DEFAULT_ELEMENT_NAME)
+                    .buildObject(CarriedKeyName.DEFAULT_ELEMENT_NAME);
+                encKey.setCarriedKeyName(ckn);
+            }
+            encKey.getCarriedKeyName().setValue(carriedKeyNameValue);
+            
+            // Back reference from the EncryptedKeys to the EncryptedData
+            DataReference dr = 
+                (DataReference) builderFactory
+                .getBuilder(DataReference.DEFAULT_ELEMENT_NAME).buildObject(DataReference.DEFAULT_ELEMENT_NAME);
+            dr.setURI("#" + encData.getID());
+            encKey.getReferenceList().getDataReferences().add(dr);
+            
+        }
+    }
 
     /**
      * Encrypt the passed XMLObject, using the data encryption parameters previously specified.
+     * 
      * @param xmlObject the object to encrypt
      * @return the EncryptedData representing the encrypted XMLObject
      * @throws EncryptionException thrown when the encrypter encounters an error
@@ -413,7 +521,6 @@ public class Encrypter {
             log.error("Encrypter could not encrypt the XMLObject: ", e);
             throw e;
         }
-        
         return encData;
     }
     
@@ -421,17 +528,17 @@ public class Encrypter {
      * Generate the wrapped encryption keys, using the data encryption key and key encryption
      * parameters previously specified.
      * 
+     * @param containingDocument the document that will own the resulting element
      * @return the list of EncryptedKey's
      * @throws EncryptionException thrown when the encrypter encounters an error
      */
-    protected List<EncryptedKey> encryptKeys() throws EncryptionException {
+    protected List<EncryptedKey> encryptKeys(Document containingDocument) throws EncryptionException {
         List<EncryptedKey> encKeys = new FastList<EncryptedKey>();
         
-        //TODO need/check document context
         for (KeyEncryptionParameters kekParam: kekParams) {
             EncryptedKey encKey = null;
             try {
-                encKey = xmlEncrypter.encryptKey(encParams.getEncryptionKey(), kekParam, null);
+                encKey = xmlEncrypter.encryptKey(encParams.getEncryptionKey(), kekParam, containingDocument);
             } catch (EncryptionException e) {
                 log.error("Encrypter could not encrypt the data encryption key: ", e);
                 throw e;
