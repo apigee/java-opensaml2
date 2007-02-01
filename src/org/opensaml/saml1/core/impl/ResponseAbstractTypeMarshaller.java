@@ -49,7 +49,7 @@ public abstract class ResponseAbstractTypeMarshaller extends AbstractSAMLObjectM
 
         if (response.getID() != null) {
             domElement.setAttributeNS(null, ResponseAbstractType.ID_ATTRIB_NAME, response.getID());
-            domElement.setIdAttribute(ResponseAbstractType.ID_ATTRIB_NAME, true);
+            domElement.setIdAttributeNS(null, ResponseAbstractType.ID_ATTRIB_NAME, true);
         }
         
         if (response.getInResponseTo() != null) {

@@ -22,6 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.XMLHelper;
@@ -64,6 +65,10 @@ public class EndpointMarshaller extends AbstractSAMLObjectMarshaller {
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNode(attribute);
+            if (Configuration.isIDAttribute(entry.getKey()) 
+                    || endpoint.getUnknownAttributes().isIDAttribute(entry.getKey())) {
+                attribute.getOwnerElement().setIdAttributeNode(attribute, true);
+            }
         }
     }
 }

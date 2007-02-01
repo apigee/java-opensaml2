@@ -48,7 +48,7 @@ public class RequestAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller 
 
         if (request.getID() != null) {
             domElement.setAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, request.getID());
-            domElement.setIdAttribute(RequestAbstractType.ID_ATTRIB_NAME, true);
+            domElement.setIdAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, true);
         }
         
         if (request.getIssueInstant() != null) {

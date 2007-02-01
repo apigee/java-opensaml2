@@ -57,18 +57,20 @@ public abstract class StatusResponseTypeUnmarshaller extends AbstractSAMLObjectU
         
         if (attribute.getLocalName().equals(StatusResponseType.VERSION_ATTRIB_NAME)) {
             sr.setVersion(SAMLVersion.valueOf(attribute.getValue()));
-        } else if (attribute.getLocalName().equals(StatusResponseType.ID_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(StatusResponseType.ID_ATTRIB_NAME)) {
             sr.setID(attribute.getValue());
-        else if (attribute.getLocalName().equals(StatusResponseType.IN_RESPONSE_TO_ATTRIB_NAME))
+            attribute.getOwnerElement().setIdAttributeNode(attribute, true);
+        } else if (attribute.getLocalName().equals(StatusResponseType.IN_RESPONSE_TO_ATTRIB_NAME)) {
             sr.setInResponseTo(attribute.getValue());
-        else if (attribute.getLocalName().equals(StatusResponseType.ISSUE_INSTANT_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(StatusResponseType.ISSUE_INSTANT_ATTRIB_NAME)) {
             sr.setIssueInstant( new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()) );
-        else if (attribute.getLocalName().equals(StatusResponseType.DESTINATION_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(StatusResponseType.DESTINATION_ATTRIB_NAME)) {
             sr.setDestination(attribute.getValue());
-        else if (attribute.getLocalName().equals(StatusResponseType.CONSENT_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(StatusResponseType.CONSENT_ATTRIB_NAME)) {
             sr.setConsent(attribute.getValue());
-        else
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */

@@ -54,16 +54,18 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
 
         if (attribute.getLocalName().equals(RequestAbstractType.VERSION_ATTRIB_NAME)) {
             req.setVersion(SAMLVersion.valueOf(attribute.getValue()));
-        } else if (attribute.getLocalName().equals(RequestAbstractType.ID_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(RequestAbstractType.ID_ATTRIB_NAME)) {
             req.setID(attribute.getValue());
-        else if (attribute.getLocalName().equals(RequestAbstractType.ISSUE_INSTANT_ATTRIB_NAME))
+            attribute.getOwnerElement().setIdAttributeNode(attribute, true);
+        } else if (attribute.getLocalName().equals(RequestAbstractType.ISSUE_INSTANT_ATTRIB_NAME)) {
             req.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
-        else if (attribute.getLocalName().equals(RequestAbstractType.DESTINATION_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(RequestAbstractType.DESTINATION_ATTRIB_NAME)) {
             req.setDestination(attribute.getValue());
-        else if (attribute.getLocalName().equals(RequestAbstractType.CONSENT_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(RequestAbstractType.CONSENT_ATTRIB_NAME)) {
             req.setConsent(attribute.getValue());
-        else
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */

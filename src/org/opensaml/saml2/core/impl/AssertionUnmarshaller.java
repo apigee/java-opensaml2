@@ -87,6 +87,7 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             assertion.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(Assertion.ID_ATTRIB_NAME)) {
             assertion.setID(attribute.getValue());
+            attribute.getOwnerElement().setIdAttributeNode(attribute, true);
         } else {
             super.processAttribute(samlObject, attribute);
         }

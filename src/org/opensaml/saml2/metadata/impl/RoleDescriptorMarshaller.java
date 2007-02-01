@@ -27,6 +27,7 @@ import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -64,6 +65,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
                 log.debug("Writing ID attribute to RoleDescriptor DOM element");
             }
             domElement.setAttributeNS(null, RoleDescriptor.ID_ATTRIB_NAME, roleDescriptor.getID());
+            domElement.setIdAttributeNS(null, RoleDescriptor.ID_ATTRIB_NAME, true);
         }
 
         // Set the validUntil attribute
@@ -113,6 +115,10 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNode(attribute);
+            if (Configuration.isIDAttribute(entry.getKey()) 
+                    || roleDescriptor.getUnknownAttributes().isIDAttribute(entry.getKey())) {
+                attribute.getOwnerElement().setIdAttributeNode(attribute, true);
+            }
         }
     }
 }

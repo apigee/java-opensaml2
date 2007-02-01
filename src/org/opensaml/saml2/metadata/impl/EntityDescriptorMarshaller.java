@@ -27,6 +27,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
@@ -72,6 +73,7 @@ public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
         // Set the ID attribute
         if (entityDescriptor.getID() != null) {
             domElement.setAttributeNS(null, EntityDescriptor.ID_ATTRIB_NAME, entityDescriptor.getID());
+            domElement.setIdAttributeNS(null, EntityDescriptor.ID_ATTRIB_NAME, true);
         }
 
         // Set the validUntil attribute
@@ -97,6 +99,10 @@ public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNode(attribute);
+            if (Configuration.isIDAttribute(entry.getKey()) 
+                    || entityDescriptor.getUnknownAttributes().isIDAttribute(entry.getKey())) {
+                attribute.getOwnerElement().setIdAttributeNode(attribute, true);
+            }
         }
     }
 }

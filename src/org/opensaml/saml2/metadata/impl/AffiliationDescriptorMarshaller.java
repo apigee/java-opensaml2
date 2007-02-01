@@ -31,6 +31,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
+import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -76,6 +77,7 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
         // Set ID
         if (descriptor.getID() != null) {
             domElement.setAttributeNS(null, AffiliationDescriptor.ID_ATTRIB_NAME, descriptor.getID());
+            domElement.setIdAttributeNS(null, AffiliationDescriptor.ID_ATTRIB_NAME, true);
         }
         
         // Set the validUntil attribute
@@ -101,6 +103,10 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNode(attribute);
+            if (Configuration.isIDAttribute(entry.getKey()) 
+                    || descriptor.getUnknownAttributes().isIDAttribute(entry.getKey())) {
+                attribute.getOwnerElement().setIdAttributeNode(attribute, true);
+            }
         }
     }
 }
