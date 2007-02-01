@@ -20,45 +20,46 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 
-
 /**
  * SAML 2.0 Core NameIDMappingResponse .
  */
 public interface NameIDMappingResponse extends StatusResponseType {
-    
+
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "NameIDMappingResponse";
-    
-    /** Default element name */
-    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
     /** Local name of the XSI type. */
-    public static String TYPE_LOCAL_NAME = "NameIDMappingResponseType"; 
-        
+    public static String TYPE_LOCAL_NAME = "NameIDMappingResponseType";
+
     /** QName of the XSI type. */
-    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
     /**
      * Gets the name identifier of the principal for this response.
      * 
      * @return the name identifier of the principal for this response
      */
     public NameID getNameID();
-    
+
     /**
      * Sets the name identifier of the principal for this response.
      * 
      * @param newNameID the name identifier of the principal for this response
      */
     public void setNameID(NameID newNameID);
-    
+
     /**
      * Gets the encrypted name identifier of the principal for this response.
      * 
-     * @return the encrypted  name identifier of the principal for this response
+     * @return the encrypted name identifier of the principal for this response
      */
     public EncryptedID getEncryptedID();
-    
+
     /**
      * Sets the encrypted name identifier of the principal for this response.
      * 

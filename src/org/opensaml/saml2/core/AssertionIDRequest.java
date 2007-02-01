@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core;
 
 import java.util.List;
@@ -26,18 +27,19 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core AssertionIDRequest
+ * SAML 2.0 Core AssertionIDRequest.
  */
 public interface AssertionIDRequest extends RequestAbstractType {
-    
-    /** Element local name */
+
+    /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionIDRequest";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
     /**
-     * Gets a list of child {@link AssertionIDRef}s
+     * Gets a list of child {@link AssertionIDRef}s.
      * 
      * @return the list of child AssertionIDRef's
      */

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core;
 
 import javax.xml.namespace.QName;
@@ -24,32 +25,34 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core LogoutResponse
+ * SAML 2.0 Core LogoutResponse.
  */
 public interface LogoutResponse extends StatusResponseType {
-    
-    /** Element local name*/
+
+    /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "LogoutResponse";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "LogoutResponseType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);   
-    
-    /** URI for User logout reason */
-    public final static String USER_LOGOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:user";
-    
-    /** URI for Admin logout reason */
-    public final static String ADMIN_LOGOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:admin";
-    
-    /** URI for global timeout logout reason */
-    public final static String GLOBAL_TIMEOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:global-timeout";
-    
-    /** URI for SP timeout logout reason */
-    public final static String SP_TIMEOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:sp-timeout";
-    
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "LogoutResponseType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
+    /** URI for User logout reason. */
+    public static final String USER_LOGOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:user";
+
+    /** URI for Admin logout reason. */
+    public static final String ADMIN_LOGOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:admin";
+
+    /** URI for global timeout logout reason. */
+    public static final String GLOBAL_TIMEOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:global-timeout";
+
+    /** URI for SP timeout logout reason. */
+    public static final String SP_TIMEOUT_URI = "urn:oasis:names:tc:SAML:2.0:logout:sp-timeout";
+
 }

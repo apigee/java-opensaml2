@@ -67,13 +67,13 @@ public interface AuthnRequest extends RequestAbstractType {
      * @return whether the IdP should force the user to reauthenticate
      */
     public Boolean isForceAuthn();
-    
+
     /**
      * Gets whether the IdP should force the user to reauthenticate.
      * 
      * @return whether the IdP should force the user to reauthenticate
      */
-    public XSBooleanValue isForceAuthnXSBoolean(); 
+    public XSBooleanValue isForceAuthnXSBoolean();
 
     /**
      * Sets whether the IdP should force the user to reauthenticate. Boolean values will be marshalled to either "true"
@@ -96,7 +96,7 @@ public interface AuthnRequest extends RequestAbstractType {
      * @return whether the IdP should refrain from interacting with the user during the authentication process
      */
     public Boolean isPassive();
-    
+
     /**
      * Gets whether the IdP should refrain from interacting with the user during the authentication process.
      * 
@@ -108,14 +108,16 @@ public interface AuthnRequest extends RequestAbstractType {
      * Sets whether the IdP should refrain from interacting with the user during the authentication process. Boolean
      * values will be marshalled to either "true" or "false".
      * 
-     * @param newIsPassive whether the IdP should refrain from interacting with the user during the authentication process
+     * @param newIsPassive whether the IdP should refrain from interacting with the user during the authentication
+     *            process
      */
     public void setIsPassive(Boolean newIsPassive);
 
     /**
      * Sets whether the IdP should refrain from interacting with the user during the authentication process.
      * 
-     * @param newIsPassive whether the IdP should refrain from interacting with the user during the authentication process
+     * @param newIsPassive whether the IdP should refrain from interacting with the user during the authentication
+     *            process
      */
     public void setIsPassive(XSBooleanValue newIsPassive);
 

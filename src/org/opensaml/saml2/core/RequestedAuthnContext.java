@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core;
 
 import java.util.List;
@@ -27,39 +28,41 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core RequestedAuthnContext 
+ * SAML 2.0 Core RequestedAuthnContext.
  */
 public interface RequestedAuthnContext extends SAMLObject {
-    
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "RequestedAuthnContext";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "ActionType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
-    /** SessionIndex attribute name */
-    public final static String COMPARISON_ATTRIB_NAME = "Comparison";
-    
+
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "RequestedAuthnContext";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "ActionType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
+    /** SessionIndex attribute name. */
+    public static final String COMPARISON_ATTRIB_NAME = "Comparison";
+
     /**
-     * Gets the Comparison attribute value of the requested authn context
+     * Gets the Comparison attribute value of the requested authn context.
      * 
      * @return the Comparison attribute value of the requested authn context
      */
     public AuthnContextComparisonTypeEnumeration getComparison();
-    
+
     /**
-     * Sets the Comparison attribute value of the requested authn context
+     * Sets the Comparison attribute value of the requested authn context.
      * 
      * @param newComparison the SessionIndex of this request
      */
     public void setComparison(AuthnContextComparisonTypeEnumeration newComparison);
-    
+
     /**
      * Gets the AuthnContextClassRefs of this request.
      * 
@@ -73,5 +76,5 @@ public interface RequestedAuthnContext extends SAMLObject {
      * @return the AuthnContextDeclRef of this request
      */
     public List<AuthnContextDeclRef> getAuthnContextDeclRefs();
-    
+
 }

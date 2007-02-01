@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core;
 
 import javax.xml.namespace.QName;
@@ -25,19 +26,21 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
- * SAML 2.0 Core ArtifactResponse
+ * SAML 2.0 Core ArtifactResponse.
  */
 public interface ArtifactResponse extends StatusResponseType, ElementExtensibleXMLObject {
-    
-    /** Element local name*/
+
+    /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "ArtifactResponse";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "ArtifactResponseType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "ArtifactResponseType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
 }

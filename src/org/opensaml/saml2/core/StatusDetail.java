@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core;
 
 import javax.xml.namespace.QName;
@@ -26,19 +27,21 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
- * SAML 2.0 Core StatusDetail
+ * SAML 2.0 Core StatusDetail.
  */
 public interface StatusDetail extends SAMLObject, ElementExtensibleXMLObject {
 
-    /**Local Name of StatusDetail*/
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "StatusDetail";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "StatusDetailType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    /** Local Name of StatusDetail. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "StatusDetail";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "StatusDetailType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
 }

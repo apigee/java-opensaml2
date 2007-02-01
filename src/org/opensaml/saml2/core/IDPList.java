@@ -28,38 +28,40 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core IDPList
+ * SAML 2.0 Core IDPList.
  */
 public interface IDPList extends SAMLObject {
 
-    /** Element Local Name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "IDPList";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "IDPListType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    /** Element Local Name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "IDPList";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "IDPListType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
 
     /**
-     * Gets the IDPEntry list
+     * Gets the IDPEntry list.
      * 
      * @return the IDPEntry list
      */
     public List<IDPEntry> getIDPEntrys();
 
     /**
-     * Gets the GetComplete URI
+     * Gets the GetComplete URI.
      * 
      * @return GetComplete URI
      */
     public GetComplete getGetComplete();
 
     /**
-     * Sets the GetComplete URI
+     * Sets the GetComplete URI.
      * 
      * @param newGetComplete the new GetComplete URI
      */

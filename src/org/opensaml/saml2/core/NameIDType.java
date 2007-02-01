@@ -21,41 +21,41 @@ package org.opensaml.saml2.core;
  */
 public interface NameIDType {
 
-    /** NameQualifier attribute name */
-    public final static String NAME_QUALIFIER_ATTRIB_NAME = "NameQualifier";
+    /** NameQualifier attribute name. */
+    public static final String NAME_QUALIFIER_ATTRIB_NAME = "NameQualifier";
 
-    /** SPNameQualifier attribute name */
-    public final static String SP_NAME_QUALIFIER_ATTRIB_NAME = "SPNameQualifier";
+    /** SPNameQualifier attribute name. */
+    public static final String SP_NAME_QUALIFIER_ATTRIB_NAME = "SPNameQualifier";
 
-    /** Format attribute name */
-    public final static String FORMAT_ATTRIB_NAME = "Format";
+    /** Format attribute name. */
+    public static final String FORMAT_ATTRIB_NAME = "Format";
 
-    /** SPProviderID attribute name*/
-    public final static String SPPROVIDED_ID_ATTRIB_NAME = "SPProvidedID";
-    
-    /** Unspecified attribute format ID */
-    public final static String UNSPECIFIED = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
-    
-    /** Email address attribute format ID */
-    public final static String EMAIL = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
-    
-    /** X/509 subject name attribute format ID */
-    public final static String X509_SUBJECT = "urn:oasis:names:tc:SAML:1.1:nameid-format:x509SubjectName";
-    
-    /** Windows domain qualified name attribute format ID */
-    public final static String WIN_DOMAIN_QUALIFIED = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
-    
-    /** Kerberos principal attribute format ID */
-    public final static String KERBEROS = "urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos";
-    
-    /** Entity identifier attribute format ID */
-    public final static String ENTITY = "urn:oasis:names:tc:SAML:2.0:nameid-format:entity";
-    
-    /** Persistent identifier attribute format ID */
-    public final static String PERSISTENT = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
-    
-    /** Transient identifier attribute format ID */
-    public final static String TRANSIENT = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient";
+    /** SPProviderID attribute name. */
+    public static final String SPPROVIDED_ID_ATTRIB_NAME = "SPProvidedID";
+
+    /** Unspecified attribute format ID. */
+    public static final String UNSPECIFIED = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
+
+    /** Email address attribute format ID. */
+    public static final String EMAIL = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
+
+    /** X/509 subject name attribute format ID. */
+    public static final String X509_SUBJECT = "urn:oasis:names:tc:SAML:1.1:nameid-format:x509SubjectName";
+
+    /** Windows domain qualified name attribute format ID. */
+    public static final String WIN_DOMAIN_QUALIFIED = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
+
+    /** Kerberos principal attribute format ID. */
+    public static final String KERBEROS = "urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos";
+
+    /** Entity identifier attribute format ID. */
+    public static final String ENTITY = "urn:oasis:names:tc:SAML:2.0:nameid-format:entity";
+
+    /** Persistent identifier attribute format ID. */
+    public static final String PERSISTENT = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
+
+    /** Transient identifier attribute format ID. */
+    public static final String TRANSIENT = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient";
 
     /**
      * Gets the value of this type.
@@ -65,7 +65,7 @@ public interface NameIDType {
     public String getValue();
 
     /**
-     * Sets the value of this type
+     * Sets the value of this type.
      * 
      * @param newValue the value of this type
      */

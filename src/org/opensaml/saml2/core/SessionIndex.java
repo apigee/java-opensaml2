@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core;
 
 import javax.xml.namespace.QName;
@@ -25,25 +26,26 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core SessionIndex
+ * SAML 2.0 Core SessionIndex.
  */
 public interface SessionIndex extends SAMLObject {
-    
-    /** Element local name*/
+
+    /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "SessionIndex";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
     /**
-     * Gets the session index value of the request
+     * Gets the session index value of the request.
      * 
      * @return the session index value of the request
      */
     public String getSessionIndex();
 
     /**
-     * Sets the session index value of the request
+     * Sets the session index value of the request.
      * 
      * @param newSessionIndex the new session index value of the request
      */

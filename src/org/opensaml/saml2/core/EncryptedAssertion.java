@@ -24,12 +24,12 @@ import org.opensaml.common.xml.SAMLConstants;
  * SAML 2.0 Core EncryptedAssertion.
  */
 public interface EncryptedAssertion extends EncryptedElementType, Evidentiary {
-    
+
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "EncryptedAssertion";
-    
+
     /** Default element name. */
-    public static final QName DEFAULT_ELEMENT_NAME =  
-        new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
 
 }

@@ -22,15 +22,16 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core AssertionIDRef
+ * SAML 2.0 Core AssertionIDRef.
  */
 public interface AssertionIDRef extends SAMLObject, Evidentiary {
-    
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionIDRef";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionIDRef";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
 
     /**
      * Gets the ID of the assertion this references.
@@ -38,7 +39,7 @@ public interface AssertionIDRef extends SAMLObject, Evidentiary {
      * @return the ID of the assertion this references
      */
     public String getAssertionID();
-    
+
     /**
      * Sets the ID of the assertion this references.
      * 

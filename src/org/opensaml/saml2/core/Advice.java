@@ -25,37 +25,39 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.xml.XMLObject;
 
 /**
- * SAML 2.0 Core Advice
+ * SAML 2.0 Core Advice.
  */
 public interface Advice extends SAMLObject {
-    
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "Advice";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "AdviceType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "Advice";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "AdviceType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
+
     /**
      * Gets the list of all child elements attached to this advice.
      * 
      * @return the list of all child elements attached to this advice
      */
     public List<XMLObject> getChildren();
- 
+
     /**
-     * Gets the list of child elements attached to this advice
-     * that match a particular QName.
+     * Gets the list of child elements attached to this advice that match a particular QName.
      * 
      * @param typeOrName the QName of the child elements to return
      * @return the list of matching child elements attached to this advice
      */
     public List<XMLObject> getChildren(QName typeOrName);
-    
+
     /**
      * Gets the list of AssertionID references used as advice.
      * 

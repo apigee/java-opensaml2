@@ -27,28 +27,28 @@ import org.opensaml.xml.schema.XSBooleanValue;
  */
 public interface NameIDPolicy extends SAMLObject {
 
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "NameIDPolicy";
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "NameIDPolicy";
 
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
             SAMLConstants.SAML20P_PREFIX);
 
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "NameIDPolicyType";
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "NameIDPolicyType";
 
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
             SAMLConstants.SAML20P_PREFIX);
 
-    /** Format attribute name */
-    public final static String FORMAT_ATTRIB_NAME = "Format";
+    /** Format attribute name. */
+    public static final String FORMAT_ATTRIB_NAME = "Format";
 
-    /** SPNameQualifier attribute name */
-    public final static String SP_NAME_QUALIFIER_ATTRIB_NAME = "SPNameQualifier";
+    /** SPNameQualifier attribute name. */
+    public static final String SP_NAME_QUALIFIER_ATTRIB_NAME = "SPNameQualifier";
 
-    /** AllowCreate attribute name */
-    public final static String ALLOW_CREATE_ATTRIB_NAME = "AllowCreate";
+    /** AllowCreate attribute name. */
+    public static final String ALLOW_CREATE_ATTRIB_NAME = "AllowCreate";
 
     /**
      * Gets the format of the NameIDPolicy.

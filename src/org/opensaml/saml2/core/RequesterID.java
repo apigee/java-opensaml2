@@ -22,25 +22,26 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core RequesterID
+ * SAML 2.0 Core RequesterID.
  */
 public interface RequesterID extends SAMLObject {
 
-    /** Element Local Name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "RequesterID";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+    /** Element Local Name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "RequesterID";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
 
     /**
-     * Gets the RequesterID value
+     * Gets the RequesterID value.
      * 
      * @return RequesterID value
      */
     public String getRequesterID();
 
     /**
-     * Sets the RequesterID value
+     * Sets the RequesterID value.
      * 
      * @param newRequesterID the RequesterID value
      */

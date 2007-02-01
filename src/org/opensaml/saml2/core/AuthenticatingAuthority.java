@@ -30,14 +30,15 @@ import org.opensaml.common.xml.SAMLConstants;
  */
 public interface AuthenticatingAuthority extends SAMLObject {
 
-    /** Local Name of AuthenticatingAuthority */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthenticatingAuthority";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    /** Local Name of AuthenticatingAuthority. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthenticatingAuthority";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
 
     /**
-     * Gets the URI of this Authenticating Authority
+     * Gets the URI of this Authenticating Authority.
      * 
      * @return AuthenticatingAuthority URI
      */

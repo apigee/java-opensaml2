@@ -22,40 +22,42 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core IDPEntry
+ * SAML 2.0 Core IDPEntry.
  */
 public interface IDPEntry extends SAMLObject {
-    
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "IDPEntry";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "IDPEntryType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
-    
-    /** ProviderID attribute name */
-    public final static String PROVIDER_ID_ATTRIB_NAME = "ProviderID";
 
-    /** Name attribute name */
-    public final static String NAME_ATTRIB_NAME = "Name";
-    
-    /** Loc attribute name */
-    public final static String LOC_ATTRIB_NAME = "Loc";
-    
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "IDPEntry";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "IDPEntryType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20P_PREFIX);
+
+    /** ProviderID attribute name. */
+    public static final String PROVIDER_ID_ATTRIB_NAME = "ProviderID";
+
+    /** Name attribute name. */
+    public static final String NAME_ATTRIB_NAME = "Name";
+
+    /** Loc attribute name. */
+    public static final String LOC_ATTRIB_NAME = "Loc";
+
     /**
-     * Gets ProviderID URI
+     * Gets ProviderID URI.
      * 
      * @return the ProviderID URI
      */
     public String getProviderID();
 
     /**
-     * Sets the ProviderID URI
+     * Sets the ProviderID URI.
      * 
      * @param newProviderID the new ProviderID URI
      */

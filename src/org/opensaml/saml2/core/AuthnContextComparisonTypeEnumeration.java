@@ -43,10 +43,10 @@ public final class AuthnContextComparisonTypeEnumeration {
     /**
      * Constructor.
      * 
-     * @param comparisonType the comparison type string
+     * @param newComparisonType the comparison type string
      */
-    protected AuthnContextComparisonTypeEnumeration(String comparisonType) {
-        this.comparisonType= comparisonType;
+    protected AuthnContextComparisonTypeEnumeration(String newComparisonType) {
+        this.comparisonType= newComparisonType;
     }
 
     /** {@inheritDoc} */

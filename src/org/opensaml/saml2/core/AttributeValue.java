@@ -24,11 +24,12 @@ import org.opensaml.common.xml.SAMLConstants;
 /**
  * This interface defines how the object representing a SAML 12 <code> AttributeValue </code> element behaves.
  */
-public interface AttributeValue extends SAMLObject  {
+public interface AttributeValue extends SAMLObject {
 
     /** Element name, no namespace. */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AttributeValue";
- 
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AttributeValue";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
 }

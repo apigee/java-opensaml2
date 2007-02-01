@@ -26,39 +26,41 @@ import org.opensaml.xml.AttributeExtensibleXMLObject;
 import org.opensaml.xml.XMLObject;
 
 /**
- * SAML 2.0 Core Attribute
+ * SAML 2.0 Core Attribute.
  */
 public interface Attribute extends SAMLObject, AttributeExtensibleXMLObject {
 
-    /** Local name of the Attribute element */
+    /** Local name of the Attribute element. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "Attribute";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "AttributeType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
 
-    /** Name of the Name attribute */
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "AttributeType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
+
+    /** Name of the Name attribute. */
     public static final String NAME_ATTTRIB_NAME = "Name";
 
-    /** Name for the NameFormat attribute */
+    /** Name for the NameFormat attribute. */
     public static final String NAME_FORMAT_ATTRIB_NAME = "NameFormat";
 
-    /** Name of the FriendlyName attribute */
+    /** Name of the FriendlyName attribute. */
     public static final String FRIENDLY_NAME_ATTRIB_NAME = "FriendlyName";
-    
-    /** Unspecified attribute format ID */
-    public final static String UNSPECIFIED = "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified";
-    
-    /** URI reference attribute format ID */
-    public final static String URI_REFERENCE = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
-    
-    /** Basic attribute format ID */
-    public final static String BASIC = "urn:oasis:names:tc:SAML:2.0:attrname-format:basic";
+
+    /** Unspecified attribute format ID. */
+    public static final String UNSPECIFIED = "urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified";
+
+    /** URI reference attribute format ID. */
+    public static final String URI_REFERENCE = "urn:oasis:names:tc:SAML:2.0:attrname-format:uri";
+
+    /** Basic attribute format ID. */
+    public static final String BASIC = "urn:oasis:names:tc:SAML:2.0:attrname-format:basic";
 
     /**
      * Get the name of this attribute.

@@ -22,15 +22,16 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Core AssertionURIRef
+ * SAML 2.0 Core AssertionURIRef.
  */
 public interface AssertionURIRef extends SAMLObject, Evidentiary {
-    
-    /** Element local name */ 
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionURIRef";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionURIRef";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML20_PREFIX);
 
     /**
      * Gets the URI of the assertion this references.
@@ -38,7 +39,7 @@ public interface AssertionURIRef extends SAMLObject, Evidentiary {
      * @return the URI of the assertion this references
      */
     public String getAssertionURI();
-    
+
     /**
      * Sets the URI of the assertion this references.
      * 
