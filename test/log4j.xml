@@ -52,11 +52,11 @@
    <!-- ================ -->
 
    <category name="org.opensaml">
-      <priority value="DEBUG"/>
+      <priority value="WARN"/>
    </category>
    
    <category name="org.apache.velocity">
-      <priority value="INFO"/>
+      <priority value="WARN"/>
    </category>
    
    <category name="org.apache">
