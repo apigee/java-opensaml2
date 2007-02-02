@@ -61,7 +61,7 @@ public class OrganizationURLMarshaller extends AbstractSAMLObjectMarshaller {
             Attr attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), SAMLConstants.XML_NS,
                     OrganizationURL.LANG_ATTRIB_NAME, SAMLConstants.XML_PREFIX);
             attribute.setValue(url.getURL().getLanguage());
-            domElement.setAttributeNode(attribute);
+            domElement.setAttributeNodeNS(attribute);
         }
     }
 

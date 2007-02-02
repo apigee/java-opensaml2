@@ -69,7 +69,7 @@ public class ContactPersonMarshaller extends AbstractSAMLObjectMarshaller {
         for(Entry<QName, String> entry: person.getUnknownAttributes().entrySet()){
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
-            domElement.setAttributeNode(attribute);
+            domElement.setAttributeNodeNS(attribute);
             if (Configuration.isIDAttribute(entry.getKey()) 
                     || person.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);

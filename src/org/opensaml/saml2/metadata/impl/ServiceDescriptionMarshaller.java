@@ -61,7 +61,7 @@ public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
             Attr attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), SAMLConstants.XML_NS,
                     ServiceDescription.LANG_ATTRIB_NAME, SAMLConstants.XML_PREFIX);
             attribute.setValue(description.getDescription().getLanguage());
-            domElement.setAttributeNode(attribute);
+            domElement.setAttributeNodeNS(attribute);
         }
     }
 

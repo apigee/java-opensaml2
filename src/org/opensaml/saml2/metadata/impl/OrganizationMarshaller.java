@@ -66,7 +66,7 @@ public class OrganizationMarshaller extends AbstractSAMLObjectMarshaller {
         for(Entry<QName, String> entry: org.getUnknownAttributes().entrySet()){
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
-            domElement.setAttributeNode(attribute);
+            domElement.setAttributeNodeNS(attribute);
             if (Configuration.isIDAttribute(entry.getKey()) 
                     || org.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);

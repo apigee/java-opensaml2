@@ -72,7 +72,7 @@ public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
         for(Entry<QName, String> entry: attribute.getUnknownAttributes().entrySet()){
             attr = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attr.setValue(entry.getValue());
-            domElement.setAttributeNode(attr);
+            domElement.setAttributeNodeNS(attr);
             if (Configuration.isIDAttribute(entry.getKey()) 
                     || attribute.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attr.getOwnerElement().setIdAttributeNode(attr, true);

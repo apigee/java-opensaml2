@@ -102,7 +102,7 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
         for(Entry<QName, String> entry: descriptor.getUnknownAttributes().entrySet()){
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
-            domElement.setAttributeNode(attribute);
+            domElement.setAttributeNodeNS(attribute);
             if (Configuration.isIDAttribute(entry.getKey()) 
                     || descriptor.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);

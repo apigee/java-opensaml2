@@ -86,7 +86,7 @@ public class SubjectConfirmationDataMarshaller extends AbstractSAMLObjectMarshal
         for(Entry<QName, String> entry: subjectCD.getUnknownAttributes().entrySet()){
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
-            domElement.setAttributeNode(attribute);
+            domElement.setAttributeNodeNS(attribute);
             if (Configuration.isIDAttribute(entry.getKey()) 
                     || subjectCD.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);
