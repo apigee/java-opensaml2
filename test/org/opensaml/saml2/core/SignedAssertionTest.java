@@ -34,6 +34,7 @@ import org.opensaml.saml2.core.impl.IssuerBuilder;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureConstants;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.signature.impl.SignatureBuilder;
 import org.opensaml.xml.validation.ValidationException;
@@ -110,8 +111,8 @@ public class SignedAssertionTest extends BaseTestCase {
         
         Signature signature = signatureBuilder.buildObject();
         signature.setSigningKey(signingKey);
-        signature.setCanonicalizationAlgorithm(Canonicalizer.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
-        signature.setSignatureAlgorithm(XMLSignature.ALGO_ID_SIGNATURE_RSA);
+        signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
+        signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA);
         signature.getContentReferences().add(new SAMLObjectContentReference(assertion));
         assertion.setSignature(signature);
         

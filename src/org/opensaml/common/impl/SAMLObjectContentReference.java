@@ -28,7 +28,9 @@ import org.apache.xml.security.transforms.params.InclusiveNamespaces;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.xml.Namespace;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.encryption.EncryptionConstants;
 import org.opensaml.xml.signature.ContentReference;
+import org.opensaml.xml.signature.SignatureConstants;
 import org.w3c.dom.Element;
 
 /**
@@ -58,8 +60,8 @@ public class SAMLObjectContentReference implements ContentReference {
     public void createReference(XMLSignature signature) {
         try {
             Transforms dsigTransforms = new Transforms(signature.getDocument());
-            dsigTransforms.addTransform(Transforms.TRANSFORM_ENVELOPED_SIGNATURE);
-            dsigTransforms.addTransform(Transforms.TRANSFORM_C14N_EXCL_WITH_COMMENTS);
+            dsigTransforms.addTransform(SignatureConstants.TRANSFORM_ENVELOPED_SIGNATURE);
+            dsigTransforms.addTransform(SignatureConstants.TRANSFORM_C14N_EXCL_WITH_COMMENTS);
 
             // Namespaces that aren't visibly used, such as those used in QName attribute values, would
             // be stripped out by exclusive canonicalization. Need to make sure they aren't by explicitly
@@ -78,7 +80,7 @@ public class SAMLObjectContentReference implements ContentReference {
             }
 
             signature.addDocument("#" + signableObject.getSignatureReferenceID(), dsigTransforms,
-                    MessageDigestAlgorithm.ALGO_ID_DIGEST_SHA256);
+                    EncryptionConstants.ALGO_ID_DIGEST_SHA256);
         } catch (TransformationException e) {
             log.error("Unsupported signature transformation", e);
         } catch (XMLSignatureException e) {
