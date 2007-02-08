@@ -125,6 +125,47 @@ public class SimpleEncryptionTest extends BaseTestCase {
      *  Test basic encryption with symmetric key, no key wrap,
      *  set key name in passed KeyInfo object.
      */
+    public void testAssertionAsID() {
+        Assertion target = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
+        
+        KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
+        keyName.setValue(expectedKeyName);
+        keyInfo.getKeyNames().add(keyName);
+        encParams.setKeyInfo(keyInfo);
+        
+        encrypter = new Encrypter(encParams, kekParams);
+        
+        EncryptedID encTarget = null;
+        XMLObject encObject = null;
+        try {
+            encObject = encrypter.encryptAsID(target);
+        } catch (EncryptionException e) {
+            fail("Object encryption failed: " + e);
+        }
+        
+        assertNotNull("Encrypted object was null", encObject);
+        assertTrue("Encrypted object was not an instance of the expected type", 
+                encObject instanceof EncryptedID);
+        encTarget = (EncryptedID) encObject;
+        
+        assertEquals("Type attribute", EncryptionConstants.TYPE_ELEMENT, encTarget.getEncryptedData().getType());
+        assertEquals("Algorithm attribute", algoURI, 
+                encTarget.getEncryptedData().getEncryptionMethod().getAlgorithm());
+        assertNotNull("KeyInfo", encTarget.getEncryptedData().getKeyInfo());
+        assertEquals("KeyName", expectedKeyName, 
+                encTarget.getEncryptedData().getKeyInfo().getKeyNames().get(0).getValue());
+        
+        assertEquals("Number of EncryptedKeys", 0, 
+                encTarget.getEncryptedData().getKeyInfo().getEncryptedKeys().size());
+        
+        assertFalse("EncryptedData ID attribute was empty",
+                DatatypeHelper.isEmpty(encTarget.getEncryptedData().getID()));
+    }
+    
+    /**
+     *  Test basic encryption with symmetric key, no key wrap,
+     *  set key name in passed KeyInfo object.
+     */
     public void testNameID() {
         Assertion assertion = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
         NameID target = assertion.getSubject().getNameID();
