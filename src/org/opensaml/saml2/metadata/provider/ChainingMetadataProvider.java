@@ -35,12 +35,10 @@ import org.opensaml.xml.XMLObjectBuilderFactory;
  */
 public class ChainingMetadataProvider extends BaseMetadataProvider {
 
-    /** Registred providers */
+    /** Registred providers. */
     private FastList<MetadataProvider> providers;
 
-    /**
-     * Constructor
-     */
+    /** Constructor. */
     public ChainingMetadataProvider() {
         super();
         providers = new FastList<MetadataProvider>();
@@ -54,11 +52,27 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
     public List<MetadataProvider> getProviders() {
         return providers.unmodifiable();
     }
+    
+    /**
+     * Replaces the current set of metadata providers with give collection.
+     * 
+     * @param newProviders the metadata providers to replace the current providers with
+     * 
+     * @throws MetadataProviderException thrown if there is a problem adding the metadata provider
+     */
+    public void setProviders(List<MetadataProvider> newProviders) throws MetadataProviderException{
+        providers.clear();
+        for(MetadataProvider provider : newProviders){
+            addMetadataProvider(provider);
+        }
+    }
 
     /**
      * Adds a metadata provider to the list of registered providers.
      * 
      * @param newProvider the provider to be added
+     * 
+     * @throws MetadataProviderException thrown if there is a problem adding the metadata provider
      */
     public void addMetadataProvider(MetadataProvider newProvider) throws MetadataProviderException {
         if (newProvider != null) {
