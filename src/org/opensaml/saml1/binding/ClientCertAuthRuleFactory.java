@@ -73,7 +73,7 @@ public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory
             setIssuer(issuer);
             
             try{
-                RoleDescriptor role = getMetadataProvider().getRole(issuer, getIssureRole(), getIssuerProtocol());
+                RoleDescriptor role = getMetadataProvider().getRole(issuer, getIssuerRole(), getIssuerProtocol());
                 setIssuerMetadata(role);
             }catch(MetadataProviderException e){
                 throw new BindingException("Unable to get issuer role descriptor from metadata", e);

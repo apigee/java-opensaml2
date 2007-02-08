@@ -122,7 +122,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * 
      * @return role the issuer is operating in
      */
-    public QName getIssureRole() {
+    public QName getIssuerRole() {
         return issuerRole;
     }
 
@@ -184,7 +184,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
         for (Object issuerName : issuerNames) {
             try {
                 MetadataKeyInfoSource keyInfoSrc = new MetadataKeyInfoSource(keyUsageTypes, getMetadataProvider(),
-                        issuerName.toString(), getIssureRole(), getIssuerProtocol());
+                        issuerName.toString(), getIssuerRole(), getIssuerProtocol());
                 if (getTrustEngine().validate(credential, keyInfoSrc, getKeyResolver())) {
                     return issuerName.toString();
                 } else {
