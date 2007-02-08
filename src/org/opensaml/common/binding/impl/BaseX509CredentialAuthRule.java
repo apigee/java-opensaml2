@@ -185,11 +185,11 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
             try {
                 MetadataKeyInfoSource keyInfoSrc = new MetadataKeyInfoSource(keyUsageTypes, getMetadataProvider(),
                         issuerName.toString(), getIssuerRole(), getIssuerProtocol());
+                
                 if (getTrustEngine().validate(credential, keyInfoSrc, getKeyResolver())) {
                     return issuerName.toString();
-                } else {
-                    throw new BindingException("Issuer credentials do not match entity's credentials in metadata");
                 }
+                
             } catch (SecurityException e) {
                 throw new BindingException("Unable to validate credential", e);
             }
