@@ -42,10 +42,10 @@ import org.w3c.dom.Document;
  */
 public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
-    /** Logger */
+    /** Class logger. */
     private final Logger log = Logger.getLogger(AbstractMetadataProvider.class);
 
-    /** Cache of entity IDs to their descriptors */
+    /** Cache of entity IDs to their descriptors. */
     private FastMap<String, EntityDescriptor> indexedDescriptors;
 
     /**

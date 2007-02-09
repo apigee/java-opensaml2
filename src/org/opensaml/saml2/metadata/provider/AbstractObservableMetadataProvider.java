@@ -27,10 +27,10 @@ import javolution.util.FastList.Node;
 public abstract class AbstractObservableMetadataProvider extends AbstractMetadataProvider implements
         ObservableMetadataProvider {
 
-    /** List of registered observers */
+    /** List of registered observers. */
     private FastList<Observer> observers;
 
-    /** Constructor */
+    /** Constructor. */
     public AbstractObservableMetadataProvider() {
         super();
         observers = new FastList<Observer>();

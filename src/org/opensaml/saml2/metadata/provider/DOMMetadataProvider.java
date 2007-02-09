@@ -28,40 +28,64 @@ import org.w3c.dom.Element;
  */
 public class DOMMetadataProvider extends AbstractObservableMetadataProvider implements MetadataProvider {
 
-    /** Logger */
+    /** Class logger. */
     private final Logger log = Logger.getLogger(DOMMetadataProvider.class);
 
-    /** Root metadata element exposed by this provider */
+    /** Whether the provider has been initialized. */
+    private boolean initialized;
+
+    /** Root metadata element exposed by this provider. */
     private Element metadataElement;
-    
-    /** Unmarshalled metadata */
+
+    /** Unmarshalled metadata. */
     private XMLObject metadata;
 
     /**
-     * Constructor
-     *
-     * @param metadataElement the metadata element
+     * Constructor.
+     * 
+     * @param mdElement the metadata element
      */
-    public DOMMetadataProvider(Element metadataElement) throws MetadataProviderException {
+    public DOMMetadataProvider(Element mdElement) {
         super();
-        this.metadataElement = metadataElement;
+        initialized = false;
+        metadataElement = mdElement;
     }
 
     /** {@inheritDoc} */
-    public XMLObject getMetadata(){
+    public XMLObject getMetadata() {
         return metadata;
     }
-    
-    /** 
-     * {@inheritDoc} 
-     * @throws MetadataProviderException 
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws MetadataProviderException
      */
-    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException{
+    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
         super.setMetadataFilter(newFilter);
         refreshMetadata();
     }
-    
-    private synchronized void refreshMetadata() throws MetadataProviderException{
+
+    /**
+     * Initializes the provider and prepares it for use.
+     * 
+     * @throws MetadataProviderException thrown if the metadata element provided can not be read or is not valid
+     *             metadata
+     */
+    public synchronized void initialize() throws MetadataProviderException {
+        if (!initialized) {
+            refreshMetadata();
+            initialized = true;
+        }
+    }
+
+    /**
+     * Reads the metadata element and re-applies the registered metadata filter.
+     * 
+     * @throws MetadataProviderException thrown if the metadata element provided can not be read or is not valid
+     *             metadata
+     */
+    private synchronized void refreshMetadata() throws MetadataProviderException {
         try {
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(metadataElement);
             metadata = unmarshaller.unmarshall(metadataElement);
