@@ -16,34 +16,26 @@
 
 package org.opensaml.common.binding.impl;
 
-import java.io.InputStream;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.opensaml.Configuration;
-import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.SOAPHTTPDecoder;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.Unmarshaller;
-import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.DatatypeHelper;
-import org.w3c.dom.Document;
 
 /**
  * Base class for SOAP over HTTP message encoders.
  */
-abstract public class AbstractSOAPHTTPDecoder extends AbstractHTTPMessageDecoder implements SOAPHTTPDecoder {
+public abstract class AbstractSOAPHTTPDecoder extends AbstractHTTPMessageDecoder implements SOAPHTTPDecoder {
     
-    /** Class logger */
-    public final static Logger log = Logger.getLogger(AbstractSOAPHTTPDecoder.class);
+    /** Class logger. */
+    private static Logger log = Logger.getLogger(AbstractSOAPHTTPDecoder.class);
     
-    /** Decoded SOAP message */
+    /** Decoded SOAP message. */
     private Envelope soapMessage;
     
-    /** Version of SOAP being used */
+    /** Version of SOAP being used. */
     private String soapVersion = "1.1";
     
     /** {@inheritDoc} */

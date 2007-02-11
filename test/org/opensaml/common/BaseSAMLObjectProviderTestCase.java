@@ -16,9 +16,7 @@
 
 package org.opensaml.common;
 
-import org.opensaml.common.xml.ParserPoolManager;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Base test case for all OpenSAML tests that work with {@link org.opensaml.common.SAMLObject}s.
@@ -47,20 +45,19 @@ public abstract class BaseSAMLObjectProviderTestCase extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         if (singleElementFile != null) {
-            expectedDOM = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
-                    .getResourceAsStream(singleElementFile)));
+            expectedDOM = parser.parse(BaseSAMLObjectProviderTestCase.class
+                    .getResourceAsStream(singleElementFile));
         }
 
         if (singleElementOptionalAttributesFile != null) {
-            expectedOptionalAttributesDOM = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
-                    .getResourceAsStream(singleElementOptionalAttributesFile)));
+            expectedOptionalAttributesDOM = parser.parse(BaseSAMLObjectProviderTestCase.class
+                    .getResourceAsStream(singleElementOptionalAttributesFile));
         }
 
         if (childElementsFile != null) {
-            expectedChildElementsDOM = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
-                    .getResourceAsStream(childElementsFile)));
+            expectedChildElementsDOM = parser.parse(BaseSAMLObjectProviderTestCase.class
+                    .getResourceAsStream(childElementsFile));
         }
     }
 

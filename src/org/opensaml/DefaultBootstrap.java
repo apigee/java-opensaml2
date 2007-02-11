@@ -21,11 +21,8 @@ import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.xml.security.Init;
 import org.opensaml.common.binding.SAMLArtifactFactory;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLConfigurator;
-import org.opensaml.xml.parse.XMLParserException;
-import org.w3c.dom.Document;
 
 /**
  * This class can be used to bootstrap the OpenSAML library with the default configurations that ship with the library.
@@ -37,10 +34,11 @@ public class DefaultBootstrap {
     
     /** List of default XMLTooling configuration files. */
     private static String[] xmlToolingConfigs = { 
-            "/common-config.xml",
+            "/default-config.xml",
             "/schema-config.xml",
             "/signature-config.xml",
             "/encryption-config.xml",
+            "/soap11-config.xml",
             "/saml1-assertion-config.xml",
             "/saml1-protocol-config.xml",
             "/saml1-core-validation-config.xml",
@@ -118,21 +116,14 @@ public class DefaultBootstrap {
      * @throws ConfigurationException thrown if there is a problem loading the configuration files
      */
     protected static void initializeXMLTooling(String[] providerConfigs) throws ConfigurationException {
-        ParserPoolManager parserPool = ParserPoolManager.getInstance();
         Class clazz = Configuration.class;
-        Document configurationDoc;
         XMLConfigurator configurator = new XMLConfigurator();
 
         for (String config : providerConfigs) {
-            try {
-                if (log.isDebugEnabled()) {
-                    log.debug("Loading XMLTooling configuration " + config);
-                }
-                configurationDoc = parserPool.parse(clazz.getResourceAsStream(config));
-                configurator.load(configurationDoc);
-            } catch (XMLParserException e) {
-                throw new ConfigurationException("Unable to load object provider configuration " + config, e);
+            if (log.isDebugEnabled()) {
+                log.debug("Loading XMLTooling configuration " + config);
             }
+            configurator.load(clazz.getResourceAsStream(config));
         }
     }
 

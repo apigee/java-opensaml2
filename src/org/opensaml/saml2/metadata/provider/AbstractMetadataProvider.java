@@ -26,7 +26,6 @@ import javax.xml.namespace.QName;
 import javolution.util.FastMap;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml2.common.SAML2Helper;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -34,6 +33,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 
@@ -43,27 +43,28 @@ import org.w3c.dom.Document;
 public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(AbstractMetadataProvider.class);
+    private static Logger log = Logger.getLogger(AbstractMetadataProvider.class);
 
     /** Cache of entity IDs to their descriptors. */
     private FastMap<String, EntityDescriptor> indexedDescriptors;
 
-    /**
-     * Constructor
-     */
+    /** Pool of parsers used to process XML. */
+    private ParserPool parser;
+
+    /** Constructor. */
     public AbstractMetadataProvider() {
         super();
         indexedDescriptors = new FastMap<String, EntityDescriptor>();
     }
 
     /** {@inheritDoc} */
-    public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException{
+    public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException {
         XMLObject metadata = getMetadata();
-        if(metadata instanceof EntitiesDescriptor){
+        if (metadata instanceof EntitiesDescriptor) {
             EntitiesDescriptor descriptor = (EntitiesDescriptor) metadata;
             return getEntitiesDescriptorByName(name, descriptor);
         }
-        
+
         return null;
     }
 
@@ -88,9 +89,9 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException {
         EntityDescriptor entity = getEntityDescriptor(entityID);
-        if(entity != null){
+        if (entity != null) {
             return entity.getRoleDescriptors(roleName);
-        }else{
+        } else {
             return null;
         }
     }
@@ -99,10 +100,10 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)
             throws MetadataProviderException {
         List<RoleDescriptor> roles = getRole(entityID, roleName);
-        if(roles == null){
+        if (roles == null) {
             return null;
         }
-        
+
         Iterator<RoleDescriptor> rolesItr = roles.iterator();
         RoleDescriptor role;
         while (rolesItr.hasNext()) {
@@ -113,6 +114,24 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         }
 
         return null;
+    }
+
+    /**
+     * Gets the pool of parsers to use to parse XML.
+     * 
+     * @return pool of parsers to use to parse XML
+     */
+    public ParserPool getParserPool() {
+        return parser;
+    }
+
+    /**
+     * Sets the pool of parsers to use to parse XML.
+     * 
+     * @param pool pool of parsers to use to parse XML
+     */
+    public void setParserPool(ParserPool pool) {
+        parser = pool;
     }
 
     /**
@@ -137,7 +156,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             if (log.isDebugEnabled()) {
                 log.debug("Parsing retrieved metadata into a DOM object");
             }
-            Document mdDocument = ParserPoolManager.getInstance().parse(metadataInputstream);
+            Document mdDocument = parser.parse(metadataInputstream);
 
             if (log.isDebugEnabled()) {
                 log.debug("Unmarshalling and caching metdata DOM");
@@ -171,14 +190,14 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             getMetadataFilter().doFilter(metadata);
         }
     }
-    
+
     /**
      * Releases the DOM representation from the metadata object.
      * 
      * @param metadata the metadata object
      */
     protected void releaseMetadataDOM(XMLObject metadata) {
-        if(metadata != null){
+        if (metadata != null) {
             metadata.releaseDOM();
             metadata.releaseChildrenDOM(true);
         }
@@ -188,6 +207,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * Gets the EntityDescriptor with the given ID from the cached metadata.
      * 
      * @param entityID the ID of the entity to get the descriptor for
+     * @param metadata metadata associated with the entity
      * 
      * @return the EntityDescriptor
      */
@@ -218,15 +238,13 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
                 descriptor = (EntityDescriptor) metadata;
                 if (!descriptor.getEntityID().equals(entityID) || !isValid(descriptor)) {
                     if (log.isDebugEnabled()) {
-                        log
-                                .debug("Entity descriptor does not have the correct entity ID or is not valid, returning null");
+                        log.debug("Entity descriptor does not have the correct entity ID or is not valid, returning null");
                     }
                     descriptor = null;
                 }
             } else {
                 if (log.isDebugEnabled()) {
-                    log
-                            .debug("Metadata was an entities descriptor, checking if any of it's descendant entity descriptors is the one we're looking for.");
+                    log.debug("Metadata was an entities descriptor, checking if any of it's descendant entity descriptors is the one we're looking for.");
                 }
                 if (metadata instanceof EntitiesDescriptor) {
                     descriptor = getEntityDescriptorById(entityID, (EntitiesDescriptor) metadata);
@@ -254,8 +272,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      */
     protected EntityDescriptor getEntityDescriptorById(String entityID, EntitiesDescriptor descriptor) {
         if (log.isDebugEnabled()) {
-            log
-                    .debug("Checking to see if any of the child entity descriptors of this entities descriptor is the requested descriptor");
+            log.debug("Checking to see if any of the child entity descriptors of this entities descriptor is the requested descriptor");
         }
         List<EntityDescriptor> entityDescriptors = descriptor.getEntityDescriptors();
         if (entityDescriptors != null) {
@@ -270,8 +287,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         }
 
         if (log.isDebugEnabled()) {
-            log
-                    .debug("Checking to see if any of the child entities descriptors contains the entity descriptor requested");
+            log.debug("Checking to see if any of the child entities descriptors contains the entity descriptor requested");
         }
         EntityDescriptor entityDescriptor;
         List<EntitiesDescriptor> entitiesDescriptors = descriptor.getEntitiesDescriptors();

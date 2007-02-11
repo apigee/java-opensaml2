@@ -19,7 +19,6 @@ package org.opensaml.saml2.metadata;
 import java.io.InputStream;
 
 import org.opensaml.common.BaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
@@ -55,11 +54,10 @@ public class MetadataTest extends BaseTestCase {
      */
     public void testInCommonUnmarshall() throws XMLParserException, UnmarshallingException {
         String inCommonMDFile = "/data/org/opensaml/saml2/metadata/InCommon-metadata.xml";
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
         try {
             InputStream in = MetadataTest.class.getResourceAsStream(inCommonMDFile);
-            Document inCommonMDDoc = ppMgr.parse(in);
+            Document inCommonMDDoc = parser.parse(in);
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
                     inCommonMDDoc.getDocumentElement());
 
@@ -82,11 +80,10 @@ public class MetadataTest extends BaseTestCase {
      */
     public void testSWITCHUnmarshall() {
         String switchMDFile = "/data/org/opensaml/saml2/metadata/metadata.switchaai_signed.xml";
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
         try {
             InputStream in = MetadataTest.class.getResourceAsStream(switchMDFile);
-            Document switchMDDoc = ppMgr.parse(in);
+            Document switchMDDoc = parser.parse(in);
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
                     switchMDDoc.getDocumentElement());
 
@@ -109,12 +106,11 @@ public class MetadataTest extends BaseTestCase {
      */
     public void testUKFedUnmarshall() {
         String switchMDFile = "/data/org/opensaml/saml2/metadata/ukfederation-metadata.xml";
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
         try {
             long parseStart = System.currentTimeMillis();
             InputStream in = MetadataTest.class.getResourceAsStream(switchMDFile);
-            Document ukFedDoc = ppMgr.parse(in);
+            Document ukFedDoc = parser.parse(in);
             long parseEnd = System.currentTimeMillis();
             
             long unmarshallStart = System.currentTimeMillis();

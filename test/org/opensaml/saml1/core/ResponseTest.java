@@ -19,7 +19,6 @@ package org.opensaml.saml1.core;
 import java.io.InputStream;
 
 import org.opensaml.common.BaseTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -45,11 +44,10 @@ public class ResponseTest extends BaseTestCase {
      * Tests unmarshalling a full response message.
      */
     public void testResponseUnmarshall(){
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
 
         try {
             InputStream in = ResponseTest.class.getResourceAsStream(fullResponsePath);
-            Document responseDoc = ppMgr.parse(in);
+            Document responseDoc = parser.parse(in);
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
                     responseDoc.getDocumentElement());
 

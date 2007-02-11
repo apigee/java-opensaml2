@@ -23,14 +23,12 @@ package org.opensaml.saml1.core.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.saml1.core.SubjectConfirmation;
 import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.opensaml.xml.ElementProxyBuilder;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Subject}
@@ -60,10 +58,8 @@ public class SubjectConfirmationTest extends BaseSAMLObjectProviderTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
-                .getResourceAsStream(fullElementsFile)));
+        expectedFullDOM = parser.parse(BaseSAMLObjectProviderTestCase.class
+                .getResourceAsStream(fullElementsFile));
     }
 
     /** {@inheritDoc} */

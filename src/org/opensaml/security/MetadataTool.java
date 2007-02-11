@@ -38,11 +38,11 @@ import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.impl.SAMLObjectContentReference;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.Signer;
@@ -58,6 +58,8 @@ public class MetadataTool {
 
     /** Class Logger. */
     private static Logger log = Logger.getLogger(MetadataTool.class);
+    
+    private static ParserPool parser;
 
     /**
      * Main entry point to program.
@@ -127,13 +129,12 @@ public class MetadataTool {
         try {
             log.debug("Fetching metadata from input " + inputFile);
             URL inputURL = new URL(inputFile);
-            ParserPoolManager parser = ParserPoolManager.getInstance();
             Document metadatDocument = parser.parse(inputURL.openStream());
 
-            if (validate != null && validate.booleanValue()) {
-                parser.validate(metadatDocument);
-                log.info("Metadata document passed validation");
-            }
+//            if (validate != null && validate.booleanValue()) {
+//                parser.validate(metadatDocument);
+//                log.info("Metadata document passed validation");
+//            }
 
             Element metadataRoot = metadatDocument.getDocumentElement();
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(metadataRoot);

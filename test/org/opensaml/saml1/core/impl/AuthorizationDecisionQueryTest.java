@@ -25,14 +25,12 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 import org.opensaml.saml1.core.Evidence;
 import org.opensaml.saml1.core.Subject;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Test class for org.opensaml.saml1.core.AttributeQuery
@@ -69,10 +67,8 @@ public class AuthorizationDecisionQueryTest extends BaseSAMLObjectProviderTestCa
     protected void setUp() throws Exception {
         super.setUp();
 
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
-        expectedFullDOM = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
-                .getResourceAsStream(fullElementsFile)));
+        expectedFullDOM = parser.parse(BaseSAMLObjectProviderTestCase.class
+                .getResourceAsStream(fullElementsFile));
     }
 
     /** {@inheritDoc} */

@@ -23,7 +23,6 @@ package org.opensaml.saml1.core.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
@@ -34,7 +33,6 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 
 /**
  * 
@@ -89,11 +87,9 @@ public class AuthorizationDecisionStatementTest extends BaseSAMLObjectProviderTe
         assertEquals("Resource attribute ", expectedResource, authorizationDecisionStatement.getResource());
         assertEquals("Decision attribute ", expectedDecision.toString(), authorizationDecisionStatement.getDecision().toString());
 
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-
         try {
-            Document doc = ppMgr.parse(new InputSource(BaseSAMLObjectProviderTestCase.class
-                    .getResourceAsStream(illegalAttributesFile)));
+            Document doc = parser.parse(BaseSAMLObjectProviderTestCase.class
+                    .getResourceAsStream(illegalAttributesFile));
             Element samlElement = doc.getDocumentElement();
 
             authorizationDecisionStatement = (AuthorizationDecisionStatement) new AuthorizationDecisionStatementUnmarshaller()

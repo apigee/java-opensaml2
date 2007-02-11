@@ -23,7 +23,6 @@ import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilder;
@@ -33,6 +32,7 @@ import org.opensaml.xml.io.MarshallerFactory;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallerFactory;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Document;
@@ -45,7 +45,7 @@ import org.xml.sax.InputSource;
 public abstract class BaseTestCase extends XMLTestCase {
     
     /** Parser manager used to parse XML. */
-    protected static ParserPoolManager parser;
+    protected static ParserPool parser;
     
     /** XMLObject builder factory. */
     protected static XMLObjectBuilderFactory builderFactory;
@@ -69,7 +69,8 @@ public abstract class BaseTestCase extends XMLTestCase {
             fail(e.getMessage());
         }
         
-        parser = ParserPoolManager.getInstance();
+        parser = new ParserPool();
+        parser.setNamespaceAware(true);
         builderFactory = Configuration.getBuilderFactory();
         marshallerFactory = Configuration.getMarshallerFactory();
         unmarshallerFactory = Configuration.getUnmarshallerFactory();
@@ -111,7 +112,7 @@ public abstract class BaseTestCase extends XMLTestCase {
         }
         
         try {
-            Element generatedDOM = marshaller.marshall(xmlObject, ParserPoolManager.getInstance().newDocument());
+            Element generatedDOM = marshaller.marshall(xmlObject, parser.newDocument());
             if(log.isDebugEnabled()) {
                 log.debug("Marshalled DOM was " + XMLHelper.nodeToString(generatedDOM));
             }
@@ -146,9 +147,8 @@ public abstract class BaseTestCase extends XMLTestCase {
      */
     protected XMLObject unmarshallElement(String elementFile) {
         try {
-            ParserPoolManager ppMgr = ParserPoolManager.getInstance();
-            Document doc = ppMgr.parse(new InputSource(BaseTestCase.class
-                    .getResourceAsStream(elementFile)));
+            Document doc = parser.parse(BaseTestCase.class
+                    .getResourceAsStream(elementFile));
             Element samlElement = doc.getDocumentElement();
 
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlElement);

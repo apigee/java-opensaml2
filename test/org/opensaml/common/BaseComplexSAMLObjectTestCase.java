@@ -16,9 +16,7 @@
 
 package org.opensaml.common;
 
-import org.opensaml.common.xml.ParserPoolManager;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 /**
  * Base test case for OpenSAML tests that work with {@link org.opensaml.common.SAMLObject}s which represent full,
@@ -36,10 +34,9 @@ public abstract class BaseComplexSAMLObjectTestCase extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        ParserPoolManager ppMgr = ParserPoolManager.getInstance();
         if (elementFile != null) {
-            expectedDOM = ppMgr.parse(new InputSource(BaseComplexSAMLObjectTestCase.class
-                    .getResourceAsStream(elementFile)));
+            expectedDOM = parser.parse(BaseComplexSAMLObjectTestCase.class
+                    .getResourceAsStream(elementFile));
         }
     }
 

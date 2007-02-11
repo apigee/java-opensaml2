@@ -26,12 +26,12 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.MessageDecoder;
 import org.opensaml.common.binding.SecurityPolicy;
-import org.opensaml.common.xml.ParserPoolManager;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.security.TrustEngine;
 import org.w3c.dom.Document;
@@ -43,30 +43,51 @@ import org.w3c.dom.Document;
  */
 public abstract class AbstractMessageDecoder<RequestType extends ServletRequest> implements MessageDecoder<RequestType> {
     
-    /** Class logger */
-    public final static Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
+    /** Class logger. */
+    private static Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
 
-    /** Issuer of the request */
+    /** Pool of parsers used to parse XML messages. */
+    private ParserPool parser;
+    
+    /** Issuer of the request. */
     private String issuer;
     
-    /** Role the issuer is acting in */
+    /** Role the issuer is acting in. */
     private RoleDescriptor issuerMetadata;
     
-    /** Metadata provider used to lookup information about the issuer */
+    /** Metadata provider used to lookup information about the issuer. */
     private MetadataProvider metadataProvider;
     
-    /** Request to decode */
+    /** Request to decode. */
     private RequestType request;
     
-    /** Decoded SAML message */
+    /** Decoded SAML message. */
     private SAMLObject message;
     
-    /** Security policy to apply to the request and payload */
+    /** Security policy to apply to the request and payload. */
     private SecurityPolicy<RequestType> securityPolicy;
     
-    /** Trust engine used to validate request credentials */
+    /** Trust engine used to validate request credentials. */
     private TrustEngine trustEngine;
-
+    
+    /**
+     * Gets the pool of parsers to use to parse XML.
+     * 
+     * @return pool of parsers to use to parse XML
+     */
+    public ParserPool getParserPool(){
+        return parser;
+    }
+    
+    /**
+     * Sets the pool of parsers to use to parse XML.
+     * 
+     * @param pool pool of parsers to use to parse XML
+     */
+    public void setParserPool(ParserPool pool){
+        parser = pool;
+    }
+    
     /** {@inheritDoc} */
     public String getIssuer() {
         return issuer;
@@ -105,38 +126,38 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
     /**
      * Sets the issuer of the request.
      * 
-     * @param issuer issuer of the request
+     * @param newIssuer issuer of the request
      */
-    protected void setIssuer(String issuer){
-        this.issuer = issuer;
+    protected void setIssuer(String newIssuer){
+        issuer = newIssuer;
     }
     
     /**
      * Sets the request issuer's role metadata.
      * 
-     * @param issuerMetadata request issuer's role metadata
+     * @param newMetadata request issuer's role metadata
      */
-    protected void setIssuerMetadata(RoleDescriptor issuerMetadata){
-        this.issuerMetadata = issuerMetadata;
+    protected void setIssuerMetadata(RoleDescriptor newMetadata){
+        issuerMetadata = newMetadata;
     }
 
     /** {@inheritDoc} */
-    public void setMetadataProvider(MetadataProvider metadataProvider) {
-        this.metadataProvider = metadataProvider;
+    public void setMetadataProvider(MetadataProvider newProvider) {
+        metadataProvider = newProvider;
     }
 
     /** {@inheritDoc} */
-    public void setRequest(RequestType request) {
-        this.request = request;
+    public void setRequest(RequestType newRequest) {
+        request = newRequest;
     }
     
     /**
      * Sets the decoded SAML message.
      * 
-     * @param message decoded SAML message
+     * @param newMessage decoded SAML message
      */
-    protected void setSAMLMessage(SAMLObject message){
-        this.message = message;
+    protected void setSAMLMessage(SAMLObject newMessage){
+        message = newMessage;
     }
 
     /** {@inheritDoc} */
@@ -145,12 +166,12 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
     }
 
     /** {@inheritDoc} */
-    public void setTrustEngine(TrustEngine trustEngine) {
-        this.trustEngine = trustEngine;
+    public void setTrustEngine(TrustEngine newEngine) {
+        trustEngine = newEngine;
     }
     
     /** {@inheritDoc} */
-    abstract public void decode() throws BindingException;
+    public abstract void decode() throws BindingException;
 
 
     /**
@@ -171,7 +192,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
             if (log.isDebugEnabled()) {
                 log.debug("Parsing message XML into a DOM");
             }
-            Document domMessage = ParserPoolManager.getInstance().parse(samlMessage);
+            Document domMessage = parser.parse(samlMessage);
             
             if(log.isDebugEnabled()){
                 log.debug("Unmarshalling DOM");
