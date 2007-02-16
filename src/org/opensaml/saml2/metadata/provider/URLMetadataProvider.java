@@ -46,52 +46,40 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class URLMetadataProvider extends AbstractObservableMetadataProvider {
 
-    /** Logger */
+    /** Cached, filtered, unmarshalled metadata. */
+    protected XMLObject cachedMetadata;
+    
+    /** Class logger. */
     private final Logger log = Logger.getLogger(URLMetadataProvider.class);
 
-    /** URL to the Metadata */
+    /** URL to the Metadata. */
     private URI metadataURI;
 
-    /** Whether cached metadata should be discarded if it expires and can't be refreshed */
+    /** Whether cached metadata should be discarded if it expires and can't be refreshed. */
     private boolean maintainExpiredMetadata;
 
-    /** HTTP Client used to pull the metadata */
+    /** HTTP Client used to pull the metadata. */
     private HttpClient httpClient;
 
-    /** URL scope that requires authentication */
+    /** URL scope that requires authentication. */
     private AuthScope authScope;
 
-    /** Cached, filtered, unmarshalled metadata */
-    protected XMLObject cachedMetadata;
+    /** Maximum amount of time to keep metadata cached. */
+    private int maxCacheDuration;
 
-    /** Maximum amount of time to keep metadata cached */
-    private long maxCacheDuration;
-
-    /** When the cached metadata becomes stale */
+    /** When the cached metadata becomes stale. */
     private DateTime mdExpirationTime;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param metadataURL the URL to fetch the metadata
      * @param requestTimeout the time, in milliseconds, to wait for the metadata server to respond
      * 
-     * @throws MetadataProviderException thrown if the URL is not a valid URL or the metadata can not be retrieved from the URL
+     * @throws MetadataProviderException thrown if the URL is not a valid URL or the metadata can not be retrieved from
+     *             the URL
      */
-    public URLMetadataProvider(String metadataURL, int requestTimeout) throws MetadataProviderException {
-        this(metadataURL, requestTimeout, true);
-    }
-    
-    /**
-     * Constructor
-     * 
-     * @param metadataURL the URL to fetch the metadata
-     * @param requestTimeout the time, in milliseconds, to wait for the metadata server to respond
-     * @param fetchMetadata whether to fetch the metadata during construction or not
-     * 
-     * @throws MetadataProviderException thrown if the URL is not a valid URL or the metadata can not be retrieved from the URL
-     */
-    protected URLMetadataProvider(String metadataURL, int requestTimeout, boolean fetchMetadata) throws MetadataProviderException {
+    protected URLMetadataProvider(String metadataURL, int requestTimeout) throws MetadataProviderException {
         super();
         try {
             metadataURI = new URI(metadataURL);
@@ -102,14 +90,20 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
             httpClient = new HttpClient(clientParams);
             authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
 
-            maxCacheDuration = 1000 * 60 * 60 * 24; // 24 hours
-
-            if(fetchMetadata){
-                refreshMetadata();
-            }
+            // 24 hours
+            maxCacheDuration = 1000 * 60 * 60 * 24;
         } catch (URISyntaxException e) {
             throw new MetadataProviderException("Illegal URL syntax", e);
         }
+    }
+
+    /**
+     * Initializes the provider and prepares it for use.
+     * 
+     * @throws MetadataProviderException thrown if there is a problem fetching, parsing, or processing the metadata
+     */
+    public void initialize() throws MetadataProviderException {
+        refreshMetadata();
     }
 
     /**
@@ -131,12 +125,12 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
     }
 
     /**
-     * Sets whether cached metadata should be discarded if it expires and can not be refreshed
+     * Sets whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
-     * @param maintainExpiredMetadata whether cached metadata should be discarded if it expires and can not be refreshed
+     * @param maintain whether cached metadata should be discarded if it expires and can not be refreshed
      */
-    public void setMaintainExpiredMetadata(boolean maintainExpiredMetadata) {
-        this.maintainExpiredMetadata = maintainExpiredMetadata;
+    public void setMaintainExpiredMetadata(boolean maintain) {
+        maintainExpiredMetadata = maintain;
     }
 
     /**
@@ -166,8 +160,9 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
 
     /**
      * Sets the socket factory used to create sockets to the HTTP server. See
-     * @see http://jakarta.apache.org/commons/httpclient/sslguide.html for how to use this to perform SSL/TLS
-     * client cert authentication to the server.
+     * 
+     * @see http://jakarta.apache.org/commons/httpclient/sslguide.html for how to use this to perform SSL/TLS client
+     *      cert authentication to the server.
      * 
      * @param newSocketFactory the socket factory used to produce sockets used to connect to the server
      */
@@ -181,20 +176,20 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
     }
 
     /**
-     * Gets the maximum amount of time, in milliseconds, metadata will be cached for.
+     * Gets the maximum amount of time, in seconds, metadata will be cached for.
      * 
      * @return the maximum amount of time metadata will be cached for
      */
-    public long getMaxCacheDuration() {
+    public int getMaxCacheDuration() {
         return maxCacheDuration;
     }
 
     /**
-     * Sets the maximum amount of time, in milliseconds, metadata will be cached for.
+     * Sets the maximum amount of time, in seconds, metadata will be cached for.
      * 
      * @param newDuration the maximum amount of time metadata will be cached for
      */
-    public void setMaxDuration(long newDuration) {
+    public void setMaxCacheDuration(int newDuration) {
         maxCacheDuration = newDuration;
     }
 
@@ -236,7 +231,7 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
             cachedMetadata = fetchMetadata();
 
             filterMetadata(cachedMetadata);
-            
+
             releaseMetadataDOM(cachedMetadata);
 
             if (log.isDebugEnabled()) {
@@ -244,12 +239,12 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
             }
 
             DateTime now = new DateTime();
-            mdExpirationTime = SAML2Helper.getEarliestExpiration(cachedMetadata, now.plus(maxCacheDuration), now);
+            mdExpirationTime = SAML2Helper.getEarliestExpiration(cachedMetadata, now.plus(maxCacheDuration*1000), now);
 
             if (log.isDebugEnabled()) {
                 log.debug("Metadata cache expires on " + mdExpirationTime);
             }
-            
+
             emitChangeEvent();
         } catch (IOException e) {
             String errorMsg = "Unable to read metadata from server";
@@ -265,7 +260,7 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
             throw new MetadataProviderException(errorMsg, e);
         }
     }
-    
+
     /**
      * Fetches the metadata from the remote server and unmarshalls it.
      * 
@@ -274,7 +269,7 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
      * @throws IOException thrown if the metadata can not be fetched from the remote server
      * @throws UnmarshallingException thrown if the metadata can not be unmarshalled
      */
-    protected XMLObject fetchMetadata() throws IOException, UnmarshallingException{
+    protected XMLObject fetchMetadata() throws IOException, UnmarshallingException {
         if (log.isDebugEnabled()) {
             log.debug("Fetching metadata document from remote server");
         }
@@ -286,18 +281,17 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
             getMethod.setDoAuthentication(true);
         }
         httpClient.executeMethod(getMethod);
-        
-        
+
         if (log.isTraceEnabled()) {
             log.trace("Retrieved the following metadata document\n" + getMethod.getResponseBodyAsString());
         }
-        
+
         XMLObject metadata = unmarshallMetadata(getMethod.getResponseBodyAsStream());
-        
-        if(log.isDebugEnabled()){
+
+        if (log.isDebugEnabled()) {
             log.debug("Unmarshalled metadata from remote server");
         }
         return metadata;
-        
+
     }
 }

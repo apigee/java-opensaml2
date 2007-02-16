@@ -55,7 +55,7 @@ public class FileBackedURLMetadataProvider extends URLMetadataProvider {
      */
     public FileBackedURLMetadataProvider(String metadataURL, int requestTimeout, String backingFilePath)
             throws MetadataProviderException {
-        super(metadataURL, requestTimeout, false);
+        super(metadataURL, requestTimeout);
 
         metadataBackupFile = new File(backingFilePath);
         if (metadataBackupFile.exists()) {
@@ -79,8 +79,6 @@ public class FileBackedURLMetadataProvider extends URLMetadataProvider {
                 throw new MetadataProviderException("Unable to create backing file");
             }
         }
-        
-        refreshMetadata();
     }
     
     /**

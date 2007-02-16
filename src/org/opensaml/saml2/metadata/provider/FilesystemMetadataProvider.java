@@ -30,49 +30,61 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class FilesystemMetadataProvider extends AbstractObservableMetadataProvider {
 
-    /** Logger */
-    private final Logger log = Logger.getLogger(FilesystemMetadataProvider.class);
+    /** Class logger. */
+    private static Logger log = Logger.getLogger(FilesystemMetadataProvider.class);
 
-    /** The metadata file */
+    /** The metadata file. */
     private File metadataFile;
 
-    /** Whether cached metadata should be discarded if it expires and can't be refreshed */
+    /** Whether cached metadata should be discarded if it expires and can't be refreshed. */
     private boolean maintainExpiredMetadata;
 
-    /** Last time the cached metadata was updated */
+    /** Last time the cached metadata was updated. */
     private long lastUpdate;
 
-    /** Cached metadata */
+    /** Cached metadata. */
     private XMLObject cachedMetadata;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param metadataFile the metadata file
+     * @param metadata the metadata file
      * 
      * @throws MetadataProviderException thrown if the given file path is null, does not exist, does not represent a
      *             file, or if the metadata can not be parsed
      */
-    public FilesystemMetadataProvider(File metadataFile) throws MetadataProviderException {
+    public FilesystemMetadataProvider(File metadata) throws MetadataProviderException {
         super();
 
-        if (metadataFile == null) {
+        if (metadata == null) {
             throw new MetadataProviderException("Give metadata file may not be null");
         }
 
-        if (!metadataFile.exists()) {
-            throw new MetadataProviderException("Give metadata file, " + metadataFile.getAbsolutePath()
+        if (!metadata.exists()) {
+            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath()
                     + " does not exist");
         }
 
-        if (!metadataFile.isFile()) {
-            throw new MetadataProviderException("Give metadata file, " + metadataFile.getAbsolutePath()
+        if (!metadata.isFile()) {
+            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath()
                     + " is not a file");
         }
+        
+        if(!metadata.canRead()){
+            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath()
+                    + " is not readable");
+        }
 
-        this.metadataFile = metadataFile;
+        metadataFile = metadata;
         maintainExpiredMetadata = true;
-
+    }
+    
+    /**
+     * Initializes the provider and prepares it for use.
+     * 
+     * @throws MetadataProviderException thrown if there is a problem reading, parsing, or validating the metadata
+     */
+    public void initialize() throws MetadataProviderException{
         refreshMetadata();
     }
 
@@ -86,12 +98,12 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
     }
 
     /**
-     * Sets whether cached metadata should be discarded if it expires and can not be refreshed
+     * Sets whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
-     * @param maintainExpiredMetadata whether cached metadata should be discarded if it expires and can not be refreshed
+     * @param maintain whether cached metadata should be discarded if it expires and can not be refreshed
      */
-    public void setMaintainExpiredMetadata(boolean maintainExpiredMetadata) {
-        this.maintainExpiredMetadata = maintainExpiredMetadata;
+    public void setMaintainExpiredMetadata(boolean maintain) {
+        maintainExpiredMetadata = maintain;
     }
 
     /** {@inheritDoc} */
@@ -111,6 +123,8 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
 
     /**
      * Retrieves, unmarshalls, and filters the metadata from the metadata file.
+     * 
+     * @throws MetadataProviderException thrown if there is a problem reading, parsing, or validating the metadata
      */
     private synchronized void refreshMetadata() throws MetadataProviderException {
         if (lastUpdate >= metadataFile.lastModified()) {
