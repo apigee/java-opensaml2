@@ -34,7 +34,7 @@ public interface MetadataProvider {
     /**
      * Gets whether the metadata returned by queries must be valid. At a minimum, metadata is valid only if the date
      * expressed in entity's validUntil attribute has not passed. Specific implementations may add additional
-     * constratins.
+     * constraints.
      * 
      * @return whether the metadata returned by queries must be valid
      */
@@ -48,7 +48,7 @@ public interface MetadataProvider {
     public void setRequireValidMetadata(boolean requireValidMetadata);
 
     /**
-     * Gets the metadata filter applied to the metadata. ьз
+     * Gets the metadata filter applied to the metadata.
      * 
      * @return the metadata filter applied to the metadata
      */
