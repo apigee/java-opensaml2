@@ -42,6 +42,8 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
         File mdFile = new File(mdURL.toURI());
         
         metadataProvider = new FilesystemMetadataProvider(mdFile);
+        metadataProvider.setParserPool(parser);
+        metadataProvider.initialize();
     }
 
     /**

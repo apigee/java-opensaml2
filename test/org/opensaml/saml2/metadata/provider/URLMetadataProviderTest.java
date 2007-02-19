@@ -44,6 +44,8 @@ public class URLMetadataProviderTest extends BaseTestCase {
         entityID = "urn:mace:incommon:washington.edu";
         supportedProtocol ="urn:oasis:names:tc:SAML:1.1:protocol";
         metadataProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
+        metadataProvider.setParserPool(parser);
+        metadataProvider.initialize();
     }
     
     /**

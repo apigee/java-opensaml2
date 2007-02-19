@@ -42,11 +42,17 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
         metadataProvider = new ChainingMetadataProvider();
         
         String inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
-        metadataProvider.addMetadataProvider(new URLMetadataProvider(inCommonMDURL, 1000 * 5));
+        URLMetadataProvider urlProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
+        urlProvider.setParserPool(parser);
+        urlProvider.initialize();
+        metadataProvider.addMetadataProvider(urlProvider);
         
         URL mdURL = FilesystemMetadataProviderTest.class.getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
         File mdFile = new File(mdURL.toURI());
-        metadataProvider.addMetadataProvider(new FilesystemMetadataProvider(mdFile));
+        FilesystemMetadataProvider fileProvider = new FilesystemMetadataProvider(mdFile);
+        fileProvider.setParserPool(parser);
+        fileProvider.initialize();
+        metadataProvider.addMetadataProvider(fileProvider);
     }
     
     /**

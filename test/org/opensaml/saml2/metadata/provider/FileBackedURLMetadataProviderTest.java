@@ -42,6 +42,8 @@ public class FileBackedURLMetadataProviderTest extends BaseTestCase {
         badMDURL = "http://www.google.com/";
         backupFilePath = "metadata.xml";
         metadataProvider = new FileBackedURLMetadataProvider(inCommonMDURL, 1000 * 5, backupFilePath);
+        metadataProvider.setParserPool(parser);
+        metadataProvider.initialize();
     }
 
     /** {@inheritDoc} */
@@ -64,6 +66,8 @@ public class FileBackedURLMetadataProviderTest extends BaseTestCase {
         // Test pulling it from the backup file
         FileBackedURLMetadataProvider badProvider = new FileBackedURLMetadataProvider(badMDURL, 1000 * 5,
                 backupFilePath);
+        badProvider.setParserPool(parser);
+        badProvider.initialize();
         assertNotNull(badProvider.getMetadata());
     }
 }
