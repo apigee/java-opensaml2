@@ -26,8 +26,11 @@ import org.opensaml.xml.security.TrustEngine;
 /**
  * Decodes a SAML message in a binding specific mannger. The decode() method should be run before any accessor methods
  * are called.
+ * 
+ * @param <RequestType> type of incoming protocol request
+ * @param <IssuerType> the message issuer type
  */
-public interface MessageDecoder<RequestType extends ServletRequest>{
+public interface MessageDecoder<RequestType extends ServletRequest, IssuerType>{
     
     /**
      * Gets the request to decode.
@@ -69,14 +72,14 @@ public interface MessageDecoder<RequestType extends ServletRequest>{
      * 
      * @return security policy to apply to the request and its payload
      */
-    public SecurityPolicy<RequestType> getSecurityPolicy();
+    public SecurityPolicy<RequestType, IssuerType> getSecurityPolicy();
     
     /**
      * Sets the security policy to apply to the request and its payload.
      * 
      * @param policy security policy to apply to the request and its payload
      */
-    public void setSecurityPolicy(SecurityPolicy<RequestType> policy);
+    public void setSecurityPolicy(SecurityPolicy<RequestType, IssuerType> policy);
     
     /**
      * Sets the the trust engine used to verify the credentials of a request.
@@ -104,7 +107,7 @@ public interface MessageDecoder<RequestType extends ServletRequest>{
      * 
      * @return issuer of the message
      */
-    public String getIssuer();
+    public IssuerType getIssuer();
 
     /**
      * Gets the role metdata for the issuer of the decoded message.

@@ -30,20 +30,22 @@ import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * Message decoder implementing the SAML 2.0 HTTP POST profile.
+ * 
+ * @param <IssuerType> the message issuer type
  */
-public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
+public class HTTPPostDecoder<IssuerType> extends AbstractHTTPMessageDecoder<IssuerType> {
 
-    /** Class logger */
-    public final static Logger log = Logger.getLogger(HTTPPostDecoder.class);
+    /** Class logger. */
+    public static final Logger log = Logger.getLogger(HTTPPostDecoder.class);
 
-    /** HTTP request param name for SAML request */
-    public final static String REQUEST_PARAM = "SAMLRequest";
+    /** HTTP request param name for SAML request. */
+    public static final String REQUEST_PARAM = "SAMLRequest";
 
-    /** HTTP request param name for SAML response */
-    public final static String RESPONSE_PARAM = "SAMLResponse";
+    /** HTTP request param name for SAML response. */
+    public static final String RESPONSE_PARAM = "SAMLResponse";
 
-    /** HTTP request param name for relay state */
-    public final static String RELAY_STATE_PARAM = "RelayState";
+    /** HTTP request param name for relay state. */
+    public static final String RELAY_STATE_PARAM = "RelayState";
 
     /** {@inheritDoc} */
     public void decode() throws BindingException {
@@ -68,8 +70,6 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
 
     /**
      * Gets the Base64 encoded message from the request and decodes it.
-     * 
-     * @param request HTTP request that carries the base64 encoded message
      * 
      * @return decoded message
      * 

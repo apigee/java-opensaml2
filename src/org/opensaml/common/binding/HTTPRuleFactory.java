@@ -18,7 +18,10 @@ package org.opensaml.common.binding;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.ws.security.SecurityPolicyContext;
+import org.opensaml.ws.security.SecurityPolicyException;
+import org.opensaml.ws.security.SecurityPolicyRule;
+import org.opensaml.ws.security.SecurityPolicyRuleFactory;
 import org.opensaml.xml.XMLObject;
 
 /**
@@ -34,22 +37,24 @@ import org.opensaml.xml.XMLObject;
  * </ul>
  * 
  * Any option that is not set is not evaluated.
+ * 
+ * @param <IssuerType> the message issuer type
  */
-public class HTTPRuleFactory implements SecurityPolicyRuleFactory<HttpServletRequest> {
+public class HTTPRuleFactory<IssuerType> implements SecurityPolicyRuleFactory<HttpServletRequest, IssuerType> {
 
-    /** Expected content type of the request */
+    /** Expected content type of the request. */
     private String contentType;
 
-    /** Expected method of the request */
+    /** Expected method of the request. */
     private String requestMethod;
 
-    /** Expected character encoding of the request */
+    /** Expected character encoding of the request. */
     private String characterEncoding;
 
-    /** Expected scheme of the request */
+    /** Expected scheme of the request. */
     private String requestScheme;
 
-    /** Whether the request must be secure */
+    /** Whether the request must be secure. */
     private boolean requireSecured;
 
     /**
@@ -143,7 +148,7 @@ public class HTTPRuleFactory implements SecurityPolicyRuleFactory<HttpServletReq
     }
 
     /** {@inheritDoc} */
-    public SecurityPolicyRule<HttpServletRequest> createRuleInstance() {
+    public SecurityPolicyRule<HttpServletRequest, IssuerType> createRuleInstance() {
         return new HTTPRule(getContentType(), getCharacterEncoding(), getRequestScheme(), getRequestMethod(),
                 isRequireSecured());
     }
@@ -151,25 +156,25 @@ public class HTTPRuleFactory implements SecurityPolicyRuleFactory<HttpServletReq
     /**
      * Policy rule for checking basic HTTP request requirements.
      */
-    protected class HTTPRule implements SecurityPolicyRule<HttpServletRequest> {
+    protected class HTTPRule implements SecurityPolicyRule<HttpServletRequest, IssuerType> {
 
-        /** Expected content type of the request */
+        /** Expected content type of the request. */
         private String contentType;
 
-        /** Expected method of the request */
+        /** Expected method of the request. */
         private String requestMethod;
 
-        /** Expected character encoding of the request */
+        /** Expected character encoding of the request. */
         private String characterEncoding;
 
-        /** Expected scheme of the request */
+        /** Expected scheme of the request. */
         private String requestScheme;
 
-        /** Whether the request must be secure */
+        /** Whether the request must be secure. */
         private boolean requireSecured;
 
         /**
-         * Constructor
+         * Constructor.
          * 
          * @param contentType expected content type
          * @param characterEncoding expected character encoding
@@ -187,50 +192,41 @@ public class HTTPRuleFactory implements SecurityPolicyRuleFactory<HttpServletReq
         }
 
         /** {@inheritDoc} */
-        public void evaluate(HttpServletRequest request, XMLObject message) throws BindingException {
+        public void evaluate(HttpServletRequest request, XMLObject message, SecurityPolicyContext<IssuerType> context) 
+                throws SecurityPolicyException {
             if (contentType != null) {
                 if (!request.getContentType().contains(contentType)) {
-                    throw new BindingException("Invalid content type, expected " + contentType + " but was "
+                    throw new SecurityPolicyException("Invalid content type, expected " + contentType + " but was "
                             + request.getContentType());
                 }
             }
 
             if (characterEncoding != null) {
                 if (!request.getCharacterEncoding().equals(characterEncoding)) {
-                    throw new BindingException("Invalid character encoding, expected " + characterEncoding
+                    throw new SecurityPolicyException("Invalid character encoding, expected " + characterEncoding
                             + " but was " + request.getCharacterEncoding());
                 }
             }
 
             if (requestScheme != null) {
                 if (!request.getScheme().equals(requestScheme)) {
-                    throw new BindingException("Invalid request scheme, expected " + requestScheme + " but was "
+                    throw new SecurityPolicyException("Invalid request scheme, expected " + requestScheme + " but was "
                             + request.getScheme());
                 }
             }
 
             if (requestMethod != null) {
                 if (!request.getMethod().equals(requestMethod)) {
-                    throw new BindingException("Invalid request method, expected " + requestMethod + " but was "
+                    throw new SecurityPolicyException("Invalid request method, expected " + requestMethod + " but was "
                             + request.getMethod());
                 }
             }
 
             if (requireSecured) {
                 if (!request.isSecure()) {
-                    throw new BindingException("Request was required to be secured but was not");
+                    throw new SecurityPolicyException("Request was required to be secured but was not");
                 }
             }
-        }
-
-        /** {@inheritDoc} */
-        public String getIssuer() {
-            return null;
-        }
-        
-        /** {@inheritDoc} */
-        public RoleDescriptor getIssuerMetadata() {
-            return null;
         }
     }
 }

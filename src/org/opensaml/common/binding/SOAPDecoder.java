@@ -24,9 +24,13 @@ import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Base interface for SAML SOAP bindings
+ * Base interface for SAML SOAP bindings.
+ * 
+ * @param <RequestType> type of incoming protocol request
+ * @param <IssuerType> the message issuer type
  */
-public interface SOAPDecoder<RequesetType extends ServletRequest> extends MessageDecoder<RequesetType> {
+public interface SOAPDecoder<RequestType extends ServletRequest, IssuerType> 
+        extends MessageDecoder<RequestType, IssuerType> {
 
     /**
      * Gets the SOAP version to use.

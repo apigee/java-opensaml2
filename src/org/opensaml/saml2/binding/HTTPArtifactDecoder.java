@@ -24,21 +24,24 @@ import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.SAMLArtifact;
 import org.opensaml.common.binding.SAMLArtifactFactory;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageDecoder;
+import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * SAML 2 Artifact Binding decoder, support both HTTP GET and POST.
+ * 
+ * @param <IssuerType> the message issuer type
  */
-public class HTTPArtifactDecoder extends AbstractHTTPMessageDecoder {
+public class HTTPArtifactDecoder<IssuerType> extends AbstractHTTPMessageDecoder<IssuerType> {
 
-    /** Class logger */
+    /** Class logger. */
     private final static Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
     
-    /** Factory for building artifacts */
+    /** Factory for building artifacts. */
     private SAMLArtifactFactory artifactFactory;
 
-    /** Artifact generated for the given SAML message */
+    /** Artifact generated for the given SAML message. */
     private SAMLArtifact artifact;
 
     /**
@@ -76,7 +79,11 @@ public class HTTPArtifactDecoder extends AbstractHTTPMessageDecoder {
         HttpServletRequest request = getRequest();
 
         if (getSecurityPolicy() != null) {
-            getSecurityPolicy().evaluate(getRequest(), null);
+            try {
+                getSecurityPolicy().evaluate(getRequest(), null);
+            } catch (SecurityPolicyException e) {
+                throw new BindingException("Security policy evaluation failed while decoding HTTP artifact message", e);
+            }
         }
 
         setHttpMethod(request.getMethod());

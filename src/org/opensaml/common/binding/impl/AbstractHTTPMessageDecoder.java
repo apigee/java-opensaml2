@@ -24,16 +24,20 @@ import org.opensaml.common.binding.HTTPMessageDecoder;
 
 /**
  * Base class for HTTP message decoders handling much of boilerplate code.
+ * 
+ * @param <IssuerType> the message issuer type
  */
-public abstract class AbstractHTTPMessageDecoder extends AbstractMessageDecoder<HttpServletRequest> implements HTTPMessageDecoder {
+public abstract class AbstractHTTPMessageDecoder<IssuerType> 
+        extends AbstractMessageDecoder<HttpServletRequest, IssuerType> 
+        implements HTTPMessageDecoder<IssuerType> {
     
-    /** Class logger */
-    public final static Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
+    /** Class logger. */
+    public static final Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
 
-    /** HTTP method used in the request */
+    /** HTTP method used in the request. */
     protected String httpMethod;
     
-    /** Request relay state */
+    /** Request relay state. */
     protected String relayState;    
     
     /** {@inheritDoc} */
@@ -65,5 +69,5 @@ public abstract class AbstractHTTPMessageDecoder extends AbstractMessageDecoder<
     }
 
     /** {@inheritDoc} */
-    abstract public void decode() throws BindingException;
+    public abstract void decode() throws BindingException;
 }

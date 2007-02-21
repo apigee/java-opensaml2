@@ -30,11 +30,13 @@ import org.opensaml.xml.XMLObject;
 
 /**
  * SAML 2.0 SOAP 1.1 over HTTP binding decoder.
+ * 
+ * @param <IssuerType> the message issuer type
  */
-public class HTTPSOAP11Decoder extends AbstractSOAPHTTPDecoder {
+public class HTTPSOAP11Decoder<IssuerType> extends AbstractSOAPHTTPDecoder<IssuerType> {
 
-    /** Class logger */
-    private final static Logger log = Logger.getLogger(HTTPSOAP11Decoder.class);
+    /** Class logger. */
+    private static final Logger log = Logger.getLogger(HTTPSOAP11Decoder.class);
 
     /** {@inheritDoc} */
     public void decode() throws BindingException {

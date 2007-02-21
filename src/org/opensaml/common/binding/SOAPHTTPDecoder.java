@@ -20,7 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Binding of SOAP to HTTP.
+ * 
+ * @param <IssuerType> the message issuer type
  */
-public interface SOAPHTTPDecoder extends SOAPDecoder<HttpServletRequest>, HTTPMessageDecoder {
+public interface SOAPHTTPDecoder<IssuerType> 
+    extends SOAPDecoder<HttpServletRequest, IssuerType>, HTTPMessageDecoder<IssuerType> {
 
 }

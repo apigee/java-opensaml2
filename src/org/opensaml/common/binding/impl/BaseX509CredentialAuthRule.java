@@ -22,26 +22,24 @@ import java.util.List;
 import javax.servlet.ServletRequest;
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.SecurityPolicyRule;
-import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
-import org.opensaml.security.MetadataKeyInfoSource;
+import org.opensaml.ws.security.SecurityPolicyContext;
+import org.opensaml.ws.security.SecurityPolicyException;
+import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.security.EntityCredentialTrustEngine;
-import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.UsageType;
 import org.opensaml.xml.security.X509EntityCredential;
 import org.opensaml.xml.security.X509KeyInfoResolver;
-import org.opensaml.xml.security.X509Util;
 
 /**
  * Policy rule that checks if the client cert used to authenticate the request is valid and trusted.
  * 
  * @param <RequestType> type of request to extract the credential from
+ * @param <IssuerType> the message issuer type
  */
-public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequest> implements
-        SecurityPolicyRule<RequestType> {
+public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequest, IssuerType> 
+        implements SecurityPolicyRule<RequestType, IssuerType> {
 
     /** Metadata provider to lookup issuer information. */
     private MetadataProvider metadataProvider;
@@ -60,12 +58,6 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
 
     /** The message protocol used by the issuer. */
     private String issuerProtocol;
-
-    /** Issuer as determined by this rule. */
-    private String issuer;
-
-    /** Role the issuer is operating in. */
-    private RoleDescriptor issuerMetadata;
 
     /**
      * Constructor.
@@ -136,35 +128,8 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
     }
 
     /** {@inheritDoc} */
-    public String getIssuer() {
-        return issuer;
-    }
-
-    /**
-     * Sets the issuer of the message.
-     * 
-     * @param messageIssuer issuer of the message
-     */
-    protected void setIssuer(String messageIssuer) {
-        issuer = messageIssuer;
-    }
-
-    /** {@inheritDoc} */
-    public RoleDescriptor getIssuerMetadata() {
-        return issuerMetadata;
-    }
-
-    /**
-     * Sets the metadata for the issuer of the message.
-     * 
-     * @param issuerRoleDescriptor metadata for the issuer of the message
-     */
-    protected void setIssuerMetadata(RoleDescriptor issuerRoleDescriptor) {
-        issuerMetadata = issuerRoleDescriptor;
-    }
-
-    /** {@inheritDoc} */
-    public abstract void evaluate(RequestType request, XMLObject message) throws BindingException;
+    public abstract void evaluate(RequestType request, XMLObject message, SecurityPolicyContext<IssuerType> context) 
+            throws SecurityPolicyException;
 
     /**
      * Evaluates the given X509 entity credential against the given keying information.
@@ -174,11 +139,14 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * 
      * @return the issuer of the message as extracted from the entity credential
      * 
-     * @throws BindingException thrown if there is a problem getting key information or evalauting the trustworthiness
-     *             of the credential
+     * @throws SecurityPolicyException thrown if there is a problem getting key 
+     *           information or evalauting the trustworthiness of the credential
      */
-    protected String evaluateCredential(X509EntityCredential credential, XMLObject message) throws BindingException {
-        List issuerNames = X509Util.getSubjectNames(credential.getEntityCertificate(),
+    protected IssuerType evaluateCredential(X509EntityCredential credential, XMLObject message) 
+            throws SecurityPolicyException {
+        //TODO - this logic is wrong, need to reassess
+        //     - also need to make work with generic IssuerType
+     /*   List issuerNames = X509Util.getSubjectNames(credential.getEntityCertificate(),
                 BaseX509CredentialAuthRuleFactory.SUBJECT_ALT_NAMES);
 
         for (Object issuerName : issuerNames) {
@@ -191,10 +159,12 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
                 }
                 
             } catch (SecurityException e) {
-                throw new BindingException("Unable to validate credential", e);
+                throw new SecurityPolicyException("Unable to validate credential", e);
             }
         }
 
-        throw new BindingException("Issuer can bot be located in metadata");
+        throw new SecurityPolicyException("Issuer can bot be located in metadata");
+        */
+        return null;
     }
 }

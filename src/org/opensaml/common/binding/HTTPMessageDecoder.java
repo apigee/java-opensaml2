@@ -20,8 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Base interface for HTTP specific SAML bindings.
+ * 
+ * @param <IssuerType> the message issuer type
  */
-public interface HTTPMessageDecoder extends MessageDecoder<HttpServletRequest> {
+public interface HTTPMessageDecoder<IssuerType> extends MessageDecoder<HttpServletRequest, IssuerType> {
 
     /**
      * Gets the HTTP method used in the request.  Possible values are "GET" and "POST".
@@ -32,6 +34,8 @@ public interface HTTPMessageDecoder extends MessageDecoder<HttpServletRequest> {
     
     /**
      * Gets the relay state from the decoded message.
+     * 
+     * @return the relay state from the decoded message
      */
     public String getRelayState();
 }

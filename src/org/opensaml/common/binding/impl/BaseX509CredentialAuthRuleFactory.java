@@ -19,9 +19,9 @@ package org.opensaml.common.binding.impl;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.binding.SecurityPolicyRule;
-import org.opensaml.common.binding.SecurityPolicyRuleFactory;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
+import org.opensaml.ws.security.SecurityPolicyRule;
+import org.opensaml.ws.security.SecurityPolicyRuleFactory;
 import org.opensaml.xml.security.EntityCredentialTrustEngine;
 import org.opensaml.xml.security.X509EntityCredential;
 import org.opensaml.xml.security.X509KeyInfoResolver;
@@ -32,8 +32,11 @@ import org.opensaml.xml.security.X509Util;
  * rule identifies the issuer as the entity identified by the cert's DN common name or subject alt names that match an
  * entity within the metadata from the given provider and where the trust engine validates the entity cert against the
  * information given in the assumed issuer's metadata.
+ * 
+ * @param <IssuerType> the message issuer type
  */
-public abstract class BaseX509CredentialAuthRuleFactory implements SecurityPolicyRuleFactory<HttpServletRequest> {
+public abstract class BaseX509CredentialAuthRuleFactory<IssuerType> 
+        implements SecurityPolicyRuleFactory<HttpServletRequest, IssuerType> {
     
     /** Subject alt names checked by the rule produced. */
     public static final Integer[] SUBJECT_ALT_NAMES = {X509Util.DNS_ALT_NAME, X509Util.URI_ALT_NAME};
@@ -144,5 +147,5 @@ public abstract class BaseX509CredentialAuthRuleFactory implements SecurityPolic
     }
 
     /** {@inheritDoc} */
-    public abstract SecurityPolicyRule<HttpServletRequest> createRuleInstance();
+    public abstract SecurityPolicyRule<HttpServletRequest, IssuerType> createRuleInstance();
 }

@@ -19,8 +19,6 @@ package org.opensaml.saml2.binding;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.SecurityPolicyRule;
 import org.opensaml.common.binding.impl.BaseX509CredentialAuthRule;
 import org.opensaml.common.binding.impl.BaseX509CredentialAuthRuleFactory;
 import org.opensaml.saml2.core.Issuer;
@@ -28,6 +26,9 @@ import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.ws.security.HttpX509EntityCredential;
+import org.opensaml.ws.security.SecurityPolicyContext;
+import org.opensaml.ws.security.SecurityPolicyException;
+import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.security.EntityCredentialTrustEngine;
 import org.opensaml.xml.security.X509EntityCredential;
@@ -40,10 +41,10 @@ import org.opensaml.xml.util.DatatypeHelper;
  * entity within the metadata from the given provider and where the trust engine validates the entity cert against the
  * information given in the assumed issuer's metadata.
  */
-public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactory {
+public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactory<Issuer> {
 
     /** {@inheritDoc} */
-    public SecurityPolicyRule<HttpServletRequest> createRuleInstance() {
+    public SecurityPolicyRule<HttpServletRequest, Issuer> createRuleInstance() {
         return new ClientCertAuthRule(getMetadataProvider(), getTrustEngine(), getKeyResolver(), getIssuerRole(),
                 getIssuerProtocol());
     }
@@ -51,7 +52,7 @@ public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactor
     /**
      * Policy rule that checks if the client cert used to authenticate the request is valid and trusted.
      */
-    protected class ClientCertAuthRule extends BaseX509CredentialAuthRule<HttpServletRequest> {
+    protected class ClientCertAuthRule extends BaseX509CredentialAuthRule<HttpServletRequest, Issuer> {
         
         /**
          * Constructor.
@@ -69,13 +70,17 @@ public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactor
         }
 
         /** {@inheritDoc} */
-        public void evaluate(HttpServletRequest request, XMLObject message) throws BindingException {
-            String requestIssuerName = evaluateCredential(new HttpX509EntityCredential(request), message);
-            String messageIssuerName = getSAML2IssuerName(message);
+        public void evaluate(HttpServletRequest request, 
+                             XMLObject message, 
+                             SecurityPolicyContext<Issuer> context) 
+                throws SecurityPolicyException {
+            //TODO re-evaluate all this code
+            Issuer requestIssuerName = evaluateCredential(new HttpX509EntityCredential(request), message);
+            Issuer messageIssuerName = getSAML2Issuer(message);
 
-            if (DatatypeHelper.safeEquals(requestIssuerName, messageIssuerName)) {
-                throw new BindingException("SAML 2 message issuer name does not match request issuer name");
-            }
+            //if (DatatypeHelper.safeEquals(requestIssuerName, messageIssuerName)) {
+            //    throw new SecurityPolicyException("SAML 2 message issuer does not match request issuer name");
+            //}
         }
 
         /**
@@ -85,9 +90,9 @@ public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactor
          * 
          * @return the issuer name from the SAML 2 message
          * 
-         * @throws BindingException thrown if the SAML 2 message does not contain a valid issuer name
+         * @throws SecurityPolicyException thrown if the SAML 2 message does not contain a valid issuer name
          */
-        private String getSAML2IssuerName(XMLObject message) throws BindingException {
+        private Issuer getSAML2Issuer(XMLObject message) throws SecurityPolicyException {
             Issuer issuer = null;
             if (message instanceof RequestAbstractType) {
                 issuer = ((RequestAbstractType) message).getIssuer();
@@ -96,9 +101,9 @@ public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactor
             }
 
             if (issuer == null || DatatypeHelper.isEmpty(issuer.getValue())) {
-                throw new BindingException("Expected SAML2 RequestAbstractType message does not contain a valid Issuer.");
+                throw new SecurityPolicyException("Expected SAML2 RequestAbstractType message does not contain a valid Issuer.");
             }
-            return issuer.getValue();
+            return issuer;
         }
     }
 }
