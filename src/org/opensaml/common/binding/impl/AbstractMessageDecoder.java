@@ -26,7 +26,6 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.MessageDecoder;
 import org.opensaml.common.binding.SecurityPolicy;
-import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.xml.XMLObject;
@@ -41,22 +40,15 @@ import org.w3c.dom.Document;
  * Base class for message decoder handling much of the boilerplate code.
  *
  * @param <RequestType> request type that will be decoded
- * @param <IssuerType> the message issuer type
  */
-public abstract class AbstractMessageDecoder<RequestType extends ServletRequest, IssuerType> 
-        implements MessageDecoder<RequestType, IssuerType> {
+public abstract class AbstractMessageDecoder<RequestType extends ServletRequest> 
+        implements MessageDecoder<RequestType> {
     
     /** Class logger. */
     private static Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
 
     /** Pool of parsers used to parse XML messages. */
     private ParserPool parser;
-    
-    /** Issuer of the request. */
-    private IssuerType issuer;
-    
-    /** Role the issuer is acting in. */
-    private RoleDescriptor issuerMetadata;
     
     /** Metadata provider used to lookup information about the issuer. */
     private MetadataProvider metadataProvider;
@@ -68,7 +60,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest,
     private SAMLObject message;
     
     /** Security policy to apply to the request and payload. */
-    private SecurityPolicy<RequestType, IssuerType> securityPolicy;
+    private SecurityPolicy securityPolicy;
     
     /** Trust engine used to validate request credentials. */
     private TrustEngine trustEngine;
@@ -90,16 +82,6 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest,
     public void setParserPool(ParserPool pool){
         parser = pool;
     }
-    
-    /** {@inheritDoc} */
-    public IssuerType getIssuer() {
-        return issuer;
-    }
-
-    /** {@inheritDoc} */
-    public RoleDescriptor getIssuerMetadata() {
-        return issuerMetadata;
-    }
 
     /** {@inheritDoc} */
     public MetadataProvider getMetadataProvider() {
@@ -117,31 +99,13 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest,
     }
 
     /** {@inheritDoc} */
-    public SecurityPolicy<RequestType, IssuerType> getSecurityPolicy() {
+    public SecurityPolicy getSecurityPolicy() {
         return securityPolicy;
     }
 
     /** {@inheritDoc} */
     public TrustEngine getTrustEngine() {
         return trustEngine;
-    }
-    
-    /**
-     * Sets the issuer of the request.
-     * 
-     * @param newIssuer issuer of the request
-     */
-    protected void setIssuer(IssuerType newIssuer){
-        issuer = newIssuer;
-    }
-    
-    /**
-     * Sets the request issuer's role metadata.
-     * 
-     * @param newMetadata request issuer's role metadata
-     */
-    protected void setIssuerMetadata(RoleDescriptor newMetadata){
-        issuerMetadata = newMetadata;
     }
 
     /** {@inheritDoc} */
@@ -164,7 +128,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest,
     }
 
     /** {@inheritDoc} */
-    public void setSecurityPolicy(SecurityPolicy<RequestType, IssuerType> policy) {
+    public void setSecurityPolicy(SecurityPolicy policy) {
         securityPolicy = policy;
     }
 
@@ -226,7 +190,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest,
             log.debug("Evaluating request and SAML message against security policy");
         }
         
-        SecurityPolicy<RequestType, IssuerType> policy = getSecurityPolicy();
+        SecurityPolicy policy = getSecurityPolicy();
         if(policy != null){
             try {
                 policy.evaluate(getRequest(), message);
@@ -234,8 +198,6 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest,
                 log.error("Security policy exception thrown during message decoding", e);
                 throw new BindingException("Message decoding failed security policy evaluation", e);
             }
-            setIssuer(policy.getIssuer());
-            setIssuerMetadata(policy.getIssuerMetadata());
         }
     }
 }

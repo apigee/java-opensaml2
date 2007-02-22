@@ -21,9 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Base interface for HTTP specific SAML bindings.
  * 
- * @param <IssuerType> the message issuer type
  */
-public interface HTTPMessageDecoder<IssuerType> extends MessageDecoder<HttpServletRequest, IssuerType> {
+public interface HTTPMessageDecoder extends MessageDecoder<HttpServletRequest> {
 
     /**
      * Gets the HTTP method used in the request.  Possible values are "GET" and "POST".

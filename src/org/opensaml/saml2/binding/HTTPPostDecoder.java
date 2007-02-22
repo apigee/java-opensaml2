@@ -31,9 +31,8 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * Message decoder implementing the SAML 2.0 HTTP POST profile.
  * 
- * @param <IssuerType> the message issuer type
  */
-public class HTTPPostDecoder<IssuerType> extends AbstractHTTPMessageDecoder<IssuerType> {
+public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
 
     /** Class logger. */
     public static final Logger log = Logger.getLogger(HTTPPostDecoder.class);

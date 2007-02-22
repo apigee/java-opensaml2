@@ -31,9 +31,8 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * SAML 2 Artifact Binding decoder, support both HTTP GET and POST.
  * 
- * @param <IssuerType> the message issuer type
  */
-public class HTTPArtifactDecoder<IssuerType> extends AbstractHTTPMessageDecoder<IssuerType> {
+public class HTTPArtifactDecoder extends AbstractHTTPMessageDecoder {
 
     /** Class logger. */
     private final static Logger log = Logger.getLogger(HTTPArtifactDecoder.class);

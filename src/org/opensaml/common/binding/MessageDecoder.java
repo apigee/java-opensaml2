@@ -19,7 +19,6 @@ package org.opensaml.common.binding;
 import javax.servlet.ServletRequest;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.xml.security.TrustEngine;
 
@@ -28,9 +27,8 @@ import org.opensaml.xml.security.TrustEngine;
  * are called.
  * 
  * @param <RequestType> type of incoming protocol request
- * @param <IssuerType> the message issuer type
  */
-public interface MessageDecoder<RequestType extends ServletRequest, IssuerType>{
+public interface MessageDecoder<RequestType extends ServletRequest>{
     
     /**
      * Gets the request to decode.
@@ -72,14 +70,14 @@ public interface MessageDecoder<RequestType extends ServletRequest, IssuerType>{
      * 
      * @return security policy to apply to the request and its payload
      */
-    public SecurityPolicy<RequestType, IssuerType> getSecurityPolicy();
+    public SecurityPolicy getSecurityPolicy();
     
     /**
      * Sets the security policy to apply to the request and its payload.
      * 
      * @param policy security policy to apply to the request and its payload
      */
-    public void setSecurityPolicy(SecurityPolicy<RequestType, IssuerType> policy);
+    public void setSecurityPolicy(SecurityPolicy policy);
     
     /**
      * Sets the the trust engine used to verify the credentials of a request.
@@ -102,17 +100,4 @@ public interface MessageDecoder<RequestType extends ServletRequest, IssuerType>{
      */
     public SAMLObject getSAMLMessage();
     
-    /**
-     * Gets the issuer of the message.
-     * 
-     * @return issuer of the message
-     */
-    public IssuerType getIssuer();
-
-    /**
-     * Gets the role metdata for the issuer of the decoded message.
-     * 
-     * @return role metdata for the issuer of the decoded message
-     */
-    public RoleDescriptor getIssuerMetadata();
 }

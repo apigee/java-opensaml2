@@ -25,11 +25,9 @@ import org.opensaml.common.binding.HTTPMessageDecoder;
 /**
  * Base class for HTTP message decoders handling much of boilerplate code.
  * 
- * @param <IssuerType> the message issuer type
  */
-public abstract class AbstractHTTPMessageDecoder<IssuerType> 
-        extends AbstractMessageDecoder<HttpServletRequest, IssuerType> 
-        implements HTTPMessageDecoder<IssuerType> {
+public abstract class AbstractHTTPMessageDecoder 
+    extends AbstractMessageDecoder<HttpServletRequest> implements HTTPMessageDecoder {
     
     /** Class logger. */
     public static final Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);

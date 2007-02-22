@@ -33,10 +33,8 @@ import org.opensaml.xml.util.Base64;
  * SAML 2.0 HTTP Redirect decoder using the DEFLATE encoding method.
  * 
  * This decoder only supports DEFLATE compression and DSA-SHA1 and RSA-SHA1 signatures.
- * 
- * @param <IssuerType> the message issuer type
  */
-public class HTTPRedirectDeflateDecoder<IssuerType> extends AbstractHTTPMessageDecoder<IssuerType> {
+public class HTTPRedirectDeflateDecoder extends AbstractHTTPMessageDecoder {
 
     /** Class logger. */
     private final static Logger log = Logger.getLogger(HTTPRedirectDeflateDecoder.class);

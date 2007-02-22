@@ -27,10 +27,9 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * Base class for SOAP over HTTP message encoders.
  * 
- * @param <IssuerType> the message issuer type
  */
-public abstract class AbstractSOAPHTTPDecoder<IssuerType> 
-    extends AbstractHTTPMessageDecoder<IssuerType> implements SOAPHTTPDecoder<IssuerType> {
+public abstract class AbstractSOAPHTTPDecoder
+    extends AbstractHTTPMessageDecoder implements SOAPHTTPDecoder {
     
     /** Class logger. */
     private static Logger log = Logger.getLogger(AbstractSOAPHTTPDecoder.class);
