@@ -30,8 +30,8 @@ import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.SAMLArtifact;
 import org.opensaml.common.binding.SAMLArtifactFactory;
 import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
-import org.opensaml.common.util.URLBuilder;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.ws.util.URLBuilder;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.Pair;
 

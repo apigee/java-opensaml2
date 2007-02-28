@@ -25,7 +25,7 @@ import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
-import org.opensaml.ws.security.HttpX509EntityCredential;
+import org.opensaml.ws.security.HttpRequestX509CredentialAdapter;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
@@ -75,7 +75,7 @@ public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactor
                              SecurityPolicyContext<Issuer> context) 
                 throws SecurityPolicyException {
             //TODO re-evaluate all this code
-            Issuer requestIssuerName = evaluateCredential(new HttpX509EntityCredential(request), message);
+            Issuer requestIssuerName = evaluateCredential(new HttpRequestX509CredentialAdapter(request), message);
             Issuer messageIssuerName = getSAML2Issuer(message);
 
             //if (DatatypeHelper.safeEquals(requestIssuerName, messageIssuerName)) {

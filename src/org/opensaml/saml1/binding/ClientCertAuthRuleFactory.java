@@ -24,7 +24,7 @@ import org.opensaml.common.binding.impl.BaseX509CredentialAuthRuleFactory;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
-import org.opensaml.ws.security.HttpX509EntityCredential;
+import org.opensaml.ws.security.HttpRequestX509CredentialAdapter;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
@@ -71,7 +71,7 @@ public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory
         public void evaluate(HttpServletRequest request, XMLObject message, SecurityPolicyContext<String> context)
                 throws SecurityPolicyException {
             //TODO re-evaluate all this code
-            HttpX509EntityCredential credential = new HttpX509EntityCredential(request);
+            HttpRequestX509CredentialAdapter credential = new HttpRequestX509CredentialAdapter(request);
             String issuer = evaluateCredential(credential, message);
             context.setIssuer(issuer);
             

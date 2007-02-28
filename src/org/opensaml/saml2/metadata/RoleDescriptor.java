@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata;
 
-import java.net.URI;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,31 +29,31 @@ import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.xml.AttributeExtensibleXMLObject;
 
 /**
- * SAML 2.0 Metadata RoleDescriptor
+ * SAML 2.0 Metadata RoleDescriptor.
  */
 public interface RoleDescriptor extends SignableSAMLObject, TimeBoundSAMLObject, CacheableSAMLObject,
         AttributeExtensibleXMLObject {
 
-    /** Element name, no namespace */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "RoleDescriptor";
+    /** Element name, no namespace. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "RoleDescriptor";
     
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
     
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "RoleDescriptorType"; 
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "RoleDescriptorType"; 
         
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20MD_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
 
-    /** "ID" attribute's local name */
-    public final static String ID_ATTRIB_NAME = "ID";
+    /** "ID" attribute's local name. */
+    public static final String ID_ATTRIB_NAME = "ID";
 
-    /** "protocolEnumeration" attribute's local name */
-    public final static String PROTOCOL_ENUMERATION_ATTRIB_NAME = "protocolSupportEnumeration";
+    /** "protocolEnumeration" attribute's local name. */
+    public static final String PROTOCOL_ENUMERATION_ATTRIB_NAME = "protocolSupportEnumeration";
 
-    /** "errorURL" attribute's local name */
-    public final static String ERROR_URL_ATTRIB_NAME = "errorURL";
+    /** "errorURL" attribute's local name. */
+    public static final String ERROR_URL_ATTRIB_NAME = "errorURL";
 
     /**
      * Gets the ID of this role descriptor.
@@ -71,9 +70,9 @@ public interface RoleDescriptor extends SignableSAMLObject, TimeBoundSAMLObject,
     public void setID(String newID);
 
     /**
-     * Gets an immutable list of protocol {@link URI}s supported by this role.
+     * Gets an immutable list of protocol URIs supported by this role.
      * 
-     * @return list of protocol {@link URI}s supported by this role
+     * @return list of protocol URIs supported by this role
      */
     public List<String> getSupportedProtocols();
 
