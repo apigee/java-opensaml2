@@ -70,14 +70,14 @@ public interface MessageDecoder<RequestType extends ServletRequest>{
      * 
      * @return security policy to apply to the request and its payload
      */
-    public SecurityPolicy getSecurityPolicy();
+    public SAMLSecurityPolicy getSecurityPolicy();
     
     /**
      * Sets the security policy to apply to the request and its payload.
      * 
      * @param policy security policy to apply to the request and its payload
      */
-    public void setSecurityPolicy(SecurityPolicy policy);
+    public void setSecurityPolicy(SAMLSecurityPolicy policy);
     
     /**
      * Sets the the trust engine used to verify the credentials of a request.

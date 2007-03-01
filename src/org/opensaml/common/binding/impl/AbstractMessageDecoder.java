@@ -25,7 +25,7 @@ import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.MessageDecoder;
-import org.opensaml.common.binding.SecurityPolicy;
+import org.opensaml.common.binding.SAMLSecurityPolicy;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.xml.XMLObject;
@@ -60,7 +60,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
     private SAMLObject message;
     
     /** Security policy to apply to the request and payload. */
-    private SecurityPolicy securityPolicy;
+    private SAMLSecurityPolicy securityPolicy;
     
     /** Trust engine used to validate request credentials. */
     private TrustEngine trustEngine;
@@ -99,7 +99,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
     }
 
     /** {@inheritDoc} */
-    public SecurityPolicy getSecurityPolicy() {
+    public SAMLSecurityPolicy getSecurityPolicy() {
         return securityPolicy;
     }
 
@@ -128,7 +128,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
     }
 
     /** {@inheritDoc} */
-    public void setSecurityPolicy(SecurityPolicy policy) {
+    public void setSecurityPolicy(SAMLSecurityPolicy policy) {
         securityPolicy = policy;
     }
 
@@ -190,7 +190,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
             log.debug("Evaluating request and SAML message against security policy");
         }
         
-        SecurityPolicy policy = getSecurityPolicy();
+        SAMLSecurityPolicy policy = getSecurityPolicy();
         if(policy != null){
             try {
                 policy.evaluate(getRequest(), message);

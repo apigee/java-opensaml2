@@ -19,6 +19,7 @@ package org.opensaml.common.binding;
 import javax.servlet.ServletRequest;
 
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.ws.security.SecurityPolicy;
 
 /**
  * A policy used to verify the security of an incoming SAML request.  Its security mechanisms may be used to 
@@ -28,8 +29,8 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
  * @param <RequestType> type of incoming protocol request
  * @param <IssuerType> the message issuer type
  */
-public interface SecurityPolicy<RequestType extends ServletRequest, IssuerType> 
-        extends org.opensaml.ws.security.SecurityPolicy<RequestType, IssuerType> {
+public interface SAMLSecurityPolicy<RequestType extends ServletRequest, IssuerType> 
+        extends SecurityPolicy<RequestType, IssuerType> {
     
     /**
      * Convenience method for getting the metadata for the role in which the issuer is 

@@ -18,15 +18,15 @@ package org.opensaml.common.binding;
 
 import org.joda.time.DateTime;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.ws.security.SecurityPolicyContext;
 
 /**
- * SAML-specific class which stores state that is maintained by {@link SecurityPolicy} instances, 
+ * SAML-specific class which stores state that is maintained by {@link SAMLSecurityPolicy} instances, 
  * and which is used in the evaluation of {@link SecurityPolicyRule}'s.
  * 
  * @param <IssuerType> the message issuer type
  */
-public class SecurityPolicyContext<IssuerType> 
-        extends org.opensaml.ws.security.SecurityPolicyContext<IssuerType> {
+public class SAMLSecurityPolicyContext<IssuerType> extends SecurityPolicyContext<IssuerType> {
     
     /** Source of metadata about message issuer, as determined by security policy rules. */
     private RoleDescriptor issuerMetadata;
@@ -76,40 +76,18 @@ public class SecurityPolicyContext<IssuerType>
         issueInstant = newIssueInstant;
     }
     
-    /**
-     * Get the message identifier. 
-     * 
-     * @return the message identifier
-     */
     public String getMessageID() {
         return messageID;
     }
     
-    /**
-     * Set the message identifier.
-     * 
-     * @param newMessageID the new message identifier
-     */
     public void setMessageID(String newMessageID) {
         messageID = newMessageID;
     }
     
-    /**
-     * Get flag signifying whether the claimed issuer has been successfully authenticated
-     * by the credentials presented.
-     * 
-     * @return true if issuer is authenticated, false otherwise
-     */
     public boolean isIssuerAuthenticated() {
         return isIssuerAuthenticated;
     }
     
-    /**
-     * Set flag signifying whether the claimed issuer has been successfully authenticated
-     * by the credentials presented.
-     * 
-     * @param isAuthenticated the new issuer authentication flag
-     */
     public void setIssuerAuthenticated(boolean isAuthenticated) {
         isIssuerAuthenticated = isAuthenticated;
     }
