@@ -16,6 +16,9 @@
 
 package org.opensaml.saml1.binding;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.opensaml.common.binding.SAMLArtifactBuilder;
 
 /**
@@ -23,9 +26,21 @@ import org.opensaml.common.binding.SAMLArtifactBuilder;
  */
 public class SAML1ArtifactType0001Builder implements SAMLArtifactBuilder<SAML1ArtifactType0001> {
 
+    /** Hash algorithm used to construct the source ID. */
+    public static final String HASH_ALGORHTM = "SHA-1";
+    
     /** {@inheritDoc} */
     public SAML1ArtifactType0001 buildArtifact(String relyingParty) {
-        return new SAML1ArtifactType0001();
+
+	SAML1ArtifactType0001 artifact = new SAML1ArtifactType0001();
+	
+	try {
+	    MessageDigest md = MessageDigest.getInstance(HASH_ALGORHTM);
+	    return new SAML1ArtifactType0001(md.digest(relyingParty.getBytes("UTF-8")));
+	} catch (NoSuchAlgorithmException ex) {
+	    return new SAML1ArtifactType0001();
+	}
+	
     }
     
     /** {@inheritDoc} */
