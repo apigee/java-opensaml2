@@ -20,7 +20,7 @@ import javax.servlet.ServletRequest;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
-import org.opensaml.xml.security.TrustEngine;
+import org.opensaml.xml.security.trust.TrustEngine;
 
 /**
  * Decodes a SAML message in a binding specific mannger. The decode() method should be run before any accessor methods

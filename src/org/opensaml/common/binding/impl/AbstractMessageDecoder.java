@@ -33,7 +33,7 @@ import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.parse.XMLParserException;
-import org.opensaml.xml.security.TrustEngine;
+import org.opensaml.xml.security.trust.TrustEngine;
 import org.w3c.dom.Document;
 
 /**

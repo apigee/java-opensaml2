@@ -44,26 +44,26 @@ import org.opensaml.xml.util.Pair;
  */
 public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
 
-    /** DSA with SHA1 signature algorithm */
-    public final static String DSA_SHA1_SIGNATURE = "http://www.w3.org/2000/09/xmldsig#dsa-sha1";
+    /** DSA with SHA1 signature algorithm. */
+    public static final String DSA_SHA1_SIGNATURE = "http://www.w3.org/2000/09/xmldsig#dsa-sha1";
 
-    /** RSA with SHA1 signature algorithm */
-    public final static String RSA_SHA1_SIGNATURE = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+    /** RSA with SHA1 signature algorithm. */
+    public static final String RSA_SHA1_SIGNATURE = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
     
-    /** Class logger */
-    private final static Logger log = Logger.getLogger(HTTPRedirectDeflateEncoder.class);
+    /** Class logger. */
+    private static Logger log = Logger.getLogger(HTTPRedirectDeflateEncoder.class);
 
-    /** URL to send message to via HTTP redirect */
+    /** URL to send message to via HTTP redirect. */
     private String redirectURL;
 
-    /** Algorithm used to sign message */
+    /** Algorithm used to sign message. */
     private String signatureAlgorithm;
 
-    /** Keys used to sign message */
+    /** Keys used to sign message. */
     private PrivateKey signingKey;
 
-    /** Whether to sign URL params */
-    private boolean signMessage = false;
+    /** Whether to sign URL params. */
+    private boolean signMessage;
 
     /**
      * Gets the endpoint to redirect the message to.

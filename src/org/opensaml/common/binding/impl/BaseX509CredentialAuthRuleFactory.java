@@ -22,10 +22,10 @@ import javax.xml.namespace.QName;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.ws.security.SecurityPolicyRuleFactory;
-import org.opensaml.xml.security.EntityCredentialTrustEngine;
-import org.opensaml.xml.security.X509EntityCredential;
 import org.opensaml.xml.security.X509KeyInfoResolver;
-import org.opensaml.xml.security.X509Util;
+import org.opensaml.xml.security.trust.EntityCredentialTrustEngine;
+import org.opensaml.xml.security.x509.X509Credential;
+import org.opensaml.xml.security.x509.X509Util;
 
 /**
  * Factory that produces rules that check if the client cert used to authenticate a request is valid and trusted. The
@@ -45,7 +45,7 @@ public abstract class BaseX509CredentialAuthRuleFactory<IssuerType>
     private MetadataProvider metadataProvider;
 
     /** Trust engine used to verify metadata. */
-    private EntityCredentialTrustEngine<X509EntityCredential, X509KeyInfoResolver> trustEngine;
+    private EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> trustEngine;
 
     /** Resolver used to extract key information from a key source. */
     private X509KeyInfoResolver keyResolver;
@@ -79,7 +79,7 @@ public abstract class BaseX509CredentialAuthRuleFactory<IssuerType>
      * 
      * @return engine used to validate the trustworthiness of digital certificates
      */
-    public EntityCredentialTrustEngine<X509EntityCredential, X509KeyInfoResolver> getTrustEngine() {
+    public EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> getTrustEngine() {
         return trustEngine;
     }
 
@@ -88,7 +88,7 @@ public abstract class BaseX509CredentialAuthRuleFactory<IssuerType>
      * 
      * @param engine engine used to validate the trustworthiness of digital certificates
      */
-    public void setTrustEngine(EntityCredentialTrustEngine<X509EntityCredential, X509KeyInfoResolver> engine) {
+    public void setTrustEngine(EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> engine) {
         trustEngine = engine;
     }
 

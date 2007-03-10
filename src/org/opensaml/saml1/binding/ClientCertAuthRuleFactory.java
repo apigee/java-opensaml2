@@ -29,9 +29,9 @@ import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.security.EntityCredentialTrustEngine;
-import org.opensaml.xml.security.X509EntityCredential;
 import org.opensaml.xml.security.X509KeyInfoResolver;
+import org.opensaml.xml.security.trust.EntityCredentialTrustEngine;
+import org.opensaml.xml.security.x509.X509Credential;
 
 /**
  * Factory that produces rules that check if the client cert used to authenticate a request is valid and trusted. The
@@ -62,7 +62,7 @@ public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory
          * @param protocol protocol the issuer used in the request
          */
         public ClientCertAuthRule(MetadataProvider provider,
-                EntityCredentialTrustEngine<X509EntityCredential, X509KeyInfoResolver> engine,
+                EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> engine,
                 X509KeyInfoResolver x509KeyResolver, QName role, String protocol) {
             super(provider, engine, x509KeyResolver, role, protocol);
         }

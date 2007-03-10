@@ -35,7 +35,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class HTTPArtifactDecoder extends AbstractHTTPMessageDecoder {
 
     /** Class logger. */
-    private final static Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
+    private static Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
     
     /** Factory for building artifacts. */
     private SAMLArtifactFactory artifactFactory;
@@ -55,10 +55,10 @@ public class HTTPArtifactDecoder extends AbstractHTTPMessageDecoder {
     /**
      * Sets the artifact factory used to create artifacts for this encoder.
      * 
-     * @param artifactFactory artifact factory used to create artifacts for this encoder
+     * @param factory artifact factory used to create artifacts for this encoder
      */
-    public void setArtifactFactory(SAMLArtifactFactory artifactFactory) {
-        this.artifactFactory = artifactFactory;
+    public void setArtifactFactory(SAMLArtifactFactory factory) {
+        this.artifactFactory = factory;
     }
 
     /**

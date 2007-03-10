@@ -34,9 +34,6 @@ import org.opensaml.xml.util.DatatypeHelper;
  */
 public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
 
-    /** Class logger. */
-    public static final Logger log = Logger.getLogger(HTTPPostDecoder.class);
-
     /** HTTP request param name for SAML request. */
     public static final String REQUEST_PARAM = "SAMLRequest";
 
@@ -45,6 +42,9 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
 
     /** HTTP request param name for relay state. */
     public static final String RELAY_STATE_PARAM = "RelayState";
+    
+    /** Class logger. */
+    private static Logger log = Logger.getLogger(HTTPPostDecoder.class);
 
     /** {@inheritDoc} */
     public void decode() throws BindingException {

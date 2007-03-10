@@ -40,28 +40,28 @@ import org.opensaml.xml.util.Pair;
  */
 public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
 
-    /** Location of the velocity template */
-    public final static String VELOCITY_TEMPLATE = "/templates/saml2-post-artifact-binding.vm";
+    /** Location of the velocity template. */
+    public static final String VELOCITY_TEMPLATE = "/templates/saml2-post-artifact-binding.vm";
 
-    /** Class logger */
-    private final static Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
+    /** Class logger. */
+    private static Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
 
-    /** HTTP submit method */
+    /** HTTP submit method. */
     private String method;
 
-    /** URL the artifact will be sent to */
+    /** URL the artifact will be sent to. */
     private String endpointURL;
     
-    /** Type code of artifacts to use */
+    /** Type code of artifacts to use. */
     private byte[] artifactType;
     
-    /** Factory for building artifacts */
+    /** Factory for building artifacts. */
     private SAMLArtifactFactory artifactFactory;
     
-    /** Artifact map for built artifacts and messages */
+    /** Artifact map for built artifacts and messages. */
     private ArtifactMap artifactMap;
     
-    /** Artifact generated for the given SAML message */
+    /** Artifact generated for the given SAML message. */
     private SAMLArtifact artifact;
 
     /**

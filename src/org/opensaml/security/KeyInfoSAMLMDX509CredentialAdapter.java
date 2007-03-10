@@ -36,11 +36,10 @@ public class KeyInfoSAMLMDX509CredentialAdapter extends KeyInfoX509CredentialAda
      * 
      * @param info key info to adapt
      * 
-     * @throws IllegalArgumentException thrown if the role descriptor or key info is null
      * @throws GeneralSecurityException thrown if the key, certificate, or CRL information is represented in an
      *             unsupported format
      */
-    public KeyInfoSAMLMDX509CredentialAdapter(KeyInfo info)throws IllegalArgumentException, GeneralSecurityException{
+    public KeyInfoSAMLMDX509CredentialAdapter(KeyInfo info) throws GeneralSecurityException {
         
         // KeyInfo -> KeyDescriptor -> RoleDescriptor
         role = (RoleDescriptor) info.getParent().getParent();

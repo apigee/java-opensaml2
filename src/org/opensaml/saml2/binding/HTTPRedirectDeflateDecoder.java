@@ -37,7 +37,7 @@ import org.opensaml.xml.util.Base64;
 public class HTTPRedirectDeflateDecoder extends AbstractHTTPMessageDecoder {
 
     /** Class logger. */
-    private final static Logger log = Logger.getLogger(HTTPRedirectDeflateDecoder.class);
+    private static Logger log = Logger.getLogger(HTTPRedirectDeflateDecoder.class);
 
     /** Whether the message was signed. */
     private boolean isSigned;

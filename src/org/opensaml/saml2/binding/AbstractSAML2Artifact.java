@@ -24,11 +24,11 @@ import org.opensaml.common.binding.SAMLArtifact;
  */
 public abstract class AbstractSAML2Artifact extends SAMLArtifact {
 
-    /** 2 byte artifact endpoint index */
+    /** 2 byte artifact endpoint index. */
     private byte[] endpointIndex;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param artifactType artifact type code
      */
@@ -37,18 +37,17 @@ public abstract class AbstractSAML2Artifact extends SAMLArtifact {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param artifactType artifact type code
-     * @param endpointIndex 2 byte endpoint index of the artifact
-     * @param sourceID 20 byte source ID of the artifact
+     * @param index 2 byte endpoint index of the artifact
      * 
      * @throws IllegalArgumentException thrown if the endpoint index, source ID, or message handle arrays are not of the
      *             right size
      */
-    public AbstractSAML2Artifact(byte[] artifactType, byte[] endpointIndex) throws IllegalArgumentException {
+    public AbstractSAML2Artifact(byte[] artifactType, byte[] index) throws IllegalArgumentException {
         super(artifactType);
-        setEndpointIndex(endpointIndex);
+        setEndpointIndex(index);
     }
 
     /**

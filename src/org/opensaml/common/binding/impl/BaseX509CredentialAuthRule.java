@@ -27,10 +27,10 @@ import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.security.EntityCredentialTrustEngine;
-import org.opensaml.xml.security.UsageType;
-import org.opensaml.xml.security.X509EntityCredential;
 import org.opensaml.xml.security.X509KeyInfoResolver;
+import org.opensaml.xml.security.credential.UsageType;
+import org.opensaml.xml.security.trust.EntityCredentialTrustEngine;
+import org.opensaml.xml.security.x509.X509Credential;
 
 /**
  * Policy rule that checks if the client cert used to authenticate the request is valid and trusted.
@@ -45,7 +45,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
     private MetadataProvider metadataProvider;
 
     /** Trust engine used to verify metadata. */
-    private EntityCredentialTrustEngine<X509EntityCredential, X509KeyInfoResolver> trustEngine;
+    private EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> trustEngine;
 
     /** Resolver used to extract key information from a key source. */
     private X509KeyInfoResolver keyResolver;
@@ -69,7 +69,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * @param protocol protocol the issuer used in the request
      */
     public BaseX509CredentialAuthRule(MetadataProvider provider,
-            EntityCredentialTrustEngine<X509EntityCredential, X509KeyInfoResolver> engine,
+            EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> engine,
             X509KeyInfoResolver x509KeyResolver, QName role, String protocol) {
         metadataProvider = provider;
         trustEngine = engine;
@@ -96,7 +96,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * 
      * @return trust engine used to validate the X509 credential
      */
-    public EntityCredentialTrustEngine<X509EntityCredential, X509KeyInfoResolver> getTrustEngine() {
+    public EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> getTrustEngine() {
         return trustEngine;
     }
 
@@ -142,7 +142,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * @throws SecurityPolicyException thrown if there is a problem getting key 
      *           information or evalauting the trustworthiness of the credential
      */
-    protected IssuerType evaluateCredential(X509EntityCredential credential, XMLObject message) 
+    protected IssuerType evaluateCredential(X509Credential credential, XMLObject message) 
             throws SecurityPolicyException {
         //TODO - this logic is wrong, need to reassess
         //     - also need to make work with generic IssuerType
