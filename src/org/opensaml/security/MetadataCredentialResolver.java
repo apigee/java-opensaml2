@@ -17,12 +17,14 @@
 package org.opensaml.security;
 
 import java.lang.ref.SoftReference;
-import java.security.GeneralSecurityException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
+
+import javolution.util.FastSet;
 
 import org.apache.log4j.Logger;
 import org.opensaml.saml2.metadata.KeyDescriptor;
@@ -31,9 +33,21 @@ import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.saml2.metadata.provider.ObservableMetadataProvider;
 import org.opensaml.xml.security.SecurityException;
+import org.opensaml.xml.security.credential.AbstractCredentialResolver;
+import org.opensaml.xml.security.credential.CredentialCriteria;
 import org.opensaml.xml.security.credential.CredentialResolver;
+import org.opensaml.xml.security.credential.KeyInfoCredential;
+import org.opensaml.xml.security.credential.KeyInfoCredentialCriteria;
+import org.opensaml.xml.security.credential.KeyInfoCredentialResolver;
 import org.opensaml.xml.security.credential.UsageType;
+import org.opensaml.xml.security.x509.KeyInfoX509Credential;
 import org.opensaml.xml.util.DatatypeHelper;
+
+// TODO need to fix type hiearchy issues - ideally should be returning an instance of SAMLMDCredential,
+// need to reconcile based on credentials returned by the underlying KeyInfoCredentialResolver.
+// Don't want to proliferate credential resolvers for all the possibly combos of types.
+// Maybe use genericized Credential factories which are set on the "inner" resolver by the 
+// "outer" resolver ?
 
 /**
  * A credential resolver capable of pulling information from SAML 2 metadata for a particular role.
@@ -42,7 +56,8 @@ import org.opensaml.xml.util.DatatypeHelper;
  * provider is an {@link ObservableMetadataProvider} this resolver will also clear its cache when the underlying
  * metadata changes.
  */
-public class MetadataCredentialResolver implements CredentialResolver<SAMLMDX509Credential> {
+public class MetadataCredentialResolver extends AbstractCredentialResolver<KeyInfoCredential> 
+    implements CredentialResolver<KeyInfoCredential> {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(MetadataCredentialResolver.class);
@@ -57,7 +72,11 @@ public class MetadataCredentialResolver implements CredentialResolver<SAMLMDX509
     private MetadataProvider metadata;
 
     /** Cache of resolved credentials. [entityID, [UsageType, Credential]] */
-    private Map<String, Map<UsageType, SoftReference<SAMLMDX509Credential>>> cache;
+    private Map<String, Map<UsageType, SoftReference<SAMLMDCredential>>> cache;
+    
+    /** Credential resolver used to resolve credentials from role descriptor KeyInfo elements. */
+    //TODO this type parameter probably isn't right, see TODO above
+    private KeyInfoCredentialResolver<KeyInfoX509Credential> keyInfoCredentialResolver;
 
     /**
      * Constructor.
@@ -84,17 +103,29 @@ public class MetadataCredentialResolver implements CredentialResolver<SAMLMDX509
     }
 
     /** {@inheritDoc} */
-    public SAMLMDX509Credential resolveCredential(String entity, UsageType usage) throws SecurityException {
-        SAMLMDX509Credential credential;
-
-        credential = retrieveFromCache(entity, usage);
-
+    public Iterable<KeyInfoCredential> resolveCredentials(CredentialCriteria criteria) throws SecurityException {
+        Collection<KeyInfoCredential> credentials;
+        
+        if (criteria.getEntityID() == null) {
+            throw new SecurityException("No entity was specified as credential criteria");
+        }
+        
+        // TODO need to figure out whether and how to cache credentials based on CredentialCriteria
+        // or else apply the criteria against the credentials already cached.
+        // Optionally - hang cached keys, certs, etc right on the KeyInfo itself (using SoftReferences)
+        // per Chad's suggestion a while back. 
+        
+        //credential = retrieveFromCache(entity, usage);
+        
+        /*
         if (credential == null) {
             credential = retrieveFromMetadata(entity, usage);
             cacheCredential(credential);
-        }
+        }*/
+        
+        credentials = retrieveFromMetadata(criteria);
 
-        return credential;
+        return credentials;
     }
 
     /**
@@ -105,12 +136,12 @@ public class MetadataCredentialResolver implements CredentialResolver<SAMLMDX509
      * 
      * @return the credential or null
      */
-    protected SAMLMDX509Credential retrieveFromCache(String entity, UsageType usage) {
+    protected SAMLMDCredential retrieveFromCache(String entity, UsageType usage) {
         if (log.isDebugEnabled()) {
             log.debug("Attempting to retreive credential for entity " + entity + "from cache");
         }
         if (cache.containsKey(entity)) {
-            Map<UsageType, SoftReference<SAMLMDX509Credential>> entityCache = cache.get(entity);
+            Map<UsageType, SoftReference<SAMLMDCredential>> entityCache = cache.get(entity);
             if (entityCache != null && entityCache.containsKey(usage)) {
                 if (log.isDebugEnabled()) {
                     log.debug("Retreived credential for entity " + entity + "from cache");
@@ -128,15 +159,18 @@ public class MetadataCredentialResolver implements CredentialResolver<SAMLMDX509
     /**
      * Retrieves a credential from the provided metadata.
      * 
-     * @param entity id of the credential bearing entity
-     * @param usage usage type of the credential
+     * @param criteria criteria by which to resolve credentials
      * 
      * @return the credential or null
      * 
      * @throws SecurityException thrown if the key, certificate, or CRL information is represented in an unsupported
      *             format
      */
-    protected SAMLMDX509Credential retrieveFromMetadata(String entity, UsageType usage) throws SecurityException {
+    protected Collection<KeyInfoCredential> retrieveFromMetadata(CredentialCriteria criteria) throws SecurityException {
+        String entity = criteria.getEntityID();
+        UsageType usage = criteria.getUsage();
+        
+        
         if (log.isDebugEnabled()) {
             log.debug("Attempting to retreive credential for entity " + entity + "from metadata");
         }
@@ -153,20 +187,32 @@ public class MetadataCredentialResolver implements CredentialResolver<SAMLMDX509
             if (keyDescriptors == null) {
                 return null;
             }
+            
+            Collection<KeyInfoCredential> credentials = new FastSet<KeyInfoCredential>();
 
             for (KeyDescriptor keyDescriptor : keyDescriptors) {
                 if (keyDescriptor.getUse() == usage) {
-                    return new KeyInfoSAMLMDX509CredentialAdapter(keyDescriptor.getKeyInfo());
+                    if (keyDescriptor.getKeyInfo() != null) {
+                        
+                        // TODO need to add other things from the original criteria
+                        // to KeyInfo criteria - does that make sense?
+                        KeyInfoCredentialCriteria keyInfoCriteria = 
+                            new KeyInfoCredentialCriteria(keyDescriptor.getKeyInfo());
+                        keyInfoCriteria.setEntityID(criteria.getEntityID());
+                        keyInfoCriteria.setUsage(criteria.getUsage());
+                        keyInfoCriteria.setKeyAlgorithm(criteria.getKeyAlgorithm());
+                        
+                        for (KeyInfoCredential cred : keyInfoCredentialResolver.resolveCredentials(keyInfoCriteria)) {
+                            credentials.add(cred);
+                        }
+                    }
                 }
             }
 
-            return null;
+            return credentials;
         } catch (MetadataProviderException e) {
             log.error("Unable to read metadata from provider", e);
             throw new SecurityException("Unable to read metadata provider", e);
-        } catch (GeneralSecurityException e) {
-            log.error("Unable to parse key info for entity " + entity + " in role " + role, e);
-            throw new SecurityException("Unable to parse key info for entity " + entity + " in role " + role, e);
         }
     }
 
@@ -175,15 +221,15 @@ public class MetadataCredentialResolver implements CredentialResolver<SAMLMDX509
      * 
      * @param credential credential to cache
      */
-    protected void cacheCredential(SAMLMDX509Credential credential) {
-        Map<UsageType, SoftReference<SAMLMDX509Credential>> entityCache = cache.get(credential.getEntityId());
+    protected void cacheCredential(SAMLMDCredential credential) {
+        Map<UsageType, SoftReference<SAMLMDCredential>> entityCache = cache.get(credential.getEntityId());
 
         if (entityCache == null) {
-            entityCache = new HashMap<UsageType, SoftReference<SAMLMDX509Credential>>();
+            entityCache = new HashMap<UsageType, SoftReference<SAMLMDCredential>>();
             cache.put(credential.getEntityId(), entityCache);
         }
 
-        entityCache.put(credential.getUsageType(), new SoftReference<SAMLMDX509Credential>(credential));
+        entityCache.put(credential.getUsageType(), new SoftReference<SAMLMDCredential>(credential));
     }
 
     /**

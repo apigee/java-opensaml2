@@ -16,37 +16,31 @@
 
 package org.opensaml.security;
 
-import java.security.GeneralSecurityException;
-
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.security.x509.KeyInfoX509CredentialAdapter;
+import org.opensaml.xml.security.x509.KeyInfoX509Credential;
 import org.opensaml.xml.signature.KeyInfo;
 
 /**
- * Adapts a {@link KeyInfo} owned by a {@link RoleDescriptor} an {@link SAMLMDX509Credential}.
+ * A credential class which represents a {@link KeyInfoX509Credential} which was resolved based on a 
+ * {@link KeyInfo} that was found in SAML 2 metadata.
  */
-public class KeyInfoSAMLMDX509CredentialAdapter extends KeyInfoX509CredentialAdapter implements SAMLMDX509Credential {
+public class KeyInfoSAMLMDX509Credential extends KeyInfoX509Credential implements SAMLMDCredential {
 
-    /** Role containing the adapted key info. */
+    /** Role containing the KeyInfo resolution context. */
     private RoleDescriptor role;
     
-    /**
-     * Constructor.
-     * 
-     * @param info key info to adapt
-     * 
-     * @throws GeneralSecurityException thrown if the key, certificate, or CRL information is represented in an
-     *             unsupported format
-     */
-    public KeyInfoSAMLMDX509CredentialAdapter(KeyInfo info) throws GeneralSecurityException {
-        
+    /** {@inheritDoc} */
+    public void setKeyInfo(KeyInfo info) {
+        super.setKeyInfo(info);
         // KeyInfo -> KeyDescriptor -> RoleDescriptor
         role = (RoleDescriptor) info.getParent().getParent();
-        EntityDescriptor entityDescriptor = (EntityDescriptor) role.getParent();
-        setEntityId(entityDescriptor.getEntityID());
-        
-        parseKeyInfo(info);
+        if (role != null) {
+            EntityDescriptor entityDescriptor = (EntityDescriptor) role.getParent();
+            if (entityDescriptor != null) {
+                setEntityId(entityDescriptor.getEntityID());
+            }
+        }
     }
     
     /** {@inheritDoc} */

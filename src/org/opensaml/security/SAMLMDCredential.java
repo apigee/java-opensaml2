@@ -17,13 +17,14 @@
 package org.opensaml.security;
 
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.xml.security.credential.KeyInfoCredential;
 import org.opensaml.xml.security.x509.X509Credential;
 
 /**
  * An extension to the basic {@link X509Credential} that exposes the SAML metadata role descriptor the 
  * credential is for.
  */
-public interface SAMLMDX509Credential extends X509Credential {
+public interface SAMLMDCredential extends KeyInfoCredential {
 
     /**
      * Gets the SAML role the credential is for.
