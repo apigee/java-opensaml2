@@ -78,7 +78,7 @@ public interface StatusCode extends SAMLObject {
     public static final String NO_PASSIVE_URI = "urn:oasis:names:tc:SAML:2.0:status:NoPassive";
 
     /** URI for NoSupportedIDP status code. */
-    public static final String NO_SUPPOERTED_IDP_URI = "urn:oasis:names:tc:SAML:2.0:status:NoSupportedIDP";
+    public static final String NO_SUPPORTED_IDP_URI = "urn:oasis:names:tc:SAML:2.0:status:NoSupportedIDP";
 
     /** URI for PartialLogout status code. */
     public static final String PARTIAL_LOGOUT_URI = "urn:oasis:names:tc:SAML:2.0:status:PartialLogout";
