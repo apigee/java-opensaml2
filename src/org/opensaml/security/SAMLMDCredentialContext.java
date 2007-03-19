@@ -16,16 +16,14 @@
 
 package org.opensaml.security;
 
-import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.security.x509.KeyInfoX509Credential;
+import org.opensaml.xml.security.keyinfo.KeyInfoCredentialContext;
 import org.opensaml.xml.signature.KeyInfo;
 
 /**
- * A credential class which represents a {@link KeyInfoX509Credential} which was resolved based on a 
- * {@link KeyInfo} that was found in SAML 2 metadata.
+ * A credential context for credentials resolved from a {@link KeyInfo} that was found in SAML 2 metadata.
  */
-public class KeyInfoSAMLMDX509Credential extends KeyInfoX509Credential implements SAMLMDCredential {
+public class SAMLMDCredentialContext extends KeyInfoCredentialContext {
 
     /** Role containing the KeyInfo resolution context. */
     private RoleDescriptor role;
@@ -34,17 +32,26 @@ public class KeyInfoSAMLMDX509Credential extends KeyInfoX509Credential implement
     public void setKeyInfo(KeyInfo info) {
         super.setKeyInfo(info);
         // KeyInfo -> KeyDescriptor -> RoleDescriptor
-        role = (RoleDescriptor) info.getParent().getParent();
-        if (role != null) {
-            EntityDescriptor entityDescriptor = (EntityDescriptor) role.getParent();
-            if (entityDescriptor != null) {
-                setEntityId(entityDescriptor.getEntityID());
-            }
+        if (info != null) {
+            role = (RoleDescriptor) info.getParent().getParent();
         }
     }
     
-    /** {@inheritDoc} */
+    /**
+     * Get the role descriptor context.
+     * 
+     * @return role descriptor
+     */
     public RoleDescriptor getRoleDescriptor() {
         return role;
+    }
+    
+    /**
+     * Set the role descriptor context.
+     * 
+     * @param roleDescriptor the role descriptor context
+     */
+    public void setRoleDescriptor(RoleDescriptor roleDescriptor) {
+        role = roleDescriptor;
     }
 }

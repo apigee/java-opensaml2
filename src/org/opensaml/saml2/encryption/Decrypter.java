@@ -28,7 +28,7 @@ import org.opensaml.saml2.core.NewEncryptedID;
 import org.opensaml.saml2.core.NewID;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.encryption.DecryptionException;
-import org.opensaml.xml.security.KeyInfoResolver;
+import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 
 /**
  * Class which implements SAML2-specific options for {@link org.opensaml.saml2.core.EncryptedElementType} objects.
@@ -36,7 +36,7 @@ import org.opensaml.xml.security.KeyInfoResolver;
 public class Decrypter {
     
     /** Key resolver. */
-    private KeyInfoResolver kekResolver;
+    private KeyInfoCredentialResolver kekResolver;
     
     /** Recipient identifier, typically a SAML entity ID URI. */
     private String recipient;
@@ -50,7 +50,7 @@ public class Decrypter {
      * @param newKEKResolver the key encryption key resolver to use
      * @param newRecipient the EncryptedKey recipient attribute to use in key resolution
      */
-    public Decrypter(KeyInfoResolver newKEKResolver, String newRecipient) {
+    public Decrypter(KeyInfoCredentialResolver newKEKResolver, String newRecipient) {
         this.kekResolver = newKEKResolver;
         this.recipient = newRecipient;
     }
@@ -131,11 +131,13 @@ public class Decrypter {
             throw new DecryptionException("Element had no EncryptedData child");
         }
         
-        EncryptedElementTypeKeyResolver keyResolver = 
-            new EncryptedElementTypeKeyResolver(encElement, recipient);
+        //TODO need to re-eval and rewrite this based on new credential based resolvers
+        //EncryptedElementTypeKeyResolver keyResolver = 
+         //   new EncryptedElementTypeKeyResolver(encElement, recipient);
         
+        //TODO these args aren't correct
         org.opensaml.xml.encryption.Decrypter decrypter = 
-            new org.opensaml.xml.encryption.Decrypter(kekResolver, keyResolver);
+            new org.opensaml.xml.encryption.Decrypter(kekResolver, kekResolver);
         
         XMLObject xmlObject = null;
         try {
