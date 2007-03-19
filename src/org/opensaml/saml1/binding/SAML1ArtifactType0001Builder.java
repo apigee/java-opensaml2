@@ -16,6 +16,7 @@
 
 package org.opensaml.saml1.binding;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -28,23 +29,26 @@ public class SAML1ArtifactType0001Builder implements SAMLArtifactBuilder<SAML1Ar
 
     /** Hash algorithm used to construct the source ID. */
     public static final String HASH_ALGORHTM = "SHA-1";
-    
+
     /** {@inheritDoc} */
     public SAML1ArtifactType0001 buildArtifact(String relyingParty) {
 
-	SAML1ArtifactType0001 artifact = new SAML1ArtifactType0001();
-	
-	try {
-	    MessageDigest md = MessageDigest.getInstance(HASH_ALGORHTM);
-	    return new SAML1ArtifactType0001(md.digest(relyingParty.getBytes("UTF-8")));
-	} catch (NoSuchAlgorithmException ex) {
-	    return new SAML1ArtifactType0001();
-	}
-	
+        SAML1ArtifactType0001 artifact = new SAML1ArtifactType0001();
+
+        try {
+            MessageDigest md = MessageDigest.getInstance(HASH_ALGORHTM);
+            return new SAML1ArtifactType0001(md.digest(relyingParty.getBytes("UTF-8")));
+        } catch (NoSuchAlgorithmException ex) {
+
+        } catch (UnsupportedEncodingException e) {
+
+        }
+        
+        return artifact;
     }
-    
+
     /** {@inheritDoc} */
-    public SAML1ArtifactType0001 buildArtifact(byte[] artifact){
+    public SAML1ArtifactType0001 buildArtifact(byte[] artifact) {
         return SAML1ArtifactType0001.parseArtifact(artifact);
     }
 }
