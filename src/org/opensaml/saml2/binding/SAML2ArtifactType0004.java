@@ -86,7 +86,7 @@ public class SAML2ArtifactType0004 extends AbstractSAML2Artifact {
         }
 
         byte[] typeCode = { artifact[0], artifact[1] };
-        if (Arrays.equals(typeCode, TYPE_CODE)) {
+        if (!Arrays.equals(typeCode, TYPE_CODE)) {
             throw new IllegalArgumentException("Illegal artifact type code");
         }
 

@@ -83,7 +83,7 @@ public class SAML1ArtifactType0002 extends AbstractSAML1Artifact {
      */
     public static SAML1ArtifactType0002 parseArtifact(byte[] artifact) throws IllegalArgumentException {
         byte[] typeCode = { artifact[0], artifact[1] };
-        if (Arrays.equals(typeCode, TYPE_CODE)) {
+        if (!Arrays.equals(typeCode, TYPE_CODE)) {
             throw new IllegalArgumentException("Artifact is not of appropriate type.");
         }
 
