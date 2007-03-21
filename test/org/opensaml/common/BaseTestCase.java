@@ -64,7 +64,7 @@ public abstract class BaseTestCase extends XMLTestCase {
         super();
         
         try{
-            DefaultBootstrap.bootstrap();
+            TestBootstrap.bootstrap();
         }catch(ConfigurationException e){
             fail(e.getMessage());
         }

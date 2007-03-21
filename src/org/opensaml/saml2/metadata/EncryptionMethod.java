@@ -18,67 +18,19 @@ package org.opensaml.saml2.metadata;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.xml.XMLObject;
 
 /**
- * XMLObject representing XML Encryption, version 20021210, EncryptionMethod element.
+ * SAML 2.0 Metadata EncryptionMethod.
  */
-public interface EncryptionMethod extends XMLObject {
+public interface EncryptionMethod extends org.opensaml.xml.encryption.EncryptionMethod, SAMLObject {
     
-    //TODO Implementation
+    /** Element local name. */
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "EncryptionMethod";
     
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "EncryptionMethod";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "EncryptionMethodType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.XMLENC_NS, TYPE_LOCAL_NAME, SAMLConstants.XMLENC_PREFIX);
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = 
+        new QName(SAMLConstants.SAML20MD_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
 
-    /**
-     * Gets the size of the key used.
-     * 
-     * @return the size of the key used
-     */
-    public Integer getKeySize();
-    
-    /**
-     * Sets the size of the key used.
-     * 
-     * @param newSize the size of the key used
-     */
-    public void setKeySize(Integer newSize);
-    
-    /**
-     * Gets the OAE parameters used as a Base64 encoded string.
-     * 
-     * @return the OAE parameters used as a Base64 encoded string
-     */
-    public String getOAEParams();
-    
-    /**
-     * Sets the OAE parameters used as a Base64 encoded string.
-     * 
-     * @param newParams the OAE parameters used as a Base64 encoded string
-     */
-    public void setOAEParams(String newParams);
-    
-    /**
-     * Gets the algorithm used to perform the encryption.
-     * 
-     * @return the algorithm used to perform the encryption
-     */
-    public String getAlgorithm();
-    
-    /**
-     * Sets the algorithm used to perform the encryption.
-     * 
-     * @param newAlgorithm the algorithm used to perform the encryption
-     */
-    public void setAlgorithm(String newAlgorithm);
 }

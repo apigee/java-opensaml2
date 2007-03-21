@@ -157,6 +157,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EmailAddressUnmarshaller" />
         </ObjectProvider>
         
+        <!-- EncryptionMethod -->
+        <ObjectProvider qualifiedName="saml2md:EncryptionMethod">
+            <BuilderClass className="org.opensaml.saml2.metadata.impl.EncryptionMethodBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.metadata.impl.EncryptionMethodMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.metadata.impl.EncryptionMethodUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- EntitiesDescriptor -->
         <ObjectProvider qualifiedName="saml2md:EntitiesDescriptor">
             <BuilderClass className="org.opensaml.saml2.metadata.impl.EntitiesDescriptorBuilder" />
