@@ -21,6 +21,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.security.credential.UsageType;
 import org.w3c.dom.Element;
 
 /**
@@ -50,7 +51,16 @@ public class KeyDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
         KeyDescriptor keyDescriptor = (KeyDescriptor) xmlObject;
 
         if (keyDescriptor.getUse() != null) {
-            domElement.setAttribute(KeyDescriptor.USE_ATTRIB_NAME, keyDescriptor.getUse().toString().toLowerCase());
+            UsageType use = keyDescriptor.getUse();
+            // UsageType enum contains more values than are allowed by SAML 2 schema 
+            if (use.equals(UsageType.SIGNING) || use.equals(UsageType.ENCRYPTION)) {
+                domElement.setAttribute(KeyDescriptor.USE_ATTRIB_NAME, use.toString().toLowerCase());
+            } else if (use.equals(UsageType.UNSPECIFIED)) {
+                //emit nothing for unspecified - perhaps this should also throw an exception?
+            } else {
+                // Just in case values are unknowingly added to UsageType in the future...
+               throw new MarshallingException("KeyDescriptor had illegal value for use attribute: " + use.toString());
+            }
         }
     }
 }

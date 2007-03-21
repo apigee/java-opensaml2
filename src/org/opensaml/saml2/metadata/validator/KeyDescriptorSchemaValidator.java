@@ -21,6 +21,7 @@
 package org.opensaml.saml2.metadata.validator;
 
 import org.opensaml.saml2.metadata.KeyDescriptor;
+import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -29,7 +30,7 @@ import org.opensaml.xml.validation.Validator;
  */
 public class KeyDescriptorSchemaValidator implements Validator<KeyDescriptor> {
 
-    /** Constructor */
+    /** Constructor. */
     public KeyDescriptorSchemaValidator() {
 
     }
@@ -37,17 +38,34 @@ public class KeyDescriptorSchemaValidator implements Validator<KeyDescriptor> {
     /** {@inheritDoc} */
     public void validate(KeyDescriptor keyDescriptor) throws ValidationException {
         validateKeyInfo(keyDescriptor);
+        validateUse(keyDescriptor);
     }
 
     /**
      * Checks that KeyInfo is present.
      * 
-     * @param keyDescriptor
-     * @throws ValidationException
+     * @param keyDescriptor the key descriptor to validate
+     * @throws ValidationException thrown if KeyInfo is not present
      */
     protected void validateKeyInfo(KeyDescriptor keyDescriptor) throws ValidationException {
         if (keyDescriptor.getKeyInfo()==null) {
             throw new ValidationException("KeyInfo required");
+        }
+    }
+    
+    /**
+     * Checks that use attribute has only one of allowed values.
+     * 
+     * @param keyDescriptor the key descriptor to validate
+     * @throws ValidationException throw in use attribute does not have a legal value
+     */
+    protected void validateUse(KeyDescriptor keyDescriptor) throws ValidationException {
+        UsageType use = keyDescriptor.getUse();
+        if (use == null) {
+            return;
+        }
+        if (! use.equals(UsageType.SIGNING) && ! use.equals(UsageType.ENCRYPTION)) {
+            throw new ValidationException("Invalid value for use attribute: " + use.toString());
         }
     }
 }

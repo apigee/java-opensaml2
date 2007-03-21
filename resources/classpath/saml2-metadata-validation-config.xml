@@ -25,6 +25,7 @@
             <Validator qualifiedName="saml2md:CompanyProfile" className="org.opensaml.saml2.metadata.validator.CompanySchemaValidator" />
             <Validator qualifiedName="saml2md:ContactPersonProfile" className="org.opensaml.saml2.metadata.validator.ContactPersonSchemaValidator" />
             <Validator qualifiedName="saml2md:EmailAddress" className="org.opensaml.saml2.metadata.validator.EmailAddressSchemaValidator" />
+            <Validator qualifiedName="saml2md:EncryptionMethod" className="org.opensaml.saml2.metadata.validator.EncryptionMethodSchemaValidator" />
             <Validator qualifiedName="saml2md:EntitiesDescriptor" className="org.opensaml.saml2.metadata.validator.EntitiesDescriptorSchemaValidator" />
             <Validator qualifiedName="saml2md:EntityDescriptor" className="org.opensaml.saml2.metadata.validator.EntityDescriptorSchemaValidator" />
             <Validator qualifiedName="saml2md:GivenName" className="org.opensaml.saml2.metadata.validator.GivenNameSchemaValidator" />
