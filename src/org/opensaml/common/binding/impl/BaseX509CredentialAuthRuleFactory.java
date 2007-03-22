@@ -16,16 +16,16 @@
 
 package org.opensaml.common.binding.impl;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
+import org.opensaml.security.MetadataCredentialResolver;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.ws.security.SecurityPolicyRuleFactory;
-import org.opensaml.xml.security.X509KeyInfoResolver;
-import org.opensaml.xml.security.trust.EntityCredentialTrustEngine;
+import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
+import org.opensaml.xml.security.trust.TrustEngine;
 import org.opensaml.xml.security.x509.X509Credential;
-import org.opensaml.xml.security.x509.X509Util;
 
 /**
  * Factory that produces rules that check if the client cert used to authenticate a request is valid and trusted. The
@@ -33,53 +33,29 @@ import org.opensaml.xml.security.x509.X509Util;
  * entity within the metadata from the given provider and where the trust engine validates the entity cert against the
  * information given in the assumed issuer's metadata.
  * 
+ * @param <RequestType> type of request to extract the credential from
  * @param <IssuerType> the message issuer type
  */
-public abstract class BaseX509CredentialAuthRuleFactory<IssuerType> 
-        implements SecurityPolicyRuleFactory<HttpServletRequest, IssuerType> {
-    
-    /** Subject alt names checked by the rule produced. */
-    public static final Integer[] SUBJECT_ALT_NAMES = {X509Util.DNS_ALT_NAME, X509Util.URI_ALT_NAME};
-
-    /** Metadata provider to lookup issuer information. */
-    private MetadataProvider metadataProvider;
+public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends ServletRequest, IssuerType> 
+        extends AbstractSAMLSecurityPolicyRuleFactory<RequestType, IssuerType>
+        implements SecurityPolicyRuleFactory<RequestType, IssuerType> {
 
     /** Trust engine used to verify metadata. */
-    private EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> trustEngine;
+    private TrustEngine<X509Credential, X509Credential> trustEngine;
 
     /** Resolver used to extract key information from a key source. */
-    private X509KeyInfoResolver keyResolver;
-
-    /** The SAML role the issuer is meant to be operating in. */
-    private QName issuerRole;
-
-    /** The message protocol used by the issuer. */
-    private String issuerProtocol;
-
-    /**
-     * Gets the metadata provider used to lookup issuer data.
-     * 
-     * @return metadata provider used to lookup issuer data
-     */
-    public MetadataProvider getMetadataProvider() {
-        return metadataProvider;
-    }
-
-    /**
-     * Sets the metadata provider used to lookup issuer data.
-     * 
-     * @param provider metadata provider used to lookup issuer data
-     */
-    public void setMetadataProvider(MetadataProvider provider) {
-        metadataProvider = provider;
-    }
+    private KeyInfoCredentialResolver keyInfoResolver;
+    
+    /** Metadata credential resolver.  Will be constructed by using Metadata provider, 
+     * role, protocol and KeyInfo credential provider information. */
+    private MetadataCredentialResolver metadataResolver;
 
     /**
      * Gets the engine used to validate the trustworthiness of digital certificates.
      * 
      * @return engine used to validate the trustworthiness of digital certificates
      */
-    public EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> getTrustEngine() {
+    public TrustEngine<X509Credential, X509Credential> getTrustEngine() {
         return trustEngine;
     }
 
@@ -88,64 +64,82 @@ public abstract class BaseX509CredentialAuthRuleFactory<IssuerType>
      * 
      * @param engine engine used to validate the trustworthiness of digital certificates
      */
-    public void setTrustEngine(EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> engine) {
+    public void setTrustEngine(TrustEngine<X509Credential, X509Credential> engine) {
         trustEngine = engine;
     }
 
     /**
-     * Gets the resolver used to extract key information from a key source.
+     * Gets the resolver used to extract credential information from KeyInfo elements in
+     * SAML 2 metadata.
      * 
-     * @return resolver used to extract key information from a key source
+     * @return resolver used to extract credential information from KeyInfo in metadata
      */
-    public X509KeyInfoResolver getKeyResolver() {
-        return keyResolver;
+    public KeyInfoCredentialResolver getKeyInfoCredentialResolver() {
+        return keyInfoResolver;
     }
 
     /**
-     * Sets the resolver used to extract key information from a key source.
+     * Sets the resolver used to extract credential information from KeyInfo elements in 
+     * SAML 2 metadata.
      * 
-     * @param x509KeyResolver resolver used to extract key information from a key source
+     * @param credentialResolver resolver used to extract credential information from KeyInfo
+     *          in metadata
      */
-    public void setKeyResolver(X509KeyInfoResolver x509KeyResolver) {
+    public void setKeyInfoCredentialResolver(KeyInfoCredentialResolver credentialResolver) {
+        keyInfoResolver = credentialResolver;
 
     }
-
-    /**
-     * Gets the role the issuer is meant to be operating in.
-     * 
-     * @return role the issuer is meant to be operating in
-     */
-    public QName getIssuerRole() {
-        return issuerRole;
-    }
-
-    /**
-     * Sets role the issuer is meant to be operating in.
-     * 
-     * @param role role the issuer is meant to be operating in
-     */
-    public void setIssuerRole(QName role) {
-        issuerRole = role;
-    }
-
-    /**
-     * Gets the message protocol used by the issuer.
-     * 
-     * @return message protocol used by the issuer
-     */
-    public String getIssuerProtocol() {
-        return issuerProtocol;
-    }
-
-    /**
-     * Sets message protocol used by the issuer.
-     * 
-     * @param protocol message protocol used by the issuer
-     */
+    
+    /** {@inheritDoc} */
     public void setIssuerProtocol(String protocol) {
-        this.issuerProtocol = protocol;
+        super.setIssuerProtocol(protocol);
+        metadataResolver = null;
     }
 
     /** {@inheritDoc} */
-    public abstract SecurityPolicyRule<HttpServletRequest, IssuerType> createRuleInstance();
+    public void setIssuerRole(QName role) {
+        super.setIssuerRole(role);
+        metadataResolver = null;
+    }
+
+    /** {@inheritDoc} */
+    public void setMetadataProvider(MetadataProvider provider) {
+        super.setMetadataProvider(provider);
+        metadataResolver = null;
+    }
+
+    /**
+     * Get the resolver used to resolve credentials from SAML 2 metadata.
+     * 
+     * Note; This resolver is constructed dynamically based on the current factory values
+     * for 1) metadata provider 2) role name and 3) protocol.  If any of these changes, the 
+     * metadata resolver will be reinstantiated with the new values.
+     * 
+     * @return an instance of MetadtaCredentialResolver
+     */
+    public MetadataCredentialResolver getMetadataResolver() {
+        if (metadataResolver == null) {
+            metadataResolver = buildNewMetadataResolver();
+        }
+        return metadataResolver;
+    }
+    
+    /**
+     * Build a new instance of MetadataCredentialResolver based on the current factory
+     * values for metadata provider, role name and protocol.
+     * 
+     * @return new instance of MetadataCredentialResolver
+     */
+    private MetadataCredentialResolver buildNewMetadataResolver() {
+        MetadataCredentialResolver resolver = 
+            new MetadataCredentialResolver(getIssuerRole(), getIssuerProtocol(), getMetadataProvider());
+        
+        if (getKeyInfoCredentialResolver() != null) {
+            resolver.setKeyInfoCredentialResolver(this.getKeyInfoCredentialResolver());
+        }
+        return resolver;
+    }
+
+    /** {@inheritDoc} */
+    public abstract SecurityPolicyRule<RequestType, IssuerType> createRuleInstance();
 }

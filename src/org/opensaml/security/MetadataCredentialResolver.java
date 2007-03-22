@@ -100,6 +100,25 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
         keyInfoCredentialResolver = new KeyInfoCredentialResolver();
         keyInfoCredentialResolver.setContextClass(DEFAULT_CONTEXT_CLASS);
     }
+    
+    /**
+     * Get the KeyInfo credential resolver used by this metadata resolver to handle KeyInfo elements.
+     * 
+     * @return KeyInfo credential resolver
+     */
+    public KeyInfoCredentialResolver getKeyInfoCredentialResolver() {
+        return keyInfoCredentialResolver;
+    }
+    
+    /**
+     * Set the KeyInfo credential resolver used by this metadata resolver to handle KeyInfo elements.
+     * 
+     * @param keyInfoResolver the new KeyInfoCredentialResolver to use
+     */
+    public void setKeyInfoCredentialResolver(KeyInfoCredentialResolver keyInfoResolver) {
+        keyInfoCredentialResolver = keyInfoResolver;
+        keyInfoResolver.setContextClass(this.getContextClass());
+    }
 
     /** {@inheritDoc} */
     public Iterable<Credential> resolveCredentials(CredentialCriteria criteria) throws SecurityException {

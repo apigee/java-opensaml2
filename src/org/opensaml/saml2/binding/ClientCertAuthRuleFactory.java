@@ -25,13 +25,13 @@ import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
+import org.opensaml.security.MetadataCredentialResolver;
 import org.opensaml.ws.security.HttpRequestX509CredentialAdapter;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.security.X509KeyInfoResolver;
-import org.opensaml.xml.security.trust.EntityCredentialTrustEngine;
+import org.opensaml.xml.security.trust.TrustEngine;
 import org.opensaml.xml.security.x509.X509Credential;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -41,12 +41,12 @@ import org.opensaml.xml.util.DatatypeHelper;
  * entity within the metadata from the given provider and where the trust engine validates the entity cert against the
  * information given in the assumed issuer's metadata.
  */
-public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactory<Issuer> {
+public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactory<HttpServletRequest, Issuer> {
 
     /** {@inheritDoc} */
     public SecurityPolicyRule<HttpServletRequest, Issuer> createRuleInstance() {
-        return new ClientCertAuthRule(getMetadataProvider(), getTrustEngine(), getKeyResolver(), getIssuerRole(),
-                getIssuerProtocol());
+        return new ClientCertAuthRule(getTrustEngine(), getMetadataResolver(), 
+                getMetadataProvider(), getIssuerRole(), getIssuerProtocol());
     }
 
     /**
@@ -57,16 +57,18 @@ public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactor
         /**
          * Constructor.
          * 
-         * @param provider metadata provider used to look up entity information
          * @param engine trust engine used to validate client cert against issuer's metadata
-         * @param x509KeyResolver resolver used to extract key information from a key source
+         * @param resolver resolver used to extract credential information from metadata
+         * @param provider metadata provider used to look up entity information
          * @param role role the issuer is meant to be operating in
          * @param protocol protocol the issuer used in the request
          */
-        public ClientCertAuthRule(MetadataProvider provider,
-                EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> engine,
-                X509KeyInfoResolver x509KeyResolver, QName role, String protocol) {
-            super(provider, engine, x509KeyResolver, role, protocol);
+        public ClientCertAuthRule(
+                TrustEngine<X509Credential, X509Credential> engine,
+                MetadataCredentialResolver resolver,
+                MetadataProvider provider, QName role, String protocol) {
+                
+            super(engine, resolver, provider, role, protocol);
         }
 
         /** {@inheritDoc} */
@@ -74,9 +76,10 @@ public class ClientCertAuthRuleFactory  extends BaseX509CredentialAuthRuleFactor
                              XMLObject message, 
                              SecurityPolicyContext<Issuer> context) 
                 throws SecurityPolicyException {
+            
             //TODO re-evaluate all this code
-            Issuer requestIssuerName = evaluateCredential(new HttpRequestX509CredentialAdapter(request), message);
-            Issuer messageIssuerName = getSAML2Issuer(message);
+            //Issuer requestIssuerName = evaluateCredential(new HttpRequestX509CredentialAdapter(request), message);
+            //Issuer messageIssuerName = getSAML2Issuer(message);
 
             //if (DatatypeHelper.safeEquals(requestIssuerName, messageIssuerName)) {
             //    throw new SecurityPolicyException("SAML 2 message issuer does not match request issuer name");

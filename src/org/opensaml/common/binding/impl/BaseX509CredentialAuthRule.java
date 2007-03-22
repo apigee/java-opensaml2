@@ -16,20 +16,16 @@
 
 package org.opensaml.common.binding.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.ServletRequest;
 import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
+import org.opensaml.security.MetadataCredentialResolver;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.security.X509KeyInfoResolver;
-import org.opensaml.xml.security.credential.UsageType;
-import org.opensaml.xml.security.trust.EntityCredentialTrustEngine;
+import org.opensaml.xml.security.trust.TrustEngine;
 import org.opensaml.xml.security.x509.X509Credential;
 
 /**
@@ -39,56 +35,33 @@ import org.opensaml.xml.security.x509.X509Credential;
  * @param <IssuerType> the message issuer type
  */
 public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequest, IssuerType> 
+        extends AbstractSAMLSecurityPolicyRule<RequestType, IssuerType>
         implements SecurityPolicyRule<RequestType, IssuerType> {
 
-    /** Metadata provider to lookup issuer information. */
-    private MetadataProvider metadataProvider;
-
     /** Trust engine used to verify metadata. */
-    private EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> trustEngine;
+    private TrustEngine<X509Credential, X509Credential> trustEngine;
 
-    /** Resolver used to extract key information from a key source. */
-    private X509KeyInfoResolver keyResolver;
-
-    /** Types of keys used in the verificiation process. */
-    private List<UsageType> keyUsageTypes;
-
-    /** SAML role the issuer is meant to be operating in. */
-    private QName issuerRole;
-
-    /** The message protocol used by the issuer. */
-    private String issuerProtocol;
+    /** Resolver used to extract credential information from SAML 2 metadata. */
+    private MetadataCredentialResolver metadataResolver;
 
     /**
      * Constructor.
      * 
-     * @param provider metadata provider used to look up entity information
      * @param engine trust engine used to validate client cert against issuer's metadata
-     * @param x509KeyResolver resolver used to extract key information from a key source
+     * @param resolver resolver used to extract credential information from metadata
+     * @param provider metadata provider used to look up entity information
      * @param role role the issuer is meant to be operating in
      * @param protocol protocol the issuer used in the request
      */
-    public BaseX509CredentialAuthRule(MetadataProvider provider,
-            EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> engine,
-            X509KeyInfoResolver x509KeyResolver, QName role, String protocol) {
-        metadataProvider = provider;
+    public BaseX509CredentialAuthRule(
+            TrustEngine<X509Credential, X509Credential> engine,
+            MetadataCredentialResolver resolver,
+            MetadataProvider provider, QName role, String protocol){
+        
+        super(provider, role, protocol);
         trustEngine = engine;
-        keyResolver = x509KeyResolver;
-        issuerRole = role;
-        issuerProtocol = protocol;
+        this.metadataResolver = resolver;
 
-        keyUsageTypes = new ArrayList<UsageType>();
-        keyUsageTypes.add(UsageType.SIGNING);
-        keyUsageTypes.add(UsageType.UNSPECIFIED);
-    }
-
-    /**
-     * Gets the metadata provider used to look up entity information.
-     * 
-     * @return metadata provider used to look up entity information
-     */
-    public MetadataProvider getMetadataProvider() {
-        return metadataProvider;
     }
 
     /**
@@ -96,7 +69,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * 
      * @return trust engine used to validate the X509 credential
      */
-    public EntityCredentialTrustEngine<X509Credential, X509KeyInfoResolver> getTrustEngine() {
+    public TrustEngine<X509Credential, X509Credential> getTrustEngine() {
         return trustEngine;
     }
 
@@ -105,26 +78,8 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * 
      * @return key resolver used to extract keying information from the metadata
      */
-    public X509KeyInfoResolver getKeyResolver() {
-        return keyResolver;
-    }
-
-    /**
-     * Gets the role the issuer is operating in.
-     * 
-     * @return role the issuer is operating in
-     */
-    public QName getIssuerRole() {
-        return issuerRole;
-    }
-
-    /**
-     * Gets the protocol the issuer is using.
-     * 
-     * @return protocol the issuer is using
-     */
-    public String getIssuerProtocol() {
-        return issuerProtocol;
+    public MetadataCredentialResolver getMetadataResolver() {
+        return metadataResolver;
     }
 
     /** {@inheritDoc} */
@@ -144,27 +99,9 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      */
     protected IssuerType evaluateCredential(X509Credential credential, XMLObject message) 
             throws SecurityPolicyException {
-        //TODO - this logic is wrong, need to reassess
-        //     - also need to make work with generic IssuerType
-     /*   List issuerNames = X509Util.getSubjectNames(credential.getEntityCertificate(),
-                BaseX509CredentialAuthRuleFactory.SUBJECT_ALT_NAMES);
+        
+        //TODO - implement
 
-        for (Object issuerName : issuerNames) {
-            try {
-                MetadataKeyInfoSource keyInfoSrc = new MetadataKeyInfoSource(keyUsageTypes, getMetadataProvider(),
-                        issuerName.toString(), getIssuerRole(), getIssuerProtocol());
-                
-                if (getTrustEngine().validate(credential, keyInfoSrc, getKeyResolver())) {
-                    return issuerName.toString();
-                }
-                
-            } catch (SecurityException e) {
-                throw new SecurityPolicyException("Unable to validate credential", e);
-            }
-        }
-
-        throw new SecurityPolicyException("Issuer can bot be located in metadata");
-        */
         return null;
     }
 }
