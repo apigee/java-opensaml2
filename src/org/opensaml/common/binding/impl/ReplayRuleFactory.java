@@ -136,7 +136,7 @@ public class ReplayRuleFactory<RequestType extends ServletRequest, IssuerType>
        }
 
        /** {@inheritDoc} */
-       public void evaluate(RequestType request, XMLObject message, SecurityPolicyContext context)
+       public void evaluate(RequestType request, XMLObject message, SecurityPolicyContext<IssuerType> context)
            throws SecurityPolicyException {
            
            Logger log = Logger.getLogger(ReplayRule.class);
