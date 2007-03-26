@@ -30,6 +30,7 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
 
@@ -68,6 +69,8 @@ public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshall
             entitiesDescriptor.getEntitiesDescriptors().add((EntitiesDescriptor) childSAMLObject);
         } else if (childSAMLObject instanceof EntityDescriptor) {
             entitiesDescriptor.getEntityDescriptors().add((EntityDescriptor) childSAMLObject);
+        } else if (childSAMLObject instanceof Signature) {
+            entitiesDescriptor.setSignature((Signature) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
