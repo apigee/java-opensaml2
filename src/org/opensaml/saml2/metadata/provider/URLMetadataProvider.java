@@ -282,8 +282,8 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
         }
         httpClient.executeMethod(getMethod);
 
-        if (log.isTraceEnabled()) {
-            log.trace("Retrieved the following metadata document\n" + getMethod.getResponseBodyAsString());
+        if (log.isDebugEnabled()) {
+            log.debug("Retrieved the following metadata document\n" + getMethod.getResponseBodyAsString());
         }
 
         XMLObject metadata = unmarshallMetadata(getMethod.getResponseBodyAsStream());

@@ -32,7 +32,7 @@ import org.opensaml.xml.io.MarshallerFactory;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallerFactory;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.parse.BasicParserPool;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Document;
@@ -45,7 +45,7 @@ import org.xml.sax.InputSource;
 public abstract class BaseTestCase extends XMLTestCase {
     
     /** Parser manager used to parse XML. */
-    protected static ParserPool parser;
+    protected static BasicParserPool parser;
     
     /** XMLObject builder factory. */
     protected static XMLObjectBuilderFactory builderFactory;
@@ -69,7 +69,7 @@ public abstract class BaseTestCase extends XMLTestCase {
             fail(e.getMessage());
         }
         
-        parser = new ParserPool();
+        parser = new BasicParserPool();
         parser.setNamespaceAware(true);
         builderFactory = Configuration.getBuilderFactory();
         marshallerFactory = Configuration.getMarshallerFactory();
