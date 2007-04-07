@@ -16,12 +16,15 @@
 
 package org.opensaml.common.impl;
 
-import javolution.util.FastSet;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.apache.xml.security.algorithms.MessageDigestAlgorithm;
 import org.apache.xml.security.signature.XMLSignature;
 import org.apache.xml.security.signature.XMLSignatureException;
+import org.apache.xml.security.transforms.Transform;
 import org.apache.xml.security.transforms.TransformationException;
 import org.apache.xml.security.transforms.Transforms;
 import org.apache.xml.security.transforms.params.InclusiveNamespaces;
@@ -31,13 +34,24 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.encryption.EncryptionConstants;
 import org.opensaml.xml.signature.ContentReference;
 import org.opensaml.xml.signature.SignatureConstants;
-import org.w3c.dom.Element;
 
 /**
- * A content reference for SAML objects that will be signed. The reference is created per the SAML specification. An
- * inclusive namespace list, used when the content is canonicalized, is generated from the namespaces, retrieved from
- * {@link org.opensaml.xml.XMLObject#getNamespaces()}, used by the SAML object to be signed and all of it's
- * descendants.
+ * A content reference for SAML objects that will be signed. The reference is created per the SAML specification. 
+ * 
+ * The default digest algorithm used is {@link EncryptionConstants#ALGO_ID_DIGEST_SHA256}.
+ * The default set of transforms applied consists of {@link SignatureConstants#TRANSFORM_ENVELOPED_SIGNATURE}
+ * and {@link SignatureConstants#TRANSFORM_C14N_EXCL_WITH_COMMENTS}.
+ * 
+ * When generating an exclusive canonicalization transform, an inclusive namespace list is 
+ * generated from the namespaces, retrieved from {@link org.opensaml.xml.XMLObject#getNamespaces()},
+ * used by the SAML object to be signed and all of it's descendants.
+ * 
+ * Note that the SAML specification states that:
+ *   1) an exclusive canonicalization transform (either with or without comments) SHOULD be used.
+ *   2) transforms other than enveloped signature and one of the two exclusive canonicalizations
+ *      SHOULD NOT be used.
+ * Careful consideration should be made before deviating from these recommendations.
+ * 
  */
 public class SAMLObjectContentReference implements ContentReference {
 
@@ -46,6 +60,12 @@ public class SAMLObjectContentReference implements ContentReference {
 
     /** SAMLObject this reference refers to. */
     private SignableSAMLObject signableObject;
+    
+    /** Algorithm used to digest the content. */
+    private String digestAlgorithm;
+
+    /** Transforms applied to the content. */
+    private List<String> transforms;
 
     /**
      * Constructor.
@@ -54,37 +74,87 @@ public class SAMLObjectContentReference implements ContentReference {
      */
     public SAMLObjectContentReference(SignableSAMLObject newSignableObject) {
         signableObject = newSignableObject;
+        transforms = new ArrayList<String>();
+        
+        // Set defaults
+        digestAlgorithm = EncryptionConstants.ALGO_ID_DIGEST_SHA256;
+        transforms.add(SignatureConstants.TRANSFORM_ENVELOPED_SIGNATURE);
+        transforms.add(SignatureConstants.TRANSFORM_C14N_EXCL_WITH_COMMENTS);
+    }
+    
+    /**
+     * Gets the transforms applied to the content prior to digest generation.
+     * 
+     * @return the transforms applied to the content prior to digest generation
+     */
+    public List<String> getTransforms() {
+        return transforms;
+    }
+
+    /**
+     * Gets the algorithm used to digest the content.
+     * 
+     * @return the algorithm used to digest the content
+     */
+    public String getDigestAlgorithm() {
+        return digestAlgorithm;
+    }
+
+    /**
+     * Sets the algorithm used to digest the content.
+     * 
+     * @param newAlgorithm the algorithm used to digest the content
+     */
+    public void setDigestAlgorithm(String newAlgorithm) {
+        digestAlgorithm = newAlgorithm;
     }
 
     /** {@inheritDoc} */
     public void createReference(XMLSignature signature) {
         try {
             Transforms dsigTransforms = new Transforms(signature.getDocument());
-            dsigTransforms.addTransform(SignatureConstants.TRANSFORM_ENVELOPED_SIGNATURE);
-            dsigTransforms.addTransform(SignatureConstants.TRANSFORM_C14N_EXCL_WITH_COMMENTS);
-
-            // Namespaces that aren't visibly used, such as those used in QName attribute values, would
-            // be stripped out by exclusive canonicalization. Need to make sure they aren't by explicitly
-            // telling the transformer about them.
-            if (log.isDebugEnabled()) {
-                log.debug("Adding namespaces to list of inclusive namespaces for signature");
-            }
-            FastSet<String> inclusiveNamespacePrefixes = new FastSet<String>();
-            populateNamespacePrefixes(inclusiveNamespacePrefixes, signableObject);
-
-            if (inclusiveNamespacePrefixes != null && inclusiveNamespacePrefixes.size() > 0) {
-                InclusiveNamespaces inclusiveNamespaces = new InclusiveNamespaces(signature.getDocument(),
-                        inclusiveNamespacePrefixes);
-                Element transformElem = dsigTransforms.item(1).getElement();
-                transformElem.appendChild(inclusiveNamespaces.getElement());
+            for (int i=0; i<transforms.size(); i++) {
+                String transform = transforms.get(i);
+                dsigTransforms.addTransform(transform);
+                
+                if (transform.equals(SignatureConstants.TRANSFORM_C14N_EXCL_WITH_COMMENTS) ||
+                    transform.equals(SignatureConstants.TRANSFORM_C14N_EXCL_OMIT_COMMENTS)) {
+                    
+                    processExclusiveTransform(signature, dsigTransforms.item(i));
+                    
+                }
             }
 
             signature.addDocument("#" + signableObject.getSignatureReferenceID(), dsigTransforms,
-                    EncryptionConstants.ALGO_ID_DIGEST_SHA256);
+                    digestAlgorithm);
+            
         } catch (TransformationException e) {
             log.error("Unsupported signature transformation", e);
         } catch (XMLSignatureException e) {
             log.error("Error adding content reference to signature", e);
+        }
+    }
+
+    /**
+     * Populate the inclusive namspace prefixes on the specified Apache (exclusive) transform object.
+     * 
+     * @param signature the Apache XMLSignature object
+     * @param transform the Apache Transform object representing an exclusive transform
+     */
+    private void processExclusiveTransform(XMLSignature signature, Transform transform) {
+        // Namespaces that aren't visibly used, such as those used in QName attribute values, would
+        // be stripped out by exclusive canonicalization. Need to make sure they aren't by explicitly
+        // telling the transformer about them.
+        if (log.isDebugEnabled()) {
+            log.debug("Adding list of inclusive namespaces for signature exclusive canonicalization transform");
+        }
+        HashSet<String> inclusiveNamespacePrefixes = new HashSet<String>();
+        populateNamespacePrefixes(inclusiveNamespacePrefixes, signableObject);
+        
+        if (inclusiveNamespacePrefixes != null && inclusiveNamespacePrefixes.size() > 0) {
+            InclusiveNamespaces inclusiveNamespaces = new InclusiveNamespaces(signature.getDocument(),
+                    inclusiveNamespacePrefixes);
+            transform.getElement().appendChild(inclusiveNamespaces.getElement());
         }
     }
 
@@ -94,7 +164,7 @@ public class SAMLObjectContentReference implements ContentReference {
      * @param namespacePrefixes the namespace prefix set to be populated
      * @param signatureContent the XMLObject whose namespace prefixes will be used to populate the set
      */
-    private void populateNamespacePrefixes(FastSet<String> namespacePrefixes, XMLObject signatureContent) {
+    private void populateNamespacePrefixes(Set<String> namespacePrefixes, XMLObject signatureContent) {
         if (signatureContent.getNamespaces() != null) {
             for (Namespace namespace : signatureContent.getNamespaces()) {
                 if (namespace != null) {

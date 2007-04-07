@@ -47,11 +47,10 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
     /**
      * {@inheritDoc}
      * 
-     * When a signature is added a content reference that uses the ID of this object, at the time of signing will be
-     * created and added to the signature. The message digest method will be set to
-     * {@link EncryptionConstants#ALGO_ID_DIGEST_SHA256} and the transforms will
-     * be set to {@link SignatureConstants#TRANSFORM_ENVELOPED_SIGNATURE} and
-     * {@link SignatureConstants#TRANSFORM_C14N_EXCL_WITH_COMMENTS}.
+     * When a signature is added, a default content reference that uses the ID of this object will be
+     * created and added to the signature at the time of signing. See {@link SAMLObjectContentReference} 
+     * for the default digest algorithm and transforms that will be used.  These default values may be 
+     * changed prior to marshalling this object.
      */
     public void setSignature(Signature newSignature) {
         newSignature.getContentReferences().add(new SAMLObjectContentReference(this));
