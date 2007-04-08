@@ -17,6 +17,7 @@
 package org.opensaml.security;
 
 import java.lang.ref.SoftReference;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,8 +34,10 @@ import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.saml2.metadata.provider.ObservableMetadataProvider;
 import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.credential.AbstractCredentialResolver;
+import org.opensaml.xml.security.credential.BasicCredential;
+import org.opensaml.xml.security.credential.EntityCredentialCriteria;
 import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.security.credential.CredentialCriteria;
+import org.opensaml.xml.security.credential.CredentialCriteriaSet;
 import org.opensaml.xml.security.credential.CredentialResolver;
 import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialCriteria;
@@ -57,12 +60,6 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
     /** Class logger. */
     private static Logger log = Logger.getLogger(MetadataCredentialResolver.class);
     
-    /** Role from which to fetch the credential information. */
-    private QName role;
-
-    /** Suported protocol of the role from which to fetch the credential information. */
-    private String protocol;
-
     /** Metadata provider from which to fetch the credentials. */
     private MetadataProvider metadata;
 
@@ -75,19 +72,14 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
     /**
      * Constructor.
      * 
-     * @param entityRole role of the entities credentials will be retrieved for
-     * @param supportedProtocol protocol supported by the entity
      * @param metadataProvider provider of the metadata
      * 
-     * @throws IllegalArgumentException thrown if the given role, supported protocol, or provider is null
+     * @throws IllegalArgumentException thrown if the supplied provider is null
      */
-    public MetadataCredentialResolver(QName entityRole, String supportedProtocol, MetadataProvider metadataProvider)
-            throws IllegalArgumentException {
-        if (entityRole == null || DatatypeHelper.isEmpty(supportedProtocol) || metadataProvider == null) {
-            throw new IllegalArgumentException("Role, supported protocol, or  metadata provider may not be null");
+    public MetadataCredentialResolver(MetadataProvider metadataProvider) {
+        if (metadataProvider == null) {
+            throw new IllegalArgumentException("Metadata provider may not be null");
         }
-        role = entityRole;
-        protocol = DatatypeHelper.safeTrim(supportedProtocol);
         metadata = metadataProvider;
 
         if (metadata instanceof ObservableMetadataProvider) {
@@ -97,8 +89,6 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
         
         setContextClass(DEFAULT_CONTEXT_CLASS);
         
-        keyInfoCredentialResolver = new KeyInfoCredentialResolver();
-        keyInfoCredentialResolver.setContextClass(DEFAULT_CONTEXT_CLASS);
     }
     
     /**
@@ -107,6 +97,10 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
      * @return KeyInfo credential resolver
      */
     public KeyInfoCredentialResolver getKeyInfoCredentialResolver() {
+        if (keyInfoCredentialResolver == null) {
+            keyInfoCredentialResolver = new KeyInfoCredentialResolver();
+            keyInfoCredentialResolver.setContextClass(this.getContextClass());
+        }
         return keyInfoCredentialResolver;
     }
     
@@ -121,12 +115,24 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
     }
 
     /** {@inheritDoc} */
-    public Iterable<Credential> resolveCredentials(CredentialCriteria criteria) throws SecurityException {
-        Collection<Credential> credentials;
+    public void setContextClass(Class<? extends SAMLMDCredentialContext> newContextClass) {
+        super.setContextClass(newContextClass);
+        getKeyInfoCredentialResolver().setContextClass(newContextClass);
+    }
+
+    /** {@inheritDoc} */
+    public Iterable<Credential> resolveCredentials(CredentialCriteriaSet criteriaSet) throws SecurityException {
+        EntityCredentialCriteria entityCriteria = criteriaSet.getCriteria(EntityCredentialCriteria.class);
+        MetadataCredentialCriteria mdCriteria = criteriaSet.getCriteria(MetadataCredentialCriteria.class);
         
-        if (criteria.getEntityID() == null) {
-            throw new SecurityException("No entity was specified as credential criteria");
+        if (entityCriteria == null || mdCriteria == null) {
+            throw new IllegalArgumentException("Both basic criteria and SAML metadata criteria must be supplied");
         }
+        if (DatatypeHelper.isEmpty(entityCriteria.getOwnerID()) || mdCriteria.getRole() == null) {
+            throw new IllegalArgumentException("Credential owner entity ID and metadata role must be supplied");
+        }
+        
+        Collection<Credential> credentials;
         
         // TODO need to figure out whether and how to cache credentials based on CredentialCriteria
         // or else apply the criteria against the credentials already cached.
@@ -141,7 +147,7 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
             cacheCredential(credential);
         }*/
         
-        credentials = retrieveFromMetadata(criteria);
+        credentials = retrieveFromMetadata(entityCriteria, mdCriteria);
 
         return credentials;
     }
@@ -175,59 +181,85 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
     }
 
     /**
-     * Retrieves a credential from the provided metadata.
+     * Retrieves credentials from the provided metadata.
      * 
-     * @param criteria criteria by which to resolve credentials
+     * @param entityCriteria basic credential criteria
+     * @param metadataCriteria SAML metadata credential criteria
      * 
-     * @return the credential or null
+     * @return the resolved credentials or null
      * 
      * @throws SecurityException thrown if the key, certificate, or CRL information is represented in an unsupported
      *             format
      */
-    protected Collection<Credential> retrieveFromMetadata(CredentialCriteria criteria) throws SecurityException {
-        String entity = criteria.getEntityID();
-        UsageType usage = criteria.getUsage();
-        
+    protected Collection<Credential> retrieveFromMetadata(EntityCredentialCriteria entityCriteria, 
+            MetadataCredentialCriteria metadataCriteria) throws SecurityException {
+        String entityID = entityCriteria.getOwnerID();
+        QName role = metadataCriteria.getRole();
+        String protocol = metadataCriteria.getProtocol();
+        UsageType usage = entityCriteria.getUsage();
+        if (usage ==  null) {
+            usage = UsageType.UNSPECIFIED;
+        }
         
         if (log.isDebugEnabled()) {
-            log.debug("Attempting to retreive credential for entity " + entity + "from metadata");
+            log.debug("Attempting to retreive credentials for entity " + entityID + "from metadata");
         }
-        try {
-            if (log.isDebugEnabled()) {
-                log.debug("Retrieving credential for entity " + entity + " in role " + role);
-            }
-            RoleDescriptor roleDescriptor = metadata.getRole(entity, role, protocol);
-            if (roleDescriptor == null) {
-                return null;
-            }
-
+        Collection<Credential> credentials = new HashSet<Credential>();
+        
+        for (RoleDescriptor roleDescriptor : getRoleDescriptors(entityID, role, protocol)) {
             List<KeyDescriptor> keyDescriptors = roleDescriptor.getKeyDescriptors();
-            if (keyDescriptors == null) {
-                return null;
-            }
-            
-            Collection<Credential> credentials = new HashSet<Credential>();
-
             for (KeyDescriptor keyDescriptor : keyDescriptors) {
-                if (keyDescriptor.getUse() == usage) {
+                if (keyDescriptor.getUse() == usage || usage == UsageType.UNSPECIFIED) {
                     if (keyDescriptor.getKeyInfo() != null) {
+                        CredentialCriteriaSet critSet = new CredentialCriteriaSet();
+                        critSet.add( new KeyInfoCredentialCriteria(keyDescriptor.getKeyInfo()) );
                         
-                        // TODO need to add other things from the original criteria
-                        // to KeyInfo criteria - does that make sense?
-                        KeyInfoCredentialCriteria keyInfoCriteria = 
-                            new KeyInfoCredentialCriteria(keyDescriptor.getKeyInfo());
-                        keyInfoCriteria.setEntityID(criteria.getEntityID());
-                        keyInfoCriteria.setUsage(criteria.getUsage());
-                        keyInfoCriteria.setKeyAlgorithm(criteria.getKeyAlgorithm());
-                        
-                        for (Credential cred : keyInfoCredentialResolver.resolveCredentials(keyInfoCriteria)) {
+                        for (Credential cred : getKeyInfoCredentialResolver().resolveCredentials(critSet)) {
+                            if (cred instanceof BasicCredential) {
+                                BasicCredential basicCred = (BasicCredential) cred;
+                                basicCred.setEntityId(entityID);
+                                basicCred.setUsageType(usage);
+                            }
                             credentials.add(cred);
                         }
                     }
                 }
             }
-
-            return credentials;
+            
+        }
+        
+        return credentials;
+    }
+    
+    /**
+     * Get the list of metadata role descriptors which match the given entityID, role and protocol.
+     * 
+     * @param entityID entity ID of the credential owner
+     * @param role role in which the entity is operating
+     * @param protocol protocol over which the entity is operating (may be null)
+     * @return a list of role descriptors matching the given parameters, or null
+     * @throws SecurityException thrown if there is an error retrieving role descriptors 
+     *          from the metadata provider
+     */
+    protected List<RoleDescriptor> getRoleDescriptors(String entityID, QName role, String protocol) 
+        throws SecurityException {
+        try {
+            if (log.isDebugEnabled()) {
+                log.debug("Retrieving credential for entity " + entityID + " in role " + role 
+                        + " for protocol " + protocol);
+            }
+            
+            if (DatatypeHelper.isEmpty(protocol)) {
+                return metadata.getRole(entityID, role);
+            } else {
+                RoleDescriptor roleDescriptor = metadata.getRole(entityID, role, protocol);
+                if (roleDescriptor == null) {
+                    return null;
+                }
+                List<RoleDescriptor> roles = new ArrayList<RoleDescriptor>();
+                roles.add(roleDescriptor);
+                return roles;
+            }
         } catch (MetadataProviderException e) {
             log.error("Unable to read metadata from provider", e);
             throw new SecurityException("Unable to read metadata provider", e);

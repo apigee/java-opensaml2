@@ -132,7 +132,7 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
      */
     private MetadataCredentialResolver buildNewMetadataResolver() {
         MetadataCredentialResolver resolver = 
-            new MetadataCredentialResolver(getIssuerRole(), getIssuerProtocol(), getMetadataProvider());
+            new MetadataCredentialResolver(getMetadataProvider());
         
         if (getKeyInfoCredentialResolver() != null) {
             resolver.setKeyInfoCredentialResolver(this.getKeyInfoCredentialResolver());
