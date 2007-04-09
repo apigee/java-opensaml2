@@ -35,8 +35,8 @@ import org.opensaml.xml.encryption.EncryptedKey;
 import org.opensaml.xml.encryption.EncryptionConstants;
 import org.opensaml.xml.encryption.EncryptionException;
 import org.opensaml.xml.encryption.EncryptionParameters;
-import org.opensaml.xml.encryption.EncryptionTestHelper;
 import org.opensaml.xml.encryption.KeyEncryptionParameters;
+import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
 import org.opensaml.xml.signature.RetrievalMethod;
@@ -80,9 +80,9 @@ public class ComplexEncryptionTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        Key encKey = EncryptionTestHelper.generateKey(algoURI);
-        Key kekKeyAES = EncryptionTestHelper.generateKey(kekURIAES);
-        KeyPair kekKeyRSA = EncryptionTestHelper.generateKeyPair(kekURIRSA, 2048);
+        Key encKey = SecurityTestHelper.generateKeyFromURI(algoURI);
+        Key kekKeyAES = SecurityTestHelper.generateKeyFromURI(kekURIAES);
+        KeyPair kekKeyRSA = SecurityTestHelper.generateKeyPairFromURI(kekURIRSA, 2048);
         
         encParams = new EncryptionParameters();
         encParams.setAlgorithm(algoURI);

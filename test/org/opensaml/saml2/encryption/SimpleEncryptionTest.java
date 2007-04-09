@@ -34,8 +34,8 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.encryption.EncryptionConstants;
 import org.opensaml.xml.encryption.EncryptionException;
 import org.opensaml.xml.encryption.EncryptionParameters;
-import org.opensaml.xml.encryption.EncryptionTestHelper;
 import org.opensaml.xml.encryption.KeyEncryptionParameters;
+import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -69,7 +69,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        Key encKey = EncryptionTestHelper.generateKey(algoURI);
+        Key encKey = SecurityTestHelper.generateKeyFromURI(algoURI);
         encParams = new EncryptionParameters();
         encParams.setAlgorithm(algoURI);
         encParams.setEncryptionKey(encKey);
