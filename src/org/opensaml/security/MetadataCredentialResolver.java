@@ -54,9 +54,6 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLMDCredentialContext> 
     implements CredentialResolver<SAMLMDCredentialContext> {
 
-    /** The default credential context class to use in resolved credentials.  */
-    public static final Class<SAMLMDCredentialContext> DEFAULT_CONTEXT_CLASS = SAMLMDCredentialContext.class;
-
     /** Class logger. */
     private static Logger log = Logger.getLogger(MetadataCredentialResolver.class);
     
@@ -87,8 +84,6 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
             observable.getObservers().add(new MetadataProviderObserver());
         }
         
-        setContextClass(DEFAULT_CONTEXT_CLASS);
-        
     }
     
     /**
@@ -99,7 +94,6 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
     public KeyInfoCredentialResolver getKeyInfoCredentialResolver() {
         if (keyInfoCredentialResolver == null) {
             keyInfoCredentialResolver = new KeyInfoCredentialResolver();
-            keyInfoCredentialResolver.setContextClass(this.getContextClass());
         }
         return keyInfoCredentialResolver;
     }
@@ -111,13 +105,6 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
      */
     public void setKeyInfoCredentialResolver(KeyInfoCredentialResolver keyInfoResolver) {
         keyInfoCredentialResolver = keyInfoResolver;
-        keyInfoResolver.setContextClass(this.getContextClass());
-    }
-
-    /** {@inheritDoc} */
-    public void setContextClass(Class<? extends SAMLMDCredentialContext> newContextClass) {
-        super.setContextClass(newContextClass);
-        getKeyInfoCredentialResolver().setContextClass(newContextClass);
     }
 
     /** {@inheritDoc} */
@@ -219,6 +206,7 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
                                 BasicCredential basicCred = (BasicCredential) cred;
                                 basicCred.setEntityId(entityID);
                                 basicCred.setUsageType(usage);
+                                basicCred.getCredentalContextSet().add( new SAMLMDCredentialContext(keyDescriptor) );
                             }
                             credentials.add(cred);
                         }

@@ -21,33 +21,49 @@ import java.util.List;
 import org.opensaml.saml2.metadata.EncryptionMethod;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.security.keyinfo.KeyInfoCredentialContext;
+import org.opensaml.xml.security.credential.CredentialContext;
 import org.opensaml.xml.signature.KeyInfo;
 
 /**
  * A credential context for credentials resolved from a {@link KeyInfo} that was found in SAML 2 metadata.
  */
-public class SAMLMDCredentialContext extends KeyInfoCredentialContext {
+public class SAMLMDCredentialContext implements CredentialContext {
+    
+    /** Key descriptor which contained the KeyInfo used. */
+    private KeyDescriptor keyDescriptor;
 
-    /** Role containing the KeyInfo resolution context. */
+    /** Role in which credential was resolved. */
     private RoleDescriptor role;
     
-    /** Role containing the KeyInfo resolution context. */
+    /** Encryption methods associated with the credential. */
     private List<EncryptionMethod> encMethods;
     
-    /** {@inheritDoc} */
-    public void setKeyInfo(KeyInfo info) {
-        super.setKeyInfo(info);
-        if (info != null) {
-            // KeyInfo -> KeyDescriptor / EncryptionMethod
-            encMethods = ((KeyDescriptor) info.getParent()).getEncryptionMethods();
-            // KeyInfo -> KeyDescriptor -> RoleDescriptor
-            role = (RoleDescriptor) info.getParent().getParent();
+    /**
+     * Constructor.
+     *
+     * @param descriptor the KeyDescriptor context from which a credential was resolved
+     */
+    public SAMLMDCredentialContext(KeyDescriptor descriptor) {
+        keyDescriptor = descriptor;
+        if (descriptor != null) {
+            // KeyDescriptor / EncryptionMethod
+            encMethods = descriptor.getEncryptionMethods();
+            // KeyDescriptor -> RoleDescriptor
+            role = (RoleDescriptor) descriptor.getParent();
         }
     }
     
     /**
-     * Return the list of {@link EncryptionMethod}'s associated with credential context
+     * Get the key descriptor context.
+     * 
+     * @return key descriptor
+     */
+    public KeyDescriptor getKeyDescriptor() {
+        return keyDescriptor;
+    }
+    
+    /**
+     * Return the list of {@link EncryptionMethod}'s associated with credential context.
      * 
      * @return a list of SAML metadata encryption method associated with this context
      */
@@ -64,12 +80,4 @@ public class SAMLMDCredentialContext extends KeyInfoCredentialContext {
         return role;
     }
     
-    /**
-     * Set the role descriptor context.
-     * 
-     * @param roleDescriptor the role descriptor context
-     */
-    public void setRoleDescriptor(RoleDescriptor roleDescriptor) {
-        role = roleDescriptor;
-    }
 }
