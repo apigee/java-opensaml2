@@ -122,8 +122,8 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLM
 
     /** {@inheritDoc} */
     public Iterable<Credential> resolveCredentials(CredentialCriteriaSet criteriaSet) throws SecurityException {
-        EntityCredentialCriteria entityCriteria = criteriaSet.getCriteria(EntityCredentialCriteria.class);
-        MetadataCredentialCriteria mdCriteria = criteriaSet.getCriteria(MetadataCredentialCriteria.class);
+        EntityCredentialCriteria entityCriteria = criteriaSet.get(EntityCredentialCriteria.class);
+        MetadataCredentialCriteria mdCriteria = criteriaSet.get(MetadataCredentialCriteria.class);
         
         if (entityCriteria == null || mdCriteria == null) {
             throw new IllegalArgumentException("Both basic criteria and SAML metadata criteria must be supplied");
