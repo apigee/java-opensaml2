@@ -51,8 +51,7 @@ import org.opensaml.xml.util.DatatypeHelper;
  * provider is an {@link ObservableMetadataProvider} this resolver will also clear its cache when the underlying
  * metadata changes.
  */
-public class MetadataCredentialResolver extends AbstractCredentialResolver<SAMLMDCredentialContext> 
-    implements CredentialResolver<SAMLMDCredentialContext> {
+public class MetadataCredentialResolver extends AbstractCredentialResolver implements CredentialResolver {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(MetadataCredentialResolver.class);
