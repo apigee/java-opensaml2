@@ -28,25 +28,25 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.NameIDPolicy}
+ * Concrete implementation of {@link org.opensaml.saml2.core.NameIDPolicy}.
  */
 public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy {
 
-    /** NameID Format URI */
+    /** NameID Format URI. */
     private String format;
 
-    /** NameID Format URI */
+    /** NameID Format URI. */
     private String spNameQualifier;
 
-    /** NameID Format URI */
+    /** NameID Format URI. */
     private XSBooleanValue allowCreate;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected NameIDPolicyImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -90,7 +90,7 @@ public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy
 
     /** {@inheritDoc} */
     public void setAllowCreate(Boolean newAllowCreate){
-        if(newAllowCreate == null){
+        if(newAllowCreate != null){
             allowCreate = prepareForAssignment(allowCreate, new XSBooleanValue(newAllowCreate, false));
         }else{
             allowCreate = prepareForAssignment(allowCreate, null);
