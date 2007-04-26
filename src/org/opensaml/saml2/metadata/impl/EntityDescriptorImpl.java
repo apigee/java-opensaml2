@@ -44,49 +44,49 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concretate implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}
+ * Concretate implementation of {@link org.opensaml.saml2.metadata.EntitiesDescriptor}.
  */
 public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements EntityDescriptor {
 
-    /** Entity ID of this Entity */
+    /** Entity ID of this Entity. */
     private String entityID;
 
-    /** ID attribute */
+    /** ID attribute. */
     private String id;
 
-    /** validUntil attribute */
+    /** validUntil attribute. */
     private DateTime validUntil;
 
-    /** cacheDurection attribute */
+    /** cacheDurection attribute. */
     private Long cacheDuration;
 
-    /** Extensions child */
+    /** Extensions child. */
     private Extensions extensions;
 
-    /** Role descriptors for this entity */
+    /** Role descriptors for this entity. */
     private final IndexedXMLObjectChildrenList<RoleDescriptor> roleDescriptors;
 
-    /** Affiliatition descriptor for this entity */
+    /** Affiliatition descriptor for this entity. */
     private AffiliationDescriptor affiliationDescriptor;
 
-    /** Organization the administers this entity */
+    /** Organization the administers this entity. */
     private Organization organization;
 
-    /** Contact persons for this entity */
+    /** Contact persons for this entity. */
     private final XMLObjectChildrenList<ContactPerson> contactPersons;
 
-    /** Additional metadata locations for this entity */
+    /** Additional metadata locations for this entity. */
     private final XMLObjectChildrenList<AdditionalMetadataLocation> additionalMetadata;
-    
-    /** "anyAttribute" attributes */
+
+    /** "anyAttribute" attributes. */
     private final AttributeMap unknownAttributes;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected EntityDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -102,11 +102,11 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     }
 
     /** {@inheritDoc} */
-    public void setEntityID(String id) {
-        if (id != null && id.length() > 1024) {
+    public void setEntityID(String newId) {
+        if (newId != null && newId.length() > 1024) {
             throw new IllegalArgumentException("Entity ID can not exceed 1024 characters in length");
         }
-        entityID = prepareForAssignment(entityID, id);
+        entityID = prepareForAssignment(entityID, newId);
     }
 
     /** {@inheritDoc} */
@@ -124,12 +124,11 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     /** {@inheritDoc} */
     public boolean isValid() {
         if (null == validUntil) {
-            //
-            // No date, so by default it is valid
-            //
             return true;
         }
-        return validUntil.isBeforeNow();
+
+        DateTime now = new DateTime();
+        return now.isBefore(validUntil);
     }
 
     /** {@inheritDoc} */
@@ -138,8 +137,8 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     }
 
     /** {@inheritDoc} */
-    public void setValidUntil(DateTime validUntil) {
-        this.validUntil = prepareForAssignment(this.validUntil, validUntil);
+    public void setValidUntil(DateTime newValidUntil) {
+        validUntil = prepareForAssignment(validUntil, newValidUntil);
     }
 
     /** {@inheritDoc} */
@@ -158,8 +157,8 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     }
 
     /** {@inheritDoc} */
-    public void setExtensions(Extensions extensions) throws IllegalArgumentException {
-        this.extensions = prepareForAssignment(this.extensions, extensions);
+    public void setExtensions(Extensions newExtensions) {
+        extensions = prepareForAssignment(extensions, newExtensions);
     }
 
     /** {@inheritDoc} */
@@ -187,50 +186,52 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     /** {@inheritDoc} */
     public IDPSSODescriptor getIDPSSODescriptor(String supportedProtocol) {
         List<RoleDescriptor> descriptors = getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
-        if(descriptors.size() > 0){
+        if (descriptors.size() > 0) {
             return (IDPSSODescriptor) descriptors.get(0);
         }
-        
+
         return null;
     }
 
     /** {@inheritDoc} */
     public SPSSODescriptor getSPSSODescriptor(String supportedProtocol) {
         List<RoleDescriptor> descriptors = getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
-        if(descriptors.size() > 0){
+        if (descriptors.size() > 0) {
             return (SPSSODescriptor) descriptors.get(0);
         }
-        
+
         return null;
     }
 
     /** {@inheritDoc} */
     public AuthnAuthorityDescriptor getAuthnAuthorityDescriptor(String supportedProtocol) {
-        List<RoleDescriptor> descriptors = getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
-        if(descriptors.size() > 0){
+        List<RoleDescriptor> descriptors = getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME,
+                supportedProtocol);
+        if (descriptors.size() > 0) {
             return (AuthnAuthorityDescriptor) descriptors.get(0);
         }
-        
+
         return null;
     }
 
     /** {@inheritDoc} */
     public AttributeAuthorityDescriptor getAttributeAuthorityDescriptor(String supportedProtocol) {
-        List<RoleDescriptor> descriptors = getRoleDescriptors(AttributeAuthorityDescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
-        if(descriptors.size() > 0){
+        List<RoleDescriptor> descriptors = getRoleDescriptors(AttributeAuthorityDescriptor.DEFAULT_ELEMENT_NAME,
+                supportedProtocol);
+        if (descriptors.size() > 0) {
             return (AttributeAuthorityDescriptor) descriptors.get(0);
         }
-        
+
         return null;
     }
 
     /** {@inheritDoc} */
     public PDPDescriptor getPDPDescriptor(String supportedProtocol) {
         List<RoleDescriptor> descriptors = getRoleDescriptors(PDPDescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
-        if(descriptors.size() > 0){
+        if (descriptors.size() > 0) {
             return (PDPDescriptor) descriptors.get(0);
         }
-        
+
         return null;
     }
 
@@ -240,7 +241,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     }
 
     /** {@inheritDoc} */
-    public void setAffiliationDescriptor(AffiliationDescriptor descriptor) throws IllegalArgumentException {
+    public void setAffiliationDescriptor(AffiliationDescriptor descriptor) {
         affiliationDescriptor = prepareForAssignment(affiliationDescriptor, descriptor);
     }
 
@@ -250,8 +251,8 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     }
 
     /** {@inheritDoc} */
-    public void setOrganization(Organization organization) throws IllegalArgumentException {
-        this.organization = prepareForAssignment(this.organization, organization);
+    public void setOrganization(Organization newOrganization) {
+        organization = prepareForAssignment(organization, newOrganization);
     }
 
     /** {@inheritDoc} */
@@ -263,16 +264,16 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     public List<AdditionalMetadataLocation> getAdditionalMetadataLocations() {
         return additionalMetadata;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public AttributeMap getUnknownAttributes() {
         return unknownAttributes;
     }
-    
+
     /** {@inheritDoc} */
-    public String getSignatureReferenceID(){
+    public String getSignatureReferenceID() {
         return id;
     }
 
@@ -280,7 +281,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if(getSignature() != null){
+        if (getSignature() != null) {
             children.add(getSignature());
         }
         children.add(getExtensions());

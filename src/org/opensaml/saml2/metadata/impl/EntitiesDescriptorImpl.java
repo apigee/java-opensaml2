@@ -34,30 +34,30 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
  */
 public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implements EntitiesDescriptor {
 
-    /** Name of this descriptor group */
+    /** Name of this descriptor group. */
     private String name;
 
-    /** ID attribute */
+    /** ID attribute. */
     private String id;
 
-    /** validUntil attribute */
+    /** validUntil attribute. */
     private DateTime validUntil;
 
-    /** cacheDurection attribute */
+    /** cacheDurection attribute. */
     private Long cacheDuration;
 
-    /** Extensions child */
+    /** Extensions child. */
     private Extensions extensions;
 
-    /** Ordered set of child Entity/Entities Descriptors */
+    /** Ordered set of child Entity/Entities Descriptors. */
     private final IndexedXMLObjectChildrenList<SAMLObject> orderedDescriptors;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected EntitiesDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -88,7 +88,12 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
 
     /** {@inheritDoc} */
     public boolean isValid() {
-        return validUntil.isBeforeNow();
+        if (null == validUntil) {
+            return true;
+        }
+        
+        DateTime now = new DateTime();
+        return now.isBefore(validUntil);
     }
 
     /** {@inheritDoc} */
@@ -97,8 +102,8 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     }
 
     /** {@inheritDoc} */
-    public void setValidUntil(DateTime validUntil) {
-        this.validUntil = prepareForAssignment(this.validUntil, validUntil);
+    public void setValidUntil(DateTime newValidUntil) {
+        validUntil = prepareForAssignment(validUntil, newValidUntil);
     }
 
     /** {@inheritDoc} */
@@ -117,8 +122,8 @@ public class EntitiesDescriptorImpl extends AbstractSignableSAMLObject implement
     }
 
     /** {@inheritDoc} */
-    public void setExtensions(Extensions extensions) throws IllegalArgumentException {
-        this.extensions = prepareForAssignment(this.extensions, extensions);
+    public void setExtensions(Extensions newExtensions) {
+        extensions = prepareForAssignment(extensions, newExtensions);
     }
 
     /** {@inheritDoc} */
