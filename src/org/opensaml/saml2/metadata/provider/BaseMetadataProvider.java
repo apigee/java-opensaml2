@@ -19,18 +19,22 @@ package org.opensaml.saml2.metadata.provider;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.io.UnmarshallerFactory;
 
+/**
+ * Base class for metadata providers.
+ */
 public abstract class BaseMetadataProvider implements MetadataProvider {
-    
-    /** Whether metadata is required to be valid */
+
+    /** Whether metadata is required to be valid. */
     private boolean requireValidMetadata;
 
-    /** Unmarshaller factory used to get an unmarshaller for the metadata DOM */
+    /** Unmarshaller factory used to get an unmarshaller for the metadata DOM. */
     protected UnmarshallerFactory unmarshallerFactory;
 
-    /** Filter applied to all metadata */
+    /** Filter applied to all metadata. */
     private MetadataFilter mdFilter;
 
-    public BaseMetadataProvider(){
+    /** Constructor. */
+    public BaseMetadataProvider() {
         requireValidMetadata = false;
         unmarshallerFactory = Configuration.getUnmarshallerFactory();
     }
@@ -41,8 +45,8 @@ public abstract class BaseMetadataProvider implements MetadataProvider {
     }
 
     /** {@inheritDoc} */
-    public void setRequireValidMetadata(boolean requireValidMetadata) {
-        this.requireValidMetadata = requireValidMetadata;
+    public void setRequireValidMetadata(boolean require) {
+        requireValidMetadata = require;
     }
 
     /** {@inheritDoc} */

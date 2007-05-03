@@ -24,46 +24,48 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.core.ArtifactResponse;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.ArtifactResponse}
+ * Concrete implementation of {@link org.opensaml.saml2.core.ArtifactResponse}.
  */
 public class ArtifactResponseImpl extends StatusResponseTypeImpl implements ArtifactResponse {
 
-    /** child "any" elements */
-    private final XMLObjectChildrenList<XMLObject> unknownChildren;
-    
+    /** Protocol message. */
+    private SAMLObject protocolMessage;
+
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected ArtifactResponseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public List<XMLObject> getUnknownXMLObjects() {
-        return unknownChildren;
+
+    /** {@inheritDoc} */
+    public SAMLObject getMessage() {
+        return protocolMessage;
     }
-    
+
+    /** {@inheritDoc} */
+    public void setMessage(SAMLObject message) {
+        prepareForAssignment(protocolMessage, message);
+    }
+
     /**
      * {@inheritDoc}
      */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         children.addAll(super.getOrderedChildren());
-        children.addAll(unknownChildren);
-        
+        children.add(protocolMessage);
+
         return Collections.unmodifiableList(children);
     }
 }

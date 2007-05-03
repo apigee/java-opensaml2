@@ -30,7 +30,6 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -82,7 +81,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
             if (log.isDebugEnabled()) {
                 log.debug("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
             }
-            String cacheDuration = DatatypeHelper.longToDuration(roleDescriptor.getCacheDuration());
+            String cacheDuration = XMLHelper.longToDuration(roleDescriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
 

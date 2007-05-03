@@ -29,7 +29,6 @@ import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -90,7 +89,7 @@ public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
             if (log.isDebugEnabled()) {
                 log.debug("Writting cacheDuration attribute to EntityDescriptor DOM element");
             }
-            String cacheDuration = DatatypeHelper.longToDuration(entityDescriptor.getCacheDuration());
+            String cacheDuration = XMLHelper.longToDuration(entityDescriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
         

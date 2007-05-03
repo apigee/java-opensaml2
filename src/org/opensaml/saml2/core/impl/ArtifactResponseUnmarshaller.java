@@ -20,6 +20,7 @@
 
 package org.opensaml.saml2.core.impl;
 
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.core.ArtifactResponse;
@@ -34,16 +35,13 @@ import org.opensaml.xml.signature.Signature;
  */
 public class ArtifactResponseUnmarshaller extends StatusResponseTypeUnmarshaller {
 
-    /**
-     * Constructor
-     * 
-     */
+    /** Constructor. */
     public ArtifactResponseUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -51,20 +49,22 @@ public class ArtifactResponseUnmarshaller extends StatusResponseTypeUnmarshaller
     protected ArtifactResponseUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
     }
-    
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+
+    /** {@inheritDoc} */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         ArtifactResponse artifactResponse = (ArtifactResponse) parentSAMLObject;
-        
-        if (childSAMLObject instanceof Issuer){
+
+        if (childSAMLObject instanceof Issuer) {
             artifactResponse.setIssuer((Issuer) childSAMLObject);
-        }else if(childSAMLObject instanceof Signature){
+        } else if (childSAMLObject instanceof Signature) {
             artifactResponse.setSignature((Signature) childSAMLObject);
-        }else if (childSAMLObject instanceof Extensions){
+        } else if (childSAMLObject instanceof Extensions) {
             artifactResponse.setExtensions((Extensions) childSAMLObject);
-        }else if (childSAMLObject instanceof Status){
+        } else if (childSAMLObject instanceof Status) {
             artifactResponse.setStatus((Status) childSAMLObject);
-        }else{
-            artifactResponse.getUnknownXMLObjects().add(childSAMLObject);
+        } else {
+            artifactResponse.setMessage((SAMLObject) childSAMLObject);
         }
     }
 }

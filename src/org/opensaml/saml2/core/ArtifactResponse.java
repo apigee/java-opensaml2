@@ -22,13 +22,13 @@ package org.opensaml.saml2.core;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.xml.ElementExtensibleXMLObject;
 
 /**
  * SAML 2.0 Core ArtifactResponse.
  */
-public interface ArtifactResponse extends StatusResponseType, ElementExtensibleXMLObject {
+public interface ArtifactResponse extends StatusResponseType {
 
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "ArtifactResponse";
@@ -43,4 +43,18 @@ public interface ArtifactResponse extends StatusResponseType, ElementExtensibleX
     /** QName of the XSI type. */
     public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20P_NS, TYPE_LOCAL_NAME,
             SAMLConstants.SAML20P_PREFIX);
+    
+    /**
+     * Gets the protocol message from the artifact response.
+     * 
+     * @return protocol message from the artifact response
+     */
+    public SAMLObject getMessage();
+    
+    /**
+     * Sets the protocol message from the artifact response.
+     * 
+     * @param message protocol message from the artifact response
+     */
+    public void setMessage(SAMLObject message);
 }
