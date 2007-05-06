@@ -113,7 +113,7 @@
     </target>
 
     <!-- Create JAR file -->
-    <target name="package" depends="compile-core, test" description="Creates the project library jar file.">
+    <target name="package" depends="compile-core" description="Creates the project library jar file.">
         <mkdir dir="${dist.dir}" />
 
         <if>
@@ -152,7 +152,7 @@
     <!-- **************************************************************** -->
 	
 	<!-- Checks code against style guidelines -->
-	<target name="checkstyle" description="Developer task: Produces coding standard compliance report.">
+	<target name="_checkstyle" description="Developer task: Produces coding standard compliance report.">
 		<mkdir dir="${reports.dir}" />
 		
 		<checkstyle config="${basedir}/checkstyle.xml"
@@ -162,57 +162,5 @@
 			<formatter type="plain" toFile="${reports.dir}/checkstyle-report.txt" />
 		</checkstyle>
 	</target>
-	
-    <!-- Create TGZ source distribution -->
-    <target name="tgz-src-dist" depends="package, javadoc" description="Developer task: Creates the tar, gzipped source distribution.">
-        <tar tarfile="${dist.dir}/${src-dist.name}.tgz" compression="gzip">
-        	<tarfileset dir="${build-lib.dir}" prefix="/build-lib/"/>
-        	<tarfileset dir="${lib.dir}" prefix="/lib/"/>
-        	<tarfileset dir="${resources.dir}" prefix="/resources/" />
-        	<tarfileset dir="${core-src.dir}" prefix="/src/"/>
-    		<tarfileset dir="${test-src.dir}" prefix="/test/"/>
-        	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
-        	<tarfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
-        	<tarfileset file="${basedir}/*.*" prefix="/"/>
-        </tar>
-    	<checksum file="${dist.dir}/${src-dist.name}.tgz" />
-    </target>
-
-    <!-- Create TGZ binary distribution -->
-    <target name="tgz-bin-dist" depends="package, javadoc" description="Developer task: Creates the tar, gzipped binary distribution.">
-        <tar tarfile="${dist.dir}/${bin-dist.name}.tgz" compression="gzip">
-        	<tarfileset dir="${lib.dir}" prefix="/lib/"/>
-        	<tarfileset dir="${resources.dir}" prefix="/resources/" />
-        	<tarfileset dir="${doc.dir}" prefix="/doc/"/>
-        	<tarfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
-        </tar>
-    	<checksum file="${dist.dir}/${bin-dist.name}.tgz" />
-    </target>
-
-    <!-- Create ZIP source distribution -->
-    <target name="zip-src-dist" depends="package, javadoc" description="Developer task: Creates the zipped source distribution.">
-        <zip zipfile="${dist.dir}/${src-dist.name}.zip" whenempty="fail">
-        	<zipfileset dir="${build-lib.dir}" prefix="build-lib/"/>
-        	<zipfileset dir="${lib.dir}" prefix="lib/"/>
-        	<zipfileset dir="${resources.dir}" prefix="/resources/" />
-        	<zipfileset dir="${core-src.dir}" prefix="src/"/>
-    		<zipfileset dir="${test-src.dir}" prefix="test/"/>
-        	<zipfileset dir="${doc.dir}" prefix="doc/"/>
-        	<zipfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
-        	<zipfileset file="${basedir}/*.*" prefix=""/>
-        </zip>
-    	<checksum file="${dist.dir}/${src-dist.name}.zip" />
-    </target>
-
-    <!-- Create ZIP binary distribution -->
-    <target name="zip-bin-dist" depends="package, javadoc"  description="Developer task: Creates the zipped binary distribution.">
-        <zip zipfile="${dist.dir}/${bin-dist.name}.zip" whenempty="fail">
-        	<zipfileset dir="${lib.dir}" prefix="lib/"/>
-        	<zipfileset dir="${resources.dir}" prefix="/resources/" />
-        	<zipfileset dir="${doc.dir}" prefix="doc/"/>
-        	<zipfileset file="${dist.dir}/${jar.name}" prefix="/dist/"/>
-        </zip>
-    	<checksum file="${dist.dir}/${bin-dist.name}.zip" />
-    </target>
 
 </project>
