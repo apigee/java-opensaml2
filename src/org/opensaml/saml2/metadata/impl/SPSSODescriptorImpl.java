@@ -24,36 +24,39 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.metadata.SPSSODescriptor}
+ * Concrete implementation of {@link org.opensaml.saml2.metadata.SPSSODescriptor}.
  */
 public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescriptor {
 
-    /** value for isAuthnRequestSigned attribute */
+    /** value for isAuthnRequestSigned attribute. */
     private XSBooleanValue authnRequestSigned;
 
-    /** value for the want assertion signed attribute */
+    /** value for the want assertion signed attribute. */
     private XSBooleanValue assertionSigned;
 
-    /** AssertionConsumerService children */
+    /** AssertionConsumerService children. */
     private final XMLObjectChildrenList<AssertionConsumerService> assertionConsumerServices;
 
-    /** AttributeConsumingService children */
+    /** AttributeConsumingService children. */
     private final XMLObjectChildrenList<AttributeConsumingService> attributeConsumingServices;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected SPSSODescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -151,6 +154,23 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
         }
         
         return null;
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints() {
+        List<Endpoint> endpoints = new ArrayList<Endpoint>();
+        endpoints.addAll(super.getEndpoints());
+        endpoints.addAll(assertionConsumerServices);
+        return Collections.unmodifiableList(endpoints);
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints(QName type) {
+        if(type.equals(AssertionConsumerService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(assertionConsumerServices));
+        }else{
+            return super.getEndpoints(type);
+        }
     }
 
     /** {@inheritDoc} */

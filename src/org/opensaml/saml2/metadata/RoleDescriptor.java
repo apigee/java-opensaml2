@@ -171,4 +171,20 @@ public interface RoleDescriptor extends SignableSAMLObject, TimeBoundSAMLObject,
      * @return list of {@link ContactPerson}s for this role
      */
     public List<ContactPerson> getContactPersons();
+    
+    /**
+     * Gets a read-only list of endpoints for this role.
+     * 
+     * @return immutable list of endpoints for this role
+     */
+    public List<Endpoint> getEndpoints();
+    
+    /**
+     * Gets a read-only list of endpoints for this role for the given type.
+     * 
+     * @param type the type of endpoints to retrieve
+     * 
+     * @return immutable list of endpoints for this role
+     */
+    public List<Endpoint> getEndpoints(QName type);
 }

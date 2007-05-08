@@ -24,9 +24,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AttributeProfile;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.NameIDMappingService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
@@ -35,34 +38,34 @@ import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.metadata.IDPSSODescriptor}
+ * Concrete implementation of {@link org.opensaml.saml2.metadata.IDPSSODescriptor}.
  */
 public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODescriptor {
 
-    /** wantAuthnRequestSigned attribute */
+    /** wantAuthnRequestSigned attribute. */
     private XSBooleanValue wantAuthnRequestsSigned;
 
-    /** SingleSignOn services for this entity */
+    /** SingleSignOn services for this entity. */
     private final XMLObjectChildrenList<SingleSignOnService> singleSignOnServices;
 
-    /** NameID mapping services for this entity */
+    /** NameID mapping services for this entity. */
     private final XMLObjectChildrenList<NameIDMappingService> nameIDMappingServices;
 
-    /** AssertionID request services for this entity */
+    /** AssertionID request services for this entity. */
     private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
-    /** Attribute profiles supported by this entity */
+    /** Attribute profiles supported by this entity. */
     private final XMLObjectChildrenList<AttributeProfile> attributeProfiles;
 
-    /** Attributes accepted by this entity */
+    /** Attributes accepted by this entity. */
     private final XMLObjectChildrenList<Attribute> attributes;
     
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected IDPSSODescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -124,6 +127,29 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     /** {@inheritDoc} */
     public List<Attribute> getAttributes() {
         return attributes;
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints() {
+        List<Endpoint> endpoints = new ArrayList<Endpoint>();
+        endpoints.addAll(super.getEndpoints());
+        endpoints.addAll(singleSignOnServices);
+        endpoints.addAll(nameIDMappingServices);
+        endpoints.addAll(assertionIDRequestServices);
+        return Collections.unmodifiableList(endpoints);
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints(QName type) {
+        if(type.equals(SingleSignOnService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(singleSignOnServices));
+        }else if(type.equals(NameIDMappingService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(nameIDMappingServices));
+        }else if(type.equals(AssertionIDRequestService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(assertionIDRequestServices));
+        }else{
+            return super.getEndpoints(type);
+        }
     }
 
     /** {@inheritDoc} */

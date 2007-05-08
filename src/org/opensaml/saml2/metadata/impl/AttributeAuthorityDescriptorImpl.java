@@ -20,11 +20,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AttributeProfile;
 import org.opensaml.saml2.metadata.AttributeService;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -34,27 +37,27 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl implements AttributeAuthorityDescriptor {
 
-    /** Attribte query endpoints */
+    /** Attribte query endpoints. */
     private final XMLObjectChildrenList<AttributeService> attributeServices;
 
-    /** Assertion request endpoints */
+    /** Assertion request endpoints. */
     private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
-    /** Supported NameID formats */
+    /** Supported NameID formats. */
     private final XMLObjectChildrenList<NameIDFormat> nameFormats;
 
-    /** Supported attribute profiles */
+    /** Supported attribute profiles. */
     private final XMLObjectChildrenList<AttributeProfile> attributeProfiles;
 
-    /** Supported attribute */
+    /** Supported attribute. */
     private final XMLObjectChildrenList<Attribute> attributes;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AttributeAuthorityDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -88,6 +91,25 @@ public class AttributeAuthorityDescriptorImpl extends RoleDescriptorImpl impleme
     /** {@inheritDoc} */
     public List<Attribute> getAttributes() {
         return attributes;
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints() {
+        List<Endpoint> endpoints = new ArrayList<Endpoint>();
+        endpoints.addAll(attributeServices);
+        endpoints.addAll(assertionIDRequestServices);
+        return Collections.unmodifiableList(endpoints);
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints(QName type) {
+        if(type.equals(AttributeService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(attributeServices));
+        }else if(type.equals(AssertionIDRequestService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(assertionIDRequestServices));
+        }
+        
+        return null;
     }
 
     /** {@inheritDoc} */

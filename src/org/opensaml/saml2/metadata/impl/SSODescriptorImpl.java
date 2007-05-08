@@ -24,7 +24,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.ManageNameIDService;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.SSODescriptor;
@@ -37,20 +40,20 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public abstract class SSODescriptorImpl extends RoleDescriptorImpl implements SSODescriptor {
 
-    /** Supported artifact resolutions services */
+    /** Supported artifact resolutions services. */
     private final XMLObjectChildrenList<ArtifactResolutionService> artifactResolutionServices;
 
-    /** Logout services for this SSO entity */
+    /** Logout services for this SSO entity. */
     private final XMLObjectChildrenList<SingleLogoutService> singleLogoutServices;
 
-    /** Manage NameID services for this entity */
+    /** Manage NameID services for this entity. */
     private final XMLObjectChildrenList<ManageNameIDService> manageNameIDServices;
 
-    /** NameID formats supported by this entity */
+    /** NameID formats supported by this entity. */
     private final XMLObjectChildrenList<NameIDFormat> nameIDFormats;
     
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
@@ -93,6 +96,28 @@ public abstract class SSODescriptorImpl extends RoleDescriptorImpl implements SS
     /** {@inheritDoc} */
     public List<NameIDFormat> getNameIDFormats() {
         return nameIDFormats;
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints() {
+        List<Endpoint> endpoints = new ArrayList<Endpoint>();
+        endpoints.addAll(artifactResolutionServices);
+        endpoints.addAll(singleLogoutServices);
+        endpoints.addAll(manageNameIDServices);
+        return Collections.unmodifiableList(endpoints);
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints(QName type) {
+        if(type.equals(ArtifactResolutionService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(artifactResolutionServices));
+        }else if(type.equals(SingleLogoutService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(singleLogoutServices));
+        }else if(type.equals(ManageNameIDService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(manageNameIDServices));
+        }
+        
+        return null;
     }
     
     /** {@inheritDoc} */

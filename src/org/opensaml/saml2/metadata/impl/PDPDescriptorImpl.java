@@ -21,35 +21,39 @@
 package org.opensaml.saml2.metadata.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AuthzService;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.PDPDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.metadata.PDPDescriptor}
+ * Concrete implementation of {@link org.opensaml.saml2.metadata.PDPDescriptor}.
  */
 public class PDPDescriptorImpl extends RoleDescriptorImpl implements PDPDescriptor {
 
-    /** AuthzService children */
+    /** AuthzService children. */
     private final XMLObjectChildrenList<AuthzService> authzServices;
 
-    /** AssertionIDRequestService children */
+    /** AssertionIDRequestService children. */
     private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
-    /** NameIDFormat children */
+    /** NameIDFormat children. */
     private final XMLObjectChildrenList<NameIDFormat> nameIDFormats;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected PDPDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -72,7 +76,27 @@ public class PDPDescriptorImpl extends RoleDescriptorImpl implements PDPDescript
     public List<NameIDFormat> getNameIDFormats() {
         return nameIDFormats;
     }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints() {
+        List<Endpoint> endpoints = new ArrayList<Endpoint>();
+        endpoints.addAll(authzServices);
+        endpoints.addAll(assertionIDRequestServices);
+        return Collections.unmodifiableList(endpoints);
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints(QName type) {
+        if(type.equals(AuthzService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(authzServices));
+        }else if(type.equals(AssertionIDRequestService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(assertionIDRequestServices));
+        }
+        
+        return null;
+    }
 
+    /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 

@@ -20,9 +20,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
+import org.opensaml.saml2.metadata.AttributeService;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AuthnQueryService;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -32,21 +36,21 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements AuthnAuthorityDescriptor {
 
-    /** AuthnQueryService endpoints */
+    /** AuthnQueryService endpoints. */
     private final XMLObjectChildrenList<AuthnQueryService> authnQueryServices;
 
-    /** AuthnQueryService endpoints */
+    /** AuthnQueryService endpoints. */
     private final XMLObjectChildrenList<AssertionIDRequestService> assertionIDRequestServices;
 
-    /** NameID formats supported by this descriptor */
+    /** NameID formats supported by this descriptor. */
     private final XMLObjectChildrenList<NameIDFormat> nameIDFormats;
 
     /**
-     * Constructor
+     * Constructor .
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AuthnAuthorityDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -68,6 +72,25 @@ public class AuthnAuthorityDescriptorImpl extends RoleDescriptorImpl implements 
     /** {@inheritDoc} */
     public List<NameIDFormat> getNameIDFormats() {
         return nameIDFormats;
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints() {
+        List<Endpoint> endpoints = new ArrayList<Endpoint>();
+        endpoints.addAll(authnQueryServices);
+        endpoints.addAll(assertionIDRequestServices);
+        return Collections.unmodifiableList(endpoints);
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints(QName type) {
+        if(type.equals(AuthnQueryService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(authnQueryServices));
+        }else if(type.equals(AssertionIDRequestService.DEFAULT_ELEMENT_NAME)){
+            return Collections.unmodifiableList(new ArrayList<Endpoint>(assertionIDRequestServices));
+        }
+        
+        return null;
     }
 
     /** {@inheritDoc} */

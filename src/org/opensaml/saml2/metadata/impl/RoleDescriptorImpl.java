@@ -38,38 +38,38 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject implements RoleDescriptor {
 
-    /** ID attribute */
+    /** ID attribute. */
     private String id;
 
-    /** validUntil attribute */
+    /** validUntil attribute. */
     private DateTime validUntil;
 
-    /** cacheDurection attribute */
+    /** cacheDurection attribute. */
     private Long cacheDuration;
 
-    /** Set of supported protocols */
+    /** Set of supported protocols. */
     private final ArrayList<String> supportedProtocols;
 
-    /** Error URL */
+    /** Error URL. */
     private String errorURL;
 
-    /** Extensions child */
+    /** Extensions child. */
     private Extensions extensions;
 
-    /** Organization administering this role */
+    /** Organization administering this role. */
     private Organization organization;
-    
-    /** "anyAttribute" attributes */
+
+    /** "anyAttribute" attributes. */
     private final AttributeMap unknownAttributes;
 
-    /** Contact persons for this role */
+    /** Contact persons for this role. */
     private final XMLObjectChildrenList<ContactPerson> contactPersons;
 
-    /** Key descriptors for this role */
+    /** Key descriptors for this role. */
     private final XMLObjectChildrenList<KeyDescriptor> keyDescriptors;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
@@ -206,16 +206,16 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     public List<KeyDescriptor> getKeyDescriptors() {
         return keyDescriptors;
     }
-    
+
     /**
      * {@inheritDoc}
      */
     public AttributeMap getUnknownAttributes() {
         return unknownAttributes;
     }
-    
+
     /** {@inheritDoc} */
-    public String getSignatureReferenceID(){
+    public String getSignatureReferenceID() {
         return id;
     }
 
@@ -223,10 +223,10 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if(getSignature() != null){
+        if (getSignature() != null) {
             children.add(getSignature());
         }
-        
+
         if (extensions != null) {
             children.add(getExtensions());
         }
