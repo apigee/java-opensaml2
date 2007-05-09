@@ -18,11 +18,11 @@ package org.opensaml.saml1.binding;
 
 import javax.servlet.ServletRequest;
 
-import org.opensaml.common.binding.impl.AbstractSAMLSecurityPolicyImpl;
+import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicy;
 
 /**
  * Implementation of security for SAML 1.
  */
-public class SAML1SecurityPolicy extends AbstractSAMLSecurityPolicyImpl<ServletRequest, String> {
+public class SAML1SecurityPolicy extends AbstractSAMLSecurityPolicy<ServletRequest, String> {
 
 }

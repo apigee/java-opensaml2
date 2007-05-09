@@ -20,7 +20,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.opensaml.common.binding.SAMLArtifactBuilder;
+import org.opensaml.common.binding.artifact.SAMLArtifactBuilder;
 
 /**
  * Builder of SAML 1, type 0x001, artifacts.

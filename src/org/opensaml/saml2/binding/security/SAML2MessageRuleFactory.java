@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.security;
 
 import javax.servlet.ServletRequest;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.binding.SAMLSecurityPolicyContext;
-import org.opensaml.common.binding.impl.AbstractSAMLSecurityPolicyRule;
-import org.opensaml.common.binding.impl.AbstractSAMLSecurityPolicyRuleFactory;
+import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicyRule;
+import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicyRuleFactory;
+import org.opensaml.common.binding.security.SAMLSecurityPolicyContext;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
@@ -41,12 +41,11 @@ import org.opensaml.ws.soap.util.SOAPConstants;
 import org.opensaml.xml.XMLObject;
 
 /**
- * An implementation of {@link SecurityPolicyRuleFactory} which generates rules which process
- * SAML 2 messages and extract relevant information out for use in other rules.
+ * An implementation of {@link SecurityPolicyRuleFactory} which generates rules which process SAML 2 messages and
+ * extract relevant information out for use in other rules.
  */
-public class SAML2MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFactory<ServletRequest, Issuer>
-    implements SecurityPolicyRuleFactory<ServletRequest, Issuer> {
-
+public class SAML2MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFactory<ServletRequest, Issuer> implements
+        SecurityPolicyRuleFactory<ServletRequest, Issuer> {
 
     /** {@inheritDoc} */
     public SecurityPolicyRule<ServletRequest, Issuer> createRuleInstance() {
@@ -54,15 +53,15 @@ public class SAML2MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFacto
     }
 
     /**
-     * An implementation of {@link SecurityPolicyRule} which processes SAML 2 messages and extracts relevant 
-     * information out for use in other rules.
+     * An implementation of {@link SecurityPolicyRule} which processes SAML 2 messages and extracts relevant information
+     * out for use in other rules.
      */
-    public class SAML2MessageRule extends AbstractSAMLSecurityPolicyRule<ServletRequest, Issuer> 
-        implements SecurityPolicyRule<ServletRequest, Issuer> {
+    public class SAML2MessageRule extends AbstractSAMLSecurityPolicyRule<ServletRequest, Issuer> implements
+            SecurityPolicyRule<ServletRequest, Issuer> {
 
         /**
          * Constructor.
-         *
+         * 
          * @param provider metadata provider used to look up entity information
          * @param role role the issuer is meant to be operating in
          * @param protocol protocol the issuer used in the request
@@ -72,17 +71,17 @@ public class SAML2MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFacto
         }
 
         /** {@inheritDoc} */
-        public void evaluate(ServletRequest request, XMLObject message,  SecurityPolicyContext<Issuer> context)
-            throws SecurityPolicyException {
-            
+        public void evaluate(ServletRequest request, XMLObject message, SecurityPolicyContext<Issuer> context)
+                throws SecurityPolicyException {
+
             Logger log = Logger.getLogger(SAML2MessageRule.class);
-            
+
             SAMLSecurityPolicyContext<Issuer> samlContext = (SAMLSecurityPolicyContext<Issuer>) context;
             if (samlContext == null) {
                 log.error("Supplied context was not an instance of SAMLSecurityPolicyContext");
                 throw new IllegalArgumentException("Supplied context was not an instance of SAMLSecurityPolicyContext");
             }
-            
+
             QName msgQName = message.getElementQName();
             if (msgQName.getNamespaceURI().equals(SOAPConstants.SOAP11_NS)) {
                 log.debug("Processing a SOAP 1.1 message");
@@ -92,13 +91,13 @@ public class SAML2MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFacto
                 log.debug("Message was neither a SOAP envelope nor a SAML 2.0 protocol message");
                 return;
             }
-            
+
             SAMLObject samlMsg = getSAMLMessage(message);
             if (samlMsg == null) {
                 log.warn("Could not extract SAML message");
                 return;
             }
-            
+
             if (samlMsg instanceof RequestAbstractType) {
                 log.debug("Extracting ID, issuer and issue instant from request");
                 extractRequestInfo(samlContext, (RequestAbstractType) samlMsg);
@@ -106,22 +105,22 @@ public class SAML2MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFacto
                 log.debug("Extracting ID, issuer and issue instant from status response");
                 extractResponseInfo(samlContext, (StatusResponseType) samlMsg);
             }
-            
+
             if (samlContext.getIssuer() == null) {
                 log.warn("Issuer could not be extracted from SAML message");
                 return;
             }
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("Issuer entityID extracted was: " + samlContext.getIssuer().getValue());
             }
-            
-            if (samlContext.getIssuer().getFormat() != null 
+
+            if (samlContext.getIssuer().getFormat() != null
                     && !samlContext.getIssuer().getFormat().equals(NameIDType.ENTITY)) {
                 log.warn("Issuer entity ID is a non-system entity, skipping metadata lookup");
                 return;
             }
-            
+
             RoleDescriptor rd = resolveIssuerRole(samlContext.getIssuer().getValue());
             samlContext.setIssuerMetadata(rd);
         }
@@ -132,26 +131,26 @@ public class SAML2MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFacto
          * @param samlContext the security policy context in which to store information
          * @param statusResponse the SAML message to process
          */
-        private void extractResponseInfo(SAMLSecurityPolicyContext<Issuer> samlContext, 
+        private void extractResponseInfo(SAMLSecurityPolicyContext<Issuer> samlContext,
                 StatusResponseType statusResponse) {
             Logger log = Logger.getLogger(SAML2MessageRule.class);
-            
-             samlContext.setMessageID(statusResponse.getID());
-             samlContext.setIssueInstant(statusResponse.getIssueInstant());
-             // If response doesn't have an issuer, look at the first
-             // enclosed assertion
-             // TODO - do we support case where assertions issued by mulitple providers
-             if (statusResponse.getIssuer() != null) {
-                 samlContext.setIssuer(statusResponse.getIssuer());
-             } else if (statusResponse instanceof Response) {
-                 log.info("Status response message had no issuer, " + 
-                         "attempting to extract issuer from enclosed Assertion");
-                 Assertion assertion = ((Response) statusResponse).getAssertions().get(0);
-                 // TODO - handle case where Assertion is encrypted - need to decrypt first 
-                 if (assertion != null && assertion.getIssuer() != null) {
-                     samlContext.setIssuer(assertion.getIssuer());
-                 }
-             }
+
+            samlContext.setMessageID(statusResponse.getID());
+            samlContext.setIssueInstant(statusResponse.getIssueInstant());
+            // If response doesn't have an issuer, look at the first
+            // enclosed assertion
+            // TODO - do we support case where assertions issued by mulitple providers
+            if (statusResponse.getIssuer() != null) {
+                samlContext.setIssuer(statusResponse.getIssuer());
+            } else if (statusResponse instanceof Response) {
+                log.info("Status response message had no issuer, "
+                        + "attempting to extract issuer from enclosed Assertion");
+                Assertion assertion = ((Response) statusResponse).getAssertions().get(0);
+                // TODO - handle case where Assertion is encrypted - need to decrypt first
+                if (assertion != null && assertion.getIssuer() != null) {
+                    samlContext.setIssuer(assertion.getIssuer());
+                }
+            }
         }
 
         /**
@@ -167,5 +166,5 @@ public class SAML2MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFacto
         }
 
     }
-    
+
 }

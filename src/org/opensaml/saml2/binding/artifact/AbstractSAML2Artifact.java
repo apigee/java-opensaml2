@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.artifact;
 
-import org.opensaml.common.binding.SAMLArtifact;
+import org.opensaml.common.binding.artifact.SAMLArtifact;
 
 /**
  * SAML 2 Artifact base class. SAML 2 artifacts contains a 2 byte type code follwed by a 2 byte endpoint index followed
@@ -45,7 +45,7 @@ public abstract class AbstractSAML2Artifact extends SAMLArtifact {
      * @throws IllegalArgumentException thrown if the endpoint index, source ID, or message handle arrays are not of the
      *             right size
      */
-    public AbstractSAML2Artifact(byte[] artifactType, byte[] index) throws IllegalArgumentException {
+    public AbstractSAML2Artifact(byte[] artifactType, byte[] index) {
         super(artifactType);
         setEndpointIndex(index);
     }
@@ -82,7 +82,7 @@ public abstract class AbstractSAML2Artifact extends SAMLArtifact {
      * 
      * @throws IllegalArgumentException thrown if the given index is not 2 bytes
      */
-    public void setEndpointIndex(byte[] newIndex) throws IllegalArgumentException {
+    public void setEndpointIndex(byte[] newIndex) {
         if (newIndex.length != 2) {
             throw new IllegalArgumentException("Artifact endpoint index must be two bytes long");
         }

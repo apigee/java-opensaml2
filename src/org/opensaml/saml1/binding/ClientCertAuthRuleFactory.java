@@ -19,8 +19,8 @@ package org.opensaml.saml1.binding;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.binding.impl.BaseX509CredentialAuthRule;
-import org.opensaml.common.binding.impl.BaseX509CredentialAuthRuleFactory;
+import org.opensaml.common.binding.security.BaseX509CredentialAuthRule;
+import org.opensaml.common.binding.security.BaseX509CredentialAuthRuleFactory;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.security.MetadataCredentialResolver;
 import org.opensaml.ws.security.SecurityPolicyContext;

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.decoding;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.SAMLArtifact;
-import org.opensaml.common.binding.SAMLArtifactFactory;
-import org.opensaml.common.binding.impl.AbstractHTTPMessageDecoder;
+import org.opensaml.common.binding.artifact.SAMLArtifact;
+import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
+import org.opensaml.common.binding.decoding.impl.AbstractHTTPMessageDecoder;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;

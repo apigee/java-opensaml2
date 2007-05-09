@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright [2007] [University Corporation for Advanced Internet Development, Inc.]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.binding;
-
-import org.opensaml.common.binding.artifact.SAMLArtifact;
+package org.opensaml.common.binding.encoding;
 
 /**
- * SAML 1 Artifact marker.
+ * Simple builder interface for {@link MessageEncoder}s.
+ * 
+ * Build must be thread-safe and reusable.
  */
-public abstract class AbstractSAML1Artifact extends SAMLArtifact {
+public interface MessageEncoderBuilder {
 
     /**
-     * Constructor
+     * Creates a new instance of the message encoder.
      * 
-     * @param typeCode artifact type code
+     * @return new instance of the message encoder
      */
-    protected AbstractSAML1Artifact(byte[] typeCode) {
-        super(typeCode);
-    }
+    public MessageEncoder buildEncoder();
 }

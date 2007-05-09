@@ -23,7 +23,7 @@ import org.opensaml.xml.util.StorageService;
 /**
  * Maps an artifact to a SAML message and back again.
  */
-public class ArtifactMap {
+public class SAMLArtifactMap {
     
     /** Backing storage service */
     private StorageService<String, SAMLObject> store;
@@ -41,7 +41,7 @@ public class ArtifactMap {
      * @param storageContext the context to use with the backing store
      * @param artifactTTL time to live for persisted artifacts, in seconds
      */
-    public ArtifactMap(StorageService<String, SAMLObject> backingStore, String storageContext, int artifactTTL){
+    public SAMLArtifactMap(StorageService<String, SAMLObject> backingStore, String storageContext, int artifactTTL){
         store = backingStore;
         context = storageContext;
         this.artifactTTL = artifactTTL;

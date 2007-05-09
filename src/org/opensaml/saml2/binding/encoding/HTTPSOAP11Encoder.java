@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.encoding;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.impl.AbstractSOAPHTTPEncoder;
+import org.opensaml.common.binding.encoding.impl.AbstractSOAPHTTPEncoder;
 import org.opensaml.ws.soap.soap11.Envelope;
 
 /**
@@ -31,8 +31,8 @@ import org.opensaml.ws.soap.soap11.Envelope;
  */
 public class HTTPSOAP11Encoder extends AbstractSOAPHTTPEncoder {
 
-    /** Class logger */
-    private final static Logger log = Logger.getLogger(HTTPSOAP11Encoder.class);
+    /** Class logger. */
+    private final Logger log = Logger.getLogger(HTTPSOAP11Encoder.class);
 
     /** {@inheritDoc} */
     public void encode() throws BindingException {
@@ -51,8 +51,7 @@ public class HTTPSOAP11Encoder extends AbstractSOAPHTTPEncoder {
             }
             HttpServletResponse response = getResponse();
             response.setContentType("text/xml");
-            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, private");
-            response.setHeader("Pragma", "no-cache");
+            addNoCacheResponseHeaders();
             PrintWriter responseWriter = response.getWriter();
             responseWriter.write(soapMessage);
         } catch (IOException e) {

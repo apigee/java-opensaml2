@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.xml.security.Init;
-import org.opensaml.common.binding.SAMLArtifactFactory;
+import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLConfigurator;
 

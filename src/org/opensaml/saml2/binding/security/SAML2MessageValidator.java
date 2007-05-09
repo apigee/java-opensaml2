@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.security;
 
 import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.StatusResponseType;
@@ -25,9 +25,9 @@ import org.opensaml.xml.validation.Validator;
 public class SAML2MessageValidator implements Validator {
 
     public void validate(XMLObject xmlObject) throws ValidationException {
-        if(xmlObject instanceof RequestAbstractType || xmlObject instanceof StatusResponseType){
+        if (xmlObject instanceof RequestAbstractType || xmlObject instanceof StatusResponseType) {
             return;
-        }else{
+        } else {
             throw new ValidationException("XMLObject is not a SAML 2 request or response");
         }
     }

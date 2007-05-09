@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.artifact;
 
 import java.util.Arrays;
 
@@ -24,63 +24,64 @@ import java.util.Arrays;
  */
 public class SAML2ArtifactType0004 extends AbstractSAML2Artifact {
 
-    /** SAML 2 artifact type code (0x0004) */
-    public final static byte[] TYPE_CODE = { 0, 4 };
+    /** SAML 2 artifact type code (0x0004). */
+    public static final byte[] TYPE_CODE = { 0, 4 };
 
-    /** 20 byte artifact source ID */
+    /** 20 byte artifact source ID. */
     private byte[] sourceID;
 
-    /** 20 byte message handle */
+    /** 20 byte message handle. */
     private byte[] messageHandle;
 
-    /** Constructor */
+    /** Constructor. */
     public SAML2ArtifactType0004() {
         super(TYPE_CODE);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param endpointIndex 2 byte endpoint index of the artifact
-     * @param sourceID 20 byte source ID of the artifact
+     * @param source 20 byte source ID of the artifact
      * 
      * @throws IllegalArgumentException thrown if the endpoint index, source ID, or message handle arrays are not of the
      *             right size
      */
-    public SAML2ArtifactType0004(byte[] endpointIndex, byte[] sourceID) throws IllegalArgumentException {
+    public SAML2ArtifactType0004(byte[] endpointIndex, byte[] source) {
         super(TYPE_CODE, endpointIndex);
-        setSourceID(sourceID);
+        setSourceID(source);
 
-        byte[] messageHandle = new byte[20];
-        randomGen.nextBytes(messageHandle);
-        setMessageHandle(messageHandle);
+        byte[] handle = new byte[20];
+        randomGen.nextBytes(handle);
+        setMessageHandle(handle);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param endpointIndex 2 byte endpoint index of the artifact
-     * @param sourceID 20 byte source ID of the artifact
-     * @param messageHandle 20 byte message handle of the artifact
+     * @param source 20 byte source ID of the artifact
+     * @param handle 20 byte message handle of the artifact
      * 
      * @throws IllegalArgumentException thrown if the endpoint index, source ID, or message handle arrays are not of the
      *             right size
      */
-    public SAML2ArtifactType0004(byte[] endpointIndex, byte[] sourceID, byte[] messageHandle)
-            throws IllegalArgumentException {
+    public SAML2ArtifactType0004(byte[] endpointIndex, byte[] source, byte[] handle) {
         super(TYPE_CODE, endpointIndex);
-        setSourceID(sourceID);
-        setMessageHandle(messageHandle);
+        setSourceID(source);
+        setMessageHandle(handle);
     }
 
     /**
-     * Constructs a SAML 2 artifact from it's byte array representation.
+     * Constructs a SAML 2 artifact from its byte array representation.
      * 
      * @param artifact the byte array representing the artifact
      * 
+     * @return the type 0x0004 artifact created from the byte array
+     * 
      * @throws IllegalArgumentException thrown if the artifact is not the right type or lenght (44 bytes)
      */
-    public static SAML2ArtifactType0004 parseArtifact(byte[] artifact) throws IllegalArgumentException {
+    public static SAML2ArtifactType0004 parseArtifact(byte[] artifact) {
         if (artifact.length != 44) {
             throw new IllegalArgumentException("Artifact length must be 44 bytes it was " + artifact.length + "bytes");
         }
@@ -117,7 +118,7 @@ public class SAML2ArtifactType0004 extends AbstractSAML2Artifact {
      * 
      * @throws IllegalArgumentException thrown if the given source ID is not 20 bytes
      */
-    public void setSourceID(byte[] newSourceID) throws IllegalArgumentException {
+    public void setSourceID(byte[] newSourceID) {
         if (newSourceID.length != 20) {
             throw new IllegalArgumentException("Artifact source ID must be 20 bytes long");
         }
@@ -136,13 +137,13 @@ public class SAML2ArtifactType0004 extends AbstractSAML2Artifact {
     /**
      * Sets the 20 byte message handle of the artifact.
      * 
-     * @param messageHandle 20 byte message handle of the artifact
+     * @param handle 20 byte message handle of the artifact
      */
-    public void setMessageHandle(byte[] messageHandle) {
-        if (messageHandle.length != 20) {
+    public void setMessageHandle(byte[] handle) {
+        if (handle.length != 20) {
             throw new IllegalArgumentException("Artifact message handle must be 20 bytes long");
         }
-        this.messageHandle = messageHandle;
+        this.messageHandle = handle;
     }
 
     /** {@inheritDoc} */

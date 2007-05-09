@@ -30,7 +30,7 @@ import org.opensaml.ws.security.impl.BasicSecurityPolicyImpl;
  * @param <IssuerType> the message issuer type
  * 
  */
-public abstract class AbstractSAMLSecurityPolicyImpl<RequestType extends ServletRequest, IssuerType> 
+public abstract class AbstractSAMLSecurityPolicy<RequestType extends ServletRequest, IssuerType> 
         extends BasicSecurityPolicyImpl<RequestType, IssuerType> 
         implements SAMLSecurityPolicy<RequestType, IssuerType> {
 

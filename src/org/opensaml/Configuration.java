@@ -16,7 +16,7 @@
 
 package org.opensaml;
 
-import org.opensaml.common.binding.SAMLArtifactFactory;
+import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
 
 /**
  * OpenSAML configuration singleton.

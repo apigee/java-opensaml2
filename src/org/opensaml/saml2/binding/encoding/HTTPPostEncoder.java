@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.encoding;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -23,76 +23,99 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
+import org.opensaml.Configuration;
+import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
+import org.opensaml.common.binding.encoding.impl.AbstractHTTPMessageEncoder;
+import org.opensaml.common.impl.SAMLObjectContentReference;
 import org.opensaml.saml2.core.RequestAbstractType;
+import org.opensaml.xml.XMLObjectBuilder;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * SAML 2.0 HTTP Post binding message encoder.
- * 
- * TODO Consider adding attributes that might be released
  */
 public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
-
-    /** Location of the velocity template. */
-    public static final String VELOCITY_TEMPLATE = "/templates/saml2-post-binding.vm";
 
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPPostEncoder.class);
 
-    /** URL for the form action field. */
-    private String actionURL;
+    /** Velocity engine used to evaluate the template when performing POST encoding. */
+    private VelocityEngine velocityEngine;
+
+    /** ID of the velocity template used when performing POST encoding. */
+    private String velocityTemplateId;
 
     /**
-     * Gets the URL for the form action field.
+     * Gets the velocity engine used to evaluate the template when performing POST encoding.
      * 
-     * @return URL for the form action field
+     * @return velocity engine used to evaluate the template when performing POST encoding
      */
-    public String getActionURL() {
-        return actionURL;
+    public VelocityEngine getVelocityEngine() {
+        return velocityEngine;
     }
 
     /**
-     * Sets the URL for the form action field.
+     * Sets the velocity engine used to evaluate the template when performing POST encoding.
      * 
-     * @param url URL for the form action field
+     * @param engine velocity engine used to evaluate the template when performing POST encoding
      */
-    public void setActionURL(String url) {
-        actionURL = url;
+    public void setVelocityEngine(VelocityEngine engine) {
+        velocityEngine = engine;
+    }
+
+    /**
+     * Gets the ID of the velocity template used for POST encoding.
+     * 
+     * @return ID of the velocity template used for POST encoding
+     */
+    public String getVelocityTemplateId() {
+        return velocityTemplateId;
+    }
+
+    /**
+     * Sets the ID of the velocity template used for POST encoding.
+     * 
+     * @param id ID of the velocity template used for POST encoding
+     */
+    public void setVelocityTemplateId(String id) {
+        velocityTemplateId = id;
     }
 
     /** {@inheritDoc} */
     public void encode() throws BindingException {
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Beginning SAML 2 HTTP POST encoding");
         }
-        
+
         HttpServletResponse response = getResponse();
+
+        signMessage();
 
         if (log.isDebugEnabled()) {
             log.debug("Marshalling SAML message");
         }
-        String messageXML = marshallMessage(getSAMLMessage());
+        String messageXML = marshallMessage(getSamlMessage());
 
         if (log.isDebugEnabled()) {
             log.debug("Base64 encoding message");
         }
         String encodedMessage = new String(Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES));
 
-        try{
+        try {
             if (log.isDebugEnabled()) {
                 log.debug("Adding cache headers to response");
             }
             response.setContentType("application/xhtml+xml");
             response.setCharacterEncoding("UTF-8");
-            response.addHeader("Cache-control", "no-cache, no-store");
-            response.addHeader("Pragma", "no-cache");
-            
+            addNoCacheResponseHeaders();
+
             postEncode(response.getWriter(), encodedMessage);
-        }catch(IOException e){
+        } catch (IOException e) {
             log.error("Unable to access HttpServletResponse output writer", e);
             throw new BindingException("Unable to access HttpServletResponse output writer", e);
         }
@@ -111,14 +134,14 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
         if (log.isDebugEnabled()) {
             log.debug("Performing SAML 2 HTTP POST encoding");
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Creating velocity context");
         }
         VelocityContext context = new VelocityContext();
-        context.put("action", getActionURL());
+        context.put("action", getEndpointURL());
 
-        if (getSAMLMessage() instanceof RequestAbstractType) {
+        if (getSamlMessage() instanceof RequestAbstractType) {
             context.put("SAMLRequest", message);
         } else {
             context.put("SAMLResponse", message);
@@ -132,10 +155,32 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
             log.debug("Invoking velocity template");
         }
         try {
-            Velocity.mergeTemplate(VELOCITY_TEMPLATE, "UTF-8", context, responseWriter);
+            velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, responseWriter);
         } catch (Exception e) {
             log.error("Error invoking velocity template", e);
             throw new BindingException("Error creating output document", e);
+        }
+    }
+
+    /**
+     * Signs the given SAML message if it a {@link SignableSAMLObject} and this encoder has signing credentials.
+     */
+    @SuppressWarnings("unchecked")
+    protected void signMessage() {
+        if (getSamlMessage() instanceof SignableSAMLObject && getSigningCredential() != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Signing SAML message.");
+            }
+            SignableSAMLObject signableMessage = (SignableSAMLObject) getSamlMessage();
+
+            SAMLObjectContentReference contentRef = new SAMLObjectContentReference(signableMessage);
+            XMLObjectBuilder<Signature> signatureBuilder = Configuration.getBuilderFactory().getBuilder(
+                    Signature.DEFAULT_ELEMENT_NAME);
+            Signature signature = signatureBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
+            signature.getContentReferences().add(contentRef);
+            signableMessage.setSignature(signature);
+
+            Signer.signObject(signature);
         }
     }
 }

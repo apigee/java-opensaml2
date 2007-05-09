@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.artifact;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.opensaml.common.binding.SAMLArtifactBuilder;
+import org.opensaml.common.binding.artifact.SAMLArtifactBuilder;
 
 /**
  * SAML 2, type 0x0004, artifact builder.

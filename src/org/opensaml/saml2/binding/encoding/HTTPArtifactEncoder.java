@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.encoding;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,13 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.common.SAMLVersion;
-import org.opensaml.common.binding.ArtifactMap;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.SAMLArtifact;
-import org.opensaml.common.binding.SAMLArtifactFactory;
-import org.opensaml.common.binding.impl.AbstractHTTPMessageEncoder;
-import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.common.binding.artifact.SAMLArtifact;
+import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap;
+import org.opensaml.common.binding.encoding.impl.AbstractHTTPMessageEncoder;
 import org.opensaml.ws.util.URLBuilder;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.Pair;
@@ -40,37 +40,82 @@ import org.opensaml.xml.util.Pair;
  */
 public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
 
-    /** Location of the velocity template. */
-    public static final String VELOCITY_TEMPLATE = "/templates/saml2-post-artifact-binding.vm";
+    /** Artifact encoding methods. */
+    public static enum ENCODING_METHOD {
+        /** Artifact URL encoding with HTTP Redirect binding. */
+        URL, 
+        
+        /** Artifact FORM encoding with HTTP Post binding. */
+        FORM
+    };
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
 
-    /** HTTP submit method. */
-    private String method;
+    /** Velocity engine used to evaluate the template when performing POST encoding. */
+    private VelocityEngine velocityEngine;
 
-    /** URL the artifact will be sent to. */
-    private String endpointURL;
-    
+    /** ID of the velocity template used when performing POST encoding. */
+    private String velocityTemplateId;
+
     /** Type code of artifacts to use. */
     private byte[] artifactType;
-    
+
     /** Factory for building artifacts. */
     private SAMLArtifactFactory artifactFactory;
-    
+
     /** Artifact map for built artifacts and messages. */
-    private ArtifactMap artifactMap;
-    
+    private SAMLArtifactMap artifactMap;
+
+    /** HTTP submit method. */
+    private ENCODING_METHOD encodingMethod;
+
     /** Artifact generated for the given SAML message. */
     private SAMLArtifact artifact;
+    
+    /**
+     * Gets the velocity engine used to evaluate the template when performing POST encoding.
+     * 
+     * @return velocity engine used to evaluate the template when performing POST encoding
+     */
+    public VelocityEngine getVelocityEngine() {
+        return velocityEngine;
+    }
+
+    /**
+     * Sets the velocity engine used to evaluate the template when performing POST encoding.
+     * 
+     * @param engine velocity engine used to evaluate the template when performing POST encoding
+     */
+    public void setVelocityEngine(VelocityEngine engine) {
+        velocityEngine = engine;
+    }
+
+    /**
+     * Gets the ID of the velocity template used for POST encoding.
+     * 
+     * @return ID of the velocity template used for POST encoding
+     */
+    public String getVelocityTemplateId() {
+        return velocityTemplateId;
+    }
+
+    /**
+     * Sets the ID of the velocity template used for POST encoding.
+     * 
+     * @param id ID of the velocity template used for POST encoding
+     */
+    public void setVelocityTemplateId(String id) {
+        velocityTemplateId = id;
+    }
 
     /**
      * Gets the HTTP submit method to use.
      * 
      * @return HTTP submit method to use
      */
-    public String getMethod() {
-        return method;
+    public ENCODING_METHOD getEncodingMethod() {
+        return encodingMethod;
     }
 
     /**
@@ -78,28 +123,10 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
      * 
      * @param method HTTP submit method to use
      */
-    public void setMethod(String method) {
-        this.method = method;
+    public void setEncodingMethod(ENCODING_METHOD method) {
+        encodingMethod = method;
     }
 
-    /**
-     * Gets the URL the artifact will be sent to.
-     * 
-     * @return URL the artifact will be sent to
-     */
-    public String getEndpointURL() {
-        return endpointURL;
-    }
-
-    /**
-     * Sets the URL the artifact will be sent to.
-     * 
-     * @param url URL the artifact will be sent to
-     */
-    public void setEndpointURL(String url) {
-        endpointURL = url;
-    }
-    
     /**
      * Gets the artifact factory used to create artifacts for this encoder.
      * 
@@ -112,10 +139,10 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     /**
      * Sets the artifact factory used to create artifacts for this encoder.
      * 
-     * @param artifactFactory artifact factory used to create artifacts for this encoder
+     * @param factory artifact factory used to create artifacts for this encoder
      */
-    public void setArtifactFactory(SAMLArtifactFactory artifactFactory) {
-        this.artifactFactory = artifactFactory;
+    public void setArtifactFactory(SAMLArtifactFactory factory) {
+        artifactFactory = factory;
     }
 
     /**
@@ -123,17 +150,17 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
      * 
      * @return artifact map used to map artifacts and messages
      */
-    public ArtifactMap getArtifactMap() {
+    public SAMLArtifactMap getArtifactMap() {
         return artifactMap;
     }
 
     /**
      * Sets the artifact map used to map artifacts and messages.
      * 
-     * @param artifactMap artifact map used to map artifacts and messages
+     * @param map artifact map used to map artifacts and messages
      */
-    public void setArtifactMap(ArtifactMap artifactMap) {
-        this.artifactMap = artifactMap;
+    public void setArtifactMap(SAMLArtifactMap map) {
+        artifactMap = map;
     }
 
     /**
@@ -148,10 +175,10 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     /**
      * Sets the type of artifact this encoder will use.
      * 
-     * @param artifactType type of artifact this encoder will use
+     * @param type type of artifact this encoder will use
      */
-    public void setArtifactType(byte[] artifactType) {
-        this.artifactType = artifactType;
+    public void setArtifactType(byte[] type) {
+        artifactType = type;
     }
 
     /**
@@ -165,21 +192,21 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
 
     /** {@inheritDoc} */
     public void encode() throws BindingException {
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Beginning SAML 2 HTTP Artifact encoding");
         }
-        
+
         HttpServletResponse response = getResponse();
         response.setCharacterEncoding("UTF-8");
-        
-        if(log.isDebugEnabled()){
+
+        if (log.isDebugEnabled()) {
             log.debug("Generating SAML artifact and mapping SAML message to it");
         }
         generateArtifact();
-        
-        if (method.equalsIgnoreCase(SAMLConstants.POST_METHOD)) {
+
+        if (encodingMethod == ENCODING_METHOD.FORM) {
             postEncode(getArtifact().base64Encode());
-        } else if (method.equalsIgnoreCase(SAMLConstants.GET_METHOD)){
+        } else if (encodingMethod == ENCODING_METHOD.URL) {
             getEncode(getArtifact().base64Encode());
         }
     }
@@ -187,26 +214,26 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     /**
      * Performs HTTP POST based encoding.
      * 
-     * @param artifact the base64 encoded artifact
+     * @param artifactString the base64 encoded artifact
      * 
      * @throws BindingException thrown if there is a problem invoking the velocity template to create the form
      */
-    protected void postEncode(String artifact) throws BindingException {
+    protected void postEncode(String artifactString) throws BindingException {
         if (log.isDebugEnabled()) {
             log.debug("Performing HTTP POST SAML 2 artifact encoding");
         }
-        
+
         if (log.isDebugEnabled()) {
             log.debug("Creating velocity context");
         }
         VelocityContext context = new VelocityContext();
         context.put("action", getEndpointURL());
-        context.put("SAMLArt", artifact);
+        context.put("SAMLArt", artifactString);
 
         if (!DatatypeHelper.isEmpty(getRelayState())) {
             context.put("RelayState", getRelayState());
         }
-        
+
         try {
             if (log.isDebugEnabled()) {
                 log.debug("Performing HTTP GET SAML 2 artifact encoding");
@@ -215,7 +242,7 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
             if (log.isDebugEnabled()) {
                 log.debug("Invoking velocity template");
             }
-            Velocity.mergeTemplate(VELOCITY_TEMPLATE, "UTF-8", context, getResponse().getWriter());
+            velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, getResponse().getWriter());
         } catch (Exception e) {
             log.error("Error invoking velocity template to create POST form", e);
             throw new BindingException("Error creating output document", e);
@@ -225,41 +252,41 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     /**
      * Performs HTTP GET based econding.
      * 
-     * @param artifact the base64 encoded artifact
+     * @param artifactString the base64 encoded artifact
      * 
-     * @throws BindingException
+     * @throws BindingException thrown if there is a problem redirecting the response
      */
-    protected void getEncode(String artifact) throws BindingException {
+    protected void getEncode(String artifactString) throws BindingException {
         if (log.isDebugEnabled()) {
             log.debug("Performing HTTP GET SAML 2 artifact encoding");
         }
 
         try {
             URLBuilder urlBuilder = new URLBuilder(getEndpointURL());
-            
+
             List<Pair<String, String>> params = urlBuilder.getQueryParams();
-            
-            params.add(new Pair<String, String>("SAMLArt", artifact));
-            
-            if(!DatatypeHelper.isEmpty(getRelayState())){
+
+            params.add(new Pair<String, String>("SAMLArt", artifactString));
+
+            if (!DatatypeHelper.isEmpty(getRelayState())) {
                 params.add(new Pair<String, String>("RelayState", getRelayState()));
             }
-                
+
             getResponse().sendRedirect(urlBuilder.buildURL());
         } catch (IOException e) {
             log.error("Unable to send HTTP redirect", e);
             throw new BindingException("Unable to send HTTP redirect", e);
         }
     }
-    
+
     /**
      * Generates the artifact to use and maps the given SAML message to it.
      * 
      * @throws BindingException thrown if the artifact can not be created
      */
-    protected void generateArtifact() throws BindingException{
+    protected void generateArtifact() throws BindingException {
         SAMLArtifactFactory factory = getArtifactFactory();
-        artifact = factory.buildArtifact(SAMLVersion.VERSION_20, getArtifactType(), getRelyingParty());
-        artifactMap.put(artifact, getSAMLMessage());
-    }    
+        artifact = factory.buildArtifact(SAMLVersion.VERSION_20, getArtifactType(), getRelyingParty().getEntityID());
+        artifactMap.put(artifact, getSamlMessage());
+    }
 }

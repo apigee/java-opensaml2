@@ -21,9 +21,9 @@ import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.binding.SAMLSecurityPolicyContext;
-import org.opensaml.common.binding.impl.AbstractSAMLSecurityPolicyRule;
-import org.opensaml.common.binding.impl.AbstractSAMLSecurityPolicyRuleFactory;
+import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicyRule;
+import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicyRuleFactory;
+import org.opensaml.common.binding.security.SAMLSecurityPolicyContext;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.RequestAbstractType;

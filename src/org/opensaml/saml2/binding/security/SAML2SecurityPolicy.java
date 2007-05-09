@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.security;
 
 import javax.servlet.ServletRequest;
 
-import org.opensaml.common.binding.impl.AbstractSAMLSecurityPolicyImpl;
+import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicy;
 import org.opensaml.saml2.core.Issuer;
 
 /**
  * Implementation of security for SAML 2.
  */
-public class SAML2SecurityPolicy extends AbstractSAMLSecurityPolicyImpl<ServletRequest, Issuer> {
+public class SAML2SecurityPolicy extends AbstractSAMLSecurityPolicy<ServletRequest, Issuer> {
 
 }

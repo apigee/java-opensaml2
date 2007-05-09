@@ -29,6 +29,7 @@ import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
@@ -39,9 +40,6 @@ import org.w3c.dom.Element;
  */
 public abstract class AbstractMessageEncoder<ResponseType extends ServletResponse> implements
         MessageEncoder<ResponseType> {
-
-    /** Response to pack the message into. */
-    private ResponseType response;
 
     /** Metadata provider used to look up information about the relying party. */
     private MetadataProvider metadataProvider;
@@ -57,6 +55,12 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
 
     /** SAML message to encode. */
     private SAMLObject samlMessage;
+    
+    /** Credential that should be used to sign the message. */
+    private Credential signingCredential;
+    
+    /** Response to pack the message into. */
+    private ResponseType response;
 
     /** {@inheritDoc} */
     public MetadataProvider getMetadataProvider() {
@@ -106,6 +110,16 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
     /** {@inheritDoc} */
     public void setSamlMessage(SAMLObject message) {
         samlMessage = message;
+    }
+    
+    /** {@inheritDoc} */
+    public Credential getSigningCredential() {
+        return signingCredential;
+    }
+    
+    /** {@inheritDoc} */
+    public void setSigningCredential(Credential credential) {
+        signingCredential = credential;
     }
 
     /** {@inheritDoc} */

@@ -16,9 +16,8 @@
 
 package org.opensaml.common.binding.artifact;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.binding.BindingException;
@@ -27,9 +26,9 @@ import org.opensaml.saml1.binding.SAML1ArtifactType0001;
 import org.opensaml.saml1.binding.SAML1ArtifactType0001Builder;
 import org.opensaml.saml1.binding.SAML1ArtifactType0002;
 import org.opensaml.saml1.binding.SAML1ArtifactType0002Builder;
-import org.opensaml.saml2.binding.AbstractSAML2Artifact;
-import org.opensaml.saml2.binding.SAML2ArtifactType0004;
-import org.opensaml.saml2.binding.SAML2ArtifactType0004Builder;
+import org.opensaml.saml2.binding.artifact.AbstractSAML2Artifact;
+import org.opensaml.saml2.binding.artifact.SAML2ArtifactType0004;
+import org.opensaml.saml2.binding.artifact.SAML2ArtifactType0004Builder;
 
 /**
  * Factory for producing SAML artifacts.
@@ -37,18 +36,18 @@ import org.opensaml.saml2.binding.SAML2ArtifactType0004Builder;
 public class SAMLArtifactFactory {
 
     /** SAML 1 Artifact Builders. */
-    private FastMap<String, SAMLArtifactBuilder<? extends AbstractSAML1Artifact>> saml1Builders;
+    private HashMap<String, SAMLArtifactBuilder<? extends AbstractSAML1Artifact>> saml1Builders;
 
     /** SAML 2 Artifact Builders. */
-    private FastMap<String, SAMLArtifactBuilder<? extends AbstractSAML2Artifact>> saml2Builders;
+    private HashMap<String, SAMLArtifactBuilder<? extends AbstractSAML2Artifact>> saml2Builders;
 
     /** Constructor. */
     public SAMLArtifactFactory() {
-        saml1Builders = new FastMap<String, SAMLArtifactBuilder<? extends AbstractSAML1Artifact>>();
+        saml1Builders = new HashMap<String, SAMLArtifactBuilder<? extends AbstractSAML1Artifact>>();
         saml1Builders.put(new String(SAML1ArtifactType0001.TYPE_CODE), new SAML1ArtifactType0001Builder());
         saml1Builders.put(new String(SAML1ArtifactType0002.TYPE_CODE), new SAML1ArtifactType0002Builder());
 
-        saml2Builders = new FastMap<String, SAMLArtifactBuilder<? extends AbstractSAML2Artifact>>();
+        saml2Builders = new HashMap<String, SAMLArtifactBuilder<? extends AbstractSAML2Artifact>>();
         saml2Builders.put(new String(SAML2ArtifactType0004.TYPE_CODE), new SAML2ArtifactType0004Builder());
     }
 

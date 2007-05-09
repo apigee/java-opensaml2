@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding;
+package org.opensaml.saml2.binding.decoding;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.impl.AbstractSOAPHTTPDecoder;
+import org.opensaml.common.binding.decoding.impl.AbstractSOAPHTTPDecoder;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
 
