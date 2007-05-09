@@ -38,59 +38,59 @@ import org.opensaml.xml.schema.XSBooleanValue;
  */
 public class AuthnRequestImpl extends RequestAbstractTypeImpl implements AuthnRequest {
 
-    /** Subject child element */
+    /** Subject child element. */
     private Subject subject;
 
-    /** NameIDPolicy child element */
+    /** NameIDPolicy child element. */
     private NameIDPolicy nameIDPolicy;
 
-    /** Conditions child element */
+    /** Conditions child element. */
     private Conditions conditions;
 
-    /** RequestedAuthnContext child element */
+    /** RequestedAuthnContext child element. */
     private RequestedAuthnContext requestedAuthnContext;
 
-    /** Scoping child element */
+    /** Scoping child element. */
     private Scoping scoping;
 
-    /** ForeceAuthn attribute */
+    /** ForeceAuthn attribute. */
     private XSBooleanValue forceAuthn;
 
-    /** IsPassive attribute */
+    /** IsPassive attribute. */
     private XSBooleanValue isPassive;
 
-    /** ProtocolBinding attribute */
+    /** ProtocolBinding attribute. */
     private String protocolBinding;
 
-    /** AssertionConsumerServiceIndex attribute */
+    /** AssertionConsumerServiceIndex attribute. */
     private Integer assertionConsumerServiceIndex;
 
-    /** AssertionConsumerServiceURL attribute */
+    /** AssertionConsumerServiceURL attribute. */
     private String assertionConsumerServiceURL;
 
-    /** AttributeConsumingServiceIndex attribute */
+    /** AttributeConsumingServiceIndex attribute. */
     private Integer attributeConsumingServiceIndex;
 
-    /** ProviderName attribute */
+    /** ProviderName attribute. */
     private String providerName;
 
     /**
      * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AuthnRequestImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
-    
+
     /** {@inheritDoc} */
-    public Boolean isForceAuthn(){
-        if(forceAuthn != null){
+    public Boolean isForceAuthn() {
+        if (forceAuthn != null) {
             return forceAuthn.getValue();
         }
-        
+
         return null;
     }
 
@@ -98,12 +98,12 @@ public class AuthnRequestImpl extends RequestAbstractTypeImpl implements AuthnRe
     public XSBooleanValue isForceAuthnXSBoolean() {
         return forceAuthn;
     }
-    
+
     /** {@inheritDoc} */
-    public void setForceAuthn(Boolean newForceAuth){
-        if(newForceAuth == null){
+    public void setForceAuthn(Boolean newForceAuth) {
+        if (newForceAuth == null) {
             forceAuthn = prepareForAssignment(forceAuthn, new XSBooleanValue(newForceAuth, false));
-        }else{
+        } else {
             forceAuthn = prepareForAssignment(forceAuthn, null);
         }
     }
@@ -114,28 +114,28 @@ public class AuthnRequestImpl extends RequestAbstractTypeImpl implements AuthnRe
     }
 
     /** {@inheritDoc} */
-    public Boolean isPassive(){
-        if(isPassive != null){
+    public Boolean isPassive() {
+        if (isPassive != null) {
             return isPassive.getValue();
         }
-        
+
         return null;
     }
-    
+
     /** {@inheritDoc} */
     public XSBooleanValue isPassiveXSBoolean() {
         return isPassive;
     }
 
     /** {@inheritDoc} */
-    public void setIsPassive(Boolean newIsPassive){
-        if(newIsPassive == null){
+    public void setIsPassive(Boolean newIsPassive) {
+        if (newIsPassive == null) {
             isPassive = prepareForAssignment(isPassive, new XSBooleanValue(newIsPassive, false));
-        }else{
+        } else {
             isPassive = prepareForAssignment(isPassive, null);
         }
     }
-    
+
     /** {@inheritDoc} */
     public void setIsPassive(XSBooleanValue newIsPassive) {
         this.isPassive = prepareForAssignment(this.isPassive, newIsPassive);
@@ -248,22 +248,33 @@ public class AuthnRequestImpl extends RequestAbstractTypeImpl implements AuthnRe
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
+        }
 
-        if (subject != null)
+        if (subject != null) {
             children.add(subject);
-        if (nameIDPolicy != null)
-            children.add(nameIDPolicy);
-        if (conditions != null)
-            children.add(conditions);
-        if (requestedAuthnContext != null)
-            children.add(requestedAuthnContext);
-        if (scoping != null)
-            children.add(scoping);
+        }
 
-        if (children.size() == 0)
+        if (nameIDPolicy != null) {
+            children.add(nameIDPolicy);
+        }
+
+        if (conditions != null) {
+            children.add(conditions);
+        }
+
+        if (requestedAuthnContext != null) {
+            children.add(requestedAuthnContext);
+        }
+
+        if (scoping != null) {
+            children.add(scoping);
+        }
+
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

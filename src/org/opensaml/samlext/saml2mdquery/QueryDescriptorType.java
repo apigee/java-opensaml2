@@ -26,19 +26,19 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
- * SAML 2.0 Metadata extension QueryDescriptorType
+ * SAML 2.0 Metadata extension QueryDescriptorType.
  */
 public interface QueryDescriptorType extends RoleDescriptor {
     
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "QueryDescriptorType";
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "QueryDescriptorType";
 
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MDQUERY_NS, TYPE_LOCAL_NAME,
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20MDQUERY_NS, TYPE_LOCAL_NAME,
             SAMLConstants.SAML20MDQUERY_PREFIX);
     
-    /** "WantAssertionSigned" attribute's local name */
-    public final static String WANT_ASSERTION_SIGNED_ATTRIB_NAME = "WantAssertionsSigned";
+    /** "WantAssertionSigned" attribute's local name. */
+    public static final String WANT_ASSERTION_SIGNED_ATTRIB_NAME = "WantAssertionsSigned";
     
     /**
      * Gets whether assertions to this endpoint should be signed.

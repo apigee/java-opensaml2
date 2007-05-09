@@ -33,37 +33,37 @@ import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.RequestAbstractType}
+ * Concrete implementation of {@link org.opensaml.saml2.core.RequestAbstractType}.
  */
 public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject implements RequestAbstractType {
 
-    /** SAML Version of the request */
+    /** SAML Version of the request. */
     private SAMLVersion version;
-    
-    /** Unique identifier of the request */
+
+    /** Unique identifier of the request. */
     private String id;
 
-    /** Date/time request was issued */
+    /** Date/time request was issued. */
     private DateTime issueInstant;
 
-    /** URI of the request destination */
+    /** URI of the request destination. */
     private String destination;
 
-    /** URI of the SAML user consent type */
+    /** URI of the SAML user consent type. */
     private String consent;
 
-    /** URI of the SAML user consent type */
+    /** URI of the SAML user consent type. */
     private Issuer issuer;
 
-    /** Extensions child element */
+    /** Extensions child element. */
     private Extensions extensions;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected RequestAbstractTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -79,7 +79,7 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject
     public void setVersion(SAMLVersion newVersion) {
         this.version = prepareForAssignment(this.version, newVersion);
     }
-    
+
     /** {@inheritDoc} */
     public String getID() {
         return id;
@@ -141,9 +141,9 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject
     public void setExtensions(Extensions newExtensions) {
         this.extensions = prepareForAssignment(this.extensions, newExtensions);
     }
-    
+
     /** {@inheritDoc} */
-    public String getSignatureReferenceID(){
+    public String getSignatureReferenceID() {
         return id;
     }
 
@@ -151,18 +151,19 @@ public abstract class RequestAbstractTypeImpl extends AbstractSignableSAMLObject
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (issuer != null){
+        if (issuer != null) {
             children.add(issuer);
         }
-        if(getSignature() != null){
+        if (getSignature() != null) {
             children.add(getSignature());
         }
-        if (extensions != null){
+        if (extensions != null) {
             children.add(extensions);
         }
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }
