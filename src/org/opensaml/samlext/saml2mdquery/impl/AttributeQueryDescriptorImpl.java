@@ -16,11 +16,15 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.namespace.QName;
 
 import javolution.util.FastList;
 
 import org.opensaml.saml2.metadata.AttributeConsumingService;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.samlext.saml2mdquery.AttributeQueryDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -30,11 +34,11 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public class AttributeQueryDescriptorImpl extends QueryDescriptorTypeImpl implements AttributeQueryDescriptor {
 
-    /** Attribute consuming endpoints */
+    /** Attribute consuming endpoints. */
     private XMLObjectChildrenList<AttributeConsumingService> attributeConsumingServices;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
@@ -49,6 +53,16 @@ public class AttributeQueryDescriptorImpl extends QueryDescriptorTypeImpl implem
     /** {@inheritDoc} */
     public List<AttributeConsumingService> getAttributeConsumingServices() {
         return attributeConsumingServices;
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints() {
+        return new ArrayList<Endpoint>();
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints(QName type) {
+        return null;
     }
 
     /** {@inheritDoc} */

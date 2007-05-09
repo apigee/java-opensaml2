@@ -16,10 +16,14 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.namespace.QName;
 
 import javolution.util.FastList;
 
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.samlext.saml2mdquery.ActionNamespace;
 import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptor;
 import org.opensaml.xml.XMLObject;
@@ -30,11 +34,11 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public class AuthzDecisionQueryDescriptorImpl extends QueryDescriptorTypeImpl implements AuthzDecisionQueryDescriptor{
 
-    /** Supported action namespaces */
+    /** Supported action namespaces. */
     private XMLObjectChildrenList<ActionNamespace> actionNamespaces;
     
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
@@ -49,6 +53,16 @@ public class AuthzDecisionQueryDescriptorImpl extends QueryDescriptorTypeImpl im
     /** {@inheritDoc} */
     public List<ActionNamespace> getActionNamespaces() {
         return actionNamespaces;
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints() {
+        return new ArrayList<Endpoint>();
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints(QName type) {
+        return null;
     }
     
     /** {@inheritDoc} */

@@ -32,10 +32,10 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public abstract class QueryDescriptorTypeImpl extends RoleDescriptorImpl {
 
-    /** WantAssertionSigned attribute value */
+    /** WantAssertionSigned attribute value. */
     private XSBooleanValue wantAssertionSigned;
     
-    /** Supported NameID formats */
+    /** Supported NameID formats. */
     private XMLObjectChildrenList<NameIDFormat> nameIDFormats;
     
     /**

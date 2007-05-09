@@ -16,16 +16,21 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
-import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.namespace.QName;
+
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.samlext.saml2mdquery.AuthnQueryDescriptor;
 
 /**
- * Concrete implementation of {@link AuthnAuthorityDescriptor}.
+ * Concrete implementation of {@link AuthnQueryDescriptor}.
  */
 public class AuthnQueryDescriptorImpl extends QueryDescriptorTypeImpl implements AuthnQueryDescriptor{
     
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
@@ -33,5 +38,15 @@ public class AuthnQueryDescriptorImpl extends QueryDescriptorTypeImpl implements
      */
     protected AuthnQueryDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints() {
+        return new ArrayList<Endpoint>();
+    }
+    
+    /** {@inheritDoc} */
+    public List<Endpoint> getEndpoints(QName type) {
+        return null;
     }
 }
