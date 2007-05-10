@@ -28,31 +28,29 @@ import org.opensaml.saml2.core.NewEncryptedID;
 import org.opensaml.saml2.core.NewID;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.encryption.DecryptionException;
+import org.opensaml.xml.encryption.EncryptedKeyResolver;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 
 /**
- * Class which implements SAML2-specific options for {@link org.opensaml.saml2.core.EncryptedElementType} objects.
+ * Class which implements SAML2-specific options for {@link EncryptedElementType} objects.
+ * 
+ * See additional information about general XML decrytpion issues at {@link org.opensaml.xml.encryption.Decrypter}.
  */
-public class Decrypter {
+public class Decrypter extends org.opensaml.xml.encryption.Decrypter {
     
-    /** Key resolver. */
-    private KeyInfoCredentialResolver kekResolver;
-    
-    /** Recipient identifier, typically a SAML entity ID URI. */
-    private String recipient;
-
     /** Class logger. */
     private Logger log = Logger.getLogger(Decrypter.class);
     
     /**
      * Constructor.
      *
-     * @param newKEKResolver the key encryption key resolver to use
-     * @param newRecipient the EncryptedKey recipient attribute to use in key resolution
+     * @param newResolver resolver for data encryption keys.
+     * @param newKEKResolver resolver for key encryption keys.
+     * @param newEncKeyResolver resolver for EncryptedKey elements
      */
-    public Decrypter(KeyInfoCredentialResolver newKEKResolver, String newRecipient) {
-        this.kekResolver = newKEKResolver;
-        this.recipient = newRecipient;
+    public Decrypter(KeyInfoCredentialResolver newResolver, KeyInfoCredentialResolver newKEKResolver, 
+            EncryptedKeyResolver newEncKeyResolver) {
+        super(newResolver, newKEKResolver, newEncKeyResolver);
     }
     
     /**
@@ -131,17 +129,9 @@ public class Decrypter {
             throw new DecryptionException("Element had no EncryptedData child");
         }
         
-        //TODO need to re-eval and rewrite this based on new credential based resolvers
-        //EncryptedElementTypeKeyResolver keyResolver = 
-         //   new EncryptedElementTypeKeyResolver(encElement, recipient);
-        
-        //TODO these args aren't correct
-        org.opensaml.xml.encryption.Decrypter decrypter = 
-            new org.opensaml.xml.encryption.Decrypter(kekResolver, kekResolver);
-        
         XMLObject xmlObject = null;
         try {
-            xmlObject = decrypter.decryptData(encElement.getEncryptedData());
+            xmlObject = decryptData(encElement.getEncryptedData());
         } catch (DecryptionException e) {
             log.error("SAML Decrypter encountered an error decrypting element content", e);
             throw e; 
