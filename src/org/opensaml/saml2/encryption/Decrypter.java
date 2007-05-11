@@ -41,6 +41,10 @@ public class Decrypter extends org.opensaml.xml.encryption.Decrypter {
     /** Class logger. */
     private Logger log = Logger.getLogger(Decrypter.class);
     
+    /** Flag to determine whether the Element which backs the underlying decrypted SAMLObject will be the 
+     * root of a new DOM document. */
+    private boolean rootInNewDocument;
+    
     /**
      * Constructor.
      *
@@ -51,6 +55,33 @@ public class Decrypter extends org.opensaml.xml.encryption.Decrypter {
     public Decrypter(KeyInfoCredentialResolver newResolver, KeyInfoCredentialResolver newKEKResolver, 
             EncryptedKeyResolver newEncKeyResolver) {
         super(newResolver, newKEKResolver, newEncKeyResolver);
+        rootInNewDocument = false;
+    }
+    
+    /**
+     * Get the flag which indicates whether the DOM Element which backs a decrypted SAML object
+     * will be the root of a new DOM document.  Defaults to false.
+     * 
+     * See also {@link org.opensaml.xml.encryption.Decrypter}.  This flag will be passed as-is to
+     * {@link org.opensaml.xml.encryption.Decrypter#decryptData(org.opensaml.xml.encryption.EncryptedData, boolean)}.
+     * 
+     * @return the current value of the flag for this decrypter instance
+     */
+    public boolean isRootInNewDocument() {
+        return rootInNewDocument;
+    }
+    
+    /**
+     * Set the flag which indicates whether the DOM Element which backs a decrypted SAML object
+     * will be the root of a new DOM document.  Defaults to false.
+     * 
+     * See also {@link org.opensaml.xml.encryption.Decrypter}.  This flag will be passed as-is to
+     * {@link org.opensaml.xml.encryption.Decrypter#decryptData(org.opensaml.xml.encryption.EncryptedData, boolean)}.
+     * 
+     * @param flag the current value of the flag for this decrypter instance
+     */
+    public void setRootInNewDocument(boolean flag) {
+       rootInNewDocument = flag; 
     }
     
     /**
@@ -131,7 +162,7 @@ public class Decrypter extends org.opensaml.xml.encryption.Decrypter {
         
         XMLObject xmlObject = null;
         try {
-            xmlObject = decryptData(encElement.getEncryptedData());
+            xmlObject = decryptData(encElement.getEncryptedData(), rootInNewDocument);
         } catch (DecryptionException e) {
             log.error("SAML Decrypter encountered an error decrypting element content", e);
             throw e; 
