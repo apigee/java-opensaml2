@@ -16,6 +16,7 @@
 
 package org.opensaml.saml2.encryption;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -128,8 +129,22 @@ public class Encrypter {
      * @param keyEncParam the key encryption parameter
      */
     public Encrypter(EncryptionParameters dataEncParams, KeyEncryptionParameters keyEncParam) {
-        List<KeyEncryptionParameters> keks = new FastList<KeyEncryptionParameters>();
+        List<KeyEncryptionParameters> keks = new ArrayList<KeyEncryptionParameters>();
         keks.add(keyEncParam);
+        
+        this.encParams = dataEncParams;
+        this.kekParams = keks;
+        
+        init();
+    }
+    
+    /**
+     * Constructor.
+     *
+     * @param dataEncParams the data encryption parameters
+     */
+    public Encrypter(EncryptionParameters dataEncParams) {
+        List<KeyEncryptionParameters> keks = new ArrayList<KeyEncryptionParameters>();
         
         this.encParams = dataEncParams;
         this.kekParams = keks;
