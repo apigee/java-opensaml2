@@ -18,33 +18,29 @@ package org.opensaml.common.binding.artifact;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.xml.util.StorageService;
+import org.opensaml.util.ExpiringObject;
+import org.opensaml.util.StorageService;
 
 /**
  * Maps an artifact to a SAML message and back again.
  */
 public class SAMLArtifactMap {
     
-    /** Backing storage service */
+    /** Backing storage service. */
     private StorageService<String, SAMLObject> store;
     
-    /** Storage context for the persisted artifacts */
-    private String context;
-    
-    /** Time to live for Artifacts, in seconds */
-    private int artifactTTL; 
+    /** Time to live for Artifacts, in milliseconds. */
+    private long artifactLifetime;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param backingStore backing store used to persist the map
-     * @param storageContext the context to use with the backing store
-     * @param artifactTTL time to live for persisted artifacts, in seconds
+     * @param lifetime time to live for persisted artifacts, in milliseconds
      */
-    public SAMLArtifactMap(StorageService<String, SAMLObject> backingStore, String storageContext, int artifactTTL){
+    public SAMLArtifactMap(StorageService<String, SAMLObject> backingStore, long lifetime){
         store = backingStore;
-        context = storageContext;
-        this.artifactTTL = artifactTTL;
+        artifactLifetime = lifetime;
     }
     
     /**
@@ -54,7 +50,8 @@ public class SAMLArtifactMap {
      * @param samlMessage the SAML message
      */
     public void put(SAMLArtifact artifact, SAMLObject samlMessage){
-        store.put(context, artifact.toString(), samlMessage, new DateTime().plusSeconds(artifactTTL));
+        //TODO
+        //store.put(context, artifact.toString(), samlMessage, new DateTime().plusSeconds(artifactTTL));
     }
     
     /**
@@ -65,6 +62,8 @@ public class SAMLArtifactMap {
      * @return the SAML message or null if the artifact has already expired or did not exist
      */
     public SAMLObject get(SAMLArtifact artifact){
-        return store.get(context, artifact.toString());
+        return null;
+        //TODO
+        //return store.get(context, artifact.toString());
     }
 }
