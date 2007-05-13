@@ -45,6 +45,9 @@ import org.opensaml.xml.util.Pair;
  */
 public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
 
+    /** URI for this binding. */
+    public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect";
+
     /** DSA with SHA1 signature algorithm. */
     public static final String DSA_SHA1_SIGNATURE = "http://www.w3.org/2000/09/xmldsig#dsa-sha1";
 
@@ -53,6 +56,11 @@ public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(HTTPRedirectDeflateEncoder.class);
+
+    /** {@inheritDoc} */
+    public String getBindingURI() {
+        return BINDING_URI;
+    }
 
     /** {@inheritDoc} */
     public void encode() throws BindingException {

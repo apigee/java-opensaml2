@@ -41,6 +41,9 @@ import org.opensaml.xml.util.DatatypeHelper;
  */
 public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
 
+    /** URI for this binding. */
+    public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST";
+
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPPostEncoder.class);
 
@@ -49,6 +52,11 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
 
     /** ID of the velocity template used when performing POST encoding. */
     private String velocityTemplateId;
+
+    /** {@inheritDoc} */
+    public String getBindingURI() {
+        return BINDING_URI;
+    }
 
     /**
      * Gets the velocity engine used to evaluate the template when performing POST encoding.

@@ -30,12 +30,19 @@ import org.opensaml.xml.XMLObject;
 
 /**
  * SAML 2.0 SOAP 1.1 over HTTP binding decoder.
- * 
  */
 public class HTTPSOAP11Decoder extends AbstractSOAPHTTPDecoder {
 
+    /** URI for this binding. */
+    public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:SOAP";
+
     /** Class logger. */
-    private static final Logger log = Logger.getLogger(HTTPSOAP11Decoder.class);
+    private final Logger log = Logger.getLogger(HTTPSOAP11Decoder.class);
+
+    /** {@inheritDoc} */
+    public String getBindingURI() {
+        return BINDING_URI;
+    }
 
     /** {@inheritDoc} */
     public void decode() throws BindingException {

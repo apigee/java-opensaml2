@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.binding.BindingException;
@@ -43,8 +42,8 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     /** Artifact encoding methods. */
     public static enum ENCODING_METHOD {
         /** Artifact URL encoding with HTTP Redirect binding. */
-        URL, 
-        
+        URL,
+
         /** Artifact FORM encoding with HTTP Post binding. */
         FORM
     };
@@ -72,7 +71,16 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
 
     /** Artifact generated for the given SAML message. */
     private SAMLArtifact artifact;
-    
+
+    /** {@inheritDoc} */
+    public String getBindingURI() {
+        if (encodingMethod == ENCODING_METHOD.FORM) {
+            return HTTPPostEncoder.BINDING_URI;
+        } else {
+            return HTTPRedirectDeflateEncoder.BINDING_URI;
+        }
+    }
+
     /**
      * Gets the velocity engine used to evaluate the template when performing POST encoding.
      * 

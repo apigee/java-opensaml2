@@ -42,6 +42,12 @@ public class HTTPArtifactDecoder extends AbstractHTTPMessageDecoder {
 
     /** Artifact generated for the given SAML message. */
     private SAMLArtifact artifact;
+    
+    /** {@inheritDoc} */
+    public String getBindingURI() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
     /**
      * Gets the artifact factory used to create artifacts for this encoder.

@@ -20,12 +20,12 @@ import javax.servlet.ServletRequest;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
+import org.opensaml.util.ReplayCache;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.ws.security.SecurityPolicyRuleFactory;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.ReplayCache;
 
 /**
  * Security policy rule factory implementation that generates rules which check for replay of
@@ -163,7 +163,7 @@ public class ReplayRuleFactory<RequestType extends ServletRequest, IssuerType>
                issueInstant = new DateTime();
            }
            
-           if (!replayCache.check(samlContext.getMessageID(), 
+           if (!replayCache.isReplay(samlContext.getMessageID(), 
                    samlContext.getIssueInstant().plusSeconds(clockSkew + expires))) {
                
                log.error("Replay detected of message '" + samlContext.getMessageID() + "'");

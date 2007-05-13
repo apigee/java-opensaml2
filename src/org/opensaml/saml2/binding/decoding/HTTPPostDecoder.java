@@ -34,6 +34,9 @@ import org.opensaml.xml.util.DatatypeHelper;
  */
 public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
 
+    /** URI for this binding. */
+    public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST";
+
     /** HTTP request param name for SAML request. */
     public static final String REQUEST_PARAM = "SAMLRequest";
 
@@ -42,9 +45,14 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
 
     /** HTTP request param name for relay state. */
     public static final String RELAY_STATE_PARAM = "RelayState";
-    
+
     /** Class logger. */
     private static Logger log = Logger.getLogger(HTTPPostDecoder.class);
+
+    /** {@inheritDoc} */
+    public String getBindingURI() {
+        return BINDING_URI;
+    }
 
     /** {@inheritDoc} */
     public void decode() throws BindingException {

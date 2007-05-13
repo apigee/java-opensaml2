@@ -36,6 +36,9 @@ import org.opensaml.xml.util.Base64;
  */
 public class HTTPRedirectDeflateDecoder extends AbstractHTTPMessageDecoder {
 
+    /** URI for this binding. */
+    public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect";
+
     /** Class logger. */
     private static Logger log = Logger.getLogger(HTTPRedirectDeflateDecoder.class);
 
@@ -44,6 +47,11 @@ public class HTTPRedirectDeflateDecoder extends AbstractHTTPMessageDecoder {
 
     /** Signature used to sign message. */
     private String signatureAlgorithm;
+
+    /** {@inheritDoc} */
+    public String getBindingURI() {
+        return BINDING_URI;
+    }
 
     /**
      * Gets whether the decoded message was signed.

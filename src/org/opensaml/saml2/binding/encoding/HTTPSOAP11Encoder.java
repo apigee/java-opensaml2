@@ -31,8 +31,16 @@ import org.opensaml.ws.soap.soap11.Envelope;
  */
 public class HTTPSOAP11Encoder extends AbstractSOAPHTTPEncoder {
 
+    /** URI for this binding. */
+    public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:SOAP";
+
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPSOAP11Encoder.class);
+
+    /** {@inheritDoc} */
+    public String getBindingURI() {
+        return BINDING_URI;
+    }
 
     /** {@inheritDoc} */
     public void encode() throws BindingException {
@@ -42,11 +50,11 @@ public class HTTPSOAP11Encoder extends AbstractSOAPHTTPEncoder {
 
         Envelope envelope = buildSOAPMessage();
         setSOAPMessage(envelope);
-        
+
         String soapMessage = marshallMessage(envelope);
 
         try {
-            if(log.isDebugEnabled()){
+            if (log.isDebugEnabled()) {
                 log.debug("Writting SOAP message to response");
             }
             HttpServletResponse response = getResponse();
