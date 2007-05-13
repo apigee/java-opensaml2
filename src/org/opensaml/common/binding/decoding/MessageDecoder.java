@@ -33,6 +33,13 @@ import org.opensaml.xml.security.trust.TrustEngine;
 public interface MessageDecoder<RequestType extends ServletRequest>{
     
     /**
+     * Gets the binding URI supported by this encoder.
+     * 
+     * @return binding URI supported by this encoder
+     */
+    public String getBindingURI();
+    
+    /**
      * Gets the request to decode.
      * 
      * @return request to decode

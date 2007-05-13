@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package org.opensaml.common.binding.encoding;
+package org.opensaml.common.binding.decoding;
 
 /**
- * Simple builder interface for {@link MessageEncoder}s.
+ * Simple builder interface for {@link MessageDecoder}s.
  * 
  * Builders must be thread-safe and reusable.
  */
-public interface MessageEncoderBuilder {
+public interface MessageDecoderBuilder {
 
     /**
-     * Creates a new instance of the message encoder.
+     * Creates a new instance of the message decoder.
      * 
-     * @return new instance of the message encoder
+     * @return new instance of the message decoder
      */
-    public MessageEncoder buildEncoder();
+    public MessageDecoder buildDecoder();
 }

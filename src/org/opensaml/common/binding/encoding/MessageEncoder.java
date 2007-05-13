@@ -35,6 +35,13 @@ import org.opensaml.xml.security.credential.Credential;
  * @param <ResponseType> the type of response the message is encoded to
  */
 public interface MessageEncoder<ResponseType extends ServletResponse> {
+    
+    /**
+     * Gets the binding URI supported by this encoder.
+     * 
+     * @return binding URI supported by this encoder
+     */
+    public String getBindingURI();
 
     /**
      * Gets the metadata provider that can be used to look up information about the relying party.
