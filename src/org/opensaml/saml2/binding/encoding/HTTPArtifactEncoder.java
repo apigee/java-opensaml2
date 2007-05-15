@@ -295,6 +295,6 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
     protected void generateArtifact() throws BindingException {
         SAMLArtifactFactory factory = getArtifactFactory();
         artifact = factory.buildArtifact(SAMLVersion.VERSION_20, getArtifactType(), getRelyingParty().getEntityID());
-        artifactMap.put(artifact, getSamlMessage());
+        artifactMap.put(artifact.getArtifactBytes(), getRelyingParty().getID(), getIssuer(), getSamlMessage());
     }
 }

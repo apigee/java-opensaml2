@@ -44,6 +44,9 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
     /** Metadata provider used to look up information about the relying party. */
     private MetadataProvider metadataProvider;
 
+    /** Issuer of the message. */
+    private String issuer;
+
     /** Party the message is being sent to. */
     private EntityDescriptor relyingParty;
 
@@ -55,10 +58,10 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
 
     /** SAML message to encode. */
     private SAMLObject samlMessage;
-    
+
     /** Credential that should be used to sign the message. */
     private Credential signingCredential;
-    
+
     /** Response to pack the message into. */
     private ResponseType response;
 
@@ -70,6 +73,16 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
     /** {@inheritDoc} */
     public void setMetadataProvider(MetadataProvider provider) {
         metadataProvider = provider;
+    }
+
+    /** {@inheritDoc} */
+    public String getIssuer() {
+        return issuer;
+    }
+
+    /** {@inheritDoc} */
+    public void setIssuer(String id) {
+        issuer = id;
     }
 
     /** {@inheritDoc} */
@@ -111,12 +124,12 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
     public void setSamlMessage(SAMLObject message) {
         samlMessage = message;
     }
-    
+
     /** {@inheritDoc} */
     public Credential getSigningCredential() {
         return signingCredential;
     }
-    
+
     /** {@inheritDoc} */
     public void setSigningCredential(Credential credential) {
         signingCredential = credential;

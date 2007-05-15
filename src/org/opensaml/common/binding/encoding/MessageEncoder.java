@@ -56,6 +56,20 @@ public interface MessageEncoder<ResponseType extends ServletResponse> {
      * @param metadatProvider provider that can be used to look up information about the relying party, may not be null
      */
     public void setMetadataProvider(MetadataProvider metadatProvider);
+    
+    /**
+     * Gets the issuer of the message.
+     * 
+     * @return issuer of the message
+     */
+    public String getIssuer();
+    
+    /**
+     * Sets the issuer of the message.
+     * 
+     * @param issuer issuer of the message
+     */
+    public void setIssuer(String issuer);
 
     /**
      * Gets the relying party the message will be encoded for.

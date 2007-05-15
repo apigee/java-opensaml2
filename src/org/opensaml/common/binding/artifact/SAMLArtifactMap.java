@@ -16,54 +16,85 @@
 
 package org.opensaml.common.binding.artifact;
 
-import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.util.ExpiringObject;
-import org.opensaml.util.StorageService;
 
 /**
  * Maps an artifact to a SAML message and back again.
+ * 
+ * Artifacts must be thread safe.
  */
-public class SAMLArtifactMap {
-    
-    /** Backing storage service. */
-    private StorageService<String, SAMLObject> store;
-    
-    /** Time to live for Artifacts, in milliseconds. */
-    private long artifactLifetime;
+public interface SAMLArtifactMap {
 
     /**
-     * Constructor.
-     *
-     * @param backingStore backing store used to persist the map
-     * @param lifetime time to live for persisted artifacts, in milliseconds
+     * Checks if a given artifact has a map entry.
+     * 
+     * @param artifact the artifact to check
+     * 
+     * @return true of this map has an entry for the given artifact, false it not
      */
-    public SAMLArtifactMap(StorageService<String, SAMLObject> backingStore, long lifetime){
-        store = backingStore;
-        artifactLifetime = lifetime;
-    }
-    
+    public boolean contains(byte[] artifact);
+
     /**
-     * Maps an SAML message to an artifact.
+     * Creates a mapping between a given artifact and the SAML message to which it maps.
      * 
      * @param artifact the artifact
+     * @param relyingPartyId ID of the party the artifact was sent to
+     * @param issuerId ID of the issuer of the artifact
      * @param samlMessage the SAML message
      */
-    public void put(SAMLArtifact artifact, SAMLObject samlMessage){
-        //TODO
-        //store.put(context, artifact.toString(), samlMessage, new DateTime().plusSeconds(artifactTTL));
-    }
-    
+    public void put(byte[] artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage);
+
     /**
-     * Gets the SAML message for the given artifact.
+     * Retrieves the entry for the given artifact without removing that entry from the map.
      * 
-     * @param artifact the artifact to retrive the SAML message for
+     * @param artifact artifact to retrieve the map entry for
      * 
-     * @return the SAML message or null if the artifact has already expired or did not exist
+     * @return the map entry for the artifact or null
      */
-    public SAMLObject get(SAMLArtifact artifact){
-        return null;
-        //TODO
-        //return store.get(context, artifact.toString());
+    public SAMLArtifactMapEntry peek(byte[] artifact);
+
+    /**
+     * Gets the artifact entry for the given artifact. This operation will remove the artifact entry in order to ensure
+     * the one-time use semantics of artifacts.
+     * 
+     * @param artifact the artifact to retrive the entry for
+     * 
+     * @return the entry or null if the artifact has already expired or did not exist
+     */
+    public SAMLArtifactMapEntry get(byte[] artifact);
+
+    /**
+     * Represents a mapping between an artifact a SAML message with some associated metadata.
+     */
+    public interface SAMLArtifactMapEntry extends ExpiringObject {
+
+        /**
+         * Gets the artifact that maps to the SAML message.
+         * 
+         * @return artifact that maps to the SAML message
+         */
+        public byte[] getArtifact();
+
+        /**
+         * Gets the ID of the issuer of the artifact.
+         * 
+         * @return ID of the issuer of the artifact
+         */
+        public String getIssuerId();
+
+        /**
+         * Gets the ID of the relying party the artifact was sent to.
+         * 
+         * @return ID of the relying party the artifact was sent to
+         */
+        public String getRelyingPartyId();
+
+        /**
+         * Gets the SAML message the artifact maps to.
+         * 
+         * @return SAML message the artifact maps to
+         */
+        public SAMLObject getSamlMessage();
     }
 }
