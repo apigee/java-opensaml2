@@ -16,12 +16,11 @@
 
 package org.opensaml.saml2.encryption;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
-
-import javolution.util.FastList;
 
 import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
@@ -48,22 +47,25 @@ import org.opensaml.xml.encryption.EncryptionException;
 import org.opensaml.xml.encryption.EncryptionParameters;
 import org.opensaml.xml.encryption.KeyEncryptionParameters;
 import org.opensaml.xml.encryption.ReferenceList;
-import org.opensaml.xml.io.Marshaller;
-import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.encryption.impl.CarriedKeyNameBuilder;
+import org.opensaml.xml.encryption.impl.DataReferenceBuilder;
+import org.opensaml.xml.encryption.impl.ReferenceListBuilder;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
 import org.opensaml.xml.signature.RetrievalMethod;
+import org.opensaml.xml.signature.impl.KeyInfoBuilder;
+import org.opensaml.xml.signature.impl.KeyNameBuilder;
+import org.opensaml.xml.signature.impl.RetrievalMethodBuilder;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
+// TODO more documentation needed.
+// TODO need logging
 /**
- * Class which implements SAML2-specific options for {@link org.opensaml.saml2.core.EncryptedElementType} objects.
+ * Encrypter for SAML 2 SAMLObjects which has specific options for generating instances of subtypes of
+ * {@link org.opensaml.saml2.core.EncryptedElementType}.
  */
-public class Encrypter {
-    
-    // TODO possibly support KEK input as list of recipient(s) + resolver(s) + algorithm(s) + ?
-    // - need more key resolver work
+public class Encrypter extends org.opensaml.xml.encryption.Encrypter {
 
     /**
      * Options for where to place the resulting EncryptedKey elements with respect
@@ -80,6 +82,24 @@ public class Encrypter {
     /** Factory for building XMLObject instances. */
     private XMLObjectBuilderFactory builderFactory;
     
+    /** Builder for KeyInfo objects. */
+    private KeyInfoBuilder keyInfoBuilder;
+    
+    /** Builder for DataReference objects. */
+    private DataReferenceBuilder dataReferenceBuilder;
+    
+    /** Builder for ReferenceList objects. */
+    private ReferenceListBuilder referenceListBuilder;
+    
+    /** Builder for RetrievalMethod objects. */
+    private RetrievalMethodBuilder retrievalMethodBuilder;
+    
+    /** Builder for KeyName objects. */
+    private KeyNameBuilder keyNameBuilder;
+    
+    /** Builder for CarriedKeyName objects. */
+    private CarriedKeyNameBuilder carriedKeyNameBuilder;
+    
     /** Generator for XML ID attribute values. */
     private IdentifierGenerator idGenerator;
     
@@ -87,17 +107,10 @@ public class Encrypter {
     private EncryptionParameters encParams;
     
     /** The parameters to use for encrypting (wrapping) the data encryption key. */
-    private List<KeyEncryptionParameters> kekParams;
+    private List<KeyEncryptionParameters> kekParamsList;
     
     /** The option for where to place the generated EncryptedKey elements. */
     private KeyPlacement keyPlacement;
-    
-    /** The XML encrypter instance to use. */
-    private org.opensaml.xml.encryption.Encrypter xmlEncrypter;
-    
-    /** Specifies whether to reuse a generated data encryption key 
-     * across multiple calls to a given Encrypter instance. */
-    private boolean reuseDataEncryptionKey;
     
     /** Specifies whether an Encrypter instance can be reused. */
     private boolean reusable;
@@ -116,8 +129,10 @@ public class Encrypter {
      * @param keyEncParams the key encryption parameters
      */
     public Encrypter(EncryptionParameters dataEncParams, List<KeyEncryptionParameters> keyEncParams) {
+        super();
+        
         this.encParams = dataEncParams;
-        this.kekParams = keyEncParams;
+        this.kekParamsList = keyEncParams;
         
         init();
     }
@@ -129,11 +144,13 @@ public class Encrypter {
      * @param keyEncParam the key encryption parameter
      */
     public Encrypter(EncryptionParameters dataEncParams, KeyEncryptionParameters keyEncParam) {
+        super();
+        
         List<KeyEncryptionParameters> keks = new ArrayList<KeyEncryptionParameters>();
         keks.add(keyEncParam);
         
         this.encParams = dataEncParams;
-        this.kekParams = keks;
+        this.kekParamsList = keks;
         
         init();
     }
@@ -144,10 +161,12 @@ public class Encrypter {
      * @param dataEncParams the data encryption parameters
      */
     public Encrypter(EncryptionParameters dataEncParams) {
+        super();
+        
         List<KeyEncryptionParameters> keks = new ArrayList<KeyEncryptionParameters>();
         
         this.encParams = dataEncParams;
-        this.kekParams = keks;
+        this.kekParamsList = keks;
         
         init();
     }
@@ -157,18 +176,29 @@ public class Encrypter {
      */
     private void init() {
         builderFactory = Configuration.getBuilderFactory();
+        keyInfoBuilder = 
+            (KeyInfoBuilder) builderFactory.getBuilder(KeyInfo.DEFAULT_ELEMENT_NAME);
+        dataReferenceBuilder = 
+            (DataReferenceBuilder) builderFactory.getBuilder(DataReference.DEFAULT_ELEMENT_NAME);
+        referenceListBuilder = 
+            (ReferenceListBuilder) builderFactory.getBuilder(ReferenceList.DEFAULT_ELEMENT_NAME);
+        retrievalMethodBuilder = 
+            (RetrievalMethodBuilder) builderFactory.getBuilder(RetrievalMethod.DEFAULT_ELEMENT_NAME);
+        keyNameBuilder = 
+            (KeyNameBuilder) builderFactory.getBuilder(KeyName.DEFAULT_ELEMENT_NAME);
+        carriedKeyNameBuilder = 
+            (CarriedKeyNameBuilder) builderFactory.getBuilder(CarriedKeyName.DEFAULT_ELEMENT_NAME);
+        
         idGenerator = new SecureRandomIdentifierGenerator();
-        xmlEncrypter = new org.opensaml.xml.encryption.Encrypter();
         
         keyPlacement = KeyPlacement.PEER;
-        reuseDataEncryptionKey = false;
         
         firstUse = true;
         reusable = true;
         if (encParams.getKeyInfo() != null) {
             reusable = false;
         }
-        for (KeyEncryptionParameters kekParam: kekParams) {
+        for (KeyEncryptionParameters kekParam: kekParamsList) {
             if (kekParam.getKeyInfo() != null) {
                 reusable = false;
                 return;
@@ -201,24 +231,6 @@ public class Encrypter {
      */
     public void setKeyPlacement(KeyPlacement newKeyPlacement) {
         this.keyPlacement = newKeyPlacement;
-    }
-
-    /**
-     * Get the flag determining data encryption key reuse.
-     * 
-     * @return Returns the data encryption key reuse option
-     */
-    public boolean reuseDataEncryptionKey() {
-        return this.reuseDataEncryptionKey;
-    }
-
-    /**
-     * Set the flag determining data encryption key reuse.
-     * 
-     * @param newReuseDataEncryptionKey The new reuseDataEncryptionKey option to set
-     */
-    public void setReuseDataEncryptionKey(boolean newReuseDataEncryptionKey) {
-        this.reuseDataEncryptionKey = newReuseDataEncryptionKey;
     }
     
     /**
@@ -307,43 +319,41 @@ public class Encrypter {
      * @throws EncryptionException thrown when encryption generates an error
      */
     private EncryptedElementType encrypt(XMLObject xmlObject, QName encElementName) throws EncryptionException {
+        //TODO rethink
         if (!isReusable() && !firstUse) {
             throw new EncryptionException("Encrypter instance has already been used and is not reusable");
         }
+        
+        checkParams(encParams, kekParamsList);
        
         EncryptedElementType encElement = 
             (EncryptedElementType) builderFactory.getBuilder(encElementName).buildObject(encElementName);
         
         // Marshall the containing element, we will need its Document context to pass 
         // to the key encryption method
-        Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(encElement);
-        Element domElement;
-        try {
-            domElement = marshaller.marshall(encElement);
-        } catch (MarshallingException e) {
-            throw new EncryptionException("Error marshalling target XMLObject", e);
-        }
-        Document ownerDocument = domElement.getOwnerDocument();
+        checkAndMarshall(encElement);
+        Document ownerDocument = encElement.getDOM().getOwnerDocument();
         
-        try {
-            if (encParams.getEncryptionKey() == null) {
-                encParams.setEncryptionKey(xmlEncrypter.generateEncryptionKey(encParams.getAlgorithm()));
-            }
-        } catch (EncryptionException e) {
-            log.error("Encrypter could not generate the data encryption key: ", e);
-            throw e;
+        String encryptionAlgorithmURI = encParams.getAlgorithm();
+        Key encryptionKey = extractEncryptionKey(encParams.getEncryptionCredential());
+        if (encryptionKey == null) {
+            encryptionKey = generateEncryptionKey(encryptionAlgorithmURI);
         }
         
-        EncryptedData encData = encryptElement(xmlObject);
-        List<EncryptedKey> encKeys = encryptKeys(ownerDocument);
-        
-        if (!reuseDataEncryptionKey()) {
-            encParams.setEncryptionKey(null);
+        EncryptedData encryptedData = encryptElement(xmlObject, encryptionKey, encryptionAlgorithmURI, false);
+        if (encParams.getKeyInfo() != null) {
+            encryptedData.setKeyInfo(encParams.getKeyInfo());
         }
         
+        List<EncryptedKey> encryptedKeys = new ArrayList<EncryptedKey>();
+        if (kekParamsList != null && ! kekParamsList.isEmpty()) {
+            encryptedKeys.addAll( encryptKey(encryptionKey, kekParamsList, ownerDocument) );
+        }
+        
+        //TODO rethink
         firstUse = false;
         
-        return processElements(encElement, encData, encKeys);
+        return processElements(encElement, encryptedData, encryptedKeys);
     }
 
     /**
@@ -371,10 +381,7 @@ public class Encrypter {
         }
         
         if (encData.getKeyInfo() == null) {
-            KeyInfo dataKeyInfo = 
-                (KeyInfo) builderFactory
-                    .getBuilder(KeyInfo.DEFAULT_ELEMENT_NAME).buildObject(KeyInfo.DEFAULT_ELEMENT_NAME);
-            encData.setKeyInfo(dataKeyInfo);
+            encData.setKeyInfo(keyInfoBuilder.buildObject());
         }
         
         for (EncryptedKey encKey : encKeys) {
@@ -428,10 +435,7 @@ public class Encrypter {
         
         for (EncryptedKey encKey : encKeys) {
             if (encKey.getReferenceList() == null) {
-                ReferenceList rl = 
-                    (ReferenceList) builderFactory
-                        .getBuilder(ReferenceList.DEFAULT_ELEMENT_NAME).buildObject(ReferenceList.DEFAULT_ELEMENT_NAME);
-                encKey.setReferenceList(rl);
+                encKey.setReferenceList(referenceListBuilder.buildObject());
             }
         }
         
@@ -458,17 +462,13 @@ public class Encrypter {
      */
     protected void linkSinglePeerKey(EncryptedData encData, EncryptedKey encKey) {
         // Forward reference from EncryptedData to the EncryptedKey
-        RetrievalMethod rm = 
-            (RetrievalMethod) builderFactory
-                .getBuilder(RetrievalMethod.DEFAULT_ELEMENT_NAME).buildObject(RetrievalMethod.DEFAULT_ELEMENT_NAME);
+        RetrievalMethod rm = retrievalMethodBuilder.buildObject();
         rm.setURI("#" + encKey.getID());
         rm.setType(EncryptionConstants.TYPE_ENCRYPTED_KEY);
         encData.getKeyInfo().getRetrievalMethods().add(rm);
         
         // Back reference from the EncryptedKey to the EncryptedData
-        DataReference dr = 
-            (DataReference) builderFactory
-                .getBuilder(DataReference.DEFAULT_ELEMENT_NAME).buildObject(DataReference.DEFAULT_ELEMENT_NAME);
+        DataReference dr = dataReferenceBuilder.buildObject();
         dr.setURI("#" + encData.getID());
         encKey.getReferenceList().getDataReferences().add(dr);
     }
@@ -491,8 +491,7 @@ public class Encrypter {
             
             KeyName keyName = dataEncKeyNames.get(0);
             if (keyName == null) {
-                keyName = (KeyName) builderFactory
-                    .getBuilder(KeyName.DEFAULT_ELEMENT_NAME).buildObject(KeyName.DEFAULT_ELEMENT_NAME);
+                keyName = keyNameBuilder.buildObject();
                 dataEncKeyNames.add(keyName);
             }
             keyName.setValue(keyNameValue);
@@ -504,63 +503,16 @@ public class Encrypter {
         // Set carried key name of the multicast key in each EncryptedKey
         for (EncryptedKey encKey : encKeys) {
             if (encKey.getCarriedKeyName() == null) {
-                CarriedKeyName ckn = (CarriedKeyName) builderFactory
-                    .getBuilder(CarriedKeyName.DEFAULT_ELEMENT_NAME)
-                    .buildObject(CarriedKeyName.DEFAULT_ELEMENT_NAME);
-                encKey.setCarriedKeyName(ckn);
+                encKey.setCarriedKeyName(carriedKeyNameBuilder.buildObject());
             }
             encKey.getCarriedKeyName().setValue(carriedKeyNameValue);
             
             // Back reference from the EncryptedKeys to the EncryptedData
-            DataReference dr = 
-                (DataReference) builderFactory
-                .getBuilder(DataReference.DEFAULT_ELEMENT_NAME).buildObject(DataReference.DEFAULT_ELEMENT_NAME);
+            DataReference dr = dataReferenceBuilder.buildObject();
             dr.setURI("#" + encData.getID());
             encKey.getReferenceList().getDataReferences().add(dr);
             
         }
-    }
-
-    /**
-     * Encrypt the passed XMLObject, using the data encryption parameters previously specified.
-     * 
-     * @param xmlObject the object to encrypt
-     * @return the EncryptedData representing the encrypted XMLObject
-     * @throws EncryptionException thrown when the encrypter encounters an error
-     */
-    protected EncryptedData encryptElement(XMLObject xmlObject) throws EncryptionException {
-        EncryptedData encData =  null;
-        try {
-            encData =  xmlEncrypter.encryptElement(xmlObject, encParams, null);
-        } catch (EncryptionException e) {
-            log.error("Encrypter could not encrypt the XMLObject: ", e);
-            throw e;
-        }
-        return encData;
-    }
-    
-    /**
-     * Generate the wrapped encryption keys, using the data encryption key and key encryption
-     * parameters previously specified.
-     * 
-     * @param containingDocument the document that will own the resulting element
-     * @return the list of EncryptedKey's
-     * @throws EncryptionException thrown when the encrypter encounters an error
-     */
-    protected List<EncryptedKey> encryptKeys(Document containingDocument) throws EncryptionException {
-        List<EncryptedKey> encKeys = new FastList<EncryptedKey>();
-        
-        for (KeyEncryptionParameters kekParam: kekParams) {
-            EncryptedKey encKey = null;
-            try {
-                encKey = xmlEncrypter.encryptKey(encParams.getEncryptionKey(), kekParam, containingDocument);
-            } catch (EncryptionException e) {
-                log.error("Encrypter could not encrypt the data encryption key: ", e);
-                throw e;
-            }
-            encKeys.add(encKey);
-        }
-        return encKeys;
     }
 
 }

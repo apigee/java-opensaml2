@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.encryption;
 
-import java.security.Key;
 import java.security.KeyPair;
 import java.util.List;
 
@@ -37,6 +36,7 @@ import org.opensaml.xml.encryption.EncryptionException;
 import org.opensaml.xml.encryption.EncryptionParameters;
 import org.opensaml.xml.encryption.KeyEncryptionParameters;
 import org.opensaml.xml.security.SecurityTestHelper;
+import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
 import org.opensaml.xml.signature.RetrievalMethod;
@@ -80,27 +80,27 @@ public class ComplexEncryptionTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        Key encKey = SecurityTestHelper.generateKeyFromURI(algoURI);
-        Key kekKeyAES = SecurityTestHelper.generateKeyFromURI(kekURIAES);
-        KeyPair kekKeyRSA = SecurityTestHelper.generateKeyPairFromURI(kekURIRSA, 2048);
+        Credential encCred = SecurityTestHelper.generateKeyAndCredential(algoURI);
+        Credential kekCredAES = SecurityTestHelper.generateKeyAndCredential(kekURIAES);
+        Credential kekCredRSA = SecurityTestHelper.generateKeyPairAndCredential(kekURIRSA, 2048, false);
         
         encParams = new EncryptionParameters();
         encParams.setAlgorithm(algoURI);
-        encParams.setEncryptionKey(encKey);
+        encParams.setEncryptionCredential(encCred);
         
         kekParamAES = new KeyEncryptionParameters();
         kekParamAES.setAlgorithm(kekURIAES);
-        kekParamAES.setEncryptionKey(kekKeyAES);
+        kekParamAES.setEncryptionCredential(kekCredAES);
         
         kekParamRSA = new KeyEncryptionParameters();
         kekParamRSA.setAlgorithm(kekURIRSA);
-        kekParamRSA.setEncryptionKey(kekKeyRSA.getPrivate());
+        kekParamRSA.setEncryptionCredential(kekCredRSA);
         
         kekParams = new FastList<KeyEncryptionParameters>();
         
-        keyInfo = (KeyInfo) buildXMLObject(org.opensaml.xml.signature.KeyInfo.DEFAULT_ELEMENT_NAME);
-        kekKeyInfoRSA = (KeyInfo) buildXMLObject(org.opensaml.xml.signature.KeyInfo.DEFAULT_ELEMENT_NAME);
-        kekKeyInfoAES = (KeyInfo) buildXMLObject(org.opensaml.xml.signature.KeyInfo.DEFAULT_ELEMENT_NAME);
+        keyInfo = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
+        kekKeyInfoRSA = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
+        kekKeyInfoAES = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
     }
 
     /**
@@ -109,7 +109,7 @@ public class ComplexEncryptionTest extends BaseTestCase {
     public void testSingleKEKInline() {
         Assertion target = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
         
-        KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
+        KeyName keyName = (KeyName) buildXMLObject(KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyNameRSA);
         kekKeyInfoRSA.getKeyNames().add(keyName);
         kekParamRSA.setKeyInfo(kekKeyInfoRSA);
@@ -164,7 +164,7 @@ public class ComplexEncryptionTest extends BaseTestCase {
     public void testSingleKEKPeer() {
         Assertion target = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
         
-        KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
+        KeyName keyName = (KeyName) buildXMLObject(KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyNameRSA);
         kekKeyInfoRSA.getKeyNames().add(keyName);
         kekParamRSA.setKeyInfo(kekKeyInfoRSA);
@@ -228,7 +228,7 @@ public class ComplexEncryptionTest extends BaseTestCase {
         Assertion target = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
         
         String multicastKeyNameValue = "MulticastDataEncryptionKeyName";
-        KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
+        KeyName keyName = (KeyName) buildXMLObject(KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(multicastKeyNameValue);
         keyInfo.getKeyNames().add(keyName);
         encParams.setKeyInfo(keyInfo);
@@ -355,7 +355,7 @@ public class ComplexEncryptionTest extends BaseTestCase {
         Attribute target = assertion.getAttributeStatements().get(0).getAttributes().get(0);
         Attribute target2 = assertion.getAttributeStatements().get(0).getAttributes().get(1);
         
-        KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
+        KeyName keyName = (KeyName) buildXMLObject(KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyName);
         kekKeyInfoRSA.getKeyNames().add(keyName);
         kekParamRSA.setKeyInfo(kekKeyInfoRSA);

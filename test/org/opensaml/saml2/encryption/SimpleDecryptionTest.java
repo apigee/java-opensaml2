@@ -40,6 +40,7 @@ import org.opensaml.xml.encryption.EncryptionParameters;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.BasicCredential;
+import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 import org.w3c.dom.Document;
 
@@ -71,13 +72,12 @@ public class SimpleDecryptionTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        encKey = SecurityTestHelper.generateKeyFromURI(encURI);
-        BasicCredential encCred = new BasicCredential();
-        encCred.setSecretKey((SecretKey) encKey);
+        Credential encCred = SecurityTestHelper.generateKeyAndCredential(encURI);
+        encKey = encCred.getSecretKey();
         keyResolver = new StaticKeyInfoCredentialResolver(encCred);
         encParams = new EncryptionParameters();
         encParams.setAlgorithm(encURI);
-        encParams.setEncryptionKey(encKey);
+        encParams.setEncryptionCredential(encCred);
         
         encrypter = new Encrypter(encParams);
         
@@ -264,7 +264,7 @@ public class SimpleDecryptionTest extends BaseTestCase {
      * @throws XMLParserException if parser encounters an error
      */
     private Document getDOM(String filename) throws XMLParserException {
-        Document targetDOM = parser.parse(CopyOfSimpleDecryptionTest.class.getResourceAsStream(filename));
+        Document targetDOM = parser.parse(SimpleDecryptionTest.class.getResourceAsStream(filename));
         return targetDOM;
     }
     

@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.encryption;
 
-import java.security.Key;
 import java.util.List;
 
 import javolution.util.FastList;
@@ -47,12 +46,16 @@ public class SimpleEncryptionTest extends BaseTestCase {
     
     private Encrypter encrypter;
     private EncryptionParameters encParams;
-    private List<KeyEncryptionParameters> kekParams;
+    private KeyEncryptionParameters kekParamsRSA;
+    private List<KeyEncryptionParameters> kekParamsList;
     
     private KeyInfo keyInfo;
     
     private String algoURI;
     private String expectedKeyName;
+    
+    private String kekURIRSA;
+    private String kekExpectedKeyNameRSA;
 
     /**
      * Constructor.
@@ -63,21 +66,26 @@ public class SimpleEncryptionTest extends BaseTestCase {
         
         expectedKeyName = "SuperSecretKey";
         algoURI = EncryptionConstants.ALGO_ID_BLOCKCIPHER_AES128;
+        
+        kekExpectedKeyNameRSA = "RSAKeyEncryptionKey";
+        kekURIRSA = EncryptionConstants.ALGO_ID_KEYTRANSPORT_RSA15;
     }
     
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
-        Key encKey = SecurityTestHelper.generateKeyFromURI(algoURI);
         encParams = new EncryptionParameters();
         encParams.setAlgorithm(algoURI);
-        encParams.setEncryptionKey(encKey);
+        encParams.setEncryptionCredential(SecurityTestHelper.generateKeyAndCredential(algoURI));
         
-        kekParams = new FastList<KeyEncryptionParameters>();
+        kekParamsRSA = new KeyEncryptionParameters();
+        kekParamsRSA.setAlgorithm(kekURIRSA);
+        kekParamsRSA.setEncryptionCredential(SecurityTestHelper.generateKeyPairAndCredential(kekURIRSA, 1024, false));
         
-        keyInfo = (KeyInfo) buildXMLObject(org.opensaml.xml.signature.KeyInfo.DEFAULT_ELEMENT_NAME);
+        kekParamsList = new FastList<KeyEncryptionParameters>();
         
+        keyInfo = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
     }
 
     /**
@@ -92,7 +100,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         keyInfo.getKeyNames().add(keyName);
         encParams.setKeyInfo(keyInfo);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         
         EncryptedAssertion encTarget = null;
         XMLObject encObject = null;
@@ -133,7 +141,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         keyInfo.getKeyNames().add(keyName);
         encParams.setKeyInfo(keyInfo);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         
         EncryptedID encTarget = null;
         XMLObject encObject = null;
@@ -175,7 +183,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         keyInfo.getKeyNames().add(keyName);
         encParams.setKeyInfo(keyInfo);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         
         EncryptedID encTarget = null;
         XMLObject encObject = null;
@@ -218,7 +226,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         keyInfo.getKeyNames().add(keyName);
         encParams.setKeyInfo(keyInfo);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         
         EncryptedAttribute encTarget = null;
         XMLObject encObject = null;
@@ -260,7 +268,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         keyInfo.getKeyNames().add(keyName);
         encParams.setKeyInfo(keyInfo);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         
         NewEncryptedID encTarget = null;
         XMLObject encObject = null;
@@ -297,7 +305,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         Attribute target = assertion.getAttributeStatements().get(0).getAttributes().get(0);
         Attribute target2 = assertion.getAttributeStatements().get(0).getAttributes().get(1);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         
         assertTrue("Encrypter is not reusable, it should be", encrypter.isReusable());
         
@@ -324,6 +332,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
                 encObject2 instanceof EncryptedAttribute);
     }
     
+    //TODO why is this passing ???
     /** Test that invalid reuse is disallowed, i.e. when a KeyInfo is passed in the encryption parameters. */
     public void testInvalidReuse() {
         Assertion assertion = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
@@ -336,7 +345,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         keyInfo.getKeyNames().add(keyName);
         encParams.setKeyInfo(keyInfo);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         
         assertFalse("Encrypter is reusable, it shouldn't be", encrypter.isReusable());
         
@@ -363,11 +372,13 @@ public class SimpleEncryptionTest extends BaseTestCase {
     
     /** Test that a data encryption key is auto-generated if it is not supplied. */
     public void testAutoKeyGen() {
-       Assertion target = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
-       
-       encParams.setEncryptionKey(null);
+        Assertion target = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encParams.setEncryptionCredential(null);
+        
+        kekParamsList.add(kekParamsRSA);
+        
+        encrypter = new Encrypter(encParams, kekParamsList);
         
         XMLObject encObject = null;
         try {
@@ -381,46 +392,23 @@ public class SimpleEncryptionTest extends BaseTestCase {
                 encObject instanceof EncryptedAssertion);
     }
     
-    /** Tests proper operation of the reuseDataEncryptionKey parameter. */
-    public void testKeyResuse() {
-       Assertion assertion = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
+    /** Test that an error is thrown if the no data encryption credential is supplied and no KEK is specified. */
+    public void testAutoKeyGenNoKEK() {
+        Assertion target = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
         
-        Attribute target = assertion.getAttributeStatements().get(0).getAttributes().get(0);
-        Attribute target2 = assertion.getAttributeStatements().get(0).getAttributes().get(1);
+        encParams.setEncryptionCredential(null);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        kekParamsList.clear();
         
-        encrypter.setReuseDataEncryptionKey(true);
-        assertTrue("Data encryption key is not reusable, it should be", encrypter.reuseDataEncryptionKey());
+        encrypter = new Encrypter(encParams, kekParamsList);
         
-        Key keyOrig = encParams.getEncryptionKey();
-        Key key1 = null, key2 = null;
         XMLObject encObject = null;
         try {
             encObject = encrypter.encrypt(target);
-            key1 = encParams.getEncryptionKey();
-            encObject = encrypter.encrypt(target);
-            key2 = encParams.getEncryptionKey();
+            fail("Object encryption should have failed: no KEK supplied with auto key generation for data encryption");
         } catch (EncryptionException e) {
-            fail("Object encryption failed: " + e);
+            //do nothing, should fail
         }
-        
-        assertEquals("Data encryption key wasn't reused properly", keyOrig, key1);
-        assertEquals("Data encryption key wasn't reused properly", keyOrig, key2);
-        
-        encrypter.setReuseDataEncryptionKey(false);
-        assertFalse("Data encryption key is reusable, it shouldn't be", encrypter.reuseDataEncryptionKey());
-        
-        try {
-            encObject = encrypter.encrypt(target);
-            key1 = encParams.getEncryptionKey();
-            encObject = encrypter.encrypt(target);
-            key2 = encParams.getEncryptionKey();
-        } catch (EncryptionException e) {
-            fail("Object encryption failed: " + e);
-        }
-        
-        assertFalse("Data encryption key was reused improperly", keyOrig.equals(key1));
-        assertFalse("Data encryption key was reused improperly", keyOrig.equals(key2));
     }
+    
 }
