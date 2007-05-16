@@ -35,6 +35,7 @@ import org.opensaml.xml.encryption.EncryptionException;
 import org.opensaml.xml.encryption.EncryptionParameters;
 import org.opensaml.xml.encryption.KeyEncryptionParameters;
 import org.opensaml.xml.security.SecurityTestHelper;
+import org.opensaml.xml.security.keyinfo.StaticKeyInfoGenerator;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -98,7 +99,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyName);
         keyInfo.getKeyNames().add(keyName);
-        encParams.setKeyInfo(keyInfo);
+        encParams.setKeyInfoGenerator(new StaticKeyInfoGenerator(keyInfo));
         
         encrypter = new Encrypter(encParams, kekParamsList);
         
@@ -139,7 +140,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyName);
         keyInfo.getKeyNames().add(keyName);
-        encParams.setKeyInfo(keyInfo);
+        encParams.setKeyInfoGenerator(new StaticKeyInfoGenerator(keyInfo));
         
         encrypter = new Encrypter(encParams, kekParamsList);
         
@@ -181,7 +182,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyName);
         keyInfo.getKeyNames().add(keyName);
-        encParams.setKeyInfo(keyInfo);
+        encParams.setKeyInfoGenerator(new StaticKeyInfoGenerator(keyInfo));
         
         encrypter = new Encrypter(encParams, kekParamsList);
         
@@ -224,7 +225,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyName);
         keyInfo.getKeyNames().add(keyName);
-        encParams.setKeyInfo(keyInfo);
+        encParams.setKeyInfoGenerator(new StaticKeyInfoGenerator(keyInfo));
         
         encrypter = new Encrypter(encParams, kekParamsList);
         
@@ -266,7 +267,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyName);
         keyInfo.getKeyNames().add(keyName);
-        encParams.setKeyInfo(keyInfo);
+        encParams.setKeyInfoGenerator(new StaticKeyInfoGenerator(keyInfo));
         
         encrypter = new Encrypter(encParams, kekParamsList);
         
@@ -298,16 +299,19 @@ public class SimpleEncryptionTest extends BaseTestCase {
         
     }
     
-    /** Test that valid reuse is allowed, i.e. when no KeyInfo is passed in the encryption parameters. */
-    public void testValidReuse() {
+    /** Test that reuse of the encrypter with the same encryption and key encryption parameters is allowed. */
+    public void testReuse() {
         Assertion assertion = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
         
         Attribute target = assertion.getAttributeStatements().get(0).getAttributes().get(0);
         Attribute target2 = assertion.getAttributeStatements().get(0).getAttributes().get(1);
         
-        encrypter = new Encrypter(encParams, kekParamsList);
+        KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
+        keyName.setValue(expectedKeyName);
+        keyInfo.getKeyNames().add(keyName);
+        encParams.setKeyInfoGenerator(new StaticKeyInfoGenerator(keyInfo));
         
-        assertTrue("Encrypter is not reusable, it should be", encrypter.isReusable());
+        encrypter = new Encrypter(encParams, kekParamsList);
         
         XMLObject encObject = null;
         try {
@@ -330,44 +334,6 @@ public class SimpleEncryptionTest extends BaseTestCase {
         assertNotNull("Encrypted object was null", encObject2);
         assertTrue("Encrypted object was not an instance of the expected type", 
                 encObject2 instanceof EncryptedAttribute);
-    }
-    
-    //TODO why is this passing ???
-    /** Test that invalid reuse is disallowed, i.e. when a KeyInfo is passed in the encryption parameters. */
-    public void testInvalidReuse() {
-        Assertion assertion = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
-        
-        Attribute target = assertion.getAttributeStatements().get(0).getAttributes().get(0);
-        Attribute target2 = assertion.getAttributeStatements().get(0).getAttributes().get(1);
-        
-        KeyName keyName = (KeyName) buildXMLObject(org.opensaml.xml.signature.KeyName.DEFAULT_ELEMENT_NAME);
-        keyName.setValue(expectedKeyName);
-        keyInfo.getKeyNames().add(keyName);
-        encParams.setKeyInfo(keyInfo);
-        
-        encrypter = new Encrypter(encParams, kekParamsList);
-        
-        assertFalse("Encrypter is reusable, it shouldn't be", encrypter.isReusable());
-        
-        XMLObject encObject = null;
-        try {
-            encObject = encrypter.encrypt(target);
-        } catch (EncryptionException e) {
-            fail("Object encryption failed: " + e);
-        }
-        
-        assertNotNull("Encrypted object was null", encObject);
-        assertTrue("Encrypted object was not an instance of the expected type", 
-                encObject instanceof EncryptedAttribute);
-        
-        // This should fail
-        XMLObject encObject2 = null;
-        try {
-            encObject2 = encrypter.encrypt(target2);
-            fail("Second call to Encrypter with passed KeyInfo should have failed due to invalid reuse");
-        } catch (EncryptionException e) {
-            //do nothing, this should fail
-        }
     }
     
     /** Test that a data encryption key is auto-generated if it is not supplied. */

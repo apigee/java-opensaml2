@@ -50,6 +50,8 @@ import org.opensaml.xml.encryption.ReferenceList;
 import org.opensaml.xml.encryption.impl.CarriedKeyNameBuilder;
 import org.opensaml.xml.encryption.impl.DataReferenceBuilder;
 import org.opensaml.xml.encryption.impl.ReferenceListBuilder;
+import org.opensaml.xml.security.SecurityException;
+import org.opensaml.xml.security.keyinfo.KeyInfoGenerator;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
 import org.opensaml.xml.signature.RetrievalMethod;
@@ -111,12 +113,6 @@ public class Encrypter extends org.opensaml.xml.encryption.Encrypter {
     
     /** The option for where to place the generated EncryptedKey elements. */
     private KeyPlacement keyPlacement;
-    
-    /** Specifies whether an Encrypter instance can be reused. */
-    private boolean reusable;
-
-    /** Internal flag to track whether is first use or not. */
-    private boolean firstUse;
 
     /** Class logger. */
     private Logger log = Logger.getLogger(Encrypter.class);
@@ -192,18 +188,6 @@ public class Encrypter extends org.opensaml.xml.encryption.Encrypter {
         idGenerator = new SecureRandomIdentifierGenerator();
         
         keyPlacement = KeyPlacement.PEER;
-        
-        firstUse = true;
-        reusable = true;
-        if (encParams.getKeyInfo() != null) {
-            reusable = false;
-        }
-        for (KeyEncryptionParameters kekParam: kekParamsList) {
-            if (kekParam.getKeyInfo() != null) {
-                reusable = false;
-                return;
-            }
-        }
     }
     
     /**
@@ -231,15 +215,6 @@ public class Encrypter extends org.opensaml.xml.encryption.Encrypter {
      */
     public void setKeyPlacement(KeyPlacement newKeyPlacement) {
         this.keyPlacement = newKeyPlacement;
-    }
-    
-    /**
-     * Check whether this Encrypter instance may be used to encrypt multiple objects.
-     * 
-     * @return true if Encrypter is reusable
-     */
-    public boolean isReusable() {
-        return reusable;
     }
 
     /**
@@ -319,10 +294,6 @@ public class Encrypter extends org.opensaml.xml.encryption.Encrypter {
      * @throws EncryptionException thrown when encryption generates an error
      */
     private EncryptedElementType encrypt(XMLObject xmlObject, QName encElementName) throws EncryptionException {
-        //TODO rethink
-        if (!isReusable() && !firstUse) {
-            throw new EncryptionException("Encrypter instance has already been used and is not reusable");
-        }
         
         checkParams(encParams, kekParamsList);
        
@@ -341,17 +312,19 @@ public class Encrypter extends org.opensaml.xml.encryption.Encrypter {
         }
         
         EncryptedData encryptedData = encryptElement(xmlObject, encryptionKey, encryptionAlgorithmURI, false);
-        if (encParams.getKeyInfo() != null) {
-            encryptedData.setKeyInfo(encParams.getKeyInfo());
+        if (encParams.getKeyInfoGenerator() != null) {
+            KeyInfoGenerator generator = encParams.getKeyInfoGenerator();
+            try {
+                encryptedData.setKeyInfo( generator.generate(encParams.getEncryptionCredential()) );
+            } catch (SecurityException e) {
+                throw new EncryptionException("Error generating EncryptedData KeyInfo", e);
+            }
         }
         
         List<EncryptedKey> encryptedKeys = new ArrayList<EncryptedKey>();
         if (kekParamsList != null && ! kekParamsList.isEmpty()) {
             encryptedKeys.addAll( encryptKey(encryptionKey, kekParamsList, ownerDocument) );
         }
-        
-        //TODO rethink
-        firstUse = false;
         
         return processElements(encElement, encryptedData, encryptedKeys);
     }

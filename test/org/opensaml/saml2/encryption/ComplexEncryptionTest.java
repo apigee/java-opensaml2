@@ -37,6 +37,7 @@ import org.opensaml.xml.encryption.EncryptionParameters;
 import org.opensaml.xml.encryption.KeyEncryptionParameters;
 import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.Credential;
+import org.opensaml.xml.security.keyinfo.StaticKeyInfoGenerator;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
 import org.opensaml.xml.signature.RetrievalMethod;
@@ -50,8 +51,8 @@ public class ComplexEncryptionTest extends BaseTestCase {
     
     private Encrypter encrypter;
     private EncryptionParameters encParams;
-    private List<KeyEncryptionParameters> kekParams;
-    private KeyEncryptionParameters kekParamRSA, kekParamAES;
+    private List<KeyEncryptionParameters> kekParamsList;
+    private KeyEncryptionParameters kekParamsRSA, kekParamsAES;
     
     private KeyInfo keyInfo, kekKeyInfoRSA, kekKeyInfoAES;
     
@@ -88,15 +89,15 @@ public class ComplexEncryptionTest extends BaseTestCase {
         encParams.setAlgorithm(algoURI);
         encParams.setEncryptionCredential(encCred);
         
-        kekParamAES = new KeyEncryptionParameters();
-        kekParamAES.setAlgorithm(kekURIAES);
-        kekParamAES.setEncryptionCredential(kekCredAES);
+        kekParamsAES = new KeyEncryptionParameters();
+        kekParamsAES.setAlgorithm(kekURIAES);
+        kekParamsAES.setEncryptionCredential(kekCredAES);
         
-        kekParamRSA = new KeyEncryptionParameters();
-        kekParamRSA.setAlgorithm(kekURIRSA);
-        kekParamRSA.setEncryptionCredential(kekCredRSA);
+        kekParamsRSA = new KeyEncryptionParameters();
+        kekParamsRSA.setAlgorithm(kekURIRSA);
+        kekParamsRSA.setEncryptionCredential(kekCredRSA);
         
-        kekParams = new FastList<KeyEncryptionParameters>();
+        kekParamsList = new FastList<KeyEncryptionParameters>();
         
         keyInfo = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
         kekKeyInfoRSA = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
@@ -112,10 +113,10 @@ public class ComplexEncryptionTest extends BaseTestCase {
         KeyName keyName = (KeyName) buildXMLObject(KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyNameRSA);
         kekKeyInfoRSA.getKeyNames().add(keyName);
-        kekParamRSA.setKeyInfo(kekKeyInfoRSA);
-        kekParams.add(kekParamRSA);
+        kekParamsRSA.setKeyInfoGenerator(new StaticKeyInfoGenerator(kekKeyInfoRSA));
+        kekParamsList.add(kekParamsRSA);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         encrypter.setKeyPlacement(Encrypter.KeyPlacement.INLINE);
         
         EncryptedAssertion encTarget = null;
@@ -167,10 +168,10 @@ public class ComplexEncryptionTest extends BaseTestCase {
         KeyName keyName = (KeyName) buildXMLObject(KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(expectedKeyNameRSA);
         kekKeyInfoRSA.getKeyNames().add(keyName);
-        kekParamRSA.setKeyInfo(kekKeyInfoRSA);
-        kekParams.add(kekParamRSA);
+        kekParamsRSA.setKeyInfoGenerator(new StaticKeyInfoGenerator(kekKeyInfoRSA));
+        kekParamsList.add(kekParamsRSA);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         encrypter.setKeyPlacement(Encrypter.KeyPlacement.PEER);
         
         EncryptedAssertion encTarget = null;
@@ -231,14 +232,14 @@ public class ComplexEncryptionTest extends BaseTestCase {
         KeyName keyName = (KeyName) buildXMLObject(KeyName.DEFAULT_ELEMENT_NAME);
         keyName.setValue(multicastKeyNameValue);
         keyInfo.getKeyNames().add(keyName);
-        encParams.setKeyInfo(keyInfo);
+        encParams.setKeyInfoGenerator(new StaticKeyInfoGenerator(keyInfo));
         
-        kekParamRSA.setRecipient(expectedRecipientRSA);
-        kekParams.add(kekParamRSA);
-        kekParamAES.setRecipient(expectedRecipientAES);
-        kekParams.add(kekParamAES);
+        kekParamsRSA.setRecipient(expectedRecipientRSA);
+        kekParamsList.add(kekParamsRSA);
+        kekParamsAES.setRecipient(expectedRecipientAES);
+        kekParamsList.add(kekParamsAES);
         
-        encrypter = new Encrypter(encParams, kekParams);
+        encrypter = new Encrypter(encParams, kekParamsList);
         encrypter.setKeyPlacement(Encrypter.KeyPlacement.PEER);
         
         EncryptedAssertion encTarget = null;
@@ -311,19 +312,22 @@ public class ComplexEncryptionTest extends BaseTestCase {
                 encKeyAES.getCarriedKeyName().getValue());
     }
     
-    /** Test that valid reuse is allowed, i.e. when no KeyInfo is passed in the KEK parameters. */
-    public void testValidReuse() {
+    /** Test that reuse is allowed with same key encryption parameters. */
+    public void testReuse() {
         Assertion assertion = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
         
         Attribute target = assertion.getAttributeStatements().get(0).getAttributes().get(0);
         Attribute target2 = assertion.getAttributeStatements().get(0).getAttributes().get(1);
         
-        kekParams.add(kekParamRSA);
+        KeyName keyName = (KeyName) buildXMLObject(KeyName.DEFAULT_ELEMENT_NAME);
+        keyName.setValue(expectedKeyNameRSA);
+        kekKeyInfoRSA.getKeyNames().add(keyName);
+        kekParamsRSA.setKeyInfoGenerator(new StaticKeyInfoGenerator(kekKeyInfoRSA));
         
-        encrypter = new Encrypter(encParams, kekParams);
+        kekParamsList.add(kekParamsRSA);
+        
+        encrypter = new Encrypter(encParams, kekParamsList);
         encrypter.setKeyPlacement(KeyPlacement.PEER);
-        
-        assertTrue("Encrypter is not reusable, it should be", encrypter.isReusable());
         
         XMLObject encObject = null;
         try {
@@ -347,44 +351,5 @@ public class ComplexEncryptionTest extends BaseTestCase {
         assertTrue("Encrypted object was not an instance of the expected type", 
                 encObject2 instanceof EncryptedAttribute);
     }
-    
-    /** Test that invalid reuse is disallowed, i.e. when a KeyInfo is passed in the KEK parameters. */
-    public void testInvalidReuse() {
-        Assertion assertion = (Assertion) unmarshallElement("/data/org/opensaml/saml2/encryption/Assertion.xml");
-        
-        Attribute target = assertion.getAttributeStatements().get(0).getAttributes().get(0);
-        Attribute target2 = assertion.getAttributeStatements().get(0).getAttributes().get(1);
-        
-        KeyName keyName = (KeyName) buildXMLObject(KeyName.DEFAULT_ELEMENT_NAME);
-        keyName.setValue(expectedKeyName);
-        kekKeyInfoRSA.getKeyNames().add(keyName);
-        kekParamRSA.setKeyInfo(kekKeyInfoRSA);
-        kekParams.add(kekParamRSA);
-        
-        encrypter = new Encrypter(encParams, kekParams);
-        encrypter.setKeyPlacement(KeyPlacement.PEER);
-        
-        assertFalse("Encrypter is reusable, it shouldn't be", encrypter.isReusable());
-        
-        XMLObject encObject = null;
-        try {
-            encObject = encrypter.encrypt(target);
-        } catch (EncryptionException e) {
-            fail("Object encryption failed: " + e);
-        }
-        
-        assertNotNull("Encrypted object was null", encObject);
-        assertTrue("Encrypted object was not an instance of the expected type", 
-                encObject instanceof EncryptedAttribute);
-        
-        // This should fail
-        XMLObject encObject2 = null;
-        try {
-            encObject2 = encrypter.encrypt(target2);
-            fail("Second call to Encrypter with passed KeyInfo should have failed due to invalid reuse");
-        } catch (EncryptionException e) {
-            //do nothing, this should fail
-        }
-        
-    }
+
 }
