@@ -26,22 +26,22 @@ import org.opensaml.xml.util.Base64;
  * Base class for SAML artifacts.
  */
 public abstract class SAMLArtifact {
-
-    /** 2 byte artifact type code */
-    private byte[] typeCode;
-
-    /** Random number generator */
+    
+    /** Random number generator. */
     protected SecureRandom randomGen;
 
+    /** 2 byte artifact type code. */
+    private byte[] typeCode;
+
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param typeCode the artifact type code
+     * @param code the artifact type code
      * 
      * @throws IllegalArgumentException thrown if the given type code is not two bytes in length
      */
-    protected SAMLArtifact(byte[] typeCode) throws IllegalArgumentException {
-        setTypeCode(typeCode);
+    protected SAMLArtifact(byte[] code) {
+        setTypeCode(code);
         try {
             randomGen = SecureRandom.getInstance("SHA1PRNG");
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public abstract class SAMLArtifact {
         byte[] artifact = new byte[2 + remainingArtifact.length];
 
         System.arraycopy(getTypeCode(), 0, artifact, 0, 2);
-        System.arraycopy(remainingArtifact, 0, artifact, 2, artifact.length);
+        System.arraycopy(remainingArtifact, 0, artifact, 2, remainingArtifact.length);
 
         return artifact;
     }
@@ -80,7 +80,7 @@ public abstract class SAMLArtifact {
      * 
      * @throws IllegalArgumentException thrown if the given type code is not two bytes
      */
-    protected void setTypeCode(byte[] newTypeCode) throws IllegalArgumentException {
+    protected void setTypeCode(byte[] newTypeCode) {
         typeCode = newTypeCode;
     }
 
@@ -89,7 +89,7 @@ public abstract class SAMLArtifact {
      * 
      * @return artifact bytes minus the type code
      */
-    abstract public byte[] getRemainingArtifact();
+    public abstract byte[] getRemainingArtifact();
 
     /**
      * Gets the Base64 encoded artifact.
