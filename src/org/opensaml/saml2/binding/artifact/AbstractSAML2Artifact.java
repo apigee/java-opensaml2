@@ -61,7 +61,7 @@ public abstract class AbstractSAML2Artifact extends SAMLArtifact {
 
         System.arraycopy(getTypeCode(), 0, artifact, 0, 2);
         System.arraycopy(getEndpointIndex(), 0, artifact, 2, 2);
-        System.arraycopy(remainingArtifact, 0, artifact, 4, artifact.length);
+        System.arraycopy(remainingArtifact, 0, artifact, 4, remainingArtifact.length);
 
         return artifact;
     }
