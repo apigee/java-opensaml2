@@ -54,7 +54,7 @@ public class ArtifactResponseImpl extends StatusResponseTypeImpl implements Arti
 
     /** {@inheritDoc} */
     public void setMessage(SAMLObject message) {
-        prepareForAssignment(protocolMessage, message);
+        protocolMessage = prepareForAssignment(protocolMessage, message);
     }
 
     /**
