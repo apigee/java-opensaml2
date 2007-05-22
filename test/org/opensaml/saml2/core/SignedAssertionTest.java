@@ -17,12 +17,7 @@
 package org.opensaml.saml2.core;
 
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 
-import org.apache.xml.security.c14n.Canonicalizer;
-import org.apache.xml.security.signature.XMLSignature;
 import org.joda.time.DateTime;
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLVersion;
@@ -33,6 +28,9 @@ import org.opensaml.saml2.core.impl.AuthnStatementBuilder;
 import org.opensaml.saml2.core.impl.IssuerBuilder;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.security.SecurityHelper;
+import org.opensaml.xml.security.SecurityTestHelper;
+import org.opensaml.xml.security.credential.BasicCredential;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.opensaml.xml.signature.Signer;
@@ -41,43 +39,36 @@ import org.opensaml.xml.validation.ValidationException;
 
 public class SignedAssertionTest extends BaseTestCase {
     
-    /** Key used for signing */
-    private PrivateKey signingKey;
+    /** Credential used for signing. */
+    private BasicCredential goodCredential;
 
-    /** Key used for verification */
-    private PublicKey verificationKey;
-
-    /** Verification key that should fail to verify signature */
-    private PublicKey badVerificationKey;
+    /** Verification credential that should fail to verify signature. */
+    private BasicCredential badCredential;
     
-    /** Builder of Assertions */
+    /** Builder of Assertions. */
     private AssertionBuilder assertionBuilder;
     
-    /** Builder of Issuers */
+    /** Builder of Issuers. */
     private IssuerBuilder issuerBuilder;
     
-    /** Builder of AuthnStatements */
+    /** Builder of AuthnStatements. */
     private AuthnStatementBuilder authnStatementBuilder;
     
-    /** Builder of AuthnStatements */
+    /** Builder of AuthnStatements. */
     private SignatureBuilder signatureBuilder;
     
-    /** Generator of element IDs */
+    /** Generator of element IDs. */
     private SecureRandomIdentifierGenerator idGenerator;
 
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
         
-        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-        keyGen.initialize(1024);
-        KeyPair keyPair = keyGen.generateKeyPair();
-        signingKey = keyPair.getPrivate();
-        verificationKey = keyPair.getPublic();
-
-        keyGen.initialize(1024);
-        keyPair = keyGen.generateKeyPair();
-        badVerificationKey = keyPair.getPublic();
+        KeyPair keyPair = SecurityTestHelper.generateKeyPair("RSA", 1024, null);
+        goodCredential = SecurityHelper.getSimpleCredential(keyPair.getPublic(), keyPair.getPrivate());
+        
+        keyPair = SecurityTestHelper.generateKeyPair("RSA", 1024, null);
+        badCredential = SecurityHelper.getSimpleCredential(keyPair.getPublic(), null);
         
         assertionBuilder = (AssertionBuilder) builderFactory.getBuilder(Assertion.DEFAULT_ELEMENT_NAME);
         issuerBuilder = (IssuerBuilder) builderFactory.getBuilder(Issuer.DEFAULT_ELEMENT_NAME);
@@ -110,7 +101,7 @@ public class SignedAssertionTest extends BaseTestCase {
         assertion.getAuthnStatements().add(authnStmt);
         
         Signature signature = signatureBuilder.buildObject();
-        signature.setSigningKey(signingKey);
+        signature.setSigningCredential(goodCredential);
         signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
         signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA);
         signature.getContentReferences().add(new SAMLObjectContentReference(assertion));

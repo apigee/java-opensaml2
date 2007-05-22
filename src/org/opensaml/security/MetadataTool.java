@@ -26,8 +26,6 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.cert.Certificate;
 
 import org.apache.log4j.ConsoleAppender;
@@ -44,6 +42,8 @@ import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.security.SecurityHelper;
+import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -99,13 +99,13 @@ public class MetadataTool {
         Boolean sign = (Boolean) parser.getOptionValue(CLIParserBuilder.SIGN_ARG);
         if (sign != null && sign.booleanValue()) {
             KeyStore keystore = getKeyStore(keystorePath, storeType, storePass);
-            PrivateKey signingKey = getPrivateKey(keystore, alias, keyPass);
-            sign(metadata, signingKey);
+            Credential signingCredential = getSigningCredential(keystore, alias, keyPass);
+            sign(metadata, signingCredential);
         } else {
             if (keystorePath != null) {
                 KeyStore keystore = getKeyStore(keystorePath, storeType, storePass);
-                PublicKey verificationKey = getPublicKey(keystore, alias);
-                verifySiganture(metadata, verificationKey);
+                Credential verificationCredential = getVerificationCredential(keystore, alias);
+                verifySignature(metadata, verificationCredential);
             }
         }
 
@@ -183,15 +183,15 @@ public class MetadataTool {
     }
 
     /**
-     * Gets the a private key from the keystore.
+     * Gets the signing credential from the keystore.
      * 
      * @param keystore keystore to fetch the key from
      * @param alias the key alias
      * @param keyPass password for the key
      * 
-     * @return the private key or null
+     * @return the signing credential or null
      */
-    private static PrivateKey getPrivateKey(KeyStore keystore, String alias, String keyPass) {
+    private static Credential getSigningCredential(KeyStore keystore, String alias, String keyPass) {
         alias = DatatypeHelper.safeTrimOrNullString(alias);
         if (alias == null) {
             log.error("Key alias may not be null or empty");
@@ -206,7 +206,8 @@ public class MetadataTool {
         KeyStore.PasswordProtection keyPassParam = new KeyStore.PasswordProtection(keyPass.toCharArray());
         try {
             KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) keystore.getEntry(alias, keyPassParam);
-            return pkEntry.getPrivateKey();
+            return SecurityHelper.getSimpleCredential(pkEntry.getCertificate().getPublicKey(), 
+                    pkEntry.getPrivateKey());
         } catch (Exception e) {
             log.error("Unable to retrieve private key " + alias, e);
         }
@@ -215,14 +216,15 @@ public class MetadataTool {
     }
 
     /**
-     * Gets the public key associated with the named certificate.
+     * Gets a simple credential containing the public key associated 
+     * with the named certificate.
      * 
-     * @param keystore the keystore to get the key from
-     * @param alias the name of the certificate to get the from
+     * @param keystore the keystore from which to get the key
+     * @param alias the name of the certificate from which to get the key
      * 
-     * @return the public key or null
+     * @return a simple credential containing the public key or null
      */
-    private static PublicKey getPublicKey(KeyStore keystore, String alias) {
+    private static Credential getVerificationCredential(KeyStore keystore, String alias) {
         alias = DatatypeHelper.safeTrimOrNullString(alias);
         if (alias == null) {
             log.error("Key alias may not be null or empty");
@@ -231,7 +233,7 @@ public class MetadataTool {
 
         try {
             Certificate cert = keystore.getCertificate(alias);
-            return cert.getPublicKey();
+            return SecurityHelper.getSimpleCredential(cert.getPublicKey(), null);
         } catch (Exception e) {
             log.error("Unable to retrieve certificate " + alias, e);
             System.exit(1);
@@ -244,14 +246,14 @@ public class MetadataTool {
      * Signs the given metadata document root.
      * 
      * @param metadata metadata document
-     * @param signingKey key used to sign the document
+     * @param signingCredential credential used to sign the document
      */
-    private static void sign(SignableSAMLObject metadata, PrivateKey signingKey) {
+    private static void sign(SignableSAMLObject metadata, Credential signingCredential) {
         XMLObjectBuilder<Signature> sigBuilder = Configuration.getBuilderFactory().getBuilder(Signature.DEFAULT_ELEMENT_NAME);
         Signature signature = sigBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
         SAMLObjectContentReference contentRef = new SAMLObjectContentReference(metadata);
         signature.getContentReferences().add(contentRef);
-        signature.setSigningKey(signingKey);
+        signature.setSigningCredential(signingCredential);
         metadata.setSignature(signature);
 
         Signer.signObject(signature);
@@ -261,9 +263,9 @@ public class MetadataTool {
      * Verifies the signatures of the metadata document.
      * 
      * @param metadata the metadata document
-     * @param verificationKey the key to use to verify it
+     * @param verificationCredential the credential to use to verify it
      */
-    private static void verifySiganture(SignableSAMLObject metadata, PublicKey verificationKey) {
+    private static void verifySignature(SignableSAMLObject metadata, Credential verificationCredential) {
         //TODO use new trust engine to verify signature
     }
 
