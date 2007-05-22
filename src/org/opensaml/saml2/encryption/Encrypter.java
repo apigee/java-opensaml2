@@ -51,6 +51,7 @@ import org.opensaml.xml.encryption.impl.CarriedKeyNameBuilder;
 import org.opensaml.xml.encryption.impl.DataReferenceBuilder;
 import org.opensaml.xml.encryption.impl.ReferenceListBuilder;
 import org.opensaml.xml.security.SecurityException;
+import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.keyinfo.KeyInfoGenerator;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
@@ -306,7 +307,7 @@ public class Encrypter extends org.opensaml.xml.encryption.Encrypter {
         Document ownerDocument = encElement.getDOM().getOwnerDocument();
         
         String encryptionAlgorithmURI = encParams.getAlgorithm();
-        Key encryptionKey = extractEncryptionKey(encParams.getEncryptionCredential());
+        Key encryptionKey = SecurityHelper.extractEncryptionKey(encParams.getEncryptionCredential());
         if (encryptionKey == null) {
             encryptionKey = generateEncryptionKey(encryptionAlgorithmURI);
         }
