@@ -28,7 +28,9 @@ import org.opensaml.saml1.core.Statement;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.Assertion} objects.
@@ -36,12 +38,22 @@ import org.w3c.dom.Attr;
 public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public AssertionUnmarshaller() {
         super(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
     }
-
+    
+    /** {@inheritDoc} */
+    public XMLObject unmarshall(Element domElement) throws UnmarshallingException {
+        // After regular unmarshalling, check the minor version and set ID-ness if not SAML 1.0
+        Assertion assertion = (Assertion) super.unmarshall(domElement);
+        if (assertion.getMinorVersion() != 0 && ! DatatypeHelper.isEmpty(assertion.getID()) ) {
+            domElement.setIdAttributeNS(null, Assertion.ID_ATTRIB_NAME, true);
+        }
+        return assertion;
+    }
+    
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
@@ -68,7 +80,6 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (Assertion.ID_ATTRIB_NAME.equals(attribute.getLocalName())) {
             assertion.setID(attribute.getValue());
-            attribute.getOwnerElement().setIdAttributeNode(attribute, true);
         } else if (Assertion.ISSUER_ATTRIB_NAME.equals(attribute.getLocalName())) {
             assertion.setIssuer(attribute.getValue());
         } else if (Assertion.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
@@ -83,4 +94,5 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             super.processAttribute(samlObject, attribute);
         }
     }
+
 }

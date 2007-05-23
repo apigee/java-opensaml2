@@ -32,7 +32,7 @@ import org.w3c.dom.Element;
 public class RequestAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param targetNamespaceURI
      * @param targetLocalName
@@ -48,7 +48,9 @@ public class RequestAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller 
 
         if (request.getID() != null) {
             domElement.setAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, request.getID());
-            domElement.setIdAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, true);
+            if (request.getMinorVersion() != 0){
+                domElement.setIdAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, true);
+            }
         }
         
         if (request.getIssueInstant() != null) {

@@ -29,18 +29,20 @@ import org.opensaml.saml1.core.RespondWith;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
 
 /**
  * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.RequestAbstractType} objects.
  */
 public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Logger */
+    /** Logger. */
     private static Logger log = Logger.getLogger(RequestAbstractType.class);
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param targetNamespaceURI
      * @param targetLocalName
@@ -52,7 +54,18 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
     }
     
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    public XMLObject unmarshall(Element domElement) throws UnmarshallingException {
+        // After regular unmarshalling, check the minor version and set ID-ness if not SAML 1.0
+        RequestAbstractType request = (RequestAbstractType) super.unmarshall(domElement);
+        if (request.getMinorVersion() != 0 && ! DatatypeHelper.isEmpty(request.getID()) ) {
+            domElement.setIdAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, true);
+        }
+        return request;
+    }
+    
+    /** {@inheritDoc} */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) 
+            throws UnmarshallingException {
         RequestAbstractType request = (RequestAbstractType) parentSAMLObject;
         
         if (childSAMLObject instanceof Signature) {
@@ -70,7 +83,6 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
 
         if (RequestAbstractType.ID_ATTRIB_NAME.equals(attribute.getLocalName())) {
             request.setID(attribute.getValue());
-            attribute.getOwnerElement().setIdAttributeNode(attribute, true);
         } else if (RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
             DateTime cal = new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC());
             request.setIssueInstant(cal);
@@ -91,4 +103,5 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
             super.processAttribute(samlElement, attribute);
         }
     }
+
 }

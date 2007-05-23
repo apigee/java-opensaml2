@@ -30,7 +30,7 @@ import org.w3c.dom.Element;
 public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public AssertionMarshaller() {
         super(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
@@ -43,7 +43,9 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
 
         if (assertion.getID() != null) {
             domElement.setAttributeNS(null, Assertion.ID_ATTRIB_NAME, assertion.getID());
-            domElement.setIdAttributeNS(null, Assertion.ID_ATTRIB_NAME, true);
+            if (assertion.getMinorVersion() != 0){
+                domElement.setIdAttributeNS(null, Assertion.ID_ATTRIB_NAME, true);
+            }
         }
         
         if (assertion.getIssuer() != null) {

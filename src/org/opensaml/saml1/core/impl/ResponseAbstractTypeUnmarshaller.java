@@ -25,13 +25,13 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.saml1.core.RequestAbstractType;
-import org.opensaml.saml1.core.RespondWith;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
 
 /**
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.ResponseAbstractType}
@@ -39,11 +39,11 @@ import org.w3c.dom.Attr;
  */
 public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Logger */
+    /** Logger. */
     private static Logger log = Logger.getLogger(ResponseUnmarshaller.class);
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI
      * @param targetLocalName
@@ -55,7 +55,18 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
     }
 
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    public XMLObject unmarshall(Element domElement) throws UnmarshallingException {
+        // After regular unmarshalling, check the minor version and set ID-ness if not SAML 1.0
+        ResponseAbstractType response = (ResponseAbstractType) super.unmarshall(domElement);
+        if (response.getMinorVersion() != 0 && ! DatatypeHelper.isEmpty(response.getID())) {
+            domElement.setIdAttributeNS(null, ResponseAbstractType.ID_ATTRIB_NAME, true);
+        }
+        return response;
+    }
+
+    /** {@inheritDoc} */
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) 
+            throws UnmarshallingException {
         ResponseAbstractType response = (ResponseAbstractType) parentSAMLObject;
         
         if (childSAMLObject instanceof Signature) {
@@ -71,7 +82,6 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
 
         if (attribute.getLocalName().equals(ResponseAbstractType.ID_ATTRIB_NAME)) {
             response.setID(attribute.getValue());
-            attribute.getOwnerElement().setIdAttributeNode(attribute, true);
         } else if (attribute.getLocalName().equals(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME)) {
             response.setInResponseTo(attribute.getValue());
         } else if (attribute.getLocalName().equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)) {
@@ -95,4 +105,5 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
             super.processAttribute(samlObject, attribute);
         }
     }
+    
 }
