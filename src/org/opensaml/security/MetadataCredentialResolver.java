@@ -39,6 +39,7 @@ import org.opensaml.xml.security.credential.EntityCredentialCriteria;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.credential.CredentialCriteriaSet;
 import org.opensaml.xml.security.credential.CredentialResolver;
+import org.opensaml.xml.security.credential.UsageCredentialCriteria;
 import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialCriteria;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
@@ -108,14 +109,12 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
 
     /** {@inheritDoc} */
     public Iterable<Credential> resolveCredentials(CredentialCriteriaSet criteriaSet) throws SecurityException {
+        checkCriteriaRequirements(criteriaSet);
         EntityCredentialCriteria entityCriteria = criteriaSet.get(EntityCredentialCriteria.class);
         MetadataCredentialCriteria mdCriteria = criteriaSet.get(MetadataCredentialCriteria.class);
-        
-        if (entityCriteria == null || mdCriteria == null) {
-            throw new IllegalArgumentException("Both basic criteria and SAML metadata criteria must be supplied");
-        }
-        if (DatatypeHelper.isEmpty(entityCriteria.getOwnerID()) || mdCriteria.getRole() == null) {
-            throw new IllegalArgumentException("Credential owner entity ID and metadata role must be supplied");
+        UsageCredentialCriteria usageCriteria = criteriaSet.get(UsageCredentialCriteria.class);
+        if (usageCriteria == null) {
+            usageCriteria = new UsageCredentialCriteria(UsageType.UNSPECIFIED);
         }
         
         Collection<Credential> credentials;
@@ -133,9 +132,31 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
             cacheCredential(credential);
         }*/
         
-        credentials = retrieveFromMetadata(entityCriteria, mdCriteria);
+        credentials = retrieveFromMetadata(entityCriteria, usageCriteria, mdCriteria);
 
         return credentials;
+    }
+    
+    /**
+     * Check that all necessary credential criteria are available.
+     * 
+     * @param criteriaSet the credential set to evaluate
+     */
+    protected void checkCriteriaRequirements(CredentialCriteriaSet criteriaSet) {
+        EntityCredentialCriteria entityCriteria = criteriaSet.get(EntityCredentialCriteria.class);
+        MetadataCredentialCriteria mdCriteria = criteriaSet.get(MetadataCredentialCriteria.class);
+        if (entityCriteria == null) {
+            throw new IllegalArgumentException("Entity criteria must be supplied");
+        }
+        if (mdCriteria == null) {
+            throw new IllegalArgumentException("SAML metadata criteria must be supplied");
+        }
+        if (DatatypeHelper.isEmpty(entityCriteria.getOwnerID())) {
+            throw new IllegalArgumentException("Credential owner entity ID criteria value must be supplied");
+        }
+        if (mdCriteria.getRole() == null) {
+            throw new IllegalArgumentException("Credential metadata role criteria value must be supplied");
+        }
     }
 
     /**
@@ -169,7 +190,8 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
     /**
      * Retrieves credentials from the provided metadata.
      * 
-     * @param entityCriteria basic credential criteria
+     * @param entityCriteria entity credential criteria
+     * @param usageCriteria usage credential criteria
      * @param metadataCriteria SAML metadata credential criteria
      * 
      * @return the resolved credentials or null
@@ -178,14 +200,13 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
      *             format
      */
     protected Collection<Credential> retrieveFromMetadata(EntityCredentialCriteria entityCriteria, 
-            MetadataCredentialCriteria metadataCriteria) throws SecurityException {
+            UsageCredentialCriteria usageCriteria, MetadataCredentialCriteria metadataCriteria) 
+            throws SecurityException {
+        
         String entityID = entityCriteria.getOwnerID();
         QName role = metadataCriteria.getRole();
         String protocol = metadataCriteria.getProtocol();
-        UsageType usage = entityCriteria.getUsage();
-        if (usage ==  null) {
-            usage = UsageType.UNSPECIFIED;
-        }
+        UsageType usage = usageCriteria.getUsage();
         
         if (log.isDebugEnabled()) {
             log.debug("Attempting to retreive credentials for entity " + entityID + "from metadata");
