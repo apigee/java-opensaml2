@@ -19,6 +19,7 @@ package org.opensaml.common.binding.encoding.impl;
 import javax.servlet.http.HttpServletResponse;
 
 import org.opensaml.common.binding.BindingException;
+import org.opensaml.common.binding.encoding.HTTPMessageEncoder;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -26,7 +27,8 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * Base class handling boilerplate code for HTTP message encoders.
  */
-public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder<HttpServletResponse> {
+public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder<HttpServletResponse> implements
+        HTTPMessageEncoder {
 
     /** Relay state. */
     private String relayState;
@@ -48,7 +50,7 @@ public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder<
         getResponse().addHeader("Cache-control", "no-cache, no-store");
         getResponse().addHeader("Pragma", "no-cache");
     }
-    
+
     /**
      * Gets the response URL from the relying party endpoint. If the SAML message is a {@link Response} and the relying
      * party endpoint contains a response location then that location is returned otherwise the normal endpoint location

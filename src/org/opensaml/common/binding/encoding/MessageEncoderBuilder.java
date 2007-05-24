@@ -20,13 +20,15 @@ package org.opensaml.common.binding.encoding;
  * Simple builder interface for {@link MessageEncoder}s.
  * 
  * Builders must be thread-safe and reusable.
+ * 
+ * @param <MessageEncoderType> type of message encoder built
  */
-public interface MessageEncoderBuilder {
+public interface MessageEncoderBuilder<MessageEncoderType extends MessageEncoder> {
 
     /**
      * Creates a new instance of the message encoder.
      * 
      * @return new instance of the message encoder
      */
-    public MessageEncoder buildEncoder();
+    public MessageEncoderType buildEncoder();
 }

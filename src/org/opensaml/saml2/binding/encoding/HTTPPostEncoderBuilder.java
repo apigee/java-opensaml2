@@ -19,16 +19,13 @@ package org.opensaml.saml2.binding.encoding;
 import java.io.IOException;
 
 import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.resource.loader.StringResourceLoader;
-import org.apache.velocity.runtime.resource.util.StringResourceRepository;
-import org.opensaml.common.binding.encoding.MessageEncoder;
+import org.opensaml.common.binding.encoding.HTTPMessageEncoder;
 import org.opensaml.common.binding.encoding.MessageEncoderBuilder;
-import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * Builder of {@link HTTPPostEncoder}s.
  */
-public class HTTPPostEncoderBuilder implements MessageEncoderBuilder {
+public class HTTPPostEncoderBuilder implements MessageEncoderBuilder<HTTPMessageEncoder> {
 
     /** Velocity engine used to evaluate the template when performing POST encoding. */
     private VelocityEngine velocityEngine;
@@ -47,27 +44,13 @@ public class HTTPPostEncoderBuilder implements MessageEncoderBuilder {
     public HTTPPostEncoderBuilder(VelocityEngine engine, String templatePath) throws IOException {
         velocityEngine = engine;
         velocityTempalteId = templatePath;
-        registerTemplate(templatePath);
     }
 
     /** {@inheritDoc} */
-    public MessageEncoder buildEncoder() {
+    public HTTPMessageEncoder buildEncoder() {
         HTTPPostEncoder encoder = new HTTPPostEncoder();
         encoder.setVelocityEngine(velocityEngine);
         encoder.setVelocityTemplateId(velocityTempalteId);
         return encoder;
-    }
-
-    /**
-     * Gets the template from the classpath and registers it with the velocity engine.
-     * 
-     * @param templatePath classpath location of the template
-     * 
-     * @throws IOException thrown if the template can not be read from the classpath
-     */
-    protected void registerTemplate(String templatePath) throws IOException {
-        StringResourceRepository repository = StringResourceLoader.getRepository();
-        String template = DatatypeHelper.inputstreamToString(getClass().getResourceAsStream(templatePath), null);
-        repository.putStringResource(templatePath, template);
     }
 }

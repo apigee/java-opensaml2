@@ -16,16 +16,15 @@
 
 package org.opensaml.saml2.binding.encoding;
 
-import org.opensaml.common.binding.encoding.MessageEncoder;
 import org.opensaml.common.binding.encoding.MessageEncoderBuilder;
 
 /**
  * Builder of {@link HTTPRedirectDeflateEncoder}s.
  */
-public class HTTPRedirectDeflateEncoderBuilder implements MessageEncoderBuilder {
+public class HTTPRedirectDeflateEncoderBuilder implements MessageEncoderBuilder<HTTPRedirectDeflateEncoder> {
 
     /** {@inheritDoc} */
-    public MessageEncoder buildEncoder() {
+    public HTTPRedirectDeflateEncoder buildEncoder() {
         return new HTTPRedirectDeflateEncoder();
     }
 }

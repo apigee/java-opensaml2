@@ -58,7 +58,9 @@ public class HTTPSOAP11Encoder extends AbstractSOAPHTTPEncoder {
                 log.debug("Writting SOAP message to response");
             }
             HttpServletResponse response = getResponse();
+            response.setHeader("SOAPAction", "http://www.oasis-open.org/committees/security");
             response.setContentType("text/xml");
+            response.setCharacterEncoding("UTF-8");
             addNoCacheResponseHeaders();
             PrintWriter responseWriter = response.getWriter();
             responseWriter.write(soapMessage);

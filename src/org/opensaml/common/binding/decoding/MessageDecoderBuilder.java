@@ -20,13 +20,15 @@ package org.opensaml.common.binding.decoding;
  * Simple builder interface for {@link MessageDecoder}s.
  * 
  * Builders must be thread-safe and reusable.
+ * 
+ * @param <MessageDecoderType> type of decoder created by this builder
  */
-public interface MessageDecoderBuilder {
+public interface MessageDecoderBuilder<MessageDecoderType extends MessageDecoder> {
 
     /**
      * Creates a new instance of the message decoder.
      * 
      * @return new instance of the message decoder
      */
-    public MessageDecoder buildDecoder();
+    public MessageDecoderType buildDecoder();
 }

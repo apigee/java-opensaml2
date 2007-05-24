@@ -16,16 +16,15 @@
 
 package org.opensaml.saml2.binding.encoding;
 
-import org.opensaml.common.binding.encoding.MessageEncoder;
 import org.opensaml.common.binding.encoding.MessageEncoderBuilder;
 
 /**
  * Builder of {@link HTTPSOAP11Encoder}s.
  */
-public class HTTPSOAP11EncoderBuilder implements MessageEncoderBuilder {
+public class HTTPSOAP11EncoderBuilder implements MessageEncoderBuilder<HTTPSOAP11Encoder> {
 
     /** {@inheritDoc} */
-    public MessageEncoder buildEncoder() {
+    public HTTPSOAP11Encoder buildEncoder() {
         return new HTTPSOAP11Encoder();
     }
 }

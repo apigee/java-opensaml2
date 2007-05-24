@@ -19,17 +19,12 @@
         
         <form action="${action}" method="post">
             <div>
-                #if($RelayState)
-                <input type="hidden" name="RelayState" value="${RelayState}"/>
-                #end
+                #if($RelayState)<input type="hidden" name="RelayState" value="${RelayState}"/>#end
                 
-                #if($SAMLRequest)
-                <input type="hidden" name="SAMLRequest" value="${SAMLRequest}"/>
-                #end
+                #if($SAMLRequest)<input type="hidden" name="SAMLRequest" value="${SAMLRequest}"/>#end
                 
-                #if($SAMLResponse)
-                <input type="hidden" name="SAMLResponse" value="${SAMLResponse}"/>
-                #end
+                #if($SAMLResponse)<input type="hidden" name="SAMLResponse" value="${SAMLResponse}"/>#end
+                
             </div>
             <noscript>
                 <div>
