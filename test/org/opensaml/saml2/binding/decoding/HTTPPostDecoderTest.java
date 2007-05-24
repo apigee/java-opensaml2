@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding.decoder;
+package org.opensaml.saml2.binding.decoding;
 
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.binding.decoding.HTTPMessageDecoder;

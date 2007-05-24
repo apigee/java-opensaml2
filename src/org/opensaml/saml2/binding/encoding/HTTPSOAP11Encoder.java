@@ -16,15 +16,7 @@
 
 package org.opensaml.saml2.binding.encoding;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.encoding.impl.AbstractSOAPHTTPEncoder;
-import org.opensaml.ws.soap.soap11.Envelope;
 
 /**
  * SAML 2.0 SOAP 1.1 over HTTP binding encoder.
@@ -34,39 +26,8 @@ public class HTTPSOAP11Encoder extends AbstractSOAPHTTPEncoder {
     /** URI for this binding. */
     public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:SOAP";
 
-    /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPSOAP11Encoder.class);
-
     /** {@inheritDoc} */
     public String getBindingURI() {
         return BINDING_URI;
-    }
-
-    /** {@inheritDoc} */
-    public void encode() throws BindingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Beginning SAML 2 HTTP SOAP 1.1 encoding");
-        }
-
-        Envelope envelope = buildSOAPMessage();
-        setSOAPMessage(envelope);
-
-        String soapMessage = marshallMessage(envelope);
-
-        try {
-            if (log.isDebugEnabled()) {
-                log.debug("Writting SOAP message to response");
-            }
-            HttpServletResponse response = getResponse();
-            response.setHeader("SOAPAction", "http://www.oasis-open.org/committees/security");
-            response.setContentType("text/xml");
-            response.setCharacterEncoding("UTF-8");
-            addNoCacheResponseHeaders();
-            PrintWriter responseWriter = response.getWriter();
-            responseWriter.write(soapMessage);
-        } catch (IOException e) {
-            log.error("Unable to write response", e);
-            throw new BindingException("Unable to write response", e);
-        }
     }
 }

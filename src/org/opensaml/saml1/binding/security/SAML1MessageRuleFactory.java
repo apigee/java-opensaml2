@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.binding;
+package org.opensaml.saml1.binding.security;
 
 import javax.servlet.ServletRequest;
 import javax.xml.namespace.QName;

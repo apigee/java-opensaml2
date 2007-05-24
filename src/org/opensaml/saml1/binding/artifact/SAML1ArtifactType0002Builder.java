@@ -14,21 +14,22 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.binding;
+package org.opensaml.saml1.binding.artifact;
 
-import org.opensaml.saml1.core.RequestAbstractType;
-import org.opensaml.saml1.core.ResponseAbstractType;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.Validator;
+import org.opensaml.common.binding.artifact.SAMLArtifactBuilder;
 
-public class SAML1MessageValidator implements Validator {
+/**
+ * SAML 1, type 0x0002, artifact builder.
+ */
+public class SAML1ArtifactType0002Builder implements SAMLArtifactBuilder<SAML1ArtifactType0002> {
 
-    public void validate(XMLObject xmlObject) throws ValidationException {
-        if(xmlObject instanceof RequestAbstractType || xmlObject instanceof ResponseAbstractType){
-            return;
-        }else{
-            throw new ValidationException("XMLObject is not a SAML 1 request or response");
-        }
+    /** {@inheritDoc} */
+    public SAML1ArtifactType0002 buildArtifact(String relyingParty) {
+        return new SAML1ArtifactType0002();
+    }
+    
+    /** {@inheritDoc} */
+    public SAML1ArtifactType0002 buildArtifact(byte[] artifact){
+        return SAML1ArtifactType0002.parseArtifact(artifact);
     }
 }

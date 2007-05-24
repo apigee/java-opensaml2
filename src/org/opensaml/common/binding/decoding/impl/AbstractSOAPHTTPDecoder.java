@@ -16,13 +16,17 @@
 
 package org.opensaml.common.binding.decoding.impl;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.decoding.SOAPHTTPDecoder;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * Base class for SOAP over HTTP message encoders.
@@ -44,15 +48,6 @@ public abstract class AbstractSOAPHTTPDecoder
     public Envelope getSOAPMessage(){
         return soapMessage;
     }
-    
-    /**
-     * Sets the decoded SOAP message.
-     * 
-     * @param message decoded SOAP message
-     */
-    protected void setSOAPMessage(Envelope message){
-        soapMessage = message;
-    }
 
     /** {@inheritDoc} */
     public List<XMLObject> getSOAPHeaders() {
@@ -70,16 +65,33 @@ public abstract class AbstractSOAPHTTPDecoder
         return soapVersion;
     }
     
-    /**
-     * Sets the SOAP version used in the message.
-     * 
-     * @param version SOAP version used in the message
-     */
-    protected void setSOAPVersion(String version) {
-        if(DatatypeHelper.isEmpty(version)){
-            soapVersion = "1.1";
-        }else{
-            soapVersion = version;
+    /** {@inheritDoc} */
+    public void decode() throws BindingException {
+        if (log.isDebugEnabled()) {
+            log.debug("Beginning SAML 2 HTTP SOAP 1.1 decoding");
+        }
+
+        HttpServletRequest request = getRequest();
+        setHttpMethod("POST");
+
+        try {
+            soapMessage = (Envelope) unmarshallMessage(request.getInputStream());
+
+            List<XMLObject> soapBodyChildren = soapMessage.getBody().getUnknownXMLObjects();
+            if (soapBodyChildren.size() < 1 || soapBodyChildren.size() > 1) {
+                log.error("Unexpected number of children in the SOAP body, " + soapBodyChildren.size()
+                        + ".  Unable to extract SAML message");
+                throw new BindingException(
+                        "Unexpected number of children in the SOAP body, unable to extract SAML message");
+            }
+
+            setSAMLMessage((SAMLObject) soapBodyChildren.get(0));
+
+            evaluateSecurityPolicy(soapMessage);
+
+        } catch (IOException e) {
+            log.error("Unable to read SOAP message from request", e);
+            throw new BindingException("Unable to read SOAP message from request", e);
         }
     }
 }

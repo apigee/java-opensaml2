@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright [2007] [University Corporation for Advanced Internet Development, Inc.]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding.decoding;
+package org.opensaml.saml1.binding.decoding;
 
-import org.opensaml.common.binding.decoding.impl.AbstractSOAPHTTPDecoder;
+import org.opensaml.common.binding.decoding.impl.AbstractMessageDecoderBuilder;
 
 /**
- * SAML 2.0 SOAP 1.1 over HTTP binding decoder.
+ *Builder of {@link HTTPPostDecoder}s.
  */
-public class HTTPSOAP11Decoder extends AbstractSOAPHTTPDecoder {
-
-    /** URI for this binding. */
-    public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:SOAP";
+public class HTTPPostDecoderBuilder extends AbstractMessageDecoderBuilder<HTTPPostDecoder> {
 
     /** {@inheritDoc} */
-    public String getBindingURI() {
-        return BINDING_URI;
+    protected HTTPPostDecoder doBuildEncoder() {
+        return new HTTPPostDecoder();
     }
 }

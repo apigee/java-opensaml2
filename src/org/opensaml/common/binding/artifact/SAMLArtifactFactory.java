@@ -21,11 +21,11 @@ import java.util.Map;
 
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.saml1.binding.AbstractSAML1Artifact;
-import org.opensaml.saml1.binding.SAML1ArtifactType0001;
-import org.opensaml.saml1.binding.SAML1ArtifactType0001Builder;
-import org.opensaml.saml1.binding.SAML1ArtifactType0002;
-import org.opensaml.saml1.binding.SAML1ArtifactType0002Builder;
+import org.opensaml.saml1.binding.artifact.AbstractSAML1Artifact;
+import org.opensaml.saml1.binding.artifact.SAML1ArtifactType0001;
+import org.opensaml.saml1.binding.artifact.SAML1ArtifactType0001Builder;
+import org.opensaml.saml1.binding.artifact.SAML1ArtifactType0002;
+import org.opensaml.saml1.binding.artifact.SAML1ArtifactType0002Builder;
 import org.opensaml.saml2.binding.artifact.AbstractSAML2Artifact;
 import org.opensaml.saml2.binding.artifact.SAML2ArtifactType0004;
 import org.opensaml.saml2.binding.artifact.SAML2ArtifactType0004Builder;

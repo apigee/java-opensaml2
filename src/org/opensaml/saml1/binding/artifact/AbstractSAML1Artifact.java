@@ -14,22 +14,21 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.binding;
+package org.opensaml.saml1.binding.artifact;
 
-import org.opensaml.common.binding.artifact.SAMLArtifactBuilder;
+import org.opensaml.common.binding.artifact.SAMLArtifact;
 
 /**
- * SAML 1, type 0x0002, artifact builder.
+ * SAML 1 Artifact marker.
  */
-public class SAML1ArtifactType0002Builder implements SAMLArtifactBuilder<SAML1ArtifactType0002> {
+public abstract class AbstractSAML1Artifact extends SAMLArtifact {
 
-    /** {@inheritDoc} */
-    public SAML1ArtifactType0002 buildArtifact(String relyingParty) {
-        return new SAML1ArtifactType0002();
-    }
-    
-    /** {@inheritDoc} */
-    public SAML1ArtifactType0002 buildArtifact(byte[] artifact){
-        return SAML1ArtifactType0002.parseArtifact(artifact);
+    /**
+     * Constructor
+     * 
+     * @param typeCode artifact type code
+     */
+    protected AbstractSAML1Artifact(byte[] typeCode) {
+        super(typeCode);
     }
 }

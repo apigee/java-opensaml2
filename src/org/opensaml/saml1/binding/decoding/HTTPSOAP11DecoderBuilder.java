@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright [2007] [University Corporation for Advanced Internet Development, Inc.]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.binding;
+package org.opensaml.saml1.binding.decoding;
 
-import org.opensaml.common.binding.artifact.SAMLArtifact;
+import org.opensaml.common.binding.decoding.impl.AbstractMessageDecoderBuilder;
 
 /**
- * SAML 1 Artifact marker.
+ * Builder of {@link HTTPSOAP11Decoder}s.
  */
-public abstract class AbstractSAML1Artifact extends SAMLArtifact {
+public class HTTPSOAP11DecoderBuilder extends AbstractMessageDecoderBuilder<HTTPSOAP11Decoder> {
 
-    /**
-     * Constructor
-     * 
-     * @param typeCode artifact type code
-     */
-    protected AbstractSAML1Artifact(byte[] typeCode) {
-        super(typeCode);
+    /** {@inheritDoc} */
+    protected HTTPSOAP11Decoder doBuildEncoder() {
+        return new HTTPSOAP11Decoder();
     }
 }

@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding.encoder;
+package org.opensaml.saml2.binding.encoding;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.binding.encoding.HTTPMessageEncoder;
-import org.opensaml.saml2.binding.encoding.HTTPPostEncoder;
-import org.opensaml.saml2.binding.encoding.HTTPRedirectDeflateEncoderBuilder;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusCode;
@@ -31,9 +29,9 @@ import org.opensaml.saml2.metadata.Endpoint;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
- * Unit test for redirect encoding.
+ * Test for SAML 2 SOAP 1.1 message encoder.
  */
-public class HTTPRedirectDeflateEncoderTest extends BaseTestCase {
+public class HTTPSOAP11EncoderTest extends BaseTestCase {
 
     /**
      * Tests encoding a SAML message to an servlet response.
@@ -63,11 +61,11 @@ public class HTTPRedirectDeflateEncoderTest extends BaseTestCase {
         SAMLObjectBuilder<Endpoint> endpointBuilder = (SAMLObjectBuilder<Endpoint>) builderFactory
                 .getBuilder(AssertionConsumerService.DEFAULT_ELEMENT_NAME);
         Endpoint samlEndpoint = endpointBuilder.buildObject();
-        samlEndpoint.setBinding(HTTPPostEncoder.BINDING_URI);
+        samlEndpoint.setBinding(HTTPSOAP11Encoder.BINDING_URI);
         samlEndpoint.setLocation("http://example.org");
         samlEndpoint.setResponseLocation("http://example.org/response");
 
-        HTTPRedirectDeflateEncoderBuilder encoderBuilder = new HTTPRedirectDeflateEncoderBuilder();
+        HTTPSOAP11EncoderBuilder encoderBuilder = new HTTPSOAP11EncoderBuilder();
         HTTPMessageEncoder encoder = encoderBuilder.buildEncoder();
 
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -77,8 +75,10 @@ public class HTTPRedirectDeflateEncoderTest extends BaseTestCase {
         encoder.setResponse(response);
         encoder.encode();
 
+        assertEquals("Unexpected content type", "text/xml", response.getContentType());
         assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
         assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-        assertEquals(-803376023, response.getRedirectedUrl().hashCode());
+        assertEquals("http://www.oasis-open.org/committees/security", response.getHeader("SOAPAction"));
+        assertEquals(-1907485376, response.getContentAsString().hashCode());
     }
 }

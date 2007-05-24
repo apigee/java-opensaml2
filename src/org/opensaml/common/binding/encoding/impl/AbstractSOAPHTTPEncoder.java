@@ -16,7 +16,11 @@
 
 package org.opensaml.common.binding.encoding.impl;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 
@@ -81,6 +85,35 @@ public abstract class AbstractSOAPHTTPEncoder extends AbstractHTTPMessageEncoder
             soapVersion = version;
         }
     }
+    
+
+    /** {@inheritDoc} */
+    public void encode() throws BindingException {
+        if (log.isDebugEnabled()) {
+            log.debug("Beginning HTTP SOAP 1.1 encoding");
+        }
+
+        Envelope envelope = buildSOAPMessage();
+        setSOAPMessage(envelope);
+
+        String serialSoapMessage = marshallMessage(envelope);
+
+        try {
+            if (log.isDebugEnabled()) {
+                log.debug("Writting SOAP message to response");
+            }
+            HttpServletResponse response = getResponse();
+            response.setHeader("SOAPAction", "http://www.oasis-open.org/committees/security");
+            response.setContentType("text/xml");
+            response.setCharacterEncoding("UTF-8");
+            addNoCacheResponseHeaders();
+            PrintWriter responseWriter = response.getWriter();
+            responseWriter.write(serialSoapMessage);
+        } catch (IOException e) {
+            log.error("Unable to write response", e);
+            throw new BindingException("Unable to write response", e);
+        }
+    }
 
     /**
      * Builds the SOAP message to be encoded. The the headers and SAML message set on the encoder will be populated in
@@ -90,6 +123,7 @@ public abstract class AbstractSOAPHTTPEncoder extends AbstractHTTPMessageEncoder
      * 
      * @throws BindingException thrown if no SAML message has been set on the encoder
      */
+    @SuppressWarnings("unchecked")
     protected Envelope buildSOAPMessage() throws BindingException {
         if (log.isDebugEnabled()) {
             log.debug("Building SOAP message");
