@@ -16,6 +16,8 @@
 
 package org.opensaml.common.binding.encoding.impl;
 
+import java.io.StringWriter;
+
 import javax.servlet.ServletResponse;
 
 import org.opensaml.Configuration;
@@ -158,7 +160,9 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
         try {
             Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(message);
             Element messageDOM = marshaller.marshall(message);
-            return XMLHelper.nodeToString(messageDOM);
+            StringWriter writer = new StringWriter();
+            XMLHelper.writeNode(messageDOM, writer);
+            return writer.toString();
         } catch (MarshallingException e) {
             throw new BindingException("Unable to marshall XML message", e);
         }

@@ -68,6 +68,7 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
         evaluateSecurityPolicy(samlMessage);
 
         setRelayState(request.getParameter(RELAY_STATE_PARAM));
+        
         setSAMLMessage(samlMessage);
 
         if (log.isDebugEnabled()) {
