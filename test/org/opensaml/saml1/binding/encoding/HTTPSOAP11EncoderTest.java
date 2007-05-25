@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.core.binding.encoding;
+package org.opensaml.saml1.binding.encoding;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.BaseTestCase;

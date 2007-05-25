@@ -52,6 +52,9 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
         if (log.isDebugEnabled()) {
             log.debug("Beginning decode of request using HTTP POST binding");
         }
+        
+        setRelayState(getRequest().getParameter(TARGET_PARAM));
+        
         InputStream decodedMessage = getBase64DecodedMessage();
 
         SAMLObject samlMessage = (SAMLObject) unmarshallMessage(decodedMessage);

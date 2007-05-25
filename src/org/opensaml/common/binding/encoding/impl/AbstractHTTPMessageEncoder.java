@@ -16,12 +16,14 @@
 
 package org.opensaml.common.binding.encoding.impl;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.encoding.HTTPMessageEncoder;
-import org.opensaml.saml2.core.Response;
-import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
@@ -46,33 +48,40 @@ public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder<
     /**
      * Adds cache control and pragma headers that are meant to disable caching.
      */
-    protected void addNoCacheResponseHeaders() {
+    protected void initializeResponse() {
+        getResponse().setCharacterEncoding("UTF-8");
         getResponse().addHeader("Cache-control", "no-cache, no-store");
         getResponse().addHeader("Pragma", "no-cache");
     }
 
     /**
-     * Gets the response URL from the relying party endpoint. If the SAML message is a {@link Response} and the relying
-     * party endpoint contains a response location then that location is returned otherwise the normal endpoint location
-     * is returned.
+     * Gets the relay state in a URL-encoded form.
      * 
-     * @return response URL from the relying party endpoint
+     * @return the URL-encoded relay state
      * 
-     * @throws BindingException throw if no relying party endpoint is available
+     * @throws BindingException thrown if there is a problem encoding the relay state
      */
-    protected String getEndpointURL() throws BindingException {
-        Endpoint endpoint = getRelyingPartyEndpoint();
-        if (endpoint == null) {
-            throw new BindingException("Relying party endpoint provided we null.");
+    protected String getEncodeRelayState() throws BindingException {
+        if (!DatatypeHelper.isEmpty(relayState)) {
+            try {
+                return URLEncoder.encode(relayState, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                throw new BindingException("VM does not support UTF-8 encoding");
+            }
         }
 
-        if (getSamlMessage() instanceof Response && !DatatypeHelper.isEmpty(endpoint.getResponseLocation())) {
-            return endpoint.getResponseLocation();
-        } else {
-            if (DatatypeHelper.isEmpty(endpoint.getLocation())) {
-                throw new BindingException("Relying party endpoint location was null or empty.");
-            }
-            return endpoint.getLocation();
-        }
+        return null;
+    }
+
+    /**
+     * Gets the SAML message as a base64, no line break, string.
+     * 
+     * @return base64 encoded message
+     * 
+     * @throws BindingException thrown if there is a problem encoding the message
+     */
+    protected String getBase64EncodedMessage() throws BindingException {
+        String messageXML = marshallMessage(getSamlMessage());
+        return new String(Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES));
     }
 }

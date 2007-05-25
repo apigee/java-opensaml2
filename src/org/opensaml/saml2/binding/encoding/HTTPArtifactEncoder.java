@@ -17,6 +17,7 @@
 package org.opensaml.saml2.binding.encoding;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +30,6 @@ import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.artifact.SAMLArtifact;
 import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
-import org.opensaml.common.binding.encoding.impl.AbstractHTTPMessageEncoder;
 import org.opensaml.ws.util.URLBuilder;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.Pair;
@@ -37,7 +37,7 @@ import org.opensaml.xml.util.Pair;
 /**
  * SAML 2 Artifact Binding encoder, support both HTTP GET and POST.
  */
-public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
+public class HTTPArtifactEncoder extends AbstractSAML2HTTPMessageEncoder {
 
     /** Artifact encoding methods. */
     public static enum ENCODING_METHOD {
@@ -238,8 +238,9 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
         context.put("action", getEndpointURL());
         context.put("SAMLArt", artifactString);
 
-        if (!DatatypeHelper.isEmpty(getRelayState())) {
-            context.put("RelayState", getRelayState());
+        String relayState = getRelayState();
+        if (checkRelayState()) {
+            context.put("RelayState", relayState);
         }
 
         try {
@@ -277,7 +278,7 @@ public class HTTPArtifactEncoder extends AbstractHTTPMessageEncoder {
             params.add(new Pair<String, String>("SAMLArt", artifactString));
 
             if (!DatatypeHelper.isEmpty(getRelayState())) {
-                params.add(new Pair<String, String>("RelayState", getRelayState()));
+                params.add(new Pair<String, String>("RelayState", getEncodeRelayState()));
             }
 
             getResponse().sendRedirect(urlBuilder.buildURL());

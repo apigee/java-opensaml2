@@ -24,22 +24,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.opensaml.Configuration;
-import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.encoding.impl.AbstractHTTPMessageEncoder;
-import org.opensaml.common.impl.SAMLObjectContentReference;
 import org.opensaml.saml2.core.RequestAbstractType;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.opensaml.xml.signature.Signature;
-import org.opensaml.xml.signature.Signer;
-import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * SAML 2.0 HTTP Post binding message encoder.
  */
-public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
+public class HTTPPostEncoder extends AbstractSAML2HTTPMessageEncoder {
 
     /** URI for this binding. */
     public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST";
@@ -105,23 +97,13 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
         signMessage();
 
         if (log.isDebugEnabled()) {
-            log.debug("Marshalling SAML message");
-        }
-        String messageXML = marshallMessage(getSamlMessage());
-
-        if (log.isDebugEnabled()) {
             log.debug("Base64 encoding message");
         }
-        String encodedMessage = new String(Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES));
+        String encodedMessage = getBase64EncodedMessage();
 
         try {
-            if (log.isDebugEnabled()) {
-                log.debug("Adding cache headers to response");
-            }
+            initializeResponse();
             response.setContentType("application/xhtml+xml");
-            response.setCharacterEncoding("UTF-8");
-            addNoCacheResponseHeaders();
-
             postEncode(response.getWriter(), encodedMessage);
         } catch (IOException e) {
             log.error("Unable to access HttpServletResponse output writer", e);
@@ -140,13 +122,10 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
      */
     protected void postEncode(Writer responseWriter, String message) throws BindingException {
         if (log.isDebugEnabled()) {
-            log.debug("Performing SAML 2 HTTP POST encoding");
-        }
-
-        if (log.isDebugEnabled()) {
             log.debug("Creating velocity context");
         }
         VelocityContext context = new VelocityContext();
+        
         context.put("action", getEndpointURL());
 
         if (getSamlMessage() instanceof RequestAbstractType) {
@@ -155,7 +134,7 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
             context.put("SAMLResponse", message);
         }
 
-        if (!DatatypeHelper.isEmpty(getRelayState())) {
+        if (checkRelayState()) {
             context.put("RelayState", getRelayState());
         }
 
@@ -167,28 +146,6 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
         } catch (Exception e) {
             log.error("Error invoking velocity template", e);
             throw new BindingException("Error creating output document", e);
-        }
-    }
-
-    /**
-     * Signs the given SAML message if it a {@link SignableSAMLObject} and this encoder has signing credentials.
-     */
-    @SuppressWarnings("unchecked")
-    protected void signMessage() {
-        if (getSamlMessage() instanceof SignableSAMLObject && getSigningCredential() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Signing SAML message.");
-            }
-            SignableSAMLObject signableMessage = (SignableSAMLObject) getSamlMessage();
-
-            SAMLObjectContentReference contentRef = new SAMLObjectContentReference(signableMessage);
-            XMLObjectBuilder<Signature> signatureBuilder = Configuration.getBuilderFactory().getBuilder(
-                    Signature.DEFAULT_ELEMENT_NAME);
-            Signature signature = signatureBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
-            signature.getContentReferences().add(contentRef);
-            signableMessage.setSignature(signature);
-
-            Signer.signObject(signature);
         }
     }
 }

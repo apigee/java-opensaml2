@@ -18,6 +18,7 @@ package org.opensaml.saml1.binding.encoding;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -29,10 +30,13 @@ import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.encoding.impl.AbstractHTTPMessageEncoder;
 import org.opensaml.common.impl.SAMLObjectContentReference;
+import org.opensaml.saml1.core.Response;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.Base64;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * SAML 1.X HTTP POST message encoder.
@@ -41,7 +45,7 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
 
     /** Binding URI. */
     public static final String BINDING_URI = "urn:oasis:names:tc:SAML:1.0:profiles:browser-post";
-    
+
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPPostEncoder.class);
 
@@ -50,7 +54,7 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
 
     /** ID of the velocity template used when performing POST encoding. */
     private String velocityTemplateId;
-    
+
     /** {@inheritDoc} */
     public String getBindingURI() {
         return BINDING_URI;
@@ -118,7 +122,7 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
             }
             response.setContentType("application/xhtml+xml");
             response.setCharacterEncoding("UTF-8");
-            addNoCacheResponseHeaders();
+            initializeResponse();
 
             postEncode(response.getWriter(), encodedMessage);
         } catch (IOException e) {
@@ -142,21 +146,42 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("Creating velocity context");
-        }
-        VelocityContext context = new VelocityContext();
-        context.put("action", getEndpointURL());
-
-        context.put("SAMLRequest", message);
-
-        if (log.isDebugEnabled()) {
             log.debug("Invoking velocity template");
         }
         try {
+            VelocityContext context = new VelocityContext();
+            context.put("action", getEndpointURL());
+            context.put("SAMLResponse", message);
+            context.put("Target", URLEncoder.encode(getRelayState(), "UTF-8"));
             velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, responseWriter);
         } catch (Exception e) {
             log.error("Error invoking velocity template", e);
             throw new BindingException("Error creating output document", e);
+        }
+    }
+
+    /**
+     * Gets the response URL from the relying party endpoint. If the SAML message is a {@link Response} and the relying
+     * party endpoint contains a response location then that location is returned otherwise the normal endpoint location
+     * is returned.
+     * 
+     * @return response URL from the relying party endpoint
+     * 
+     * @throws BindingException throw if no relying party endpoint is available
+     */
+    protected String getEndpointURL() throws BindingException {
+        Endpoint endpoint = getRelyingPartyEndpoint();
+        if (endpoint == null) {
+            throw new BindingException("Relying party endpoint provided we null.");
+        }
+
+        if (getSamlMessage() instanceof Response && !DatatypeHelper.isEmpty(endpoint.getResponseLocation())) {
+            return endpoint.getResponseLocation();
+        } else {
+            if (DatatypeHelper.isEmpty(endpoint.getLocation())) {
+                throw new BindingException("Relying party endpoint location was null or empty.");
+            }
+            return endpoint.getLocation();
         }
     }
 

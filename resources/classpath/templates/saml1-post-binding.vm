@@ -21,7 +21,7 @@
             <div>                
                 #if($SAMLResponse)<input type="hidden" name="SAMLResponse" value="${SAMLResponse}"/>#end
                 
-                #if($SAMLResponse)<input type="hidden" name="TARGET" value="${Target}"/>#end
+                #if($Target)<input type="hidden" name="TARGET" value="${Target}"/>#end
                 
             </div>
             <noscript>

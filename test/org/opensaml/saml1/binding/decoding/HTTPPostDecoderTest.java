@@ -14,37 +14,34 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml1.core.binding.decoding;
+package org.opensaml.saml1.binding.decoding;
 
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.binding.decoding.HTTPMessageDecoder;
-import org.opensaml.saml1.binding.decoding.HTTPSOAP11DecoderBuilder;
-import org.opensaml.saml1.core.Request;
+import org.opensaml.saml1.core.Response;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
- * Test case for SAML 1.X HTTP SOAP 1.1 message decoder.
+ * Test case for SAML 1 HTTP POST decoding.
  */
-public class HTTPSOAP11DecoderTest extends BaseTestCase {
+public class HTTPPostDecoderTest extends BaseTestCase {
 
-    /**
-     * Tests decoding a SOAP 1.1 message.
-     */
-    public void testDecoding() throws Exception {
-        String requestContent = "<soap11:Envelope xmlns:soap11=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-                + "<soap11:Body><saml:Request IssueInstant=\"1970-01-01T00:00:00.000Z\" MajorVersion=\"1\" "
-                + "MinorVersion=\"1\" RequestID=\"foo\" xmlns:saml=\"urn:oasis:names:tc:SAML:1.0:protocol\"/>"
-                + "</soap11:Body></soap11:Envelope>";
+    /** Test decoding message. */
+    public void testDecode() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setContent(requestContent.getBytes());
+        request.setParameter("TARGET", "relay");
+        request.setParameter("SAMLResponse", "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWxwOlJlc3Bvbn"
+                + "NlIElzc3VlSW5zdGFudD0iMTk3MC0wMS0wMVQwMDowMDowMC4wMDBaIiBNYWpvclZlcnNpb249IjEiIE1pbm9yVmVyc2lvbj0i"
+                + "MSIgUmVzcG9uc2VJRD0iZm9vIiB4bWxuczpzYW1scD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6MS4wOnByb3RvY29sIi8+");
 
-        HTTPSOAP11DecoderBuilder decoderBuilder = new HTTPSOAP11DecoderBuilder();
+        HTTPPostDecoderBuilder decoderBuilder = new HTTPPostDecoderBuilder();
         decoderBuilder.setParser(parser);
 
         HTTPMessageDecoder decoder = decoderBuilder.buildDecoder();
         decoder.setRequest(request);
         decoder.decode();
 
-        assertTrue(decoder.getSAMLMessage() instanceof Request);
+        assertTrue(decoder.getSAMLMessage() instanceof Response);
+        assertEquals("relay", decoder.getRelayState());
     }
 }

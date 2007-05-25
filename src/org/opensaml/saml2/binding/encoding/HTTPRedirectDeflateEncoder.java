@@ -18,6 +18,8 @@ package org.opensaml.saml2.binding.encoding;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.Signature;
 import java.security.interfaces.DSAPrivateKey;
@@ -30,7 +32,6 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.encoding.impl.AbstractHTTPMessageEncoder;
 import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.ws.util.URLBuilder;
@@ -43,7 +44,7 @@ import org.opensaml.xml.util.Pair;
  * 
  * This encoder only supports DEFLATE compression and DSA-SHA1 and RSA-SHA1 signatures.
  */
-public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
+public class HTTPRedirectDeflateEncoder extends AbstractSAML2HTTPMessageEncoder {
 
     /** URI for this binding. */
     public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect";
@@ -78,8 +79,8 @@ public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
             if (log.isDebugEnabled()) {
                 log.debug("Redirect encoding complete, redirecting client to " + redirectURL);
             }
+            initializeResponse();
             getResponse().setCharacterEncoding("UTF-8");
-            addNoCacheResponseHeaders();
             getResponse().sendRedirect(redirectURL);
         } catch (IOException e) {
             log.error("Unable to redirect client to " + redirectURL, e);
@@ -154,8 +155,8 @@ public class HTTPRedirectDeflateEncoder extends AbstractHTTPMessageEncoder {
             throw new BindingException("SAML message is neither a SAML RequestAbstractType or Response");
         }
 
-        if (!DatatypeHelper.isEmpty(getRelayState())) {
-            queryParams.add(new Pair<String, String>("RelayState", getRelayState()));
+        if (checkRelayState()) {
+                queryParams.add(new Pair<String, String>("RelayState", getEncodeRelayState()));
         }
 
         if (getSigningCredential() != null) {
