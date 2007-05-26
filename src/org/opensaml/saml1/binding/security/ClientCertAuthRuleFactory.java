@@ -36,19 +36,19 @@ import org.opensaml.xml.security.x509.X509Credential;
  * entity within the metadata from the given provider and where the trust engine validates the entity cert against the
  * information given in the assumed issuer's metadata.
  */
-public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory<HttpServletRequest, String> {
+public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory<HttpServletRequest> {
 
     /** {@inheritDoc} */
-    public SecurityPolicyRule<HttpServletRequest, String> createRuleInstance() {
-        return new ClientCertAuthRule(getTrustEngine(), getMetadataResolver(), 
-                getMetadataProvider(), getIssuerRole(), getIssuerProtocol());
+    public SecurityPolicyRule<HttpServletRequest> createRuleInstance() {
+        return new ClientCertAuthRule(getTrustEngine(), getMetadataResolver(), getMetadataProvider(), getIssuerRole(),
+                getIssuerProtocol());
     }
 
     /**
      * Policy rule that checks if the client cert used to authenticate the request is valid and trusted.
      */
-    protected class ClientCertAuthRule extends BaseX509CredentialAuthRule<HttpServletRequest, String> {
-        
+    protected class ClientCertAuthRule extends BaseX509CredentialAuthRule<HttpServletRequest> {
+
         /**
          * Constructor.
          * 
@@ -58,33 +58,26 @@ public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory
          * @param role role the issuer is meant to be operating in
          * @param protocol protocol the issuer used in the request
          */
-        public ClientCertAuthRule(
-                TrustEngine<X509Credential, X509Credential> engine,
-                MetadataCredentialResolver resolver,
-                MetadataProvider provider, QName role, String protocol) {
-                
+        public ClientCertAuthRule(TrustEngine<X509Credential, X509Credential> engine,
+                MetadataCredentialResolver resolver, MetadataProvider provider, QName role, String protocol) {
+
             super(engine, resolver, provider, role, protocol);
         }
- 
-        
+
         /** {@inheritDoc} */
-        public void evaluate(HttpServletRequest request, XMLObject message, SecurityPolicyContext<String> context)
+        public void evaluate(HttpServletRequest request, XMLObject message, SecurityPolicyContext context)
                 throws SecurityPolicyException {
-            
-            //TODO re-evaluate all this code
-            //HttpRequestX509CredentialAdapter credential = new HttpRequestX509CredentialAdapter(request);
-            //String issuer = evaluateCredential(credential, message);
-            //context.setIssuer(issuer);
-            
+
+            // TODO re-evaluate all this code
+            // HttpRequestX509CredentialAdapter credential = new HttpRequestX509CredentialAdapter(request);
+            // String issuer = evaluateCredential(credential, message);
+            // context.setIssuer(issuer);
+
             /*
-            try{
-                RoleDescriptor role = getMetadataProvider().getRole(issuer, getIssuerRole(), getIssuerProtocol());
-                //TODO type issue
-                //context.setIssuerMetadata(role);
-            }catch(MetadataProviderException e){
-                throw new SecurityPolicyException("Unable to get issuer role descriptor from metadata", e);
-            }
-            */
+             * try{ RoleDescriptor role = getMetadataProvider().getRole(issuer, getIssuerRole(), getIssuerProtocol());
+             * //TODO type issue //context.setIssuerMetadata(role); }catch(MetadataProviderException e){ throw new
+             * SecurityPolicyException("Unable to get issuer role descriptor from metadata", e); }
+             */
         }
     }
 }

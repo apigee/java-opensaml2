@@ -34,20 +34,20 @@ import org.opensaml.xml.security.x509.X509Credential;
  * information given in the assumed issuer's metadata.
  * 
  * @param <RequestType> type of request to extract the credential from
- * @param <IssuerType> the message issuer type
  */
-public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends ServletRequest, IssuerType> 
-        extends AbstractSAMLSecurityPolicyRuleFactory<RequestType, IssuerType>
-        implements SecurityPolicyRuleFactory<RequestType, IssuerType> {
+public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends ServletRequest> extends
+        AbstractSAMLSecurityPolicyRuleFactory<RequestType> implements SecurityPolicyRuleFactory<RequestType> {
 
     /** Trust engine used to verify metadata. */
     private TrustEngine<X509Credential, X509Credential> trustEngine;
 
     /** Resolver used to extract key information from a key source. */
     private KeyInfoCredentialResolver keyInfoResolver;
-    
-    /** Metadata credential resolver.  Will be constructed by using Metadata provider, 
-     * role, protocol and KeyInfo credential provider information. */
+
+    /**
+     * Metadata credential resolver. Will be constructed by using Metadata provider, role, protocol and KeyInfo
+     * credential provider information.
+     */
     private MetadataCredentialResolver metadataResolver;
 
     /**
@@ -69,8 +69,7 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
     }
 
     /**
-     * Gets the resolver used to extract credential information from KeyInfo elements in
-     * SAML 2 metadata.
+     * Gets the resolver used to extract credential information from KeyInfo elements in SAML 2 metadata.
      * 
      * @return resolver used to extract credential information from KeyInfo in metadata
      */
@@ -79,17 +78,15 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
     }
 
     /**
-     * Sets the resolver used to extract credential information from KeyInfo elements in 
-     * SAML 2 metadata.
+     * Sets the resolver used to extract credential information from KeyInfo elements in SAML 2 metadata.
      * 
-     * @param credentialResolver resolver used to extract credential information from KeyInfo
-     *          in metadata
+     * @param credentialResolver resolver used to extract credential information from KeyInfo in metadata
      */
     public void setKeyInfoCredentialResolver(KeyInfoCredentialResolver credentialResolver) {
         keyInfoResolver = credentialResolver;
 
     }
-    
+
     /** {@inheritDoc} */
     public void setIssuerProtocol(String protocol) {
         super.setIssuerProtocol(protocol);
@@ -111,9 +108,9 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
     /**
      * Get the resolver used to resolve credentials from SAML 2 metadata.
      * 
-     * Note; This resolver is constructed dynamically based on the current factory values
-     * for 1) metadata provider 2) role name and 3) protocol.  If any of these changes, the 
-     * metadata resolver will be reinstantiated with the new values.
+     * Note; This resolver is constructed dynamically based on the current factory values for 1) metadata provider 2)
+     * role name and 3) protocol. If any of these changes, the metadata resolver will be reinstantiated with the new
+     * values.
      * 
      * @return an instance of MetadtaCredentialResolver
      */
@@ -123,17 +120,16 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
         }
         return metadataResolver;
     }
-    
+
     /**
-     * Build a new instance of MetadataCredentialResolver based on the current factory
-     * values for metadata provider, role name and protocol.
+     * Build a new instance of MetadataCredentialResolver based on the current factory values for metadata provider,
+     * role name and protocol.
      * 
      * @return new instance of MetadataCredentialResolver
      */
     private MetadataCredentialResolver buildNewMetadataResolver() {
-        MetadataCredentialResolver resolver = 
-            new MetadataCredentialResolver(getMetadataProvider());
-        
+        MetadataCredentialResolver resolver = new MetadataCredentialResolver(getMetadataProvider());
+
         if (getKeyInfoCredentialResolver() != null) {
             resolver.setKeyInfoCredentialResolver(this.getKeyInfoCredentialResolver());
         }
@@ -141,5 +137,5 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
     }
 
     /** {@inheritDoc} */
-    public abstract SecurityPolicyRule<RequestType, IssuerType> createRuleInstance();
+    public abstract SecurityPolicyRule<RequestType> createRuleInstance();
 }

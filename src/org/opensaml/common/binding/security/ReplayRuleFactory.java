@@ -28,24 +28,21 @@ import org.opensaml.ws.security.SecurityPolicyRuleFactory;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Security policy rule factory implementation that generates rules which check for replay of
- * SAML messages.
+ * Security policy rule factory implementation that generates rules which check for replay of SAML messages.
  * 
  * @param <RequestType> type of incoming protocol request
- * @param <IssuerType> the message issuer type
  */
-public class ReplayRuleFactory<RequestType extends ServletRequest, IssuerType> 
-    implements SecurityPolicyRuleFactory<RequestType, IssuerType> {
-    
+public class ReplayRuleFactory<RequestType extends ServletRequest> implements SecurityPolicyRuleFactory<RequestType> {
+
     /** Clock skew to use, in seconds. */
     private int clockSkew;
-    
-    /** Expiration value for messages inserted into replay cache, in seconds.  */
+
+    /** Expiration value for messages inserted into replay cache, in seconds. */
     private int expires;
-    
+
     /** Messge replay cache instance to use. */
     private ReplayCache replayCache;
-    
+
     /**
      * Get the clock skew.
      * 
@@ -64,7 +61,7 @@ public class ReplayRuleFactory<RequestType extends ServletRequest, IssuerType>
         this.clockSkew = newClockSkew;
     }
 
-    /** 
+    /**
      * Get the message replay cache expiration, in seconds.
      * 
      * @return the expiration value
@@ -81,7 +78,7 @@ public class ReplayRuleFactory<RequestType extends ServletRequest, IssuerType>
     public void setExpires(int newExpires) {
         this.expires = newExpires;
     }
-    
+
     /**
      * Get the message replay cache instance.
      * 
@@ -100,80 +97,74 @@ public class ReplayRuleFactory<RequestType extends ServletRequest, IssuerType>
         this.replayCache = newReplayCache;
     }
 
- 
-
     /** {@inheritDoc} */
-    public SecurityPolicyRule<RequestType, IssuerType> createRuleInstance() {
+    public SecurityPolicyRule<RequestType> createRuleInstance() {
         return new ReplayRule(clockSkew, expires, replayCache);
     }
-    
+
     /**
-    * Security policy rule implementation which checks for replay of SAML messages.
-    */
-   public class ReplayRule implements SecurityPolicyRule<RequestType, IssuerType> {
-       
-       /** Clock skew to use, in seconds. */
-       private int clockSkew;
-       
-       /** Expiration value for messages inserted into replay cache, in seconds.  */
-       private int expires;
-       
-       /** Messge replay cache instance to use. */
-       private ReplayCache replayCache;
+     * Security policy rule implementation which checks for replay of SAML messages.
+     */
+    public class ReplayRule implements SecurityPolicyRule<RequestType> {
 
-       /**
-        * Constructor.
-        *
-        * @param newClockSkew the new clock skew
-        * @param newExpires the new expiration value
-        * @param newReplayCache the new replay cache instance
-        */
-       public ReplayRule(int newClockSkew, int newExpires, ReplayCache newReplayCache) {
-           clockSkew = newClockSkew;
-           expires = newExpires;
-           replayCache = newReplayCache;
-       }
+        /** Clock skew to use, in seconds. */
+        private int clockSkew;
 
-       /** {@inheritDoc} */
-       public void evaluate(RequestType request, XMLObject message, SecurityPolicyContext<IssuerType> context)
-           throws SecurityPolicyException {
-           
-           Logger log = Logger.getLogger(ReplayRule.class);
-           
-           if (replayCache == null) {
-               log.warn("No replay cache configured, skipping message replay check");
-               return;
-           }
-           
-           SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) context;
-           if (samlContext == null) {
-               log.error("Supplied context was not an instance of SAMLSecurityPolicyContext");
-               throw new IllegalArgumentException("Supplied context was not an instance of SAMLSecurityPolicyContext");
-           }
-           
-           if (samlContext.getMessageID() == null) {
-               log.debug("Message contained no ID, replay check not possible");
-               return;
-           }
-           
-           DateTime issueInstant = samlContext.getIssueInstant();
-           
-           if (issueInstant == null) {
-               log.debug("Message did not contain issue instant, using current time for replay checking");
-               issueInstant = new DateTime();
-           }
-           
-           if (!replayCache.isReplay(samlContext.getMessageID(), 
-                   samlContext.getIssueInstant().plusSeconds(clockSkew + expires))) {
-               
-               log.error("Replay detected of message '" + samlContext.getMessageID() + "'");
-               throw new SecurityPolicyException("Rejecting replayed message ID '" + samlContext.getMessageID() + "'");
-           }
-           
-       }
+        /** Expiration value for messages inserted into replay cache, in seconds. */
+        private int expires;
 
-   }
+        /** Messge replay cache instance to use. */
+        private ReplayCache replayCache;
 
- 
-   
+        /**
+         * Constructor.
+         * 
+         * @param newClockSkew the new clock skew
+         * @param newExpires the new expiration value
+         * @param newReplayCache the new replay cache instance
+         */
+        public ReplayRule(int newClockSkew, int newExpires, ReplayCache newReplayCache) {
+            clockSkew = newClockSkew;
+            expires = newExpires;
+            replayCache = newReplayCache;
+        }
+
+        /** {@inheritDoc} */
+        public void evaluate(RequestType request, XMLObject message, SecurityPolicyContext context)
+                throws SecurityPolicyException {
+
+            Logger log = Logger.getLogger(ReplayRule.class);
+
+            if (replayCache == null) {
+                log.warn("No replay cache configured, skipping message replay check");
+                return;
+            }
+
+            SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) context;
+            if (samlContext == null) {
+                log.error("Supplied context was not an instance of SAMLSecurityPolicyContext");
+                throw new IllegalArgumentException("Supplied context was not an instance of SAMLSecurityPolicyContext");
+            }
+
+            if (samlContext.getMessageID() == null) {
+                log.debug("Message contained no ID, replay check not possible");
+                return;
+            }
+
+            DateTime issueInstant = samlContext.getIssueInstant();
+
+            if (issueInstant == null) {
+                log.debug("Message did not contain issue instant, using current time for replay checking");
+                issueInstant = new DateTime();
+            }
+
+            if (!replayCache.isReplay(samlContext.getMessageID(), samlContext.getIssueInstant().plusSeconds(
+                    clockSkew + expires))) {
+
+                log.error("Replay detected of message '" + samlContext.getMessageID() + "'");
+                throw new SecurityPolicyException("Rejecting replayed message ID '" + samlContext.getMessageID() + "'");
+            }
+
+        }
+    }
 }

@@ -23,6 +23,6 @@ import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicy;
 /**
  * Implementation of security for SAML 1.
  */
-public class SAML1SecurityPolicy extends AbstractSAMLSecurityPolicy<ServletRequest, String> {
+public class SAML1SecurityPolicy extends AbstractSAMLSecurityPolicy<ServletRequest> {
 
 }

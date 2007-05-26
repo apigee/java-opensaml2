@@ -20,28 +20,24 @@ import javax.servlet.ServletRequest;
 
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.ws.security.SecurityPolicyContext;
-import org.opensaml.ws.security.impl.BasicSecurityPolicyImpl;
+import org.opensaml.ws.security.provider.BasicSecurityPolicy;
 
 /**
- * SAML-specifc security policy which provides metadata access and supplies
- * a {@link SecurityPolicyContext} of a SAML-specific subtype.
+ * SAML-specifc security policy which provides metadata access and supplies a {@link SecurityPolicyContext} of a
+ * SAML-specific subtype.
  * 
  * @param <RequestType> the message request type
- * @param <IssuerType> the message issuer type
- * 
  */
-public abstract class AbstractSAMLSecurityPolicy<RequestType extends ServletRequest, IssuerType> 
-        extends BasicSecurityPolicyImpl<RequestType, IssuerType> 
-        implements SAMLSecurityPolicy<RequestType, IssuerType> {
+public abstract class AbstractSAMLSecurityPolicy<RequestType extends ServletRequest> extends
+        BasicSecurityPolicy<RequestType> implements SAMLSecurityPolicy<RequestType> {
 
     /** {@inheritDoc} */
     public RoleDescriptor getIssuerMetadata() {
-        return ((SAMLSecurityPolicyContext<IssuerType>)  getSecurityPolicyContext()).getIssuerMetadata();
+        return ((SAMLSecurityPolicyContext) getSecurityPolicyContext()).getIssuerMetadata();
     }
 
     /** {@inheritDoc} */
-    protected SecurityPolicyContext<IssuerType> createNewContext() {
-        return new SAMLSecurityPolicyContext<IssuerType>();
+    protected SecurityPolicyContext createNewContext() {
+        return new SAMLSecurityPolicyContext();
     }
-
 }

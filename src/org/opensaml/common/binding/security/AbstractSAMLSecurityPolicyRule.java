@@ -34,34 +34,33 @@ import org.opensaml.xml.XMLObject;
  * Base class for SAML-specific {@link SecurityPolicyRule} implementations.
  * 
  * @param <RequestType> type of incoming protocol request
- * @param <IssuerType> the message issuer type
  */
-public abstract class AbstractSAMLSecurityPolicyRule<RequestType extends ServletRequest, IssuerType>
-        implements SecurityPolicyRule<RequestType, IssuerType> {
-    
+public abstract class AbstractSAMLSecurityPolicyRule<RequestType extends ServletRequest> implements
+        SecurityPolicyRule<RequestType> {
+
     /** Metadata provider to lookup issuer information. */
     private MetadataProvider metadataProvider;
-    
+
     /** SAML role the issuer is meant to be operating in. */
     private QName issuerRole;
-    
+
     /** The message protocol used by the issuer. */
     private String issuerProtocol;
-    
+
     /**
      * Constructor.
      * 
      * @param provider metadata provider used to look up entity information
      * @param role role the issuer is meant to be operating in
      * @param protocol protocol the issuer used in the request
-     *
+     * 
      */
     public AbstractSAMLSecurityPolicyRule(MetadataProvider provider, QName role, String protocol) {
-       metadataProvider = provider; 
-       issuerRole = role;
-       issuerProtocol = protocol;
+        metadataProvider = provider;
+        issuerRole = role;
+        issuerProtocol = protocol;
     }
-    
+
     /**
      * Gets the metadata provider used to look up entity information.
      * 
@@ -70,7 +69,7 @@ public abstract class AbstractSAMLSecurityPolicyRule<RequestType extends Servlet
     public MetadataProvider getMetadataProvider() {
         return metadataProvider;
     }
-    
+
     /**
      * Gets the role the issuer is operating in.
      * 
@@ -79,7 +78,7 @@ public abstract class AbstractSAMLSecurityPolicyRule<RequestType extends Servlet
     public QName getIssuerRole() {
         return issuerRole;
     }
-    
+
     /**
      * Gets the protocol the issuer is using.
      * 
@@ -90,34 +89,33 @@ public abstract class AbstractSAMLSecurityPolicyRule<RequestType extends Servlet
     }
 
     /** {@inheritDoc} */
-    public abstract void evaluate(RequestType request, XMLObject message, SecurityPolicyContext<IssuerType> context)
+    public abstract void evaluate(RequestType request, XMLObject message, SecurityPolicyContext context)
             throws SecurityPolicyException;
-    
+
     /**
-     * Helper method to obtain the SAML message object from the more
-     * generic XMLObject message object.
+     * Helper method to obtain the SAML message object from the more generic XMLObject message object.
      * 
      * @param message XMLObject message presumed to contain a SAML message
      * @return the SAML message object, or null if no SAML message found
      */
     protected SAMLObject getSAMLMessage(XMLObject message) {
-        
+
         if (message instanceof SAMLObject) {
-           return (SAMLObject)  message;
+            return (SAMLObject) message;
         }
-        
+
         if (message instanceof Envelope) {
             Envelope env = (Envelope) message;
-            
+
             XMLObject xmlObject = env.getBody().getUnknownXMLObjects().get(0);
             if (xmlObject instanceof SAMLObject) {
                 return (SAMLObject) xmlObject;
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * Resolve the given system entity ID into a SAML 2 metadata {@link RoleDescriptor}.
      * 
@@ -127,10 +125,10 @@ public abstract class AbstractSAMLSecurityPolicyRule<RequestType extends Servlet
      */
     protected RoleDescriptor resolveIssuerRole(String entityID) throws SecurityPolicyException {
         Logger log = Logger.getLogger(AbstractSAMLSecurityPolicyRule.class);
-        
+
         if (getMetadataProvider() != null && getIssuerRole() != null && getIssuerProtocol() != null) {
             log.debug("Attempting to lookup issuer metadata");
-            
+
             RoleDescriptor rd = null;
             try {
                 rd = getMetadataProvider().getRole(entityID, getIssuerRole(), getIssuerProtocol());

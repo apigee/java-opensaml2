@@ -28,22 +28,23 @@ import org.opensaml.ws.security.SecurityPolicyRuleFactory;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Security policy rule factory implementation that generates rules which check for validity of SAML message issue 
+ * Security policy rule factory implementation that generates rules which check for validity of SAML message issue
  * instant date and time.
  * 
  * @param <RequestType> type of incoming protocol request
- * @param <IssuerType> the message issuer type
  */
-public class IssueInstantRuleFactory<RequestType extends ServletRequest, IssuerType> 
-    implements SecurityPolicyRuleFactory<RequestType, IssuerType> {
-    
-    /** Clock skew - the number of seconds before a lower time bound, or after an upper time bound, to 
-     * consider still acceptable. */
+public class IssueInstantRuleFactory<RequestType extends ServletRequest> implements
+        SecurityPolicyRuleFactory<RequestType> {
+
+    /**
+     * Clock skew - the number of seconds before a lower time bound, or after an upper time bound, to consider still
+     * acceptable.
+     */
     private int clockSkew;
-    
-    /** Number of seconds after a message issue instant after which the message is considered expired.  */
+
+    /** Number of seconds after a message issue instant after which the message is considered expired. */
     private int expires;
-    
+
     /**
      * Get the clock skew, in seconds.
      * 
@@ -81,76 +82,73 @@ public class IssueInstantRuleFactory<RequestType extends ServletRequest, IssuerT
     }
 
     /** {@inheritDoc} */
-    public SecurityPolicyRule<RequestType, IssuerType> createRuleInstance() {
+    public SecurityPolicyRule<RequestType> createRuleInstance() {
         return new IssueInstantRule(clockSkew, expires);
     }
-    
+
     /**
-    * Security policy rule implementation that which checks for validity of SAML message issue 
-    * instant date and time.
-    */
-   public class IssueInstantRule implements SecurityPolicyRule<RequestType, IssuerType> {
-       
-       /** Clock skew - the number of seconds before a lower time bound, or after an upper time bound, to 
-        * consider still acceptable. */
-       private int clockSkew;
-    
-       /** Number of seconds after a message issue instant after which the message is considered expired.  */
-       private int expires;
-       
+     * Security policy rule implementation that which checks for validity of SAML message issue instant date and time.
+     */
+    public class IssueInstantRule implements SecurityPolicyRule<RequestType> {
 
-       /**
-        * Constructor.
-        *
-        * @param newClockSkew the new clock skew value
-        * @param newExpires the new expiration value
-        */
-       public IssueInstantRule(int newClockSkew, int newExpires) {
-           clockSkew = newClockSkew;
-           expires = newExpires;
-       }
+        /**
+         * Clock skew - the number of seconds before a lower time bound, or after an upper time bound, to consider still
+         * acceptable.
+         */
+        private int clockSkew;
 
-       /** {@inheritDoc} */
-       public void evaluate(RequestType request, XMLObject message, SecurityPolicyContext<IssuerType> context)
-           throws SecurityPolicyException {
-           
-           Logger log = Logger.getLogger(IssueInstantRule.class);
-           
-           SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) context;
-           if (samlContext == null) {
-               log.error("Supplied context was not an instance of SAMLSecurityPolicyContext");
-               throw new IllegalArgumentException("Supplied context was not an instance of SAMLSecurityPolicyContext");
-           }
-           
-           if (samlContext.getIssueInstant() == null) {
-               log.debug("Message did not contain an issue instant, skipping evaluation");
-               return;
-           }
-           
-           DateTime now = new DateTime();
-           DateTime latestValid = now.plusSeconds(clockSkew);
-           DateTime expiration = samlContext.getIssueInstant().plusSeconds(clockSkew + expires);
-           
-           DateTimeComparator dtCompare = DateTimeComparator.getInstance();
-           
-           // Check message wasn't issued in the future
-           if (dtCompare.compare(latestValid, samlContext.getIssueInstant()) < 0) {
-               log.error("Message was not yet valid: message time was '" + samlContext.getIssueInstant() 
-                       + "', latest valid is: '" + latestValid + "'");
-               throw new SecurityPolicyException("Message was rejected because was issued in the future");
-           }
-           
-           // Check message has not expired
-           if (dtCompare.compare(expiration, now) < 0) {
-               log.error("Message was expired: message issue time was '" + samlContext.getIssueInstant() 
-                       + "', message expired at: '" + expiration + "', current time: '" + now + "'");
-               throw new SecurityPolicyException("Message was rejected due to issue instant expiration");
-           }
-           
-       }
+        /** Number of seconds after a message issue instant after which the message is considered expired. */
+        private int expires;
 
-   }
+        /**
+         * Constructor.
+         * 
+         * @param newClockSkew the new clock skew value
+         * @param newExpires the new expiration value
+         */
+        public IssueInstantRule(int newClockSkew, int newExpires) {
+            clockSkew = newClockSkew;
+            expires = newExpires;
+        }
 
- 
-   
+        /** {@inheritDoc} */
+        public void evaluate(RequestType request, XMLObject message, SecurityPolicyContext context)
+                throws SecurityPolicyException {
+
+            Logger log = Logger.getLogger(IssueInstantRule.class);
+
+            SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) context;
+            if (samlContext == null) {
+                log.error("Supplied context was not an instance of SAMLSecurityPolicyContext");
+                throw new IllegalArgumentException("Supplied context was not an instance of SAMLSecurityPolicyContext");
+            }
+
+            if (samlContext.getIssueInstant() == null) {
+                log.debug("Message did not contain an issue instant, skipping evaluation");
+                return;
+            }
+
+            DateTime now = new DateTime();
+            DateTime latestValid = now.plusSeconds(clockSkew);
+            DateTime expiration = samlContext.getIssueInstant().plusSeconds(clockSkew + expires);
+
+            DateTimeComparator dtCompare = DateTimeComparator.getInstance();
+
+            // Check message wasn't issued in the future
+            if (dtCompare.compare(latestValid, samlContext.getIssueInstant()) < 0) {
+                log.error("Message was not yet valid: message time was '" + samlContext.getIssueInstant()
+                        + "', latest valid is: '" + latestValid + "'");
+                throw new SecurityPolicyException("Message was rejected because was issued in the future");
+            }
+
+            // Check message has not expired
+            if (dtCompare.compare(expiration, now) < 0) {
+                log.error("Message was expired: message issue time was '" + samlContext.getIssueInstant()
+                        + "', message expired at: '" + expiration + "', current time: '" + now + "'");
+                throw new SecurityPolicyException("Message was rejected due to issue instant expiration");
+            }
+
+        }
+    }
+
 }

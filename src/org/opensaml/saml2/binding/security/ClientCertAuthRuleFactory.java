@@ -40,10 +40,10 @@ import org.opensaml.xml.util.DatatypeHelper;
  * entity within the metadata from the given provider and where the trust engine validates the entity cert against the
  * information given in the assumed issuer's metadata.
  */
-public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory<HttpServletRequest, Issuer> {
+public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory<HttpServletRequest> {
 
     /** {@inheritDoc} */
-    public SecurityPolicyRule<HttpServletRequest, Issuer> createRuleInstance() {
+    public SecurityPolicyRule<HttpServletRequest> createRuleInstance() {
         return new ClientCertAuthRule(getTrustEngine(), getMetadataResolver(), getMetadataProvider(), getIssuerRole(),
                 getIssuerProtocol());
     }
@@ -51,7 +51,7 @@ public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory
     /**
      * Policy rule that checks if the client cert used to authenticate the request is valid and trusted.
      */
-    protected class ClientCertAuthRule extends BaseX509CredentialAuthRule<HttpServletRequest, Issuer> {
+    protected class ClientCertAuthRule extends BaseX509CredentialAuthRule<HttpServletRequest> {
 
         /**
          * Constructor.
@@ -69,7 +69,7 @@ public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory
         }
 
         /** {@inheritDoc} */
-        public void evaluate(HttpServletRequest request, XMLObject message, SecurityPolicyContext<Issuer> context)
+        public void evaluate(HttpServletRequest request, XMLObject message, SecurityPolicyContext context)
                 throws SecurityPolicyException {
 
             // TODO re-evaluate all this code

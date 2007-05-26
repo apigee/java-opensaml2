@@ -16,6 +16,8 @@
 
 package org.opensaml.saml1.binding.security;
 
+import java.util.List;
+
 import javax.servlet.ServletRequest;
 import javax.xml.namespace.QName;
 
@@ -24,7 +26,6 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicyRule;
 import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicyRuleFactory;
 import org.opensaml.common.binding.security.SAMLSecurityPolicyContext;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.Response;
@@ -35,85 +36,83 @@ import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.ws.security.SecurityPolicyRuleFactory;
-import org.opensaml.ws.soap.util.SOAPConstants;
 import org.opensaml.xml.XMLObject;
 
 /**
- * An implementation of {@link SecurityPolicyRuleFactory} which generates rules which process
- * SAML 1 messages and extract relevant information out for use in other rules.
+ * An implementation of {@link SecurityPolicyRuleFactory} which generates rules which process SAML 1 messages and
+ * extract relevant information out for use in other rules.
+ * 
+ * {@link SAML1ProtocolMessageRule}s pass if, and only if:
+ * <ul>
+ * <li>The SAML message is a {@link RequestAbstractType}, or</li>
+ * <li>The SAML message is a {@link Response} and all the issuers, in the contained assertions, are identical</li>
+ * </ul>
+ * 
+ * {@link SAML1ProtocolMessageRule}s rules operate on {@link SAMLSecurityPolicyContext}s.
  */
-public class SAML1MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFactory<ServletRequest, String>
-    implements SecurityPolicyRuleFactory<ServletRequest, String> {
-
+public class SAML1ProtocolMessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFactory<ServletRequest> implements
+        SecurityPolicyRuleFactory<ServletRequest> {
 
     /** {@inheritDoc} */
-    public SecurityPolicyRule<ServletRequest, String> createRuleInstance() {
-        return new SAML2MessageRule(getMetadataProvider(), getIssuerRole(), getIssuerProtocol());
+    public SecurityPolicyRule<ServletRequest> createRuleInstance() {
+        return new SAML1ProtocolMessageRule(getMetadataProvider(), getIssuerRole(), getIssuerProtocol());
     }
 
     /**
-     * An implementation of {@link SecurityPolicyRule} which processes SAML 1 messages and extracts relevant 
-     * information out for use in other rules.
+     * An implementation of {@link SecurityPolicyRule} which processes SAML 1 messages and extracts relevant information
+     * out for use in other rules.
      */
-    public class SAML2MessageRule extends AbstractSAMLSecurityPolicyRule<ServletRequest, String> 
-        implements SecurityPolicyRule<ServletRequest, String> {
+    public class SAML1ProtocolMessageRule extends AbstractSAMLSecurityPolicyRule<ServletRequest> implements
+            SecurityPolicyRule<ServletRequest> {
 
         /**
          * Constructor.
-         *
+         * 
          * @param provider metadata provider used to look up entity information
          * @param role role the issuer is meant to be operating in
          * @param protocol protocol the issuer used in the request
          */
-        public SAML2MessageRule(MetadataProvider provider, QName role, String protocol) {
+        public SAML1ProtocolMessageRule(MetadataProvider provider, QName role, String protocol) {
             super(provider, role, protocol);
         }
 
         /** {@inheritDoc} */
-        public void evaluate(ServletRequest request, XMLObject message,  SecurityPolicyContext<String> context)
-            throws SecurityPolicyException {
-            
-            Logger log = Logger.getLogger(SAML2MessageRule.class);
-            
-            SAMLSecurityPolicyContext<String> samlContext = (SAMLSecurityPolicyContext<String>) context;
+        public void evaluate(ServletRequest request, XMLObject message, SecurityPolicyContext context)
+                throws SecurityPolicyException {
+
+            Logger log = Logger.getLogger(SAML1ProtocolMessageRule.class);
+
+            SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) context;
             if (samlContext == null) {
                 log.error("Supplied context was not an instance of SAMLSecurityPolicyContext");
                 throw new IllegalArgumentException("Supplied context was not an instance of SAMLSecurityPolicyContext");
             }
-            
-            QName msgQName = message.getElementQName();
-            if (msgQName.getNamespaceURI().equals(SOAPConstants.SOAP11_NS)) {
-                log.debug("Processing a SOAP 1.1 message");
-            } else if (msgQName.getNamespaceURI().equals(SAMLConstants.SAML1P_NS)) {
-                log.debug("Processing a SAML 1.x protocol message");
-            } else {
-                log.debug("Message was neither a SOAP envelope nor a SAML 1.x protocol message");
-                return;
-            }
-            
+
             SAMLObject samlMsg = getSAMLMessage(message);
             if (samlMsg == null) {
                 log.warn("Could not extract SAML message");
                 return;
             }
-            
+
             if (samlMsg instanceof RequestAbstractType) {
                 log.debug("Extracting ID, issuer and issue instant from request");
                 extractRequestInfo(samlContext, (RequestAbstractType) samlMsg);
             } else if (samlMsg instanceof ResponseAbstractType) {
                 log.debug("Extracting ID, issuer and issue instant from response");
                 extractResponseInfo(samlContext, (ResponseAbstractType) samlMsg);
+            } else {
+                throw new SecurityPolicyException("SAML 1.x message was not a request or a response");
             }
-            
+
             if (samlContext.getIssuer() == null) {
                 log.warn("Issuer could not be extracted from SAML message");
                 return;
             }
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("Issuer entityID extracted was: " + samlContext.getIssuer());
             }
-            
+
             RoleDescriptor rd = resolveIssuerRole(samlContext.getIssuer());
             samlContext.setIssuerMetadata(rd);
         }
@@ -123,25 +122,35 @@ public class SAML1MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFacto
          * 
          * @param samlContext the security policy context in which to store information
          * @param response the SAML message to process
+         * 
+         * @throws SecurityPolicyException thrown if the assertions within the response contain differening issuer IDs
          */
-        private void extractResponseInfo(SAMLSecurityPolicyContext<String> samlContext, 
-                ResponseAbstractType response) {
-            Logger log = Logger.getLogger(SAML2MessageRule.class);
-            
-             samlContext.setMessageID(response.getID());
-             samlContext.setIssueInstant(response.getIssueInstant());
-             
-             // samlp:Response is known to carry issuer only via payload in standard SAML 1.x.   
-             //
-             // Look at the first enclosed assertion
-             // TODO - do we support case where assertions issued by mulitple providers
-             if (response instanceof Response) {
-                 log.info("Attempting to extract issuer from enclosed SAML 1.x Assertion");
-                 Assertion assertion = ((Response) response).getAssertions().get(0);
-                 if (assertion != null && assertion.getIssuer() != null) {
-                     samlContext.setIssuer(assertion.getIssuer());
-                 }
-             }
+        protected void extractResponseInfo(SAMLSecurityPolicyContext samlContext, ResponseAbstractType response)
+                throws SecurityPolicyException {
+            Logger log = Logger.getLogger(SAML1ProtocolMessageRule.class);
+
+            samlContext.setMessageID(response.getID());
+            samlContext.setIssueInstant(response.getIssueInstant());
+
+            // samlp:Response is known to carry issuer only via assertion(s) payload in standard SAML 1.x.
+            if (response instanceof Response) {
+                log.info("Attempting to extract issuer from enclosed SAML 1.x Assertion");
+                String issuer = null;
+                List<Assertion> assertions = ((Response) response).getAssertions();
+                if (assertions != null) {
+                    for (Assertion assertion : assertions) {
+                        if (assertion != null && assertion.getIssuer() != null) {
+                            if (issuer != null && !issuer.equals(assertion.getIssuer())) {
+                                throw new SecurityPolicyException("SAML 1.x assertions, within response "
+                                        + response.getID() + " contain different issuer IDs");
+                            }
+                            issuer = assertion.getIssuer();
+                        }
+                    }
+                }
+
+                samlContext.setIssuer(issuer);
+            }
         }
 
         /**
@@ -150,12 +159,10 @@ public class SAML1MessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFacto
          * @param samlContext the security policy context in which to store information
          * @param request the SAML message to process
          */
-        private void extractRequestInfo(SAMLSecurityPolicyContext<String> samlContext, RequestAbstractType request) {
+        protected void extractRequestInfo(SAMLSecurityPolicyContext samlContext, RequestAbstractType request) {
             samlContext.setMessageID(request.getID());
             samlContext.setIssueInstant(request.getIssueInstant());
             // Standard SAML 1.x request does not carry an issuer
         }
-
     }
-    
 }

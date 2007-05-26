@@ -32,11 +32,9 @@ import org.opensaml.xml.security.x509.X509Credential;
  * Policy rule that checks if the client cert used to authenticate the request is valid and trusted.
  * 
  * @param <RequestType> type of request to extract the credential from
- * @param <IssuerType> the message issuer type
  */
-public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequest, IssuerType> 
-        extends AbstractSAMLSecurityPolicyRule<RequestType, IssuerType>
-        implements SecurityPolicyRule<RequestType, IssuerType> {
+public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequest> extends
+        AbstractSAMLSecurityPolicyRule<RequestType> implements SecurityPolicyRule<RequestType> {
 
     /** Trust engine used to verify metadata. */
     private TrustEngine<X509Credential, X509Credential> trustEngine;
@@ -53,11 +51,9 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * @param role role the issuer is meant to be operating in
      * @param protocol protocol the issuer used in the request
      */
-    public BaseX509CredentialAuthRule(
-            TrustEngine<X509Credential, X509Credential> engine,
-            MetadataCredentialResolver resolver,
-            MetadataProvider provider, QName role, String protocol){
-        
+    public BaseX509CredentialAuthRule(TrustEngine<X509Credential, X509Credential> engine,
+            MetadataCredentialResolver resolver, MetadataProvider provider, QName role, String protocol) {
+
         super(provider, role, protocol);
         trustEngine = engine;
         this.metadataResolver = resolver;
@@ -83,7 +79,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
     }
 
     /** {@inheritDoc} */
-    public abstract void evaluate(RequestType request, XMLObject message, SecurityPolicyContext<IssuerType> context) 
+    public abstract void evaluate(RequestType request, XMLObject message, SecurityPolicyContext context)
             throws SecurityPolicyException;
 
     /**
@@ -94,13 +90,12 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * 
      * @return the issuer of the message as extracted from the entity credential
      * 
-     * @throws SecurityPolicyException thrown if there is a problem getting key 
-     *           information or evalauting the trustworthiness of the credential
+     * @throws SecurityPolicyException thrown if there is a problem getting key information or evalauting the
+     *             trustworthiness of the credential
      */
-    protected IssuerType evaluateCredential(X509Credential credential, XMLObject message) 
-            throws SecurityPolicyException {
-        
-        //TODO - implement
+    protected String evaluateCredential(X509Credential credential, XMLObject message) throws SecurityPolicyException {
+
+        // TODO - implement
 
         return null;
     }

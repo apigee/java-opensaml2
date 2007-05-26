@@ -23,14 +23,13 @@ import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.ws.security.SecurityPolicyRuleFactory;
 
 /**
- *  Base class for SAML-specific {@link SecurityPolicyRuleFactory} implementations.
+ * Base class for SAML-specific {@link SecurityPolicyRuleFactory} implementations.
  * 
  * @param <RequestType> type of incoming protocol request
- * @param <IssuerType> the message issuer type
  */
-public abstract class AbstractSAMLSecurityPolicyRuleFactory<RequestType extends ServletRequest, IssuerType>
-        implements SecurityPolicyRuleFactory<RequestType, IssuerType> {
-    
+public abstract class AbstractSAMLSecurityPolicyRuleFactory<RequestType extends ServletRequest> implements
+        SecurityPolicyRuleFactory<RequestType> {
+
     /** Metadata provider to lookup issuer information. */
     private MetadataProvider metadataProvider;
 
@@ -39,7 +38,7 @@ public abstract class AbstractSAMLSecurityPolicyRuleFactory<RequestType extends 
 
     /** The message protocol used by the issuer. */
     private String issuerProtocol;
-    
+
     /**
      * Gets the metadata provider used to lookup issuer data.
      * 
@@ -57,7 +56,7 @@ public abstract class AbstractSAMLSecurityPolicyRuleFactory<RequestType extends 
     public void setMetadataProvider(MetadataProvider provider) {
         metadataProvider = provider;
     }
-    
+
     /**
      * Gets the role the issuer is meant to be operating in.
      * 
@@ -93,5 +92,4 @@ public abstract class AbstractSAMLSecurityPolicyRuleFactory<RequestType extends 
     public void setIssuerProtocol(String protocol) {
         this.issuerProtocol = protocol;
     }
-
 }

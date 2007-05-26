@@ -23,10 +23,8 @@ import org.opensaml.ws.security.SecurityPolicyContext;
 /**
  * SAML-specific class which stores state that is maintained by {@link SAMLSecurityPolicy} instances, 
  * and which is used in the evaluation of {@link SecurityPolicyRule}'s.
- * 
- * @param <IssuerType> the message issuer type
  */
-public class SAMLSecurityPolicyContext<IssuerType> extends SecurityPolicyContext<IssuerType> {
+public class SAMLSecurityPolicyContext extends SecurityPolicyContext {
     
     /** Source of metadata about message issuer, as determined by security policy rules. */
     private RoleDescriptor issuerMetadata;
@@ -36,9 +34,6 @@ public class SAMLSecurityPolicyContext<IssuerType> extends SecurityPolicyContext
     
     /** Message identifier. */
     private String messageID;
-    
-    /** Flag determining whether the issuer was authenticated by by the security policy evaluation. */
-    private boolean isIssuerAuthenticated;
     
     /**
      * Get the metadata for the issuer for the role in which they are operating.
@@ -76,20 +71,21 @@ public class SAMLSecurityPolicyContext<IssuerType> extends SecurityPolicyContext
         issueInstant = newIssueInstant;
     }
     
+    /**
+     * Gets the ID of the SAML request/response.
+     * 
+     * @return ID of the SAML request/response
+     */
     public String getMessageID() {
         return messageID;
     }
     
-    public void setMessageID(String newMessageID) {
-        messageID = newMessageID;
+    /**
+     * Sets the ID of the SAML request/response.
+     * 
+     * @param id ID of the SAML request/response
+     */
+    public void setMessageID(String id) {
+        messageID = id;
     }
-    
-    public boolean isIssuerAuthenticated() {
-        return isIssuerAuthenticated;
-    }
-    
-    public void setIssuerAuthenticated(boolean isAuthenticated) {
-        isIssuerAuthenticated = isAuthenticated;
-    }
-
 }

@@ -27,10 +27,9 @@ import org.opensaml.ws.security.SecurityPolicy;
  * may be used to check the payload of a request to ensure it meets certain criteria (e.g. valid digital signature).
  * 
  * @param <RequestType> type of incoming protocol request
- * @param <IssuerType> the message issuer type
  */
-public interface SAMLSecurityPolicy<RequestType extends ServletRequest, IssuerType> 
-        extends SecurityPolicy<RequestType, IssuerType> {
+public interface SAMLSecurityPolicy<RequestType extends ServletRequest> 
+        extends SecurityPolicy<RequestType> {
     
     /**
      * Convenience method for getting the metadata for the role in which the issuer is 
