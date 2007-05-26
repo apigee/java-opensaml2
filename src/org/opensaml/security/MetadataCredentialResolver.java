@@ -35,10 +35,10 @@ import org.opensaml.saml2.metadata.provider.ObservableMetadataProvider;
 import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.credential.AbstractCredentialResolver;
 import org.opensaml.xml.security.credential.BasicCredential;
-import org.opensaml.xml.security.credential.EntityCredentialCriteria;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.credential.CredentialCriteriaSet;
 import org.opensaml.xml.security.credential.CredentialResolver;
+import org.opensaml.xml.security.credential.EntityCredentialCriteria;
 import org.opensaml.xml.security.credential.UsageCredentialCriteria;
 import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialCriteria;
@@ -46,7 +46,16 @@ import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
- * A credential resolver capable of pulling information from SAML 2 metadata for a particular role.
+ * A credential resolver capable of resolving credentials from SAML 2 metadata;
+ * 
+ * The instance of {@link CredentialCriteriaSet} passed to {@link #resolveCredentials(CredentialCriteriaSet)} and
+ * {@link #resolveCredential(CredentialCriteriaSet)} must minimally contain 2 criteria: {@link EntityCredentialCriteria}
+ * and {@link MetadataCredentialCriteria}.  The values for {@link EntityCredentialCriteria#getOwnerID()} and
+ * {@link MetadataCredentialCriteria#getRole()} are mandatory. If the protocol value obtained via 
+ * {@link MetadataCredentialCriteria#getProtocol()} is not supplied, credentials will be resolved from all 
+ * matching roles, regardless of protocol support.  Specification of a {@link UsageCredentialCriteria} is optional.
+ * If usage criteria is absent from the criteria set, the effective value {@link UsageType#UNSPECIFIED} will be used
+ * for credential resolution.
  * 
  * This credential resolver will cache the resolved the credentials in a memory-sensitive cache. If the metadata
  * provider is an {@link ObservableMetadataProvider} this resolver will also clear its cache when the underlying
@@ -60,8 +69,8 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
     /** Metadata provider from which to fetch the credentials. */
     private MetadataProvider metadata;
 
-    /** Cache of resolved credentials. [entityID, [UsageType, Credential]] */
-    private Map<String, Map<UsageType, SoftReference<Credential>>> cache;
+    /** Cache of resolved credentials. [MetadataCacheKey, Credentials] */
+    private Map<MetadataCacheKey, SoftReference<Collection<Credential>>> cache;
     
     /** Credential resolver used to resolve credentials from role descriptor KeyInfo elements. */
     private KeyInfoCredentialResolver keyInfoCredentialResolver;
@@ -78,6 +87,8 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
             throw new IllegalArgumentException("Metadata provider may not be null");
         }
         metadata = metadataProvider;
+        
+        cache = new HashMap<MetadataCacheKey, SoftReference<Collection<Credential>>>();
 
         if (metadata instanceof ObservableMetadataProvider) {
             ObservableMetadataProvider observable = (ObservableMetadataProvider) metadataProvider;
@@ -93,6 +104,8 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
      */
     public KeyInfoCredentialResolver getKeyInfoCredentialResolver() {
         if (keyInfoCredentialResolver == null) {
+            //TODO temporary - If we default something here, need to chose a default set of providers, etc.
+            //Pending finishing the KeyInfo resolver config machinery.
             keyInfoCredentialResolver = new KeyInfoCredentialResolver();
         }
         return keyInfoCredentialResolver;
@@ -109,30 +122,28 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
 
     /** {@inheritDoc} */
     public Iterable<Credential> resolveCredentials(CredentialCriteriaSet criteriaSet) throws SecurityException {
+        
         checkCriteriaRequirements(criteriaSet);
-        EntityCredentialCriteria entityCriteria = criteriaSet.get(EntityCredentialCriteria.class);
+        
+        String entityID = criteriaSet.get(EntityCredentialCriteria.class).getOwnerID();
         MetadataCredentialCriteria mdCriteria = criteriaSet.get(MetadataCredentialCriteria.class);
+        QName role = mdCriteria.getRole();
+        String protocol = mdCriteria.getProtocol();
         UsageCredentialCriteria usageCriteria = criteriaSet.get(UsageCredentialCriteria.class);
-        if (usageCriteria == null) {
-            usageCriteria = new UsageCredentialCriteria(UsageType.UNSPECIFIED);
+        UsageType usage = null;
+        if (usageCriteria != null) {
+            usage = usageCriteria.getUsage();
+        } else {
+            usage = UsageType.UNSPECIFIED;
         }
         
-        Collection<Credential> credentials;
+        MetadataCacheKey cacheKey = new MetadataCacheKey(entityID, role, protocol, usage);
+        Collection<Credential> credentials  = retrieveFromCache(cacheKey);
         
-        // TODO need to figure out whether and how to cache credentials based on CredentialCriteria
-        // or else apply the criteria against the credentials already cached.
-        // Optionally - hang cached keys, certs, etc right on the KeyInfo itself (using SoftReferences)
-        // per Chad's suggestion a while back. 
-        
-        //credential = retrieveFromCache(entity, usage);
-        
-        /*
-        if (credential == null) {
-            credential = retrieveFromMetadata(entity, usage);
-            cacheCredential(credential);
-        }*/
-        
-        credentials = retrieveFromMetadata(entityCriteria, usageCriteria, mdCriteria);
+        if (credentials == null) {
+            credentials = retrieveFromMetadata(entityID, role, protocol, usage);
+            cacheCredential(cacheKey, credentials);
+        }
 
         return credentials;
     }
@@ -160,29 +171,29 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
     }
 
     /**
-     * Retrieves a pre-resolved credential from the cache.
+     * Retrieves pre-resolved credentials from the cache.
      * 
-     * @param entity id of the credential bearing entity
-     * @param usage usage type of the credential
+     * @param cacheKey the key to the metadata cache
      * 
-     * @return the credential or null
+     * @return the collection of cached credentials or null
      */
-    protected Credential retrieveFromCache(String entity, UsageType usage) {
+    protected Collection<Credential> retrieveFromCache(MetadataCacheKey cacheKey) {
         if (log.isDebugEnabled()) {
-            log.debug("Attempting to retreive credential for entity " + entity + "from cache");
+            log.debug("Attempting to retrieve credentials from cache using index: " + cacheKey);
         }
-        if (cache.containsKey(entity)) {
-            Map<UsageType, SoftReference<Credential>> entityCache = cache.get(entity);
-            if (entityCache != null && entityCache.containsKey(usage)) {
+        if (cache.containsKey(cacheKey)) {
+            SoftReference<Collection<Credential>> reference = cache.get(cacheKey);
+            if (reference.get() != null) {
                 if (log.isDebugEnabled()) {
-                    log.debug("Retreived credential for entity " + entity + "from cache");
+                    log.debug("Retrieved credentials from cache using index: " + cacheKey);
                 }
-                return entityCache.get(usage).get();
+                return reference.get();
             }
+            
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("Unale to retreive credential for entity " + entity + "from cache");
+            log.debug("Unable to retrieve credentials from cache using index: " + cacheKey);
         }
         return null;
     }
@@ -190,33 +201,32 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
     /**
      * Retrieves credentials from the provided metadata.
      * 
-     * @param entityCriteria entity credential criteria
-     * @param usageCriteria usage credential criteria
-     * @param metadataCriteria SAML metadata credential criteria
+     * @param entityID entityID of the credential owner
+     * @param role role in which the entity is operating
+     * @param protocol protocol over which the entity is operating (may be null)
+     * @param usage intended usage of resolved credentials
      * 
      * @return the resolved credentials or null
      * 
      * @throws SecurityException thrown if the key, certificate, or CRL information is represented in an unsupported
      *             format
      */
-    protected Collection<Credential> retrieveFromMetadata(EntityCredentialCriteria entityCriteria, 
-            UsageCredentialCriteria usageCriteria, MetadataCredentialCriteria metadataCriteria) 
-            throws SecurityException {
-        
-        String entityID = entityCriteria.getOwnerID();
-        QName role = metadataCriteria.getRole();
-        String protocol = metadataCriteria.getProtocol();
-        UsageType usage = usageCriteria.getUsage();
+    protected Collection<Credential> retrieveFromMetadata(String entityID, QName role, String protocol, 
+            UsageType usage) throws SecurityException {
         
         if (log.isDebugEnabled()) {
-            log.debug("Attempting to retreive credentials for entity " + entityID + "from metadata");
+            log.debug("Attempting to retrieve credentials from metadata for entity: " + entityID);
         }
         Collection<Credential> credentials = new HashSet<Credential>();
         
         for (RoleDescriptor roleDescriptor : getRoleDescriptors(entityID, role, protocol)) {
             List<KeyDescriptor> keyDescriptors = roleDescriptor.getKeyDescriptors();
             for (KeyDescriptor keyDescriptor : keyDescriptors) {
-                if (keyDescriptor.getUse() == usage || usage == UsageType.UNSPECIFIED) {
+                UsageType mdUsage = keyDescriptor.getUse();
+                if (mdUsage == null) {
+                    mdUsage = UsageType.UNSPECIFIED;
+                }
+                if (matchUsage(mdUsage, usage)) {
                     if (keyDescriptor.getKeyInfo() != null) {
                         CredentialCriteriaSet critSet = new CredentialCriteriaSet();
                         critSet.add( new KeyInfoCredentialCriteria(keyDescriptor.getKeyInfo()) );
@@ -225,7 +235,7 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
                             if (cred instanceof BasicCredential) {
                                 BasicCredential basicCred = (BasicCredential) cred;
                                 basicCred.setEntityId(entityID);
-                                basicCred.setUsageType(usage);
+                                basicCred.setUsageType(mdUsage);
                                 basicCred.getCredentalContextSet().add( new SAMLMDCredentialContext(keyDescriptor) );
                             }
                             credentials.add(cred);
@@ -237,6 +247,20 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
         }
         
         return credentials;
+    }
+    
+    /**
+     * Match usage enum type values from metadata KeyDescriptor and from credential criteria.
+     * 
+     * @param metadataUsage the value from the 'use' attribute of a metadata KeyDescriptor element
+     * @param criteriaUsage the value from credential criteria
+     * @return true if the two usage specifiers match for purposes of resolving credentials, false otherwise
+     */
+    protected boolean matchUsage(UsageType metadataUsage, UsageType criteriaUsage) {
+        if (metadataUsage == UsageType.UNSPECIFIED || criteriaUsage == UsageType.UNSPECIFIED) {
+            return true;
+        }
+        return metadataUsage == criteriaUsage;
     }
     
     /**
@@ -253,8 +277,8 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
         throws SecurityException {
         try {
             if (log.isDebugEnabled()) {
-                log.debug("Retrieving credential for entity " + entityID + " in role " + role 
-                        + " for protocol " + protocol);
+                log.debug("Retrieving metadata for entity '" + entityID + "' in role '" + role 
+                        + "' for protocol '" + protocol + "'");
             }
             
             if (DatatypeHelper.isEmpty(protocol)) {
@@ -277,17 +301,95 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
     /**
      * Adds a resolved credential to the cache.
      * 
-     * @param credential credential to cache
+     * @param cacheKey the key for caching the credentials
+     * @param credentials collection of credentials to cache
      */
-    protected void cacheCredential(Credential credential) {
-        Map<UsageType, SoftReference<Credential>> entityCache = cache.get(credential.getEntityId());
-
-        if (entityCache == null) {
-            entityCache = new HashMap<UsageType, SoftReference<Credential>>();
-            cache.put(credential.getEntityId(), entityCache);
+    protected void cacheCredential(MetadataCacheKey cacheKey, Collection<Credential> credentials) {
+        cache.put(cacheKey, new SoftReference<Collection<Credential>>(credentials));
+    }
+    
+    /**
+     * A class which serves as the key into the cache of credentials previously resolved.
+     */
+    protected class MetadataCacheKey {
+        
+        /** Entity ID of credential owner. */
+        private String id;
+        
+        /** Role in which the entity is operating. */
+        private QName role;
+        
+        /** Protocol over which the entity is operating (may be null). */
+        private String protocol;
+        
+        /** Intended usage of the resolved credentials. */
+        private UsageType usage;
+        
+        /**
+         * Constructor.
+         * 
+         * @param entityID entity ID of the credential owner
+         * @param entityRole role in which the entity is operating
+         * @param entityProtocol protocol over which the entity is operating (may be null)
+         * @param entityUsage usage of the resolved credentials
+         */
+        protected MetadataCacheKey(String entityID, QName entityRole, String entityProtocol, UsageType entityUsage) {
+            if (entityID == null) {
+                throw new IllegalArgumentException("Entity ID may not be null");
+            }
+            if (entityRole == null) {
+                throw new IllegalArgumentException("Entity role may not be null");
+            }
+            if (entityUsage == null) {
+                throw new IllegalArgumentException("Credential usage may not be null");
+            }
+            id = entityID;
+            role = entityRole;
+            protocol = entityProtocol;
+            usage = entityUsage;
         }
 
-        entityCache.put(credential.getUsageType(), new SoftReference<Credential>(credential));
+        /** {@inheritDoc} */
+        public boolean equals(Object obj) {
+            if (obj == this) {
+                return true;
+            }
+            if (!(obj instanceof MetadataCacheKey)) {
+                return false;
+            }
+            MetadataCacheKey other = (MetadataCacheKey) obj;
+            if (! this.id.equals(other.id) || ! this.role.equals(other.role) || this.usage != other.usage) {
+                return false;
+            }
+            if (this.protocol == null) {
+                if (other.protocol != null) {
+                    return false;
+                }
+            } else {
+                if (! this.protocol.equals(other.protocol)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /** {@inheritDoc} */
+        public int hashCode() {
+            int result = 17;
+            result = 37*result + id.hashCode();
+            result = 37*result + role.hashCode();
+            if (protocol != null) {
+                result = 37*result + protocol.hashCode();
+            }
+            result = 37*result + usage.hashCode();
+            return result;
+        }
+
+        /** {@inheritDoc} */
+        public String toString() {
+            return String.format("[%s,%s,%s,%s]", id, role, protocol, usage);
+        }
+        
     }
 
     /**
