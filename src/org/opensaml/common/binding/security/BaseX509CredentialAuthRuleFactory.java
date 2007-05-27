@@ -17,9 +17,7 @@
 package org.opensaml.common.binding.security;
 
 import javax.servlet.ServletRequest;
-import javax.xml.namespace.QName;
 
-import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.security.MetadataCredentialResolver;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.ws.security.SecurityPolicyRuleFactory;
@@ -35,8 +33,8 @@ import org.opensaml.xml.security.x509.X509Credential;
  * 
  * @param <RequestType> type of request to extract the credential from
  */
-public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends ServletRequest> extends
-        AbstractSAMLSecurityPolicyRuleFactory<RequestType> implements SecurityPolicyRuleFactory<RequestType> {
+public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends ServletRequest> implements
+        SecurityPolicyRuleFactory<RequestType> {
 
     /** Trust engine used to verify metadata. */
     private TrustEngine<X509Credential, X509Credential> trustEngine;
@@ -84,25 +82,6 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
      */
     public void setKeyInfoCredentialResolver(KeyInfoCredentialResolver credentialResolver) {
         keyInfoResolver = credentialResolver;
-
-    }
-
-    /** {@inheritDoc} */
-    public void setIssuerProtocol(String protocol) {
-        super.setIssuerProtocol(protocol);
-        metadataResolver = null;
-    }
-
-    /** {@inheritDoc} */
-    public void setIssuerRole(QName role) {
-        super.setIssuerRole(role);
-        metadataResolver = null;
-    }
-
-    /** {@inheritDoc} */
-    public void setMetadataProvider(MetadataProvider provider) {
-        super.setMetadataProvider(provider);
-        metadataResolver = null;
     }
 
     /**
@@ -128,12 +107,14 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
      * @return new instance of MetadataCredentialResolver
      */
     private MetadataCredentialResolver buildNewMetadataResolver() {
-        MetadataCredentialResolver resolver = new MetadataCredentialResolver(getMetadataProvider());
-
-        if (getKeyInfoCredentialResolver() != null) {
-            resolver.setKeyInfoCredentialResolver(this.getKeyInfoCredentialResolver());
-        }
-        return resolver;
+        // TODO
+        // MetadataCredentialResolver resolver = new MetadataCredentialResolver(getMetadataProvider());
+        //
+        // if (getKeyInfoCredentialResolver() != null) {
+        // resolver.setKeyInfoCredentialResolver(this.getKeyInfoCredentialResolver());
+        // }
+        // return resolver;
+        return null;
     }
 
     /** {@inheritDoc} */

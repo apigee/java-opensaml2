@@ -19,19 +19,15 @@ package org.opensaml.saml1.binding.security;
 import java.util.List;
 
 import javax.servlet.ServletRequest;
-import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicyRule;
-import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicyRuleFactory;
 import org.opensaml.common.binding.security.SAMLSecurityPolicyContext;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.ResponseAbstractType;
-import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
@@ -50,12 +46,11 @@ import org.opensaml.xml.XMLObject;
  * 
  * {@link SAML1ProtocolMessageRule}s rules operate on {@link SAMLSecurityPolicyContext}s.
  */
-public class SAML1ProtocolMessageRuleFactory extends AbstractSAMLSecurityPolicyRuleFactory<ServletRequest> implements
-        SecurityPolicyRuleFactory<ServletRequest> {
+public class SAML1ProtocolMessageRuleFactory implements SecurityPolicyRuleFactory<ServletRequest> {
 
     /** {@inheritDoc} */
     public SecurityPolicyRule<ServletRequest> createRuleInstance() {
-        return new SAML1ProtocolMessageRule(getMetadataProvider(), getIssuerRole(), getIssuerProtocol());
+        return new SAML1ProtocolMessageRule();
     }
 
     /**
@@ -64,17 +59,6 @@ public class SAML1ProtocolMessageRuleFactory extends AbstractSAMLSecurityPolicyR
      */
     public class SAML1ProtocolMessageRule extends AbstractSAMLSecurityPolicyRule<ServletRequest> implements
             SecurityPolicyRule<ServletRequest> {
-
-        /**
-         * Constructor.
-         * 
-         * @param provider metadata provider used to look up entity information
-         * @param role role the issuer is meant to be operating in
-         * @param protocol protocol the issuer used in the request
-         */
-        public SAML1ProtocolMessageRule(MetadataProvider provider, QName role, String protocol) {
-            super(provider, role, protocol);
-        }
 
         /** {@inheritDoc} */
         public void evaluate(ServletRequest request, XMLObject message, SecurityPolicyContext context)
@@ -108,13 +92,6 @@ public class SAML1ProtocolMessageRuleFactory extends AbstractSAMLSecurityPolicyR
                 log.warn("Issuer could not be extracted from SAML message");
                 return;
             }
-
-            if (log.isDebugEnabled()) {
-                log.debug("Issuer entityID extracted was: " + samlContext.getIssuer());
-            }
-
-            RoleDescriptor rd = resolveIssuerRole(samlContext.getIssuer());
-            samlContext.setIssuerMetadata(rd);
         }
 
         /**

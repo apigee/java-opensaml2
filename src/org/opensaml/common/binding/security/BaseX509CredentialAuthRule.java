@@ -17,9 +17,7 @@
 package org.opensaml.common.binding.security;
 
 import javax.servlet.ServletRequest;
-import javax.xml.namespace.QName;
 
-import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.security.MetadataCredentialResolver;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
@@ -46,18 +44,9 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * Constructor.
      * 
      * @param engine trust engine used to validate client cert against issuer's metadata
-     * @param resolver resolver used to extract credential information from metadata
-     * @param provider metadata provider used to look up entity information
-     * @param role role the issuer is meant to be operating in
-     * @param protocol protocol the issuer used in the request
      */
-    public BaseX509CredentialAuthRule(TrustEngine<X509Credential, X509Credential> engine,
-            MetadataCredentialResolver resolver, MetadataProvider provider, QName role, String protocol) {
-
-        super(provider, role, protocol);
+    public BaseX509CredentialAuthRule(TrustEngine<X509Credential, X509Credential> engine) {
         trustEngine = engine;
-        this.metadataResolver = resolver;
-
     }
 
     /**

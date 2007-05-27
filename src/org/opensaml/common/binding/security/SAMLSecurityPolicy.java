@@ -17,9 +17,16 @@
 package org.opensaml.common.binding.security;
 
 import javax.servlet.ServletRequest;
+import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.ws.security.SecurityPolicy;
+import org.opensaml.saml2.metadata.provider.MetadataProvider;
+import org.opensaml.saml2.metadata.provider.MetadataProviderException;
+import org.opensaml.ws.security.SecurityPolicyContext;
+import org.opensaml.ws.security.SecurityPolicyException;
+import org.opensaml.ws.security.provider.BasicSecurityPolicy;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * A policy used to verify the security of an incoming SAML request.  Its security mechanisms may be used to 
@@ -28,8 +35,49 @@ import org.opensaml.ws.security.SecurityPolicy;
  * 
  * @param <RequestType> type of incoming protocol request
  */
-public interface SAMLSecurityPolicy<RequestType extends ServletRequest> 
-        extends SecurityPolicy<RequestType> {
+public class SAMLSecurityPolicy<RequestType extends ServletRequest> 
+        extends BasicSecurityPolicy<RequestType> {
+    
+    /** Metadata provider to lookup issuer information. */
+    private MetadataProvider metadataProvider;
+
+    /** SAML role the issuer is meant to be operating in. */
+    private QName issuerRole;
+
+    /** The message protocol used by the issuer. */
+    private String issuerProtocol;
+    
+    /** SAML role descriptor for the issuer. */
+    private RoleDescriptor issuerRoleDescriptor;
+    
+    /**
+     * Constructor.
+     *
+     * @param metadata metadata provider used to lookup entity information
+     * @param role expected role of the issuer
+     * @param protocol expected protocol of the issuer
+     */
+    public SAMLSecurityPolicy(MetadataProvider metadata, QName role, String protocol){
+        super(true);
+        metadataProvider = metadata;
+        issuerRole = role;
+        issuerProtocol = DatatypeHelper.safeTrimOrNullString(protocol);
+        
+        if(metadataProvider == null || issuerRole == null || issuerProtocol == null){
+            throw new IllegalArgumentException("Metadata provider, issuer role, and issuer protocol may not be null");
+        }
+    }
+    
+    /** {@inheritDoc} */
+    public void evaluate(RequestType request, XMLObject message) throws SecurityPolicyException {
+        super.evaluate(request, message);
+        
+        try {
+            issuerRoleDescriptor = metadataProvider.getRole(getIssuer(), issuerRole, issuerProtocol);
+        } catch (MetadataProviderException e) {
+            throw new SecurityPolicyException("Error while resolving issuer's metadata", e);
+        }
+    }
     
     /**
      * Convenience method for getting the metadata for the role in which the issuer is 
@@ -37,5 +85,16 @@ public interface SAMLSecurityPolicy<RequestType extends ServletRequest>
      * 
      * @return metadata for the role in which the issuer is operating
      */
-    public RoleDescriptor getIssuerMetadata();
+    public RoleDescriptor getIssuerMetadata(){
+        return issuerRoleDescriptor;
+    }
+    
+    /** {@inheritDoc} */
+    protected SecurityPolicyContext createNewContext() {
+        SAMLSecurityPolicyContext context = new SAMLSecurityPolicyContext();
+        context.setIssuerProtocol(issuerProtocol);
+        context.setIssuerRole(issuerRole);
+        context.setMetadataProvider(metadataProvider);
+        return context;
+    }
 }

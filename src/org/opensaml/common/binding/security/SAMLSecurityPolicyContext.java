@@ -16,43 +16,86 @@
 
 package org.opensaml.common.binding.security;
 
+import javax.xml.namespace.QName;
+
 import org.joda.time.DateTime;
-import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.ws.security.SecurityPolicyContext;
 
 /**
- * SAML-specific class which stores state that is maintained by {@link SAMLSecurityPolicy} instances, 
- * and which is used in the evaluation of {@link SecurityPolicyRule}'s.
+ * SAML-specific class which stores state used, and produced, by security policy rules.
  */
 public class SAMLSecurityPolicyContext extends SecurityPolicyContext {
-    
-    /** Source of metadata about message issuer, as determined by security policy rules. */
-    private RoleDescriptor issuerMetadata;
-    
+
+    /** Metadata provider to lookup issuer information. */
+    private MetadataProvider metadataProvider;
+
+    /** SAML role the issuer is meant to be operating in. */
+    private QName issuerRole;
+
+    /** The message protocol used by the issuer. */
+    private String issuerProtocol;
+
     /** Date and time of message issuance. */
     private DateTime issueInstant;
-    
+
     /** Message identifier. */
     private String messageID;
-    
+
     /**
-     * Get the metadata for the issuer for the role in which they are operating.
+     * Gets the message protocol used by the issuer.
      * 
-     * @return the issuer's metadata
+     * @return message protocol used by the issuer
      */
-    public RoleDescriptor getIssuerMetadata() {
-        return issuerMetadata;
+    public String getIssuerProtocol() {
+        return issuerProtocol;
     }
-    
+
     /**
-     * Set the metadata for the issuer for the role in which they are operating.
+     * Sets the message protocol used by the issuer.
      * 
-     * @param newIssuerMetadata the issuer's new metadta
+     * @param protocol message protocol used by the issuer
      */
-    public void setIssuerMetadata(RoleDescriptor newIssuerMetadata) {
-        issuerMetadata = newIssuerMetadata;
+    public void setIssuerProtocol(String protocol) {
+        issuerProtocol = protocol;
     }
-    
+
+    /**
+     * Gets the SAML role the issuer is meant to be operating in.
+     * 
+     * @return SAML role the issuer is meant to be operating in
+     */
+    public QName getIssuerRole() {
+        return issuerRole;
+    }
+
+    /**
+     * Sets the SAML role the issuer is meant to be operating in.
+     * 
+     * @param role SAML role the issuer is meant to be operating in
+     */
+    public void setIssuerRole(QName role) {
+        issuerRole = role;
+    }
+
+    /**
+     * Gets the metadata provider used to lookup issuer information.
+     * 
+     * @return metadata provider used to lookup issuer information
+     */
+    public MetadataProvider getMetadataProvider() {
+        return metadataProvider;
+    }
+
+    /**
+     * Sets the metadata provider used to lookup issuer information.
+     * 
+     * @param provider metadata provider used to lookup issuer information
+     */
+    public void setMetadataProvider(MetadataProvider provider) {
+        metadataProvider = provider;
+    }
+
     /**
      * Get the date and time of a message's issuance.
      * 
@@ -61,7 +104,7 @@ public class SAMLSecurityPolicyContext extends SecurityPolicyContext {
     public DateTime getIssueInstant() {
         return issueInstant;
     }
-    
+
     /**
      * Set the date and time of a message's issuance.
      * 
@@ -70,7 +113,7 @@ public class SAMLSecurityPolicyContext extends SecurityPolicyContext {
     public void setIssueInstant(DateTime newIssueInstant) {
         issueInstant = newIssueInstant;
     }
-    
+
     /**
      * Gets the ID of the SAML request/response.
      * 
@@ -79,7 +122,7 @@ public class SAMLSecurityPolicyContext extends SecurityPolicyContext {
     public String getMessageID() {
         return messageID;
     }
-    
+
     /**
      * Sets the ID of the SAML request/response.
      * 

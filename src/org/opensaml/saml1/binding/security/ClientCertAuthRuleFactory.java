@@ -17,11 +17,9 @@
 package org.opensaml.saml1.binding.security;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.namespace.QName;
 
 import org.opensaml.common.binding.security.BaseX509CredentialAuthRule;
 import org.opensaml.common.binding.security.BaseX509CredentialAuthRuleFactory;
-import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.security.MetadataCredentialResolver;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
@@ -40,8 +38,7 @@ public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory
 
     /** {@inheritDoc} */
     public SecurityPolicyRule<HttpServletRequest> createRuleInstance() {
-        return new ClientCertAuthRule(getTrustEngine(), getMetadataResolver(), getMetadataProvider(), getIssuerRole(),
-                getIssuerProtocol());
+        return new ClientCertAuthRule(getTrustEngine(), getMetadataResolver());
     }
 
     /**
@@ -59,9 +56,9 @@ public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory
          * @param protocol protocol the issuer used in the request
          */
         public ClientCertAuthRule(TrustEngine<X509Credential, X509Credential> engine,
-                MetadataCredentialResolver resolver, MetadataProvider provider, QName role, String protocol) {
+                MetadataCredentialResolver resolver) {
 
-            super(engine, resolver, provider, role, protocol);
+            super(engine);
         }
 
         /** {@inheritDoc} */
