@@ -18,8 +18,6 @@ package org.opensaml.saml2.binding.encoding;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.security.Signature;
 import java.security.interfaces.DSAPrivateKey;
@@ -36,7 +34,6 @@ import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.ws.util.URLBuilder;
 import org.opensaml.xml.util.Base64;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.Pair;
 
 /**

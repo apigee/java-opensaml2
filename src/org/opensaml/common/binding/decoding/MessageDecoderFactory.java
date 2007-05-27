@@ -17,6 +17,7 @@
 package org.opensaml.common.binding.decoding;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Factory for producing new message decoders.
@@ -53,7 +54,21 @@ public class MessageDecoderFactory {
      * 
      * @return registered binding decoder
      */
-    public HashMap<String, MessageDecoderBuilder> getEncoderBuilders() {
+    public Map<String, MessageDecoderBuilder> getEncoderBuilders() {
         return decoderBuilders;
+    }
+    
+    /**
+     * Sets the registered binding decoders, replacing all currently registered builders.
+     * 
+     * @param builders registered binding decoders
+     */
+    public void setDecoderBuilders(Map<String, MessageDecoderBuilder> builders) {
+        if (builders == null) {
+            throw new IllegalArgumentException("Message decoder builders may not be null");
+        }
+
+        decoderBuilders.clear();
+        decoderBuilders.putAll(builders);
     }
 }

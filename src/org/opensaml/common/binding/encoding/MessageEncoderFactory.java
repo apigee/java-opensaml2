@@ -17,6 +17,7 @@
 package org.opensaml.common.binding.encoding;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Factory for producing new message encoders.
@@ -53,7 +54,21 @@ public class MessageEncoderFactory {
      * 
      * @return registered binding encoders
      */
-    public HashMap<String, MessageEncoderBuilder> getEncoderBuilders() {
+    public Map<String, MessageEncoderBuilder> getEncoderBuilders() {
         return encoderBuilders;
+    }
+
+    /**
+     * Sets the registered binding encoders, replacing all currently registered builders.
+     * 
+     * @param builders registered binding encoders
+     */
+    public void setEncoderBuilders(Map<String, MessageEncoderBuilder> builders) {
+        if (builders == null) {
+            throw new IllegalArgumentException("Message encoder builders may not be null");
+        }
+
+        encoderBuilders.clear();
+        encoderBuilders.putAll(builders);
     }
 }

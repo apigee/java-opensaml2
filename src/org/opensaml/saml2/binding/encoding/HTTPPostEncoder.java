@@ -26,7 +26,6 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.saml2.core.RequestAbstractType;
-import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * SAML 2.0 HTTP Post binding message encoder.
