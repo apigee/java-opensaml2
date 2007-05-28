@@ -19,7 +19,6 @@ package org.opensaml.common.binding.security;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
 
-import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.ws.security.SecurityPolicy;
 import org.opensaml.ws.security.provider.BaseSecurityPolicyFactory;
 
@@ -27,9 +26,6 @@ import org.opensaml.ws.security.provider.BaseSecurityPolicyFactory;
  * Factory that produces {@link SAMLSecurityPolicy} instances.
  */
 public class SAMLSecurityPolicyFactory extends BaseSecurityPolicyFactory<HttpServletRequest> {
-
-    /** Metadata provider to lookup issuer information. */
-    private MetadataProvider metadataProvider;
 
     /** SAML role the issuer is meant to be operating in. */
     private QName issuerRole;
@@ -73,28 +69,10 @@ public class SAMLSecurityPolicyFactory extends BaseSecurityPolicyFactory<HttpSer
         issuerRole = role;
     }
 
-    /**
-     * Gets the metadata provider used to lookup issuer information.
-     * 
-     * @return metadata provider used to lookup issuer information
-     */
-    public MetadataProvider getMetadataProvider() {
-        return metadataProvider;
-    }
-
-    /**
-     * Sets the metadata provider used to lookup issuer information.
-     * 
-     * @param provider metadata provider used to lookup issuer information
-     */
-    public void setMetadataProvider(MetadataProvider provider) {
-        metadataProvider = provider;
-    }
-
     /** {@inheritDoc} */
     public SecurityPolicy<HttpServletRequest> createPolicyInstance() {
-        SAMLSecurityPolicy<HttpServletRequest> securityPolicy = new SAMLSecurityPolicy<HttpServletRequest>(
-                metadataProvider, issuerRole, issuerProtocol);
+        SAMLSecurityPolicy<HttpServletRequest> securityPolicy = new SAMLSecurityPolicy<HttpServletRequest>(issuerRole,
+                issuerProtocol);
         securityPolicy.getPolicyRules().addAll(getPolicyRuleInstances());
         return securityPolicy;
     }
