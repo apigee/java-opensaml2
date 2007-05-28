@@ -23,6 +23,7 @@ import org.opensaml.saml2.core.EncryptedElementType;
 import org.opensaml.xml.encryption.AbstractEncryptedKeyResolver;
 import org.opensaml.xml.encryption.EncryptedData;
 import org.opensaml.xml.encryption.EncryptedKey;
+import org.opensaml.xml.encryption.EncryptedKeyResolver;
 
 /**
  * An implementation of {@link EncryptedKeyResolver} which resolves {@link EncryptedKey}
@@ -49,5 +50,4 @@ public class EncryptedElementTypeEncryptedKeyResolver extends AbstractEncryptedK
         
         return resolvedEncKeys;
     }
-
 }

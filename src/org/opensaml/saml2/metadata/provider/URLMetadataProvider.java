@@ -48,7 +48,7 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
 
     /** Cached, filtered, unmarshalled metadata. */
     protected XMLObject cachedMetadata;
-    
+
     /** Class logger. */
     private final Logger log = Logger.getLogger(URLMetadataProvider.class);
 
@@ -161,8 +161,8 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
     /**
      * Sets the socket factory used to create sockets to the HTTP server. See
      * 
-     * @see http://jakarta.apache.org/commons/httpclient/sslguide.html for how to use this to perform SSL/TLS client
-     *      cert authentication to the server.
+     * @see http://jakarta.apache.org/commons/httpclient/sslguide.html for how to use this to perform client cert
+     *      authentication to the server.
      * 
      * @param newSocketFactory the socket factory used to produce sockets used to connect to the server
      */
@@ -239,7 +239,8 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
             }
 
             DateTime now = new DateTime();
-            mdExpirationTime = SAML2Helper.getEarliestExpiration(cachedMetadata, now.plus(maxCacheDuration*1000), now);
+            mdExpirationTime = SAML2Helper
+                    .getEarliestExpiration(cachedMetadata, now.plus(maxCacheDuration * 1000), now);
 
             if (log.isDebugEnabled()) {
                 log.debug("Metadata cache expires on " + mdExpirationTime);

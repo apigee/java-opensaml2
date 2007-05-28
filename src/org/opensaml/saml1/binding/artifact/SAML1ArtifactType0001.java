@@ -24,16 +24,16 @@ import java.util.Arrays;
  */
 public class SAML1ArtifactType0001 extends AbstractSAML1Artifact {
 
-    /** Artifact type code (0x0001) */
-    public final static byte[] TYPE_CODE = { 0, 1 };
+    /** Artifact type code (0x0001). */
+    public static final byte[] TYPE_CODE = { 0, 1 };
 
-    /** 20 byte artifact source ID */
+    /** 20 byte artifact source ID. */
     private byte[] sourceID;
 
-    /** 20 byte assertion handle */
+    /** 20 byte assertion handle. */
     private byte[] assertionHandle;
 
-    /** Constructor */
+    /** Constructor. */
     public SAML1ArtifactType0001() {
         super(TYPE_CODE);
     }
@@ -41,46 +41,48 @@ public class SAML1ArtifactType0001 extends AbstractSAML1Artifact {
     /**
      * Constructor. A 20 byte random number is generated for use as the assertion handle.
      * 
-     * @param sourceID 20 byte source ID of the artifact
+     * @param source 20 byte source ID of the artifact
      * 
      * @throws IllegalArgumentException thrown if the given source ID or message handle are not of the current length
      *             (20 bytes)
      */
-    public SAML1ArtifactType0001(byte[] sourceID) throws IllegalArgumentException {
+    public SAML1ArtifactType0001(byte[] source) {
         super(TYPE_CODE);
 
-        setSourceID(sourceID);
+        setSourceID(source);
 
-        byte[] assertionHandle = new byte[20];
-        randomGen.nextBytes(assertionHandle);
-        setAssertionHandle(assertionHandle);
+        byte[] handle = new byte[20];
+        randomGen.nextBytes(handle);
+        setAssertionHandle(handle);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param sourceID 20 byte source ID of the artifact
-     * @param assertionHandler 20 byte assertion handle of the artifact
+     * @param source 20 byte source ID of the artifact
+     * @param handle 20 byte assertion handle of the artifact
      * 
      * @throws IllegalArgumentException thrown if the given source ID or message handle are not of the current length
      *             (20 bytes)
      */
-    public SAML1ArtifactType0001(byte[] sourceID, byte[] assertionHandle) throws IllegalArgumentException {
+    public SAML1ArtifactType0001(byte[] source, byte[] handle) {
         super(TYPE_CODE);
 
-        setSourceID(sourceID);
-        setAssertionHandle(assertionHandle);
+        setSourceID(source);
+        setAssertionHandle(handle);
     }
 
     /**
-     * Constructs a SAML 1 artifact from it's byte array representation.
+     * Constructs a SAML 1 artifact from its byte array representation.
      * 
      * @param artifact the byte array representing the artifact
+     * 
+     * @return the artifcat created from the byte array
      * 
      * @throws IllegalArgumentException thrown if the artifact is not the right type or lenght (42 bytes) or is not of
      *             the correct type (0x0001)
      */
-    public static SAML1ArtifactType0001 parseArtifact(byte[] artifact) throws IllegalArgumentException {
+    public static SAML1ArtifactType0001 parseArtifact(byte[] artifact) {
         if (artifact.length != 42) {
             throw new IllegalArgumentException("Artifact length must be 42 bytes it was " + artifact.length + "bytes");
         }
@@ -115,7 +117,7 @@ public class SAML1ArtifactType0001 extends AbstractSAML1Artifact {
      * 
      * @throws IllegalArgumentException thrown if the given source ID is not 20 bytes
      */
-    protected void setSourceID(byte[] newSourceID) throws IllegalArgumentException {
+    protected void setSourceID(byte[] newSourceID) {
         if (newSourceID.length != 20) {
             throw new IllegalArgumentException("Artifact source ID must be 20 bytes long");
         }
@@ -134,10 +136,10 @@ public class SAML1ArtifactType0001 extends AbstractSAML1Artifact {
     /**
      * Sets the artifiact's 20 byte assertion handle.
      * 
-     * @param assertionHandle artifiact's 20 byte assertion handle
+     * @param handle artifiact's 20 byte assertion handle
      */
-    public void setAssertionHandle(byte[] assertionHandle) {
-        if (assertionHandle.length != 20) {
+    public void setAssertionHandle(byte[] handle) {
+        if (handle.length != 20) {
             throw new IllegalArgumentException("Artifact assertion handle must be 20 bytes long");
         }
     }
