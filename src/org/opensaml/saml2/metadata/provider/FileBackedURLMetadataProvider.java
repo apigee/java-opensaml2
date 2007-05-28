@@ -76,7 +76,7 @@ public class FileBackedURLMetadataProvider extends URLMetadataProvider {
                 metadataBackupFile.createNewFile();
             } catch (IOException e) {
                 log.error("Unable to create backing file " + backingFilePath, e);
-                throw new MetadataProviderException("Unable to create backing file");
+                throw new MetadataProviderException("Unable to create backing file " + backingFilePath, e);
             }
         }
     }
@@ -143,15 +143,6 @@ public class FileBackedURLMetadataProvider extends URLMetadataProvider {
      * @throws MetadataProviderException thrown if metadata can not be written to disk
      */
     protected void writeMetadataToFile(XMLObject metadata) throws MetadataProviderException {
-        if (!metadataBackupFile.exists()) {
-            try {
-                metadataBackupFile.createNewFile();
-            } catch (IOException e) {
-                throw new MetadataProviderException("Unable to create metadata back file: "
-                        + metadataBackupFile.getPath(), e);
-            }
-        }
-
         if (!metadataBackupFile.canWrite()) {
             throw new MetadataProviderException("Unable to write to metadata backup file "
                     + metadataBackupFile.getAbsolutePath());
