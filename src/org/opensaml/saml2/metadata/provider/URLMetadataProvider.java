@@ -159,10 +159,9 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
     }
 
     /**
-     * Sets the socket factory used to create sockets to the HTTP server. See
+     * Sets the socket factory used to create sockets to the HTTP server.
      * 
-     * @see http://jakarta.apache.org/commons/httpclient/sslguide.html for how to use this to perform client cert
-     *      authentication to the server.
+     * @see <a href="http://jakarta.apache.org/commons/httpclient/sslguide.html">HTTPClient SSL guide</a>
      * 
      * @param newSocketFactory the socket factory used to produce sockets used to connect to the server
      */
