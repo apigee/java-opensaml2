@@ -20,7 +20,7 @@ import javax.servlet.ServletRequest;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
-import org.opensaml.util.ReplayCache;
+import org.opensaml.util.storage.ReplayCache;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;

@@ -17,7 +17,7 @@
 package org.opensaml.common.binding.artifact;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.util.ExpiringObject;
+import org.opensaml.util.storage.ExpiringObject;
 
 /**
  * Maps an artifact to a SAML message and back again.

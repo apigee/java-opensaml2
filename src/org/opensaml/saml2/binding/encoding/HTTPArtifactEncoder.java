@@ -30,7 +30,7 @@ import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.artifact.SAMLArtifact;
 import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
-import org.opensaml.ws.util.URLBuilder;
+import org.opensaml.util.URLBuilder;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.Pair;
 

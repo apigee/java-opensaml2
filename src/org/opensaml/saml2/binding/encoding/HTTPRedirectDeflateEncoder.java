@@ -32,7 +32,7 @@ import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
-import org.opensaml.ws.util.URLBuilder;
+import org.opensaml.util.URLBuilder;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.Pair;
 
