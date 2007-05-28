@@ -37,14 +37,14 @@ import org.w3c.dom.Element;
  */
 public class FileBackedURLMetadataProvider extends URLMetadataProvider {
 
-    /** Logger */
+    /** Class logger. */
     private final Logger log = Logger.getLogger(FileBackedURLMetadataProvider.class);
 
-    /** File containing the backup of the metadata */
+    /** File containing the backup of the metadata. */
     private File metadataBackupFile;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param metadataURL the URL to fetch the metadata
      * @param requestTimeout the time, in milliseconds, to wait for the metadata server to respond
@@ -71,16 +71,16 @@ public class FileBackedURLMetadataProvider extends URLMetadataProvider {
                 throw new MetadataProviderException("Filepath " + backingFilePath
                         + " exists but can not be written to by this user");
             }
-        }else{
-            try{
+        } else {
+            try {
                 metadataBackupFile.createNewFile();
-            }catch(IOException e){
+            } catch (IOException e) {
                 log.error("Unable to create backing file " + backingFilePath, e);
                 throw new MetadataProviderException("Unable to create backing file");
             }
         }
     }
-    
+
     /**
      * Fetches the metadata from the remote server or from the local filesystem if it can not be retrieved remotely.
      * 
@@ -89,44 +89,46 @@ public class FileBackedURLMetadataProvider extends URLMetadataProvider {
      * @throws IOException thrown if the metadata can not be fetched from the remote server or local filesystems
      * @throws UnmarshallingException thrown if the metadata can not be unmarshalled
      */
-    protected XMLObject fetchMetadata() throws IOException, UnmarshallingException{
+    protected XMLObject fetchMetadata() throws IOException, UnmarshallingException {
         XMLObject metadata;
         boolean readLocal = false;
-        try{
+        try {
             metadata = super.fetchMetadata();
-        }catch(Exception e){
-            if(log.isDebugEnabled()){
+        } catch (Exception e) {
+            if (log.isDebugEnabled()) {
                 log.debug("Unable to read metadata from remote server, attempting to read it from local backup", e);
             }
             metadata = getLocalMetadata();
             readLocal = true;
         }
-        
+
         // If we read the metadata from the remote server then write it to disk
-        if(!readLocal){
-            if(log.isDebugEnabled()){
+        if (!readLocal) {
+            if (log.isDebugEnabled()) {
                 log.debug("Writting retrieved metadata to backup file " + metadataBackupFile.getAbsolutePath());
             }
-            try{
+            try {
                 writeMetadataToFile(metadata);
-            }catch(Exception e){
+            } catch (Exception e) {
                 log.error("Unable to write metadata to backup file", e);
                 throw new IOException("Unable to write metadata to backup file: " + e.getMessage());
             }
         }
-        
+
         return metadata;
     }
 
     /**
      * Reads filtered metadata from the backup file.
      * 
-     * @throws MetadataProviderException thrown if the backup file can not be read or contains invalid metadata
+     * @return cached copy of the metadata read from disk
+     * 
+     * @throws IOException thrown if the metadata can not be read from disk
+     * @throws UnmarshallingException thrown if the metadata, read from disk, can not be unmarshalled
      */
     protected XMLObject getLocalMetadata() throws IOException, UnmarshallingException {
         if (!(metadataBackupFile.exists() && metadataBackupFile.canRead())) {
-            throw new IOException("Unable to read metadata from backup file "
-                    + metadataBackupFile.getAbsolutePath());
+            throw new IOException("Unable to read metadata from backup file " + metadataBackupFile.getAbsolutePath());
         }
 
         FileInputStream in = new FileInputStream(metadataBackupFile);
@@ -136,27 +138,38 @@ public class FileBackedURLMetadataProvider extends URLMetadataProvider {
     /**
      * Writes the currently cached metadata to file.
      * 
+     * @param metadata metadata to write to disk
+     * 
      * @throws MetadataProviderException thrown if metadata can not be written to disk
      */
     protected void writeMetadataToFile(XMLObject metadata) throws MetadataProviderException {
-        if (!(metadataBackupFile.exists() && metadataBackupFile.canWrite())) {
+        if (!metadataBackupFile.exists()) {
+            try {
+                metadataBackupFile.createNewFile();
+            } catch (IOException e) {
+                throw new MetadataProviderException("Unable to create metadata back file: "
+                        + metadataBackupFile.getPath(), e);
+            }
+        }
+
+        if (!metadataBackupFile.canWrite()) {
             throw new MetadataProviderException("Unable to write to metadata backup file "
                     + metadataBackupFile.getAbsolutePath());
         }
 
         try {
             Element metadataElement;
-            
+
             // The metadata object should still have its DOM
             // but we'll create it if it doesn't
-            if(metadata.getDOM() != null){
+            if (metadata.getDOM() != null) {
                 metadataElement = metadata.getDOM();
-            }else{
+            } else {
                 Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(metadata);
                 metadataElement = marshaller.marshall(metadata);
             }
 
-            if(log.isDebugEnabled()){
+            if (log.isDebugEnabled()) {
                 log.debug("Converting DOM to a string");
             }
             XMLHelper.writeNode(metadataElement, new FileWriter(metadataBackupFile));
