@@ -35,7 +35,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
         AbstractSAMLSecurityPolicyRule<RequestType> implements SecurityPolicyRule<RequestType> {
 
     /** Trust engine used to verify metadata. */
-    private TrustEngine<X509Credential, X509Credential> trustEngine;
+    private TrustEngine<X509Credential> trustEngine;
 
     /** Resolver used to extract credential information from SAML 2 metadata. */
     private MetadataCredentialResolver metadataResolver;
@@ -45,7 +45,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * 
      * @param engine trust engine used to validate client cert against issuer's metadata
      */
-    public BaseX509CredentialAuthRule(TrustEngine<X509Credential, X509Credential> engine) {
+    public BaseX509CredentialAuthRule(TrustEngine<X509Credential> engine) {
         trustEngine = engine;
     }
 
@@ -54,7 +54,7 @@ public abstract class BaseX509CredentialAuthRule<RequestType extends ServletRequ
      * 
      * @return trust engine used to validate the X509 credential
      */
-    public TrustEngine<X509Credential, X509Credential> getTrustEngine() {
+    public TrustEngine<X509Credential> getTrustEngine() {
         return trustEngine;
     }
 

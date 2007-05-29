@@ -51,12 +51,8 @@ public class ClientCertAuthRuleFactory extends BaseX509CredentialAuthRuleFactory
          * 
          * @param engine trust engine used to validate client cert against issuer's metadata
          * @param resolver resolver used to extract credential information from metadata
-         * @param provider metadata provider used to look up entity information
-         * @param role role the issuer is meant to be operating in
-         * @param protocol protocol the issuer used in the request
          */
-        public ClientCertAuthRule(TrustEngine<X509Credential, X509Credential> engine,
-                MetadataCredentialResolver resolver) {
+        public ClientCertAuthRule(TrustEngine<X509Credential> engine, MetadataCredentialResolver resolver) {
 
             super(engine);
         }

@@ -37,7 +37,7 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
         SecurityPolicyRuleFactory<RequestType> {
 
     /** Trust engine used to verify metadata. */
-    private TrustEngine<X509Credential, X509Credential> trustEngine;
+    private TrustEngine<X509Credential> trustEngine;
 
     /** Resolver used to extract key information from a key source. */
     private KeyInfoCredentialResolver keyInfoResolver;
@@ -53,7 +53,7 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
      * 
      * @return engine used to validate the trustworthiness of digital certificates
      */
-    public TrustEngine<X509Credential, X509Credential> getTrustEngine() {
+    public TrustEngine<X509Credential> getTrustEngine() {
         return trustEngine;
     }
 
@@ -62,7 +62,7 @@ public abstract class BaseX509CredentialAuthRuleFactory<RequestType extends Serv
      * 
      * @param engine engine used to validate the trustworthiness of digital certificates
      */
-    public void setTrustEngine(TrustEngine<X509Credential, X509Credential> engine) {
+    public void setTrustEngine(TrustEngine<X509Credential> engine) {
         trustEngine = engine;
     }
 
