@@ -57,7 +57,7 @@ public interface StatusCode extends SAMLObject {
     public static final String RESPONDER_URI = "urn:oasis:names:tc:SAML:2.0:status:Responder";
 
     /** URI for VersionMismatch status code. */
-    public static final String VERSION_MISMATH_URI = "urn:oasis:names:tc:SAML:2.0:status:VersionMismatch";
+    public static final String VERSION_MISMATCH_URI = "urn:oasis:names:tc:SAML:2.0:status:VersionMismatch";
 
     /** URI for AuthnFailed status code. */
     public static final String AUTHN_FAILED_URI = "urn:oasis:names:tc:SAML:2.0:status:AuthnFailed";
