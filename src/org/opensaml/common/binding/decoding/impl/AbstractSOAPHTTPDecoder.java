@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.decoding.SOAPHTTPDecoder;
+import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
 
@@ -66,7 +67,7 @@ public abstract class AbstractSOAPHTTPDecoder
     }
     
     /** {@inheritDoc} */
-    public void decode() throws BindingException {
+    public void decode() throws BindingException, SecurityPolicyException {
         if (log.isDebugEnabled()) {
             log.debug("Beginning SAML 2 HTTP SOAP 1.1 decoding");
         }

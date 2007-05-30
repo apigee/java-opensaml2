@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.decoding.impl.AbstractHTTPMessageDecoder;
+import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.xml.util.Base64;
 
 /**
@@ -72,7 +73,7 @@ public class HTTPRedirectDeflateDecoder extends AbstractHTTPMessageDecoder {
     }
 
     /** {@inheritDoc} */
-    public void decode() throws BindingException {
+    public void decode() throws BindingException, SecurityPolicyException {
         if (log.isDebugEnabled()) {
             log.debug("Beginning SAML 2 HTTP Redirect decoding");
         }

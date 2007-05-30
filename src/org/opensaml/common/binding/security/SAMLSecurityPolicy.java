@@ -69,6 +69,24 @@ public class SAMLSecurityPolicy<RequestType extends ServletRequest> extends Basi
         }
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param role expected role of the issuer
+     * @param protocol expected protocol of the issuer
+     * @param requireAuthenticatedIssuer whether the issuer of the message must be authenticated in order for the policy
+     *            to pass
+     */
+    public SAMLSecurityPolicy(QName role, String protocol, boolean requireAuthenticatedIssuer) {
+        super(requireAuthenticatedIssuer);
+        issuerRole = role;
+        issuerProtocol = DatatypeHelper.safeTrimOrNullString(protocol);
+
+        if (issuerRole == null || issuerProtocol == null) {
+            throw new IllegalArgumentException("Issuer role and protocol may not be null");
+        }
+    }
+
     /** {@inheritDoc} */
     public void evaluate(RequestType request, XMLObject message) throws SecurityPolicyException {
         super.evaluate(request, message);

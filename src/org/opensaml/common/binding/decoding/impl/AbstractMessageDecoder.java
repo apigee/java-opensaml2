@@ -38,48 +38,47 @@ import org.w3c.dom.Document;
 
 /**
  * Base class for message decoder handling much of the boilerplate code.
- *
+ * 
  * @param <RequestType> request type that will be decoded
  */
-public abstract class AbstractMessageDecoder<RequestType extends ServletRequest> 
-        implements MessageDecoder<RequestType> {
-    
+public abstract class AbstractMessageDecoder<RequestType extends ServletRequest> implements MessageDecoder<RequestType> {
+
     /** Class logger. */
     private static Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
 
     /** Pool of parsers used to parse XML messages. */
     private ParserPool parser;
-    
+
     /** Metadata provider used to lookup information about the issuer. */
     private MetadataProvider metadataProvider;
-    
+
     /** Request to decode. */
     private RequestType request;
-    
+
     /** Decoded SAML message. */
     private SAMLObject message;
-    
+
     /** Security policy to apply to the request and payload. */
     private SAMLSecurityPolicy securityPolicy;
-    
+
     /** Trust engine used to validate request credentials. */
     private TrustEngine trustEngine;
-    
+
     /**
      * Gets the pool of parsers to use to parse XML.
      * 
      * @return pool of parsers to use to parse XML
      */
-    public ParserPool getParserPool(){
+    public ParserPool getParserPool() {
         return parser;
     }
-    
+
     /**
      * Sets the pool of parsers to use to parse XML.
      * 
      * @param pool pool of parsers to use to parse XML
      */
-    public void setParserPool(ParserPool pool){
+    public void setParserPool(ParserPool pool) {
         parser = pool;
     }
 
@@ -117,13 +116,13 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
     public void setRequest(RequestType newRequest) {
         request = newRequest;
     }
-    
+
     /**
      * Sets the decoded SAML message.
      * 
      * @param newMessage decoded SAML message
      */
-    protected void setSAMLMessage(SAMLObject newMessage){
+    protected void setSAMLMessage(SAMLObject newMessage) {
         message = newMessage;
     }
 
@@ -136,10 +135,6 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
     public void setTrustEngine(TrustEngine newEngine) {
         trustEngine = newEngine;
     }
-    
-    /** {@inheritDoc} */
-    public abstract void decode() throws BindingException;
-
 
     /**
      * Parses the incoming message into a DOM and then unmarshalls it into a SAMLObject.
@@ -151,17 +146,17 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
      * @throws BindingException thrown if the incoming XML can not be parsed and unmarshalled
      */
     protected XMLObject unmarshallMessage(InputStream samlMessage) throws BindingException {
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Unmarshalling message");
         }
-        
+
         try {
             if (log.isDebugEnabled()) {
                 log.debug("Parsing message XML into a DOM");
             }
             Document domMessage = parser.parse(samlMessage);
-            
-            if(log.isDebugEnabled()){
+
+            if (log.isDebugEnabled()) {
                 log.debug("Unmarshalling DOM");
             }
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
@@ -181,22 +176,23 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
      * 
      * This method will also set the issuer and issuer role metadata if provided by the operating security rules.
      * 
-     * @param message message to evaluate the policy against
+     * @param decodedMessage message to evaluate the policy against
      * 
-     * @throws BindingException thrown if the given request/message do not meet the requirements of the security policy
+     * @throws SecurityPolicyException thrown if the given request/message do not meet the requirements of the security
+     *             policy
      */
-    protected void evaluateSecurityPolicy(XMLObject message) throws BindingException {
-        if(log.isDebugEnabled()){
+    protected void evaluateSecurityPolicy(XMLObject decodedMessage) throws SecurityPolicyException {
+        if (log.isDebugEnabled()) {
             log.debug("Evaluating request and SAML message against security policy");
         }
-        
+
         SAMLSecurityPolicy policy = getSecurityPolicy();
-        if(policy != null){
+        if (policy != null) {
             try {
-                policy.evaluate(getRequest(), message);
+                policy.evaluate(getRequest(), decodedMessage);
             } catch (SecurityPolicyException e) {
                 log.error("Security policy exception thrown during message decoding", e);
-                throw new BindingException("Message decoding failed security policy evaluation", e);
+                throw e;
             }
         }
     }

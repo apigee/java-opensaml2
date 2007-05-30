@@ -19,7 +19,6 @@ package org.opensaml.common.binding.decoding.impl;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.decoding.HTTPMessageDecoder;
 
 /**
@@ -30,13 +29,13 @@ public abstract class AbstractHTTPMessageDecoder
     extends AbstractMessageDecoder<HttpServletRequest> implements HTTPMessageDecoder {
     
     /** Class logger. */
-    public static final Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
+    private final Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
 
     /** HTTP method used in the request. */
-    protected String httpMethod;
+    private String httpMethod;
     
     /** Request relay state. */
-    protected String relayState;    
+    private String relayState;    
     
     /** {@inheritDoc} */
     public String getMethod(){
@@ -46,10 +45,10 @@ public abstract class AbstractHTTPMessageDecoder
     /**
      * Sets the HTTP method used by the request.
      * 
-     * @param httpMethod HTTP method used by the request
+     * @param method HTTP method used by the request
      */
-    protected void setHttpMethod(String httpMethod){
-        this.httpMethod = httpMethod.toUpperCase();
+    protected void setHttpMethod(String method){
+        this.httpMethod = method.toUpperCase();
     }
     
     /** {@inheritDoc} */
@@ -60,12 +59,9 @@ public abstract class AbstractHTTPMessageDecoder
     /**
      * Sets the relay state of the request.
      * 
-     * @param relayState relay state of the request
+     * @param state relay state of the request
      */
-    protected void setRelayState(String relayState){
-        this.relayState = relayState;
+    protected void setRelayState(String state){
+        this.relayState = state;
     }
-
-    /** {@inheritDoc} */
-    public abstract void decode() throws BindingException;
 }

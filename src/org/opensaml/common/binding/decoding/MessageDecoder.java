@@ -22,6 +22,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.security.SAMLSecurityPolicy;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
+import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.xml.security.trust.TrustEngine;
 
 /**
@@ -30,29 +31,29 @@ import org.opensaml.xml.security.trust.TrustEngine;
  * 
  * @param <RequestType> type of incoming protocol request
  */
-public interface MessageDecoder<RequestType extends ServletRequest>{
-    
+public interface MessageDecoder<RequestType extends ServletRequest> {
+
     /**
      * Gets the binding URI supported by this encoder.
      * 
      * @return binding URI supported by this encoder
      */
     public String getBindingURI();
-    
+
     /**
      * Gets the request to decode.
      * 
      * @return request to decode
      */
     public RequestType getRequest();
-    
+
     /**
      * Sets the request to decode.
      * 
      * @param request request to decode
      */
     public void setRequest(RequestType request);
-    
+
     /**
      * Gets the metadata provider used to lookup information about the issuer.
      * 
@@ -73,21 +74,21 @@ public interface MessageDecoder<RequestType extends ServletRequest>{
      * @return the trust engine used to verify the credentials of a request
      */
     public TrustEngine getTrustEngine();
-    
+
     /**
      * Gets the security policy to apply to the request and its payload.
      * 
      * @return security policy to apply to the request and its payload
      */
     public SAMLSecurityPolicy getSecurityPolicy();
-    
+
     /**
      * Sets the security policy to apply to the request and its payload.
      * 
      * @param policy security policy to apply to the request and its payload
      */
     public void setSecurityPolicy(SAMLSecurityPolicy policy);
-    
+
     /**
      * Sets the the trust engine used to verify the credentials of a request.
      * 
@@ -99,8 +100,9 @@ public interface MessageDecoder<RequestType extends ServletRequest>{
      * Decodes a SAML message in a binding specific manner.
      * 
      * @throws BindingException thrown if the message can not be decoded
+     * @throws SecurityPolicyException thrown if the decoded message does not meet the required security policy
      */
-    public void decode() throws BindingException;
+    public void decode() throws BindingException, SecurityPolicyException;
 
     /**
      * Gets the SAML message that was received and decoded.
@@ -108,5 +110,5 @@ public interface MessageDecoder<RequestType extends ServletRequest>{
      * @return SAML message
      */
     public SAMLObject getSAMLMessage();
-    
+
 }

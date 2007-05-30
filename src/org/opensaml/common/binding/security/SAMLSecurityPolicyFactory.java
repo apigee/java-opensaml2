@@ -32,6 +32,9 @@ public class SAMLSecurityPolicyFactory extends BaseSecurityPolicyFactory<HttpSer
 
     /** The message protocol used by the issuer. */
     private String issuerProtocol;
+    
+    /** Whether the issuer of the message must be authenticated in order for the policy to pass. */
+    private boolean requiredAuthenticatedIssuer = true;
 
     /**
      * Gets the message protocol used by the issuer.
@@ -69,10 +72,28 @@ public class SAMLSecurityPolicyFactory extends BaseSecurityPolicyFactory<HttpSer
         issuerRole = role;
     }
 
+    /**
+     * Gets whether the issuer of the message must be authenticated in order for the policy to pass.
+     * 
+     * @return whether the issuer of the message must be authenticated in order for the policy to pass
+     */
+    public boolean getRequiredAuthenticatedIssuer() {
+        return requiredAuthenticatedIssuer;
+    }
+
+    /**
+     * Sets whether the issuer of the message must be authenticated in order for the policy to pass.
+     * 
+     * @param required whether the issuer of the message must be authenticated in order for the policy to pass
+     */
+    public void setRequiredAuthenticatedIssuer(boolean required) {
+        requiredAuthenticatedIssuer = required;
+    }
+
     /** {@inheritDoc} */
     public SecurityPolicy<HttpServletRequest> createPolicyInstance() {
         SAMLSecurityPolicy<HttpServletRequest> securityPolicy = new SAMLSecurityPolicy<HttpServletRequest>(issuerRole,
-                issuerProtocol);
+                issuerProtocol, requiredAuthenticatedIssuer);
         securityPolicy.getPolicyRules().addAll(getPolicyRuleInstances());
         return securityPolicy;
     }
