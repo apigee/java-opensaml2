@@ -91,28 +91,24 @@ public class FileBackedURLMetadataProvider extends URLMetadataProvider {
      */
     protected XMLObject fetchMetadata() throws IOException, UnmarshallingException {
         XMLObject metadata;
-        boolean readLocal = false;
         try {
             metadata = super.fetchMetadata();
         } catch (Exception e) {
             if (log.isDebugEnabled()) {
                 log.debug("Unable to read metadata from remote server, attempting to read it from local backup", e);
             }
-            metadata = getLocalMetadata();
-            readLocal = true;
+            return getLocalMetadata();
         }
 
         // If we read the metadata from the remote server then write it to disk
-        if (!readLocal) {
-            if (log.isDebugEnabled()) {
-                log.debug("Writting retrieved metadata to backup file " + metadataBackupFile.getAbsolutePath());
-            }
-            try {
-                writeMetadataToFile(metadata);
-            } catch (Exception e) {
-                log.error("Unable to write metadata to backup file", e);
-                throw new IOException("Unable to write metadata to backup file: " + e.getMessage());
-            }
+        if (log.isDebugEnabled()) {
+            log.debug("Writting retrieved metadata to backup file " + metadataBackupFile.getAbsolutePath());
+        }
+        try {
+            writeMetadataToFile(metadata);
+        } catch (Exception e) {
+            log.error("Unable to write metadata to backup file", e);
+            throw new IOException("Unable to write metadata to backup file: " + e.getMessage());
         }
 
         return metadata;

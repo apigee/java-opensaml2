@@ -47,7 +47,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class URLMetadataProvider extends AbstractObservableMetadataProvider {
 
     /** Cached, filtered, unmarshalled metadata. */
-    protected XMLObject cachedMetadata;
+    private XMLObject cachedMetadata;
 
     /** Class logger. */
     private final Logger log = Logger.getLogger(URLMetadataProvider.class);
@@ -79,7 +79,7 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
      * @throws MetadataProviderException thrown if the URL is not a valid URL or the metadata can not be retrieved from
      *             the URL
      */
-    protected URLMetadataProvider(String metadataURL, int requestTimeout) throws MetadataProviderException {
+    public URLMetadataProvider(String metadataURL, int requestTimeout) throws MetadataProviderException {
         super();
         try {
             metadataURI = new URI(metadataURL);
@@ -208,6 +208,15 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
         }
 
         return cachedMetadata;
+    }
+    
+    /**
+     * Caches the metadata.
+     * 
+     * @param metadata metadata to cache
+     */
+    protected void cacheMetadata(XMLObject metadata){
+        cachedMetadata = metadata;
     }
 
     /**
