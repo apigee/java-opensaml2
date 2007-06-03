@@ -17,6 +17,7 @@
 package org.opensaml.saml2.encryption;
 
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -186,7 +187,11 @@ public class Encrypter extends org.opensaml.xml.encryption.Encrypter {
         carriedKeyNameBuilder = 
             (CarriedKeyNameBuilder) builderFactory.getBuilder(CarriedKeyName.DEFAULT_ELEMENT_NAME);
         
-        idGenerator = new SecureRandomIdentifierGenerator();
+        try{
+            idGenerator = new SecureRandomIdentifierGenerator();
+        }catch(NoSuchAlgorithmException e){
+            log.error("JVM does not support SHA1PRNG random number generation algorithm.");
+        }
         
         keyPlacement = KeyPlacement.PEER;
     }

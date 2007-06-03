@@ -16,31 +16,38 @@
 
 package org.opensaml.common.impl;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 import org.bouncycastle.util.encoders.Hex;
 import org.opensaml.common.IdentifierGenerator;
 
 /**
- * Generates a 16 byte identifier using random data obtained from a {@link java.security.SecureRandom} instance.
+ * Generates identifiers using random data obtained from a {@link java.security.SecureRandom} instance.
  */
 public class SecureRandomIdentifierGenerator implements IdentifierGenerator {
 
-    /** Random number generator */
-    private static SecureRandom random = new SecureRandom();
+    /** Random number generator. */
+    private static SecureRandom random ;
 
     /**
-     * Constructor
+     * Constructor.
+     * 
+     * @throws NoSuchAlgorithmException thrown if the SHA1PRNG algorithm is not supported by the JVM
      */
-    public SecureRandomIdentifierGenerator() {
-
+    public SecureRandomIdentifierGenerator() throws NoSuchAlgorithmException {
+        random = SecureRandom.getInstance("SHA1PRNG");
     }
 
     /** {@inheritDoc} */
     public String generateIdentifier() {
-        byte[] buf = new byte[16];
+        return generateIdentifier(16);
+    }
+
+    /** {@inheritDoc} */
+    public String generateIdentifier(int size) {
+        byte[] buf = new byte[size];
         random.nextBytes(buf);
         return "_".concat(new String(Hex.encode(buf)));
     }
-
 }

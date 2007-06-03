@@ -23,9 +23,17 @@ package org.opensaml.common;
 public interface IdentifierGenerator {
 
     /**
-     * Generates an identifier.
+     * Generates a 16 byte identifier.
      * 
-     * @return an identifier
+     * @return an hex encoded identifier
      */
     public String generateIdentifier();
+    
+    /** Generates a random identifier.
+     * 
+     * @param size number of bytes in the identifier
+     * 
+     * @return the hex encoded identifier
+     */
+    public String generateIdentifier(int size);
 }
