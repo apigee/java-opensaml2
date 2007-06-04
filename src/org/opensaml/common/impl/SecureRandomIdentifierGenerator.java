@@ -28,7 +28,7 @@ import org.opensaml.common.IdentifierGenerator;
 public class SecureRandomIdentifierGenerator implements IdentifierGenerator {
 
     /** Random number generator. */
-    private static SecureRandom random ;
+    private static SecureRandom random;
 
     /**
      * Constructor.
@@ -37,6 +37,17 @@ public class SecureRandomIdentifierGenerator implements IdentifierGenerator {
      */
     public SecureRandomIdentifierGenerator() throws NoSuchAlgorithmException {
         random = SecureRandom.getInstance("SHA1PRNG");
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param algorithm the random number generation algorithm to use
+     * 
+     * @throws NoSuchAlgorithmException thrown if the algorithm is not supported by the JVM
+     */
+    public SecureRandomIdentifierGenerator(String algorithm) throws NoSuchAlgorithmException {
+        random = SecureRandom.getInstance(algorithm);
     }
 
     /** {@inheritDoc} */
