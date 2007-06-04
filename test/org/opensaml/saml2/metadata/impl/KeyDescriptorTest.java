@@ -60,6 +60,7 @@ public class KeyDescriptorTest extends BaseSAMLObjectProviderTestCase {
         KeyDescriptor keyDescriptor = (KeyDescriptor) unmarshallElement(singleElementFile);
         
         assertNotNull("KeyDescriptor", keyDescriptor);
+        assertEquals("Unexpected use attribute value", UsageType.UNSPECIFIED, keyDescriptor.getUse());
 
     }
 

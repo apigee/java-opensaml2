@@ -56,7 +56,7 @@ public class KeyDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
             if (use.equals(UsageType.SIGNING) || use.equals(UsageType.ENCRYPTION)) {
                 domElement.setAttribute(KeyDescriptor.USE_ATTRIB_NAME, use.toString().toLowerCase());
             } else if (use.equals(UsageType.UNSPECIFIED)) {
-                //emit nothing for unspecified - perhaps this should also throw an exception?
+                //emit nothing for unspecified - this is semantically equivalent to non-existent attribute
             } else {
                 // Just in case values are unknowingly added to UsageType in the future...
                throw new MarshallingException("KeyDescriptor had illegal value for use attribute: " + use.toString());

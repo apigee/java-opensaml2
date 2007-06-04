@@ -52,6 +52,7 @@ public class KeyDescriptorImpl extends AbstractSAMLObject implements KeyDescript
     protected KeyDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
         encryptionMethods = new XMLObjectChildrenList<EncryptionMethod>(this);
+        keyUseType = UsageType.UNSPECIFIED;
     }
 
     /** {@inheritDoc} */
@@ -61,7 +62,11 @@ public class KeyDescriptorImpl extends AbstractSAMLObject implements KeyDescript
 
     /** {@inheritDoc} */
     public void setUse(UsageType newType) {
-        keyUseType = prepareForAssignment(keyUseType, newType);
+        if (newType != null) {
+            keyUseType = prepareForAssignment(keyUseType, newType);
+        } else {
+            keyUseType = prepareForAssignment(keyUseType, UsageType.UNSPECIFIED);
+        }
     }
 
     /** {@inheritDoc} */
