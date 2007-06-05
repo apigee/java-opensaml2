@@ -48,6 +48,9 @@ public interface StatusCode extends SAMLObject {
 
     /** Requester status value. */
     public static final String REQUESTER = "Requester";
+    
+    /** Responder status value. */
+    public static final String RESPONDER = "Responder";
 
     /** RequestVersionTooHigh status value. */
     public static final String REQUEST_VERSION_TOO_HIGH = "RequestVersionTooHigh";
