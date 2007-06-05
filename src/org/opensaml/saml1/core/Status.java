@@ -39,21 +39,21 @@ public interface Status extends SAMLObject {
     public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
 
     /** Return the object representing the <code>StatusMessage<code> (element). */
-    StatusMessage getStatusMessage();
+    public StatusMessage getStatusMessage();
 
     /** Set the object representing the <code>StatusMessage<code> (element). */
-    void setStatusMessage(StatusMessage statusMessage) throws IllegalArgumentException;
+    public void setStatusMessage(StatusMessage statusMessage) throws IllegalArgumentException;
 
     /** Return the object representing the <code>StatusCode<code> (element). */
-    StatusCode getStatusCode();
+    public StatusCode getStatusCode();
 
     /** Set the object representing the <code>StatusCode<code> (element). */
-    void setStatusCode(StatusCode statusCode) throws IllegalArgumentException;
+    public void setStatusCode(StatusCode statusCode) throws IllegalArgumentException;
 
     /** Return the object representing the <code>StatusDetail<code> (element). */
 
-    StatusDetail getStatusDetail();
+    public StatusDetail getStatusDetail();
 
     /** Set the object representing the <code>StatusDetail<code> (element). */
-    void setStatusDetail(StatusDetail statusDetail) throws IllegalArgumentException;
+    public void setStatusDetail(StatusDetail statusDetail) throws IllegalArgumentException;
 }

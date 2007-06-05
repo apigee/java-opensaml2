@@ -22,34 +22,80 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * This interface defines how the object representing a SAML 1 <code> StatusCode</code> element behaves. 
+ * This interface defines how the object representing a SAML 1 <code> StatusCode</code> element behaves.
  */
 public interface StatusCode extends SAMLObject {
 
     /** Element name, no namespace. */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "StatusCode";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "StatusCodeType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "StatusCode";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML1P_PREFIX);
+
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "StatusCodeType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML1P_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML1P_PREFIX);
+
+    /** Success status value. */
+    public static final String SUCCESS = "Success";
+
+    /** VersionMismatch status value. */
+    public static final String VERSION_MISMATCH = "VersionMismatch";
+
+    /** Requester status value. */
+    public static final String REQUESTER = "Requester";
+
+    /** RequestVersionTooHigh status value. */
+    public static final String REQUEST_VERSION_TOO_HIGH = "RequestVersionTooHigh";
+
+    /** RequestVersionTooLow status value. */
+    public static final String REQUEST_VERSION_TOO_LOW = "RequestVersionTooLow";
+
+    /** RequestVersionDepricated status value. */
+    public static final String REQUEST_VERSION_DEPRICATED = "RequestVersionDepricated";
+
+    /** TooManyResponses status value. */
+    public static final String TOO_MANY_RESPONSES = "TooManyResponses";
+
+    /** RequestDenied status value. */
+    public static final String REQUEST_DENIED = "RequestDenied";
+
+    /** ResourceNotRecognized status value. */
+    public static final String RESOURCE_NOT_RECOGNIZED = "ResourceNotRecognized";
 
     /** Name for the attribute which defines the Value. */
-    public final static String VALUE_ATTRIB_NAME = "Value";
+    public static final String VALUE_ATTRIB_NAME = "Value";
 
-    /** Return the Value (attribute). */
-    String getValue();
+    /**
+     * Gets the value of the status code.
+     * 
+     * @return value of the status code
+     */
+    public String getValue();
 
-    /** Set the Value (attribute). */
-    void setValue(String value);
+    /**
+     * Sets the value of the status code.
+     * 
+     * @param value value of the status code
+     */
+    public void setValue(String value);
 
-    /** Return the object representing the <code>StatusCode <code> (child element). */
-    StatusCode getStatusCode();
+    /**
+     * Gets the second level status code.
+     * 
+     * @return second level status code
+     */
+    public StatusCode getStatusCode();
 
-    /** Set the object representing the <code>StatusCode <code> (child element). */
-    void setStatusCode(StatusCode statusCode) throws IllegalArgumentException;
+    /**
+     * Sets the second level status code.
+     * 
+     * @param statusCode second level status code
+     * @throws IllegalArgumentException
+     */
+    public void setStatusCode(StatusCode statusCode);
 }
