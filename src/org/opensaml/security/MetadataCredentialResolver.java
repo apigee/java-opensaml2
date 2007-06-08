@@ -48,8 +48,8 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * A credential resolver capable of resolving credentials from SAML 2 metadata;
  * 
- * The instance of {@link CredentialCriteriaSet} passed to {@link #resolveCredentials(CredentialCriteriaSet)} and
- * {@link #resolveCredential(CredentialCriteriaSet)} must minimally contain 2 criteria: {@link EntityCredentialCriteria}
+ * The instance of {@link CredentialCriteriaSet} passed to {@link #resolve(CredentialCriteriaSet)} and
+ * {@link #resolveSingle(CredentialCriteriaSet)} must minimally contain 2 criteria: {@link EntityCredentialCriteria}
  * and {@link MetadataCredentialCriteria}.  The values for {@link EntityCredentialCriteria#getOwnerID()} and
  * {@link MetadataCredentialCriteria#getRole()} are mandatory. If the protocol value obtained via 
  * {@link MetadataCredentialCriteria#getProtocol()} is not supplied, credentials will be resolved from all 
@@ -121,7 +121,7 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
     }
 
     /** {@inheritDoc} */
-    public Iterable<Credential> resolveCredentials(CredentialCriteriaSet criteriaSet) throws SecurityException {
+    public Iterable<Credential> resolve(CredentialCriteriaSet criteriaSet) throws SecurityException {
         
         checkCriteriaRequirements(criteriaSet);
         
@@ -231,7 +231,7 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
                         CredentialCriteriaSet critSet = new CredentialCriteriaSet();
                         critSet.add( new KeyInfoCredentialCriteria(keyDescriptor.getKeyInfo()) );
                         
-                        for (Credential cred : getKeyInfoCredentialResolver().resolveCredentials(critSet)) {
+                        for (Credential cred : getKeyInfoCredentialResolver().resolve(critSet)) {
                             if (cred instanceof BasicCredential) {
                                 BasicCredential basicCred = (BasicCredential) cred;
                                 basicCred.setEntityId(entityID);

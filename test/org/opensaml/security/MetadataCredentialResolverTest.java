@@ -180,7 +180,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
      */
     public void testNoProtocolNoUsage() throws SecurityException {
         List<Credential> resolved = new ArrayList<Credential>();
-        for (Credential credential : mdResolver.resolveCredentials(criteriaSet)) {
+        for (Credential credential : mdResolver.resolve(criteriaSet)) {
            resolved.add(credential);
            checkContextAndID(credential, idpEntityID, idpRole);
         }
@@ -218,7 +218,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         criteriaSet.add( new UsageCredentialCriteria(UsageType.ENCRYPTION) );
         
         List<Credential> resolved = new ArrayList<Credential>();
-        for (Credential credential : mdResolver.resolveCredentials(criteriaSet)) {
+        for (Credential credential : mdResolver.resolve(criteriaSet)) {
            resolved.add(credential);
            checkContextAndID(credential, idpEntityID, idpRole);
         }
@@ -255,7 +255,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         criteriaSet.add( new UsageCredentialCriteria(UsageType.SIGNING) );
         
         List<Credential> resolved = new ArrayList<Credential>();
-        for (Credential credential : mdResolver.resolveCredentials(criteriaSet)) {
+        for (Credential credential : mdResolver.resolve(criteriaSet)) {
            resolved.add(credential);
            checkContextAndID(credential, idpEntityID, idpRole);
         }
@@ -291,7 +291,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         mdCriteria.setProtocol(protocolFoo);
         
         List<Credential> resolved = new ArrayList<Credential>();
-        for (Credential credential : mdResolver.resolveCredentials(criteriaSet)) {
+        for (Credential credential : mdResolver.resolve(criteriaSet)) {
            resolved.add(credential);
            checkContextAndID(credential, idpEntityID, idpRole);
         }
@@ -329,7 +329,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         criteriaSet.add( new UsageCredentialCriteria(UsageType.SIGNING) );
         
         List<Credential> resolved = new ArrayList<Credential>();
-        for (Credential credential : mdResolver.resolveCredentials(criteriaSet)) {
+        for (Credential credential : mdResolver.resolve(criteriaSet)) {
            resolved.add(credential);
            checkContextAndID(credential, idpEntityID, idpRole);
         }
@@ -365,7 +365,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         criteriaSet.add( new UsageCredentialCriteria(UsageType.ENCRYPTION) );
         
         List<Credential> resolved = new ArrayList<Credential>();
-        for (Credential credential : mdResolver.resolveCredentials(criteriaSet)) {
+        for (Credential credential : mdResolver.resolve(criteriaSet)) {
            resolved.add(credential);
            checkContextAndID(credential, idpEntityID, idpRole);
         }
@@ -401,7 +401,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         mdCriteria.setProtocol(protocolBar);
         
         List<Credential> resolved = new ArrayList<Credential>();
-        for (Credential credential : mdResolver.resolveCredentials(criteriaSet)) {
+        for (Credential credential : mdResolver.resolve(criteriaSet)) {
            resolved.add(credential);
            checkContextAndID(credential, idpEntityID, idpRole);
         }
@@ -437,7 +437,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         criteriaSet.add( new UsageCredentialCriteria(UsageType.SIGNING) );
         
         List<Credential> resolved = new ArrayList<Credential>();
-        for (Credential credential : mdResolver.resolveCredentials(criteriaSet)) {
+        for (Credential credential : mdResolver.resolve(criteriaSet)) {
            resolved.add(credential);
            checkContextAndID(credential, idpEntityID, idpRole);
         }
@@ -473,7 +473,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         criteriaSet.add( new UsageCredentialCriteria(UsageType.ENCRYPTION) );
         
         List<Credential> resolved = new ArrayList<Credential>();
-        for (Credential credential : mdResolver.resolveCredentials(criteriaSet)) {
+        for (Credential credential : mdResolver.resolve(criteriaSet)) {
            resolved.add(credential);
            checkContextAndID(credential, idpEntityID, idpRole);
         }
