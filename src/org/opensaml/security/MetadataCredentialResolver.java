@@ -38,10 +38,10 @@ import org.opensaml.xml.security.credential.BasicCredential;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.credential.CredentialCriteriaSet;
 import org.opensaml.xml.security.credential.CredentialResolver;
-import org.opensaml.xml.security.credential.EntityCredentialCriteria;
-import org.opensaml.xml.security.credential.UsageCredentialCriteria;
+import org.opensaml.xml.security.credential.EntityCriteria;
+import org.opensaml.xml.security.credential.UsageCriteria;
 import org.opensaml.xml.security.credential.UsageType;
-import org.opensaml.xml.security.keyinfo.KeyInfoCredentialCriteria;
+import org.opensaml.xml.security.keyinfo.KeyInfoCriteria;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -49,11 +49,11 @@ import org.opensaml.xml.util.DatatypeHelper;
  * A credential resolver capable of resolving credentials from SAML 2 metadata;
  * 
  * The instance of {@link CredentialCriteriaSet} passed to {@link #resolve(CredentialCriteriaSet)} and
- * {@link #resolveSingle(CredentialCriteriaSet)} must minimally contain 2 criteria: {@link EntityCredentialCriteria}
- * and {@link MetadataCredentialCriteria}.  The values for {@link EntityCredentialCriteria#getOwnerID()} and
- * {@link MetadataCredentialCriteria#getRole()} are mandatory. If the protocol value obtained via 
- * {@link MetadataCredentialCriteria#getProtocol()} is not supplied, credentials will be resolved from all 
- * matching roles, regardless of protocol support.  Specification of a {@link UsageCredentialCriteria} is optional.
+ * {@link #resolveSingle(CredentialCriteriaSet)} must minimally contain 2 criteria: {@link EntityCriteria}
+ * and {@link MetadataCriteria}.  The values for {@link EntityCriteria#getEntityID()} and
+ * {@link MetadataCriteria#getRole()} are mandatory. If the protocol value obtained via 
+ * {@link MetadataCriteria#getProtocol()} is not supplied, credentials will be resolved from all 
+ * matching roles, regardless of protocol support.  Specification of a {@link UsageCriteria} is optional.
  * If usage criteria is absent from the criteria set, the effective value {@link UsageType#UNSPECIFIED} will be used
  * for credential resolution.
  * 
@@ -125,11 +125,11 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
         
         checkCriteriaRequirements(criteriaSet);
         
-        String entityID = criteriaSet.get(EntityCredentialCriteria.class).getOwnerID();
-        MetadataCredentialCriteria mdCriteria = criteriaSet.get(MetadataCredentialCriteria.class);
+        String entityID = criteriaSet.get(EntityCriteria.class).getEntityID();
+        MetadataCriteria mdCriteria = criteriaSet.get(MetadataCriteria.class);
         QName role = mdCriteria.getRole();
         String protocol = mdCriteria.getProtocol();
-        UsageCredentialCriteria usageCriteria = criteriaSet.get(UsageCredentialCriteria.class);
+        UsageCriteria usageCriteria = criteriaSet.get(UsageCriteria.class);
         UsageType usage = null;
         if (usageCriteria != null) {
             usage = usageCriteria.getUsage();
@@ -154,15 +154,15 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
      * @param criteriaSet the credential set to evaluate
      */
     protected void checkCriteriaRequirements(CredentialCriteriaSet criteriaSet) {
-        EntityCredentialCriteria entityCriteria = criteriaSet.get(EntityCredentialCriteria.class);
-        MetadataCredentialCriteria mdCriteria = criteriaSet.get(MetadataCredentialCriteria.class);
+        EntityCriteria entityCriteria = criteriaSet.get(EntityCriteria.class);
+        MetadataCriteria mdCriteria = criteriaSet.get(MetadataCriteria.class);
         if (entityCriteria == null) {
             throw new IllegalArgumentException("Entity criteria must be supplied");
         }
         if (mdCriteria == null) {
             throw new IllegalArgumentException("SAML metadata criteria must be supplied");
         }
-        if (DatatypeHelper.isEmpty(entityCriteria.getOwnerID())) {
+        if (DatatypeHelper.isEmpty(entityCriteria.getEntityID())) {
             throw new IllegalArgumentException("Credential owner entity ID criteria value must be supplied");
         }
         if (mdCriteria.getRole() == null) {
@@ -229,7 +229,7 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
                 if (matchUsage(mdUsage, usage)) {
                     if (keyDescriptor.getKeyInfo() != null) {
                         CredentialCriteriaSet critSet = new CredentialCriteriaSet();
-                        critSet.add( new KeyInfoCredentialCriteria(keyDescriptor.getKeyInfo()) );
+                        critSet.add( new KeyInfoCriteria(keyDescriptor.getKeyInfo()) );
                         
                         for (Credential cred : getKeyInfoCredentialResolver().resolve(critSet)) {
                             if (cred instanceof BasicCredential) {

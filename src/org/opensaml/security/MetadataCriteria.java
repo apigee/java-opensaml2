@@ -19,18 +19,19 @@ package org.opensaml.security;
 import javax.xml.namespace.QName;
 
 import org.opensaml.xml.security.credential.CredentialCriteria;
+import org.opensaml.xml.security.x509.PKIXCriteria;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
- * An implementation of {@link CredentialCriteria} which specifies criteria pertaining 
+ * An implementation of {@link Criteria} which specifies criteria pertaining 
  * to SAML 2 metadata.
  */
-public final class MetadataCredentialCriteria implements CredentialCriteria {
+public final class MetadataCriteria implements CredentialCriteria, PKIXCriteria {
     
-    /** Role from which to fetch the credential information. */
+    /** Metadata role indicated by the criteria. */
     private QName entityRole;
 
-    /** Supported protocol of the role from which to fetch the credential information. */
+    /** Metadata protocol of the role indicated by the criteria. */
     private String entityProtocol;
     
     /**
@@ -39,7 +40,7 @@ public final class MetadataCredentialCriteria implements CredentialCriteria {
      * @param role the entity role
      * @param protocol the entity protocol
      */
-    public MetadataCredentialCriteria(QName role, String protocol) {
+    public MetadataCriteria(QName role, String protocol) {
        setRole(role);
        setProtocol(protocol);
     }

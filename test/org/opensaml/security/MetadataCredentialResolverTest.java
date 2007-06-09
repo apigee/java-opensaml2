@@ -33,8 +33,8 @@ import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.credential.CredentialCriteriaSet;
-import org.opensaml.xml.security.credential.EntityCredentialCriteria;
-import org.opensaml.xml.security.credential.UsageCredentialCriteria;
+import org.opensaml.xml.security.credential.EntityCriteria;
+import org.opensaml.xml.security.credential.UsageCriteria;
 import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 import org.opensaml.xml.security.x509.X509Credential;
@@ -138,9 +138,9 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
     
     private KeyInfoCredentialResolver keyInfoResolver;
     
-    private EntityCredentialCriteria entityCriteria;
+    private EntityCriteria entityCriteria;
     
-    private MetadataCredentialCriteria mdCriteria;
+    private MetadataCriteria mdCriteria;
     
     private CredentialCriteriaSet criteriaSet;
     
@@ -162,9 +162,9 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         keyInfoResolver = new KeyInfoCredentialResolver();
         mdResolver.setKeyInfoCredentialResolver(keyInfoResolver);
         
-        entityCriteria = new EntityCredentialCriteria(idpEntityID, null);
+        entityCriteria = new EntityCriteria(idpEntityID, null);
         // by default set protocol to null
-        mdCriteria = new MetadataCredentialCriteria(idpRole, null);
+        mdCriteria = new MetadataCriteria(idpRole, null);
         
         criteriaSet = new CredentialCriteriaSet();
         criteriaSet.add(entityCriteria);
@@ -215,7 +215,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
      * @throws SecurityException 
      */
     public void testNoProtocolUsageEncryption() throws SecurityException {
-        criteriaSet.add( new UsageCredentialCriteria(UsageType.ENCRYPTION) );
+        criteriaSet.add( new UsageCriteria(UsageType.ENCRYPTION) );
         
         List<Credential> resolved = new ArrayList<Credential>();
         for (Credential credential : mdResolver.resolve(criteriaSet)) {
@@ -252,7 +252,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
      * @throws SecurityException 
      */
     public void testNoProtocolUsageSigning() throws SecurityException {
-        criteriaSet.add( new UsageCredentialCriteria(UsageType.SIGNING) );
+        criteriaSet.add( new UsageCriteria(UsageType.SIGNING) );
         
         List<Credential> resolved = new ArrayList<Credential>();
         for (Credential credential : mdResolver.resolve(criteriaSet)) {
@@ -326,7 +326,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
      */
     public void testProtocolFOOUsageSigning() throws SecurityException {
         mdCriteria.setProtocol(protocolFoo);
-        criteriaSet.add( new UsageCredentialCriteria(UsageType.SIGNING) );
+        criteriaSet.add( new UsageCriteria(UsageType.SIGNING) );
         
         List<Credential> resolved = new ArrayList<Credential>();
         for (Credential credential : mdResolver.resolve(criteriaSet)) {
@@ -362,7 +362,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
      */
     public void testProtocolFOOUsageEncryption() throws SecurityException {
         mdCriteria.setProtocol(protocolFoo);
-        criteriaSet.add( new UsageCredentialCriteria(UsageType.ENCRYPTION) );
+        criteriaSet.add( new UsageCriteria(UsageType.ENCRYPTION) );
         
         List<Credential> resolved = new ArrayList<Credential>();
         for (Credential credential : mdResolver.resolve(criteriaSet)) {
@@ -434,7 +434,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
      */
     public void testProtocolBARUsageSigning() throws SecurityException {
         mdCriteria.setProtocol(protocolBar);
-        criteriaSet.add( new UsageCredentialCriteria(UsageType.SIGNING) );
+        criteriaSet.add( new UsageCriteria(UsageType.SIGNING) );
         
         List<Credential> resolved = new ArrayList<Credential>();
         for (Credential credential : mdResolver.resolve(criteriaSet)) {
@@ -470,7 +470,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
      */
     public void testProtocolBARUsageEncryption() throws SecurityException {
         mdCriteria.setProtocol(protocolBar);
-        criteriaSet.add( new UsageCredentialCriteria(UsageType.ENCRYPTION) );
+        criteriaSet.add( new UsageCriteria(UsageType.ENCRYPTION) );
         
         List<Credential> resolved = new ArrayList<Credential>();
         for (Credential credential : mdResolver.resolve(criteriaSet)) {
