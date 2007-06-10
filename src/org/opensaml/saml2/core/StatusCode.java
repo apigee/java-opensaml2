@@ -97,6 +97,9 @@ public interface StatusCode extends SAMLObject {
 
     /** URI for RequestVersionTooHigh status code. */
     public static final String REQUEST_VERSION_TOO_HIGH_URI = "urn:oasis:names:tc:SAML:2.0:status:RequestVersionTooHigh";
+    
+    /** URI for RequestVersionTooLow status code. */
+    public static final String REQUEST_VERSION_TOO_LOW_URI = "urn:oasis:names:tc:SAML:2.0:status:RequestVersionTooLow";
 
     /** URI for ResourceNotRecognized status code. */
     public static final String RESOURCE_NOT_RECOGNIZED_URI = "urn:oasis:names:tc:SAML:2.0:status:ResourceNotRecognized";
