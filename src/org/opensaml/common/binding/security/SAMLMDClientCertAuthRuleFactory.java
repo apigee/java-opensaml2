@@ -16,7 +16,7 @@
 
 package org.opensaml.common.binding.security;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 
 import org.apache.log4j.Logger;
 import org.opensaml.security.MetadataCriteria;
@@ -35,7 +35,7 @@ import org.opensaml.xml.security.x509.X509Credential;
 public class SAMLMDClientCertAuthRuleFactory extends ClientCertAuthRuleFactory {
 
     /** {@inheritDoc} */
-    public SecurityPolicyRule<HttpServletRequest> createRuleInstance() {
+    public SecurityPolicyRule<ServletRequest> createRuleInstance() {
         return new SAMLMDClientCertAuthRule(getTrustEngine(), getCertificateNameOptions());
     }
 
@@ -59,7 +59,7 @@ public class SAMLMDClientCertAuthRuleFactory extends ClientCertAuthRuleFactory {
         }
 
         /** {@inheritDoc} */
-        protected CriteriaSet buildCriteriaSet(String entityID, HttpServletRequest request, XMLObject message, 
+        protected CriteriaSet buildCriteriaSet(String entityID, ServletRequest request, XMLObject message, 
                 SecurityPolicyContext context) {
             
 

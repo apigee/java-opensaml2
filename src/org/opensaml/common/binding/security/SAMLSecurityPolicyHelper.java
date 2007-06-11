@@ -16,34 +16,25 @@
 
 package org.opensaml.common.binding.security;
 
-import javax.servlet.ServletRequest;
-
 import org.opensaml.common.SAMLObject;
-import org.opensaml.ws.security.SecurityPolicyContext;
-import org.opensaml.ws.security.SecurityPolicyException;
-import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Base class for SAML-specific {@link SecurityPolicyRule} implementations.
- * 
- * @param <RequestType> type of incoming protocol request
+ * Utility class for SAML security policy rule processing.
  */
-public abstract class AbstractSAMLSecurityPolicyRule<RequestType extends ServletRequest> implements
-        SecurityPolicyRule<RequestType> {
-
-    /** {@inheritDoc} */
-    public abstract void evaluate(RequestType request, XMLObject message, SecurityPolicyContext context)
-            throws SecurityPolicyException;
-
+public final class SAMLSecurityPolicyHelper {
+    
+    /** Constructor. */
+    private SAMLSecurityPolicyHelper() {}
+    
     /**
      * Helper method to obtain the SAML message object from the more generic XMLObject message object.
      * 
      * @param message XMLObject message presumed to contain a SAML message
      * @return the SAML message object, or null if no SAML message found
      */
-    protected SAMLObject getSAMLMessage(XMLObject message) {
+    public static SAMLObject getSAMLMessage(XMLObject message) {
 
         if (message instanceof SAMLObject) {
             return (SAMLObject) message;
@@ -60,4 +51,5 @@ public abstract class AbstractSAMLSecurityPolicyRule<RequestType extends Servlet
 
         return null;
     }
+
 }

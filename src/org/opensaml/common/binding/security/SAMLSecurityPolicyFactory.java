@@ -16,7 +16,7 @@
 
 package org.opensaml.common.binding.security;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletRequest;
 import javax.xml.namespace.QName;
 
 import org.opensaml.ws.security.SecurityPolicy;
@@ -25,7 +25,7 @@ import org.opensaml.ws.security.provider.BaseSecurityPolicyFactory;
 /**
  * Factory that produces {@link SAMLSecurityPolicy} instances.
  */
-public class SAMLSecurityPolicyFactory extends BaseSecurityPolicyFactory<HttpServletRequest> {
+public class SAMLSecurityPolicyFactory extends BaseSecurityPolicyFactory<ServletRequest> {
 
     /** SAML role the issuer is meant to be operating in. */
     private QName issuerRole;
@@ -91,9 +91,9 @@ public class SAMLSecurityPolicyFactory extends BaseSecurityPolicyFactory<HttpSer
     }
 
     /** {@inheritDoc} */
-    public SecurityPolicy<HttpServletRequest> createPolicyInstance() {
-        SAMLSecurityPolicy<HttpServletRequest> securityPolicy = new SAMLSecurityPolicy<HttpServletRequest>(issuerRole,
-                issuerProtocol, requiredAuthenticatedIssuer);
+    public SecurityPolicy<ServletRequest> createPolicyInstance() {
+        SAMLSecurityPolicy securityPolicy = new SAMLSecurityPolicy(issuerRole, issuerProtocol,
+                requiredAuthenticatedIssuer);
         securityPolicy.getPolicyRules().addAll(getPolicyRuleInstances());
         return securityPolicy;
     }

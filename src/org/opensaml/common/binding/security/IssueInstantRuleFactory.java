@@ -30,11 +30,8 @@ import org.opensaml.xml.XMLObject;
 /**
  * Security policy rule factory implementation that generates rules which check for validity of SAML message issue
  * instant date and time.
- * 
- * @param <RequestType> type of incoming protocol request
  */
-public class IssueInstantRuleFactory<RequestType extends ServletRequest> implements
-        SecurityPolicyRuleFactory<RequestType> {
+public class IssueInstantRuleFactory implements SecurityPolicyRuleFactory<ServletRequest> {
 
     /**
      * Clock skew - the number of seconds before a lower time bound, or after an upper time bound, to consider still
@@ -82,14 +79,14 @@ public class IssueInstantRuleFactory<RequestType extends ServletRequest> impleme
     }
 
     /** {@inheritDoc} */
-    public SecurityPolicyRule<RequestType> createRuleInstance() {
+    public SecurityPolicyRule<ServletRequest> createRuleInstance() {
         return new IssueInstantRule(clockSkew, expires);
     }
 
     /**
      * Security policy rule implementation that which checks for validity of SAML message issue instant date and time.
      */
-    public class IssueInstantRule implements SecurityPolicyRule<RequestType> {
+    public class IssueInstantRule implements SecurityPolicyRule<ServletRequest> {
 
         /**
          * Clock skew - the number of seconds before a lower time bound, or after an upper time bound, to consider still
@@ -112,7 +109,7 @@ public class IssueInstantRuleFactory<RequestType extends ServletRequest> impleme
         }
 
         /** {@inheritDoc} */
-        public void evaluate(RequestType request, XMLObject message, SecurityPolicyContext context)
+        public void evaluate(ServletRequest request, XMLObject message, SecurityPolicyContext context)
                 throws SecurityPolicyException {
 
             Logger log = Logger.getLogger(IssueInstantRule.class);

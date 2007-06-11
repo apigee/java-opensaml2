@@ -22,8 +22,8 @@ import javax.servlet.ServletRequest;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.binding.security.AbstractSAMLSecurityPolicyRule;
 import org.opensaml.common.binding.security.SAMLSecurityPolicyContext;
+import org.opensaml.common.binding.security.SAMLSecurityPolicyHelper;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameIDType;
@@ -53,8 +53,7 @@ import org.opensaml.xml.XMLObject;
  * </li>
  * </ul>
  */
-public class SAML2ProtocolMessageRuleFactory implements
-        SecurityPolicyRuleFactory<ServletRequest> {
+public class SAML2ProtocolMessageRuleFactory implements SecurityPolicyRuleFactory<ServletRequest> {
 
     /** {@inheritDoc} */
     public SecurityPolicyRule<ServletRequest> createRuleInstance() {
@@ -65,8 +64,7 @@ public class SAML2ProtocolMessageRuleFactory implements
      * An implementation of {@link SecurityPolicyRule} which processes SAML 2 messages and extracts relevant information
      * out for use in other rules.
      */
-    public class SAML2ProtocolMessageRule extends AbstractSAMLSecurityPolicyRule<ServletRequest> implements
-            SecurityPolicyRule<ServletRequest> {
+    public class SAML2ProtocolMessageRule implements SecurityPolicyRule<ServletRequest> {
 
         /** {@inheritDoc} */
         public void evaluate(ServletRequest request, XMLObject message, SecurityPolicyContext context)
@@ -80,7 +78,7 @@ public class SAML2ProtocolMessageRuleFactory implements
                 throw new IllegalArgumentException("Supplied context was not an instance of SAMLSecurityPolicyContext");
             }
 
-            SAMLObject samlMsg = getSAMLMessage(message);
+            SAMLObject samlMsg = SAMLSecurityPolicyHelper.getSAMLMessage(message);
             if (samlMsg == null) {
                 log.warn("Could not extract SAML message");
                 return;

@@ -29,10 +29,8 @@ import org.opensaml.xml.XMLObject;
 
 /**
  * Security policy rule factory implementation that generates rules which check for replay of SAML messages.
- * 
- * @param <RequestType> type of incoming protocol request
  */
-public class ReplayRuleFactory<RequestType extends ServletRequest> implements SecurityPolicyRuleFactory<RequestType> {
+public class ReplayRuleFactory implements SecurityPolicyRuleFactory<ServletRequest> {
 
     /** Clock skew to use, in seconds. */
     private int clockSkew;
@@ -98,14 +96,14 @@ public class ReplayRuleFactory<RequestType extends ServletRequest> implements Se
     }
 
     /** {@inheritDoc} */
-    public SecurityPolicyRule<RequestType> createRuleInstance() {
+    public SecurityPolicyRule<ServletRequest> createRuleInstance() {
         return new ReplayRule(clockSkew, expires, replayCache);
     }
 
     /**
      * Security policy rule implementation which checks for replay of SAML messages.
      */
-    public class ReplayRule implements SecurityPolicyRule<RequestType> {
+    public class ReplayRule implements SecurityPolicyRule<ServletRequest> {
 
         /** Clock skew to use, in seconds. */
         private int clockSkew;
@@ -130,7 +128,7 @@ public class ReplayRuleFactory<RequestType extends ServletRequest> implements Se
         }
 
         /** {@inheritDoc} */
-        public void evaluate(RequestType request, XMLObject message, SecurityPolicyContext context)
+        public void evaluate(ServletRequest request, XMLObject message, SecurityPolicyContext context)
                 throws SecurityPolicyException {
 
             Logger log = Logger.getLogger(ReplayRule.class);

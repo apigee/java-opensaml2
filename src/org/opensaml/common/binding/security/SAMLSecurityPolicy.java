@@ -33,10 +33,8 @@ import org.opensaml.xml.util.DatatypeHelper;
  * A policy used to verify the security of an incoming SAML request. Its security mechanisms may be used to check
  * transport layer items (e.g client certificates and basic auth passwords) and the payload valiators may be used to
  * check the payload of a request to ensure it meets certain criteria (e.g. valid digital signature).
- * 
- * @param <RequestType> type of incoming protocol request
  */
-public class SAMLSecurityPolicy<RequestType extends ServletRequest> extends BasicSecurityPolicy<RequestType> {
+public class SAMLSecurityPolicy extends BasicSecurityPolicy<ServletRequest> {
 
     /** Class logger. */
     private final Logger log = Logger.getLogger(SAMLSecurityPolicy.class);
@@ -88,7 +86,7 @@ public class SAMLSecurityPolicy<RequestType extends ServletRequest> extends Basi
     }
 
     /** {@inheritDoc} */
-    public void evaluate(RequestType request, XMLObject message) throws SecurityPolicyException {
+    public void evaluate(ServletRequest request, XMLObject message) throws SecurityPolicyException {
         super.evaluate(request, message);
 
         try {
