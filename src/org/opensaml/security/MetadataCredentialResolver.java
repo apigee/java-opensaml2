@@ -33,16 +33,15 @@ import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.saml2.metadata.provider.ObservableMetadataProvider;
 import org.opensaml.xml.security.SecurityException;
-import org.opensaml.xml.security.credential.AbstractCredentialResolver;
+import org.opensaml.xml.security.credential.AbstractCriteriaFilteringCredentialResolver;
 import org.opensaml.xml.security.credential.BasicCredential;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.credential.CredentialCriteriaSet;
-import org.opensaml.xml.security.credential.CredentialResolver;
 import org.opensaml.xml.security.credential.EntityCriteria;
 import org.opensaml.xml.security.credential.UsageCriteria;
 import org.opensaml.xml.security.credential.UsageType;
-import org.opensaml.xml.security.keyinfo.KeyInfoCriteria;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
+import org.opensaml.xml.security.keyinfo.KeyInfoCriteria;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
@@ -61,7 +60,7 @@ import org.opensaml.xml.util.DatatypeHelper;
  * provider is an {@link ObservableMetadataProvider} this resolver will also clear its cache when the underlying
  * metadata changes.
  */
-public class MetadataCredentialResolver extends AbstractCredentialResolver implements CredentialResolver {
+public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredentialResolver {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(MetadataCredentialResolver.class);
@@ -83,6 +82,7 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
      * @throws IllegalArgumentException thrown if the supplied provider is null
      */
     public MetadataCredentialResolver(MetadataProvider metadataProvider) {
+        super();
         if (metadataProvider == null) {
             throw new IllegalArgumentException("Metadata provider may not be null");
         }
@@ -121,7 +121,7 @@ public class MetadataCredentialResolver extends AbstractCredentialResolver imple
     }
 
     /** {@inheritDoc} */
-    public Iterable<Credential> resolve(CredentialCriteriaSet criteriaSet) throws SecurityException {
+    protected Iterable<Credential> resolveFromSource(CredentialCriteriaSet criteriaSet) throws SecurityException {
         
         checkCriteriaRequirements(criteriaSet);
         
