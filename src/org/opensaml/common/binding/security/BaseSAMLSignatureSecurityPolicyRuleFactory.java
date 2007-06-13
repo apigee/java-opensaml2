@@ -25,7 +25,7 @@ import org.opensaml.ws.security.provider.BaseTrustEngineRule;
 import org.opensaml.ws.security.provider.BaseTrustEngineRuleFactory;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.security.CriteriaSet;
-import org.opensaml.xml.security.credential.EntityCriteria;
+import org.opensaml.xml.security.credential.EntityIDCriteria;
 import org.opensaml.xml.security.credential.UsageCriteria;
 import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.security.trust.TrustEngine;
@@ -69,7 +69,7 @@ public abstract class BaseSAMLSignatureSecurityPolicyRuleFactory
             
             CriteriaSet criteriaSet = new CriteriaSet();
             if (! DatatypeHelper.isEmpty(entityID)) {
-                criteriaSet.add(new EntityCriteria(entityID, null));
+                criteriaSet.add(new EntityIDCriteria(entityID) );
             }
             
             MetadataCriteria mdCriteria = 

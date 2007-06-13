@@ -26,7 +26,7 @@ import org.opensaml.xml.util.DatatypeHelper;
  * An implementation of {@link Criteria} which specifies criteria pertaining 
  * to SAML 2 metadata.
  */
-public final class MetadataCriteria implements CredentialCriteria, PKIXCriteria {
+public class MetadataCriteria implements CredentialCriteria, PKIXCriteria {
     
     /** Metadata role indicated by the criteria. */
     private QName entityRole;

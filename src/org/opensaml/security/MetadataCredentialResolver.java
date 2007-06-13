@@ -37,7 +37,7 @@ import org.opensaml.xml.security.credential.AbstractCriteriaFilteringCredentialR
 import org.opensaml.xml.security.credential.BasicCredential;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.credential.CredentialCriteriaSet;
-import org.opensaml.xml.security.credential.EntityCriteria;
+import org.opensaml.xml.security.credential.EntityIDCriteria;
 import org.opensaml.xml.security.credential.UsageCriteria;
 import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
@@ -48,8 +48,8 @@ import org.opensaml.xml.util.DatatypeHelper;
  * A credential resolver capable of resolving credentials from SAML 2 metadata;
  * 
  * The instance of {@link CredentialCriteriaSet} passed to {@link #resolve(CredentialCriteriaSet)} and
- * {@link #resolveSingle(CredentialCriteriaSet)} must minimally contain 2 criteria: {@link EntityCriteria}
- * and {@link MetadataCriteria}.  The values for {@link EntityCriteria#getEntityID()} and
+ * {@link #resolveSingle(CredentialCriteriaSet)} must minimally contain 2 criteria: {@link EntityIDCriteria}
+ * and {@link MetadataCriteria}.  The values for {@link EntityIDCriteria#getEntityID()} and
  * {@link MetadataCriteria#getRole()} are mandatory. If the protocol value obtained via 
  * {@link MetadataCriteria#getProtocol()} is not supplied, credentials will be resolved from all 
  * matching roles, regardless of protocol support.  Specification of a {@link UsageCriteria} is optional.
@@ -125,7 +125,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
         
         checkCriteriaRequirements(criteriaSet);
         
-        String entityID = criteriaSet.get(EntityCriteria.class).getEntityID();
+        String entityID = criteriaSet.get(EntityIDCriteria.class).getEntityID();
         MetadataCriteria mdCriteria = criteriaSet.get(MetadataCriteria.class);
         QName role = mdCriteria.getRole();
         String protocol = mdCriteria.getProtocol();
@@ -154,7 +154,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
      * @param criteriaSet the credential set to evaluate
      */
     protected void checkCriteriaRequirements(CredentialCriteriaSet criteriaSet) {
-        EntityCriteria entityCriteria = criteriaSet.get(EntityCriteria.class);
+        EntityIDCriteria entityCriteria = criteriaSet.get(EntityIDCriteria.class);
         MetadataCriteria mdCriteria = criteriaSet.get(MetadataCriteria.class);
         if (entityCriteria == null) {
             throw new IllegalArgumentException("Entity criteria must be supplied");

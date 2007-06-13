@@ -33,7 +33,7 @@ import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.credential.CredentialCriteriaSet;
-import org.opensaml.xml.security.credential.EntityCriteria;
+import org.opensaml.xml.security.credential.EntityIDCriteria;
 import org.opensaml.xml.security.credential.UsageCriteria;
 import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
@@ -138,7 +138,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
     
     private KeyInfoCredentialResolver keyInfoResolver;
     
-    private EntityCriteria entityCriteria;
+    private EntityIDCriteria entityCriteria;
     
     private MetadataCriteria mdCriteria;
     
@@ -162,7 +162,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         keyInfoResolver = new KeyInfoCredentialResolver();
         mdResolver.setKeyInfoCredentialResolver(keyInfoResolver);
         
-        entityCriteria = new EntityCriteria(idpEntityID, null);
+        entityCriteria = new EntityIDCriteria(idpEntityID);
         // by default set protocol to null
         mdCriteria = new MetadataCriteria(idpRole, null);
         
