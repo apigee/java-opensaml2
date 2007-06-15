@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.security.MetadataCriteria;
 import org.opensaml.ws.security.SecurityPolicyContext;
 import org.opensaml.ws.security.SecurityPolicyRule;
+import org.opensaml.ws.security.provider.ClientCertAuthRule;
 import org.opensaml.ws.security.provider.ClientCertAuthRuleFactory;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.security.CriteriaSet;
@@ -43,7 +44,7 @@ public class SAMLMDClientCertAuthRuleFactory extends ClientCertAuthRuleFactory {
      * SAML specialization of {@link ClientCertAuthRule} which provides support for 
      * X509Credential trust engine validation based on SAML metadta.
      */
-    protected class SAMLMDClientCertAuthRule extends ClientCertAuthRule {
+    public class SAMLMDClientCertAuthRule extends ClientCertAuthRule {
         
         /** Logger. */
         private Logger log = Logger.getLogger(SAMLMDClientCertAuthRule.class);
