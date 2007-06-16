@@ -53,10 +53,10 @@ public class AuthnRequestMarshaller extends RequestAbstractTypeMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthnRequest req = (AuthnRequest) samlObject;
 
-        if (req.isForceAuthn() != null)
+        if (req.isForceAuthnXSBoolean() != null)
             domElement.setAttributeNS(null, AuthnRequest.FORCE_AUTHN_ATTRIB_NAME, req.isForceAuthnXSBoolean().toString());
 
-        if (req.isPassive() != null)
+        if (req.isPassiveXSBoolean() != null)
             domElement.setAttributeNS(null, AuthnRequest.IS_PASSIVE_ATTRIB_NAME, req.isPassiveXSBoolean().toString());
 
         if (req.getProtocolBinding() != null)

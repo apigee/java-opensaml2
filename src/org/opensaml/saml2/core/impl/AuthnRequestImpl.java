@@ -91,7 +91,7 @@ public class AuthnRequestImpl extends RequestAbstractTypeImpl implements AuthnRe
             return forceAuthn.getValue();
         }
 
-        return null;
+        return Boolean.FALSE;
     }
 
     /** {@inheritDoc} */
@@ -119,7 +119,7 @@ public class AuthnRequestImpl extends RequestAbstractTypeImpl implements AuthnRe
             return isPassive.getValue();
         }
 
-        return null;
+        return Boolean.FALSE;
     }
 
     /** {@inheritDoc} */
