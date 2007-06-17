@@ -149,16 +149,16 @@ public class ReplayRuleFactory implements SecurityPolicyRuleFactory<ServletReque
                 return;
             }
 
-            DateTime issueInstant = samlContext.getIssueInstant();
+            DateTime effectiveIssueInstant = samlContext.getIssueInstant();
 
-            if (issueInstant == null) {
+            if (effectiveIssueInstant == null) {
                 log.debug("Message did not contain issue instant, using current time for replay checking");
-                issueInstant = new DateTime();
+                effectiveIssueInstant = new DateTime();
             }
+            
+            DateTime expiration = effectiveIssueInstant.plusSeconds(clockSkew + expires);
 
-            if (!replayCache.isReplay(samlContext.getMessageID(), samlContext.getIssueInstant().plusSeconds(
-                    clockSkew + expires))) {
-
+            if (replayCache.isReplay(samlContext.getMessageID(), expiration)) { 
                 log.error("Replay detected of message '" + samlContext.getMessageID() + "'");
                 throw new SecurityPolicyException("Rejecting replayed message ID '" + samlContext.getMessageID() + "'");
             }
