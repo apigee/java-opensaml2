@@ -19,7 +19,6 @@ package org.opensaml.common.binding.encoding.impl;
 import java.io.StringWriter;
 
 import javax.servlet.ServletResponse;
-import javax.xml.namespace.QName;
 
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
@@ -27,6 +26,7 @@ import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.encoding.MessageEncoder;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Marshaller;
@@ -53,7 +53,7 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
     private EntityDescriptor relyingParty;
 
     /** Role of the relying party. */
-    private QName relyingPartyRole;
+    private RoleDescriptor relyingPartyRole;
 
     /** Endpoint of the relying party. */
     private Endpoint relyingPartyEndpoint;
@@ -108,12 +108,12 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
     }
 
     /** {@inheritDoc} */
-    public QName getRelyingPartyRole() {
+    public RoleDescriptor getRelyingPartyRole() {
         return relyingPartyRole;
     }
 
     /** {@inheritDoc} */
-    public void setRelyingPartyRole(QName role) {
+    public void setRelyingPartyRole(RoleDescriptor role) {
         relyingPartyRole = role;
     }
 
