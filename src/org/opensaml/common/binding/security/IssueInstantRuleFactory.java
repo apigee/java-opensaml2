@@ -124,23 +124,22 @@ public class IssueInstantRuleFactory implements SecurityPolicyRuleFactory<Servle
                 log.debug("Message did not contain an issue instant, skipping evaluation");
                 return;
             }
-
+            
+            DateTime issueInstant = samlContext.getIssueInstant();
             DateTime now = new DateTime();
             DateTime latestValid = now.plusSeconds(clockSkew);
-            DateTime expiration = samlContext.getIssueInstant().plusSeconds(clockSkew + expires);
-
-            DateTimeComparator dtCompare = DateTimeComparator.getInstance();
+            DateTime expiration = issueInstant.plusSeconds(clockSkew + expires);
 
             // Check message wasn't issued in the future
-            if (dtCompare.compare(latestValid, samlContext.getIssueInstant()) < 0) {
-                log.error("Message was not yet valid: message time was '" + samlContext.getIssueInstant()
+            if (issueInstant.isAfter(latestValid)) {
+                log.error("Message was not yet valid: message time was '" + issueInstant
                         + "', latest valid is: '" + latestValid + "'");
                 throw new SecurityPolicyException("Message was rejected because was issued in the future");
             }
 
             // Check message has not expired
-            if (dtCompare.compare(expiration, now) < 0) {
-                log.error("Message was expired: message issue time was '" + samlContext.getIssueInstant()
+            if (expiration.isBefore(now)) {
+                log.error("Message was expired: message issue time was '" + issueInstant
                         + "', message expired at: '" + expiration + "', current time: '" + now + "'");
                 throw new SecurityPolicyException("Message was rejected due to issue instant expiration");
             }
