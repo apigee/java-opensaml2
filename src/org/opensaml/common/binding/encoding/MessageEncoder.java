@@ -17,12 +17,12 @@
 package org.opensaml.common.binding.encoding;
 
 import javax.servlet.ServletResponse;
+import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.xml.security.credential.Credential;
 
@@ -90,14 +90,14 @@ public interface MessageEncoder<ResponseType extends ServletResponse> {
      * 
      * @return role of the relying party the message will be encoded for
      */
-    public RoleDescriptor getRelyingPartyRole();
+    public QName getRelyingPartyRole();
 
     /**
      * Sets the role of the relying party the message will be encoded for.
      * 
      * @param relyingPartyRole role of the relying party the message will be encoded for
      */
-    public void setRelyingPartyRole(RoleDescriptor relyingPartyRole);
+    public void setRelyingPartyRole(QName relyingPartyRole);
 
     /**
      * Gets the endpoint to which the message will be sent.
