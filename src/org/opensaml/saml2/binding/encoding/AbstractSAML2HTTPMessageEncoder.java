@@ -16,9 +16,6 @@
 
 package org.opensaml.saml2.binding.encoding;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
 import org.opensaml.Configuration;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.BindingException;
@@ -48,7 +45,7 @@ public abstract class AbstractSAML2HTTPMessageEncoder extends AbstractHTTPMessag
     protected String getEndpointURL() throws BindingException {
         Endpoint endpoint = getRelyingPartyEndpoint();
         if (endpoint == null) {
-            throw new BindingException("Relying party endpoint provided we null.");
+            throw new BindingException("Endpoint for relying party was null.");
         }
 
         if (getSamlMessage() instanceof Response && !DatatypeHelper.isEmpty(endpoint.getResponseLocation())) {

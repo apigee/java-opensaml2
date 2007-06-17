@@ -16,6 +16,7 @@
 
 package org.opensaml.common.binding;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -64,12 +65,13 @@ public class BasicEndpointSelector extends AbstractEndpointSelector {
      * @return appropriate endpoint from a list of indexed endpoints or null
      */
     protected Endpoint selectIndexedEndpoint(List<IndexedEndpoint> endpoints) {
-        Iterator<IndexedEndpoint> endpointItr = endpoints.iterator();
+        List<IndexedEndpoint> endpointsCopy = new ArrayList<IndexedEndpoint>(endpoints);
+        Iterator<IndexedEndpoint> endpointItr = endpointsCopy.iterator();
         IndexedEndpoint firstNoDefaultEndpoint = null;
         IndexedEndpoint currentEndpoint;
         while (endpointItr.hasNext()) {
             currentEndpoint = endpointItr.next();
-            // if endpoint binding not supported, remove it
+            // if endpoint binding not supported, ignore it
             if (!getSupportedIssuerBindings().contains(currentEndpoint.getBinding())) {
                 endpointItr.remove();
                 continue;
@@ -91,9 +93,9 @@ public class BasicEndpointSelector extends AbstractEndpointSelector {
             // no endpoint was marked as the default, return first unmarked endpoint
             return firstNoDefaultEndpoint;
         } else {
-            if (endpoints.size() > 0) {
+            if (endpointsCopy.size() > 0) {
                 // no endpoint had an index so return the first one
-                return endpoints.get(0);
+                return endpointsCopy.get(0);
             } else {
                 // no endpoints made it through the supported binding filter
                 return null;
