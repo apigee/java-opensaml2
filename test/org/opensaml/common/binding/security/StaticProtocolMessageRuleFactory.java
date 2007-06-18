@@ -74,7 +74,7 @@ public class StaticProtocolMessageRuleFactory extends StaticIssuerRuleFactory {
 
     /** {@inheritDoc} */
     public SecurityPolicyRule<ServletRequest> createRuleInstance() {
-        return new StaticProtocolMesageRule(getIssuer(), getMessageID(), getIssueInstant());
+        return new StaticProtocolMesageRule(getIssuer(), getIssuerAuthenticated(), getMessageID(), getIssueInstant());
     }
 
     /**
@@ -87,17 +87,18 @@ public class StaticProtocolMessageRuleFactory extends StaticIssuerRuleFactory {
         
         /** Static message ID to set. */
         private String messageID;
-        
 
         /**
          * Constructor.
          *
          * @param newIssuer the new issuer
+         * @param newIssuerAuthenticated the new issuer authenticated state to set
          * @param newMessageID the new message ID
          * @param newIssueInstant the new issue instant
          */
-        protected StaticProtocolMesageRule(String newIssuer, String newMessageID, DateTime newIssueInstant) {
-            super(newIssuer);
+        protected StaticProtocolMesageRule(String newIssuer, Boolean newIssuerAuthenticated, String newMessageID,
+                DateTime newIssueInstant) {
+            super(newIssuer, newIssuerAuthenticated);
             messageID = newMessageID;
             issueInstant = newIssueInstant;
         }
