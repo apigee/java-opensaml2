@@ -47,6 +47,9 @@ import org.opensaml.xml.XMLObject;
  * {@link SAML1ProtocolMessageRule}s rules operate on {@link SAMLSecurityPolicyContext}s.
  */
 public class SAML1ProtocolMessageRuleFactory implements SecurityPolicyRuleFactory<ServletRequest> {
+    
+    /** Logger. */
+    private static Logger log = Logger.getLogger(SAML1ProtocolMessageRule.class);
 
     /** {@inheritDoc} */
     public SecurityPolicyRule<ServletRequest> createRuleInstance() {
@@ -62,8 +65,6 @@ public class SAML1ProtocolMessageRuleFactory implements SecurityPolicyRuleFactor
         /** {@inheritDoc} */
         public void evaluate(ServletRequest request, XMLObject message, SecurityPolicyContext context)
                 throws SecurityPolicyException {
-
-            Logger log = Logger.getLogger(SAML1ProtocolMessageRule.class);
 
             SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) context;
             if (samlContext == null) {
@@ -87,10 +88,6 @@ public class SAML1ProtocolMessageRuleFactory implements SecurityPolicyRuleFactor
                 throw new SecurityPolicyException("SAML 1.x message was not a request or a response");
             }
 
-            if (samlContext.getIssuer() == null) {
-                log.warn("Issuer could not be extracted from SAML message");
-                return;
-            }
         }
 
         /**
@@ -103,17 +100,16 @@ public class SAML1ProtocolMessageRuleFactory implements SecurityPolicyRuleFactor
          */
         protected void extractResponseInfo(SAMLSecurityPolicyContext samlContext, ResponseAbstractType response)
                 throws SecurityPolicyException {
-            Logger log = Logger.getLogger(SAML1ProtocolMessageRule.class);
 
             samlContext.setMessageID(response.getID());
             samlContext.setIssueInstant(response.getIssueInstant());
 
             // samlp:Response is known to carry issuer only via assertion(s) payload in standard SAML 1.x.
             if (response instanceof Response) {
-                log.info("Attempting to extract issuer from enclosed SAML 1.x Assertion");
                 String issuer = null;
                 List<Assertion> assertions = ((Response) response).getAssertions();
-                if (assertions != null) {
+                if (assertions != null && assertions.size() > 0) {
+                    log.info("Attempting to extract issuer from enclosed SAML 1.x Assertion(s)");
                     for (Assertion assertion : assertions) {
                         if (assertion != null && assertion.getIssuer() != null) {
                             if (issuer != null && !issuer.equals(assertion.getIssuer())) {
@@ -124,8 +120,12 @@ public class SAML1ProtocolMessageRuleFactory implements SecurityPolicyRuleFactor
                         }
                     }
                 }
-
                 samlContext.setIssuer(issuer);
+            }
+            
+            if (samlContext.getIssuer() == null) {
+                log.info("Issuer could not be extracted from standard SAML 1.x response message");
+                return;
             }
         }
 

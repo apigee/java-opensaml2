@@ -54,6 +54,9 @@ import org.opensaml.xml.XMLObject;
  * </ul>
  */
 public class SAML2ProtocolMessageRuleFactory implements SecurityPolicyRuleFactory<ServletRequest> {
+    
+    /** Logger. */
+    private static Logger log = Logger.getLogger(SAML2ProtocolMessageRule.class);
 
     /** {@inheritDoc} */
     public SecurityPolicyRule<ServletRequest> createRuleInstance() {
@@ -69,8 +72,6 @@ public class SAML2ProtocolMessageRuleFactory implements SecurityPolicyRuleFactor
         /** {@inheritDoc} */
         public void evaluate(ServletRequest request, XMLObject message, SecurityPolicyContext context)
                 throws SecurityPolicyException {
-
-            Logger log = Logger.getLogger(SAML2ProtocolMessageRule.class);
 
             SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) context;
             if (samlContext == null) {
@@ -113,7 +114,6 @@ public class SAML2ProtocolMessageRuleFactory implements SecurityPolicyRuleFactor
          */
         protected void extractResponseInfo(SAMLSecurityPolicyContext samlContext, StatusResponseType statusResponse)
                 throws SecurityPolicyException {
-            Logger log = Logger.getLogger(SAML2ProtocolMessageRule.class);
 
             samlContext.setMessageID(statusResponse.getID());
             samlContext.setIssueInstant(statusResponse.getIssueInstant());
@@ -124,10 +124,10 @@ public class SAML2ProtocolMessageRuleFactory implements SecurityPolicyRuleFactor
             if (statusResponse.getIssuer() != null) {
                 messageIssuer = extractEntityId(statusResponse.getIssuer());
             } else if (statusResponse instanceof Response) {
-                log.info("Status response message had no issuer, "
-                        + "attempting to extract issuer from enclosed Assertion");
                 List<Assertion> assertions = ((Response) statusResponse).getAssertions();
-                if (assertions != null) {
+                if (assertions != null && assertions.size() > 0) {
+                    log.info("Status response message had no issuer, "
+                            + "attempting to extract issuer from enclosed Assertion(s)");
                     String assertionIssuer;
                     for (Assertion assertion : assertions) {
                         if (assertion != null && assertion.getIssuer() != null) {
