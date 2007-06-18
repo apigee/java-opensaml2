@@ -101,7 +101,7 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRuleFactory
                     }
                 } else {
                     log.error("Validation of protocol message signature failed for context issuer '"
-                           + contextIssuer + ", message type: " + msgType);
+                           + contextIssuer + "', message type: " + msgType);
                     throw new SecurityPolicyException("Validation of protocol message signature failed");
                 }
             } else {
