@@ -1,4 +1,4 @@
-OpenSAML-J version 2.0 Technology Preview 1
+OpenSAML-J version 2.0 Alpha 1
 =============================================
 
 OpenSAML-J is a low-level library that allow developers to work with XML in a
@@ -20,3 +20,9 @@ Feedback
 --------
 Feedback may be provided through the OpenSAML mailing list.
 http://www.opensaml.org/index.html#mailing
+
+Issues, Suggestions
+--------
+Issues or suggestions for improvement may submitted to the OpenWS - Java
+projact at:
+http://bugs.internet2.edu
