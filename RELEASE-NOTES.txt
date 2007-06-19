@@ -1,4 +1,4 @@
-OpenSAML-J version 2.0 Alpha 1
+OpenSAML-J version 2.0 Trunk
 =============================================
 
 OpenSAML-J is a low-level library that allow developers to work with XML in a
