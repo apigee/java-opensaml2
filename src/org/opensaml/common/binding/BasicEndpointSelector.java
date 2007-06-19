@@ -24,6 +24,7 @@ import org.opensaml.saml2.binding.AuthnResponseEndpointSelector;
 import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
+import org.opensaml.saml2.metadata.RoleDescriptor;
 
 /**
  * This endpoint selector retrieves all the endpoints for a given role. A first filter pass removes those endpoints that
@@ -45,6 +46,10 @@ public class BasicEndpointSelector extends AbstractEndpointSelector {
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Endpoint selectEndpoint() {
+        if(getRelyingPartyRole() == null){
+            return null;
+        }
+        
         List<? extends Endpoint> endpoints = getRelyingPartyRole().getEndpoints(getEndpointType());
         if (endpoints == null || endpoints.size() == 0) {
             return null;
