@@ -18,15 +18,14 @@ package org.opensaml.security;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.xml.security.credential.CredentialCriteria;
-import org.opensaml.xml.security.x509.PKIXCriteria;
+import org.opensaml.xml.security.Criteria;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * An implementation of {@link Criteria} which specifies criteria pertaining 
  * to SAML 2 metadata.
  */
-public class MetadataCriteria implements CredentialCriteria, PKIXCriteria {
+public final class MetadataCriteria implements Criteria {
     
     /** Metadata role indicated by the criteria. */
     private QName entityRole;

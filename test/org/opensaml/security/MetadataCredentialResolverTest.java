@@ -29,10 +29,10 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.DOMMetadataProvider;
+import org.opensaml.xml.security.CriteriaSet;
 import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.security.credential.CredentialCriteriaSet;
 import org.opensaml.xml.security.credential.EntityIDCriteria;
 import org.opensaml.xml.security.credential.UsageCriteria;
 import org.opensaml.xml.security.credential.UsageType;
@@ -142,7 +142,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
     
     private MetadataCriteria mdCriteria;
     
-    private CredentialCriteriaSet criteriaSet;
+    private CriteriaSet criteriaSet;
     
 
     /** {@inheritDoc} */
@@ -166,7 +166,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         // by default set protocol to null
         mdCriteria = new MetadataCriteria(idpRole, null);
         
-        criteriaSet = new CredentialCriteriaSet();
+        criteriaSet = new CriteriaSet();
         criteriaSet.add(entityCriteria);
         criteriaSet.add(mdCriteria);
     }

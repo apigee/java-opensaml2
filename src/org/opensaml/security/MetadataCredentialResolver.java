@@ -32,11 +32,11 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.saml2.metadata.provider.ObservableMetadataProvider;
+import org.opensaml.xml.security.CriteriaSet;
 import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.credential.AbstractCriteriaFilteringCredentialResolver;
 import org.opensaml.xml.security.credential.BasicCredential;
 import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.security.credential.CredentialCriteriaSet;
 import org.opensaml.xml.security.credential.EntityIDCriteria;
 import org.opensaml.xml.security.credential.UsageCriteria;
 import org.opensaml.xml.security.credential.UsageType;
@@ -47,8 +47,8 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * A credential resolver capable of resolving credentials from SAML 2 metadata;
  * 
- * The instance of {@link CredentialCriteriaSet} passed to {@link #resolve(CredentialCriteriaSet)} and
- * {@link #resolveSingle(CredentialCriteriaSet)} must minimally contain 2 criteria: {@link EntityIDCriteria}
+ * The instance of {@link CriteriaSet} passed to {@link #resolve(CriteriaSet)} and
+ * {@link #resolveSingle(CriteriaSet)} must minimally contain 2 criteria: {@link EntityIDCriteria}
  * and {@link MetadataCriteria}.  The values for {@link EntityIDCriteria#getEntityID()} and
  * {@link MetadataCriteria#getRole()} are mandatory. If the protocol value obtained via 
  * {@link MetadataCriteria#getProtocol()} is not supplied, credentials will be resolved from all 
@@ -121,7 +121,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
     }
 
     /** {@inheritDoc} */
-    protected Iterable<Credential> resolveFromSource(CredentialCriteriaSet criteriaSet) throws SecurityException {
+    protected Iterable<Credential> resolveFromSource(CriteriaSet criteriaSet) throws SecurityException {
         
         checkCriteriaRequirements(criteriaSet);
         
@@ -142,7 +142,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
         
         if (credentials == null) {
             credentials = retrieveFromMetadata(entityID, role, protocol, usage);
-            cacheCredential(cacheKey, credentials);
+            cacheCredentials(cacheKey, credentials);
         }
 
         return credentials;
@@ -153,7 +153,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
      * 
      * @param criteriaSet the credential set to evaluate
      */
-    protected void checkCriteriaRequirements(CredentialCriteriaSet criteriaSet) {
+    protected void checkCriteriaRequirements(CriteriaSet criteriaSet) {
         EntityIDCriteria entityCriteria = criteriaSet.get(EntityIDCriteria.class);
         MetadataCriteria mdCriteria = criteriaSet.get(MetadataCriteria.class);
         if (entityCriteria == null) {
@@ -228,7 +228,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
                 }
                 if (matchUsage(mdUsage, usage)) {
                     if (keyDescriptor.getKeyInfo() != null) {
-                        CredentialCriteriaSet critSet = new CredentialCriteriaSet();
+                        CriteriaSet critSet = new CriteriaSet();
                         critSet.add( new KeyInfoCriteria(keyDescriptor.getKeyInfo()) );
                         
                         for (Credential cred : getKeyInfoCredentialResolver().resolve(critSet)) {
@@ -299,12 +299,12 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
     }
 
     /**
-     * Adds a resolved credential to the cache.
+     * Adds resolved credentials to the cache.
      * 
      * @param cacheKey the key for caching the credentials
      * @param credentials collection of credentials to cache
      */
-    protected void cacheCredential(MetadataCacheKey cacheKey, Collection<Credential> credentials) {
+    protected void cacheCredentials(MetadataCacheKey cacheKey, Collection<Credential> credentials) {
         cache.put(cacheKey, new SoftReference<Collection<Credential>>(credentials));
     }
     
