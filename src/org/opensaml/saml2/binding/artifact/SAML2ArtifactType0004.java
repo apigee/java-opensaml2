@@ -148,10 +148,10 @@ public class SAML2ArtifactType0004 extends AbstractSAML2Artifact {
 
     /** {@inheritDoc} */
     public byte[] getRemainingArtifact() {
-        byte[] remainingArtifact = new byte[20];
+        byte[] remainingArtifact = new byte[40];
 
         System.arraycopy(getSourceID(), 0, remainingArtifact, 0, 20);
-        System.arraycopy(getMessageHandle(), 0, remainingArtifact, 0, 20);
+        System.arraycopy(getMessageHandle(), 0, remainingArtifact, 20, 20);
 
         return remainingArtifact;
     }
