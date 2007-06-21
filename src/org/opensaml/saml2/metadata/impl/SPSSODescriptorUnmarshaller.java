@@ -69,7 +69,7 @@ public class SPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         SPSSODescriptor descriptor = (SPSSODescriptor) samlObject;
 
-        if (attribute.getLocalName().equals(SPSSODescriptor.AUTH_REQUETS_SIGNED_ATTRIB_NAME)) {
+        if (attribute.getLocalName().equals(SPSSODescriptor.AUTH_REQUESTS_SIGNED_ATTRIB_NAME)) {
             descriptor.setAuthnRequestsSigned(XSBooleanValue.valueOf(attribute.getValue()));
         } else if (attribute.getLocalName().equals(SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME)) {
             descriptor.setWantAssertionsSigned(XSBooleanValue.valueOf(attribute.getValue()));

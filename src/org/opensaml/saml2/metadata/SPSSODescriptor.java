@@ -42,7 +42,7 @@ public interface SPSSODescriptor extends SSODescriptor {
             SAMLConstants.SAML20MD_PREFIX);
 
     /** "AuthnRequestsSigned" attribute's local name */
-    public final static String AUTH_REQUETS_SIGNED_ATTRIB_NAME = "AuthnRequestsSigned";
+    public final static String AUTH_REQUESTS_SIGNED_ATTRIB_NAME = "AuthnRequestsSigned";
 
     /** "WantAssertionsSigned" attribute's local name */
     public final static String WANT_ASSERTIONS_SIGNED_ATTRIB_NAME = "WantAssertionsSigned";
