@@ -86,7 +86,7 @@ public class StatusCodeSchemaValidator implements Validator<StatusCode> {
         String value = statusCode.getValue();
         QName qname = QName.valueOf(value);
 
-        if (SAMLConstants.SAML1P_NS.equals(qname.getNamespaceURI())) {
+        if (SAMLConstants.SAML10P_NS.equals(qname.getNamespaceURI())) {
             String localName = qname.getLocalPart();
             boolean allowedName = false;
             for (int i = 0; i < allowedCodes.length; i++) {

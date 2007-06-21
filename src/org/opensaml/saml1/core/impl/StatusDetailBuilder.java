@@ -36,7 +36,7 @@ public class StatusDetailBuilder extends AbstractSAMLObjectBuilder<StatusDetail>
      * {@inheritDoc}
      */
     public StatusDetail buildObject() {
-        return buildObject(SAMLConstants.SAML1P_NS, StatusDetail.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        return buildObject(SAMLConstants.SAML10P_NS, StatusDetail.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /**

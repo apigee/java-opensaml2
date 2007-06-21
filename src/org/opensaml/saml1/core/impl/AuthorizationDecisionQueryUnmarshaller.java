@@ -31,7 +31,7 @@ public class AuthorizationDecisionQueryUnmarshaller extends SubjectQueryUnmarsha
 
     /** Constructor */
     public AuthorizationDecisionQueryUnmarshaller() {
-        super(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME);
+        super(SAMLConstants.SAML10P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /** {@inheritDoc} */

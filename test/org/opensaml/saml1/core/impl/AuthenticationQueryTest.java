@@ -45,7 +45,7 @@ public class AuthenticationQueryTest extends BaseSAMLObjectProviderTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAuthenticationQueryAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/AuthenticationQueryWithChildren.xml";
         expectedAuthenticationMethod = "Trust Me";
-        qname = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname = new QName(SAMLConstants.SAML10P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /** {@inheritDoc} */

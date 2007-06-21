@@ -49,7 +49,7 @@ public class AttributeQueryTest extends BaseSAMLObjectProviderTestCase {
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAttributeQueryAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/AttributeQueryWithChildren.xml";
         expectedResource = "resource";
-        qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname = new QName(SAMLConstants.SAML10P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /** {@inheritDoc} */

@@ -60,7 +60,7 @@ public class AuthorizationDecisionQueryTest extends BaseSAMLObjectProviderTestCa
 
         expectedResource = "resource";
         
-        qname =new QName(SAMLConstants.SAML1P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname =new QName(SAMLConstants.SAML10P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /** {@inheritDoc} */

@@ -86,7 +86,10 @@ public class SAMLConstants extends XMLConstants{
     public final static String SAML11P_SCHEMA_LOCATION = SCHEMA_DIR + "cs-sstc-schema-protocol-1.1.xsd";
 
     /** SAML 1.X protocol XML namespace */
-    public final static String SAML1P_NS = "urn:oasis:names:tc:SAML:1.0:protocol";
+    public final static String SAML10P_NS = "urn:oasis:names:tc:SAML:1.0:protocol";
+    
+    /** SAML 1.1 protocol XML namespace, used only in SAML 2 metadata protocolSupportEnumeration */
+    public final static String SAML11P_NS = "urn:oasis:names:tc:SAML:1.1:protocol";
     
     /** SAML 1.X Protocol QName prefix */
     public final static String SAML1P_PREFIX = "samlp";

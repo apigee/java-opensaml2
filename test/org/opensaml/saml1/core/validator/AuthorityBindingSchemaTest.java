@@ -42,7 +42,7 @@ public class AuthorityBindingSchemaTest extends BaseSAMLObjectValidatorTestCase 
 
         AuthorityBinding authorityBinding = (AuthorityBinding) target;
         // this attribute is a Schema QName type, e.g. AuthorityKind="samlp:AttributeQuery"
-        authorityBinding.setAuthorityKind(new QName(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX));
+        authorityBinding.setAuthorityKind(new QName(SAMLConstants.SAML10P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX));
         authorityBinding.setLocation("location");
         authorityBinding.setBinding("binding");
     }

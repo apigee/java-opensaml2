@@ -30,7 +30,7 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public StatusCodeUnmarshaller() {
-        super(SAMLConstants.SAML1P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
+        super(SAMLConstants.SAML10P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /** {@inheritDoc} */

@@ -33,7 +33,7 @@ public class RequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
      * Constructor
      */
     public RequestUnmarshaller() throws IllegalArgumentException {
-        super(SAMLConstants.SAML1P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME);
+        super(SAMLConstants.SAML10P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /** {@inheritDoc} */

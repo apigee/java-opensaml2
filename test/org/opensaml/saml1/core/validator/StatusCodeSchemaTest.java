@@ -31,7 +31,7 @@ public class StatusCodeSchemaTest extends BaseSAMLObjectValidatorTestCase {
     /** Constructor */
     public StatusCodeSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML10P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         validator = new StatusCodeSchemaValidator();
     }
 
@@ -40,7 +40,7 @@ public class StatusCodeSchemaTest extends BaseSAMLObjectValidatorTestCase {
         super.populateRequiredData();
 
         StatusCode statusCode = (StatusCode) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, "Success", SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML10P_NS, "Success", SAMLConstants.SAML1P_PREFIX);
         statusCode.setValue(qname.toString());
     }
     
@@ -58,7 +58,7 @@ public class StatusCodeSchemaTest extends BaseSAMLObjectValidatorTestCase {
     }
     public void testBadQName2(){
         StatusCode statusCode = (StatusCode) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, "ssSuccess", SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML10P_NS, "ssSuccess", SAMLConstants.SAML1P_PREFIX);
         statusCode.setValue(qname.toString());
         assertValidationFail("unrecognized LocalName in SAML1 protocol namespace, should raise a Validation Exception");        
     }

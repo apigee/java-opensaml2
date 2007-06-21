@@ -33,7 +33,7 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTestBase  {
     /** Constructor */
     public RequestSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML10P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         validator = new RequestSchemaValidator();
     }
 
@@ -42,7 +42,7 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTestBase  {
         super.populateRequiredData();
         
         Request request = (Request) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML10P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         request.setQuery((Query)buildXMLObject(qname));
     }
     
@@ -63,7 +63,7 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTestBase  {
 
     public void testQueryAndAssertionArtifact() {
         Request request = (Request) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML10P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
 
         request.getAssertionArtifacts().add((AssertionArtifact)buildXMLObject(qname));        
         assertValidationFail("Both Query & AssertionArtifact element present, should raise a Validation Exception");
@@ -71,7 +71,7 @@ public class RequestSchemaTest extends RequestAbstractTypeSchemaTestBase  {
 
     public void testAssertionIDRefAndAssertionArtifact() {
         Request request = (Request) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML10P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         request.getAssertionArtifacts().add((AssertionArtifact)buildXMLObject(qname));        
         qname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         request.getAssertionIDReferences().add((AssertionIDReference)buildXMLObject(qname));        

@@ -30,7 +30,7 @@ public class ResponseUnmarshaller extends  ResponseAbstractTypeUnmarshaller {
 
     /** Constructor */
     public ResponseUnmarshaller() {
-        super(SAMLConstants.SAML1P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME);
+        super(SAMLConstants.SAML10P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /** {@inheritDoc} */

@@ -31,7 +31,7 @@ public class AuthenticationQueryMarshaller extends SubjectQueryMarshaller {
      * Constructor
      */
     public AuthenticationQueryMarshaller() {
-        super(SAMLConstants.SAML1P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME);
+        super(SAMLConstants.SAML10P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /** {@inheritDoc} */

@@ -29,7 +29,7 @@ public class AuthenticationQuerySchemaTest extends SubjectQuerySchemaTestBase  {
     /** Constructor */
     public AuthenticationQuerySchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML10P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         validator = new AuthenticationQuerySchemaValidator();
     }
 

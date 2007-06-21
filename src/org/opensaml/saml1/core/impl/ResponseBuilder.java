@@ -34,7 +34,7 @@ public class ResponseBuilder extends AbstractSAMLObjectBuilder<Response> {
 
     /** {@inheritDoc} */
     public Response buildObject() {
-        return buildObject(SAMLConstants.SAML1P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        return buildObject(SAMLConstants.SAML10P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /** {@inheritDoc} */

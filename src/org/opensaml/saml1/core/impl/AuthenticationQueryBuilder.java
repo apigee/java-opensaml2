@@ -34,7 +34,7 @@ public class AuthenticationQueryBuilder extends AbstractSAMLObjectBuilder<Authen
 
     /** {@inheritDoc} */
     public AuthenticationQuery buildObject() {
-        return buildObject(SAMLConstants.SAML1P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        return buildObject(SAMLConstants.SAML10P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
     /** {@inheritDoc} */

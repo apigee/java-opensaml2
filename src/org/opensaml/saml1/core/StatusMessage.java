@@ -30,13 +30,13 @@ public interface StatusMessage extends SAMLObject {
     public final static String DEFAULT_ELEMENT_LOCAL_NAME = "StatusMessage";
     
     /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML10P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     
     /** Local name of the XSI type */
     public final static String TYPE_LOCAL_NAME = "ActionType"; 
         
     /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML1P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML10P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
 
     /** Return the contents of this */
     String getMessage();

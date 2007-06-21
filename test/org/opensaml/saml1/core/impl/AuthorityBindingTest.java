@@ -49,7 +49,7 @@ public class AuthorityBindingTest extends BaseSAMLObjectProviderTestCase {
     public AuthorityBindingTest() {
         super(); 
         //this attribute is a Schema QName type, e.g. AuthorityKind="samlp:AttributeQuery"
-        expectedAuthorityKind = new QName(SAMLConstants.SAML1P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        expectedAuthorityKind = new QName(SAMLConstants.SAML10P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         expectedLocation = "here";
         expectedBinding = "binding";
         singleElementFile = "/data/org/opensaml/saml1/impl/singleAuthorityBinding.xml";

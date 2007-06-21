@@ -30,7 +30,7 @@ public class ResponseSchemaTest extends ResponseAbstractTypeSchemaTestBase  {
     /** Constructor */
     public ResponseSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML10P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         validator = new ResponseSchemaValidator();
     }
 
@@ -39,7 +39,7 @@ public class ResponseSchemaTest extends ResponseAbstractTypeSchemaTestBase  {
         super.populateRequiredData();
         
         Response response = (Response) target;
-        QName qname = new QName(SAMLConstants.SAML1P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML10P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
         response.setStatus((Status)buildXMLObject(qname));
     }
     

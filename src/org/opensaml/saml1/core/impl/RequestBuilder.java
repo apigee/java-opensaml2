@@ -32,7 +32,7 @@ public class RequestBuilder extends AbstractSAMLObjectBuilder<Request> {
 
     /** {@inheritDoc} */
     public Request buildObject() {
-        return buildObject(SAMLConstants.SAML1P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        return buildObject(SAMLConstants.SAML10P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /** {@inheritDoc} */

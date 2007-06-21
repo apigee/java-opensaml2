@@ -30,14 +30,14 @@ public interface AssertionArtifact extends SAMLObject {
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AssertionArtifact";
 
     /** Default element name. */
-    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML10P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
             SAMLConstants.SAML1_PREFIX);
 
     /** Local name of the XSI type. */
     public static final String TYPE_LOCAL_NAME = "AssertionArtifactType";
 
     /** QName of the XSI type. */
-    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML1P_NS, TYPE_LOCAL_NAME,
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML10P_NS, TYPE_LOCAL_NAME,
             SAMLConstants.SAML1_PREFIX);
 
     /**
