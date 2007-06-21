@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
 import org.opensaml.xml.schema.XSBooleanValue;
 
@@ -101,5 +102,32 @@ public class ArtifactResolutionServiceTest extends BaseSAMLObjectProviderTestCas
         service.setIsDefault(expectedIsDefault);
 
         assertEquals(expectedOptionalAttributesDOM, service);
+    }
+    
+    /**
+     * Test the proper behavior of the XSBooleanValue attributes.
+     */
+    public void testXSBooleanAttributes() {
+        ArtifactResolutionService ars = 
+            (ArtifactResolutionService) buildXMLObject(ArtifactResolutionService.DEFAULT_ELEMENT_NAME);
+        
+        // isDefault attribute
+        ars.setIsDefault(Boolean.TRUE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.TRUE, ars.isDefault());
+        assertNotNull("XSBooleanValue was null", ars.isDefaultXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.TRUE, false),
+                ars.isDefaultXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "true", ars.isDefaultXSBoolean().toString());
+        
+        ars.setIsDefault(Boolean.FALSE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.FALSE, ars.isDefault());
+        assertNotNull("XSBooleanValue was null", ars.isDefaultXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.FALSE, false),
+                ars.isDefaultXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "false", ars.isDefaultXSBoolean().toString());
+        
+        ars.setIsDefault((Boolean) null);
+        assertEquals("Unexpected default value for boolean attribute found", Boolean.FALSE, ars.isDefault());
+        assertNull("XSBooleanValue was not null", ars.isDefaultXSBoolean());
     }
 }

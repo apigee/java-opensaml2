@@ -82,7 +82,7 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
             return wantAuthnRequestsSigned.getValue();
         }
         
-        return null;
+        return Boolean.FALSE;
     }
     
     /** {@inheritDoc} */
@@ -91,8 +91,8 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     }
     
     /** {@inheritDoc} */
-    public void setWantAuthnRequestSigned(Boolean newWantSigned){
-        if(newWantSigned == null){
+    public void setWantAuthnRequestsSigned(Boolean newWantSigned){
+        if(newWantSigned != null){
             wantAuthnRequestsSigned = prepareForAssignment(wantAuthnRequestsSigned, new XSBooleanValue(newWantSigned, false));
         }else{
             wantAuthnRequestsSigned = prepareForAssignment(wantAuthnRequestsSigned, null);
@@ -100,7 +100,7 @@ public class IDPSSODescriptorImpl extends SSODescriptorImpl implements IDPSSODes
     }
 
     /** {@inheritDoc} */
-    public void setWantAuthnRequestSigned(XSBooleanValue wantSigned) {
+    public void setWantAuthnRequestsSigned(XSBooleanValue wantSigned) {
         wantAuthnRequestsSigned = prepareForAssignment(wantAuthnRequestsSigned, wantSigned);
     }
 

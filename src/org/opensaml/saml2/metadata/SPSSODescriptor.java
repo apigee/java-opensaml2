@@ -52,7 +52,7 @@ public interface SPSSODescriptor extends SSODescriptor {
      * 
      * @return true of this service signs requests, false if not
      */
-    public Boolean isAuthnRequestSigned();
+    public Boolean isAuthnRequestsSigned();
 
     /**
      * Gets whether this service signs AuthN requests.

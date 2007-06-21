@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.xml.schema.XSBooleanValue;
 
@@ -109,5 +110,32 @@ public class RequestedAttributeTest extends BaseSAMLObjectProviderTestCase {
         requestedAttribute.setIsRequired(expectedIsRequired);
 
         assertEquals(expectedOptionalAttributesDOM, requestedAttribute);
+    }
+    
+    /**
+     * Test the proper behavior of the XSBooleanValue attributes.
+     */
+    public void testXSBooleanAttributes() {
+        RequestedAttribute attrib = 
+            (RequestedAttribute) buildXMLObject(RequestedAttribute.DEFAULT_ELEMENT_NAME);
+        
+        // isRequired attribute
+        attrib.setIsRequired(Boolean.TRUE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.TRUE, attrib.isRequired());
+        assertNotNull("XSBooleanValue was null", attrib.isRequiredXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.TRUE, false),
+                attrib.isRequiredXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "true", attrib.isRequiredXSBoolean().toString());
+        
+        attrib.setIsRequired(Boolean.FALSE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.FALSE, attrib.isRequired());
+        assertNotNull("XSBooleanValue was null", attrib.isRequiredXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.FALSE, false),
+                attrib.isRequiredXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "false", attrib.isRequiredXSBoolean().toString());
+        
+        attrib.setIsRequired((Boolean) null);
+        assertEquals("Unexpected default value for boolean attribute found", Boolean.FALSE, attrib.isRequired());
+        assertNull("XSBooleanValue was not null", attrib.isRequiredXSBoolean());
     }
 }

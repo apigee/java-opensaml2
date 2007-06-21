@@ -65,7 +65,7 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     }
     
     /** {@inheritDoc} */
-    public Boolean isAuthnRequestSigned() {
+    public Boolean isAuthnRequestsSigned() {
         if (authnRequestSigned == null) {
             return Boolean.FALSE;
         }
@@ -79,7 +79,7 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     
     /** {@inheritDoc} */
     public void setAuthnRequestsSigned(Boolean newIsSigned) {
-        if(newIsSigned == null){
+        if(newIsSigned != null){
             authnRequestSigned = prepareForAssignment(authnRequestSigned, new XSBooleanValue(newIsSigned, false));
         }else{
             authnRequestSigned = prepareForAssignment(authnRequestSigned, null);
@@ -106,7 +106,7 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     
     /** {@inheritDoc} */
     public void setWantAssertionsSigned(Boolean wantAssestionSigned) {
-        if(wantAssestionSigned == null){
+        if(wantAssestionSigned != null){
             assertionSigned = prepareForAssignment(assertionSigned, new XSBooleanValue(wantAssestionSigned, false));
         }else{
             assertionSigned = prepareForAssignment(assertionSigned, null);

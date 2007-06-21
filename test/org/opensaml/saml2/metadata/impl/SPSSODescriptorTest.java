@@ -29,6 +29,7 @@ import org.opensaml.saml2.metadata.ArtifactResolutionService;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.ContactPerson;
+import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.ManageNameIDService;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.Organization;
@@ -200,4 +201,56 @@ public class SPSSODescriptorTest extends BaseSAMLObjectProviderTestCase {
 
         assertEquals(expectedChildElementsDOM, descriptor);
     }
+    
+    /**
+     * Test the proper behavior of the XSBooleanValue attributes.
+     */
+    public void testXSBooleanAttributes() {
+        SPSSODescriptor descriptor = (SPSSODescriptor) buildXMLObject(SPSSODescriptor.DEFAULT_ELEMENT_NAME);
+        
+        // AuthnRequestsSigned
+        descriptor.setAuthnRequestsSigned(Boolean.TRUE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.TRUE, descriptor.isAuthnRequestsSigned());
+        assertNotNull("XSBooleanValue was null", descriptor.isAuthnRequestsSignedXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.TRUE, false),
+                descriptor.isAuthnRequestsSignedXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "true",
+                descriptor.isAuthnRequestsSignedXSBoolean().toString());
+        
+        descriptor.setAuthnRequestsSigned(Boolean.FALSE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.FALSE, descriptor.isAuthnRequestsSigned());
+        assertNotNull("XSBooleanValue was null", descriptor.isAuthnRequestsSignedXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.FALSE, false),
+                descriptor.isAuthnRequestsSignedXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "false",
+                descriptor.isAuthnRequestsSignedXSBoolean().toString());
+        
+        descriptor.setAuthnRequestsSigned((Boolean) null);
+        assertEquals("Unexpected default value for boolean attribute found", Boolean.FALSE, descriptor.isAuthnRequestsSigned());
+        assertNull("XSBooleanValue was not null", descriptor.isAuthnRequestsSignedXSBoolean());
+        
+        
+        
+        // WantAssertionsSigned
+        descriptor.setWantAssertionsSigned(Boolean.TRUE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.TRUE, descriptor.getWantAssertionsSigned());
+        assertNotNull("XSBooleanValue was null", descriptor.getWantAssertionsSignedXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.TRUE, false),
+                descriptor.getWantAssertionsSignedXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "true",
+                descriptor.getWantAssertionsSignedXSBoolean().toString());
+        
+        descriptor.setWantAssertionsSigned(Boolean.FALSE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.FALSE, descriptor.getWantAssertionsSigned());
+        assertNotNull("XSBooleanValue was null", descriptor.getWantAssertionsSignedXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.FALSE, false),
+                descriptor.getWantAssertionsSignedXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "false",
+                descriptor.getWantAssertionsSignedXSBoolean().toString());
+        
+        descriptor.setWantAssertionsSigned((Boolean) null);
+        assertEquals("Unexpected default value for boolean attribute found", Boolean.FALSE, descriptor.getWantAssertionsSigned());
+        assertNull("XSBooleanValue was not null", descriptor.getWantAssertionsSignedXSBoolean());
+    }
+
 }

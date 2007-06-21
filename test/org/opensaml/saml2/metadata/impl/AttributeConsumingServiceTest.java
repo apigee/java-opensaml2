@@ -20,6 +20,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml2.metadata.ServiceDescription;
@@ -128,5 +129,32 @@ public class AttributeConsumingServiceTest extends BaseSAMLObjectProviderTestCas
 
         assertEquals(expectedChildElementsDOM, service);
     
+    }
+    
+    /**
+     * Test the proper behavior of the XSBooleanValue attributes.
+     */
+    public void testXSBooleanAttributes() {
+        AttributeConsumingService acs = 
+            (AttributeConsumingService) buildXMLObject(AttributeConsumingService.DEFAULT_ELEMENT_NAME);
+        
+        // isDefault attribute
+        acs.setIsDefault(Boolean.TRUE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.TRUE, acs.isDefault());
+        assertNotNull("XSBooleanValue was null", acs.isDefaultXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.TRUE, false),
+                acs.isDefaultXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "true", acs.isDefaultXSBoolean().toString());
+        
+        acs.setIsDefault(Boolean.FALSE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.FALSE, acs.isDefault());
+        assertNotNull("XSBooleanValue was null", acs.isDefaultXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.FALSE, false),
+                acs.isDefaultXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "false", acs.isDefaultXSBoolean().toString());
+        
+        acs.setIsDefault((Boolean) null);
+        assertEquals("Unexpected default value for boolean attribute found", Boolean.FALSE, acs.isDefault());
+        assertNull("XSBooleanValue was not null", acs.isDefaultXSBoolean());
     }
 }

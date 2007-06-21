@@ -80,7 +80,7 @@ public class NameIDPolicyImpl extends AbstractSAMLObject implements NameIDPolicy
             return allowCreate.getValue();
         }
         
-        return null;
+        return Boolean.FALSE;
     }
 
     /** {@inheritDoc} */

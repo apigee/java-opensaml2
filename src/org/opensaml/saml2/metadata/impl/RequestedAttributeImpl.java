@@ -52,7 +52,7 @@ public class RequestedAttributeImpl extends AttributeImpl implements RequestedAt
             return isRequired.getValue();
         }
         
-        return null;
+        return Boolean.FALSE;
     }
 
     /** {@inheritDoc} */
@@ -62,7 +62,7 @@ public class RequestedAttributeImpl extends AttributeImpl implements RequestedAt
     
     /** {@inheritDoc} */
     public void setIsRequired(Boolean newIsRequired){
-        if(newIsRequired == null){
+        if(newIsRequired != null){
             isRequired = prepareForAssignment(isRequired, new XSBooleanValue(newIsRequired, false));
         }else{
             isRequired = prepareForAssignment(isRequired, null);

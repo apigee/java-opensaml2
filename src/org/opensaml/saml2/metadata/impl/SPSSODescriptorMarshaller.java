@@ -53,11 +53,13 @@ public class SPSSODescriptorMarshaller extends SSODescriptorMarshaller {
         SPSSODescriptor descriptor = (SPSSODescriptor) samlObject;
 
         if (descriptor.isAuthnRequestsSignedXSBoolean() != null) {
-            domElement.setAttributeNS(null, SPSSODescriptor.AUTH_REQUETS_SIGNED_ATTRIB_NAME, descriptor.isAuthnRequestsSignedXSBoolean().toString());
+            domElement.setAttributeNS(null, SPSSODescriptor.AUTH_REQUETS_SIGNED_ATTRIB_NAME,
+                    descriptor.isAuthnRequestsSignedXSBoolean().toString());
         }
 
         if (descriptor.getWantAssertionsSignedXSBoolean() != null) {
-            domElement.setAttributeNS(null, SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME, descriptor.getWantAssertionsSignedXSBoolean().toString());
+            domElement.setAttributeNS(null, SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME,
+                    descriptor.getWantAssertionsSignedXSBoolean().toString());
         }
 
         super.marshallAttributes(samlObject, domElement);

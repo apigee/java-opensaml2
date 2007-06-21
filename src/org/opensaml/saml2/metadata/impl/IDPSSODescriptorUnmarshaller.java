@@ -78,7 +78,7 @@ public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) samlObject;
 
         if (attribute.getLocalName().equals(IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME)) {
-            descriptor.setWantAuthnRequestSigned(XSBooleanValue.valueOf(attribute.getValue()));
+            descriptor.setWantAuthnRequestsSigned(XSBooleanValue.valueOf(attribute.getValue()));
         } else {
             super.processAttribute(samlObject, attribute);
         }

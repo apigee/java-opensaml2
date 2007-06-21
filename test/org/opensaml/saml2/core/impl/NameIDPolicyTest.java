@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.xml.schema.XSBooleanValue;
 
@@ -93,5 +94,31 @@ public class NameIDPolicyTest extends BaseSAMLObjectProviderTestCase {
         assertEquals("Unmarshalled name Format URI attribute value was not the expected value", expectedFormat, policy.getFormat());
         assertEquals("Unmarshalled SPNameQualifier URI attribute value was not the expected value", expectedSPNameQualifer, policy.getSPNameQualifier());
         assertEquals("Unmarshalled AllowCreate attribute value was not the expected value", expectedAllowCreate, policy.getAllowCreateXSBoolean());
+    }
+    
+    /**
+     * Test the proper behavior of the XSBooleanValue attributes.
+     */
+    public void testXSBooleanAttributes() {
+        NameIDPolicy policy = (NameIDPolicy) buildXMLObject(NameIDPolicy.DEFAULT_ELEMENT_NAME);
+        
+        // AllowCreate attribute
+        policy.setAllowCreate(Boolean.TRUE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.TRUE, policy.getAllowCreate());
+        assertNotNull("XSBooleanValue was null", policy.getAllowCreateXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.TRUE, false),
+                policy.getAllowCreateXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "true", policy.getAllowCreateXSBoolean().toString());
+        
+        policy.setAllowCreate(Boolean.FALSE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.FALSE, policy.getAllowCreate());
+        assertNotNull("XSBooleanValue was null", policy.getAllowCreateXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.FALSE, false),
+                policy.getAllowCreateXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "false", policy.getAllowCreateXSBoolean().toString());
+        
+        policy.setAllowCreate((Boolean) null);
+        assertEquals("Unexpected default value for boolean attribute found", Boolean.FALSE, policy.getAllowCreate());
+        assertNull("XSBooleanValue was not null", policy.getAllowCreateXSBoolean());
     }
 }

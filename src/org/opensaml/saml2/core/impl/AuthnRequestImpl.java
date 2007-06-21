@@ -101,7 +101,7 @@ public class AuthnRequestImpl extends RequestAbstractTypeImpl implements AuthnRe
 
     /** {@inheritDoc} */
     public void setForceAuthn(Boolean newForceAuth) {
-        if (newForceAuth == null) {
+        if (newForceAuth != null) {
             forceAuthn = prepareForAssignment(forceAuthn, new XSBooleanValue(newForceAuth, false));
         } else {
             forceAuthn = prepareForAssignment(forceAuthn, null);
@@ -129,7 +129,7 @@ public class AuthnRequestImpl extends RequestAbstractTypeImpl implements AuthnRe
 
     /** {@inheritDoc} */
     public void setIsPassive(Boolean newIsPassive) {
-        if (newIsPassive == null) {
+        if (newIsPassive != null) {
             isPassive = prepareForAssignment(isPassive, new XSBooleanValue(newIsPassive, false));
         } else {
             isPassive = prepareForAssignment(isPassive, null);

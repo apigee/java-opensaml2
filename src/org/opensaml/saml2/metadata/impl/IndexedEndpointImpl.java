@@ -70,7 +70,7 @@ public abstract class IndexedEndpointImpl extends EndpointImpl implements Indexe
     
     /** {@inheritDoc} */
     public void setIsDefault(Boolean newIsDefault){
-        if(newIsDefault == null){
+        if(newIsDefault != null){
             isDefault = prepareForAssignment(isDefault, new XSBooleanValue(newIsDefault, false));
         }else{
             isDefault = prepareForAssignment(isDefault, null);

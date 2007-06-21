@@ -25,6 +25,7 @@ import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
+import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AttributeProfile;
@@ -125,7 +126,7 @@ public class IDPSSODescriptorTest extends BaseSAMLObjectProviderTestCase {
         for (String protocol : expectedSupportedProtocol) {
             descriptor.addSupportedProtocol(protocol);
         }
-        descriptor.setWantAuthnRequestSigned(expectedWantAuthnReqSigned);
+        descriptor.setWantAuthnRequestsSigned(expectedWantAuthnReqSigned);
 
         assertEquals(expectedDOM, descriptor);
     }
@@ -141,7 +142,7 @@ public class IDPSSODescriptorTest extends BaseSAMLObjectProviderTestCase {
         descriptor.setCacheDuration(expectedCacheDuration);
         descriptor.setValidUntil(expectedValidUntil);
         descriptor.setErrorURL(expectedErrorURL);
-        descriptor.setWantAuthnRequestSigned(expectedWantAuthnReqSigned);
+        descriptor.setWantAuthnRequestsSigned(expectedWantAuthnReqSigned);
 
         assertEquals(expectedOptionalAttributesDOM, descriptor);
     }
@@ -209,6 +210,33 @@ public class IDPSSODescriptorTest extends BaseSAMLObjectProviderTestCase {
             descriptor.getAttributeProfiles().add((AttributeProfile) buildXMLObject(attributeProlfileQName));
         }
         assertEquals(expectedChildElementsDOM, descriptor);
+    }
+    
+    /**
+     * Test the proper behavior of the XSBooleanValue attributes.
+     */
+    public void testXSBooleanAttributes() {
+        IDPSSODescriptor descriptor = (IDPSSODescriptor) buildXMLObject(IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
+        
+        descriptor.setWantAuthnRequestsSigned(Boolean.TRUE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.TRUE, descriptor.getWantAuthnRequestsSigned());
+        assertNotNull("XSBooleanValue was null", descriptor.getWantAuthnRequestsSignedXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.TRUE, false),
+                descriptor.getWantAuthnRequestsSignedXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "true",
+                descriptor.getWantAuthnRequestsSignedXSBoolean().toString());
+        
+        descriptor.setWantAuthnRequestsSigned(Boolean.FALSE);
+        assertEquals("Unexpected value for boolean attribute found", Boolean.FALSE, descriptor.getWantAuthnRequestsSigned());
+        assertNotNull("XSBooleanValue was null", descriptor.getWantAuthnRequestsSignedXSBoolean());
+        assertEquals("XSBooleanValue was unexpected value", new XSBooleanValue(Boolean.FALSE, false),
+                descriptor.getWantAuthnRequestsSignedXSBoolean());
+        assertEquals("XSBooleanValue string was unexpected value", "false",
+                descriptor.getWantAuthnRequestsSignedXSBoolean().toString());
+        
+        descriptor.setWantAuthnRequestsSigned((Boolean) null);
+        assertEquals("Unexpected default value for boolean attribute found", Boolean.FALSE, descriptor.getWantAuthnRequestsSigned());
+        assertNull("XSBooleanValue was not null", descriptor.getWantAuthnRequestsSignedXSBoolean());
     }
 
 }

@@ -86,7 +86,7 @@ public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements
             return isDefault.getValue();
         }
         
-        return null;
+        return Boolean.FALSE;
     }
 
     /** {@inheritDoc} */
@@ -96,7 +96,7 @@ public class AttributeConsumingServiceImpl extends AbstractSAMLObject implements
     
     /** {@inheritDoc} */
     public void setIsDefault(Boolean newIsDefault){
-        if(newIsDefault == null){
+        if(newIsDefault != null){
             isDefault = prepareForAssignment(isDefault, new XSBooleanValue(newIsDefault, false));
         }else{
             isDefault = prepareForAssignment(isDefault, null);
