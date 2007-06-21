@@ -28,7 +28,7 @@ import org.w3c.dom.Element;
 public abstract class QueryDescriptorTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
@@ -46,9 +46,9 @@ public abstract class QueryDescriptorTypeMarshaller extends AbstractSAMLObjectMa
     protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
         QueryDescriptorType descriptor = (QueryDescriptorType) xmlObject;
 
-        if (descriptor.getWantAssertionSigned() != null) {
-            domElement.setAttributeNS(null, QueryDescriptorType.WANT_ASSERTION_SIGNED_ATTRIB_NAME, descriptor
-                    .getWantAssertionSigned().toString());
+        if (descriptor.getWantAssertionsSignedXSBoolean() != null) {
+            domElement.setAttributeNS(null, QueryDescriptorType.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME,
+                    descriptor.getWantAssertionsSignedXSBoolean().toString());
         }
     }
 }

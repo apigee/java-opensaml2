@@ -38,21 +38,35 @@ public interface QueryDescriptorType extends RoleDescriptor {
             SAMLConstants.SAML20MDQUERY_PREFIX);
     
     /** "WantAssertionSigned" attribute's local name. */
-    public static final String WANT_ASSERTION_SIGNED_ATTRIB_NAME = "WantAssertionsSigned";
+    public static final String WANT_ASSERTIONS_SIGNED_ATTRIB_NAME = "WantAssertionsSigned";
     
     /**
      * Gets whether assertions to this endpoint should be signed.
      * 
      * @return whether assertions to this endpoint should be signed
      */
-    public XSBooleanValue getWantAssertionSigned();
+    public Boolean getWantAssertionsSigned();
+    
+    /**
+     * Gets whether assertions to this endpoint should be signed.
+     * 
+     * @return whether assertions to this endpoint should be signed
+     */
+    public XSBooleanValue getWantAssertionsSignedXSBoolean();
     
     /**
      * Sets whether assertions to this endpoint should be signed.
      * 
-     * @param wantAssertionSigned whether assertions to this endpoint should be signed
+     * @param newWantAssertionsSigned whether assertions to this endpoint should be signed
      */
-    public void setWantAssertionSigned(XSBooleanValue wantAssertionSigned);
+    public void setWantAssertionsSigned(Boolean newWantAssertionsSigned);
+    
+    /**
+     * Sets whether assertions to this endpoint should be signed.
+     * 
+     * @param newWantAssertionsSigned whether assertions to this endpoint should be signed
+     */
+    public void setWantAssertionsSigned(XSBooleanValue newWantAssertionsSigned);
     
     /**
      * Gets the list of name ID formats supported by this query service.

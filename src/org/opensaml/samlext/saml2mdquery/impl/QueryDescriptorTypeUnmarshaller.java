@@ -27,7 +27,7 @@ import org.w3c.dom.Attr;
 public class QueryDescriptorTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI the namespaceURI of the SAMLObject this unmarshaller operates on
      * @param targetLocalName the local name of the SAMLObject this unmarshaller operates on
@@ -52,8 +52,8 @@ public class QueryDescriptorTypeUnmarshaller extends AbstractSAMLObjectUnmarshal
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         QueryDescriptorType descriptor = (QueryDescriptorType) samlObject;
 
-        if (attribute.getLocalName().equals(QueryDescriptorType.WANT_ASSERTION_SIGNED_ATTRIB_NAME)) {
-            descriptor.setWantAssertionSigned(XSBooleanValue.valueOf(attribute.getValue()));
+        if (attribute.getLocalName().equals(QueryDescriptorType.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME)) {
+            descriptor.setWantAssertionsSigned(XSBooleanValue.valueOf(attribute.getValue()));
         } else {
             super.processAttribute(samlObject, attribute);
         }

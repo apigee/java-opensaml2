@@ -30,16 +30,16 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 /**
  * Concrete implementation of {@link QueryDescriptorType}.
  */
-public abstract class QueryDescriptorTypeImpl extends RoleDescriptorImpl {
+public abstract class QueryDescriptorTypeImpl extends RoleDescriptorImpl implements QueryDescriptorType {
 
     /** WantAssertionSigned attribute value. */
-    private XSBooleanValue wantAssertionSigned;
+    private XSBooleanValue wantAssertionsSigned;
     
     /** Supported NameID formats. */
     private XMLObjectChildrenList<NameIDFormat> nameIDFormats;
     
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
@@ -51,29 +51,35 @@ public abstract class QueryDescriptorTypeImpl extends RoleDescriptorImpl {
         nameIDFormats = new XMLObjectChildrenList<NameIDFormat>(this);
     }
     
-    /**
-     * Gets whether assertions to this endpoint should be signed.
-     * 
-     * @return whether assertions to this endpoint should be signed
-     */
-    public XSBooleanValue getWantAssertionSigned(){
-        return wantAssertionSigned;
+    /** {@inheritDoc} */
+    public Boolean getWantAssertionsSigned() {
+        if (wantAssertionsSigned != null) {
+            return wantAssertionsSigned.getValue();
+        }
+        return Boolean.FALSE;
+    }
+
+    /** {@inheritDoc} */
+    public void setWantAssertionsSigned(Boolean newWantAssertionsSigned) {
+        if (newWantAssertionsSigned != null) {
+            wantAssertionsSigned = prepareForAssignment(wantAssertionsSigned, 
+                    new XSBooleanValue(newWantAssertionsSigned, false));
+        } else {
+            wantAssertionsSigned = prepareForAssignment(wantAssertionsSigned, null);
+        }
+    }
+
+    /** {@inheritDoc} */
+    public XSBooleanValue getWantAssertionsSignedXSBoolean(){
+        return wantAssertionsSigned;
     }
     
-    /**
-     * Sets whether assertions to this endpoint should be signed.
-     * 
-     * @param wantAssertionSigned whether assertions to this endpoint should be signed
-     */
-    public void setWantAssertionSigned(XSBooleanValue wantAssertionSigned){
-        this.wantAssertionSigned = prepareForAssignment(this.wantAssertionSigned, wantAssertionSigned);
+    /** {@inheritDoc} */
+    public void setWantAssertionsSigned(XSBooleanValue wantAssertionSigned){
+        this.wantAssertionsSigned = prepareForAssignment(this.wantAssertionsSigned, wantAssertionSigned);
     }
     
-    /**
-     * Gets the list of name ID formats supported by this query service.
-     * 
-     * @return the list of name ID formats supported by this query service
-     */
+    /** {@inheritDoc} */
     public List<NameIDFormat> getNameIDFormat(){
         return nameIDFormats;
     }
