@@ -69,7 +69,7 @@ public abstract class AbstractSOAPHTTPDecoder
     /** {@inheritDoc} */
     public void decode() throws BindingException, SecurityPolicyException {
         if (log.isDebugEnabled()) {
-            log.debug("Beginning SAML 2 HTTP SOAP 1.1 decoding");
+            log.debug("Beginning SAML HTTP SOAP 1.1 decoding");
         }
 
         HttpServletRequest request = getRequest();
@@ -86,7 +86,11 @@ public abstract class AbstractSOAPHTTPDecoder
                         "Unexpected number of children in the SOAP body, unable to extract SAML message");
             }
 
-            setSAMLMessage((SAMLObject) soapBodyChildren.get(0));
+            SAMLObject samlMessage = (SAMLObject) soapBodyChildren.get(0);
+            if(log.isDebugEnabled()){
+                log.debug("Decoded SOAP messaged which included SAML message of type " + samlMessage.getElementQName());
+            }
+            setSAMLMessage(samlMessage);
 
             evaluateSecurityPolicy(soapMessage);
 
