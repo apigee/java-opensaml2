@@ -29,22 +29,22 @@ import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.saml1.core.StatusMessage;
 
 /**
- * org.opensaml.saml1.core.Status
+ * org.opensaml.saml1.core.Status.
  */
 public class StatusTest extends BaseSAMLObjectProviderTestCase {
 
-    /** name used to generate objects */
+    /** name used to generate objects. */
     private final QName qname;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public StatusTest() {
         super();
 
         childElementsFile = "/data/org/opensaml/saml1/impl/FullStatus.xml";
         singleElementFile = "/data/org/opensaml/saml1/impl/singleStatus.xml";
-        
+
         qname = new QName(SAMLConstants.SAML10P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
 
@@ -60,9 +60,8 @@ public class StatusTest extends BaseSAMLObjectProviderTestCase {
     }
 
     /**
-     * Test an Response file with children
+     * Test an Response file with children.
      */
-
     public void testChildElementsUnmarshall() {
         Status status = (Status) unmarshallElement(childElementsFile);
 
@@ -75,11 +74,9 @@ public class StatusTest extends BaseSAMLObjectProviderTestCase {
     public void testSingleElementMarshall() {
         Status status = (Status) buildXMLObject(qname);
 
-        QName oqname = new QName(SAMLConstants.SAML10P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
-        
-        status.setStatusCode((StatusCode)buildXMLObject(oqname));
-
-        status.getStatusCode().setValue("samlp:Sucess");
+        StatusCode statusCode = (StatusCode) buildXMLObject(StatusCode.DEFAULT_ELEMENT_NAME);
+        statusCode.setValue(StatusCode.SUCCESS);
+        status.setStatusCode(statusCode);
 
         assertEquals(expectedDOM, status);
     }
@@ -89,13 +86,12 @@ public class StatusTest extends BaseSAMLObjectProviderTestCase {
     public void testChildElementsMarshall() {
         Status status = (Status) buildXMLObject(qname);
 
-        QName oqname = new QName(SAMLConstants.SAML10P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
-        
-        status.setStatusCode((StatusCode)buildXMLObject(oqname));
-        oqname = new QName(SAMLConstants.SAML10P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
-        status.setStatusMessage((StatusMessage)buildXMLObject(oqname));
+        StatusCode statusCode = (StatusCode) buildXMLObject(StatusCode.DEFAULT_ELEMENT_NAME);
+        statusCode.setValue(StatusCode.SUCCESS);
+        status.setStatusCode(statusCode);
 
-        status.getStatusCode().setValue("samlp:Sucess");
+        StatusMessage statusMessage = (StatusMessage) buildXMLObject(StatusMessage.DEFAULT_ELEMENT_NAME);
+        status.setStatusMessage(statusMessage);
 
         assertEquals(expectedChildElementsDOM, status);
     }

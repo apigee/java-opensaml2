@@ -16,11 +16,14 @@
 
 package org.opensaml.saml1.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
@@ -29,7 +32,7 @@ import org.w3c.dom.Element;
 public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public StatusCodeMarshaller() {
         super(SAMLConstants.SAML10P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
@@ -39,8 +42,9 @@ public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         StatusCode statusCode = (StatusCode) samlElement;
 
-        if (statusCode.getValue() != null) {
-            domElement.setAttributeNS(null, StatusCode.VALUE_ATTRIB_NAME, statusCode.getValue());
+        QName statusValue = statusCode.getValue();
+        if (statusValue != null) {
+            domElement.setAttributeNS(null, StatusCode.VALUE_ATTRIB_NAME, XMLHelper.qnameToContentString(statusValue));
         }
     }
 }

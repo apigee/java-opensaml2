@@ -40,26 +40,25 @@ public class StatusCodeSchemaTest extends BaseSAMLObjectValidatorTestCase {
         super.populateRequiredData();
 
         StatusCode statusCode = (StatusCode) target;
-        QName qname = new QName(SAMLConstants.SAML10P_NS, "Success", SAMLConstants.SAML1P_PREFIX);
-        statusCode.setValue(qname.toString());
+        statusCode.setValue(StatusCode.SUCCESS);
     }
     
     public void testMissingValue(){
         StatusCode statusCode = (StatusCode) target;
-        statusCode.setValue("");
+        statusCode.setValue(null);
         assertValidationFail("No Value attribute, should raise a Validation Exception");        
     }
 
     public void testBadQName1(){
         StatusCode statusCode = (StatusCode) target;
         QName qname = new QName(SAMLConstants.SAML1_NS, "Success", SAMLConstants.SAML1_PREFIX);
-        statusCode.setValue(qname.toString());
+        statusCode.setValue(qname);
         assertValidationFail("Value in SAML1 assertion namespace, should raise a Validation Exception");        
     }
     public void testBadQName2(){
         StatusCode statusCode = (StatusCode) target;
         QName qname = new QName(SAMLConstants.SAML10P_NS, "ssSuccess", SAMLConstants.SAML1P_PREFIX);
-        statusCode.setValue(qname.toString());
+        statusCode.setValue(qname);
         assertValidationFail("unrecognized LocalName in SAML1 protocol namespace, should raise a Validation Exception");        
     }
 }

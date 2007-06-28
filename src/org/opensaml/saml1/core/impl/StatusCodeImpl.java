@@ -20,23 +20,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.StatusCode;
+import org.opensaml.xml.Namespace;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml1.core.StatusCode} Object
+ * Concrete implementation of {@link org.opensaml.saml1.core.StatusCode} Object.
  */
 public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
 
-    /** Contents of the Value attribute */
-    private String value;
+    /** Contents of the Value attribute. */
+    private QName value = null;
 
-    /** The child StatusCode sub element */
-    private StatusCode childStatusCode;
+    /** The child StatusCode sub element. */
+    private StatusCode childStatusCode = null;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents
@@ -47,13 +50,16 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
     }
 
     /** {@inheritDoc} */
-    public String getValue() {
+    public QName getValue() {
         return value;
     }
 
     /** {@inheritDoc} */
-    public void setValue(String value) {
-        this.value = prepareForAssignment(this.value, value);
+    public void setValue(QName newValue) {
+        this.value = prepareForAssignment(this.value, newValue);
+        if(value != null){
+            addNamespace(new Namespace(value.getNamespaceURI(), value.getPrefix()));
+        }
     }
 
     /** {@inheritDoc} */
@@ -62,7 +68,7 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
     }
 
     /** {@inheritDoc} */
-    public void setStatusCode(StatusCode statusCode) throws IllegalArgumentException {
+    public void setStatusCode(StatusCode statusCode) {
         childStatusCode = prepareForAssignment(childStatusCode, statusCode);
     }
 

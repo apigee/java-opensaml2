@@ -41,34 +41,41 @@ public interface StatusCode extends SAMLObject {
             SAMLConstants.SAML1P_PREFIX);
 
     /** Success status value. */
-    public static final String SUCCESS = "Success";
+    public static final QName SUCCESS = new QName(SAMLConstants.SAML10P_NS, "Success", SAMLConstants.SAML1P_PREFIX);
 
     /** VersionMismatch status value. */
-    public static final String VERSION_MISMATCH = "VersionMismatch";
+    public static final QName VERSION_MISMATCH = new QName(SAMLConstants.SAML10P_NS, "VersionMismatch",
+            SAMLConstants.SAML1P_PREFIX);
 
     /** Requester status value. */
-    public static final String REQUESTER = "Requester";
-    
+    public static final QName REQUESTER = new QName(SAMLConstants.SAML10P_NS, "Requester", SAMLConstants.SAML1P_PREFIX);
+
     /** Responder status value. */
-    public static final String RESPONDER = "Responder";
+    public static final QName RESPONDER = new QName(SAMLConstants.SAML10P_NS, "Responder", SAMLConstants.SAML1P_PREFIX);
 
     /** RequestVersionTooHigh status value. */
-    public static final String REQUEST_VERSION_TOO_HIGH = "RequestVersionTooHigh";
+    public static final QName REQUEST_VERSION_TOO_HIGH = new QName(SAMLConstants.SAML10P_NS, "RequestVersionTooHigh",
+            SAMLConstants.SAML1P_PREFIX);
 
     /** RequestVersionTooLow status value. */
-    public static final String REQUEST_VERSION_TOO_LOW = "RequestVersionTooLow";
+    public static final QName REQUEST_VERSION_TOO_LOW = new QName(SAMLConstants.SAML10P_NS, "RequestVersionTooLow",
+            SAMLConstants.SAML1P_PREFIX);
 
     /** RequestVersionDepricated status value. */
-    public static final String REQUEST_VERSION_DEPRICATED = "RequestVersionDepricated";
+    public static final QName REQUEST_VERSION_DEPRICATED = new QName(SAMLConstants.SAML10P_NS,
+            "RequestVersionDepricated", SAMLConstants.SAML1P_PREFIX);
 
     /** TooManyResponses status value. */
-    public static final String TOO_MANY_RESPONSES = "TooManyResponses";
+    public static final QName TOO_MANY_RESPONSES = new QName(SAMLConstants.SAML10P_NS, "TooManyResponses",
+            SAMLConstants.SAML1P_PREFIX);
 
     /** RequestDenied status value. */
-    public static final String REQUEST_DENIED = "RequestDenied";
+    public static final QName REQUEST_DENIED = new QName(SAMLConstants.SAML10P_NS, "RequestDenied",
+            SAMLConstants.SAML1P_PREFIX);
 
     /** ResourceNotRecognized status value. */
-    public static final String RESOURCE_NOT_RECOGNIZED = "ResourceNotRecognized";
+    public static final QName RESOURCE_NOT_RECOGNIZED = new QName(SAMLConstants.SAML10P_NS, "ResourceNotRecognized",
+            SAMLConstants.SAML1P_PREFIX);
 
     /** Name for the attribute which defines the Value. */
     public static final String VALUE_ATTRIB_NAME = "Value";
@@ -78,14 +85,14 @@ public interface StatusCode extends SAMLObject {
      * 
      * @return value of the status code
      */
-    public String getValue();
+    public QName getValue();
 
     /**
      * Sets the value of the status code.
      * 
      * @param value value of the status code
      */
-    public void setValue(String value);
+    public void setValue(QName value);
 
     /**
      * Gets the second level status code.

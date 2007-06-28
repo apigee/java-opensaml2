@@ -23,28 +23,17 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
 
 /**
- * Test class for org.opensaml.saml1.core.StatusCode
+ * Test class for org.opensaml.saml1.core.StatusCode.
  */
 public class StatusCodeTest extends BaseSAMLObjectProviderTestCase {
 
-    /** name used to generate objects */
+    /** name used to generate objects. */
     private final QName qname;
 
-    /** The expected value for the value attribute */
-    private final String value;
-
-    /** The expected value for the value attribute okf the child element */
-    private final String childValue;
-
-    /**
-     * Constructor
-     * 
-     */
+    /**Constructor. */
     public StatusCodeTest() {
         childElementsFile = "/data/org/opensaml/saml1/impl/FullStatusCode.xml";
         singleElementFile = "/data/org/opensaml/saml1/impl/singleStatusCode.xml";
-        value = "samlp:Success";
-        childValue = "samlp:VersionMismatch";
         
         qname = new QName(SAMLConstants.SAML10P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
     }
@@ -55,7 +44,7 @@ public class StatusCodeTest extends BaseSAMLObjectProviderTestCase {
 
         StatusCode code = (StatusCode) unmarshallElement(singleElementFile);
 
-        assertEquals("Single Element Value wrong", value, code.getValue());
+        assertEquals("Single Element Value wrong", StatusCode.SUCCESS, code.getValue());
     }
 
     /** {@inheritDoc} */
@@ -72,7 +61,7 @@ public class StatusCodeTest extends BaseSAMLObjectProviderTestCase {
     public void testSingleElementMarshall() {
         StatusCode code = (StatusCode) buildXMLObject(qname);
 
-        code.setValue(value);
+        code.setValue(StatusCode.SUCCESS);
 
         assertEquals(expectedDOM, code);
     }
@@ -83,11 +72,11 @@ public class StatusCodeTest extends BaseSAMLObjectProviderTestCase {
 
         StatusCode code = (StatusCode) buildXMLObject(qname);
 
-        code.setValue(value);
+        code.setValue(StatusCode.REQUESTER);
 
         code.setStatusCode((StatusCode) buildXMLObject(qname));
 
-        code.getStatusCode().setValue(childValue);
+        code.getStatusCode().setValue(StatusCode.VERSION_MISMATCH);
 
         assertEquals(expectedChildElementsDOM, code);
     }

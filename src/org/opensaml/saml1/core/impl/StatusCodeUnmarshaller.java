@@ -21,6 +21,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -28,7 +29,7 @@ import org.w3c.dom.Attr;
  */
 public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public StatusCodeUnmarshaller() {
         super(SAMLConstants.SAML10P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
     }
@@ -53,7 +54,7 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         StatusCode statusCode = (StatusCode) samlObject;
 
         if (attribute.getName().equals(StatusCode.VALUE_ATTRIB_NAME)) {
-            statusCode.setValue(attribute.getValue());
+            statusCode.setValue(XMLHelper.getAttributeValueAsQName(attribute));
         } else {
             super.processAttribute(samlObject, attribute);
         }

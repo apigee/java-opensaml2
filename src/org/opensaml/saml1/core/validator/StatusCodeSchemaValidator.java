@@ -24,7 +24,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusCode;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -33,15 +32,9 @@ import org.opensaml.xml.validation.Validator;
  */
 public class StatusCodeSchemaValidator implements Validator<StatusCode> {
 
-    private final static String[] allowedCodes = { "Success", "VersionMismatch", "Requester", "Responder",
-            "RequestVersionTooHigh", "RequestVersionTooLow", "RequestVersionDeprecated", "TooManyResponses",
-            "RequestDenied", "ResourceNotRecognized" };
-
     /** {@inheritDoc} */
     public void validate(StatusCode statusCode) throws ValidationException {
-
         validateValue(statusCode);
-        validateValueQNameNamespace(statusCode);
         validateValueContent(statusCode);
     }
 
@@ -53,25 +46,9 @@ public class StatusCodeSchemaValidator implements Validator<StatusCode> {
      * @throws ValidationException thrown if the status code does not have a value
      */
     protected void validateValue(StatusCode statusCode) throws ValidationException {
-        String value = statusCode.getValue();
-        if (DatatypeHelper.isEmpty(value)) {
+        QName value = statusCode.getValue();
+        if (value == null) {
             throw new ValidationException("No Value attribute present");
-        }
-    }
-
-    /**
-     * Validates that the status code value is not in the SAML 1 namespace.
-     * 
-     * @param statusCode status code to validate
-     * 
-     * @throws ValidationException thrown if the status code is in the SAML 1 namespace
-     */
-    protected void validateValueQNameNamespace(StatusCode statusCode) throws ValidationException {
-        String value = statusCode.getValue();
-        QName qname = QName.valueOf(value);
-
-        if (SAMLConstants.SAML1_NS.equals(qname.getNamespaceURI())) {
-            throw new ValidationException("value Qname cannot be in the SAML1 Assertion namespace");
         }
     }
 
@@ -83,21 +60,26 @@ public class StatusCodeSchemaValidator implements Validator<StatusCode> {
      * @throws ValidationException thrown if the status code local name is not an allowed value
      */
     protected void validateValueContent(StatusCode statusCode) throws ValidationException {
-        String value = statusCode.getValue();
-        QName qname = QName.valueOf(value);
+        QName statusValue = statusCode.getValue();
 
-        if (SAMLConstants.SAML10P_NS.equals(qname.getNamespaceURI())) {
-            String localName = qname.getLocalPart();
-            boolean allowedName = false;
-            for (int i = 0; i < allowedCodes.length; i++) {
-                if (allowedCodes[i].equals(localName)) {
-                    allowedName = true;
-                    break;
-                }
+        if (SAMLConstants.SAML10P_NS.equals(statusValue.getNamespaceURI())) {
+            if (!(statusValue.equals(StatusCode.SUCCESS) 
+                    || statusValue.equals(StatusCode.VERSION_MISMATCH)
+                    || statusValue.equals(StatusCode.REQUESTER) 
+                    || statusValue.equals(StatusCode.RESPONDER)
+                    || statusValue.equals(StatusCode.REQUEST_VERSION_TOO_HIGH)
+                    || statusValue.equals(StatusCode.REQUEST_VERSION_TOO_LOW)
+                    || statusValue.equals(StatusCode.REQUEST_VERSION_DEPRICATED)
+                    || statusValue.equals(StatusCode.TOO_MANY_RESPONSES)
+                    || statusValue.equals(StatusCode.REQUEST_DENIED)
+                    || statusValue.equals(StatusCode.RESOURCE_NOT_RECOGNIZED))) {
+                throw new ValidationException(
+                        "Status code value was in the SAML 1 protocol namespace but was not of an allowed value: "
+                                + statusValue);
             }
-            if (!allowedName) {
-                throw new ValidationException(localName + " is not a valid local name");
-            }
+        } else if (SAMLConstants.SAML1_NS.equals(statusValue.getNamespaceURI())) {
+            throw new ValidationException(
+                    "Status code value was in the SAML 1 assertion namespace, no values are allowed in that namespace");
         }
     }
 }
