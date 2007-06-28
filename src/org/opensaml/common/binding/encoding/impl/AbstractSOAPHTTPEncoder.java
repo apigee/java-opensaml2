@@ -100,12 +100,11 @@ public abstract class AbstractSOAPHTTPEncoder extends AbstractHTTPMessageEncoder
 
         try {
             if (log.isDebugEnabled()) {
-                log.debug("Writting SOAP message to response");
+                log.debug("Writting SOAP message to response:\n" + serialSoapMessage);
             }
             HttpServletResponse response = getResponse();
             response.setHeader("SOAPAction", "http://www.oasis-open.org/committees/security");
             response.setContentType("text/xml");
-            response.setCharacterEncoding("UTF-8");
             initializeResponse();
             PrintWriter responseWriter = response.getWriter();
             responseWriter.write(serialSoapMessage);

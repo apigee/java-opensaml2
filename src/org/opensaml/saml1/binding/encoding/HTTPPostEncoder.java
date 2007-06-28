@@ -115,13 +115,16 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
             log.debug("Base64 encoding message");
         }
         String encodedMessage = new String(Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES));
+        
+        if(log.isDebugEnabled()){
+            log.debug("Base64 encoded SAML message is: " + encodedMessage);
+        }
 
         try {
             if (log.isDebugEnabled()) {
                 log.debug("Adding cache headers to response");
             }
             response.setContentType("application/xhtml+xml");
-            response.setCharacterEncoding("UTF-8");
             initializeResponse();
 
             postEncode(response.getWriter(), encodedMessage);
