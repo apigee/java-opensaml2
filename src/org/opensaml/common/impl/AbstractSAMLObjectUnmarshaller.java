@@ -16,7 +16,6 @@
 
 package org.opensaml.common.impl;
 
-import org.apache.log4j.Logger;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -28,9 +27,6 @@ import org.w3c.dom.Attr;
  */
 public abstract class AbstractSAMLObjectUnmarshaller extends AbstractXMLObjectUnmarshaller {
 
-    /** Class logger. */
-    private static Logger log = Logger.getLogger(AbstractSAMLObjectUnmarshaller.class);
-
     /**
      * Constructor.
      * 
@@ -39,7 +35,7 @@ public abstract class AbstractSAMLObjectUnmarshaller extends AbstractXMLObjectUn
      * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
      */
-    protected AbstractSAMLObjectUnmarshaller(String targetNamespaceURI, String targetLocalName){
+    protected AbstractSAMLObjectUnmarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 
@@ -48,26 +44,17 @@ public abstract class AbstractSAMLObjectUnmarshaller extends AbstractXMLObjectUn
      */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Ignoring unknown element " + childSAMLObject.getElementQName());
-        }
     }
 
     /**
      * {@inheritDoc}
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Ignorning unknown attribute " + attribute.getLocalName());
-        }
     }
 
     /**
      * {@inheritDoc}
      */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
-        if (log.isDebugEnabled()) {
-            log.debug("Ignoring element content " + elementContent);
-        }
     }
 }
