@@ -17,6 +17,7 @@
 package org.opensaml.saml1.binding.encoding;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URLEncoder;
 
@@ -126,8 +127,16 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
             }
             response.setContentType("application/xhtml+xml");
             initializeResponse();
+            
+            StringWriter responseBodyWriter = new StringWriter();
+            postEncode(responseBodyWriter, encodedMessage);
+            String responseBody = responseBodyWriter.toString();
+            
+            if(log.isDebugEnabled()){
+                log.debug("POST encoded body is:\n" + responseBody);
+            }
 
-            postEncode(response.getWriter(), encodedMessage);
+            response.getWriter().write(responseBody);
         } catch (IOException e) {
             log.error("Unable to access HttpServletResponse output writer", e);
             throw new BindingException("Unable to access HttpServletResponse output writer", e);
