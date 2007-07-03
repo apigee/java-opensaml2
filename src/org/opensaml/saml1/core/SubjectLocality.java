@@ -26,37 +26,54 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * Interface to define how a <code> SubjectLocality  <\code> element behaves
+ * Interface to define how a SubjectLocality element behaves.
  */
 public interface SubjectLocality extends SAMLObject {
 
     /** Element name, no namespace. */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "SubjectLocality";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML10P_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
-    
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "SubjectLocalityType"; 
-        
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML10P_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "SubjectLocality";
 
-    /** Name for the IPAddress attribute  */
-    public final static String IPADDRESS_ATTRIB_NAME = "IPAddress";
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML1_PREFIX);
 
-    /** Name for the DNSAddress attribute  */
-    public final static String DNSADDRESS_ATTRIB_NAME = "DNSAddress";
-    
-    /** Getter for IPAddress */
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "SubjectLocalityType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML1_NS, TYPE_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+
+    /** Name for the IPAddress attribute. */
+    public static final String IPADDRESS_ATTRIB_NAME = "IPAddress";
+
+    /** Name for the DNSAddress attribute. */
+    public static final String DNSADDRESS_ATTRIB_NAME = "DNSAddress";
+
+    /**
+     * Gets the IP address of the locality.
+     * 
+     * @return IP address of the locality
+     */
     public String getIPAddress();
 
-    /** Setter for IPAddress */
+    /**
+     * Sets the IP address of the locality.
+     * 
+     * @param address IP address of the locality
+     */
     public void setIPAddress(String address);
 
-    /** Getter for DNSAddress */
+    /**
+     * Gets the DNS name of the locality.
+     * 
+     * @return DNS name of the locality
+     */
     public String getDNSAddress();
 
-    /** Setter for DNSAddress */
+    /**
+     * Sets the DNS name of the locality.
+     * 
+     * @param address DNS name of the locality
+     */
     public void setDNSAddress(String address);
 }
