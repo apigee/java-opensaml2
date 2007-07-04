@@ -24,7 +24,7 @@ import org.opensaml.common.binding.artifact.SAMLArtifact;
 public abstract class AbstractSAML1Artifact extends SAMLArtifact {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param typeCode artifact type code
      */

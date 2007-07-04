@@ -77,7 +77,7 @@ public class SAML1ArtifactType0001 extends AbstractSAML1Artifact {
      * 
      * @param artifact the byte array representing the artifact
      * 
-     * @return the artifcat created from the byte array
+     * @return the artifact created from the byte array
      * 
      * @throws IllegalArgumentException thrown if the artifact is not the right type or lenght (42 bytes) or is not of
      *             the correct type (0x0001)
@@ -142,6 +142,7 @@ public class SAML1ArtifactType0001 extends AbstractSAML1Artifact {
         if (handle.length != 20) {
             throw new IllegalArgumentException("Artifact assertion handle must be 20 bytes long");
         }
+        assertionHandle = handle;
     }
 
     /** {@inheritDoc} */

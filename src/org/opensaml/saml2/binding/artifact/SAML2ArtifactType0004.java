@@ -143,7 +143,7 @@ public class SAML2ArtifactType0004 extends AbstractSAML2Artifact {
         if (handle.length != 20) {
             throw new IllegalArgumentException("Artifact message handle must be 20 bytes long");
         }
-        this.messageHandle = handle;
+        messageHandle = handle;
     }
 
     /** {@inheritDoc} */
