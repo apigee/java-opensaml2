@@ -20,11 +20,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.opensaml.saml2.binding.AuthnResponseEndpointSelector;
-import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
-import org.opensaml.saml2.metadata.RoleDescriptor;
 
 /**
  * This endpoint selector retrieves all the endpoints for a given role. A first filter pass removes those endpoints that
@@ -37,9 +34,9 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
  * Prior to selecting the endpoint the following fields <strong>must</strong> have had values set: entity role,
  * endpoint type, issuer supported bindings.
  * 
- * While this algorithm with work for selecting the endpoint for responses to {@link AuthnRequest}s the SAML
+ * While this algorithm with work for selecting the endpoint for responses to AuthnRequests the SAML
  * specification does stipulate additional endpoint selection criteria and as such the use of an endpoint selector
- * specifically meant to handler this situation should be used, for example: {@link AuthnResponseEndpointSelector}.
+ * specifically meant to handler this situation should be used, for example: AuthnResponseEndpointSelector.
  */
 public class BasicEndpointSelector extends AbstractEndpointSelector {
 
