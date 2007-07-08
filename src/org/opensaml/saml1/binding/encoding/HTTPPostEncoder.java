@@ -164,7 +164,9 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
             VelocityContext context = new VelocityContext();
             context.put("action", getEndpointURL());
             context.put("SAMLResponse", message);
-            context.put("Target", URLEncoder.encode(getRelayState(), "UTF-8"));
+            if(getRelayState() != null){
+                context.put("Target", URLEncoder.encode(getRelayState(), "UTF-8"));
+            }
             velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, responseWriter);
         } catch (Exception e) {
             log.error("Error invoking velocity template", e);
