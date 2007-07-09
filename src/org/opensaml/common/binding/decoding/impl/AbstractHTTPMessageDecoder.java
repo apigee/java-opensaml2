@@ -18,7 +18,6 @@ package org.opensaml.common.binding.decoding.impl;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.binding.decoding.HTTPMessageDecoder;
 
 /**
@@ -27,15 +26,9 @@ import org.opensaml.common.binding.decoding.HTTPMessageDecoder;
  */
 public abstract class AbstractHTTPMessageDecoder 
     extends AbstractMessageDecoder<HttpServletRequest> implements HTTPMessageDecoder {
-    
-    /** Class logger. */
-    private final Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
 
     /** HTTP method used in the request. */
     private String httpMethod;
-    
-    /** Request relay state. */
-    private String relayState;    
     
     /** {@inheritDoc} */
     public String getMethod(){
@@ -49,19 +42,5 @@ public abstract class AbstractHTTPMessageDecoder
      */
     protected void setHttpMethod(String method){
         this.httpMethod = method.toUpperCase();
-    }
-    
-    /** {@inheritDoc} */
-    public String getRelayState() {
-        return relayState;
-    }
-    
-    /**
-     * Sets the relay state of the request.
-     * 
-     * @param state relay state of the request
-     */
-    protected void setRelayState(String state){
-        this.relayState = state;
     }
 }

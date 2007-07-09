@@ -34,6 +34,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.security.trust.TrustEngine;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Document;
 
 /**
@@ -41,22 +42,26 @@ import org.w3c.dom.Document;
  * 
  * @param <RequestType> request type that will be decoded
  */
-public abstract class AbstractMessageDecoder<RequestType extends ServletRequest> implements MessageDecoder<RequestType> {
+public abstract class AbstractMessageDecoder<RequestType extends ServletRequest> 
+    implements MessageDecoder<RequestType> {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(AbstractHTTPMessageDecoder.class);
 
-    /** Pool of parsers used to parse XML messages. */
-    private ParserPool parser;
+    /** Decoded SAML message. */
+    private SAMLObject message;
 
     /** Metadata provider used to lookup information about the issuer. */
     private MetadataProvider metadataProvider;
 
+    /** Pool of parsers used to parse XML messages. */
+    private ParserPool parser;
+    
+    /** Relay state associated with decoded request. */
+    private String relayState;
+
     /** Request to decode. */
     private RequestType request;
-
-    /** Decoded SAML message. */
-    private SAMLObject message;
 
     /** Security policy to apply to the request and payload. */
     private SAMLSecurityPolicy securityPolicy;
@@ -65,26 +70,43 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
     private TrustEngine trustEngine;
 
     /**
+     * Evaluates the registered security policy, if there is one, against the provided request and message.
+     * 
+     * This method will also set the issuer and issuer role metadata if provided by the operating security rules.
+     * 
+     * @param decodedMessage message to evaluate the policy against
+     * 
+     * @throws SecurityPolicyException thrown if the given request/message do not meet the requirements of the security
+     *             policy
+     */
+    protected void evaluateSecurityPolicy(XMLObject decodedMessage) throws SecurityPolicyException {
+        if (log.isDebugEnabled()) {
+            log.debug("Evaluating request and SAML message against security policy");
+        }
+
+        SAMLSecurityPolicy policy = getSecurityPolicy();
+        if (policy != null) {
+            try {
+                policy.evaluate(getRequest(), decodedMessage);
+            } catch (SecurityPolicyException e) {
+                log.error("Security policy exception thrown during message decoding", e);
+                throw e;
+            }
+        }
+    }
+
+    /** {@inheritDoc} */
+    public MetadataProvider getMetadataProvider() {
+        return metadataProvider;
+    }
+
+    /**
      * Gets the pool of parsers to use to parse XML.
      * 
      * @return pool of parsers to use to parse XML
      */
     public ParserPool getParserPool() {
         return parser;
-    }
-
-    /**
-     * Sets the pool of parsers to use to parse XML.
-     * 
-     * @param pool pool of parsers to use to parse XML
-     */
-    public void setParserPool(ParserPool pool) {
-        parser = pool;
-    }
-
-    /** {@inheritDoc} */
-    public MetadataProvider getMetadataProvider() {
-        return metadataProvider;
     }
 
     /** {@inheritDoc} */
@@ -112,9 +134,32 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
         metadataProvider = newProvider;
     }
 
+    /**
+     * Sets the pool of parsers to use to parse XML.
+     * 
+     * @param pool pool of parsers to use to parse XML
+     */
+    public void setParserPool(ParserPool pool) {
+        parser = pool;
+    }
+
     /** {@inheritDoc} */
     public void setRequest(RequestType newRequest) {
         request = newRequest;
+    }
+    
+    /** {@inheritDoc} */
+    public String getRelayState() {
+        return relayState;
+    }
+    
+    /**
+     * Sets the relay state associated with the decoded request.
+     * 
+     * @param state relay state associated with the decoded request
+     */
+    protected void setRelayState(String state){
+        relayState = DatatypeHelper.safeTrimOrNullString(state);
     }
 
     /**
@@ -168,32 +213,6 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
         } catch (UnmarshallingException e) {
             log.error("Unable to unmarshall message DOM", e);
             throw new BindingException("Unable to unmarshaller message DOM", e);
-        }
-    }
-
-    /**
-     * Evaluates the registered security policy, if there is one, against the provided request and message.
-     * 
-     * This method will also set the issuer and issuer role metadata if provided by the operating security rules.
-     * 
-     * @param decodedMessage message to evaluate the policy against
-     * 
-     * @throws SecurityPolicyException thrown if the given request/message do not meet the requirements of the security
-     *             policy
-     */
-    protected void evaluateSecurityPolicy(XMLObject decodedMessage) throws SecurityPolicyException {
-        if (log.isDebugEnabled()) {
-            log.debug("Evaluating request and SAML message against security policy");
-        }
-
-        SAMLSecurityPolicy policy = getSecurityPolicy();
-        if (policy != null) {
-            try {
-                policy.evaluate(getRequest(), decodedMessage);
-            } catch (SecurityPolicyException e) {
-                log.error("Security policy exception thrown during message decoding", e);
-                throw e;
-            }
         }
     }
 }

@@ -37,26 +37,19 @@ import org.opensaml.xml.security.credential.Credential;
 public interface MessageEncoder<ResponseType extends ServletResponse> {
     
     /**
+     * Encode the SAML message in the binding specific manner.
+     * 
+     * @throws BindingException thrown if the problem can not be encoded
+     */
+    public void encode() throws BindingException;
+
+    /**
      * Gets the binding URI supported by this encoder.
      * 
      * @return binding URI supported by this encoder
      */
     public String getBindingURI();
 
-    /**
-     * Gets the metadata provider that can be used to look up information about the relying party.
-     * 
-     * @return the metadata provider that can be used to look up information about the relying party
-     */
-    public MetadataProvider getMetadataProvider();
-
-    /**
-     * Sets the metadata provider that can be used to look up information about the relying party.
-     * 
-     * @param metadatProvider provider that can be used to look up information about the relying party, may not be null
-     */
-    public void setMetadataProvider(MetadataProvider metadatProvider);
-    
     /**
      * Gets the issuer of the message.
      * 
@@ -65,39 +58,32 @@ public interface MessageEncoder<ResponseType extends ServletResponse> {
     public String getIssuer();
     
     /**
-     * Sets the issuer of the message.
+     * Gets the metadata provider that can be used to look up information about the relying party.
      * 
-     * @param issuer issuer of the message
+     * @return the metadata provider that can be used to look up information about the relying party
      */
-    public void setIssuer(String issuer);
-
+    public MetadataProvider getMetadataProvider();
+    
+    /**
+     * Gets the relay state associated with the outgoing message.
+     * 
+     * @return relay state associated with the outgoing message
+     */
+    public String getRelayState();
+    
+    /**
+     * Sets the relay state associated with the outgoing message.
+     * 
+     * @param relayState relay state associated with the outgoing message
+     */
+    public void setRelayState(String relayState);
+    
     /**
      * Gets the relying party the message will be encoded for.
      * 
      * @return relying party the message will be encoded for
      */
     public EntityDescriptor getRelyingParty();
-
-    /**
-     * Sets relying party the message will be encoded for.
-     * 
-     * @param relyingParty relying party the message will be encoded for, may not be null
-     */
-    public void setRelyingParty(EntityDescriptor relyingParty);
-
-    /**
-     * Gets the role of the relying party the message will be encoded for.
-     * 
-     * @return role of the relying party the message will be encoded for
-     */
-    public RoleDescriptor getRelyingPartyRole();
-
-    /**
-     * Sets the role of the relying party the message will be encoded for.
-     * 
-     * @param relyingPartyRole role of the relying party the message will be encoded for
-     */
-    public void setRelyingPartyRole(RoleDescriptor relyingPartyRole);
 
     /**
      * Gets the endpoint to which the message will be sent.
@@ -107,39 +93,11 @@ public interface MessageEncoder<ResponseType extends ServletResponse> {
     public Endpoint getRelyingPartyEndpoint();
 
     /**
-     * Sets the endpoint to which the message will be sent.
+     * Gets the role of the relying party the message will be encoded for.
      * 
-     * @param endpoint endpoint to which the message will be sent
+     * @return role of the relying party the message will be encoded for
      */
-    public void setRelyingPartyEndpoint(Endpoint endpoint);
-
-    /**
-     * Gets the SAML message that will be encoded and sent to the relying party.
-     * 
-     * @return the SAML message that will be encoded and sent to the relying party
-     */
-    public SAMLObject getSamlMessage();
-
-    /**
-     * Sets the SAML message that will be encoded and sent to the relying party.
-     * 
-     * @param samlMessage the SAML message to encode, may not be null
-     */
-    public void setSamlMessage(SAMLObject samlMessage);
-    
-    /**
-     * Gets the credential that should be used to sign the message.
-     * 
-     * @return credential that should be used to sign the message
-     */
-    public Credential getSigningCredential();
-    
-    /**
-     * Sets the credential that should be used to sign the message.
-     * 
-     * @param credential credential that should be used to sign the message
-     */
-    public void setSigningCredential(Credential credential);
+    public RoleDescriptor getRelyingPartyRole();
 
     /**
      * Sets the response to use during the encoding process.
@@ -149,6 +107,55 @@ public interface MessageEncoder<ResponseType extends ServletResponse> {
     public ResponseType getResponse();
 
     /**
+     * Gets the SAML message that will be encoded and sent to the relying party.
+     * 
+     * @return the SAML message that will be encoded and sent to the relying party
+     */
+    public SAMLObject getSamlMessage();
+
+    /**
+     * Gets the credential that should be used to sign the message.
+     * 
+     * @return credential that should be used to sign the message
+     */
+    public Credential getSigningCredential();
+
+    /**
+     * Sets the issuer of the message.
+     * 
+     * @param issuer issuer of the message
+     */
+    public void setIssuer(String issuer);
+
+    /**
+     * Sets the metadata provider that can be used to look up information about the relying party.
+     * 
+     * @param metadatProvider provider that can be used to look up information about the relying party, may not be null
+     */
+    public void setMetadataProvider(MetadataProvider metadatProvider);
+
+    /**
+     * Sets relying party the message will be encoded for.
+     * 
+     * @param relyingParty relying party the message will be encoded for, may not be null
+     */
+    public void setRelyingParty(EntityDescriptor relyingParty);
+    
+    /**
+     * Sets the endpoint to which the message will be sent.
+     * 
+     * @param endpoint endpoint to which the message will be sent
+     */
+    public void setRelyingPartyEndpoint(Endpoint endpoint);
+    
+    /**
+     * Sets the role of the relying party the message will be encoded for.
+     * 
+     * @param relyingPartyRole role of the relying party the message will be encoded for
+     */
+    public void setRelyingPartyRole(RoleDescriptor relyingPartyRole);
+
+    /**
      * Sets the response to use during the encoding process.
      * 
      * @param response the response to use during encoding
@@ -156,9 +163,16 @@ public interface MessageEncoder<ResponseType extends ServletResponse> {
     public void setResponse(ResponseType response);
 
     /**
-     * Encode the SAML message in the binding specific manner.
+     * Sets the SAML message that will be encoded and sent to the relying party.
      * 
-     * @throws BindingException thrown if the problem can not be encoded
+     * @param samlMessage the SAML message to encode, may not be null
      */
-    public void encode() throws BindingException;
+    public void setSamlMessage(SAMLObject samlMessage);
+
+    /**
+     * Sets the credential that should be used to sign the message.
+     * 
+     * @param credential credential that should be used to sign the message
+     */
+    public void setSigningCredential(Credential credential);
 }

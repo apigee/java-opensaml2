@@ -34,11 +34,33 @@ import org.opensaml.xml.security.trust.TrustEngine;
 public interface MessageDecoder<RequestType extends ServletRequest> {
 
     /**
+     * Decodes a SAML message in a binding specific manner.
+     * 
+     * @throws BindingException thrown if the message can not be decoded
+     * @throws SecurityPolicyException thrown if the decoded message does not meet the required security policy
+     */
+    public void decode() throws BindingException, SecurityPolicyException;
+
+    /**
      * Gets the binding URI supported by this encoder.
      * 
      * @return binding URI supported by this encoder
      */
     public String getBindingURI();
+
+    /**
+     * Gets the metadata provider used to lookup information about the issuer.
+     * 
+     * @return metadata provider used to lookup information about the issuer
+     */
+    public MetadataProvider getMetadataProvider();
+    
+    /**
+     * Gets the relay state associated with the decoded request.
+     * 
+     * @return relay state associated with the decoded request
+     */
+    public String getRelayState();
 
     /**
      * Gets the request to decode.
@@ -48,25 +70,18 @@ public interface MessageDecoder<RequestType extends ServletRequest> {
     public RequestType getRequest();
 
     /**
-     * Sets the request to decode.
+     * Gets the SAML message that was received and decoded.
      * 
-     * @param request request to decode
+     * @return SAML message
      */
-    public void setRequest(RequestType request);
+    public SAMLObject getSAMLMessage();
 
     /**
-     * Gets the metadata provider used to lookup information about the issuer.
+     * Gets the security policy to apply to the request and its payload.
      * 
-     * @return metadata provider used to lookup information about the issuer
+     * @return security policy to apply to the request and its payload
      */
-    public MetadataProvider getMetadataProvider();
-
-    /**
-     * Sets the metadata provider used to lookup information about the issuer.
-     * 
-     * @param metadataProvider metadata provider used to lookup information about the issuer
-     */
-    public void setMetadataProvider(MetadataProvider metadataProvider);
+    public SAMLSecurityPolicy getSecurityPolicy();
 
     /**
      * Gets the trust engine used to verify the credentials of a request.
@@ -76,11 +91,18 @@ public interface MessageDecoder<RequestType extends ServletRequest> {
     public TrustEngine getTrustEngine();
 
     /**
-     * Gets the security policy to apply to the request and its payload.
+     * Sets the metadata provider used to lookup information about the issuer.
      * 
-     * @return security policy to apply to the request and its payload
+     * @param metadataProvider metadata provider used to lookup information about the issuer
      */
-    public SAMLSecurityPolicy getSecurityPolicy();
+    public void setMetadataProvider(MetadataProvider metadataProvider);
+
+    /**
+     * Sets the request to decode.
+     * 
+     * @param request request to decode
+     */
+    public void setRequest(RequestType request);
 
     /**
      * Sets the security policy to apply to the request and its payload.
@@ -95,20 +117,5 @@ public interface MessageDecoder<RequestType extends ServletRequest> {
      * @param trustEngine the trust engine used to verify the credentials of a request
      */
     public void setTrustEngine(TrustEngine trustEngine);
-
-    /**
-     * Decodes a SAML message in a binding specific manner.
-     * 
-     * @throws BindingException thrown if the message can not be decoded
-     * @throws SecurityPolicyException thrown if the decoded message does not meet the required security policy
-     */
-    public void decode() throws BindingException, SecurityPolicyException;
-
-    /**
-     * Gets the SAML message that was received and decoded.
-     * 
-     * @return SAML message
-     */
-    public SAMLObject getSAMLMessage();
 
 }

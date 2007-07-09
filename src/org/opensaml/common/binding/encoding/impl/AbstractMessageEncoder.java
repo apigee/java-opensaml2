@@ -32,6 +32,7 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.security.credential.Credential;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
@@ -43,20 +44,26 @@ import org.w3c.dom.Element;
 public abstract class AbstractMessageEncoder<ResponseType extends ServletResponse> implements
         MessageEncoder<ResponseType> {
 
-    /** Metadata provider used to look up information about the relying party. */
-    private MetadataProvider metadataProvider;
-
     /** Issuer of the message. */
     private String issuer;
+
+    /** Metadata provider used to look up information about the relying party. */
+    private MetadataProvider metadataProvider;
+    
+    /** Relay state associated with outgoing message. */
+    private String relayState;
 
     /** Party the message is being sent to. */
     private EntityDescriptor relyingParty;
 
+    /** Endpoint of the relying party. */
+    private Endpoint relyingPartyEndpoint;
+
     /** Role of the relying party. */
     private RoleDescriptor relyingPartyRole;
 
-    /** Endpoint of the relying party. */
-    private Endpoint relyingPartyEndpoint;
+    /** Response to pack the message into. */
+    private ResponseType response;
 
     /** SAML message to encode. */
     private SAMLObject samlMessage;
@@ -64,37 +71,24 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
     /** Credential that should be used to sign the message. */
     private Credential signingCredential;
 
-    /** Response to pack the message into. */
-    private ResponseType response;
-
-    /** {@inheritDoc} */
-    public MetadataProvider getMetadataProvider() {
-        return metadataProvider;
-    }
-
-    /** {@inheritDoc} */
-    public void setMetadataProvider(MetadataProvider provider) {
-        metadataProvider = provider;
-    }
-
     /** {@inheritDoc} */
     public String getIssuer() {
         return issuer;
     }
 
     /** {@inheritDoc} */
-    public void setIssuer(String id) {
-        issuer = id;
+    public MetadataProvider getMetadataProvider() {
+        return metadataProvider;
     }
-
+    
+    /** {@inheritDoc} */
+    public String getRelayState() {
+        return relayState;
+    }
+    
     /** {@inheritDoc} */
     public EntityDescriptor getRelyingParty() {
         return relyingParty;
-    }
-
-    /** {@inheritDoc} */
-    public void setRelyingParty(EntityDescriptor entity) {
-        relyingParty = entity;
     }
 
     /** {@inheritDoc} */
@@ -103,38 +97,8 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
     }
 
     /** {@inheritDoc} */
-    public void setRelyingPartyEndpoint(Endpoint endpoint) {
-        relyingPartyEndpoint = endpoint;
-    }
-
-    /** {@inheritDoc} */
     public RoleDescriptor getRelyingPartyRole() {
         return relyingPartyRole;
-    }
-
-    /** {@inheritDoc} */
-    public void setRelyingPartyRole(RoleDescriptor role) {
-        relyingPartyRole = role;
-    }
-
-    /** {@inheritDoc} */
-    public SAMLObject getSamlMessage() {
-        return samlMessage;
-    }
-
-    /** {@inheritDoc} */
-    public void setSamlMessage(SAMLObject message) {
-        samlMessage = message;
-    }
-
-    /** {@inheritDoc} */
-    public Credential getSigningCredential() {
-        return signingCredential;
-    }
-
-    /** {@inheritDoc} */
-    public void setSigningCredential(Credential credential) {
-        signingCredential = credential;
     }
 
     /** {@inheritDoc} */
@@ -143,8 +107,13 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
     }
 
     /** {@inheritDoc} */
-    public void setResponse(ResponseType rpResponse) {
-        response = rpResponse;
+    public SAMLObject getSamlMessage() {
+        return samlMessage;
+    }
+
+    /** {@inheritDoc} */
+    public Credential getSigningCredential() {
+        return signingCredential;
     }
 
     /**
@@ -166,5 +135,50 @@ public abstract class AbstractMessageEncoder<ResponseType extends ServletRespons
         } catch (MarshallingException e) {
             throw new BindingException("Unable to marshall XML message", e);
         }
+    }
+
+    /** {@inheritDoc} */
+    public void setIssuer(String id) {
+        issuer = id;
+    }
+
+    /** {@inheritDoc} */
+    public void setMetadataProvider(MetadataProvider provider) {
+        metadataProvider = provider;
+    }
+
+    /** {@inheritDoc} */
+    public void setRelayState(String state) {
+        relayState = DatatypeHelper.safeTrimOrNullString(state);
+    }
+
+    /** {@inheritDoc} */
+    public void setRelyingParty(EntityDescriptor entity) {
+        relyingParty = entity;
+    }
+
+    /** {@inheritDoc} */
+    public void setRelyingPartyEndpoint(Endpoint endpoint) {
+        relyingPartyEndpoint = endpoint;
+    }
+
+    /** {@inheritDoc} */
+    public void setRelyingPartyRole(RoleDescriptor role) {
+        relyingPartyRole = role;
+    }
+
+    /** {@inheritDoc} */
+    public void setResponse(ResponseType rpResponse) {
+        response = rpResponse;
+    }
+
+    /** {@inheritDoc} */
+    public void setSamlMessage(SAMLObject message) {
+        samlMessage = message;
+    }
+
+    /** {@inheritDoc} */
+    public void setSigningCredential(Credential credential) {
+        signingCredential = credential;
     }
 }

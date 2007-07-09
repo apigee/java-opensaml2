@@ -32,19 +32,6 @@ import org.opensaml.xml.util.DatatypeHelper;
 public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder<HttpServletResponse> implements
         HTTPMessageEncoder {
 
-    /** Relay state. */
-    private String relayState;
-
-    /** {@inheritDoc} */
-    public String getRelayState() {
-        return relayState;
-    }
-
-    /** {@inheritDoc} */
-    public void setRelayState(String state) {
-        relayState = state;
-    }
-
     /**
      * Adds cache control and pragma headers that are meant to disable caching.
      */
@@ -62,9 +49,9 @@ public abstract class AbstractHTTPMessageEncoder extends AbstractMessageEncoder<
      * @throws BindingException thrown if there is a problem encoding the relay state
      */
     protected String getEncodeRelayState() throws BindingException {
-        if (!DatatypeHelper.isEmpty(relayState)) {
+        if (!DatatypeHelper.isEmpty(getRelayState())) {
             try {
-                return URLEncoder.encode(relayState, "UTF-8");
+                return URLEncoder.encode(getRelayState(), "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 throw new BindingException("VM does not support UTF-8 encoding");
             }
