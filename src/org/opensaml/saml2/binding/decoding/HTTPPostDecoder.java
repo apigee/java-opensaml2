@@ -100,10 +100,13 @@ public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("Base64 decoding SAML message");
+            log.debug("Base64 decoding SAML message: " + encodedMessage);
         }
         byte[] decodedMessage = Base64.decode(encodedMessage);
-
+        
+        if(log.isDebugEnabled()){
+            log.debug("Decoded SAML message:\n" + new String(decodedMessage));
+        }
         return new ByteArrayInputStream(decodedMessage);
     }
 }
