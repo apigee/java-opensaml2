@@ -27,6 +27,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.common.binding.BindingException;
 import org.opensaml.saml2.core.RequestAbstractType;
+import org.opensaml.saml2.core.StatusResponseType;
 
 /**
  * SAML 2.0 HTTP Post binding message encoder.
@@ -91,6 +92,9 @@ public class HTTPPostEncoder extends AbstractSAML2HTTPMessageEncoder {
         if (log.isDebugEnabled()) {
             log.debug("Beginning SAML 2 HTTP POST encoding");
         }
+        
+        StatusResponseType samlResponse = (StatusResponseType) getSamlMessage();
+        samlResponse.setDestination(getEndpointURL());
 
         HttpServletResponse response = getResponse();
 

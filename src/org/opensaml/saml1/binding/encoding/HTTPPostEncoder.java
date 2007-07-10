@@ -32,6 +32,7 @@ import org.opensaml.common.binding.BindingException;
 import org.opensaml.common.binding.encoding.impl.AbstractHTTPMessageEncoder;
 import org.opensaml.common.impl.SAMLObjectContentReference;
 import org.opensaml.saml1.core.Response;
+import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.signature.Signature;
@@ -102,6 +103,9 @@ public class HTTPPostEncoder extends AbstractHTTPMessageEncoder {
         if (log.isDebugEnabled()) {
             log.debug("Beginning SAML 2 HTTP POST encoding");
         }
+        
+        ResponseAbstractType samlResponse = (ResponseAbstractType) getSamlMessage();
+        samlResponse.setRecipient(getEndpointURL());
 
         HttpServletResponse response = getResponse();
 
