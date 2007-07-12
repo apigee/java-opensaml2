@@ -87,7 +87,7 @@ public class HTTPRedirectDeflateDecoder extends AbstractHTTPMessageDecoder {
         String relayState = request.getParameter("RelayState");
         setRelayState(relayState);
         if(log.isDebugEnabled()){
-            log.debug("Decoded RelayState of " + relayState);
+            log.debug("Decoded RelayState: " + getRelayState());
         }
 
         InputStream samlMessageIns;

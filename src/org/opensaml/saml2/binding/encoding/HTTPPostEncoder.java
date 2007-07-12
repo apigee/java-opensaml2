@@ -153,10 +153,10 @@ public class HTTPPostEncoder extends AbstractSAML2HTTPMessageEncoder {
             context.put("SAMLResponse", message);
         }
 
+        if(log.isDebugEnabled()){
+            log.debug("Encoding relay state of: " + getRelayState());
+        }
         if (checkRelayState()) {
-            if(log.isDebugEnabled()){
-                log.debug("Encoding relay state of: " + getRelayState());
-            }
             context.put("RelayState", getRelayState());
         }
 
