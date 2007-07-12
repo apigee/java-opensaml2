@@ -139,8 +139,14 @@ public class HTTPPostEncoder extends AbstractSAML2HTTPMessageEncoder {
         }
         VelocityContext context = new VelocityContext();
         
+        if(log.isDebugEnabled()){
+            log.debug("Encoding action url of: " + getEndpointURL());
+        }
         context.put("action", getEndpointURL());
 
+        if(log.isDebugEnabled()){
+            log.debug("Encoding SAML message of: " + message);
+        }
         if (getSamlMessage() instanceof RequestAbstractType) {
             context.put("SAMLRequest", message);
         } else {
@@ -148,6 +154,9 @@ public class HTTPPostEncoder extends AbstractSAML2HTTPMessageEncoder {
         }
 
         if (checkRelayState()) {
+            if(log.isDebugEnabled()){
+                log.debug("Encoding relay state of: " + getRelayState());
+            }
             context.put("RelayState", getRelayState());
         }
 

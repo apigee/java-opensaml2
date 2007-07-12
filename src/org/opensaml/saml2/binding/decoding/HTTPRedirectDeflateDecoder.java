@@ -79,8 +79,16 @@ public class HTTPRedirectDeflateDecoder extends AbstractHTTPMessageDecoder {
         }
 
         HttpServletRequest request = getRequest();
+        if(log.isDebugEnabled()){
+            log.debug("HTTP request query string is: " + request.getQueryString());
+        }
         setHttpMethod("GET");
-        setRelayState(request.getParameter("RelayState"));
+        
+        String relayState = request.getParameter("RelayState");
+        setRelayState(relayState);
+        if(log.isDebugEnabled()){
+            log.debug("Decoded RelayState of " + relayState);
+        }
 
         InputStream samlMessageIns;
         if (request.getParameter("SAMLRequest") != null) {
@@ -94,6 +102,9 @@ public class HTTPRedirectDeflateDecoder extends AbstractHTTPMessageDecoder {
 
         SAMLObject samlMessage = (SAMLObject) unmarshallMessage(samlMessageIns);
         setSAMLMessage(samlMessage);
+        if(log.isDebugEnabled()){
+            log.debug("Decoded SAML message");
+        }
 
         if (request.getParameter("Signature") != null) {
             isSigned = true;

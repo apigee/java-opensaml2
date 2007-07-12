@@ -35,6 +35,7 @@ import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.security.trust.TrustEngine;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Document;
 
 /**
@@ -202,7 +203,7 @@ public abstract class AbstractMessageDecoder<RequestType extends ServletRequest>
             Document domMessage = parser.parse(samlMessage);
 
             if (log.isDebugEnabled()) {
-                log.debug("Unmarshalling DOM");
+                log.debug("Unmarshalling DOM:\n" + XMLHelper.prettyPrintXML(domMessage.getDocumentElement()));
             }
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
                     domMessage.getDocumentElement());
