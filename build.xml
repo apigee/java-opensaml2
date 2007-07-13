@@ -1,8 +1,4 @@
 <project name="OpenSAML" basedir="." default="package">
-	
-	<tstamp>
-		<format property="build-date" pattern="ddMMyyyy'T'kkmmss" timezone="GMT"/>
-	</tstamp>
 
 	<!-- User based property file that overrides any property below -->
 	<property file="${user.name}-build.properties"/>
