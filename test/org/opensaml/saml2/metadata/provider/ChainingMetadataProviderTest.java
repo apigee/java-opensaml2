@@ -42,7 +42,7 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
         metadataProvider = new ChainingMetadataProvider();
         
         String inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
-        URLMetadataProvider urlProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
+        HTTPMetadataProvider urlProvider = new HTTPMetadataProvider(inCommonMDURL, 1000 * 5);
         urlProvider.setParserPool(parser);
         urlProvider.initialize();
         metadataProvider.addMetadataProvider(urlProvider);
@@ -56,7 +56,7 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
     }
     
     /**
-     * Tests the {@link URLMetadataProvider#getEntityDescriptor(String)} method.
+     * Tests the {@link HTTPMetadataProvider#getEntityDescriptor(String)} method.
      */
     public void testGetEntityDescriptor() throws MetadataProviderException{
         EntityDescriptor descriptor = metadataProvider.getEntityDescriptor(entityID);
@@ -65,7 +65,7 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
     }
     
     /**
-     * Tests the {@link URLMetadataProvider#getRole(String, javax.xml.namespace.QName) method.
+     * Tests the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName) method.
      */
     public void testGetRole() throws MetadataProviderException{
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
@@ -74,7 +74,7 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
     }
     
     /**
-     * Test the {@link URLMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
+     * Test the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
      */
     public void testGetRoleWithSupportedProtocol() throws MetadataProviderException{
         RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);

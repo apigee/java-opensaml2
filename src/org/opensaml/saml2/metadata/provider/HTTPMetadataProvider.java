@@ -44,13 +44,13 @@ import org.opensaml.xml.io.UnmarshallingException;
  * Metadata is filtered prior to determining the cache expiration data. This allows a filter to remove XMLObjects that
  * may effect the cache duration but for which the user of this provider does not care about.
  */
-public class URLMetadataProvider extends AbstractObservableMetadataProvider {
+public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
 
     /** Cached, filtered, unmarshalled metadata. */
     private XMLObject cachedMetadata;
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(URLMetadataProvider.class);
+    private final Logger log = Logger.getLogger(HTTPMetadataProvider.class);
 
     /** URL to the Metadata. */
     private URI metadataURI;
@@ -79,7 +79,7 @@ public class URLMetadataProvider extends AbstractObservableMetadataProvider {
      * @throws MetadataProviderException thrown if the URL is not a valid URL or the metadata can not be retrieved from
      *             the URL
      */
-    public URLMetadataProvider(String metadataURL, int requestTimeout) throws MetadataProviderException {
+    public HTTPMetadataProvider(String metadataURL, int requestTimeout) throws MetadataProviderException {
         super();
         try {
             metadataURI = new URI(metadataURL);

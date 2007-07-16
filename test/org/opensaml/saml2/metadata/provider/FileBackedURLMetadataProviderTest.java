@@ -22,7 +22,7 @@ import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 
 /**
- * Test case for {@link FileBackedURLMetadataProvider}.
+ * Test case for {@link FileBackedHTTPMetadataProvider}.
  */
 public class FileBackedURLMetadataProviderTest extends BaseTestCase {
 
@@ -32,7 +32,7 @@ public class FileBackedURLMetadataProviderTest extends BaseTestCase {
 
     private String backupFilePath;
 
-    private FileBackedURLMetadataProvider metadataProvider;
+    private FileBackedHTTPMetadataProvider metadataProvider;
 
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
@@ -41,7 +41,7 @@ public class FileBackedURLMetadataProviderTest extends BaseTestCase {
         inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
         badMDURL = "http://www.google.com/";
         backupFilePath = "metadata.xml";
-        metadataProvider = new FileBackedURLMetadataProvider(inCommonMDURL, 1000 * 5, backupFilePath);
+        metadataProvider = new FileBackedHTTPMetadataProvider(inCommonMDURL, 1000 * 5, backupFilePath);
         metadataProvider.setParserPool(parser);
         metadataProvider.initialize();
     }
@@ -53,7 +53,7 @@ public class FileBackedURLMetadataProviderTest extends BaseTestCase {
     }
 
     /**
-     * Tests the {@link URLMetadataProvider#getMetadata()} method.
+     * Tests the {@link HTTPMetadataProvider#getMetadata()} method.
      */
     public void testGetMetadata() throws MetadataProviderException {
         EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
@@ -64,7 +64,7 @@ public class FileBackedURLMetadataProviderTest extends BaseTestCase {
         assertTrue("Backup file contains no data", backupFile.length() > 0);
 
         // Test pulling it from the backup file
-        FileBackedURLMetadataProvider badProvider = new FileBackedURLMetadataProvider(badMDURL, 1000 * 5,
+        FileBackedHTTPMetadataProvider badProvider = new FileBackedHTTPMetadataProvider(badMDURL, 1000 * 5,
                 backupFilePath);
         badProvider.setParserPool(parser);
         badProvider.initialize();

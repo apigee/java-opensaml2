@@ -25,7 +25,7 @@ import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 
 /**
- * Unit tests for {@link URLMetadataProvider}.
+ * Unit tests for {@link HTTPMetadataProvider}.
  */
 public class URLMetadataProviderTest extends BaseTestCase {
 
@@ -33,7 +33,7 @@ public class URLMetadataProviderTest extends BaseTestCase {
     private String entitiesDescriptorName;
     private String entityID;
     private String supportedProtocol;
-    private URLMetadataProvider metadataProvider;
+    private HTTPMetadataProvider metadataProvider;
     
     /**{@inheritDoc} */
     protected void setUp() throws Exception {
@@ -43,13 +43,13 @@ public class URLMetadataProviderTest extends BaseTestCase {
         entitiesDescriptorName = "urn:mace:incommon";
         entityID = "urn:mace:incommon:washington.edu";
         supportedProtocol ="urn:oasis:names:tc:SAML:1.1:protocol";
-        metadataProvider = new URLMetadataProvider(inCommonMDURL, 1000 * 5);
+        metadataProvider = new HTTPMetadataProvider(inCommonMDURL, 1000 * 5);
         metadataProvider.setParserPool(parser);
         metadataProvider.initialize();
     }
     
     /**
-     * Tests the {@link URLMetadataProvider#getMetadata()} method.
+     * Tests the {@link HTTPMetadataProvider#getMetadata()} method.
      */
     public void testGetMetadata() throws MetadataProviderException {
         EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
@@ -58,7 +58,7 @@ public class URLMetadataProviderTest extends BaseTestCase {
     }
     
     /**
-     * Tests the {@link URLMetadataProvider#getEntitiesDescriptor(String)} method.
+     * Tests the {@link HTTPMetadataProvider#getEntitiesDescriptor(String)} method.
      */
     public void testGetEntitiesDescriptor() throws MetadataProviderException{
         EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getEntitiesDescriptor(entitiesDescriptorName);
@@ -67,7 +67,7 @@ public class URLMetadataProviderTest extends BaseTestCase {
     }
     
     /**
-     * Tests the {@link URLMetadataProvider#getEntityDescriptor(String)} method.
+     * Tests the {@link HTTPMetadataProvider#getEntityDescriptor(String)} method.
      */
     public void testGetEntityDescriptor() throws MetadataProviderException{
         EntityDescriptor descriptor = metadataProvider.getEntityDescriptor(entityID);
@@ -76,7 +76,7 @@ public class URLMetadataProviderTest extends BaseTestCase {
     }
     
     /**
-     * Tests the {@link URLMetadataProvider#getRole(String, javax.xml.namespace.QName) method.
+     * Tests the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName) method.
      */
     public void testGetRole() throws MetadataProviderException{
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
@@ -85,7 +85,7 @@ public class URLMetadataProviderTest extends BaseTestCase {
     }
     
     /**
-     * Test the {@link URLMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
+     * Test the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
      */
     public void testGetRoleWithSupportedProtocol() throws MetadataProviderException{
         RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);

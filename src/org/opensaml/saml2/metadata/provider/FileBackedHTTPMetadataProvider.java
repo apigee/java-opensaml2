@@ -35,10 +35,10 @@ import org.w3c.dom.Element;
  * may not be pulled from the URL it may be pulled from disk using the last fetched data. If the backing file does not
  * already exist it will be created.
  */
-public class FileBackedURLMetadataProvider extends URLMetadataProvider {
+public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(FileBackedURLMetadataProvider.class);
+    private final Logger log = Logger.getLogger(FileBackedHTTPMetadataProvider.class);
 
     /** File containing the backup of the metadata. */
     private File metadataBackupFile;
@@ -53,7 +53,7 @@ public class FileBackedURLMetadataProvider extends URLMetadataProvider {
      * @throws MetadataProviderException thrown if the URL is not a valid URL, the metadata can not be retrieved from
      *             the URL, the given file can not be created or written to
      */
-    public FileBackedURLMetadataProvider(String metadataURL, int requestTimeout, String backingFilePath)
+    public FileBackedHTTPMetadataProvider(String metadataURL, int requestTimeout, String backingFilePath)
             throws MetadataProviderException {
         super(metadataURL, requestTimeout);
 
