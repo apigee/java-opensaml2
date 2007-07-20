@@ -19,6 +19,7 @@ package org.opensaml.saml2.metadata.provider;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 import org.apache.log4j.Logger;
 import org.opensaml.xml.XMLObject;
@@ -133,7 +134,7 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
         }
 
         try {
-            cachedMetadata = unmarshallMetadata(new FileInputStream(metadataFile));
+            cachedMetadata = unmarshallMetadata(new FileReader(metadataFile));
             filterMetadata(cachedMetadata);
             releaseMetadataDOM(cachedMetadata);
             lastUpdate = metadataFile.lastModified();

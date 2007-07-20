@@ -18,6 +18,7 @@ package org.opensaml.saml2.metadata.provider;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -127,7 +128,7 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
             throw new IOException("Unable to read metadata from backup file " + metadataBackupFile.getAbsolutePath());
         }
 
-        FileInputStream in = new FileInputStream(metadataBackupFile);
+        FileReader in = new FileReader(metadataBackupFile);
         return unmarshallMetadata(in);
     }
 

@@ -18,6 +18,7 @@ package org.opensaml.saml2.metadata.provider;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.Iterator;
 import java.util.List;
 
@@ -145,18 +146,18 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * Unmarshalls the metadata from the given stream. The stream is closed by this method and the returned metadata
      * released its DOM representation.
      * 
-     * @param metadataInputstream the input stream to the metadata.
+     * @param metadataInput the input reader to the metadata.
      * 
      * @return the unmarshalled metadata
      * 
      * @throws UnmarshallingException thrown if the metadata can no be unmarshalled
      */
-    protected XMLObject unmarshallMetadata(InputStream metadataInputstream) throws UnmarshallingException {
+    protected XMLObject unmarshallMetadata(Reader metadataInput) throws UnmarshallingException {
         try {
             if (log.isDebugEnabled()) {
                 log.debug("Parsing retrieved metadata into a DOM object");
             }
-            Document mdDocument = parser.parse(metadataInputstream);
+            Document mdDocument = parser.parse(metadataInput);
 
             if (log.isDebugEnabled()) {
                 log.debug("Unmarshalling and caching metdata DOM");
@@ -168,7 +169,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             throw new UnmarshallingException(e);
         } finally {
             try {
-                metadataInputstream.close();
+                metadataInput.close();
             } catch (IOException e) {
                 // ignore
             }

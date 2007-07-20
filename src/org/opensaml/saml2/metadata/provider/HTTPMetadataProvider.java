@@ -17,6 +17,7 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -295,7 +296,8 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             log.debug("Retrieved the following metadata document\n" + getMethod.getResponseBodyAsString());
         }
 
-        XMLObject metadata = unmarshallMetadata(getMethod.getResponseBodyAsStream());
+        StringReader responseBody = new StringReader(getMethod.getResponseBodyAsString());
+        XMLObject metadata = unmarshallMetadata(responseBody);
 
         if (log.isDebugEnabled()) {
             log.debug("Unmarshalled metadata from remote server");
