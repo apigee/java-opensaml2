@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core;
 
 import javax.xml.namespace.QName;
@@ -30,14 +31,23 @@ import org.opensaml.common.xml.SAMLConstants;
 public interface RespondWith extends SAMLObject {
 
     /** Element name, no namespace. */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "RespondWith";
-    
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML1_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-    
-    /** Return the Content (a QName) */
-    String getQname();
-    
-    /** Set the Content (a QName) */
-    void setQname(String QName);      
+    public static final String DEFAULT_ELEMENT_LOCAL_NAME = "RespondWith";
+
+    /** Default element name. */
+    public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML10P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+            SAMLConstants.SAML1P_PREFIX);
+
+    /**
+     * Gets the value of this element.
+     * 
+     * @return value of this element
+     */
+    public QName getValue();
+
+    /**
+     * Sets the value of this element.
+     * 
+     * @param newValue value of this element
+     */
+    public void setValue(QName newValue);
 }
