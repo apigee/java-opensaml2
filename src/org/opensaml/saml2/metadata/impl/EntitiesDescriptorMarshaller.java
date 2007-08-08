@@ -16,17 +16,14 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import javax.xml.datatype.DatatypeFactory;
-
 import org.apache.log4j.Logger;
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
@@ -35,33 +32,28 @@ import org.w3c.dom.Element;
  */
 public class EntitiesDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Logger
-     */
+    /** Class logger. */
     private static Logger log = Logger.getLogger(EntitiesDescriptorMarshaller.class);
 
-    /**
-     * 
-     * Constructor
-     * 
-     * @throws XMLParserException thrown if this Marshaller is unable to create a {@link DatatypeFactory}
-     */
+    /** Constructor. */
     public EntitiesDescriptorMarshaller() {
         super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-    protected EntitiesDescriptorMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected EntitiesDescriptorMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
-    public void marshallAttributes(XMLObject samlElement, Element domElement) {
+    protected void marshallAttributes(XMLObject samlElement, Element domElement) {
 
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) samlElement;
 
@@ -79,7 +71,7 @@ public class EntitiesDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
             if (log.isDebugEnabled()) {
                 log.debug("Writting validUntil attribute to EntitiesDescriptor DOM element");
             }
-            String validUntilStr = ISODateTimeFormat.dateTime().print(entitiesDescriptor.getValidUntil());
+            String validUntilStr = Configuration.getSAMLDateFormatter().print(entitiesDescriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
 

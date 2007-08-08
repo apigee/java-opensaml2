@@ -20,7 +20,7 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.xml.XMLObject;
@@ -33,13 +33,14 @@ import org.w3c.dom.Element;
 public abstract class RequestAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws IllegalArgumentException
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-    protected RequestAbstractTypeMarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
+    protected RequestAbstractTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 
@@ -56,18 +57,21 @@ public abstract class RequestAbstractTypeMarshaller extends AbstractSAMLObjectMa
             domElement.setIdAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, true);
         }
 
-        if (req.getVersion() != null)
+        if (req.getVersion() != null) {
             domElement.setAttributeNS(null, RequestAbstractType.VERSION_ATTRIB_NAME, req.getVersion().toString());
+        }
 
         if (req.getIssueInstant() != null) {
-            String iiStr = ISODateTimeFormat.dateTime().print(req.getIssueInstant());
+            String iiStr = Configuration.getSAMLDateFormatter().print(req.getIssueInstant());
             domElement.setAttributeNS(null, RequestAbstractType.ISSUE_INSTANT_ATTRIB_NAME, iiStr);
         }
 
-        if (req.getDestination() != null)
+        if (req.getDestination() != null) {
             domElement.setAttributeNS(null, RequestAbstractType.DESTINATION_ATTRIB_NAME, req.getDestination());
+        }
 
-        if (req.getConsent() != null)
+        if (req.getConsent() != null) {
             domElement.setAttributeNS(null, RequestAbstractType.CONSENT_ATTRIB_NAME, req.getConsent());
+        }
     }
 }

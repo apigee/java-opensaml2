@@ -17,9 +17,10 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.xml.XMLObject;
@@ -33,28 +34,29 @@ public class RequestAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller 
 
     /**
      * Constructor.
-     *
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws NullPointerException
+     * 
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
-    protected RequestAbstractTypeMarshaller(String targetNamespaceURI, String targetLocalName) throws NullPointerException {
+    protected RequestAbstractTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
-    
+
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         RequestAbstractType request = (RequestAbstractType) samlElement;
 
         if (request.getID() != null) {
             domElement.setAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, request.getID());
-            if (request.getMinorVersion() != 0){
+            if (request.getMinorVersion() != 0) {
                 domElement.setIdAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, true);
             }
         }
-        
+
         if (request.getIssueInstant() != null) {
-            String date = ISODateTimeFormat.dateTime().print(request.getIssueInstant());
+            String date = Configuration.getSAMLDateFormatter().print(request.getIssueInstant());
             domElement.setAttributeNS(null, RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
         }
         if (request.getMinorVersion() != 0) {

@@ -16,35 +16,72 @@
 
 package org.opensaml;
 
+import org.joda.time.chrono.ISOChronology;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
 
 /**
  * OpenSAML configuration singleton.
  * 
- * The library must be initialized with a set of configurations prior to usage.  This is often done by invoking
- * {@link DefaultBootstrap#bootstrap()} but may done in any manner so long as all the needed object providers and 
+ * The library must be initialized with a set of configurations prior to usage. This is often done by invoking
+ * {@link DefaultBootstrap#bootstrap()} but may done in any manner so long as all the needed object providers and
  * artifact factory are created and registered with the configuration.
  */
 public class Configuration extends org.opensaml.xml.Configuration {
+
+    /** Date format in SAML object, default is YYYY-MM-ddTHH:mm:ss.SSS. */
+    private static String defaultDateFormat = "YYYY-MM-ddTHH:mm:ss.SSS";
     
+    /** Formatter used to write dates. */
+    private static DateTimeFormatter dateFormatter;
+
     /** SAML Artifact factory. */
     private static SAMLArtifactFactory artifactFactory;
+
+    /**
+     * Gets the date format used to string'ify SAML's {@link DateTime} objects.
+     * 
+     * @return date format used to string'ify date objects
+     */
+    public static DateTimeFormatter getSAMLDateFormatter() {
+        if(dateFormatter == null){
+            DateTimeFormatter formatter = DateTimeFormat.forPattern(defaultDateFormat);
+            dateFormatter = formatter.withChronology(ISOChronology.getInstanceUTC());
+        }
+        
+        return dateFormatter;
+    }
+
+    /**
+     * Sets the date format used to string'ify SAML's date/time objects.
+     * 
+     * See the
+     * {@link <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/text/SimpleDateFormat.html">SimpleDateFormat</a>}
+     * documentation for format syntax.
+     * 
+     * @param format date format used to string'ify date objects
+     */
+    public static void setSAMLDateFormat(String format) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern(format);
+        dateFormatter = formatter.withChronology(ISOChronology.getInstanceUTC());
+    }
 
     /**
      * Gets the artifact factory for the library.
      * 
      * @return artifact factory for the library
      */
-    public static SAMLArtifactFactory getArtifactFactory(){
+    public static SAMLArtifactFactory getArtifactFactory() {
         return artifactFactory;
     }
-    
+
     /**
      * Sets the artifact factory for the library.
      * 
      * @param factory artifact factory for the library
      */
-    public static void setArtifactFactory(SAMLArtifactFactory factory){
+    public static void setArtifactFactory(SAMLArtifactFactory factory) {
         artifactFactory = factory;
     }
 }

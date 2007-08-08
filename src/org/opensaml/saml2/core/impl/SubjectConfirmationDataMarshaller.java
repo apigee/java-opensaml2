@@ -24,11 +24,10 @@ import java.util.Map.Entry;
 
 import javax.xml.namespace.QName;
 
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SubjectConfirmationData;
-import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
@@ -40,19 +39,21 @@ import org.w3c.dom.Element;
  */
 public class SubjectConfirmationDataMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public SubjectConfirmationDataMarshaller() {
         super(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-    protected SubjectConfirmationDataMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected SubjectConfirmationDataMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
@@ -60,12 +61,12 @@ public class SubjectConfirmationDataMarshaller extends AbstractSAMLObjectMarshal
         SubjectConfirmationData subjectCD = (SubjectConfirmationData) samlObject;
 
         if (subjectCD.getNotBefore() != null) {
-            String notBeforeStr = ISODateTimeFormat.dateTime().print(subjectCD.getNotBefore());
+            String notBeforeStr = Configuration.getSAMLDateFormatter().print(subjectCD.getNotBefore());
             domElement.setAttributeNS(null, SubjectConfirmationData.NOT_BEFORE_ATTRIB_NAME, notBeforeStr);
         }
 
         if (subjectCD.getNotOnOrAfter() != null) {
-            String notOnOrAfterStr = ISODateTimeFormat.dateTime().print(subjectCD.getNotOnOrAfter());
+            String notOnOrAfterStr = Configuration.getSAMLDateFormatter().print(subjectCD.getNotOnOrAfter());
             domElement.setAttributeNS(null, SubjectConfirmationData.NOT_ON_OR_AFTER_ATTRIB_NAME, notOnOrAfterStr);
         }
 
@@ -81,13 +82,13 @@ public class SubjectConfirmationDataMarshaller extends AbstractSAMLObjectMarshal
         if (subjectCD.getAddress() != null) {
             domElement.setAttributeNS(null, SubjectConfirmationData.ADDRESS_ATTRIB_NAME, subjectCD.getAddress());
         }
-        
+
         Attr attribute;
-        for(Entry<QName, String> entry: subjectCD.getUnknownAttributes().entrySet()){
+        for (Entry<QName, String> entry : subjectCD.getUnknownAttributes().entrySet()) {
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNodeNS(attribute);
-            if (Configuration.isIDAttribute(entry.getKey()) 
+            if (Configuration.isIDAttribute(entry.getKey())
                     || subjectCD.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);
             }

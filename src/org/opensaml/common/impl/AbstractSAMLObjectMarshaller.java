@@ -35,7 +35,7 @@ public abstract class AbstractSAMLObjectMarshaller extends AbstractXMLObjectMars
      * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
      */
-    protected AbstractSAMLObjectMarshaller(String targetNamespaceURI, String targetLocalName){
+    protected AbstractSAMLObjectMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 

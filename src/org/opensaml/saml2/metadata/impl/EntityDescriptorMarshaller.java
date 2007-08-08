@@ -21,13 +21,12 @@ import java.util.Map.Entry;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
@@ -38,26 +37,26 @@ import org.w3c.dom.Element;
  */
 public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Logger
-     */
+    /** Class logger. */
     private static Logger log = Logger.getLogger(EntityDescriptorMarshaller.class);
 
     /**
-     * Constructor
+     * Constructor.
      */
     public EntityDescriptorMarshaller() {
         super(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-    protected EntityDescriptorMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected EntityDescriptorMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
@@ -80,7 +79,7 @@ public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
             if (log.isDebugEnabled()) {
                 log.debug("Writting validUntil attribute to EntityDescriptor DOM element");
             }
-            String validUntilStr = ISODateTimeFormat.dateTime().print(entityDescriptor.getValidUntil());
+            String validUntilStr = Configuration.getSAMLDateFormatter().print(entityDescriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
 
@@ -92,13 +91,13 @@ public class EntityDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
             String cacheDuration = XMLHelper.longToDuration(entityDescriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
-        
+
         Attr attribute;
-        for(Entry<QName, String> entry: entityDescriptor.getUnknownAttributes().entrySet()){
+        for (Entry<QName, String> entry : entityDescriptor.getUnknownAttributes().entrySet()) {
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNodeNS(attribute);
-            if (Configuration.isIDAttribute(entry.getKey()) 
+            if (Configuration.isIDAttribute(entry.getKey())
                     || entityDescriptor.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);
             }

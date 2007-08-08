@@ -20,7 +20,7 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.LogoutRequest;
 import org.opensaml.xml.XMLObject;
@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
 public class LogoutRequestMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public LogoutRequestMarshaller() {
@@ -41,24 +41,27 @@ public class LogoutRequestMarshaller extends RequestAbstractTypeMarshaller {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-    protected LogoutRequestMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected LogoutRequestMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         LogoutRequest req = (LogoutRequest) samlObject;
 
-        if (req.getReason() != null)
+        if (req.getReason() != null){
             domElement.setAttributeNS(null, LogoutRequest.REASON_ATTRIB_NAME, req.getReason());
+        }
 
         if (req.getNotOnOrAfter() != null) {
-            String noaStr = ISODateTimeFormat.dateTime().print(req.getNotOnOrAfter());
+            String noaStr = Configuration.getSAMLDateFormatter().print(req.getNotOnOrAfter());
             domElement.setAttributeNS(null, LogoutRequest.NOT_ON_OR_AFTER_ATTRIB_NAME, noaStr);
         }
 

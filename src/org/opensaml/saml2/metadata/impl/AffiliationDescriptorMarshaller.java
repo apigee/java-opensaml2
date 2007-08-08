@@ -25,13 +25,12 @@ import java.util.Map.Entry;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
-import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
@@ -42,26 +41,27 @@ import org.w3c.dom.Element;
  * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.AffiliationDescriptor} objects.
  */
 public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
-    /**
-     * Logger
-     */
+
+    /** Class logger. */
     private static Logger log = Logger.getLogger(AffiliationDescriptorMarshaller.class);
 
     /**
-     * Constructor
+     * Constructor.
      */
     public AffiliationDescriptorMarshaller() {
         super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-    protected AffiliationDescriptorMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected AffiliationDescriptorMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
@@ -78,13 +78,13 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
             domElement.setAttributeNS(null, AffiliationDescriptor.ID_ATTRIB_NAME, descriptor.getID());
             domElement.setIdAttributeNS(null, AffiliationDescriptor.ID_ATTRIB_NAME, true);
         }
-        
+
         // Set the validUntil attribute
         if (descriptor.getValidUntil() != null) {
             if (log.isDebugEnabled()) {
                 log.debug("Writting validUntil attribute to AffiliationDescriptor DOM element");
             }
-            String validUntilStr = ISODateTimeFormat.dateTime().print(descriptor.getValidUntil());
+            String validUntilStr = Configuration.getSAMLDateFormatter().print(descriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
 
@@ -96,13 +96,13 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
             String cacheDuration = XMLHelper.longToDuration(descriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
-        
+
         Attr attribute;
-        for(Entry<QName, String> entry: descriptor.getUnknownAttributes().entrySet()){
+        for (Entry<QName, String> entry : descriptor.getUnknownAttributes().entrySet()) {
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNodeNS(attribute);
-            if (Configuration.isIDAttribute(entry.getKey()) 
+            if (Configuration.isIDAttribute(entry.getKey())
                     || descriptor.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);
             }

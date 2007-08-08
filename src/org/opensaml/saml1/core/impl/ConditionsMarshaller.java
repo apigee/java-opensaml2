@@ -16,7 +16,7 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Conditions;
@@ -30,7 +30,7 @@ import org.w3c.dom.Element;
 public class ConditionsMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public ConditionsMarshaller() {
         super(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME);
@@ -42,12 +42,12 @@ public class ConditionsMarshaller extends AbstractSAMLObjectMarshaller {
         Conditions conditions = (Conditions) samlElement;
 
         if (conditions.getNotBefore() != null) {
-            String date = ISODateTimeFormat.dateTime().print(conditions.getNotBefore());
+            String date = Configuration.getSAMLDateFormatter().print(conditions.getNotBefore());
             domElement.setAttributeNS(null, Conditions.NOTBEFORE_ATTRIB_NAME, date);
         }
 
         if (conditions.getNotOnOrAfter() != null) {
-            String date = ISODateTimeFormat.dateTime().print(conditions.getNotOnOrAfter());
+            String date = Configuration.getSAMLDateFormatter().print(conditions.getNotOnOrAfter());
             domElement.setAttributeNS(null, Conditions.NOTONORAFTER_ATTRIB_NAME, date);
         }
     }

@@ -20,7 +20,7 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Conditions;
@@ -33,32 +33,34 @@ import org.w3c.dom.Element;
  */
 public class ConditionsMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public ConditionsMarshaller() {
         super(SAMLConstants.SAML20_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
-     *
-     * @param namespaceURI
-     * @param elementLocalName
+     * Constructor.
+     * 
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-    protected ConditionsMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected ConditionsMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
-    
+
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         Conditions conditions = (Conditions) samlObject;
 
         if (conditions.getNotBefore() != null) {
-            String notBeforeStr = ISODateTimeFormat.dateTime().print(conditions.getNotBefore());
+            String notBeforeStr = Configuration.getSAMLDateFormatter().print(conditions.getNotBefore());
             domElement.setAttributeNS(null, Conditions.NOT_BEFORE_ATTRIB_NAME, notBeforeStr);
         }
 
         if (conditions.getNotOnOrAfter() != null) {
-            String notOnOrAfterStr = ISODateTimeFormat.dateTime().print(conditions.getNotOnOrAfter());
+            String notOnOrAfterStr = Configuration.getSAMLDateFormatter().print(conditions.getNotOnOrAfter());
             domElement.setAttributeNS(null, Conditions.NOT_ON_OR_AFTER_ATTRIB_NAME, notOnOrAfterStr);
         }
     }

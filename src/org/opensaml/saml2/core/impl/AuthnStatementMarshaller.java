@@ -20,7 +20,7 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnStatement;
@@ -33,19 +33,21 @@ import org.w3c.dom.Element;
  */
 public class AuthnStatementMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AuthnStatementMarshaller() {
         super(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
-    protected AuthnStatementMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected AuthnStatementMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
@@ -53,7 +55,7 @@ public class AuthnStatementMarshaller extends AbstractSAMLObjectMarshaller {
         AuthnStatement authnStatement = (AuthnStatement) samlObject;
 
         if (authnStatement.getAuthnInstant() != null) {
-            String authnInstantStr = ISODateTimeFormat.dateTime().print(authnStatement.getAuthnInstant());
+            String authnInstantStr = Configuration.getSAMLDateFormatter().print(authnStatement.getAuthnInstant());
             domElement.setAttributeNS(null, AuthnStatement.AUTHN_INSTANT_ATTRIB_NAME, authnInstantStr);
         }
 
@@ -62,7 +64,8 @@ public class AuthnStatementMarshaller extends AbstractSAMLObjectMarshaller {
         }
 
         if (authnStatement.getSessionNotOnOrAfter() != null) {
-            String sessionNotOnOrAfterStr = ISODateTimeFormat.dateTime().print(authnStatement.getSessionNotOnOrAfter());
+            String sessionNotOnOrAfterStr = Configuration.getSAMLDateFormatter().print(
+                    authnStatement.getSessionNotOnOrAfter());
             domElement.setAttributeNS(null, AuthnStatement.SESSION_NOT_ON_OR_AFTER_ATTRIB_NAME, sessionNotOnOrAfterStr);
         }
     }

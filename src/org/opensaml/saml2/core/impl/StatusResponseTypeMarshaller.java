@@ -17,9 +17,10 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.xml.XMLObject;
@@ -32,44 +33,49 @@ import org.w3c.dom.Element;
 public abstract class StatusResponseTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
-     *
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws IllegalArgumentException
+     * Constructor.
+     * 
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-     protected StatusResponseTypeMarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
+    protected StatusResponseTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         StatusResponseType sr = (StatusResponseType) samlObject;
-        
+
         if (sr.getVersion() != null) {
             domElement.setAttributeNS(null, StatusResponseType.VERSION_ATTRIB_NAME, sr.getVersion().toString());
         }
-        
-       if (sr.getID() != null)  {
-           domElement.setAttributeNS(null, StatusResponseType.ID_ATTRIB_NAME, sr.getID());
-           domElement.setIdAttributeNS(null, StatusResponseType.ID_ATTRIB_NAME, true);
-       }
-       
-       if (sr.getInResponseTo() != null) 
-           domElement.setAttributeNS(null, StatusResponseType.IN_RESPONSE_TO_ATTRIB_NAME, sr.getInResponseTo());
-       
-       if (sr.getVersion() != null)
-           domElement.setAttributeNS(null, StatusResponseType.VERSION_ATTRIB_NAME, sr.getVersion().toString());
-       
-       if (sr.getIssueInstant() != null) {
-           String iiStr = ISODateTimeFormat.dateTime().print(sr.getIssueInstant());
-           domElement.setAttributeNS(null, StatusResponseType.ISSUE_INSTANT_ATTRIB_NAME, iiStr);
-       }
-       
-       if (sr.getDestination() != null)
-           domElement.setAttributeNS(null, StatusResponseType.DESTINATION_ATTRIB_NAME, sr.getDestination());
-       
-       if (sr.getConsent() != null)
-           domElement.setAttributeNS(null, StatusResponseType.CONSENT_ATTRIB_NAME, sr.getConsent());
+
+        if (sr.getID() != null) {
+            domElement.setAttributeNS(null, StatusResponseType.ID_ATTRIB_NAME, sr.getID());
+            domElement.setIdAttributeNS(null, StatusResponseType.ID_ATTRIB_NAME, true);
+        }
+
+        if (sr.getInResponseTo() != null) {
+            domElement.setAttributeNS(null, StatusResponseType.IN_RESPONSE_TO_ATTRIB_NAME, sr.getInResponseTo());
+        }
+
+        if (sr.getVersion() != null) {
+            domElement.setAttributeNS(null, StatusResponseType.VERSION_ATTRIB_NAME, sr.getVersion().toString());
+        }
+
+        if (sr.getIssueInstant() != null) {
+            String iiStr = Configuration.getSAMLDateFormatter().print(sr.getIssueInstant());
+            domElement.setAttributeNS(null, StatusResponseType.ISSUE_INSTANT_ATTRIB_NAME, iiStr);
+        }
+
+        if (sr.getDestination() != null) {
+            domElement.setAttributeNS(null, StatusResponseType.DESTINATION_ATTRIB_NAME, sr.getDestination());
+        }
+
+        if (sr.getConsent() != null) {
+            domElement.setAttributeNS(null, StatusResponseType.CONSENT_ATTRIB_NAME, sr.getConsent());
+        }
     }
 }

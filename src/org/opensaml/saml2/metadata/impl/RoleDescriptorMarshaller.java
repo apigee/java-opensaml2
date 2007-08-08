@@ -22,12 +22,11 @@ import java.util.Map.Entry;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
@@ -39,13 +38,11 @@ import org.w3c.dom.Element;
  */
 public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Logger
-     */
+    /** Class logger. */
     private static Logger log = Logger.getLogger(RoleDescriptorMarshaller.class);
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI the namespaceURI of the SAMLObject this marshaller operates on
      * @param targetLocalName the local name of the SAMLObject this marshaller operates on
@@ -72,7 +69,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
             if (log.isDebugEnabled()) {
                 log.debug("Writting validUntil attribute to RoleDescriptor DOM element");
             }
-            String validUntilStr = ISODateTimeFormat.dateTime().print(roleDescriptor.getValidUntil());
+            String validUntilStr = Configuration.getSAMLDateFormatter().print(roleDescriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
 
@@ -108,13 +105,13 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
             }
             domElement.setAttributeNS(null, RoleDescriptor.ERROR_URL_ATTRIB_NAME, roleDescriptor.getErrorURL());
         }
-        
+
         Attr attribute;
-        for(Entry<QName, String> entry: roleDescriptor.getUnknownAttributes().entrySet()){
+        for (Entry<QName, String> entry : roleDescriptor.getUnknownAttributes().entrySet()) {
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNodeNS(attribute);
-            if (Configuration.isIDAttribute(entry.getKey()) 
+            if (Configuration.isIDAttribute(entry.getKey())
                     || roleDescriptor.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);
             }

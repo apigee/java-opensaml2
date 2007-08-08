@@ -17,9 +17,10 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
-import org.joda.time.format.ISODateTimeFormat;
+import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.xml.XMLObject;
@@ -33,33 +34,33 @@ public abstract class ResponseAbstractTypeMarshaller extends AbstractSAMLObjectM
 
     /**
      * Constructor.
-     *
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws NullPointerException
+     * 
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
-    protected ResponseAbstractTypeMarshaller(String targetNamespaceURI, String targetLocalName)
-            throws NullPointerException {
+    protected ResponseAbstractTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
-    
+
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         ResponseAbstractType response = (ResponseAbstractType) samlElement;
 
         if (response.getID() != null) {
             domElement.setAttributeNS(null, ResponseAbstractType.ID_ATTRIB_NAME, response.getID());
-            if (response.getMinorVersion() != 0){
+            if (response.getMinorVersion() != 0) {
                 domElement.setIdAttributeNS(null, ResponseAbstractType.ID_ATTRIB_NAME, true);
             }
         }
-        
+
         if (response.getInResponseTo() != null) {
             domElement.setAttributeNS(null, ResponseAbstractType.INRESPONSETO_ATTRIB_NAME, response.getInResponseTo());
         }
 
         if (response.getIssueInstant() != null) {
-            String date = ISODateTimeFormat.dateTime().print(response.getIssueInstant());
+            String date = Configuration.getSAMLDateFormatter().print(response.getIssueInstant());
             domElement.setAttributeNS(null, ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME, date);
         }
 
