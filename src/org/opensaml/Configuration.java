@@ -30,8 +30,8 @@ import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
  */
 public class Configuration extends org.opensaml.xml.Configuration {
 
-    /** Date format in SAML object, default is yyyy-MM-dd'T'HH:mm:ss.SSS. */
-    private static String defaultDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+    /** Date format in SAML object, default is yyyy-MM-dd'T'HH:mm:ss.SSSZ. */
+    private static String defaultDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     
     /** Formatter used to write dates. */
     private static DateTimeFormatter dateFormatter;
