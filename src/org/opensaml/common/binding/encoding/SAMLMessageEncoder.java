@@ -14,17 +14,19 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding.decoding;
+package org.opensaml.common.binding.encoding;
 
-import org.opensaml.common.binding.decoding.impl.AbstractMessageDecoderBuilder;
+import org.opensaml.ws.message.encoder.MessageEncoder;
 
 /**
- *Builder of {@link HTTPPostDecoder}s.
+ * SAML extension to the generic message encoder.
  */
-public class HTTPPostDecoderBuilder extends AbstractMessageDecoderBuilder<HTTPPostDecoder> {
+public interface SAMLMessageEncoder extends MessageEncoder {
 
-    /** {@inheritDoc} */
-    protected HTTPPostDecoder doBuildEncoder() {
-        return new HTTPPostDecoder();
-    }
+    /**
+     * Gets the SAML binding URI supported by this encoder.
+     * 
+     * @return SAML binding URI supported by this encoder
+     */
+    public String getBindingURI();
 }

@@ -16,18 +16,68 @@
 
 package org.opensaml.saml2.binding.decoding;
 
-import org.opensaml.common.binding.decoding.impl.AbstractSOAPHTTPDecoder;
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
+import org.opensaml.saml1.binding.decoding.HTTPPostDecoder;
+import org.opensaml.ws.message.MessageContext;
+import org.opensaml.ws.message.decoder.BaseMessageDecoder;
+import org.opensaml.ws.message.decoder.MessageDecodingException;
+import org.opensaml.ws.soap.soap11.Envelope;
+import org.opensaml.ws.transport.http.HTTPInTransport;
+import org.opensaml.xml.XMLObject;
 
 /**
  * SAML 2.0 SOAP 1.1 over HTTP binding decoder.
  */
-public class HTTPSOAP11Decoder extends AbstractSOAPHTTPDecoder {
+public class HTTPSOAP11Decoder extends BaseMessageDecoder implements SAMLMessageDecoder {
 
-    /** URI for this binding. */
-    public static final String BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:SOAP";
+    /** Class logger. */
+    private final Logger log = Logger.getLogger(HTTPPostDecoder.class);
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return BINDING_URI;
+        return "urn:oasis:names:tc:SAML:2.0:bindings:SOAP";
+    }
+
+    /** {@inheritDoc} */
+    protected void doDecode(MessageContext messageContext) throws MessageDecodingException {
+        if (!(messageContext instanceof SAMLMessageContext)) {
+            log.error("Invalid message context type, this decoder only support SAMLMessageContext");
+            throw new MessageDecodingException(
+                    "Invalid message context type, this decoder only support SAMLMessageContext");
+        }
+
+        if (!(messageContext.getMessageInTransport() instanceof HTTPInTransport)) {
+            log.error("Invalid inbound message transport type, this decoder only support HTTPInTransport");
+            throw new MessageDecodingException(
+                    "Invalid inbound message transport type, this decoder only support HTTPInTransport");
+        }
+
+        SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
+        HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getMessageInTransport();
+
+        if (log.isDebugEnabled()) {
+            log.debug("Unmarshalling SOAP message");
+        }
+        Envelope soapMessage = (Envelope) unmarshallMessage(inTransport.getIncomingStream());
+        samlMsgCtx.setInboundMessage(soapMessage);
+
+        List<XMLObject> soapBodyChildren = soapMessage.getBody().getUnknownXMLObjects();
+        if (soapBodyChildren.size() < 1 || soapBodyChildren.size() > 1) {
+            log.error("Unexpected number of children in the SOAP body, " + soapBodyChildren.size()
+                    + ".  Unable to extract SAML message");
+            throw new MessageDecodingException(
+                    "Unexpected number of children in the SOAP body, unable to extract SAML message");
+        }
+
+        SAMLObject samlMessage = (SAMLObject) soapBodyChildren.get(0);
+        if (log.isDebugEnabled()) {
+            log.debug("Decoded SOAP messaged which included SAML message of type " + samlMessage.getElementQName());
+        }
+        samlMsgCtx.setInboundSAMLMessage(samlMessage);
     }
 }

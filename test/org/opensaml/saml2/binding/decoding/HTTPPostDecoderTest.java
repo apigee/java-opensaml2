@@ -17,8 +17,6 @@
 package org.opensaml.saml2.binding.decoding;
 
 import org.opensaml.common.BaseTestCase;
-import org.opensaml.common.binding.decoding.HTTPMessageDecoder;
-import org.opensaml.saml2.binding.decoding.HTTPPostDecoderBuilder;
 import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -28,47 +26,47 @@ import org.springframework.mock.web.MockHttpServletRequest;
  */
 public class HTTPPostDecoderTest extends BaseTestCase {
 
-    /**
-     * Test decoding a SAML request.
-     */
-    public void testRequestDecoding() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setParameter("RelayState", "relay");
-        request.setParameter("SAMLRequest", "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWxwOkF1dGhuUm"
-                + "VxdWVzdCBJRD0iZm9vIiBJc3N1ZUluc3RhbnQ9IjE5NzAtMDEtMDFUMDA6MDA6MDAuMDAwWiIgVmVyc2lvbj0iMi4wIiB4bW"
-                + "xuczpzYW1scD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOnByb3RvY29sIi8+");
-
-        HTTPPostDecoderBuilder decoderBuilder = new HTTPPostDecoderBuilder();
-        decoderBuilder.setParser(parser);
-
-        HTTPMessageDecoder decoder = decoderBuilder.buildDecoder();
-        decoder.setRequest(request);
-        decoder.decode();
-
-        assertTrue(decoder.getSAMLMessage() instanceof RequestAbstractType);
-        assertEquals("relay", decoder.getRelayState());
-    }
-
-    /**
-     * Test decoding a SAML response.
-     */
-    public void testResponseDecoding() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
-        request.setParameter("RelayState", "relay");
-        request.setParameter("SAMLResponse", "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWxwOlJlc3Bvbn"
-                + "NlIElEPSJmb28iIElzc3VlSW5zdGFudD0iMTk3MC0wMS0wMVQwMDowMDowMC4wMDBaIiBWZXJzaW9uPSIyLjAiIHhtbG5zOnN"
-                + "hbWxwPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6cHJvdG9jb2wiPjxzYW1scDpTdGF0dXM+PHNhbWxwOlN0YXR1c0Nv"
-                + "ZGUgVmFsdWU9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpzdGF0dXM6U3VjY2VzcyIvPjwvc2FtbHA6U3RhdHVzPjwvc"
-                + "2FtbHA6UmVzcG9uc2U+");
-
-        HTTPPostDecoderBuilder decoderBuilder = new HTTPPostDecoderBuilder();
-        decoderBuilder.setParser(parser);
-
-        HTTPMessageDecoder decoder = decoderBuilder.buildDecoder();
-        decoder.setRequest(request);
-        decoder.decode();
-
-        assertTrue(decoder.getSAMLMessage() instanceof Response);
-        assertEquals("relay", decoder.getRelayState());
-    }
+//    /**
+//     * Test decoding a SAML request.
+//     */
+//    public void testRequestDecoding() throws Exception {
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        request.setParameter("RelayState", "relay");
+//        request.setParameter("SAMLRequest", "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWxwOkF1dGhuUm"
+//                + "VxdWVzdCBJRD0iZm9vIiBJc3N1ZUluc3RhbnQ9IjE5NzAtMDEtMDFUMDA6MDA6MDAuMDAwWiIgVmVyc2lvbj0iMi4wIiB4bW"
+//                + "xuczpzYW1scD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOnByb3RvY29sIi8+");
+//
+//        HTTPPostDecoderBuilder decoderBuilder = new HTTPPostDecoderBuilder();
+//        decoderBuilder.setParser(parser);
+//
+//        HTTPMessageDecoder decoder = decoderBuilder.buildDecoder();
+//        decoder.setRequest(request);
+//        decoder.decode();
+//
+//        assertTrue(decoder.getSAMLMessage() instanceof RequestAbstractType);
+//        assertEquals("relay", decoder.getRelayState());
+//    }
+//
+//    /**
+//     * Test decoding a SAML response.
+//     */
+//    public void testResponseDecoding() throws Exception {
+//        MockHttpServletRequest request = new MockHttpServletRequest();
+//        request.setParameter("RelayState", "relay");
+//        request.setParameter("SAMLResponse", "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWxwOlJlc3Bvbn"
+//                + "NlIElEPSJmb28iIElzc3VlSW5zdGFudD0iMTk3MC0wMS0wMVQwMDowMDowMC4wMDBaIiBWZXJzaW9uPSIyLjAiIHhtbG5zOnN"
+//                + "hbWxwPSJ1cm46b2FzaXM6bmFtZXM6dGM6U0FNTDoyLjA6cHJvdG9jb2wiPjxzYW1scDpTdGF0dXM+PHNhbWxwOlN0YXR1c0Nv"
+//                + "ZGUgVmFsdWU9InVybjpvYXNpczpuYW1lczp0YzpTQU1MOjIuMDpzdGF0dXM6U3VjY2VzcyIvPjwvc2FtbHA6U3RhdHVzPjwvc"
+//                + "2FtbHA6UmVzcG9uc2U+");
+//
+//        HTTPPostDecoderBuilder decoderBuilder = new HTTPPostDecoderBuilder();
+//        decoderBuilder.setParser(parser);
+//
+//        HTTPMessageDecoder decoder = decoderBuilder.buildDecoder();
+//        decoder.setRequest(request);
+//        decoder.decode();
+//
+//        assertTrue(decoder.getSAMLMessage() instanceof Response);
+//        assertEquals("relay", decoder.getRelayState());
+//    }
 }

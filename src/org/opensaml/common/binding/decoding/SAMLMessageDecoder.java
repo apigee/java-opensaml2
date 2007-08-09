@@ -14,21 +14,19 @@
  * limitations under the License.
  */
 
-package org.opensaml.common.binding.encoding;
+package org.opensaml.common.binding.decoding;
+
+import org.opensaml.ws.message.decoder.MessageDecoder;
 
 /**
- * Simple builder interface for {@link MessageEncoder}s.
- * 
- * Builders must be thread-safe and reusable.
- * 
- * @param <MessageEncoderType> type of message encoder built
+ * SAML extension to the generic message decoders.
  */
-public interface MessageEncoderBuilder<MessageEncoderType extends MessageEncoder> {
+public interface SAMLMessageDecoder extends MessageDecoder {
 
     /**
-     * Creates a new instance of the message encoder.
+     * Gets the SAML binding URI supported by this decoder.
      * 
-     * @return new instance of the message encoder
+     * @return SAML binding URI supported by this decoder
      */
-    public MessageEncoderType buildEncoder();
+    public String getBindingURI();
 }

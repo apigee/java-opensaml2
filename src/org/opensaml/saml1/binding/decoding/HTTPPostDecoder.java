@@ -17,76 +17,90 @@
 package org.opensaml.saml1.binding.decoding;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.binding.BindingException;
-import org.opensaml.common.binding.decoding.impl.AbstractHTTPMessageDecoder;
-import org.opensaml.ws.security.SecurityPolicyException;
+import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
+import org.opensaml.log.Level;
+import org.opensaml.ws.message.MessageContext;
+import org.opensaml.ws.message.decoder.BaseMessageDecoder;
+import org.opensaml.ws.message.decoder.MessageDecodingException;
+import org.opensaml.ws.security.SecurityPolicy;
+import org.opensaml.ws.transport.http.HTTPInTransport;
+import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.Base64;
 
 /**
  * SAML 1.X HTTP POST message decoder.
  */
-public class HTTPPostDecoder extends AbstractHTTPMessageDecoder {
-    
-    /** Binding URI. */
-    public static final String BINDING_URI = "urn:oasis:names:tc:SAML:1.0:profiles:browser-post";
-
-    /** HTTP request param name for SAML response. */
-    public static final String RESPONSE_PARAM = "SAMLResponse";
-
-    /** HTTP request param name for the TARGET. */
-    public static final String TARGET_PARAM = "TARGET";
+public class HTTPPostDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(HTTPPostDecoder.class);
+    private final Logger log = Logger.getLogger(HTTPPostDecoder.class);
 
-    /** {@inheritDoc} */
-    public String getBindingURI() {
-        return BINDING_URI;
-    }
-
-    /** {@inheritDoc} */
-    public void decode() throws BindingException, SecurityPolicyException {
-        if (log.isDebugEnabled()) {
-            log.debug("Beginning decode of request using HTTP POST binding");
-        }
-        
-        setRelayState(getRequest().getParameter(TARGET_PARAM));
-        
-        InputStream decodedMessage = getBase64DecodedMessage();
-
-        SAMLObject samlMessage = (SAMLObject) unmarshallMessage(decodedMessage);
-
-        evaluateSecurityPolicy(samlMessage);
-        
-        setSAMLMessage(samlMessage);
-
-        if (log.isDebugEnabled()) {
-            log.debug("HTTP request successfully decoded using SAML 2 HTTP POST binding");
-        }
+    /** Constructor. */
+    public HTTPPostDecoder() {
+        super();
     }
 
     /**
-     * Gets the Base64 encoded message from the request and decodes it.
+     * Constructor.
      * 
-     * @return decoded message
-     * 
-     * @throws BindingException thrown if the message does not contain a base64 encoded SAML message
+     * @param policy security policy to evaluate a message context against
      */
-    protected InputStream getBase64DecodedMessage() throws BindingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Getting Base64 encoded message from request");
-        }
-        String encodedMessage = getRequest().getParameter(RESPONSE_PARAM);
+    public HTTPPostDecoder(SecurityPolicy policy) {
+        super(policy);
+    }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Base64 decoding SAML message");
-        }
-        byte[] decodedMessage = Base64.decode(encodedMessage);
+    /**
+     * Constructor.
+     * 
+     * @param policy security policy to evaluate a message context against
+     * @param pool parser pool used to deserialize messages
+     */
+    public HTTPPostDecoder(SecurityPolicy policy, ParserPool pool) {
+        super(policy, pool);
+    }
 
-        return new ByteArrayInputStream(decodedMessage);
+    /** {@inheritDoc} */
+    public String getBindingURI() {
+        return "urn:oasis:names:tc:SAML:1.0:profiles:browser-post";
+    }
+
+    /** {@inheritDoc} */
+    protected void doDecode(MessageContext messageContext) throws MessageDecodingException {
+        if (!(messageContext instanceof SAMLMessageContext)) {
+            log.error("Invalid message context type, this decoder only support SAMLMessageContext");
+            throw new MessageDecodingException(
+                    "Invalid message context type, this decoder only support SAMLMessageContext");
+        }
+
+        if (!(messageContext.getMessageInTransport() instanceof HTTPInTransport)) {
+            log.error("Invalid inbound message transport type, this decoder only support HTTPInTransport");
+            throw new MessageDecodingException(
+                    "Invalid inbound message transport type, this decoder only support HTTPInTransport");
+        }
+
+        SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
+        HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getMessageInTransport();
+
+        String relayState = inTransport.getParameter("TARGET");
+        samlMsgCtx.setRelayState(relayState);
+        if (log.isDebugEnabled()) {
+            log.debug("Decoded SAML relay state of: " + relayState);
+        }
+
+        String base64Message = inTransport.getParameter("SAMLResponse");
+        if (log.isEnabledFor(Level.TRAIL)) {
+            log.log(Level.TRAIL, "Decoding base64 message:\n" + base64Message);
+        }
+        SAMLObject inboundMessage = (SAMLObject) unmarshallMessage(new ByteArrayInputStream(Base64
+                .decode(base64Message)));
+        samlMsgCtx.setInboundMessage(inboundMessage);
+        samlMsgCtx.setInboundSAMLMessage(inboundMessage);
+        if (log.isDebugEnabled()) {
+            log.debug("Decoded SAML message");
+        }
     }
 }
