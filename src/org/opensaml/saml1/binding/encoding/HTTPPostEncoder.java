@@ -16,10 +16,13 @@
 
 package org.opensaml.saml1.binding.encoding;
 
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 
 import org.apache.log4j.Logger;
+import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.Configuration;
@@ -35,6 +38,7 @@ import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.BaseMessageEncoder;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
+import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.Signer;
@@ -81,9 +85,9 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
         }
 
         if (!(messageContext.getMessageOutTransport() instanceof HTTPOutTransport)) {
-            log.error("Invalid inbound message transport type, this encoder only support HTTPInTransport");
+            log.error("Invalid outbound message transport type, this encoder only support HTTPOutTransport");
             throw new MessageEncodingException(
-                    "Invalid inbound message transport type, this encoder only support HTTPInTransport");
+                    "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
@@ -139,11 +143,14 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
             }
 
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getMessageOutTransport();
-            // getResponse().setCharacterEncoding("UTF-8");
-            // getResponse().addHeader("Cache-control", "no-cache, no-store");
-            // getResponse().addHeader("Pragma", "no-cache");
-            Writer out = new OutputStreamWriter(outTransport.getOutgoingStream(), "UTF-8");
+            HTTPTransportUtils.addNoCacheHeaders(outTransport);
+            HTTPTransportUtils.setUTF8Encoding(outTransport);
+            HTTPTransportUtils.setContentType(outTransport, "application/xhtml+xml");
+            
+            OutputStream transportOutStream = outTransport.getOutgoingStream();
+            Writer out = new OutputStreamWriter(transportOutStream, "UTF-8");
             velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, out);
+            out.flush();
         } catch (Exception e) {
             log.error("Error invoking velocity template", e);
             throw new MessageEncodingException("Error creating output document", e);

@@ -22,115 +22,119 @@ import org.joda.time.DateTime;
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.binding.BasicSAMLMessageContext;
 import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
  * Test case for {@link HTTPPostEncoder}.
  */
 public class HTTPPostEncoderTest extends BaseTestCase {
-//
-//    /** Velocity template engine. */
-//    private VelocityEngine velocityEngine;
-//
-//    /** {@inheritDoc} */
-//    @SuppressWarnings("unchecked")
-//    public void setUp() throws Exception {
-//        super.setUp();
-//
-//        velocityEngine = new VelocityEngine();
-//        velocityEngine.setProperty(RuntimeConstants.ENCODING_DEFAULT, "UTF-8");
-//        velocityEngine.setProperty(RuntimeConstants.OUTPUT_ENCODING, "UTF-8");
-//        velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-//        velocityEngine.setProperty("classpath.resource.loader.class",
-//                "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-//        velocityEngine.init();
-//    }
-//
-//    /**
-//     * Tests encoding a SAML message to an servlet response.
-//     * 
-//     * @throws Exception
-//     */
-//    @SuppressWarnings("unchecked")
-//    public void testResponseEncoding() throws Exception {
-//        SAMLObjectBuilder<StatusCode> statusCodeBuilder = (SAMLObjectBuilder<StatusCode>) builderFactory
-//                .getBuilder(StatusCode.DEFAULT_ELEMENT_NAME);
-//        StatusCode statusCode = statusCodeBuilder.buildObject();
-//        statusCode.setValue(StatusCode.SUCCESS_URI);
-//
-//        SAMLObjectBuilder<Status> statusBuilder = (SAMLObjectBuilder<Status>) builderFactory
-//                .getBuilder(Status.DEFAULT_ELEMENT_NAME);
-//        Status responseStatus = statusBuilder.buildObject();
-//        responseStatus.setStatusCode(statusCode);
-//
-//        SAMLObjectBuilder<Response> responseBuilder = (SAMLObjectBuilder<Response>) builderFactory
-//                .getBuilder(Response.DEFAULT_ELEMENT_NAME);
-//        Response samlMessage = responseBuilder.buildObject();
-//        samlMessage.setID("foo");
-//        samlMessage.setVersion(SAMLVersion.VERSION_20);
-//        samlMessage.setIssueInstant(new DateTime(0));
-//        samlMessage.setStatus(responseStatus);
-//
-//        SAMLObjectBuilder<Endpoint> endpointBuilder = (SAMLObjectBuilder<Endpoint>) builderFactory
-//                .getBuilder(AssertionConsumerService.DEFAULT_ELEMENT_NAME);
-//        Endpoint samlEndpoint = endpointBuilder.buildObject();
-//        samlEndpoint.setBinding(HTTPPostEncoder.BINDING_URI);
-//        samlEndpoint.setLocation("http://example.org");
-//        samlEndpoint.setResponseLocation("http://example.org/response");
-//
-//        HTTPPostEncoderBuilder encoderBuilder = new HTTPPostEncoderBuilder(velocityEngine,
-//                "/templates/saml2-post-binding.vm");
-//        HTTPMessageEncoder encoder = encoderBuilder.buildEncoder();
-//
-//        MockHttpServletResponse response = new MockHttpServletResponse();
-//        encoder.setRelyingPartyEndpoint(samlEndpoint);
-//        encoder.setSamlMessage(samlMessage);
-//        encoder.setRelayState("relay");
-//        encoder.setResponse(response);
-//        encoder.encode();
-//
-//        assertEquals("Unexpected content type", "application/xhtml+xml", response.getContentType());
-//        assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
-//        assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-//        assertEquals(1157612220, response.getContentAsString().hashCode());
-//    }
-//
-//    @SuppressWarnings("unchecked")
-//    public void testRequestEncoding() throws Exception {
-//        SAMLObjectBuilder<AuthnRequest> responseBuilder = (SAMLObjectBuilder<AuthnRequest>) builderFactory
-//                .getBuilder(AuthnRequest.DEFAULT_ELEMENT_NAME);
-//        AuthnRequest samlMessage = responseBuilder.buildObject();
-//        samlMessage.setID("foo");
-//        samlMessage.setVersion(SAMLVersion.VERSION_20);
-//        samlMessage.setIssueInstant(new DateTime(0));
-//
-//        SAMLObjectBuilder<Endpoint> endpointBuilder = (SAMLObjectBuilder<Endpoint>) builderFactory
-//                .getBuilder(AssertionConsumerService.DEFAULT_ELEMENT_NAME);
-//        Endpoint samlEndpoint = endpointBuilder.buildObject();
-//        samlEndpoint.setBinding(HTTPPostEncoder.BINDING_URI);
-//        samlEndpoint.setLocation("http://example.org");
-//        samlEndpoint.setResponseLocation("http://example.org/response");
-//
-//        HTTPPostEncoderBuilder encoderBuilder = new HTTPPostEncoderBuilder(velocityEngine,
-//                "/templates/saml2-post-binding.vm");
-//        HTTPMessageEncoder encoder = encoderBuilder.buildEncoder();
-//
-//        MockHttpServletResponse response = new MockHttpServletResponse();
-//        encoder.setRelyingPartyEndpoint(samlEndpoint);
-//        encoder.setSamlMessage(samlMessage);
-//        encoder.setRelayState("relay");
-//        encoder.setResponse(response);
-//        encoder.encode();
-//
-//        assertEquals("Unexpected content type", "application/xhtml+xml", response.getContentType());
-//        assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
-//        assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-//        assertEquals(800455728, response.getContentAsString().hashCode());
-//    }
+
+    /** Velocity template engine. */
+    private VelocityEngine velocityEngine;
+
+    /** {@inheritDoc} */
+    @SuppressWarnings("unchecked")
+    public void setUp() throws Exception {
+        super.setUp();
+
+        velocityEngine = new VelocityEngine();
+        velocityEngine.setProperty(RuntimeConstants.ENCODING_DEFAULT, "UTF-8");
+        velocityEngine.setProperty(RuntimeConstants.OUTPUT_ENCODING, "UTF-8");
+        velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+        velocityEngine.setProperty("classpath.resource.loader.class",
+                "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        velocityEngine.init();
+    }
+
+    /**
+     * Tests encoding a SAML message to an servlet response.
+     * 
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public void testResponseEncoding() throws Exception {
+        SAMLObjectBuilder<StatusCode> statusCodeBuilder = (SAMLObjectBuilder<StatusCode>) builderFactory
+                .getBuilder(StatusCode.DEFAULT_ELEMENT_NAME);
+        StatusCode statusCode = statusCodeBuilder.buildObject();
+        statusCode.setValue(StatusCode.SUCCESS_URI);
+
+        SAMLObjectBuilder<Status> statusBuilder = (SAMLObjectBuilder<Status>) builderFactory
+                .getBuilder(Status.DEFAULT_ELEMENT_NAME);
+        Status responseStatus = statusBuilder.buildObject();
+        responseStatus.setStatusCode(statusCode);
+
+        SAMLObjectBuilder<Response> responseBuilder = (SAMLObjectBuilder<Response>) builderFactory
+                .getBuilder(Response.DEFAULT_ELEMENT_NAME);
+        Response samlMessage = responseBuilder.buildObject();
+        samlMessage.setID("foo");
+        samlMessage.setVersion(SAMLVersion.VERSION_20);
+        samlMessage.setIssueInstant(new DateTime(0));
+        samlMessage.setStatus(responseStatus);
+
+        SAMLObjectBuilder<Endpoint> endpointBuilder = (SAMLObjectBuilder<Endpoint>) builderFactory
+                .getBuilder(AssertionConsumerService.DEFAULT_ELEMENT_NAME);
+        Endpoint samlEndpoint = endpointBuilder.buildObject();
+        samlEndpoint.setLocation("http://example.org");
+        samlEndpoint.setResponseLocation("http://example.org/response");
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response);
+        
+        BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
+        messageContext.setMessageOutTransport(outTransport);
+        messageContext.setRelyingPartyEndpoint(samlEndpoint);
+        messageContext.setOutboundSAMLMessage(samlMessage);
+        messageContext.setRelayState("relay");
+
+        HTTPPostEncoder encoder = new HTTPPostEncoder(velocityEngine,
+        "/templates/saml2-post-binding.vm");
+        encoder.encode(messageContext);
+
+        assertEquals("Unexpected content type", "application/xhtml+xml", response.getContentType());
+        assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
+        assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
+        assertEquals(1139044909, response.getContentAsString().hashCode());
+    }
+
+    @SuppressWarnings("unchecked")
+    public void testRequestEncoding() throws Exception {
+        SAMLObjectBuilder<AuthnRequest> responseBuilder = (SAMLObjectBuilder<AuthnRequest>) builderFactory
+                .getBuilder(AuthnRequest.DEFAULT_ELEMENT_NAME);
+        AuthnRequest samlMessage = responseBuilder.buildObject();
+        samlMessage.setID("foo");
+        samlMessage.setVersion(SAMLVersion.VERSION_20);
+        samlMessage.setIssueInstant(new DateTime(0));
+
+        SAMLObjectBuilder<Endpoint> endpointBuilder = (SAMLObjectBuilder<Endpoint>) builderFactory
+                .getBuilder(AssertionConsumerService.DEFAULT_ELEMENT_NAME);
+        Endpoint samlEndpoint = endpointBuilder.buildObject();
+        samlEndpoint.setLocation("http://example.org");
+        samlEndpoint.setResponseLocation("http://example.org/response");
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response);
+        
+        BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
+        messageContext.setMessageOutTransport(outTransport);
+        messageContext.setRelyingPartyEndpoint(samlEndpoint);
+        messageContext.setOutboundSAMLMessage(samlMessage);
+        messageContext.setRelayState("relay");
+
+        HTTPPostEncoder encoder = new HTTPPostEncoder(velocityEngine,
+        "/templates/saml2-post-binding.vm");
+        encoder.encode(messageContext);
+
+        assertEquals("Unexpected content type", "application/xhtml+xml", response.getContentType());
+        assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
+        assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
+        assertEquals(800455728, response.getContentAsString().hashCode());
+    }
 }

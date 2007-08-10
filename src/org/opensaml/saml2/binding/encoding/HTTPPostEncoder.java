@@ -29,6 +29,7 @@ import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
+import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.XMLHelper;
 
@@ -71,9 +72,9 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
         }
 
         if (!(messageContext.getMessageOutTransport() instanceof HTTPOutTransport)) {
-            log.error("Invalid inbound message transport type, this encoder only support HTTPInTransport");
+            log.error("Invalid outbound message transport type, this encoder only support HTTPInTransport");
             throw new MessageEncodingException(
-                    "Invalid inbound message transport type, this encoder only support HTTPInTransport");
+                    "Invalid outbound message transport type, this encoder only support HTTPInTransport");
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
@@ -137,11 +138,13 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
             }
 
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getMessageOutTransport();
-            // getResponse().setCharacterEncoding("UTF-8");
-            // getResponse().addHeader("Cache-control", "no-cache, no-store");
-            // getResponse().addHeader("Pragma", "no-cache");
+            HTTPTransportUtils.addNoCacheHeaders(outTransport);
+            HTTPTransportUtils.setUTF8Encoding(outTransport);
+            HTTPTransportUtils.setContentType(outTransport, "application/xhtml+xml");
+
             Writer out = new OutputStreamWriter(outTransport.getOutgoingStream(), "UTF-8");
             velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, out);
+            out.flush();
         } catch (Exception e) {
             log.error("Error invoking velocity template", e);
             throw new MessageEncodingException("Error creating output document", e);

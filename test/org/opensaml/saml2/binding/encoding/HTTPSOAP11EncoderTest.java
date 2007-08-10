@@ -20,11 +20,13 @@ import org.joda.time.DateTime;
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.binding.BasicSAMLMessageContext;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
@@ -32,52 +34,53 @@ import org.springframework.mock.web.MockHttpServletResponse;
  */
 public class HTTPSOAP11EncoderTest extends BaseTestCase {
 
-//    /**
-//     * Tests encoding a SAML message to an servlet response.
-//     * 
-//     * @throws Exception
-//     */
-//    @SuppressWarnings("unchecked")
-//    public void testResponseEncoding() throws Exception {
-//        SAMLObjectBuilder<StatusCode> statusCodeBuilder = (SAMLObjectBuilder<StatusCode>) builderFactory
-//                .getBuilder(StatusCode.DEFAULT_ELEMENT_NAME);
-//        StatusCode statusCode = statusCodeBuilder.buildObject();
-//        statusCode.setValue(StatusCode.SUCCESS_URI);
-//
-//        SAMLObjectBuilder<Status> statusBuilder = (SAMLObjectBuilder<Status>) builderFactory
-//                .getBuilder(Status.DEFAULT_ELEMENT_NAME);
-//        Status responseStatus = statusBuilder.buildObject();
-//        responseStatus.setStatusCode(statusCode);
-//
-//        SAMLObjectBuilder<Response> responseBuilder = (SAMLObjectBuilder<Response>) builderFactory
-//                .getBuilder(Response.DEFAULT_ELEMENT_NAME);
-//        Response samlMessage = responseBuilder.buildObject();
-//        samlMessage.setID("foo");
-//        samlMessage.setVersion(SAMLVersion.VERSION_20);
-//        samlMessage.setIssueInstant(new DateTime(0));
-//        samlMessage.setStatus(responseStatus);
-//
-//        SAMLObjectBuilder<Endpoint> endpointBuilder = (SAMLObjectBuilder<Endpoint>) builderFactory
-//                .getBuilder(AssertionConsumerService.DEFAULT_ELEMENT_NAME);
-//        Endpoint samlEndpoint = endpointBuilder.buildObject();
-//        samlEndpoint.setBinding(HTTPSOAP11Encoder.BINDING_URI);
-//        samlEndpoint.setLocation("http://example.org");
-//        samlEndpoint.setResponseLocation("http://example.org/response");
-//
-//        HTTPSOAP11EncoderBuilder encoderBuilder = new HTTPSOAP11EncoderBuilder();
-//        HTTPMessageEncoder encoder = encoderBuilder.buildEncoder();
-//
-//        MockHttpServletResponse response = new MockHttpServletResponse();
-//        encoder.setRelyingPartyEndpoint(samlEndpoint);
-//        encoder.setSamlMessage(samlMessage);
-//        encoder.setRelayState("relay");
-//        encoder.setResponse(response);
-//        encoder.encode();
-//
-//        assertEquals("Unexpected content type", "text/xml", response.getContentType());
-//        assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
-//        assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-//        assertEquals("http://www.oasis-open.org/committees/security", response.getHeader("SOAPAction"));
-//        assertEquals(-1907485376, response.getContentAsString().hashCode());
-//    }
+    /**
+     * Tests encoding a SAML message to an servlet response.
+     * 
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public void testResponseEncoding() throws Exception {
+        SAMLObjectBuilder<StatusCode> statusCodeBuilder = (SAMLObjectBuilder<StatusCode>) builderFactory
+                .getBuilder(StatusCode.DEFAULT_ELEMENT_NAME);
+        StatusCode statusCode = statusCodeBuilder.buildObject();
+        statusCode.setValue(StatusCode.SUCCESS_URI);
+
+        SAMLObjectBuilder<Status> statusBuilder = (SAMLObjectBuilder<Status>) builderFactory
+                .getBuilder(Status.DEFAULT_ELEMENT_NAME);
+        Status responseStatus = statusBuilder.buildObject();
+        responseStatus.setStatusCode(statusCode);
+
+        SAMLObjectBuilder<Response> responseBuilder = (SAMLObjectBuilder<Response>) builderFactory
+                .getBuilder(Response.DEFAULT_ELEMENT_NAME);
+        Response samlMessage = responseBuilder.buildObject();
+        samlMessage.setID("foo");
+        samlMessage.setVersion(SAMLVersion.VERSION_20);
+        samlMessage.setIssueInstant(new DateTime(0));
+        samlMessage.setStatus(responseStatus);
+
+        SAMLObjectBuilder<Endpoint> endpointBuilder = (SAMLObjectBuilder<Endpoint>) builderFactory
+                .getBuilder(AssertionConsumerService.DEFAULT_ELEMENT_NAME);
+        Endpoint samlEndpoint = endpointBuilder.buildObject();
+        samlEndpoint.setLocation("http://example.org");
+        samlEndpoint.setResponseLocation("http://example.org/response");
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response);
+        
+        BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
+        messageContext.setMessageOutTransport(outTransport);
+        messageContext.setRelyingPartyEndpoint(samlEndpoint);
+        messageContext.setOutboundSAMLMessage(samlMessage);
+        messageContext.setRelayState("relay");
+        
+        HTTPSOAP11Encoder encoder = new HTTPSOAP11Encoder();
+        encoder.encode(messageContext);
+
+        assertEquals("Unexpected content type", "text/xml", response.getContentType());
+        assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
+        assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
+        assertEquals("http://www.oasis-open.org/committees/security", response.getHeader("SOAPAction"));
+        assertEquals(-1907485376, response.getContentAsString().hashCode());
+    }
 }

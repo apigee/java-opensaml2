@@ -20,9 +20,11 @@ import org.joda.time.DateTime;
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLVersion;
+import org.opensaml.common.binding.BasicSAMLMessageContext;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
@@ -31,36 +33,35 @@ import org.springframework.mock.web.MockHttpServletResponse;
 public class HTTPSOAP11EncoderTest extends BaseTestCase {
 
     /** Tests encoding a simple SAML message. */
-//    @SuppressWarnings("unchecked")
-//    public void testEncoding() throws Exception {
-//        SAMLObjectBuilder<Request> requestBuilder = (SAMLObjectBuilder<Request>) builderFactory
-//                .getBuilder(Request.DEFAULT_ELEMENT_NAME);
-//        Request request = requestBuilder.buildObject();
-//        request.setID("foo");
-//        request.setIssueInstant(new DateTime(0));
-//        request.setVersion(SAMLVersion.VERSION_11);
-//
-//        SAMLObjectBuilder<Endpoint> endpointBuilder = (SAMLObjectBuilder<Endpoint>) builderFactory
-//                .getBuilder(AssertionConsumerService.DEFAULT_ELEMENT_NAME);
-//        Endpoint samlEndpoint = endpointBuilder.buildObject();
-//        samlEndpoint.setBinding(HTTPSOAP11Encoder.BINDING_URI);
-//        samlEndpoint.setLocation("http://example.org");
-//        samlEndpoint.setResponseLocation("http://example.org/response");
-//
-//        HTTPSOAP11EncoderBuilder encoderBuilder = new HTTPSOAP11EncoderBuilder();
-//        HTTPMessageEncoder encoder = encoderBuilder.buildEncoder();
-//
-//        MockHttpServletResponse response = new MockHttpServletResponse();
-//        encoder.setRelyingPartyEndpoint(samlEndpoint);
-//        encoder.setSamlMessage(request);
-//        encoder.setRelayState("relay");
-//        encoder.setResponse(response);
-//        encoder.encode();
-//
-//        assertEquals("Unexpected content type", "text/xml", response.getContentType());
-//        assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
-//        assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-//        assertEquals("http://www.oasis-open.org/committees/security", response.getHeader("SOAPAction"));
-//        assertEquals(-1600998768, response.getContentAsString().hashCode());
-//    }
+    @SuppressWarnings("unchecked")
+    public void testEncoding() throws Exception {
+        SAMLObjectBuilder<Request> requestBuilder = (SAMLObjectBuilder<Request>) builderFactory
+                .getBuilder(Request.DEFAULT_ELEMENT_NAME);
+        Request request = requestBuilder.buildObject();
+        request.setID("foo");
+        request.setIssueInstant(new DateTime(0));
+        request.setVersion(SAMLVersion.VERSION_11);
+
+        SAMLObjectBuilder<Endpoint> endpointBuilder = (SAMLObjectBuilder<Endpoint>) builderFactory
+                .getBuilder(AssertionConsumerService.DEFAULT_ELEMENT_NAME);
+        Endpoint samlEndpoint = endpointBuilder.buildObject();
+        samlEndpoint.setLocation("http://example.org");
+        samlEndpoint.setResponseLocation("http://example.org/response");
+
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
+        messageContext.setMessageOutTransport(new HttpServletResponseAdapter(response));
+        messageContext.setRelyingPartyEndpoint(samlEndpoint);
+        messageContext.setOutboundSAMLMessage(request);
+        messageContext.setRelayState("relay");
+        
+        HTTPSOAP11Encoder encoder = new HTTPSOAP11Encoder();
+        encoder.encode(messageContext);
+
+        assertEquals("Unexpected content type", "text/xml", response.getContentType());
+        assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
+        assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
+        assertEquals("http://www.oasis-open.org/committees/security", response.getHeader("SOAPAction"));
+        assertEquals(-1600998768, response.getContentAsString().hashCode());
+    }
 }

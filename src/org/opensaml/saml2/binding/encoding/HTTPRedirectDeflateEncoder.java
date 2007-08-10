@@ -36,6 +36,7 @@ import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
+import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.Pair;
@@ -65,9 +66,9 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
         }
 
         if (!(messageContext.getMessageOutTransport() instanceof HTTPOutTransport)) {
-            log.error("Invalid inbound message transport type, this encoder only support HTTPInTransport");
+            log.error("Invalid outbound message transport type, this encoder only support HTTPOutTransport");
             throw new MessageEncodingException(
-                    "Invalid inbound message transport type, this encoder only support HTTPInTransport");
+                    "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
@@ -82,11 +83,11 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
         
         String redirectURL = buildRedirectURL(samlMsgCtx, endpointURL, encodedMessage);
         
-        // getResponse().setCharacterEncoding("UTF-8");
-        // getResponse().addHeader("Cache-control", "no-cache, no-store");
-        // getResponse().addHeader("Pragma", "no-cache");
+        HTTPOutTransport out = (HTTPOutTransport) messageContext.getMessageOutTransport();
+        HTTPTransportUtils.addNoCacheHeaders(out);
+        HTTPTransportUtils.setUTF8Encoding(out);
         
-        //send redirect
+        out.sendRedirect(redirectURL);
     }
 
     /**
@@ -119,17 +120,14 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
         }
         try {
             String messageStr = XMLHelper.nodeToString(marshallMessage(message));
-
-            ByteArrayOutputStream messageOut = new ByteArrayOutputStream();
             
-            Base64.OutputStream b64Out = new Base64.OutputStream(messageOut, Base64.ENCODE & Base64.DONT_BREAK_LINES);
-            
+            ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
             Deflater deflater = new Deflater(Deflater.DEFLATED, true);
-            DeflaterOutputStream deflaterStream = new DeflaterOutputStream(b64Out, deflater);
+            DeflaterOutputStream deflaterStream = new DeflaterOutputStream(bytesOut, deflater);
             deflaterStream.write(messageStr.getBytes());
-            deflaterStream.close();
+            deflaterStream.finish();
             
-            return new String(messageOut.toByteArray());
+            return Base64.encodeBytes(bytesOut.toByteArray());
         } catch (IOException e) {
             throw new MessageEncodingException("Unable to DEFLATE and Base64 encode SAML message", e);
         }

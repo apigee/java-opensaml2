@@ -30,7 +30,8 @@ public class HTTPRedirectDeflateDecoderTest extends BaseTestCase {
     public void testDecoding() throws Exception{
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.setParameter("RelayState", "relay");
-        request.setParameter("SAMLResponse", "fY89a8NADIb3/opDu+NzlrTCH4SUgqFd6jRDt+OsBIMtGesu5OfHNcngpfAuglfPI+XVbejNlSbthAvINhYMsZe240sBP8eP5BWq8iVXN/QjfpOOwkqmfi/gLAKmVo1UswbHYV5/29nEZnOO1uKSjbX2F8zpadj+GWYnKy7MAuLEKE47RXYDKQaPzf7rE+cmjpME8dJD+bigCS5EXU8HacmcXB/pf5gubWyi96QKaZmna2i6/rK8Aw==");
+        // Note, Spring's Mock objects don't do URL encoding/decoding, so this is the URL decoded form
+        request.setParameter("SAMLResponse", "fZAxa8NADIX3/opDe3yXLG2F7VASCoF2qdMM3Y6LkhrOp8PSlfz8uqYdvBTeIMHT08ert7chmi8apefUwLpyYCgFPvfp2sD78Xn1ANv2rhY/xIxvJJmTkNmTaJ+8zkefqhmtpZsfcqSKxyuYw76BC/M0iBQ6JFGfdMp/vHcrt550dA5nVc65DzCnP4TND8IElQTnpw2UMSF76QWTH0hQA3ZPry84OTGPrBw4QvuL2KnXIsttx2cyJx8L/R8msxu7EgKJgG1ruwy1yxrabw==");
         
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
         messageContext.setMessageInTransport(new HttpServletRequestAdapter(request));

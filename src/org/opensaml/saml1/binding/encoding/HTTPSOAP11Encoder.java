@@ -16,6 +16,7 @@
 
 package org.opensaml.saml1.binding.encoding;
 
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
@@ -33,6 +34,7 @@ import org.opensaml.ws.soap.common.SOAPObjectBuilder;
 import org.opensaml.ws.soap.soap11.Body;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
+import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
@@ -58,10 +60,10 @@ public class HTTPSOAP11Encoder extends BaseMessageEncoder implements SAMLMessage
                     "Invalid message context type, this encoder only support SAMLMessageContext");
         }
 
-        if (!(messageContext.getMessageInTransport() instanceof HTTPOutTransport)) {
-            log.error("Invalid inbound message transport type, this encoder only support HTTPInTransport");
+        if (!(messageContext.getMessageOutTransport() instanceof HTTPOutTransport)) {
+            log.error("Invalid outbound message transport type, this encoder only support HTTPOutTransport");
             throw new MessageEncodingException(
-                    "Invalid inbound message transport type, this encoder only support HTTPInTransport");
+                    "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
@@ -81,16 +83,20 @@ public class HTTPSOAP11Encoder extends BaseMessageEncoder implements SAMLMessage
 
         try {
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getMessageOutTransport();
-            // response.setHeader("SOAPAction", "http://www.oasis-open.org/committees/security");
-            // response.setContentType("text/xml");
-            // getResponse().setCharacterEncoding("UTF-8");
-            // getResponse().addHeader("Cache-control", "no-cache, no-store");
-            // getResponse().addHeader("Pragma", "no-cache");
+            HTTPTransportUtils.addNoCacheHeaders(outTransport);
+            HTTPTransportUtils.setUTF8Encoding(outTransport);
+            HTTPTransportUtils.setContentType(outTransport, "text/xml");
+            outTransport.setHeader("SOAPAction", "http://www.oasis-open.org/committees/security");
+            
             Writer out = new OutputStreamWriter(outTransport.getOutgoingStream(), "UTF-8");
             XMLHelper.writeNode(envelopeElem, out);
+            out.flush();
         } catch (UnsupportedEncodingException e) {
             log.fatal("JVM does not support required UTF-8 encoding");
             throw new MessageEncodingException("JVM does not support required UTF-8 encoding");
+        } catch(IOException e){
+            log.error("Unable to write message content to outbound stream", e);
+            throw new MessageEncodingException("Unable to write message content to outbound stream", e);
         }
     }
 

@@ -105,9 +105,9 @@ public class HTTPRedirectDeflateDecoder extends BaseMessageDecoder implements SA
         }
 
         try {
-            ByteArrayInputStream encodedMessage = new ByteArrayInputStream(message.getBytes());
-            Base64.InputStream base64In = new Base64.InputStream(encodedMessage);
-            InflaterInputStream inflater = new InflaterInputStream(base64In, new Inflater(true));
+            byte[] decodedBytes = Base64.decode(message);
+            ByteArrayInputStream bytesIn = new ByteArrayInputStream(decodedBytes);
+            InflaterInputStream inflater = new InflaterInputStream(bytesIn, new Inflater(true));
             return inflater;
         } catch (Exception e) {
             log.error("Unable to Base64 decode and inflate SAML message", e);
