@@ -34,7 +34,7 @@ import org.opensaml.xml.util.DatatypeHelper;
  * @param <InboundMessage> type of inbound SAML message
  * @param <OutboundMessage> type of outbound SAML message
  */
-public class BaseSAMLMessageContext<InboundMessage extends SAMLObject, OutboundMessage extends SAMLObject> extends
+public class BasicSAMLMessageContext<InboundMessage extends SAMLObject, OutboundMessage extends SAMLObject> extends
         BaseMessageContext implements SAMLMessageContext<InboundMessage, OutboundMessage> {
 
     /** Asserting party's entity ID. */

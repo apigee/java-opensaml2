@@ -17,7 +17,10 @@
 package org.opensaml.saml1.binding.decoding;
 
 import org.opensaml.common.BaseTestCase;
+import org.opensaml.common.binding.BasicSAMLMessageContext;
 import org.opensaml.saml1.core.Request;
+import org.opensaml.ws.soap.soap11.Envelope;
+import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
@@ -28,21 +31,21 @@ public class HTTPSOAP11DecoderTest extends BaseTestCase {
     /**
      * Tests decoding a SOAP 1.1 message.
      */
-//    public void testDecoding() throws Exception {
-//        String requestContent = "<soap11:Envelope xmlns:soap11=\"http://schemas.xmlsoap.org/soap/envelope/\">"
-//                + "<soap11:Body><saml:Request IssueInstant=\"1970-01-01T00:00:00.000Z\" MajorVersion=\"1\" "
-//                + "MinorVersion=\"1\" RequestID=\"foo\" xmlns:saml=\"urn:oasis:names:tc:SAML:1.0:protocol\"/>"
-//                + "</soap11:Body></soap11:Envelope>";
-//        MockHttpServletRequest request = new MockHttpServletRequest();
-//        request.setContent(requestContent.getBytes());
-//
-//        HTTPSOAP11DecoderBuilder decoderBuilder = new HTTPSOAP11DecoderBuilder();
-//        decoderBuilder.setParser(parser);
-//
-//        HTTPMessageDecoder decoder = decoderBuilder.buildDecoder();
-//        decoder.setRequest(request);
-//        decoder.decode();
-//
-//        assertTrue(decoder.getSAMLMessage() instanceof Request);
-//    }
+    public void testDecoding() throws Exception {
+        String requestContent = "<soap11:Envelope xmlns:soap11=\"http://schemas.xmlsoap.org/soap/envelope/\">"
+                + "<soap11:Body><saml:Request IssueInstant=\"1970-01-01T00:00:00.000Z\" MajorVersion=\"1\" "
+                + "MinorVersion=\"1\" RequestID=\"foo\" xmlns:saml=\"urn:oasis:names:tc:SAML:1.0:protocol\"/>"
+                + "</soap11:Body></soap11:Envelope>";
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setContent(requestContent.getBytes());
+
+        BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
+        messageContext.setMessageInTransport(new HttpServletRequestAdapter(request));
+        
+        HTTPSOAP11Decoder decoder = new HTTPSOAP11Decoder();
+        decoder.decode(messageContext);
+
+        assertTrue(messageContext.getInboundMessage() instanceof Envelope);
+        assertTrue(messageContext.getInboundSAMLMessage() instanceof Request);
+    }
 }
