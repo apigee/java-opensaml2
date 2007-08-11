@@ -31,11 +31,11 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * Base implemention of {@link SAMLMessageContext}.
  * 
- * @param <InboundMessage> type of inbound SAML message
- * @param <OutboundMessage> type of outbound SAML message
+ * @param <InboundMessageType> type of inbound SAML message
+ * @param <OutboundMessageType> type of outbound SAML message
  */
-public class BasicSAMLMessageContext<InboundMessage extends SAMLObject, OutboundMessage extends SAMLObject> extends
-        BaseMessageContext implements SAMLMessageContext<InboundMessage, OutboundMessage> {
+public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject>
+        extends BaseMessageContext implements SAMLMessageContext<InboundMessageType, OutboundMessageType> {
 
     /** Asserting party's entity ID. */
     private String assertingPartyId;
@@ -50,7 +50,7 @@ public class BasicSAMLMessageContext<InboundMessage extends SAMLObject, Outbound
     private RoleDescriptor assertingPartyRoleMetadata;
 
     /** Inbound SAML message. */
-    private InboundMessage inboundSAMLMessage;
+    private InboundMessageType inboundSAMLMessage;
 
     /** Whether the inbound SAML message has been authenticated. */
     private boolean inboundSAMLMessageAuthenticated;
@@ -68,7 +68,7 @@ public class BasicSAMLMessageContext<InboundMessage extends SAMLObject, Outbound
     private MetadataProvider metdataProvider;
 
     /** Outbound SAML message. */
-    private OutboundMessage outboundSAMLMessage;
+    private OutboundMessageType outboundSAMLMessage;
 
     /** Outbound SAML message's ID. */
     private String outboundSAMLMessageId;
@@ -121,7 +121,7 @@ public class BasicSAMLMessageContext<InboundMessage extends SAMLObject, Outbound
     }
 
     /** {@inheritDoc} */
-    public InboundMessage getInboundSAMLMessage() {
+    public InboundMessageType getInboundSAMLMessage() {
         return inboundSAMLMessage;
     }
 
@@ -151,7 +151,7 @@ public class BasicSAMLMessageContext<InboundMessage extends SAMLObject, Outbound
     }
 
     /** {@inheritDoc} */
-    public OutboundMessage getOutboundSAMLMessage() {
+    public OutboundMessageType getOutboundSAMLMessage() {
         return outboundSAMLMessage;
     }
 
@@ -211,12 +211,22 @@ public class BasicSAMLMessageContext<InboundMessage extends SAMLObject, Outbound
     }
 
     /** {@inheritDoc} */
+    public void setAssertingPartyMetadata(EntityDescriptor metadata) {
+        assertingPartyMetadata = metadata;
+    }
+
+    /** {@inheritDoc} */
     public void setAssertingPartyRole(QName role) {
         assertingPartyRole = role;
     }
 
     /** {@inheritDoc} */
-    public void setInboundSAMLMessage(InboundMessage message) {
+    public void setAssertingPartyRoleMetadata(RoleDescriptor role) {
+        assertingPartyRoleMetadata = role;
+    }
+
+    /** {@inheritDoc} */
+    public void setInboundSAMLMessage(InboundMessageType message) {
         inboundSAMLMessage = message;
     }
 
@@ -246,7 +256,7 @@ public class BasicSAMLMessageContext<InboundMessage extends SAMLObject, Outbound
     }
 
     /** {@inheritDoc} */
-    public void setOutboundSAMLMessage(OutboundMessage message) {
+    public void setOutboundSAMLMessage(OutboundMessageType message) {
         outboundSAMLMessage = message;
     }
 
@@ -286,7 +296,17 @@ public class BasicSAMLMessageContext<InboundMessage extends SAMLObject, Outbound
     }
 
     /** {@inheritDoc} */
+    public void setRelyingPartyMetadata(EntityDescriptor metadata) {
+        relyingPartyMetadata = metadata;
+    }
+
+    /** {@inheritDoc} */
     public void setRelyingPartyRole(QName role) {
         relyingPartyRole = role;
+    }
+
+    /** {@inheritDoc} */
+    public void setRelyingPartyRoleMetadata(RoleDescriptor role) {
+        relyingPartyRoleMetadata = role;
     }
 }

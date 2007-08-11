@@ -30,11 +30,11 @@ import org.opensaml.xml.security.credential.Credential;
 /**
  * SAML specific extension to the more basic {@link MessageContext}.
  * 
- * @param <InboundMessage> type of inbound SAML message
- * @param <OutboundMessage> type of outbound SAML message
+ * @param <InboundMessageType> type of inbound SAML message
+ * @param <OutboundMessageType> type of outbound SAML message
  */
-public interface SAMLMessageContext<InboundMessage extends SAMLObject, OutboundMessage extends SAMLObject> extends
-        MessageContext {
+public interface SAMLMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject>
+        extends MessageContext {
 
     /**
      * Gets the entity ID of the asserting party.
@@ -70,7 +70,7 @@ public interface SAMLMessageContext<InboundMessage extends SAMLObject, OutboundM
      * 
      * @return inbound SAML message
      */
-    public InboundMessage getInboundSAMLMessage();
+    public InboundMessageType getInboundSAMLMessage();
 
     /**
      * Gets the ID of the inbound SAML message.
@@ -113,7 +113,7 @@ public interface SAMLMessageContext<InboundMessage extends SAMLObject, OutboundM
      * 
      * @return outbound SAML message
      */
-    public OutboundMessage getOutboundSAMLMessage();
+    public OutboundMessageType getOutboundSAMLMessage();
 
     /**
      * Gets the ID of the outbound SAML message.
@@ -142,20 +142,6 @@ public interface SAMLMessageContext<InboundMessage extends SAMLObject, OutboundM
      * @return relay state associated with the message
      */
     public String getRelayState();
-
-    /**
-     * Gets whether the inbound SAML message has been authenticated.
-     * 
-     * @return whether the inbound SAML message has been authenticated
-     */
-    public boolean isInboundSAMLMessageAuthenticated();
-
-    /**
-     * Sets whether the inbound SAML message has been authenticated.
-     * 
-     * @param isAuthenticated whether the inbound SAML message has been authenticated
-     */
-    public void setInboundSAMLMessageAuthenticated(boolean isAuthenticated);
 
     /**
      * Gets the endpoint of for the relying party.
@@ -193,11 +179,25 @@ public interface SAMLMessageContext<InboundMessage extends SAMLObject, OutboundM
     public RoleDescriptor getRelyingPartyRoleMetadata();
 
     /**
+     * Gets whether the inbound SAML message has been authenticated.
+     * 
+     * @return whether the inbound SAML message has been authenticated
+     */
+    public boolean isInboundSAMLMessageAuthenticated();
+
+    /**
      * Sets the entity ID of the asserting party.
      * 
      * @param id entity ID of the asserting party
      */
     public void setAssertingPartyEntityId(String id);
+
+    /**
+     * Sets the asserting party metadata.
+     * 
+     * @param metadata asserting party metadata
+     */
+    public void setAssertingPartyMetadata(EntityDescriptor metadata);
 
     /**
      * Sets the role of the asserting party.
@@ -207,11 +207,25 @@ public interface SAMLMessageContext<InboundMessage extends SAMLObject, OutboundM
     public void setAssertingPartyRole(QName role);
 
     /**
+     * Sets the role metadata for the asserting party.
+     * 
+     * @param role role metadata for the asserting party
+     */
+    public void setAssertingPartyRoleMetadata(RoleDescriptor role);
+
+    /**
      * Sets the inbound SAML message.
      * 
      * @param message inbound SAML message
      */
-    public void setInboundSAMLMessage(InboundMessage message);
+    public void setInboundSAMLMessage(InboundMessageType message);
+
+    /**
+     * Sets whether the inbound SAML message has been authenticated.
+     * 
+     * @param isAuthenticated whether the inbound SAML message has been authenticated
+     */
+    public void setInboundSAMLMessageAuthenticated(boolean isAuthenticated);
 
     /**
      * Sets the ID of the inbound SAML message.
@@ -246,7 +260,7 @@ public interface SAMLMessageContext<InboundMessage extends SAMLObject, OutboundM
      * 
      * @param message outbound SAML message
      */
-    public void setOutboundSAMLMessage(OutboundMessage message);
+    public void setOutboundSAMLMessage(OutboundMessageType message);
 
     /**
      * Sets the ID of the outbound SAML message.
@@ -298,9 +312,23 @@ public interface SAMLMessageContext<InboundMessage extends SAMLObject, OutboundM
     public void setRelyingPartyEntityId(String id);
 
     /**
+     * Sets the relying party metadata.
+     * 
+     * @param metadata relying party metadata
+     */
+    public void setRelyingPartyMetadata(EntityDescriptor metadata);
+
+    /**
      * Sets the role of the relying party.
      * 
      * @param role role of the relying party
      */
     public void setRelyingPartyRole(QName role);
+
+    /**
+     * Sets the role metadata for the relying party.
+     * 
+     * @param role role metadata for the relying party
+     */
+    public void setRelyingPartyRoleMetadata(RoleDescriptor role);
 }
