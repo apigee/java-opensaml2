@@ -32,9 +32,24 @@ import org.opensaml.xml.security.credential.Credential;
  * 
  * @param <InboundMessageType> type of inbound SAML message
  * @param <OutboundMessageType> type of outbound SAML message
+ * @param <NameIdentifierType> type of name identifier used for subjects
  */
-public interface SAMLMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject>
+public interface SAMLMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject, NameIdentifierType extends SAMLObject>
         extends MessageContext {
+    
+    /**
+     * Gets the subject's SAML name identifier.
+     * 
+     * @return subject's SAML name identifier
+     */
+    public NameIdentifierType getSubjectNameIdentifier();
+
+    /**
+     * Sets the subject's SAML name identifier.
+     * 
+     * @param identifier subject's SAML name identifier
+     */
+    public void setSubjectNameIdentifier(NameIdentifierType identifier);
 
     /**
      * Gets the entity ID of the asserting party.

@@ -33,9 +33,10 @@ import org.opensaml.xml.util.DatatypeHelper;
  * 
  * @param <InboundMessageType> type of inbound SAML message
  * @param <OutboundMessageType> type of outbound SAML message
+ * @param <NameIdentifierType> type of name identifier used for subjects
  */
-public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject>
-        extends BaseMessageContext implements SAMLMessageContext<InboundMessageType, OutboundMessageType> {
+public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject, NameIdentifierType extends SAMLObject>
+        extends BaseMessageContext implements SAMLMessageContext<InboundMessageType, OutboundMessageType, NameIdentifierType> {
 
     /** Asserting party's entity ID. */
     private String assertingPartyId;
@@ -308,5 +309,17 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     /** {@inheritDoc} */
     public void setRelyingPartyRoleMetadata(RoleDescriptor role) {
         relyingPartyRoleMetadata = role;
+    }
+
+    /** {@inheritDoc} */
+    public NameIdentifierType getSubjectNameIdentifier() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /** {@inheritDoc} */
+    public void setSubjectNameIdentifier(NameIdentifierType identifier) {
+        // TODO Auto-generated method stub
+        
     }
 }
