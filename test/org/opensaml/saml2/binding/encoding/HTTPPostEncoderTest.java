@@ -90,7 +90,7 @@ public class HTTPPostEncoderTest extends BaseTestCase {
         
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
         messageContext.setMessageOutTransport(outTransport);
-        messageContext.setRelyingPartyEndpoint(samlEndpoint);
+        messageContext.setPeerEntityEndpoint(samlEndpoint);
         messageContext.setOutboundSAMLMessage(samlMessage);
         messageContext.setRelayState("relay");
 
@@ -124,7 +124,7 @@ public class HTTPPostEncoderTest extends BaseTestCase {
         
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
         messageContext.setMessageOutTransport(outTransport);
-        messageContext.setRelyingPartyEndpoint(samlEndpoint);
+        messageContext.setPeerEntityEndpoint(samlEndpoint);
         messageContext.setOutboundSAMLMessage(samlMessage);
         messageContext.setRelayState("relay");
 

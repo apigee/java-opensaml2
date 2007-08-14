@@ -52,7 +52,7 @@ public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder impleme
      * @throws MessageEncodingException throw if no relying party endpoint is available
      */
     protected String getEndpointURL(SAMLMessageContext messageContext) throws MessageEncodingException {
-        Endpoint endpoint = messageContext.getRelyingPartyEndpoint();
+        Endpoint endpoint = messageContext.getPeerEntityEndpoint();
         if (endpoint == null) {
             throw new MessageEncodingException("Endpoint for relying party was null.");
         }

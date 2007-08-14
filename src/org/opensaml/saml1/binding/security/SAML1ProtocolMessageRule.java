@@ -107,7 +107,7 @@ public class SAML1ProtocolMessageRule implements SecurityPolicyRule {
             throw new SecurityPolicyException("Issuer could not be extracted from standard SAML 1.x response message");
         }
 
-        messageContext.setRelyingPartyEntityId(issuer);
+        messageContext.setInboundMessageIssuer(issuer);
     }
 
     /**

@@ -72,7 +72,7 @@ public class HTTPPostEncoderTest extends BaseTestCase {
         MockHttpServletResponse response = new MockHttpServletResponse();
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
         messageContext.setMessageOutTransport(new HttpServletResponseAdapter(response));
-        messageContext.setRelyingPartyEndpoint(samlEndpoint);
+        messageContext.setPeerEntityEndpoint(samlEndpoint);
         messageContext.setOutboundSAMLMessage(samlMessage);
         messageContext.setRelayState("relay");
         

@@ -82,7 +82,7 @@ public class SAML2ProtocolMessageRule implements SecurityPolicyRule {
             throw new SecurityPolicyException("SAML 2 message was not a request or a response");
         }
 
-        if (samlMsgCtx.getRelyingPartyEntityId() == null) {
+        if (samlMsgCtx.getInboundMessageIssuer() == null) {
             log.error("Issuer could not be extracted from SAML 2 message");
             throw new SecurityPolicyException("Issuer could not be extracted from SAML 2 message");
         }
@@ -130,7 +130,7 @@ public class SAML2ProtocolMessageRule implements SecurityPolicyRule {
             }
         }
 
-        messageContext.setRelyingPartyEntityId(messageIssuer);
+        messageContext.setInboundMessageIssuer(messageIssuer);
     }
 
     /**
@@ -145,7 +145,7 @@ public class SAML2ProtocolMessageRule implements SecurityPolicyRule {
             throws SecurityPolicyException {
         messageContext.setInboundSAMLMessageId(request.getID());
         messageContext.setInboundSAMLMessageIssueInstant(request.getIssueInstant());
-        messageContext.setRelyingPartyEntityId(extractEntityId(request.getIssuer()));
+        messageContext.setInboundMessageIssuer(extractEntityId(request.getIssuer()));
     }
 
     /**

@@ -169,7 +169,7 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
      * @throws MessageEncodingException throw if no relying party endpoint is available
      */
     protected String getEndpointURL(SAMLMessageContext messageContext) throws MessageEncodingException {
-        Endpoint endpoint = messageContext.getRelyingPartyEndpoint();
+        Endpoint endpoint = messageContext.getPeerEntityEndpoint();
         if (endpoint == null) {
             throw new MessageEncodingException("Relying party endpoint provided we null.");
         }
@@ -186,7 +186,7 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
         }
 
         if (log.isDebugEnabled()) {
-            log.debug("Endpoint URL for relying party " + messageContext.getRelyingPartyEntityId()
+            log.debug("Endpoint URL for relying party " + messageContext.getInboundMessageIssuer()
                     + " determined to be " + endpointURL);
         }
         return endpointURL;

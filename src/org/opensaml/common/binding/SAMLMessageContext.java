@@ -36,7 +36,7 @@ import org.opensaml.xml.security.credential.Credential;
  */
 public interface SAMLMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject, NameIdentifierType extends SAMLObject>
         extends MessageContext {
-    
+
     /**
      * Gets the subject's SAML name identifier.
      * 
@@ -52,32 +52,25 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public void setSubjectNameIdentifier(NameIdentifierType identifier);
 
     /**
-     * Gets the entity ID of the asserting party.
+     * Gets the local entity metadata.
      * 
-     * @return entity ID of the asserting party
+     * @return local entity metadata
      */
-    public String getAssertingPartyEntityId();
+    public EntityDescriptor getLocalEntityMetadata();
 
     /**
-     * Gets the asserting party metadata.
+     * Gets the role of the local entity.
      * 
-     * @return asserting party metadata
+     * @return role of the local entity
      */
-    public EntityDescriptor getAssertingPartyMetadata();
+    public QName getLocalEntityRole();
 
     /**
-     * Gets the role of the asserting party.
+     * Gets the role metadata of the local entity.
      * 
-     * @return role of the asserting party
+     * @return role metadata of the local entity
      */
-    public QName getAssertingPartyRole();
-
-    /**
-     * Gets the role metadata of the asserting party.
-     * 
-     * @return role metadata of the asserting party
-     */
-    public RoleDescriptor getAssertingPartyRoleMetadata();
+    public RoleDescriptor getLocalEntityRoleMetadata();
 
     /**
      * Gets the inbound SAML message. This may not be the same as the message returned from
@@ -102,9 +95,9 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public DateTime getInboundSAMLMessageIssueInstant();
 
     /**
-     * Gets the protocol used by the relying party to communicate with the asserting party.
+     * Gets the protocol used by the peer entity to communicate with the local entity.
      * 
-     * @return protocol used by the relying party to communicate with the asserting party
+     * @return protocol used by the peer entity to communicate with the local entity
      */
     public String getInboundSAMLProtcol();
 
@@ -145,9 +138,9 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public DateTime getOutboundSAMLMessageIssueInstant();
 
     /**
-     * Gets the protocol used by the asserting party to communicate with the relying party.
+     * Gets the protocol used by the local entity to communicate with the peer entity.
      * 
-     * @return protocol used by the asserting party to communicate with the relying party
+     * @return protocol used by the local entity to communicate with the peer entity
      */
     public String getOutboundSAMLProtcol();
 
@@ -159,39 +152,32 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public String getRelayState();
 
     /**
-     * Gets the endpoint of for the relying party.
+     * Gets the endpoint of for the peer entity.
      * 
-     * @return endpoint of for the relying party
+     * @return endpoint of for the peer entity
      */
-    public Endpoint getRelyingPartyEndpoint();
+    public Endpoint getPeerEntityEndpoint();
 
     /**
-     * Gets the entity ID of the relying party.
+     * Gets the peer entity metadata.
      * 
-     * @return entity ID of the relying party
+     * @return peer entity metadata
      */
-    public String getRelyingPartyEntityId();
+    public EntityDescriptor getPeerEntityMetadata();
 
     /**
-     * Gets the relying party metadata.
+     * Gets the role of the peer entity.
      * 
-     * @return relying party metadata
+     * @return role of the peer entity
      */
-    public EntityDescriptor getRelyingPartyMetadata();
+    public QName getPeerEntityRole();
 
     /**
-     * Gets the role of the relying party.
+     * Gets the role of the peer entity.
      * 
-     * @return role of the relying party
+     * @return role of the peer entity
      */
-    public QName getRelyingPartyRole();
-
-    /**
-     * Gets the role of the relying party.
-     * 
-     * @return role of the relying party
-     */
-    public RoleDescriptor getRelyingPartyRoleMetadata();
+    public RoleDescriptor getPeerEntityRoleMetadata();
 
     /**
      * Gets whether the inbound SAML message has been authenticated.
@@ -201,32 +187,25 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public boolean isInboundSAMLMessageAuthenticated();
 
     /**
-     * Sets the entity ID of the asserting party.
+     * Sets the local entity metadata.
      * 
-     * @param id entity ID of the asserting party
+     * @param metadata local entity metadata
      */
-    public void setAssertingPartyEntityId(String id);
+    public void setLocalEntityMetadata(EntityDescriptor metadata);
 
     /**
-     * Sets the asserting party metadata.
+     * Sets the role of the local entity.
      * 
-     * @param metadata asserting party metadata
+     * @param role role of the local entity
      */
-    public void setAssertingPartyMetadata(EntityDescriptor metadata);
+    public void setLocalEntityRole(QName role);
 
     /**
-     * Sets the role of the asserting party.
+     * Sets the role metadata for the local entity.
      * 
-     * @param role role of the asserting party
+     * @param role role metadata for the local entity
      */
-    public void setAssertingPartyRole(QName role);
-
-    /**
-     * Sets the role metadata for the asserting party.
-     * 
-     * @param role role metadata for the asserting party
-     */
-    public void setAssertingPartyRoleMetadata(RoleDescriptor role);
+    public void setLocalEntityRoleMetadata(RoleDescriptor role);
 
     /**
      * Sets the inbound SAML message.
@@ -257,9 +236,9 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public void setInboundSAMLMessageIssueInstant(DateTime instant);
 
     /**
-     * Sets the protocol used by the relying party to communicate with the asserting party.
+     * Sets the protocol used by the peer entity to communicate with the local entity.
      * 
-     * @param protocol protocol used by the relying party to communicate with the asserting party
+     * @param protocol protocol used by the peer entity to communicate with the local entity
      */
     public void setInboundSAMLProtocol(String protocol);
 
@@ -299,9 +278,9 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public void setOutboundSAMLMessageSigningCredential(Credential credential);
 
     /**
-     * Sets the protocol used by the asserting party to communicate with the relying party.
+     * Sets the protocol used by the local entity to communicate with the peer entity.
      * 
-     * @param protocol protocol used by the asserting party to communicate with the relying party
+     * @param protocol protocol used by the local entity to communicate with the peer entity
      */
     public void setOutboundSAMLProtocol(String protocol);
 
@@ -313,37 +292,30 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public void setRelayState(String relayState);
 
     /**
-     * Sets the endpoint of for the relying party.
+     * Sets the endpoint of for the peer entity.
      * 
-     * @param endpoint endpoint of for the relying party
+     * @param endpoint endpoint of for the peer entity
      */
-    public void setRelyingPartyEndpoint(Endpoint endpoint);
+    public void setPeerEntityEndpoint(Endpoint endpoint);
 
     /**
-     * Sets the entity ID of the relying party.
+     * Sets the peer entity metadata.
      * 
-     * @param id entity ID of the relying party
+     * @param metadata peer entity metadata
      */
-    public void setRelyingPartyEntityId(String id);
+    public void setPeerEntityMetadata(EntityDescriptor metadata);
 
     /**
-     * Sets the relying party metadata.
+     * Sets the role of the peer entity.
      * 
-     * @param metadata relying party metadata
+     * @param role role of the peer entity
      */
-    public void setRelyingPartyMetadata(EntityDescriptor metadata);
+    public void setPeerEntityRole(QName role);
 
     /**
-     * Sets the role of the relying party.
+     * Sets the role metadata for the peer entity.
      * 
-     * @param role role of the relying party
+     * @param role role metadata for the peer entity
      */
-    public void setRelyingPartyRole(QName role);
-
-    /**
-     * Sets the role metadata for the relying party.
-     * 
-     * @param role role metadata for the relying party
-     */
-    public void setRelyingPartyRoleMetadata(RoleDescriptor role);
+    public void setPeerEntityRoleMetadata(RoleDescriptor role);
 }

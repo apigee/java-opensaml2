@@ -44,10 +44,10 @@ class StaticIssuerRule implements SecurityPolicyRule {
     }
 
     /** {@inheritDoc} */
-    public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException{
+    public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
-        
-        samlMsgCtx.setRelyingPartyEntityId(issuer);
+
+        samlMsgCtx.setInboundMessageIssuer(issuer);
 
         if (issuerAuthenticated == Boolean.TRUE) {
             samlMsgCtx.setInboundSAMLMessageAuthenticated(true);

@@ -71,7 +71,7 @@ public class HTTPRedirectDeflateEncoderTest extends BaseTestCase {
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
         messageContext.setMessageOutTransport(outTransport);
         messageContext.setOutboundSAMLMessage(samlMessage);
-        messageContext.setRelyingPartyEndpoint(samlEndpoint);
+        messageContext.setPeerEntityEndpoint(samlEndpoint);
         messageContext.setRelayState("relay");
         
         HTTPRedirectDeflateEncoder encoder = new HTTPRedirectDeflateEncoder();

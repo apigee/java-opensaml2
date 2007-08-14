@@ -107,17 +107,17 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
-    public EntityDescriptor getAssertingPartyMetadata() {
+    public EntityDescriptor getLocalEntityMetadata() {
         return assertingPartyMetadata;
     }
 
     /** {@inheritDoc} */
-    public QName getAssertingPartyRole() {
+    public QName getLocalEntityRole() {
         return assertingPartyRole;
     }
 
     /** {@inheritDoc} */
-    public RoleDescriptor getAssertingPartyRoleMetadata() {
+    public RoleDescriptor getLocalEntityRoleMetadata() {
         return assertingPartyRoleMetadata;
     }
 
@@ -177,7 +177,7 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
-    public Endpoint getRelyingPartyEndpoint() {
+    public Endpoint getPeerEntityEndpoint() {
         return relyingPartyEndpoint;
     }
 
@@ -187,17 +187,17 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
-    public EntityDescriptor getRelyingPartyMetadata() {
+    public EntityDescriptor getPeerEntityMetadata() {
         return relyingPartyMetadata;
     }
 
     /** {@inheritDoc} */
-    public QName getRelyingPartyRole() {
+    public QName getPeerEntityRole() {
         return relyingPartyRole;
     }
 
     /** {@inheritDoc} */
-    public RoleDescriptor getRelyingPartyRoleMetadata() {
+    public RoleDescriptor getPeerEntityRoleMetadata() {
         return relyingPartyRoleMetadata;
     }
 
@@ -212,17 +212,17 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
-    public void setAssertingPartyMetadata(EntityDescriptor metadata) {
+    public void setLocalEntityMetadata(EntityDescriptor metadata) {
         assertingPartyMetadata = metadata;
     }
 
     /** {@inheritDoc} */
-    public void setAssertingPartyRole(QName role) {
+    public void setLocalEntityRole(QName role) {
         assertingPartyRole = role;
     }
 
     /** {@inheritDoc} */
-    public void setAssertingPartyRoleMetadata(RoleDescriptor role) {
+    public void setLocalEntityRoleMetadata(RoleDescriptor role) {
         assertingPartyRoleMetadata = role;
     }
 
@@ -287,7 +287,7 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
-    public void setRelyingPartyEndpoint(Endpoint endpoint) {
+    public void setPeerEntityEndpoint(Endpoint endpoint) {
         relyingPartyEndpoint = endpoint;
     }
 
@@ -297,17 +297,17 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
-    public void setRelyingPartyMetadata(EntityDescriptor metadata) {
+    public void setPeerEntityMetadata(EntityDescriptor metadata) {
         relyingPartyMetadata = metadata;
     }
 
     /** {@inheritDoc} */
-    public void setRelyingPartyRole(QName role) {
+    public void setPeerEntityRole(QName role) {
         relyingPartyRole = role;
     }
 
     /** {@inheritDoc} */
-    public void setRelyingPartyRoleMetadata(RoleDescriptor role) {
+    public void setPeerEntityRoleMetadata(RoleDescriptor role) {
         relyingPartyRoleMetadata = role;
     }
 
