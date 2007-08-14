@@ -27,6 +27,7 @@ import java.util.Map;
 import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
+import org.opensaml.Configuration;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
@@ -43,6 +44,8 @@ import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 import org.opensaml.xml.security.keyinfo.KeyInfoCriteria;
 import org.opensaml.xml.util.DatatypeHelper;
+
+//TODO thread safety - need locks or synchronized access to caches
 
 /**
  * A credential resolver capable of resolving credentials from SAML 2 metadata;
@@ -89,6 +92,9 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
         metadata = metadataProvider;
         
         cache = new HashMap<MetadataCacheKey, SoftReference<Collection<Credential>>>();
+        
+        keyInfoCredentialResolver = 
+            Configuration.getGlobalSecurityConfiguration().getDefaultKeyInfoCredentialResolver();
 
         if (metadata instanceof ObservableMetadataProvider) {
             ObservableMetadataProvider observable = (ObservableMetadataProvider) metadataProvider;
@@ -103,11 +109,6 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
      * @return KeyInfo credential resolver
      */
     public KeyInfoCredentialResolver getKeyInfoCredentialResolver() {
-        if (keyInfoCredentialResolver == null) {
-            //TODO temporary - If we default something here, need to chose a default set of providers, etc.
-            //Pending finishing the KeyInfo resolver config machinery.
-            keyInfoCredentialResolver = new KeyInfoCredentialResolver();
-        }
         return keyInfoCredentialResolver;
     }
     
