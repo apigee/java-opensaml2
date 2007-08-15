@@ -26,6 +26,11 @@ import org.opensaml.ws.message.encoder.MessageEncodingException;
  */
 public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessageEncoder {
     
+    /** Constructor. */
+    public HTTPArtifactEncoder(){
+        super();
+    }
+    
     /** {@inheritDoc} */
     public String getBindingURI() {
         // TODO Auto-generated method stub

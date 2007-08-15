@@ -26,7 +26,6 @@ import org.opensaml.log.Level;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
-import org.opensaml.ws.security.SecurityPolicy;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.Base64;
@@ -47,20 +46,10 @@ public class HTTPPostDecoder extends BaseMessageDecoder implements SAMLMessageDe
     /**
      * Constructor.
      * 
-     * @param policy security policy to evaluate a message context against
-     */
-    public HTTPPostDecoder(SecurityPolicy policy) {
-        super(policy);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param policy security policy to evaluate a message context against
      * @param pool parser pool used to deserialize messages
      */
-    public HTTPPostDecoder(SecurityPolicy policy, ParserPool pool) {
-        super(policy, pool);
+    public HTTPPostDecoder(ParserPool pool) {
+        super(pool);
     }
 
     /** {@inheritDoc} */

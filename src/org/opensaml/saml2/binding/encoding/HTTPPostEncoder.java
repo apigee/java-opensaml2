@@ -54,6 +54,7 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
      * @param templateId ID of the template used to create POST body
      */
     public HTTPPostEncoder(VelocityEngine engine, String templateId) {
+        super();
         velocityEngine = engine;
         velocityTemplateId = templateId;
     }

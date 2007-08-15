@@ -29,6 +29,7 @@ import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
+import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -41,6 +42,20 @@ public class HTTPRedirectDeflateDecoder extends BaseMessageDecoder implements SA
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(HTTPRedirectDeflateDecoder.class);
+
+    /** Constructor. */
+    public HTTPRedirectDeflateDecoder() {
+        super();
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param pool parser pool used to deserialize messages
+     */
+    public HTTPRedirectDeflateDecoder(ParserPool pool) {
+        super(pool);
+    }
 
     /** {@inheritDoc} */
     public String getBindingURI() {

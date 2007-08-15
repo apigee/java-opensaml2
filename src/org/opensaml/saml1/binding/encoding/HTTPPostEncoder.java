@@ -18,11 +18,9 @@ package org.opensaml.saml1.binding.encoding;
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 import java.io.Writer;
 
 import org.apache.log4j.Logger;
-import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.Configuration;
@@ -67,6 +65,7 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
      * @param templateId ID of the template used to create POST body
      */
     public HTTPPostEncoder(VelocityEngine engine, String templateId) {
+        super();
         velocityEngine = engine;
         velocityTemplateId = templateId;
     }
@@ -146,7 +145,7 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
             HTTPTransportUtils.addNoCacheHeaders(outTransport);
             HTTPTransportUtils.setUTF8Encoding(outTransport);
             HTTPTransportUtils.setContentType(outTransport, "application/xhtml+xml");
-            
+
             OutputStream transportOutStream = outTransport.getOutgoingStream();
             Writer out = new OutputStreamWriter(transportOutStream, "UTF-8");
             velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, out);

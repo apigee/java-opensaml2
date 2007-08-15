@@ -23,6 +23,7 @@ import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
+import org.opensaml.xml.parse.ParserPool;
 
 /** SAML 2 Artifact Binding decoder, support both HTTP GET and POST. */
 public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
@@ -36,6 +37,20 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
     /** Artifact generated for the given SAML message. */
     private SAMLArtifact artifact;
 
+    /** Constructor. */
+    public HTTPArtifactDecoder() {
+        super();
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param pool parser pool used to deserialize messages
+     */
+    public HTTPArtifactDecoder(ParserPool pool) {
+        super(pool);
+    }
+
     /** {@inheritDoc} */
     public String getBindingURI() {
         // TODO Auto-generated method stub
@@ -45,6 +60,6 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
     /** {@inheritDoc} */
     protected void doDecode(MessageContext messageContext) throws MessageDecodingException {
         // TODO Auto-generated method stub
-        
+
     }
 }

@@ -22,13 +22,13 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
-import org.opensaml.saml1.binding.decoding.HTTPPostDecoder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.parse.ParserPool;
 
 /**
  * SAML 2.0 SOAP 1.1 over HTTP binding decoder.
@@ -36,7 +36,21 @@ import org.opensaml.xml.XMLObject;
 public class HTTPSOAP11Decoder extends BaseMessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPPostDecoder.class);
+    private final Logger log = Logger.getLogger(HTTPSOAP11Decoder.class);
+
+    /** Constructor. */
+    public HTTPSOAP11Decoder() {
+        super();
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param pool parser pool used to deserialize messages
+     */
+    public HTTPSOAP11Decoder(ParserPool pool) {
+        super(pool);
+    }
 
     /** {@inheritDoc} */
     public String getBindingURI() {

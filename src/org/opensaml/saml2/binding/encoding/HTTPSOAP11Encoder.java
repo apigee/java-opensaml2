@@ -45,6 +45,11 @@ public class HTTPSOAP11Encoder extends BaseSAML2MessageEncoder {
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPSOAP11Encoder.class);
 
+    /** Constructor. */
+    public HTTPSOAP11Encoder() {
+        super();
+    }
+
     /** {@inheritDoc} */
     public String getBindingURI() {
         return "urn:oasis:names:tc:SAML:2.0:bindings:SOAP";
@@ -91,7 +96,7 @@ public class HTTPSOAP11Encoder extends BaseSAML2MessageEncoder {
         } catch (UnsupportedEncodingException e) {
             log.fatal("JVM does not support required UTF-8 encoding");
             throw new MessageEncodingException("JVM does not support required UTF-8 encoding");
-        }catch(IOException e){
+        } catch (IOException e) {
             log.error("Unable to write message content to outbound stream", e);
             throw new MessageEncodingException("Unable to write message content to outbound stream", e);
         }

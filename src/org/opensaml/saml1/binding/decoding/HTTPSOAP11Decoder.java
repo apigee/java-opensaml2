@@ -25,7 +25,6 @@ import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
-import org.opensaml.ws.security.SecurityPolicy;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.XMLObject;
@@ -47,20 +46,10 @@ public class HTTPSOAP11Decoder extends BaseMessageDecoder implements SAMLMessage
     /**
      * Constructor.
      * 
-     * @param policy security policy to evaluate a message context against
-     */
-    public HTTPSOAP11Decoder(SecurityPolicy policy) {
-        super(policy);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param policy security policy to evaluate a message context against
      * @param pool parser pool used to deserialize messages
      */
-    public HTTPSOAP11Decoder(SecurityPolicy policy, ParserPool pool) {
-        super(policy, pool);
+    public HTTPSOAP11Decoder(ParserPool pool) {
+        super(pool);
     }
 
     /** {@inheritDoc} */
@@ -85,7 +74,7 @@ public class HTTPSOAP11Decoder extends BaseMessageDecoder implements SAMLMessage
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getMessageInTransport();
 
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Unmarshalling SOAP message");
         }
         Envelope soapMessage = (Envelope) unmarshallMessage(inTransport.getIncomingStream());

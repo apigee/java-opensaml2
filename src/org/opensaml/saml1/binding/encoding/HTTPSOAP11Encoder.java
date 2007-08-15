@@ -46,6 +46,11 @@ public class HTTPSOAP11Encoder extends BaseMessageEncoder implements SAMLMessage
 
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPSOAP11Encoder.class);
+    
+    /** Constructor. */
+    public HTTPSOAP11Encoder(){
+        super();
+    }
 
     /** {@inheritDoc} */
     public String getBindingURI() {

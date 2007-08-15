@@ -51,6 +51,11 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(HTTPRedirectDeflateEncoder.class);
+    
+    /** Constructor. */
+    public HTTPRedirectDeflateEncoder(){
+        super();
+    }
 
     /** {@inheritDoc} */
     public String getBindingURI() {
