@@ -23,19 +23,22 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.Configuration;
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.DOMMetadataProvider;
+import org.opensaml.xml.security.BasicSecurityConfiguration;
 import org.opensaml.xml.security.CriteriaSet;
+import org.opensaml.xml.security.SecurityConfiguration;
 import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.security.credential.EntityIDCriteria;
-import org.opensaml.xml.security.credential.UsageCriteria;
 import org.opensaml.xml.security.credential.UsageType;
+import org.opensaml.xml.security.criteria.EntityIDCriteria;
+import org.opensaml.xml.security.criteria.UsageCriteria;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 import org.opensaml.xml.security.x509.X509Credential;
 import org.w3c.dom.Document;
@@ -144,6 +147,8 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
     
     private CriteriaSet criteriaSet;
     
+    private SecurityConfiguration origGlobalSecurityConfig;
+    
 
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
@@ -158,9 +163,13 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         mdProvider = new DOMMetadataProvider(mdDoc.getDocumentElement());
         mdProvider.initialize();
         
+        //For testing, use default KeyInfo resolver from global security config, per metadata resolver constructor
+        origGlobalSecurityConfig = Configuration.getGlobalSecurityConfiguration();
+        BasicSecurityConfiguration newSecConfig = new BasicSecurityConfiguration();
+        newSecConfig.setDefaultKeyInfoCredentialResolver( SecurityTestHelper.buildBasicInlineKeyInfoResolver() );
+        Configuration.setGlobalSecurityConfiguration(newSecConfig);
+        
         mdResolver = new MetadataCredentialResolver(mdProvider);
-        keyInfoResolver = new KeyInfoCredentialResolver();
-        mdResolver.setKeyInfoCredentialResolver(keyInfoResolver);
         
         entityCriteria = new EntityIDCriteria(idpEntityID);
         // by default set protocol to null
@@ -171,7 +180,12 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         criteriaSet.add(mdCriteria);
     }
     
-    
+    /** {@inheritDoc} */
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        Configuration.setGlobalSecurityConfiguration(origGlobalSecurityConfig);
+    }
+
     /**
      * Test protocol null, and no usage.
      * Should get 3 credentials, 2 from protocolFoo and 1 from protocolBar.
