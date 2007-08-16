@@ -47,8 +47,8 @@ public class SAML1ProtocolMessageRule implements SecurityPolicyRule {
 
     /** {@inheritDoc} */
     public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
-        if (!(messageContext instanceof MessageContext)) {
-            log.debug("Invalid message context type, this policy rule only support SAMLMessageContext");
+        if (!(messageContext instanceof SAMLMessageContext)) {
+            log.debug("Invalid message context type, this policy rule only supports SAMLMessageContext");
             return false;
         }
 

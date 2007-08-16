@@ -24,8 +24,7 @@ import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 
 /**
- * Security policy rule factory implementation that generates rules which check for validity of SAML message issue
- * instant date and time.
+ * Security policy rule implementation that checks for validity of SAML message issue instant date and time.
  */
 public class IssueInstantRule implements SecurityPolicyRule {
 
@@ -54,8 +53,8 @@ public class IssueInstantRule implements SecurityPolicyRule {
 
     /** {@inheritDoc} */
     public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
-        if (!(messageContext instanceof MessageContext)) {
-            log.debug("Invalid message context type, this policy rule only support SAMLMessageContext");
+        if (!(messageContext instanceof SAMLMessageContext)) {
+            log.debug("Invalid message context type, this policy rule only supports SAMLMessageContext");
             return false;
         }
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;

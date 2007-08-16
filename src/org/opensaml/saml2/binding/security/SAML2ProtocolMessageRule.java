@@ -32,8 +32,8 @@ import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 
 /**
- * An implementation of {@link SecurityPolicyRuleFactory} which generates rules which process SAML 2 messages and
- * extract relevant information out for use in other rules.
+ * An implementation of {@link SecurityPolicyRule} which processes SAML 2 messages and
+ * extracts relevant information out for use in other rules.
  * 
  * {@link SAML2ProtocolMessageRule}s pass if, and only if:
  * <ul>
@@ -59,8 +59,8 @@ public class SAML2ProtocolMessageRule implements SecurityPolicyRule {
     }
 
     /** {@inheritDoc} */
-    public boolean evaluate(org.opensaml.ws.message.MessageContext messageContext) throws SecurityPolicyException {
-        if (!(messageContext instanceof MessageContext)) {
+    public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
+        if (!(messageContext instanceof SAMLMessageContext)) {
             log.debug("Invalid message context type, this policy rule only support SAMLMessageContext");
             return false;
         }

@@ -24,7 +24,7 @@ import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 
 /**
- * Security policy rule factory implementation that generates rules which check for replay of SAML messages.
+ * Security policy rule implementation that which checks for replay of SAML messages.
  */
 public class MessageReplayRule implements SecurityPolicyRule {
 
@@ -51,8 +51,8 @@ public class MessageReplayRule implements SecurityPolicyRule {
 
     /** {@inheritDoc} */
     public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
-        if (!(messageContext instanceof MessageContext)) {
-            log.debug("Invalid message context type, this policy rule only support SAMLMessageContext");
+        if (!(messageContext instanceof SAMLMessageContext)) {
+            log.debug("Invalid message context type, this policy rule only supports SAMLMessageContext");
             return false;
         }
 
