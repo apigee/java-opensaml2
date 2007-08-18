@@ -32,7 +32,7 @@ public class MessageReplayRule implements SecurityPolicyRule {
     private static Logger log = Logger.getLogger(MessageReplayRule.class);
 
     /** Expiration value for messages inserted into replay cache, in seconds. */
-    private int expires;
+    private long expiresInMillis;
 
     /** Messge replay cache instance to use. */
     private ReplayCache replayCache;
@@ -45,7 +45,7 @@ public class MessageReplayRule implements SecurityPolicyRule {
      * @param newReplayCache the new replay cache instance
      */
     public MessageReplayRule(int newClockSkew, int newExpires, ReplayCache newReplayCache) {
-        expires = (newExpires + newClockSkew) * 1000;
+        expiresInMillis = (newExpires + newClockSkew) * 1000;
         replayCache = newReplayCache;
     }
 
@@ -63,7 +63,7 @@ public class MessageReplayRule implements SecurityPolicyRule {
             return false;
         }
 
-        if (replayCache.isReplay(samlMsgCtx.getInboundSAMLMessageId(), expires)) {
+        if (replayCache.isReplay(samlMsgCtx.getInboundSAMLMessageId(), expiresInMillis)) {
             log.error("Replay detected of message '" + samlMsgCtx.getInboundSAMLMessageId() + "'");
             throw new SecurityPolicyException("Rejecting replayed message ID '" + samlMsgCtx.getInboundSAMLMessageId()
                     + "'");
