@@ -21,35 +21,35 @@ import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.security.MetadataCriteria;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.security.SecurityPolicyException;
-import org.opensaml.ws.security.provider.CertificateNameOptions;
-import org.opensaml.ws.security.provider.ClientCertAuthRule;
+import org.opensaml.ws.security.provider.BaseTrustEngineRule;
 import org.opensaml.xml.security.CriteriaSet;
+import org.opensaml.xml.security.credential.UsageType;
+import org.opensaml.xml.security.criteria.EntityIDCriteria;
+import org.opensaml.xml.security.criteria.UsageCriteria;
 import org.opensaml.xml.security.trust.TrustEngine;
-import org.opensaml.xml.security.x509.X509Credential;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
- * SAML specialization of {@link ClientCertAuthRule} which provides support for X509Credential trust engine validation
- * based on SAML metadta.
+ * Base class for SAML security policy rules which evaluate a signature with a signature trust engine.
  */
-public class SAMLMDClientCertAuthRule extends ClientCertAuthRule {
-
+public abstract class BaseSAMLSignatureSecurityPolicyRule extends BaseTrustEngineRule<Signature> {
+    
     /** Logger. */
-    private Logger log = Logger.getLogger(SAMLMDClientCertAuthRule.class);
-
+    private Logger log = Logger.getLogger(BaseSAMLSignatureSecurityPolicyRule.class);
+    
     /**
      * Constructor.
-     * 
-     * @param engine Trust engine used to verify the request X509Credential
-     * @param nameOptions options for deriving issuer names from an X.509 certificate
+     *
+     * @param engine Trust engine used to verify the signature
      */
-    public SAMLMDClientCertAuthRule(TrustEngine<X509Credential> engine, CertificateNameOptions nameOptions) {
-        super(engine, nameOptions);
+    public BaseSAMLSignatureSecurityPolicyRule(TrustEngine<Signature> engine) {
+        super(engine);
     }
 
     /** {@inheritDoc} */
-    protected CriteriaSet buildCriteriaSet(String entityID, MessageContext messageContext) 
+    protected CriteriaSet buildCriteriaSet(String entityID, MessageContext messageContext)
         throws SecurityPolicyException {
-        
         if (!(messageContext instanceof SAMLMessageContext)) {
             log.error("Supplied message context was not an instance of SAMLMessageContext, " 
                     + "can not build criteria set from SAML metadata parameters");
@@ -57,12 +57,19 @@ public class SAMLMDClientCertAuthRule extends ClientCertAuthRule {
         }
         
         SAMLMessageContext samlContext = (SAMLMessageContext) messageContext;
-
-        CriteriaSet criteriaSet = super.buildCriteriaSet(entityID, messageContext);
+        
+        CriteriaSet criteriaSet = new CriteriaSet();
+        if (! DatatypeHelper.isEmpty(entityID)) {
+            criteriaSet.add(new EntityIDCriteria(entityID) );
+        }
+        
         MetadataCriteria mdCriteria = 
             new MetadataCriteria(samlContext.getPeerEntityRole(), samlContext.getInboundSAMLProtocol());
         criteriaSet.add(mdCriteria);
-
+        
+        criteriaSet.add( new UsageCriteria(UsageType.SIGNING) );
+        
         return criteriaSet;
     }
+
 }

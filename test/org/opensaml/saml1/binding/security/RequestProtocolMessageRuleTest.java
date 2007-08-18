@@ -17,54 +17,62 @@
 package org.opensaml.saml1.binding.security;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.binding.security.BaseSAMLSecurityPolicyTest;
+import org.opensaml.common.binding.security.BaseSAMLSecurityPolicyRuleTest;
+import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Request;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml1.core.Response;
+import org.opensaml.ws.message.BaseMessageContext;
+import org.opensaml.ws.security.SecurityPolicyException;
 
 
 /**
  * Test the protocol message rule for request types.
  */
-public class RequestProtocolMessageRuleTest extends BaseSAMLSecurityPolicyTest {
+public class RequestProtocolMessageRuleTest extends BaseSAMLSecurityPolicyRuleTest<Request, Response, NameIdentifier> {
     
-//    private String messageID;
-//    private DateTime issueInstant;
-//    
-//    private SAML1ProtocolMessageRuleFactory protocolMessageRuleFactory;
-//    
-//    public RequestProtocolMessageRuleTest() {
-//        messageID = "abc123";
-//        issueInstant = new DateTime();
-//    }
-//
-//    /** {@inheritDoc} */
-//    protected void setUp() throws Exception {
-//        super.setUp();
-//        
-//        protocolMessageRuleFactory = new SAML1ProtocolMessageRuleFactory();
-//        getPolicyRuleFactories().add(protocolMessageRuleFactory);
-//        
-//        policyFactory.setRequiredAuthenticatedIssuer(false);
-//    }
-//
-//    /** {@inheritDoc} */
-//    protected XMLObject buildMessage() {
-//        Request request = (Request) buildXMLObject(Request.DEFAULT_ELEMENT_NAME);
-//        request.setID(messageID);
-//        request.setIssueInstant(issueInstant);
-//        return request;
-//    }
-//    
-//    /**
-//     * Test basic message information extraction.
-//     */
-//    public void testRule() {
-//        assertPolicySuccess("Request protocol message rule");
-//        SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) policy.getSecurityPolicyContext();
-//        assertEquals("Unexpected value for extracted message ID", messageID, samlContext.getMessageID());
-//        assertTrue("Unexpected value for extracted message issue instant", 
-//                issueInstant.isEqual(samlContext.getIssueInstant()));
-//        assertNull("Non-null value for Issuer found", samlContext.getIssuer());
-//    }
+    private String messageID;
+    private DateTime issueInstant;
+    
+    public RequestProtocolMessageRuleTest() {
+        messageID = "abc123";
+        issueInstant = new DateTime();
+    }
+
+    /** {@inheritDoc} */
+    protected void setUp() throws Exception {
+        super.setUp();
+        
+        rule = new SAML1ProtocolMessageRule();
+        
+    }
+
+    /** {@inheritDoc} */
+    protected Request buildInboundSAMLMessage() {
+        Request request = (Request) buildXMLObject(Request.DEFAULT_ELEMENT_NAME);
+        request.setID(messageID);
+        request.setIssueInstant(issueInstant);
+        return request;
+    }
+    
+    /**
+     * Test basic message information extraction.
+     */
+    public void testRule() {
+        assertRuleSuccess("Request protocol message rule");
+        assertEquals("Unexpected value for extracted message ID", messageID, messageContext.getInboundSAMLMessageId());
+        assertTrue("Unexpected value for extracted message issue instant", 
+                issueInstant.isEqual(messageContext.getInboundSAMLMessageIssueInstant()) );
+        assertNull("Non-null value for Issuer found", messageContext.getInboundMessageIssuer());
+    }
+    
+    /**
+     * A non-SAMLMessageContext results in rule not being evaluated.
+     * @throws SecurityPolicyException 
+     * 
+     */
+    public void testNotEvaluated() throws SecurityPolicyException {
+        assertFalse("Rule should not have been evaluated, non-SAMLMessageContext",
+                rule.evaluate(new BaseMessageContext()));
+    }
 
 }

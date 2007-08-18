@@ -17,94 +17,100 @@
 package org.opensaml.saml2.binding.security;
 
 import org.joda.time.DateTime;
-import org.opensaml.common.binding.security.BaseSAMLSecurityPolicyTest;
+import org.opensaml.common.binding.security.BaseSAMLSecurityPolicyRuleTest;
 import org.opensaml.saml2.core.AttributeQuery;
 import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDType;
-import org.opensaml.xml.XMLObject;
+import org.opensaml.saml2.core.Response;
+import org.opensaml.ws.message.BaseMessageContext;
+import org.opensaml.ws.security.SecurityPolicyException;
 
 
 /**
  * Test the protocol message rule for request types.
  */
-public class RequestProtocolMessageRuleTest extends BaseSAMLSecurityPolicyTest {
+public class RequestProtocolMessageRuleTest extends BaseSAMLSecurityPolicyRuleTest<AttributeQuery, Response, NameID> {
     
-//    private String issuer;
-//    private String messageID;
-//    private DateTime issueInstant;
-//    
-//    private SAML2ProtocolMessageRuleFactory protocolMessageRuleFactory;
-//    
-//    /** Constructor. */
-//    public RequestProtocolMessageRuleTest() {
-//        issuer = "SomeIssuerID";
-//        messageID = "abc123";
-//        issueInstant = new DateTime();
-//    }
-//
-//    /** {@inheritDoc} */
-//    protected void setUp() throws Exception {
-//        super.setUp();
-//        
-//        protocolMessageRuleFactory = new SAML2ProtocolMessageRuleFactory();
-//        getPolicyRuleFactories().add(protocolMessageRuleFactory);
-//        
-//        policyFactory.setRequiredAuthenticatedIssuer(false);
-//    }
-//
-//    /** {@inheritDoc} */
-//    protected XMLObject buildMessage() {
-//        AttributeQuery query = (AttributeQuery) buildXMLObject(AttributeQuery.DEFAULT_ELEMENT_NAME);
-//        query.setID(messageID);
-//        query.setIssueInstant(issueInstant);
-//        query.setIssuer(buildIssuer());
-//        return query;
-//    }
-//    
-//    /**
-//     * Test basic message information extraction.
-//     */
-//    public void testRule() {
-//        assertPolicySuccess("Request protocol message rule");
-//        SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) policy.getSecurityPolicyContext();
-//        assertEquals("Unexpected value for extracted message ID", messageID, samlContext.getMessageID());
-//        assertTrue("Unexpected value for extracted message issue instant", 
-//                issueInstant.isEqual(samlContext.getIssueInstant()));
-//        assertEquals("Unexpected value for Issuer found", issuer, samlContext.getIssuer());
-//    }
-//    
-//    /**
-//     * Test basic message information extraction, null Issuer.
-//     */
-//    public void testRuleNoIssuer() {
-//        ((AttributeQuery)message).setIssuer(null);
-//        assertPolicySuccess("Request protocol message rule");
-//        SAMLSecurityPolicyContext samlContext = (SAMLSecurityPolicyContext) policy.getSecurityPolicyContext();
-//        assertEquals("Unexpected value for extracted message ID", messageID, samlContext.getMessageID());
-//        assertTrue("Unexpected value for extracted message issue instant", 
-//                issueInstant.isEqual(samlContext.getIssueInstant()));
-//        assertNull("Non-null value for Issuer found", samlContext.getIssuer());
-//    }
-//
-//    /**
-//     * Test non-entity Issuer format.
-//     */
-//    public void testNonEntityIssuer() {
-//        Issuer issuerXO = ((AttributeQuery)message).getIssuer();
-//        issuerXO.setFormat(NameIDType.EMAIL);
-//        assertPolicyFail("Request protocol message rule, non-entity Issuer NameID format");
-//    }
-//    
-//    /**
-//     * Build an Issuer with entity format.
-//     * 
-//     * @return a new Issuer
-//     */
-//    private Issuer buildIssuer() {
-//        Issuer issuerXO = (Issuer) buildXMLObject(Issuer.DEFAULT_ELEMENT_NAME);
-//        issuerXO.setValue(issuer);
-//        issuerXO.setFormat(NameIDType.ENTITY);
-//        return  issuerXO;
-//    }
+    private String issuer;
+    private String messageID;
+    private DateTime issueInstant;
+    
+    /** Constructor. */
+    public RequestProtocolMessageRuleTest() {
+        issuer = "SomeIssuerID";
+        messageID = "abc123";
+        issueInstant = new DateTime();
+    }
+
+    /** {@inheritDoc} */
+    protected void setUp() throws Exception {
+        super.setUp();
+        
+        rule = new SAML2ProtocolMessageRule();
+    }
+
+    /** {@inheritDoc} */
+    protected AttributeQuery buildInboundSAMLMessage() {
+        AttributeQuery query = (AttributeQuery) buildXMLObject(AttributeQuery.DEFAULT_ELEMENT_NAME);
+        query.setID(messageID);
+        query.setIssueInstant(issueInstant);
+        query.setIssuer(buildIssuer());
+        return query;
+    }
+    
+    /**
+     * Test basic message information extraction.
+     */
+    public void testRule() {
+        assertRuleSuccess("Request protocol message rule");
+        assertEquals("Unexpected value for extracted message ID", messageID, messageContext.getInboundSAMLMessageId());
+        assertTrue("Unexpected value for extracted message issue instant", 
+                issueInstant.isEqual(messageContext.getInboundSAMLMessageIssueInstant()));
+        assertEquals("Unexpected value for Issuer found", issuer, messageContext.getInboundMessageIssuer());
+    }
+    
+    /**
+     * Test basic message information extraction, null Issuer.
+     */
+    public void testRuleNoIssuer() {
+        messageContext.getInboundSAMLMessage().setIssuer(null);
+        assertRuleSuccess("Request protocol message rule, null issuer");
+        assertEquals("Unexpected value for extracted message ID", messageID, messageContext.getInboundSAMLMessageId());
+        assertTrue("Unexpected value for extracted message issue instant", 
+                issueInstant.isEqual(messageContext.getInboundSAMLMessageIssueInstant()));
+        assertNull("Unexpected non-null value for Issuer found", messageContext.getInboundMessageIssuer());
+    }
+
+    /**
+     * Test non-entity Issuer format.
+     */
+    public void testNonEntityIssuer() {
+        Issuer issuerXO = messageContext.getInboundSAMLMessage().getIssuer();
+        issuerXO.setFormat(NameIDType.EMAIL);
+        assertRuleFailure("Request protocol message rule, non-entity Issuer NameID format");
+    }
+    
+    /**
+     * A non-SAMLMessageContext results in rule not being evaluated.
+     * @throws SecurityPolicyException 
+     * 
+     */
+    public void testNotEvaluated() throws SecurityPolicyException {
+        assertFalse("Rule should not have been evaluated, non-SAMLMessageContext",
+                rule.evaluate(new BaseMessageContext()));
+    }
+    
+    /**
+     * Build an Issuer with entity format.
+     * 
+     * @return a new Issuer
+     */
+    private Issuer buildIssuer() {
+        Issuer issuerXO = (Issuer) buildXMLObject(Issuer.DEFAULT_ELEMENT_NAME);
+        issuerXO.setValue(issuer);
+        issuerXO.setFormat(NameIDType.ENTITY);
+        return  issuerXO;
+    }
 
 }
