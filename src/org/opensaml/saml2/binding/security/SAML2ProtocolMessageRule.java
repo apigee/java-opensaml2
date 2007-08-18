@@ -37,13 +37,12 @@ import org.opensaml.ws.security.SecurityPolicyRule;
  * 
  * {@link SAML2ProtocolMessageRule}s pass if, and only if:
  * <ul>
- * <li>Evaluated {@link Issuer}s are of format {@link NameIDType#ENTITY} or do not contain a format</li>
+ * <li>Any {@link Issuer}s present are of format {@link NameIDType#ENTITY} or do not contain a format</li>
  * <li>The SAML message is a {@link RequestAbstractType}, or</li>
  * <li>The SAML message is a {@link StatusResponseType} and
  * <ul>
- * <li> The {@link StatusResponseType} contains an {@link Issuer}, or</li>
- * <li> The {@link StatusResponseType} is a {@link Response} and the {@link Issuer}s within its {@link Assertion}s are
- * identical</li>
+ * <li> If a {@link StatusResponseType} does not contain an {@link Issuer}, and</li>
+ * <li> it is a {@link Response}, then the {@link Issuer}s within its {@link Assertion}s must be identical</li>
  * </ul>
  * </li>
  * </ul>
@@ -83,8 +82,7 @@ public class SAML2ProtocolMessageRule implements SecurityPolicyRule {
         }
 
         if (samlMsgCtx.getInboundMessageIssuer() == null) {
-            log.error("Issuer could not be extracted from SAML 2 message");
-            throw new SecurityPolicyException("Issuer could not be extracted from SAML 2 message");
+            log.warn("Issuer could not be extracted from SAML 2 message");
         }
 
         return true;

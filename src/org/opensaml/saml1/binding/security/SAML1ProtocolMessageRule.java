@@ -103,8 +103,7 @@ public class SAML1ProtocolMessageRule implements SecurityPolicyRule {
         }
 
         if (issuer == null) {
-            log.error("Issuer could not be extracted from standard SAML 1.x response message");
-            throw new SecurityPolicyException("Issuer could not be extracted from standard SAML 1.x response message");
+            log.warn("Issuer could not be extracted from standard SAML 1.x response message");
         }
 
         messageContext.setInboundMessageIssuer(issuer);
