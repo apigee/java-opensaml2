@@ -38,41 +38,6 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
         extends MessageContext {
 
     /**
-     * Gets the subject's SAML name identifier.
-     * 
-     * @return subject's SAML name identifier
-     */
-    public NameIdentifierType getSubjectNameIdentifier();
-
-    /**
-     * Sets the subject's SAML name identifier.
-     * 
-     * @param identifier subject's SAML name identifier
-     */
-    public void setSubjectNameIdentifier(NameIdentifierType identifier);
-
-    /**
-     * Gets the local entity metadata.
-     * 
-     * @return local entity metadata
-     */
-    public EntityDescriptor getLocalEntityMetadata();
-
-    /**
-     * Gets the role of the local entity.
-     * 
-     * @return role of the local entity
-     */
-    public QName getLocalEntityRole();
-
-    /**
-     * Gets the role metadata of the local entity.
-     * 
-     * @return role metadata of the local entity
-     */
-    public RoleDescriptor getLocalEntityRoleMetadata();
-
-    /**
      * Gets the inbound SAML message. This may not be the same as the message returned from
      * {@link MessageContext#getInboundMessage()} if the SAML message was carried in another protocol (e.g. SOAP).
      * 
@@ -100,6 +65,34 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
      * @return protocol used by the peer entity to communicate with the local entity
      */
     public String getInboundSAMLProtocol();
+
+    /**
+     * Gets the local entity's ID.
+     * 
+     * @return local entity's ID
+     */
+    public String getLocalEntityId();
+
+    /**
+     * Gets the local entity metadata.
+     * 
+     * @return local entity metadata
+     */
+    public EntityDescriptor getLocalEntityMetadata();
+
+    /**
+     * Gets the role of the local entity.
+     * 
+     * @return role of the local entity
+     */
+    public QName getLocalEntityRole();
+
+    /**
+     * Gets the role metadata of the local entity.
+     * 
+     * @return role metadata of the local entity
+     */
+    public RoleDescriptor getLocalEntityRoleMetadata();
 
     /**
      * Gets the metadata provider used to lookup information entity information.
@@ -145,18 +138,18 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public String getOutboundSAMLProtocol();
 
     /**
-     * Gets the relay state associated with the message.
-     * 
-     * @return relay state associated with the message
-     */
-    public String getRelayState();
-
-    /**
      * Gets the endpoint of for the peer entity.
      * 
      * @return endpoint of for the peer entity
      */
     public Endpoint getPeerEntityEndpoint();
+
+    /**
+     * Gets the peer's entity ID.
+     * 
+     * @return peer's entity ID
+     */
+    public String getPeerEntityId();
 
     /**
      * Gets the peer entity metadata.
@@ -180,32 +173,25 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public RoleDescriptor getPeerEntityRoleMetadata();
 
     /**
+     * Gets the relay state associated with the message.
+     * 
+     * @return relay state associated with the message
+     */
+    public String getRelayState();
+
+    /**
+     * Gets the subject's SAML name identifier.
+     * 
+     * @return subject's SAML name identifier
+     */
+    public NameIdentifierType getSubjectNameIdentifier();
+
+    /**
      * Gets whether the inbound SAML message has been authenticated.
      * 
      * @return whether the inbound SAML message has been authenticated
      */
     public boolean isInboundSAMLMessageAuthenticated();
-
-    /**
-     * Sets the local entity metadata.
-     * 
-     * @param metadata local entity metadata
-     */
-    public void setLocalEntityMetadata(EntityDescriptor metadata);
-
-    /**
-     * Sets the role of the local entity.
-     * 
-     * @param role role of the local entity
-     */
-    public void setLocalEntityRole(QName role);
-
-    /**
-     * Sets the role metadata for the local entity.
-     * 
-     * @param role role metadata for the local entity
-     */
-    public void setLocalEntityRoleMetadata(RoleDescriptor role);
 
     /**
      * Sets the inbound SAML message.
@@ -241,6 +227,34 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
      * @param protocol protocol used by the peer entity to communicate with the local entity
      */
     public void setInboundSAMLProtocol(String protocol);
+
+    /**
+     * Sets the local entity's ID.
+     * 
+     * @param id local entity's ID
+     */
+    public void setLocalEntityId(String id);
+
+    /**
+     * Sets the local entity metadata.
+     * 
+     * @param metadata local entity metadata
+     */
+    public void setLocalEntityMetadata(EntityDescriptor metadata);
+
+    /**
+     * Sets the role of the local entity.
+     * 
+     * @param role role of the local entity
+     */
+    public void setLocalEntityRole(QName role);
+
+    /**
+     * Sets the role metadata for the local entity.
+     * 
+     * @param role role metadata for the local entity
+     */
+    public void setLocalEntityRoleMetadata(RoleDescriptor role);
 
     /**
      * Sets the metadata provider used to lookup information entity information.
@@ -285,18 +299,18 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
     public void setOutboundSAMLProtocol(String protocol);
 
     /**
-     * Sets the relay state associated with the message.
-     * 
-     * @param relayState relay state associated with the message
-     */
-    public void setRelayState(String relayState);
-
-    /**
      * Sets the endpoint of for the peer entity.
      * 
      * @param endpoint endpoint of for the peer entity
      */
     public void setPeerEntityEndpoint(Endpoint endpoint);
+
+    /**
+     * Sets the peer's entity ID.
+     * 
+     * @param id peer's entity ID
+     */
+    public void setPeerEntityId(String id);
 
     /**
      * Sets the peer entity metadata.
@@ -318,4 +332,18 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
      * @param role role metadata for the peer entity
      */
     public void setPeerEntityRoleMetadata(RoleDescriptor role);
+
+    /**
+     * Sets the relay state associated with the message.
+     * 
+     * @param relayState relay state associated with the message
+     */
+    public void setRelayState(String relayState);
+
+    /**
+     * Sets the subject's SAML name identifier.
+     * 
+     * @param identifier subject's SAML name identifier
+     */
+    public void setSubjectNameIdentifier(NameIdentifierType identifier);
 }

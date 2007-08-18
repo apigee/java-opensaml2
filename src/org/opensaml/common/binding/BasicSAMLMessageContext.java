@@ -38,17 +38,20 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject, NameIdentifierType extends SAMLObject>
         extends BaseMessageContext implements SAMLMessageContext<InboundMessageType, OutboundMessageType, NameIdentifierType> {
 
-    /** Asserting party's entity ID. */
-    private String assertingPartyId;
+    /** Name identifier for the Subject of the message. */
+    private NameIdentifierType subjectNameIdentifer;
+    
+    /** Local entity's ID. */
+    private String localEntityId;
 
-    /** Asserting party's metadata. */
-    private EntityDescriptor assertingPartyMetadata;
+    /** Local entity's metadata. */
+    private EntityDescriptor localEntityMetadata;
 
-    /** Asserting party's role. */
-    private QName assertingPartyRole;
+    /** Asserting entity's role. */
+    private QName localEntityRole;
 
-    /** Asserting party's role metadata. */
-    private RoleDescriptor assertingPartyRoleMetadata;
+    /** Asserting entity's role metadata. */
+    private RoleDescriptor localEntityRoleMetadata;
 
     /** Inbound SAML message. */
     private InboundMessageType inboundSAMLMessage;
@@ -86,40 +89,20 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     /** Message relay state. */
     private String relayState;
 
-    /** Relying party endpoint. */
-    private Endpoint relyingPartyEndpoint;
+    /** Peer entity's endpoint. */
+    private Endpoint peerEntityEndpoint;
 
-    /** Relying party entity ID. */
-    private String relyingPartyEntityId;
+    /**Peer entity's ID. */
+    private String peerEntityId;
 
-    /** Relying party's metadata. */
-    private EntityDescriptor relyingPartyMetadata;
+    /** Peer entity's metadata. */
+    private EntityDescriptor peerEntityMetadata;
 
-    /** Relying party role. */
-    private QName relyingPartyRole;
+    /** Peer entity's role. */
+    private QName peerEntityRole;
 
-    /** Relying party role's metadata. */
-    private RoleDescriptor relyingPartyRoleMetadata;
-
-    /** {@inheritDoc} */
-    public String getAssertingPartyEntityId() {
-        return assertingPartyId;
-    }
-
-    /** {@inheritDoc} */
-    public EntityDescriptor getLocalEntityMetadata() {
-        return assertingPartyMetadata;
-    }
-
-    /** {@inheritDoc} */
-    public QName getLocalEntityRole() {
-        return assertingPartyRole;
-    }
-
-    /** {@inheritDoc} */
-    public RoleDescriptor getLocalEntityRoleMetadata() {
-        return assertingPartyRoleMetadata;
-    }
+    /** Peer entity's role metadata. */
+    private RoleDescriptor peerEntityRoleMetadata;
 
     /** {@inheritDoc} */
     public InboundMessageType getInboundSAMLMessage() {
@@ -139,6 +122,26 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     /** {@inheritDoc} */
     public String getInboundSAMLProtocol() {
         return inboundSAMLProtocol;
+    }
+
+    /** {@inheritDoc} */
+    public String getLocalEntityId() {
+        return localEntityId;
+    }
+
+    /** {@inheritDoc} */
+    public EntityDescriptor getLocalEntityMetadata() {
+        return localEntityMetadata;
+    }
+
+    /** {@inheritDoc} */
+    public QName getLocalEntityRole() {
+        return localEntityRole;
+    }
+
+    /** {@inheritDoc} */
+    public RoleDescriptor getLocalEntityRoleMetadata() {
+        return localEntityRoleMetadata;
     }
 
     /** {@inheritDoc} */
@@ -172,58 +175,43 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
+    public Endpoint getPeerEntityEndpoint() {
+        return peerEntityEndpoint;
+    }
+
+    /** {@inheritDoc} */
+    public String getPeerEntityId() {
+        return peerEntityId;
+    }
+
+    /** {@inheritDoc} */
+    public EntityDescriptor getPeerEntityMetadata() {
+        return peerEntityMetadata;
+    }
+
+    /** {@inheritDoc} */
+    public QName getPeerEntityRole() {
+        return peerEntityRole;
+    }
+
+    /** {@inheritDoc} */
+    public RoleDescriptor getPeerEntityRoleMetadata() {
+        return peerEntityRoleMetadata;
+    }
+
+    /** {@inheritDoc} */
     public String getRelayState() {
         return relayState;
     }
 
     /** {@inheritDoc} */
-    public Endpoint getPeerEntityEndpoint() {
-        return relyingPartyEndpoint;
-    }
-
-    /** {@inheritDoc} */
-    public String getRelyingPartyEntityId() {
-        return relyingPartyEntityId;
-    }
-
-    /** {@inheritDoc} */
-    public EntityDescriptor getPeerEntityMetadata() {
-        return relyingPartyMetadata;
-    }
-
-    /** {@inheritDoc} */
-    public QName getPeerEntityRole() {
-        return relyingPartyRole;
-    }
-
-    /** {@inheritDoc} */
-    public RoleDescriptor getPeerEntityRoleMetadata() {
-        return relyingPartyRoleMetadata;
+    public NameIdentifierType getSubjectNameIdentifier() {
+        return subjectNameIdentifer;
     }
 
     /** {@inheritDoc} */
     public boolean isInboundSAMLMessageAuthenticated() {
         return inboundSAMLMessageAuthenticated;
-    }
-
-    /** {@inheritDoc} */
-    public void setAssertingPartyEntityId(String id) {
-        assertingPartyId = DatatypeHelper.safeTrimOrNullString(id);
-    }
-
-    /** {@inheritDoc} */
-    public void setLocalEntityMetadata(EntityDescriptor metadata) {
-        assertingPartyMetadata = metadata;
-    }
-
-    /** {@inheritDoc} */
-    public void setLocalEntityRole(QName role) {
-        assertingPartyRole = role;
-    }
-
-    /** {@inheritDoc} */
-    public void setLocalEntityRoleMetadata(RoleDescriptor role) {
-        assertingPartyRoleMetadata = role;
     }
 
     /** {@inheritDoc} */
@@ -249,6 +237,26 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     /** {@inheritDoc} */
     public void setInboundSAMLProtocol(String protocol) {
         inboundSAMLProtocol = DatatypeHelper.safeTrimOrNullString(protocol);
+    }
+
+    /** {@inheritDoc} */
+    public void setLocalEntityId(String id) {
+        localEntityId = DatatypeHelper.safeTrimOrNullString(id);
+    }
+
+    /** {@inheritDoc} */
+    public void setLocalEntityMetadata(EntityDescriptor metadata) {
+        localEntityMetadata = metadata;
+    }
+
+    /** {@inheritDoc} */
+    public void setLocalEntityRole(QName role) {
+        localEntityRole = role;
+    }
+
+    /** {@inheritDoc} */
+    public void setLocalEntityRoleMetadata(RoleDescriptor role) {
+        localEntityRoleMetadata = role;
     }
 
     /** {@inheritDoc} */
@@ -282,44 +290,37 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
+    public void setPeerEntityEndpoint(Endpoint endpoint) {
+        peerEntityEndpoint = endpoint;
+    }
+
+    /** {@inheritDoc} */
+    public void setPeerEntityId(String id) {
+        peerEntityId = DatatypeHelper.safeTrimOrNullString(id);
+    }
+
+    /** {@inheritDoc} */
+    public void setPeerEntityMetadata(EntityDescriptor metadata) {
+        peerEntityMetadata = metadata;
+    }
+
+    /** {@inheritDoc} */
+    public void setPeerEntityRole(QName role) {
+        peerEntityRole = role;
+    }
+
+    /** {@inheritDoc} */
+    public void setPeerEntityRoleMetadata(RoleDescriptor role) {
+        peerEntityRoleMetadata = role;
+    }
+
+    /** {@inheritDoc} */
     public void setRelayState(String state) {
         relayState = DatatypeHelper.safeTrimOrNullString(state);
     }
 
     /** {@inheritDoc} */
-    public void setPeerEntityEndpoint(Endpoint endpoint) {
-        relyingPartyEndpoint = endpoint;
-    }
-
-    /** {@inheritDoc} */
-    public void setRelyingPartyEntityId(String id) {
-        relyingPartyEntityId = DatatypeHelper.safeTrimOrNullString(id);
-    }
-
-    /** {@inheritDoc} */
-    public void setPeerEntityMetadata(EntityDescriptor metadata) {
-        relyingPartyMetadata = metadata;
-    }
-
-    /** {@inheritDoc} */
-    public void setPeerEntityRole(QName role) {
-        relyingPartyRole = role;
-    }
-
-    /** {@inheritDoc} */
-    public void setPeerEntityRoleMetadata(RoleDescriptor role) {
-        relyingPartyRoleMetadata = role;
-    }
-
-    /** {@inheritDoc} */
-    public NameIdentifierType getSubjectNameIdentifier() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /** {@inheritDoc} */
     public void setSubjectNameIdentifier(NameIdentifierType identifier) {
-        // TODO Auto-generated method stub
-        
+        subjectNameIdentifer = identifier;
     }
 }
