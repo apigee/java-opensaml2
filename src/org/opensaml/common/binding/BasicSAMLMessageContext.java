@@ -137,7 +137,7 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
-    public String getInboundSAMLProtcol() {
+    public String getInboundSAMLProtocol() {
         return inboundSAMLProtocol;
     }
 
@@ -167,7 +167,7 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
-    public String getOutboundSAMLProtcol() {
+    public String getOutboundSAMLProtocol() {
         return outboundSAMLProtocol;
     }
 

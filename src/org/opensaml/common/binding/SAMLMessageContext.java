@@ -99,7 +99,7 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
      * 
      * @return protocol used by the peer entity to communicate with the local entity
      */
-    public String getInboundSAMLProtcol();
+    public String getInboundSAMLProtocol();
 
     /**
      * Gets the metadata provider used to lookup information entity information.
@@ -142,7 +142,7 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
      * 
      * @return protocol used by the local entity to communicate with the peer entity
      */
-    public String getOutboundSAMLProtcol();
+    public String getOutboundSAMLProtocol();
 
     /**
      * Gets the relay state associated with the message.
