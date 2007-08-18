@@ -65,7 +65,7 @@ public class HTTPSOAP11Encoder extends BaseMessageEncoder implements SAMLMessage
                     "Invalid message context type, this encoder only support SAMLMessageContext");
         }
 
-        if (!(messageContext.getMessageOutTransport() instanceof HTTPOutTransport)) {
+        if (!(messageContext.getOutboundMessageTransport() instanceof HTTPOutTransport)) {
             log.error("Invalid outbound message transport type, this encoder only support HTTPOutTransport");
             throw new MessageEncodingException(
                     "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
@@ -87,7 +87,7 @@ public class HTTPSOAP11Encoder extends BaseMessageEncoder implements SAMLMessage
         }
 
         try {
-            HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getMessageOutTransport();
+            HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getOutboundMessageTransport();
             HTTPTransportUtils.addNoCacheHeaders(outTransport);
             HTTPTransportUtils.setUTF8Encoding(outTransport);
             HTTPTransportUtils.setContentType(outTransport, "text/xml");

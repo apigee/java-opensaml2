@@ -70,7 +70,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
                     "Invalid message context type, this encoder only support SAMLMessageContext");
         }
 
-        if (!(messageContext.getMessageOutTransport() instanceof HTTPOutTransport)) {
+        if (!(messageContext.getOutboundMessageTransport() instanceof HTTPOutTransport)) {
             log.error("Invalid outbound message transport type, this encoder only support HTTPOutTransport");
             throw new MessageEncodingException(
                     "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
@@ -88,7 +88,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
         
         String redirectURL = buildRedirectURL(samlMsgCtx, endpointURL, encodedMessage);
         
-        HTTPOutTransport out = (HTTPOutTransport) messageContext.getMessageOutTransport();
+        HTTPOutTransport out = (HTTPOutTransport) messageContext.getOutboundMessageTransport();
         HTTPTransportUtils.addNoCacheHeaders(out);
         HTTPTransportUtils.setUTF8Encoding(out);
         

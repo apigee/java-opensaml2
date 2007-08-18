@@ -39,7 +39,7 @@ public class HTTPPostDecoderTest extends BaseTestCase {
                 + "xuczpzYW1scD0idXJuOm9hc2lzOm5hbWVzOnRjOlNBTUw6Mi4wOnByb3RvY29sIi8+");
 
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
-        messageContext.setMessageInTransport(new HttpServletRequestAdapter(request));
+        messageContext.setInboundMessageTransport(new HttpServletRequestAdapter(request));
         
         HTTPPostDecoder decoder = new HTTPPostDecoder();
         decoder.decode(messageContext);
@@ -62,7 +62,7 @@ public class HTTPPostDecoderTest extends BaseTestCase {
                 + "2FtbHA6UmVzcG9uc2U+");
 
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
-        messageContext.setMessageInTransport(new HttpServletRequestAdapter(request));
+        messageContext.setInboundMessageTransport(new HttpServletRequestAdapter(request));
         
         HTTPPostDecoder decoder = new HTTPPostDecoder();
         decoder.decode(messageContext);

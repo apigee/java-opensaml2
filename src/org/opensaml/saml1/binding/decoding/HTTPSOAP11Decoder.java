@@ -65,14 +65,14 @@ public class HTTPSOAP11Decoder extends BaseMessageDecoder implements SAMLMessage
                     "Invalid message context type, this decoder only support SAMLMessageContext");
         }
 
-        if (!(messageContext.getMessageInTransport() instanceof HTTPInTransport)) {
+        if (!(messageContext.getInboundMessageTransport() instanceof HTTPInTransport)) {
             log.error("Invalid inbound message transport type, this decoder only support HTTPInTransport");
             throw new MessageDecodingException(
                     "Invalid inbound message transport type, this decoder only support HTTPInTransport");
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
-        HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getMessageInTransport();
+        HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
 
         if (log.isDebugEnabled()) {
             log.debug("Unmarshalling SOAP message");

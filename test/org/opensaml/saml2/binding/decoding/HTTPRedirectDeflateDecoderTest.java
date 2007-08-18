@@ -34,7 +34,7 @@ public class HTTPRedirectDeflateDecoderTest extends BaseTestCase {
         request.setParameter("SAMLResponse", "fZAxa8NADIX3/opDe3yXLG2F7VASCoF2qdMM3Y6LkhrOp8PSlfz8uqYdvBTeIMHT08ert7chmi8apefUwLpyYCgFPvfp2sD78Xn1ANv2rhY/xIxvJJmTkNmTaJ+8zkefqhmtpZsfcqSKxyuYw76BC/M0iBQ6JFGfdMp/vHcrt550dA5nVc65DzCnP4TND8IElQTnpw2UMSF76QWTH0hQA3ZPry84OTGPrBw4QvuL2KnXIsttx2cyJx8L/R8msxu7EgKJgG1ruwy1yxrabw==");
         
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
-        messageContext.setMessageInTransport(new HttpServletRequestAdapter(request));
+        messageContext.setInboundMessageTransport(new HttpServletRequestAdapter(request));
 
         HTTPRedirectDeflateDecoder decoder = new HTTPRedirectDeflateDecoder();
         decoder.decode(messageContext);

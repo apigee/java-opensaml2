@@ -33,8 +33,7 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
     
     /** {@inheritDoc} */
     public String getBindingURI() {
-        // TODO Auto-generated method stub
-        return null;
+        return "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact";
     }
     
     /** {@inheritDoc} */

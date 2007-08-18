@@ -41,7 +41,7 @@ public class HTTPSOAP11DecoderTest extends BaseTestCase {
         request.setContent(requestContent.getBytes());
 
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
-        messageContext.setMessageInTransport(new HttpServletRequestAdapter(request));
+        messageContext.setInboundMessageTransport(new HttpServletRequestAdapter(request));
         
         HTTPSOAP11Decoder decoder = new HTTPSOAP11Decoder();
         decoder.decode(messageContext);

@@ -69,7 +69,7 @@ public class HTTPSOAP11EncoderTest extends BaseTestCase {
         HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response);
         
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
-        messageContext.setMessageOutTransport(outTransport);
+        messageContext.setOutboundMessageTransport(outTransport);
         messageContext.setPeerEntityEndpoint(samlEndpoint);
         messageContext.setOutboundSAMLMessage(samlMessage);
         messageContext.setRelayState("relay");

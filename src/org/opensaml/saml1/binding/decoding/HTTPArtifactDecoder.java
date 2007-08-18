@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright [2007] [University Corporation for Advanced Internet Development, Inc.]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,48 +14,23 @@
  * limitations under the License.
  */
 
-package org.opensaml.saml2.binding.decoding;
+package org.opensaml.saml1.binding.decoding;
 
-import org.apache.log4j.Logger;
-import org.opensaml.common.binding.artifact.SAMLArtifact;
-import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
-import org.opensaml.xml.parse.ParserPool;
 
-/** SAML 2 Artifact Binding decoder, support both HTTP GET and POST. */
+/**
+ * SAML 1.X HTTP Artifact message decoder.
+ */
 public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
-
-    /** Class logger. */
-    private static Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
-
-    /** Factory for building artifacts. */
-    private SAMLArtifactFactory artifactFactory;
-
-    /** Artifact generated for the given SAML message. */
-    private SAMLArtifact artifact;
-
-    /** Constructor. */
-    public HTTPArtifactDecoder() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param pool parser pool used to deserialize messages
-     */
-    public HTTPArtifactDecoder(ParserPool pool) {
-        super(pool);
-    }
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact";
+        return "urn:oasis:names:tc:SAML:1.0:profiles:artifact-01";
     }
-
+    
     /** {@inheritDoc} */
     protected void doDecode(MessageContext messageContext) throws MessageDecodingException {
         // TODO Auto-generated method stub
