@@ -23,6 +23,7 @@ import org.apache.xml.security.Init;
 import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLConfigurator;
+import org.opensaml.xml.security.DefaultSecurityConfigurationBootstrap;
 
 /**
  * This class can be used to bootstrap the OpenSAML library with the default configurations that ship with the library.
@@ -71,6 +72,15 @@ public class DefaultBootstrap {
         initializeXMLTooling(xmlToolingConfigs);
 
         initializeArtifactFactory();
+        
+        initializeGlobalSecurityConfiguration();
+    }
+
+    /**
+     * Initializes the default global security configuration.
+     */
+    protected static void initializeGlobalSecurityConfiguration() {
+        Configuration.setGlobalSecurityConfiguration( DefaultSecurityConfigurationBootstrap.buildDefaultConfig() );
     }
 
     /**
