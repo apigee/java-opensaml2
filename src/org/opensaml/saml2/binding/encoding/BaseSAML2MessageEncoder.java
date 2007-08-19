@@ -30,6 +30,8 @@ import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.security.SecurityException;
+import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.Signer;
@@ -121,7 +123,16 @@ public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder impleme
                     Signature.DEFAULT_ELEMENT_NAME);
             Signature signature = signatureBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
             signature.getContentReferences().add(contentRef);
+            
             signature.setSigningCredential(signingCredential);
+            try {
+                //TODO pull SecurityConfiguration from SAMLMessageContext?  needs to be added
+                //TODO pull binding-specific keyInfoGenName from encoder setting, etc?
+                SecurityHelper.prepareSignatureParams(signature, signingCredential, null, null);
+            } catch (SecurityException e) {
+                throw new MessageEncodingException("Error preparing signature for signing", e);
+            }
+            
             signableMessage.setSignature(signature);
 
             try {
