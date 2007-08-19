@@ -16,15 +16,21 @@
 
 package org.opensaml.saml1.binding.encoding;
 
+import org.apache.log4j.Logger;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
+import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.BaseMessageEncoder;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
+import org.opensaml.ws.transport.http.HTTPOutTransport;
 
 /**
  * SAML 1.X HTTP Artifact message encoder.
  */
 public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessageEncoder {
+    
+    /** Class logger. */
+    private final Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
 
     /** {@inheritDoc} */
     public String getBindingURI() {
@@ -33,7 +39,27 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
 
     /** {@inheritDoc} */
     protected void doEncode(MessageContext messageContext) throws MessageEncodingException {
-        // TODO Auto-generated method stub
+        if(!(messageContext instanceof SAML1ArtifactMessageContext)){
+            log.error("Invalid message context type, this encoder only support SAML1ArtifactMessageContext");
+            throw new MessageEncodingException(
+                    "Invalid message context type, this encoder only support SAML1ArtifactMessageContext");
+        }
 
+        if (!(messageContext.getOutboundMessageTransport() instanceof HTTPOutTransport)) {
+            log.error("Invalid outbound message transport type, this encoder only support HTTPOutTransport");
+            throw new MessageEncodingException(
+                    "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
+        }
+        
+        SAML1ArtifactMessageContext<?,?,?> artifactContext = (SAML1ArtifactMessageContext) messageContext;
+        HTTPOutTransport outTransport = (HTTPOutTransport) artifactContext.getOutboundMessageTransport();
+        
+        outTransport.addParameter("TARGET", artifactContext.getRelayState());
+        
+        if(artifactContext.getArtifacts() != null){
+            for(String artifact : artifactContext.getArtifacts()){
+                outTransport.addParameter("SAMLArt", artifact);
+            }
+        }
     }
 }

@@ -74,13 +74,13 @@ public class HTTPPostDecoder extends BaseMessageDecoder implements SAMLMessageDe
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
 
-        String relayState = inTransport.getParameter("RelayState");
+        String relayState = inTransport.getParameterValue("RelayState");
         samlMsgCtx.setRelayState(relayState);
         if (log.isDebugEnabled()) {
             log.debug("Decoded SAML relay state of: " + relayState);
         }
 
-        String base64Message = inTransport.getParameter("SAMLResponse");
+        String base64Message = inTransport.getParameterValue("SAMLResponse");
         if (log.isEnabledFor(Level.TRAIL)) {
             log.log(Level.TRAIL, "Decoding base64 message:\n" + base64Message);
         }

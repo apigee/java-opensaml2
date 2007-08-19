@@ -79,17 +79,17 @@ public class HTTPRedirectDeflateDecoder extends BaseMessageDecoder implements SA
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
 
-        String relayState = inTransport.getParameter("RelayState");
+        String relayState = inTransport.getParameterValue("RelayState");
         samlMsgCtx.setRelayState(relayState);
         if (log.isDebugEnabled()) {
             log.debug("Decoded RelayState: " + relayState);
         }
 
         InputStream samlMessageIns;
-        if (!DatatypeHelper.isEmpty(inTransport.getParameter("SAMLRequest"))) {
-            samlMessageIns = decodeMessage(inTransport.getParameter("SAMLRequest"));
-        } else if (!DatatypeHelper.isEmpty(inTransport.getParameter("SAMLResponse"))) {
-            samlMessageIns = decodeMessage(inTransport.getParameter("SAMLResponse"));
+        if (!DatatypeHelper.isEmpty(inTransport.getParameterValue("SAMLRequest"))) {
+            samlMessageIns = decodeMessage(inTransport.getParameterValue("SAMLRequest"));
+        } else if (!DatatypeHelper.isEmpty(inTransport.getParameterValue("SAMLResponse"))) {
+            samlMessageIns = decodeMessage(inTransport.getParameterValue("SAMLResponse"));
         } else {
             throw new MessageDecodingException(
                     "No SAMLRequest or SAMLResponse query path parameter, invalid SAML 2 HTTP Redirect message");
