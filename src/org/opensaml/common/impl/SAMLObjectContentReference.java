@@ -79,7 +79,7 @@ public class SAMLObjectContentReference implements ContentReference {
         // Set defaults
         digestAlgorithm = EncryptionConstants.ALGO_ID_DIGEST_SHA256;
         transforms.add(SignatureConstants.TRANSFORM_ENVELOPED_SIGNATURE);
-        transforms.add(SignatureConstants.TRANSFORM_C14N_EXCL_WITH_COMMENTS);
+        transforms.add(SignatureConstants.TRANSFORM_C14N_EXCL_OMIT_COMMENTS);
     }
     
     /**
