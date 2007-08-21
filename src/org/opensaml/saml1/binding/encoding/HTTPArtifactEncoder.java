@@ -16,15 +16,13 @@
 
 package org.opensaml.saml1.binding.encoding;
 
-import java.util.ArrayList;
-
 import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
 import org.opensaml.saml1.binding.artifact.AbstractSAML1Artifact;
 import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilder;
 import org.opensaml.saml1.binding.artifact.SAML1ArtifactType0001;
@@ -46,7 +44,7 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
 
     /** SAML artifact map used to store created artifacts for later retrival. */
     private SAMLArtifactMap artifactMap;
-    
+
     /** Default artifact type to use when encoding messages. */
     private byte[] defaultArtifactType;
 
@@ -67,10 +65,10 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
 
     /** {@inheritDoc} */
     protected void doEncode(MessageContext messageContext) throws MessageEncodingException {
-        if (!(messageContext instanceof SAML1ArtifactMessageContext)) {
-            log.error("Invalid message context type, this encoder only support SAML1ArtifactMessageContext");
+        if (!(messageContext instanceof SAMLMessageContext)) {
+            log.error("Invalid message context type, this encoder only support SAMLMessageContext");
             throw new MessageEncodingException(
-                    "Invalid message context type, this encoder only support SAML1ArtifactMessageContext");
+                    "Invalid message context type, this encoder only support SAMLMessageContext");
         }
 
         if (!(messageContext.getOutboundMessageTransport() instanceof HTTPOutTransport)) {
@@ -79,30 +77,28 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
                     "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
         }
 
-        SAML1ArtifactMessageContext<SAMLObject, Response, NameIdentifier> artifactContext = (SAML1ArtifactMessageContext) messageContext;
+        SAMLMessageContext<SAMLObject, Response, NameIdentifier> artifactContext = (SAMLMessageContext) messageContext;
         HTTPOutTransport outTransport = (HTTPOutTransport) artifactContext.getOutboundMessageTransport();
 
         outTransport.addParameter("TARGET", artifactContext.getRelayState());
 
         SAML1ArtifactBuilder artifactBuilder;
-        if(artifactContext.getArtifactType() != null){
-            artifactBuilder = Configuration.getSAML1ArtifactBuilderFactory().getArtifactBuilder(artifactContext.getArtifactType());
-        }else{
+        if (artifactContext.getOutboundMessageArtifactType() != null) {
+            artifactBuilder = Configuration.getSAML1ArtifactBuilderFactory().getArtifactBuilder(
+                    artifactContext.getOutboundMessageArtifactType());
+        } else {
             artifactBuilder = Configuration.getSAML1ArtifactBuilderFactory().getArtifactBuilder(defaultArtifactType);
-            artifactContext.setArtifactType(defaultArtifactType);
+            artifactContext.setOutboundMessageArtifactType(defaultArtifactType);
         }
-        
-        ArrayList<AbstractSAML1Artifact> issuedArtifacts = new ArrayList<AbstractSAML1Artifact>();
+
         AbstractSAML1Artifact artifact;
-        String artifactString;      
+        String artifactString;
         for (Assertion assertion : artifactContext.getOutboundSAMLMessage().getAssertions()) {
             artifact = artifactBuilder.buildArtifact(artifactContext, assertion);
             artifactMap.put(artifact.getArtifactBytes(), messageContext.getInboundMessageIssuer(), messageContext
                     .getOutboundMessageIssuer(), assertion);
             artifactString = artifact.base64Encode();
             outTransport.addParameter("SAMLArt", artifactString);
-            issuedArtifacts.add(artifact);
         }
-        artifactContext.setArtifacts(issuedArtifacts);
     }
 }

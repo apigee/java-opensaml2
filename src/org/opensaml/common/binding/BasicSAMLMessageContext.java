@@ -38,6 +38,9 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject, NameIdentifierType extends SAMLObject>
         extends BaseMessageContext implements SAMLMessageContext<InboundMessageType, OutboundMessageType, NameIdentifierType> {
 
+    /** Gets the artifact type used for outbound messages. */
+    private byte[] artifactType;
+    
     /** Name identifier for the Subject of the message. */
     private NameIdentifierType subjectNameIdentifer;
     
@@ -322,5 +325,15 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     /** {@inheritDoc} */
     public void setSubjectNameIdentifier(NameIdentifierType identifier) {
         subjectNameIdentifer = identifier;
+    }
+    
+    /** {@inheritDoc} */
+    public byte[] getOutboundMessageArtifactType() {
+        return artifactType;
+    }
+    
+    /** {@inheritDoc} */
+    public void setOutboundMessageArtifactType(byte[] type) {
+        artifactType = type;
     }
 }

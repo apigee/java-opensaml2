@@ -29,20 +29,6 @@ import org.opensaml.saml2.binding.artifact.AbstractSAML2Artifact;
  */
 public interface SAML2ArtifactMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject, NameIdentifierType extends SAMLObject>
         extends SAMLMessageContext<InboundMessageType, OutboundMessageType, NameIdentifierType> {
-    
-    /**
-     * Gets the artifact type used for the issued artifacts.
-     * 
-     * @return artifact type used for the issued artifacts
-     */
-    public byte[] getArtifactType();
-
-    /**
-     * Sets the artifact type used for the issued artifacts.
-     * 
-     * @param type artifact type used for the issued artifacts
-     */
-    public void setArtifactType(byte[] type);
 
     /**
      * Gets the artifact to be resolved.
@@ -57,18 +43,4 @@ public interface SAML2ArtifactMessageContext<InboundMessageType extends SAMLObje
      * @param artifact artifact to be resolved
      */
     public void setArtifact(AbstractSAML2Artifact artifact);
-
-    /**
-     * Gets the SAML message referenced by the artifact.
-     * 
-     * @return SAML message referenced by the artifact
-     */
-    public SAMLObject getReferencedMessage();
-
-    /**
-     * Sets the SAML message referenced by the artifact.
-     * 
-     * @param message SAML message referenced by the artifact
-     */
-    public void setReferencedMessage(SAMLObject message);
 }

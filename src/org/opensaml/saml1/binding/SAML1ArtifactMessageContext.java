@@ -21,7 +21,6 @@ import java.util.Collection;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.saml1.binding.artifact.AbstractSAML1Artifact;
-import org.opensaml.saml1.core.Assertion;
 
 /**
  * Extensions to the base SAML message context that carries artifact related information.
@@ -32,20 +31,6 @@ import org.opensaml.saml1.core.Assertion;
  */
 public interface SAML1ArtifactMessageContext<InboundMessageType extends SAMLObject, OutboundMessageType extends SAMLObject, NameIdentifierType extends SAMLObject>
         extends SAMLMessageContext<InboundMessageType, OutboundMessageType, NameIdentifierType> {
-
-    /**
-     * Gets the artifact type used for the issued artifacts.
-     * 
-     * @return artifact type used for the issued artifacts
-     */
-    public byte[] getArtifactType();
-
-    /**
-     * Sets the artifact type used for the issued artifacts.
-     * 
-     * @param type artifact type used for the issued artifacts
-     */
-    public void setArtifactType(byte[] type);
 
     /**
      * Gets the artifacts to be resolved.
@@ -60,18 +45,4 @@ public interface SAML1ArtifactMessageContext<InboundMessageType extends SAMLObje
      * @param artifacts artifacts to be resolved
      */
     public void setArtifacts(Collection<AbstractSAML1Artifact> artifacts);
-
-    /**
-     * Gets the SAML assertions referenced by the artifact(s).
-     * 
-     * @return SAML assertions referenced by the artifact(s)
-     */
-    public Collection<Assertion> getReferencedAssertions();
-
-    /**
-     * Sets the SAML assertions referenced by the artifact(s).
-     * 
-     * @param assertions SAML assertions referenced by the artifact(s)
-     */
-    public void setReferencedAssertions(Collection<Assertion> assertions);
 }

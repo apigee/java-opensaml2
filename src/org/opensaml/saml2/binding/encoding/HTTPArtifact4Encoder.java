@@ -182,12 +182,12 @@ public class HTTPArtifact4Encoder extends BaseSAML2MessageEncoder implements SAM
             SAML2ArtifactMessageContext<RequestAbstractType, Response, NameID> artifactContext) {
 
         SAML2ArtifactBuilder artifactBuilder;
-        if (artifactContext.getArtifactType() != null) {
+        if (artifactContext.getOutboundMessageArtifactType() != null) {
             artifactBuilder = Configuration.getSAML2ArtifactBuilderFactory().getArtifactBuilder(
-                    artifactContext.getArtifactType());
+                    artifactContext.getOutboundMessageArtifactType());
         } else {
             artifactBuilder = Configuration.getSAML2ArtifactBuilderFactory().getArtifactBuilder(defaultArtifactType);
-            artifactContext.setArtifactType(defaultArtifactType);
+            artifactContext.setOutboundMessageArtifactType(defaultArtifactType);
         }
 
         AbstractSAML2Artifact artifact = artifactBuilder.buildArtifact(artifactContext);

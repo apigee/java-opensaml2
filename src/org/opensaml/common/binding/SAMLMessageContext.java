@@ -86,7 +86,7 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
      * @return role of the local entity
      */
     public QName getLocalEntityRole();
-
+    
     /**
      * Gets the role metadata of the local entity.
      * 
@@ -107,6 +107,13 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
      * @return credential used to sign the outbound SAML message
      */
     public Credential getOuboundSAMLMessageSigningCredential();
+
+    /**
+     * Gets the artifact type to use for the outbound message.
+     * 
+     * @return artifact type to use for the outbound message
+     */
+    public byte[] getOutboundMessageArtifactType();
 
     /**
      * Gets the outbound SAML message. This may not be the same as the message returned from
@@ -262,6 +269,13 @@ public interface SAMLMessageContext<InboundMessageType extends SAMLObject, Outbo
      * @param provider metadata provider used to lookup information entity information
      */
     public void setMetadataProvider(MetadataProvider provider);
+
+    /**
+     * Sets the artifact type to use for the outbound message.
+     * 
+     * @param type artifact type to use for the outbound message
+     */
+    public void setOutboundMessageArtifactType(byte[] type);
 
     /**
      * Sets the outbound SAML message.

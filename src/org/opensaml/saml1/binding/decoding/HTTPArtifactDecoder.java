@@ -16,16 +16,22 @@
 
 package org.opensaml.saml1.binding.decoding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.opensaml.Configuration;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
+import org.opensaml.saml1.binding.artifact.AbstractSAML1Artifact;
+import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
+import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
+import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
@@ -36,6 +42,14 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
 
+    /** Factory used to build artifacts from byte representation. */
+    private SAML1ArtifactBuilderFactory artifactFactory;
+
+    public HTTPArtifactDecoder(){
+        super();
+        artifactFactory = Configuration.getSAML1ArtifactBuilderFactory();
+    }
+    
     /** {@inheritDoc} */
     public String getBindingURI() {
         return SAMLConstants.SAML1_ARTIFACT_BINDING_URI;
@@ -65,11 +79,19 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
         }
         artifactContext.setRelayState(target);
         
-        List<String> artifacts = inTransport.getParameterValues("SAMLart");
-        if(artifacts == null || artifacts.size() == 0){
+        List<String> encodedArtifacts = inTransport.getParameterValues("SAMLart");
+        if(encodedArtifacts == null || encodedArtifacts.size() == 0){
             log.error("URL SAMLart parameter was missing or did not contain a value.");
             throw new MessageDecodingException("URL TARGET parameter was missing or did not contain a value.");
         }
+        
+        ArrayList<AbstractSAML1Artifact> artifacts = new ArrayList<AbstractSAML1Artifact>();
+        byte[] base64DecodedArtifact;
+        for(String encodedArtifact : encodedArtifacts){
+            base64DecodedArtifact = Base64.decode(encodedArtifact);
+            artifacts.add(artifactFactory.buildArtifact(base64DecodedArtifact));
+        }
+
         artifactContext.setArtifacts(artifacts);
     }
 }
