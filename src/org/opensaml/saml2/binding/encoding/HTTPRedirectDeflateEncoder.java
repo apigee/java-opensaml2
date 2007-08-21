@@ -30,6 +30,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.util.URLBuilder;
@@ -59,7 +60,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect";
+        return SAMLConstants.SAML2_REDIRECT_BINDING_URI;
     }
 
     /** {@inheritDoc} */

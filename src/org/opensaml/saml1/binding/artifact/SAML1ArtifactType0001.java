@@ -39,24 +39,6 @@ public class SAML1ArtifactType0001 extends AbstractSAML1Artifact {
     }
 
     /**
-     * Constructor. A 20 byte random number is generated for use as the assertion handle.
-     * 
-     * @param source 20 byte source ID of the artifact
-     * 
-     * @throws IllegalArgumentException thrown if the given source ID or message handle are not of the current length
-     *             (20 bytes)
-     */
-    public SAML1ArtifactType0001(byte[] source) {
-        super(TYPE_CODE);
-
-        setSourceID(source);
-
-        byte[] handle = new byte[20];
-        randomGen.nextBytes(handle);
-        setAssertionHandle(handle);
-    }
-
-    /**
      * Constructor.
      * 
      * @param source 20 byte source ID of the artifact

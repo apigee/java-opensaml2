@@ -16,12 +16,12 @@
 
 package org.opensaml.saml1.binding.artifact;
 
-import org.opensaml.common.binding.artifact.SAMLArtifact;
+import org.opensaml.common.binding.artifact.AbstractSAMLArtifact;
 
 /**
  * SAML 1 Artifact marker.
  */
-public abstract class AbstractSAML1Artifact extends SAMLArtifact {
+public abstract class AbstractSAML1Artifact extends AbstractSAMLArtifact {
 
     /**
      * Constructor.

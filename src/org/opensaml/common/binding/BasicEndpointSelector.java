@@ -43,11 +43,11 @@ public class BasicEndpointSelector extends AbstractEndpointSelector {
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Endpoint selectEndpoint() {
-        if(getRelyingPartyRole() == null){
+        if(getEntityRoleMetadata() == null){
             return null;
         }
         
-        List<? extends Endpoint> endpoints = getRelyingPartyRole().getEndpoints(getEndpointType());
+        List<? extends Endpoint> endpoints = getEntityRoleMetadata().getEndpoints(getEndpointType());
         if (endpoints == null || endpoints.size() == 0) {
             return null;
         }

@@ -43,24 +43,6 @@ public class SAML2ArtifactType0004 extends AbstractSAML2Artifact {
      * 
      * @param endpointIndex 2 byte endpoint index of the artifact
      * @param source 20 byte source ID of the artifact
-     * 
-     * @throws IllegalArgumentException thrown if the endpoint index, source ID, or message handle arrays are not of the
-     *             right size
-     */
-    public SAML2ArtifactType0004(byte[] endpointIndex, byte[] source) {
-        super(TYPE_CODE, endpointIndex);
-        setSourceID(source);
-
-        byte[] handle = new byte[20];
-        randomGen.nextBytes(handle);
-        setMessageHandle(handle);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param endpointIndex 2 byte endpoint index of the artifact
-     * @param source 20 byte source ID of the artifact
      * @param handle 20 byte message handle of the artifact
      * 
      * @throws IllegalArgumentException thrown if the endpoint index, source ID, or message handle arrays are not of the

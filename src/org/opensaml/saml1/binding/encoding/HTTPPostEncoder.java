@@ -29,6 +29,7 @@ import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.impl.SAMLObjectContentReference;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.saml2.metadata.Endpoint;
@@ -75,7 +76,7 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:1.0:profiles:browser-post";
+        return SAMLConstants.SAML1_POST_BINDING_URI;
     }
 
     /** {@inheritDoc} */

@@ -16,10 +16,12 @@
 
 package org.opensaml;
 
+import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
+import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
+import org.opensaml.saml2.binding.artifact.SAML2ArtifactBuilderFactory;
 
 /**
  * OpenSAML configuration singleton.
@@ -32,12 +34,15 @@ public class Configuration extends org.opensaml.xml.Configuration {
 
     /** Date format in SAML object, default is yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
     private static String defaultDateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    
+
     /** Formatter used to write dates. */
     private static DateTimeFormatter dateFormatter;
 
-    /** SAML Artifact factory. */
-    private static SAMLArtifactFactory artifactFactory;
+    /** SAML 1 Artifact factory. */
+    private static SAML1ArtifactBuilderFactory saml1ArtifactBuilderFactory;
+
+    /** SAML 2 Artifact factory. */
+    private static SAML2ArtifactBuilderFactory saml2ArtifactBuilderFactory;
 
     /**
      * Gets the date format used to string'ify SAML's {@link DateTime} objects.
@@ -45,11 +50,11 @@ public class Configuration extends org.opensaml.xml.Configuration {
      * @return date format used to string'ify date objects
      */
     public static DateTimeFormatter getSAMLDateFormatter() {
-        if(dateFormatter == null){
+        if (dateFormatter == null) {
             DateTimeFormatter formatter = DateTimeFormat.forPattern(defaultDateFormat);
             dateFormatter = formatter.withChronology(ISOChronology.getInstanceUTC());
         }
-        
+
         return dateFormatter;
     }
 
@@ -72,8 +77,8 @@ public class Configuration extends org.opensaml.xml.Configuration {
      * 
      * @return artifact factory for the library
      */
-    public static SAMLArtifactFactory getArtifactFactory() {
-        return artifactFactory;
+    public static SAML1ArtifactBuilderFactory getSAML1ArtifactBuilderFactory() {
+        return saml1ArtifactBuilderFactory;
     }
 
     /**
@@ -81,7 +86,25 @@ public class Configuration extends org.opensaml.xml.Configuration {
      * 
      * @param factory artifact factory for the library
      */
-    public static void setArtifactFactory(SAMLArtifactFactory factory) {
-        artifactFactory = factory;
+    public static void setSAML1ArtifactBuilderFactory(SAML1ArtifactBuilderFactory factory) {
+        saml1ArtifactBuilderFactory = factory;
+    }
+
+    /**
+     * Gets the artifact factory for the library.
+     * 
+     * @return artifact factory for the library
+     */
+    public static SAML2ArtifactBuilderFactory getSAML2ArtifactBuilderFactory() {
+        return saml2ArtifactBuilderFactory;
+    }
+
+    /**
+     * Sets the artifact factory for the library.
+     * 
+     * @param factory artifact factory for the library
+     */
+    public static void setSAML2ArtifactBuilderFactory(SAML2ArtifactBuilderFactory factory) {
+        saml2ArtifactBuilderFactory = factory;
     }
 }

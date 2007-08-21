@@ -16,39 +16,45 @@
 
 package org.opensaml.saml1.binding.artifact;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
-import org.opensaml.common.binding.artifact.SAMLArtifactBuilder;
+import org.apache.log4j.Logger;
+import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.NameIdentifier;
+import org.opensaml.saml1.core.RequestAbstractType;
+import org.opensaml.saml1.core.Response;
 
 /**
  * Builder of SAML 1, type 0x001, artifacts.
  */
-public class SAML1ArtifactType0001Builder implements SAMLArtifactBuilder<SAML1ArtifactType0001> {
+public class SAML1ArtifactType0001Builder implements SAML1ArtifactBuilder<SAML1ArtifactType0001> {
 
-    /** Hash algorithm used to construct the source ID. */
-    public static final String HASH_ALGORHTM = "SHA-1";
-
-    /** {@inheritDoc} */
-    public SAML1ArtifactType0001 buildArtifact(String relyingParty) {
-
-        SAML1ArtifactType0001 artifact = new SAML1ArtifactType0001();
-
-        try {
-            MessageDigest md = MessageDigest.getInstance(HASH_ALGORHTM);
-            return new SAML1ArtifactType0001(md.digest(relyingParty.getBytes("UTF-8")));
-        } catch (NoSuchAlgorithmException ex) {
-
-        } catch (UnsupportedEncodingException e) {
-
-        }
-        
-        return artifact;
-    }
+    /** Class logger. */
+    private Logger log = Logger.getLogger(SAML1ArtifactType0001Builder.class);
 
     /** {@inheritDoc} */
     public SAML1ArtifactType0001 buildArtifact(byte[] artifact) {
         return SAML1ArtifactType0001.parseArtifact(artifact);
+    }
+
+    /** {@inheritDoc} */
+    public SAML1ArtifactType0001 buildArtifact(
+            SAMLMessageContext<RequestAbstractType, Response, NameIdentifier> requestContext, Assertion assertion) {
+        try {
+            MessageDigest sha1Digester = MessageDigest.getInstance("SHA-1");
+            byte[] source = sha1Digester.digest(requestContext.getOutboundSAMLMessageId().getBytes());
+
+            SecureRandom handleGenerator = SecureRandom.getInstance("SHA1PRNG");
+            byte[] assertionHandle = new byte[20];
+            handleGenerator.nextBytes(assertionHandle);
+
+            return new SAML1ArtifactType0001(source, assertionHandle);
+        } catch (NoSuchAlgorithmException e) {
+            log.fatal("JVM does not support required cryptography algorithms.", e);
+            throw new InternalError("JVM does not support required cryptography algorithms: SHA-1 and/or SHA1PRNG.");
+        }
     }
 }

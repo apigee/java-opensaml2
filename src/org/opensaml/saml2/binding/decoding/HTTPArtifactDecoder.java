@@ -18,6 +18,7 @@ package org.opensaml.saml2.binding.decoding;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.binding.SAML2ArtifactMessageContext;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
@@ -48,7 +49,7 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact";
+        return SAMLConstants.SAML2_ARTIFACT_BINDING_URI;
     }
 
     /** {@inheritDoc} */
@@ -76,6 +77,6 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
             log.error("URL SAMLart parameter was missing or did not contain a value.");
             throw new MessageDecodingException("URL TARGET parameter was missing or did not contain a value.");
         }
-        artifactContext.setArtifact(artifact);
+        //artifactContext.setArtifact(artifact);
     }
 }

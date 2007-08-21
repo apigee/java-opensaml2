@@ -41,24 +41,6 @@ public class SAML1ArtifactType0002 extends AbstractSAML1Artifact {
     }
 
     /**
-     * Constructor. A 20 byte random number is generated for use as the assertion handle.
-     * 
-     * @param location source location artifact component
-     * 
-     * @throws IllegalArgumentException thrown if the given assertion handle is not 20 bytes or the source location is
-     *             null or empty
-     */
-    public SAML1ArtifactType0002(String location) {
-        super(TYPE_CODE);
-
-        byte[] handle = new byte[20];
-        randomGen.nextBytes(handle);
-        setAssertionHandle(handle);
-
-        setSourceLocation(location);
-    }
-
-    /**
      * Constructor.
      * 
      * @param handle 20 byte assertion handle artifact component

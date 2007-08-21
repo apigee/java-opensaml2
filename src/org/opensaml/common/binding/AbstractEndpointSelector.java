@@ -28,7 +28,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 
 /**
- * Endpoint selectors choose the endpoint that should be used to contact a relying party.
+ * Endpoint selectors choose the endpoint that should be used to contact a peer.
  */
 public abstract class AbstractEndpointSelector {
 
@@ -44,11 +44,11 @@ public abstract class AbstractEndpointSelector {
     /** Provider of metadata for the relying party. */
     private MetadataProvider metadataProvider;
 
-    /** Relying party. */
-    private EntityDescriptor relyingParty;
+    /** Metadata of party to select endpoing for. */
+    private EntityDescriptor entityMetadata;
 
-    /** Role of the relying party. */
-    private RoleDescriptor relyingPartyRole;
+    /** Role metadata of party to select endpoing for. */
+    private RoleDescriptor entityRoleMetadata;
 
     /** Type of endpoint needed. */
     private QName endpointType;
@@ -77,57 +77,57 @@ public abstract class AbstractEndpointSelector {
     }
 
     /**
-     * Gets the metadata provider used to look up relying party information.
+     * Gets the metadata provider used to look up entity information.
      * 
-     * @return metadata provider used to look up relying party information
+     * @return metadata provider used to look up entity information
      */
     public MetadataProvider getMetadataProvider() {
         return metadataProvider;
     }
 
     /**
-     * Sets the metadata provider used to look up relying party information.
+     * Sets the metadata provider used to look up entity information.
      * 
-     * @param provider metadata provider used to look up relying party information
+     * @param provider metadata provider used to look up entity information
      */
     public void setMetadataProvider(MetadataProvider provider) {
         metadataProvider = provider;
     }
 
     /**
-     * Gets the entity ID of the relying party.
+     * Gets the metadata of the entity.
      * 
-     * @return entity ID of the relying party
+     * @return metadata of the entity
      */
-    public EntityDescriptor getRelyingParty() {
-        return relyingParty;
+    public EntityDescriptor getEntityMetadata() {
+        return entityMetadata;
     }
 
     /**
-     * Sets the entity descriptor of the relying party.
+     * Sets the metadata of the entity.
      * 
-     * @param entity entity descriptor of the relying part
+     * @param entity metadata of the entity
      */
-    public void setRelyingParty(EntityDescriptor entity) {
-        relyingParty = entity;
+    public void setEntityMetadata(EntityDescriptor entity) {
+        entityMetadata = entity;
     }
 
     /**
-     * Gets the role of the relying party.
+     * Gets the role of the entity.
      * 
-     * @return role of the relying party
+     * @return role of the entity
      */
-    public RoleDescriptor getRelyingPartyRole() {
-        return relyingPartyRole;
+    public RoleDescriptor getEntityRoleMetadata() {
+        return entityRoleMetadata;
     }
 
     /**
-     * Sets the role of the relying party.
+     * Sets the role of the entity.
      * 
-     * @param role role of the relying party
+     * @param role role of the entity
      */
-    public void setRelyingPartyRole(RoleDescriptor role) {
-        relyingPartyRole = role;
+    public void setEntityRoleMetadata(RoleDescriptor role) {
+        entityRoleMetadata = role;
     }
 
     /**

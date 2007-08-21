@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
@@ -59,7 +60,7 @@ public class HTTPRedirectDeflateDecoder extends BaseMessageDecoder implements SA
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect";
+        return SAMLConstants.SAML2_REDIRECT_BINDING_URI;
     }
 
     /** {@inheritDoc} */

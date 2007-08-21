@@ -16,20 +16,74 @@
 
 package org.opensaml.saml1.binding.artifact;
 
-import org.opensaml.common.binding.artifact.SAMLArtifactBuilder;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+
+import org.apache.log4j.Logger;
+import org.opensaml.common.binding.BasicEndpointSelector;
+import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.NameIdentifier;
+import org.opensaml.saml1.core.RequestAbstractType;
+import org.opensaml.saml1.core.Response;
+import org.opensaml.saml2.metadata.ArtifactResolutionService;
+import org.opensaml.saml2.metadata.Endpoint;
 
 /**
  * SAML 1, type 0x0002, artifact builder.
  */
-public class SAML1ArtifactType0002Builder implements SAMLArtifactBuilder<SAML1ArtifactType0002> {
+public class SAML1ArtifactType0002Builder implements SAML1ArtifactBuilder<SAML1ArtifactType0002> {
+
+    /** Clas logger. */
+    private Logger log = Logger.getLogger(SAML1ArtifactType0002Builder.class);
 
     /** {@inheritDoc} */
-    public SAML1ArtifactType0002 buildArtifact(String relyingParty) {
-        return new SAML1ArtifactType0002();
-    }
-    
-    /** {@inheritDoc} */
-    public SAML1ArtifactType0002 buildArtifact(byte[] artifact){
+    public SAML1ArtifactType0002 buildArtifact(byte[] artifact) {
         return SAML1ArtifactType0002.parseArtifact(artifact);
+    }
+
+    /** {@inheritDoc} */
+    public SAML1ArtifactType0002 buildArtifact(
+            SAMLMessageContext<RequestAbstractType, Response, NameIdentifier> requestContext, Assertion assertion) {
+        try {
+            String sourceLocation = getSourceLocation(requestContext);
+            if(sourceLocation == null){
+                return null;
+            }
+
+            SecureRandom handleGenerator = SecureRandom.getInstance("SHA1PRNG");
+            byte[] assertionHandle = new byte[20];
+            handleGenerator.nextBytes(assertionHandle);
+            return new SAML1ArtifactType0002(assertionHandle, sourceLocation);
+        } catch (NoSuchAlgorithmException e) {
+            log.fatal("JVM does not support required cryptography algorithms: SHA1PRNG.", e);
+            throw new InternalError("JVM does not support required cryptography algorithms: SHA1PRNG.");
+        }
+    }
+
+    /**
+     * Gets the source location used to for the artifacts created by this encoder.
+     * 
+     * @param requestContext current request context
+     * 
+     * @return source location used to for the artifacts created by this encoder
+     */
+    protected String getSourceLocation(SAMLMessageContext<RequestAbstractType, Response, NameIdentifier> requestContext) {
+        BasicEndpointSelector selector = new BasicEndpointSelector();
+        selector.setEndpointType(ArtifactResolutionService.DEFAULT_ELEMENT_NAME);
+        selector.getSupportedIssuerBindings().add(SAMLConstants.SAML1_ARTIFACT_BINDING_URI);
+        selector.setMetadataProvider(requestContext.getMetadataProvider());
+        selector.setEntityMetadata(requestContext.getLocalEntityMetadata());
+        selector.setEntityRoleMetadata(requestContext.getLocalEntityRoleMetadata());
+
+        Endpoint acsEndpoint = selector.selectEndpoint();
+
+        if (acsEndpoint == null) {
+            log.error("Unable to select source location for artifact.  No artifact resolution service defined for issuer.");
+            return null;
+        }
+
+        return acsEndpoint.getLocation();
     }
 }

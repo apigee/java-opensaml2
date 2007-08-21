@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
@@ -37,7 +38,7 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:1.0:profiles:artifact-01";
+        return SAMLConstants.SAML1_ARTIFACT_BINDING_URI;
     }
     
     /** {@inheritDoc} */

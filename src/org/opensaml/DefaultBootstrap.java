@@ -20,7 +20,8 @@ import org.apache.log4j.Logger;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.xml.security.Init;
-import org.opensaml.common.binding.artifact.SAMLArtifactFactory;
+import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
+import org.opensaml.saml2.binding.artifact.SAML2ArtifactBuilderFactory;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLConfigurator;
 import org.opensaml.xml.security.DefaultSecurityConfigurationBootstrap;
@@ -71,7 +72,7 @@ public class DefaultBootstrap {
 
         initializeXMLTooling(xmlToolingConfigs);
 
-        initializeArtifactFactory();
+        initializeArtifactBuilderFactories();
         
         initializeGlobalSecurityConfiguration();
     }
@@ -142,11 +143,12 @@ public class DefaultBootstrap {
      * 
      * @throws ConfigurationException thrown if there is a problem initializing the artifact factory
      */
-    protected static void initializeArtifactFactory() throws ConfigurationException {
+    protected static void initializeArtifactBuilderFactories() throws ConfigurationException {
         if(log.isDebugEnabled()){
-            log.debug("Initializing SAML Artifact factory");
+            log.debug("Initializing SAML Artifact builder factories");
         }
             
-        Configuration.setArtifactFactory(new SAMLArtifactFactory());
+        Configuration.setSAML1ArtifactBuilderFactory(new SAML1ArtifactBuilderFactory());
+        Configuration.setSAML2ArtifactBuilderFactory(new SAML2ArtifactBuilderFactory());
     }
 }

@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.log.Level;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
@@ -54,7 +55,7 @@ public class HTTPPostDecoder extends BaseMessageDecoder implements SAMLMessageDe
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:1.0:profiles:browser-post";
+        return SAMLConstants.SAML1_POST_BINDING_URI;
     }
 
     /** {@inheritDoc} */

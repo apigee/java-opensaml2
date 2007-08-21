@@ -26,6 +26,7 @@ import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.log.Level;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.BaseMessageEncoder;
@@ -54,7 +55,7 @@ public class HTTPSOAP11Encoder extends BaseMessageEncoder implements SAMLMessage
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding";
+        return SAMLConstants.SAML1_SOAP11_BINDING_URI;
     }
 
     /** {@inheritDoc} */

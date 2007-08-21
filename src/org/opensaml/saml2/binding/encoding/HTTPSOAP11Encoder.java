@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.log.Level;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
@@ -52,7 +53,7 @@ public class HTTPSOAP11Encoder extends BaseSAML2MessageEncoder {
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:2.0:bindings:SOAP";
+        return SAMLConstants.SAML2_SOAP11_BINDING_URI;
     }
 
     /** {@inheritDoc} */

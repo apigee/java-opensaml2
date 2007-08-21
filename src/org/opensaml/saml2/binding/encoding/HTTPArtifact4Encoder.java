@@ -22,8 +22,17 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.opensaml.Configuration;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.Response;
 import org.opensaml.saml2.binding.SAML2ArtifactMessageContext;
+import org.opensaml.saml2.binding.artifact.AbstractSAML2Artifact;
+import org.opensaml.saml2.binding.artifact.SAML2ArtifactBuilder;
+import org.opensaml.saml2.binding.artifact.SAML2ArtifactType0004;
+import org.opensaml.saml2.core.NameID;
+import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
@@ -33,10 +42,10 @@ import org.opensaml.xml.util.Pair;
 /**
  * SAML 2 Artifact Binding encoder, support both HTTP GET and POST.
  */
-public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAMLMessageEncoder {
+public class HTTPArtifact4Encoder extends BaseSAML2MessageEncoder implements SAMLMessageEncoder {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
+    private static Logger log = Logger.getLogger(HTTPArtifact4Encoder.class);
 
     /** Velocity engine used to evaluate the template when performing POST encoding. */
     private VelocityEngine velocityEngine;
@@ -44,21 +53,30 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
     /** ID of the velocity template used when performing POST encoding. */
     private String velocityTemplateId;
 
+    /** SAML artifact map used to store created artifacts for later retrival. */
+    private SAMLArtifactMap artifactMap;
+
+    /** Default artifact type to use when encoding messages. */
+    private byte[] defaultArtifactType;
+
     /**
      * Constructor.
      * 
      * @param engine velocity engine used to construct the POST form
      * @param template ID of velocity template used to contruct the POST form
+     * @param map artifact map used to store artifact/message bindings
      */
-    public HTTPArtifactEncoder(VelocityEngine engine, String template) {
+    public HTTPArtifact4Encoder(VelocityEngine engine, String template, SAMLArtifactMap map) {
         super();
         velocityEngine = engine;
         velocityTemplateId = template;
+        artifactMap = map;
+        defaultArtifactType = SAML2ArtifactType0004.TYPE_CODE;
     }
 
     /** {@inheritDoc} */
     public String getBindingURI() {
-        return "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact";
+        return SAMLConstants.SAML2_ARTIFACT_BINDING_URI;
     }
 
     /** {@inheritDoc} */
@@ -76,12 +94,6 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
         }
 
         SAML2ArtifactMessageContext<?, ?, ?> artifactContext = (SAML2ArtifactMessageContext) messageContext;
-        String artifact = artifactContext.getArtifact();
-        if (artifact == null) {
-            log.error("SAML artifact was null");
-            throw new MessageEncodingException("SAML artifact may not be null");
-        }
-
         HTTPOutTransport outTransport = (HTTPOutTransport) artifactContext.getOutboundMessageTransport();
         outTransport.setCharacterEncoding("UTF-8");
 
@@ -114,7 +126,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
         }
         VelocityContext context = new VelocityContext();
         context.put("action", getEndpointURL(artifactContext));
-        context.put("SAMLArt", artifactContext.getArtifact());
+        context.put("SAMLArt", buildArtifact(artifactContext).base64Encode());
 
         if (checkRelayState(artifactContext.getRelayState())) {
             context.put("RelayState", artifactContext.getRelayState());
@@ -150,12 +162,38 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
 
         List<Pair<String, String>> params = urlBuilder.getQueryParams();
 
-        params.add(new Pair<String, String>("SAMLArt", artifactContext.getArtifact()));
+        params.add(new Pair<String, String>("SAMLArt", buildArtifact(artifactContext).base64Encode()));
 
         if (checkRelayState(artifactContext.getRelayState())) {
             params.add(new Pair<String, String>("RelayState", artifactContext.getRelayState()));
         }
 
         outTransport.sendRedirect(urlBuilder.buildURL());
+    }
+
+    /**
+     * Buils the SAML 2 artifact for the outgoing message.
+     * 
+     * @param artifactContext current request context
+     * 
+     * @return SAML 2 artifact for outgoing message
+     */
+    protected AbstractSAML2Artifact buildArtifact(
+            SAML2ArtifactMessageContext<RequestAbstractType, Response, NameID> artifactContext) {
+
+        SAML2ArtifactBuilder artifactBuilder;
+        if (artifactContext.getArtifactType() != null) {
+            artifactBuilder = Configuration.getSAML2ArtifactBuilderFactory().getArtifactBuilder(
+                    artifactContext.getArtifactType());
+        } else {
+            artifactBuilder = Configuration.getSAML2ArtifactBuilderFactory().getArtifactBuilder(defaultArtifactType);
+            artifactContext.setArtifactType(defaultArtifactType);
+        }
+
+        AbstractSAML2Artifact artifact = artifactBuilder.buildArtifact(artifactContext);
+        artifactMap.put(artifact.getArtifactBytes(), artifactContext.getInboundMessageIssuer(), artifactContext
+                .getOutboundMessageIssuer(), artifactContext.getOutboundSAMLMessage());
+        artifactContext.setArtifact(artifact);
+        return artifact;
     }
 }
