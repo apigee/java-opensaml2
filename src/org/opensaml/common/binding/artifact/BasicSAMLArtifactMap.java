@@ -150,5 +150,10 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         public boolean isExpired() {
             return expirationTime.isBeforeNow();
         }
+        
+        /** {@inheritDoc} */
+        public void onExpire() {
+            
+        }
     }
 }
