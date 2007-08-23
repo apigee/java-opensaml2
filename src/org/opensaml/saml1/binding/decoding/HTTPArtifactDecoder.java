@@ -26,7 +26,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
 import org.opensaml.saml1.binding.artifact.AbstractSAML1Artifact;
 import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
-import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
@@ -38,26 +37,27 @@ import org.opensaml.xml.util.DatatypeHelper;
  * SAML 1.X HTTP Artifact message decoder.
  */
 public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
-    
+
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
 
     /** Factory used to build artifacts from byte representation. */
     private SAML1ArtifactBuilderFactory artifactFactory;
 
-    public HTTPArtifactDecoder(){
+    /** Constructor. */
+    public HTTPArtifactDecoder() {
         super();
         artifactFactory = Configuration.getSAML1ArtifactBuilderFactory();
     }
-    
+
     /** {@inheritDoc} */
     public String getBindingURI() {
         return SAMLConstants.SAML1_ARTIFACT_BINDING_URI;
     }
-    
+
     /** {@inheritDoc} */
     protected void doDecode(MessageContext messageContext) throws MessageDecodingException {
-        if(!(messageContext instanceof SAML1ArtifactMessageContext)){
+        if (!(messageContext instanceof SAML1ArtifactMessageContext)) {
             log.error("Invalid message context type, this decoder only support SAML1ArtifactMessageContext");
             throw new MessageDecodingException(
                     "Invalid message context type, this decoder only support SAML1ArtifactMessageContext");
@@ -68,26 +68,26 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
             throw new MessageDecodingException(
                     "Invalid inbound message transport type, this decoder only support HTTPInTransport");
         }
-        
+
         SAML1ArtifactMessageContext artifactContext = (SAML1ArtifactMessageContext) messageContext;
         HTTPInTransport inTransport = (HTTPInTransport) artifactContext.getInboundMessageTransport();
-        
+
         String target = DatatypeHelper.safeTrim(inTransport.getParameterValue("TARGET"));
-        if(target == null){
+        if (target == null) {
             log.error("URL TARGET parameter was missing or did not contain a value.");
             throw new MessageDecodingException("URL TARGET parameter was missing or did not contain a value.");
         }
         artifactContext.setRelayState(target);
-        
+
         List<String> encodedArtifacts = inTransport.getParameterValues("SAMLart");
-        if(encodedArtifacts == null || encodedArtifacts.size() == 0){
+        if (encodedArtifacts == null || encodedArtifacts.size() == 0) {
             log.error("URL SAMLart parameter was missing or did not contain a value.");
             throw new MessageDecodingException("URL TARGET parameter was missing or did not contain a value.");
         }
-        
+
         ArrayList<AbstractSAML1Artifact> artifacts = new ArrayList<AbstractSAML1Artifact>();
         byte[] base64DecodedArtifact;
-        for(String encodedArtifact : encodedArtifacts){
+        for (String encodedArtifact : encodedArtifacts) {
             base64DecodedArtifact = Base64.decode(encodedArtifact);
             artifacts.add(artifactFactory.buildArtifact(base64DecodedArtifact));
         }

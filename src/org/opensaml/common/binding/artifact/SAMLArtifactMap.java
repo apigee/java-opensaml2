@@ -46,23 +46,20 @@ public interface SAMLArtifactMap {
     public void put(byte[] artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage);
 
     /**
-     * Retrieves the entry for the given artifact without removing that entry from the map.
-     * 
-     * @param artifact artifact to retrieve the map entry for
-     * 
-     * @return the map entry for the artifact or null
-     */
-    public SAMLArtifactMapEntry peek(byte[] artifact);
-
-    /**
-     * Gets the artifact entry for the given artifact. This operation will remove the artifact entry in order to ensure
-     * the one-time use semantics of artifacts.
+     * Gets the artifact entry for the given artifact.
      * 
      * @param artifact the artifact to retrive the entry for
      * 
      * @return the entry or null if the artifact has already expired or did not exist
      */
     public SAMLArtifactMapEntry get(byte[] artifact);
+    
+    /**
+     * Removes the artifact from this map.
+     * 
+     * @param artifact artifact to be removed
+     */
+    public void remove(byte[] artifact);
 
     /**
      * Represents a mapping between an artifact a SAML message with some associated metadata.

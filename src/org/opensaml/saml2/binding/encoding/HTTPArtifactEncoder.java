@@ -42,10 +42,10 @@ import org.opensaml.xml.util.Pair;
 /**
  * SAML 2 Artifact Binding encoder, support both HTTP GET and POST.
  */
-public class HTTPArtifact4Encoder extends BaseSAML2MessageEncoder implements SAMLMessageEncoder {
+public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAMLMessageEncoder {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(HTTPArtifact4Encoder.class);
+    private static Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
 
     /** Velocity engine used to evaluate the template when performing POST encoding. */
     private VelocityEngine velocityEngine;
@@ -66,7 +66,7 @@ public class HTTPArtifact4Encoder extends BaseSAML2MessageEncoder implements SAM
      * @param template ID of velocity template used to contruct the POST form
      * @param map artifact map used to store artifact/message bindings
      */
-    public HTTPArtifact4Encoder(VelocityEngine engine, String template, SAMLArtifactMap map) {
+    public HTTPArtifactEncoder(VelocityEngine engine, String template, SAMLArtifactMap map) {
         super();
         velocityEngine = engine;
         velocityTemplateId = template;
