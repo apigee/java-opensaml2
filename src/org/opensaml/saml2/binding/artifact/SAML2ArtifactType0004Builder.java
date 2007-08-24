@@ -28,6 +28,8 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.saml2.metadata.IndexedEndpoint;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * SAML 2, type 0x0004, artifact builder.
@@ -45,9 +47,11 @@ public class SAML2ArtifactType0004Builder implements SAML2ArtifactBuilder<SAML2A
     /** {@inheritDoc} */
     public SAML2ArtifactType0004 buildArtifact(SAMLMessageContext<SAMLObject, SAMLObject, NameID> requestContext) {
         try {
-            Endpoint acsEndpoint = getAcsEndpoint(requestContext);
-            //TODO
-            byte[] endpointIndex = new byte[2];
+            IndexedEndpoint acsEndpoint = (IndexedEndpoint) getAcsEndpoint(requestContext);
+            byte[] endpointIndex = DatatypeHelper.intToByteArray(acsEndpoint.getIndex());
+            byte[] trimmedIndex = new byte[2];
+            trimmedIndex[0] = endpointIndex[2];
+            trimmedIndex[1] = endpointIndex[3];
 
             MessageDigest sha1Digester = MessageDigest.getInstance("SHA-1");
             byte[] source = sha1Digester.digest(requestContext.getOutboundSAMLMessageId().getBytes());

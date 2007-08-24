@@ -16,8 +16,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import javax.xml.datatype.DatatypeFactory;
-
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -29,7 +27,6 @@ import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
@@ -40,16 +37,14 @@ import org.w3c.dom.Attr;
 public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
-     * 
-     * @throws XMLParserException thrown if this Marshaller is unable to create a {@link DatatypeFactory}
+     * Constructor.
      */
     public EntitiesDescriptorUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
