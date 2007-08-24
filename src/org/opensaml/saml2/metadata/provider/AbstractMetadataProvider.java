@@ -19,12 +19,11 @@ package org.opensaml.saml2.metadata.provider;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.namespace.QName;
-
-import javolution.util.FastMap;
 
 import org.apache.log4j.Logger;
 import org.opensaml.saml2.common.SAML2Helper;
@@ -47,7 +46,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     private static Logger log = Logger.getLogger(AbstractMetadataProvider.class);
 
     /** Cache of entity IDs to their descriptors. */
-    private FastMap<String, EntityDescriptor> indexedDescriptors;
+    private HashMap<String, EntityDescriptor> indexedDescriptors;
 
     /** Pool of parsers used to process XML. */
     private ParserPool parser;
@@ -55,7 +54,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     /** Constructor. */
     public AbstractMetadataProvider() {
         super();
-        indexedDescriptors = new FastMap<String, EntityDescriptor>();
+        indexedDescriptors = new HashMap<String, EntityDescriptor>();
     }
 
     /** {@inheritDoc} */

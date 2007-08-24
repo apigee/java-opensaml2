@@ -16,9 +16,8 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.util.ArrayList;
 import java.util.List;
-import javolution.util.FastList;
-import javolution.util.FastList.Node;
 
 /**
  * An observable base implementation of metadata providers. An observer that clears the descriptor index kept by
@@ -28,12 +27,12 @@ public abstract class AbstractObservableMetadataProvider extends AbstractMetadat
         ObservableMetadataProvider {
 
     /** List of registered observers. */
-    private FastList<Observer> observers;
+    private ArrayList<Observer> observers;
 
     /** Constructor. */
     public AbstractObservableMetadataProvider() {
         super();
-        observers = new FastList<Observer>();
+        observers = new ArrayList<Observer>();
         observers.add(new DescriptorIndexClearingObserver());
     }
 

@@ -22,8 +22,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import javolution.util.FastList;
-
 import org.joda.time.DateTime;
 import org.opensaml.common.impl.AbstractSignableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
@@ -173,7 +171,7 @@ public class EntityDescriptorImpl extends AbstractSignableSAMLObject implements 
 
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRoleDescriptors(QName type, String supportedProtocol) {
-        FastList<RoleDescriptor> supportingRoleDescriptors = new FastList<RoleDescriptor>();
+        ArrayList<RoleDescriptor> supportingRoleDescriptors = new ArrayList<RoleDescriptor>();
         for (RoleDescriptor descriptor : roleDescriptors.subList(type)) {
             if (descriptor.isSupportedProtocol(supportedProtocol)) {
                 supportingRoleDescriptors.add(descriptor);

@@ -21,8 +21,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import javolution.util.FastList;
-
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.samlext.saml2mdquery.ActionNamespace;
 import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptor;
@@ -67,7 +65,7 @@ public class AuthzDecisionQueryDescriptorImpl extends QueryDescriptorTypeImpl im
     
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
-        FastList<XMLObject> children = new FastList<XMLObject>();
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         children.addAll(super.getOrderedChildren());
         children.addAll(actionNamespaces);

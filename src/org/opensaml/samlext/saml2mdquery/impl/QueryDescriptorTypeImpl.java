@@ -16,9 +16,8 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.impl.RoleDescriptorImpl;
@@ -86,7 +85,7 @@ public abstract class QueryDescriptorTypeImpl extends RoleDescriptorImpl impleme
     
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
-        FastList<XMLObject> children = new FastList<XMLObject>();
+        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
         children.addAll(nameIDFormats);
         

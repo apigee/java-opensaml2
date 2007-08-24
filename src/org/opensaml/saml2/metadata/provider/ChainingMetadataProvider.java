@@ -16,11 +16,10 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
-
-import javolution.util.FastList;
 
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
@@ -36,12 +35,12 @@ import org.opensaml.xml.XMLObjectBuilderFactory;
 public class ChainingMetadataProvider extends BaseMetadataProvider {
 
     /** Registred providers. */
-    private FastList<MetadataProvider> providers;
+    private ArrayList<MetadataProvider> providers;
 
     /** Constructor. */
     public ChainingMetadataProvider() {
         super();
-        providers = new FastList<MetadataProvider>();
+        providers = new ArrayList<MetadataProvider>();
     }
 
     /**

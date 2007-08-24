@@ -16,9 +16,8 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.opensaml.xml.XMLObject;
 
@@ -29,13 +28,13 @@ import org.opensaml.xml.XMLObject;
 public class MetadataFilterChain implements MetadataFilter {
 
     /** Registered filters */
-    private FastList<MetadataFilter> filters;
+    private ArrayList<MetadataFilter> filters;
     
     /**
      * Constructor
      */
     public MetadataFilterChain() {
-        filters = new FastList<MetadataFilter>();
+        filters = new ArrayList<MetadataFilter>();
     }
     
     /** {@inheritDoc} */

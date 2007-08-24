@@ -20,9 +20,8 @@
 
 package org.opensaml.saml2.core.validator;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javolution.util.FastMap;
 
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeQuery;
@@ -58,7 +57,7 @@ public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator<A
     protected void validateUniqueAttributeIdentifiers(AttributeQuery query) throws ValidationException {
         List<Attribute> attributes = query.getAttributes();
 
-        FastMap<String, String> encounteredNames = new FastMap<String, String>();
+        HashMap<String, String> encounteredNames = new HashMap<String, String>();
         String attributeName;
         String attributeNameFormat;
         for (Attribute attribute : attributes) {

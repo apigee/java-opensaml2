@@ -16,9 +16,8 @@
 
 package org.opensaml.saml2.encryption;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.core.Assertion;
@@ -84,7 +83,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         kekParamsRSA.setAlgorithm(kekURIRSA);
         kekParamsRSA.setEncryptionCredential(SecurityTestHelper.generateKeyPairAndCredential(kekURIRSA, 1024, false));
         
-        kekParamsList = new FastList<KeyEncryptionParameters>();
+        kekParamsList = new ArrayList<KeyEncryptionParameters>();
         
         keyInfo = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
     }
