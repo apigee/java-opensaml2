@@ -60,9 +60,6 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     /** Issuer of the assertion */
     private Issuer issuer;
 
-    /** Signature of the assertion */
-    private Signature signature;
-
     /** Subject of the assertion */
     private Subject subject;
 
@@ -128,16 +125,6 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
     /** {@inheritDoc} */
     public void setIssuer(Issuer newIssuer) {
         this.issuer = prepareForAssignment(this.issuer, newIssuer);
-    }
-
-    /** {@inheritDoc} */
-    public Signature getSignature() {
-        return signature;
-    }
-
-    /** {@inheritDoc} */
-    public void setSignature(Signature newSignature) {
-        this.signature = prepareForAssignment(this.signature, newSignature);
     }
 
     /** {@inheritDoc} */

@@ -35,6 +35,7 @@ import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.signature.impl.SignatureBuilder;
+import org.opensaml.xml.util.XMLHelper;
 import org.opensaml.xml.validation.ValidationException;
 
 public class SignedAssertionTest extends BaseTestCase {
@@ -104,7 +105,6 @@ public class SignedAssertionTest extends BaseTestCase {
         signature.setSigningCredential(goodCredential);
         signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
         signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA);
-        signature.getContentReferences().add(new SAMLObjectContentReference(assertion));
         assertion.setSignature(signature);
         
         Marshaller marshaller = marshallerFactory.getMarshaller(assertion);
