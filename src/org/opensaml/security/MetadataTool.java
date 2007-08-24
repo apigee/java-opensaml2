@@ -251,8 +251,6 @@ public class MetadataTool {
     private static void sign(SignableSAMLObject metadata, Credential signingCredential) {
         XMLObjectBuilder<Signature> sigBuilder = Configuration.getBuilderFactory().getBuilder(Signature.DEFAULT_ELEMENT_NAME);
         Signature signature = sigBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
-        SAMLObjectContentReference contentRef = new SAMLObjectContentReference(metadata);
-        signature.getContentReferences().add(contentRef);
         signature.setSigningCredential(signingCredential);
         metadata.setSignature(signature);
 

@@ -213,11 +213,9 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
             SignableSAMLObject signableMessage = (SignableSAMLObject) outboundMessage;
             Credential signingCredential = messageContext.getOuboundSAMLMessageSigningCredential();
 
-            SAMLObjectContentReference contentRef = new SAMLObjectContentReference(signableMessage);
             XMLObjectBuilder<Signature> signatureBuilder = Configuration.getBuilderFactory().getBuilder(
                     Signature.DEFAULT_ELEMENT_NAME);
             Signature signature = signatureBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
-            signature.getContentReferences().add(contentRef);
             signature.setSigningCredential(signingCredential);
             
             try {

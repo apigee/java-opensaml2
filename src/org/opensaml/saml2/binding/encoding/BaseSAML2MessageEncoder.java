@@ -118,11 +118,9 @@ public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder impleme
         if (outboundSAML instanceof SignableSAMLObject && signingCredential != null) {
             SignableSAMLObject signableMessage = (SignableSAMLObject) outboundSAML;
 
-            SAMLObjectContentReference contentRef = new SAMLObjectContentReference(signableMessage);
             XMLObjectBuilder<Signature> signatureBuilder = Configuration.getBuilderFactory().getBuilder(
                     Signature.DEFAULT_ELEMENT_NAME);
             Signature signature = signatureBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
-            signature.getContentReferences().add(contentRef);
             
             signature.setSigningCredential(signingCredential);
             try {
