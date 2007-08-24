@@ -35,6 +35,9 @@ import org.opensaml.xml.XMLObjectBuilderFactory;
 
 /**
  * A metadata provider that uses registered providers, in turn, to answer queries.
+ * 
+ * When searching for entity specific information (entity metadata, roles, etc.) the entity descriptor used is the first
+ * non-null descriptor found while iterating over the registered providers in insertion order.
  */
 public class ChainingMetadataProvider extends BaseMetadataProvider {
 
@@ -206,46 +209,27 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
 
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException {
-        Lock readLock = providerLock.readLock();
-        readLock.lock();
-
-        List<RoleDescriptor> roles = null;
-        try {
-            for (MetadataProvider provider : providers) {
-                roles = provider.getRole(entityID, roleName);
-                if (roles != null && roles.size() > 0) {
-                    break;
-                }
-            }
-        } catch (MetadataProviderException e) {
-            throw e;
-        } finally {
-            readLock.unlock();
+        EntityDescriptor entityMetadata = getEntityDescriptor(entityID);
+        if (entityMetadata == null) {
+            return null;
         }
 
-        return roles;
+        return entityMetadata.getRoleDescriptors(roleName);
     }
 
     /** {@inheritDoc} */
     public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)
             throws MetadataProviderException {
-        Lock readLock = providerLock.readLock();
-        readLock.lock();
-
-        RoleDescriptor role = null;
-        try {
-            for (MetadataProvider provider : providers) {
-                role = provider.getRole(entityID, roleName, supportedProtocol);
-                if (role != null) {
-                    break;
-                }
-            }
-        } catch (MetadataProviderException e) {
-            throw e;
-        } finally {
-            readLock.unlock();
+        EntityDescriptor entityMetadata = getEntityDescriptor(entityID);
+        if (entityMetadata == null) {
+            return null;
         }
 
-        return role;
+        List<RoleDescriptor> roles = entityMetadata.getRoleDescriptors(roleName, supportedProtocol);
+        if (roles != null && !roles.isEmpty()) {
+            return roles.get(0);
+        }
+
+        return null;
     }
 }
