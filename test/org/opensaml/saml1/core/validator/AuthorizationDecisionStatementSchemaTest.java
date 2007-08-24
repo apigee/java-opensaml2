@@ -31,7 +31,7 @@ public class AuthorizationDecisionStatementSchemaTest extends SubjectStatementSc
     /** Constructor */
     public AuthorizationDecisionStatementSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        targetQName = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
         validator = new AuthorizationDecisionStatementSchemaValidator();
 
     }

@@ -34,7 +34,7 @@ public class AuthorizationDecisionStatementBuilder extends AbstractSAMLObjectBui
 
     /** {@inheritDoc} */
     public AuthorizationDecisionStatement buildObject() {
-        return buildObject(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME,
+        return buildObject(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME,
                 SAMLConstants.SAML1_PREFIX);
     }
 

@@ -31,7 +31,7 @@ public class AuthorizationDecisionStatementMarshaller extends SubjectStatementMa
      * Constructor
      */
     public AuthorizationDecisionStatementMarshaller() {
-        super(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME);
+        super(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /** {@inheritDoc} */

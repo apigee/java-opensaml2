@@ -167,7 +167,7 @@ public class AssertionImpl extends AbstractSignableSAMLObject implements Asserti
 
     /** {@inheritDoc} */
     public List<AuthorizationDecisionStatement> getAuthorizationDecisionStatements() {
-        QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME);
+        QName statementQName = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME);
         return (List<AuthorizationDecisionStatement>) statements.subList(statementQName);
     }
 

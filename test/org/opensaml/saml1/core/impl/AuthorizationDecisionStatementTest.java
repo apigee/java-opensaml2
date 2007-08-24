@@ -61,7 +61,7 @@ public class AuthorizationDecisionStatementTest extends BaseSAMLObjectProviderTe
         childElementsFile = "/data/org/opensaml/saml1/impl/AuthorizationDecisionStatementWithChildren.xml";
         illegalAttributesFile = "/data/org/opensaml/saml1/impl/singleAuthorizationDecisionStatementAttributesInvalid.xml";
         
-        qname = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
     }
 
     /** {@inheritDoc} */
