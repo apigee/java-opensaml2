@@ -46,12 +46,11 @@ public abstract class AbstractObservableMetadataProvider extends AbstractMetadat
      * this provider.
      */
     protected void emitChangeEvent() {
-        Observer observer;
-        Node<Observer> tail = observers.tail();
-        for (Node<Observer> current = observers.head(); current != tail; current = current.getNext()) {
-            observer = current.getValue();
-            if (observer != null) {
-                observer.onEvent(this);
+        synchronized(observers){
+            for(Observer observer : observers){
+                if (observer != null) {
+                    observer.onEvent(this);
+                }
             }
         }
     }

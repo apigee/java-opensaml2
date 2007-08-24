@@ -17,6 +17,7 @@
 package org.opensaml.samlext.saml2mdquery.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.opensaml.saml2.metadata.NameIDFormat;
@@ -89,6 +90,6 @@ public abstract class QueryDescriptorTypeImpl extends RoleDescriptorImpl impleme
         
         children.addAll(nameIDFormats);
         
-        return children.unmodifiable();
+        return Collections.unmodifiableList(children);
     }
 }

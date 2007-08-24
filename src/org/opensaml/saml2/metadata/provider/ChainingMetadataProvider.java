@@ -17,7 +17,11 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.xml.namespace.QName;
 
@@ -37,10 +41,14 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
     /** Registred providers. */
     private ArrayList<MetadataProvider> providers;
 
+    /** Lock used to block reads during write and vice versa. */
+    private ReadWriteLock providerLock;
+
     /** Constructor. */
     public ChainingMetadataProvider() {
         super();
         providers = new ArrayList<MetadataProvider>();
+        providerLock = new ReentrantReadWriteLock(true);
     }
 
     /**
@@ -49,9 +57,9 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
      * @return list of currently registered providers
      */
     public List<MetadataProvider> getProviders() {
-        return providers.unmodifiable();
+        return Collections.unmodifiableList(providers);
     }
-    
+
     /**
      * Replaces the current set of metadata providers with give collection.
      * 
@@ -59,9 +67,9 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
      * 
      * @throws MetadataProviderException thrown if there is a problem adding the metadata provider
      */
-    public void setProviders(List<MetadataProvider> newProviders) throws MetadataProviderException{
+    public void setProviders(List<MetadataProvider> newProviders) throws MetadataProviderException {
         providers.clear();
-        for(MetadataProvider provider : newProviders){
+        for (MetadataProvider provider : newProviders) {
             addMetadataProvider(provider);
         }
     }
@@ -94,26 +102,28 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
     public void setRequireValidMetadata(boolean requireValidMetadata) {
         super.setRequireValidMetadata(requireValidMetadata);
 
-        MetadataProvider provider;
-        FastList.Node<MetadataProvider> head = providers.head();
-        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
-                .getNext()) {
-            provider = current.getValue();
+        Lock writeLock = providerLock.writeLock();
+        writeLock.lock();
+        for (MetadataProvider provider : providers) {
             provider.setRequireValidMetadata(requireValidMetadata);
         }
-
+        writeLock.unlock();
     }
 
     /** {@inheritDoc} */
     public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
         super.setMetadataFilter(newFilter);
 
-        MetadataProvider provider;
-        FastList.Node<MetadataProvider> head = providers.head();
-        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
-                .getNext()) {
-            provider = current.getValue();
-            provider.setMetadataFilter(newFilter);
+        Lock writeLock = providerLock.writeLock();
+        writeLock.lock();
+        try {
+            for (MetadataProvider provider : providers) {
+                provider.setMetadataFilter(newFilter);
+            }
+        } catch (MetadataProviderException e) {
+            throw e;
+        } finally {
+            writeLock.unlock();
         }
     }
 
@@ -128,85 +138,114 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
                 .getBuilder(EntitiesDescriptor.DEFAULT_ELEMENT_NAME);
         EntitiesDescriptor metadataRoot = builder.buildObject();
 
-        MetadataProvider provider;
+        Lock readLock = providerLock.readLock();
+        readLock.lock();
+
         XMLObject providerMetadata;
-        FastList.Node<MetadataProvider> head = providers.head();
-        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
-                .getNext()) {
-            provider = current.getValue();
-            providerMetadata = provider.getMetadata();
-            if (providerMetadata instanceof EntitiesDescriptor) {
-                metadataRoot.getEntitiesDescriptors().add((EntitiesDescriptor) providerMetadata);
-            } else if (providerMetadata instanceof EntityDescriptor) {
-                metadataRoot.getEntityDescriptors().add((EntityDescriptor) providerMetadata);
+        try {
+            for (MetadataProvider provider : providers) {
+                providerMetadata = provider.getMetadata();
+                if (providerMetadata instanceof EntitiesDescriptor) {
+                    metadataRoot.getEntitiesDescriptors().add((EntitiesDescriptor) providerMetadata);
+                } else if (providerMetadata instanceof EntityDescriptor) {
+                    metadataRoot.getEntityDescriptors().add((EntityDescriptor) providerMetadata);
+                }
             }
+        } catch (MetadataProviderException e) {
+            throw e;
+        } finally {
+            readLock.unlock();
         }
 
         return metadataRoot;
     }
-    
+
     /** {@inheritDoc} */
     public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException {
-        MetadataProvider provider;
-        EntitiesDescriptor descriptor;
-        FastList.Node<MetadataProvider> head = providers.head();
-        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
-                .getNext()) {
-            provider = current.getValue();
-            descriptor = provider.getEntitiesDescriptor(name);
-            if (descriptor != null) {
-                return descriptor;
+        Lock readLock = providerLock.readLock();
+        readLock.lock();
+
+        EntitiesDescriptor descriptor = null;
+        try {
+            for (MetadataProvider provider : providers) {
+                descriptor = provider.getEntitiesDescriptor(name);
+                if (descriptor != null) {
+                    break;
+                }
             }
+        } catch (MetadataProviderException e) {
+            throw e;
+        } finally {
+            readLock.unlock();
         }
 
-        return null;
+        return descriptor;
     }
 
     /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException {
-        MetadataProvider provider;
-        EntityDescriptor descriptor;
-        FastList.Node<MetadataProvider> head = providers.head();
-        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
-                .getNext()) {
-            provider = current.getValue();
-            descriptor = provider.getEntityDescriptor(entityID);
-            if (descriptor != null) {
-                return descriptor;
+        Lock readLock = providerLock.readLock();
+        readLock.lock();
+
+        EntityDescriptor descriptor = null;
+        try {
+            for (MetadataProvider provider : providers) {
+                descriptor = provider.getEntityDescriptor(entityID);
+                if (descriptor != null) {
+                    break;
+                }
             }
+        } catch (MetadataProviderException e) {
+            throw e;
+        } finally {
+            readLock.unlock();
         }
 
-        return null;
+        return descriptor;
     }
 
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException {
-        MetadataProvider provider;
-        List<RoleDescriptor> roles;
-        FastList.Node<MetadataProvider> head = providers.head();
-        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
-                .getNext()) {
-            provider = current.getValue();
-            roles = provider.getRole(entityID, roleName);
-            if (roles != null && roles.size() > 0) {
-                return roles;
+        Lock readLock = providerLock.readLock();
+        readLock.lock();
+
+        List<RoleDescriptor> roles = null;
+        try {
+            for (MetadataProvider provider : providers) {
+                roles = provider.getRole(entityID, roleName);
+                if (roles != null && roles.size() > 0) {
+                    break;
+                }
             }
+        } catch (MetadataProviderException e) {
+            throw e;
+        } finally {
+            readLock.unlock();
         }
 
-        return null;
+        return roles;
     }
 
     /** {@inheritDoc} */
     public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)
             throws MetadataProviderException {
-        MetadataProvider provider;
-        FastList.Node<MetadataProvider> head = providers.head();
-        for (FastList.Node<MetadataProvider> current = head.getNext(); current != providers.tail(); current = current
-                .getNext()) {
-            provider = current.getValue();
-            return provider.getRole(entityID, roleName, supportedProtocol);
+        Lock readLock = providerLock.readLock();
+        readLock.lock();
+
+        RoleDescriptor role = null;
+        try {
+            for (MetadataProvider provider : providers) {
+                role = provider.getRole(entityID, roleName, supportedProtocol);
+                if (role != null) {
+                    break;
+                }
+            }
+        } catch (MetadataProviderException e) {
+            throw e;
+        } finally {
+            readLock.unlock();
         }
 
-        return null;
+        return role;
     }
 }

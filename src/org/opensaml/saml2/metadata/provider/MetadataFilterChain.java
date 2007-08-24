@@ -22,31 +22,30 @@ import java.util.List;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A filter that allows the composition of {@link MetadataFilter}s.
- * Filters will be executed on the given metadata document in the order they were added to the chain.
+ * A filter that allows the composition of {@link MetadataFilter}s. Filters will be executed on the given metadata
+ * document in the order they were added to the chain.
  */
 public class MetadataFilterChain implements MetadataFilter {
 
-    /** Registered filters */
+    /** Registered filters. */
     private ArrayList<MetadataFilter> filters;
-    
+
     /**
-     * Constructor
+     * Constructor.
      */
     public MetadataFilterChain() {
         filters = new ArrayList<MetadataFilter>();
     }
-    
+
     /** {@inheritDoc} */
-    public final void doFilter(XMLObject xmlObject) throws FilterException{
-        MetadataFilter filter;
-        FastList.Node<MetadataFilter> head = filters.head();
-        for(FastList.Node<MetadataFilter> current = head.getNext(); current != filters.tail(); current = current.getNext()){
-            filter = current.getValue();
-            filter.doFilter(xmlObject);
+    public final void doFilter(XMLObject xmlObject) throws FilterException {
+        synchronized (filters) {
+            for (MetadataFilter filter : filters) {
+                filter.doFilter(xmlObject);
+            }
         }
     }
-    
+
     /**
      * Gets the list of {@link MetadataFilter}s that make up this chain.
      * 

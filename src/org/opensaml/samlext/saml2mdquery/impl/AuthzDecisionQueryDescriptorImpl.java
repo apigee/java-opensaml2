@@ -17,6 +17,7 @@
 package org.opensaml.samlext.saml2mdquery.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -70,6 +71,6 @@ public class AuthzDecisionQueryDescriptorImpl extends QueryDescriptorTypeImpl im
         children.addAll(super.getOrderedChildren());
         children.addAll(actionNamespaces);
         
-        return children.unmodifiable();
+        return Collections.unmodifiableList(children);
     }
 }
