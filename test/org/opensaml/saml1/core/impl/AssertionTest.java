@@ -33,6 +33,11 @@ import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Statement;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Test for {@link org.opensaml.saml1.core.impl.Assertion}
@@ -65,7 +70,7 @@ public class AssertionTest extends BaseSAMLObjectProviderTestCase {
         singleElementFile = "/data/org/opensaml/saml1/impl/singleAssertion.xml";
         singleElementOptionalAttributesFile = "/data/org/opensaml/saml1/impl/singleAssertionAttributes.xml";
         childElementsFile = "/data/org/opensaml/saml1/impl/AssertionWithChildren.xml";
-        qname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        qname = Assertion.DEFAULT_ELEMENT_NAME;
     }
 
     /** {@inheritDoc} */
@@ -80,6 +85,7 @@ public class AssertionTest extends BaseSAMLObjectProviderTestCase {
 
         assertNull("Conditions element", assertion.getConditions());
         assertNull("Advice element", assertion.getAdvice());
+        assertNull("Signature element", assertion.getSignature());
 
         assertEquals("Statement element count", 0, assertion.getStatements().size());
         assertEquals("AttributeStatements element count", 0, assertion.getAttributeStatements().size());
@@ -100,6 +106,7 @@ public class AssertionTest extends BaseSAMLObjectProviderTestCase {
 
         assertNull("Conditions element", assertion.getConditions());
         assertNull("Advice element", assertion.getAdvice());
+        assertNull("Signature element", assertion.getSignature());
 
         assertEquals("Statement element count", 0, assertion.getStatements().size());
         assertEquals("AttributeStatements element count", 0, assertion.getAttributeStatements().size());
@@ -121,6 +128,7 @@ public class AssertionTest extends BaseSAMLObjectProviderTestCase {
 
         assertNotNull("Conditions element null", assertion.getConditions());
         assertNotNull("Advice element null", assertion.getAdvice());
+        assertNull("Signature element", assertion.getSignature());
 
         assertNotNull("No Authentication Statements", assertion.getAuthenticationStatements());
         assertEquals("AuthenticationStatements element count", 2, assertion.getAuthenticationStatements().size());
@@ -152,17 +160,18 @@ public class AssertionTest extends BaseSAMLObjectProviderTestCase {
 
     /**
      * Test an XML file with Children
+     * @throws MarshallingException 
      */
 
     public void testChildElementsMarshall() {
         Assertion assertion = (Assertion) buildXMLObject(qname);
+        
+        assertion.setConditions((Conditions) buildXMLObject(Conditions.DEFAULT_ELEMENT_NAME));
+        assertion.setAdvice((Advice) buildXMLObject(Advice.DEFAULT_ELEMENT_NAME));
 
-        assertion.setConditions((Conditions) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
-        assertion.setAdvice((Advice) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
-
-        QName authenticationQname = new QName(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        QName authorizationQname = new QName(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        QName attributeQname = new QName(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        QName authenticationQname = AuthenticationStatement.DEFAULT_ELEMENT_NAME;
+        QName authorizationQname = AuthorizationDecisionStatement.DEFAULT_ELEMENT_NAME;
+        QName attributeQname = AttributeStatement.DEFAULT_ELEMENT_NAME;
         
         assertion.getStatements().add((Statement) buildXMLObject(authenticationQname));
         assertion.getStatements().add((Statement) buildXMLObject(authorizationQname));
@@ -175,4 +184,39 @@ public class AssertionTest extends BaseSAMLObjectProviderTestCase {
 
         assertEquals(expectedChildElementsDOM, assertion);
     }
+    
+    public void testSignatureUnmarshall() {
+        Assertion assertion = (Assertion) unmarshallElement("/data/org/opensaml/saml1/impl/AssertionWithSignature.xml");
+        
+        assertNotNull("Assertion was null", assertion);
+        assertNotNull("Signature was null", assertion.getSignature());
+        assertNotNull("KeyInfo was null", assertion.getSignature().getKeyInfo());
+    }
+    
+    public void testDOMIDResolutionUnmarshall() {
+        Assertion assertion = (Assertion) unmarshallElement("/data/org/opensaml/saml1/impl/AssertionWithSignature.xml");
+        
+        assertNotNull("Assertion was null", assertion);
+        assertNotNull("Signature was null", assertion.getSignature());
+        Document document = assertion.getSignature().getDOM().getOwnerDocument();
+        Element idElem = assertion.getDOM();
+        
+        assertNotNull("DOM ID resolution returned null", document.getElementById(expectedID));
+        assertTrue("DOM elements were not equal", idElem.isSameNode(document.getElementById(expectedID)));
+    }
+
+    public void testDOMIDResolutionMarshall() throws MarshallingException {
+        Assertion assertion = (Assertion) buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME);
+        assertion.setID(expectedID);
+        assertion.getAttributeStatements().add((AttributeStatement) buildXMLObject(AttributeStatement.DEFAULT_ELEMENT_NAME));
+        
+        marshallerFactory.getMarshaller(assertion).marshall(assertion);
+        
+        Document document = assertion.getStatements().get(0).getDOM().getOwnerDocument();
+        Element idElem = assertion.getDOM();
+        
+        assertNotNull("DOM ID resolution returned null", document.getElementById(expectedID));
+        assertTrue("DOM elements were not equal", idElem.isSameNode(document.getElementById(expectedID)));
+    }
+    
 }

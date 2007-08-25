@@ -25,10 +25,12 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
+import org.opensaml.xml.io.MarshallingException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Test class for org.opensaml.saml1.core.Response
@@ -70,7 +72,7 @@ public class ResponseTest extends BaseSAMLObjectProviderTestCase {
         expectedMinorVersion=1;
         expectedRecipient="recipient";
         
-        qname = new QName(SAMLConstants.SAML10P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX);
+        qname = Response.DEFAULT_ELEMENT_NAME;
     }
 
     /** {@inheritDoc} */
@@ -141,10 +143,45 @@ public class ResponseTest extends BaseSAMLObjectProviderTestCase {
     public void testChildElementsMarshall() {
         Response response = (Response) buildXMLObject(qname);
 
-        response.getAssertions().add((Assertion) buildXMLObject(new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX)));
-        response.setStatus((Status)buildXMLObject(new QName(SAMLConstants.SAML10P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1P_PREFIX)));
+        response.getAssertions().add((Assertion) buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME));
+        response.setStatus((Status)buildXMLObject(Status.DEFAULT_ELEMENT_NAME));
 
         assertEquals(expectedChildElementsDOM, response);
 
     }
+    
+    public void testSignatureUnmarshall() {
+        Response response = (Response) unmarshallElement("/data/org/opensaml/saml1/impl/ResponseWithSignature.xml");
+        
+        assertNotNull("Response was null", response);
+        assertNotNull("Signature was null", response.getSignature());
+        assertNotNull("KeyInfo was null", response.getSignature().getKeyInfo());
+    }
+    
+    public void testDOMIDResolutionUnmarshall() {
+        Response response = (Response) unmarshallElement("/data/org/opensaml/saml1/impl/ResponseWithSignature.xml");
+        
+        assertNotNull("Response was null", response);
+        assertNotNull("Signature was null", response.getSignature());
+        Document document = response.getSignature().getDOM().getOwnerDocument();
+        Element idElem = response.getDOM();
+        
+        assertNotNull("DOM ID resolution returned null", document.getElementById(expectedID));
+        assertTrue("DOM elements were not equal", idElem.isSameNode(document.getElementById(expectedID)));
+    }
+
+    public void testDOMIDResolutionMarshall() throws MarshallingException {
+        Response response = (Response) buildXMLObject(Response.DEFAULT_ELEMENT_NAME);
+        response.setID(expectedID);
+        response.setStatus((Status) buildXMLObject(Status.DEFAULT_ELEMENT_NAME));
+        
+        marshallerFactory.getMarshaller(response).marshall(response);
+        
+        Document document = response.getStatus().getDOM().getOwnerDocument();
+        Element idElem = response.getDOM();
+        
+        assertNotNull("DOM ID resolution returned null", document.getElementById(expectedID));
+        assertTrue("DOM elements were not equal", idElem.isSameNode(document.getElementById(expectedID)));
+    }
+
 }
