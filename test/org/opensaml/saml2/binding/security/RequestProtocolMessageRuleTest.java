@@ -23,8 +23,6 @@ import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDType;
 import org.opensaml.saml2.core.Response;
-import org.opensaml.ws.message.BaseMessageContext;
-import org.opensaml.ws.security.SecurityPolicyException;
 
 
 /**
@@ -89,16 +87,6 @@ public class RequestProtocolMessageRuleTest extends BaseSAMLSecurityPolicyRuleTe
         Issuer issuerXO = messageContext.getInboundSAMLMessage().getIssuer();
         issuerXO.setFormat(NameIDType.EMAIL);
         assertRuleFailure("Request protocol message rule, non-entity Issuer NameID format");
-    }
-    
-    /**
-     * A non-SAMLMessageContext results in rule not being evaluated.
-     * @throws SecurityPolicyException 
-     * 
-     */
-    public void testNotEvaluated() throws SecurityPolicyException {
-        assertFalse("Rule should not have been evaluated, non-SAMLMessageContext",
-                rule.evaluate(new BaseMessageContext()));
     }
     
     /**

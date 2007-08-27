@@ -94,14 +94,10 @@ public abstract class BaseSAMLSecurityPolicyRuleTest<InboundMessageType extends 
      * @param msg message to include in fail() messages
      */
     protected void assertRuleSuccess(String msg) {
-        boolean evaluated = false;
         try {
-            evaluated = rule.evaluate(messageContext);
+            rule.evaluate(messageContext);
         } catch (SecurityPolicyException e) {
             fail("Security policy rule failed, expected success: " + msg + ": " + e);
-        }
-        if (!evaluated) {
-            fail("Security policy rule was unevaluated, expected evaluation: " + msg );
         }
     }
     
@@ -113,34 +109,12 @@ public abstract class BaseSAMLSecurityPolicyRuleTest<InboundMessageType extends 
      * @param msg message to include in fail() messages
      */
     protected void assertRuleFailure(String msg) {
-        boolean evaluated = false;
         try {
-            evaluated = rule.evaluate(messageContext);
+            rule.evaluate(messageContext);
             fail("Security policy rule succeeded, expected failure: " + msg);
         } catch (SecurityPolicyException e) {
             //do nothing, failure expected
             return;
-        }
-        if (!evaluated) {
-            fail("Security policy rule was unevaluated, expected evaluation: " + msg );
-        }
-    }
-    
-    /**
-     * Evaluate the current policy rule using the current message context.
-     * Return value of the rule should indicate it was unevaluated.
-     * 
-     * @param msg message to include in fail() messages
-     */
-    protected void assertRuleUnevaluated(String msg) {
-        boolean evaluated = false;
-        try {
-            evaluated = rule.evaluate(messageContext);
-        } catch (SecurityPolicyException e) {
-            fail("Security policy rule failed, should not have been evaluated at all: " + msg + ": " + e);
-        }
-        if (evaluated) {
-            fail("Security policy rule was evaluated, should have been unevaluable: " + msg );
         }
     }
 

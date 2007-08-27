@@ -58,10 +58,10 @@ public class SAML2ProtocolMessageRule implements SecurityPolicyRule {
     }
 
     /** {@inheritDoc} */
-    public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
+    public void evaluate(MessageContext messageContext) throws SecurityPolicyException {
         if (!(messageContext instanceof SAMLMessageContext)) {
             log.debug("Invalid message context type, this policy rule only support SAMLMessageContext");
-            return false;
+            return;
         }
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
@@ -85,7 +85,6 @@ public class SAML2ProtocolMessageRule implements SecurityPolicyRule {
             log.warn("Issuer could not be extracted from SAML 2 message");
         }
 
-        return true;
     }
 
     /**

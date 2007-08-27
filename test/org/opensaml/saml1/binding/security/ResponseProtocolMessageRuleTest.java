@@ -22,8 +22,6 @@ import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.saml1.core.Response;
-import org.opensaml.ws.message.BaseMessageContext;
-import org.opensaml.ws.security.SecurityPolicyException;
 
 
 /**
@@ -121,16 +119,6 @@ public class ResponseProtocolMessageRuleTest extends BaseSAMLSecurityPolicyRuleT
         response.getAssertions().add(assertion);
         
         assertRuleFailure("Request protocol message rule, with 2 assertions, different issuer");
-    }
-    
-    /**
-     * A non-SAMLMessageContext results in rule not being evaluated.
-     * @throws SecurityPolicyException 
-     * 
-     */
-    public void testNotEvaluated() throws SecurityPolicyException {
-        assertFalse("Rule should not have been evaluated, non-SAMLMessageContext",
-                rule.evaluate(new BaseMessageContext()));
     }
 
 }

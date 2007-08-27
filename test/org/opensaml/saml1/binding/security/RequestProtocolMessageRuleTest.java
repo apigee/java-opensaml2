@@ -21,8 +21,6 @@ import org.opensaml.common.binding.security.BaseSAMLSecurityPolicyRuleTest;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.saml1.core.Response;
-import org.opensaml.ws.message.BaseMessageContext;
-import org.opensaml.ws.security.SecurityPolicyException;
 
 
 /**
@@ -63,16 +61,6 @@ public class RequestProtocolMessageRuleTest extends BaseSAMLSecurityPolicyRuleTe
         assertTrue("Unexpected value for extracted message issue instant", 
                 issueInstant.isEqual(messageContext.getInboundSAMLMessageIssueInstant()) );
         assertNull("Non-null value for Issuer found", messageContext.getInboundMessageIssuer());
-    }
-    
-    /**
-     * A non-SAMLMessageContext results in rule not being evaluated.
-     * @throws SecurityPolicyException 
-     * 
-     */
-    public void testNotEvaluated() throws SecurityPolicyException {
-        assertFalse("Rule should not have been evaluated, non-SAMLMessageContext",
-                rule.evaluate(new BaseMessageContext()));
     }
 
 }

@@ -47,10 +47,10 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLS
     }
 
     /** {@inheritDoc} */
-    public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
+    public void evaluate(MessageContext messageContext) throws SecurityPolicyException {
         if (!(messageContext instanceof SAMLMessageContext)) {
             log.debug("Invalid message context type, this policy rule only supports SAMLMessageContext");
-            return false;
+            return;
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
@@ -58,12 +58,12 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLS
         SAMLObject samlMsg = samlMsgCtx.getInboundSAMLMessage();
         if (!(samlMsg instanceof SignableSAMLObject)) {
             log.debug("Extracted SAML message was not a SignableSAMLObject, can not process signature");
-            return false;
+            return;
         }
         SignableSAMLObject signableObject = (SignableSAMLObject) samlMsg;
         if (!signableObject.isSigned()) {
             log.info("SAML protocol message was not signed, skipping XML signature processing");
-            return false;
+            return;
         }
         Signature signature = signableObject.getSignature();
 
@@ -95,6 +95,5 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLS
             throw new SecurityPolicyException("Context issuer unavailable, can not validate signature");
         }
         
-        return true;
     }
 }

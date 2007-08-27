@@ -46,10 +46,10 @@ public class SAML1ProtocolMessageRule implements SecurityPolicyRule {
     private static Logger log = Logger.getLogger(SAML1ProtocolMessageRule.class);
 
     /** {@inheritDoc} */
-    public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
+    public void evaluate(MessageContext messageContext) throws SecurityPolicyException {
         if (!(messageContext instanceof SAMLMessageContext)) {
             log.debug("Invalid message context type, this policy rule only supports SAMLMessageContext");
-            return false;
+            return;
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
@@ -70,7 +70,6 @@ public class SAML1ProtocolMessageRule implements SecurityPolicyRule {
             throw new SecurityPolicyException("SAML 1.x message was not a request or a response");
         }
 
-        return true;
     }
 
     /**

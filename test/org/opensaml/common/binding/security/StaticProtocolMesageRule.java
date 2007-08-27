@@ -48,14 +48,13 @@ public class StaticProtocolMesageRule extends StaticIssuerRule {
     }
 
     /** {@inheritDoc} */
-    public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
+    public void evaluate(MessageContext messageContext) throws SecurityPolicyException {
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
         super.evaluate(messageContext);
         samlMsgCtx.setInboundSAMLMessageId(messageID);
         samlMsgCtx.setInboundSAMLMessageIssueInstant(issueInstant);
 
-        return true;
     }
 
 }

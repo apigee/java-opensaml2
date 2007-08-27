@@ -44,7 +44,7 @@ class StaticIssuerRule implements SecurityPolicyRule {
     }
 
     /** {@inheritDoc} */
-    public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
+    public void evaluate(MessageContext messageContext) throws SecurityPolicyException {
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
         samlMsgCtx.setInboundMessageIssuer(issuer);
@@ -55,7 +55,6 @@ class StaticIssuerRule implements SecurityPolicyRule {
             samlMsgCtx.setInboundSAMLMessageAuthenticated(false);
         }
 
-        return true;
     }
 
 }

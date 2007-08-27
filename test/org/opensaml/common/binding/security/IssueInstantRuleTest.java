@@ -84,14 +84,5 @@ public class IssueInstantRuleTest extends BaseSAMLSecurityPolicyRuleTest<Attribu
         messageContext.setInboundSAMLMessageIssueInstant(now.minusSeconds(expires + (clockSkew - 5)));
         assertRuleSuccess("Message issue instant was expired but within clock skew");
     }
-    
-    /**
-     * A non-SAMLMessageContext results in rule not being evaluated.
-     * @throws SecurityPolicyException 
-     * 
-     */
-    public void testNotEvaluated() throws SecurityPolicyException {
-        assertFalse("Rule should not have been evaluated, non-SAMLMessageContext",
-                rule.evaluate(new BaseMessageContext()));
-    }
+ 
 }

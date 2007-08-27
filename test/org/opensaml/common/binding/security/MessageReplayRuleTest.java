@@ -22,8 +22,6 @@ import org.opensaml.saml2.core.Response;
 import org.opensaml.util.storage.MapBasedStorageService;
 import org.opensaml.util.storage.ReplayCache;
 import org.opensaml.util.storage.ReplayCache.ReplayCacheEntry;
-import org.opensaml.ws.message.BaseMessageContext;
-import org.opensaml.ws.security.SecurityPolicyException;
 
 /**
  * Testing SAML message replay security policy rule.
@@ -97,16 +95,6 @@ public class MessageReplayRuleTest extends BaseSAMLSecurityPolicyRuleTest<Attrib
         // Now sleep for 5 seconds to be sure has expired, and retry same message id
         Thread.sleep(5 * 1000);
         assertRuleSuccess("Message ID was valid, no replay due to expiration");
-    }
-    
-    /**
-     * A non-SAMLMessageContext results in rule not being evaluated.
-     * @throws SecurityPolicyException 
-     * 
-     */
-    public void testNotEvaluated() throws SecurityPolicyException {
-        assertFalse("Rule should not have been evaluated, non-SAMLMessageContext",
-                rule.evaluate(new BaseMessageContext()));
     }
 
 }

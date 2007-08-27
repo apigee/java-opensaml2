@@ -50,17 +50,17 @@ public class MessageReplayRule implements SecurityPolicyRule {
     }
 
     /** {@inheritDoc} */
-    public boolean evaluate(MessageContext messageContext) throws SecurityPolicyException {
+    public void evaluate(MessageContext messageContext) throws SecurityPolicyException {
         if (!(messageContext instanceof SAMLMessageContext)) {
             log.debug("Invalid message context type, this policy rule only supports SAMLMessageContext");
-            return false;
+            return;
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
         if (samlMsgCtx.getInboundSAMLMessageId() == null) {
             log.error("Message contained no ID, replay check not possible");
-            return false;
+            return;
         }
 
         if (replayCache.isReplay(samlMsgCtx.getInboundSAMLMessageId(), expiresInMillis)) {
@@ -69,6 +69,5 @@ public class MessageReplayRule implements SecurityPolicyRule {
                     + "'");
         }
 
-        return true;
     }
 }
