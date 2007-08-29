@@ -37,7 +37,10 @@ public abstract class AbstractSAMLArtifact {
      * @throws IllegalArgumentException thrown if the given type code is not two bytes in length
      */
     protected AbstractSAMLArtifact(byte[] code) {
-
+        if(code.length != 2){
+            throw new IllegalArgumentException("Type code was not 2-bytes in size");
+        }
+        typeCode = code;
     }
 
     /**
