@@ -139,7 +139,7 @@ public class DefaultBootstrap {
     }
 
     /**
-     * Initializes the {@link SAMLArtifactFactory}.
+     * Initializes the artifact factories for SAML 1 and SAML 2 artifacts.
      * 
      * @throws ConfigurationException thrown if there is a problem initializing the artifact factory
      */
