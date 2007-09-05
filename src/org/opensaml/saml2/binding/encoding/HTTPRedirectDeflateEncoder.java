@@ -18,10 +18,6 @@ package org.opensaml.saml2.binding.encoding;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.security.Signature;
-import java.security.interfaces.DSAPrivateKey;
-import java.security.interfaces.RSAPrivateKey;
 import java.util.List;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
@@ -38,6 +34,11 @@ import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
+import org.opensaml.xml.Configuration;
+import org.opensaml.xml.security.SecurityConfiguration;
+import org.opensaml.xml.security.SecurityException;
+import org.opensaml.xml.security.SecurityHelper;
+import org.opensaml.xml.security.SigningUtil;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.Pair;
@@ -175,68 +176,75 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
 
         Credential signingCredential = messagesContext.getOuboundSAMLMessageSigningCredential();
         if (signingCredential != null) {
-            Pair<String, String> sigAlg = new Pair<String, String>("SigAlg", getSignatureAlgorithm(signingCredential));
+            // TODO pull SecurityConfiguration from SAMLMessageContext?  needs to be added
+            String sigAlgURI = getSignatureAlgorithmURI(signingCredential, null);
+            Pair<String, String> sigAlg = new Pair<String, String>("SigAlg", sigAlgURI);
             queryParams.add(sigAlg);
             String sigMaterial = urlBuilder.buildQueryString();
 
-            queryParams.add(new Pair<String, String>("Signature", generateSignature(signingCredential, sigMaterial)));
+            queryParams.add(new Pair<String, String>("Signature", 
+                    generateSignature(signingCredential, sigAlgURI, sigMaterial)));
         }
 
         return urlBuilder.buildURL();
     }
 
     /**
-     * Gets the signature algorithm to use with the given signing credential.
+     * Gets the signature algorithm URI to use with the given signing credential.
      * 
      * @param credential the credential that will be used to sign the message
+     * @param config the SecurityConfiguration to use (may be null)
      * 
      * @return signature algorithm to use with the given signing credential
      * 
-     * @throws MessageEncodingException thrown if the provided credential's private key is not an RSA or DSA key
+     * @throws MessageEncodingException thrown if the algorithm URI could not be derived from the supplied credential
      */
-    protected String getSignatureAlgorithm(Credential credential) throws MessageEncodingException {
-        if (credential.getPrivateKey() instanceof RSAPrivateKey) {
-            return "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
-        } else if (credential.getPrivateKey() instanceof DSAPrivateKey) {
-            return "http://www.w3.org/2000/09/xmldsig#dsa-sha1";
+    protected String getSignatureAlgorithmURI(Credential credential, SecurityConfiguration config)
+        throws MessageEncodingException {
+        
+        SecurityConfiguration secConfig;
+        if (config != null) {
+            secConfig = config;
         } else {
-            throw new MessageEncodingException("Encoder only supports signing with RSA or DSA keys.");
+            secConfig = Configuration.getGlobalSecurityConfiguration();
         }
+        
+        String signAlgo = secConfig.getSignatureAlgorithmURI(credential);
+        
+        if (signAlgo == null) {
+            throw new MessageEncodingException("The signing credential's algorithm URI could not be derived");
+        }
+        
+        return signAlgo;
     }
 
     /**
      * Generates the signature over the query string.
      * 
      * @param signingCredential credential that will be used to sign query string
+     * @param algorithmURI algorithm URI of the signing credential
      * @param queryString query string to be signed
      * 
      * @return base64 encoded signature of query string
      * 
      * @throws MessageEncodingException there is an error computing the signature
      */
-    protected String generateSignature(Credential signingCredential, String queryString)
+    protected String generateSignature(Credential signingCredential, String algorithmURI, String queryString)
             throws MessageEncodingException {
-        Signature signature;
 
         if (log.isDebugEnabled()) {
-            log.debug("Generating digital signature of query string");
-        }
-
-        String signingAlgo;
-        if (signingCredential.getPrivateKey() instanceof RSAPrivateKey) {
-            signingAlgo = "SHA1withRSA";
-        } else {
-            signingAlgo = "SHA1withDSA";
+            log.debug(String.format("Generating signature with key type '%s', algorithm URI '%s' over query string '%s'",
+                    SecurityHelper.extractSigningKey(signingCredential).getAlgorithm(), algorithmURI, queryString)); 
         }
 
         try {
-            signature = Signature.getInstance(signingAlgo);
-            signature.initSign(signingCredential.getPrivateKey());
-            signature.update(queryString.getBytes());
-
-            byte[] rawSignature = signature.sign();
-            return Base64.encodeBytes(rawSignature);
-        } catch (GeneralSecurityException e) {
+            byte[] rawSignature = SigningUtil.signWithURI(signingCredential, algorithmURI, queryString.getBytes());
+            String b64Signature = Base64.encodeBytes(rawSignature);
+            if (log.isDebugEnabled()) {
+                log.debug(String.format("Generated digital signature value (base64-encoded) '%s'", b64Signature));
+            }
+            return b64Signature;
+        } catch (SecurityException e) {
             log.error("Error during URL signing process", e);
             throw new MessageEncodingException("Unable to sign URL query string", e);
         }

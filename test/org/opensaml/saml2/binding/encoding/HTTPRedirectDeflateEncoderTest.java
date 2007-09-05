@@ -33,6 +33,8 @@ import org.springframework.mock.web.MockHttpServletResponse;
  * Unit test for redirect encoding.
  */
 public class HTTPRedirectDeflateEncoderTest extends BaseTestCase {
+    
+    //TODO test simple sign
 
     /**
      * Tests encoding a SAML message to an servlet response.
