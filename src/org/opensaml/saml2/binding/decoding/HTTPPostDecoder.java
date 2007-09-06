@@ -25,7 +25,6 @@ import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
-import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.parse.ParserPool;
@@ -33,7 +32,7 @@ import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /** Message decoder implementing the SAML 2.0 HTTP POST profile. */
-public class HTTPPostDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
+public class HTTPPostDecoder extends BaseSAML2MessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(HTTPPostDecoder.class);
@@ -87,6 +86,8 @@ public class HTTPPostDecoder extends BaseMessageDecoder implements SAMLMessageDe
         if (log.isDebugEnabled()) {
             log.debug("Decoded SAML message");
         }
+        
+        populateMessageContext(samlMsgCtx);
     }
 
     /**

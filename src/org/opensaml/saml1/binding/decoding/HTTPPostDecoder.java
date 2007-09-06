@@ -34,7 +34,7 @@ import org.opensaml.xml.util.Base64;
 /**
  * SAML 1.X HTTP POST message decoder.
  */
-public class HTTPPostDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
+public class HTTPPostDecoder extends BaseSAML1MessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPPostDecoder.class);
@@ -92,5 +92,7 @@ public class HTTPPostDecoder extends BaseMessageDecoder implements SAMLMessageDe
         if (log.isDebugEnabled()) {
             log.debug("Decoded SAML message");
         }
+        
+        populateMessageContext(samlMsgCtx);
     }
 }

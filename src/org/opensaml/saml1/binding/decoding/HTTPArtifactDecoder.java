@@ -27,7 +27,6 @@ import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
 import org.opensaml.saml1.binding.artifact.AbstractSAML1Artifact;
 import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
 import org.opensaml.ws.message.MessageContext;
-import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.util.Base64;
@@ -36,7 +35,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * SAML 1.X HTTP Artifact message decoder.
  */
-public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
+public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
@@ -93,5 +92,7 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
         }
 
         artifactContext.setArtifacts(artifacts);
+        
+        populateMessageContext(artifactContext);
     }
 }

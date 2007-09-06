@@ -17,7 +17,6 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 

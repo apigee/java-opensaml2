@@ -24,7 +24,6 @@ import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
-import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.ws.transport.http.HTTPInTransport;
@@ -34,7 +33,7 @@ import org.opensaml.xml.parse.ParserPool;
 /**
  * SAML 1.1 HTTP SOAP 1.1 binding decoder.
  */
-public class HTTPSOAP11Decoder extends BaseMessageDecoder implements SAMLMessageDecoder {
+public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPPostDecoder.class);
@@ -94,5 +93,7 @@ public class HTTPSOAP11Decoder extends BaseMessageDecoder implements SAMLMessage
             log.debug("Decoded SOAP messaged which included SAML message of type " + samlMessage.getElementQName());
         }
         samlMsgCtx.setInboundSAMLMessage(samlMessage);
+        
+        populateMessageContext(samlMsgCtx);
     }
 }

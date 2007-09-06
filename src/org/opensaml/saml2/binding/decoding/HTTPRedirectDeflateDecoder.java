@@ -27,7 +27,6 @@ import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
-import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.parse.ParserPool;
@@ -39,7 +38,7 @@ import org.opensaml.xml.util.DatatypeHelper;
  * 
  * This decoder only supports DEFLATE compression and DSA-SHA1 and RSA-SHA1 signatures.
  */
-public class HTTPRedirectDeflateDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
+public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(HTTPRedirectDeflateDecoder.class);
@@ -102,6 +101,8 @@ public class HTTPRedirectDeflateDecoder extends BaseMessageDecoder implements SA
         if (log.isDebugEnabled()) {
             log.debug("Decoded SAML message");
         }
+        
+        populateMessageContext(samlMsgCtx);
 
         // TODO validate signature
     }

@@ -23,7 +23,6 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.binding.SAML2ArtifactMessageContext;
 import org.opensaml.saml2.binding.artifact.SAML2ArtifactBuilderFactory;
 import org.opensaml.ws.message.MessageContext;
-import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.parse.ParserPool;
@@ -31,7 +30,7 @@ import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /** SAML 2 Artifact Binding decoder, support both HTTP GET and POST. */
-public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
+public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
@@ -88,5 +87,7 @@ public class HTTPArtifactDecoder extends BaseMessageDecoder implements SAMLMessa
         
         byte[] base64DecodedArtifact = Base64.decode(encodedArtifact);
         artifactContext.setArtifact(artifactFactory.buildArtifact(base64DecodedArtifact));
+        
+        populateMessageContext(artifactContext);
     }
 }
