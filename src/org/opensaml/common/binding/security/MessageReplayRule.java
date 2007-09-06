@@ -22,6 +22,7 @@ import org.opensaml.util.storage.ReplayCache;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * Security policy rule implementation that which checks for replay of SAML messages.
@@ -31,21 +32,15 @@ public class MessageReplayRule implements SecurityPolicyRule {
     /** Logger. */
     private static Logger log = Logger.getLogger(MessageReplayRule.class);
 
-    /** Expiration value for messages inserted into replay cache, in seconds. */
-    private long expiresInMillis;
-
     /** Messge replay cache instance to use. */
     private ReplayCache replayCache;
 
     /**
      * Constructor.
      * 
-     * @param newClockSkew allowed clock skew in seconds
-     * @param newExpires replay message expiration duration in seconds
      * @param newReplayCache the new replay cache instance
      */
-    public MessageReplayRule(int newClockSkew, int newExpires, ReplayCache newReplayCache) {
-        expiresInMillis = (newExpires + newClockSkew) * 1000;
+    public MessageReplayRule(ReplayCache newReplayCache) {
         replayCache = newReplayCache;
     }
 
@@ -58,15 +53,22 @@ public class MessageReplayRule implements SecurityPolicyRule {
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
-        if (samlMsgCtx.getInboundSAMLMessageId() == null) {
+        String messageIsuer = samlMsgCtx.getInboundMessageIssuer();
+        if (DatatypeHelper.isEmpty(messageIsuer)) {
+            log.error("Message contained no Issuer ID, replay check not possible");
+            return;
+        }
+
+        String messageId = samlMsgCtx.getInboundSAMLMessageId();
+        if (DatatypeHelper.isEmpty(messageId)) {
             log.error("Message contained no ID, replay check not possible");
             return;
         }
 
-        if (replayCache.isReplay(samlMsgCtx.getInboundSAMLMessageId(), expiresInMillis)) {
-            log.error("Replay detected of message '" + samlMsgCtx.getInboundSAMLMessageId() + "'");
-            throw new SecurityPolicyException("Rejecting replayed message ID '" + samlMsgCtx.getInboundSAMLMessageId()
-                    + "'");
+        if (replayCache.isReplay(messageIsuer, messageId)) {
+            log.error("Replay detected of message '" + messageId + "' from issuer " + messageIsuer);
+            throw new SecurityPolicyException("Rejecting replayed message ID '" + messageId + "' from issuer "
+                    + messageIsuer);
         }
 
     }

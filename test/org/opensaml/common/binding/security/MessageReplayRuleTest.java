@@ -27,71 +27,65 @@ import org.opensaml.util.storage.ReplayCache.ReplayCacheEntry;
  * Testing SAML message replay security policy rule.
  */
 public class MessageReplayRuleTest extends BaseSAMLSecurityPolicyRuleTest<AttributeQuery, Response, NameID> {
-    
-    private int clockSkew;
-    private int expires;
-    
+
     private String messageID;
-    
+
+    private MapBasedStorageService<String, ReplayCacheEntry> storageEngine;
+
     private ReplayCache replayCache;
-    
 
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         messageID = "abc123";
-        clockSkew = 60*5;
-        expires = 60*10;
-        
+
+        messageContext.setInboundMessageIssuer("issuer");
         messageContext.setInboundSAMLMessageId(messageID);
-        
-        MapBasedStorageService<String, ReplayCacheEntry> storage = 
-            new MapBasedStorageService<String, ReplayCacheEntry>();
-        replayCache = new ReplayCache(storage, 60*10*1000);
-        rule = new MessageReplayRule(clockSkew, expires, replayCache);
+
+        storageEngine = new MapBasedStorageService<String, ReplayCacheEntry>();
+        replayCache = new ReplayCache(storageEngine, 60 * 10 * 1000);
+        rule = new MessageReplayRule(replayCache);
     }
-    
+
     /**
-     *  Test valid message ID.
+     * Test valid message ID.
      */
     public void testNoReplay() {
         assertRuleSuccess("Message ID was valid");
     }
-    
+
     /**
-     *  Test valid message ID, distinct ID.
+     * Test valid message ID, distinct ID.
      */
     public void testNoReplayDistinctIDs() {
         assertRuleSuccess("Message ID was valid");
-        
+
         messageContext.setInboundSAMLMessageId("someOther" + messageID);
         assertRuleSuccess("Message ID was valid, distinct message ID");
-        
+
     }
-    
+
     /**
-     *  Test invalid replay of message ID.
+     * Test invalid replay of message ID.
      */
     public void testReplay() {
         assertRuleSuccess("Message ID was valid");
-        
+
         assertRuleFailure("Message ID was a replay");
     }
-    
+
     /**
-     *  Test valid replay of message ID due to replay cache expiration.
-     * @throws InterruptedException 
+     * Test valid replay of message ID due to replay cache expiration.
+     * 
+     * @throws InterruptedException
      */
     public void testReplayValidWithExpiration() throws InterruptedException {
-        //This isn't perfect, but is the only way to test since
-        //expiration is determined internally in the rule, as offset 
-        //from current time...
-        
-        //Set rule with 3 second expiration, with no clock skew
-        rule = new MessageReplayRule(0, 3, replayCache);
+        // Set rule with 3 second expiration, with no clock skew
+        ReplayCache replayCache = new ReplayCache(storageEngine, 1000 * 3);
+        rule = new MessageReplayRule(replayCache);
         assertRuleSuccess("Message ID was valid");
-        
+
         // Now sleep for 5 seconds to be sure has expired, and retry same message id
         Thread.sleep(5 * 1000);
         assertRuleSuccess("Message ID was valid, no replay due to expiration");
