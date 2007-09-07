@@ -40,7 +40,7 @@ import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.xml.parse.ParserPool;
 
 /**
- * Base class for SAML 2 message decoders
+ * Base class for SAML 2 message decoders.
  */
 public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder {
 
@@ -210,7 +210,7 @@ public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder {
                 messageContext.setPeerEntityMetadata(relyingPartyMD);
 
                 QName relyingPartyRole = messageContext.getPeerEntityRole();
-                if (relyingPartyRole != null) {
+                if (relyingPartyMD != null && relyingPartyRole != null) {
                     List<RoleDescriptor> roles = relyingPartyMD.getRoleDescriptors(relyingPartyRole,
                             SAMLConstants.SAML11P_NS);
                     if (roles != null && roles.size() > 0) {
