@@ -26,6 +26,8 @@ import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AttributeQuery;
+import org.opensaml.saml1.core.AuthorizationDecisionQuery;
+import org.opensaml.saml1.core.Query;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.Response;
@@ -64,7 +66,7 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
         super(pool);
         queryResourceAsEntityId = true;
     }
-    
+
     /**
      * Constructor.
      * 
@@ -110,11 +112,76 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
         if (samlMsg instanceof RequestAbstractType) {
             log.debug("Extracting ID, issuer and issue instant from request");
             extractRequestInfo(messageContext, (RequestAbstractType) samlMsg);
+        } else if (samlMsg instanceof Query) {
+            log.debug("Extracting issuer from attribute query");
+            extractAttributeQueryInfo(messageContext, (Query) samlMsg);
         } else if (samlMsg instanceof Response) {
             log.debug("Extracting ID, issuer and issue instant from response");
             extractResponseInfo(messageContext, (Response) samlMsg);
         } else {
             throw new MessageDecodingException("SAML 1.x message was not a request or a response");
+        }
+    }
+
+    /**
+     * Extract information from a SAML RequestAbstractType message.
+     * 
+     * @param messageContext current message context
+     * @param request the SAML message to process
+     */
+    protected void extractRequestInfo(SAMLMessageContext messageContext, RequestAbstractType request) {
+        messageContext.setInboundSAMLMessageId(request.getID());
+        messageContext.setInboundSAMLMessageIssueInstant(request.getIssueInstant());
+
+        if (queryResourceAsEntityId && request instanceof Request) {
+            AttributeQuery query = ((Request) request).getAttributeQuery();
+
+            if (query != null) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Attempting to extract issuer from enclosed SAML 1.x AttributeQuery Resource attribute");
+                }
+                String resource = DatatypeHelper.safeTrimOrNullString(query.getResource());
+
+                if (resource != null) {
+                    messageContext.setInboundMessageIssuer(resource);
+                    if (log.isDebugEnabled()) {
+                        log.debug("Extracted issuer from SAML 1.x AttributeQuery Resource: " + resource);
+                    }
+                }
+            }
+
+        }
+    }
+
+    /**
+     * Extract information from a SAML Query message.
+     * 
+     * @param messageContext current message context
+     * @param query the SAML query to process
+     */
+    protected void extractAttributeQueryInfo(SAMLMessageContext messageContext, Query query) {
+        if (queryResourceAsEntityId) {
+            String resource = null;
+            if (query instanceof AttributeQuery) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Attempting to extract issuer from SAML 1 AttributeQuery Resource attribute");
+                }
+                resource = DatatypeHelper.safeTrimOrNullString(((AttributeQuery) query).getResource());
+            }
+
+            if (query instanceof AuthorizationDecisionQuery) {
+                if (log.isDebugEnabled()) {
+                    log.debug("Attempting to extract issuer from SAML 1 AuthorizationDecisionQuery Resource attribute");
+                }
+                resource = DatatypeHelper.safeTrimOrNullString(((AttributeQuery) query).getResource());
+            }
+
+            if (resource != null) {
+                messageContext.setInboundMessageIssuer(resource);
+                if (log.isDebugEnabled()) {
+                    log.debug("Extracted issuer from SAML 1.x Query: " + resource);
+                }
+            }
         }
     }
 
@@ -152,36 +219,6 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
         }
 
         messageContext.setInboundMessageIssuer(issuer);
-    }
-
-    /**
-     * Extract information from a SAML RequestAbstractType message.
-     * 
-     * @param messageContext current message context
-     * @param request the SAML message to process
-     */
-    protected void extractRequestInfo(SAMLMessageContext messageContext, RequestAbstractType request) {
-        messageContext.setInboundSAMLMessageId(request.getID());
-        messageContext.setInboundSAMLMessageIssueInstant(request.getIssueInstant());
-
-        if (queryResourceAsEntityId && request instanceof Request) {
-            AttributeQuery query = ((Request) request).getAttributeQuery();
-
-            if (query != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Attempting to extract issuer from enclosed SAML 1.x AttributeQuery Resource attribute");
-                }
-                String resource = DatatypeHelper.safeTrimOrNullString(query.getResource());
-
-                if (resource != null) {
-                    messageContext.setInboundMessageIssuer(resource);
-                    if (log.isDebugEnabled()) {
-                        log.debug("Extracted issuer from SAML 1.x AttributeQuery Resource: " + resource);
-                    }
-                }
-            }
-
-        }
     }
 
     /**
