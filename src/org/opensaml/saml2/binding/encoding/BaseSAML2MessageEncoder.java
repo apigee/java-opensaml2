@@ -16,12 +16,12 @@
 
 package org.opensaml.saml2.binding.encoding;
 
+import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
-import org.opensaml.common.impl.SAMLObjectContentReference;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.saml2.metadata.Endpoint;
@@ -41,6 +41,9 @@ import org.opensaml.xml.util.DatatypeHelper;
  * Base class for SAML 2 message encoders.
  */
 public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder implements SAMLMessageEncoder {
+    
+    /** Class logger. */
+    private Logger log = Logger.getLogger(BaseSAML2MessageEncoder.class);
 
     /**
      * Gets the response URL from the relying party endpoint. If the SAML message is a {@link Response} and the relying
@@ -143,6 +146,7 @@ public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder impleme
 
                 Signer.signObject(signature);
             } catch (MarshallingException e) {
+                log.error("Unable to marshall protocol message in preperation for signing", e);
                 throw new MessageEncodingException("Unable to marshall protocol message in preperation for signing", e);
             }
         }

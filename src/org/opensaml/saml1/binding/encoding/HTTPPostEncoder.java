@@ -28,7 +28,6 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
-import org.opensaml.common.impl.SAMLObjectContentReference;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.ResponseAbstractType;
@@ -39,6 +38,8 @@ import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.XMLObjectBuilder;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.credential.Credential;
@@ -227,8 +228,15 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
             }
             
             signableMessage.setSignature(signature);
-
-            Signer.signObject(signature);
+            
+            try{
+                Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(signableMessage);
+                marshaller.marshall(signableMessage);
+                Signer.signObject(signature);
+            }catch(MarshallingException e){
+                log.error("Unable to marshall protocol message in preperation for signing", e);
+                throw new MessageEncodingException("Unable to marshall protocol message in preperation for signing", e);
+            }
         }
     }
 }
