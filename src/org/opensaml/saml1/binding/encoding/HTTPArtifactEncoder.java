@@ -99,7 +99,7 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
             artifactMap.put(artifact.getArtifactBytes(), messageContext.getInboundMessageIssuer(), messageContext
                     .getOutboundMessageIssuer(), assertion);
             artifactString = artifact.base64Encode();
-            outTransport.addParameter("SAMLArt", HTTPTransportUtils.urlEncode(artifactString));
+            outTransport.addParameter("SAMLArt", artifactString);
         }
     }
 }

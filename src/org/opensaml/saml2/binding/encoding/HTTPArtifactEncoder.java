@@ -127,7 +127,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
         }
         VelocityContext context = new VelocityContext();
         context.put("action", getEndpointURL(artifactContext));
-        context.put("SAMLArt", HTTPTransportUtils.urlEncode(buildArtifact(artifactContext).base64Encode()));
+        context.put("SAMLArt", buildArtifact(artifactContext).base64Encode());
 
         if (checkRelayState(artifactContext.getRelayState())) {
             context.put("RelayState", HTTPTransportUtils.urlEncode(artifactContext.getRelayState()));
