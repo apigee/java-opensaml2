@@ -33,6 +33,7 @@ import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.BaseMessageEncoder;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
+import org.opensaml.ws.transport.http.HTTPTransportUtils;
 
 /**
  * SAML 1.X HTTP Artifact message encoder.
@@ -80,7 +81,7 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
         SAMLMessageContext<SAMLObject, Response, NameIdentifier> artifactContext = (SAMLMessageContext) messageContext;
         HTTPOutTransport outTransport = (HTTPOutTransport) artifactContext.getOutboundMessageTransport();
 
-        outTransport.addParameter("TARGET", artifactContext.getRelayState());
+        outTransport.addParameter("TARGET", HTTPTransportUtils.urlEncode(artifactContext.getRelayState()));
 
         SAML1ArtifactBuilder artifactBuilder;
         if (artifactContext.getOutboundMessageArtifactType() != null) {
@@ -98,7 +99,7 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
             artifactMap.put(artifact.getArtifactBytes(), messageContext.getInboundMessageIssuer(), messageContext
                     .getOutboundMessageIssuer(), assertion);
             artifactString = artifact.base64Encode();
-            outTransport.addParameter("SAMLArt", artifactString);
+            outTransport.addParameter("SAMLArt", HTTPTransportUtils.urlEncode(artifactString));
         }
     }
 }

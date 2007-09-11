@@ -24,7 +24,7 @@
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/java-openws"/>
 	<classpathentry exported="true" kind="lib" path="lib/velocity-dep-1.5.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="http://velocity.apache.org/engine/releases/velocity-1.5/apidocs/index.html"/>
+			<attribute name="javadoc_location" value="http://velocity.apache.org/engine/releases/velocity-1.5/apidocs/"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="build-lib/spring-2.0.5-mock.jar"/>

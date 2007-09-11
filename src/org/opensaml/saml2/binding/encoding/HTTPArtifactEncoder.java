@@ -37,6 +37,7 @@ import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
+import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.util.Pair;
 
 /**
@@ -53,7 +54,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
     /** ID of the velocity template used when performing POST encoding. */
     private String velocityTemplateId;
 
-    /** SAML artifact map used to store created artifacts for later retrival. */
+    /** SAML artifact map used to store created artifacts for later retrieval. */
     private SAMLArtifactMap artifactMap;
 
     /** Default artifact type to use when encoding messages. */
@@ -126,10 +127,10 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
         }
         VelocityContext context = new VelocityContext();
         context.put("action", getEndpointURL(artifactContext));
-        context.put("SAMLArt", buildArtifact(artifactContext).base64Encode());
+        context.put("SAMLArt", HTTPTransportUtils.urlEncode(buildArtifact(artifactContext).base64Encode()));
 
         if (checkRelayState(artifactContext.getRelayState())) {
-            context.put("RelayState", artifactContext.getRelayState());
+            context.put("RelayState", HTTPTransportUtils.urlEncode(artifactContext.getRelayState()));
         }
 
         try {
@@ -145,7 +146,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
     }
 
     /**
-     * Performs HTTP GET based econding.
+     * Performs HTTP GET based encoding.
      * 
      * @param artifactContext current request context
      * @param outTransport outbound HTTP transport
@@ -172,7 +173,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
     }
 
     /**
-     * Buils the SAML 2 artifact for the outgoing message.
+     * Builds the SAML 2 artifact for the outgoing message.
      * 
      * @param artifactContext current request context
      * 

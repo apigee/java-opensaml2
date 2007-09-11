@@ -137,13 +137,13 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
             }
             String messageXML = XMLHelper.nodeToString(marshallMessage(messageContext.getOutboundSAMLMessage()));
             String encodedMessage = Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES);
-            context.put("SAMLResponse", encodedMessage);
+            context.put("SAMLResponse", HTTPTransportUtils.urlEncode(encodedMessage));
 
             if (messageContext.getRelayState() != null) {
                 if (log.isDebugEnabled()) {
                     log.debug("Setting Target parameter to: " + messageContext.getRelayState());
                 }
-                context.put("Target", messageContext.getRelayState());
+                context.put("Target", HTTPTransportUtils.urlEncode(messageContext.getRelayState()));
             }
 
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getOutboundMessageTransport();

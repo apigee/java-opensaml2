@@ -86,7 +86,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
         
         removeSignature(samlMsgCtx);
 
-        String encodedMessage = defalteAndBase64Encode(samlMsgCtx.getOutboundSAMLMessage());
+        String encodedMessage = deflateAndBase64Encode(samlMsgCtx.getOutboundSAMLMessage());
         
         String redirectURL = buildRedirectURL(samlMsgCtx, endpointURL, encodedMessage);
         
@@ -121,7 +121,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
      * 
      * @throws MessageEncodingException thrown if there is a problem compressing the message
      */
-    protected String defalteAndBase64Encode(SAMLObject message) throws MessageEncodingException {
+    protected String deflateAndBase64Encode(SAMLObject message) throws MessageEncodingException {
         if (log.isDebugEnabled()) {
             log.debug("Deflating and Base64 encoding SAML message");
         }

@@ -126,9 +126,9 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
                 log.debug("Encoding SAML message of: " + encodedMessage);
             }
             if (messageContext.getOutboundSAMLMessage() instanceof RequestAbstractType) {
-                context.put("SAMLRequest", encodedMessage);
+                context.put("SAMLRequest", HTTPTransportUtils.urlEncode(encodedMessage));
             } else {
-                context.put("SAMLResponse", encodedMessage);
+                context.put("SAMLResponse", HTTPTransportUtils.urlEncode(encodedMessage));
             }
 
             String relayState = messageContext.getRelayState();
@@ -136,7 +136,7 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
                 if (log.isDebugEnabled()) {
                     log.debug("Encoding relay state of: " + relayState);
                 }
-                context.put("RelayState", relayState);
+                context.put("RelayState", HTTPTransportUtils.urlEncode(relayState));
             }
 
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getOutboundMessageTransport();
