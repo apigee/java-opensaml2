@@ -16,6 +16,8 @@
 
 package org.opensaml.saml1.binding.encoding;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
@@ -29,16 +31,17 @@ import org.opensaml.saml1.binding.artifact.SAML1ArtifactType0001;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Response;
+import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.MessageContext;
-import org.opensaml.ws.message.encoder.BaseMessageEncoder;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
+import org.opensaml.xml.util.Pair;
 
 /**
  * SAML 1.X HTTP Artifact message encoder.
  */
-public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessageEncoder {
+public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder implements SAMLMessageEncoder {
 
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
@@ -80,8 +83,12 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
 
         SAMLMessageContext<SAMLObject, Response, NameIdentifier> artifactContext = (SAMLMessageContext) messageContext;
         HTTPOutTransport outTransport = (HTTPOutTransport) artifactContext.getOutboundMessageTransport();
+        
+        URLBuilder urlBuilder = new URLBuilder(getEndpointURL(artifactContext));
 
-        outTransport.addParameter("TARGET", HTTPTransportUtils.urlEncode(artifactContext.getRelayState()));
+        List<Pair<String, String>> params = urlBuilder.getQueryParams();
+
+        params.add(new Pair<String, String>("TARGET", HTTPTransportUtils.urlEncode(artifactContext.getRelayState())));
 
         SAML1ArtifactBuilder artifactBuilder;
         if (artifactContext.getOutboundMessageArtifactType() != null) {
@@ -99,7 +106,9 @@ public class HTTPArtifactEncoder extends BaseMessageEncoder implements SAMLMessa
             artifactMap.put(artifact.getArtifactBytes(), messageContext.getInboundMessageIssuer(), messageContext
                     .getOutboundMessageIssuer(), assertion);
             artifactString = artifact.base64Encode();
-            outTransport.addParameter("SAMLArt", artifactString);
+            params.add(new Pair<String, String>("SAMLArt", artifactString));
         }
+        
+        outTransport.sendRedirect(urlBuilder.buildURL());
     }
 }

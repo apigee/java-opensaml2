@@ -29,11 +29,8 @@ import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.ResponseAbstractType;
-import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.ws.message.MessageContext;
-import org.opensaml.ws.message.encoder.BaseMessageEncoder;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
@@ -46,13 +43,12 @@ import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.Base64;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 
 /**
  * SAML 1.X HTTP POST message encoder.
  */
-public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEncoder {
+public class HTTPPostEncoder extends BaseSAML1MessageEncoder implements SAMLMessageEncoder {
 
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPPostEncoder.class);
@@ -159,41 +155,6 @@ public class HTTPPostEncoder extends BaseMessageEncoder implements SAMLMessageEn
             log.error("Error invoking velocity template", e);
             throw new MessageEncodingException("Error creating output document", e);
         }
-    }
-
-    /**
-     * Gets the response URL from the relying party endpoint. If the outbound SAML message is a {@link Response} and the
-     * relying party endpoint contains a response location then that location is returned otherwise the normal endpoint
-     * location is returned.
-     * 
-     * @param messageContext current message context
-     * 
-     * @return endpoint URL
-     * 
-     * @throws MessageEncodingException throw if no relying party endpoint is available
-     */
-    protected String getEndpointURL(SAMLMessageContext messageContext) throws MessageEncodingException {
-        Endpoint endpoint = messageContext.getPeerEntityEndpoint();
-        if (endpoint == null) {
-            throw new MessageEncodingException("Relying party endpoint provided we null.");
-        }
-
-        String endpointURL = null;
-        if (messageContext.getOutboundSAMLMessage() instanceof Response
-                && !DatatypeHelper.isEmpty(endpoint.getResponseLocation())) {
-            endpointURL = endpoint.getResponseLocation();
-        } else {
-            if (DatatypeHelper.isEmpty(endpoint.getLocation())) {
-                throw new MessageEncodingException("Relying party endpoint location was null or empty.");
-            }
-            endpointURL = endpoint.getLocation();
-        }
-
-        if (log.isDebugEnabled()) {
-            log.debug("Endpoint URL for relying party " + messageContext.getInboundMessageIssuer()
-                    + " determined to be " + endpointURL);
-        }
-        return endpointURL;
     }
 
     /**
