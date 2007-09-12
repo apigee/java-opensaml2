@@ -79,13 +79,11 @@ public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder impleme
      * @param relayState relay state to check
      * 
      * @return true if the relay state is not empty and is less than 80 bytes
-     * 
-     * @throws MessageEncodingException thrown if the relay state is larger than 80 bytes
      */
-    protected boolean checkRelayState(String relayState) throws MessageEncodingException {
+    protected boolean checkRelayState(String relayState) {
         if (!DatatypeHelper.isEmpty(relayState)) {
             if (relayState.getBytes().length > 80) {
-                throw new MessageEncodingException("Relay state exceeds 80 bytes.");
+                log.warn("Relay state exceeds 80 bytes, some application may not support this.");
             }
 
             return true;
