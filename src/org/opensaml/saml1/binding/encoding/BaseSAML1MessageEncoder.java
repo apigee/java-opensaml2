@@ -16,17 +16,32 @@
 
 package org.opensaml.saml1.binding.encoding;
 
+import org.apache.log4j.Logger;
+import org.opensaml.Configuration;
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.ws.message.encoder.BaseMessageEncoder;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
+import org.opensaml.xml.XMLObjectBuilder;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.security.SecurityException;
+import org.opensaml.xml.security.SecurityHelper;
+import org.opensaml.xml.security.credential.Credential;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * Base class for SAML 1 message encoders.
  */
 public abstract class BaseSAML1MessageEncoder extends BaseMessageEncoder {
+    
+    /** Class logger. */
+    private Logger log = Logger.getLogger(BaseSAML1MessageEncoder.class);
 
     /**
      * Gets the response URL from the relying party endpoint. If the SAML message is a {@link Response} and the relying
@@ -53,6 +68,50 @@ public abstract class BaseSAML1MessageEncoder extends BaseMessageEncoder {
                 throw new MessageEncodingException("Relying party endpoint location was null or empty.");
             }
             return endpoint.getLocation();
+        }
+    }
+    
+    /**
+     * Signs the given SAML message if it a {@link SignableSAMLObject} and this encoder has signing credentials.
+     * 
+     * @param messageContext current message context
+     * 
+     * @throws MessageEncodingException thrown if there is a problem preparing the signature for signing
+     */
+    @SuppressWarnings("unchecked")
+    protected void signMessage(SAMLMessageContext messageContext) throws MessageEncodingException {
+        SAMLObject outboundMessage = messageContext.getOutboundSAMLMessage();
+        if (outboundMessage instanceof SignableSAMLObject
+                && messageContext.getOuboundSAMLMessageSigningCredential() != null) {
+            if (log.isDebugEnabled()) {
+                log.debug("Signing outbound SAML message.");
+            }
+            SignableSAMLObject signableMessage = (SignableSAMLObject) outboundMessage;
+            Credential signingCredential = messageContext.getOuboundSAMLMessageSigningCredential();
+
+            XMLObjectBuilder<Signature> signatureBuilder = Configuration.getBuilderFactory().getBuilder(
+                    Signature.DEFAULT_ELEMENT_NAME);
+            Signature signature = signatureBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
+            signature.setSigningCredential(signingCredential);
+            
+            try {
+                //TODO pull SecurityConfiguration from SAMLMessageContext?  needs to be added
+                //TODO pull binding-specific keyInfoGenName from encoder setting, etc?
+                SecurityHelper.prepareSignatureParams(signature, signingCredential, null, null);
+            } catch (SecurityException e) {
+                throw new MessageEncodingException("Error preparing signature for signing", e);
+            }
+            
+            signableMessage.setSignature(signature);
+            
+            try{
+                Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(signableMessage);
+                marshaller.marshall(signableMessage);
+                Signer.signObject(signature);
+            }catch(MarshallingException e){
+                log.error("Unable to marshall protocol message in preperation for signing", e);
+                throw new MessageEncodingException("Unable to marshall protocol message in preperation for signing", e);
+            }
         }
     }
 }

@@ -23,9 +23,7 @@ import java.io.Writer;
 import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
-import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.xml.SAMLConstants;
@@ -34,14 +32,6 @@ import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
-import org.opensaml.xml.XMLObjectBuilder;
-import org.opensaml.xml.io.Marshaller;
-import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.security.SecurityException;
-import org.opensaml.xml.security.SecurityHelper;
-import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.signature.Signature;
-import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.XMLHelper;
 
@@ -154,50 +144,6 @@ public class HTTPPostEncoder extends BaseSAML1MessageEncoder implements SAMLMess
         } catch (Exception e) {
             log.error("Error invoking velocity template", e);
             throw new MessageEncodingException("Error creating output document", e);
-        }
-    }
-
-    /**
-     * Signs the given SAML message if it a {@link SignableSAMLObject} and this encoder has signing credentials.
-     * 
-     * @param messageContext current message context
-     * 
-     * @throws MessageEncodingException thrown if there is a problem preparing the signature for signing
-     */
-    @SuppressWarnings("unchecked")
-    protected void signMessage(SAMLMessageContext messageContext) throws MessageEncodingException {
-        SAMLObject outboundMessage = messageContext.getOutboundSAMLMessage();
-        if (outboundMessage instanceof SignableSAMLObject
-                && messageContext.getOuboundSAMLMessageSigningCredential() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Signing outbound SAML message.");
-            }
-            SignableSAMLObject signableMessage = (SignableSAMLObject) outboundMessage;
-            Credential signingCredential = messageContext.getOuboundSAMLMessageSigningCredential();
-
-            XMLObjectBuilder<Signature> signatureBuilder = Configuration.getBuilderFactory().getBuilder(
-                    Signature.DEFAULT_ELEMENT_NAME);
-            Signature signature = signatureBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
-            signature.setSigningCredential(signingCredential);
-            
-            try {
-                //TODO pull SecurityConfiguration from SAMLMessageContext?  needs to be added
-                //TODO pull binding-specific keyInfoGenName from encoder setting, etc?
-                SecurityHelper.prepareSignatureParams(signature, signingCredential, null, null);
-            } catch (SecurityException e) {
-                throw new MessageEncodingException("Error preparing signature for signing", e);
-            }
-            
-            signableMessage.setSignature(signature);
-            
-            try{
-                Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(signableMessage);
-                marshaller.marshall(signableMessage);
-                Signer.signObject(signature);
-            }catch(MarshallingException e){
-                log.error("Unable to marshall protocol message in preperation for signing", e);
-                throw new MessageEncodingException("Unable to marshall protocol message in preperation for signing", e);
-            }
         }
     }
 }

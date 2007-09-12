@@ -77,6 +77,7 @@ public class HTTPSOAP11Encoder extends BaseSAML2MessageEncoder {
             throw new MessageEncodingException("No outbound SAML message contained in message context");
         }
 
+        signMessage(samlMsgCtx);
         Envelope envelope = buildSOAPMessage(samlMessage);
         samlMsgCtx.setOutboundMessage(envelope);
 
