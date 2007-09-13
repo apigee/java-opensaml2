@@ -18,6 +18,7 @@ package org.opensaml.saml2.binding.encoding;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
@@ -237,16 +238,21 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
                     SecurityHelper.extractSigningKey(signingCredential).getAlgorithm(), algorithmURI, queryString)); 
         }
 
+        String b64Signature = null;
         try {
-            byte[] rawSignature = SigningUtil.signWithURI(signingCredential, algorithmURI, queryString.getBytes());
-            String b64Signature = Base64.encodeBytes(rawSignature);
+            byte[] rawSignature = 
+                SigningUtil.signWithURI(signingCredential, algorithmURI, queryString.getBytes("UTF-8"));
+            b64Signature = Base64.encodeBytes(rawSignature);
             if (log.isDebugEnabled()) {
                 log.debug(String.format("Generated digital signature value (base64-encoded) '%s'", b64Signature));
             }
-            return b64Signature;
         } catch (SecurityException e) {
             log.error("Error during URL signing process", e);
             throw new MessageEncodingException("Unable to sign URL query string", e);
+        } catch (UnsupportedEncodingException e) {
+            // UTF-8 encoding is required to be supported by all JVMs
         }
+        
+        return b64Signature;
     }
 }
