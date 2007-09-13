@@ -101,11 +101,9 @@ public class DefaultBootstrap {
             Velocity.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
             Velocity.setProperty(RuntimeConstants.ENCODING_DEFAULT, "UTF-8");
             Velocity.setProperty(RuntimeConstants.OUTPUT_ENCODING, "UTF-8");
-            Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath, string");
+            Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
             Velocity.setProperty("classpath.resource.loader.class",
                     "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-            Velocity.setProperty("string.resource.loader.class",
-                    "org.apache.velocity.runtime.resource.loader.StringResourceLoader");
             Velocity.init();
         } catch (Exception e) {
             throw new ConfigurationException("Unable to initialize Velocity template engine", e);
