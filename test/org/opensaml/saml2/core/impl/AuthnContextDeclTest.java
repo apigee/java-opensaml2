@@ -27,10 +27,10 @@ import org.opensaml.saml2.core.AuthnContextDecl;
  */
 public class AuthnContextDeclTest extends BaseSAMLObjectProviderTestCase {
 
-    /** Expected Declaration value */
+    /** Expected Declaration value. */
     protected String expectedDeclartion;
 
-    /** Constructor */
+    /** Constructor. */
     public AuthnContextDeclTest() {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/AuthnContextDecl.xml";
     }
@@ -46,7 +46,7 @@ public class AuthnContextDeclTest extends BaseSAMLObjectProviderTestCase {
     public void testSingleElementUnmarshall() {
         AuthnContextDecl authnContextDecl = (AuthnContextDecl) unmarshallElement(singleElementFile);
 
-        String declaration = authnContextDecl.getDeclaration();
+        String declaration = authnContextDecl.getTextContent();
         assertEquals("Declartion was " + declaration + ", expected " + expectedDeclartion, expectedDeclartion,
                 declaration);
     }
@@ -58,10 +58,11 @@ public class AuthnContextDeclTest extends BaseSAMLObjectProviderTestCase {
 
     /** {@inheritDoc} */
     public void testSingleElementMarshall() {
-        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName qname = new QName(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
         AuthnContextDecl authnContextDecl = (AuthnContextDecl) buildXMLObject(qname);
 
-        authnContextDecl.setDeclaration(expectedDeclartion);
+        authnContextDecl.setTextContent(expectedDeclartion);
         assertEquals(expectedDOM, authnContextDecl);
     }
 

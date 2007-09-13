@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.saml2.core.AuthnContextDecl;
-import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 
@@ -30,25 +29,13 @@ import org.opensaml.xml.validation.Validator;
  */
 public class AuthnContextDeclSchemaValidator implements Validator<AuthnContextDecl> {
 
-    /** Constructor */
+    /** Constructor. */
     public AuthnContextDeclSchemaValidator() {
 
     }
 
     /** {@inheritDoc} */
     public void validate(AuthnContextDecl authnCD) throws ValidationException {
-        validateDecl(authnCD);
-    }
 
-    /**
-     * Checks that the Declaration is present.
-     * 
-     * @param authnCD
-     * @throws ValidationException
-     */
-    protected void validateDecl(AuthnContextDecl authnCD) throws ValidationException {
-        if (DatatypeHelper.isEmpty(authnCD.getDeclaration())) {
-            throw new ValidationException("Declaration required");
-        }
     }
 }

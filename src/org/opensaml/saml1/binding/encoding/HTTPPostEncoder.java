@@ -135,7 +135,7 @@ public class HTTPPostEncoder extends BaseSAML1MessageEncoder implements SAMLMess
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getOutboundMessageTransport();
             HTTPTransportUtils.addNoCacheHeaders(outTransport);
             HTTPTransportUtils.setUTF8Encoding(outTransport);
-            HTTPTransportUtils.setContentType(outTransport, "application/xhtml+xml");
+            HTTPTransportUtils.setContentType(outTransport, "text/html");
 
             OutputStream transportOutStream = outTransport.getOutgoingStream();
             Writer out = new OutputStreamWriter(transportOutStream, "UTF-8");

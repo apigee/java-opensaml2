@@ -20,12 +20,18 @@
 
 package org.opensaml.saml2.core.impl;
 
+import java.util.Map.Entry;
+
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextDecl;
+import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
@@ -33,24 +39,45 @@ import org.w3c.dom.Element;
  */
 public class AuthnContextDeclMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AuthnContextDeclMarshaller() {
         super(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
-    protected AuthnContextDeclMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected AuthnContextDeclMarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
-        AuthnContextDecl authnContextDecl = (AuthnContextDecl) samlObject;
-        XMLHelper.appendTextContent(domElement, authnContextDecl.getDeclaration());
+    protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
+        AuthnContextDecl authnCtxDecl = (AuthnContextDecl) xmlObject;
+
+        Attr attribute;
+        for (Entry<QName, String> entry : authnCtxDecl.getUnknownAttributes().entrySet()) {
+            attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
+            attribute.setValue(entry.getValue());
+            domElement.setAttributeNodeNS(attribute);
+            if (Configuration.isIDAttribute(entry.getKey())
+                    || authnCtxDecl.getUnknownAttributes().isIDAttribute(entry.getKey())) {
+                attribute.getOwnerElement().setIdAttributeNode(attribute, true);
+            }
+        }
+    }
+
+    /** {@inheritDoc} */
+    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
+        AuthnContextDecl authnCtxDecl = (AuthnContextDecl) xmlObject;
+
+        if (authnCtxDecl.getTextContent() != null) {
+            XMLHelper.appendTextContent(domElement, authnCtxDecl.getTextContent());
+        }
     }
 }

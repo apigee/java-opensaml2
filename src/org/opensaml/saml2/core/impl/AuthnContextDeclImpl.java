@@ -20,43 +20,65 @@
 
 package org.opensaml.saml2.core.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AuthnContextDecl;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.AttributeMap;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnContextDecl}.
  */
 public class AuthnContextDeclImpl extends AbstractSAMLObject implements AuthnContextDecl {
 
-    /** Declaration of the Authentication Context */
-    private String declaration;
+    /** Child XMLObjects. */
+    private XMLObjectChildrenList<XMLObject> unknownXMLObjects;
+
+    /** Attributes for this element. */
+    private AttributeMap unknownAttributes;
+
+    /** Text content of the element. */
+    private String textContent;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AuthnContextDeclImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+
+        unknownXMLObjects = new XMLObjectChildrenList<XMLObject>(this);
+        unknownAttributes = new AttributeMap(this);
     }
 
     /** {@inheritDoc} */
-    public String getDeclaration() {
-        return declaration;
+    public String getTextContent() {
+        return textContent;
     }
 
     /** {@inheritDoc} */
-    public void setDeclaration(String newDeclaration) {
-        this.declaration = prepareForAssignment(this.declaration, newDeclaration);
+    public void setTextContent(String newContent) {
+        textContent = prepareForAssignment(textContent, newContent);
+    }
+
+    /** {@inheritDoc} */
+    public List<XMLObject> getUnknownXMLObjects() {
+        return unknownXMLObjects;
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
-        return null;
+        return Collections.unmodifiableList(unknownXMLObjects);
+    }
+
+    /** {@inheritDoc} */
+    public AttributeMap getUnknownAttributes() {
+        return unknownAttributes;
     }
 }

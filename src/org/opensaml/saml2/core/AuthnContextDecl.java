@@ -20,11 +20,12 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.schema.XSAny;
 
 /**
  * SAML 2.0 Core AuthnContextDecl.
  */
-public interface AuthnContextDecl extends SAMLObject {
+public interface AuthnContextDecl extends SAMLObject, XSAny {
 
     /** Local Name of AuthnContextDecl. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnContextDecl";
@@ -32,18 +33,4 @@ public interface AuthnContextDecl extends SAMLObject {
     /** Default element name. */
     public static final QName DEFAULT_ELEMENT_NAME = 
         new QName(SAMLConstants.SAML20_NS, DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
-
-    /**
-     * Gets the Declaration of this Authentication Context.
-     * 
-     * @return AuthnContextDecl Declaration
-     */
-    public String getDeclaration();
-
-    /**
-     * Sets the Declaration of this Authentication Context.
-     * 
-     * @param newDeclaration the Declaration of this Authentication Context
-     */
-    public void setDeclaration(String newDeclaration);
 }

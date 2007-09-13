@@ -142,7 +142,7 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getOutboundMessageTransport();
             HTTPTransportUtils.addNoCacheHeaders(outTransport);
             HTTPTransportUtils.setUTF8Encoding(outTransport);
-            HTTPTransportUtils.setContentType(outTransport, "application/xhtml+xml");
+            HTTPTransportUtils.setContentType(outTransport, "text/html");
 
             Writer out = new OutputStreamWriter(outTransport.getOutgoingStream(), "UTF-8");
             velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, out);

@@ -20,34 +20,64 @@
 
 package org.opensaml.saml2.core.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextDecl;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.XMLHelper;
+import org.w3c.dom.Attr;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AuthnContextDecl}.
  */
 public class AuthnContextDeclUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AuthnContextDeclUnmarshaller() {
         super(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
-    protected AuthnContextDeclUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
+    protected AuthnContextDeclUnmarshaller(String targetNamespaceURI, String targetLocalName) {
+        super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
-    protected void processElementContent(XMLObject samlObject, String elementContent) {
-        AuthnContextDecl authnContextDecl = (AuthnContextDecl) samlObject;
-        authnContextDecl.setDeclaration(elementContent);
+    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
+            throws UnmarshallingException {
+        AuthnContextDecl authnCtcDecl = (AuthnContextDecl) parentXMLObject;
+
+        authnCtcDecl.getUnknownXMLObjects().add(childXMLObject);
+    }
+
+    /** {@inheritDoc} */
+    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
+        AuthnContextDecl authnCtcDecl = (AuthnContextDecl) xmlObject;
+
+        QName attribQName = XMLHelper.constructQName(attribute.getNamespaceURI(), attribute.getLocalName(), attribute
+                .getPrefix());
+
+        if (attribute.isId()) {
+            authnCtcDecl.getUnknownAttributes().registerID(attribQName);
+        }
+
+        authnCtcDecl.getUnknownAttributes().put(attribQName, attribute.getValue());
+    }
+
+    /** {@inheritDoc} */
+    protected void processElementContent(XMLObject xmlObject, String elementContent) {
+        AuthnContextDecl authnCtcDecl = (AuthnContextDecl) xmlObject;
+
+        authnCtcDecl.setTextContent(elementContent);
     }
 }
