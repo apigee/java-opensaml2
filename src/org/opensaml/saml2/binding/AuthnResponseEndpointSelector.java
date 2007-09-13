@@ -16,8 +16,6 @@
 
 package org.opensaml.saml2.binding;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 import org.opensaml.common.binding.BasicEndpointSelector;
@@ -37,10 +35,10 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Endpoint selectEndpoint() {
-        if(getEntityRoleMetadata() == null){
+        if (getEntityRoleMetadata() == null) {
             return null;
         }
-        
+
         List<? extends Endpoint> endpoints = getEntityRoleMetadata().getEndpoints(getEndpointType());
         if (endpoints == null || endpoints.size() == 0) {
             return null;
@@ -79,6 +77,10 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
     protected Endpoint selectEndpointByACSIndex(AuthnRequest request, List<IndexedEndpoint> endpoints) {
         Integer acsIndex = request.getAssertionConsumerServiceIndex();
         for (IndexedEndpoint endpoint : endpoints) {
+            if (endpoint == null || !getSupportedIssuerBindings().contains(endpoint.getBinding())) {
+                continue;
+            }
+
             if (endpoint.getIndex() != null && endpoint.getIndex().equals(acsIndex)) {
                 return endpoint;
             }
@@ -96,31 +98,22 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
      * @return the selected endpoint
      */
     protected Endpoint selectEndpointByACSURL(AuthnRequest request, List<IndexedEndpoint> endpoints) {
-        try {
-            URL acsURL = new URL(request.getAssertionConsumerServiceURL());
-            String acsBinding = DatatypeHelper.safeTrimOrNullString(request.getProtocolBinding());
+        String acsBinding = DatatypeHelper.safeTrimOrNullString(request.getProtocolBinding());
+        if (acsBinding == null) {
+            return null;
+        }
 
-            URL endpointURL;
-            String endpointBinding;
-            for (IndexedEndpoint endpoint : endpoints) {
-                endpointBinding = DatatypeHelper.safeTrimOrNullString(endpoint.getBinding());
+        for (IndexedEndpoint endpoint : endpoints) {
+            if (!getSupportedIssuerBindings().contains(endpoint.getBinding())) {
+                continue;
+            }
 
-                if ((acsBinding != null && acsBinding.equals(endpointBinding) && getSupportedIssuerBindings().contains(
-                        endpointBinding))
-                        || getSupportedIssuerBindings().contains(endpointBinding)) {
-                    endpointURL = new URL(endpoint.getLocation());
-                    if (endpointURL.equals(acsURL)) {
-                        return endpoint;
-                    } else {
-                        endpointURL = new URL(endpoint.getResponseLocation());
-                        if (endpointURL.equals(acsURL)) {
-                            return endpoint;
-                        }
-                    }
+            if (endpoint.getBinding().equals(acsBinding)) {
+                if (endpoint.getLocation().equals(request.getAssertionConsumerServiceURL())
+                        || endpoint.getResponseLocation().equals(request.getAssertionConsumerServiceURL())) {
+                    return endpoint;
                 }
             }
-        } catch (MalformedURLException e) {
-            // do nothing
         }
 
         return null;
