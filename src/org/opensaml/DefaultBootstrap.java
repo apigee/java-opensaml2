@@ -33,26 +33,14 @@ public class DefaultBootstrap {
 
     /** Class logger. */
     private static Logger log = Logger.getLogger(DefaultBootstrap.class);
-    
+
     /** List of default XMLTooling configuration files. */
-    private static String[] xmlToolingConfigs = { 
-            "/default-config.xml",
-            "/schema-config.xml",
-            "/signature-config.xml",
-            "/encryption-config.xml",
-            "/soap11-config.xml",
-            "/saml1-assertion-config.xml",
-            "/saml1-protocol-config.xml",
-            "/saml1-core-validation-config.xml",
-            "/saml2-assertion-config.xml",
-            "/saml2-protocol-config.xml",
-            "/saml2-protocol-thirdparty-config.xml",
-            "/saml2-core-validation-config.xml",
-            "/saml2-metadata-config.xml",
-            "/saml1-metadata-config.xml",
-            "/saml2-metadata-query-config.xml",
-            "/saml2-metadata-validation-config.xml", 
-        };
+    private static String[] xmlToolingConfigs = { "/default-config.xml", "/schema-config.xml", "/signature-config.xml",
+            "/encryption-config.xml", "/soap11-config.xml", "/saml1-assertion-config.xml",
+            "/saml1-protocol-config.xml", "/saml1-core-validation-config.xml", "/saml2-assertion-config.xml",
+            "/saml2-protocol-config.xml", "/saml2-protocol-thirdparty-config.xml", "/saml2-core-validation-config.xml",
+            "/saml2-metadata-config.xml", "/saml1-metadata-config.xml", "/saml2-metadata-query-config.xml",
+            "/saml2-metadata-validation-config.xml", };
 
     /** Constrcutor. */
     protected DefaultBootstrap() {
@@ -73,7 +61,7 @@ public class DefaultBootstrap {
         initializeXMLTooling(xmlToolingConfigs);
 
         initializeArtifactBuilderFactories();
-        
+
         initializeGlobalSecurityConfiguration();
     }
 
@@ -81,7 +69,7 @@ public class DefaultBootstrap {
      * Initializes the default global security configuration.
      */
     protected static void initializeGlobalSecurityConfiguration() {
-        Configuration.setGlobalSecurityConfiguration( DefaultSecurityConfigurationBootstrap.buildDefaultConfig() );
+        Configuration.setGlobalSecurityConfiguration(DefaultSecurityConfigurationBootstrap.buildDefaultConfig());
     }
 
     /**
@@ -108,11 +96,16 @@ public class DefaultBootstrap {
             if (log.isDebugEnabled()) {
                 log.debug("Initializing Velocity template engine");
             }
+            Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
+                    "org.apache.velocity.runtime.log.Log4JLogChute");
+            Velocity.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
             Velocity.setProperty(RuntimeConstants.ENCODING_DEFAULT, "UTF-8");
             Velocity.setProperty(RuntimeConstants.OUTPUT_ENCODING, "UTF-8");
-            Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+            Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath, string");
             Velocity.setProperty("classpath.resource.loader.class",
                     "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+            Velocity.setProperty("string.resource.loader.class",
+                    "org.apache.velocity.runtime.resource.loader.StringResourceLoader");
             Velocity.init();
         } catch (Exception e) {
             throw new ConfigurationException("Unable to initialize Velocity template engine", e);
@@ -144,10 +137,10 @@ public class DefaultBootstrap {
      * @throws ConfigurationException thrown if there is a problem initializing the artifact factory
      */
     protected static void initializeArtifactBuilderFactories() throws ConfigurationException {
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("Initializing SAML Artifact builder factories");
         }
-            
+
         Configuration.setSAML1ArtifactBuilderFactory(new SAML1ArtifactBuilderFactory());
         Configuration.setSAML2ArtifactBuilderFactory(new SAML2ArtifactBuilderFactory());
     }
