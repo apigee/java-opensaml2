@@ -45,7 +45,7 @@ public class SAML1ArtifactType0001Builder implements SAML1ArtifactBuilder<SAML1A
             SAMLMessageContext<RequestAbstractType, Response, NameIdentifier> requestContext, Assertion assertion) {
         try {
             MessageDigest sha1Digester = MessageDigest.getInstance("SHA-1");
-            byte[] source = sha1Digester.digest(requestContext.getOutboundSAMLMessageId().getBytes());
+            byte[] source = sha1Digester.digest(requestContext.getOutboundMessageIssuer().getBytes());
 
             SecureRandom handleGenerator = SecureRandom.getInstance("SHA1PRNG");
             byte[] assertionHandle = new byte[20];

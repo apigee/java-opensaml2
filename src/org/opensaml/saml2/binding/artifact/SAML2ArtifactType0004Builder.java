@@ -54,7 +54,7 @@ public class SAML2ArtifactType0004Builder implements SAML2ArtifactBuilder<SAML2A
             trimmedIndex[1] = endpointIndex[3];
 
             MessageDigest sha1Digester = MessageDigest.getInstance("SHA-1");
-            byte[] source = sha1Digester.digest(requestContext.getOutboundSAMLMessageId().getBytes());
+            byte[] source = sha1Digester.digest(requestContext.getOutboundMessageIssuer().getBytes());
 
             SecureRandom handleGenerator = SecureRandom.getInstance("SHA1PRNG");
             byte[] assertionHandle;
