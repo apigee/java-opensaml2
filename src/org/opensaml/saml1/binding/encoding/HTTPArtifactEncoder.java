@@ -83,7 +83,7 @@ public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder implements SAML
 
         SAMLMessageContext<SAMLObject, Response, NameIdentifier> artifactContext = (SAMLMessageContext) messageContext;
         HTTPOutTransport outTransport = (HTTPOutTransport) artifactContext.getOutboundMessageTransport();
-        
+
         URLBuilder urlBuilder = new URLBuilder(getEndpointURL(artifactContext));
 
         List<Pair<String, String>> params = urlBuilder.getQueryParams();
@@ -108,7 +108,13 @@ public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder implements SAML
             artifactString = artifact.base64Encode();
             params.add(new Pair<String, String>("SAMLArt", artifactString));
         }
-        
+
+        String redirectUrl = urlBuilder.buildURL();
+
+        if (log.isDebugEnabled()) {
+            log.debug("Sending redirect to URL " + redirectUrl + " to relying party "
+                    + artifactContext.getInboundMessageIssuer());
+        }
         outTransport.sendRedirect(urlBuilder.buildURL());
     }
 }
