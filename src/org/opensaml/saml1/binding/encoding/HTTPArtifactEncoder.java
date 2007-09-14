@@ -106,7 +106,7 @@ public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder implements SAML
             artifactMap.put(artifact.getArtifactBytes(), messageContext.getInboundMessageIssuer(), messageContext
                     .getOutboundMessageIssuer(), assertion);
             artifactString = artifact.base64Encode();
-            params.add(new Pair<String, String>("SAMLArt", artifactString));
+            params.add(new Pair<String, String>("SAMLart", artifactString));
         }
 
         String redirectUrl = urlBuilder.buildURL();
