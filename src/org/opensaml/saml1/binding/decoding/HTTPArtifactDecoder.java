@@ -21,6 +21,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
@@ -29,6 +31,7 @@ import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
+import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
@@ -40,13 +43,30 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder implements SAML
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPArtifactDecoder.class);
 
-    /** Factory used to build artifacts from byte representation. */
-    private SAML1ArtifactBuilderFactory artifactFactory;
+    /** Builder of SAML 1 artifacts. */
+    private SAML1ArtifactBuilderFactory artifactBuilder;
 
-    /** Constructor. */
-    public HTTPArtifactDecoder() {
-        super();
-        artifactFactory = Configuration.getSAML1ArtifactBuilderFactory();
+    /**
+     * Constructor.
+     * 
+     * @param map Artifact to SAML map
+     */
+    public HTTPArtifactDecoder(SAMLArtifactMap map) {
+        super(map);
+
+        artifactBuilder = Configuration.getSAML1ArtifactBuilderFactory();
+    }
+    
+    /**
+     * Constructor.
+     * 
+     * @param map used to map artifacts to SAML
+     * @param pool parser pool used to deserialize messages
+     */
+    public HTTPArtifactDecoder(SAMLArtifactMap map, ParserPool pool) {
+        super(map, pool);
+        
+        artifactBuilder = Configuration.getSAML1ArtifactBuilderFactory();
     }
 
     /** {@inheritDoc} */
@@ -69,6 +89,20 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder implements SAML
         }
 
         SAML1ArtifactMessageContext artifactContext = (SAML1ArtifactMessageContext) messageContext;
+        decodeTarget(artifactContext);
+        decodeArtifacts(artifactContext);
+
+        populateMessageContext(artifactContext);
+    }
+
+    /**
+     * Decodes the TARGET parameter and adds it to the message context.
+     * 
+     * @param artifactContext current message context
+     * 
+     * @throws MessageDecodingException thrown if there is a problem decoding the TARGET parameter.
+     */
+    protected void decodeTarget(SAML1ArtifactMessageContext artifactContext) throws MessageDecodingException {
         HTTPInTransport inTransport = (HTTPInTransport) artifactContext.getInboundMessageTransport();
 
         String target = DatatypeHelper.safeTrim(inTransport.getParameterValue("TARGET"));
@@ -77,22 +111,44 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder implements SAML
             throw new MessageDecodingException("URL TARGET parameter was missing or did not contain a value.");
         }
         artifactContext.setRelayState(target);
+    }
 
+    /**
+     * Decodes the SAMLart parameter(s) and adds the decoded artifacts and relying party information to the message
+     * context.
+     * 
+     * @param artifactContext current message context
+     * 
+     * @throws MessageDecodingException thrown if there is a problem decoding the SAMLart parameter(s)
+     */
+    protected void decodeArtifacts(SAML1ArtifactMessageContext artifactContext) throws MessageDecodingException {
+        HTTPInTransport inTransport = (HTTPInTransport) artifactContext.getInboundMessageTransport();
         List<String> encodedArtifacts = inTransport.getParameterValues("SAMLart");
         if (encodedArtifacts == null || encodedArtifacts.size() == 0) {
             log.error("URL SAMLart parameter was missing or did not contain a value.");
-            throw new MessageDecodingException("URL TARGET parameter was missing or did not contain a value.");
+            throw new MessageDecodingException("URL SAMLart parameter was missing or did not contain a value.");
         }
 
         ArrayList<AbstractSAML1Artifact> artifacts = new ArrayList<AbstractSAML1Artifact>();
-        byte[] base64DecodedArtifact;
+
+        String relyingPartyId = null;
+        SAMLArtifactMapEntry artifactEntry;
+        AbstractSAML1Artifact artifact;
         for (String encodedArtifact : encodedArtifacts) {
-            base64DecodedArtifact = Base64.decode(encodedArtifact);
-            artifacts.add(artifactFactory.buildArtifact(base64DecodedArtifact));
+            artifactEntry = getArtifactMap().get(Base64.decode(encodedArtifact));
+
+            if (relyingPartyId == null) {
+                relyingPartyId = artifactEntry.getRelyingPartyId();
+            } else {
+                if (!relyingPartyId.equals(artifactEntry.getRelyingPartyId())) {
+                    throw new MessageDecodingException("Request SAML artifacts do have the same relying party ID");
+                }
+            }
+
+            artifact = artifactBuilder.buildArtifact(artifactEntry.getArtifact());
+            artifacts.add(artifact);
         }
 
-        artifactContext.setArtifacts(artifacts);
-        
-        populateMessageContext(artifactContext);
+        artifactContext.setInboundMessageIssuer(relyingPartyId);
     }
 }

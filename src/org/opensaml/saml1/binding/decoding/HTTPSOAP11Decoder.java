@@ -21,6 +21,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
@@ -38,18 +39,23 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPPostDecoder.class);
 
-    /** Constructor. */
-    public HTTPSOAP11Decoder() {
-        super();
-    }
-
     /**
      * Constructor.
      * 
+     * @param map Artifact to SAML map
+     */
+    public HTTPSOAP11Decoder(SAMLArtifactMap map) {
+        super(map);
+    }
+    
+    /**
+     * Constructor.
+     * 
+     * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
      */
-    public HTTPSOAP11Decoder(ParserPool pool) {
-        super(pool);
+    public HTTPSOAP11Decoder(SAMLArtifactMap map, ParserPool pool) {
+        super(map, pool);
     }
 
     /** {@inheritDoc} */

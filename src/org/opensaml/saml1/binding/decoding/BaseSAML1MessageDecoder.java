@@ -23,11 +23,13 @@ import javax.xml.namespace.QName;
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
-import org.opensaml.saml1.core.Query;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.Response;
@@ -38,6 +40,7 @@ import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
@@ -48,35 +51,60 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
     /** Class logger. */
     private Logger log = Logger.getLogger(BaseSAML1MessageDecoder.class);
 
+    /** Map used to map artifacts to SAML. */
+    private SAMLArtifactMap artifactMap;
+
     /** Whether to use the resource of an attribute query as the relying party entity ID. */
-    private boolean queryResourceAsEntityId;
+    private boolean useQueryResourceAsEntityId;
 
-    /** Constructor. */
-    public BaseSAML1MessageDecoder() {
+    /**
+     * Constructor.
+     * 
+     * @param map used to map artifacts to SAML
+     */
+    public BaseSAML1MessageDecoder(SAMLArtifactMap map) {
         super();
-        queryResourceAsEntityId = true;
+        useQueryResourceAsEntityId = true;
     }
 
     /**
      * Constructor.
      * 
+     * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
      */
-    public BaseSAML1MessageDecoder(ParserPool pool) {
+    public BaseSAML1MessageDecoder(SAMLArtifactMap map, ParserPool pool) {
         super(pool);
-        queryResourceAsEntityId = true;
+        useQueryResourceAsEntityId = true;
     }
 
     /**
-     * Constructor.
+     * Gets the artifact map used to retrieve SAML information from an artifact.
      * 
-     * @param pool parser pool used to deserialize messages
-     * @param useAttribtueQueryResourceAsEntityId whether to use the resource of an attribute query as the relying party
-     *            entity ID
+     * @return artifact map used to retrieve SAML information from an artifact
      */
-    public BaseSAML1MessageDecoder(ParserPool pool, boolean useAttribtueQueryResourceAsEntityId) {
-        super(pool);
-        queryResourceAsEntityId = useAttribtueQueryResourceAsEntityId;
+    public SAMLArtifactMap getArtifactMap() {
+        return artifactMap;
+    }
+
+    /**
+     * Gets whether to use the Resource attribute of some SAML 1 queries as the entity ID of the inbound message issuer.
+     * 
+     * @return whether to use the Resource attribute of some SAML 1 queries as the entity ID of the inbound message
+     *         issuer
+     */
+    public boolean getUseQueryResourceAsEntityId() {
+        return useQueryResourceAsEntityId;
+    }
+
+    /**
+     * Sets whether to use the Resource attribute of some SAML 1 queries as the entity ID of the inbound message issuer.
+     * 
+     * @param useResource whether to use the Resource attribute of some SAML 1 queries as the entity ID of the inbound
+     *            message issuer
+     */
+    public void setUseQueryResourceAsEntityId(boolean useResource) {
+        useQueryResourceAsEntityId = useResource;
     }
 
     /**
@@ -105,16 +133,12 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
             throws MessageDecodingException {
         SAMLObject samlMsg = messageContext.getInboundSAMLMessage();
         if (samlMsg == null) {
-            log.error("Message context did not contain inbound SAML message");
-            throw new MessageDecodingException("Message context did not contain inbound SAML message");
+            return;
         }
 
         if (samlMsg instanceof RequestAbstractType) {
             log.debug("Extracting ID, issuer and issue instant from request");
             extractRequestInfo(messageContext, (RequestAbstractType) samlMsg);
-        } else if (samlMsg instanceof Query) {
-            log.debug("Extracting issuer from attribute query");
-            extractAttributeQueryInfo(messageContext, (Query) samlMsg);
         } else if (samlMsg instanceof Response) {
             log.debug("Extracting ID, issuer and issue instant from response");
             extractResponseInfo(messageContext, (Response) samlMsg);
@@ -127,61 +151,97 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
      * Extract information from a SAML RequestAbstractType message.
      * 
      * @param messageContext current message context
-     * @param request the SAML message to process
+     * @param abstractRequest the SAML message to process
      */
-    protected void extractRequestInfo(SAMLMessageContext messageContext, RequestAbstractType request) {
-        messageContext.setInboundSAMLMessageId(request.getID());
-        messageContext.setInboundSAMLMessageIssueInstant(request.getIssueInstant());
+    protected void extractRequestInfo(SAMLMessageContext messageContext, RequestAbstractType abstractRequest) {
+        messageContext.setInboundSAMLMessageId(abstractRequest.getID());
+        messageContext.setInboundSAMLMessageIssueInstant(abstractRequest.getIssueInstant());
 
-        if (queryResourceAsEntityId && request instanceof Request) {
-            AttributeQuery query = ((Request) request).getAttributeQuery();
-
-            if (query != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Attempting to extract issuer from enclosed SAML 1.x AttributeQuery Resource attribute");
-                }
-                String resource = DatatypeHelper.safeTrimOrNullString(query.getResource());
-
-                if (resource != null) {
-                    messageContext.setInboundMessageIssuer(resource);
-                    if (log.isDebugEnabled()) {
-                        log.debug("Extracted issuer from SAML 1.x AttributeQuery Resource: " + resource);
-                    }
-                }
+        if (abstractRequest instanceof Request) {
+            Request request = (Request) abstractRequest;
+            if (request.getAttributeQuery() != null) {
+                extractAttributeQueryInfo(messageContext, request.getAttributeQuery());
             }
 
+            if (request.getAuthorizationDecisionQuery() != null) {
+                extractAuthorizationDecisionQueryInfo(messageContext, request.getAuthorizationDecisionQuery());
+            }
+
+            if (request.getAssertionArtifacts() != null) {
+                extractAssertionArtifactInfo(messageContext, request.getAssertionArtifacts());
+            }
         }
     }
 
     /**
-     * Extract information from a SAML Query message.
+     * Extract the issuer, and populate message context, from the Resource attribute of the Attribute query if
+     * {@link #useQueryResourceAsEntityId} is true.
      * 
      * @param messageContext current message context
-     * @param query the SAML query to process
+     * @param query query to extract resource name from
      */
-    protected void extractAttributeQueryInfo(SAMLMessageContext messageContext, Query query) {
-        if (queryResourceAsEntityId) {
-            String resource = null;
-            if (query instanceof AttributeQuery) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Attempting to extract issuer from SAML 1 AttributeQuery Resource attribute");
-                }
-                resource = DatatypeHelper.safeTrimOrNullString(((AttributeQuery) query).getResource());
+    protected void extractAttributeQueryInfo(SAMLMessageContext messageContext, AttributeQuery query) {
+        if (useQueryResourceAsEntityId) {
+            if (log.isDebugEnabled()) {
+                log.debug("Attempting to extract issuer from SAML 1 AttributeQuery Resource attribute");
             }
-
-            if (query instanceof AuthorizationDecisionQuery) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Attempting to extract issuer from SAML 1 AuthorizationDecisionQuery Resource attribute");
-                }
-                resource = DatatypeHelper.safeTrimOrNullString(((AttributeQuery) query).getResource());
-            }
+            String resource = DatatypeHelper.safeTrimOrNullString(query.getResource());
 
             if (resource != null) {
                 messageContext.setInboundMessageIssuer(resource);
                 if (log.isDebugEnabled()) {
-                    log.debug("Extracted issuer from SAML 1.x Query: " + resource);
+                    log.debug("Extracted issuer from SAML 1.x AttributeQuery: " + resource);
                 }
             }
+        }
+    }
+
+    /**
+     * Extract the issuer, and populate message context, from the Resource attribute of the AuthorizationDecisionQuery
+     * query if {@link #useQueryResourceAsEntityId} is true.
+     * 
+     * @param messageContext current message context
+     * @param query query to extract resource name from
+     */
+    protected void extractAuthorizationDecisionQueryInfo(SAMLMessageContext messageContext,
+            AuthorizationDecisionQuery query) {
+        if (useQueryResourceAsEntityId) {
+            if (log.isDebugEnabled()) {
+                log.debug("Attempting to extract issuer from SAML 1 AuthorizationDecisionQuery Resource attribute");
+            }
+            String resource = DatatypeHelper.safeTrimOrNullString(query.getResource());
+
+            if (resource != null) {
+                messageContext.setInboundMessageIssuer(resource);
+                if (log.isDebugEnabled()) {
+                    log.debug("Extracted issuer from SAML 1.x AuthorizationDecisionQuery: " + resource);
+                }
+            }
+        }
+    }
+
+    /**
+     * Extract the issuer, and populate message context, as the relying party corresponding to the first
+     * AssertionArtifact in the message.
+     * 
+     * @param messageContext current message context
+     * @param artifacts AssertionArtifacts in the request
+     */
+    protected void extractAssertionArtifactInfo(SAMLMessageContext messageContext, List<AssertionArtifact> artifacts) {
+        if (artifacts.size() == 0) {
+            return;
+        }
+
+        if (log.isDebugEnabled()) {
+            log.debug("Attempting to extract issuer based on first AssertionArtifact in request");
+        }
+        AssertionArtifact artifact = artifacts.get(0);
+        byte[] decodedArtifact = Base64.decode(artifact.getAssertionArtifact());
+        SAMLArtifactMapEntry artifactEntry = artifactMap.get(decodedArtifact);
+        messageContext.setInboundMessageIssuer(artifactEntry.getRelyingPartyId());
+
+        if (log.isDebugEnabled()) {
+            log.debug("Extracted issuer from SAML 1.x AssertionArtifact: " + messageContext.getInboundMessageIssuer());
         }
     }
 

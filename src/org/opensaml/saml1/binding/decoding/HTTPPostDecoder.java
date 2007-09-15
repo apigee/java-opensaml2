@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.log.Level;
@@ -38,18 +39,23 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder implements SAMLMess
     /** Class logger. */
     private final Logger log = Logger.getLogger(HTTPPostDecoder.class);
 
-    /** Constructor. */
-    public HTTPPostDecoder() {
-        super();
-    }
-
     /**
      * Constructor.
      * 
+     * @param map Artifact to SAML map
+     */
+    public HTTPPostDecoder(SAMLArtifactMap map) {
+        super(map);
+    }
+    
+    /**
+     * Constructor.
+     * 
+     * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
      */
-    public HTTPPostDecoder(ParserPool pool) {
-        super(pool);
+    public HTTPPostDecoder(SAMLArtifactMap map, ParserPool pool) {
+        super(map, pool);
     }
 
     /** {@inheritDoc} */
