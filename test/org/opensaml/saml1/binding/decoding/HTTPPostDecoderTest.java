@@ -38,7 +38,7 @@ public class HTTPPostDecoderTest extends BaseTestCase {
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
         messageContext.setInboundMessageTransport(new HttpServletRequestAdapter(request));
         
-        HTTPPostDecoder decoder = new HTTPPostDecoder();
+        HTTPPostDecoder decoder = new HTTPPostDecoder(null);
         decoder.decode(messageContext);
 
         assertTrue(messageContext.getInboundMessage() instanceof Response);
