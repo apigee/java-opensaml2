@@ -27,7 +27,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class BasicSAMLArtifactMap implements SAMLArtifactMap {
 
     /** Artifact mapping storage. */
-    private StorageService<byte[], SAMLArtifactMapEntry> artifactStore;
+    private StorageService<String, SAMLArtifactMapEntry> artifactStore;
 
     /** Storage service partition used by this cache. default: artifact */
     private String partition;
@@ -41,7 +41,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
      * @param storage artifact mapping storage
      * @param lifetime lifetime of an artifact in milliseconds
      */
-    public BasicSAMLArtifactMap(StorageService<byte[], SAMLArtifactMapEntry> storage, long lifetime) {
+    public BasicSAMLArtifactMap(StorageService<String, SAMLArtifactMapEntry> storage, long lifetime) {
         artifactStore = storage;
         partition = "artifact";
         artifactLifetime = lifetime;
@@ -54,7 +54,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
      * @param storageParition name of storage service partition to use
      * @param lifetime lifetime of an artifact in milliseconds
      */
-    public BasicSAMLArtifactMap(StorageService<byte[], SAMLArtifactMapEntry> storage, String storageParition,
+    public BasicSAMLArtifactMap(StorageService<String, SAMLArtifactMapEntry> storage, String storageParition,
             long lifetime) {
         artifactStore = storage;
         if (!DatatypeHelper.isEmpty(storageParition)) {
@@ -66,12 +66,12 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
     }
 
     /** {@inheritDoc} */
-    public boolean contains(byte[] artifact) {
+    public boolean contains(String artifact) {
         return artifactStore.contains(partition, artifact);
     }
 
     /** {@inheritDoc} */
-    public SAMLArtifactMapEntry get(byte[] artifact) {
+    public SAMLArtifactMapEntry get(String artifact) {
         SAMLArtifactMapEntry entry = artifactStore.get(partition, artifact);
 
         if (entry.isExpired()) {
@@ -83,14 +83,14 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
     }
 
     /** {@inheritDoc} */
-    public void put(byte[] artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage) {
+    public void put(String artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage) {
         BasicSAMLArtifactMapEntry artifactEntry = new BasicSAMLArtifactMapEntry(artifact, issuerId, relyingPartyId,
                 samlMessage, artifactLifetime);
         artifactStore.put(partition, artifact, artifactEntry);
     }
 
     /** {@inheritDoc} */
-    public void remove(byte[] artifact) {
+    public void remove(String artifact) {
         artifactStore.remove(partition, artifact);
     }
 
@@ -98,7 +98,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
     public class BasicSAMLArtifactMapEntry implements SAMLArtifactMapEntry {
 
         /** SAML artifact being mapped. */
-        private byte[] artifact;
+        private String artifact;
 
         /** Entity ID of the issuer of the artifact. */
         private String issuer;
@@ -112,7 +112,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         /** Time this artifact entry expires. */
         private DateTime expirationTime;
 
-        public BasicSAMLArtifactMapEntry(byte[] artifact, String issuer, String relyingParty, SAMLObject saml,
+        public BasicSAMLArtifactMapEntry(String artifact, String issuer, String relyingParty, SAMLObject saml,
                 long lifetime) {
             this.artifact = artifact;
             this.issuer = issuer;
@@ -122,7 +122,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         }
 
         /** {@inheritDoc} */
-        public byte[] getArtifact() {
+        public String getArtifact() {
             return artifact;
         }
 

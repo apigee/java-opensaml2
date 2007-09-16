@@ -40,7 +40,6 @@ import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.xml.parse.ParserPool;
-import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
@@ -64,6 +63,7 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
      */
     public BaseSAML1MessageDecoder(SAMLArtifactMap map) {
         super();
+        artifactMap = map;
         useQueryResourceAsEntityId = true;
     }
 
@@ -75,6 +75,7 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
      */
     public BaseSAML1MessageDecoder(SAMLArtifactMap map, ParserPool pool) {
         super(pool);
+        artifactMap = map;
         useQueryResourceAsEntityId = true;
     }
 
@@ -236,8 +237,7 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
             log.debug("Attempting to extract issuer based on first AssertionArtifact in request");
         }
         AssertionArtifact artifact = artifacts.get(0);
-        byte[] decodedArtifact = Base64.decode(artifact.getAssertionArtifact());
-        SAMLArtifactMapEntry artifactEntry = artifactMap.get(decodedArtifact);
+        SAMLArtifactMapEntry artifactEntry = artifactMap.get(artifact.getAssertionArtifact());
         messageContext.setInboundMessageIssuer(artifactEntry.getRelyingPartyId());
 
         if (log.isDebugEnabled()) {

@@ -20,7 +20,6 @@ import java.util.Collection;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
-import org.opensaml.saml1.binding.artifact.AbstractSAML1Artifact;
 
 /**
  * Extensions to the base SAML message context that carries artifact related information.
@@ -33,16 +32,16 @@ public interface SAML1ArtifactMessageContext<InboundMessageType extends SAMLObje
         extends SAMLMessageContext<InboundMessageType, OutboundMessageType, NameIdentifierType> {
 
     /**
-     * Gets the artifacts to be resolved.
+     * Gets the Base64 encoded artifacts to be resolved.
      * 
      * @return artifacts to be resolved
      */
-    public Collection<AbstractSAML1Artifact> getArtifacts();
+    public Collection<String> getArtifacts();
 
     /**
-     * Sets the artifacts to be resolved.
+     * Sets the Base64 encoded artifacts to be resolved.
      * 
      * @param artifacts artifacts to be resolved
      */
-    public void setArtifacts(Collection<AbstractSAML1Artifact> artifacts);
+    public void setArtifacts(Collection<String> artifacts);
 }

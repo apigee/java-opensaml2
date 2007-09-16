@@ -120,6 +120,6 @@ public abstract class AbstractSAMLArtifact {
     
     /** {@inheritDoc} */
     public String toString(){
-        return new String(getArtifactBytes());
+        return base64Encode();
     }
 }

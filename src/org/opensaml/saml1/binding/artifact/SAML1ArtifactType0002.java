@@ -95,7 +95,7 @@ public class SAML1ArtifactType0002 extends AbstractSAML1Artifact {
      * @param handle artifiact's 20 byte assertion handle
      */
     public void setAssertionHandle(byte[] handle) {
-        if (assertionHandle.length != 20) {
+        if (handle.length != 20) {
             throw new IllegalArgumentException("Artifact assertion handle must be 20 bytes long");
         }
         assertionHandle = handle;

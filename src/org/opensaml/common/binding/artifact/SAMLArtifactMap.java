@@ -33,7 +33,7 @@ public interface SAMLArtifactMap {
      * 
      * @return true of this map has an entry for the given artifact, false it not
      */
-    public boolean contains(byte[] artifact);
+    public boolean contains(String artifact);
 
     /**
      * Creates a mapping between a given artifact and the SAML message to which it maps.
@@ -43,7 +43,7 @@ public interface SAMLArtifactMap {
      * @param issuerId ID of the issuer of the artifact
      * @param samlMessage the SAML message
      */
-    public void put(byte[] artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage);
+    public void put(String artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage);
 
     /**
      * Gets the artifact entry for the given artifact.
@@ -52,14 +52,14 @@ public interface SAMLArtifactMap {
      * 
      * @return the entry or null if the artifact has already expired or did not exist
      */
-    public SAMLArtifactMapEntry get(byte[] artifact);
+    public SAMLArtifactMapEntry get(String artifact);
     
     /**
      * Removes the artifact from this map.
      * 
      * @param artifact artifact to be removed
      */
-    public void remove(byte[] artifact);
+    public void remove(String artifact);
 
     /**
      * Represents a mapping between an artifact a SAML message with some associated metadata.
@@ -71,7 +71,7 @@ public interface SAMLArtifactMap {
          * 
          * @return artifact that maps to the SAML message
          */
-        public byte[] getArtifact();
+        public String getArtifact();
 
         /**
          * Gets the ID of the issuer of the artifact.

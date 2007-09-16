@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.binding.decoding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -26,13 +25,11 @@ import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
-import org.opensaml.saml1.binding.artifact.AbstractSAML1Artifact;
 import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.parse.ParserPool;
-import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
 
 /**
@@ -129,26 +126,21 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder implements SAML
             throw new MessageDecodingException("URL SAMLart parameter was missing or did not contain a value.");
         }
 
-        ArrayList<AbstractSAML1Artifact> artifacts = new ArrayList<AbstractSAML1Artifact>();
-
         String relyingPartyId = null;
         SAMLArtifactMapEntry artifactEntry;
-        AbstractSAML1Artifact artifact;
         for (String encodedArtifact : encodedArtifacts) {
-            artifactEntry = getArtifactMap().get(Base64.decode(encodedArtifact));
+            artifactEntry = getArtifactMap().get(encodedArtifact);
 
             if (relyingPartyId == null) {
                 relyingPartyId = artifactEntry.getRelyingPartyId();
             } else {
                 if (!relyingPartyId.equals(artifactEntry.getRelyingPartyId())) {
-                    throw new MessageDecodingException("Request SAML artifacts do have the same relying party ID");
+                    throw new MessageDecodingException("Request SAML artifacts do not have the same relying party ID");
                 }
             }
-
-            artifact = artifactBuilder.buildArtifact(artifactEntry.getArtifact());
-            artifacts.add(artifact);
         }
 
         artifactContext.setInboundMessageIssuer(relyingPartyId);
+        artifactContext.setArtifacts(encodedArtifacts);
     }
 }

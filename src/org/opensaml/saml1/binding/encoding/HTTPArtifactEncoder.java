@@ -103,7 +103,7 @@ public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder implements SAML
         String artifactString;
         for (Assertion assertion : artifactContext.getOutboundSAMLMessage().getAssertions()) {
             artifact = artifactBuilder.buildArtifact(artifactContext, assertion);
-            artifactMap.put(artifact.getArtifactBytes(), messageContext.getInboundMessageIssuer(), messageContext
+            artifactMap.put(artifact.base64Encode(), messageContext.getInboundMessageIssuer(), messageContext
                     .getOutboundMessageIssuer(), assertion);
             artifactString = artifact.base64Encode();
             params.add(new Pair<String, String>("SAMLart", artifactString));

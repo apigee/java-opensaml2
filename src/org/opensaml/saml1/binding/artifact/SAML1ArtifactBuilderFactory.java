@@ -19,6 +19,8 @@ package org.opensaml.saml1.binding.artifact;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.opensaml.xml.util.Base64;
+
 /**
  * Factory used to construct SAML 1 artifact builders.
  */
@@ -53,9 +55,20 @@ public class SAML1ArtifactBuilderFactory {
     public SAML1ArtifactBuilder getArtifactBuilder(byte[] type) {
         return artifactBuilders.get(new String(type));
     }
+    
+    /**
+     * Convenience method for getting an artifact builder and parsing the given Base64 encoded artifact with it.
+     * 
+     * @param base64Artifact Base64 encoded artifact to parse
+     * 
+     * @return constructed artifact
+     */
+    public AbstractSAML1Artifact buildArtifact(String base64Artifact){
+        return buildArtifact(Base64.decode(base64Artifact));
+    }
 
     /**
-     * convenience method for getting an artifact builder and parsing the given artifact with it.
+     * Convenience method for getting an artifact builder and parsing the given artifact with it.
      * 
      * @param artifact artifact to parse
      * 
