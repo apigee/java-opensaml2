@@ -98,7 +98,7 @@ public class HTTPPostEncoderTest extends BaseTestCase {
         "/templates/saml2-post-binding.vm");
         encoder.encode(messageContext);
 
-        assertEquals("Unexpected content type", "application/xhtml+xml", response.getContentType());
+        assertEquals("Unexpected content type", "text/html", response.getContentType());
         assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
         assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
         assertEquals(1139044909, response.getContentAsString().hashCode());
@@ -132,7 +132,7 @@ public class HTTPPostEncoderTest extends BaseTestCase {
         "/templates/saml2-post-binding.vm");
         encoder.encode(messageContext);
 
-        assertEquals("Unexpected content type", "application/xhtml+xml", response.getContentType());
+        assertEquals("Unexpected content type", "text/html", response.getContentType());
         assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
         assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
         assertEquals(800455728, response.getContentAsString().hashCode());
