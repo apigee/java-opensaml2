@@ -33,17 +33,17 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * Base class for SAML security policy rules which evaluate a signature with a signature trust engine.
  */
-public abstract class BaseSAMLSignatureSecurityPolicyRule extends BaseTrustEngineRule<Signature> {
+public abstract class BaseSAMLXMLSignatureSecurityPolicyRule extends BaseTrustEngineRule<Signature> {
     
     /** Logger. */
-    private Logger log = Logger.getLogger(BaseSAMLSignatureSecurityPolicyRule.class);
+    private Logger log = Logger.getLogger(BaseSAMLXMLSignatureSecurityPolicyRule.class);
     
     /**
      * Constructor.
      *
      * @param engine Trust engine used to verify the signature
      */
-    public BaseSAMLSignatureSecurityPolicyRule(TrustEngine<Signature> engine) {
+    public BaseSAMLXMLSignatureSecurityPolicyRule(TrustEngine<Signature> engine) {
         super(engine);
     }
 

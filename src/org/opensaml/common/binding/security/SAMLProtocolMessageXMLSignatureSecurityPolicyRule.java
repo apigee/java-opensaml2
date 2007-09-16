@@ -32,7 +32,7 @@ import org.opensaml.xml.signature.Signature;
  * processing is performed. If signature validation is successful, and the SAML message context issuer was not
  * previously authenticated, then the context's issuer authentication state will be set to <code>true</code>.
  */
-public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLSignatureSecurityPolicyRule {
+public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLXMLSignatureSecurityPolicyRule {
 
     /** Logger. */
     private Logger log = Logger.getLogger(SAMLProtocolMessageXMLSignatureSecurityPolicyRule.class);
