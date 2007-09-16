@@ -242,7 +242,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
         try {
             byte[] rawSignature = 
                 SigningUtil.signWithURI(signingCredential, algorithmURI, queryString.getBytes("UTF-8"));
-            b64Signature = Base64.encodeBytes(rawSignature);
+            b64Signature = Base64.encodeBytes(rawSignature, Base64.DONT_BREAK_LINES);
             if (log.isDebugEnabled()) {
                 log.debug(String.format("Generated digital signature value (base64-encoded) '%s'", b64Signature));
             }
