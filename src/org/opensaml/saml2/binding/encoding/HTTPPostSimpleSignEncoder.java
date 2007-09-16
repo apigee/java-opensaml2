@@ -44,7 +44,9 @@ import org.opensaml.xml.util.XMLHelper;
  * <p>
  * The spec does not preclude the SAML 2 protocol message from being signed using the XML Signature method,
  * in addition to the SimpleSign method specified by this binding. Signing via XML Signature over the SAML
- * request and response payload may be toggled by the <code>signXMLProtocolMessage</code> parameter to the constructor.
+ * request and response payload may be toggled by the <code>signXMLProtocolMessage</code> parameter to the
+ * constructor {@link HTTPPostSimpleSignEncoder#HTTPPostSimpleSignEncoder(VelocityEngine, String, boolean)}. 
+ * If this constructor variant is not used, the flag defaults to <code>false</code>.
  * </p>
  */
 public class HTTPPostSimpleSignEncoder extends HTTPPostEncoder {
@@ -61,11 +63,23 @@ public class HTTPPostSimpleSignEncoder extends HTTPPostEncoder {
      *
      * @param engine Velocity engine instance used to create POST body
      * @param templateId ID of the template used to create POST body
+     */
+    public HTTPPostSimpleSignEncoder(VelocityEngine engine, String templateId) {
+        super(engine, templateId);
+        signProtocolMessageWithXMLDSIG = false;
+    }
+    
+    /**
+     * Constructor.
+     *
+     * @param engine Velocity engine instance used to create POST body
+     * @param templateId ID of the template used to create POST body
      * @param signXMLProtocolMessage if true, the protocol message will be signed according to the XML Signature
-     *          specification, in addition to the SimpleSign specification
+     *          specification, in addition to the HTTP-POST-SimpleSign binding specification
      */
     public HTTPPostSimpleSignEncoder(VelocityEngine engine, String templateId, boolean signXMLProtocolMessage) {
         super(engine, templateId);
+        signProtocolMessageWithXMLDSIG = signXMLProtocolMessage;
     }
 
     /** {@inheritDoc} */
