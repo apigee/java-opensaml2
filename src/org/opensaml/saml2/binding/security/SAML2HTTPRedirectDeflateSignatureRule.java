@@ -23,8 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.security.BaseSAMLSimpleSignatureSecurityPolicyRule;
+import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.signature.SignatureTrustEngine;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * Security policy which evaluates simple "blob" signatures according to the SAML 2 HTTP-Redirect DEFLATE binding.
@@ -44,12 +46,13 @@ public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatu
     }
 
     /** {@inheritDoc} */
-    protected boolean ruleHandles(HttpServletRequest request, SAMLMessageContext samlMsgCtx) {
+    protected boolean ruleHandles(HttpServletRequest request, SAMLMessageContext samlMsgCtx)
+            throws SecurityPolicyException {
         return "GET".equals(request.getMethod());
     }
 
     /** {@inheritDoc} */
-    protected byte[] getSignedContent(HttpServletRequest request) {
+    protected byte[] getSignedContent(HttpServletRequest request) throws SecurityPolicyException {
         // We need the raw non-URL-decoded query string param values for HTTP-Redirect DEFLATE simple signature
         // validation.
         // We have to construct a string containing the signature input by accessing the
@@ -61,6 +64,10 @@ public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatu
         }
         
         String constructed = buildSignedContentString(queryString);
+        if (DatatypeHelper.isEmpty(constructed)) {
+            log.error("Could not extract signed content string from query string");
+            return null;
+        }
         if (log.isDebugEnabled()) {
             log.debug(String.format("Constructed signed content string for HTTP-Redirect DEFLATE '%s'", constructed));
         }
@@ -79,14 +86,21 @@ public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatu
      * 
      * @param queryString the raw HTTP query string from the request
      * @return a string representation of the signed content
+     * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    private String buildSignedContentString(String queryString) {
+    private String buildSignedContentString(String queryString) throws SecurityPolicyException {
         StringBuilder builder = new StringBuilder();
         
+        // One of these two is mandatory
         if (!appendParameter(builder, queryString, "SAMLRequest")) {
-            appendParameter(builder, queryString, "SAMLResponse");
+            if (!appendParameter(builder, queryString, "SAMLResponse")) {
+               log.error("Could not extract either a SAMLRequest or a SAMLResponse from the query string");
+               throw new SecurityPolicyException("Extract of SAMLRequest or SAMLResponse from query string failed");
+            }
         }
+        // This is optional
         appendParameter(builder, queryString, "RelayState");
+        // This is mandatory, but has already been checked in superclass
         appendParameter(builder, queryString, "SigAlg");
 
         return builder.toString();

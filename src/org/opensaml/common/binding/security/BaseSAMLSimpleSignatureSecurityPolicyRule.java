@@ -209,8 +209,10 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
      * @param request the HTTP servlet request being processed
      * @param samlContext the SAML message context being processed
      * @return a list of candidate validation credentials in the request, or null if none were present
+     * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    protected List<Credential> getRequestCredentials(HttpServletRequest request, SAMLMessageContext samlContext) {
+    protected List<Credential> getRequestCredentials(HttpServletRequest request, SAMLMessageContext samlContext) 
+        throws SecurityPolicyException {
         // This will be specific to the binding and message types, so no default.
         return null;
     }
@@ -232,8 +234,9 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
      * 
      * @param request the HTTP servlet request
      * @return the signature value
+     * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    protected byte[] getSignature(HttpServletRequest request) {
+    protected byte[] getSignature(HttpServletRequest request) throws SecurityPolicyException {
         String signature = request.getParameter("Signature");
         if (DatatypeHelper.isEmpty(signature)) {
             return null;
@@ -248,8 +251,9 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
      * 
      * @param request the HTTP servlet request
      * @return the signature algorithm URI value
+     * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    protected String getSignatureAlgorithm(HttpServletRequest request) {
+    protected String getSignatureAlgorithm(HttpServletRequest request) throws SecurityPolicyException {
         return request.getParameter("SigAlg");
     }
     
@@ -261,8 +265,9 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
      * 
      * @param samlContext the SAML message context being processed
      * @return the signer's derived entity ID
+     * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    protected String deriveSignerEntityID(SAMLMessageContext samlContext) {
+    protected String deriveSignerEntityID(SAMLMessageContext samlContext) throws SecurityPolicyException {
         // No default
         return null;
     }
@@ -299,8 +304,9 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
      * @param request the HTTP servlet request being processed
      * @return the signed content extracted from the request, in the format suitable
      *          for input to the trust engine.
+     * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    protected abstract byte[] getSignedContent(HttpServletRequest request);
+    protected abstract byte[] getSignedContent(HttpServletRequest request) throws SecurityPolicyException ;
     
     /**
      * Determine whether the rule should handle the request, based on the unwrapped HTTP servlet request
@@ -309,7 +315,9 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
      * @param request the HTTP servlet request being processed
      * @param samlMsgCtx the SAML message context being processed
      * @return true if the rule should attempt to process the request, otherwise false
+     * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    protected abstract boolean ruleHandles(HttpServletRequest request, SAMLMessageContext samlMsgCtx);
+    protected abstract boolean ruleHandles(HttpServletRequest request, SAMLMessageContext samlMsgCtx) 
+        throws SecurityPolicyException;
 
 }
