@@ -74,9 +74,9 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
         }
 
         if (!(messageContext.getOutboundMessageTransport() instanceof HTTPOutTransport)) {
-            log.error("Invalid outbound message transport type, this encoder only support HTTPInTransport");
+            log.error("Invalid outbound message transport type, this encoder only support HTTPOutTransport");
             throw new MessageEncodingException(
-                    "Invalid outbound message transport type, this encoder only support HTTPInTransport");
+                    "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
