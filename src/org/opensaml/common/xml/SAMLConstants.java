@@ -214,6 +214,9 @@ public class SAMLConstants extends XMLConstants{
     /** URI for SAML 2 POST binding. */
     public static final String SAML2_POST_BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST";
     
+    /** URI for SAML 2 POST-SimpleSign binding. */
+    public static final String SAML2_POST_SIMPLE_SIGN_BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign";
+    
     /** URI for SAML 2 HTTP redirect binding. */
     public static final String SAML2_REDIRECT_BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect";
     
