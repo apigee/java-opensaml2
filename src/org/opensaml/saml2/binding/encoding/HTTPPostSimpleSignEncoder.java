@@ -24,6 +24,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
+import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
@@ -109,9 +110,9 @@ public class HTTPPostSimpleSignEncoder extends HTTPPostEncoder {
         // TODO pull SecurityConfiguration from SAMLMessageContext?  needs to be added
         // TODO pull binding-specific keyInfoGenName from encoder setting, etc?
         String sigAlgURI = getSignatureAlgorithmURI(signingCredential, null);
-        velocityContext.put("SigAlg", sigAlgURI);
+        velocityContext.put("SigAlg", HTTPTransportUtils.urlEncode(sigAlgURI));
         
-        String formControlData = buildFormDataToSign(velocityContext);
+        String formControlData = buildFormDataToSign(velocityContext, sigAlgURI);
         velocityContext.put("Signature", generateSignature(signingCredential, sigAlgURI, formControlData));
         
         KeyInfoGenerator kiGenerator = SecurityHelper.getKeyInfoGenerator(signingCredential, null, null);
@@ -161,11 +162,12 @@ public class HTTPPostSimpleSignEncoder extends HTTPPostEncoder {
      * Build the form control data string over which the signature is computed.
      * 
      * @param velocityContext the Velocity context which is already populated with the values for
-     *          SAML message, relay state and signature algorithm
+     *          SAML message and relay state
+     * @param sigAlgURI the signature algorithm URI
      *          
      * @return the form control data string for signature computation
      */
-    protected String buildFormDataToSign(VelocityContext velocityContext) {
+    protected String buildFormDataToSign(VelocityContext velocityContext, String sigAlgURI) {
         StringBuilder builder = new StringBuilder();
         
         boolean isRequest = false;
@@ -194,10 +196,11 @@ public class HTTPPostSimpleSignEncoder extends HTTPPostEncoder {
         }
         
         if (velocityContext.get("RelayState") != null) {
-            builder.append("&RelayState=" + velocityContext.get("RelayState"));
+            builder.append("&RelayState=" 
+                    + HTTPTransportUtils.urlDecode((String) velocityContext.get("RelayState")));
         }
         
-        builder.append("&SigAlg=" + velocityContext.get("SigAlg"));
+        builder.append("&SigAlg=" + sigAlgURI);
         
         return builder.toString();
     }
