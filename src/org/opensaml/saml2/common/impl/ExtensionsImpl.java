@@ -19,10 +19,12 @@ package org.opensaml.saml2.common.impl;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * Implementation of {@link org.opensaml.saml2.common.Extensions}
@@ -30,7 +32,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class ExtensionsImpl extends AbstractSAMLObject implements Extensions {
 
     /** "any" children */
-    private final XMLObjectChildrenList<XMLObject> unknownChildren;
+    private final IndexedXMLObjectChildrenList<XMLObject> unknownChildren;
 
     /**
      * Constructor
@@ -41,7 +43,7 @@ public class ExtensionsImpl extends AbstractSAMLObject implements Extensions {
      */
     protected ExtensionsImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
+        unknownChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
     }
 
     /**
@@ -49,6 +51,11 @@ public class ExtensionsImpl extends AbstractSAMLObject implements Extensions {
      */
     public List<XMLObject> getUnknownXMLObjects() {
         return unknownChildren;
+    }
+    
+    /** {@inheritDoc} */
+    public List<XMLObject> getUnknownXMLObjects(QName typeOrName) {
+        return (List<XMLObject>) unknownChildren.subList(typeOrName);
     }
 
     /** {@inheritDoc} */

@@ -23,11 +23,13 @@ package org.opensaml.saml2.core.impl;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.AuthnContextDecl;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.AttributeMap;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.core.AuthnContextDecl}.
@@ -35,7 +37,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class AuthnContextDeclImpl extends AbstractSAMLObject implements AuthnContextDecl {
 
     /** Child XMLObjects. */
-    private XMLObjectChildrenList<XMLObject> unknownXMLObjects;
+    private IndexedXMLObjectChildrenList<XMLObject> unknownXMLObjects;
 
     /** Attributes for this element. */
     private AttributeMap unknownAttributes;
@@ -53,7 +55,7 @@ public class AuthnContextDeclImpl extends AbstractSAMLObject implements AuthnCon
     protected AuthnContextDeclImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
 
-        unknownXMLObjects = new XMLObjectChildrenList<XMLObject>(this);
+        unknownXMLObjects = new IndexedXMLObjectChildrenList<XMLObject>(this);
         unknownAttributes = new AttributeMap(this);
     }
 
@@ -70,6 +72,11 @@ public class AuthnContextDeclImpl extends AbstractSAMLObject implements AuthnCon
     /** {@inheritDoc} */
     public List<XMLObject> getUnknownXMLObjects() {
         return unknownXMLObjects;
+    }
+    
+    /** {@inheritDoc} */
+    public List<XMLObject> getUnknownXMLObjects(QName typeOrName) {
+        return (List<XMLObject>) unknownXMLObjects.subList(typeOrName);
     }
 
     /** {@inheritDoc} */

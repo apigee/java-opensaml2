@@ -19,11 +19,13 @@ package org.opensaml.saml2.metadata.impl;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.AttributeMap;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * A concrete implementation of {@link org.opensaml.saml2.metadata.Endpoint}
@@ -43,7 +45,7 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
     private final AttributeMap unknownAttributes;
     
     /** child "any" elements */
-    private final XMLObjectChildrenList<XMLObject> unknownChildren;
+    private final IndexedXMLObjectChildrenList<XMLObject> unknownChildren;
 
     /**
      * Constructor
@@ -55,7 +57,7 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
     protected EndpointImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
         unknownAttributes = new AttributeMap(this);
-        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
+        unknownChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
     }
 
     /** {@inheritDoc} */
@@ -100,6 +102,11 @@ public abstract class EndpointImpl extends AbstractSAMLObject implements Endpoin
      */
     public List<XMLObject> getUnknownXMLObjects() {
         return unknownChildren;
+    }
+    
+    /** {@inheritDoc} */
+    public List<XMLObject> getUnknownXMLObjects(QName typeOrName) {
+        return (List<XMLObject>) unknownChildren.subList(typeOrName);
     }
     
     /**

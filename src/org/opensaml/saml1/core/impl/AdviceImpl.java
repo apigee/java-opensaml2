@@ -29,7 +29,6 @@ import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
-import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete Implementation of the {@link org.opensaml.saml1.core.Advice} Object
@@ -40,7 +39,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     private final IndexedXMLObjectChildrenList<XMLObject> assertionChildren;
     
     /** "any" children */
-    private final XMLObjectChildrenList<XMLObject> unknownChildren;
+    private final IndexedXMLObjectChildrenList<XMLObject> unknownChildren;
 
     /**
      * Constructor
@@ -52,7 +51,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     protected AdviceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
         assertionChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
-        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
+        unknownChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
     }
     
     /** {@inheritDoc} */
@@ -79,6 +78,11 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
      */
     public List<XMLObject> getUnknownXMLObjects() {
         return unknownChildren;
+    }
+    
+    /** {@inheritDoc} */
+    public List<XMLObject> getUnknownXMLObjects(QName typeOrName) {
+        return (List<XMLObject>) unknownChildren.subList(typeOrName);
     }
 
     /** {@inheritDoc} */

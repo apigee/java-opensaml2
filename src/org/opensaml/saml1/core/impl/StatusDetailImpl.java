@@ -19,10 +19,12 @@ package org.opensaml.saml1.core.impl;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.StatusDetail;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.util.XMLObjectChildrenList;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.core.StatusDetail}
@@ -30,7 +32,7 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
 public class StatusDetailImpl extends AbstractSAMLObject implements StatusDetail {
 
     /** child "any" elements */
-    private final XMLObjectChildrenList<XMLObject> unknownChildren;
+    private final IndexedXMLObjectChildrenList<XMLObject> unknownChildren;
     
     /**
      * Constructor
@@ -41,7 +43,7 @@ public class StatusDetailImpl extends AbstractSAMLObject implements StatusDetail
      */
     protected StatusDetailImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        unknownChildren = new XMLObjectChildrenList<XMLObject>(this);
+        unknownChildren = new IndexedXMLObjectChildrenList<XMLObject>(this);
     }
     
     /**
@@ -51,6 +53,10 @@ public class StatusDetailImpl extends AbstractSAMLObject implements StatusDetail
         return unknownChildren;
     }
     
+    /** {@inheritDoc} */
+    public List<XMLObject> getUnknownXMLObjects(QName typeOrName) {
+        return (List<XMLObject>) unknownChildren.subList(typeOrName);
+    }
     /**
      * {@inheritDoc}
      */
