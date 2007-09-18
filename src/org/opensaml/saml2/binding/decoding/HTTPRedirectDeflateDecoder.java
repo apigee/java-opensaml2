@@ -36,7 +36,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 /**
  * SAML 2.0 HTTP Redirect decoder using the DEFLATE encoding method.
  * 
- * This decoder only supports DEFLATE compression and DSA-SHA1 and RSA-SHA1 signatures.
+ * This decoder only supports DEFLATE compression.
  */
 public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder implements SAMLMessageDecoder {
 
@@ -103,8 +103,6 @@ public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder implemen
         }
         
         populateMessageContext(samlMsgCtx);
-
-        // TODO validate signature
     }
 
     /**
