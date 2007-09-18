@@ -192,9 +192,10 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
         }
 
         AbstractSAML2Artifact artifact = artifactBuilder.buildArtifact(artifactContext);
-        artifactMap.put(artifact.base64Encode(), artifactContext.getInboundMessageIssuer(), artifactContext
+        String encodedArtifact = artifact.base64Encode();
+        artifactMap.put(encodedArtifact, artifactContext.getInboundMessageIssuer(), artifactContext
                 .getOutboundMessageIssuer(), artifactContext.getOutboundSAMLMessage());
-        artifactContext.setArtifact(artifact);
+        artifactContext.setArtifact(encodedArtifact);
         return artifact;
     }
 }
