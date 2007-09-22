@@ -29,28 +29,40 @@ import org.apache.xml.security.transforms.TransformationException;
 import org.apache.xml.security.transforms.Transforms;
 import org.apache.xml.security.transforms.params.InclusiveNamespaces;
 import org.opensaml.common.SignableSAMLObject;
+import org.opensaml.xml.Configuration;
 import org.opensaml.xml.Namespace;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.encryption.EncryptionConstants;
+import org.opensaml.xml.security.SecurityConfiguration;
 import org.opensaml.xml.signature.ContentReference;
 import org.opensaml.xml.signature.SignatureConstants;
 
 /**
  * A content reference for SAML objects that will be signed. The reference is created per the SAML specification. 
  * 
- * The default digest algorithm used is {@link EncryptionConstants#ALGO_ID_DIGEST_SHA256}.
+ * <p>
+ * The default digest algorithm used is the value configured in the global security configuration's
+ * {@link SecurityConfiguration#getSignatureReferenceDigestMethod()}, if available, otherwise
+ * it will be {@link SignatureConstants#ALGO_ID_DIGEST_SHA1}.
+ * </p>
+ * 
+ * <p>
  * The default set of transforms applied consists of {@link SignatureConstants#TRANSFORM_ENVELOPED_SIGNATURE}
  * and {@link SignatureConstants#TRANSFORM_C14N_EXCL_WITH_COMMENTS}.
+ * </p>
  * 
+ * <p>
  * When generating an exclusive canonicalization transform, an inclusive namespace list is 
  * generated from the namespaces, retrieved from {@link org.opensaml.xml.XMLObject#getNamespaces()},
  * used by the SAML object to be signed and all of it's descendants.
+ * </p>
  * 
+ * <p>
  * Note that the SAML specification states that:
  *   1) an exclusive canonicalization transform (either with or without comments) SHOULD be used.
  *   2) transforms other than enveloped signature and one of the two exclusive canonicalizations
  *      SHOULD NOT be used.
  * Careful consideration should be made before deviating from these recommendations.
+ * </p>
  * 
  */
 public class SAMLObjectContentReference implements ContentReference {
@@ -77,7 +89,13 @@ public class SAMLObjectContentReference implements ContentReference {
         transforms = new ArrayList<String>();
         
         // Set defaults
-        digestAlgorithm = EncryptionConstants.ALGO_ID_DIGEST_SHA256;
+        if (Configuration.getGlobalSecurityConfiguration() != null ) {
+            digestAlgorithm = Configuration.getGlobalSecurityConfiguration().getSignatureReferenceDigestMethod();
+        }
+        if (digestAlgorithm == null) {
+            digestAlgorithm = SignatureConstants.ALGO_ID_DIGEST_SHA1;
+        }
+        
         transforms.add(SignatureConstants.TRANSFORM_ENVELOPED_SIGNATURE);
         transforms.add(SignatureConstants.TRANSFORM_C14N_EXCL_OMIT_COMMENTS);
     }
