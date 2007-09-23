@@ -35,12 +35,18 @@ public class DefaultBootstrap {
     private static Logger log = Logger.getLogger(DefaultBootstrap.class);
 
     /** List of default XMLTooling configuration files. */
-    private static String[] xmlToolingConfigs = { "/default-config.xml", "/schema-config.xml", "/signature-config.xml",
-            "/encryption-config.xml", "/soap11-config.xml", "/saml1-assertion-config.xml",
-            "/saml1-protocol-config.xml", "/saml1-core-validation-config.xml", "/saml2-assertion-config.xml",
-            "/saml2-protocol-config.xml", "/saml2-protocol-thirdparty-config.xml", "/saml2-core-validation-config.xml",
-            "/saml2-metadata-config.xml", "/saml1-metadata-config.xml", "/saml2-metadata-query-config.xml",
-            "/saml2-metadata-validation-config.xml", };
+    private static String[] xmlToolingConfigs = {
+            "/default-config.xml",
+            "/schema-config.xml",
+            "/signature-config.xml", "/signature-validation-config.xml",
+            "/encryption-config.xml", "/encryption-validation-config.xml",
+            "/soap11-config.xml",
+            "/saml1-assertion-config.xml", "/saml1-protocol-config.xml", "/saml1-core-validation-config.xml",
+            "/saml2-assertion-config.xml", "/saml2-protocol-config.xml", "/saml2-core-validation-config.xml",
+            "/saml1-metadata-config.xml", "/saml2-metadata-config.xml", "/saml2-metadata-validation-config.xml",
+            "/saml2-protocol-thirdparty-config.xml",
+            "/saml2-metadata-query-config.xml",
+            };
 
     /** Constrcutor. */
     protected DefaultBootstrap() {
