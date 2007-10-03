@@ -231,8 +231,6 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRuleTest
         signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
         signature.setSigningCredential(signingX509Cred);
         
-        signature.getContentReferences().add( new SAMLObjectContentReference(request) );
-        
         X509KeyInfoGeneratorFactory kiFactory = new X509KeyInfoGeneratorFactory();
         kiFactory.setEmitEntityCertificate(true);
         KeyInfo keyInfo = null;
