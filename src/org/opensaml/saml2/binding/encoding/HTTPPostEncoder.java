@@ -166,7 +166,7 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
             if (log.isDebugEnabled()) {
                 log.debug("Encoding relay state of: " + relayState);
             }
-            velocityContext.put("RelayState", HTTPTransportUtils.urlEncode(relayState));
+            velocityContext.put("RelayState", relayState);
         }
     }
 }

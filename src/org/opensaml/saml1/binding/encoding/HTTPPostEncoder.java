@@ -129,7 +129,7 @@ public class HTTPPostEncoder extends BaseSAML1MessageEncoder implements SAMLMess
                 if (log.isDebugEnabled()) {
                     log.debug("Setting Target parameter to: " + messageContext.getRelayState());
                 }
-                context.put("Target", HTTPTransportUtils.urlEncode(messageContext.getRelayState()));
+                context.put("Target", messageContext.getRelayState());
             }
 
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getOutboundMessageTransport();
