@@ -167,7 +167,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
         } else if (messagesContext.getOutboundSAMLMessage() instanceof StatusResponseType) {
             queryParams.add(new Pair<String, String>("SAMLResponse", message));
         } else {
-            throw new MessageEncodingException("SAML message is neither a SAML RequestAbstractType or Response");
+            throw new MessageEncodingException("SAML message is neither a SAML RequestAbstractType or StatusResponseType");
         }
 
         String relayState = messagesContext.getRelayState();

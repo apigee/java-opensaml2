@@ -157,8 +157,10 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
         }
         if (messageContext.getOutboundSAMLMessage() instanceof RequestAbstractType) {
             velocityContext.put("SAMLRequest", encodedMessage);
-        } else {
+        } else if (messageContext.getOutboundSAMLMessage() instanceof StatusResponseType) {
             velocityContext.put("SAMLResponse", encodedMessage);
+        } else {
+            throw new MessageEncodingException("SAML message is neither a SAML RequestAbstractType or StatusResponseType");
         }
 
         String relayState = messageContext.getRelayState();
