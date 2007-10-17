@@ -29,7 +29,7 @@ import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.RequestAbstractType;
-import org.opensaml.saml2.core.Response;
+import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
@@ -164,7 +164,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
 
         if (messagesContext.getOutboundSAMLMessage() instanceof RequestAbstractType) {
             queryParams.add(new Pair<String, String>("SAMLRequest", message));
-        } else if (messagesContext.getOutboundSAMLMessage() instanceof Response) {
+        } else if (messagesContext.getOutboundSAMLMessage() instanceof StatusResponseType) {
             queryParams.add(new Pair<String, String>("SAMLResponse", message));
         } else {
             throw new MessageEncodingException("SAML message is neither a SAML RequestAbstractType or Response");
