@@ -65,7 +65,7 @@ public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityP
      * @param keyInfoCredResolver the KeyInfo credential resovler to use to extract credentials
      *          from the KeyInfo request parameter
      */
-    protected SAML2HTTPostSimpleSignRule(SignatureTrustEngine engine, ParserPool parserPool,
+    public SAML2HTTPostSimpleSignRule(SignatureTrustEngine engine, ParserPool parserPool,
             KeyInfoCredentialResolver keyInfoCredResolver) {
         super(engine);
         parser = parserPool;
