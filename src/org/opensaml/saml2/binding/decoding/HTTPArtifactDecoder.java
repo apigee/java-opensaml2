@@ -69,7 +69,7 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder implements SAML
 
         HTTPInTransport inTransport = (HTTPInTransport) artifactContext.getInboundMessageTransport();
         if (!inTransport.getHTTPMethod().equalsIgnoreCase("GET")
-                || !inTransport.getHTTPMethod().equalsIgnoreCase("POSTET")) {
+                && !inTransport.getHTTPMethod().equalsIgnoreCase("POST")) {
             throw new MessageDecodingException("This message deocoder only supports the HTTP GET and POST methods");
         }
 
