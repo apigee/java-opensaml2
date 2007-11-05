@@ -71,7 +71,11 @@ public class HTTPPostDecoder extends BaseSAML2MessageDecoder implements SAMLMess
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
+        
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
+        if(!inTransport.getHTTPMethod().equalsIgnoreCase("POST")){
+            throw new MessageDecodingException("This message deocoder only supports the HTTP POST method");
+        }
 
         String relayState = inTransport.getParameterValue("RelayState");
         samlMsgCtx.setRelayState(relayState);

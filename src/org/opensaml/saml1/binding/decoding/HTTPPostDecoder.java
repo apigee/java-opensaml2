@@ -76,9 +76,14 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder implements SAMLMess
             throw new MessageDecodingException(
                     "Invalid inbound message transport type, this decoder only support HTTPInTransport");
         }
-
+        
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
+
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
+        if(!inTransport.getHTTPMethod().equalsIgnoreCase("POST")){
+            throw new MessageDecodingException("This message deocoder only supports the HTTP POST method");
+        }
+
 
         String relayState = inTransport.getParameterValue("RelayState");
         samlMsgCtx.setRelayState(relayState);

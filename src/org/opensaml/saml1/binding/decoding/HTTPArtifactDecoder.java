@@ -84,6 +84,11 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder implements SAML
             throw new MessageDecodingException(
                     "Invalid inbound message transport type, this decoder only support HTTPInTransport");
         }
+        HTTPInTransport inTransport = (HTTPInTransport) messageContext.getInboundMessage();
+        
+        if(!inTransport.getHTTPMethod().equalsIgnoreCase("GET")){
+            throw new MessageDecodingException("This message deocoder only supports the HTTP GET method");
+        }
 
         SAML1ArtifactMessageContext artifactContext = (SAML1ArtifactMessageContext) messageContext;
         decodeTarget(artifactContext);

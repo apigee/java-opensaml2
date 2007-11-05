@@ -77,7 +77,11 @@ public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder implemen
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
+        
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
+        if(!inTransport.getHTTPMethod().equalsIgnoreCase("GET")){
+            throw new MessageDecodingException("This message deocoder only supports the HTTP GET method");
+        }
 
         String relayState = inTransport.getParameterValue("RelayState");
         samlMsgCtx.setRelayState(relayState);

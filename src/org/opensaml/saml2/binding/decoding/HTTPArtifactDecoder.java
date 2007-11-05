@@ -66,7 +66,12 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder implements SAML
         }
 
         SAML2ArtifactMessageContext artifactContext = (SAML2ArtifactMessageContext) messageContext;
+
         HTTPInTransport inTransport = (HTTPInTransport) artifactContext.getInboundMessageTransport();
+        if (!inTransport.getHTTPMethod().equalsIgnoreCase("GET")
+                || !inTransport.getHTTPMethod().equalsIgnoreCase("POSTET")) {
+            throw new MessageDecodingException("This message deocoder only supports the HTTP GET and POST methods");
+        }
 
         String relayState = DatatypeHelper.safeTrim(inTransport.getParameterValue("RelayState"));
         artifactContext.setRelayState(relayState);
@@ -76,9 +81,9 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder implements SAML
             log.error("URL SAMLart parameter was missing or did not contain a value.");
             throw new MessageDecodingException("URL TARGET parameter was missing or did not contain a value.");
         }
-        
+
         artifactContext.setArtifact(encodedArtifact);
-        
+
         populateMessageContext(artifactContext);
     }
 }

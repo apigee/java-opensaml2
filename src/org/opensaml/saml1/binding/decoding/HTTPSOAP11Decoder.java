@@ -78,7 +78,11 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
+        
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
+        if(!inTransport.getHTTPMethod().equalsIgnoreCase("POST")){
+            throw new MessageDecodingException("This message deocoder only supports the HTTP POST method");
+        }
 
         if (log.isDebugEnabled()) {
             log.debug("Unmarshalling SOAP message");
