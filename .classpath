@@ -22,10 +22,10 @@
 	</classpathentry>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/java-xmltooling"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/java-openws"/>
-	<classpathentry kind="lib" path="build-lib/spring-2.0.5-mock.jar"/>
-	<classpathentry kind="lib" path="build-lib/spring-2.0.5-core.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/velocity-1.5.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="build-lib/spring-2.0.7-core.jar"/>
+	<classpathentry kind="lib" path="build-lib/spring-2.0.7-mock.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
