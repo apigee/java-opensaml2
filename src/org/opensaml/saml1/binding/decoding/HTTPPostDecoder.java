@@ -17,19 +17,20 @@
 package org.opensaml.saml1.binding.decoding;
 
 import java.io.ByteArrayInputStream;
+import java.util.logging.Level;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.log.Level;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML 1.X HTTP POST message decoder.
@@ -37,7 +38,7 @@ import org.opensaml.xml.util.Base64;
 public class HTTPPostDecoder extends BaseSAML1MessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPPostDecoder.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPPostDecoder.class);
 
     /**
      * Constructor.
@@ -47,7 +48,7 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder implements SAMLMess
     public HTTPPostDecoder(SAMLArtifactMap map) {
         super(map);
     }
-    
+
     /**
      * Constructor.
      * 
@@ -76,33 +77,27 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder implements SAMLMess
             throw new MessageDecodingException(
                     "Invalid inbound message transport type, this decoder only support HTTPInTransport");
         }
-        
+
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
-        if(!inTransport.getHTTPMethod().equalsIgnoreCase("POST")){
+        if (!inTransport.getHTTPMethod().equalsIgnoreCase("POST")) {
             throw new MessageDecodingException("This message deocoder only supports the HTTP POST method");
         }
 
-
         String relayState = inTransport.getParameterValue("RelayState");
         samlMsgCtx.setRelayState(relayState);
-        if (log.isDebugEnabled()) {
-            log.debug("Decoded SAML relay state of: " + relayState);
-        }
+        log.debug("Decoded SAML relay state of: {}", relayState);
 
         String base64Message = inTransport.getParameterValue("SAMLResponse");
-        if (log.isEnabledFor(Level.TRAIL)) {
-            log.log(Level.TRAIL, "Decoding base64 message:\n" + base64Message);
-        }
+        log.trace("Decoding base64 message:\n{}", base64Message);
+
         SAMLObject inboundMessage = (SAMLObject) unmarshallMessage(new ByteArrayInputStream(Base64
                 .decode(base64Message)));
         samlMsgCtx.setInboundMessage(inboundMessage);
         samlMsgCtx.setInboundSAMLMessage(inboundMessage);
-        if (log.isDebugEnabled()) {
-            log.debug("Decoded SAML message");
-        }
-        
+        log.debug("Decoded SAML message");
+
         populateMessageContext(samlMsgCtx);
     }
 }

@@ -24,7 +24,6 @@ import java.util.Map.Entry;
 
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.common.xml.SAMLConstants;
@@ -34,6 +33,8 @@ import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
@@ -43,7 +44,7 @@ import org.w3c.dom.Element;
 public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(AffiliationDescriptorMarshaller.class);
+    private final Logger log = LoggerFactory.getLogger(AffiliationDescriptorMarshaller.class);
 
     /**
      * Constructor.
@@ -81,18 +82,14 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
 
         // Set the validUntil attribute
         if (descriptor.getValidUntil() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Writting validUntil attribute to AffiliationDescriptor DOM element");
-            }
+            log.debug("Writting validUntil attribute to AffiliationDescriptor DOM element");
             String validUntilStr = Configuration.getSAMLDateFormatter().print(descriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
 
         // Set the cacheDuration attribute
         if (descriptor.getCacheDuration() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Writting cacheDuration attribute to AffiliationDescriptor DOM element");
-            }
+            log.debug("Writting cacheDuration attribute to AffiliationDescriptor DOM element");
             String cacheDuration = XMLHelper.longToDuration(descriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }

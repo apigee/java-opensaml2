@@ -20,25 +20,26 @@ import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.security.BaseSAMLSimpleSignatureSecurityPolicyRule;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.signature.SignatureTrustEngine;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Security policy which evaluates simple "blob" signatures according to the SAML 2 HTTP-Redirect DEFLATE binding.
  */
 public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatureSecurityPolicyRule {
-    
+
     /** Logger. */
-    private Logger log = Logger.getLogger(SAML2HTTPRedirectDeflateSignatureRule.class);
+    private final Logger log = LoggerFactory.getLogger(SAML2HTTPRedirectDeflateSignatureRule.class);
 
     /**
      * Constructor.
-     *
+     * 
      * @param engine the trust engine to use
      */
     public SAML2HTTPRedirectDeflateSignatureRule(SignatureTrustEngine engine) {
@@ -59,19 +60,15 @@ public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatu
         // request directly. We can't use the decoded parameters because we need the raw
         // data and URL-encoding isn't canonical.
         String queryString = request.getQueryString();
-        if (log.isDebugEnabled()) {
-            log.debug(String.format("Constructing signed content string from URL query string '%s'", queryString));
-        }
-        
+        log.debug("Constructing signed content string from URL query string {}", queryString);
+
         String constructed = buildSignedContentString(queryString);
         if (DatatypeHelper.isEmpty(constructed)) {
             log.error("Could not extract signed content string from query string");
             return null;
         }
-        if (log.isDebugEnabled()) {
-            log.debug(String.format("Constructed signed content string for HTTP-Redirect DEFLATE '%s'", constructed));
-        }
-        
+        log.debug("Constructed signed content string for HTTP-Redirect DEFLATE {}", constructed);
+
         try {
             return constructed.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -81,8 +78,7 @@ public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatu
     }
 
     /**
-     * Extract the raw request parameters and build a string representation of the 
-     * content that was signed.
+     * Extract the raw request parameters and build a string representation of the content that was signed.
      * 
      * @param queryString the raw HTTP query string from the request
      * @return a string representation of the signed content
@@ -90,12 +86,12 @@ public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatu
      */
     private String buildSignedContentString(String queryString) throws SecurityPolicyException {
         StringBuilder builder = new StringBuilder();
-        
+
         // One of these two is mandatory
         if (!appendParameter(builder, queryString, "SAMLRequest")) {
             if (!appendParameter(builder, queryString, "SAMLResponse")) {
-               log.error("Could not extract either a SAMLRequest or a SAMLResponse from the query string");
-               throw new SecurityPolicyException("Extract of SAMLRequest or SAMLResponse from query string failed");
+                log.error("Could not extract either a SAMLRequest or a SAMLResponse from the query string");
+                throw new SecurityPolicyException("Extract of SAMLRequest or SAMLResponse from query string failed");
             }
         }
         // This is optional
@@ -121,13 +117,13 @@ public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatu
         if (rawParam == null) {
             return false;
         }
-        
+
         if (builder.length() > 0) {
             builder.append('&');
         }
-        
+
         builder.append(rawParam);
-        
+
         return true;
     }
 }

@@ -18,7 +18,6 @@ package org.opensaml.saml1.binding.encoding;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
@@ -37,6 +36,8 @@ import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.util.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML 1.X HTTP Artifact message encoder.
@@ -44,7 +45,7 @@ import org.opensaml.xml.util.Pair;
 public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder implements SAMLMessageEncoder {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPArtifactEncoder.class);
 
     /** SAML artifact map used to store created artifacts for later retrival. */
     private SAMLArtifactMap artifactMap;
@@ -111,10 +112,8 @@ public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder implements SAML
 
         String redirectUrl = urlBuilder.buildURL();
 
-        if (log.isDebugEnabled()) {
-            log.debug("Sending redirect to URL " + redirectUrl + " to relying party "
-                    + artifactContext.getInboundMessageIssuer());
-        }
+        log.debug("Sending redirect to URL {} to relying party {}", redirectUrl, artifactContext
+                .getInboundMessageIssuer());
         outTransport.sendRedirect(urlBuilder.buildURL());
     }
 }

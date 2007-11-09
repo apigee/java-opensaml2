@@ -16,10 +16,11 @@
 
 package org.opensaml.saml2.metadata.provider;
 
-import org.apache.log4j.Logger;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -29,7 +30,7 @@ import org.w3c.dom.Element;
 public class DOMMetadataProvider extends AbstractObservableMetadataProvider implements MetadataProvider {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(DOMMetadataProvider.class);
+    private final Logger log = LoggerFactory.getLogger(DOMMetadataProvider.class);
 
     /** Whether the provider has been initialized. */
     private boolean initialized;

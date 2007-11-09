@@ -20,12 +20,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Builder of SAML 1, type 0x001, artifacts.
@@ -33,7 +34,7 @@ import org.opensaml.saml1.core.Response;
 public class SAML1ArtifactType0001Builder implements SAML1ArtifactBuilder<SAML1ArtifactType0001> {
 
     /** Class logger. */
-    private Logger log = Logger.getLogger(SAML1ArtifactType0001Builder.class);
+    private final Logger log = LoggerFactory.getLogger(SAML1ArtifactType0001Builder.class);
 
     /** {@inheritDoc} */
     public SAML1ArtifactType0001 buildArtifact(byte[] artifact) {
@@ -53,7 +54,7 @@ public class SAML1ArtifactType0001Builder implements SAML1ArtifactBuilder<SAML1A
 
             return new SAML1ArtifactType0001(source, assertionHandle);
         } catch (NoSuchAlgorithmException e) {
-            log.fatal("JVM does not support required cryptography algorithms.", e);
+            log.error("JVM does not support required cryptography algorithms.", e);
             throw new InternalError("JVM does not support required cryptography algorithms: SHA-1 and/or SHA1PRNG.");
         }
     }

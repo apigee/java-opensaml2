@@ -16,24 +16,21 @@
 
 package org.opensaml.saml2.common.impl;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 
 public class ExtensionsUnmarshaller extends AbstractXMLObjectUnmarshaller {
 
-    /**
-     * Logger
-     */
-    private static final Logger LOG = Logger.getLogger(AbstractSAMLObjectUnmarshaller.class);
+    /** Logger. */
+    private final Logger log = LoggerFactory.getLogger(AbstractSAMLObjectUnmarshaller.class);
 
-    /**
-     * Constructor
-     */
+    /** Constructor. */
     public ExtensionsUnmarshaller() {
         super();
     }
@@ -52,17 +49,13 @@ public class ExtensionsUnmarshaller extends AbstractXMLObjectUnmarshaller {
      * {@inheritDoc}
      */
     protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Ignorning unknown attribute " + attribute.getLocalName());
-        }
+        log.debug("Ignorning unknown attribute {}", attribute.getLocalName());
     }
 
     /**
      * {@inheritDoc}
      */
     protected void processElementContent(XMLObject xmlObject, String elementContent) {
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Ignoring element content " + elementContent);
-        }
+        log.debug("Ignoring element content {}", elementContent);
     }
 }

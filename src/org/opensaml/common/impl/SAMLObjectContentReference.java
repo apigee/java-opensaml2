@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
 import org.apache.xml.security.signature.XMLSignature;
 import org.apache.xml.security.signature.XMLSignatureException;
 import org.apache.xml.security.transforms.Transform;
@@ -35,6 +34,8 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.security.SecurityConfiguration;
 import org.opensaml.xml.signature.ContentReference;
 import org.opensaml.xml.signature.SignatureConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A content reference for SAML objects that will be signed. The reference is created per the SAML specification. 
@@ -68,7 +69,7 @@ import org.opensaml.xml.signature.SignatureConstants;
 public class SAMLObjectContentReference implements ContentReference {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(SAMLObjectContentReference.class);
+    private final Logger log = LoggerFactory.getLogger(SAMLObjectContentReference.class);
 
     /** SAMLObject this reference refers to. */
     private SignableSAMLObject signableObject;
@@ -163,9 +164,7 @@ public class SAMLObjectContentReference implements ContentReference {
         // Namespaces that aren't visibly used, such as those used in QName attribute values, would
         // be stripped out by exclusive canonicalization. Need to make sure they aren't by explicitly
         // telling the transformer about them.
-        if (log.isDebugEnabled()) {
-            log.debug("Adding list of inclusive namespaces for signature exclusive canonicalization transform");
-        }
+        log.debug("Adding list of inclusive namespaces for signature exclusive canonicalization transform");
         HashSet<String> inclusiveNamespacePrefixes = new HashSet<String>();
         populateNamespacePrefixes(inclusiveNamespacePrefixes, signableObject);
         

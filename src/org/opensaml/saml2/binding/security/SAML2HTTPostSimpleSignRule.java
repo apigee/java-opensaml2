@@ -23,7 +23,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.security.BaseSAMLSimpleSignatureSecurityPolicyRule;
 import org.opensaml.ws.security.SecurityPolicyException;
@@ -41,29 +40,31 @@ import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.SignatureTrustEngine;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 /**
  * Security policy which evaluates simple "blob" signatures according to the SAML 2 HTTP-POST-SimpleSign binding.
  */
 public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityPolicyRule {
-    
+
     /** Logger. */
-    private Logger log = Logger.getLogger(SAML2HTTPostSimpleSignRule.class);
-    
+    private Logger log = LoggerFactory.getLogger(SAML2HTTPostSimpleSignRule.class);
+
     /** Parser pool to use to process KeyInfo request parameter. */
     private ParserPool parser;
-    
+
     /** KeyInfo resolver to use to process KeyInfo request parameter. */
     private KeyInfoCredentialResolver keyInfoResolver;
 
     /**
      * Constructor.
-     *
+     * 
      * @param engine the trust engine to use
      * @param parserPool the parser pool used to parse the KeyInfo request parameter
-     * @param keyInfoCredResolver the KeyInfo credential resovler to use to extract credentials
-     *          from the KeyInfo request parameter
+     * @param keyInfoCredResolver the KeyInfo credential resovler to use to extract credentials from the KeyInfo request
+     *            parameter
      */
     public SAML2HTTPostSimpleSignRule(SignatureTrustEngine engine, ParserPool parserPool,
             KeyInfoCredentialResolver keyInfoCredResolver) {
@@ -71,7 +72,7 @@ public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityP
         parser = parserPool;
         keyInfoResolver = keyInfoCredResolver;
     }
-    
+
     /** {@inheritDoc} */
     protected boolean ruleHandles(HttpServletRequest request, SAMLMessageContext samlMsgCtx) {
         return "POST".equals(request.getMethod());
@@ -85,7 +86,7 @@ public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityP
             if (request.getParameter("SAMLRequest") != null) {
                 samlMsg = new String(Base64.decode(request.getParameter("SAMLRequest")), "UTF-8");
                 builder.append("SAMLRequest=" + samlMsg);
-            } else if (request.getParameter("SAMLResponse") != null){
+            } else if (request.getParameter("SAMLResponse") != null) {
                 samlMsg = new String(Base64.decode(request.getParameter("SAMLResponse")), "UTF-8");
                 builder.append("SAMLResponse=" + samlMsg);
             } else {
@@ -95,22 +96,20 @@ public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityP
         } catch (UnsupportedEncodingException e) {
             // All JVM's required to support UTF-8
         }
-        
+
         if (request.getParameter("RelayState") != null) {
             builder.append("&RelayState=" + request.getParameter("RelayState"));
         }
-        
+
         builder.append("&SigAlg=" + request.getParameter("SigAlg"));
-        
-        String constructed =  builder.toString();
+
+        String constructed = builder.toString();
         if (DatatypeHelper.isEmpty(constructed)) {
             log.error("Could not construct signed content string from form control data");
             return null;
         }
-        if (log.isDebugEnabled()) {
-            log.debug(String.format("Constructed signed content string for HTTP-Post-SimpleSign '%s'", constructed));
-        }
-        
+        log.debug("Constructed signed content string for HTTP-Post-SimpleSign {}", constructed);
+
         try {
             return constructed.getBytes("UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -120,9 +119,9 @@ public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityP
     }
 
     /** {@inheritDoc} */
-    protected List<Credential> getRequestCredentials(HttpServletRequest request, SAMLMessageContext samlContext) 
+    protected List<Credential> getRequestCredentials(HttpServletRequest request, SAMLMessageContext samlContext)
             throws SecurityPolicyException {
-        
+
         String kiBase64 = request.getParameter("KeyInfo");
         if (DatatypeHelper.isEmpty(kiBase64)) {
             log.debug("Form control data did not contain a KeyInfo");
@@ -130,13 +129,13 @@ public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityP
         } else {
             log.debug("Found a KeyInfo in form control data, extracting validation credentials");
         }
-        
-        Unmarshaller unmarshaller = 
-            Configuration.getUnmarshallerFactory().getUnmarshaller(KeyInfo.DEFAULT_ELEMENT_NAME);
+
+        Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory()
+                .getUnmarshaller(KeyInfo.DEFAULT_ELEMENT_NAME);
         if (unmarshaller == null) {
             throw new SecurityPolicyException("Could not obtain a KeyInfo unmarshaller");
         }
-        
+
         ByteArrayInputStream is = new ByteArrayInputStream(Base64.decode(kiBase64));
         KeyInfo keyInfo = null;
         try {
@@ -149,12 +148,12 @@ public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityP
             log.error("Error unmarshalling KeyInfo data", e);
             throw new SecurityPolicyException("Error unmarshalling KeyInfo data", e);
         }
-        
+
         if (keyInfo == null) {
             log.error("Could not successfully extract KeyInfo object from the form control data");
             return null;
         }
-        
+
         List<Credential> credentials = new ArrayList<Credential>();
         CriteriaSet criteriaSet = new CriteriaSet(new KeyInfoCriteria(keyInfo));
         try {
@@ -165,7 +164,7 @@ public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityP
             log.error("Error resolving credentials from KeyInfo", e);
             throw new SecurityPolicyException("Error resolving credentials from KeyInfo", e);
         }
-        
+
         return credentials;
     }
 

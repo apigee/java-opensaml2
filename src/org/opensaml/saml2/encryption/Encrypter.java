@@ -23,7 +23,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.IdentifierGenerator;
 import org.opensaml.common.impl.SecureRandomIdentifierGenerator;
@@ -61,6 +60,8 @@ import org.opensaml.xml.signature.impl.KeyInfoBuilder;
 import org.opensaml.xml.signature.impl.KeyNameBuilder;
 import org.opensaml.xml.signature.impl.RetrievalMethodBuilder;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 // TODO more documentation needed.
@@ -117,7 +118,7 @@ public class Encrypter extends org.opensaml.xml.encryption.Encrypter {
     private KeyPlacement keyPlacement;
 
     /** Class logger. */
-    private Logger log = Logger.getLogger(Encrypter.class);
+    private final Logger log = LoggerFactory.getLogger(Encrypter.class);
 
     
     /**

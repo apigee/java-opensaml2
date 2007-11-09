@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
@@ -32,6 +31,8 @@ import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML 2.0 HTTP Redirect decoder using the DEFLATE encoding method.
@@ -41,7 +42,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(HTTPRedirectDeflateDecoder.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPRedirectDeflateDecoder.class);
 
     /** Constructor. */
     public HTTPRedirectDeflateDecoder() {
@@ -77,17 +78,15 @@ public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder implemen
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
-        
+
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
-        if(!inTransport.getHTTPMethod().equalsIgnoreCase("GET")){
+        if (!inTransport.getHTTPMethod().equalsIgnoreCase("GET")) {
             throw new MessageDecodingException("This message deocoder only supports the HTTP GET method");
         }
 
         String relayState = inTransport.getParameterValue("RelayState");
         samlMsgCtx.setRelayState(relayState);
-        if (log.isDebugEnabled()) {
-            log.debug("Decoded RelayState: " + relayState);
-        }
+        log.debug("Decoded RelayState: {}", relayState);
 
         InputStream samlMessageIns;
         if (!DatatypeHelper.isEmpty(inTransport.getParameterValue("SAMLRequest"))) {
@@ -102,10 +101,8 @@ public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder implemen
         SAMLObject samlMessage = (SAMLObject) unmarshallMessage(samlMessageIns);
         samlMsgCtx.setInboundSAMLMessage(samlMessage);
         samlMsgCtx.setInboundMessage(samlMessage);
-        if (log.isDebugEnabled()) {
-            log.debug("Decoded SAML message");
-        }
-        
+        log.debug("Decoded SAML message");
+
         populateMessageContext(samlMsgCtx);
     }
 
@@ -119,9 +116,7 @@ public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder implemen
      * @throws MessageDecodingException thrown if the message can not be decoded
      */
     protected InputStream decodeMessage(String message) throws MessageDecodingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Base64 decoding and inflating SAML message");
-        }
+        log.debug("Base64 decoding and inflating SAML message");
 
         try {
             byte[] decodedBytes = Base64.decode(message);

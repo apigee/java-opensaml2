@@ -20,14 +20,13 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.logging.Level;
 
-import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.log.Level;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.soap.common.SOAPObjectBuilder;
@@ -37,6 +36,8 @@ import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -45,10 +46,10 @@ import org.w3c.dom.Element;
 public class HTTPSOAP11Encoder extends BaseSAML1MessageEncoder implements SAMLMessageEncoder {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPSOAP11Encoder.class);
-    
+    private final Logger log = LoggerFactory.getLogger(HTTPSOAP11Encoder.class);
+
     /** Constructor. */
-    public HTTPSOAP11Encoder(){
+    public HTTPSOAP11Encoder() {
         super();
     }
 
@@ -83,8 +84,8 @@ public class HTTPSOAP11Encoder extends BaseSAML1MessageEncoder implements SAMLMe
         samlMsgCtx.setOutboundMessage(envelope);
 
         Element envelopeElem = marshallMessage(envelope);
-        if (log.isEnabledFor(Level.TRAIL)) {
-            log.log(Level.TRAIL, "Writting SOAP message to response:\n" + XMLHelper.nodeToString(envelopeElem));
+        if (log.isTraceEnabled()) {
+            log.trace("Writting SOAP message to response:\n{}" + XMLHelper.nodeToString(envelopeElem));
         }
 
         try {
@@ -93,14 +94,14 @@ public class HTTPSOAP11Encoder extends BaseSAML1MessageEncoder implements SAMLMe
             HTTPTransportUtils.setUTF8Encoding(outTransport);
             HTTPTransportUtils.setContentType(outTransport, "text/xml");
             outTransport.setHeader("SOAPAction", "http://www.oasis-open.org/committees/security");
-            
+
             Writer out = new OutputStreamWriter(outTransport.getOutgoingStream(), "UTF-8");
             XMLHelper.writeNode(envelopeElem, out);
             out.flush();
         } catch (UnsupportedEncodingException e) {
-            log.fatal("JVM does not support required UTF-8 encoding");
+            log.error("JVM does not support required UTF-8 encoding");
             throw new MessageEncodingException("JVM does not support required UTF-8 encoding");
-        } catch(IOException e){
+        } catch (IOException e) {
             log.error("Unable to write message content to outbound stream", e);
             throw new MessageEncodingException("Unable to write message content to outbound stream", e);
         }
@@ -115,18 +116,14 @@ public class HTTPSOAP11Encoder extends BaseSAML1MessageEncoder implements SAMLMe
      */
     @SuppressWarnings("unchecked")
     protected Envelope buildSOAPMessage(SAMLObject samlMessage) {
-        if (log.isDebugEnabled()) {
-            log.debug("Building SOAP message");
-        }
+        log.debug("Building SOAP message");
         XMLObjectBuilderFactory builderFactory = Configuration.getBuilderFactory();
 
         SOAPObjectBuilder<Envelope> envBuilder = (SOAPObjectBuilder<Envelope>) builderFactory
                 .getBuilder(Envelope.DEFAULT_ELEMENT_NAME);
         Envelope envelope = envBuilder.buildObject();
 
-        if (log.isDebugEnabled()) {
-            log.debug("Adding SAML message to the SOAP message's body");
-        }
+        log.debug("Adding SAML message to the SOAP message's body");
         SOAPObjectBuilder<Body> bodyBuilder = (SOAPObjectBuilder<Body>) builderFactory
                 .getBuilder(Body.DEFAULT_ELEMENT_NAME);
         Body body = bodyBuilder.buildObject();

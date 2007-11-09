@@ -16,7 +16,6 @@
 
 package org.opensaml;
 
-import org.apache.log4j.Logger;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.xml.security.Init;
@@ -25,6 +24,8 @@ import org.opensaml.saml2.binding.artifact.SAML2ArtifactBuilderFactory;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLConfigurator;
 import org.opensaml.xml.security.DefaultSecurityConfigurationBootstrap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class can be used to bootstrap the OpenSAML library with the default configurations that ship with the library.
@@ -32,21 +33,28 @@ import org.opensaml.xml.security.DefaultSecurityConfigurationBootstrap;
 public class DefaultBootstrap {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(DefaultBootstrap.class);
+    private static Logger log = LoggerFactory.getLogger(DefaultBootstrap.class);
 
     /** List of default XMLTooling configuration files. */
-    private static String[] xmlToolingConfigs = {
-            "/default-config.xml",
-            "/schema-config.xml",
-            "/signature-config.xml", "/signature-validation-config.xml",
-            "/encryption-config.xml", "/encryption-validation-config.xml",
-            "/soap11-config.xml",
-            "/saml1-assertion-config.xml", "/saml1-protocol-config.xml", "/saml1-core-validation-config.xml",
-            "/saml2-assertion-config.xml", "/saml2-protocol-config.xml", "/saml2-core-validation-config.xml",
-            "/saml1-metadata-config.xml", "/saml2-metadata-config.xml", "/saml2-metadata-validation-config.xml",
-            "/saml2-protocol-thirdparty-config.xml",
-            "/saml2-metadata-query-config.xml",
-            };
+    private static String[] xmlToolingConfigs = { 
+        "/default-config.xml", 
+        "/schema-config.xml", 
+        "/signature-config.xml",
+        "/signature-validation-config.xml", 
+        "/encryption-config.xml", 
+        "/encryption-validation-config.xml",
+        "/soap11-config.xml", 
+        "/saml1-assertion-config.xml", 
+        "/saml1-protocol-config.xml",
+        "/saml1-core-validation-config.xml", 
+        "/saml2-assertion-config.xml", 
+        "/saml2-protocol-config.xml",
+        "/saml2-core-validation-config.xml", 
+        "/saml1-metadata-config.xml", 
+        "/saml2-metadata-config.xml",
+        "/saml2-metadata-validation-config.xml", 
+        "/saml2-protocol-thirdparty-config.xml",
+        "/saml2-metadata-query-config.xml", };
 
     /** Constrcutor. */
     protected DefaultBootstrap() {
@@ -85,9 +93,7 @@ public class DefaultBootstrap {
      */
     protected static void initializeXMLSecurity() throws ConfigurationException {
         if (!Init.isInitialized()) {
-            if (log.isDebugEnabled()) {
-                log.debug("Initializing Apache XMLSecurity library");
-            }
+            log.debug("Initializing Apache XMLSecurity library");
             Init.init();
         }
     }
@@ -99,9 +105,7 @@ public class DefaultBootstrap {
      */
     protected static void initializeVelocity() throws ConfigurationException {
         try {
-            if (log.isDebugEnabled()) {
-                log.debug("Initializing Velocity template engine");
-            }
+            log.debug("Initializing Velocity template engine");
             Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
                     "org.apache.velocity.runtime.log.Log4JLogChute");
             Velocity.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
@@ -128,9 +132,7 @@ public class DefaultBootstrap {
         XMLConfigurator configurator = new XMLConfigurator();
 
         for (String config : providerConfigs) {
-            if (log.isDebugEnabled()) {
-                log.debug("Loading XMLTooling configuration " + config);
-            }
+            log.debug("Loading XMLTooling configuration {}", config);
             configurator.load(clazz.getResourceAsStream(config));
         }
     }
@@ -141,10 +143,7 @@ public class DefaultBootstrap {
      * @throws ConfigurationException thrown if there is a problem initializing the artifact factory
      */
     protected static void initializeArtifactBuilderFactories() throws ConfigurationException {
-        if (log.isDebugEnabled()) {
-            log.debug("Initializing SAML Artifact builder factories");
-        }
-
+        log.debug("Initializing SAML Artifact builder factories");
         Configuration.setSAML1ArtifactBuilderFactory(new SAML1ArtifactBuilderFactory());
         Configuration.setSAML2ArtifactBuilderFactory(new SAML2ArtifactBuilderFactory());
     }

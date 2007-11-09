@@ -20,7 +20,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.xml.SAMLConstants;
@@ -38,6 +37,8 @@ import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.xml.parse.ParserPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class for SAML 2 message decoders.
@@ -45,7 +46,7 @@ import org.opensaml.xml.parse.ParserPool;
 public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder {
 
     /** Class logger. */
-    private Logger log = Logger.getLogger(BaseSAML1MessageDecoder.class);
+    private final Logger log = LoggerFactory.getLogger(BaseSAML1MessageDecoder.class);
     
     /** Constructor. */
     public BaseSAML2MessageDecoder() {
@@ -137,8 +138,7 @@ public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder {
         } else if (statusResponse instanceof Response) {
             List<Assertion> assertions = ((Response) statusResponse).getAssertions();
             if (assertions != null && assertions.size() > 0) {
-                log.info("Status response message had no issuer, "
-                        + "attempting to extract issuer from enclosed Assertion(s)");
+                log.info("Status response message had no issuer, attempting to extract issuer from enclosed Assertion(s)");
                 String assertionIssuer;
                 for (Assertion assertion : assertions) {
                     if (assertion != null && assertion.getIssuer() != null) {

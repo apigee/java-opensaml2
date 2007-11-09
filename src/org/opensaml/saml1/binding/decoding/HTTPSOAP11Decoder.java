@@ -18,7 +18,6 @@ package org.opensaml.saml1.binding.decoding;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
@@ -30,6 +29,8 @@ import org.opensaml.ws.soap.soap11.Envelope;
 import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.parse.ParserPool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML 1.1 HTTP SOAP 1.1 binding decoder.
@@ -37,7 +38,7 @@ import org.opensaml.xml.parse.ParserPool;
 public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPPostDecoder.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPPostDecoder.class);
 
     /**
      * Constructor.
@@ -47,7 +48,7 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
     public HTTPSOAP11Decoder(SAMLArtifactMap map) {
         super(map);
     }
-    
+
     /**
      * Constructor.
      * 
@@ -78,15 +79,13 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
-        
+
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
-        if(!inTransport.getHTTPMethod().equalsIgnoreCase("POST")){
+        if (!inTransport.getHTTPMethod().equalsIgnoreCase("POST")) {
             throw new MessageDecodingException("This message deocoder only supports the HTTP POST method");
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Unmarshalling SOAP message");
-        }
+        log.debug("Unmarshalling SOAP message");
         Envelope soapMessage = (Envelope) unmarshallMessage(inTransport.getIncomingStream());
         samlMsgCtx.setInboundMessage(soapMessage);
 
@@ -99,11 +98,9 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
         }
 
         SAMLObject samlMessage = (SAMLObject) soapBodyChildren.get(0);
-        if (log.isDebugEnabled()) {
-            log.debug("Decoded SOAP messaged which included SAML message of type " + samlMessage.getElementQName());
-        }
+        log.debug("Decoded SOAP messaged which included SAML message of type {}", samlMessage.getElementQName());
         samlMsgCtx.setInboundSAMLMessage(samlMessage);
-        
+
         populateMessageContext(samlMsgCtx);
     }
 }

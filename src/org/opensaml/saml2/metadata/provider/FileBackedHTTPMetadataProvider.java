@@ -17,18 +17,18 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
 public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(FileBackedHTTPMetadataProvider.class);
+    private final Logger log = LoggerFactory.getLogger(FileBackedHTTPMetadataProvider.class);
 
     /** File containing the backup of the metadata. */
     private File metadataBackupFile;
@@ -95,16 +95,12 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
         try {
             metadata = super.fetchMetadata();
         } catch (Exception e) {
-            if (log.isDebugEnabled()) {
-                log.debug("Unable to read metadata from remote server, attempting to read it from local backup", e);
-            }
+            log.debug("Unable to read metadata from remote server, attempting to read it from local backup", e);
             return getLocalMetadata();
         }
 
         // If we read the metadata from the remote server then write it to disk
-        if (log.isDebugEnabled()) {
-            log.debug("Writting retrieved metadata to backup file " + metadataBackupFile.getAbsolutePath());
-        }
+        log.debug("Writting retrieved metadata to backup file {}", metadataBackupFile.getAbsolutePath());
         try {
             writeMetadataToFile(metadata);
         } catch (Exception e) {

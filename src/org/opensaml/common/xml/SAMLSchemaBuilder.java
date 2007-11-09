@@ -27,9 +27,9 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.apache.log4j.Logger;
 import org.opensaml.xml.parse.ClasspathResolver;
 import org.opensaml.xml.parse.LoggingErrorHandler;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 /**
@@ -229,7 +229,7 @@ public class SAMLSchemaBuilder {
         
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         schemaFactory.setResourceResolver(new ClasspathResolver());
-        schemaFactory.setErrorHandler(new LoggingErrorHandler(Logger.getLogger(clazz)));
+        schemaFactory.setErrorHandler(new LoggingErrorHandler(LoggerFactory.getLogger(clazz)));
         return schemaFactory.newSchema(schemaSources.toArray(new StreamSource[0]));
     }
 }

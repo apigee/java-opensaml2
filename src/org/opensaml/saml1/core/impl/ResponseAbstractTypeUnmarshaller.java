@@ -20,7 +20,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLVersion;
@@ -30,6 +29,8 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
@@ -40,7 +41,7 @@ import org.w3c.dom.Element;
 public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Logger. */
-    private static Logger log = Logger.getLogger(ResponseUnmarshaller.class);
+    private final Logger log = LoggerFactory.getLogger(ResponseUnmarshaller.class);
 
     /**
      * Constructor.
@@ -58,17 +59,17 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
     public XMLObject unmarshall(Element domElement) throws UnmarshallingException {
         // After regular unmarshalling, check the minor version and set ID-ness if not SAML 1.0
         ResponseAbstractType response = (ResponseAbstractType) super.unmarshall(domElement);
-        if (response.getMinorVersion() != 0 && ! DatatypeHelper.isEmpty(response.getID())) {
+        if (response.getMinorVersion() != 0 && !DatatypeHelper.isEmpty(response.getID())) {
             domElement.setIdAttributeNS(null, ResponseAbstractType.ID_ATTRIB_NAME, true);
         }
         return response;
     }
 
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) 
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         ResponseAbstractType response = (ResponseAbstractType) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof Signature) {
             response.setSignature((Signature) childSAMLObject);
         } else {
@@ -105,5 +106,5 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
             super.processAttribute(samlObject, attribute);
         }
     }
-    
+
 }

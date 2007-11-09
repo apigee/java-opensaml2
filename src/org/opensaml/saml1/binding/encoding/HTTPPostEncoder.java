@@ -20,7 +20,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.common.SAMLObject;
@@ -34,6 +33,8 @@ import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML 1.X HTTP POST message encoder.
@@ -41,7 +42,7 @@ import org.opensaml.xml.util.XMLHelper;
 public class HTTPPostEncoder extends BaseSAML1MessageEncoder implements SAMLMessageEncoder {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPPostEncoder.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPPostEncoder.class);
 
     /** Velocity engine used to evaluate the template when performing POST encoding. */
     private VelocityEngine velocityEngine;
@@ -107,28 +108,21 @@ public class HTTPPostEncoder extends BaseSAML1MessageEncoder implements SAMLMess
      * @throws MessageEncodingException thrown if there is a problem encoding the message
      */
     protected void postEncode(SAMLMessageContext messageContext, String endpointURL) throws MessageEncodingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Invoking velocity template to create POST body");
-        }
+        log.debug("Invoking velocity template to create POST body");
+
         try {
             VelocityContext context = new VelocityContext();
 
-            if (log.isDebugEnabled()) {
-                log.debug("Encoding action url of: " + endpointURL);
-            }
+            log.debug("Encoding action url of: {}", endpointURL);
             context.put("action", endpointURL);
 
-            if (log.isDebugEnabled()) {
-                log.debug("Marshalling and Base64 encoding SAML message");
-            }
+            log.debug("Marshalling and Base64 encoding SAML message");
             String messageXML = XMLHelper.nodeToString(marshallMessage(messageContext.getOutboundSAMLMessage()));
             String encodedMessage = Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES);
             context.put("SAMLResponse", encodedMessage);
 
             if (messageContext.getRelayState() != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Setting Target parameter to: " + messageContext.getRelayState());
-                }
+                log.debug("Setting Target parameter to: {}", messageContext.getRelayState());
                 context.put("Target", messageContext.getRelayState());
             }
 

@@ -21,7 +21,6 @@ import java.util.Map.Entry;
 
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.common.CacheableSAMLObject;
@@ -30,6 +29,8 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
@@ -39,7 +40,7 @@ import org.w3c.dom.Element;
 public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(RoleDescriptorMarshaller.class);
+    private final Logger log = LoggerFactory.getLogger(RoleDescriptorMarshaller.class);
 
     /**
      * Constructor.
@@ -57,27 +58,21 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
 
         // Set the ID attribute
         if (roleDescriptor.getID() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Writing ID attribute to RoleDescriptor DOM element");
-            }
+            log.debug("Writing ID attribute to RoleDescriptor DOM element");
             domElement.setAttributeNS(null, RoleDescriptor.ID_ATTRIB_NAME, roleDescriptor.getID());
             domElement.setIdAttributeNS(null, RoleDescriptor.ID_ATTRIB_NAME, true);
         }
 
         // Set the validUntil attribute
         if (roleDescriptor.getValidUntil() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Writting validUntil attribute to RoleDescriptor DOM element");
-            }
+            log.debug("Writting validUntil attribute to RoleDescriptor DOM element");
             String validUntilStr = Configuration.getSAMLDateFormatter().print(roleDescriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
 
         // Set the cacheDuration attribute
         if (roleDescriptor.getCacheDuration() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
-            }
+            log.debug("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
             String cacheDuration = XMLHelper.longToDuration(roleDescriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
@@ -85,9 +80,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
         // Set the protocolSupportEnumeration attribute
         List<String> supportedProtocols = roleDescriptor.getSupportedProtocols();
         if (supportedProtocols != null && supportedProtocols.size() > 0) {
-            if (log.isDebugEnabled()) {
-                log.debug("Writting protocolSupportEnumberation attribute to RoleDescriptor DOM element");
-            }
+            log.debug("Writting protocolSupportEnumberation attribute to RoleDescriptor DOM element");
 
             StringBuilder builder = new StringBuilder();
             for (String protocol : supportedProtocols) {
@@ -100,9 +93,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
 
         // Set errorURL attribute
         if (roleDescriptor.getErrorURL() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Writting errorURL attribute to RoleDescriptor DOM element");
-            }
+            log.debug("Writting errorURL attribute to RoleDescriptor DOM element");
             domElement.setAttributeNS(null, RoleDescriptor.ERROR_URL_ATTRIB_NAME, roleDescriptor.getErrorURL());
         }
 

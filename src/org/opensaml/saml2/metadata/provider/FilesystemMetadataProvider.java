@@ -20,9 +20,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import org.apache.log4j.Logger;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A metadata provider that pulls metadata from a file on the local filesystem. Metadata is cached and automatically
@@ -31,7 +32,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class FilesystemMetadataProvider extends AbstractObservableMetadataProvider {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(FilesystemMetadataProvider.class);
+    private final Logger log = LoggerFactory.getLogger(FilesystemMetadataProvider.class);
 
     /** The metadata file. */
     private File metadataFile;
@@ -61,16 +62,14 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
         }
 
         if (!metadata.exists()) {
-            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath()
-                    + " does not exist");
+            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath() + " does not exist");
         }
 
         if (!metadata.isFile()) {
-            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath()
-                    + " is not a file");
+            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath() + " is not a file");
         }
-        
-        if(!metadata.canRead()){
+
+        if (!metadata.canRead()) {
             throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath()
                     + " is not readable");
         }
@@ -78,13 +77,13 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
         metadataFile = metadata;
         maintainExpiredMetadata = true;
     }
-    
+
     /**
      * Initializes the provider and prepares it for use.
      * 
      * @throws MetadataProviderException thrown if there is a problem reading, parsing, or validating the metadata
      */
-    public void initialize() throws MetadataProviderException{
+    public void initialize() throws MetadataProviderException {
         refreshMetadata();
     }
 

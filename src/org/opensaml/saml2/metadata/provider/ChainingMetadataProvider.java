@@ -25,7 +25,6 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -33,6 +32,8 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilderFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A metadata provider that uses registered providers, in turn, to answer queries.
@@ -41,9 +42,9 @@ import org.opensaml.xml.XMLObjectBuilderFactory;
  * non-null descriptor found while iterating over the registered providers in insertion order.
  */
 public class ChainingMetadataProvider extends BaseMetadataProvider {
-    
+
     /** Class logger. */
-    private final Logger log = Logger.getLogger(ChainingMetadataProvider.class);
+    private final Logger log = LoggerFactory.getLogger(ChainingMetadataProvider.class);
 
     /** Registred providers. */
     private ArrayList<MetadataProvider> providers;
@@ -175,9 +176,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
         EntitiesDescriptor descriptor = null;
         try {
             for (MetadataProvider provider : providers) {
-                if(log.isDebugEnabled()){
-                    log.debug("Checking child metadata provider for entities descriptor with name: " + name);
-                }
+                log.debug("Checking child metadata provider for entities descriptor with name: {}", name);
                 descriptor = provider.getEntitiesDescriptor(name);
                 if (descriptor != null) {
                     break;
@@ -200,9 +199,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
         EntityDescriptor descriptor = null;
         try {
             for (MetadataProvider provider : providers) {
-                if(log.isDebugEnabled()){
-                    log.debug("Checking child metadata provider for entity descriptor with entity ID: " + entityID);
-                }
+                log.debug("Checking child metadata provider for entity descriptor with entity ID: {}", entityID);
                 descriptor = provider.getEntityDescriptor(entityID);
                 if (descriptor != null) {
                     break;

@@ -19,7 +19,6 @@ package org.opensaml.saml2.binding.encoding;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.Configuration;
@@ -39,6 +38,8 @@ import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.util.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML 2 Artifact Binding encoder, support both HTTP GET and POST.
@@ -46,7 +47,7 @@ import org.opensaml.xml.util.Pair;
 public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAMLMessageEncoder {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(HTTPArtifactEncoder.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPArtifactEncoder.class);
 
     /** Velocity engine used to evaluate the template when performing POST encoding. */
     private VelocityEngine velocityEngine;
@@ -118,13 +119,9 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
      */
     protected void postEncode(SAML2ArtifactMessageContext artifactContext, HTTPOutTransport outTransport)
             throws MessageEncodingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Performing HTTP POST SAML 2 artifact encoding");
-        }
+        log.debug("Performing HTTP POST SAML 2 artifact encoding");
 
-        if (log.isDebugEnabled()) {
-            log.debug("Creating velocity context");
-        }
+        log.debug("Creating velocity context");
         VelocityContext context = new VelocityContext();
         context.put("action", getEndpointURL(artifactContext));
         context.put("SAMLArt", buildArtifact(artifactContext).base64Encode());
@@ -134,9 +131,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
         }
 
         try {
-            if (log.isDebugEnabled()) {
-                log.debug("Invoking velocity template");
-            }
+            log.debug("Invoking velocity template");
             OutputStreamWriter outWriter = new OutputStreamWriter(outTransport.getOutgoingStream());
             velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, outWriter);
         } catch (Exception e) {
@@ -155,9 +150,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
      */
     protected void getEncode(SAML2ArtifactMessageContext artifactContext, HTTPOutTransport outTransport)
             throws MessageEncodingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Performing HTTP GET SAML 2 artifact encoding");
-        }
+        log.debug("Performing HTTP GET SAML 2 artifact encoding");
 
         URLBuilder urlBuilder = new URLBuilder(getEndpointURL(artifactContext));
 

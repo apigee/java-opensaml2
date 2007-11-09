@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
@@ -24,16 +23,17 @@ import org.opensaml.saml1.core.DecisionTypeEnumeration;
 import org.opensaml.saml1.core.Evidence;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for
- * {@link org.opensaml.saml1.core.impl.AuthorizationDecisionStatementImpl} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.impl.AuthorizationDecisionStatementImpl} objects.
  */
 public class AuthorizationDecisionStatementUnmarshaller extends SubjectStatementUnmarshaller {
 
-    /** Logger */
-    private static Logger log = Logger.getLogger(AuthorizationDecisionStatementUnmarshaller.class);
+    /** Logger. */
+    private final Logger log = LoggerFactory.getLogger(AuthorizationDecisionStatementUnmarshaller.class);
 
     /**
      * Constructor
@@ -59,8 +59,7 @@ public class AuthorizationDecisionStatementUnmarshaller extends SubjectStatement
     }
 
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject samlObject, Attr attribute)
-            throws UnmarshallingException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
 
         AuthorizationDecisionStatement authorizationDecisionStatement;
         authorizationDecisionStatement = (AuthorizationDecisionStatement) samlObject;
@@ -71,9 +70,9 @@ public class AuthorizationDecisionStatementUnmarshaller extends SubjectStatement
                 authorizationDecisionStatement.setDecision(DecisionTypeEnumeration.PERMIT);
             } else if (value.equals(DecisionTypeEnumeration.DENY.toString())) {
                 authorizationDecisionStatement.setDecision(DecisionTypeEnumeration.DENY);
-            } else  if (value.equals(DecisionTypeEnumeration.INDETERMINATE.toString())) {
+            } else if (value.equals(DecisionTypeEnumeration.INDETERMINATE.toString())) {
                 authorizationDecisionStatement.setDecision(DecisionTypeEnumeration.INDETERMINATE);
-            }  else {
+            } else {
                 log.error("Unknown value for DecisionType '" + value + "'");
                 throw new UnmarshallingException("Unknown value for DecisionType '" + value + "'");
             }

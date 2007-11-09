@@ -17,7 +17,6 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -25,7 +24,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
 import org.opensaml.saml2.common.SAML2Helper;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -35,6 +33,8 @@ import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 /**
@@ -43,7 +43,7 @@ import org.w3c.dom.Document;
 public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
     /** Class logger. */
-    private static Logger log = Logger.getLogger(AbstractMetadataProvider.class);
+    private final Logger log = LoggerFactory.getLogger(AbstractMetadataProvider.class);
 
     /** Cache of entity IDs to their descriptors. */
     private HashMap<String, EntityDescriptor> indexedDescriptors;
@@ -70,16 +70,11 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
     /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException {
-        if (log.isDebugEnabled()) {
-            log.debug("Getting descriptor for entity " + entityID);
-        }
-
+        log.debug("Getting descriptor for entity {}", entityID);
         XMLObject metadata = getMetadata();
         EntityDescriptor descriptor = getEntityDescriptorById(entityID, metadata);
         if (descriptor == null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Metadata document does not contain an entity descriptor with the ID " + entityID);
-            }
+            log.debug("Metadata document does not contain an entity descriptor with the ID {}", entityID);
             return null;
         }
 
@@ -153,14 +148,10 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      */
     protected XMLObject unmarshallMetadata(Reader metadataInput) throws UnmarshallingException {
         try {
-            if (log.isDebugEnabled()) {
-                log.debug("Parsing retrieved metadata into a DOM object");
-            }
+            log.debug("Parsing retrieved metadata into a DOM object");
             Document mdDocument = parser.parse(metadataInput);
 
-            if (log.isDebugEnabled()) {
-                log.debug("Unmarshalling and caching metdata DOM");
-            }
+            log.debug("Unmarshalling and caching metdata DOM");
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(mdDocument.getDocumentElement());
             XMLObject metadata = unmarshaller.unmarshall(mdDocument.getDocumentElement());
             return metadata;
@@ -184,9 +175,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      */
     protected void filterMetadata(XMLObject metadata) throws FilterException {
         if (getMetadataFilter() != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Applying metadata filter");
-            }
+            log.debug("Applying metadata filter");
             getMetadataFilter().doFilter(metadata);
         }
     }
@@ -214,14 +203,9 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     protected EntityDescriptor getEntityDescriptorById(String entityID, XMLObject metadata) {
         EntityDescriptor descriptor = null;
 
-        if (log.isDebugEnabled()) {
-            log.debug("Searching for entity descriptor with an entity ID of " + entityID);
-        }
-
+        log.debug("Searching for entity descriptor with an entity ID of {}", entityID);
         if (indexedDescriptors.containsKey(entityID)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Entity descriptor for the ID " + entityID + " was found in index cache, returning");
-            }
+            log.debug("Entity descriptor for the ID {} was found in index cache, returning", entityID);
             descriptor = indexedDescriptors.get(entityID);
             if (isValid(descriptor)) {
                 return descriptor;
@@ -232,20 +216,15 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
         if (metadata != null) {
             if (metadata instanceof EntityDescriptor) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Metadata root is an entity descriptor, checking if it's the one we're looking for.");
-                }
+                log.debug("Metadata root is an entity descriptor, checking if it's the one we're looking for.");
                 descriptor = (EntityDescriptor) metadata;
                 if (!descriptor.getEntityID().equals(entityID) || !isValid(descriptor)) {
-                    if (log.isDebugEnabled()) {
-                        log.debug("Entity descriptor does not have the correct entity ID or is not valid, returning null");
-                    }
+                    log.debug("Entity descriptor does not have the correct entity ID or is not valid, returning null");
                     descriptor = null;
                 }
             } else {
-                if (log.isDebugEnabled()) {
-                    log.debug("Metadata was an entities descriptor, checking if any of it's descendant entity descriptors is the one we're looking for.");
-                }
+                log
+                        .debug("Metadata was an entities descriptor, checking if any of it's descendant entity descriptors is the one we're looking for.");
                 if (metadata instanceof EntitiesDescriptor) {
                     descriptor = getEntityDescriptorById(entityID, (EntitiesDescriptor) metadata);
                 }
@@ -253,9 +232,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         }
 
         if (descriptor != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Located entity descriptor, creating an index to it for faster lookups");
-            }
+            log.debug("Located entity descriptor, creating an index to it for faster lookups");
             indexedDescriptors.put(entityID, descriptor);
         }
 
@@ -271,9 +248,8 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * @return the entity descriptor
      */
     protected EntityDescriptor getEntityDescriptorById(String entityID, EntitiesDescriptor descriptor) {
-        if (log.isDebugEnabled()) {
-            log.debug("Checking to see if any of the child entity descriptors of this entities descriptor is the requested descriptor");
-        }
+        log
+                .debug("Checking to see if any of the child entity descriptors of this entities descriptor is the requested descriptor");
         List<EntityDescriptor> entityDescriptors = descriptor.getEntityDescriptors();
         if (entityDescriptors != null) {
             for (EntityDescriptor entityDescriptor : entityDescriptors) {
@@ -286,9 +262,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             }
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Checking to see if any of the child entities descriptors contains the entity descriptor requested");
-        }
+        log.debug("Checking to see if any of the child entities descriptors contains the entity descriptor requested");
         EntityDescriptor entityDescriptor;
         List<EntitiesDescriptor> entitiesDescriptors = descriptor.getEntitiesDescriptors();
         if (entitiesDescriptors != null) {

@@ -16,7 +16,6 @@
 
 package org.opensaml.common.binding.security;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.security.MetadataCriteria;
 import org.opensaml.ws.message.MessageContext;
@@ -29,6 +28,8 @@ import org.opensaml.xml.security.criteria.UsageCriteria;
 import org.opensaml.xml.security.trust.TrustEngine;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class for SAML security policy rules which evaluate a signature with a signature trust engine.
@@ -36,7 +37,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 public abstract class BaseSAMLXMLSignatureSecurityPolicyRule extends BaseTrustEngineRule<Signature> {
     
     /** Logger. */
-    private Logger log = Logger.getLogger(BaseSAMLXMLSignatureSecurityPolicyRule.class);
+    private final Logger log = LoggerFactory.getLogger(BaseSAMLXMLSignatureSecurityPolicyRule.class);
     
     /**
      * Constructor.
@@ -51,8 +52,7 @@ public abstract class BaseSAMLXMLSignatureSecurityPolicyRule extends BaseTrustEn
     protected CriteriaSet buildCriteriaSet(String entityID, MessageContext messageContext)
         throws SecurityPolicyException {
         if (!(messageContext instanceof SAMLMessageContext)) {
-            log.error("Supplied message context was not an instance of SAMLMessageContext, " 
-                    + "can not build criteria set from SAML metadata parameters");
+            log.error("Supplied message context was not an instance of SAMLMessageContext, can not build criteria set from SAML metadata parameters");
             throw new SecurityPolicyException("Supplied message context was not an instance of SAMLMessageContext");
         }
         

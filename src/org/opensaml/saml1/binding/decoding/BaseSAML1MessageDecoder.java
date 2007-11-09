@@ -20,7 +20,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
@@ -41,6 +40,8 @@ import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class for SAML 1 message decoders.
@@ -48,7 +49,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
 
     /** Class logger. */
-    private Logger log = Logger.getLogger(BaseSAML1MessageDecoder.class);
+    private final Logger log = LoggerFactory.getLogger(BaseSAML1MessageDecoder.class);
 
     /** Map used to map artifacts to SAML. */
     private SAMLArtifactMap artifactMap;
@@ -183,16 +184,12 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
      */
     protected void extractAttributeQueryInfo(SAMLMessageContext messageContext, AttributeQuery query) {
         if (useQueryResourceAsEntityId) {
-            if (log.isDebugEnabled()) {
-                log.debug("Attempting to extract issuer from SAML 1 AttributeQuery Resource attribute");
-            }
+            log.debug("Attempting to extract issuer from SAML 1 AttributeQuery Resource attribute");
             String resource = DatatypeHelper.safeTrimOrNullString(query.getResource());
 
             if (resource != null) {
                 messageContext.setInboundMessageIssuer(resource);
-                if (log.isDebugEnabled()) {
-                    log.debug("Extracted issuer from SAML 1.x AttributeQuery: " + resource);
-                }
+                log.debug("Extracted issuer from SAML 1.x AttributeQuery: {}", resource);
             }
         }
     }
@@ -207,16 +204,12 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
     protected void extractAuthorizationDecisionQueryInfo(SAMLMessageContext messageContext,
             AuthorizationDecisionQuery query) {
         if (useQueryResourceAsEntityId) {
-            if (log.isDebugEnabled()) {
-                log.debug("Attempting to extract issuer from SAML 1 AuthorizationDecisionQuery Resource attribute");
-            }
+            log.debug("Attempting to extract issuer from SAML 1 AuthorizationDecisionQuery Resource attribute");
             String resource = DatatypeHelper.safeTrimOrNullString(query.getResource());
 
             if (resource != null) {
                 messageContext.setInboundMessageIssuer(resource);
-                if (log.isDebugEnabled()) {
-                    log.debug("Extracted issuer from SAML 1.x AuthorizationDecisionQuery: " + resource);
-                }
+                log.debug("Extracted issuer from SAML 1.x AuthorizationDecisionQuery: {}", resource);
             }
         }
     }
@@ -233,16 +226,12 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
             return;
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Attempting to extract issuer based on first AssertionArtifact in request");
-        }
+        log.debug("Attempting to extract issuer based on first AssertionArtifact in request");
         AssertionArtifact artifact = artifacts.get(0);
         SAMLArtifactMapEntry artifactEntry = artifactMap.get(artifact.getAssertionArtifact());
         messageContext.setInboundMessageIssuer(artifactEntry.getRelyingPartyId());
 
-        if (log.isDebugEnabled()) {
-            log.debug("Extracted issuer from SAML 1.x AssertionArtifact: " + messageContext.getInboundMessageIssuer());
-        }
+        log.debug("Extracted issuer from SAML 1.x AssertionArtifact: {}", messageContext.getInboundMessageIssuer());
     }
 
     /**

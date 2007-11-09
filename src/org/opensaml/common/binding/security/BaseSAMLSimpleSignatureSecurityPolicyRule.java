@@ -20,7 +20,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.security.MetadataCriteria;
 import org.opensaml.ws.message.MessageContext;
@@ -36,21 +35,23 @@ import org.opensaml.xml.security.criteria.UsageCriteria;
 import org.opensaml.xml.signature.SignatureTrustEngine;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class for security rules which verify simple "blob" signatures computed over some components of a request.
  */
 public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements SecurityPolicyRule {
-    
+
     /** Logger. */
-    private static Logger log = Logger.getLogger(BaseSAMLSimpleSignatureSecurityPolicyRule.class);
-    
+    private final Logger log = LoggerFactory.getLogger(BaseSAMLSimpleSignatureSecurityPolicyRule.class);
+
     /** Signature trust engine used to validate raw signatures. */
     private SignatureTrustEngine trustEngine;
-    
+
     /**
      * Constructor.
-     *
+     * 
      * @param engine the signature trust engine to use for signature validataion
      */
     protected BaseSAMLSimpleSignatureSecurityPolicyRule(SignatureTrustEngine engine) {
@@ -63,43 +64,43 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
             log.debug("Invalid message context type, this policy rule only supports SAMLMessageContext");
             return;
         }
-        
-        if (! (messageContext.getInboundMessageTransport() instanceof HttpServletRequestAdapter)) {
+
+        if (!(messageContext.getInboundMessageTransport() instanceof HttpServletRequestAdapter)) {
             log.debug("Invalid inbound message transport type, this rule only supports HttpServletRequestAdapter");
             return;
         }
-        
+
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
-        HttpServletRequestAdapter requestAdapter = 
-            (HttpServletRequestAdapter) messageContext.getInboundMessageTransport();
+        HttpServletRequestAdapter requestAdapter = (HttpServletRequestAdapter) messageContext
+                .getInboundMessageTransport();
         HttpServletRequest request = requestAdapter.getWrappedRequest();
-        
-        if (! ruleHandles(request, samlMsgCtx)) {
+
+        if (!ruleHandles(request, samlMsgCtx)) {
             log.debug("Rule can not handle this request, skipping processing");
             return;
         }
-        
+
         byte[] signature = getSignature(request);
         if (signature == null || signature.length == 0) {
             log.debug("HTTP request was not signed via simple signature mechanism, skipping");
             return;
         }
-        
+
         String sigAlg = getSignatureAlgorithm(request);
         if (DatatypeHelper.isEmpty(sigAlg)) {
             log.error("Signature algorithm could not be extracted from request, can not validate simple signature");
             return;
         }
-        
+
         byte[] signedContent = getSignedContent(request);
         if (signedContent == null || signedContent.length == 0) {
             log.error("Signed content could not be extracted from HTTP request, can not validate");
             return;
         }
-        
+
         doEvaluate(signature, signedContent, sigAlg, request, samlMsgCtx);
     }
-    
+
     /**
      * Evaluate the simple signature based on information in the request and/or message context.
      * 
@@ -108,24 +109,24 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
      * @param algorithmURI the signature algorithm URI which was used to sign the content
      * @param request the HTTP servlet request being processed
      * @param samlMsgCtx the SAML message context being processed
-     *          
+     * 
      * @throws SecurityPolicyException thrown if there are errors during the signature validation process
      * 
      */
     private void doEvaluate(byte[] signature, byte[] signedContent, String algorithmURI, HttpServletRequest request,
             SAMLMessageContext samlMsgCtx) throws SecurityPolicyException {
-        
+
         List<Credential> candidateCredentials = getRequestCredentials(request, samlMsgCtx);
-        
+
         String contextIssuer = samlMsgCtx.getInboundMessageIssuer();
-        
+
         if (contextIssuer != null) {
             CriteriaSet criteriaSet = buildCriteriaSet(contextIssuer, samlMsgCtx);
             if (validateSignature(signature, signedContent, algorithmURI, criteriaSet, candidateCredentials)) {
                 log.info("Validation of request simple signature succeeded");
-                if (! samlMsgCtx.isInboundSAMLMessageAuthenticated() ) {
-                    log.info("Authentication via request simple signature succeeded for "
-                            + "context issuer entity ID '" + contextIssuer + "'");
+                if (!samlMsgCtx.isInboundSAMLMessageAuthenticated()) {
+                    log.info("Authentication via request simple signature succeeded for context issuer entity ID {}",
+                            contextIssuer);
                     samlMsgCtx.setInboundSAMLMessageAuthenticated(true);
                 }
             } else {
@@ -138,20 +139,22 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
                 CriteriaSet criteriaSet = buildCriteriaSet(derivedIssuer, samlMsgCtx);
                 if (validateSignature(signature, signedContent, algorithmURI, criteriaSet, candidateCredentials)) {
                     log.info("Validation of request simple signature succeeded");
-                    if (! samlMsgCtx.isInboundSAMLMessageAuthenticated() ) {
-                        log.info("Authentication via request simple signature succeeded for "
-                                + "derived issuer entity ID '" + derivedIssuer + "'");
+                    if (!samlMsgCtx.isInboundSAMLMessageAuthenticated()) {
+                        log
+                                .info(
+                                        "Authentication via request simple signature succeeded for derived issuer entity ID {}",
+                                        derivedIssuer);
                         samlMsgCtx.setInboundMessageIssuer(derivedIssuer);
                         samlMsgCtx.setInboundSAMLMessageAuthenticated(true);
                     }
                 } else {
-                    log.info("Validation attempt of request simple signature failed for derived issuer '" 
-                            + derivedIssuer + "'");
+                    log.info("Validation attempt of request simple signature failed for derived issuer {}",
+                            derivedIssuer);
                 }
             }
-            
+
         }
-        
+
     }
 
     /**
@@ -160,20 +163,20 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
      * @param signature the signature value
      * @param signedContent the content that was signed
      * @param algorithmURI the signature algorithm URI which was used to sign the content
-     * @param criteriaSet criteria used to describe and/or resolve the information
-     *          which serves as the basis for trust evaluation
-     * @param candidateCredentials the request-derived candidate credential(s) containing the validation key
-     *          for the signature (optional)
+     * @param criteriaSet criteria used to describe and/or resolve the information which serves as the basis for trust
+     *            evaluation
+     * @param candidateCredentials the request-derived candidate credential(s) containing the validation key for the
+     *            signature (optional)
      * @return true if signature can be verified successfully, false otherwise
-     *          
+     * 
      * @throws SecurityPolicyException thrown if there are errors during the signature validation process
      * 
      */
     protected boolean validateSignature(byte[] signature, byte[] signedContent, String algorithmURI,
             CriteriaSet criteriaSet, List<Credential> candidateCredentials) throws SecurityPolicyException {
-        
+
         SignatureTrustEngine engine = getTrustEngine();
-        
+
         // Some bindings allow candidate signing credentials to be supplied (e.g. via ds:KeyInfo), some do not.
         // So have 2 slightly different cases.
         try {
@@ -211,24 +214,24 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
      * @return a list of candidate validation credentials in the request, or null if none were present
      * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    protected List<Credential> getRequestCredentials(HttpServletRequest request, SAMLMessageContext samlContext) 
-        throws SecurityPolicyException {
+    protected List<Credential> getRequestCredentials(HttpServletRequest request, SAMLMessageContext samlContext)
+            throws SecurityPolicyException {
         // This will be specific to the binding and message types, so no default.
         return null;
     }
 
     /**
-     * Gets the engine used to validate the signature. 
+     * Gets the engine used to validate the signature.
      * 
      * @return engine engine used to validate the signature
      */
     protected SignatureTrustEngine getTrustEngine() {
         return trustEngine;
     }
-    
+
     /**
-     * Extract the signature value from the request, in the form suitable for
-     * input into {@link SignatureTrustEngine#validate(byte[], byte[], String, CriteriaSet, Credential)}.
+     * Extract the signature value from the request, in the form suitable for input into
+     * {@link SignatureTrustEngine#validate(byte[], byte[], String, CriteriaSet, Credential)}.
      * 
      * Defaults to the Base64-decoded value of the HTTP request parameter named <code>Signature</code>.
      * 
@@ -243,7 +246,7 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
         }
         return Base64.decode(signature);
     }
-    
+
     /**
      * Extract the signature algorithm URI value from the request.
      * 
@@ -256,12 +259,11 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
     protected String getSignatureAlgorithm(HttpServletRequest request) throws SecurityPolicyException {
         return request.getParameter("SigAlg");
     }
-    
+
     /**
      * Derive the signer's entity ID from the message context.
      * 
-     * This is implementation-specific and there is no default.  This is primarily
-     * an extension point for subclasses.
+     * This is implementation-specific and there is no default. This is primarily an extension point for subclasses.
      * 
      * @param samlContext the SAML message context being processed
      * @return the signer's derived entity ID
@@ -271,53 +273,52 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
         // No default
         return null;
     }
-    
+
     /**
      * Build a criteria set suitable for input to the trust engine.
      * 
-     * @param entityID the candidate issuer entity ID which is being evaluated 
+     * @param entityID the candidate issuer entity ID which is being evaluated
      * @param samlContext the message context which is being evaluated
      * @return a newly constructly set of criteria suitable for the configured trust engine
      * @throws SecurityPolicyException thrown if criteria set can not be constructed
      */
     protected CriteriaSet buildCriteriaSet(String entityID, SAMLMessageContext samlContext)
-        throws SecurityPolicyException {
-        
+            throws SecurityPolicyException {
+
         CriteriaSet criteriaSet = new CriteriaSet();
-        if (! DatatypeHelper.isEmpty(entityID)) {
-            criteriaSet.add(new EntityIDCriteria(entityID) );
+        if (!DatatypeHelper.isEmpty(entityID)) {
+            criteriaSet.add(new EntityIDCriteria(entityID));
         }
-        
-        MetadataCriteria mdCriteria = 
-            new MetadataCriteria(samlContext.getPeerEntityRole(), samlContext.getInboundSAMLProtocol());
+
+        MetadataCriteria mdCriteria = new MetadataCriteria(samlContext.getPeerEntityRole(), samlContext
+                .getInboundSAMLProtocol());
         criteriaSet.add(mdCriteria);
-        
-        criteriaSet.add( new UsageCriteria(UsageType.SIGNING) );
-        
+
+        criteriaSet.add(new UsageCriteria(UsageType.SIGNING));
+
         return criteriaSet;
     }
-    
+
     /**
-     * Get the content over which to validate the signature, in the form suitable for
-     * input into {@link SignatureTrustEngine#validate(byte[], byte[], String, CriteriaSet, Credential)}.
+     * Get the content over which to validate the signature, in the form suitable for input into
+     * {@link SignatureTrustEngine#validate(byte[], byte[], String, CriteriaSet, Credential)}.
      * 
      * @param request the HTTP servlet request being processed
-     * @return the signed content extracted from the request, in the format suitable
-     *          for input to the trust engine.
+     * @return the signed content extracted from the request, in the format suitable for input to the trust engine.
      * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    protected abstract byte[] getSignedContent(HttpServletRequest request) throws SecurityPolicyException ;
-    
+    protected abstract byte[] getSignedContent(HttpServletRequest request) throws SecurityPolicyException;
+
     /**
-     * Determine whether the rule should handle the request, based on the unwrapped HTTP servlet request
-     * and/or message context.
+     * Determine whether the rule should handle the request, based on the unwrapped HTTP servlet request and/or message
+     * context.
      * 
      * @param request the HTTP servlet request being processed
      * @param samlMsgCtx the SAML message context being processed
      * @return true if the rule should attempt to process the request, otherwise false
      * @throws SecurityPolicyException thrown if there is an error during request processing
      */
-    protected abstract boolean ruleHandles(HttpServletRequest request, SAMLMessageContext samlMsgCtx) 
-        throws SecurityPolicyException;
+    protected abstract boolean ruleHandles(HttpServletRequest request, SAMLMessageContext samlMsgCtx)
+            throws SecurityPolicyException;
 
 }

@@ -18,11 +18,9 @@ package org.opensaml.common;
 
 import javax.xml.namespace.QName;
 
-import org.apache.log4j.Logger;
 import org.custommonkey.xmlunit.XMLTestCase;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.opensaml.Configuration;
-import org.opensaml.DefaultBootstrap;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilder;
@@ -35,9 +33,10 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.BasicParserPool;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 
 /**
  * Intermediate class that serves to initialize the configuration environment for other base test classes.
@@ -57,7 +56,7 @@ public abstract class BaseTestCase extends XMLTestCase {
     protected static UnmarshallerFactory unmarshallerFactory;
     
     /** Class logger. */
-    private static Logger log = Logger.getLogger(BaseTestCase.class);
+    private static Logger log = LoggerFactory.getLogger(BaseTestCase.class);
     
     /** Constructor. */
     public BaseTestCase(){

@@ -28,11 +28,12 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpClientParams;
 import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.opensaml.saml2.common.SAML2Helper;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A metadata provider that pulls metadata using an HTTP GET. Metadata is cached until one of these criteria is met:
@@ -51,7 +52,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
     private XMLObject cachedMetadata;
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPMetadataProvider.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPMetadataProvider.class);
 
     /** URL to the Metadata. */
     private URI metadataURI;
@@ -167,10 +168,8 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
      * @param newSocketFactory the socket factory used to produce sockets used to connect to the server
      */
     public void setSocketFactory(ProtocolSocketFactory newSocketFactory) {
-        if (log.isDebugEnabled()) {
-            log.debug("Using the custom socket factory " + newSocketFactory.getClass().getName()
-                    + " to connect to the HTTP server");
-        }
+        log.debug("Using the custom socket factory {} to connect to the HTTP server", newSocketFactory.getClass()
+                .getName());
         Protocol protocol = new Protocol(metadataURI.getScheme(), newSocketFactory, metadataURI.getPort());
         httpClient.getHostConfiguration().setHost(metadataURI.getHost(), metadataURI.getPort(), protocol);
     }
@@ -202,21 +201,19 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
     /** {@inheritDoc} */
     public XMLObject getMetadata() throws MetadataProviderException {
         if (mdExpirationTime.isBeforeNow()) {
-            if (log.isDebugEnabled()) {
-                log.debug("Cached metadata is stale, refreshing");
-            }
+            log.debug("Cached metadata is stale, refreshing");
             refreshMetadata();
         }
 
         return cachedMetadata;
     }
-    
+
     /**
      * Caches the metadata.
      * 
      * @param metadata metadata to cache
      */
-    protected void cacheMetadata(XMLObject metadata){
+    protected void cacheMetadata(XMLObject metadata) {
         cachedMetadata = metadata;
     }
 
@@ -232,10 +229,8 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             return;
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Refreshing cache of metadata from URL " + metadataURI + ", max cache duration set to "
-                    + maxCacheDuration + "ms");
-        }
+        log.debug("Refreshing cache of metadata from URL {}, max cache duration set to {}ms", metadataURI,
+                maxCacheDuration);
         try {
             cachedMetadata = fetchMetadata();
 
@@ -243,18 +238,12 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
 
             releaseMetadataDOM(cachedMetadata);
 
-            if (log.isDebugEnabled()) {
-                log.debug("Calculating expiration time");
-            }
-
+            log.debug("Calculating expiration time");
             DateTime now = new DateTime();
             mdExpirationTime = SAML2Helper
                     .getEarliestExpiration(cachedMetadata, now.plus(maxCacheDuration * 1000), now);
 
-            if (log.isDebugEnabled()) {
-                log.debug("Metadata cache expires on " + mdExpirationTime);
-            }
-
+            log.debug("Metadata cache expires on " + mdExpirationTime);
             emitChangeEvent();
         } catch (IOException e) {
             String errorMsg = "Unable to read metadata from server";
@@ -280,28 +269,19 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
      * @throws UnmarshallingException thrown if the metadata can not be unmarshalled
      */
     protected XMLObject fetchMetadata() throws IOException, UnmarshallingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Fetching metadata document from remote server");
-        }
+        log.debug("Fetching metadata document from remote server");
         GetMethod getMethod = new GetMethod(getMetadataURI());
         if (httpClient.getState().getCredentials(authScope) != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("Using BASIC authentication when retrieving metadata");
-            }
+            log.debug("Using BASIC authentication when retrieving metadata");
             getMethod.setDoAuthentication(true);
         }
         httpClient.executeMethod(getMethod);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Retrieved the following metadata document\n" + getMethod.getResponseBodyAsString());
-        }
-
+        log.debug("Retrieved the following metadata document\n{}", getMethod.getResponseBodyAsString());
         StringReader responseBody = new StringReader(getMethod.getResponseBodyAsString());
         XMLObject metadata = unmarshallMetadata(responseBody);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Unmarshalled metadata from remote server");
-        }
+        log.debug("Unmarshalled metadata from remote server");
         return metadata;
 
     }

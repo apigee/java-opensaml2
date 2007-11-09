@@ -16,7 +16,6 @@
 
 package org.opensaml.common.binding.security;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.security.MetadataCriteria;
 import org.opensaml.ws.message.MessageContext;
@@ -26,6 +25,8 @@ import org.opensaml.ws.security.provider.ClientCertAuthRule;
 import org.opensaml.xml.security.CriteriaSet;
 import org.opensaml.xml.security.trust.TrustEngine;
 import org.opensaml.xml.security.x509.X509Credential;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML specialization of {@link ClientCertAuthRule} which provides support for X509Credential trust engine validation
@@ -34,7 +35,7 @@ import org.opensaml.xml.security.x509.X509Credential;
 public class SAMLMDClientCertAuthRule extends ClientCertAuthRule {
 
     /** Logger. */
-    private Logger log = Logger.getLogger(SAMLMDClientCertAuthRule.class);
+    private final Logger log = LoggerFactory.getLogger(SAMLMDClientCertAuthRule.class);
 
     /**
      * Constructor.
@@ -51,8 +52,7 @@ public class SAMLMDClientCertAuthRule extends ClientCertAuthRule {
         throws SecurityPolicyException {
         
         if (!(messageContext instanceof SAMLMessageContext)) {
-            log.error("Supplied message context was not an instance of SAMLMessageContext, " 
-                    + "can not build criteria set from SAML metadata parameters");
+            log.error("Supplied message context was not an instance of SAMLMessageContext, can not build criteria set from SAML metadata parameters");
             throw new SecurityPolicyException("Supplied message context was not an instance of SAMLMessageContext");
         }
         

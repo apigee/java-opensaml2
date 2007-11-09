@@ -20,7 +20,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BasicEndpointSelector;
 import org.opensaml.common.binding.SAMLMessageContext;
@@ -30,6 +29,8 @@ import org.opensaml.saml2.metadata.ArtifactResolutionService;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML 2, type 0x0004, artifact builder.
@@ -37,7 +38,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class SAML2ArtifactType0004Builder implements SAML2ArtifactBuilder<SAML2ArtifactType0004> {
     
     /** Class logger. */
-    private Logger log = Logger.getLogger(SAML2ArtifactType0004Builder.class);
+    private final Logger log = LoggerFactory.getLogger(SAML2ArtifactType0004Builder.class);
 
     /** {@inheritDoc} */
     public SAML2ArtifactType0004 buildArtifact(byte[] artifact) {

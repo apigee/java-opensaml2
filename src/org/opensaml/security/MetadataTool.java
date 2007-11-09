@@ -22,20 +22,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 import org.opensaml.Configuration;
 import org.opensaml.DefaultBootstrap;
 import org.opensaml.common.SignableSAMLObject;
-import org.opensaml.common.impl.SAMLObjectContentReference;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.io.Unmarshaller;
@@ -48,6 +42,8 @@ import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -57,8 +53,8 @@ import org.w3c.dom.Element;
 public class MetadataTool {
 
     /** Class Logger. */
-    private static Logger log = Logger.getLogger(MetadataTool.class);
-    
+    private static Logger log = LoggerFactory.getLogger(MetadataTool.class);
+
     private static ParserPool parser;
 
     /**
@@ -70,8 +66,6 @@ public class MetadataTool {
      */
     public static void main(String[] args) throws Exception {
         DefaultBootstrap.bootstrap();
-        configureLogging();
-
         CmdLineParser parser = CLIParserBuilder.buildParser();
 
         try {
@@ -131,10 +125,10 @@ public class MetadataTool {
             URL inputURL = new URL(inputFile);
             Document metadatDocument = parser.parse(inputURL.openStream());
 
-//            if (validate != null && validate.booleanValue()) {
-//                parser.validate(metadatDocument);
-//                log.info("Metadata document passed validation");
-//            }
+            // if (validate != null && validate.booleanValue()) {
+            // parser.validate(metadatDocument);
+            // log.info("Metadata document passed validation");
+            // }
 
             Element metadataRoot = metadatDocument.getDocumentElement();
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(metadataRoot);
@@ -206,8 +200,7 @@ public class MetadataTool {
         KeyStore.PasswordProtection keyPassParam = new KeyStore.PasswordProtection(keyPass.toCharArray());
         try {
             KeyStore.PrivateKeyEntry pkEntry = (KeyStore.PrivateKeyEntry) keystore.getEntry(alias, keyPassParam);
-            return SecurityHelper.getSimpleCredential(pkEntry.getCertificate().getPublicKey(), 
-                    pkEntry.getPrivateKey());
+            return SecurityHelper.getSimpleCredential(pkEntry.getCertificate().getPublicKey(), pkEntry.getPrivateKey());
         } catch (Exception e) {
             log.error("Unable to retrieve private key " + alias, e);
         }
@@ -216,8 +209,7 @@ public class MetadataTool {
     }
 
     /**
-     * Gets a simple credential containing the public key associated 
-     * with the named certificate.
+     * Gets a simple credential containing the public key associated with the named certificate.
      * 
      * @param keystore the keystore from which to get the key
      * @param alias the name of the certificate from which to get the key
@@ -249,7 +241,8 @@ public class MetadataTool {
      * @param signingCredential credential used to sign the document
      */
     private static void sign(SignableSAMLObject metadata, Credential signingCredential) {
-        XMLObjectBuilder<Signature> sigBuilder = Configuration.getBuilderFactory().getBuilder(Signature.DEFAULT_ELEMENT_NAME);
+        XMLObjectBuilder<Signature> sigBuilder = Configuration.getBuilderFactory().getBuilder(
+                Signature.DEFAULT_ELEMENT_NAME);
         Signature signature = sigBuilder.buildObject(Signature.DEFAULT_ELEMENT_NAME);
         signature.setSigningCredential(signingCredential);
         metadata.setSignature(signature);
@@ -264,7 +257,7 @@ public class MetadataTool {
      * @param verificationCredential the credential to use to verify it
      */
     private static void verifySignature(SignableSAMLObject metadata, Credential verificationCredential) {
-        //TODO use new trust engine to verify signature
+        // TODO use new trust engine to verify signature
     }
 
     /**
@@ -275,15 +268,15 @@ public class MetadataTool {
      */
     private static void printMetadata(XMLObject metadata, String outputFile) {
         PrintStream out = System.out;
-        
-        if(outputFile != null){
-            try{
+
+        if (outputFile != null) {
+            try {
                 out = new PrintStream(new File(outputFile));
-            }catch(Exception e){
+            } catch (Exception e) {
                 errorAndExit("Unable to open output file for writing", e);
             }
         }
-        
+
         try {
             if (!DatatypeHelper.isEmpty(outputFile)) {
                 File outFile = new File(outputFile);
@@ -295,24 +288,6 @@ public class MetadataTool {
         }
 
         out.print(XMLHelper.nodeToString(metadata.getDOM()));
-    }
-
-    /**
-     * Configures the logging for this tool. Default logging level is error.
-     * 
-     * @param warningEnable whether to enable warning level
-     */
-    private static void configureLogging() {
-        ConsoleAppender console = new ConsoleAppender();
-        console.setWriter(new PrintWriter(System.err));
-        console.setName("stderr");
-        console.setLayout(new PatternLayout("%d{ABSOLUTE} %-5p [%c{1}] %m%n"));
-
-        log = Logger.getLogger("org.opensaml");
-        log.addAppender(console);
-        log.setLevel(Level.ERROR);
-
-        Logger.getRootLogger().setLevel(Level.OFF);
     }
 
     /**

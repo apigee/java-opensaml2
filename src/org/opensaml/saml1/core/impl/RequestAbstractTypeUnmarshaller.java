@@ -17,9 +17,9 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLVersion;
@@ -30,6 +30,8 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
@@ -39,11 +41,11 @@ import org.w3c.dom.Element;
 public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Logger. */
-    private static Logger log = Logger.getLogger(RequestAbstractType.class);
+    private final Logger log = LoggerFactory.getLogger(RequestAbstractType.class);
 
     /**
      * Constructor.
-     *
+     * 
      * @param targetNamespaceURI
      * @param targetLocalName
      * @throws IllegalArgumentException
@@ -52,22 +54,22 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
             throws IllegalArgumentException {
         super(targetNamespaceURI, targetLocalName);
     }
-    
+
     /** {@inheritDoc} */
     public XMLObject unmarshall(Element domElement) throws UnmarshallingException {
         // After regular unmarshalling, check the minor version and set ID-ness if not SAML 1.0
         RequestAbstractType request = (RequestAbstractType) super.unmarshall(domElement);
-        if (request.getMinorVersion() != 0 && ! DatatypeHelper.isEmpty(request.getID()) ) {
+        if (request.getMinorVersion() != 0 && !DatatypeHelper.isEmpty(request.getID())) {
             domElement.setIdAttributeNS(null, RequestAbstractType.ID_ATTRIB_NAME, true);
         }
         return request;
     }
-    
+
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) 
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         RequestAbstractType request = (RequestAbstractType) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof Signature) {
             request.setSignature((Signature) childSAMLObject);
         } else if (childSAMLObject instanceof RespondWith) {
@@ -94,9 +96,9 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
                 log.error("Unable to parse minor version string", n);
                 throw new UnmarshallingException(n);
             }
-            if(minor == 0){
+            if (minor == 0) {
                 request.setVersion(SAMLVersion.VERSION_10);
-            }else if(minor == 1){
+            } else if (minor == 1) {
                 request.setVersion(SAMLVersion.VERSION_11);
             }
         } else {

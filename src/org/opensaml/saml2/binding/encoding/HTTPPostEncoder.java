@@ -19,7 +19,6 @@ package org.opensaml.saml2.binding.encoding;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.apache.log4j.Logger;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.common.SAMLObject;
@@ -33,6 +32,8 @@ import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML 2.0 HTTP Post binding message encoder.
@@ -40,7 +41,7 @@ import org.opensaml.xml.util.XMLHelper;
 public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPPostEncoder.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPPostEncoder.class);
 
     /** Velocity engine used to evaluate the template when performing POST encoding. */
     private VelocityEngine velocityEngine;
@@ -101,14 +102,12 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
      * Base64 and POST encodes the outbound message and writes it to the outbound transport.
      * 
      * @param messageContext current message context
-     * @param endpointURL endpoint URL to which to encode message 
+     * @param endpointURL endpoint URL to which to encode message
      * 
      * @throws MessageEncodingException thrown if there is a problem encoding the message
      */
     protected void postEncode(SAMLMessageContext messageContext, String endpointURL) throws MessageEncodingException {
-        if (log.isDebugEnabled()) {
-            log.debug("Invoking Velocity template to create POST body");
-        }
+        log.debug("Invoking Velocity template to create POST body");
         try {
             VelocityContext context = new VelocityContext();
 
@@ -132,42 +131,36 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
      * Populate the Velocity context instance which will be used to render the POST body.
      * 
      * @param velocityContext the Velocity context instance to populate with data
-     * @param messageContext the SAML message context source of data 
-     * @param endpointURL endpoint URL to which to encode message 
+     * @param messageContext the SAML message context source of data
+     * @param endpointURL endpoint URL to which to encode message
      * @throws MessageEncodingException thrown if there is a problem encoding the message
      */
     protected void populateVelocityContext(VelocityContext velocityContext, SAMLMessageContext messageContext,
             String endpointURL) throws MessageEncodingException {
-        
-        if (log.isDebugEnabled()) {
-            log.debug("Encoding action url of: " + endpointURL);
-        }
+
+        log.debug("Encoding action url of: {}", endpointURL);
         velocityContext.put("action", endpointURL);
 
-        if (log.isDebugEnabled()) {
-            log.debug("Marshalling and Base64 encoding SAML message");
-        }
+        log.debug("Marshalling and Base64 encoding SAML message");
         // FIXME We're marshalling the message here *after* we've already supposedly possibly signed it in doEncode,
-        // surely this can't be a completely good thing...  At the very least we're unnecessarily adopting
+        // surely this can't be a completely good thing... At the very least we're unnecessarily adopting
         // the whole tree into a new Document, see AbstractXMLObjectMarshaller#marshall.
         String messageXML = XMLHelper.nodeToString(marshallMessage(messageContext.getOutboundSAMLMessage()));
         String encodedMessage = Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES);
-        if (log.isDebugEnabled()) {
-            log.debug("Encoding SAML message of: " + encodedMessage);
-        }
+        log.debug("Encoding SAML message of: {}", encodedMessage);
+        
         if (messageContext.getOutboundSAMLMessage() instanceof RequestAbstractType) {
             velocityContext.put("SAMLRequest", encodedMessage);
         } else if (messageContext.getOutboundSAMLMessage() instanceof StatusResponseType) {
             velocityContext.put("SAMLResponse", encodedMessage);
         } else {
-            throw new MessageEncodingException("SAML message is neither a SAML RequestAbstractType or StatusResponseType");
+            throw new MessageEncodingException(
+                    "SAML message is neither a SAML RequestAbstractType or StatusResponseType");
         }
 
         String relayState = messageContext.getRelayState();
         if (checkRelayState(relayState)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Encoding relay state of: " + relayState);
-            }
+            log.debug("Encoding relay state of: {}", relayState);
             velocityContext.put("RelayState", relayState);
         }
     }

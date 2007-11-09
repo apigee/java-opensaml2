@@ -16,12 +16,13 @@
 
 package org.opensaml.common.binding.security;
 
-import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Security policy rule implementation that checks for validity of SAML message issue instant date and time.
@@ -29,7 +30,7 @@ import org.opensaml.ws.security.SecurityPolicyRule;
 public class IssueInstantRule implements SecurityPolicyRule {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(IssueInstantRule.class);
+    private final Logger log = LoggerFactory.getLogger(IssueInstantRule.class);
 
     /**
      * Clock skew - the number of seconds before a lower time bound, or after an upper time bound, to consider still
@@ -71,8 +72,7 @@ public class IssueInstantRule implements SecurityPolicyRule {
 
         // Check message wasn't issued in the future
         if (issueInstant.isAfter(latestValid)) {
-            log.error("Message was not yet valid: message time was '" + issueInstant + "', latest valid is: '"
-                    + latestValid + "'");
+            log.error("Message was not yet valid: message time was {}, latest valid is: {}", issueInstant, latestValid);
             throw new SecurityPolicyException("Message was rejected because was issued in the future");
         }
 

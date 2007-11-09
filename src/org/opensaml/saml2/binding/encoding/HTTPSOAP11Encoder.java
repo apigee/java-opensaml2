@@ -21,12 +21,10 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
-import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.log.Level;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.soap.common.SOAPObjectBuilder;
@@ -36,6 +34,8 @@ import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Element;
 
 /**
@@ -44,7 +44,7 @@ import org.w3c.dom.Element;
 public class HTTPSOAP11Encoder extends BaseSAML2MessageEncoder {
 
     /** Class logger. */
-    private final Logger log = Logger.getLogger(HTTPSOAP11Encoder.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPSOAP11Encoder.class);
 
     /** Constructor. */
     public HTTPSOAP11Encoder() {
@@ -82,8 +82,8 @@ public class HTTPSOAP11Encoder extends BaseSAML2MessageEncoder {
         samlMsgCtx.setOutboundMessage(envelope);
 
         Element envelopeElem = marshallMessage(envelope);
-        if (log.isEnabledFor(Level.TRAIL)) {
-            log.log(Level.TRAIL, "Writting SOAP message to response:\n" + XMLHelper.nodeToString(envelopeElem));
+        if (log.isTraceEnabled()) {
+            log.trace("Writting SOAP message to response:\n{}", XMLHelper.nodeToString(envelopeElem));
         }
 
         try {
@@ -96,7 +96,7 @@ public class HTTPSOAP11Encoder extends BaseSAML2MessageEncoder {
             XMLHelper.writeNode(envelopeElem, out);
             out.flush();
         } catch (UnsupportedEncodingException e) {
-            log.fatal("JVM does not support required UTF-8 encoding");
+            log.error("JVM does not support required UTF-8 encoding");
             throw new MessageEncodingException("JVM does not support required UTF-8 encoding");
         } catch (IOException e) {
             log.error("Unable to write message content to outbound stream", e);

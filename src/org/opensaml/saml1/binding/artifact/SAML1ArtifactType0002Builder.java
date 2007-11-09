@@ -19,7 +19,6 @@ package org.opensaml.saml1.binding.artifact;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.binding.BasicEndpointSelector;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.xml.SAMLConstants;
@@ -29,6 +28,8 @@ import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml2.metadata.ArtifactResolutionService;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * SAML 1, type 0x0002, artifact builder.
@@ -36,7 +37,7 @@ import org.opensaml.saml2.metadata.Endpoint;
 public class SAML1ArtifactType0002Builder implements SAML1ArtifactBuilder<SAML1ArtifactType0002> {
 
     /** Clas logger. */
-    private Logger log = Logger.getLogger(SAML1ArtifactType0002Builder.class);
+    private final Logger log = LoggerFactory.getLogger(SAML1ArtifactType0002Builder.class);
 
     /** {@inheritDoc} */
     public SAML1ArtifactType0002 buildArtifact(byte[] artifact) {
@@ -48,7 +49,7 @@ public class SAML1ArtifactType0002Builder implements SAML1ArtifactBuilder<SAML1A
             SAMLMessageContext<RequestAbstractType, Response, NameIdentifier> requestContext, Assertion assertion) {
         try {
             String sourceLocation = getSourceLocation(requestContext);
-            if(sourceLocation == null){
+            if (sourceLocation == null) {
                 return null;
             }
 
@@ -57,7 +58,7 @@ public class SAML1ArtifactType0002Builder implements SAML1ArtifactBuilder<SAML1A
             handleGenerator.nextBytes(assertionHandle);
             return new SAML1ArtifactType0002(assertionHandle, sourceLocation);
         } catch (NoSuchAlgorithmException e) {
-            log.fatal("JVM does not support required cryptography algorithms: SHA1PRNG.", e);
+            log.error("JVM does not support required cryptography algorithms: SHA1PRNG.", e);
             throw new InternalError("JVM does not support required cryptography algorithms: SHA1PRNG.");
         }
     }

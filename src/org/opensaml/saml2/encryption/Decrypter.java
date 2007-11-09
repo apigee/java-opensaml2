@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.encryption;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Attribute;
@@ -30,6 +29,8 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.encryption.DecryptionException;
 import org.opensaml.xml.encryption.EncryptedKeyResolver;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class which implements SAML2-specific options for {@link EncryptedElementType} objects.
@@ -39,7 +40,7 @@ import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 public class Decrypter extends org.opensaml.xml.encryption.Decrypter {
     
     /** Class logger. */
-    private Logger log = Logger.getLogger(Decrypter.class);
+    private final Logger log = LoggerFactory.getLogger(Decrypter.class);
     
     /** Flag to determine whether the Element which backs the underlying decrypted SAMLObject will be the 
      * root of a new DOM document. */

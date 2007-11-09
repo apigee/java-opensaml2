@@ -16,13 +16,14 @@
 
 package org.opensaml.common.binding.security;
 
-import org.apache.log4j.Logger;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.util.storage.ReplayCache;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.security.SecurityPolicyException;
 import org.opensaml.ws.security.SecurityPolicyRule;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Security policy rule implementation that which checks for replay of SAML messages.
@@ -30,7 +31,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 public class MessageReplayRule implements SecurityPolicyRule {
 
     /** Logger. */
-    private static Logger log = Logger.getLogger(MessageReplayRule.class);
+    private final Logger log = LoggerFactory.getLogger(MessageReplayRule.class);
 
     /** Messge replay cache instance to use. */
     private ReplayCache replayCache;

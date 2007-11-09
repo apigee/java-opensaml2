@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.binding.encoding;
 
-import org.apache.log4j.Logger;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableSAMLObject;
@@ -36,6 +35,8 @@ import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base class for SAML 2 message encoders.
@@ -43,7 +44,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder implements SAMLMessageEncoder {
     
     /** Class logger. */
-    private Logger log = Logger.getLogger(BaseSAML2MessageEncoder.class);
+    private final Logger log = LoggerFactory.getLogger(BaseSAML2MessageEncoder.class);
 
     /**
      * Gets the response URL from the relying party endpoint. If the SAML message is a {@link Response} and the relying
