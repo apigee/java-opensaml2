@@ -40,11 +40,19 @@ import org.slf4j.LoggerFactory;
  * 
  * When searching for entity specific information (entity metadata, roles, etc.) the entity descriptor used is the first
  * non-null descriptor found while iterating over the registered providers in insertion order.
+ * 
+ * This chaining provider implements observation by registering an observer with each contained provider. When the
+ * contained provider emits a change this provider will also emit a change to observers registered with it. As such,
+ * developers should be careful not to register a the same observer with both container providers and this provider.
+ * Doing so will result in an observer being notified twice for each change.
  */
-public class ChainingMetadataProvider extends BaseMetadataProvider {
+public class ChainingMetadataProvider extends BaseMetadataProvider implements ObservableMetadataProvider {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(ChainingMetadataProvider.class);
+
+    /** List of registered observers. */
+    private ArrayList<Observer> observers;
 
     /** Registred providers. */
     private ArrayList<MetadataProvider> providers;
@@ -55,6 +63,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
     /** Constructor. */
     public ChainingMetadataProvider() {
         super();
+        observers = new ArrayList<Observer>();
         providers = new ArrayList<MetadataProvider>();
         providerLock = new ReentrantReadWriteLock(true);
     }
@@ -93,6 +102,11 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
         if (newProvider != null) {
             newProvider.setRequireValidMetadata(requireValidMetadata());
             newProvider.setMetadataFilter(getMetadataFilter());
+
+            if (newProvider instanceof ObservableMetadataProvider) {
+                ((ObservableMetadataProvider) newProvider).getObservers().add(new ContainedProviderObserver());
+            }
+
             providers.add(newProvider);
         }
     }
@@ -238,5 +252,35 @@ public class ChainingMetadataProvider extends BaseMetadataProvider {
         }
 
         return null;
+    }
+
+    /** {@inheritDoc} */
+    public List<Observer> getObservers() {
+        return observers;
+    }
+
+    /**
+     * Convenience method for calling {@link Observer#onEvent(MetadataProvider)} on every registered Observer passing in
+     * this provider.
+     */
+    protected void emitChangeEvent() {
+        synchronized (observers) {
+            for (Observer observer : observers) {
+                if (observer != null) {
+                    observer.onEvent(this);
+                }
+            }
+        }
+    }
+
+    /**
+     * Observer that clears the descriptor index of this provider.
+     */
+    private class ContainedProviderObserver implements Observer {
+
+        /** {@inheritDoc} */
+        public void onEvent(MetadataProvider provider) {
+            emitChangeEvent();
+        }
     }
 }
