@@ -47,10 +47,10 @@ import org.w3c.dom.Document;
 /**
  * Security policy which evaluates simple "blob" signatures according to the SAML 2 HTTP-POST-SimpleSign binding.
  */
-public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityPolicyRule {
+public class SAML2HTTPPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityPolicyRule {
 
     /** Logger. */
-    private Logger log = LoggerFactory.getLogger(SAML2HTTPostSimpleSignRule.class);
+    private Logger log = LoggerFactory.getLogger(SAML2HTTPPostSimpleSignRule.class);
 
     /** Parser pool to use to process KeyInfo request parameter. */
     private ParserPool parser;
@@ -66,7 +66,7 @@ public class SAML2HTTPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurityP
      * @param keyInfoCredResolver the KeyInfo credential resovler to use to extract credentials from the KeyInfo request
      *            parameter
      */
-    public SAML2HTTPostSimpleSignRule(SignatureTrustEngine engine, ParserPool parserPool,
+    public SAML2HTTPPostSimpleSignRule(SignatureTrustEngine engine, ParserPool parserPool,
             KeyInfoCredentialResolver keyInfoCredResolver) {
         super(engine);
         parser = parserPool;
