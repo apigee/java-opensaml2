@@ -133,6 +133,7 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
                 log.error("Validation of request simple signature failed for context issuer '" + contextIssuer + "'");
                 throw new SecurityPolicyException("Validation of request simple signature failed");
             }
+            return;
         } else {
             String derivedIssuer = deriveSignerEntityID(samlMsgCtx);
             if (derivedIssuer != null) {
@@ -152,7 +153,7 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
                             derivedIssuer);
                 }
             }
-
+            return;
         }
 
     }
