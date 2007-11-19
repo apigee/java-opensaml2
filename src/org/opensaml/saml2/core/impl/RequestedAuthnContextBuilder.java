@@ -38,7 +38,7 @@ public class RequestedAuthnContextBuilder extends AbstractSAMLObjectBuilder<Requ
 
     /** {@inheritDoc} */
     public RequestedAuthnContext buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_NS);
+        return buildObject(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */
