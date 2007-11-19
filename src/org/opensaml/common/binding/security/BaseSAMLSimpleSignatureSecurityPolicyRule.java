@@ -60,6 +60,7 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
 
     /** {@inheritDoc} */
     public void evaluate(MessageContext messageContext) throws SecurityPolicyException {
+        log.debug("Evaluating simple signature rule of type: {}", getClass().getName());
         if (!(messageContext instanceof SAMLMessageContext)) {
             log.debug("Invalid message context type, this policy rule only supports SAMLMessageContext");
             return;
@@ -141,9 +142,7 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
                 if (validateSignature(signature, signedContent, algorithmURI, criteriaSet, candidateCredentials)) {
                     log.info("Validation of request simple signature succeeded");
                     if (!samlMsgCtx.isInboundSAMLMessageAuthenticated()) {
-                        log
-                                .info(
-                                        "Authentication via request simple signature succeeded for derived issuer entity ID {}",
+                        log.info("Authentication via request simple signature succeeded for derived issuer entity ID {}",
                                         derivedIssuer);
                         samlMsgCtx.setInboundMessageIssuer(derivedIssuer);
                         samlMsgCtx.setInboundSAMLMessageAuthenticated(true);
