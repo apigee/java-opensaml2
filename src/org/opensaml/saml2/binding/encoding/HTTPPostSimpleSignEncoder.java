@@ -113,7 +113,7 @@ public class HTTPPostSimpleSignEncoder extends HTTPPostEncoder {
         // TODO pull SecurityConfiguration from SAMLMessageContext? needs to be added
         // TODO pull binding-specific keyInfoGenName from encoder setting, etc?
         String sigAlgURI = getSignatureAlgorithmURI(signingCredential, null);
-        velocityContext.put("SigAlg", HTTPTransportUtils.urlEncode(sigAlgURI));
+        velocityContext.put("SigAlg", sigAlgURI);
 
         String formControlData = buildFormDataToSign(velocityContext, sigAlgURI);
         velocityContext.put("Signature", generateSignature(signingCredential, sigAlgURI, formControlData));
