@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.xml.namespace.QName;
 
@@ -45,8 +48,6 @@ import org.opensaml.xml.security.keyinfo.KeyInfoCriteria;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-// TODO thread safety - need locks or synchronized access to caches
 
 /**
  * A credential resolver capable of resolving credentials from SAML 2 metadata;
@@ -76,6 +77,9 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
 
     /** Credential resolver used to resolve credentials from role descriptor KeyInfo elements. */
     private KeyInfoCredentialResolver keyInfoCredentialResolver;
+    
+    /** Lock used to synchronize access to the credential cache. */
+    private ReadWriteLock rwlock;
 
     /**
      * Constructor.
@@ -95,6 +99,8 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
 
         keyInfoCredentialResolver = Configuration.getGlobalSecurityConfiguration()
                 .getDefaultKeyInfoCredentialResolver();
+        
+        rwlock = new ReentrantReadWriteLock();
 
         if (metadata instanceof ObservableMetadataProvider) {
             ObservableMetadataProvider observable = (ObservableMetadataProvider) metadataProvider;
@@ -119,6 +125,15 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
      */
     public void setKeyInfoCredentialResolver(KeyInfoCredentialResolver keyInfoResolver) {
         keyInfoCredentialResolver = keyInfoResolver;
+    }
+    
+    /**
+     * Get the lock instance used to synchronize access to the credential cache.
+     * 
+     * @return a read-write lock instance
+     */
+    protected ReadWriteLock getReadWriteLock() {
+        return rwlock;
     }
 
     /** {@inheritDoc} */
@@ -180,13 +195,20 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
      */
     protected Collection<Credential> retrieveFromCache(MetadataCacheKey cacheKey) {
         log.debug("Attempting to retrieve credentials from cache using index: {}", cacheKey);
-        if (cache.containsKey(cacheKey)) {
-            SoftReference<Collection<Credential>> reference = cache.get(cacheKey);
-            if (reference.get() != null) {
-                log.debug("Retrieved credentials from cache using index: {}", cacheKey);
-                return reference.get();
+        Lock readLock = getReadWriteLock().readLock();
+        readLock.lock();
+        log.debug("Read lock over cache acquired");
+        try {
+            if (cache.containsKey(cacheKey)) {
+                SoftReference<Collection<Credential>> reference = cache.get(cacheKey);
+                if (reference.get() != null) {
+                    log.debug("Retrieved credentials from cache using index: {}", cacheKey);
+                    return reference.get();
+                }
             }
-
+        } finally {
+            readLock.unlock();
+            log.debug("Read lock over cache released");
         }
 
         log.debug("Unable to retrieve credentials from cache using index: {}", cacheKey);
@@ -268,8 +290,10 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
     protected List<RoleDescriptor> getRoleDescriptors(String entityID, QName role, String protocol)
             throws SecurityException {
         try {
-            log.debug("Retrieving metadata for entity '" + entityID + "' in role '" + role + "' for protocol '"
-                    + protocol + "'");
+            if (log.isDebugEnabled()) {
+                log.debug("Retrieving metadata for entity '{}' in role '{}' for protocol '{}'", 
+                        new Object[] {entityID, role, protocol});
+            }
 
             if (DatatypeHelper.isEmpty(protocol)) {
                 return metadata.getRole(entityID, role);
@@ -295,7 +319,16 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
      * @param credentials collection of credentials to cache
      */
     protected void cacheCredentials(MetadataCacheKey cacheKey, Collection<Credential> credentials) {
-        cache.put(cacheKey, new SoftReference<Collection<Credential>>(credentials));
+        Lock writeLock = getReadWriteLock().writeLock();
+        writeLock.lock();
+        log.debug("Write lock over cache acquired");
+        try {
+            cache.put(cacheKey, new SoftReference<Collection<Credential>>(credentials));
+            log.debug("Added new credential collection to cache with key: {}", cacheKey);
+        } finally {
+            writeLock.unlock();
+            log.debug("Write lock over cache released"); 
+        }
     }
 
     /**
@@ -389,7 +422,16 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
 
         /** {@inheritDoc} */
         public void onEvent(MetadataProvider provider) {
-            cache.clear();
+            Lock writeLock = getReadWriteLock().writeLock();
+            writeLock.lock();
+            log.debug("Write lock over cache acquired");
+            try {
+                cache.clear();
+                log.info("Credential cache cleared");
+            } finally {
+                writeLock.unlock();
+                log.debug("Write lock over cache released"); 
+            }
         }
     }
 }

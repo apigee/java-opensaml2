@@ -538,9 +538,6 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         
         assertNotNull(entitiesDescriptor.getExtensions());
         assertNotNull(entitiesDescriptor.getExtensions().getUnknownXMLObjects().get(0));
-        
-        //TODO to finish, we need shibmd:KeyAuthority support.
-        
     }
 
 }
