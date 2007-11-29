@@ -26,6 +26,11 @@ import org.w3c.dom.Element;
  * the boilerplate code for Marshallers.
  */
 public abstract class AbstractSAMLObjectMarshaller extends AbstractXMLObjectMarshaller {
+    
+    /** Constructor. */
+    protected AbstractSAMLObjectMarshaller(){
+        super();
+    }
 
     /**
      * Constructor.

@@ -26,6 +26,11 @@ import org.w3c.dom.Attr;
  * {@link org.opensaml.common.impl.AbstractSAMLObject}.
  */
 public abstract class AbstractSAMLObjectUnmarshaller extends AbstractXMLObjectUnmarshaller {
+    
+    /** Constructor. */
+    protected AbstractSAMLObjectUnmarshaller(){
+        super();
+    }
 
     /**
      * Constructor.
