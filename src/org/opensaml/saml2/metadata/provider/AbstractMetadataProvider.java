@@ -248,21 +248,18 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * @return the entity descriptor
      */
     protected EntityDescriptor getEntityDescriptorById(String entityID, EntitiesDescriptor descriptor) {
-        log
-                .debug("Checking to see if any of the child entity descriptors of this entities descriptor is the requested descriptor");
+        log.trace("Checking to see if any of the child entity descriptors of entities descriptor {} is the requested descriptor", descriptor.getName());
         List<EntityDescriptor> entityDescriptors = descriptor.getEntityDescriptors();
         if (entityDescriptors != null) {
             for (EntityDescriptor entityDescriptor : entityDescriptors) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Checking entity descriptor with entity ID " + entityDescriptor.getEntityID());
-                }
+                log.trace("Checking entity descriptor with entity ID {}", entityDescriptor.getEntityID());
                 if (entityDescriptor.getEntityID().equals(entityID) && isValid(entityDescriptor)) {
                     return entityDescriptor;
                 }
             }
         }
 
-        log.debug("Checking to see if any of the child entities descriptors contains the entity descriptor requested");
+        log.trace("Checking to see if any of the child entities descriptors contains the entity descriptor requested");
         EntityDescriptor entityDescriptor;
         List<EntitiesDescriptor> entitiesDescriptors = descriptor.getEntitiesDescriptors();
         if (entitiesDescriptors != null) {
