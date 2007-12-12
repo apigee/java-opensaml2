@@ -148,10 +148,10 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      */
     protected XMLObject unmarshallMetadata(Reader metadataInput) throws UnmarshallingException {
         try {
-            log.debug("Parsing retrieved metadata into a DOM object");
+            log.trace("Parsing retrieved metadata into a DOM object");
             Document mdDocument = parser.parse(metadataInput);
 
-            log.debug("Unmarshalling and caching metdata DOM");
+            log.trace("Unmarshalling and caching metdata DOM");
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(mdDocument.getDocumentElement());
             XMLObject metadata = unmarshaller.unmarshall(mdDocument.getDocumentElement());
             return metadata;
@@ -223,8 +223,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
                     descriptor = null;
                 }
             } else {
-                log
-                        .debug("Metadata was an entities descriptor, checking if any of it's descendant entity descriptors is the one we're looking for.");
+                log.debug("Metadata was an entities descriptor, checking if any of it's descendant entity descriptors is the one we're looking for.");
                 if (metadata instanceof EntitiesDescriptor) {
                     descriptor = getEntityDescriptorById(entityID, (EntitiesDescriptor) metadata);
                 }
