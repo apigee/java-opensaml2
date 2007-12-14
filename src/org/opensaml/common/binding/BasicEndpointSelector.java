@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * This endpoint selector retrieves all the endpoints for a given role. A first filter pass removes those endpoints that
@@ -52,11 +54,34 @@ public class BasicEndpointSelector extends AbstractEndpointSelector {
             return null;
         }
 
+        endpoints = filterEndpointsByProtocolBinding(endpoints);
         if (endpoints.get(0) instanceof IndexedEndpoint) {
             return selectIndexedEndpoint((List<IndexedEndpoint>) endpoints);
         } else {
             return selectNonIndexedEndpoint((List<Endpoint>) endpoints);
         }
+    }
+    
+    /**
+     * Filters the list of possible endpoints by supported outbound bindings.
+     * 
+     * @param endpoints raw list of endpoints
+     * 
+     * @return filtered endpoints
+     */
+    protected List<? extends Endpoint> filterEndpointsByProtocolBinding(List<? extends Endpoint> endpoints) {
+        List<Endpoint> filteredEndpoints = new ArrayList<Endpoint>(endpoints);
+        Iterator<Endpoint> endpointItr = filteredEndpoints.iterator();
+        Endpoint endpoint;
+        while (endpointItr.hasNext()) {
+            endpoint = endpointItr.next();
+            if (!getSupportedIssuerBindings().contains(endpoint.getBinding())) {
+                endpointItr.remove();
+                continue;
+            }
+        }
+
+        return filteredEndpoints;
     }
 
     /**
@@ -73,11 +98,6 @@ public class BasicEndpointSelector extends AbstractEndpointSelector {
         IndexedEndpoint currentEndpoint;
         while (endpointItr.hasNext()) {
             currentEndpoint = endpointItr.next();
-            // if endpoint binding not supported, ignore it
-            if (!getSupportedIssuerBindings().contains(currentEndpoint.getBinding())) {
-                endpointItr.remove();
-                continue;
-            }
 
             // endpoint is the default endpoint
             if (currentEndpoint.isDefault() != null) {
@@ -117,11 +137,6 @@ public class BasicEndpointSelector extends AbstractEndpointSelector {
         Endpoint endpoint;
         while (endpointItr.hasNext()) {
             endpoint = endpointItr.next();
-            // if endpoint binding not supported, remove it
-            if (!getSupportedIssuerBindings().contains(endpoint.getBinding())) {
-                endpointItr.remove();
-                continue;
-            }
 
             // Endpoint is first one of acceptable binding, return it.
             return endpoint;

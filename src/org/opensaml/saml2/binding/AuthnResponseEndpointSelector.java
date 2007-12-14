@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.binding;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.opensaml.common.binding.BasicEndpointSelector;
@@ -48,6 +50,8 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
 
         if (getSamlRequest() != null) {
             AuthnRequest request = (AuthnRequest) getSamlRequest();
+
+            endpoints = filterEndpointsByProtocolBinding(endpoints);
             if (request.getAssertionConsumerServiceIndex() != null) {
                 endpoint = selectEndpointByACSIndex(request, (List<IndexedEndpoint>) endpoints);
             } else if (request.getAssertionConsumerServiceURL() != null) {
@@ -64,6 +68,42 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
         }
 
         return endpoint;
+    }
+
+    /**
+     * Filters the list of possible endpoints by supported outbound bindings and, if the authentication request
+     * contains a requested binding and not an ACS index, that too is used to filter the list.
+     * 
+     * @param endpoints raw list of endpoints
+     * 
+     * @return filtered endpoints
+     */
+    protected List<? extends Endpoint> filterEndpointsByProtocolBinding(List<? extends Endpoint> endpoints) {
+        AuthnRequest request = (AuthnRequest) getSamlRequest();
+        
+        boolean filterByRequestBinding = false;
+        String acsBinding = null;
+        if (request.getAssertionConsumerServiceIndex() != null) {
+            acsBinding = DatatypeHelper.safeTrimOrNullString(request.getProtocolBinding());
+            filterByRequestBinding = true;
+        }
+
+        List<Endpoint> filteredEndpoints = new ArrayList<Endpoint>(endpoints);
+        Iterator<Endpoint> endpointItr = filteredEndpoints.iterator();
+        Endpoint endpoint;
+        while (endpointItr.hasNext()) {
+            endpoint = endpointItr.next();
+            if (!getSupportedIssuerBindings().contains(endpoint.getBinding())) {
+                endpointItr.remove();
+                continue;
+            }
+
+            if (filterByRequestBinding && !endpoint.getBinding().equals(acsBinding)) {
+                endpointItr.remove();
+            }
+        }
+
+        return filteredEndpoints;
     }
 
     /**
