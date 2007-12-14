@@ -19,39 +19,39 @@ package org.opensaml.common;
 /**
  * A type safe SAML version enumeration.
  */
-public class SAMLVersion {
-    /**
-     * SAML version 1.0
-     */
+public final class SAMLVersion {
+
+    /** SAML version 1.0. */
     public static final SAMLVersion VERSION_10 = new SAMLVersion(1, 0);
-    
-    /**
-     * SAML Version 1.1
-     */
+
+    /** SAML Version 1.1. */
     public static final SAMLVersion VERSION_11 = new SAMLVersion(1, 1);
-    
-    /**
-     * SAML Version 2.0
-     */
+
+    /** SAML Version 2.0. */
     public static final SAMLVersion VERSION_20 = new SAMLVersion(2, 0);
 
-    /** Major version number */
+    /** Major version number. */
     private int majorVersion;
-    
-    /** Minor version number */
+
+    /** Minor version number. */
     private int minorVersion;
-    
-    /** String representation of the version */
+
+    /** String representation of the version. */
     private String versionString;
-    
-    /** Constructor */
-    private SAMLVersion(int majorVersion, int minorVersion) {
-        this.majorVersion = majorVersion;
-        this.minorVersion = minorVersion;
-        
+
+    /**
+     * Constructor.
+     * 
+     * @param major SAML major version number
+     * @param minor SAML minor version number
+     */
+    private SAMLVersion(int major, int minor) {
+        majorVersion = major;
+        minorVersion = minor;
+
         versionString = majorVersion + "." + minorVersion;
     }
-    
+
     /**
      * Gets the SAMLVersion given the major and minor version number.
      * 
@@ -60,22 +60,22 @@ public class SAMLVersion {
      * 
      * @return the SAMLVersion
      */
-    public final static SAMLVersion valueOf(int majorVersion, int minorVersion){
-        if(majorVersion == 1){
-            if(minorVersion == 0){
+    public static final SAMLVersion valueOf(int majorVersion, int minorVersion) {
+        if (majorVersion == 1) {
+            if (minorVersion == 0) {
                 return SAMLVersion.VERSION_10;
-            }else if(minorVersion == 1){
+            } else if (minorVersion == 1) {
                 return SAMLVersion.VERSION_11;
             }
-        }else if(majorVersion == 2){
-            if(minorVersion == 0){
+        } else if (majorVersion == 2) {
+            if (minorVersion == 0) {
                 return SAMLVersion.VERSION_20;
             }
         }
-        
-        return null;
+
+        return new SAMLVersion(majorVersion, minorVersion);
     }
-    
+
     /**
      * Gets the SAMLVersion for a given version string, such as "2.0".
      * 
@@ -83,11 +83,11 @@ public class SAMLVersion {
      * 
      * @return SAMLVersion for the given string
      */
-    public final static SAMLVersion valueOf(String version){
+    public static final SAMLVersion valueOf(String version) {
         String[] components = version.split("\\.");
-        return valueOf(Integer.valueOf(components[0]),Integer.valueOf(components[1]));
+        return valueOf(Integer.valueOf(components[0]), Integer.valueOf(components[1]));
     }
-    
+
     /**
      * Gets the major version of the SAML version.
      * 
@@ -96,7 +96,7 @@ public class SAMLVersion {
     public int getMajorVersion() {
         return majorVersion;
     }
-    
+
     /**
      * Gets the minor version of the SAML version.
      * 
@@ -105,7 +105,7 @@ public class SAMLVersion {
     public int getMinorVersion() {
         return minorVersion;
     }
-    
+
     /** {@inheritDoc} */
     public String toString() {
         return versionString;
