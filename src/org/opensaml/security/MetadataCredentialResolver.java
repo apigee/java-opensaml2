@@ -234,8 +234,16 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
         log.debug("Attempting to retrieve credentials from metadata for entity: {}", entityID);
         Collection<Credential> credentials = new HashSet<Credential>();
 
-        for (RoleDescriptor roleDescriptor : getRoleDescriptors(entityID, role, protocol)) {
+        List<RoleDescriptor> roleDescriptors = getRoleDescriptors(entityID, role, protocol);
+        if(roleDescriptors == null || roleDescriptors.isEmpty()){
+            return credentials;
+        }
+            
+        for (RoleDescriptor roleDescriptor : roleDescriptors) {
             List<KeyDescriptor> keyDescriptors = roleDescriptor.getKeyDescriptors();
+            if(keyDescriptors == null || keyDescriptors.isEmpty()){
+                return credentials;
+            }            
             for (KeyDescriptor keyDescriptor : keyDescriptors) {
                 UsageType mdUsage = keyDescriptor.getUse();
                 if (mdUsage == null) {
@@ -246,7 +254,11 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
                         CriteriaSet critSet = new CriteriaSet();
                         critSet.add(new KeyInfoCriteria(keyDescriptor.getKeyInfo()));
 
-                        for (Credential cred : getKeyInfoCredentialResolver().resolve(critSet)) {
+                        Iterable<Credential> creds = getKeyInfoCredentialResolver().resolve(critSet);
+                        if(credentials == null){
+                            continue;
+                        }
+                        for (Credential cred : creds) {
                             if (cred instanceof BasicCredential) {
                                 BasicCredential basicCred = (BasicCredential) cred;
                                 basicCred.setEntityId(entityID);
