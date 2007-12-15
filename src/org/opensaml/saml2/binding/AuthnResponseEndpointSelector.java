@@ -42,7 +42,7 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Endpoint selectEndpoint() {
-        log.debug("Selecting endpoint for peer {}", getEntityRoleMetadata().getID());
+        log.debug("Selecting endpoint for peer {}", getEntityMetadata().getEntityID());
         if (getEntityRoleMetadata() == null) {
             return null;
         }
@@ -63,11 +63,11 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
 
             if (request.getAssertionConsumerServiceIndex() != null) {
                 log.debug("Selecting endpoint by ACS index for request {} from entity {}", request.getID(),
-                        getEntityRoleMetadata().getID());
+                        getEntityMetadata().getEntityID());
                 endpoint = selectEndpointByACSIndex(request, (List<IndexedEndpoint>) endpoints);
             } else if (request.getAssertionConsumerServiceURL() != null) {
                 log.debug("Selecting endpoint by ACS URL for request {} from entity {}", request.getID(),
-                        getEntityRoleMetadata().getID());
+                        getEntityMetadata().getEntityID());
                 endpoint = selectEndpointByACSURL(request, (List<IndexedEndpoint>) endpoints);
             }
         }
