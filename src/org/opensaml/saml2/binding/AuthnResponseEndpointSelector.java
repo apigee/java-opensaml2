@@ -25,6 +25,8 @@ import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An endpoint selector that implements the additional selection constraints described within the SAML 2.0 AuthnRequest
@@ -34,9 +36,13 @@ import org.opensaml.xml.util.DatatypeHelper;
  */
 public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
 
+    /** Class logger. */
+    private final Logger log = LoggerFactory.getLogger(AuthnResponseEndpointSelector.class);
+
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Endpoint selectEndpoint() {
+        log.debug("Selecting endpoint for peer {}", getEntityRoleMetadata().getID());
         if (getEntityRoleMetadata() == null) {
             return null;
         }
@@ -47,14 +53,21 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
         }
 
         Endpoint endpoint = null;
-
         if (getSamlRequest() != null) {
             AuthnRequest request = (AuthnRequest) getSamlRequest();
 
             endpoints = filterEndpointsByProtocolBinding(endpoints);
+            if (endpoints == null || endpoints.isEmpty()) {
+                return null;
+            }
+
             if (request.getAssertionConsumerServiceIndex() != null) {
+                log.debug("Selecting endpoint by ACS index for request {} from entity {}", request.getID(),
+                        getEntityRoleMetadata().getID());
                 endpoint = selectEndpointByACSIndex(request, (List<IndexedEndpoint>) endpoints);
             } else if (request.getAssertionConsumerServiceURL() != null) {
+                log.debug("Selecting endpoint by ACS URL for request {} from entity {}", request.getID(),
+                        getEntityRoleMetadata().getID());
                 endpoint = selectEndpointByACSURL(request, (List<IndexedEndpoint>) endpoints);
             }
         }
@@ -71,20 +84,20 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
     }
 
     /**
-     * Filters the list of possible endpoints by supported outbound bindings and, if the authentication request
-     * contains a requested binding and not an ACS index, that too is used to filter the list.
+     * Filters the list of possible endpoints by supported outbound bindings and, if the authentication request contains
+     * a requested binding and not an ACS index, that too is used to filter the list.
      * 
      * @param endpoints raw list of endpoints
      * 
      * @return filtered endpoints
      */
     protected List<? extends Endpoint> filterEndpointsByProtocolBinding(List<? extends Endpoint> endpoints) {
+        log.debug("Filtering peer endpoints.  Supported peer endpoint bindings: {}", getSupportedIssuerBindings());
         AuthnRequest request = (AuthnRequest) getSamlRequest();
-        
+
         boolean filterByRequestBinding = false;
-        String acsBinding = null;
+        String acsBinding = DatatypeHelper.safeTrimOrNullString(request.getProtocolBinding());
         if (request.getAssertionConsumerServiceIndex() != null) {
-            acsBinding = DatatypeHelper.safeTrimOrNullString(request.getProtocolBinding());
             filterByRequestBinding = true;
         }
 
@@ -94,11 +107,15 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
         while (endpointItr.hasNext()) {
             endpoint = endpointItr.next();
             if (!getSupportedIssuerBindings().contains(endpoint.getBinding())) {
+                log.debug("Removing endpoint {} because its binding {} is not supported", endpoint.getLocation(),
+                        endpoint.getBinding());
                 endpointItr.remove();
                 continue;
             }
 
             if (filterByRequestBinding && !endpoint.getBinding().equals(acsBinding)) {
+                log.debug("Removing endpoint {} because its binding {} does not match request's requested binding",
+                        endpoint.getLocation(), endpoint.getBinding());
                 endpointItr.remove();
             }
         }
