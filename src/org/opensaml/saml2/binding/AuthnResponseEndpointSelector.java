@@ -97,7 +97,7 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
 
         boolean filterByRequestBinding = false;
         String acsBinding = DatatypeHelper.safeTrimOrNullString(request.getProtocolBinding());
-        if (request.getAssertionConsumerServiceIndex() != null) {
+        if (acsBinding != null && request.getAssertionConsumerServiceIndex() != null) {
             filterByRequestBinding = true;
         }
 
