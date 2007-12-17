@@ -223,7 +223,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
                     descriptor = null;
                 }
             } else {
-                log.debug("Metadata was an entities descriptor, checking if any of it's descendant entity descriptors is the one we're looking for.");
+                log.debug("Metadata was an EntitiesDescriptor, checking if any of its descendant EntityDescriptor elements is the one we're looking for.");
                 if (metadata instanceof EntitiesDescriptor) {
                     descriptor = getEntityDescriptorById(entityID, (EntitiesDescriptor) metadata);
                 }
