@@ -24,6 +24,7 @@ import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.saml1.core.SubjectLocality;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -31,9 +32,7 @@ import org.w3c.dom.Attr;
  */
 public class AuthenticationStatementUnmarshaller extends SubjectStatementUnmarshaller {
 
-    /**
-     * Constructor
-     */
+    /** Constructor. */
     public AuthenticationStatementUnmarshaller() {
         super(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME);
     }
@@ -54,11 +53,11 @@ public class AuthenticationStatementUnmarshaller extends SubjectStatementUnmarsh
     }
 
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject samlObject, Attr attribute)
-            throws UnmarshallingException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AuthenticationStatement authenticationStatement = (AuthenticationStatement) samlObject;
 
-        if (AuthenticationStatement.AUTHENTICATIONINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
+        if (AuthenticationStatement.AUTHENTICATIONINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             DateTime value = new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC());
             authenticationStatement.setAuthenticationInstant(value);
         } else if (AuthenticationStatement.AUTHENTICATIONMETHOD_ATTRIB_NAME.equals(attribute.getLocalName())) {

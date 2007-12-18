@@ -85,7 +85,8 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
             response.setID(attribute.getValue());
         } else if (attribute.getLocalName().equals(ResponseAbstractType.INRESPONSETO_ATTRIB_NAME)) {
             response.setInResponseTo(attribute.getValue());
-        } else if (attribute.getLocalName().equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)) {
+        } else if (attribute.getLocalName().equals(ResponseAbstractType.ISSUEINSTANT_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             response.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(ResponseAbstractType.MINORVERSION_ATTRIB_NAME)) {
             int minor;

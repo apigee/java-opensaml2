@@ -48,10 +48,8 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
      * 
      * @param targetNamespaceURI
      * @param targetLocalName
-     * @throws IllegalArgumentException
      */
-    protected RequestAbstractTypeUnmarshaller(String targetNamespaceURI, String targetLocalName)
-            throws IllegalArgumentException {
+    protected RequestAbstractTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 
@@ -85,7 +83,8 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
 
         if (RequestAbstractType.ID_ATTRIB_NAME.equals(attribute.getLocalName())) {
             request.setID(attribute.getValue());
-        } else if (RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
+        } else if (RequestAbstractType.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             DateTime cal = new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC());
             request.setIssueInstant(cal);
         } else if (RequestAbstractType.MINORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {

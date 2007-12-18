@@ -28,9 +28,7 @@ import org.w3c.dom.Attr;
  */
 public class ActionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Constructor
-     */
+    /** Constructor. */
     public ActionUnmarshaller() {
         super(SAMLConstants.SAML1_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME);
     }

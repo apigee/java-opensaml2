@@ -26,6 +26,7 @@ import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.SessionIndex;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -57,7 +58,8 @@ public class LogoutRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
         if (attribute.getLocalName().equals(LogoutRequest.REASON_ATTRIB_NAME)) {
             req.setReason(attribute.getValue());
-        } else if (attribute.getLocalName().equals(LogoutRequest.NOT_ON_OR_AFTER_ATTRIB_NAME)) {
+        } else if (attribute.getLocalName().equals(LogoutRequest.NOT_ON_OR_AFTER_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             req.setNotOnOrAfter(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else {
             super.processAttribute(samlObject, attribute);

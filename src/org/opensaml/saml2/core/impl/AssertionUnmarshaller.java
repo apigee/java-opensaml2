@@ -34,6 +34,7 @@ import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -41,16 +42,18 @@ import org.w3c.dom.Attr;
  */
 public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AssertionUnmarshaller() {
         super(SAMLConstants.SAML20_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AssertionUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -83,7 +86,8 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (attribute.getLocalName().equals(Assertion.VERSION_ATTRIB_NAME)) {
             assertion.setVersion(SAMLVersion.valueOf(attribute.getValue()));
-        } else if (attribute.getLocalName().equals(Assertion.ISSUE_INSTANT_ATTRIB_NAME)) {
+        } else if (attribute.getLocalName().equals(Assertion.ISSUE_INSTANT_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             assertion.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(Assertion.ID_ATTRIB_NAME)) {
             assertion.setID(attribute.getValue());

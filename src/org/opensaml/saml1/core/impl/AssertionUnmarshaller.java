@@ -43,17 +43,17 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     public AssertionUnmarshaller() {
         super(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
     }
-    
+
     /** {@inheritDoc} */
     public XMLObject unmarshall(Element domElement) throws UnmarshallingException {
         // After regular unmarshalling, check the minor version and set ID-ness if not SAML 1.0
         Assertion assertion = (Assertion) super.unmarshall(domElement);
-        if (assertion.getMinorVersion() != 0 && ! DatatypeHelper.isEmpty(assertion.getID()) ) {
+        if (assertion.getMinorVersion() != 0 && !DatatypeHelper.isEmpty(assertion.getID())) {
             domElement.setIdAttributeNS(null, Assertion.ID_ATTRIB_NAME, true);
         }
         return assertion;
     }
-    
+
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
@@ -82,7 +82,8 @@ public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             assertion.setID(attribute.getValue());
         } else if (Assertion.ISSUER_ATTRIB_NAME.equals(attribute.getLocalName())) {
             assertion.setIssuer(attribute.getValue());
-        } else if (Assertion.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())) {
+        } else if (Assertion.ISSUEINSTANT_ATTRIB_NAME.equals(attribute.getLocalName())
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             assertion.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (Assertion.MINORVERSION_ATTRIB_NAME.equals(attribute.getLocalName())) {
             if (attribute.getValue().equals("0")) {

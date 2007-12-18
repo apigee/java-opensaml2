@@ -24,6 +24,7 @@ import org.opensaml.saml1.core.Condition;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -31,9 +32,7 @@ import org.w3c.dom.Attr;
  */
 public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Constructor
-     */
+    /** Constructor. */
     public ConditionsUnmarshaller() {
         super(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME);
     }
@@ -55,9 +54,11 @@ public class ConditionsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         Conditions conditions = (Conditions) samlObject;
 
-        if (Conditions.NOTBEFORE_ATTRIB_NAME.equals(attribute.getLocalName())) {
+        if (Conditions.NOTBEFORE_ATTRIB_NAME.equals(attribute.getLocalName())
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             conditions.setNotBefore(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
-        } else if (Conditions.NOTONORAFTER_ATTRIB_NAME.equals(attribute.getLocalName())) {
+        } else if (Conditions.NOTONORAFTER_ATTRIB_NAME.equals(attribute.getLocalName())
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             conditions.setNotOnOrAfter(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else {
             processAttribute(samlObject, attribute);

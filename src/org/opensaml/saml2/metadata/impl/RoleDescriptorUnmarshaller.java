@@ -32,6 +32,7 @@ import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
@@ -41,7 +42,7 @@ import org.w3c.dom.Attr;
 public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI the namespaceURI of the SAMLObject this unmarshaller operates on
      * @param targetLocalName the local name of the SAMLObject this unmarshaller operates on
@@ -75,7 +76,8 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         if (attribute.getLocalName().equals(RoleDescriptor.ID_ATTRIB_NAME)) {
             roleDescriptor.setID(attribute.getValue());
             attribute.getOwnerElement().setIdAttributeNode(attribute, true);
-        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
+        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             roleDescriptor.setValidUntil(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             roleDescriptor.setCacheDuration(XMLHelper.durationToLong(attribute.getValue()));
@@ -89,7 +91,7 @@ public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else {
             QName attribQName = XMLHelper.getNodeQName(attribute);
             if (attribute.isId()) {
-               roleDescriptor.getUnknownAttributes().registerID(attribQName);
+                roleDescriptor.getUnknownAttributes().registerID(attribQName);
             }
             roleDescriptor.getUnknownAttributes().put(attribQName, attribute.getValue());
         }

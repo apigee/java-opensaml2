@@ -29,6 +29,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.SubjectConfirmationData;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
@@ -37,13 +38,13 @@ import org.w3c.dom.Attr;
  */
 public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public SubjectConfirmationDataUnmarshaller() {
         super(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -66,9 +67,11 @@ public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmar
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         SubjectConfirmationData subjectCD = (SubjectConfirmationData) samlObject;
 
-        if (attribute.getLocalName().equals(SubjectConfirmationData.NOT_BEFORE_ATTRIB_NAME)) {
+        if (attribute.getLocalName().equals(SubjectConfirmationData.NOT_BEFORE_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             subjectCD.setNotBefore(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
-        } else if (attribute.getLocalName().equals(SubjectConfirmationData.NOT_ON_OR_AFTER_ATTRIB_NAME)) {
+        } else if (attribute.getLocalName().equals(SubjectConfirmationData.NOT_ON_OR_AFTER_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             subjectCD.setNotOnOrAfter(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(SubjectConfirmationData.RECIPIENT_ATTRIB_NAME)) {
             subjectCD.setRecipient(attribute.getValue());
@@ -79,7 +82,7 @@ public class SubjectConfirmationDataUnmarshaller extends AbstractSAMLObjectUnmar
         } else {
             QName attribQName = XMLHelper.getNodeQName(attribute);
             if (attribute.isId()) {
-               subjectCD.getUnknownAttributes().registerID(attribQName);
+                subjectCD.getUnknownAttributes().registerID(attribQName);
             }
             subjectCD.getUnknownAttributes().put(attribQName, attribute.getValue());
         }

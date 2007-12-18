@@ -28,6 +28,7 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
@@ -78,7 +79,7 @@ public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshall
         if (attribute.getLocalName().equals(EntitiesDescriptor.ID_ATTRIB_NAME)) {
             entitiesDescriptor.setID(attribute.getValue());
             attribute.getOwnerElement().setIdAttributeNode(attribute, true);
-        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
+        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME) && !DatatypeHelper.isEmpty(attribute.getValue())) {
             entitiesDescriptor.setValidUntil(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entitiesDescriptor.setCacheDuration(new Long(XMLHelper.durationToLong(attribute.getValue())));

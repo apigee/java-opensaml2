@@ -17,8 +17,8 @@
 /**
  * 
  */
-package org.opensaml.saml2.core.impl;
 
+package org.opensaml.saml2.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
@@ -31,30 +31,28 @@ import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusResponseType}
- * objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.StatusResponseType} objects.
  */
 public abstract class StatusResponseTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor
-     *
+     * 
      * @param targetNamespaceURI
      * @param targetLocalName
-     * @throws IllegalArgumentException
      */
-     protected StatusResponseTypeUnmarshaller(String targetNamespaceURI, String targetLocalName)
-            throws IllegalArgumentException {
+    protected StatusResponseTypeUnmarshaller(String targetNamespaceURI, String targetLocalName){
         super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         StatusResponseType sr = (StatusResponseType) samlObject;
-        
+
         if (attribute.getLocalName().equals(StatusResponseType.VERSION_ATTRIB_NAME)) {
             sr.setVersion(SAMLVersion.valueOf(attribute.getValue()));
         } else if (attribute.getLocalName().equals(StatusResponseType.ID_ATTRIB_NAME)) {
@@ -62,8 +60,9 @@ public abstract class StatusResponseTypeUnmarshaller extends AbstractSAMLObjectU
             attribute.getOwnerElement().setIdAttributeNode(attribute, true);
         } else if (attribute.getLocalName().equals(StatusResponseType.IN_RESPONSE_TO_ATTRIB_NAME)) {
             sr.setInResponseTo(attribute.getValue());
-        } else if (attribute.getLocalName().equals(StatusResponseType.ISSUE_INSTANT_ATTRIB_NAME)) {
-            sr.setIssueInstant( new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()) );
+        } else if (attribute.getLocalName().equals(StatusResponseType.ISSUE_INSTANT_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
+            sr.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(StatusResponseType.DESTINATION_ATTRIB_NAME)) {
             sr.setDestination(attribute.getValue());
         } else if (attribute.getLocalName().equals(StatusResponseType.CONSENT_ATTRIB_NAME)) {
@@ -74,18 +73,19 @@ public abstract class StatusResponseTypeUnmarshaller extends AbstractSAMLObjectU
     }
 
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         StatusResponseType sr = (StatusResponseType) parentSAMLObject;
-        
-        if (childSAMLObject instanceof Issuer){
+
+        if (childSAMLObject instanceof Issuer) {
             sr.setIssuer((Issuer) childSAMLObject);
-        }else if(childSAMLObject instanceof Signature){
+        } else if (childSAMLObject instanceof Signature) {
             sr.setSignature((Signature) childSAMLObject);
-        }else if (childSAMLObject instanceof Extensions){
+        } else if (childSAMLObject instanceof Extensions) {
             sr.setExtensions((Extensions) childSAMLObject);
-        }else if (childSAMLObject instanceof Status){
+        } else if (childSAMLObject instanceof Status) {
             sr.setStatus((Status) childSAMLObject);
-        }else{
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }

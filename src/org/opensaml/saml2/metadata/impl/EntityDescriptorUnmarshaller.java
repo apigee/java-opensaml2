@@ -33,6 +33,7 @@ import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
@@ -40,15 +41,14 @@ import org.w3c.dom.Attr;
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.EntityDescriptor}s.
  */
 public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-    /**
-     * Constructor
-     */
+    
+    /** Constructor. */
     public EntityDescriptorUnmarshaller() {
         super(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI
      * @param elementLocalName
@@ -88,14 +88,15 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
         } else if (attribute.getLocalName().equals(EntityDescriptor.ID_ATTRIB_NAME)) {
             entityDescriptor.setID(attribute.getValue());
             attribute.getOwnerElement().setIdAttributeNode(attribute, true);
-        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)) {
+        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             entityDescriptor.setValidUntil(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entityDescriptor.setCacheDuration(XMLHelper.durationToLong(attribute.getValue()));
         } else {
             QName attribQName = XMLHelper.getNodeQName(attribute);
             if (attribute.isId()) {
-               entityDescriptor.getUnknownAttributes().registerID(attribQName);
+                entityDescriptor.getUnknownAttributes().registerID(attribQName);
             }
             entityDescriptor.getUnknownAttributes().put(attribQName, attribute.getValue());
         }

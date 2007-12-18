@@ -30,6 +30,7 @@ import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -38,13 +39,12 @@ import org.w3c.dom.Attr;
 public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI
      * @param targetLocalName
-     * @throws IllegalArgumentException
      */
-    protected RequestAbstractTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
+    protected RequestAbstractTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 
@@ -57,7 +57,8 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
         } else if (attribute.getLocalName().equals(RequestAbstractType.ID_ATTRIB_NAME)) {
             req.setID(attribute.getValue());
             attribute.getOwnerElement().setIdAttributeNode(attribute, true);
-        } else if (attribute.getLocalName().equals(RequestAbstractType.ISSUE_INSTANT_ATTRIB_NAME)) {
+        } else if (attribute.getLocalName().equals(RequestAbstractType.ISSUE_INSTANT_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             req.setIssueInstant(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(RequestAbstractType.DESTINATION_ATTRIB_NAME)) {
             req.setDestination(attribute.getValue());
@@ -73,13 +74,13 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
             throws UnmarshallingException {
         RequestAbstractType req = (RequestAbstractType) parentSAMLObject;
 
-        if (childSAMLObject instanceof Issuer){
+        if (childSAMLObject instanceof Issuer) {
             req.setIssuer((Issuer) childSAMLObject);
-        }else if(childSAMLObject instanceof Signature){
+        } else if (childSAMLObject instanceof Signature) {
             req.setSignature((Signature) childSAMLObject);
-        }else if (childSAMLObject instanceof Extensions){
+        } else if (childSAMLObject instanceof Extensions) {
             req.setExtensions((Extensions) childSAMLObject);
-        }else{
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
