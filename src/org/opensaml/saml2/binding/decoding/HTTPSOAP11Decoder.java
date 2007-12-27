@@ -91,7 +91,15 @@ public class HTTPSOAP11Decoder extends BaseSAML2MessageDecoder implements SAMLMe
                     "Unexpected number of children in the SOAP body, unable to extract SAML message");
         }
 
-        SAMLObject samlMessage = (SAMLObject) soapBodyChildren.get(0);
+        XMLObject incommingMessage = soapBodyChildren.get(0);
+        if (!(incommingMessage instanceof SAMLObject)) {
+            log.error("Unexpected SOAP body content.  Expected a SAML request but recieved {}", incommingMessage
+                    .getElementQName());
+            throw new MessageDecodingException("Unexpected SOAP body content.  Expected a SAML request but recieved "
+                    + incommingMessage.getElementQName());
+        }
+
+        SAMLObject samlMessage = (SAMLObject) incommingMessage;
         log.debug("Decoded SOAP messaged which included SAML message of type {}", samlMessage.getElementQName());
         samlMsgCtx.setInboundSAMLMessage(samlMessage);
 
