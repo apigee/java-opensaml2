@@ -54,4 +54,17 @@ public class MetadataFilterChain implements MetadataFilter {
     public List<MetadataFilter> getFilters() {
         return filters;
     }
+
+    /**
+     * Sets the list of {@link MetadataFilter}s that make up this chain.
+     * 
+     * @param newFilters list of {@link MetadataFilter}s that make up this chain
+     */
+    public void setFilters(List<MetadataFilter> newFilters) {
+        filters.clear();
+
+        if (newFilters != null) {
+            filters.addAll(newFilters);
+        }
+    }
 }
