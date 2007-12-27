@@ -16,7 +16,10 @@
 
 package org.opensaml.saml1.binding.decoding;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
@@ -26,9 +29,12 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.soap.soap11.Envelope;
+import org.opensaml.ws.soap.soap11.Header;
 import org.opensaml.ws.transport.http.HTTPInTransport;
+import org.opensaml.xml.AttributeExtensibleXMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +46,12 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPPostDecoder.class);
 
+    /** QNames of understood SOAP headers. */
+    private List<QName> understoodHeaders;
+
+    /** QName of SOAP mustUnderstand header attribute. */
+    private final QName soapMustUnderstand = new QName(SAMLConstants.SOAP11ENV_NS, "mustUnderstand");
+
     /**
      * Constructor.
      * 
@@ -47,6 +59,7 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
      */
     public HTTPSOAP11Decoder(SAMLArtifactMap map) {
         super(map);
+        understoodHeaders = new ArrayList<QName>();
     }
 
     /**
@@ -57,11 +70,33 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
      */
     public HTTPSOAP11Decoder(SAMLArtifactMap map, ParserPool pool) {
         super(map, pool);
+        understoodHeaders = new ArrayList<QName>();
     }
 
     /** {@inheritDoc} */
     public String getBindingURI() {
         return SAMLConstants.SAML1_SOAP11_BINDING_URI;
+    }
+    
+    /**
+     * Gets the SOAP header names that are understood by the application.
+     * 
+     * @return SOAP header names that are understood by the application
+     */
+    public List<QName> getUnderstoodHeaders() {
+        return understoodHeaders;
+    }
+
+    /**
+     * Sets the SOAP header names that are understood by the application.
+     * 
+     * @param headerNames SOAP header names that are understood by the application
+     */
+    public void setUnderstoodHeaders(List<QName> headerNames) {
+        understoodHeaders.clear();
+        if (headerNames != null) {
+            understoodHeaders.addAll(headerNames);
+        }
     }
 
     /** {@inheritDoc} */
@@ -88,6 +123,11 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
         log.debug("Unmarshalling SOAP message");
         Envelope soapMessage = (Envelope) unmarshallMessage(inTransport.getIncomingStream());
         samlMsgCtx.setInboundMessage(soapMessage);
+        
+        Header messageHeader = soapMessage.getHeader();
+        if(messageHeader != null){
+            checkUnderstoodSOAPHeaders(soapMessage.getHeader().getUnknownXMLObjects());
+        }
 
         List<XMLObject> soapBodyChildren = soapMessage.getBody().getUnknownXMLObjects();
         if (soapBodyChildren.size() < 1 || soapBodyChildren.size() > 1) {
@@ -96,7 +136,7 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
             throw new MessageDecodingException(
                     "Unexpected number of children in the SOAP body, unable to extract SAML message");
         }
-        
+
         XMLObject incommingMessage = soapBodyChildren.get(0);
         if (!(incommingMessage instanceof SAMLObject)) {
             log.error("Unexpected SOAP body content.  Expected a SAML request but recieved {}", incommingMessage
@@ -110,5 +150,33 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMe
         samlMsgCtx.setInboundSAMLMessage(samlMessage);
 
         populateMessageContext(samlMsgCtx);
+    }
+
+    /**
+     * Checks that, if any SOAP headers, require understand that they are in the understood header list.
+     * 
+     * @param headers SOAP headers to check
+     * 
+     * @throws MessageDecodingException thrown if a SOAP header requires understanding but is not understood by the
+     *             decoder
+     */
+    protected void checkUnderstoodSOAPHeaders(List<XMLObject> headers) throws MessageDecodingException {
+        if (headers == null || headers.isEmpty()) {
+            return;
+        }
+
+        AttributeExtensibleXMLObject attribExtensObject;
+        for (XMLObject header : headers) {
+            if (header instanceof AttributeExtensibleXMLObject) {
+                attribExtensObject = (AttributeExtensibleXMLObject) header;
+                if (DatatypeHelper.safeEquals("1", attribExtensObject.getUnknownAttributes().get(soapMustUnderstand))) {
+                    if (!understoodHeaders.contains(header.getElementQName())) {
+                        throw new MessageDecodingException("SOAP decoder encountered a  header, "
+                                + header.getElementQName()
+                                + ", that requires undestanding however this decoder does not understand that header");
+                    }
+                }
+            }
+        }
     }
 }
