@@ -17,6 +17,7 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -46,11 +47,11 @@ public class EntityRoleFilter implements MetadataFilter {
     /** List of roles that are NOT removed by this filter. */
     private List<QName> roleWhiteList;
 
-    /** Whether to keep entity descriptors that contain no roles. */
+    /** Whether to keep entity descriptors that contain no roles; default value: true. */
     private boolean removeRolelessEntityDescriptors;
 
-    /** Whether to keep entities descriptors that contain no entity descriptors. */
-    private boolean removeEntityDescriptorlessEntitiesDescriptors;
+    /** Whether to keep entities descriptors that contain no entity descriptors; default value: true. */
+    private boolean removeEmptyEntitiesDescriptors;
 
     /** QName of extension role element. */
     private final QName extRoleDescriptor = new QName(SAMLConstants.SAML20MD_NS, "RoleDescriptor");
@@ -66,6 +67,58 @@ public class EntityRoleFilter implements MetadataFilter {
         if (keptRoles != null) {
             roleWhiteList.addAll(keptRoles);
         }
+
+        removeRolelessEntityDescriptors = true;
+        removeEmptyEntitiesDescriptors = true;
+    }
+
+    /**
+     * Gets the unmodifiable list of roles that are NOT removed by this filter.
+     * 
+     * @return unmodifiable list of roles that are NOT removed by this filter
+     */
+    public List<QName> getRoleWhiteList() {
+        return Collections.unmodifiableList(roleWhiteList);
+    }
+
+    /**
+     * Gets whether to remove an entity descriptor if it does not contain any roles after filtering.
+     * 
+     * @return whether to remove an entity descriptor if it does not contain any roles after filtering
+     */
+    public boolean getRemoveRolelessEntityDescriptors() {
+        return removeRolelessEntityDescriptors;
+    }
+
+    /**
+     * Sets whether to remove an entity descriptor if it does not contain any roles after filtering.
+     * 
+     * @param remove whether to remove an entity descriptor if it does not contain any roles after filtering
+     */
+    public void setRemoveRolelessEntityDescriptors(boolean remove) {
+        removeRolelessEntityDescriptors = remove;
+    }
+
+    /**
+     * Gets whether to remove an entities descriptor if it does not contain any entity descriptor or entities
+     * descriptors.
+     * 
+     * @return whether to remove an entities descriptor if it does not contain any entity descriptor or entities
+     *         descriptors
+     */
+    public boolean getRemoveEmptyEntitiesDescriptors() {
+        return removeEmptyEntitiesDescriptors;
+    }
+
+    /**
+     * Sets whether to remove an entities descriptor if it does not contain any entity descriptor or entities
+     * descriptors.
+     * 
+     * @param remove whether to remove an entities descriptor if it does not contain any entity descriptor or entities
+     *            descriptors
+     */
+    public void setRemoveEmptyEntitiesDescriptors(boolean remove) {
+        removeEmptyEntitiesDescriptors = remove;
     }
 
     /** {@inheritDoc} */
@@ -98,7 +151,7 @@ public class EntityRoleFilter implements MetadataFilter {
             while (entityDescriptorsItr.hasNext()) {
                 entityDescriptor = entityDescriptorsItr.next();
                 filterEntityDescriptor(entityDescriptor);
-                if (removeRolelessEntityDescriptors) {
+                if (getRemoveRolelessEntityDescriptors()) {
                     entityRoles = entityDescriptor.getRoleDescriptors();
                     if (entityRoles == null || entityRoles.isEmpty()) {
                         entityDescriptorsItr.remove();
@@ -115,7 +168,7 @@ public class EntityRoleFilter implements MetadataFilter {
             while (entitiesDescriptorsItr.hasNext()) {
                 entitiesDescriptor = entitiesDescriptorsItr.next();
                 filterEntitiesDescriptor(entitiesDescriptor);
-                if (removeEntityDescriptorlessEntitiesDescriptors) {
+                if (getRemoveEmptyEntitiesDescriptors()) {
                     // Remove the EntitiesDescriptor if does not contain any EntitiesDescriptors or EntityDescriptors
                     if ((entitiesDescriptor.getEntityDescriptors() == null || entitiesDescriptor.getEntityDescriptors()
                             .isEmpty())
