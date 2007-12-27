@@ -33,7 +33,7 @@ public class MessageReplayRule implements SecurityPolicyRule {
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(MessageReplayRule.class);
 
-    /** Messge replay cache instance to use. */
+    /** Message replay cache instance to use. */
     private ReplayCache replayCache;
 
     /**
@@ -63,7 +63,7 @@ public class MessageReplayRule implements SecurityPolicyRule {
         String messageId = samlMsgCtx.getInboundSAMLMessageId();
         if (DatatypeHelper.isEmpty(messageId)) {
             log.error("Message contained no ID, replay check not possible");
-            return;
+            throw new SecurityPolicyException("SAML message from issuer " + messageIsuer + " did not contain an ID");
         }
 
         if (replayCache.isReplay(messageIsuer, messageId)) {
