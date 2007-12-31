@@ -22,16 +22,14 @@ import java.util.List;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.Configuration;
+import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Response;
 import org.opensaml.saml2.binding.SAML2ArtifactMessageContext;
 import org.opensaml.saml2.binding.artifact.AbstractSAML2Artifact;
 import org.opensaml.saml2.binding.artifact.SAML2ArtifactBuilder;
 import org.opensaml.saml2.binding.artifact.SAML2ArtifactType0004;
-import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.core.RequestAbstractType;
 import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
@@ -83,10 +81,10 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
 
     /** {@inheritDoc} */
     protected void doEncode(MessageContext messageContext) throws MessageEncodingException {
-        if (!(messageContext instanceof SAML2ArtifactMessageContext)) {
-            log.error("Invalid message context type, this encoder only support SAML2ArtifactMessageContext");
+        if (!(messageContext instanceof SAMLMessageContext)) {
+            log.error("Invalid message context type, this encoder only support SAMLMessageContext");
             throw new MessageEncodingException(
-                    "Invalid message context type, this encoder only support SAML2ArtifactMessageContext");
+                    "Invalid message context type, this encoder only support SAMLMessageContext");
         }
 
         if (!(messageContext.getOutboundMessageTransport() instanceof HTTPOutTransport)) {
@@ -95,7 +93,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
                     "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
         }
 
-        SAML2ArtifactMessageContext<?, ?, ?> artifactContext = (SAML2ArtifactMessageContext) messageContext;
+        SAMLMessageContext artifactContext = (SAMLMessageContext) messageContext;
         HTTPOutTransport outTransport = (HTTPOutTransport) artifactContext.getOutboundMessageTransport();
         outTransport.setCharacterEncoding("UTF-8");
 
@@ -117,7 +115,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
      * 
      * @throws MessageEncodingException thrown if there is a problem POST encoding the artifact
      */
-    protected void postEncode(SAML2ArtifactMessageContext artifactContext, HTTPOutTransport outTransport)
+    protected void postEncode(SAMLMessageContext artifactContext, HTTPOutTransport outTransport)
             throws MessageEncodingException {
         log.debug("Performing HTTP POST SAML 2 artifact encoding");
 
@@ -148,7 +146,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
      * 
      * @throws MessageEncodingException thrown if there is a problem GET encoding the artifact
      */
-    protected void getEncode(SAML2ArtifactMessageContext artifactContext, HTTPOutTransport outTransport)
+    protected void getEncode(SAMLMessageContext artifactContext, HTTPOutTransport outTransport)
             throws MessageEncodingException {
         log.debug("Performing HTTP GET SAML 2 artifact encoding");
 
@@ -172,8 +170,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
      * 
      * @return SAML 2 artifact for outgoing message
      */
-    protected AbstractSAML2Artifact buildArtifact(
-            SAML2ArtifactMessageContext<RequestAbstractType, Response, NameID> artifactContext) {
+    protected AbstractSAML2Artifact buildArtifact(SAMLMessageContext artifactContext) {
 
         SAML2ArtifactBuilder artifactBuilder;
         if (artifactContext.getOutboundMessageArtifactType() != null) {
@@ -188,7 +185,6 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
         String encodedArtifact = artifact.base64Encode();
         artifactMap.put(encodedArtifact, artifactContext.getInboundMessageIssuer(), artifactContext
                 .getOutboundMessageIssuer(), artifactContext.getOutboundSAMLMessage());
-        artifactContext.setArtifact(encodedArtifact);
         return artifact;
     }
 }
