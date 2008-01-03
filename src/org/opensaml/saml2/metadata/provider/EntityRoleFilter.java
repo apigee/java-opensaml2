@@ -28,6 +28,8 @@ import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A filter the removes roles, from an entity descriptor. For those roles specified within the SAML metadata
@@ -43,6 +45,9 @@ import org.opensaml.xml.XMLObject;
  * of whether it still contains entity descriptors.
  */
 public class EntityRoleFilter implements MetadataFilter {
+
+    /** Class logger. */
+    private final Logger log = LoggerFactory.getLogger(EntityRoleFilter.class);
 
     /** List of roles that are NOT removed by this filter. */
     private List<QName> roleWhiteList;
@@ -154,6 +159,8 @@ public class EntityRoleFilter implements MetadataFilter {
                 if (getRemoveRolelessEntityDescriptors()) {
                     entityRoles = entityDescriptor.getRoleDescriptors();
                     if (entityRoles == null || entityRoles.isEmpty()) {
+                        log.trace("Filtering out entity descriptor {} from entity group {}", entityDescriptor
+                                .getEntityID(), descriptor.getName());
                         entityDescriptorsItr.remove();
                     }
                 }
@@ -174,6 +181,8 @@ public class EntityRoleFilter implements MetadataFilter {
                             .isEmpty())
                             && (entitiesDescriptor.getEntitiesDescriptors() == null || entitiesDescriptor
                                     .getEntitiesDescriptors().isEmpty())) {
+                        log.trace("Filtering out entity descriptor {} from entity group {}", entitiesDescriptor
+                                .getName(), descriptor.getName());
                         entitiesDescriptorsItr.remove();
                     }
                 }
@@ -197,6 +206,7 @@ public class EntityRoleFilter implements MetadataFilter {
             while (rolesItr.hasNext()) {
                 roleName = getRoleName(rolesItr.next());
                 if (!roleWhiteList.contains(roleName)) {
+                    log.trace("Filtering out role {} from entity {}", roleName, descriptor.getEntityID());
                     rolesItr.remove();
                 }
             }
