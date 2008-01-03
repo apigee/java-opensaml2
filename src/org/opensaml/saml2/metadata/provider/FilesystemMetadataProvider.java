@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import org.opensaml.saml2.common.SAML2Helper;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.slf4j.Logger;
@@ -132,10 +133,16 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
         }
 
         try {
-            cachedMetadata = unmarshallMetadata(new FileReader(metadataFile));
-            filterMetadata(cachedMetadata);
-            releaseMetadataDOM(cachedMetadata);
-            lastUpdate = metadataFile.lastModified();
+            XMLObject metadata = unmarshallMetadata(new FileReader(metadataFile));
+            if(SAML2Helper.getEarliestExpiration(metadata).isBeforeNow() && !maintainExpiredMetadata()){
+                cachedMetadata = null;
+            }else{            
+                cachedMetadata = metadata;
+                filterMetadata(cachedMetadata);
+                releaseMetadataDOM(cachedMetadata);
+            }
+            
+            lastUpdate = metadataFile.lastModified();            
             emitChangeEvent();
         } catch (FileNotFoundException e) {
             String errorMsg = "Unable to read metadata file";

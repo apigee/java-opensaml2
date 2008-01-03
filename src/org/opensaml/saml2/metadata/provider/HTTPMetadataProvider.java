@@ -232,18 +232,22 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
         log.debug("Refreshing cache of metadata from URL {}, max cache duration set to {}ms", metadataURI,
                 maxCacheDuration);
         try {
-            cachedMetadata = fetchMetadata();
-
-            filterMetadata(cachedMetadata);
-
-            releaseMetadataDOM(cachedMetadata);
+            XMLObject metadata = fetchMetadata();
 
             log.debug("Calculating expiration time");
             DateTime now = new DateTime();
             mdExpirationTime = SAML2Helper
                     .getEarliestExpiration(cachedMetadata, now.plus(maxCacheDuration * 1000), now);
-
             log.debug("Metadata cache expires on " + mdExpirationTime);
+
+            if (mdExpirationTime.isBeforeNow() && !maintainExpiredMetadata()) {
+                cachedMetadata = null;
+            } else {
+                cachedMetadata = metadata;
+                filterMetadata(cachedMetadata);
+                releaseMetadataDOM(cachedMetadata);
+            }
+
             emitChangeEvent();
         } catch (IOException e) {
             String errorMsg = "Unable to read metadata from server";
