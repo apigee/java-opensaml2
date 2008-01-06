@@ -237,7 +237,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             log.debug("Calculating expiration time");
             DateTime now = new DateTime();
             mdExpirationTime = SAML2Helper
-                    .getEarliestExpiration(cachedMetadata, now.plus(maxCacheDuration * 1000), now);
+                    .getEarliestExpiration(metadata, now.plus(maxCacheDuration * 1000), now);
             log.debug("Metadata cache expires on " + mdExpirationTime);
 
             if (mdExpirationTime.isBeforeNow() && !maintainExpiredMetadata()) {
