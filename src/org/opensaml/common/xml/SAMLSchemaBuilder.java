@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 /**
- * A convience builder for creating {@link Schema}s for validating SAML 1_0, 1_1, and 2_0.
+ * A convenience builder for creating {@link Schema}s for validating SAML 1_0, 1_1, and 2_0.
  * 
  * Additional schema may be registered by {@link #addExtensionSchema(String)} with the given argument a 
  * relative or absolute path that will be resolved against the classpath.  Note that relative paths are 
@@ -47,9 +47,9 @@ import org.xml.sax.SAXException;
  * 
  * The schema objects produced here are thread safe and should be re-used, to that end the schema builder 
  * will cache created schema using {@link SoftReference}s, allowing the VM to reclaim the memory used by schemas 
- * if necesary.
+ * if necessary.
  */
-public class SAMLSchemaBuilder {
+public final class SAMLSchemaBuilder {
 
     /** SAML 1_0 Schema with SAML 2_0 schemas and extensions. */
     private static SoftReference<Schema> saml10Schema;
@@ -129,6 +129,11 @@ public class SAMLSchemaBuilder {
     /** Additional schema locations relative to classpath. */
     private static List<String> extensionSchema = new ArrayList<String>();
     
+    /** Constructor. */
+    private SAMLSchemaBuilder(){
+        
+    }
+    
     /**
      * Gets a schema that can validate SAML 1.0, 2.0, and all registered extensions.
      * 
@@ -137,11 +142,13 @@ public class SAMLSchemaBuilder {
      * @throws SAXException thrown if a schema object can not be created
      */
     public static synchronized Schema getSAML10Schema() throws SAXException{
-        if(saml10Schema == null || saml10Schema.get() == null){
-            saml10Schema = new SoftReference<Schema>(buildSchema(saml10Schemas));
+        synchronized (saml10Schema) {
+            if(saml10Schema == null || saml10Schema.get() == null){
+                saml10Schema = new SoftReference<Schema>(buildSchema(saml10Schemas));
+            }
+            
+            return saml10Schema.get();
         }
-        
-        return saml10Schema.get();
     }
     
     /**
@@ -152,11 +159,13 @@ public class SAMLSchemaBuilder {
      * @throws SAXException thrown if a schema object can not be created
      */
     public static synchronized Schema getSAML11Schema() throws SAXException{
-        if(saml11Schema == null || saml11Schema.get() == null){
-            saml11Schema = new SoftReference<Schema>(buildSchema(saml11Schemas));
+        synchronized (saml11Schema) {
+            if(saml11Schema == null || saml11Schema.get() == null){
+                saml11Schema = new SoftReference<Schema>(buildSchema(saml11Schemas));
+            }
+            
+            return saml11Schema.get();
         }
-        
-        return saml11Schema.get();
     }
     
     /**
@@ -164,7 +173,7 @@ public class SAMLSchemaBuilder {
      * 
      * @return unmodifiable list of currently registered schema extension
      */
-    public List<String> getExtensionSchema(){
+    public static List<String> getExtensionSchema(){
         return Collections.unmodifiableList(extensionSchema);
     }
     
@@ -173,10 +182,16 @@ public class SAMLSchemaBuilder {
      * 
      * @param schema new schema extension
      */
-    public void addExtensionSchema(String schema){
+    public static void addExtensionSchema(String schema){
         extensionSchema.add(schema);
-        saml10Schema = null;
-        saml11Schema = null;
+        
+        synchronized (saml10Schema) {
+            saml10Schema = null;
+        }
+        
+        synchronized (saml11Schema) {
+            saml11Schema = null;
+        }
     }
     
     /**
@@ -184,10 +199,16 @@ public class SAMLSchemaBuilder {
      * 
      * @param schema currently registered schema
      */
-    public void removeSchema(String schema){
+    public static void removeSchema(String schema){
         extensionSchema.remove(schema);
-        saml10Schema = null;
-        saml11Schema = null;
+        
+        synchronized (saml10Schema) {
+            saml10Schema = null;
+        }
+        
+        synchronized (saml11Schema) {
+            saml11Schema = null;
+        }
     }
     
     /**
@@ -200,7 +221,7 @@ public class SAMLSchemaBuilder {
      * @throws SAXException thrown if a schema object can not be created
      */
     private static Schema buildSchema(String[] saml1Schema) throws SAXException {
-        Class clazz = SAMLSchemaBuilder.class;
+        Class<SAMLSchemaBuilder> clazz = SAMLSchemaBuilder.class;
         List<Source> schemaSources = new ArrayList<Source>();
         
         for(String source : baseXMLSchemas){
