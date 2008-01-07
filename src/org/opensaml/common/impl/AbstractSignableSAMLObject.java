@@ -80,16 +80,4 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
 
         return super.prepareForAssignment(oldValue, utcValue);
     }
-    
-    /** {@inheritDoc} */
-    public void releaseChildrenDOM(boolean propagateRelease) {
-        setSignature(null);
-        super.releaseChildrenDOM(propagateRelease);
-    }
-    
-    /** {@inheritDoc} */
-    public void releaseDOM() {
-        setSignature(null);
-        super.releaseDOM();
-    }
 }
