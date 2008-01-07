@@ -193,12 +193,6 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
     }
 
     /** {@inheritDoc} */
-    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
-        super.setMetadataFilter(newFilter);
-        refreshMetadata();
-    }
-
-    /** {@inheritDoc} */
     public XMLObject getMetadata() throws MetadataProviderException {
         if (mdExpirationTime.isBeforeNow()) {
             log.debug("Cached metadata is stale, refreshing");

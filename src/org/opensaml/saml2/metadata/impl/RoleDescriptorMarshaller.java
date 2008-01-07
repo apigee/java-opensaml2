@@ -58,21 +58,21 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
 
         // Set the ID attribute
         if (roleDescriptor.getID() != null) {
-            log.debug("Writing ID attribute to RoleDescriptor DOM element");
+            log.trace("Writing ID attribute to RoleDescriptor DOM element");
             domElement.setAttributeNS(null, RoleDescriptor.ID_ATTRIB_NAME, roleDescriptor.getID());
             domElement.setIdAttributeNS(null, RoleDescriptor.ID_ATTRIB_NAME, true);
         }
 
         // Set the validUntil attribute
         if (roleDescriptor.getValidUntil() != null) {
-            log.debug("Writting validUntil attribute to RoleDescriptor DOM element");
+            log.trace("Writting validUntil attribute to RoleDescriptor DOM element");
             String validUntilStr = Configuration.getSAMLDateFormatter().print(roleDescriptor.getValidUntil());
             domElement.setAttributeNS(null, TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME, validUntilStr);
         }
 
         // Set the cacheDuration attribute
         if (roleDescriptor.getCacheDuration() != null) {
-            log.debug("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
+            log.trace("Writting cacheDuration attribute to EntitiesDescriptor DOM element");
             String cacheDuration = XMLHelper.longToDuration(roleDescriptor.getCacheDuration());
             domElement.setAttributeNS(null, CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME, cacheDuration);
         }
@@ -80,7 +80,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
         // Set the protocolSupportEnumeration attribute
         List<String> supportedProtocols = roleDescriptor.getSupportedProtocols();
         if (supportedProtocols != null && supportedProtocols.size() > 0) {
-            log.debug("Writting protocolSupportEnumberation attribute to RoleDescriptor DOM element");
+            log.trace("Writting protocolSupportEnumberation attribute to RoleDescriptor DOM element");
 
             StringBuilder builder = new StringBuilder();
             for (String protocol : supportedProtocols) {
@@ -93,7 +93,7 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
 
         // Set errorURL attribute
         if (roleDescriptor.getErrorURL() != null) {
-            log.debug("Writting errorURL attribute to RoleDescriptor DOM element");
+            log.trace("Writting errorURL attribute to RoleDescriptor DOM element");
             domElement.setAttributeNS(null, RoleDescriptor.ERROR_URL_ATTRIB_NAME, roleDescriptor.getErrorURL());
         }
 

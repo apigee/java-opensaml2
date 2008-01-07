@@ -53,7 +53,9 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
      * changed prior to marshalling this object.
      */
     public void setSignature(Signature newSignature) {
-        newSignature.getContentReferences().add(new SAMLObjectContentReference(this));
+        if(newSignature != null){
+            newSignature.getContentReferences().add(new SAMLObjectContentReference(this));
+        }
         super.setSignature(newSignature);
     }
 
@@ -77,5 +79,17 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
         }
 
         return super.prepareForAssignment(oldValue, utcValue);
+    }
+    
+    /** {@inheritDoc} */
+    public void releaseChildrenDOM(boolean propagateRelease) {
+        setSignature(null);
+        super.releaseChildrenDOM(propagateRelease);
+    }
+    
+    /** {@inheritDoc} */
+    public void releaseDOM() {
+        setSignature(null);
+        super.releaseDOM();
     }
 }
