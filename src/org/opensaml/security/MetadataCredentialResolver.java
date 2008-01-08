@@ -197,7 +197,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
         log.debug("Attempting to retrieve credentials from cache using index: {}", cacheKey);
         Lock readLock = getReadWriteLock().readLock();
         readLock.lock();
-        log.debug("Read lock over cache acquired");
+        log.trace("Read lock over cache acquired");
         try {
             if (cache.containsKey(cacheKey)) {
                 SoftReference<Collection<Credential>> reference = cache.get(cacheKey);
@@ -208,7 +208,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
             }
         } finally {
             readLock.unlock();
-            log.debug("Read lock over cache released");
+            log.trace("Read lock over cache released");
         }
 
         log.debug("Unable to retrieve credentials from cache using index: {}", cacheKey);
@@ -333,13 +333,13 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
     protected void cacheCredentials(MetadataCacheKey cacheKey, Collection<Credential> credentials) {
         Lock writeLock = getReadWriteLock().writeLock();
         writeLock.lock();
-        log.debug("Write lock over cache acquired");
+        log.trace("Write lock over cache acquired");
         try {
             cache.put(cacheKey, new SoftReference<Collection<Credential>>(credentials));
             log.debug("Added new credential collection to cache with key: {}", cacheKey);
         } finally {
             writeLock.unlock();
-            log.debug("Write lock over cache released"); 
+            log.trace("Write lock over cache released"); 
         }
     }
 
@@ -436,13 +436,13 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
         public void onEvent(MetadataProvider provider) {
             Lock writeLock = getReadWriteLock().writeLock();
             writeLock.lock();
-            log.debug("Write lock over cache acquired");
+            log.trace("Write lock over cache acquired");
             try {
                 cache.clear();
                 log.info("Credential cache cleared");
             } finally {
                 writeLock.unlock();
-                log.debug("Write lock over cache released"); 
+                log.trace("Write lock over cache released"); 
             }
         }
     }
