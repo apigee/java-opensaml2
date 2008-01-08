@@ -68,6 +68,16 @@ public class HTTPPostEncoder extends BaseSAML1MessageEncoder implements SAMLMess
     }
 
     /** {@inheritDoc} */
+    public boolean providesMessageConfidentiality(MessageContext messageContext) throws MessageEncodingException {
+        return false;
+    }
+
+    /** {@inheritDoc} */
+    public boolean providesMessageIntegrity(MessageContext messageContext) throws MessageEncodingException {
+        return false;
+    }
+
+    /** {@inheritDoc} */
     protected void doEncode(MessageContext messageContext) throws MessageEncodingException {
         if (!(messageContext instanceof SAMLMessageContext)) {
             log.error("Invalid message context type, this encoder only support SAMLMessageContext");

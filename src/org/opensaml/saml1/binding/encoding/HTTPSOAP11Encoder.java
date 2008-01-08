@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-import java.util.logging.Level;
 
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
@@ -59,19 +58,26 @@ public class HTTPSOAP11Encoder extends BaseSAML1MessageEncoder implements SAMLMe
     }
 
     /** {@inheritDoc} */
+    public boolean providesMessageConfidentiality(MessageContext messageContext) throws MessageEncodingException {
+        if (messageContext.getOutboundMessageTransport().isConfidential()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /** {@inheritDoc} */
+    public boolean providesMessageIntegrity(MessageContext messageContext) throws MessageEncodingException {
+        if (messageContext.getOutboundMessageTransport().isIntegrityProtected()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /** {@inheritDoc} */
     protected void doEncode(MessageContext messageContext) throws MessageEncodingException {
-        if (!(messageContext instanceof SAMLMessageContext)) {
-            log.error("Invalid message context type, this encoder only support SAMLMessageContext");
-            throw new MessageEncodingException(
-                    "Invalid message context type, this encoder only support SAMLMessageContext");
-        }
-
-        if (!(messageContext.getOutboundMessageTransport() instanceof HTTPOutTransport)) {
-            log.error("Invalid outbound message transport type, this encoder only support HTTPOutTransport");
-            throw new MessageEncodingException(
-                    "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
-        }
-
+        validateMessageContent(messageContext);
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
         SAMLObject samlMessage = samlMsgCtx.getOutboundSAMLMessage();
@@ -131,5 +137,26 @@ public class HTTPSOAP11Encoder extends BaseSAML1MessageEncoder implements SAMLMe
         envelope.setBody(body);
 
         return envelope;
+    }
+
+    /**
+     * Validates that the message context is a {@link SAMLMessageContext} and that its outbound transport is HTTP.
+     * 
+     * @param messageContext current message context
+     * 
+     * @throws MessageEncodingException thrown if the message context conditions are not met
+     */
+    protected void validateMessageContent(MessageContext messageContext) throws MessageEncodingException {
+        if (!(messageContext instanceof SAMLMessageContext)) {
+            log.error("Invalid message context type, this encoder only support SAMLMessageContext");
+            throw new MessageEncodingException(
+                    "Invalid message context type, this encoder only support SAMLMessageContext");
+        }
+
+        if (!(messageContext.getOutboundMessageTransport() instanceof HTTPOutTransport)) {
+            log.error("Invalid outbound message transport type, this encoder only support HTTPOutTransport");
+            throw new MessageEncodingException(
+                    "Invalid outbound message transport type, this encoder only support HTTPOutTransport");
+        }
     }
 }

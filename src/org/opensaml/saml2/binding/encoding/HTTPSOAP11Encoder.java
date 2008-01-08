@@ -57,6 +57,24 @@ public class HTTPSOAP11Encoder extends BaseSAML2MessageEncoder {
     }
 
     /** {@inheritDoc} */
+    public boolean providesMessageConfidentiality(MessageContext messageContext) throws MessageEncodingException {
+        if (messageContext.getOutboundMessageTransport().isConfidential()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /** {@inheritDoc} */
+    public boolean providesMessageIntegrity(MessageContext messageContext) throws MessageEncodingException {
+        if (messageContext.getOutboundMessageTransport().isIntegrityProtected()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /** {@inheritDoc} */
     protected void doEncode(MessageContext messageContext) throws MessageEncodingException {
         if (!(messageContext instanceof SAMLMessageContext)) {
             log.error("Invalid message context type, this encoder only support SAMLMessageContext");

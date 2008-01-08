@@ -65,6 +65,16 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
     public String getBindingURI() {
         return SAMLConstants.SAML2_POST_BINDING_URI;
     }
+    
+    /** {@inheritDoc} */
+    public boolean providesMessageConfidentiality(MessageContext messageContext) throws MessageEncodingException {
+        return false;
+    }
+
+    /** {@inheritDoc} */
+    public boolean providesMessageIntegrity(MessageContext messageContext) throws MessageEncodingException {
+        return false;
+    }
 
     /** {@inheritDoc} */
     protected void doEncode(MessageContext messageContext) throws MessageEncodingException {

@@ -75,7 +75,7 @@ public class HTTPRedirectDeflateEncoderTest extends BaseTestCase {
         samlEndpoint.setResponseLocation("http://example.org/response");
 
         MockHttpServletResponse response = new MockHttpServletResponse();
-        HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response);
+        HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response, false);
         
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
         messageContext.setOutboundMessageTransport(outTransport);
@@ -123,7 +123,7 @@ public class HTTPRedirectDeflateEncoderTest extends BaseTestCase {
         samlEndpoint.setResponseLocation("http://example.org/response");
 
         MockHttpServletResponse response = new MockHttpServletResponse();
-        HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response);
+        HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response, false);
         
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();
         messageContext.setOutboundMessageTransport(outTransport);

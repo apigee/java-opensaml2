@@ -78,6 +78,16 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAML
     public String getBindingURI() {
         return SAMLConstants.SAML2_ARTIFACT_BINDING_URI;
     }
+    
+    /** {@inheritDoc} */
+    public boolean providesMessageConfidentiality(MessageContext messageContext) throws MessageEncodingException {
+        return false;
+    }
+
+    /** {@inheritDoc} */
+    public boolean providesMessageIntegrity(MessageContext messageContext) throws MessageEncodingException {
+        return false;
+    }
 
     /** {@inheritDoc} */
     protected void doEncode(MessageContext messageContext) throws MessageEncodingException {
