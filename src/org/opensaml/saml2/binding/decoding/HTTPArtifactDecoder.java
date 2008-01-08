@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.binding.decoding;
 
-import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.binding.SAML2ArtifactMessageContext;
 import org.opensaml.ws.message.MessageContext;
@@ -28,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** SAML 2 Artifact Binding decoder, support both HTTP GET and POST. */
-public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder implements SAMLMessageDecoder {
+public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPArtifactDecoder.class);

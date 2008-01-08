@@ -24,7 +24,6 @@ import javax.xml.namespace.QName;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
-import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
@@ -41,7 +40,7 @@ import org.slf4j.LoggerFactory;
 /**
  * SAML 1.1 HTTP SOAP 1.1 binding decoder.
  */
-public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder implements SAMLMessageDecoder {
+public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPPostDecoder.class);

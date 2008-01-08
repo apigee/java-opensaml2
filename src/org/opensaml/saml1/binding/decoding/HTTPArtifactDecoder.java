@@ -21,7 +21,6 @@ import java.util.List;
 import org.opensaml.Configuration;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
-import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
 import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
@@ -36,7 +35,7 @@ import org.slf4j.LoggerFactory;
 /**
  * SAML 1.X HTTP Artifact message decoder.
  */
-public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder implements SAMLMessageDecoder {
+public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPArtifactDecoder.class);

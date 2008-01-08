@@ -20,6 +20,7 @@ import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.ws.message.encoder.BaseMessageEncoder;
@@ -39,7 +40,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Base class for SAML 1 message encoders.
  */
-public abstract class BaseSAML1MessageEncoder extends BaseMessageEncoder {
+public abstract class BaseSAML1MessageEncoder extends BaseMessageEncoder implements SAMLMessageEncoder{
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(BaseSAML1MessageEncoder.class);

@@ -21,7 +21,6 @@ import java.io.InputStream;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
-import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
@@ -33,7 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Message decoder implementing the SAML 2.0 HTTP POST profile. */
-public class HTTPPostDecoder extends BaseSAML2MessageDecoder implements SAMLMessageDecoder {
+public class HTTPPostDecoder extends BaseSAML2MessageDecoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPPostDecoder.class);

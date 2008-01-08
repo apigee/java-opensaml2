@@ -24,7 +24,6 @@ import java.io.Writer;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
-import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
@@ -42,7 +41,7 @@ import org.w3c.dom.Element;
 /**
  * SAML 1.X HTTP SOAP 1.1 binding message encoder.
  */
-public class HTTPSOAP11Encoder extends BaseSAML1MessageEncoder implements SAMLMessageEncoder {
+public class HTTPSOAP11Encoder extends BaseSAML1MessageEncoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPSOAP11Encoder.class);

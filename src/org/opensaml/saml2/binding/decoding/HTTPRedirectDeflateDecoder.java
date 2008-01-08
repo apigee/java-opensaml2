@@ -23,7 +23,6 @@ import java.util.zip.InflaterInputStream;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
-import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
@@ -39,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * 
  * This decoder only supports DEFLATE compression.
  */
-public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder implements SAMLMessageDecoder {
+public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPRedirectDeflateDecoder.class);

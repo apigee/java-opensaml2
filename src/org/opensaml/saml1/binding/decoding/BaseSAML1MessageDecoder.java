@@ -24,6 +24,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
+import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionArtifact;
@@ -46,7 +47,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Base class for SAML 1 message decoders.
  */
-public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder {
+public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder implements SAMLMessageDecoder{
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(BaseSAML1MessageDecoder.class);

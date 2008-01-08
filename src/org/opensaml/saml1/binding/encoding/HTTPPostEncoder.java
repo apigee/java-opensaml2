@@ -24,7 +24,6 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
-import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.ws.message.MessageContext;
@@ -39,7 +38,7 @@ import org.slf4j.LoggerFactory;
 /**
  * SAML 1.X HTTP POST message encoder.
  */
-public class HTTPPostEncoder extends BaseSAML1MessageEncoder implements SAMLMessageEncoder {
+public class HTTPPostEncoder extends BaseSAML1MessageEncoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPPostEncoder.class);

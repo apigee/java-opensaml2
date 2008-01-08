@@ -24,9 +24,7 @@ import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.Configuration;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
-import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.binding.SAML2ArtifactMessageContext;
 import org.opensaml.saml2.binding.artifact.AbstractSAML2Artifact;
 import org.opensaml.saml2.binding.artifact.SAML2ArtifactBuilder;
 import org.opensaml.saml2.binding.artifact.SAML2ArtifactType0004;
@@ -42,7 +40,7 @@ import org.slf4j.LoggerFactory;
 /**
  * SAML 2 Artifact Binding encoder, support both HTTP GET and POST.
  */
-public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder implements SAMLMessageEncoder {
+public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPArtifactEncoder.class);

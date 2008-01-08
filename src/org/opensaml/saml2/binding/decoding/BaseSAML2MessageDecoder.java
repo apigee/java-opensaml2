@@ -22,6 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
@@ -42,7 +43,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Base class for SAML 2 message decoders.
  */
-public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder {
+public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder implements SAMLMessageDecoder{
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(BaseSAML2MessageDecoder.class);

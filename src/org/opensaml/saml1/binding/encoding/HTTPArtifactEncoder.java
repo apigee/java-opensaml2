@@ -22,7 +22,6 @@ import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
-import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.binding.artifact.AbstractSAML1Artifact;
 import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilder;
@@ -42,7 +41,7 @@ import org.slf4j.LoggerFactory;
 /**
  * SAML 1.X HTTP Artifact message encoder.
  */
-public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder implements SAMLMessageEncoder {
+public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPArtifactEncoder.class);
@@ -67,7 +66,7 @@ public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder implements SAML
     public String getBindingURI() {
         return SAMLConstants.SAML1_ARTIFACT_BINDING_URI;
     }
-    
+
     /** {@inheritDoc} */
     public boolean providesMessageConfidentiality(MessageContext messageContext) throws MessageEncodingException {
         return false;
