@@ -18,12 +18,10 @@ package org.opensaml.saml1.binding.decoding;
 
 import java.util.List;
 
-import org.opensaml.Configuration;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
-import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
@@ -40,9 +38,6 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPArtifactDecoder.class);
 
-    /** Builder of SAML 1 artifacts. */
-    private SAML1ArtifactBuilderFactory artifactBuilder;
-
     /**
      * Constructor.
      * 
@@ -50,10 +45,8 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
      */
     public HTTPArtifactDecoder(SAMLArtifactMap map) {
         super(map);
-
-        artifactBuilder = Configuration.getSAML1ArtifactBuilderFactory();
     }
-    
+
     /**
      * Constructor.
      * 
@@ -62,8 +55,6 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
      */
     public HTTPArtifactDecoder(SAMLArtifactMap map, ParserPool pool) {
         super(map, pool);
-        
-        artifactBuilder = Configuration.getSAML1ArtifactBuilderFactory();
     }
 
     /** {@inheritDoc} */
@@ -85,8 +76,8 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
                     "Invalid inbound message transport type, this decoder only support HTTPInTransport");
         }
         HTTPInTransport inTransport = (HTTPInTransport) messageContext.getInboundMessage();
-        
-        if(!inTransport.getHTTPMethod().equalsIgnoreCase("GET")){
+
+        if (!inTransport.getHTTPMethod().equalsIgnoreCase("GET")) {
             throw new MessageDecodingException("This message deocoder only supports the HTTP GET method");
         }
 
