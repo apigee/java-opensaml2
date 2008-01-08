@@ -41,6 +41,10 @@ public abstract class AbstractSignableSAMLObject extends AbstractValidatingSigna
 
     /** {@inheritDoc} */
     public final boolean equals(Object obj) {
+        if(obj == this){
+            return true;
+        }
+        
         return super.equals(obj);
     }
 

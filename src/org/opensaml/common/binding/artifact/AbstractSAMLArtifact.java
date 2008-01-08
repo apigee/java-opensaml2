@@ -105,6 +105,10 @@ public abstract class AbstractSAMLArtifact {
 
     /** {@inheritDoc} */
     public boolean equals(Object o) {
+        if(o == this){
+            return true;
+        }
+        
         if (o instanceof AbstractSAMLArtifact) {
             AbstractSAMLArtifact otherArtifact = (AbstractSAMLArtifact) o;
             return Arrays.equals(getArtifactBytes(), otherArtifact.getArtifactBytes());
