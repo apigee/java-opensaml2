@@ -39,13 +39,18 @@ import org.w3c.dom.Attr;
  */
 public abstract class StatusResponseTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
+    /** Constructor. */
+    protected StatusResponseTypeUnmarshaller() {
+        super();
+    }
+
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI
      * @param targetLocalName
      */
-    protected StatusResponseTypeUnmarshaller(String targetNamespaceURI, String targetLocalName){
+    protected StatusResponseTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
@@ -26,9 +27,14 @@ import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
  */
 public abstract class SubjectQueryMarshaller extends AbstractSAMLObjectMarshaller {
 
+    /** Constructor. */
+    protected SubjectQueryMarshaller() {
+        super();
+    }
+
     /**
-     * Constructor
-     *
+     * Constructor.
+     * 
      * @param targetNamespaceURI
      * @param targetLocalName
      * @throws NullPointerException

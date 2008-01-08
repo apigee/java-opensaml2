@@ -29,8 +29,13 @@ import org.w3c.dom.Element;
  */
 public abstract class AbstractNameIDTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
+    /** Constructor. */
+    protected AbstractNameIDTypeMarshaller(){
+        super();
+    }
+    
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
      *            marshaller operates on

@@ -43,15 +43,18 @@ public abstract class ResponseAbstractTypeUnmarshaller extends AbstractSAMLObjec
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(ResponseUnmarshaller.class);
 
+    /** Constructor. */
+    protected ResponseAbstractTypeUnmarshaller() {
+        super();
+    }
+
     /**
      * Constructor.
      * 
      * @param targetNamespaceURI
      * @param targetLocalName
-     * @throws IllegalArgumentException
      */
-    protected ResponseAbstractTypeUnmarshaller(String targetNamespaceURI, String targetLocalName)
-            throws IllegalArgumentException {
+    protected ResponseAbstractTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 

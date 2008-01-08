@@ -31,6 +31,11 @@ import org.w3c.dom.Element;
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.ResponseAbstractType} objects.
  */
 public abstract class ResponseAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller {
+    
+    /** Constructor. */
+    protected ResponseAbstractTypeMarshaller(){
+        super();
+    }
 
     /**
      * Constructor.

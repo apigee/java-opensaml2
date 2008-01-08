@@ -42,6 +42,11 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(RoleDescriptorMarshaller.class);
 
+    /** Constructor. */
+    protected RoleDescriptorMarshaller() {
+        super();
+    }
+
     /**
      * Constructor.
      * 

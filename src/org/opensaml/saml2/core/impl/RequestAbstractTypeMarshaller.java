@@ -32,6 +32,11 @@ import org.w3c.dom.Element;
  */
 public abstract class RequestAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
+    /** Constructor. */
+    protected RequestAbstractTypeMarshaller() {
+        super();
+    }
+
     /**
      * Constructor.
      * 

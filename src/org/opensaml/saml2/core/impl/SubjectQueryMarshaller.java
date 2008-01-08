@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 /**
@@ -24,14 +25,20 @@ package org.opensaml.saml2.core.impl;
  */
 public abstract class SubjectQueryMarshaller extends RequestAbstractTypeMarshaller {
 
+    /** Constructor. */
+    protected SubjectQueryMarshaller() {
+        super();
+    }
+
     /**
-     * Constructor
-     *
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws IllegalArgumentException
+     * Constructor.
+     * 
+     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-    protected SubjectQueryMarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
+    protected SubjectQueryMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 }

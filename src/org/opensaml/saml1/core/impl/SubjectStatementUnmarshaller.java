@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
@@ -26,25 +27,30 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- *
+ * Unamershaller for {@link SubjectStatement}s.
  */
 public abstract class SubjectStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
+    /** Constructor. */
+    protected SubjectStatementUnmarshaller() {
+        super();
+    }
+
     /**
-     * Constructor
-     *
+     * Constructor.
+     * 
      * @param targetNamespaceURI
      * @param targetLocalName
-     * @throws IllegalArgumentException
      */
-    protected SubjectStatementUnmarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
+    protected SubjectStatementUnmarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         SubjectStatement statement = (SubjectStatement) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof Subject) {
             statement.setSubject((Subject) childSAMLObject);
         } else {

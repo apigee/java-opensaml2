@@ -26,6 +26,11 @@ import org.w3c.dom.Element;
  * Marshaller for {@link QueryDescriptorType} objects.
  */
 public abstract class QueryDescriptorTypeMarshaller extends AbstractSAMLObjectMarshaller {
+    
+    /** Constructor. */
+    protected QueryDescriptorTypeMarshaller(){
+        super();
+    }
 
     /**
      * Constructor.
@@ -37,8 +42,7 @@ public abstract class QueryDescriptorTypeMarshaller extends AbstractSAMLObjectMa
      * 
      * @throws NullPointerException if any of the arguments are null (or empty in the case of String parameters)
      */
-    protected QueryDescriptorTypeMarshaller(String targetNamespaceURI, String targetLocalName)
-            throws NullPointerException {
+    protected QueryDescriptorTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 

@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.saml2.core.Subject;
@@ -29,9 +30,14 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public abstract class SubjectQueryUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
+    /** Constructor. */
+    protected SubjectQueryUnmarshaller() {
+        super();
+    }
+
     /**
-     * Constructor
-     *
+     * Constructor.
+     * 
      * @param targetNamespaceURI
      * @param targetLocalName
      * @throws IllegalArgumentException
@@ -41,12 +47,14 @@ public abstract class SubjectQueryUnmarshaller extends RequestAbstractTypeUnmars
     }
 
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         SubjectQuery sq = (SubjectQuery) parentSAMLObject;
-        
-        if (childSAMLObject instanceof Subject)
+
+        if (childSAMLObject instanceof Subject) {
             sq.setSubject((Subject) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

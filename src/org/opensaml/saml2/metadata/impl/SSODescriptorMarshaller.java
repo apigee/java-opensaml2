@@ -21,8 +21,13 @@ package org.opensaml.saml2.metadata.impl;
  */
 public abstract class SSODescriptorMarshaller extends RoleDescriptorMarshaller {
 
+    /** Constructor. */
+    protected SSODescriptorMarshaller() {
+        super();
+    }
+
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI the namespaceURI of the SAMLObject this marshaller operates on
      * @param targetLocalName the local name of the SAMLObject this marshaller operates on

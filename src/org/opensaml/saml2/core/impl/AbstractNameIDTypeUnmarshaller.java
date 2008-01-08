@@ -28,8 +28,13 @@ import org.w3c.dom.Attr;
  */
 public abstract class AbstractNameIDTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
+    /** Constructor. */
+    protected AbstractNameIDTypeUnmarshaller() {
+        super();
+    }
+
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on

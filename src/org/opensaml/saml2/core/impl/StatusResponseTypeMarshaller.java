@@ -32,6 +32,11 @@ import org.w3c.dom.Element;
  */
 public abstract class StatusResponseTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
+    /** Constructor. */
+    protected StatusResponseTypeMarshaller() {
+        super();
+    }
+
     /**
      * Constructor.
      * 

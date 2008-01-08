@@ -43,6 +43,11 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(RequestAbstractType.class);
 
+    /** Constructor. */
+    protected RequestAbstractTypeUnmarshaller() {
+        super();
+    }
+
     /**
      * Constructor.
      * 
