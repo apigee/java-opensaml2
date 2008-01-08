@@ -53,6 +53,12 @@ public class MessageReplayRule implements SecurityPolicyRule {
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
+        
+        if(samlMsgCtx.getInboundSAMLMessage() == null){
+            //This is in case people are using the proprietary SAML 1 SP-initiated authn URL GET type invocations
+            log.debug("Message context did not contain a SAML message, replay check not possible.");
+            return;
+        }
 
         String messageIsuer = samlMsgCtx.getInboundMessageIssuer();
         if (DatatypeHelper.isEmpty(messageIsuer)) {
