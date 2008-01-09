@@ -152,7 +152,6 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
             this.artifact = artifact;
             this.issuer = issuer;
             this.relyingParty = relyingParty;
-            samlMessage = saml;
             expirationTime = new DateTime().plus(lifetime);
 
             StringWriter writer = new StringWriter();
