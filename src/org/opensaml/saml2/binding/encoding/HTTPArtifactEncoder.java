@@ -46,6 +46,9 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPArtifactEncoder.class);
 
+    /** Whether the POST encoding should be used, instead of GET. */
+    private boolean postEncoding;
+
     /** Velocity engine used to evaluate the template when performing POST encoding. */
     private VelocityEngine velocityEngine;
 
@@ -67,6 +70,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
      */
     public HTTPArtifactEncoder(VelocityEngine engine, String template, SAMLArtifactMap map) {
         super();
+        postEncoding = false;
         velocityEngine = engine;
         velocityTemplateId = template;
         artifactMap = map;
@@ -76,6 +80,24 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
     /** {@inheritDoc} */
     public String getBindingURI() {
         return SAMLConstants.SAML2_ARTIFACT_BINDING_URI;
+    }
+
+    /**
+     * Gets whether the encoder will encode the artifact via POST encoding.
+     * 
+     * @return true if POST encoding will be used, false if GET encoding will be used
+     */
+    public boolean isPostEncoding() {
+        return postEncoding;
+    }
+
+    /**
+     * Sets whether the encoder will encode the artifact via POST encoding.
+     * 
+     * @param post true if POST encoding will be used, false if GET encoding will be used
+     */
+    public void setPostEncoding(boolean post) {
+        postEncoding = post;
     }
 
     /** {@inheritDoc} */
@@ -106,10 +128,10 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
         HTTPOutTransport outTransport = (HTTPOutTransport) artifactContext.getOutboundMessageTransport();
         outTransport.setCharacterEncoding("UTF-8");
 
-        if (outTransport.getHTTPMethod().equals("GET")) {
-            getEncode(artifactContext, outTransport);
-        } else if (outTransport.getHTTPMethod().equals("POST")) {
+        if (postEncoding) {
             postEncode(artifactContext, outTransport);
+        } else {
+            getEncode(artifactContext, outTransport);
         }
 
         throw new MessageEncodingException("Outbound HTTP transport using method " + outTransport.getHTTPMethod()
