@@ -23,7 +23,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
-import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
@@ -54,21 +53,10 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
     /**
      * Constructor.
      * 
-     * @param map Artifact to SAML map
-     */
-    public HTTPSOAP11Decoder(SAMLArtifactMap map) {
-        super(map);
-        understoodHeaders = new ArrayList<QName>();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
      */
-    public HTTPSOAP11Decoder(SAMLArtifactMap map, ParserPool pool) {
-        super(map, pool);
+    public HTTPSOAP11Decoder(ParserPool pool) {
+        super(pool);
         understoodHeaders = new ArrayList<QName>();
     }
 
@@ -76,7 +64,7 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
     public String getBindingURI() {
         return SAMLConstants.SAML1_SOAP11_BINDING_URI;
     }
-    
+
     /**
      * Gets the SOAP header names that are understood by the application.
      * 
@@ -122,9 +110,9 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
         log.debug("Unmarshalling SOAP message");
         Envelope soapMessage = (Envelope) unmarshallMessage(inTransport.getIncomingStream());
         samlMsgCtx.setInboundMessage(soapMessage);
-        
+
         Header messageHeader = soapMessage.getHeader();
-        if(messageHeader != null){
+        if (messageHeader != null) {
             checkUnderstoodSOAPHeaders(soapMessage.getHeader().getUnknownXMLObjects());
         }
 

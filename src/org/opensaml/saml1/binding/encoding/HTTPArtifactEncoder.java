@@ -34,6 +34,7 @@ import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
+import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,8 +114,14 @@ public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder {
         String artifactString;
         for (Assertion assertion : artifactContext.getOutboundSAMLMessage().getAssertions()) {
             artifact = artifactBuilder.buildArtifact(artifactContext, assertion);
-            artifactMap.put(artifact.base64Encode(), messageContext.getInboundMessageIssuer(), messageContext
-                    .getOutboundMessageIssuer(), assertion);
+
+            try {
+                artifactMap.put(artifact.base64Encode(), messageContext.getInboundMessageIssuer(), messageContext
+                        .getOutboundMessageIssuer(), assertion);
+            } catch (MarshallingException e) {
+                log.error("Unable to marshall assertion to be represented as an artifact", e);
+                throw new MessageEncodingException("Unable to marshall assertion to be represented as an artifact", e);
+            }
             artifactString = artifact.base64Encode();
             params.add(new Pair<String, String>("SAMLart", artifactString));
         }

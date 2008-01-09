@@ -16,15 +16,33 @@
 
 package org.opensaml.common.binding.artifact;
 
+import java.io.StringReader;
+import java.io.StringWriter;
+
 import org.joda.time.DateTime;
+import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.util.storage.StorageService;
+import org.opensaml.xml.io.Marshaller;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.io.Unmarshaller;
+import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.XMLHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Element;
 
 /**
  * Basic artifact map implementation that uses a {@link StorageService} to store and retrieve artifacts.
  */
 public class BasicSAMLArtifactMap implements SAMLArtifactMap {
+
+    /** Class Logger. */
+    private final Logger log = LoggerFactory.getLogger(BasicSAMLArtifactMap.class);
+
+    /** Pool used to parse serialized messages. */
+    private ParserPool parserPool;
 
     /** Artifact mapping storage. */
     private StorageService<String, SAMLArtifactMapEntry> artifactStore;
@@ -38,10 +56,12 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
     /**
      * Constructor.
      * 
+     * @param parser parser pool used to parse serialized messages
      * @param storage artifact mapping storage
      * @param lifetime lifetime of an artifact in milliseconds
      */
-    public BasicSAMLArtifactMap(StorageService<String, SAMLArtifactMapEntry> storage, long lifetime) {
+    public BasicSAMLArtifactMap(ParserPool parser, StorageService<String, SAMLArtifactMapEntry> storage, long lifetime) {
+        parserPool = parser;
         artifactStore = storage;
         partition = "artifact";
         artifactLifetime = lifetime;
@@ -83,7 +103,8 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
     }
 
     /** {@inheritDoc} */
-    public void put(String artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage) {
+    public void put(String artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage)
+            throws MarshallingException {
         BasicSAMLArtifactMapEntry artifactEntry = new BasicSAMLArtifactMapEntry(artifact, issuerId, relyingPartyId,
                 samlMessage, artifactLifetime);
         artifactStore.put(partition, artifact, artifactEntry);
@@ -106,19 +127,38 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         /** Entity ID of the receiver of the artifact. */
         private String relyingParty;
 
-        /** SAML object mapped to the artifact. */
-        private SAMLObject samlMessage;
+        /** SAML message represented by the artifact. */
+        private transient SAMLObject samlMessage;
+
+        /** Serialized SAML object mapped to the artifact. */
+        private String serializedMessage;
 
         /** Time this artifact entry expires. */
         private DateTime expirationTime;
 
+        /**
+         * Constructor.
+         * 
+         * @param artifact artifact associated with the message
+         * @param issuer issuer of the artifact
+         * @param relyingParty receiver of the artifact
+         * @param saml SAML message mapped to the artifact
+         * @param lifetime lifetime of the artifact
+         * 
+         * @throws MarshallingException thrown if the SAML message can not be serialzed to a string
+         */
         public BasicSAMLArtifactMapEntry(String artifact, String issuer, String relyingParty, SAMLObject saml,
-                long lifetime) {
+                long lifetime) throws MarshallingException {
             this.artifact = artifact;
             this.issuer = issuer;
             this.relyingParty = relyingParty;
             samlMessage = saml;
             expirationTime = new DateTime().plus(lifetime);
+
+            StringWriter writer = new StringWriter();
+            Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(samlMessage);
+            XMLHelper.writeNode(marshaller.marshall(samlMessage), writer);
+            serializedMessage = writer.toString();
         }
 
         /** {@inheritDoc} */
@@ -137,7 +177,17 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         }
 
         /** {@inheritDoc} */
-        public SAMLObject getSamlMessage() {
+        public synchronized SAMLObject getSamlMessage() {
+            if (samlMessage == null) {
+                try {
+                    Element messageElem = parserPool.parse(new StringReader(serializedMessage)).getDocumentElement();
+                    Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(messageElem);
+                    samlMessage = (SAMLObject) unmarshaller.unmarshall(messageElem);
+                } catch (Exception e) {
+                    log.error("Unable to deserialize and unmarshall SAML message associated with artifact " + artifact,
+                            e);
+                }
+            }
             return samlMessage;
         }
 
@@ -150,10 +200,10 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         public boolean isExpired() {
             return expirationTime.isBeforeNow();
         }
-        
+
         /** {@inheritDoc} */
         public void onExpire() {
-            
+
         }
     }
 }

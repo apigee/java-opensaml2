@@ -18,6 +18,7 @@ package org.opensaml.common.binding.artifact;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.util.storage.ExpiringObject;
+import org.opensaml.xml.io.MarshallingException;
 
 /**
  * Maps an artifact to a SAML message and back again.
@@ -42,18 +43,21 @@ public interface SAMLArtifactMap {
      * @param relyingPartyId ID of the party the artifact was sent to
      * @param issuerId ID of the issuer of the artifact
      * @param samlMessage the SAML message
+     * 
+     * @throws MarshallingException thrown if the given SAML message can not be marshalled
      */
-    public void put(String artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage);
+    public void put(String artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage)
+            throws MarshallingException;
 
     /**
      * Gets the artifact entry for the given artifact.
      * 
-     * @param artifact the artifact to retrive the entry for
+     * @param artifact the artifact to retrieve the entry for
      * 
      * @return the entry or null if the artifact has already expired or did not exist
      */
     public SAMLArtifactMapEntry get(String artifact);
-    
+
     /**
      * Removes the artifact from this map.
      * 
@@ -88,7 +92,7 @@ public interface SAMLArtifactMap {
         public String getRelyingPartyId();
 
         /**
-         * Gets the SAML message the artifact maps to.
+         * Gets SAML message the artifact maps to.
          * 
          * @return SAML message the artifact maps to
          */

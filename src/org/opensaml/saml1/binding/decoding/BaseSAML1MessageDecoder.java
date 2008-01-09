@@ -47,13 +47,10 @@ import org.slf4j.LoggerFactory;
 /**
  * Base class for SAML 1 message decoders.
  */
-public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder implements SAMLMessageDecoder{
+public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(BaseSAML1MessageDecoder.class);
-
-    /** Map used to map artifacts to SAML. */
-    private SAMLArtifactMap artifactMap;
 
     /** Whether to use the resource of an attribute query as the relying party entity ID. */
     private boolean useQueryResourceAsEntityId;
@@ -61,33 +58,11 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder impleme
     /**
      * Constructor.
      * 
-     * @param map used to map artifacts to SAML
-     */
-    public BaseSAML1MessageDecoder(SAMLArtifactMap map) {
-        super();
-        artifactMap = map;
-        useQueryResourceAsEntityId = true;
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
      */
-    public BaseSAML1MessageDecoder(SAMLArtifactMap map, ParserPool pool) {
+    public BaseSAML1MessageDecoder(ParserPool pool) {
         super(pool);
-        artifactMap = map;
         useQueryResourceAsEntityId = true;
-    }
-
-    /**
-     * Gets the artifact map used to retrieve SAML information from an artifact.
-     * 
-     * @return artifact map used to retrieve SAML information from an artifact
-     */
-    public SAMLArtifactMap getArtifactMap() {
-        return artifactMap;
     }
 
     /**
@@ -169,10 +144,6 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder impleme
             if (request.getAuthorizationDecisionQuery() != null) {
                 extractAuthorizationDecisionQueryInfo(messageContext, request.getAuthorizationDecisionQuery());
             }
-
-            if (request.getAssertionArtifacts() != null) {
-                extractAssertionArtifactInfo(messageContext, request.getAssertionArtifacts());
-            }
         }
     }
 
@@ -213,26 +184,6 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder impleme
                 log.debug("Extracted issuer from SAML 1.x AuthorizationDecisionQuery: {}", resource);
             }
         }
-    }
-
-    /**
-     * Extract the issuer, and populate message context, as the relying party corresponding to the first
-     * AssertionArtifact in the message.
-     * 
-     * @param messageContext current message context
-     * @param artifacts AssertionArtifacts in the request
-     */
-    protected void extractAssertionArtifactInfo(SAMLMessageContext messageContext, List<AssertionArtifact> artifacts) {
-        if (artifacts.size() == 0) {
-            return;
-        }
-
-        log.debug("Attempting to extract issuer based on first AssertionArtifact in request");
-        AssertionArtifact artifact = artifacts.get(0);
-        SAMLArtifactMapEntry artifactEntry = artifactMap.get(artifact.getAssertionArtifact());
-        messageContext.setInboundMessageIssuer(artifactEntry.getRelyingPartyId());
-
-        log.debug("Extracted issuer from SAML 1.x AssertionArtifact: {}", messageContext.getInboundMessageIssuer());
     }
 
     /**

@@ -42,4 +42,18 @@ public interface SAML2ArtifactMessageContext<InboundMessageType extends SAMLObje
      * @param artifact artifact to be resolved
      */
     public void setArtifact(String artifact);
+
+    /**
+     * Gets the SAML message referenced by the artifact.
+     * 
+     * @return SAML message referenced by the artifact
+     */
+    public SAMLObject getReferencedMessage();
+
+    /**
+     * Sets the SAML message referenced by the artifact.
+     * 
+     * @param message SAML message referenced by the artifact
+     */
+    public void setReferencedMessage(SAMLObject message);
 }

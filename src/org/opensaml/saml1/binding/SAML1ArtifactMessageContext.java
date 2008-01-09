@@ -20,6 +20,7 @@ import java.util.Collection;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.saml1.core.Assertion;
 
 /**
  * Extensions to the base SAML message context that carries artifact related information.
@@ -44,4 +45,18 @@ public interface SAML1ArtifactMessageContext<InboundMessageType extends SAMLObje
      * @param artifacts artifacts to be resolved
      */
     public void setArtifacts(Collection<String> artifacts);
+
+    /**
+     * Gets the assertions dereferenced from the artifacts.
+     * 
+     * @return assertions dereferenced from the artifacts
+     */
+    public Collection<Assertion> getDereferencedAssertions();
+
+    /**
+     * Sets the assertions dereferenced from the artifacts.
+     * 
+     * @param assertions assertions dereferenced from the artifacts
+     */
+    public void setDereferencedAssertions(Collection<Assertion> assertions);
 }

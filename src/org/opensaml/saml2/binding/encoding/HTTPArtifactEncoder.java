@@ -33,6 +33,7 @@ import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
+import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +62,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
      * Constructor.
      * 
      * @param engine velocity engine used to construct the POST form
-     * @param template ID of velocity template used to contruct the POST form
+     * @param template ID of velocity template used to construct the POST form
      * @param map artifact map used to store artifact/message bindings
      */
     public HTTPArtifactEncoder(VelocityEngine engine, String template, SAMLArtifactMap map) {
@@ -76,7 +77,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
     public String getBindingURI() {
         return SAMLConstants.SAML2_ARTIFACT_BINDING_URI;
     }
-    
+
     /** {@inheritDoc} */
     public boolean providesMessageConfidentiality(MessageContext messageContext) throws MessageEncodingException {
         return false;
@@ -177,8 +178,10 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
      * @param artifactContext current request context
      * 
      * @return SAML 2 artifact for outgoing message
+     * 
+     * @throws MessageEncodingException thrown if the artifact can not be created
      */
-    protected AbstractSAML2Artifact buildArtifact(SAMLMessageContext artifactContext) {
+    protected AbstractSAML2Artifact buildArtifact(SAMLMessageContext artifactContext) throws MessageEncodingException {
 
         SAML2ArtifactBuilder artifactBuilder;
         if (artifactContext.getOutboundMessageArtifactType() != null) {
@@ -191,8 +194,14 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
 
         AbstractSAML2Artifact artifact = artifactBuilder.buildArtifact(artifactContext);
         String encodedArtifact = artifact.base64Encode();
-        artifactMap.put(encodedArtifact, artifactContext.getInboundMessageIssuer(), artifactContext
-                .getOutboundMessageIssuer(), artifactContext.getOutboundSAMLMessage());
+        try {
+            artifactMap.put(encodedArtifact, artifactContext.getInboundMessageIssuer(), artifactContext
+                    .getOutboundMessageIssuer(), artifactContext.getOutboundSAMLMessage());
+        } catch (MarshallingException e) {
+            log.error("Unable to marshall assertion to be represented as an artifact", e);
+            throw new MessageEncodingException("Unable to marshall assertion to be represented as an artifact", e);
+        }
+
         return artifact;
     }
 }

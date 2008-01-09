@@ -16,6 +16,8 @@
 
 package org.opensaml.saml2.binding.decoding;
 
+import org.opensaml.common.binding.artifact.SAMLArtifactMap;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.binding.SAML2ArtifactMessageContext;
 import org.opensaml.ws.message.MessageContext;
@@ -32,18 +34,19 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder {
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPArtifactDecoder.class);
 
-    /** Constructor. */
-    public HTTPArtifactDecoder() {
-        super();
-    }
+    /** Map used to map artifacts to SAML. */
+    private SAMLArtifactMap artifactMap;
 
     /**
      * Constructor.
      * 
+     * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
      */
-    public HTTPArtifactDecoder(ParserPool pool) {
+    public HTTPArtifactDecoder(SAMLArtifactMap map, ParserPool pool) {
         super(pool);
+
+        artifactMap = map;
     }
 
     /** {@inheritDoc} */
@@ -83,6 +86,10 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder {
         }
 
         artifactContext.setArtifact(encodedArtifact);
+
+        SAMLArtifactMapEntry artifactEntry = artifactMap.get(encodedArtifact);
+        artifactContext.setReferencedMessage(artifactEntry.getSamlMessage());
+        artifactContext.setInboundMessageIssuer(artifactEntry.getIssuerId());
 
         populateMessageContext(artifactContext);
     }

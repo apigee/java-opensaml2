@@ -16,12 +16,16 @@
 
 package org.opensaml.saml1.binding.decoding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
+import org.opensaml.saml1.core.Assertion;
+import org.opensaml.saml1.core.AssertionArtifact;
+import org.opensaml.saml1.core.Request;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
@@ -38,14 +42,8 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPArtifactDecoder.class);
 
-    /**
-     * Constructor.
-     * 
-     * @param map Artifact to SAML map
-     */
-    public HTTPArtifactDecoder(SAMLArtifactMap map) {
-        super(map);
-    }
+    /** Map used to map artifacts to SAML. */
+    private SAMLArtifactMap artifactMap;
 
     /**
      * Constructor.
@@ -54,7 +52,9 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
      * @param pool parser pool used to deserialize messages
      */
     public HTTPArtifactDecoder(SAMLArtifactMap map, ParserPool pool) {
-        super(map, pool);
+        super(pool);
+
+        artifactMap = map;
     }
 
     /** {@inheritDoc} */
@@ -84,6 +84,7 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
         SAML1ArtifactMessageContext artifactContext = (SAML1ArtifactMessageContext) messageContext;
         decodeTarget(artifactContext);
         decodeArtifacts(artifactContext);
+        dereferenceArtifacts(artifactContext);
 
         populateMessageContext(artifactContext);
     }
@@ -125,7 +126,7 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
         String relyingPartyId = null;
         SAMLArtifactMapEntry artifactEntry;
         for (String encodedArtifact : encodedArtifacts) {
-            artifactEntry = getArtifactMap().get(encodedArtifact);
+            artifactEntry = artifactMap.get(encodedArtifact);
 
             if (relyingPartyId == null) {
                 relyingPartyId = artifactEntry.getRelyingPartyId();
@@ -138,5 +139,42 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
 
         artifactContext.setInboundMessageIssuer(relyingPartyId);
         artifactContext.setArtifacts(encodedArtifacts);
+    }
+
+    /**
+     * Derferences the artifacts within the incoming request and stores them in the request context.
+     * 
+     * @param requestContext current request context
+     * 
+     * @throws MessageDecodingException thrown if the incoming request does not contain any {@link AssertionArtifact}s.
+     */
+    protected void dereferenceArtifacts(SAML1ArtifactMessageContext requestContext) throws MessageDecodingException {
+        Request request = (Request) requestContext.getInboundSAMLMessage();
+        List<AssertionArtifact> assertionArtifacts = request.getAssertionArtifacts();
+
+        if (assertionArtifacts == null || assertionArtifacts.size() == 0) {
+            log.error("No AssertionArtifacts available in request");
+            throw new MessageDecodingException("No AssertionArtifacts available in request");
+        }
+
+        ArrayList<Assertion> assertions = new ArrayList<Assertion>();
+        SAMLArtifactMapEntry artifactEntry;
+        Assertion assertion;
+        for (AssertionArtifact assertionArtifact : assertionArtifacts) {
+            artifactEntry = artifactMap.get(assertionArtifact.getAssertionArtifact());
+            if (artifactEntry == null || artifactEntry.isExpired()) {
+                continue;
+            }
+
+            artifactMap.remove(assertionArtifact.getAssertionArtifact());
+            try {
+                assertions.add((Assertion) artifactEntry.getSamlMessage());
+            } catch (Exception e) {
+                log.error("Unable to unmarshall assertion associated with artifact", e);
+                throw new MessageDecodingException("Unable to unmarshall assertion associated with artifact", e);
+            }
+        }
+
+        requestContext.setDereferencedAssertions(assertions);
     }
 }
