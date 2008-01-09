@@ -58,7 +58,7 @@ public class SAML2ArtifactType0004Builder implements SAML2ArtifactBuilder<SAML2A
             assertionHandle = new byte[20];
             handleGenerator.nextBytes(assertionHandle);
 
-            return new SAML2ArtifactType0004(endpointIndex, source, assertionHandle);
+            return new SAML2ArtifactType0004(trimmedIndex, source, assertionHandle);
         } catch (NoSuchAlgorithmException e) {
             log.error("JVM does not support required cryptography algorithms: SHA-1/SHA1PRNG.", e);
             throw new InternalError("JVM does not support required cryptography algorithms: SHA-1/SHA1PRNG.");
