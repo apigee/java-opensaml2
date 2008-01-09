@@ -127,9 +127,6 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         /** Entity ID of the receiver of the artifact. */
         private String relyingParty;
 
-        /** SAML message represented by the artifact. */
-        private transient SAMLObject samlMessage;
-
         /** Serialized SAML object mapped to the artifact. */
         private String serializedMessage;
 
@@ -155,8 +152,8 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
             expirationTime = new DateTime().plus(lifetime);
 
             StringWriter writer = new StringWriter();
-            Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(samlMessage);
-            XMLHelper.writeNode(marshaller.marshall(samlMessage), writer);
+            Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(saml);
+            XMLHelper.writeNode(marshaller.marshall(saml), writer);
             serializedMessage = writer.toString();
         }
 
@@ -176,18 +173,15 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         }
 
         /** {@inheritDoc} */
-        public synchronized SAMLObject getSamlMessage() {
-            if (samlMessage == null) {
-                try {
-                    Element messageElem = parserPool.parse(new StringReader(serializedMessage)).getDocumentElement();
-                    Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(messageElem);
-                    samlMessage = (SAMLObject) unmarshaller.unmarshall(messageElem);
-                } catch (Exception e) {
-                    log.error("Unable to deserialize and unmarshall SAML message associated with artifact " + artifact,
-                            e);
-                }
+        public SAMLObject getSamlMessage() {
+            try {
+                Element messageElem = parserPool.parse(new StringReader(serializedMessage)).getDocumentElement();
+                Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(messageElem);
+                return (SAMLObject) unmarshaller.unmarshall(messageElem);
+            } catch (Exception e) {
+                log.error("Unable to deserialize and unmarshall SAML message associated with artifact " + artifact, e);
+                return null;
             }
-            return samlMessage;
         }
 
         /** {@inheritDoc} */
