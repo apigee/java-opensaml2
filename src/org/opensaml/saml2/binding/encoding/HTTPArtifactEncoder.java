@@ -182,7 +182,7 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
 
         List<Pair<String, String>> params = urlBuilder.getQueryParams();
 
-        params.add(new Pair<String, String>("SAMLArt", buildArtifact(artifactContext).base64Encode()));
+        params.add(new Pair<String, String>("SAMLart", buildArtifact(artifactContext).base64Encode()));
 
         if (checkRelayState(artifactContext.getRelayState())) {
             params.add(new Pair<String, String>("RelayState", artifactContext.getRelayState()));

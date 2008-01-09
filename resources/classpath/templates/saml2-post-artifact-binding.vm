@@ -25,7 +25,7 @@
                 <input type="hidden" name="RelayState" value="${RelayState}"/>
                 #end
                 
-                <input type="hidden" name="SAMLArt" value="${SAMLArt}"/>
+                <input type="hidden" name="SAMLart" value="${SAMLArt}"/>
             </div>
             <noscript>
                 <div>
