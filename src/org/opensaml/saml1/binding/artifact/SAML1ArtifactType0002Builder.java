@@ -19,11 +19,15 @@ package org.opensaml.saml1.binding.artifact;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+import org.opensaml.common.binding.BasicEndpointSelector;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.Response;
+import org.opensaml.saml2.metadata.ArtifactResolutionService;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +48,7 @@ public class SAML1ArtifactType0002Builder implements SAML1ArtifactBuilder<SAML1A
     public SAML1ArtifactType0002 buildArtifact(
             SAMLMessageContext<RequestAbstractType, Response, NameIdentifier> requestContext, Assertion assertion) {
         try {
-            String sourceLocation = requestContext.getPeerEntityEndpoint().getLocation();
+            String sourceLocation = getSourceLocation(requestContext);
             if (sourceLocation == null) {
                 return null;
             }
@@ -57,5 +61,30 @@ public class SAML1ArtifactType0002Builder implements SAML1ArtifactBuilder<SAML1A
             log.error("JVM does not support required cryptography algorithms: SHA1PRNG.", e);
             throw new InternalError("JVM does not support required cryptography algorithms: SHA1PRNG.");
         }
+    }
+
+    /**
+     * Gets the source location used to for the artifacts created by this encoder.
+     * 
+     * @param requestContext current request context
+     * 
+     * @return source location used to for the artifacts created by this encoder
+     */
+    protected String getSourceLocation(SAMLMessageContext<RequestAbstractType, Response, NameIdentifier> requestContext) {
+        BasicEndpointSelector selector = new BasicEndpointSelector();
+        selector.setEndpointType(ArtifactResolutionService.DEFAULT_ELEMENT_NAME);
+        selector.getSupportedIssuerBindings().add(SAMLConstants.SAML1_ARTIFACT_BINDING_URI);
+        selector.setMetadataProvider(requestContext.getMetadataProvider());
+        selector.setEntityMetadata(requestContext.getLocalEntityMetadata());
+        selector.setEntityRoleMetadata(requestContext.getLocalEntityRoleMetadata());
+
+        Endpoint acsEndpoint = selector.selectEndpoint();
+
+        if (acsEndpoint == null) {
+            log.error("Unable to select source location for artifact.  No artifact resolution service defined for issuer.");
+            return null;
+        }
+
+        return acsEndpoint.getLocation();
     }
 }
