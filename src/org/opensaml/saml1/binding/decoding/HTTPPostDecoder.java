@@ -20,6 +20,7 @@ import java.io.ByteArrayInputStream;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
@@ -38,12 +39,22 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder {
     private final Logger log = LoggerFactory.getLogger(HTTPPostDecoder.class);
 
     /**
+     * Constructor. 
+     * 
+     * @param map Artifact to SAML map
+     */
+    public HTTPPostDecoder(SAMLArtifactMap map) {
+        super(map);
+    }
+
+    /**
      * Constructor.
      * 
+     * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
      */
-    public HTTPPostDecoder(ParserPool pool) {
-        super(pool);
+    public HTTPPostDecoder(SAMLArtifactMap map, ParserPool pool) {
+        super(map, pool);
     }
 
     /** {@inheritDoc} */
