@@ -20,17 +20,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
-import org.opensaml.xml.util.DatatypeHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This endpoint selector retrieves all the endpoints for a given role. A first filter pass removes those endpoints that
  * use bindings which are not supported by the issuer. If the remaining endpoints are not {@link IndexedEndpoint}s the
  * first endpoint in the list is returned. If the remaining endpoints are {@link IndexedEndpoint}s the first endpoint
  * with the isDefault attribute set to true is returned, if no isDefault attribute is set to true the first endpoint to
- * ommit this attribute is returned, and if all the endpoints have the isDefault attribute set to false then the first
+ * omit this attribute is returned, and if all the endpoints have the isDefault attribute set to false then the first
  * endpoint in the list is returned.
  * 
  * Prior to selecting the endpoint the following fields <strong>must</strong> have had values set: entity role,
@@ -41,6 +41,9 @@ import org.opensaml.xml.util.DatatypeHelper;
  * specifically meant to handler this situation should be used, for example: AuthnResponseEndpointSelector.
  */
 public class BasicEndpointSelector extends AbstractEndpointSelector {
+    
+    /** Class logger. */
+    private Logger log = LoggerFactory.getLogger(BasicEndpointSelector.class);
 
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
@@ -54,12 +57,16 @@ public class BasicEndpointSelector extends AbstractEndpointSelector {
             return null;
         }
 
+        Endpoint selectedEndpoint;
         endpoints = filterEndpointsByProtocolBinding(endpoints);
         if (endpoints.get(0) instanceof IndexedEndpoint) {
-            return selectIndexedEndpoint((List<IndexedEndpoint>) endpoints);
+            selectedEndpoint = selectIndexedEndpoint((List<IndexedEndpoint>) endpoints);
         } else {
-            return selectNonIndexedEndpoint((List<Endpoint>) endpoints);
+            selectedEndpoint = selectNonIndexedEndpoint((List<Endpoint>) endpoints);
         }
+        
+        log.debug("Selected endpoint {} for request", selectedEndpoint.getLocation());
+        return selectedEndpoint;
     }
     
     /**
