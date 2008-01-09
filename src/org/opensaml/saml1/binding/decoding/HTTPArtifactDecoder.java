@@ -42,9 +42,6 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPArtifactDecoder.class);
 
-    /** Map used to map artifacts to SAML. */
-    private SAMLArtifactMap artifactMap;
-
     /**
      * Constructor.
      * 
@@ -52,9 +49,7 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
      * @param pool parser pool used to deserialize messages
      */
     public HTTPArtifactDecoder(SAMLArtifactMap map, ParserPool pool) {
-        super(pool);
-
-        artifactMap = map;
+        super(map, pool);
     }
 
     /** {@inheritDoc} */
@@ -126,7 +121,7 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
         String relyingPartyId = null;
         SAMLArtifactMapEntry artifactEntry;
         for (String encodedArtifact : encodedArtifacts) {
-            artifactEntry = artifactMap.get(encodedArtifact);
+            artifactEntry = getArtifactMap().get(encodedArtifact);
 
             if (relyingPartyId == null) {
                 relyingPartyId = artifactEntry.getRelyingPartyId();
@@ -161,12 +156,12 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
         SAMLArtifactMapEntry artifactEntry;
         Assertion assertion;
         for (AssertionArtifact assertionArtifact : assertionArtifacts) {
-            artifactEntry = artifactMap.get(assertionArtifact.getAssertionArtifact());
+            artifactEntry = getArtifactMap().get(assertionArtifact.getAssertionArtifact());
             if (artifactEntry == null || artifactEntry.isExpired()) {
                 continue;
             }
 
-            artifactMap.remove(assertionArtifact.getAssertionArtifact());
+            getArtifactMap().remove(assertionArtifact.getAssertionArtifact());
             try {
                 assertions.add((Assertion) artifactEntry.getSamlMessage());
             } catch (Exception e) {
