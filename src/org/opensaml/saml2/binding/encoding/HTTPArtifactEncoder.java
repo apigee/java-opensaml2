@@ -133,9 +133,6 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
         } else {
             getEncode(artifactContext, outTransport);
         }
-
-        throw new MessageEncodingException("Outbound HTTP transport using method " + outTransport.getHTTPMethod()
-                + ", only POST and GET are supported by this encoder");
     }
 
     /**
