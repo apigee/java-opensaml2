@@ -73,7 +73,7 @@ public class SAML1ArtifactType0002Builder implements SAML1ArtifactBuilder<SAML1A
     protected String getSourceLocation(SAMLMessageContext<RequestAbstractType, Response, NameIdentifier> requestContext) {
         BasicEndpointSelector selector = new BasicEndpointSelector();
         selector.setEndpointType(ArtifactResolutionService.DEFAULT_ELEMENT_NAME);
-        selector.getSupportedIssuerBindings().add(SAMLConstants.SAML1_ARTIFACT_BINDING_URI);
+        selector.getSupportedIssuerBindings().add(SAMLConstants.SAML1_SOAP11_BINDING_URI);
         selector.setMetadataProvider(requestContext.getMetadataProvider());
         selector.setEntityMetadata(requestContext.getLocalEntityMetadata());
         selector.setEntityRoleMetadata(requestContext.getLocalEntityRoleMetadata());

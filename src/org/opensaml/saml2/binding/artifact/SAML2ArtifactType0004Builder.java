@@ -79,7 +79,7 @@ public class SAML2ArtifactType0004Builder implements SAML2ArtifactBuilder<SAML2A
     protected Endpoint getAcsEndpoint(SAMLMessageContext<SAMLObject, SAMLObject, NameID> requestContext) {
         BasicEndpointSelector selector = new BasicEndpointSelector();
         selector.setEndpointType(ArtifactResolutionService.DEFAULT_ELEMENT_NAME);
-        selector.getSupportedIssuerBindings().add(SAMLConstants.SAML2_ARTIFACT_BINDING_URI);
+        selector.getSupportedIssuerBindings().add(SAMLConstants.SAML2_SOAP11_BINDING_URI);
         selector.setMetadataProvider(requestContext.getMetadataProvider());
         selector.setEntityMetadata(requestContext.getLocalEntityMetadata());
         selector.setEntityRoleMetadata(requestContext.getLocalEntityRoleMetadata());
