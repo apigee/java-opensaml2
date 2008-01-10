@@ -40,6 +40,9 @@ public class IssueInstantRule implements SecurityPolicyRule {
 
     /** Number of seconds after a message issue instant after which the message is considered expired. */
     private int expires;
+    
+    /** Whether this rule is required to be met. */
+    private boolean requiredRule;
 
     /**
      * Constructor.
@@ -50,6 +53,25 @@ public class IssueInstantRule implements SecurityPolicyRule {
     public IssueInstantRule(int newClockSkew, int newExpires) {
         clockSkew = newClockSkew;
         expires = newExpires;
+        requiredRule = true;
+    }
+    
+    /**
+     * Gets whether this rule is required to be met.
+     * 
+     * @return whether this rule is required to be met
+     */
+    public boolean isRequiredRule() {
+        return requiredRule;
+    }
+    
+    /**
+     * Sets whether this rule is required to be met.
+     * 
+     * @param required whether this rule is required to be met
+     */
+    public void setRequiredRule(boolean required) {
+        requiredRule = required;
     }
 
     /** {@inheritDoc} */
@@ -61,8 +83,12 @@ public class IssueInstantRule implements SecurityPolicyRule {
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
         if (samlMsgCtx.getInboundSAMLMessageIssueInstant() == null) {
-            log.error("Inbound SAML message issue instant not present in message context");
-            throw new SecurityPolicyException("Inbound SAML message issue instant not present in message context");
+            if(requiredRule){
+                log.error("Inbound SAML message issue instant not present in message context");
+                throw new SecurityPolicyException("Inbound SAML message issue instant not present in message context");
+            }else{
+                return;
+            }
         }
 
         DateTime issueInstant = samlMsgCtx.getInboundSAMLMessageIssueInstant();

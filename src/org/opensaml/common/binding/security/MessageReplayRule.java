@@ -36,6 +36,9 @@ public class MessageReplayRule implements SecurityPolicyRule {
     /** Message replay cache instance to use. */
     private ReplayCache replayCache;
 
+    /** Whether this rule is required to be met. */
+    private boolean requiredRule;
+
     /**
      * Constructor.
      * 
@@ -43,6 +46,25 @@ public class MessageReplayRule implements SecurityPolicyRule {
      */
     public MessageReplayRule(ReplayCache newReplayCache) {
         replayCache = newReplayCache;
+        requiredRule = true;
+    }
+
+    /**
+     * Gets whether this rule is required to be met.
+     * 
+     * @return whether this rule is required to be met
+     */
+    public boolean isRequiredRule() {
+        return requiredRule;
+    }
+
+    /**
+     * Sets whether this rule is required to be met.
+     * 
+     * @param required whether this rule is required to be met
+     */
+    public void setRequiredRule(boolean required) {
+        requiredRule = required;
     }
 
     /** {@inheritDoc} */
@@ -53,21 +75,15 @@ public class MessageReplayRule implements SecurityPolicyRule {
         }
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
-        
-        if(samlMsgCtx.getInboundSAMLMessage() == null){
-            //This is in case people are using the proprietary SAML 1 SP-initiated authn URL GET type invocations
-            log.debug("Message context did not contain a SAML message, replay check not possible.");
-            return;
-        }
 
-        String messageIsuer = samlMsgCtx.getInboundMessageIssuer();
-        if (DatatypeHelper.isEmpty(messageIsuer)) {
+        String messageIsuer = DatatypeHelper.safeTrimOrNullString(samlMsgCtx.getInboundMessageIssuer());
+        if (messageIsuer == null && requiredRule) {
             log.error("Message contained no Issuer ID, replay check not possible");
-            return;
+            throw new SecurityPolicyException("Message contained no Issuer ID, replay check not possible");
         }
 
-        String messageId = samlMsgCtx.getInboundSAMLMessageId();
-        if (DatatypeHelper.isEmpty(messageId)) {
+        String messageId = DatatypeHelper.safeTrimOrNullString(samlMsgCtx.getInboundSAMLMessageId());
+        if (messageId == null && requiredRule) {
             log.error("Message contained no ID, replay check not possible");
             throw new SecurityPolicyException("SAML message from issuer " + messageIsuer + " did not contain an ID");
         }
