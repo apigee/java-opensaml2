@@ -136,15 +136,18 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
         log.debug("Refreshing metadata from file {}", metadataFile);
         try {
             XMLObject metadata = unmarshallMetadata(new FileReader(metadataFile));
-            if(SAML2Helper.getEarliestExpiration(metadata).isBeforeNow() && !maintainExpiredMetadata()){
+            if (SAML2Helper.getEarliestExpiration(metadata).isBeforeNow() && !maintainExpiredMetadata()) {
+                log.debug(
+                        "Metadata from file {} is expired and provider is configured not to retain expired metadata.",
+                        metadataFile);
                 cachedMetadata = null;
-            }else{            
+            } else {
                 cachedMetadata = metadata;
                 filterMetadata(cachedMetadata);
                 releaseMetadataDOM(cachedMetadata);
             }
-            
-            lastUpdate = metadataFile.lastModified();            
+
+            lastUpdate = metadataFile.lastModified();
             emitChangeEvent();
         } catch (FileNotFoundException e) {
             String errorMsg = "Unable to read metadata file";
