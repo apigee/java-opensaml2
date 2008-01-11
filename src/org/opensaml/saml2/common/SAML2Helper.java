@@ -62,7 +62,7 @@ public class SAML2Helper {
      */
     public static DateTime getEarliestExpiration(XMLObject xmlObject) {
         DateTime now = new DateTime();
-        return getEarliestExpiration(xmlObject, now, now);
+        return getEarliestExpiration(xmlObject, null, now);
     }
 
     /**
@@ -88,8 +88,12 @@ public class SAML2Helper {
 
             if (cacheInfo.getCacheDuration() != null && cacheInfo.getCacheDuration().longValue() > 0) {
                 elementExpirationTime = now.plus(cacheInfo.getCacheDuration().longValue());
-                if (elementExpirationTime.isBefore(expirationTime)) {
+                if(expirationTime == null){
                     expirationTime = elementExpirationTime;
+                }else{
+                    if (elementExpirationTime.isBefore(expirationTime)) {
+                        expirationTime = elementExpirationTime;
+                    }
                 }
             }
         }
@@ -98,9 +102,12 @@ public class SAML2Helper {
         if (xmlObject instanceof TimeBoundSAMLObject) {
             TimeBoundSAMLObject timeBoundObject = (TimeBoundSAMLObject) xmlObject;
             elementExpirationTime = timeBoundObject.getValidUntil();
-
-            if (elementExpirationTime != null && elementExpirationTime.isBefore(earliestExpiration)) {
-                earliestExpiration = elementExpirationTime;
+            if(expirationTime == null){
+                expirationTime = elementExpirationTime;
+            }else{
+                if (elementExpirationTime.isBefore(expirationTime)) {
+                    expirationTime = elementExpirationTime;
+                } 
             }
         }
 
