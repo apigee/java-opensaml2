@@ -77,6 +77,7 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
 
         metadataFile = metadata;
         maintainExpiredMetadata = true;
+        lastUpdate = -1;
     }
 
     /**
