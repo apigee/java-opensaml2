@@ -212,7 +212,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
     }
 
     /**
-     * Refreshes the metadata cache. Metadata is fetched fromt he URL through an HTTP get, unmarshalled, and then
+     * Refreshes the metadata cache. Metadata is fetched from the URL through an HTTP get, unmarshalled, and then
      * filtered. This method also clears out the entity ID to entity descriptor cache.
      * 
      * @throws MetadataProviderException thrown if the metadata can not be read, unmarshalled, and filtered
@@ -230,11 +230,10 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
 
             log.debug("Calculating expiration time");
             DateTime now = new DateTime();
-            mdExpirationTime = SAML2Helper
-                    .getEarliestExpiration(metadata, now.plus(maxCacheDuration * 1000), now);
+            mdExpirationTime = SAML2Helper.getEarliestExpiration(metadata, now.plus(maxCacheDuration * 1000), now);
             log.debug("Metadata cache expires on " + mdExpirationTime);
 
-            if (mdExpirationTime.isBeforeNow() && !maintainExpiredMetadata()) {
+            if (mdExpirationTime != null && !maintainExpiredMetadata() && mdExpirationTime.isBeforeNow()) {
                 cachedMetadata = null;
             } else {
                 cachedMetadata = metadata;
@@ -275,7 +274,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
         }
         httpClient.executeMethod(getMethod);
 
-        if(log.isTraceEnabled()){
+        if (log.isTraceEnabled()) {
             log.trace("Retrieved the following metadata document\n{}", getMethod.getResponseBodyAsString());
         }
         XMLObject metadata = unmarshallMetadata(new InputStreamReader(getMethod.getResponseBodyAsStream()));
