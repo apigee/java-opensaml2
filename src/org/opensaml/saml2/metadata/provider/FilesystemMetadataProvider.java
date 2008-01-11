@@ -133,6 +133,7 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
             return;
         }
 
+        log.debug("Refreshing metadata from file {}", metadataFile);
         try {
             XMLObject metadata = unmarshallMetadata(new FileReader(metadataFile));
             if(SAML2Helper.getEarliestExpiration(metadata).isBeforeNow() && !maintainExpiredMetadata()){
