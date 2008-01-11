@@ -336,4 +336,9 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     public void setOutboundMessageArtifactType(byte[] type) {
         artifactType = type;
     }
+
+    /** {@inheritDoc} */
+    public boolean isAuthenticatedMessage() {
+        return isInboundSAMLMessageAuthenticated() || super.isAuthenticatedMessage();
+    }
 }
