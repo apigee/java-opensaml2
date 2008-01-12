@@ -117,12 +117,13 @@ public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder {
     protected InputStream decodeMessage(String message) throws MessageDecodingException {
         log.debug("Base64 decoding and inflating SAML message");
 
+        byte[] decodedBytes = Base64.decode(message);
+        if(decodedBytes == null){
+            log.error("Unable to Base64 decode incoming message");
+            throw new MessageDecodingException("Unable to Base64 decode incoming message");
+        }
+        
         try {
-            byte[] decodedBytes = Base64.decode(message);
-            if(decodedBytes == null){
-                log.error("Unable to Base64 decode SAML message");
-                throw new MessageDecodingException("Unable to Base64 decode SAML message");
-            }
             ByteArrayInputStream bytesIn = new ByteArrayInputStream(decodedBytes);
             InflaterInputStream inflater = new InflaterInputStream(bytesIn, new Inflater(true));
             return inflater;
