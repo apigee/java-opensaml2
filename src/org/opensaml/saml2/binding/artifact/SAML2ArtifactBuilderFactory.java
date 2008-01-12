@@ -74,6 +74,10 @@ public class SAML2ArtifactBuilderFactory {
      * @return constructed artifact
      */
     public AbstractSAML2Artifact buildArtifact(byte[] artifact) {
+        if(artifact == null){
+            return null;
+        }
+        
         byte[] type = new byte[2];
         type[0] = artifact[0];
         type[1] = artifact[1];

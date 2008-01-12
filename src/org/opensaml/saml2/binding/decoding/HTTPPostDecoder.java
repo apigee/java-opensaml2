@@ -113,9 +113,13 @@ public class HTTPPostDecoder extends BaseSAML2MessageDecoder {
         }
 
         log.trace("Base64 decoding SAML message:\n{}", encodedMessage);
-        byte[] decodedMessage = Base64.decode(encodedMessage);
+        byte[] decodedBytes = Base64.decode(encodedMessage);
+        if(decodedBytes == null){
+            log.error("Unable to Base64 decode SAML message");
+            throw new MessageDecodingException("Unable to Base64 decode SAML message");
+        }
 
-        log.trace("Decoded SAML message:\n{}", new String(decodedMessage));
-        return new ByteArrayInputStream(decodedMessage);
+        log.trace("Decoded SAML message:\n{}", new String(decodedBytes));
+        return new ByteArrayInputStream(decodedBytes);
     }
 }
