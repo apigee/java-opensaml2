@@ -91,7 +91,7 @@ public class SAML2Helper {
                 if(expirationTime == null){
                     expirationTime = elementExpirationTime;
                 }else{
-                    if (elementExpirationTime.isBefore(expirationTime)) {
+                    if (elementExpirationTime != null && elementExpirationTime.isBefore(expirationTime)) {
                         expirationTime = elementExpirationTime;
                     }
                 }
@@ -105,7 +105,7 @@ public class SAML2Helper {
             if(expirationTime == null){
                 expirationTime = elementExpirationTime;
             }else{
-                if (elementExpirationTime.isBefore(expirationTime)) {
+                if (elementExpirationTime != null && elementExpirationTime.isBefore(expirationTime)) {
                     expirationTime = elementExpirationTime;
                 } 
             }
