@@ -338,7 +338,7 @@ public class BasicSAMLMessageContext<InboundMessageType extends SAMLObject, Outb
     }
 
     /** {@inheritDoc} */
-    public boolean isAuthenticatedMessage() {
-        return isInboundSAMLMessageAuthenticated() || super.isAuthenticatedMessage();
+    public boolean isIssuerAuthenticated() {
+        return isInboundSAMLMessageAuthenticated() || super.isIssuerAuthenticated();
     }
 }
