@@ -224,7 +224,8 @@ public class SignatureValidationFilter implements MetadataFilter {
      *                          of the signature being evaluated
      * @param isEntityGroup flag indicating whether the signed object is a metadata group (EntitiesDescriptor),
      *                      primarily useful for constructing a criteria set for the trust engine
-     * @throws FilterException thrown if an error occurs during the signature verification process
+     * @throws FilterException thrown if the metadata entry's signature can not be established as trusted,
+     *                         or if an error occurs during the signature verification process
      */
     protected void verifySignature(SignableXMLObject signedMetadata, String metadataEntryName, 
             boolean isEntityGroup) throws FilterException {
@@ -243,10 +244,18 @@ public class SignatureValidationFilter implements MetadataFilter {
         CriteriaSet criteriaSet = buildCriteriaSet(signedMetadata, metadataEntryName, isEntityGroup);
         
         try {
-            getSignatureTrustEngine().validate(signature, criteriaSet);
+            if ( getSignatureTrustEngine().validate(signature, criteriaSet) ) {
+                log.trace("Signature trust establishment succeeded for metadata entry {}", metadataEntryName);
+                return;
+            } else {
+                log.error("Signature trust establishment failed for metadata entry {}", metadataEntryName);
+                throw new FilterException("Signature trust establishment failed for metadata entry");
+            }
         } catch (SecurityException e) {
-            log.error("Signature verification failed for metadata entry: {}", metadataEntryName);
-            throw new FilterException("Signature verification on metadata entry failed", e);
+            // Treat evaluation errors as fatal
+            log.error("Error processing signature verification for metadata entry '{}': {} ",
+                    metadataEntryName, e.getMessage());
+            throw new FilterException("Error processing signature verification for metadata entry", e);
         }
     }
 
