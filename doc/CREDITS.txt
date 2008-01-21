@@ -4,45 +4,32 @@ OpenSAML2 Java Stack Implementation Team
 ------------------------------
    Nate Klingenstein
    Internet2
-   ndk at internet2.edu
    
    Chad La Joie
-   Georgetown University
-   lajoie at georgetown.edu
-
+   SWITCH
 
  Software Development
 ------------------------------ 
    Scott Cantor
    The Ohio State University
-   cantor.2 at osu.edu
-   
-   Daniel Fisher
-   Virginia Tech
-   daniel.fisher at vt.edu
-   
+      
    Chad La Joie
-   Georgetown University
-   lajoie at georgetown.edu
-   
+   SWITCH
+     
    Brent Putman
-   Georgetown University
-   putmanb at georgetown.edu
    
    Rod Widdowson
    University of Edinburgh
-   rdw at steadingsoftware.com
 
  Project Management
 ------------------------------
    Steven Carmody
    Brown University
-   Steven_Carmody at brown.edu
    
    Ken Klingenstein
    Internet2
-   kjk at internet2.edu
    
    RL "Bob" Morgan
    University of Washington
-   rlmorgan at washington.edu
+   
+Additional Contributions by:

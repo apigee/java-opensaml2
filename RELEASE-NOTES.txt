@@ -1,4 +1,4 @@
-OpenSAML-J version 2.0 Trunk
+OpenSAML-J version 2.0 - Release Candidate 1
 =============================================
 
 OpenSAML-J is a low-level library that allow developers to work with XML in a
@@ -24,5 +24,5 @@ http://www.opensaml.org/index.html#mailing
 Issues, Suggestions
 --------
 Issues or suggestions for improvement may submitted to the OpenWS - Java
-projact at:
+project at:
 http://bugs.internet2.edu
