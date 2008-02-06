@@ -92,5 +92,8 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder {
         artifactContext.setInboundMessageIssuer(artifactEntry.getIssuerId());
 
         populateMessageContext(artifactContext);
+        
+        // TODO enable when finished
+        //checkDestination(artifactContext, false);
     }
 }

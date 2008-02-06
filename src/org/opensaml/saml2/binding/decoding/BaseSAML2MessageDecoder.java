@@ -16,11 +16,15 @@
 
 package org.opensaml.saml2.binding.decoding;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
@@ -34,9 +38,13 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
+import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
+import org.opensaml.ws.transport.InTransport;
+import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -224,4 +232,158 @@ public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder impleme
                     + messageContext.getInboundMessageIssuer(), e);
         }
     }
+    
+    /**
+     * Check the validity of the SAML protocol message destination attribute.
+     * 
+     * @param messageContext current message context
+     * @param bindingRequires flag to indicate whether the binding requires the protocol message
+     *                        destination attribute to be present and valid on the SAML message
+     *                        represented by this message context
+     * @throws MessageDecodingException thrown if the message destination attribute is invalid
+     *                                  with respect to the receiver's endpoint
+     */
+    protected void checkDestination(SAMLMessageContext messageContext, boolean bindingRequires) 
+            throws MessageDecodingException {
+        
+        log.debug("Checking SAML 2 message destination against receiver endpoint");
+        
+        SAMLObject samlMessage = messageContext.getInboundSAMLMessage();
+        String messageDestination = getDestinationURI(samlMessage);
+        
+        if (messageDestination == null) {
+            if (bindingRequires) {
+                log.error("SAML 2 protocol message destination required by binding was empty");
+                throw new MessageDecodingException("SAML 2 protocol message destination was not specified");
+            } else {
+                log.debug("SAML 2 protocol message destination was empty, not required by binding, skipping");
+                return;
+            }
+        }
+        
+        String receiverEndpoint = getReceiverEndpointURI(messageContext);
+        
+        log.debug("Message destination: {}", messageDestination);
+        log.debug("Receiver endpoint: {}", receiverEndpoint);
+        
+        boolean matched = compareEndpointURIs(messageDestination, receiverEndpoint);
+        if (!matched) {
+            log.error("SAML 2 message destination '{}' did not match the recipient endpoint '{}'",
+                    messageDestination, receiverEndpoint);
+            throw new MessageDecodingException("SAML 2 message destination did not match recipient endpoint");
+        } else {
+            log.debug("Message destination matched recipient endpoint");
+        }
+    }
+    
+    /**
+     * Extract the protocol message destination attribute value.
+     * 
+     * @param samlMessage the SAML 2 protocol message being processed
+     * @return the value of the destination attribute, or null if not present or empty
+     * @throws MessageDecodingException thrown if the message is not an instance of a SAML 2 request or response
+     */
+    protected String getDestinationURI(SAMLObject samlMessage) throws MessageDecodingException {
+        String messageDestination = null;
+        if (samlMessage instanceof RequestAbstractType) {
+            RequestAbstractType request =  (RequestAbstractType) samlMessage;
+            messageDestination = DatatypeHelper.safeTrimOrNullString(request.getDestination());
+        } else if (samlMessage instanceof StatusResponseType) {
+            StatusResponseType response = (StatusResponseType) samlMessage;
+            messageDestination = DatatypeHelper.safeTrimOrNullString(response.getDestination());
+        } else {
+            log.error("Invalid SAML message type encountered: {}", samlMessage.getElementQName().toString());
+            throw new MessageDecodingException("Invalid SAML message type encountered");
+        }
+        return messageDestination;
+    }
+    
+    /**
+     * Extract the transport endpoint at which this message was received.
+     * 
+     * <p>This default implementation assumes an underlying message context {@link InTransport} type
+     * of {@link HttpServletRequestAdapter} and returns the string representation of the underlying
+     * request URL as constructed via {@link HttpServletRequest#getRequestURL()}, with the query
+     * string appended as returned via {@link HttpServletRequest#getQueryString()}.<p>
+     * 
+     * <p>Subclasses should override if binding-specific behavior or support for other transport
+     * typs is required.  In this case, see also {@link #compareEndpointURIs(String, String).</p>
+     * 
+     * 
+     * @param messageContext current message context
+     * @return string representing the transport endpoint URI at which the current message was received
+     * @throws MessageDecodingException thrown if the endpoint can not be extracted from the message
+     *                              context and converted to a string representation
+     */
+    protected String getReceiverEndpointURI(SAMLMessageContext messageContext) throws MessageDecodingException {
+        InTransport inTransport = messageContext.getInboundMessageTransport();
+        if (! (inTransport instanceof HttpServletRequestAdapter)) {
+            log.error("Message context InTransport instance was an unsupported type: {}", 
+                    inTransport.getClass().getName());
+            throw new MessageDecodingException("Message context InTransport instance was an unsupported type");
+        }
+        HttpServletRequest httpRequest = ((HttpServletRequestAdapter)inTransport).getWrappedRequest();
+        
+        StringBuffer urlBuilder = httpRequest.getRequestURL();
+        if (httpRequest.getQueryString() != null) {
+            urlBuilder.append('?');
+            urlBuilder.append(httpRequest.getQueryString());
+        }
+        return urlBuilder.toString();
+    }
+
+    /**
+     * Compare the message endpoint URI's specified.
+     * 
+     * <p>This default implementation handles endpoint URI's that are URL's.  Comparison is handled
+     * via constructing {@link URL} instances and using that implementation's equals() method.</p>
+     * 
+     * <p>Subclasses should override if binding-specific behavior is required, or to support other
+     * types of URI's.  In this case, see also {@link #getReceiverEndpointURI(SAMLMessageContext)}.</p>
+     * 
+     * @param messageDestination the intended message destination endpoint URI
+     * @param receiverEndpoint the endpoint URI at which the message was received
+     * @return true if the endpoints are equivalent, false otherwise
+     * @throws MessageDecodingException thrown if the endpoints specified are not equivalent
+     */
+    protected boolean compareEndpointURIs(String messageDestination, String receiverEndpoint) 
+            throws MessageDecodingException {
+        
+        URL messageURL = null;
+        try {
+            messageURL = new URL(messageDestination);
+        } catch (MalformedURLException e) {
+            log.error("Message destination URL was malformed in destination check: {}", e.getMessage());
+            throw new MessageDecodingException("Message destination URL was malformed in destination check");
+        }
+        
+        URL endpointURL = null;
+        try {
+            endpointURL = new URL(receiverEndpoint);
+        } catch (MalformedURLException e) {
+            log.error("Recipient endpoint URL was malformed in destination check: {}", e.getMessage());
+            throw new MessageDecodingException("Recipient endpoint URL was malformed in destination check");
+        }
+        
+        return messageURL.equals(endpointURL);
+    }
+    
+    /**
+     * Determine whether the SAML message represented by the message context is digitally signed.
+     * 
+     * <p>The default behavior is to examine whether an XML signature is present on the 
+     * SAML protocol message.  Subclasses may augment or replace with binding-specific behavior.</p>
+     * 
+     * @param messageContext current message context
+     * @return true if the message is considered to be digitially signed, false otherwise
+     */
+    protected boolean isMessageSigned(SAMLMessageContext messageContext) {
+        SAMLObject samlMessage = messageContext.getInboundSAMLMessage();
+        if (samlMessage instanceof SignableSAMLObject) {
+            return ((SignableSAMLObject)samlMessage).isSigned();
+        } else {
+            return false;
+        }
+    }
+    
 }

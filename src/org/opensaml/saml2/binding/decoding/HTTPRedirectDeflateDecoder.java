@@ -103,6 +103,16 @@ public class HTTPRedirectDeflateDecoder extends BaseSAML2MessageDecoder {
         log.debug("Decoded SAML message");
 
         populateMessageContext(samlMsgCtx);
+        
+        // TODO enable when finished
+        //checkDestination(samlMsgCtx, isMessageSigned(samlMsgCtx));
+    }
+    
+    /** {@inheritDoc} */
+    protected boolean isMessageSigned(SAMLMessageContext messageContext) {
+        HTTPInTransport inTransport = (HTTPInTransport) messageContext.getInboundMessageTransport();
+        String sigParam = inTransport.getParameterValue("Signature");
+        return (!DatatypeHelper.isEmpty(sigParam)) || super.isMessageSigned(messageContext);
     }
 
     /**

@@ -142,6 +142,9 @@ public class HTTPSOAP11Decoder extends BaseSAML2MessageDecoder {
         samlMsgCtx.setInboundSAMLMessage(samlMessage);
 
         populateMessageContext(samlMsgCtx);
+        
+        // TODO enable when finished
+        //checkDestination(samlMsgCtx, false);
     }
 
     /**

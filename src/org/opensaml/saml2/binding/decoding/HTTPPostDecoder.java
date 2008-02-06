@@ -88,6 +88,9 @@ public class HTTPPostDecoder extends BaseSAML2MessageDecoder {
         log.debug("Decoded SAML message");
 
         populateMessageContext(samlMsgCtx);
+        
+        // TODO enable when finished
+        //checkDestination(samlMsgCtx, isMessageSigned(samlMsgCtx));
     }
 
     /**
