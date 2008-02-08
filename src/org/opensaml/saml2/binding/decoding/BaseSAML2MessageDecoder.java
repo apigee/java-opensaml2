@@ -38,7 +38,6 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
-import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.InTransport;
@@ -307,7 +306,7 @@ public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder impleme
      * string appended as returned via {@link HttpServletRequest#getQueryString()}.<p>
      * 
      * <p>Subclasses should override if binding-specific behavior or support for other transport
-     * typs is required.  In this case, see also {@link #compareEndpointURIs(String, String).</p>
+     * typs is required.  In this case, see also {@link #compareEndpointURIs(String, String)}.</p>
      * 
      * 
      * @param messageContext current message context

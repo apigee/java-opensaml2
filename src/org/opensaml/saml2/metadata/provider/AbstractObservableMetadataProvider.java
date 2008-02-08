@@ -42,12 +42,13 @@ public abstract class AbstractObservableMetadataProvider extends AbstractMetadat
     }
 
     /**
-     * Convience method for calling {@link Observer#onEvent(MetadataProvider)} on every registered Observer passing in
-     * this provider.
+     * Helper method for calling
+     * {@link org.opensaml.saml2.metadata.provider.ObservableMetadataProvider.Observer#onEvent(MetadataProvider)} on
+     * every registered Observer passing in this provider.
      */
     protected void emitChangeEvent() {
-        synchronized(observers){
-            for(Observer observer : observers){
+        synchronized (observers) {
+            for (Observer observer : observers) {
                 if (observer != null) {
                     observer.onEvent(this);
                 }

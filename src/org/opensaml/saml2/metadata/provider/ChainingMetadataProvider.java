@@ -260,8 +260,9 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
     }
 
     /**
-     * Convenience method for calling {@link Observer#onEvent(MetadataProvider)} on every registered Observer passing in
-     * this provider.
+     * Convenience method for calling
+     * {@link org.opensaml.saml2.metadata.provider.ObservableMetadataProvider.Observer#onEvent(MetadataProvider)} on
+     * every registered Observer passing in this provider.
      */
     protected void emitChangeEvent() {
         synchronized (observers) {
