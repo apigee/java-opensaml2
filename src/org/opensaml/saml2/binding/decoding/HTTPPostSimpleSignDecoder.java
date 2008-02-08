@@ -22,7 +22,7 @@ import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.DatatypeHelper;
 
-/** Message decoder implementing the SAML 2.0 HTTP POST-SimpleSign profile. */
+/** Message decoder implementing the SAML 2.0 HTTP POST-SimpleSign binding. */
 public class HTTPPostSimpleSignDecoder extends HTTPPostDecoder {
 
     /**

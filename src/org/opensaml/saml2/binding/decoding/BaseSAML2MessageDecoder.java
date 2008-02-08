@@ -38,11 +38,13 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
+import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.BaseMessageDecoder;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.InTransport;
 import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +69,14 @@ public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder impleme
      */
     public BaseSAML2MessageDecoder(ParserPool pool) {
         super(pool);
+    }
+
+    /** {@inheritDoc} */
+    public void decode(MessageContext messageContext) throws MessageDecodingException, SecurityException {
+        super.decode(messageContext);
+        
+        // TODO enable when tested
+        //checkDestination((SAMLMessageContext) messageContext);
     }
 
     /**
@@ -233,29 +243,39 @@ public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder impleme
     }
     
     /**
-     * Check the validity of the SAML protocol message destination attribute.
+     * Determine whether the binding implemented by the decoder requires the presence of the 
+     * protocol message Destination attribute.
+     * 
+     * @param samlMsgCtx current SAML message context
+     * @return true if Destination is required, false if not
+     */
+    protected abstract boolean isDestinationRequired(SAMLMessageContext samlMsgCtx);
+    
+    /**
+     * Check the validity of the SAML 2 protocol message Destination attribute.
      * 
      * @param messageContext current message context
-     * @param bindingRequires flag to indicate whether the binding requires the protocol message
-     *                        destination attribute to be present and valid on the SAML message
-     *                        represented by this message context
-     * @throws MessageDecodingException thrown if the message destination attribute is invalid
+     * @throws SecurityException thrown if the message Destination attribute is invalid
      *                                  with respect to the receiver's endpoint
+     * @throws MessageDecodingException thrown if there is a problem decoding and processing
+     *                                  the message Destination or receiver
+     *                                  endpoint information
      */
-    protected void checkDestination(SAMLMessageContext messageContext, boolean bindingRequires) 
-            throws MessageDecodingException {
+    protected void checkDestination(SAMLMessageContext messageContext) 
+            throws SecurityException, MessageDecodingException {
         
-        log.debug("Checking SAML 2 message destination against receiver endpoint");
+        log.debug("Checking SAML 2 message Destination against receiver endpoint");
         
+        boolean bindingRequires = isDestinationRequired(messageContext);
         SAMLObject samlMessage = messageContext.getInboundSAMLMessage();
         String messageDestination = getDestinationURI(samlMessage);
         
         if (messageDestination == null) {
             if (bindingRequires) {
-                log.error("SAML 2 protocol message destination required by binding was empty");
-                throw new MessageDecodingException("SAML 2 protocol message destination was not specified");
+                log.error("SAML 2 protocol message Destination required by binding was empty");
+                throw new SecurityException("SAML 2 protocol message Destination (required by binding) was not specified");
             } else {
-                log.debug("SAML 2 protocol message destination was empty, not required by binding, skipping");
+                log.debug("SAML 2 protocol message Destination was empty, not required by binding, skipping");
                 return;
             }
         }
@@ -267,11 +287,11 @@ public abstract class BaseSAML2MessageDecoder extends BaseMessageDecoder impleme
         
         boolean matched = compareEndpointURIs(messageDestination, receiverEndpoint);
         if (!matched) {
-            log.error("SAML 2 message destination '{}' did not match the recipient endpoint '{}'",
+            log.error("SAML 2 protocol message Destination '{}' did not match the recipient endpoint '{}'",
                     messageDestination, receiverEndpoint);
-            throw new MessageDecodingException("SAML 2 message destination did not match recipient endpoint");
+            throw new SecurityException("SAML 2 message Destination did not match recipient endpoint");
         } else {
-            log.debug("Message destination matched recipient endpoint");
+            log.debug("Message Destination matched recipient endpoint");
         }
     }
     

@@ -16,6 +16,7 @@
 
 package org.opensaml.saml2.binding.decoding;
 
+import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.common.xml.SAMLConstants;
@@ -52,6 +53,11 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder {
     /** {@inheritDoc} */
     public String getBindingURI() {
         return SAMLConstants.SAML2_ARTIFACT_BINDING_URI;
+    }
+
+    /** {@inheritDoc} */
+    protected boolean isDestinationRequired(SAMLMessageContext samlMsgCtx) {
+        return false;
     }
 
     /** {@inheritDoc} */
@@ -92,8 +98,5 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder {
         artifactContext.setInboundMessageIssuer(artifactEntry.getIssuerId());
 
         populateMessageContext(artifactContext);
-        
-        // TODO enable when finished
-        //checkDestination(artifactContext, false);
     }
 }

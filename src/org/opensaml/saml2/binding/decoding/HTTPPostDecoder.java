@@ -31,7 +31,7 @@ import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Message decoder implementing the SAML 2.0 HTTP POST profile. */
+/** Message decoder implementing the SAML 2.0 HTTP POST binding. */
 public class HTTPPostDecoder extends BaseSAML2MessageDecoder {
 
     /** Class logger. */
@@ -54,6 +54,11 @@ public class HTTPPostDecoder extends BaseSAML2MessageDecoder {
     /** {@inheritDoc} */
     public String getBindingURI() {
         return SAMLConstants.SAML2_POST_BINDING_URI;
+    }
+
+    /** {@inheritDoc} */
+    protected boolean isDestinationRequired(SAMLMessageContext samlMsgCtx) {
+        return isMessageSigned(samlMsgCtx);
     }
 
     /** {@inheritDoc} */
@@ -88,9 +93,6 @@ public class HTTPPostDecoder extends BaseSAML2MessageDecoder {
         log.debug("Decoded SAML message");
 
         populateMessageContext(samlMsgCtx);
-        
-        // TODO enable when finished
-        //checkDestination(samlMsgCtx, isMessageSigned(samlMsgCtx));
     }
 
     /**
