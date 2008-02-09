@@ -37,6 +37,7 @@ public class HTTPSOAP11DecoderTest extends BaseTestCase {
                 + "MinorVersion=\"1\" RequestID=\"foo\" xmlns:saml=\"urn:oasis:names:tc:SAML:1.0:protocol\"/>"
                 + "</soap11:Body></soap11:Envelope>";
         MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setMethod("POST");
         request.setContent(requestContent.getBytes());
 
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();

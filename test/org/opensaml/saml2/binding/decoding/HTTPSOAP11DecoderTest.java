@@ -38,6 +38,7 @@ public class HTTPSOAP11DecoderTest extends BaseTestCase {
                 + "Value=\"urn:oasis:names:tc:SAML:2.0:status:Success\"/></samlp:Status></samlp:Response>"
                 + "</soap11:Body></soap11:Envelope>";
         MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setMethod("POST");
         request.setContent(requestContent.getBytes());
 
         BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext();

@@ -1,10 +1,9 @@
 ##
-## Velocity Template for SAML 2 HTTP-POST binding
+## Velocity Template for SAML 1 HTTP-POST binding
 ##
 ## Velocity context may contain the following properties
 ## action - String - the action URL for the form
-## RelayState - String - the relay state for the message
-## SAMLRequest - String - the Base64 encoded SAML Request
+## TARGET - String - the relay state for the message
 ## SAMLResponse - String - the Base64 encoded SAML Response
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -21,7 +20,7 @@
             <div>                
                 #if($SAMLResponse)<input type="hidden" name="SAMLResponse" value="${SAMLResponse}"/>#end
                 
-                #if($Target)<input type="hidden" name="TARGET" value="${Target}"/>#end
+                #if($TARGET)<input type="hidden" name="TARGET" value="${TARGET}"/>#end
                 
             </div>
             <noscript>

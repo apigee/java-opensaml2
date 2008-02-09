@@ -83,9 +83,9 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder {
             throw new MessageDecodingException("This message deocoder only supports the HTTP POST method");
         }
 
-        String relayState = inTransport.getParameterValue("RelayState");
+        String relayState = inTransport.getParameterValue("TARGET");
         samlMsgCtx.setRelayState(relayState);
-        log.debug("Decoded SAML relay state of: {}", relayState);
+        log.debug("Decoded SAML relay state (TARGET parameter) of: {}", relayState);
 
         String base64Message = inTransport.getParameterValue("SAMLResponse");
         log.trace("Decoding base64 message:\n{}", base64Message);

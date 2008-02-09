@@ -29,6 +29,7 @@ public class HTTPRedirectDeflateDecoderTest extends BaseTestCase {
 
     public void testDecoding() throws Exception{
         MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setMethod("GET");
         request.setParameter("RelayState", "relay");
         // Note, Spring's Mock objects don't do URL encoding/decoding, so this is the URL decoded form
         request.setParameter("SAMLResponse", "fZAxa8NADIX3/opDe3yXLG2F7VASCoF2qdMM3Y6LkhrOp8PSlfz8uqYdvBTeIMHT08ert7chmi8apefUwLpyYCgFPvfp2sD78Xn1ANv2rhY/xIxvJJmTkNmTaJ+8zkefqhmtpZsfcqSKxyuYw76BC/M0iBQ6JFGfdMp/vHcrt550dA5nVc65DzCnP4TND8IElQTnpw2UMSF76QWTH0hQA3ZPry84OTGPrBw4QvuL2KnXIsttx2cyJx8L/R8msxu7EgKJgG1ruwy1yxrabw==");

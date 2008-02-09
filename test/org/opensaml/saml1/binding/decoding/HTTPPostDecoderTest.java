@@ -30,6 +30,7 @@ public class HTTPPostDecoderTest extends BaseTestCase {
     /** Test decoding message. */
     public void testDecode() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setMethod("POST");
         request.setParameter("TARGET", "relay");
         request.setParameter("SAMLResponse", "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWxwOlJlc3Bvbn"
                 + "NlIElzc3VlSW5zdGFudD0iMTk3MC0wMS0wMVQwMDowMDowMC4wMDBaIiBNYWpvclZlcnNpb249IjEiIE1pbm9yVmVyc2lvbj0i"

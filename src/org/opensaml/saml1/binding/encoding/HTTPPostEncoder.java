@@ -131,8 +131,8 @@ public class HTTPPostEncoder extends BaseSAML1MessageEncoder {
             context.put("SAMLResponse", encodedMessage);
 
             if (messageContext.getRelayState() != null) {
-                log.debug("Setting Target parameter to: {}", messageContext.getRelayState());
-                context.put("Target", messageContext.getRelayState());
+                log.debug("Setting TARGET parameter to: {}", messageContext.getRelayState());
+                context.put("TARGET", messageContext.getRelayState());
             }
 
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getOutboundMessageTransport();

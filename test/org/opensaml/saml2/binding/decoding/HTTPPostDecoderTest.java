@@ -33,6 +33,7 @@ public class HTTPPostDecoderTest extends BaseTestCase {
      */
     public void testRequestDecoding() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setMethod("POST");
         request.setParameter("RelayState", "relay");
         request.setParameter("SAMLRequest", "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWxwOkF1dGhuUm"
                 + "VxdWVzdCBJRD0iZm9vIiBJc3N1ZUluc3RhbnQ9IjE5NzAtMDEtMDFUMDA6MDA6MDAuMDAwWiIgVmVyc2lvbj0iMi4wIiB4bW"
@@ -54,6 +55,7 @@ public class HTTPPostDecoderTest extends BaseTestCase {
      */
     public void testResponseDecoding() throws Exception {
         MockHttpServletRequest request = new MockHttpServletRequest();
+        request.setMethod("POST");
         request.setParameter("RelayState", "relay");
         request.setParameter("SAMLResponse", "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHNhbWxwOlJlc3Bvbn"
                 + "NlIElEPSJmb28iIElzc3VlSW5zdGFudD0iMTk3MC0wMS0wMVQwMDowMDowMC4wMDBaIiBWZXJzaW9uPSIyLjAiIHhtbG5zOnN"
