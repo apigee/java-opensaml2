@@ -64,7 +64,9 @@ public class KeyDescriptorSchemaValidator implements Validator<KeyDescriptor> {
         if (use == null) {
             return;
         }
-        if (! use.equals(UsageType.SIGNING) && ! use.equals(UsageType.ENCRYPTION)) {
+        if (       ! use.equals(UsageType.SIGNING) 
+                && ! use.equals(UsageType.ENCRYPTION) 
+                && ! use.equals(UsageType.UNSPECIFIED) ) {
             throw new ValidationException("Invalid value for use attribute: " + use.toString());
         }
     }

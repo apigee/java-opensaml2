@@ -42,17 +42,6 @@ public class KeyDescriptorSchemaTest extends BaseSAMLObjectValidatorTestCase {
         KeyDescriptor keyDescriptor = (KeyDescriptor) target;
         keyDescriptor.setKeyInfo((KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME));
     }
-
-    /**
-     * Tests for use attribute failure.
-     */
-    public void testUseValuesFailure() {
-        KeyDescriptor keyDescriptor = (KeyDescriptor) target;
-
-        keyDescriptor.setUse(UsageType.UNSPECIFIED);
-        assertValidationFail("Use was explicitly set to an illegal value 'UNSPECIFIED', " 
-                + "should raise a Validation Exception.");
-    }
     
     /**
      * Tests for valid values of use attribute.
@@ -65,6 +54,9 @@ public class KeyDescriptorSchemaTest extends BaseSAMLObjectValidatorTestCase {
         
         keyDescriptor.setUse(UsageType.ENCRYPTION);
         assertValidationPass("Use attribute had legal value 'ENCRYPTION'");
+        
+        keyDescriptor.setUse(UsageType.UNSPECIFIED);
+        assertValidationPass("Use attribute had legal value 'UNSPECIFIED'");
     }
     
     /**

@@ -68,7 +68,12 @@ public class KeyDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (attribute.getName().equals(KeyDescriptor.USE_ATTRIB_NAME)) {
             try {
-                keyDescriptor.setUse(UsageType.valueOf(UsageType.class, attribute.getValue().toUpperCase()));
+                UsageType usageType =  UsageType.valueOf(UsageType.class, attribute.getValue().toUpperCase());
+                // Only allow the enum values specified in the schema.
+                if (usageType != UsageType.SIGNING && usageType != UsageType.ENCRYPTION) {
+                    throw new UnmarshallingException("Invalid key usage type: " + attribute.getValue());
+                }
+                keyDescriptor.setUse(usageType);
             } catch (IllegalArgumentException e) {
                 throw new UnmarshallingException("Invalid key usage type: " + attribute.getValue());
             }
