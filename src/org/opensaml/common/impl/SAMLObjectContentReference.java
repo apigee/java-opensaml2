@@ -34,6 +34,7 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.security.SecurityConfiguration;
 import org.opensaml.xml.signature.ContentReference;
 import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -144,8 +145,12 @@ public class SAMLObjectContentReference implements ContentReference {
                 }
             }
 
-            signature.addDocument("#" + signableObject.getSignatureReferenceID(), dsigTransforms,
-                    digestAlgorithm);
+            if ( ! DatatypeHelper.isEmpty(signableObject.getSignatureReferenceID()) ) {
+                signature.addDocument("#" + signableObject.getSignatureReferenceID(), dsigTransforms, digestAlgorithm);
+            } else {
+                log.debug("SignableSAMLObject had no reference ID, signing using whole document Reference URI");
+                signature.addDocument("" , dsigTransforms, digestAlgorithm);
+            }
             
         } catch (TransformationException e) {
             log.error("Unsupported signature transformation", e);
@@ -185,7 +190,14 @@ public class SAMLObjectContentReference implements ContentReference {
         if (signatureContent.getNamespaces() != null) {
             for (Namespace namespace : signatureContent.getNamespaces()) {
                 if (namespace != null) {
-                    namespacePrefixes.add(namespace.getNamespacePrefix());
+                    String namespacePrefix = namespace.getNamespacePrefix();
+                    // For the default namespace prefix, exclusive c14n uses the special token "#default".
+                    // Apache xmlsec requires this to be represented in the set with the
+                    // (completely undocumented) string "xmlns".
+                    if (namespacePrefix == null) {
+                        namespacePrefix = "xmlns";
+                    }
+                    namespacePrefixes.add(namespacePrefix);
                 }
             }
         }
