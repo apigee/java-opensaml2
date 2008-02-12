@@ -55,6 +55,13 @@
             <UnmarshallingClass className="org.opensaml.saml1.core.impl.AuthorizationDecisionQueryUnmarshaller" />
         </ObjectProvider>
 
+        <!-- RespondWith -->
+        <ObjectProvider qualifiedName="saml1p:RespondWith">
+            <BuilderClass className="org.opensaml.saml1.core.impl.RespondWithBuilder" />
+            <MarshallingClass className="org.opensaml.xml.schema.impl.XSQNameMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xml.schema.impl.XSQNameUnmarshaller" />
+        </ObjectProvider>
+
         <!-- Response -->
         <ObjectProvider qualifiedName="saml1p:Response">
             <BuilderClass className="org.opensaml.saml1.core.impl.ResponseBuilder" />

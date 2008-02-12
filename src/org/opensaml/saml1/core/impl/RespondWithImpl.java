@@ -22,6 +22,7 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.RespondWith;
+import org.opensaml.xml.Namespace;
 import org.opensaml.xml.XMLObject;
 
 /**
@@ -51,6 +52,7 @@ public class RespondWithImpl extends AbstractSAMLObject implements RespondWith {
     /** {@inheritDoc} */
     public void setValue(QName newValue) {
         value = prepareForAssignment(value, newValue);
+        addNamespace(new Namespace(value.getNamespaceURI(), value.getPrefix()));
     }
 
     /** {@inheritDoc} */
