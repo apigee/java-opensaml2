@@ -26,7 +26,7 @@ import org.opensaml.util.storage.ReplayCache.ReplayCacheEntry;
 /**
  * Testing SAML message replay security policy rule.
  */
-public class MessageReplayRuleTest extends BaseSAMLSecurityPolicyRuleTest<AttributeQuery, Response, NameID> {
+public class MessageReplayRuleTest extends BaseSAMLSecurityPolicyRuleTestCase<AttributeQuery, Response, NameID> {
 
     private String messageID;
 

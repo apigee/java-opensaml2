@@ -32,7 +32,7 @@ import org.opensaml.xml.XMLObject;
  * @param <OutboundMessageType> type of outbound SAML message (here unused)
  * @param <NameIDType> type of SAML context name identifier (here unused)
  */
-public abstract class BaseSAMLSecurityPolicyRuleTest<InboundMessageType extends SAMLObject, 
+public abstract class BaseSAMLSecurityPolicyRuleTestCase<InboundMessageType extends SAMLObject, 
     OutboundMessageType extends SAMLObject, NameIDType extends SAMLObject>  extends BaseTestCase {
     
     /** The security policy rule to evaluate. */

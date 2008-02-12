@@ -42,7 +42,7 @@ import org.opensaml.xml.signature.impl.ExplicitKeySignatureTrustEngine;
  * Test SAML protocol message XML signature rule.
  */
 public class SAMLProtocolMessageXMLSignatureSecurityPolicyRuleTest 
-    extends BaseSAMLSecurityPolicyRuleTest<AuthnRequest, Response, NameID> {
+    extends BaseSAMLSecurityPolicyRuleTestCase<AuthnRequest, Response, NameID> {
     
     private X509Certificate signingCert;
     private String signingCertBase64 = 

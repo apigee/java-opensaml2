@@ -26,7 +26,7 @@ import org.opensaml.ws.security.SecurityPolicyException;
 /**
  * Testing SAML issue instant security policy rule.
  */
-public class IssueInstantRuleTest extends BaseSAMLSecurityPolicyRuleTest<AttributeQuery, Response, NameID> {
+public class IssueInstantRuleTest extends BaseSAMLSecurityPolicyRuleTestCase<AttributeQuery, Response, NameID> {
     
     private int clockSkew;
     private int expires;
