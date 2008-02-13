@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package org.opensaml.samlext.saml2mdquery.impl;
+package org.opensaml.samlext.saml2mdquery;
+
+import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptor;
 
 /**
- * Marshaller of {@link AuthzDecisionQueryDescriptor} objects.
+ * SAML 2.0 Metadata extension AuthnQueryDescriptorType.
  */
-public class AuthzDecisionQueryDescriptorMarshaller extends QueryDescriptorTypeMarshaller {
+public interface AuthnQueryDescriptorType extends QueryDescriptorType {
 
-    /** Constructor */
-    public AuthzDecisionQueryDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MDQUERY_NS, AuthzDecisionQueryDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "AuthnQueryDescriptorType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20MDQUERY_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAML20MDQUERY_PREFIX);
 }

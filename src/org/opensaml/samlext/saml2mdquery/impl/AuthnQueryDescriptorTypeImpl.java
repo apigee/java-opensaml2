@@ -22,12 +22,12 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.Endpoint;
-import org.opensaml.samlext.saml2mdquery.AuthnQueryDescriptor;
+import org.opensaml.samlext.saml2mdquery.AuthnQueryDescriptorType;
 
 /**
- * Concrete implementation of {@link AuthnQueryDescriptor}.
+ * Concrete implementation of {@link AuthnQueryDescriptorType}.
  */
-public class AuthnQueryDescriptorImpl extends QueryDescriptorTypeImpl implements AuthnQueryDescriptor{
+public class AuthnQueryDescriptorTypeImpl extends QueryDescriptorTypeImpl implements AuthnQueryDescriptorType{
     
     /**
      * Constructor.
@@ -36,7 +36,7 @@ public class AuthnQueryDescriptorImpl extends QueryDescriptorTypeImpl implements
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
      */
-    protected AuthnQueryDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+    protected AuthnQueryDescriptorTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
     }
     

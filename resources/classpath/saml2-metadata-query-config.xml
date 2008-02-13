@@ -15,42 +15,24 @@
 		</ObjectProvider>
 		
 		<!-- AttributeQueryDescriptorType provider -->
-		<ObjectProvider qualifiedName="query:AttributeQueryDescriptor">
-			<BuilderClass className="org.opensaml.samlext.saml2mdquery.impl.AttributeQueryDescriptorBuilder" />
-			<MarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AttributeQueryDescriptorMarshaller" />
-			<UnmarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AttributeQueryDescriptorUnmarshaller" />
-		</ObjectProvider>
-		
 		<ObjectProvider qualifiedName="query:AttributeQueryDescriptorType">
-			<BuilderClass className="org.opensaml.samlext.saml2mdquery.impl.AttributeQueryDescriptorBuilder" />
-			<MarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AttributeQueryDescriptorMarshaller" />
-			<UnmarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AttributeQueryDescriptorUnmarshaller" />
+			<BuilderClass className="org.opensaml.samlext.saml2mdquery.impl.AttributeQueryDescriptorTypeBuilder" />
+			<MarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AttributeQueryDescriptorTypeMarshaller" />
+			<UnmarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AttributeQueryDescriptorTypeUnmarshaller" />
 		</ObjectProvider>
 
 		<!-- AuthnQueryDescriptorType provider -->
-		<ObjectProvider qualifiedName="query:AuthnQueryDescriptor">
-			<BuilderClass className="org.opensaml.samlext.saml2mdquery.impl.AuthnQueryDescriptorBuilder" />
-			<MarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AuthnQueryDescriptorMarshaller" />
-			<UnmarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AuthnQueryDescriptorUnmarshaller" />
-		</ObjectProvider>
-		
 		<ObjectProvider qualifiedName="query:AuthnQueryDescriptorType">
-			<BuilderClass className="org.opensaml.samlext.saml2mdquery.impl.AuthnQueryDescriptorBuilder" />
-			<MarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AuthnQueryDescriptorMarshaller" />
-			<UnmarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AuthnQueryDescriptorUnmarshaller" />
+			<BuilderClass className="org.opensaml.samlext.saml2mdquery.impl.AuthnQueryDescriptorTypeBuilder" />
+			<MarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AuthnQueryDescriptorTypeMarshaller" />
+			<UnmarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AuthnQueryDescriptorTypeUnmarshaller" />
 		</ObjectProvider>
 
 		<!-- AuthzDescisionQueryDescriptorType provider -->
-		<ObjectProvider qualifiedName="query:AuthzDecisionQueryDescriptor">
-			<BuilderClass className="org.opensaml.samlext.saml2mdquery.impl.AuthzDecisionQueryDescriptorBuilder" />
-			<MarshallingClass className="org.opensaml.samlext.samlpthrpty.impl.RespondToMarshaller" />
-			<UnmarshallingClass className="org.opensaml.samlext.samlpthrpty.impl.RespondToUnmarshaller" />
-		</ObjectProvider>
-		
 		<ObjectProvider qualifiedName="query:AuthzDecisionQueryDescriptorType">
-			<BuilderClass className="org.opensaml.samlext.saml2mdquery.impl.AuthzDecisionQueryDescriptorBuilder" />
-			<MarshallingClass className="org.opensaml.samlext.samlpthrpty.impl.RespondToMarshaller" />
-			<UnmarshallingClass className="org.opensaml.samlext.samlpthrpty.impl.RespondToUnmarshaller" />
+			<BuilderClass className="org.opensaml.samlext.saml2mdquery.impl.AuthzDecisionQueryDescriptorTypeBuilder" />
+			<MarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AuthzDecisionQueryDescriptorTypeMarshaller" />
+			<UnmarshallingClass className="org.opensaml.samlext.saml2mdquery.impl.AuthzDecisionQueryDescriptorTypeUnmarshaller" />
 		</ObjectProvider>
 		
 	</ObjectProviders>

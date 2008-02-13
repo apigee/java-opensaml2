@@ -17,15 +17,15 @@
 package org.opensaml.samlext.saml2mdquery.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.samlext.saml2mdquery.AuthnQueryDescriptor;
+import org.opensaml.samlext.saml2mdquery.AuthnQueryDescriptorType;
 
 /**
- * Marshaller for {@link AuthnQueryDescriptor} objects.
+ * Marshaller for {@link AuthnQueryDescriptorType} objects.
  */
-public class AuthnQueryDescriptorMarshaller extends QueryDescriptorTypeMarshaller {
+public class AuthnQueryDescriptorTypeMarshaller extends QueryDescriptorTypeMarshaller {
 
     /** Constructor */
-    public AuthnQueryDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MDQUERY_NS, AuthnQueryDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
+    public AuthnQueryDescriptorTypeMarshaller() {
+        super(SAMLConstants.SAML20MDQUERY_NS, AuthnQueryDescriptorType.TYPE_LOCAL_NAME);
     }
 }

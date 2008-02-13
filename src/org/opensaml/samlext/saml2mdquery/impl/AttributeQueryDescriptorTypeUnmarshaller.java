@@ -17,25 +17,28 @@
 package org.opensaml.samlext.saml2mdquery.impl;
 
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.samlext.saml2mdquery.ActionNamespace;
-import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptor;
+import org.opensaml.saml2.metadata.AttributeConsumingService;
+import org.opensaml.samlext.saml2mdquery.AttributeQueryDescriptorType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
-public class AuthzDecisionQueryDescriptorUnmarshaller extends QueryDescriptorTypeUnmarshaller {
+/**
+ * Unmarshaller of {@link AttributeQueryDescriptorType} objects.
+ */
+public class AttributeQueryDescriptorTypeUnmarshaller extends QueryDescriptorTypeUnmarshaller {
 
     /** Constructor */
-    public AuthzDecisionQueryDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MDQUERY_NS, AuthzDecisionQueryDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
+    public AttributeQueryDescriptorTypeUnmarshaller(){
+        super(SAMLConstants.SAML20MDQUERY_NS, AttributeQueryDescriptorType.TYPE_LOCAL_NAME);
     }
-
+    
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
-        AuthzDecisionQueryDescriptor descriptor = (AuthzDecisionQueryDescriptor) parentSAMLObject;
+        AttributeQueryDescriptorType descriptor = (AttributeQueryDescriptorType) parentSAMLObject;
 
-        if (childSAMLObject instanceof ActionNamespace) {
-            descriptor.getActionNamespaces().add((ActionNamespace) childSAMLObject);
+        if (childSAMLObject instanceof AttributeConsumingService) {
+            descriptor.getAttributeConsumingServices().add((AttributeConsumingService) childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }

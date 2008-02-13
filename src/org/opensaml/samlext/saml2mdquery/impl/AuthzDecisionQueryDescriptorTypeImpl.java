@@ -24,14 +24,14 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.samlext.saml2mdquery.ActionNamespace;
-import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptor;
+import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptorType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link AuthzDecisionQueryDescriptor}.
+ * Concrete implementation of {@link AuthzDecisionQueryDescriptorType}.
  */
-public class AuthzDecisionQueryDescriptorImpl extends QueryDescriptorTypeImpl implements AuthzDecisionQueryDescriptor{
+public class AuthzDecisionQueryDescriptorTypeImpl extends QueryDescriptorTypeImpl implements AuthzDecisionQueryDescriptorType{
 
     /** Supported action namespaces. */
     private XMLObjectChildrenList<ActionNamespace> actionNamespaces;
@@ -43,7 +43,7 @@ public class AuthzDecisionQueryDescriptorImpl extends QueryDescriptorTypeImpl im
      * @param elementLocalName the local name of the XML element this Object represents
      * @param namespacePrefix the prefix for the given namespace
      */
-    protected AuthzDecisionQueryDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+    protected AuthzDecisionQueryDescriptorTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
 
         actionNamespaces = new XMLObjectChildrenList<ActionNamespace>(this);

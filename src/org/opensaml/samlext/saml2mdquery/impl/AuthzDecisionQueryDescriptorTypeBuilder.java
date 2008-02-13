@@ -18,21 +18,21 @@ package org.opensaml.samlext.saml2mdquery.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptor;
+import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptorType;
 
 /**
- * Builder of {@link AuthzDecisionQueryDescriptor} objects.
+ * Builder of {@link AuthzDecisionQueryDescriptorType} objects.
  */
-public class AuthzDecisionQueryDescriptorBuilder extends AbstractSAMLObjectBuilder<AuthzDecisionQueryDescriptor> {
+public class AuthzDecisionQueryDescriptorTypeBuilder extends AbstractSAMLObjectBuilder<AuthzDecisionQueryDescriptorType> {
 
     /** {@inheritDoc} */
-    public AuthzDecisionQueryDescriptor buildObject() {
-        return buildObject(SAMLConstants.SAML20MDQUERY_NS, AuthzDecisionQueryDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
-                SAMLConstants.SAML20MDQUERY_PREFIX);
+    public AuthzDecisionQueryDescriptorType buildObject() {
+        return buildObject(SAMLConstants.SAML20MDQUERY_NS, AuthzDecisionQueryDescriptorType.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20MDQUERY_PREFIX, AuthzDecisionQueryDescriptorType.TYPE_NAME);
     }
 
     /** {@inheritDoc} */
-    public AuthzDecisionQueryDescriptor buildObject(String namespaceURI, String localName, String namespacePrefix) {
-        return new AuthzDecisionQueryDescriptorImpl(namespaceURI, localName, namespacePrefix);
+    public AuthzDecisionQueryDescriptorType buildObject(String namespaceURI, String localName, String namespacePrefix) {
+        return new AuthzDecisionQueryDescriptorTypeImpl(namespaceURI, localName, namespacePrefix);
     }
 }

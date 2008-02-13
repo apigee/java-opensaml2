@@ -16,23 +16,16 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectBuilder;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.samlext.saml2mdquery.AuthnQueryDescriptor;
+import org.opensaml.samlext.saml2mdquery.AuthnQueryDescriptorType;
 
 /**
- * Builder of {@link AuthnQueryDescriptorImpl} objects.
+ * Unmarshaller of {@link AuthnQueryDescriptorType} objects.
  */
-public class AuthnQueryDescriptorBuilder extends AbstractSAMLObjectBuilder<AuthnQueryDescriptor> {
+public class AuthnQueryDescriptorTypeUnmarshaller extends QueryDescriptorTypeUnmarshaller {
 
-    /** {@inheritDoc} */
-    public AuthnQueryDescriptor buildObject() {
-        return buildObject(SAMLConstants.SAML20MDQUERY_NS, AuthnQueryDescriptor.DEFAULT_ELEMENT_LOCAL_NAME,
-                SAMLConstants.SAML20MDQUERY_PREFIX);
-    }
-
-    /** {@inheritDoc} */
-    public AuthnQueryDescriptor buildObject(String namespaceURI, String localName, String namespacePrefix) {
-        return new AuthnQueryDescriptorImpl(namespaceURI, localName, namespacePrefix);
+    /** Constructor */
+    public AuthnQueryDescriptorTypeUnmarshaller() {
+        super(SAMLConstants.SAML20MDQUERY_NS, AuthnQueryDescriptorType.TYPE_LOCAL_NAME);
     }
 }

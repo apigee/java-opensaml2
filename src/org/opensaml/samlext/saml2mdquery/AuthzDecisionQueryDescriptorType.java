@@ -16,26 +16,28 @@
 
 package org.opensaml.samlext.saml2mdquery;
 
+import java.util.List;
+
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
 
 /**
- * SAML 2.0 Metadata extension AuthnQueryDescriptorType
+ * SAML 2.0 Metadata extension AuthzDecisionQueryDescriptorType.
  */
-public interface AuthnQueryDescriptor extends QueryDescriptorType {
-    
-    /** Element local name */
-    public final static String DEFAULT_ELEMENT_LOCAL_NAME = "AuthnQueryDescriptor";
+public interface AuthzDecisionQueryDescriptorType extends QueryDescriptorType {
 
-    /** Default element name */
-    public final static QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAML20MDQUERY_NS,
-            DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MDQUERY_PREFIX);
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "AuthzDecisionQueryDescriptorType";
 
-    /** Local name of the XSI type */
-    public final static String TYPE_LOCAL_NAME = "AuthnQueryDescriptorType";
-
-    /** QName of the XSI type */
-    public final static QName TYPE_NAME = new QName(SAMLConstants.SAML20MDQUERY_NS, TYPE_LOCAL_NAME,
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAML20MDQUERY_NS, TYPE_LOCAL_NAME,
             SAMLConstants.SAML20MDQUERY_PREFIX);
+    
+    /**
+     * Gets the list of action namespaces support by this role.
+     * 
+     * @return the list of action namespaces support by this role
+     */
+    public List<ActionNamespace> getActionNamespaces();
 }
