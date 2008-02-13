@@ -16,7 +16,7 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.saml2.metadata.impl.RoleDescriptorMarshaller;
 import org.opensaml.samlext.saml2mdquery.QueryDescriptorType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -25,7 +25,7 @@ import org.w3c.dom.Element;
 /**
  * Marshaller for {@link QueryDescriptorType} objects.
  */
-public abstract class QueryDescriptorTypeMarshaller extends AbstractSAMLObjectMarshaller {
+public abstract class QueryDescriptorTypeMarshaller extends RoleDescriptorMarshaller {
     
     /** Constructor. */
     protected QueryDescriptorTypeMarshaller(){
@@ -54,5 +54,7 @@ public abstract class QueryDescriptorTypeMarshaller extends AbstractSAMLObjectMa
             domElement.setAttributeNS(null, QueryDescriptorType.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME,
                     descriptor.getWantAssertionsSignedXSBoolean().toString());
         }
+        
+        super.marshallAttributes(xmlObject, domElement);
     }
 }

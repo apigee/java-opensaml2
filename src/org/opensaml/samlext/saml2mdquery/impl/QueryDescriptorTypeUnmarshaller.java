@@ -16,15 +16,15 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.metadata.NameIDFormat;
+import org.opensaml.saml2.metadata.impl.RoleDescriptorUnmarshaller;
 import org.opensaml.samlext.saml2mdquery.QueryDescriptorType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
-public class QueryDescriptorTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class QueryDescriptorTypeUnmarshaller extends RoleDescriptorUnmarshaller {
 
     /**
      * Constructor.
