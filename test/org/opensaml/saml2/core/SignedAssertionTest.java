@@ -33,6 +33,7 @@ import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.BasicCredential;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.signature.impl.SignatureBuilder;
 import org.opensaml.xml.util.XMLHelper;
@@ -84,8 +85,9 @@ public class SignedAssertionTest extends BaseTestCase {
      * 
      * @throws MarshallingException thrown if the Assertion can not be marshalled into a DOM
      * @throws ValidationException thrown if the Signature does not validate
+     * @throws SignatureException 
      */
-    public void testAssertionSignature() throws MarshallingException, ValidationException{
+    public void testAssertionSignature() throws MarshallingException, ValidationException, SignatureException{
         DateTime now = new DateTime();
         
         Assertion assertion = assertionBuilder.buildObject();

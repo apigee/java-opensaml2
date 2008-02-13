@@ -33,6 +33,7 @@ import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
@@ -145,8 +146,11 @@ public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder impleme
 
                 Signer.signObject(signature);
             } catch (MarshallingException e) {
-                log.error("Unable to marshall protocol message in preperation for signing", e);
-                throw new MessageEncodingException("Unable to marshall protocol message in preperation for signing", e);
+                log.error("Unable to marshall protocol message in preparation for signing", e);
+                throw new MessageEncodingException("Unable to marshall protocol message in preparation for signing", e);
+            } catch (SignatureException e) {
+                log.error("Unable to sign protocol message", e);
+                throw new MessageEncodingException("Unable to sign protocol message", e);
             }
         }
     }

@@ -39,6 +39,7 @@ import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
@@ -247,7 +248,12 @@ public class MetadataTool {
         signature.setSigningCredential(signingCredential);
         metadata.setSignature(signature);
 
-        Signer.signObject(signature);
+        try {
+            Signer.signObject(signature);
+        } catch (SignatureException e) {
+            log.error("Error when attempting to sign object", e);
+            System.exit(1);
+        }
     }
 
     /**
