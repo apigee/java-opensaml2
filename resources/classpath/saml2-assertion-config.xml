@@ -228,6 +228,13 @@
             <UnmarshallingClass className="org.opensaml.saml2.core.impl.IssuerUnmarshaller" />
         </ObjectProvider>
         
+        <!-- KeyInfoConfirmationDataType -->
+        <ObjectProvider qualifiedName="saml2:KeyInfoConfirmationDataType">
+            <BuilderClass className="org.opensaml.saml2.core.impl.KeyInfoConfirmationDataTypeBuilder" />
+            <MarshallingClass className="org.opensaml.saml2.core.impl.SubjectConfirmationDataMarshaller" />
+            <UnmarshallingClass className="org.opensaml.saml2.core.impl.SubjectConfirmationDataUnmarshaller" />
+        </ObjectProvider>
+        
         <!-- NameID -->
         <ObjectProvider qualifiedName="saml2:NameID">
             <BuilderClass className="org.opensaml.saml2.core.impl.NameIDBuilder" />
