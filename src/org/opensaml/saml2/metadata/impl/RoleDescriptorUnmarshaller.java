@@ -39,7 +39,7 @@ import org.w3c.dom.Attr;
 /**
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.RoleDescriptor} objects.
  */
-public class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public abstract class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
      * Constructor.
