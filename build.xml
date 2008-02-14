@@ -25,7 +25,6 @@
         <pathelement location="${core-src.dir}" />
         <pathelement location="${test-classes.dir}" />
     	<pathelement location="${test-classes.dir}/data" />
-    	<pathelement location="${test-classes.dir}/log4j.xml" />
         <pathelement location="${test-src.dir}" />
         <pathelement location="${classpathres.dir}" />
     </path>
