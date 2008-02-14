@@ -21,7 +21,7 @@ import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.saml2.metadata.EncryptionMethod;
 import org.opensaml.xml.encryption.KeySize;
 import org.opensaml.xml.encryption.OAEPparams;
-import org.opensaml.xml.mock.SimpleXMLObject;
+import org.opensaml.xml.signature.DigestMethod;
 
 /**
  *
@@ -87,8 +87,8 @@ public class EncryptionMethodTest extends BaseSAMLObjectProviderTestCase {
         em.setAlgorithm(expectedAlgorithm);
         em.setKeySize((KeySize) buildXMLObject(KeySize.DEFAULT_ELEMENT_NAME));
         em.setOAEPparams((OAEPparams) buildXMLObject(OAEPparams.DEFAULT_ELEMENT_NAME));
-        em.getUnknownXMLObjects().add( buildXMLObject(SimpleXMLObject.ELEMENT_NAME));
-        em.getUnknownXMLObjects().add( buildXMLObject(SimpleXMLObject.ELEMENT_NAME));
+        em.getUnknownXMLObjects().add( buildXMLObject(DigestMethod.DEFAULT_ELEMENT_NAME));
+        em.getUnknownXMLObjects().add( buildXMLObject(DigestMethod.DEFAULT_ELEMENT_NAME));
         
         assertEquals(expectedChildElementsDOM, em);
     }
