@@ -9,7 +9,7 @@
     </appender>
     
     <logger name="org.opensaml">
-        <level value="DEBUG" />
+        <level value="WARN" />
     </logger>
     
     <root>
