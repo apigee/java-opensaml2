@@ -25,10 +25,8 @@ import org.opensaml.xml.ConfigurationException;
  */
 public class TestBootstrap extends DefaultBootstrap {
     
-    /** List of XMLTooling configuration files with test configuration. */
-    private static String[] testConfigs = { 
-        "/saml-test-config.xml", 
-    };
+    /** List of XMLTooling configuration files with any needed test configuration. */
+    private static String[] testConfigs = {  };
     
     /** {@inheritDoc} */
     public static synchronized void bootstrap() throws ConfigurationException {
