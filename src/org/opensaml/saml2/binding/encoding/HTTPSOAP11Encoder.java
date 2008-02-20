@@ -100,10 +100,6 @@ public class HTTPSOAP11Encoder extends BaseSAML2MessageEncoder {
         samlMsgCtx.setOutboundMessage(envelope);
 
         Element envelopeElem = marshallMessage(envelope);
-        if (log.isTraceEnabled()) {
-            log.trace("Writting SOAP message to response:\n{}", XMLHelper.nodeToString(envelopeElem));
-        }
-
         try {
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getOutboundMessageTransport();
             HTTPTransportUtils.addNoCacheHeaders(outTransport);

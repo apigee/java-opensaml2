@@ -88,8 +88,6 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder {
         log.debug("Decoded SAML relay state (TARGET parameter) of: {}", relayState);
 
         String base64Message = inTransport.getParameterValue("SAMLResponse");
-        log.trace("Decoding base64 message:\n{}", base64Message);
-
         byte[] decodedBytes = Base64.decode(base64Message);
         if(decodedBytes == null){
             log.error("Unable to Base64 decode SAML message");

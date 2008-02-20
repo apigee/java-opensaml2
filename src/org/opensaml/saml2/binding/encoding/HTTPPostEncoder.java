@@ -152,13 +152,11 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
         velocityContext.put("action", endpointURL);
 
         log.debug("Marshalling and Base64 encoding SAML message");
-        // FIXME We're marshalling the message here *after* we've already supposedly possibly signed it in doEncode,
-        // surely this can't be a completely good thing... At the very least we're unnecessarily adopting
-        // the whole tree into a new Document, see AbstractXMLObjectMarshaller#marshall.
-        String messageXML = XMLHelper.nodeToString(marshallMessage(messageContext.getOutboundSAMLMessage()));
-        String encodedMessage = Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES);
-        log.debug("Encoding SAML message of: {}", encodedMessage);
-        
+        if(messageContext.getOutboundSAMLMessage().getDOM() == null){
+            marshallMessage(messageContext.getOutboundSAMLMessage());
+        }
+        String messageXML = XMLHelper.nodeToString(messageContext.getOutboundSAMLMessage().getDOM());
+        String encodedMessage = Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES);        
         if (messageContext.getOutboundSAMLMessage() instanceof RequestAbstractType) {
             velocityContext.put("SAMLRequest", encodedMessage);
         } else if (messageContext.getOutboundSAMLMessage() instanceof StatusResponseType) {

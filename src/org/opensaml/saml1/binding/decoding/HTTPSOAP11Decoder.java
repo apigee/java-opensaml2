@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
 public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
 
     /** Class logger. */
-    private final Logger log = LoggerFactory.getLogger(HTTPPostDecoder.class);
+    private final Logger log = LoggerFactory.getLogger(HTTPSOAP11Decoder.class);
 
     /** QNames of understood SOAP headers. */
     private List<QName> understoodHeaders;
