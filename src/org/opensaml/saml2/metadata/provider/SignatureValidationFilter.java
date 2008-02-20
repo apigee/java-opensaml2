@@ -206,7 +206,7 @@ public class SignatureValidationFilter implements MetadataFilter {
             EntitiesDescriptor entitiesChild = entitiesIter.next();
             log.trace("Processing EntitiesDescriptor member: {}", entitiesChild.getName());
             try {
-                processEntityGroup(entitiesDescriptor);
+                processEntityGroup(entitiesChild);
             } catch (FilterException e) {
                log.error("EntitiesDescriptor '{}' failed signature verification, removing from metadata provider", 
                        entitiesChild.getName()); 
