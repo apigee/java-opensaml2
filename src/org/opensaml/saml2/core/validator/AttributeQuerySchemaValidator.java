@@ -20,12 +20,13 @@
 
 package org.opensaml.saml2.core.validator;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeQuery;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.Pair;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
@@ -34,7 +35,7 @@ import org.opensaml.xml.validation.ValidationException;
 public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator<AttributeQuery> {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public AttributeQuerySchemaValidator() {
         super();
@@ -57,17 +58,24 @@ public class AttributeQuerySchemaValidator extends SubjectQuerySchemaValidator<A
     protected void validateUniqueAttributeIdentifiers(AttributeQuery query) throws ValidationException {
         List<Attribute> attributes = query.getAttributes();
 
-        HashMap<String, String> encounteredNames = new HashMap<String, String>();
+        HashSet<Pair<String, String>> encounteredNames = new HashSet<Pair<String, String>>();
         String attributeName;
         String attributeNameFormat;
         for (Attribute attribute : attributes) {
             attributeName = attribute.getName();
             attributeNameFormat = attribute.getNameFormat();
-            if (DatatypeHelper.safeEquals(attributeNameFormat, encounteredNames.get(attributeName))) {
+            if (DatatypeHelper.isEmpty(attributeNameFormat)) {
+                // SAML 2 core, sec. 2.7.3.1, if no format is specified,
+                // unspecified is in effect. This avoids bug in processing null value.
+                attributeNameFormat = Attribute.UNSPECIFIED;
+            }
+            
+            Pair<String, String> pair = new Pair<String, String>(attributeName, attributeNameFormat);
+            if (encounteredNames.contains(pair)) {
                 throw new ValidationException(
                         "Attribute query contains more than one attribute with the same Name and NameFormat");
             } else {
-                encounteredNames.put(attributeName, attributeNameFormat);
+                encounteredNames.add(pair);
             }
         }
     }
