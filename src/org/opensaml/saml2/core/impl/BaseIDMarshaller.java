@@ -30,7 +30,7 @@ import org.w3c.dom.Element;
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.BaseID} objects.
  */
-public class BaseIDMarshaller extends AbstractSAMLObjectMarshaller {
+public abstract class BaseIDMarshaller extends AbstractSAMLObjectMarshaller {
 
     /** Constructor */
     public BaseIDMarshaller() {

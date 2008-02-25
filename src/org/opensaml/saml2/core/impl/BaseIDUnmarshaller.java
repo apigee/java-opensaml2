@@ -30,7 +30,7 @@ import org.w3c.dom.Attr;
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.BaseID} objects.
  */
-public class BaseIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public abstract class BaseIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /** Constructor */
     public BaseIDUnmarshaller() {
