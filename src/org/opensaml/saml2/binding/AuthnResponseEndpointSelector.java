@@ -42,8 +42,8 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
     /** {@inheritDoc} */
     @SuppressWarnings("unchecked")
     public Endpoint selectEndpoint() {
-        log.debug("Selecting endpoint for peer {}", getEntityMetadata().getEntityID());
         if (getEntityRoleMetadata() == null) {
+            log.debug("Unable to select endpoint, no entity role metadata available.");
             return null;
         }
 
