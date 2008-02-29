@@ -17,15 +17,45 @@
 package org.opensaml.security;
 
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
-import org.opensaml.xml.util.AbstractSingletonFactory;
+import org.opensaml.xml.util.AbstractWrappedSingletonFactory;
 
 /**
  * Singleton factory for producing instances of {@link MetadataCredentialResolver}
- * based on a given instance of {@link MetadataProvider}.  Only once instance of 
- * a metadata credential resolver will exist for each metadata provider instance.
+ * based on a given instance of {@link MetadataProvider}.  
+ * 
+ * <p>
+ * Only once instance of a metadata credential resolver will exist for 
+ * each metadata provider instance.
+ * </p>
  */
 public class MetadataCredentialResolverFactory 
-    extends AbstractSingletonFactory<MetadataProvider, MetadataCredentialResolver> {
+    extends AbstractWrappedSingletonFactory<MetadataProvider, MetadataCredentialResolver> {
+    
+    /** The global instance of the factory itself. */
+    private static MetadataCredentialResolverFactory factory;
+    
+    /**
+     * Constructor.
+     * 
+     * This constructor hides the superclass public constructor, forcing
+     * the single, global factory instance to be obtained from {@link #getFactory()}.
+     * 
+     */
+    protected MetadataCredentialResolverFactory() {
+        super();
+    }
+    
+    /**
+     * Return the global factory instance.
+     * 
+     * @return the global factory instance
+     */
+    public static synchronized MetadataCredentialResolverFactory getFactory() {
+        if (factory == null) {
+            factory = new MetadataCredentialResolverFactory();
+        }
+        return factory;
+    }
 
     /** {@inheritDoc} */
     protected MetadataCredentialResolver createNewInstance(MetadataProvider metadataProvider) {
