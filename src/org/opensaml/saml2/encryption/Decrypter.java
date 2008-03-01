@@ -35,16 +35,15 @@ import org.slf4j.LoggerFactory;
 /**
  * Class which implements SAML2-specific options for {@link EncryptedElementType} objects.
  * 
- * See additional information about general XML decrytpion issues at {@link org.opensaml.xml.encryption.Decrypter}.
+ * <p>
+ * For information on other parameters and options, and general XML Encryption issues,
+ * see {@link org.opensaml.xml.encryption.Decrypter}.
+ * </p>
  */
 public class Decrypter extends org.opensaml.xml.encryption.Decrypter {
     
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(Decrypter.class);
-    
-    /** Flag to determine whether the Element which backs the underlying decrypted SAMLObject will be the 
-     * root of a new DOM document. */
-    private boolean rootInNewDocument;
     
     /**
      * Constructor.
@@ -56,33 +55,6 @@ public class Decrypter extends org.opensaml.xml.encryption.Decrypter {
     public Decrypter(KeyInfoCredentialResolver newResolver, KeyInfoCredentialResolver newKEKResolver, 
             EncryptedKeyResolver newEncKeyResolver) {
         super(newResolver, newKEKResolver, newEncKeyResolver);
-        rootInNewDocument = false;
-    }
-    
-    /**
-     * Get the flag which indicates whether the DOM Element which backs a decrypted SAML object
-     * will be the root of a new DOM document.  Defaults to false.
-     * 
-     * See also {@link org.opensaml.xml.encryption.Decrypter}.  This flag will be passed as-is to
-     * {@link org.opensaml.xml.encryption.Decrypter#decryptData(org.opensaml.xml.encryption.EncryptedData, boolean)}.
-     * 
-     * @return the current value of the flag for this decrypter instance
-     */
-    public boolean isRootInNewDocument() {
-        return rootInNewDocument;
-    }
-    
-    /**
-     * Set the flag which indicates whether the DOM Element which backs a decrypted SAML object
-     * will be the root of a new DOM document.  Defaults to false.
-     * 
-     * See also {@link org.opensaml.xml.encryption.Decrypter}.  This flag will be passed as-is to
-     * {@link org.opensaml.xml.encryption.Decrypter#decryptData(org.opensaml.xml.encryption.EncryptedData, boolean)}.
-     * 
-     * @param flag the current value of the flag for this decrypter instance
-     */
-    public void setRootInNewDocument(boolean flag) {
-       rootInNewDocument = flag; 
     }
     
     /**
@@ -118,9 +90,11 @@ public class Decrypter extends org.opensaml.xml.encryption.Decrypter {
     /**
      * Decrypt the specified EncryptedID.
      * 
+     * <p>
      * Note that an EncryptedID can contain a NameID, an Assertion
      * or a BaseID.  It is up to the caller to determine the type of
      * the resulting SAMLObject.
+     * </p>
      * 
      * @param encryptedID the EncryptedID to decrypt
      * @return an XMLObject
@@ -163,7 +137,7 @@ public class Decrypter extends org.opensaml.xml.encryption.Decrypter {
         
         XMLObject xmlObject = null;
         try {
-            xmlObject = decryptData(encElement.getEncryptedData(), rootInNewDocument);
+            xmlObject = decryptData(encElement.getEncryptedData(), isRootInNewDocument());
         } catch (DecryptionException e) {
             log.error("SAML Decrypter encountered an error decrypting element content", e);
             throw e; 
