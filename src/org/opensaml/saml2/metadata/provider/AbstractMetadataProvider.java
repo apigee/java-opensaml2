@@ -17,7 +17,7 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.io.IOException;
-import java.io.Reader;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -146,7 +146,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * 
      * @throws UnmarshallingException thrown if the metadata can no be unmarshalled
      */
-    protected XMLObject unmarshallMetadata(Reader metadataInput) throws UnmarshallingException {
+    protected XMLObject unmarshallMetadata(InputStream metadataInput) throws UnmarshallingException {
         try {
             log.trace("Parsing retrieved metadata into a DOM object");
             Document mdDocument = parser.parse(metadataInput);

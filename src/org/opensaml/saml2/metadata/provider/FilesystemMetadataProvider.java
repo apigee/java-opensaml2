@@ -17,6 +17,7 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -136,7 +137,7 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
 
         log.debug("Refreshing metadata from file {}", metadataFile);
         try {
-            XMLObject metadata = unmarshallMetadata(new FileReader(metadataFile));
+            XMLObject metadata = unmarshallMetadata(new FileInputStream(metadataFile));
             DateTime expirationTime = SAML2Helper.getEarliestExpiration(metadata);
             if (expirationTime != null && !maintainExpiredMetadata() && expirationTime.isBeforeNow()) {
                 log.debug(
