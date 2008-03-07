@@ -166,8 +166,8 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
             }
 
             if (endpoint.getBinding().equals(acsBinding)) {
-                if (endpoint.getLocation().equals(request.getAssertionConsumerServiceURL())
-                        || endpoint.getResponseLocation().equals(request.getAssertionConsumerServiceURL())) {
+                if ((endpoint.getLocation() != null && endpoint.getLocation().equals(request.getAssertionConsumerServiceURL()))
+                        || (endpoint.getResponseLocation() != null && endpoint.getResponseLocation().equals(request.getAssertionConsumerServiceURL()))) {
                     return endpoint;
                 }
             }
