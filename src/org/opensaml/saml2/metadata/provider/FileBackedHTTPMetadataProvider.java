@@ -95,7 +95,7 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
         try {
             metadata = super.fetchMetadata();
         } catch (Exception e) {
-            log.debug("Unable to read metadata from remote server, attempting to read it from local backup", e);
+            log.warn("Unable to read metadata from remote server, attempting to read it from local backup", e);
             return getLocalMetadata();
         }
 
