@@ -20,9 +20,12 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.SubjectConfirmation;
 import org.opensaml.saml2.core.SubjectConfirmationData;
+import org.opensaml.xml.parse.XMLParserException;
+import org.w3c.dom.Document;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.core.impl.SubjectConfirmationImpl}.
@@ -31,11 +34,15 @@ public class SubjectConfirmationTest extends BaseSAMLObjectProviderTestCase {
 
     /** Expected Method value */
     private String expectedMethod;
+    
+    /** File with test data for EncryptedID use case. */
+    private String childElementsWithEncryptedIDFile;
 
     /** Constructor */
     public SubjectConfirmationTest() {
         singleElementFile = "/data/org/opensaml/saml2/core/impl/SubjectConfirmation.xml";
         childElementsFile = "/data/org/opensaml/saml2/core/impl/SubjectConfirmationChildElements.xml";
+        childElementsWithEncryptedIDFile = "/data/org/opensaml/saml2/core/impl/SubjectConfirmationChildElementsWithEncryptedID.xml";
     }
 
     /** {@inheritDoc} */
@@ -91,5 +98,32 @@ public class SubjectConfirmationTest extends BaseSAMLObjectProviderTestCase {
         subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) buildXMLObject(subjectConfirmationDataQName));
 
         assertEquals(expectedChildElementsDOM, subjectConfirmation);
+    }
+    
+    /** {@inheritDoc} */
+    public void testChildElementsWithEncryptedIDUnmarshall() {
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) unmarshallElement(childElementsWithEncryptedIDFile);
+
+        assertNull("BaseID element present", subjectConfirmation.getBaseID());
+        assertNull("NameID element present", subjectConfirmation.getNameID());
+        assertNotNull("EncryptedID element not present", subjectConfirmation.getEncryptedID());
+        assertNotNull("SubjectConfirmationData element not present", subjectConfirmation.getSubjectConfirmationData());
+    }
+
+    /** {@inheritDoc} 
+     * @throws XMLParserException */
+    public void testChildElementsWithEncryptedIDMarshall() throws XMLParserException {
+        QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        SubjectConfirmation subjectConfirmation = (SubjectConfirmation) buildXMLObject(qname);
+
+        QName encryptedIDQName = new QName(SAMLConstants.SAML20_NS, EncryptedID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        subjectConfirmation.setEncryptedID((EncryptedID) buildXMLObject(encryptedIDQName));
+        
+        QName subjectConfirmationDataQName = new QName(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        subjectConfirmation.setSubjectConfirmationData((SubjectConfirmationData) buildXMLObject(subjectConfirmationDataQName));
+        
+        Document expectedChildElementsWithEncryptedID = parser.parse(SubjectConfirmationTest.class
+                .getResourceAsStream(childElementsWithEncryptedIDFile));
+        assertEquals(expectedChildElementsWithEncryptedID, subjectConfirmation);
     }
 }

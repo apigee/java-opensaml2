@@ -121,6 +121,10 @@ public class SubjectConfirmationImpl extends AbstractSAMLObject implements Subje
         if (nameID != null) {
             children.add(nameID);
         }
+        
+        if (encryptedID != null) {
+            children.add(encryptedID);
+        }
 
         children.add(subjectConfirmationData);
 
