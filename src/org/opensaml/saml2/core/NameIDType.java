@@ -56,6 +56,9 @@ public interface NameIDType {
 
     /** Transient identifier attribute format ID. */
     public static final String TRANSIENT = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient";
+    
+    /** Special URI used by NameIDPolicy to indicate a NameID should be encrypted. */
+    public static final String ENCRYPTED = "urn:oasis:names:tc:SAML:2.0:nameid-format:encrypted";
 
     /**
      * Gets the value of this type.
