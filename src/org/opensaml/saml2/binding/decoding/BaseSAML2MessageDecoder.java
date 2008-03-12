@@ -240,7 +240,8 @@ public abstract class BaseSAML2MessageDecoder extends BaseSAMLMessageDecoder {
      * <p>This SAML 2-specific implementation extracts the value of the protocol message Destination attribute.</p>
      * 
      * */
-    protected String getIntendedDestinationEndpointURI(SAMLObject samlMessage) throws MessageDecodingException {
+    protected String getIntendedDestinationEndpointURI(SAMLMessageContext samlMsgCtx) throws MessageDecodingException {
+        SAMLObject samlMessage = samlMsgCtx.getInboundSAMLMessage();
         String messageDestination = null;
         if (samlMessage instanceof RequestAbstractType) {
             RequestAbstractType request =  (RequestAbstractType) samlMessage;

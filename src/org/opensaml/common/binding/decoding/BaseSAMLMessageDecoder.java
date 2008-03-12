@@ -92,7 +92,7 @@ public abstract class BaseSAMLMessageDecoder extends BaseMessageDecoder implemen
      * @throws MessageDecodingException thrown if the message is not an instance of SAML message that
      *              could be processed by the decoder
      */
-    protected abstract String getIntendedDestinationEndpointURI(SAMLObject samlMessage) throws MessageDecodingException;
+    protected abstract String getIntendedDestinationEndpointURI(SAMLMessageContext samlMsgCtx) throws MessageDecodingException;
     
     /**
      * Extract the transport endpoint at which this message was received.
@@ -177,8 +177,7 @@ public abstract class BaseSAMLMessageDecoder extends BaseMessageDecoder implemen
         
         log.debug("Checking SAML message intended destination endpoint against receiver endpoint");
         
-        SAMLObject samlMessage = messageContext.getInboundSAMLMessage();
-        String messageDestination = getIntendedDestinationEndpointURI(samlMessage);
+        String messageDestination = getIntendedDestinationEndpointURI(messageContext);
         
         boolean bindingRequires = isIntendedDestinationEndpointURIRequired(messageContext);
         

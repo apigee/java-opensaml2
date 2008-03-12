@@ -322,7 +322,8 @@ public abstract class BaseSAML1MessageDecoder extends BaseSAMLMessageDecoder {
      * protocol message Recipient attribute.</p>
      * 
      * */
-    protected String getIntendedDestinationEndpointURI(SAMLObject samlMessage) throws MessageDecodingException {
+    protected String getIntendedDestinationEndpointURI(SAMLMessageContext samlMsgCtx) throws MessageDecodingException {
+        SAMLObject samlMessage = samlMsgCtx.getInboundSAMLMessage();
         String messageDestination = null;
         if (samlMessage instanceof ResponseAbstractType) {
             ResponseAbstractType response = (ResponseAbstractType) samlMessage;
