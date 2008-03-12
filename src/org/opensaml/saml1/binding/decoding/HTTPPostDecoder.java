@@ -22,6 +22,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
@@ -100,5 +101,10 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder {
         log.debug("Decoded SAML message");
 
         populateMessageContext(samlMsgCtx);
+    }
+
+    /** {@inheritDoc} */
+    protected boolean isIntendedDestinationEndpointURIRequired(SAMLMessageContext samlMsgCtx) {
+        return samlMsgCtx.getInboundSAMLMessage() instanceof ResponseAbstractType;
     }
 }

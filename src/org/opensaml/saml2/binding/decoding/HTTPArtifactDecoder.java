@@ -56,7 +56,7 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder {
     }
 
     /** {@inheritDoc} */
-    protected boolean isDestinationRequired(SAMLMessageContext samlMsgCtx) {
+    protected boolean isIntendedDestinationEndpointURIRequired(SAMLMessageContext samlMsgCtx) {
         return false;
     }
 

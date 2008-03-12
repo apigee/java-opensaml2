@@ -19,6 +19,7 @@ package org.opensaml.saml1.binding.decoding;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.common.xml.SAMLConstants;
@@ -171,5 +172,10 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
         }
 
         requestContext.setDereferencedAssertions(assertions);
+    }
+
+    /** {@inheritDoc} */
+    protected boolean isIntendedDestinationEndpointURIRequired(SAMLMessageContext samlMsgCtx) {
+        return false;
     }
 }

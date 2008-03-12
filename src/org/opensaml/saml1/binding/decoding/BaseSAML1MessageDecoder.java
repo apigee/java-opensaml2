@@ -24,7 +24,7 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
-import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
+import org.opensaml.common.binding.decoding.BaseSAMLMessageDecoder;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionArtifact;
@@ -33,13 +33,15 @@ import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 import org.opensaml.saml1.core.Request;
 import org.opensaml.saml1.core.RequestAbstractType;
 import org.opensaml.saml1.core.Response;
+import org.opensaml.saml1.core.ResponseAbstractType;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
-import org.opensaml.ws.message.decoder.BaseMessageDecoder;
+import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +49,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Base class for SAML 1 message decoders.
  */
-public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder implements SAMLMessageDecoder {
+public abstract class BaseSAML1MessageDecoder extends BaseSAMLMessageDecoder {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(BaseSAML1MessageDecoder.class);
@@ -79,6 +81,16 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder impleme
         super(pool);
         artifactMap = map;
         useQueryResourceAsEntityId = true;
+    }
+    
+    /** {@inheritDoc} */
+    public void decode(MessageContext messageContext) throws MessageDecodingException, SecurityException {
+        super.decode(messageContext);
+        
+        SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
+        if (samlMsgCtx.getInboundSAMLMessage() instanceof ResponseAbstractType) {
+            checkEndpointURI(samlMsgCtx);
+        }
     }
 
     /**
@@ -302,4 +314,27 @@ public abstract class BaseSAML1MessageDecoder extends BaseMessageDecoder impleme
                     + messageContext.getInboundMessageIssuer(), e);
         }
     }
+    
+    /**
+     * {@inheritDoc} 
+     * 
+     * <p>This SAML 1-specific implementation extracts the value of the StatusResponseType 
+     * protocol message Recipient attribute.</p>
+     * 
+     * */
+    protected String getIntendedDestinationEndpointURI(SAMLObject samlMessage) throws MessageDecodingException {
+        String messageDestination = null;
+        if (samlMessage instanceof ResponseAbstractType) {
+            ResponseAbstractType response = (ResponseAbstractType) samlMessage;
+            messageDestination = DatatypeHelper.safeTrimOrNullString(response.getRecipient());
+        } else if (samlMessage instanceof RequestAbstractType) {
+            // don't treat as an error, just return null
+            return null;
+        } else {
+            log.error("Invalid SAML message type encountered: {}", samlMessage.getElementQName().toString());
+            throw new MessageDecodingException("Invalid SAML message type encountered");
+        }
+        return messageDestination;
+    }
+    
 }

@@ -57,7 +57,7 @@ public class HTTPPostDecoder extends BaseSAML2MessageDecoder {
     }
 
     /** {@inheritDoc} */
-    protected boolean isDestinationRequired(SAMLMessageContext samlMsgCtx) {
+    protected boolean isIntendedDestinationEndpointURIRequired(SAMLMessageContext samlMsgCtx) {
         return isMessageSigned(samlMsgCtx);
     }
 

@@ -178,4 +178,9 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
             }
         }
     }
+
+    /** {@inheritDoc} */
+    protected boolean isIntendedDestinationEndpointURIRequired(SAMLMessageContext samlMsgCtx) {
+        return false;
+    }
 }
