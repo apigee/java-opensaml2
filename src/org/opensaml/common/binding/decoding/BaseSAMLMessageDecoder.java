@@ -30,6 +30,7 @@ import org.opensaml.ws.transport.InTransport;
 import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.security.SecurityException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,15 +85,16 @@ public abstract class BaseSAMLMessageDecoder extends BaseMessageDecoder implemen
     protected abstract boolean isIntendedDestinationEndpointURIRequired(SAMLMessageContext samlMsgCtx);
     
     /**
-     * Extract the protocol message information which indicates to what receiver endpoint URI the
+     * Extract the message information which indicates to what receiver endpoint URI the
      * SAML message was intended to be delivered.
      * 
-     * @param samlMessage the SAML protocol message being processed
+     * @param samlMsgCtx the SAML message context being processed
      * @return the value of the intended destination endpoint URI, or null if not present or empty
      * @throws MessageDecodingException thrown if the message is not an instance of SAML message that
      *              could be processed by the decoder
      */
-    protected abstract String getIntendedDestinationEndpointURI(SAMLMessageContext samlMsgCtx) throws MessageDecodingException;
+    protected abstract String getIntendedDestinationEndpointURI(SAMLMessageContext samlMsgCtx) 
+        throws MessageDecodingException;
     
     /**
      * Extract the transport endpoint at which this message was received.
@@ -177,7 +179,8 @@ public abstract class BaseSAMLMessageDecoder extends BaseMessageDecoder implemen
         
         log.debug("Checking SAML message intended destination endpoint against receiver endpoint");
         
-        String messageDestination = getIntendedDestinationEndpointURI(messageContext);
+        String messageDestination = 
+            DatatypeHelper.safeTrimOrNullString(getIntendedDestinationEndpointURI(messageContext));
         
         boolean bindingRequires = isIntendedDestinationEndpointURIRequired(messageContext);
         
