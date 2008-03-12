@@ -318,7 +318,7 @@ public abstract class BaseSAML1MessageDecoder extends BaseSAMLMessageDecoder {
     /**
      * {@inheritDoc} 
      * 
-     * <p>This SAML 1-specific implementation extracts the value of the StatusResponseType 
+     * <p>This SAML 1-specific implementation extracts the value of the ResponseAbstractType 
      * protocol message Recipient attribute.</p>
      * 
      * */
