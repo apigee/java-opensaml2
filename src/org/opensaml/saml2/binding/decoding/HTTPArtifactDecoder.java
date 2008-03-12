@@ -59,6 +59,13 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder {
     protected boolean isIntendedDestinationEndpointURIRequired(SAMLMessageContext samlMsgCtx) {
         return false;
     }
+    
+    /** {@inheritDoc} */
+    protected String getIntendedDestinationEndpointURI(SAMLMessageContext samlMsgCtx) throws MessageDecodingException {
+        // Not relevant in this binding/profile, there is neither SAML message
+        // nor binding parameter with this information
+        return null;
+    }
 
     /** {@inheritDoc} */
     protected void doDecode(MessageContext messageContext) throws MessageDecodingException {
