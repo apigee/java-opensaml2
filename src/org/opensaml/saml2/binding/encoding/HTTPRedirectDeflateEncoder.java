@@ -142,7 +142,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
             deflaterStream.write(messageStr.getBytes());
             deflaterStream.finish();
 
-            return Base64.encodeBytes(bytesOut.toByteArray());
+            return Base64.encodeBytes(bytesOut.toByteArray(), Base64.DONT_BREAK_LINES);
         } catch (IOException e) {
             throw new MessageEncodingException("Unable to DEFLATE and Base64 encode SAML message", e);
         }
