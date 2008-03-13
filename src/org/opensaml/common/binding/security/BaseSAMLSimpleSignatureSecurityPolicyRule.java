@@ -122,6 +122,8 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
         String contextIssuer = samlMsgCtx.getInboundMessageIssuer();
 
         if (contextIssuer != null) {
+            log.debug("Attempting to validate SAML protocol message simple signature using context issuer: {}",
+                    contextIssuer);
             CriteriaSet criteriaSet = buildCriteriaSet(contextIssuer, samlMsgCtx);
             if (validateSignature(signature, signedContent, algorithmURI, criteriaSet, candidateCredentials)) {
                 log.info("Validation of request simple signature succeeded");
@@ -130,31 +132,35 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
                             contextIssuer);
                     samlMsgCtx.setInboundSAMLMessageAuthenticated(true);
                 }
+                return;
             } else {
-                log.error("Validation of request simple signature failed for context issuer '" + contextIssuer + "'");
-                throw new SecurityPolicyException("Validation of request simple signature failed");
+                log.error("Validation of request simple signature failed for context issuer: {}", contextIssuer);
+                throw new SecurityPolicyException("Validation of request simple signature failed for context issuer");
             }
-            return;
-        } else {
-            String derivedIssuer = deriveSignerEntityID(samlMsgCtx);
-            if (derivedIssuer != null) {
-                CriteriaSet criteriaSet = buildCriteriaSet(derivedIssuer, samlMsgCtx);
-                if (validateSignature(signature, signedContent, algorithmURI, criteriaSet, candidateCredentials)) {
-                    log.info("Validation of request simple signature succeeded");
-                    if (!samlMsgCtx.isInboundSAMLMessageAuthenticated()) {
-                        log.info("Authentication via request simple signature succeeded for derived issuer entity ID {}",
-                                        derivedIssuer);
-                        samlMsgCtx.setInboundMessageIssuer(derivedIssuer);
-                        samlMsgCtx.setInboundSAMLMessageAuthenticated(true);
-                    }
-                } else {
-                    log.info("Validation attempt of request simple signature failed for derived issuer {}",
-                            derivedIssuer);
-                }
-            }
-            return;
         }
-
+            
+        String derivedIssuer = deriveSignerEntityID(samlMsgCtx);
+        if (derivedIssuer != null) {
+            log.debug("Attempting to validate SAML protocol message simple signature using derived issuer: {}",
+                    derivedIssuer);
+            CriteriaSet criteriaSet = buildCriteriaSet(derivedIssuer, samlMsgCtx);
+            if (validateSignature(signature, signedContent, algorithmURI, criteriaSet, candidateCredentials)) {
+                log.info("Validation of request simple signature succeeded");
+                if (!samlMsgCtx.isInboundSAMLMessageAuthenticated()) {
+                    log.info("Authentication via request simple signature succeeded for derived issuer {}",
+                            derivedIssuer);
+                    samlMsgCtx.setInboundMessageIssuer(derivedIssuer);
+                    samlMsgCtx.setInboundSAMLMessageAuthenticated(true);
+                }
+                return;
+            } else {
+                log.error("Validation of request simple signature failed for derived issuer: {}", derivedIssuer);
+                throw new SecurityPolicyException("Validation of request simple signature failed for derived issuer");
+            }
+        }
+        
+        log.error("Neither context nor derived issuer available, can not attempt SAML simple signature validation");
+        throw new SecurityPolicyException("No message issuer available, can not attempt simple signature validation");
     }
 
     /**
