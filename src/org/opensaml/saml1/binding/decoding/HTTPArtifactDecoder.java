@@ -16,17 +16,11 @@
 
 package org.opensaml.saml1.binding.decoding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
-import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.binding.SAML1ArtifactMessageContext;
-import org.opensaml.saml1.core.Assertion;
-import org.opensaml.saml1.core.AssertionArtifact;
-import org.opensaml.saml1.core.Request;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HTTPInTransport;
@@ -37,6 +31,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * SAML 1.X HTTP Artifact message decoder.
+ * 
+ * <strong>NOTE: This decoder is not yet implemented.</strong>
  */
 public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
 
@@ -60,10 +56,10 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
 
     /** {@inheritDoc} */
     protected void doDecode(MessageContext messageContext) throws MessageDecodingException {
-        if (!(messageContext instanceof SAML1ArtifactMessageContext)) {
-            log.error("Invalid message context type, this decoder only support SAML1ArtifactMessageContext");
+        if (!(messageContext instanceof SAMLMessageContext)) {
+            log.error("Invalid message context type, this decoder only support SAMLMessageContext");
             throw new MessageDecodingException(
-                    "Invalid message context type, this decoder only support SAML1ArtifactMessageContext");
+                    "Invalid message context type, this decoder only support SAMLMessageContext");
         }
 
         if (!(messageContext.getInboundMessageTransport() instanceof HTTPInTransport)) {
@@ -77,101 +73,51 @@ public class HTTPArtifactDecoder extends BaseSAML1MessageDecoder {
             throw new MessageDecodingException("This message deocoder only supports the HTTP GET method");
         }
 
-        SAML1ArtifactMessageContext artifactContext = (SAML1ArtifactMessageContext) messageContext;
-        decodeTarget(artifactContext);
-        decodeArtifacts(artifactContext);
-        dereferenceArtifacts(artifactContext);
+        SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
+        
+        decodeTarget(samlMsgCtx);
+        processArtifacts(samlMsgCtx);
 
-        populateMessageContext(artifactContext);
+        populateMessageContext(samlMsgCtx);
     }
 
     /**
      * Decodes the TARGET parameter and adds it to the message context.
      * 
-     * @param artifactContext current message context
+     * @param samlMsgCtx current message context
      * 
      * @throws MessageDecodingException thrown if there is a problem decoding the TARGET parameter.
      */
-    protected void decodeTarget(SAML1ArtifactMessageContext artifactContext) throws MessageDecodingException {
-        HTTPInTransport inTransport = (HTTPInTransport) artifactContext.getInboundMessageTransport();
+    protected void decodeTarget(SAMLMessageContext samlMsgCtx) throws MessageDecodingException {
+        HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
 
         String target = DatatypeHelper.safeTrim(inTransport.getParameterValue("TARGET"));
         if (target == null) {
             log.error("URL TARGET parameter was missing or did not contain a value.");
             throw new MessageDecodingException("URL TARGET parameter was missing or did not contain a value.");
         }
-        artifactContext.setRelayState(target);
+        samlMsgCtx.setRelayState(target);
     }
 
     /**
-     * Decodes the SAMLart parameter(s) and adds the decoded artifacts and relying party information to the message
-     * context.
+     * Process the incoming artifacts by decoding the artifacts, dereferencing them from the artifact source and 
+     * storing the resulting response (with assertions) in the message context.
      * 
-     * @param artifactContext current message context
+     * @param samlMsgCtx current message context
      * 
-     * @throws MessageDecodingException thrown if there is a problem decoding the SAMLart parameter(s)
+     * @throws MessageDecodingException thrown if there is a problem decoding or dereferencing the artifacts
      */
-    protected void decodeArtifacts(SAML1ArtifactMessageContext artifactContext) throws MessageDecodingException {
-        HTTPInTransport inTransport = (HTTPInTransport) artifactContext.getInboundMessageTransport();
+    protected void processArtifacts(SAMLMessageContext samlMsgCtx) throws MessageDecodingException {
+        HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
         List<String> encodedArtifacts = inTransport.getParameterValues("SAMLart");
         if (encodedArtifacts == null || encodedArtifacts.size() == 0) {
             log.error("URL SAMLart parameter was missing or did not contain a value.");
             throw new MessageDecodingException("URL SAMLart parameter was missing or did not contain a value.");
         }
-
-        String relyingPartyId = null;
-        SAMLArtifactMapEntry artifactEntry;
-        for (String encodedArtifact : encodedArtifacts) {
-            artifactEntry = getArtifactMap().get(encodedArtifact);
-
-            if (relyingPartyId == null) {
-                relyingPartyId = artifactEntry.getRelyingPartyId();
-            } else {
-                if (!relyingPartyId.equals(artifactEntry.getRelyingPartyId())) {
-                    throw new MessageDecodingException("Request SAML artifacts do not have the same relying party ID");
-                }
-            }
-        }
-
-        artifactContext.setInboundMessageIssuer(relyingPartyId);
-        artifactContext.setArtifacts(encodedArtifacts);
-    }
-
-    /**
-     * Derferences the artifacts within the incoming request and stores them in the request context.
-     * 
-     * @param requestContext current request context
-     * 
-     * @throws MessageDecodingException thrown if the incoming request does not contain any {@link AssertionArtifact}s.
-     */
-    protected void dereferenceArtifacts(SAML1ArtifactMessageContext requestContext) throws MessageDecodingException {
-        Request request = (Request) requestContext.getInboundSAMLMessage();
-        List<AssertionArtifact> assertionArtifacts = request.getAssertionArtifacts();
-
-        if (assertionArtifacts == null || assertionArtifacts.size() == 0) {
-            log.error("No AssertionArtifacts available in request");
-            throw new MessageDecodingException("No AssertionArtifacts available in request");
-        }
-
-        ArrayList<Assertion> assertions = new ArrayList<Assertion>();
-        SAMLArtifactMapEntry artifactEntry;
-        Assertion assertion;
-        for (AssertionArtifact assertionArtifact : assertionArtifacts) {
-            artifactEntry = getArtifactMap().get(assertionArtifact.getAssertionArtifact());
-            if (artifactEntry == null || artifactEntry.isExpired()) {
-                continue;
-            }
-
-            getArtifactMap().remove(assertionArtifact.getAssertionArtifact());
-            try {
-                assertions.add((Assertion) artifactEntry.getSamlMessage());
-            } catch (Exception e) {
-                log.error("Unable to unmarshall assertion associated with artifact", e);
-                throw new MessageDecodingException("Unable to unmarshall assertion associated with artifact", e);
-            }
-        }
-
-        requestContext.setDereferencedAssertions(assertions);
+        
+        // TODO decode artifact(s); resolve issuer resolution endpoint; dereference using 
+        // Request/AssertionArtifact(s) over synchronous backchannel binding;
+        // store response as the inbound SAML message.
     }
 
     /** {@inheritDoc} */
