@@ -68,7 +68,7 @@ public interface AuthnContext extends SAMLObject {
     public static final String PPT_AUTHN_CTX = "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport";
 
     /** URI for Previous Session authentication context. */
-    public static final String PREVIOUS_SESSION_AUTHN_CTX = " urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession";
+    public static final String PREVIOUS_SESSION_AUTHN_CTX = "urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession";
 
     /** URI for X509 Public Key authentication context. */
     public static final String X509_AUTHN_CTX = "urn:oasis:names:tc:SAML:2.0:ac:classes:X509";
