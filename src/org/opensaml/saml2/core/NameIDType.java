@@ -33,30 +33,30 @@ public interface NameIDType {
     /** SPProviderID attribute name. */
     public static final String SPPROVIDED_ID_ATTRIB_NAME = "SPProvidedID";
 
-    /** Unspecified attribute format ID. */
+    /** URI for unspecified name format. */
     public static final String UNSPECIFIED = "urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified";
 
-    /** Email address attribute format ID. */
+    /** URI for email name format. */
     public static final String EMAIL = "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress";
 
-    /** X/509 subject name attribute format ID. */
+    /** URI for X509 subject name format. */
     public static final String X509_SUBJECT = "urn:oasis:names:tc:SAML:1.1:nameid-format:x509SubjectName";
 
-    /** Windows domain qualified name attribute format ID. */
+    /** URI for windows domain qualified name name format. */
     public static final String WIN_DOMAIN_QUALIFIED = "urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName";
 
-    /** Kerberos principal attribute format ID. */
+    /** URI for kerberos name format. */
     public static final String KERBEROS = "urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos";
 
-    /** Entity identifier attribute format ID. */
+    /** URI for SAML entity name format. */
     public static final String ENTITY = "urn:oasis:names:tc:SAML:2.0:nameid-format:entity";
 
-    /** Persistent identifier attribute format ID. */
+    /** URI for persistent name format. */
     public static final String PERSISTENT = "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent";
 
-    /** Transient identifier attribute format ID. */
+    /** URI for transient name format. */
     public static final String TRANSIENT = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient";
-    
+
     /** Special URI used by NameIDPolicy to indicate a NameID should be encrypted. */
     public static final String ENCRYPTED = "urn:oasis:names:tc:SAML:2.0:nameid-format:encrypted";
 
