@@ -28,13 +28,20 @@ import org.opensaml.saml2.core.impl.AuthnStatementBuilder;
 import org.opensaml.saml2.core.impl.IssuerBuilder;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.security.CriteriaSet;
+import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.BasicCredential;
+import org.opensaml.xml.security.credential.StaticCredentialResolver;
+import org.opensaml.xml.security.criteria.EntityIDCriteria;
+import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
+import org.opensaml.xml.signature.impl.ExplicitKeySignatureTrustEngine;
 import org.opensaml.xml.signature.impl.SignatureBuilder;
 import org.opensaml.xml.util.XMLHelper;
 import org.opensaml.xml.validation.ValidationException;
@@ -86,8 +93,11 @@ public class SignedAssertionTest extends BaseTestCase {
      * @throws MarshallingException thrown if the Assertion can not be marshalled into a DOM
      * @throws ValidationException thrown if the Signature does not validate
      * @throws SignatureException 
+     * @throws UnmarshallingException 
+     * @throws SecurityException 
      */
-    public void testAssertionSignature() throws MarshallingException, ValidationException, SignatureException{
+    public void testAssertionSignature() 
+        throws MarshallingException, ValidationException, SignatureException, UnmarshallingException, SecurityException{
         DateTime now = new DateTime();
         
         Assertion assertion = assertionBuilder.buildObject();
@@ -113,6 +123,17 @@ public class SignedAssertionTest extends BaseTestCase {
         marshaller.marshall(assertion);
         Signer.signObject(signature);
         
-        //TODO verify signature with new trust engine
+        
+        // Unmarshall new tree around DOM to avoid side effects and Apache xmlsec bug.
+        Assertion signedAssertion = 
+            (Assertion) unmarshallerFactory.getUnmarshaller(assertion.getDOM()).unmarshall(assertion.getDOM());
+        
+        StaticCredentialResolver credResolver = new StaticCredentialResolver(goodCredential);
+        KeyInfoCredentialResolver kiResolver = SecurityTestHelper.buildBasicInlineKeyInfoResolver();
+        ExplicitKeySignatureTrustEngine trustEngine = new ExplicitKeySignatureTrustEngine(credResolver, kiResolver);
+        
+        CriteriaSet criteriaSet = new CriteriaSet( new EntityIDCriteria("urn:example.org:issuer") );
+        assertTrue("Assertion signature was not valid",
+                trustEngine.validate(signedAssertion.getSignature(), criteriaSet));
     }
 }
