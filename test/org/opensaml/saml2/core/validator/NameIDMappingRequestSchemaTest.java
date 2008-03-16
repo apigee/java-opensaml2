@@ -22,6 +22,9 @@ package org.opensaml.saml2.core.validator;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.EncryptedID;
+import org.opensaml.saml2.core.LogoutRequest;
+import org.opensaml.saml2.core.MockBaseID;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDMappingRequest;
 import org.opensaml.saml2.core.NameIDPolicy;
@@ -53,22 +56,34 @@ public class NameIDMappingRequestSchemaTest extends RequestSchemaTestBase {
         request.setNameIDPolicy(policy);
     }
     
-    /**
-     *  Test invalid identifiers (NameID, BaseID, EncryptedID).
-     */
-    public void testIdentifiersFailure() {
+    public void testNoIdentifiersFailure() {
         NameIDMappingRequest request = (NameIDMappingRequest) target;
         
         request.setNameID(null);
-        assertValidationFail("NameID was null");
-    
-        // TODO need a BaseID concrete impl to test combinations
+        assertValidationFail("No name identifier was present");
     }
     
+    public void testTooManyIdentifiersFailure() {
+        NameIDMappingRequest request = (NameIDMappingRequest) target;
+        
+        request.setBaseID( new MockBaseID() );
+        assertValidationFail("Both NameID and BaseID were present");
+    }
     
-    /**
-     *  Test invalid NameIDPolicy
-     */
+    public void testOtherValidIdentifiers() {
+        NameIDMappingRequest request = (NameIDMappingRequest) target;
+        
+        request.setNameID(null);
+        request.setBaseID( new MockBaseID() );
+        request.setEncryptedID(null);
+        assertValidationPass("BaseID was present");
+        
+        request.setNameID(null);
+        request.setBaseID(null);
+        request.setEncryptedID((EncryptedID) buildXMLObject(EncryptedID.DEFAULT_ELEMENT_NAME));
+        assertValidationPass("EncryptedID was present");
+    }
+    
     public void testNameIDPolicyFailure() {
         NameIDMappingRequest request = (NameIDMappingRequest) target;
         

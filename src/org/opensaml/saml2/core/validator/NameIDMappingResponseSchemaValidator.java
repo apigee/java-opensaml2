@@ -48,11 +48,18 @@ public class NameIDMappingResponseSchemaValidator extends StatusResponseTypeSche
      * @throws ValidationException 
      */
     protected void validateIdentifiers(NameIDMappingResponse resp) throws ValidationException {
-        if (resp.getNameID() == null) {
-            throw new ValidationException("NameID is required");
+        int idCount = 0;
+        
+        if (resp.getNameID() != null) {
+            idCount++;
+        }
+        if (resp.getEncryptedID() != null) {
+            idCount++;
         }
         
-        // TODO EncryptedID pending encryption implementation.
+        if (idCount != 1) {
+            throw new ValidationException("NameIDMappingResponse must contain exactly one of: NameID, EncryptedID");
+        }
     }
 
 }

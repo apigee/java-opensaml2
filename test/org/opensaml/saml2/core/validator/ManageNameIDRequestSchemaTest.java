@@ -19,11 +19,10 @@
  */
 package org.opensaml.saml2.core.validator;
 
-import javax.xml.namespace.QName;
-
-import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.ManageNameIDRequest;
 import org.opensaml.saml2.core.NameID;
+import org.opensaml.saml2.core.NewEncryptedID;
 import org.opensaml.saml2.core.NewID;
 import org.opensaml.saml2.core.Terminate;
 
@@ -32,8 +31,11 @@ import org.opensaml.saml2.core.Terminate;
  */
 public class ManageNameIDRequestSchemaTest extends RequestSchemaTestBase {
     
-    private NameID nameid;
-    private NewID newid;
+    private NameID nameID;
+    private EncryptedID encryptedID;
+    
+    private NewID newID;
+    private NewEncryptedID newEncryptedID;
     private Terminate terminate;
 
     /**
@@ -42,8 +44,17 @@ public class ManageNameIDRequestSchemaTest extends RequestSchemaTestBase {
      */
     public ManageNameIDRequestSchemaTest() {
         super();
-        targetQName = new QName(SAMLConstants.SAML20P_NS, ManageNameIDRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        targetQName = ManageNameIDRequest.DEFAULT_ELEMENT_NAME;
         validator = new ManageNameIDRequestSchemaValidator();
+    }
+
+    /** {@inheritDoc} */
+    protected void setUp() throws Exception {
+        super.setUp();
+        
+        terminate = (Terminate) buildXMLObject(Terminate.DEFAULT_ELEMENT_NAME);
+        encryptedID = (EncryptedID) buildXMLObject(EncryptedID.DEFAULT_ELEMENT_NAME);
+        newEncryptedID = (NewEncryptedID) buildXMLObject(NewEncryptedID.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */
@@ -51,27 +62,35 @@ public class ManageNameIDRequestSchemaTest extends RequestSchemaTestBase {
         super.populateRequiredData();
         ManageNameIDRequest request = (ManageNameIDRequest) target;
         
-        nameid  = (NameID) buildXMLObject(new QName(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME));
-        newid = (NewID) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, NewID.DEFAULT_ELEMENT_LOCAL_NAME));
-        terminate = (Terminate) buildXMLObject(new QName(SAMLConstants.SAML20P_NS, Terminate.DEFAULT_ELEMENT_LOCAL_NAME));
+        nameID  = (NameID) buildXMLObject(NameID.DEFAULT_ELEMENT_NAME);
+        newID = (NewID) buildXMLObject(NewID.DEFAULT_ELEMENT_NAME);
         
-        request.setNameID(nameid);
-        request.setNewID(newid);
+        request.setNameID(nameID);
+        request.setNewID(newID);
     }
     
-    /**
-     *  Tests invalid NameID child element.
-     */
-    public void testNameIDFailure() {
+    public void testNoIdentifiersFailure() {
         ManageNameIDRequest request = (ManageNameIDRequest) target;
-       
+        
         request.setNameID(null);
-        assertValidationFail("NameID was null");
-    } 
+        assertValidationFail("No name identifier was present");
+    }
+    
+    public void testOtherValidIdentifiers() {
+        ManageNameIDRequest request = (ManageNameIDRequest) target;
+        
+        request.setNameID(null);
+        request.setEncryptedID(encryptedID);
+        assertValidationPass("EncryptedID was present");
+    }
+    
+    public void testTooManyIdentifiersFailure() {
+        ManageNameIDRequest request = (ManageNameIDRequest) target;
+        
+        request.setEncryptedID(encryptedID);
+        assertValidationFail("Both NameID and EncryptedID were present");
+    }
    
-    /**
-     *  Tests NewID and Terminate combination failures
-     */
     public void testNewIDandTerminateFailure() {
         ManageNameIDRequest request = (ManageNameIDRequest) target;
         
@@ -81,7 +100,10 @@ public class ManageNameIDRequestSchemaTest extends RequestSchemaTestBase {
         request.setNewID(null);
         request.setTerminate(null);
         assertValidationFail("Both NewID and Terminate were null");
+        
+        request.setNewID(newID);
+        request.setNewEncryptedID(newEncryptedID);
+        assertValidationFail("Both NewID and NewEncryptedID were present");
     }
-    
 
 }

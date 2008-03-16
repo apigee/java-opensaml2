@@ -49,15 +49,21 @@ public class NameIDMappingRequestSchemaValidator extends RequestAbstractTypeSche
      * @throws ValidationException 
      */
     protected void validateIdentifiers(NameIDMappingRequest request) throws ValidationException {
-        if (request.getBaseID() == null && request.getNameID() == null) {
-            throw new ValidationException("Either NameID or BaseID child is required");
+        int idCount = 0;
+        
+        if (request.getBaseID() != null) {
+            idCount++;
+        }
+        if (request.getNameID() != null) {
+            idCount++;
+        }
+        if (request.getEncryptedID() != null) {
+            idCount++;
         }
         
-        if (request.getBaseID() != null && request.getNameID() != null) {
-            throw new ValidationException("NameID and BaseID are mutually exclusive");
+        if (idCount != 1) {
+            throw new ValidationException("NameIDMappingRequest must contain exactly one of: BaseID, NameID, EncryptedID");
         }
-        
-        // TODO EncryptedID pending encryption implementation
     }
     
     /**

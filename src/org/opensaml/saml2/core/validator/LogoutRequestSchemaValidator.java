@@ -28,7 +28,7 @@ import org.opensaml.xml.validation.ValidationException;
 public class LogoutRequestSchemaValidator extends RequestAbstractTypeSchemaValidator<LogoutRequest> {
 
     /**
-     * Constructor
+     * Constructor.
      *
      */
     public LogoutRequestSchemaValidator() {
@@ -44,19 +44,25 @@ public class LogoutRequestSchemaValidator extends RequestAbstractTypeSchemaValid
     /**
      * Validate the Identifier child types (BaseID, NameID, EncryptedID).
      * 
-     * @param request
-     * @throws ValidationException
+     * @param request the request being processed
+     * @throws ValidationException thrown if the identifiers present are not valid
      */
     protected void validateIdentifiers(LogoutRequest request) throws ValidationException {
-        if (request.getBaseID() == null && request.getNameID() == null) {
-            throw new ValidationException("Either NameID or BaseID child is required");
+        int idCount = 0;
+        
+        if (request.getBaseID() != null) {
+            idCount++;
+        }
+        if (request.getNameID() != null) {
+            idCount++;
+        }
+        if (request.getEncryptedID() != null) {
+            idCount++;
         }
         
-        if (request.getBaseID() != null && request.getNameID() != null) {
-            throw new ValidationException("NameID and BaseID are mutually exclusive");
+        if (idCount != 1) {
+            throw new ValidationException("LogoutRequest must contain exactly one of: BaseID, NameID, EncryptedID");
         }
     }
-    
-    // TODO EncryptedID pending encryption implementation.
     
 }

@@ -46,12 +46,18 @@ public class ManageNameIDRequestSchemaValidator extends RequestAbstractTypeSchem
      * @throws ValidationException 
      */
     protected void validateNameID(ManageNameIDRequest request) throws ValidationException {
-        if (request.getNameID() == null) {
-            throw new ValidationException("NameID is required");
+        int idCount = 0;
+        
+        if (request.getNameID() != null) {
+            idCount++;
+        }
+        if (request.getEncryptedID() != null) {
+            idCount++;
         }
         
-        // TODO EncryptedID pending encryption implementation
-        
+        if (idCount != 1) {
+            throw new ValidationException("ManageNameIDRequest must contain exactly one of: NameID, EncryptedID");
+        }
     }
     
     /**
@@ -61,16 +67,21 @@ public class ManageNameIDRequestSchemaValidator extends RequestAbstractTypeSchem
      * @throws ValidationException 
      */
     protected void validateNewIDAndTerminate(ManageNameIDRequest request) throws ValidationException {
-        if (request.getNewID() == null && request.getTerminate() == null) {
-            throw new ValidationException("Either NewID or Terminate is required");
+        int count = 0;
+        
+        if (request.getNewID() != null) {
+            count++;
+        }
+        if (request.getNewEncryptedID() != null) {
+            count++;
+        }
+        if (request.getTerminate() != null) {
+            count++;
         }
         
-        if (request.getNewID() != null && request.getTerminate() != null) {
-            throw new ValidationException("NewID and Terminate are mutually exclusive");
+        if (count != 1) {
+            throw new ValidationException("ManageNameIDRequest must contain exactly one of: NewID, NewEncryptedID, Terminate");
         }
-        
-        // TODO NewEncryptedID pending encryption implementation
     }
     
-
 }

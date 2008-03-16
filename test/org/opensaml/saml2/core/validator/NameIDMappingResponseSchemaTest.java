@@ -22,7 +22,10 @@ package org.opensaml.saml2.core.validator;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.EncryptedID;
+import org.opensaml.saml2.core.MockBaseID;
 import org.opensaml.saml2.core.NameID;
+import org.opensaml.saml2.core.NameIDMappingRequest;
 import org.opensaml.saml2.core.NameIDMappingResponse;
 
 /**
@@ -49,13 +52,25 @@ public class NameIDMappingResponseSchemaTest extends StatusResponseSchemaTestBas
         response.setNameID(nameid);
     }
     
-    /**
-     *  Tests invalid identifier child types (NameID, EncryptedID).
-     */
-    public void testIdentifiersFailure() {
-        NameIDMappingResponse resp = (NameIDMappingResponse) target;
+    public void testNoIdentifiersFailure() {
+        NameIDMappingResponse response = (NameIDMappingResponse) target;
         
-        resp.setNameID(null);
-        assertValidationFail("NameID was null");
+        response.setNameID(null);
+        assertValidationFail("No name identifier was present");
+    }
+    
+    public void testTooManyIdentifiersFailure() {
+        NameIDMappingResponse response = (NameIDMappingResponse) target;
+        
+        response.setEncryptedID( (EncryptedID) buildXMLObject(EncryptedID.DEFAULT_ELEMENT_NAME) );
+        assertValidationFail("Both NameID and EncryptedID were present");
+    }
+    
+    public void testOtherValidIdentifiers() {
+        NameIDMappingResponse response = (NameIDMappingResponse) target;
+        
+        response.setNameID(null);
+        response.setEncryptedID((EncryptedID) buildXMLObject(EncryptedID.DEFAULT_ELEMENT_NAME));
+        assertValidationPass("EncryptedID was present");
     }
 }

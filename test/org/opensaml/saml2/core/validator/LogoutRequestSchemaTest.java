@@ -22,7 +22,9 @@ package org.opensaml.saml2.core.validator;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.LogoutRequest;
+import org.opensaml.saml2.core.MockBaseID;
 import org.opensaml.saml2.core.NameID;
 
 /**
@@ -49,15 +51,32 @@ public class LogoutRequestSchemaTest extends RequestSchemaTestBase {
     }
     
     
-    public void testIdentifiersFailure() {
+    public void testNoIdentifiersFailure() {
         LogoutRequest request = (LogoutRequest) target;
         
         request.setNameID(null);
-        assertValidationFail("NameID was null");
-        
-        // TODO need a minimal BaseID subclass impl to really test the combinations here
+        assertValidationFail("No name identifier was present");
     }
     
-    // TODO EncryptedID pending encryption implementation.
+    public void testTooManyIdentifiersFailure() {
+        LogoutRequest request = (LogoutRequest) target;
+        
+        request.setBaseID( new MockBaseID() );
+        assertValidationFail("Both NameID and BaseID were present");
+    }
+    
+    public void testOtherValidIdentifiers() {
+        LogoutRequest request = (LogoutRequest) target;
+        
+        request.setNameID(null);
+        request.setBaseID( new MockBaseID() );
+        request.setEncryptedID(null);
+        assertValidationPass("BaseID was present");
+        
+        request.setNameID(null);
+        request.setBaseID(null);
+        request.setEncryptedID((EncryptedID) buildXMLObject(EncryptedID.DEFAULT_ELEMENT_NAME));
+        assertValidationPass("EncryptedID was present");
+    }
 
 }
