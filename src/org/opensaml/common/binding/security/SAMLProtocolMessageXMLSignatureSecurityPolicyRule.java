@@ -137,9 +137,6 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLX
                 throw new SecurityPolicyException("Validation of protocol message signature failed");
             }
         } else {
-            // TODO should attempt to get valid signing creds from Signature/KeyInfo
-            // and attempt to infer issuer, as in the client cert rule?
-            // Need KeyInfo resolver + Credential or X509Credential TrustEngine
             log.error("Context issuer unavailable, can not attempt SAML protocol message signature validation");
             throw new SecurityPolicyException("Context issuer unavailable, can not validate signature");
         }
