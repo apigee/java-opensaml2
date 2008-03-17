@@ -17,6 +17,7 @@ OpenSAML2 Java Stack Implementation Team
    SWITCH
      
    Brent Putman
+   Georgetown University
    
    Rod Widdowson
    University of Edinburgh
