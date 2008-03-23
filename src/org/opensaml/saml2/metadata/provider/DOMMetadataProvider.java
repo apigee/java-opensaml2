@@ -26,14 +26,14 @@ import org.w3c.dom.Element;
 /**
  * A <code>MetadataProvider</code> implementation that retrieves metadata from a DOM <code>Element</code> as
  * supplied by the user.
+ * 
+ * It is the responsibility of the caller to re-initialize, via {@link #initialize()}, if any properties of this
+ * provider are changed.
  */
 public class DOMMetadataProvider extends AbstractObservableMetadataProvider implements MetadataProvider {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(DOMMetadataProvider.class);
-
-    /** Whether the provider has been initialized. */
-    private boolean initialized;
 
     /** Root metadata element exposed by this provider. */
     private Element metadataElement;
@@ -48,7 +48,6 @@ public class DOMMetadataProvider extends AbstractObservableMetadataProvider impl
      */
     public DOMMetadataProvider(Element mdElement) {
         super();
-        initialized = false;
         metadataElement = mdElement;
     }
 
@@ -58,26 +57,13 @@ public class DOMMetadataProvider extends AbstractObservableMetadataProvider impl
     }
 
     /**
-     * {@inheritDoc}
-     * 
-     * @throws MetadataProviderException
-     */
-    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
-        super.setMetadataFilter(newFilter);
-        refreshMetadata();
-    }
-
-    /**
      * Initializes the provider and prepares it for use.
      * 
      * @throws MetadataProviderException thrown if the metadata element provided can not be read or is not valid
      *             metadata
      */
     public synchronized void initialize() throws MetadataProviderException {
-        if (!initialized) {
-            refreshMetadata();
-            initialized = true;
-        }
+        refreshMetadata();
     }
 
     /**

@@ -44,6 +44,9 @@ import org.slf4j.LoggerFactory;
  * 
  * Metadata is filtered prior to determining the cache expiration data. This allows a filter to remove XMLObjects that
  * may effect the cache duration but for which the user of this provider does not care about.
+ * 
+ * It is the responsibility of the caller to re-initialize, via {@link #initialize()}, if any properties of this
+ * provider are changed.
  */
 public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
 

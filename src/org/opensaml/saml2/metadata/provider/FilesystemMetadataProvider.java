@@ -19,7 +19,6 @@ package org.opensaml.saml2.metadata.provider;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 import org.joda.time.DateTime;
 import org.opensaml.saml2.common.SAML2Helper;
@@ -31,6 +30,9 @@ import org.slf4j.LoggerFactory;
 /**
  * A metadata provider that pulls metadata from a file on the local filesystem. Metadata is cached and automatically
  * refreshed when the file changes.
+ * 
+ * It is the responsibility of the caller to re-initialize, via {@link #initialize()}, if any properties of this
+ * provider are changed.
  */
 public class FilesystemMetadataProvider extends AbstractObservableMetadataProvider {
 
@@ -107,12 +109,6 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
      */
     public void setMaintainExpiredMetadata(boolean maintain) {
         maintainExpiredMetadata = maintain;
-    }
-
-    /** {@inheritDoc} */
-    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
-        super.setMetadataFilter(newFilter);
-        refreshMetadata();
     }
 
     /** {@inheritDoc} */

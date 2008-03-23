@@ -35,6 +35,9 @@ import org.w3c.dom.Element;
  * A URL metadata provider that caches a copy of the retrieved metadata to disk so that, in the event that the metadata
  * may not be pulled from the URL it may be pulled from disk using the last fetched data. If the backing file does not
  * already exist it will be created.
+ * 
+ * It is the responsibility of the caller to re-initialize, via {@link #initialize()}, if any properties of this
+ * provider are changed.
  */
 public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
 
