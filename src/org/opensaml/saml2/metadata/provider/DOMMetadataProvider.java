@@ -76,9 +76,8 @@ public class DOMMetadataProvider extends AbstractObservableMetadataProvider impl
         try {
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(metadataElement);
             metadata = unmarshaller.unmarshall(metadataElement);
-            metadata.releaseDOM();
-            metadata.releaseChildrenDOM(true);
             filterMetadata(metadata);
+            releaseMetadataDOM(metadata);
             emitChangeEvent();
         } catch (UnmarshallingException e) {
             String errorMsg = "Unable to unmarshall metadata element";
