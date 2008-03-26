@@ -126,7 +126,9 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
      * @throws MetadataProviderException thrown if there is a problem reading, parsing, or validating the metadata
      */
     private synchronized void refreshMetadata() throws MetadataProviderException {
-        if (lastUpdate >= metadataFile.lastModified()) {
+        // Only read the file last mod time once, store off for later use. See below.
+        long metadataFileLastModified = metadataFile.lastModified();
+        if (lastUpdate >= metadataFileLastModified) {
             // In case other requests stacked up behind the synchronize lock
             return;
         }
@@ -146,7 +148,14 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
                 cachedMetadata = metadata;
             }
 
-            lastUpdate = metadataFile.lastModified();
+            // Note: this doesn't really avoid re-reading the metadata file unnecessarily on later refreshes
+            // (case where file changed between reading/storing the last mod time above and when the contents
+            // were read above).
+            // It does however avoid the greater evil of *missing* a newer file on a subsequent refresh
+            // (case where the file changed after the contents were read above, but before here).
+            // To do this exactly correctly, we need to make use of OS filesystem-level file locking.
+            lastUpdate = metadataFileLastModified;
+            
             emitChangeEvent();
         } catch (FileNotFoundException e) {
             String errorMsg = "Unable to read metadata file";
