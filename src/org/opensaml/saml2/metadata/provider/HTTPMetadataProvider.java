@@ -238,9 +238,9 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             if (mdExpirationTime != null && !maintainExpiredMetadata() && mdExpirationTime.isBeforeNow()) {
                 cachedMetadata = null;
             } else {
+                filterMetadata(metadata);
+                releaseMetadataDOM(metadata);
                 cachedMetadata = metadata;
-                filterMetadata(cachedMetadata);
-                releaseMetadataDOM(cachedMetadata);
             }
 
             emitChangeEvent();

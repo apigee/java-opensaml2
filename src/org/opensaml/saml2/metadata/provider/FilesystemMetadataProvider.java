@@ -141,9 +141,9 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
                         metadataFile);
                 cachedMetadata = null;
             } else {
+                filterMetadata(metadata);
+                releaseMetadataDOM(metadata);
                 cachedMetadata = metadata;
-                filterMetadata(cachedMetadata);
-                releaseMetadataDOM(cachedMetadata);
             }
 
             lastUpdate = metadataFile.lastModified();
