@@ -30,6 +30,7 @@ import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
@@ -61,6 +62,8 @@ public class AffiliationDescriptorUnmarshaller extends AbstractSAMLObjectUnmarsh
 
         if (childSAMLObject instanceof Extensions) {
             descriptor.setExtensions((Extensions) childSAMLObject);
+        } else if (childSAMLObject instanceof Signature) {
+            descriptor.setSignature((Signature) childSAMLObject);
         } else if (childSAMLObject instanceof AffiliateMember) {
             descriptor.getMembers().add((AffiliateMember) childSAMLObject);
         } else if (childSAMLObject instanceof KeyDescriptor) {

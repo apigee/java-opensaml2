@@ -25,6 +25,8 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureConstants;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -109,6 +111,7 @@ public class EntitiesDescriptorTest extends BaseSAMLObjectProviderTestCase {
     public void testChildElementsUnmarshall() {
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) unmarshallElement(childElementsFile);
 
+        assertNotNull("Signature", entitiesDescriptor.getSignature());
         assertNotNull("Extensions", entitiesDescriptor.getExtensions());
         assertEquals("Entities Descriptor child elements", expectedEntitiesDescriptorsCount, entitiesDescriptor
                 .getEntitiesDescriptors().size());
@@ -141,6 +144,9 @@ public class EntitiesDescriptorTest extends BaseSAMLObjectProviderTestCase {
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntitiesDescriptor entitiesDescriptor = (EntitiesDescriptor) buildXMLObject(qname);
+        entitiesDescriptor.setID(expectedID);
+        
+        entitiesDescriptor.setSignature( buildSignatureSkeleton() );
 
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         entitiesDescriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
@@ -153,5 +159,17 @@ public class EntitiesDescriptorTest extends BaseSAMLObjectProviderTestCase {
         entitiesDescriptor.getEntityDescriptors().add((EntityDescriptor) buildXMLObject(entityDescriptorQName));
         entitiesDescriptor.getEntitiesDescriptors().add((EntitiesDescriptor) buildXMLObject(entitiesDescriptorQName));
         assertEquals(expectedChildElementsDOM, entitiesDescriptor);
+    }
+    
+    /**
+     * Build a Signature skeleton to use in marshalling unit tests.
+     * 
+     * @return minimally populated Signature element
+     */
+    private Signature buildSignatureSkeleton() {
+        Signature signature = (Signature) buildXMLObject(Signature.DEFAULT_ELEMENT_NAME);
+        signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+        signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
+        return signature;
     }
 }

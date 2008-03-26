@@ -25,6 +25,8 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.AffiliateMember;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureConstants;
 
 /**
  * Test case for creating, marshalling, and unmarshalling
@@ -102,6 +104,7 @@ public class AffiliationDescriptorTest extends BaseSAMLObjectProviderTestCase {
         AffiliationDescriptor descriptor = (AffiliationDescriptor) unmarshallElement(childElementsFile);
 
         assertNotNull("Extensions", descriptor.getExtensions());
+        assertNotNull("Signature", descriptor.getSignature());
         assertEquals("KeyDescriptor count", 0, descriptor.getKeyDescriptors().size());
         assertEquals("Affiliate Member count ", 3, descriptor.getMembers().size());
     }
@@ -137,6 +140,9 @@ public class AffiliationDescriptorTest extends BaseSAMLObjectProviderTestCase {
         AffiliationDescriptor descriptor = (AffiliationDescriptor) buildXMLObject(qname);
 
         descriptor.setOwnerID(expectedOwnerID);
+        descriptor.setID(expectedID);
+        
+        descriptor.setSignature( buildSignatureSkeleton() );
 
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
@@ -148,5 +154,17 @@ public class AffiliationDescriptorTest extends BaseSAMLObjectProviderTestCase {
 
         assertEquals(expectedChildElementsDOM, descriptor);
     }
-
+    
+    /**
+     * Build a Signature skeleton to use in marshalling unit tests.
+     * 
+     * @return minimally populated Signature element
+     */
+    private Signature buildSignatureSkeleton() {
+        Signature signature = (Signature) buildXMLObject(Signature.DEFAULT_ELEMENT_NAME);
+        signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+        signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
+        return signature;
+    }
+    
 }

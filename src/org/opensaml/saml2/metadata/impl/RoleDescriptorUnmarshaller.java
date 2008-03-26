@@ -32,6 +32,7 @@ import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
@@ -58,6 +59,8 @@ public abstract class RoleDescriptorUnmarshaller extends AbstractSAMLObjectUnmar
 
         if (childSAMLObject instanceof Extensions) {
             roleDescriptor.setExtensions((Extensions) childSAMLObject);
+        } else if (childSAMLObject instanceof Signature) {
+            roleDescriptor.setSignature((Signature) childSAMLObject);
         } else if (childSAMLObject instanceof KeyDescriptor) {
             roleDescriptor.getKeyDescriptors().add((KeyDescriptor) childSAMLObject);
         } else if (childSAMLObject instanceof Organization) {

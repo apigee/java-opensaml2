@@ -33,6 +33,10 @@ import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.PDPDescriptor;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.signature.SignatureConstants;
+import org.opensaml.xml.util.XMLHelper;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.metadata.impl.EntityDescriptorImpl}.
@@ -110,6 +114,7 @@ public class EntityDescriptorTest extends BaseSAMLObjectProviderTestCase {
         EntityDescriptor descriptor = (EntityDescriptor) unmarshallElement(childElementsFile);
 
         assertNotNull("Extensions child", descriptor.getExtensions());
+        assertNotNull("Signature child", descriptor.getSignature());
         assertEquals("IDPSSODescriptor count", 2, descriptor.getRoleDescriptors(IDPSSODescriptor.DEFAULT_ELEMENT_NAME).size());
         assertEquals("SPSSODescriptor count", 3, descriptor.getRoleDescriptors(SPSSODescriptor.DEFAULT_ELEMENT_NAME).size());
         assertEquals("AuthnAuthorityDescriptor count", 2, descriptor.getRoleDescriptors(AuthnAuthorityDescriptor.DEFAULT_ELEMENT_NAME).size());
@@ -148,9 +153,13 @@ public class EntityDescriptorTest extends BaseSAMLObjectProviderTestCase {
     public void testChildElementsMarshall() {
         QName qname = new QName(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         EntityDescriptor descriptor = (EntityDescriptor) buildXMLObject(qname);
+        descriptor.setID(expectedID);
+        descriptor.setEntityID(expectedEntityID);
 
         QName extensionsQName = new QName(SAMLConstants.SAML20MD_NS, Extensions.LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         descriptor.setExtensions((Extensions) buildXMLObject(extensionsQName));
+        
+        descriptor.setSignature( buildSignatureSkeleton() );
         
         QName idpSSOQName = new QName(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
         QName spSSOQName = new QName(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX);
@@ -179,8 +188,26 @@ public class EntityDescriptorTest extends BaseSAMLObjectProviderTestCase {
         for (int i = 0; i < 3; i++) {
             descriptor.getAdditionalMetadataLocations().add((AdditionalMetadataLocation) buildXMLObject(addMDQName));
         }
+        
+        try {
+            System.out.println(XMLHelper.prettyPrintXML(marshallerFactory.getMarshaller(descriptor).marshall(descriptor)));
+        } catch (MarshallingException e) {
+            e.printStackTrace();
+        }
 
         assertEquals(expectedChildElementsDOM, descriptor);
+    }
+
+    /**
+     * Build a Signature skeleton to use in marshalling unit tests.
+     * 
+     * @return minimally populated Signature element
+     */
+    private Signature buildSignatureSkeleton() {
+        Signature signature = (Signature) buildXMLObject(Signature.DEFAULT_ELEMENT_NAME);
+        signature.setSignatureAlgorithm(SignatureConstants.ALGO_ID_SIGNATURE_RSA_SHA1);
+        signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
+        return signature;
     }
 
 }

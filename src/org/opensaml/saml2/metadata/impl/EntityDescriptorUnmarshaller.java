@@ -33,6 +33,7 @@ import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
@@ -63,7 +64,9 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
         EntityDescriptor entityDescriptor = (EntityDescriptor) parentSAMLObject;
 
         if (childSAMLObject instanceof Extensions) {
-            entityDescriptor.setExtensions((Extensions) childSAMLObject);
+            entityDescriptor.setExtensions((Extensions) childSAMLObject); 
+        } else if (childSAMLObject instanceof Signature) {
+            entityDescriptor.setSignature((Signature) childSAMLObject);
         } else if (childSAMLObject instanceof RoleDescriptor) {
             entityDescriptor.getRoleDescriptors().add((RoleDescriptor) childSAMLObject);
         } else if (childSAMLObject instanceof AffiliationDescriptor) {
