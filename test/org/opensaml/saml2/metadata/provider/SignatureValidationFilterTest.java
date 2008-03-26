@@ -16,12 +16,15 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 import org.opensaml.Configuration;
 import org.opensaml.common.BaseTestCase;
+import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.StaticCredentialResolver;
@@ -57,6 +60,23 @@ public class SignatureValidationFilterTest extends BaseTestCase {
         "fhBlVCIuTixR1R6mYu/+4KUJWtHlRCOUZhSLFept8HxEvfwnuX9xm+Q6Ju/sOgmI1INuSstUGWwV" +
         "y0AbpCphUDDmIh9A85ye8DrVaBHQrj5b/JEjCvkY0zhLJzgDzZ6btT40TuCnk2GpdAClu5SyCTiy" +
         "56+zDYqPqg==";
+    
+    private final String openIDFileValid = "/data/org/opensaml/saml2/metadata/provider/openid-metadata.xml";
+    private final String openIDFileInvalid = "/data/org/opensaml/saml2/metadata/provider/openid-metadata-invalid.xml";
+    
+    private String openIDCertBase64 = 
+        "MIICfTCCAeagAwIBAgIGAReueFpXMA0GCSqGSIb3DQEBBQUAMIGBMQswCQYDVQQGEwJVUzELMAkG" +
+        "A1UECBMCQ0ExFDASBgNVBAcTC1NpbWkgVmFsbGV5MR4wHAYDVQQKExVSYXBhdHRvbmkgQ29ycG9y" +
+        "YXRpb24xFDASBgNVBAsTC1NTTyBTdXBwb3J0MRkwFwYDVQQDExBtbHNzdGdzd21pY2hpZ2FuMB4X" +
+        "DTA4MDEyNTAxMDMxOFoXDTA5MDEyNDAxMDMxOFowgYExCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJD" +
+        "QTEUMBIGA1UEBxMLU2ltaSBWYWxsZXkxHjAcBgNVBAoTFVJhcGF0dG9uaSBDb3Jwb3JhdGlvbjEU" +
+        "MBIGA1UECxMLU1NPIFN1cHBvcnQxGTAXBgNVBAMTEG1sc3N0Z3N3bWljaGlnYW4wgZ8wDQYJKoZI" +
+        "hvcNAQEBBQADgY0AMIGJAoGBAIOnt2MOfIYvvyhiKBS2yb5IXFx+SFEa/TLSUPkE9gZJCIe22GGf" +
+        "iwzsC8ubpifebZUru1fespnaCE8rc7MtWXERW7x6Dp8wg/91NOgUB00eEUlA72DhDjelsYTJa+Az" +
+        "ztBsWh6J3HFKNdNaSVTS+CqbmgdTlDW+BExbtHUfSP0RAgMBAAEwDQYJKoZIhvcNAQEFBQADgYEA" +
+        "YT8js8O7gbLq4X/yuGCiuKHofQHFAE6pAWaxdTD+Bd2pu48GKICYAhFwHTqrG3bOqObfsILz4Pca" +
+        "vCfzIS7/dk9oPnjeH7GqbxUZMsms4qDZzdNkNDUDWj82lJzIMfZyUKbn2waTsgg3mKja0dGw2UBy" +
+        "urPV4NvVcNaIQZJunHI=";
 
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
@@ -94,6 +114,106 @@ public class SignatureValidationFilterTest extends BaseTestCase {
             fail("Filter passed validation, should have failed");
         } catch (FilterException e) {
             // do nothing, should fail
+        }
+    }
+    
+    public void testEntityDescriptor() throws UnmarshallingException, CertificateException, XMLParserException {
+        X509Certificate cert = SecurityTestHelper.buildJavaX509Cert(openIDCertBase64);
+        X509Credential cred = SecurityHelper.getSimpleCredential(cert, null);
+        StaticCredentialResolver credResolver = new StaticCredentialResolver(cred);
+        SignatureTrustEngine trustEngine = new ExplicitKeySignatureTrustEngine(credResolver, 
+                Configuration.getGlobalSecurityConfiguration().getDefaultKeyInfoCredentialResolver());
+        
+        Document mdDoc = parser.parse(SignatureValidationFilterTest.class.getResourceAsStream(openIDFileValid));
+        XMLObject xmlObject = 
+            unmarshallerFactory.getUnmarshaller(mdDoc.getDocumentElement()).unmarshall(mdDoc.getDocumentElement());
+        assertTrue(xmlObject instanceof EntityDescriptor);
+        EntityDescriptor ed = (EntityDescriptor) xmlObject;
+        assertTrue(ed.isSigned());
+        assertNotNull("Signature was null", ed.getSignature());
+        
+        SignatureValidationFilter filter = new SignatureValidationFilter(trustEngine);
+        try {
+            filter.doFilter(ed);
+        } catch (FilterException e) {
+            fail("Filter failed validation, should have succeeded: " + e.getMessage());
+        }
+    }
+    
+    public void testEntityDescriptorInvalid() throws UnmarshallingException, CertificateException, XMLParserException {
+        X509Certificate cert = SecurityTestHelper.buildJavaX509Cert(openIDCertBase64);
+        X509Credential cred = SecurityHelper.getSimpleCredential(cert, null);
+        StaticCredentialResolver credResolver = new StaticCredentialResolver(cred);
+        SignatureTrustEngine trustEngine = new ExplicitKeySignatureTrustEngine(credResolver, 
+                Configuration.getGlobalSecurityConfiguration().getDefaultKeyInfoCredentialResolver());
+        
+        Document mdDoc = parser.parse(SignatureValidationFilterTest.class.getResourceAsStream(openIDFileInvalid));
+        XMLObject xmlObject = 
+            unmarshallerFactory.getUnmarshaller(mdDoc.getDocumentElement()).unmarshall(mdDoc.getDocumentElement());
+        assertTrue(xmlObject instanceof EntityDescriptor);
+        EntityDescriptor ed = (EntityDescriptor) xmlObject;
+        assertTrue(ed.isSigned());
+        assertNotNull("Signature was null", ed.getSignature());
+        
+        SignatureValidationFilter filter = new SignatureValidationFilter(trustEngine);
+        try {
+            filter.doFilter(xmlObject);
+            fail("Filter passed validation, should have failed");
+        } catch (FilterException e) {
+            // do nothing, should fail
+        }
+    }
+    
+    public void testEntityDescriptorWithProvider() throws CertificateException, XMLParserException, UnmarshallingException {
+        X509Certificate cert = SecurityTestHelper.buildJavaX509Cert(openIDCertBase64);
+        X509Credential cred = SecurityHelper.getSimpleCredential(cert, null);
+        StaticCredentialResolver credResolver = new StaticCredentialResolver(cred);
+        SignatureTrustEngine trustEngine = new ExplicitKeySignatureTrustEngine(credResolver, 
+                Configuration.getGlobalSecurityConfiguration().getDefaultKeyInfoCredentialResolver());
+        
+        Document mdDoc = parser.parse(SignatureValidationFilterTest.class.getResourceAsStream(openIDFileValid));
+        
+        DOMMetadataProvider mdProvider = new DOMMetadataProvider(mdDoc.getDocumentElement());
+        mdProvider.setParserPool(parser);
+        mdProvider.setRequireValidMetadata(false);
+        
+        SignatureValidationFilter filter = new SignatureValidationFilter(trustEngine);
+        try {
+            mdProvider.setMetadataFilter(filter);
+        } catch (MetadataProviderException e) {
+            fail("Could not set metadata filter on provider");
+        }
+        try {
+            mdProvider.initialize();
+        } catch (MetadataProviderException e) {
+            fail("Failed when initializing metadata provider");
+        }
+    }
+    
+    public void testInvalidEntityDescriptorWithProvider() throws CertificateException, XMLParserException, UnmarshallingException {
+        X509Certificate cert = SecurityTestHelper.buildJavaX509Cert(openIDCertBase64);
+        X509Credential cred = SecurityHelper.getSimpleCredential(cert, null);
+        StaticCredentialResolver credResolver = new StaticCredentialResolver(cred);
+        SignatureTrustEngine trustEngine = new ExplicitKeySignatureTrustEngine(credResolver, 
+                Configuration.getGlobalSecurityConfiguration().getDefaultKeyInfoCredentialResolver());
+        
+        Document mdDoc = parser.parse(SignatureValidationFilterTest.class.getResourceAsStream(openIDFileInvalid));
+        
+        DOMMetadataProvider mdProvider = new DOMMetadataProvider(mdDoc.getDocumentElement());
+        mdProvider.setParserPool(parser);
+        mdProvider.setRequireValidMetadata(false);
+        
+        SignatureValidationFilter filter = new SignatureValidationFilter(trustEngine);
+        try {
+            mdProvider.setMetadataFilter(filter);
+        } catch (MetadataProviderException e) {
+            fail("Could not set metadata filter on provider");
+        }
+        try {
+            mdProvider.initialize();
+            fail("Metadata signature was invalid, provider initialization should have failed");
+        } catch (MetadataProviderException e) {
+            // do nothing, failure expected
         }
     }
 
