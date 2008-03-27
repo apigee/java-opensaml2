@@ -1,31 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="src" path="resources/classpath"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry excluding="**" kind="src" output="src/main/resources" path="src/main/resources"/>
+	<classpathentry excluding="**" kind="src" output="src/test/resources" path="src/test/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="build-lib/junit-3.8.1.jar"/>
-	<classpathentry kind="lib" path="build-lib/xmlunit1.0.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://xmlunit.sourceforge.net/doc/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="build-lib/servlet-2.4.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://java.sun.com/j2ee/1.4/docs/api/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry exported="true" kind="lib" path="lib/jargs-1.0.jar">
-		<attributes>
-			<attribute name="javadoc_location" value="http://jargs.sourceforge.net/doc/api/"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/java-xmltooling"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/java-openws"/>
-	<classpathentry exported="true" kind="lib" path="lib/velocity-1.5.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.1.jar"/>
-	<classpathentry kind="lib" path="build-lib/spring-2.0.7-core.jar"/>
-	<classpathentry kind="lib" path="build-lib/spring-2.0.7-mock.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>
