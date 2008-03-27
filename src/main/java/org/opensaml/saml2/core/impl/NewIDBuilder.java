@@ -30,8 +30,7 @@ import org.opensaml.saml2.core.NewID;
 public class NewIDBuilder extends AbstractSAMLObjectBuilder<NewID> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public NewIDBuilder() {
     }

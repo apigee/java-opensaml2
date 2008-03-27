@@ -27,16 +27,16 @@ import org.opensaml.saml2.core.OneTimeUse;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.OneTimeUse}
+ * Concrete implementation of {@link org.opensaml.saml2.core.OneTimeUse}.
  */
 public class OneTimeUseImpl extends AbstractSAMLObject implements OneTimeUse {
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected OneTimeUseImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

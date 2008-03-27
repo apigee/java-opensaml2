@@ -30,7 +30,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class EvidenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public EvidenceUnmarshaller() {
         super(SAMLConstants.SAML1_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME);

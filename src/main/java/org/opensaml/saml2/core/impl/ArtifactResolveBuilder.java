@@ -30,8 +30,7 @@ import org.opensaml.saml2.core.ArtifactResolve;
 public class ArtifactResolveBuilder extends AbstractSAMLObjectBuilder<ArtifactResolve> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public ArtifactResolveBuilder() {
 
@@ -39,7 +38,8 @@ public class ArtifactResolveBuilder extends AbstractSAMLObjectBuilder<ArtifactRe
 
     /** {@inheritDoc} */
     public ArtifactResolve buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

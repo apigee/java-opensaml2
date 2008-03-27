@@ -30,8 +30,7 @@ import org.opensaml.saml2.core.Artifact;
 public class ArtifactBuilder extends AbstractSAMLObjectBuilder<Artifact> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public ArtifactBuilder() {
     }

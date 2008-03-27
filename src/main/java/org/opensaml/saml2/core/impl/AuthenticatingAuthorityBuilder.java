@@ -29,14 +29,15 @@ import org.opensaml.saml2.core.AuthenticatingAuthority;
  */
 public class AuthenticatingAuthorityBuilder extends AbstractSAMLObjectBuilder<AuthenticatingAuthority> {
 
-    /** Constructor */
+    /** Constructor. */
     public AuthenticatingAuthorityBuilder() {
 
     }
 
     /** {@inheritDoc} */
     public AuthenticatingAuthority buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AuthenticatingAuthority.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AuthenticatingAuthority.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

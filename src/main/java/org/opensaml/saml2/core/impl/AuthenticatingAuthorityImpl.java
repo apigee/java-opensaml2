@@ -31,15 +31,15 @@ import org.opensaml.xml.XMLObject;
  */
 public class AuthenticatingAuthorityImpl extends AbstractSAMLObject implements AuthenticatingAuthority {
 
-    /** URI of the Authenticating Authority */
+    /** URI of the Authenticating Authority. */
     private String uri;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AuthenticatingAuthorityImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

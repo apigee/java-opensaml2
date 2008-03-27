@@ -33,17 +33,19 @@ import org.w3c.dom.Element;
 public class ScopingMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public ScopingMarshaller() {
         super(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected ScopingMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -53,7 +55,8 @@ public class ScopingMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         Scoping scoping = (Scoping) samlObject;
 
-        if (scoping.getProxyCount() != null)
+        if (scoping.getProxyCount() != null) {
             domElement.setAttributeNS(null, Scoping.PROXY_COUNT_ATTRIB_NAME, scoping.getProxyCount().toString());
+        }
     }
 }

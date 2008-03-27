@@ -35,16 +35,18 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class AuthnContextUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AuthnContextUnmarshaller() {
         super(SAMLConstants.SAML20_NS, AuthnContext.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AuthnContextUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

@@ -39,15 +39,16 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
  * A concrete implementation of {@link org.opensaml.saml2.core.Advice}.
  */
 public class AdviceImpl extends AbstractSAMLObject implements Advice {
-    /** Children */
+
+    /** Children. */
     private final IndexedXMLObjectChildrenList<XMLObject> indexedChildren;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AdviceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -78,7 +79,7 @@ public class AdviceImpl extends AbstractSAMLObject implements Advice {
     public List<Assertion> getAssertions() {
         return (List<Assertion>) indexedChildren.subList(Assertion.DEFAULT_ELEMENT_NAME);
     }
-    
+
     /** {@inheritDoc} */
     public List<EncryptedAssertion> getEncryptedAssertions() {
         return (List<EncryptedAssertion>) indexedChildren.subList(EncryptedAssertion.DEFAULT_ELEMENT_NAME);

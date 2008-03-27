@@ -29,22 +29,22 @@ import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.StatusCode}
+ * Concrete implementation of {@link org.opensaml.saml2.core.StatusCode}.
  */
 public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
 
-    /** Value attribute URI */
+    /** Value attribute URI. */
     private String value;
 
-    /** Nested secondary StatusCode child element */
+    /** Nested secondary StatusCode child element. */
     private StatusCode childStatusCode;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected StatusCodeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

@@ -29,19 +29,19 @@ import org.opensaml.saml2.core.SubjectQuery;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.SubjectQuery}
+ * Concrete implementation of {@link org.opensaml.saml2.core.SubjectQuery}.
  */
 public abstract class SubjectQueryImpl extends RequestAbstractTypeImpl implements SubjectQuery {
 
-    /** Subject child element */
+    /** Subject child element. */
     private Subject subject;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected SubjectQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -63,13 +63,16 @@ public abstract class SubjectQueryImpl extends RequestAbstractTypeImpl implement
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
-        if (subject != null)
+        }
+        if (subject != null) {
             children.add(subject);
+        }
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

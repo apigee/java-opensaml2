@@ -34,7 +34,8 @@ public class EncryptedAttributeBuilder extends AbstractSAMLObjectBuilder<Encrypt
 
     /** {@inheritDoc} */
     public EncryptedAttribute buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, EncryptedAttribute.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, EncryptedAttribute.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

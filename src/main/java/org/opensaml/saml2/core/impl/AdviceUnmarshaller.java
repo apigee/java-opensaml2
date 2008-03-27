@@ -23,9 +23,6 @@ package org.opensaml.saml2.core.impl;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
-import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.AssertionIDRef;
-import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
@@ -42,8 +39,10 @@ public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     /**
      * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AdviceUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

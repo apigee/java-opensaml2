@@ -29,14 +29,15 @@ import org.opensaml.saml2.core.AuthzDecisionStatement;
  */
 public class AuthzDecisionStatementBuilder extends AbstractSAMLObjectBuilder<AuthzDecisionStatement> {
 
-    /** Constructor */
+    /** Constructor. */
     public AuthzDecisionStatementBuilder() {
 
     }
 
     /** {@inheritDoc} */
     public AuthzDecisionStatement buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AuthzDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

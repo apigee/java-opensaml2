@@ -23,7 +23,7 @@ import org.opensaml.saml2.core.StatusDetail;
 public class StatusDetailBuilder extends AbstractSAMLObjectBuilder<StatusDetail> {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public StatusDetailBuilder() {
 
@@ -33,7 +33,8 @@ public class StatusDetailBuilder extends AbstractSAMLObjectBuilder<StatusDetail>
      * {@inheritDoc}
      */
     public StatusDetail buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, StatusDetail.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, StatusDetail.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /**

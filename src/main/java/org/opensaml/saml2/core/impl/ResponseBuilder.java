@@ -25,13 +25,12 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Response;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.ResponseImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.ResponseImpl}.
  */
 public class ResponseBuilder extends AbstractSAMLObjectBuilder<Response> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public ResponseBuilder() {
 

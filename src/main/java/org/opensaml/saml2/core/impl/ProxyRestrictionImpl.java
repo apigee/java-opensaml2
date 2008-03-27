@@ -31,22 +31,22 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.ProxyRestriction}
+ * Concrete implementation of {@link org.opensaml.saml2.core.ProxyRestriction}.
  */
 public class ProxyRestrictionImpl extends AbstractSAMLObject implements ProxyRestriction {
 
-    /** Audiences of the Restriction */
+    /** Audiences of the Restriction. */
     private final XMLObjectChildrenList<Audience> audiences;
 
-    /** Count of the Restriction */
+    /** Count of the Restriction. */
     private Integer proxyCount;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected ProxyRestrictionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -67,8 +67,9 @@ public class ProxyRestrictionImpl extends AbstractSAMLObject implements ProxyRes
     public void setProxyCount(Integer newProxyCount) {
         if (newProxyCount >= 0) {
             this.proxyCount = prepareForAssignment(this.proxyCount, newProxyCount);
-        } else
-            throw (new IllegalArgumentException("Count must be a non-negative integer."));
+        } else {
+            throw new IllegalArgumentException("Count must be a non-negative integer.");
+        }
     }
 
     /** {@inheritDoc} */

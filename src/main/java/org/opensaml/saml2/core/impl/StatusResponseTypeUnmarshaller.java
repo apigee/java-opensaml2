@@ -47,11 +47,13 @@ public abstract class StatusResponseTypeUnmarshaller extends AbstractSAMLObjectU
     /**
      * Constructor.
      * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
-    protected StatusResponseTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
+    protected StatusResponseTypeUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /** {@inheritDoc} */

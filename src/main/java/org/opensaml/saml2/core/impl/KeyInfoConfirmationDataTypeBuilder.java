@@ -31,7 +31,6 @@ public class KeyInfoConfirmationDataTypeBuilder extends AbstractSAMLObjectBuilde
 
     /** Constructor. */
     public KeyInfoConfirmationDataTypeBuilder() {
-
     }
 
     /** {@inheritDoc} */

@@ -29,14 +29,15 @@ import org.opensaml.saml2.core.AssertionURIRef;
  */
 public class AssertionURIRefBuilder extends AbstractSAMLObjectBuilder<AssertionURIRef> {
 
-    /** Constructor */
+    /** Constructor. */
     public AssertionURIRefBuilder() {
 
     }
 
     /** {@inheritDoc} */
     public AssertionURIRef buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

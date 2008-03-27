@@ -26,20 +26,22 @@ import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A thead-safe Unmarshaller for {@link org.opensaml.saml2.core.AssertionIDRef}
+ * A thead-safe Unmarshaller for {@link org.opensaml.saml2.core.AssertionIDRef}.
  */
 public class AssertionIDRefUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AssertionIDRefUnmarshaller() {
         super(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AssertionIDRefUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

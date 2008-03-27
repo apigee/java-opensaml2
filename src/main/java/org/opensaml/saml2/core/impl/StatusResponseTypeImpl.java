@@ -34,43 +34,43 @@ import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.StatusResponseType}
+ * Concrete implementation of {@link org.opensaml.saml2.core.StatusResponseType}.
  */
 public abstract class StatusResponseTypeImpl extends AbstractSignableSAMLObject implements StatusResponseType {
 
-    /** SAML Version attribute */
+    /** SAML Version attribute. */
     private SAMLVersion version;
     
-    /** ID attribute */
+    /** ID attribute. */
     private String id;
 
-    /** InResponseTo attribute */
+    /** InResponseTo attribute. */
     private String inResponseTo;
 
-    /** IssueInstant attribute */
+    /** IssueInstant attribute. */
     private DateTime issueInstant;
 
-    /** Destination attribute */
+    /** Destination attribute. */
     private String destination;
 
-    /** Consent attribute */
+    /** Consent attribute. */
     private String consent;
 
-    /** Issuer child element */
+    /** Issuer child element. */
     private Issuer issuer;
 
-    /** Extensions child element */
+    /** Extensions child element. */
     private Extensions extensions;
 
-    /** Status child element */
+    /** Status child element. */
     private Status status;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected StatusResponseTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

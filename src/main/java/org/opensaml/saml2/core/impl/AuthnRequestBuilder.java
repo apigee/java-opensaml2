@@ -30,8 +30,7 @@ import org.opensaml.saml2.core.AuthnRequest;
 public class AuthnRequestBuilder extends AbstractSAMLObjectBuilder<AuthnRequest> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public AuthnRequestBuilder() {
 
@@ -39,7 +38,8 @@ public class AuthnRequestBuilder extends AbstractSAMLObjectBuilder<AuthnRequest>
 
     /** {@inheritDoc} */
     public AuthnRequest buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

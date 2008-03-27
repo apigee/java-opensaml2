@@ -30,8 +30,7 @@ import org.opensaml.saml2.core.Terminate;
 public class TerminateBuilder extends AbstractSAMLObjectBuilder<Terminate> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public TerminateBuilder() {
     }

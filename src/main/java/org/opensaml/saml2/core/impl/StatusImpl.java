@@ -32,25 +32,25 @@ import org.opensaml.saml2.core.StatusMessage;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Status}
+ * Concrete implementation of {@link org.opensaml.saml2.core.Status}.
  */
 public class StatusImpl extends AbstractSAMLObject implements Status {
 
-    /** StatusCode element */
+    /** StatusCode element. */
     private StatusCode statusCode;
 
-    /** StatusMessage element */
+    /** StatusMessage element. */
     private StatusMessage statusMessage;
 
-    /** StatusDetail element */
+    /** StatusDetail element. */
     private StatusDetail statusDetail;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI namespace uri
+     * @param elementLocalName element name
+     * @param namespacePrefix namespace prefix
      */
     protected StatusImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -92,10 +92,12 @@ public class StatusImpl extends AbstractSAMLObject implements Status {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
         children.add(statusCode);
-        if (statusMessage != null)
+        if (statusMessage != null) {
             children.add(statusMessage);
-        if (statusDetail != null)
+        }
+        if (statusDetail != null) {
             children.add(statusDetail);
+        }
         return Collections.unmodifiableList(children);
     }
 }

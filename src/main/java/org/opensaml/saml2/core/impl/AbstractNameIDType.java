@@ -23,27 +23,27 @@ import org.opensaml.saml2.core.NameIDType;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Abstract implementation of {@link org.opensaml.saml2.core.NameIDType}
+ * Abstract implementation of {@link org.opensaml.saml2.core.NameIDType}.
  */
 public class AbstractNameIDType extends AbstractSAMLObject implements NameIDType {
 
-    /** Name of the Name ID */
+    /** Name of the Name ID. */
     private String name;
     
-    /** Name Qualifier of the Name ID */
+    /** Name Qualifier of the Name ID. */
     private String nameQualifier;
 
-    /** SP Name Qualifier of the Name ID */
+    /** SP Name Qualifier of the Name ID. */
     private String spNameQualifier;
 
-    /** Format of the Name ID */
+    /** Format of the Name ID. */
     private String format;
 
-    /** SP ProvidedID of the NameID */
+    /** SP ProvidedID of the NameID. */
     private String spProvidedID;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents

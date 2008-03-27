@@ -37,24 +37,24 @@ import org.opensaml.xml.util.XMLObjectChildrenList;
  */
 public class AuthzDecisionStatementImpl extends AbstractSAMLObject implements AuthzDecisionStatement {
 
-    /** URI of the resource to which authorization is sought */
+    /** URI of the resource to which authorization is sought. */
     private String resource;
 
-    /** Decision of the authorization request */
+    /** Decision of the authorization request. */
     private DecisionTypeEnumeration decision;
 
-    /** Actions authorized to be performed */
+    /** Actions authorized to be performed. */
     private final XMLObjectChildrenList<Action> actions;
 
-    /** SAML assertion the authority relied on when making the authorization decision */
+    /** SAML assertion the authority relied on when making the authorization decision. */
     private Evidence evidence;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AuthzDecisionStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

@@ -40,7 +40,6 @@ import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
@@ -48,36 +47,36 @@ import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
  */
 public class AssertionImpl extends AbstractSignableSAMLObject implements Assertion {
 
-    /** SAML Version of the assertion */
+    /** SAML Version of the assertion. */
     private SAMLVersion version;
 
-    /** Issue Instant of the assertion */
+    /** Issue Instant of the assertion. */
     private DateTime issueInstant;
 
-    /** ID of the assertion */
+    /** ID of the assertion. */
     private String id;
 
-    /** Issuer of the assertion */
+    /** Issuer of the assertion. */
     private Issuer issuer;
 
-    /** Subject of the assertion */
+    /** Subject of the assertion. */
     private Subject subject;
 
-    /** Conditions of the assertion */
+    /** Conditions of the assertion. */
     private Conditions conditions;
 
-    /** Advice of the assertion */
+    /** Advice of the assertion. */
     private Advice advice;
 
-    /** Statements of the assertion */
+    /** Statements of the assertion. */
     private final IndexedXMLObjectChildrenList<Statement> statements;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AssertionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

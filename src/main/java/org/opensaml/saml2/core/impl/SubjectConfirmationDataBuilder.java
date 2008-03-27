@@ -29,14 +29,15 @@ import org.opensaml.saml2.core.SubjectConfirmationData;
  */
 public class SubjectConfirmationDataBuilder extends AbstractSAMLObjectBuilder<SubjectConfirmationData> {
 
-    /** Constructor */
+    /** Constructor. */
     public SubjectConfirmationDataBuilder() {
 
     }
 
     /** {@inheritDoc} */
     public SubjectConfirmationData buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, SubjectConfirmationData.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

@@ -35,19 +35,19 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public StatusUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME);
-        ;
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected StatusUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -58,13 +58,14 @@ public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             throws UnmarshallingException {
         Status status = (Status) parentSAMLObject;
 
-        if (childSAMLObject instanceof StatusCode)
+        if (childSAMLObject instanceof StatusCode) {
             status.setStatusCode((StatusCode) childSAMLObject);
-        else if (childSAMLObject instanceof StatusMessage)
+        } else if (childSAMLObject instanceof StatusMessage) {
             status.setStatusMessage((StatusMessage) childSAMLObject);
-        else if (childSAMLObject instanceof StatusDetail)
+        } else if (childSAMLObject instanceof StatusDetail) {
             status.setStatusDetail((StatusDetail) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

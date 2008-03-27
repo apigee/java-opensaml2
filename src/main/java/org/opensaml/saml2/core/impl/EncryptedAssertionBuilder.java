@@ -34,7 +34,8 @@ public class EncryptedAssertionBuilder extends AbstractSAMLObjectBuilder<Encrypt
 
     /** {@inheritDoc} */
     public EncryptedAssertion buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, EncryptedAssertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, EncryptedAssertion.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

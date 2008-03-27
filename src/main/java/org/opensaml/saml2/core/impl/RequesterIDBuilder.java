@@ -25,19 +25,20 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.RequesterID;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.RequesterIDImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.RequesterIDImpl}.
  */
 public class RequesterIDBuilder extends AbstractSAMLObjectBuilder<RequesterID> {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public RequesterIDBuilder() {
     }
 
     /** {@inheritDoc} */
     public RequesterID buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, RequesterID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, RequesterID.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

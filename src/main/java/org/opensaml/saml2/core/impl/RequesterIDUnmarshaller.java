@@ -31,7 +31,7 @@ import org.opensaml.xml.XMLObject;
 public class RequesterIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public RequesterIDUnmarshaller() {
@@ -39,10 +39,12 @@ public class RequesterIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected RequesterIDUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

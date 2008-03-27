@@ -29,9 +29,8 @@ import org.opensaml.saml2.core.Audience;
  */
 public class AudienceBuilder extends AbstractSAMLObjectBuilder<Audience> {
 
-    /** Construtor */
+    /** Construtor. */
     public AudienceBuilder() {
-
     }
 
     /** {@inheritDoc} */

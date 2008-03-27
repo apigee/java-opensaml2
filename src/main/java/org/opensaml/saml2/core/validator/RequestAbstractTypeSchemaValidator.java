@@ -17,6 +17,7 @@
 /**
  * 
  */
+
 package org.opensaml.saml2.core.validator;
 
 import org.opensaml.common.SAMLVersion;
@@ -27,12 +28,14 @@ import org.opensaml.xml.validation.Validator;
 
 /**
  * Checks {@link org.opensaml.saml2.core.RequestAbstractType} for Schema compliance.
+ * 
+ * @param <RequestType> request type that will be validated
  */
-public abstract class RequestAbstractTypeSchemaValidator<RequestType extends RequestAbstractType> implements Validator<RequestType> {
+public abstract class RequestAbstractTypeSchemaValidator<RequestType extends RequestAbstractType> implements
+        Validator<RequestType> {
 
     /**
-     * Constructor
-     *
+     * Constructor.
      */
     public RequestAbstractTypeSchemaValidator() {
     }
@@ -44,39 +47,43 @@ public abstract class RequestAbstractTypeSchemaValidator<RequestType extends Req
         validateIssueInstant(request);
 
     }
-    
+
     /**
-     * Validates the ID attribute
+     * Validates the ID attribute.
      * 
-     * @param request
-     * @throws ValidationException
+     * @param request request to validate
+     * @throws ValidationException if invalid
      */
     protected void validateID(RequestAbstractType request) throws ValidationException {
-        if (DatatypeHelper.isEmpty(request.getID()))
+        if (DatatypeHelper.isEmpty(request.getID())) {
             throw new ValidationException("ID attribute must not be empty");
+        }
     }
 
     /**
-     * Validates the Version attribute
+     * Validates the Version attribute.
      * 
-     * @param request
-     * @throws ValidationException
+     * @param request request to validate
+     * @throws ValidationException if invalid
      */
     protected void validateVersion(RequestAbstractType request) throws ValidationException {
-        if (request.getVersion() == null)
+        if (request.getVersion() == null) {
             throw new ValidationException("Version attribute must not be null");
-        if (request.getVersion().toString() != SAMLVersion.VERSION_20.toString())
+        }
+        if (request.getVersion().toString() != SAMLVersion.VERSION_20.toString()) {
             throw new ValidationException("Wrong SAML Version");
+        }
     }
-    
+
     /**
-     * Validates the IsssueInstant attribute
+     * Validates the IsssueInstant attribute.
      * 
-     * @param request
-     * @throws ValidationException
+     * @param request request to validate
+     * @throws ValidationException if invalid
      */
     protected void validateIssueInstant(RequestAbstractType request) throws ValidationException {
-        if (request.getIssueInstant() == null)
-            throw new ValidationException ("IssueInstant attribute must not be null");
+        if (request.getIssueInstant() == null) {
+            throw new ValidationException("IssueInstant attribute must not be null");
+        }
     }
 }

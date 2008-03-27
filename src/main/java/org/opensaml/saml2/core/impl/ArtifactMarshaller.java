@@ -29,23 +29,24 @@ import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
- * A thread-safe Marshaller for {@link org.opensaml.saml2.core.Artifact}
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.Artifact}.
  */
 public class ArtifactMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public ArtifactMarshaller() {
         super(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected ArtifactMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

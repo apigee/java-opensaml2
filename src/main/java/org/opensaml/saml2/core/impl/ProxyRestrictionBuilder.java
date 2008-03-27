@@ -29,13 +29,14 @@ import org.opensaml.saml2.core.ProxyRestriction;
  */
 public class ProxyRestrictionBuilder extends AbstractSAMLObjectBuilder<ProxyRestriction> {
 
-    /** Constructor */
+    /** Constructor. */
     public ProxyRestrictionBuilder() {
     }
 
     /** {@inheritDoc} */
     public ProxyRestriction buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, ProxyRestriction.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

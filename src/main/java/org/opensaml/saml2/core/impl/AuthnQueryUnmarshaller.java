@@ -33,18 +33,19 @@ import org.w3c.dom.Attr;
 public class AuthnQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public AuthnQueryUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AuthnQueryUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -54,10 +55,11 @@ public class AuthnQueryUnmarshaller extends SubjectQueryUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AuthnQuery query = (AuthnQuery) samlObject;
 
-        if (attribute.getLocalName().equals(AuthnQuery.SESSION_INDEX_ATTRIB_NAME))
+        if (attribute.getLocalName().equals(AuthnQuery.SESSION_INDEX_ATTRIB_NAME)) {
             query.setSessionIndex(attribute.getValue());
-        else
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */
@@ -65,9 +67,10 @@ public class AuthnQueryUnmarshaller extends SubjectQueryUnmarshaller {
             throws UnmarshallingException {
         AuthnQuery query = (AuthnQuery) parentSAMLObject;
 
-        if (childSAMLObject instanceof RequestedAuthnContext)
+        if (childSAMLObject instanceof RequestedAuthnContext) {
             query.setRequestedAuthnContext((RequestedAuthnContext) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

@@ -36,27 +36,27 @@ import org.opensaml.xml.XMLObject;
  */
 public class AuthnStatementImpl extends AbstractSAMLObject implements AuthnStatement {
 
-    /** Subject Locality of the Authentication Statement */
+    /** Subject Locality of the Authentication Statement. */
     private SubjectLocality subjectLocality;
 
-    /** Authentication Context of the Authentication Statement */
+    /** Authentication Context of the Authentication Statement. */
     private AuthnContext authnContext;
 
-    /** Time of the authentication */
+    /** Time of the authentication. */
     private DateTime authnInstant;
 
-    /** Index of the session */
+    /** Index of the session. */
     private String sessionIndex;
 
-    /** Time at which the session ends */
+    /** Time at which the session ends. */
     private DateTime sessionNotOnOrAfter;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AuthnStatementImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

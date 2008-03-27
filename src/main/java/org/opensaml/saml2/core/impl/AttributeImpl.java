@@ -27,31 +27,31 @@ import org.opensaml.xml.util.AttributeMap;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Attribute}
+ * Concrete implementation of {@link org.opensaml.saml2.core.Attribute}.
  */
 public class AttributeImpl extends AbstractSAMLObject implements Attribute {
 
-    /** Name of the attribute */
+    /** Name of the attribute. */
     private String name;
 
-    /** Format of the name of th attribute */
+    /** Format of the name of the attribute. */
     private String nameFormat;
 
-    /** Human readable name of the attribute */
+    /** Human readable name of the attribute. */
     private String friendlyName;
 
-    /** "anyAttribute" attributes */
+    /** "anyAttribute" attributes. */
     private AttributeMap unknownAttributes;
-    
-    /** List of attribute values for this attribute */
+
+    /** List of attribute values for this attribute. */
     private final XMLObjectChildrenList<XMLObject> attributeValues;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AttributeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -88,7 +88,7 @@ public class AttributeImpl extends AbstractSAMLObject implements Attribute {
     public void setFriendlyName(String friendlyName) {
         this.friendlyName = prepareForAssignment(this.friendlyName, friendlyName);
     }
-    
+
     /**
      * {@inheritDoc}
      */

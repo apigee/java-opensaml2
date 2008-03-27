@@ -31,8 +31,7 @@ import org.opensaml.xml.validation.Validator;
 public class ArtifactSchemaValidator implements Validator<Artifact> {
 
     /**
-     * Constructor
-     *
+     * Constructor.
      */
     public ArtifactSchemaValidator() {
     }
@@ -43,14 +42,15 @@ public class ArtifactSchemaValidator implements Validator<Artifact> {
     }
     
     /**
-     * Test that Artifact element content is not empty
+     * Test that Artifact element content is not empty.
      * 
-     * @param artifact
-     * @throws ValidationException
+     * @param artifact artifact to validate
+     * @throws ValidationException if invalid
      */
     protected void validateArtifact(Artifact artifact) throws ValidationException {
-        if (DatatypeHelper.isEmpty(artifact.getArtifact()))
+        if (DatatypeHelper.isEmpty(artifact.getArtifact())) {
             throw new ValidationException("Artifact must contain a value");
+        }
     }
 
 }

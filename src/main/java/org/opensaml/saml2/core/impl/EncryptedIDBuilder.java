@@ -34,7 +34,8 @@ public class EncryptedIDBuilder extends AbstractSAMLObjectBuilder<EncryptedID> {
 
     /** {@inheritDoc} */
     public EncryptedID buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, EncryptedID.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, EncryptedID.DEFAULT_ELEMENT_LOCAL_NAME, 
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

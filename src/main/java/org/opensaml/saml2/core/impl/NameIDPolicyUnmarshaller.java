@@ -34,7 +34,7 @@ import org.w3c.dom.Attr;
 public class NameIDPolicyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public NameIDPolicyUnmarshaller() {
@@ -42,10 +42,12 @@ public class NameIDPolicyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected NameIDPolicyUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -55,13 +57,16 @@ public class NameIDPolicyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         NameIDPolicy policy = (NameIDPolicy) samlObject;
 
-        if (attribute.getLocalName().equals(NameIDPolicy.FORMAT_ATTRIB_NAME))
+        if (attribute.getLocalName().equals(NameIDPolicy.FORMAT_ATTRIB_NAME)) {
             policy.setFormat(attribute.getValue());
-        if (attribute.getLocalName().equals(NameIDPolicy.SP_NAME_QUALIFIER_ATTRIB_NAME))
+        }
+        if (attribute.getLocalName().equals(NameIDPolicy.SP_NAME_QUALIFIER_ATTRIB_NAME)) {
             policy.setSPNameQualifier(attribute.getValue());
-        if (attribute.getLocalName().equals(NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME))
+        }
+        if (attribute.getLocalName().equals(NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME)) {
             policy.setAllowCreate(XSBooleanValue.valueOf(attribute.getValue()));
-        else
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 }

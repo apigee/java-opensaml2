@@ -26,23 +26,24 @@ import org.opensaml.saml2.core.Artifact;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A thead-safe Unmarshaller for {@link org.opensaml.saml2.core.Artifact}
+ * A thead-safe Unmarshaller for {@link org.opensaml.saml2.core.Artifact}.
  */
 public class ArtifactUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public ArtifactUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, Artifact.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected ArtifactUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.Action;
  */
 public class ActionBuilder extends AbstractSAMLObjectBuilder<Action> {
 
-    /** Constructor */
+    /** Constructor. */
     public ActionBuilder() {
 
     }

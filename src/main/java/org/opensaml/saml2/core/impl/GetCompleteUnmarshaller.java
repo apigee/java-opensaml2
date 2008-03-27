@@ -31,18 +31,19 @@ import org.opensaml.xml.XMLObject;
 public class GetCompleteUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public GetCompleteUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, GetComplete.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected GetCompleteUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

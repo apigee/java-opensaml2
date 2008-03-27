@@ -32,11 +32,13 @@ public class NewEncryptedIDMarshaller extends EncryptedElementTypeMarshaller {
     /**
      * Constructor.
      *
-     * @param targetNamespaceURI
-     * @param targetLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
-    protected NewEncryptedIDMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
+    protected NewEncryptedIDMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
 }

@@ -29,20 +29,22 @@ import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
- * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AssertionIDRef}
+ * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AssertionIDRef}.
  */
 public class AssertionIDRefMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AssertionIDRefMarshaller() {
         super(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected AssertionIDRefMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

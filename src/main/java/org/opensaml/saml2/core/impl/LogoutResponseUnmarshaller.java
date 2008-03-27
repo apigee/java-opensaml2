@@ -29,18 +29,19 @@ import org.opensaml.saml2.core.LogoutResponse;
 public class LogoutResponseUnmarshaller extends StatusResponseTypeUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public LogoutResponseUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, LogoutResponse.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected LogoutResponseUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

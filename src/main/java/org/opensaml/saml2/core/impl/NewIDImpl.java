@@ -27,19 +27,19 @@ import org.opensaml.saml2.core.NewID;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.NewID}
+ * Concrete implementation of {@link org.opensaml.saml2.core.NewID}.
  */
 public class NewIDImpl extends AbstractSAMLObject implements NewID {
 
-    /** The new NameID */
+    /** The new NameID. */
     private String newID;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected NewIDImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

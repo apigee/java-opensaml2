@@ -27,19 +27,19 @@ import org.opensaml.saml2.core.AssertionURIRef;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A concrete implementation of {@link org.opensaml.saml2.core.AssertionURIRef}
+ * A concrete implementation of {@link org.opensaml.saml2.core.AssertionURIRef}.
  */
 public class AssertionURIRefImpl extends AbstractSAMLObject implements AssertionURIRef {
 
-    /** URI of the Assertion */
+    /** URI of the Assertion. */
     private String assertionURI;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AssertionURIRefImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

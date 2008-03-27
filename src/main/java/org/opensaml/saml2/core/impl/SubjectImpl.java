@@ -30,28 +30,28 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Subject}
+ * Concrete implementation of {@link org.opensaml.saml2.core.Subject}.
  */
 public class SubjectImpl extends AbstractSAMLObject implements Subject {
 
-    /** BaseID child element */
+    /** BaseID child element. */
     private BaseID baseID;
 
-    /** NameID child element */
+    /** NameID child element. */
     private NameID nameID;
 
-    /** EncryptedID child element */
+    /** EncryptedID child element. */
     private EncryptedID encryptedID;
 
-    /** Subject Confirmations of the Subject */
+    /** Subject Confirmations of the Subject. */
     private final XMLObjectChildrenList<SubjectConfirmation> subjectConfirmations;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected SubjectImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

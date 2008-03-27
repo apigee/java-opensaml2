@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.OneTimeUse;
  */
 public class OneTimeUseBuilder extends AbstractSAMLObjectBuilder<OneTimeUse> {
 
-    /** Constructor */
+    /** Constructor. */
     public OneTimeUseBuilder() {
 
     }

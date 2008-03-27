@@ -29,16 +29,18 @@ import org.opensaml.saml2.core.OneTimeUse;
  */
 public class OneTimeUseUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public OneTimeUseUnmarshaller() {
         super(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected OneTimeUseUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

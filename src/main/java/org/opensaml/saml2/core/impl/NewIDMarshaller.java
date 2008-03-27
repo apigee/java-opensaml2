@@ -34,18 +34,19 @@ import org.w3c.dom.Element;
 public class NewIDMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor. 
      */
     public NewIDMarshaller() {
         super(SAMLConstants.SAML20P_NS, NewID.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected NewIDMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -55,7 +56,8 @@ public class NewIDMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         NewID newID = (NewID) samlObject;
 
-        if (newID.getNewID() != null)
+        if (newID.getNewID() != null) {
             XMLHelper.appendTextContent(domElement, newID.getNewID());
+        }
     }
 }

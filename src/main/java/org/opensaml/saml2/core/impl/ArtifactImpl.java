@@ -27,19 +27,19 @@ import org.opensaml.saml2.core.Artifact;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Artifact}
+ * Concrete implementation of {@link org.opensaml.saml2.core.Artifact}.
  */
 public class ArtifactImpl extends AbstractSAMLObject implements Artifact {
 
-    /** Artifact data */
+    /** Artifact data. */
     private String artifact;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected ArtifactImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

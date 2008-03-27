@@ -25,20 +25,20 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionIDRequest;
 
 /**
- * A Builder for {@link org.opensaml.saml2.core.impl.AssertionIDRequestImpl}
+ * A Builder for {@link org.opensaml.saml2.core.impl.AssertionIDRequestImpl}.
  */
 public class AssertionIDRequestBuilder extends AbstractSAMLObjectBuilder<AssertionIDRequest> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public AssertionIDRequestBuilder() {
     }
 
     /** {@inheritDoc} */
     public AssertionIDRequest buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, AssertionIDRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, AssertionIDRequest.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

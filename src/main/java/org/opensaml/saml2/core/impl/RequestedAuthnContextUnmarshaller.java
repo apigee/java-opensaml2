@@ -36,7 +36,7 @@ import org.w3c.dom.Attr;
 public class RequestedAuthnContextUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public RequestedAuthnContextUnmarshaller() {
@@ -44,10 +44,12 @@ public class RequestedAuthnContextUnmarshaller extends AbstractSAMLObjectUnmarsh
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected RequestedAuthnContextUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -58,30 +60,33 @@ public class RequestedAuthnContextUnmarshaller extends AbstractSAMLObjectUnmarsh
         RequestedAuthnContext rac = (RequestedAuthnContext) samlObject;
 
         if (attribute.getLocalName().equals(RequestedAuthnContext.COMPARISON_ATTRIB_NAME)) {
-            if ("exact".equals(attribute.getValue()))
+            if ("exact".equals(attribute.getValue())) {
                 rac.setComparison(AuthnContextComparisonTypeEnumeration.EXACT);
-            else if ("minimum".equals(attribute.getValue()))
+            } else if ("minimum".equals(attribute.getValue())) {
                 rac.setComparison(AuthnContextComparisonTypeEnumeration.MINIMUM);
-            else if ("maximum".equals(attribute.getValue()))
+            } else if ("maximum".equals(attribute.getValue())) {
                 rac.setComparison(AuthnContextComparisonTypeEnumeration.MAXIMUM);
-            else if ("better".equals(attribute.getValue()))
+            } else if ("better".equals(attribute.getValue())) {
                 rac.setComparison(AuthnContextComparisonTypeEnumeration.BETTER);
-            else
+            } else {
                 throw new UnmarshallingException("Saw an invalid value for Comparison attribute: "
                         + attribute.getValue());
-        } else
+            }
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         RequestedAuthnContext rac = (RequestedAuthnContext) parentSAMLObject;
-        if (childSAMLObject instanceof AuthnContextClassRef)
+        if (childSAMLObject instanceof AuthnContextClassRef) {
             rac.getAuthnContextClassRefs().add((AuthnContextClassRef) childSAMLObject);
-        else if (childSAMLObject instanceof AuthnContextDeclRef)
+        } else if (childSAMLObject instanceof AuthnContextDeclRef) {
             rac.getAuthnContextDeclRefs().add((AuthnContextDeclRef) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

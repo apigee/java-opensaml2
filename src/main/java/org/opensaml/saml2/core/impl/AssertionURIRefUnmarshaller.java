@@ -30,16 +30,18 @@ import org.opensaml.xml.XMLObject;
  */
 public class AssertionURIRefUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AssertionURIRefUnmarshaller() {
         super(SAMLConstants.SAML20_NS, AssertionURIRef.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AssertionURIRefUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

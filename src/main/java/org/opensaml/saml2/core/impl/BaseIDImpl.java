@@ -23,22 +23,22 @@ import org.opensaml.saml2.core.BaseID;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.BaseID}
+ * Concrete implementation of {@link org.opensaml.saml2.core.BaseID}.
  */
 public abstract class BaseIDImpl extends AbstractSAMLObject implements BaseID {
 
-    /** Name Qualifier of BaseID */
+    /** Name Qualifier of BaseID. */
     private String nameQualifier;
 
-    /** SP Name Qualifier of Base */
+    /** SP Name Qualifier of Base. */
     private String spNameQualfier;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected BaseIDImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

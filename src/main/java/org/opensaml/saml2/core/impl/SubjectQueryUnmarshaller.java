@@ -38,12 +38,14 @@ public abstract class SubjectQueryUnmarshaller extends RequestAbstractTypeUnmars
     /**
      * Constructor.
      * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      * @throws IllegalArgumentException
      */
-    public SubjectQueryUnmarshaller(String targetNamespaceURI, String targetLocalName) throws IllegalArgumentException {
-        super(targetNamespaceURI, targetLocalName);
+    public SubjectQueryUnmarshaller(String namespaceURI, String elementLocalName) throws IllegalArgumentException {
+        super(namespaceURI, elementLocalName);
     }
 
     /** {@inheritDoc} */

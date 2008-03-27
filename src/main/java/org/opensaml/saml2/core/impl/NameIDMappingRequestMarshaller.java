@@ -29,18 +29,19 @@ import org.opensaml.saml2.core.NameIDMappingRequest;
 public class NameIDMappingRequestMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public NameIDMappingRequestMarshaller() {
         super(SAMLConstants.SAML20P_NS, NameIDMappingRequest.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected NameIDMappingRequestMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

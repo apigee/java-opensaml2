@@ -34,17 +34,19 @@ import org.w3c.dom.Element;
 public class GetCompleteMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public GetCompleteMarshaller() {
         super(SAMLConstants.SAML20P_NS, GetComplete.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected GetCompleteMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -54,7 +56,8 @@ public class GetCompleteMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         GetComplete gc = (GetComplete) samlObject;
 
-        if (gc.getGetComplete() != null)
+        if (gc.getGetComplete() != null) {
             XMLHelper.appendTextContent(domElement, gc.getGetComplete());
+        }
     }
 }

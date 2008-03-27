@@ -30,19 +30,19 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.AttributeQuery}
+ * Concrete implementation of {@link org.opensaml.saml2.core.AttributeQuery}.
  */
 public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQuery {
 
-    /** Attribute child elements */
+    /** Attribute child elements. */
     private final XMLObjectChildrenList<Attribute> attributes;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AttributeQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -58,12 +58,14 @@ public class AttributeQueryImpl extends SubjectQueryImpl implements AttributeQue
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
+        }
         children.addAll(attributes);
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

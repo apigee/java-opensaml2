@@ -29,19 +29,22 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class EncryptedElementTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
-     *
-     * @param targetNamespaceURI
-     * @param targetLocalName
+     * Constructor.
+     * 
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
-    protected EncryptedElementTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
+    protected EncryptedElementTypeUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
         EncryptedElementType eet = (EncryptedElementType) parentSAMLObject;
-        
+
         if (childSAMLObject instanceof EncryptedData) {
             eet.setEncryptedData((EncryptedData) childSAMLObject);
         } else if (childSAMLObject instanceof EncryptedKey) {

@@ -27,19 +27,19 @@ import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.AssertionIDRef}
+ * Concrete implementation of {@link org.opensaml.saml2.core.AssertionIDRef}.
  */
 public class AssertionIDRefImpl extends AbstractSAMLObject implements AssertionIDRef {
 
-    /** ID Ref of the Assertion */
+    /** ID Ref of the Assertion. */
     private String assertionID;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AssertionIDRefImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

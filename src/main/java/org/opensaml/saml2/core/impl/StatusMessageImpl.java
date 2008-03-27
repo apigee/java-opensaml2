@@ -27,19 +27,19 @@ import org.opensaml.saml2.core.StatusMessage;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.StatusMessage}
+ * Concrete implementation of {@link org.opensaml.saml2.core.StatusMessage}.
  */
 public class StatusMessageImpl extends AbstractSAMLObject implements StatusMessage {
 
-    /** The message string */
+    /** The message string. */
     private String message;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected StatusMessageImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

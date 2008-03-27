@@ -30,8 +30,7 @@ import org.opensaml.saml2.core.ManageNameIDRequest;
 public class ManageNameIDRequestBuilder extends AbstractSAMLObjectBuilder<ManageNameIDRequest> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public ManageNameIDRequestBuilder() {
 
@@ -39,7 +38,8 @@ public class ManageNameIDRequestBuilder extends AbstractSAMLObjectBuilder<Manage
 
     /** {@inheritDoc} */
     public ManageNameIDRequest buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, ManageNameIDRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, ManageNameIDRequest.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

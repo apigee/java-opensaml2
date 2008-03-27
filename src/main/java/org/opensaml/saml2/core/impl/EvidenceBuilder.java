@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.Evidence;
  */
 public class EvidenceBuilder extends AbstractSAMLObjectBuilder<Evidence> {
 
-    /** Constructor */
+    /** Constructor. */
     public EvidenceBuilder() {
 
     }

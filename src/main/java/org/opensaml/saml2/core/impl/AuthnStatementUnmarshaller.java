@@ -43,10 +43,12 @@ public class AuthnStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AuthnStatementUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

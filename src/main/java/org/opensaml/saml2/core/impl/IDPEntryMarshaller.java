@@ -33,17 +33,19 @@ import org.w3c.dom.Element;
 public class IDPEntryMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public IDPEntryMarshaller() {
         super(SAMLConstants.SAML20P_NS, IDPEntry.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected IDPEntryMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -53,11 +55,14 @@ public class IDPEntryMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         IDPEntry entry = (IDPEntry) samlObject;
 
-        if (entry.getProviderID() != null)
+        if (entry.getProviderID() != null) {
             domElement.setAttributeNS(null, IDPEntry.PROVIDER_ID_ATTRIB_NAME, entry.getProviderID());
-        if (entry.getName() != null)
+        }
+        if (entry.getName() != null) {
             domElement.setAttributeNS(null, IDPEntry.NAME_ATTRIB_NAME, entry.getName());
-        if (entry.getLoc() != null)
+        }
+        if (entry.getLoc() != null) {
             domElement.setAttributeNS(null, IDPEntry.LOC_ATTRIB_NAME, entry.getLoc());
+        }
     }
 }

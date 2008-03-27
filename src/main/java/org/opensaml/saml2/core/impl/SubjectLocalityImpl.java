@@ -31,18 +31,18 @@ import org.opensaml.xml.XMLObject;
  */
 public class SubjectLocalityImpl extends AbstractSAMLObject implements SubjectLocality {
 
-    /** The Address of the assertion */
+    /** The Address of the assertion. */
     private String address;
 
-    /** The DNS Name of the assertion */
+    /** The DNS Name of the assertion. */
     private String dnsName;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected SubjectLocalityImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

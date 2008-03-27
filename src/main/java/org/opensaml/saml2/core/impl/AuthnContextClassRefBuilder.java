@@ -29,14 +29,15 @@ import org.opensaml.saml2.core.AuthnContextClassRef;
  */
 public class AuthnContextClassRefBuilder extends AbstractSAMLObjectBuilder<AuthnContextClassRef> {
 
-    /** Constructor */
+    /** Constructor. */
     public AuthnContextClassRefBuilder() {
 
     }
 
     /** {@inheritDoc} */
     public AuthnContextClassRef buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AuthnContextClassRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AuthnContextClassRef.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

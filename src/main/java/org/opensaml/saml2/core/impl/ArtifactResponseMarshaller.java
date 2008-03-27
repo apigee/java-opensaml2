@@ -36,8 +36,10 @@ public class ArtifactResponseMarshaller extends StatusResponseTypeMarshaller {
     /**
      * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected ArtifactResponseMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

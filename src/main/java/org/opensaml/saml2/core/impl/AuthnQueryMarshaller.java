@@ -32,18 +32,19 @@ import org.w3c.dom.Element;
 public class AuthnQueryMarshaller extends SubjectQueryMarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor. 
      */
     public AuthnQueryMarshaller() {
         super(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected AuthnQueryMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -53,8 +54,9 @@ public class AuthnQueryMarshaller extends SubjectQueryMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthnQuery query = (AuthnQuery) samlObject;
 
-        if (query.getSessionIndex() != null)
+        if (query.getSessionIndex() != null) {
             domElement.setAttributeNS(null, AuthnQuery.SESSION_INDEX_ATTRIB_NAME, query.getSessionIndex());
+        }
 
         super.marshallAttributes(samlObject, domElement);
     }

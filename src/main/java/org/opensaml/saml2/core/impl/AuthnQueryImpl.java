@@ -29,22 +29,22 @@ import org.opensaml.saml2.core.RequestedAuthnContext;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.AuthnQuery}
+ * Concrete implementation of {@link org.opensaml.saml2.core.AuthnQuery}.
  */
 public class AuthnQueryImpl extends SubjectQueryImpl implements AuthnQuery {
 
-    /** SessionIndex attribute */
+    /** SessionIndex attribute. */
     private String sessionIndex;
 
-    /** RequestedAuthnContext child element */
+    /** RequestedAuthnContext child element. */
     private RequestedAuthnContext requestedAuthnContext;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AuthnQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -74,14 +74,17 @@ public class AuthnQueryImpl extends SubjectQueryImpl implements AuthnQuery {
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
+        }
 
-        if (requestedAuthnContext != null)
+        if (requestedAuthnContext != null) {
             children.add(requestedAuthnContext);
+        }
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

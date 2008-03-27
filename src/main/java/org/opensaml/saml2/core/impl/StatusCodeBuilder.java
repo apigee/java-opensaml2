@@ -25,12 +25,12 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.StatusCode;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.StatusCodeImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.StatusCodeImpl}.
  */
 public class StatusCodeBuilder extends AbstractSAMLObjectBuilder<StatusCode> {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public StatusCodeBuilder() {
@@ -38,7 +38,8 @@ public class StatusCodeBuilder extends AbstractSAMLObjectBuilder<StatusCode> {
 
     /** {@inheritDoc} */
     public StatusCode buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

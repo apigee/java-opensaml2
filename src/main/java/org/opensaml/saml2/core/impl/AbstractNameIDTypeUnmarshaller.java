@@ -36,15 +36,15 @@ public abstract class AbstractNameIDTypeUnmarshaller extends AbstractSAMLObjectU
     /**
      * Constructor.
      * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
      * 
      * @throws NullPointerException if any of the arguments are null (or empty in the case of String parameters)
      */
-    protected AbstractNameIDTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
+    protected AbstractNameIDTypeUnmarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /** {@inheritDoc} */

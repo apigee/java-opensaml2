@@ -35,17 +35,19 @@ import org.w3c.dom.Attr;
 public class ScopingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public ScopingUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, Scoping.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected ScopingUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -55,21 +57,23 @@ public class ScopingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Scoping scoping = (Scoping) samlObject;
 
-        if (attribute.getLocalName().equals(Scoping.PROXY_COUNT_ATTRIB_NAME))
+        if (attribute.getLocalName().equals(Scoping.PROXY_COUNT_ATTRIB_NAME)) {
             scoping.setProxyCount(Integer.valueOf(attribute.getValue()));
-        else
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {
         Scoping scoping = (Scoping) parentSAMLObject;
-        if (childSAMLObject instanceof IDPList)
+        if (childSAMLObject instanceof IDPList) {
             scoping.setIDPList((IDPList) childSAMLObject);
-        else if (childSAMLObject instanceof RequesterID)
+        } else if (childSAMLObject instanceof RequesterID) {
             scoping.getRequesterIDs().add((RequesterID) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

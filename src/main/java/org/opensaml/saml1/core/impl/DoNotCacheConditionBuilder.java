@@ -26,7 +26,7 @@ import org.opensaml.saml1.core.DoNotCacheCondition;
 public class DoNotCacheConditionBuilder extends AbstractSAMLObjectBuilder<DoNotCacheCondition> {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public DoNotCacheConditionBuilder() {
 
@@ -34,7 +34,8 @@ public class DoNotCacheConditionBuilder extends AbstractSAMLObjectBuilder<DoNotC
 
     /** {@inheritDoc} */
     public DoNotCacheCondition buildObject() {
-        return buildObject(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+        return buildObject(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML1_PREFIX);
     }
 
     /** {@inheritDoc} */

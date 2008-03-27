@@ -33,16 +33,18 @@ import org.w3c.dom.Element;
  */
 public class AudienceMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public AudienceMarshaller() {
         super(SAMLConstants.SAML20_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected AudienceMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

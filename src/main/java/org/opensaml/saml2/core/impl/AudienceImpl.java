@@ -27,19 +27,19 @@ import org.opensaml.saml2.core.Audience;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Audience}
+ * Concrete implementation of {@link org.opensaml.saml2.core.Audience}.
  */
 public class AudienceImpl extends AbstractSAMLObject implements Audience {
 
-    /** URI of this Audience */
+    /** URI of this Audience. */
     private String audienceURI;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AudienceImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

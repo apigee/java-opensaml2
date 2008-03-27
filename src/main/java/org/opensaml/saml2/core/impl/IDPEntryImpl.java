@@ -27,14 +27,14 @@ import org.opensaml.saml2.core.IDPEntry;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.IDPEntry}
+ * Concrete implementation of {@link org.opensaml.saml2.core.IDPEntry}.
  */
 public class IDPEntryImpl extends AbstractSAMLObject implements IDPEntry {
 
-    /** The unique identifier of the IdP */
+    /** The unique identifier of the IdP. */
     private String providerID;
 
-    /** Human-readable name for the IdP */
+    /** Human-readable name for the IdP. */
     private String name;
 
     /**
@@ -44,11 +44,11 @@ public class IDPEntryImpl extends AbstractSAMLObject implements IDPEntry {
     private String loc;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected IDPEntryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

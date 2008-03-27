@@ -25,18 +25,19 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionIDRef;
 
 /**
- * Builder for {@link org.opensaml.saml2.core.impl.AssertionIDRefImpl}
+ * Builder for {@link org.opensaml.saml2.core.impl.AssertionIDRefImpl}.
  */
 public class AssertionIDRefBuilder extends AbstractSAMLObjectBuilder<AssertionIDRef> {
 
-    /** Constructor */
+    /** Constructor. */
     public AssertionIDRefBuilder() {
 
     }
 
     /** {@inheritDoc} */
     public AssertionIDRef buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

@@ -26,7 +26,7 @@ import org.opensaml.saml1.core.Evidence;
 public class EvidenceMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public EvidenceMarshaller() {
         super(SAMLConstants.SAML1_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME);

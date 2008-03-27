@@ -33,17 +33,19 @@ import org.w3c.dom.Attr;
 public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public StatusCodeUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected StatusCodeUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -53,10 +55,11 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         StatusCode statusCode = (StatusCode) samlObject;
 
-        if (attribute.getLocalName().equals(StatusCode.VALUE_ATTRIB_NAME))
+        if (attribute.getLocalName().equals(StatusCode.VALUE_ATTRIB_NAME)) {
             statusCode.setValue(attribute.getValue());
-        else
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */
@@ -64,9 +67,10 @@ public class StatusCodeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             throws UnmarshallingException {
         StatusCode statusCode = (StatusCode) parentSAMLObject;
 
-        if (childSAMLObject instanceof StatusCode)
+        if (childSAMLObject instanceof StatusCode) {
             statusCode.setStatusCode((StatusCode) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

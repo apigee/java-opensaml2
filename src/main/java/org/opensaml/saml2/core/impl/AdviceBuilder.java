@@ -29,9 +29,8 @@ import org.opensaml.saml2.core.Advice;
  */
 public class AdviceBuilder extends AbstractSAMLObjectBuilder<Advice> {
 
-    /** Constructor */
+    /** Constructor. */
     public AdviceBuilder() {
-
     }
 
     /** {@inheritDoc} */

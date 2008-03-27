@@ -28,8 +28,7 @@ import org.opensaml.xml.validation.ValidationException;
 public class AssertionIDRequestSchemaValidator extends RequestAbstractTypeSchemaValidator<AssertionIDRequest> {
 
     /**
-     * Constructor
-     *
+     * Constructor.
      */
     public AssertionIDRequestSchemaValidator() {
         super();
@@ -44,11 +43,12 @@ public class AssertionIDRequestSchemaValidator extends RequestAbstractTypeSchema
     /**
      * Validate the AssertionIDRef child elements.
      * 
-     * @param request
-     * @throws ValidationException
+     * @param request request to validate
+     * @throws ValidationException if invalid
      */
     protected void validateAssertionIDRefs(AssertionIDRequest request) throws ValidationException {
-        if (request.getAssertionIDRefs().size() < 1)
+        if (request.getAssertionIDRefs().size() < 1) {
             throw new ValidationException("Request must contain at least one AssertionIDRef");
+        }
     }
 }

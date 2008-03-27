@@ -34,18 +34,19 @@ import org.w3c.dom.Element;
 public class StatusMessageMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public StatusMessageMarshaller() {
         super(SAMLConstants.SAML20P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected StatusMessageMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -55,7 +56,8 @@ public class StatusMessageMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         StatusMessage message = (StatusMessage) samlObject;
 
-        if (message.getMessage() != null)
+        if (message.getMessage() != null) {
             XMLHelper.appendTextContent(domElement, message.getMessage());
+        }
     }
 }

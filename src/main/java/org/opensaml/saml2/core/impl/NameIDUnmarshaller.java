@@ -24,16 +24,16 @@ import org.opensaml.saml2.core.NameID;
  */
 public class NameIDUnmarshaller extends AbstractNameIDTypeUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public NameIDUnmarshaller() {
         super(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI namespace uri
+     * @param elementLocalName element name
      */
     protected NameIDUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

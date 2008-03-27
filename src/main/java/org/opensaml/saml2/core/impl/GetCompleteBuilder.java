@@ -25,19 +25,20 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.GetComplete;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.GetCompleteImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.GetCompleteImpl}.
  */
 public class GetCompleteBuilder extends AbstractSAMLObjectBuilder<GetComplete> {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public GetCompleteBuilder() {
     }
 
     /** {@inheritDoc} */
     public GetComplete buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, GetComplete.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, GetComplete.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

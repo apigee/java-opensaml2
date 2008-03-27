@@ -32,15 +32,15 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
- * Concrete implementation of the {@link org.opensaml.saml1.core.Evidence} interface
+ * Concrete implementation of the {@link org.opensaml.saml1.core.Evidence} interface.
  */
 public class EvidenceImpl extends AbstractSAMLObject implements Evidence {
 
-    /** The Evidentiary child elements */
+    /** The Evidentiary child elements. */
     private final IndexedXMLObjectChildrenList<Evidentiary> evidence;
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents

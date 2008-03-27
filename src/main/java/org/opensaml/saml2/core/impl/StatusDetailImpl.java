@@ -27,15 +27,15 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.StatusDetail}
+ * Concrete implementation of {@link org.opensaml.saml2.core.StatusDetail}.
  */
 public class StatusDetailImpl extends AbstractSAMLObject implements StatusDetail {
 
-    /** child "any" elements */
+    /** child "any" elements. */
     private final IndexedXMLObjectChildrenList<XMLObject> unknownChildren;
     
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents

@@ -29,19 +29,19 @@ import org.opensaml.saml2.core.ArtifactResolve;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.ArtifactResolve}
+ * Concrete implementation of {@link org.opensaml.saml2.core.ArtifactResolve}.
  */
 public class ArtifactResolveImpl extends RequestAbstractTypeImpl implements ArtifactResolve {
 
-    /** Artifact child element */
+    /** Artifact child element. */
     private Artifact artifact;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI namespace uri
+     * @param elementLocalName element name
+     * @param namespacePrefix namespace prefix
      */
     protected ArtifactResolveImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -61,14 +61,17 @@ public class ArtifactResolveImpl extends RequestAbstractTypeImpl implements Arti
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
+        }
 
-        if (artifact != null)
+        if (artifact != null) {
             children.add(artifact);
+        }
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

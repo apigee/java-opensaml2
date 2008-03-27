@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.Conditions;
  */
 public class ConditionsBuilder extends AbstractSAMLObjectBuilder<Conditions> {
 
-    /** Constructor */
+    /** Constructor. */
     public ConditionsBuilder() {
 
     }

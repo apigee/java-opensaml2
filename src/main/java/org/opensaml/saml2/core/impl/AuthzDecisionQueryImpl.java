@@ -31,25 +31,25 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.AuthzDecisionQuery}
+ * Concrete implementation of {@link org.opensaml.saml2.core.AuthzDecisionQuery}.
  */
 public class AuthzDecisionQueryImpl extends SubjectQueryImpl implements AuthzDecisionQuery {
 
-    /** Resource attribute value */
+    /** Resource attribute value. */
     private String resource;
 
-    /** Evidence child element */
+    /** Evidence child element. */
     private Evidence evidence;
 
-    /** Action child elements */
+    /** Action child elements. */
     private final XMLObjectChildrenList<Action> actions;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AuthzDecisionQueryImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -85,14 +85,17 @@ public class AuthzDecisionQueryImpl extends SubjectQueryImpl implements AuthzDec
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null)
+        if (super.getOrderedChildren() != null) {
             children.addAll(super.getOrderedChildren());
+        }
         children.addAll(actions);
-        if (evidence != null)
+        if (evidence != null) {
             children.add(evidence);
+        }
 
-        if (children.size() == 0)
+        if (children.size() == 0) {
             return null;
+        }
 
         return Collections.unmodifiableList(children);
     }

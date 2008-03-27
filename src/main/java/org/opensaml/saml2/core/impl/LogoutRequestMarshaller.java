@@ -34,7 +34,6 @@ public class LogoutRequestMarshaller extends RequestAbstractTypeMarshaller {
 
     /**
      * Constructor.
-     * 
      */
     public LogoutRequestMarshaller() {
         super(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME);
@@ -43,13 +42,13 @@ public class LogoutRequestMarshaller extends RequestAbstractTypeMarshaller {
     /**
      * Constructor.
      * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
      *            marshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
      *            marshaller operates on
      */
-    protected LogoutRequestMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
+    protected LogoutRequestMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /** {@inheritDoc} */

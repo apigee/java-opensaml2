@@ -25,19 +25,20 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameIDPolicy;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.NameIDPolicyImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.NameIDPolicyImpl}.
  */
 public class NameIDPolicyBuilder extends AbstractSAMLObjectBuilder<NameIDPolicy> {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public NameIDPolicyBuilder() {
     }
 
     /** {@inheritDoc} */
     public NameIDPolicy buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

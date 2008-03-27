@@ -25,13 +25,12 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.NameIDMappingResponse;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.NameIDMappingResponseImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.NameIDMappingResponseImpl}.
  */
 public class NameIDMappingResponseBuilder extends AbstractSAMLObjectBuilder<NameIDMappingResponse> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public NameIDMappingResponseBuilder() {
 
@@ -39,7 +38,8 @@ public class NameIDMappingResponseBuilder extends AbstractSAMLObjectBuilder<Name
 
     /** {@inheritDoc} */
     public NameIDMappingResponse buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, NameIDMappingResponse.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

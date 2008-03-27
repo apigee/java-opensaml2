@@ -37,15 +37,15 @@ public abstract class AbstractNameIDTypeMarshaller extends AbstractSAMLObjectMar
     /**
      * Constructor.
      * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
      *            marshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
      *            marshaller operates on
      * 
      * @throws NullPointerException if any of the arguments are null (or empty in the case of String parameters)
      */
-    protected AbstractNameIDTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
+    protected AbstractNameIDTypeMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 
     /** {@inheritDoc} */

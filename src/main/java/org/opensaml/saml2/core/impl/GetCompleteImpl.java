@@ -27,19 +27,19 @@ import org.opensaml.saml2.core.GetComplete;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.GetComplete}
+ * Concrete implementation of {@link org.opensaml.saml2.core.GetComplete}.
  */
 public class GetCompleteImpl extends AbstractSAMLObject implements GetComplete {
 
-    /** URI element content */
+    /** URI element content. */
     private String getComplete;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected GetCompleteImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

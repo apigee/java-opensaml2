@@ -32,18 +32,19 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class ArtifactResolveUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor. 
      */
     public ArtifactResolveUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected ArtifactResolveUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -54,9 +55,10 @@ public class ArtifactResolveUnmarshaller extends RequestAbstractTypeUnmarshaller
             throws UnmarshallingException {
         ArtifactResolve ar = (ArtifactResolve) parentSAMLObject;
 
-        if (childSAMLObject instanceof Artifact)
+        if (childSAMLObject instanceof Artifact) {
             ar.setArtifact((Artifact) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

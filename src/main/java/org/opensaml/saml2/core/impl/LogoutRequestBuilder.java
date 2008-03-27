@@ -25,21 +25,20 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.LogoutRequest;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.LogoutRequestImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.LogoutRequestImpl}.
  */
 public class LogoutRequestBuilder extends AbstractSAMLObjectBuilder<LogoutRequest> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public LogoutRequestBuilder() {
-
     }
 
     /** {@inheritDoc} */
     public LogoutRequest buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

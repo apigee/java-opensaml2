@@ -25,12 +25,12 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Scoping;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.ScopingImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.ScopingImpl}.
  */
 public class ScopingBuilder extends AbstractSAMLObjectBuilder<Scoping> {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public ScopingBuilder() {
     }

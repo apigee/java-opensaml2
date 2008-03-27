@@ -33,17 +33,19 @@ import org.w3c.dom.Element;
 public class NameIDPolicyMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public NameIDPolicyMarshaller() {
         super(SAMLConstants.SAML20P_NS, NameIDPolicy.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected NameIDPolicyMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -53,13 +55,17 @@ public class NameIDPolicyMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameIDPolicy policy = (NameIDPolicy) samlObject;
 
-        if (policy.getFormat() != null)
+        if (policy.getFormat() != null) {
             domElement.setAttributeNS(null, NameIDPolicy.FORMAT_ATTRIB_NAME, policy.getFormat());
+        }
 
-        if (policy.getSPNameQualifier() != null)
+        if (policy.getSPNameQualifier() != null) {
             domElement.setAttributeNS(null, NameIDPolicy.SP_NAME_QUALIFIER_ATTRIB_NAME, policy.getSPNameQualifier());
+        }
 
-        if (policy.getAllowCreateXSBoolean() != null)
-            domElement.setAttributeNS(null, NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME, policy.getAllowCreateXSBoolean().toString());
+        if (policy.getAllowCreateXSBoolean() != null) {
+            domElement.setAttributeNS(null, NameIDPolicy.ALLOW_CREATE_ATTRIB_NAME, policy.getAllowCreateXSBoolean()
+                    .toString());
+        }
     }
 }

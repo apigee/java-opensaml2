@@ -29,14 +29,15 @@ import org.opensaml.saml2.core.AttributeStatement;
  */
 public class AttributeStatementBuilder extends AbstractSAMLObjectBuilder<AttributeStatement> {
 
-    /** Constructor */
+    /** Constructor. */
     public AttributeStatementBuilder() {
 
     }
 
     /** {@inheritDoc} */
     public AttributeStatement buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

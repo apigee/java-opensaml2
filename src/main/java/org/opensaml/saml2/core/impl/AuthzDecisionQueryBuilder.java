@@ -30,8 +30,7 @@ import org.opensaml.saml2.core.AuthzDecisionQuery;
 public class AuthzDecisionQueryBuilder extends AbstractSAMLObjectBuilder<AuthzDecisionQuery> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public AuthzDecisionQueryBuilder() {
 
@@ -39,7 +38,8 @@ public class AuthzDecisionQueryBuilder extends AbstractSAMLObjectBuilder<AuthzDe
 
     /** {@inheritDoc} */
     public AuthzDecisionQuery buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

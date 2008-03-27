@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.NameID;
  */
 public class NameIDBuilder extends AbstractSAMLObjectBuilder<NameID> {
 
-    /** Constructor */
+    /** Constructor. */
     public NameIDBuilder() {
 
     }

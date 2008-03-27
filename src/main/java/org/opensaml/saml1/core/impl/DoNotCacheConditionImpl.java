@@ -23,12 +23,12 @@ import org.opensaml.saml1.core.DoNotCacheCondition;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete Implememtation of a {@link org.opensaml.saml1.core.DoNotCacheCondition} Objects
+ * Concrete Implementation of a {@link org.opensaml.saml1.core.DoNotCacheCondition} Objects.
  */
 public class DoNotCacheConditionImpl extends AbstractSAMLObject implements DoNotCacheCondition {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      * @param namespaceURI the namespace the element is in
      * @param elementLocalName the local name of the XML element this Object represents

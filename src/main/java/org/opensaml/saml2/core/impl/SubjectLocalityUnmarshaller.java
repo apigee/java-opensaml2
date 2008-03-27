@@ -32,16 +32,18 @@ import org.w3c.dom.Attr;
  */
 public class SubjectLocalityUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public SubjectLocalityUnmarshaller() {
         super(SAMLConstants.SAML20_NS, SubjectLocality.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected SubjectLocalityUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

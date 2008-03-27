@@ -34,18 +34,19 @@ import org.w3c.dom.Attr;
 public class AuthzDecisionQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public AuthzDecisionQueryUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, AuthzDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AuthzDecisionQueryUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -55,10 +56,11 @@ public class AuthzDecisionQueryUnmarshaller extends SubjectQueryUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AuthzDecisionQuery query = (AuthzDecisionQuery) samlObject;
 
-        if (attribute.getLocalName().equals(AuthzDecisionQuery.RESOURCE_ATTRIB_NAME))
+        if (attribute.getLocalName().equals(AuthzDecisionQuery.RESOURCE_ATTRIB_NAME)) {
             query.setResource(attribute.getValue());
-        else
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */
@@ -66,11 +68,12 @@ public class AuthzDecisionQueryUnmarshaller extends SubjectQueryUnmarshaller {
             throws UnmarshallingException {
         AuthzDecisionQuery query = (AuthzDecisionQuery) parentSAMLObject;
 
-        if (childSAMLObject instanceof Action)
+        if (childSAMLObject instanceof Action) {
             query.getActions().add((Action) childSAMLObject);
-        else if (childSAMLObject instanceof Evidence)
+        } else if (childSAMLObject instanceof Evidence) {
             query.setEvidence((Evidence) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

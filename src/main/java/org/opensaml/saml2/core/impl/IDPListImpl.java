@@ -32,22 +32,22 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.IDPList}
+ * Concrete implementation of {@link org.opensaml.saml2.core.IDPList}.
  */
 public class IDPListImpl extends AbstractSAMLObject implements IDPList {
 
-    /** List of IDPEntry's */
+    /** List of IDPEntry's. */
     private final XMLObjectChildrenList<IDPEntry> idpEntries;
 
-    /** GetComplete child element */
+    /** GetComplete child element. */
     private GetComplete getComplete;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected IDPListImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -74,9 +74,10 @@ public class IDPListImpl extends AbstractSAMLObject implements IDPList {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         children.addAll(idpEntries);
         children.add(getComplete);
-        if (children.size() > 0)
+        if (children.size() > 0) {
             return Collections.unmodifiableList(children);
-        else
+        } else {
             return null;
+        }
     }
 }

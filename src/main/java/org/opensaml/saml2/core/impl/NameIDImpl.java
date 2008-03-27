@@ -19,16 +19,16 @@ package org.opensaml.saml2.core.impl;
 import org.opensaml.saml2.core.NameID;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.NameID}
+ * Concrete implementation of {@link org.opensaml.saml2.core.NameID}.
  */
 public class NameIDImpl extends AbstractNameIDType implements NameID {
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected NameIDImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

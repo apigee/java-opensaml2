@@ -32,17 +32,19 @@ import org.w3c.dom.Attr;
 public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public AttributeUnmarshaller() {
         super(SAMLConstants.SAML20_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AttributeUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -55,7 +57,8 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         Attribute attribute = (Attribute) parentSAMLObject;
 
         QName childQName = childSAMLObject.getElementQName();
-        if (childQName.getLocalPart().equals("AttributeValue") && childQName.getNamespaceURI().equals(SAMLConstants.SAML20_NS)) {
+        if (childQName.getLocalPart().equals("AttributeValue")
+                && childQName.getNamespaceURI().equals(SAMLConstants.SAML20_NS)) {
             attribute.getAttributeValues().add(childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
@@ -76,7 +79,7 @@ public class AttributeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else {
             QName attribQName = XMLHelper.getNodeQName(attribute);
             if (attribute.isId()) {
-               attrib.getUnknownAttributes().registerID(attribQName);
+                attrib.getUnknownAttributes().registerID(attribQName);
             }
             attrib.getUnknownAttributes().put(attribQName, attribute.getValue());
         }

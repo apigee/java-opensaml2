@@ -29,14 +29,14 @@ import org.opensaml.saml2.core.AuthnStatement;
  */
 public class AuthnStatementBuilder extends AbstractSAMLObjectBuilder<AuthnStatement> {
 
-    /** Constructor */
+    /** Constructor. */
     public AuthnStatementBuilder() {
-
     }
 
     /** {@inheritDoc} */
     public AuthnStatement buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AuthnStatement.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

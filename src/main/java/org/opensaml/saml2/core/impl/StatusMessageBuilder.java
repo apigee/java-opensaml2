@@ -25,21 +25,21 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.StatusMessage;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.StatusMessageImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.StatusMessageImpl}.
  */
 public class StatusMessageBuilder extends AbstractSAMLObjectBuilder<StatusMessage> {
 
     /**
-     * Constructor
+     * Constructor.
      * 
      */
     public StatusMessageBuilder() {
-
     }
 
     /** {@inheritDoc} */
     public StatusMessage buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

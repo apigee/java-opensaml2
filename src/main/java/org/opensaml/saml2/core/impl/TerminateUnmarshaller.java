@@ -30,18 +30,19 @@ import org.opensaml.saml2.core.Terminate;
 public class TerminateUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public TerminateUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, Terminate.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected TerminateUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);

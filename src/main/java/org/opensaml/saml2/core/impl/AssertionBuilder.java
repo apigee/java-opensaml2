@@ -29,7 +29,7 @@ import org.opensaml.saml2.core.Assertion;
  */
 public class AssertionBuilder extends AbstractSAMLObjectBuilder<Assertion> {
 
-    /** Constructor */
+    /** Constructor. */
     public AssertionBuilder() {
 
     }

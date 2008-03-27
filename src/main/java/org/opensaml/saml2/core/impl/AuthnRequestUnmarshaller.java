@@ -38,18 +38,19 @@ import org.w3c.dom.Attr;
 public class AuthnRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public AuthnRequestUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, AuthnRequest.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AuthnRequestUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -59,22 +60,23 @@ public class AuthnRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         AuthnRequest req = (AuthnRequest) samlObject;
 
-        if (attribute.getLocalName().equals(AuthnRequest.FORCE_AUTHN_ATTRIB_NAME))
+        if (attribute.getLocalName().equals(AuthnRequest.FORCE_AUTHN_ATTRIB_NAME)) {
             req.setForceAuthn(XSBooleanValue.valueOf(attribute.getValue()));
-        else if (attribute.getLocalName().equals(AuthnRequest.IS_PASSIVE_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(AuthnRequest.IS_PASSIVE_ATTRIB_NAME)) {
             req.setIsPassive(XSBooleanValue.valueOf(attribute.getValue()));
-        else if (attribute.getLocalName().equals(AuthnRequest.PROTOCOL_BINDING_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(AuthnRequest.PROTOCOL_BINDING_ATTRIB_NAME)) {
             req.setProtocolBinding(attribute.getValue());
-        else if (attribute.getLocalName().equals(AuthnRequest.ASSERTION_CONSUMER_SERVICE_INDEX_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(AuthnRequest.ASSERTION_CONSUMER_SERVICE_INDEX_ATTRIB_NAME)) {
             req.setAssertionConsumerServiceIndex(Integer.valueOf(attribute.getValue()));
-        else if (attribute.getLocalName().equals(AuthnRequest.ASSERTION_CONSUMER_SERVICE_URL_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(AuthnRequest.ASSERTION_CONSUMER_SERVICE_URL_ATTRIB_NAME)) {
             req.setAssertionConsumerServiceURL(attribute.getValue());
-        else if (attribute.getLocalName().equals(AuthnRequest.ATTRIBUTE_CONSUMING_SERVICE_INDEX_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(AuthnRequest.ATTRIBUTE_CONSUMING_SERVICE_INDEX_ATTRIB_NAME)) {
             req.setAttributeConsumingServiceIndex(Integer.valueOf(attribute.getValue()));
-        else if (attribute.getLocalName().equals(AuthnRequest.PROVIDER_NAME_ATTRIB_NAME))
+        } else if (attribute.getLocalName().equals(AuthnRequest.PROVIDER_NAME_ATTRIB_NAME)) {
             req.setProviderName(attribute.getValue());
-        else
+        } else {
             super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */
@@ -82,17 +84,18 @@ public class AuthnRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
             throws UnmarshallingException {
         AuthnRequest req = (AuthnRequest) parentSAMLObject;
 
-        if (childSAMLObject instanceof Subject)
+        if (childSAMLObject instanceof Subject) {
             req.setSubject((Subject) childSAMLObject);
-        else if (childSAMLObject instanceof NameIDPolicy)
+        } else if (childSAMLObject instanceof NameIDPolicy) {
             req.setNameIDPolicy((NameIDPolicy) childSAMLObject);
-        else if (childSAMLObject instanceof Conditions)
+        } else if (childSAMLObject instanceof Conditions) {
             req.setConditions((Conditions) childSAMLObject);
-        else if (childSAMLObject instanceof RequestedAuthnContext)
+        } else if (childSAMLObject instanceof RequestedAuthnContext) {
             req.setRequestedAuthnContext((RequestedAuthnContext) childSAMLObject);
-        else if (childSAMLObject instanceof Scoping)
+        } else if (childSAMLObject instanceof Scoping) {
             req.setScoping((Scoping) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

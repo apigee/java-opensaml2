@@ -38,25 +38,25 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Conditions}
+ * Concrete implementation of {@link org.opensaml.saml2.core.Conditions}.
  */
 public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
 
-    /** A Condition */
+    /** A Condition. */
     private final IndexedXMLObjectChildrenList<Condition> conditions;
 
-    /** Not Before conditions */
+    /** Not Before conditions. */
     private DateTime notBefore;
 
-    /** Not On Or After conditions */
+    /** Not On Or After conditions. */
     private DateTime notOnOrAfter;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected ConditionsImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
@@ -77,12 +77,14 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
 
     /** {@inheritDoc} */
     public OneTimeUse getOneTimeUse() {
-        QName conditionQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        QName conditionQName = new QName(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
         List<OneTimeUse> list = (List<OneTimeUse>) conditions.subList(conditionQName);
         if (list == null || list.size() == 0) {
             return null;
-        } else
+        } else {
             return list.get(0);
+        }
     }
 
     /** {@inheritDoc} */
@@ -92,8 +94,9 @@ public class ConditionsImpl extends AbstractSAMLObject implements Conditions {
         List<ProxyRestriction> list = (List<ProxyRestriction>) conditions.subList(conditionQName);
         if (list == null || list.size() == 0) {
             return null;
-        } else
+        } else {
             return list.get(0);
+        }
     }
 
     /** {@inheritDoc} */

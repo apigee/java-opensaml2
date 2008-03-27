@@ -33,17 +33,19 @@ import org.w3c.dom.Element;
 public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public StatusCodeMarshaller() {
         super(SAMLConstants.SAML20P_NS, StatusCode.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected StatusCodeMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -53,8 +55,9 @@ public class StatusCodeMarshaller extends AbstractSAMLObjectMarshaller {
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         StatusCode statusCode = (StatusCode) samlObject;
 
-        if (statusCode.getValue() != null)
+        if (statusCode.getValue() != null) {
             domElement.setAttributeNS(null, StatusCode.VALUE_ATTRIB_NAME, statusCode.getValue());
+        }
 
     }
 

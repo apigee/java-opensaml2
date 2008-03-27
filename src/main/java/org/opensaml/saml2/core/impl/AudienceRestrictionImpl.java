@@ -31,19 +31,19 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.AudienceRestriction}
+ * Concrete implementation of {@link org.opensaml.saml2.core.AudienceRestriction}.
  */
 public class AudienceRestrictionImpl extends AbstractSAMLObject implements AudienceRestriction {
 
-    /** List of the audiences */
+    /** List of the audiences. */
     private final XMLObjectChildrenList<Audience> audience;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AudienceRestrictionImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

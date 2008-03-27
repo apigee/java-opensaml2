@@ -26,7 +26,7 @@ import org.opensaml.saml2.core.StatusDetail;
 public class StatusDetailMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public StatusDetailMarshaller(){
         super(SAMLConstants.SAML20P_NS, StatusDetail.DEFAULT_ELEMENT_LOCAL_NAME);

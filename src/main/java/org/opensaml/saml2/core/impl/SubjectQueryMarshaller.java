@@ -33,12 +33,12 @@ public abstract class SubjectQueryMarshaller extends RequestAbstractTypeMarshall
     /**
      * Constructor.
      * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
      *            marshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
      *            marshaller operates on
      */
-    protected SubjectQueryMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
+    protected SubjectQueryMarshaller(String namespaceURI, String elementLocalName) {
+        super(namespaceURI, elementLocalName);
     }
 }

@@ -27,16 +27,17 @@ import org.opensaml.saml2.core.AudienceRestriction;
 /**
  * Builder for {@link org.opensaml.saml2.core.impl.AudienceRestrictionImpl} objects.
  */
-public class AudienceRestrictionBuilder extends AbstractSAMLObjectBuilder<AudienceRestriction>{
+public class AudienceRestrictionBuilder extends AbstractSAMLObjectBuilder<AudienceRestriction> {
 
-    /** Constructor */
+    /** Constructor. */
     public AudienceRestrictionBuilder() {
 
     }
 
     /** {@inheritDoc} */
     public AudienceRestriction buildObject() {
-        return buildObject(SAMLConstants.SAML20_NS, AudienceRestriction.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
+        return buildObject(SAMLConstants.SAML20_NS, AudienceRestriction.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20_PREFIX);
     }
 
     /** {@inheritDoc} */

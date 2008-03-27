@@ -29,9 +29,8 @@ import org.opensaml.saml2.core.Issuer;
  */
 public class IssuerBuilder extends AbstractSAMLObjectBuilder<Issuer> {
 
-    /** Constructor */
+    /** Constructor. */
     public IssuerBuilder() {
-
     }
 
     /** {@inheritDoc} */

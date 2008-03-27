@@ -36,17 +36,19 @@ import org.w3c.dom.Element;
 public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public AttributeMarshaller() {
         super(SAMLConstants.SAML20_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            marshaller operates on
      */
     protected AttributeMarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -67,13 +69,13 @@ public class AttributeMarshaller extends AbstractSAMLObjectMarshaller {
         if (attribute.getFriendlyName() != null) {
             domElement.setAttributeNS(null, Attribute.FRIENDLY_NAME_ATTRIB_NAME, attribute.getFriendlyName());
         }
-        
+
         Attr attr;
-        for(Entry<QName, String> entry: attribute.getUnknownAttributes().entrySet()){
+        for (Entry<QName, String> entry : attribute.getUnknownAttributes().entrySet()) {
             attr = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attr.setValue(entry.getValue());
             domElement.setAttributeNodeNS(attr);
-            if (Configuration.isIDAttribute(entry.getKey()) 
+            if (Configuration.isIDAttribute(entry.getKey())
                     || attribute.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attr.getOwnerElement().setIdAttributeNode(attr, true);
             }

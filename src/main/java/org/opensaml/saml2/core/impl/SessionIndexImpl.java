@@ -27,19 +27,19 @@ import org.opensaml.saml2.core.SessionIndex;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.SessionIndex}
+ * Concrete implementation of {@link org.opensaml.saml2.core.SessionIndex}.
  */
 public class SessionIndexImpl extends AbstractSAMLObject implements SessionIndex {
 
-    /** The session index value */
+    /** The session index value. */
     private String sessionIndex;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected SessionIndexImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

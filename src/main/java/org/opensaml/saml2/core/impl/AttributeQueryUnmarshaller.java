@@ -32,18 +32,19 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class AttributeQueryUnmarshaller extends SubjectQueryUnmarshaller {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public AttributeQueryUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME);
     }
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
+     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
+     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
+     *            unmarshaller operates on
      */
     protected AttributeQueryUnmarshaller(String namespaceURI, String elementLocalName) {
         super(namespaceURI, elementLocalName);
@@ -54,9 +55,10 @@ public class AttributeQueryUnmarshaller extends SubjectQueryUnmarshaller {
             throws UnmarshallingException {
         AttributeQuery query = (AttributeQuery) parentSAMLObject;
 
-        if (childSAMLObject instanceof Attribute)
+        if (childSAMLObject instanceof Attribute) {
             query.getAttributes().add((Attribute) childSAMLObject);
-        else
+        } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);
+        }
     }
 }

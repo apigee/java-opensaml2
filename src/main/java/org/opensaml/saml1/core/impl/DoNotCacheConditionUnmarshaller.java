@@ -25,7 +25,7 @@ import org.opensaml.saml1.core.DoNotCacheCondition;
  */
 public class DoNotCacheConditionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
+    /** Constructor. */
     public DoNotCacheConditionUnmarshaller() {
         super(SAMLConstants.SAML1_NS, DoNotCacheCondition.DEFAULT_ELEMENT_LOCAL_NAME);
     }

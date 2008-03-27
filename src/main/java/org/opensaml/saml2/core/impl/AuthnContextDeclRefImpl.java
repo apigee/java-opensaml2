@@ -31,15 +31,15 @@ import org.opensaml.xml.XMLObject;
  */
 public class AuthnContextDeclRefImpl extends AbstractSAMLObject implements AuthnContextDeclRef {
 
-    /** URI of the Authentication Context Declaration */
+    /** URI of the Authentication Context Declaration. */
     private String authnContextDeclRef;
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected AuthnContextDeclRefImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);

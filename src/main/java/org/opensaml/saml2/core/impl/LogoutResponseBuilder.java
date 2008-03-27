@@ -25,21 +25,20 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.LogoutResponse;
 
 /**
- * Builder of {@link org.opensaml.saml2.core.impl.LogoutResponseImpl}
+ * Builder of {@link org.opensaml.saml2.core.impl.LogoutResponseImpl}.
  */
 public class LogoutResponseBuilder extends AbstractSAMLObjectBuilder<LogoutResponse> {
 
     /**
-     * Constructor
-     * 
+     * Constructor.
      */
     public LogoutResponseBuilder() {
-
     }
 
     /** {@inheritDoc} */
     public LogoutResponse buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, LogoutResponse.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20P_NS, LogoutResponse.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20P_PREFIX);
     }
 
     /** {@inheritDoc} */

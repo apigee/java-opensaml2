@@ -28,7 +28,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 public class StatusDetailUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public StatusDetailUnmarshaller() {
         super(SAMLConstants.SAML20P_NS, StatusDetail.DEFAULT_ELEMENT_LOCAL_NAME);

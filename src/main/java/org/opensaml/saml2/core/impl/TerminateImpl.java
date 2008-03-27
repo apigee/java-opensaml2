@@ -27,16 +27,16 @@ import org.opensaml.saml2.core.Terminate;
 import org.opensaml.xml.XMLObject;
 
 /**
- * Concrete implementation of {@link org.opensaml.saml2.core.Terminate}
+ * Concrete implementation of {@link org.opensaml.saml2.core.Terminate}.
  */
 public class TerminateImpl extends AbstractSAMLObject implements Terminate {
 
     /**
-     * Constructor
+     * Constructor.
      * 
-     * @param namespaceURI
-     * @param elementLocalName
-     * @param namespacePrefix
+     * @param namespaceURI the namespace the element is in
+     * @param elementLocalName the local name of the XML element this Object represents
+     * @param namespacePrefix the prefix for the given namespace
      */
     protected TerminateImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
