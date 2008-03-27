@@ -5,9 +5,15 @@
     <groupId>org.opensaml</groupId>
     <artifactId>opensaml</artifactId>
     <packaging>jar</packaging>
-    <name>OpenSAML</name>
     <version>2.0.0</version>
+
+    <name>OpenSAML-J</name>
+    <description>
+        The OpenSAML-J library provides tools to support developers working with the Security Assertion Markup Language
+        (SAML).
+    </description>
     <url>https://opensaml.org/</url>
+    <inceptionYear>2006</inceptionYear>
 
     <build>
         <finalName>opensaml</finalName>
@@ -72,13 +78,13 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.4</version>
-			<scope>provided</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>2.0.7</version>
-			<scope>provided</scope>
+            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -90,7 +96,7 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-mock</artifactId>
             <version>2.0.7</version>
-			<scope>provided</scope>
+            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -98,7 +104,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
 
         <dependency>
             <groupId>junit</groupId>
@@ -141,12 +146,19 @@
         </plugins>
     </reporting>
 
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <organization>
         <name>Internet2</name>
         <url>http://www.internet2.edu/</url>
     </organization>
-    <inceptionYear>2006</inceptionYear>
+
     <developers>
         <developer>
             <id>cantor</id>
@@ -200,6 +212,23 @@
             <timezone>0</timezone>
         </developer>
     </developers>
+
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://bugs.internet2.edu/</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>OpenSAML Users</name>
+            <subscribe>https://spaces.internet2.edu/display/OpenSAML/MailingList</subscribe>
+            <post>mace-opensaml-users@internet2.edu</post>
+            <archive>https://mail.internet2.edu/wws/arc/mace-opensaml-users</archive>
+            <otherArchives>
+                <otherArchive>http://groups.google.com/group/opensaml-users</otherArchive>
+            </otherArchives>
+        </mailingList>
+    </mailingLists>
 
     <scm>
         <connection>scm:svn:https://svn.middleware.georgetown.edu/java-opensaml2/</connection>
