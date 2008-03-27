@@ -125,6 +125,18 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>maven.it.su.se</id>
+            <name>Stockholm University</name>
+            <layout>default</layout>
+            <url>http://maven.it.su.se/it.su.se/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <reporting>
         <plugins>
             <plugin>
