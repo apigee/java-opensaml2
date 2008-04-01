@@ -281,6 +281,7 @@
         <mailingList>
             <name>OpenSAML Users</name>
             <subscribe>https://spaces.internet2.edu/display/OpenSAML/MailingList</subscribe>
+            <unsubscribe>https://spaces.internet2.edu/display/OpenSAML/MailingList</unsubscribe>
             <post>mace-opensaml-users@internet2.edu</post>
             <archive>https://mail.internet2.edu/wws/arc/mace-opensaml-users</archive>
             <otherArchives>
