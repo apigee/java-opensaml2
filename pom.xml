@@ -47,6 +47,12 @@
     </build>
 
     <dependencies>
+        <!-- Compile dependencies -->
+        <dependency>
+            <groupId>org.opensaml</groupId>
+            <artifactId>openws</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl104-over-slf4j</artifactId>
@@ -57,13 +63,16 @@
             <artifactId>log4j-over-slf4j</artifactId>
             <version>1.5.0</version>
         </dependency>
-
         <dependency>
-            <groupId>org.opensaml</groupId>
-            <artifactId>openws</artifactId>
-            <version>1.0.0</version>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>1.5.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.xml.security</groupId>
+            <artifactId>xml-security</artifactId>
+            <version>1.4.1</version>
+        </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
@@ -91,6 +100,7 @@
             </exclusions>
         </dependency>
 
+        <!-- Provided dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -122,6 +132,7 @@
             </exclusions>
         </dependency>
 
+        <!-- Test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -144,10 +155,10 @@
 
     <repositories>
         <repository>
-            <id>maven.it.su.se</id>
-            <name>Stockholm University</name>
+            <id>shibboleth.internet2.edu</id>
+            <name>Internet2</name>
             <layout>default</layout>
-            <url>http://maven.it.su.se/it.su.se/maven2</url>
+            <url>http://shibboleth.internet2.edu/downloads/maven2</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -203,7 +214,7 @@
             <roles>
                 <role>developer</role>
             </roles>
-            <timezone>-6</timezone>
+            <timezone>-5</timezone>
         </developer>
         <developer>
             <id>ndk</id>
