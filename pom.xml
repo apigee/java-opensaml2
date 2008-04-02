@@ -15,7 +15,6 @@
     <inceptionYear>2006</inceptionYear>
 
     <build>
-        <finalName>opensaml</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -39,19 +38,6 @@
                         <phase>package</phase>
                         <goals>
                             <goal>attached</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -144,6 +130,38 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        
+        <!-- Runtime dependencies -->
+        <dependency>
+            <groupId>org.apache.xerces</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>2.9.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.9.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xerces</groupId>
+            <artifactId>resolver</artifactId>
+            <version>2.9.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xerces</groupId>
+            <artifactId>serializer</artifactId>
+            <version>2.9.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xalan</groupId>
+            <artifactId>xalan</artifactId>
+            <version>2.7.1</version>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- Test dependencies -->
         <dependency>
@@ -187,7 +205,7 @@
                     <links>
                         <link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
                     </links>
-                    <linksource>true</linksource>
+                    <quiet>true</quiet>
                     <author>false</author>
                     <version>true</version>
                     <doctitle>${project.name} ${project.version} Java API.</doctitle>
