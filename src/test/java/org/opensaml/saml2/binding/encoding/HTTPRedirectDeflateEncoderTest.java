@@ -88,7 +88,7 @@ public class HTTPRedirectDeflateEncoderTest extends BaseTestCase {
 
         assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
         assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-        assertEquals(-1667473083, response.getRedirectedUrl().hashCode());
+        assertEquals(406515062, response.getRedirectedUrl().hashCode());
     }
     
     /**

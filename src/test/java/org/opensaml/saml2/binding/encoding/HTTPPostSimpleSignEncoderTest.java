@@ -106,7 +106,7 @@ public class HTTPPostSimpleSignEncoderTest extends BaseTestCase {
         assertEquals("Unexpected content type", "text/html", response.getContentType());
         assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
         assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-        assertEquals(-1311633425, response.getContentAsString().hashCode());
+        assertEquals(-1652577171, response.getContentAsString().hashCode());
     }
 
     @SuppressWarnings("unchecked")
@@ -140,7 +140,7 @@ public class HTTPPostSimpleSignEncoderTest extends BaseTestCase {
         assertEquals("Unexpected content type", "text/html", response.getContentType());
         assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
         assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-        assertEquals(-38107380, response.getContentAsString().hashCode());
+        assertEquals(-1110321790, response.getContentAsString().hashCode());
     }
     
     @SuppressWarnings("unchecked")
