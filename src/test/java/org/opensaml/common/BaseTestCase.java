@@ -62,12 +62,6 @@ public abstract class BaseTestCase extends XMLTestCase {
     public BaseTestCase(){
         super();
         
-        try{
-            TestBootstrap.bootstrap();
-        }catch(ConfigurationException e){
-            fail(e.getMessage());
-        }
-        
         parser = new BasicParserPool();
         parser.setNamespaceAware(true);
         builderFactory = Configuration.getBuilderFactory();
@@ -79,6 +73,12 @@ public abstract class BaseTestCase extends XMLTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         XMLUnit.setIgnoreWhitespace(true);
+        
+        try{
+            TestBootstrap.bootstrap();
+        }catch(ConfigurationException e){
+            fail(e.getMessage());
+        }
     }
 
     /** {@inheritDoc} */

@@ -188,12 +188,6 @@ public class EntityDescriptorTest extends BaseSAMLObjectProviderTestCase {
         for (int i = 0; i < 3; i++) {
             descriptor.getAdditionalMetadataLocations().add((AdditionalMetadataLocation) buildXMLObject(addMDQName));
         }
-        
-        try {
-            System.out.println(XMLHelper.prettyPrintXML(marshallerFactory.getMarshaller(descriptor).marshall(descriptor)));
-        } catch (MarshallingException e) {
-            e.printStackTrace();
-        }
 
         assertEquals(expectedChildElementsDOM, descriptor);
     }

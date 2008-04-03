@@ -55,7 +55,6 @@ public class EntityRoleFilterTest extends BaseTestCase {
 
         EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
         Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(descriptor);
-        System.out.println(XMLHelper.prettyPrintXML(marshaller.marshall(descriptor)));
     }
     
     public void testWhiteListIdPRoles() throws Exception {
@@ -70,7 +69,6 @@ public class EntityRoleFilterTest extends BaseTestCase {
 
         EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
         Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(descriptor);
-        System.out.println(XMLHelper.prettyPrintXML(marshaller.marshall(descriptor)));
     }
     
     public void testWhiteListNoRole() throws Exception {
@@ -83,6 +81,5 @@ public class EntityRoleFilterTest extends BaseTestCase {
 
         EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
         Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(descriptor);
-        System.out.println(XMLHelper.prettyPrintXML(marshaller.marshall(descriptor)));
     }
 }

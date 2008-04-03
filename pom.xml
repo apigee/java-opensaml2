@@ -11,39 +11,18 @@
         The OpenSAML-J library provides tools to support developers working with the Security Assertion Markup Language
         (SAML).
     </description>
-    <url>https://opensaml.org/</url>
-    <inceptionYear>2006</inceptionYear>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                    <debug>true</debug>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/main/assembly/bin.xml</descriptor>
-                        <descriptor>src/main/assembly/src.xml</descriptor>
-                    </descriptors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attached</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    
+    <repositories>
+        <repository>
+            <id>shibboleth.internet2.edu</id>
+            <name>Internet2</name>
+            <layout>default</layout>
+            <url>http://shibboleth.internet2.edu/downloads/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- Compile dependencies -->
@@ -184,17 +163,38 @@
         </dependency>
     </dependencies>
 
-    <repositories>
-        <repository>
-            <id>shibboleth.internet2.edu</id>
-            <name>Internet2</name>
-            <layout>default</layout>
-            <url>http://shibboleth.internet2.edu/downloads/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <debug>true</debug>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/bin.xml</descriptor>
+                        <descriptor>src/main/assembly/src.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attached</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <reporting>
         <plugins>
@@ -215,26 +215,166 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.reporting.outputDirectory}/xref</outputDirectory>
+                    <doctitle>${project.name} ${project.version} Code Cross-Reference</doctitle>
+                    <windowtitle>${project.name} ${project.version} Java API.</windowtitle>
+                    <javadocDir>${project.reporting.outputDirectory}/apidocs</javadocDir>                    
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
+                    <outputDirectory>${project.reporting.outputDirectory}/style</outputDirectory>
+                    <enableRSS>false</enableRSS>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.reporting.outputDirectory}/unitTest</outputDirectory>
+                    <xrefLocation>${project.reporting.outputDirectory}/xref</xrefLocation>
                 </configuration>
             </plugin>
         </plugins>
     </reporting>
-
-    <licenses>
+    
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>release-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>javadoc</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jxr-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>release-jxr</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jxr</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>release-checkstyle</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>checkstyle</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-report-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>release-unitTest</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>report-only</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>attached</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>    
+            </build>            
+        </profile>
+    </profiles>
+    
+    
+    <!-- Project Metadata -->
+    <url>https://opensaml.org/</url>
+    
+    <inceptionYear>2006</inceptionYear>
+        <licenses>
         <license>
             <name>Apache 2</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
-
+    
     <organization>
         <name>Internet2</name>
         <url>http://www.internet2.edu/</url>
     </organization>
+    
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://bugs.internet2.edu/</url>
+    </issueManagement>
+    
+    <mailingLists>
+        <mailingList>
+            <name>OpenSAML Users</name>
+            <subscribe>https://spaces.internet2.edu/display/OpenSAML/MailingList</subscribe>
+            <unsubscribe>https://spaces.internet2.edu/display/OpenSAML/MailingList</unsubscribe>
+            <post>mace-opensaml-users@internet2.edu</post>
+            <archive>https://mail.internet2.edu/wws/arc/mace-opensaml-users</archive>
+            <otherArchives>
+                <otherArchive>http://groups.google.com/group/opensaml-users</otherArchive>
+            </otherArchives>
+        </mailingList>
+    </mailingLists>
+    
+    <scm>
+        <connection>scm:svn:https://svn.middleware.georgetown.edu/java-xmltooling/</connection>
+        <developerConnection>scm:svn:https://svn.middleware.georgetown.edu/java-xmltooling/</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://svn.middleware.georgetown.edu/view/?root=java-xmltooling</url>
+    </scm>
 
     <developers>
         <developer>
@@ -289,53 +429,5 @@
             <timezone>0</timezone>
         </developer>
     </developers>
-
-    <issueManagement>
-        <system>JIRA</system>
-        <url>http://bugs.internet2.edu/</url>
-    </issueManagement>
-
-    <mailingLists>
-        <mailingList>
-            <name>OpenSAML Users</name>
-            <subscribe>https://spaces.internet2.edu/display/OpenSAML/MailingList</subscribe>
-            <unsubscribe>https://spaces.internet2.edu/display/OpenSAML/MailingList</unsubscribe>
-            <post>mace-opensaml-users@internet2.edu</post>
-            <archive>https://mail.internet2.edu/wws/arc/mace-opensaml-users</archive>
-            <otherArchives>
-                <otherArchive>http://groups.google.com/group/opensaml-users</otherArchive>
-            </otherArchives>
-        </mailingList>
-    </mailingLists>
-
-    <scm>
-        <connection>scm:svn:https://svn.middleware.georgetown.edu/java-opensaml2/</connection>
-        <developerConnection>scm:svn:https://svn.middleware.georgetown.edu/java-opensaml2/</developerConnection>
-        <tag>HEAD</tag>
-        <url>http://svn.middleware.georgetown.edu/view/?root=java-opensaml2</url>
-    </scm>
-    
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
     
 </project>
