@@ -44,6 +44,7 @@ public class DefaultBootstrap {
         "/encryption-config.xml", 
         "/encryption-validation-config.xml",
         "/soap11-config.xml", 
+        "/wsfed11-protocol-config.xml",
         "/saml1-assertion-config.xml", 
         "/saml1-protocol-config.xml",
         "/saml1-core-validation-config.xml", 
@@ -54,7 +55,14 @@ public class DefaultBootstrap {
         "/saml2-metadata-config.xml",
         "/saml2-metadata-validation-config.xml", 
         "/saml2-protocol-thirdparty-config.xml",
-        "/saml2-metadata-query-config.xml", };
+        "/saml2-metadata-query-config.xml", 
+        "/xacml10-saml2-profile-config.xml",
+        "/xacml11-saml2-profile-config.xml",
+        "/xacml20-context-config.xml",
+        "/xacml20-policy-config.xml",
+        "/xacml2-saml2-profile-config.xml",
+        "/xacml3-saml2-profile-config.xml",    
+    };
 
     /** Constrcutor. */
     protected DefaultBootstrap() {
