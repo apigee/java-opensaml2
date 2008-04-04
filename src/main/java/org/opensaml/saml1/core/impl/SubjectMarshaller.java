@@ -17,18 +17,10 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Subject;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.Subject} objects.
  */
 public class SubjectMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     */
-    public SubjectMarshaller() {
-        super(SAMLConstants.SAML1_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 }

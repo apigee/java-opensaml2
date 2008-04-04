@@ -43,21 +43,6 @@ public abstract class RequestAbstractTypeUnmarshaller extends AbstractSAMLObject
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(RequestAbstractType.class);
 
-    /** Constructor. */
-    protected RequestAbstractTypeUnmarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     */
-    protected RequestAbstractTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     public XMLObject unmarshall(Element domElement) throws UnmarshallingException {
         // After regular unmarshalling, check the minor version and set ID-ness if not SAML 1.0

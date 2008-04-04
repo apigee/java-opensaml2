@@ -26,35 +26,16 @@ import org.w3c.dom.Element;
  * Marshaller for {@link QueryDescriptorType} objects.
  */
 public abstract class QueryDescriptorTypeMarshaller extends RoleDescriptorMarshaller {
-    
-    /** Constructor. */
-    protected QueryDescriptorTypeMarshaller(){
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * 
-     * @throws NullPointerException if any of the arguments are null (or empty in the case of String parameters)
-     */
-    protected QueryDescriptorTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
         QueryDescriptorType descriptor = (QueryDescriptorType) xmlObject;
 
         if (descriptor.getWantAssertionsSignedXSBoolean() != null) {
-            domElement.setAttributeNS(null, QueryDescriptorType.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME,
-                    descriptor.getWantAssertionsSignedXSBoolean().toString());
+            domElement.setAttributeNS(null, QueryDescriptorType.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME, descriptor
+                    .getWantAssertionsSignedXSBoolean().toString());
         }
-        
+
         super.marshallAttributes(xmlObject, domElement);
     }
 }

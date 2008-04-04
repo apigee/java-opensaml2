@@ -20,28 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.SingleLogoutService;
-
 /**
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.SingleLogoutService} objects.
  */
 public class SingleLogoutServiceUnmarshaller extends EndpointUnmarshaller {
 
-    /**
-     * Constructor
-     */
-    public SingleLogoutServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, SingleLogoutService.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected SingleLogoutServiceUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

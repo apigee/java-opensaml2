@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
@@ -28,13 +27,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.Advice} objects.
  */
 public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public AdviceUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

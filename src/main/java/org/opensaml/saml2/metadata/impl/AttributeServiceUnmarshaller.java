@@ -20,28 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.AttributeService;
-
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.AttributeService} objects.
  */
 public class AttributeServiceUnmarshaller extends EndpointUnmarshaller {
 
-    /**
-     * Constructor
-     */
-    public AttributeServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeService.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected AttributeServiceUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

@@ -29,23 +29,6 @@ import org.w3c.dom.Element;
  */
 public class XACMLAuthzDecisionQueryTypeMarshaller extends RequestAbstractTypeMarshaller {
 
-    /** Constructor. */
-    public XACMLAuthzDecisionQueryTypeMarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected XACMLAuthzDecisionQueryTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         XACMLAuthzDecisionQueryType query = (XACMLAuthzDecisionQueryType) samlObject;

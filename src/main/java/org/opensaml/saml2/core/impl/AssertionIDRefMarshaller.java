@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -32,23 +31,6 @@ import org.w3c.dom.Element;
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AssertionIDRef}.
  */
 public class AssertionIDRefMarshaller extends AbstractSAMLObjectMarshaller {
-
-    /** Constructor. */
-    public AssertionIDRefMarshaller() {
-        super(SAMLConstants.SAML20_NS, AssertionIDRef.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected AssertionIDRefMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {

@@ -23,20 +23,4 @@ import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 /** A thread-safe Marshaller for {@link org.opensaml.xacml.profile.saml.XACMLAuthzDecisionStatementType}. */
 public class XACMLPolicyStatementTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor. */
-    public XACMLPolicyStatementTypeMarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected XACMLPolicyStatementTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 }

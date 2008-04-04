@@ -21,28 +21,10 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.OneTimeUse;
 
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.OneTimeUse} objects.
  */
 public class OneTimeUseMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor. */
-    public OneTimeUseMarshaller() {
-        super(SAMLConstants.SAML20_NS, OneTimeUse.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected OneTimeUseMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

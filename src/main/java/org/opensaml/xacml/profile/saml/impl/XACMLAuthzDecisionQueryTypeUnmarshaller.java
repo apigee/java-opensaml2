@@ -31,23 +31,6 @@ import org.w3c.dom.Attr;
  */
 public class XACMLAuthzDecisionQueryTypeUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
-    /** Constructor. */
-    public XACMLAuthzDecisionQueryTypeUnmarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected XACMLAuthzDecisionQueryTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         XACMLAuthzDecisionQueryType xacmlauthzdecisionquery = (XACMLAuthzDecisionQueryType) parentObject;

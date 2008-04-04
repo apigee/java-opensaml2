@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.xml.XMLObject;
 
@@ -25,12 +24,6 @@ import org.opensaml.xml.XMLObject;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.Audience} objects.
  */
 public class AudienceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-    /**
-     * Constructor
-     */
-    public AudienceUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {

@@ -18,7 +18,6 @@ package org.opensaml.saml1.core.impl;
 
 import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -28,13 +27,6 @@ import org.w3c.dom.Element;
  * A thread safe Marshaller for {@link org.opensaml.saml2.core.Conditions} objects.
  */
 public class ConditionsMarshaller extends AbstractSAMLObjectMarshaller {
-
-    /**
-     * Constructor.
-     */
-    public ConditionsMarshaller() {
-        super(SAMLConstants.SAML1_NS, Conditions.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {

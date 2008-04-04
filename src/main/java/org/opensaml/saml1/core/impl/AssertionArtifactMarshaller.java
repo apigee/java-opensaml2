@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -29,18 +28,11 @@ import org.w3c.dom.Element;
  */
 public class AssertionArtifactMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AssertionArtifactMarshaller() {
-        super(SAMLConstants.SAML10P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         AssertionArtifact assertionArtifact = (AssertionArtifact) samlObject;
         if (assertionArtifact.getAssertionArtifact() != null) {
-            XMLHelper.appendTextContent(domElement,assertionArtifact.getAssertionArtifact());
+            XMLHelper.appendTextContent(domElement, assertionArtifact.getAssertionArtifact());
         }
     }
 }

@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.xml.XMLObject;
 
@@ -25,13 +24,6 @@ import org.opensaml.xml.XMLObject;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AssertionArtifact} objects.
  */
 public class AssertionArtifactUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public AssertionArtifactUnmarshaller() {
-        super(SAMLConstants.SAML10P_NS, AssertionArtifact.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {

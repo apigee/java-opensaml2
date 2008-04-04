@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.xml.XMLObject;
@@ -27,11 +26,6 @@ import org.w3c.dom.Attr;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AttributeQuery} objects.
  */
 public class AttributeQueryUnmarshaller extends SubjectQueryUnmarshaller {
-
-    /** Constructor */
-    public AttributeQueryUnmarshaller() {
-        super(SAMLConstants.SAML10P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

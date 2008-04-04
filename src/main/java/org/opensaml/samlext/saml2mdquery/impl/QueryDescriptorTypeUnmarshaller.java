@@ -24,17 +24,8 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
+/** Unmarshaller for {@link QueryDescriptorType} objects. */
 public class QueryDescriptorTypeUnmarshaller extends RoleDescriptorUnmarshaller {
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespaceURI of the SAMLObject this unmarshaller operates on
-     * @param targetLocalName the local name of the SAMLObject this unmarshaller operates on
-     */
-    protected QueryDescriptorTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

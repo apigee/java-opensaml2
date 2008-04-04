@@ -17,7 +17,6 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -29,37 +28,20 @@ import org.w3c.dom.Element;
  */
 public class KeyDescriptorMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor. */
-    public KeyDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, KeyDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected KeyDescriptorMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
         KeyDescriptor keyDescriptor = (KeyDescriptor) xmlObject;
 
         if (keyDescriptor.getUse() != null) {
             UsageType use = keyDescriptor.getUse();
-            // UsageType enum contains more values than are allowed by SAML 2 schema 
+            // UsageType enum contains more values than are allowed by SAML 2 schema
             if (use.equals(UsageType.SIGNING) || use.equals(UsageType.ENCRYPTION)) {
                 domElement.setAttribute(KeyDescriptor.USE_ATTRIB_NAME, use.toString().toLowerCase());
             } else if (use.equals(UsageType.UNSPECIFIED)) {
-                //emit nothing for unspecified - this is semantically equivalent to non-existent attribute
+                // emit nothing for unspecified - this is semantically equivalent to non-existent attribute
             } else {
                 // Just in case values are unknowingly added to UsageType in the future...
-               throw new MarshallingException("KeyDescriptor had illegal value for use attribute: " + use.toString());
+                throw new MarshallingException("KeyDescriptor had illegal value for use attribute: " + use.toString());
             }
         }
     }

@@ -16,16 +16,9 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptorType;
-
 /**
- * Marshaller of {@link AuthzDecisionQueryDescriptorType} objects.
+ * Marshaller of {@link org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptorType} objects.
  */
 public class AuthzDecisionQueryDescriptorTypeMarshaller extends QueryDescriptorTypeMarshaller {
 
-    /** Constructor */
-    public AuthzDecisionQueryDescriptorTypeMarshaller() {
-        super(SAMLConstants.SAML20MDQUERY_NS, AuthzDecisionQueryDescriptorType.TYPE_LOCAL_NAME);
-    }
 }

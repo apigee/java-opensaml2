@@ -16,28 +16,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
-
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.AuthnAuthorityDescriptor} objects.
  */
 public class AuthnAuthorityDescriptorMarshaller extends RoleDescriptorMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AuthnAuthorityDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AuthnAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected AuthnAuthorityDescriptorMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

@@ -16,19 +16,9 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Request;
-
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.Request} objects.
  */
 public class RequestMarshaller extends RequestAbstractTypeMarshaller {
-
-    /**
-     * Constructor
-     */
-    public RequestMarshaller() throws IllegalArgumentException {
-        super(SAMLConstants.SAML10P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
 }

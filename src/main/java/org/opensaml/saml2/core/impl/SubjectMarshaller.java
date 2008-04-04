@@ -21,28 +21,10 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Subject;
 
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.Subject} objects.
  */
 public class SubjectMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor. */
-    public SubjectMarshaller() {
-        super(SAMLConstants.SAML20_NS, Subject.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected SubjectMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

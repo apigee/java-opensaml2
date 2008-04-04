@@ -20,28 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.ArtifactResolutionService;
-
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.ArtifactResolutionService} objects.
  */
 public class ArtifactResolutionServiceMarshaller extends IndexedEndpointMarshaller {
 
-    /**
-     * Constructor
-     */
-    public ArtifactResolutionServiceMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ArtifactResolutionService.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected ArtifactResolutionServiceMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

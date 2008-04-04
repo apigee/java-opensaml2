@@ -29,16 +29,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public abstract class SSODescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
 
-    /**
-     * Constructor
-     * 
-     * @param targetNamespaceURI the namespaceURI of the SAMLObject this unmarshaller operates on
-     * @param targetLocalName the local name of the SAMLObject this unmarshaller operates on
-     */
-    protected SSODescriptorUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {
         SSODescriptor descriptor = (SSODescriptor) parentElement;

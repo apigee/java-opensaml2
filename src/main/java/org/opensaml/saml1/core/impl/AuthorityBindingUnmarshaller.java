@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -29,19 +28,11 @@ import org.w3c.dom.Attr;
  */
 public class AuthorityBindingUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Constructor
-     */
-    public AuthorityBindingUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, AuthorityBinding.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject samlObject, Attr attribute)
-            throws UnmarshallingException {
+    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
 
         AuthorityBinding authorityBinding = (AuthorityBinding) samlObject;
-        
+
         if (AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME.equals(attribute.getLocalName())) {
             authorityBinding.setAuthorityKind(XMLHelper.getAttributeValueAsQName(attribute));
         } else if (AuthorityBinding.LOCATION_ATTRIB_NAME.equals(attribute.getLocalName())) {

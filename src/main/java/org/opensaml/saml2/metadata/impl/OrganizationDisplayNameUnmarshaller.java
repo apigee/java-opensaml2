@@ -29,27 +29,9 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe unmarshaller for
- * {@link org.opensaml.saml2.metadata.OrganizationDisplayName} objects.
+ * A thread-safe unmarshaller for {@link org.opensaml.saml2.metadata.OrganizationDisplayName} objects.
  */
 public class OrganizationDisplayNameUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public OrganizationDisplayNameUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected OrganizationDisplayNameUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /**
      * {@inheritDoc}

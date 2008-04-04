@@ -27,20 +27,4 @@ import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
  */
 public abstract class SubjectQueryMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor. */
-    protected SubjectQueryMarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws NullPointerException
-     */
-    protected SubjectQueryMarshaller(String targetNamespaceURI, String targetLocalName) throws NullPointerException {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
 }

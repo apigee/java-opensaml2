@@ -16,17 +16,11 @@
 
 package org.opensaml.samlext.samlpthrpty.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.impl.AbstractNameIDTypeUnmarshaller;
-import org.opensaml.samlext.samlpthrpty.RespondTo;
 
 /**
- * Unmarshaller for {@link RespondTo} objects.
+ * Unmarshaller for {@link org.opensaml.samlext.samlpthrpty.RespondTo} objects.
  */
 public class RespondToUnmarshaller extends AbstractNameIDTypeUnmarshaller {
 
-    /** Constructor */
-    public RespondToUnmarshaller() {
-        super(SAMLConstants.SAML20PTHRPTY_NS, RespondTo.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 }

@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Status;
 import org.opensaml.saml1.core.StatusCode;
 import org.opensaml.saml1.core.StatusDetail;
@@ -29,11 +28,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.Status} objects.
  */
 public class StatusUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Constructor */
-    public StatusUnmarshaller() {
-        super(SAMLConstants.SAML10P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

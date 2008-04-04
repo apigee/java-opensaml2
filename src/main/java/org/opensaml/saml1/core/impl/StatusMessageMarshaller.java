@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.StatusMessage;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -28,20 +27,12 @@ import org.w3c.dom.Element;
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.StatusMessage} objects.
  */
 public class StatusMessageMarshaller extends AbstractSAMLObjectMarshaller {
-
-    /**
-     * Constructor
-     */
-    public StatusMessageMarshaller() {
-        super(SAMLConstants.SAML10P_NS, StatusMessage.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         StatusMessage statusMessage = (StatusMessage) samlObject;
 
         if (statusMessage.getMessage() != null) {
-            XMLHelper.appendTextContent(domElement,statusMessage.getMessage());
+            XMLHelper.appendTextContent(domElement, statusMessage.getMessage());
         }
     }
 }

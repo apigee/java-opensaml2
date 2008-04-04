@@ -20,31 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.AttributeQuery;
-
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AttributeQuery}.
  */
 public class AttributeQueryMarshaller extends SubjectQueryMarshaller {
-
-    /**
-     * Constructor.
-     */
-    public AttributeQueryMarshaller() {
-        super(SAMLConstants.SAML20P_NS, AttributeQuery.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected AttributeQueryMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
 }

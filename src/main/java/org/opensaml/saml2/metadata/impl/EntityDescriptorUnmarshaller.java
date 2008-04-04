@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
@@ -42,21 +41,6 @@ import org.w3c.dom.Attr;
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.EntityDescriptor}s.
  */
 public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-    
-    /** Constructor. */
-    public EntityDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, EntityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected EntityDescriptorUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
@@ -64,7 +48,7 @@ public class EntityDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller
         EntityDescriptor entityDescriptor = (EntityDescriptor) parentSAMLObject;
 
         if (childSAMLObject instanceof Extensions) {
-            entityDescriptor.setExtensions((Extensions) childSAMLObject); 
+            entityDescriptor.setExtensions((Extensions) childSAMLObject);
         } else if (childSAMLObject instanceof Signature) {
             entityDescriptor.setSignature((Signature) childSAMLObject);
         } else if (childSAMLObject instanceof RoleDescriptor) {

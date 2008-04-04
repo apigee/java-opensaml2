@@ -27,20 +27,9 @@ import org.opensaml.xml.schema.XSBooleanValue;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe unmarshaller for {@link org.opensaml.saml2.metadata.IndexedEndpoint}
- * objects.
+ * A thread-safe unmarshaller for {@link org.opensaml.saml2.metadata.IndexedEndpoint} objects.
  */
 public class IndexedEndpointUnmarshaller extends EndpointUnmarshaller {
-
-    /**
-     * Constructor
-     * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     */
-    public IndexedEndpointUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {

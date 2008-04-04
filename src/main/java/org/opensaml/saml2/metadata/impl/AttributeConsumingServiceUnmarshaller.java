@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.saml2.metadata.ServiceDescription;
@@ -35,23 +34,6 @@ import org.w3c.dom.Attr;
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.AttributeConsumingService} objects.
  */
 public class AttributeConsumingServiceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public AttributeConsumingServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected AttributeConsumingServiceUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

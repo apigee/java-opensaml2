@@ -16,19 +16,9 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AttributeStatement;
-
 /**
  * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.AttributeStatement} objects.
  */
 public class AttributeStatementMarshaller extends SubjectStatementMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AttributeStatementMarshaller() {
-        super(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME);
-
-    }
 }

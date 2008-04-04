@@ -28,25 +28,6 @@ import org.w3c.dom.Attr;
  */
 public abstract class AbstractNameIDTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor. */
-    protected AbstractNameIDTypeUnmarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * 
-     * @throws NullPointerException if any of the arguments are null (or empty in the case of String parameters)
-     */
-    protected AbstractNameIDTypeUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         NameIDType nameID = (NameIDType) samlObject;

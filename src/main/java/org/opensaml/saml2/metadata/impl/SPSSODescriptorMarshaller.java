@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -31,35 +30,18 @@ import org.w3c.dom.Element;
  */
 public class SPSSODescriptorMarshaller extends SSODescriptorMarshaller {
 
-    /**
-     * Constructor
-     */
-    public SPSSODescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, SPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected SPSSODescriptorMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         SPSSODescriptor descriptor = (SPSSODescriptor) samlObject;
 
         if (descriptor.isAuthnRequestsSignedXSBoolean() != null) {
-            domElement.setAttributeNS(null, SPSSODescriptor.AUTH_REQUESTS_SIGNED_ATTRIB_NAME,
-                    descriptor.isAuthnRequestsSignedXSBoolean().toString());
+            domElement.setAttributeNS(null, SPSSODescriptor.AUTH_REQUESTS_SIGNED_ATTRIB_NAME, descriptor
+                    .isAuthnRequestsSignedXSBoolean().toString());
         }
 
         if (descriptor.getWantAssertionsSignedXSBoolean() != null) {
-            domElement.setAttributeNS(null, SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME,
-                    descriptor.getWantAssertionsSignedXSBoolean().toString());
+            domElement.setAttributeNS(null, SPSSODescriptor.WANT_ASSERTIONS_SIGNED_ATTRIB_NAME, descriptor
+                    .getWantAssertionsSignedXSBoolean().toString());
         }
 
         super.marshallAttributes(samlObject, domElement);

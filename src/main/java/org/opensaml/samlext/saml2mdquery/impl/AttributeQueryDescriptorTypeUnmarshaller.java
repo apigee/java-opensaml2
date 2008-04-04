@@ -16,7 +16,6 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.samlext.saml2mdquery.AttributeQueryDescriptorType;
 import org.opensaml.xml.XMLObject;
@@ -27,11 +26,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class AttributeQueryDescriptorTypeUnmarshaller extends QueryDescriptorTypeUnmarshaller {
 
-    /** Constructor */
-    public AttributeQueryDescriptorTypeUnmarshaller(){
-        super(SAMLConstants.SAML20MDQUERY_NS, AttributeQueryDescriptorType.TYPE_LOCAL_NAME);
-    }
-    
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {

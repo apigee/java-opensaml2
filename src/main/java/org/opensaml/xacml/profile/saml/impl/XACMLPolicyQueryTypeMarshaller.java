@@ -23,21 +23,4 @@ import org.opensaml.saml2.core.impl.RequestAbstractTypeMarshaller;
 /** Marshaller for {@link org.opensaml.xacml.profile.saml.XACMLPolicyQueryType}. */
 public class XACMLPolicyQueryTypeMarshaller extends RequestAbstractTypeMarshaller {
 
-    /** Constructor. */
-    public XACMLPolicyQueryTypeMarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected XACMLPolicyQueryTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
 }

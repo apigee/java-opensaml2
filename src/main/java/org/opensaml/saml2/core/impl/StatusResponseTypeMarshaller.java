@@ -32,23 +32,6 @@ import org.w3c.dom.Element;
  */
 public abstract class StatusResponseTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor. */
-    protected StatusResponseTypeMarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected StatusResponseTypeMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         StatusResponseType sr = (StatusResponseType) samlObject;

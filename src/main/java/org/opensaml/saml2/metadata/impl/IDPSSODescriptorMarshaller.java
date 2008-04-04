@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -31,30 +30,13 @@ import org.w3c.dom.Element;
  */
 public class IDPSSODescriptorMarshaller extends SSODescriptorMarshaller {
 
-    /**
-     * Constructor
-     */
-    public IDPSSODescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected IDPSSODescriptorMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         IDPSSODescriptor descriptor = (IDPSSODescriptor) samlObject;
 
         if (descriptor.getWantAuthnRequestsSignedXSBoolean() != null) {
-            domElement.setAttributeNS(null, IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME,
-                    descriptor.getWantAuthnRequestsSignedXSBoolean().toString());
+            domElement.setAttributeNS(null, IDPSSODescriptor.WANT_AUTHN_REQ_SIGNED_ATTRIB_NAME, descriptor
+                    .getWantAuthnRequestsSignedXSBoolean().toString());
         }
 
         super.marshallAttributes(samlObject, domElement);

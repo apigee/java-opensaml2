@@ -16,20 +16,9 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Response;
-
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.Response} objects.
  */
 public class ResponseMarshaller extends ResponseAbstractTypeMarshaller {
 
-    /**
-     * Constructor
-     */
-    public ResponseMarshaller() {
-        super(SAMLConstants.SAML10P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
- 
 }

@@ -30,24 +30,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public abstract class SubjectQueryUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
-    /** Constructor. */
-    protected SubjectQueryUnmarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @throws IllegalArgumentException
-     */
-    public SubjectQueryUnmarshaller(String namespaceURI, String elementLocalName) throws IllegalArgumentException {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {

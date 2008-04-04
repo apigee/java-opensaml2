@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Attribute;
 import org.opensaml.saml1.core.AttributeStatement;
 import org.opensaml.xml.XMLObject;
@@ -26,13 +25,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AttributeStatement} objects.
  */
 public class AttributeStatementUnmarshaller extends SubjectStatementUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public AttributeStatementUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, AttributeStatement.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

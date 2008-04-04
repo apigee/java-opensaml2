@@ -20,28 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.ManageNameIDService;
-
 /**
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.ManageNameIDService} objects.
  */
 public class ManageNameIDServiceUnmarshaller extends EndpointUnmarshaller {
 
-    /**
-     * Constructor
-     */
-    public ManageNameIDServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ManageNameIDService.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected ManageNameIDServiceUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionArtifact;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.saml1.core.Query;
@@ -28,13 +27,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread safe Unmarshaller for {@link org.opensaml.saml1.core.Request} objects.
  */
 public class RequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public RequestUnmarshaller() throws IllegalArgumentException {
-        super(SAMLConstants.SAML10P_NS, Request.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {
@@ -55,5 +47,4 @@ public class RequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
         }
     }
 
-  
 }

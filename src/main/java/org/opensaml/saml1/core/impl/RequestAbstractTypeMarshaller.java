@@ -32,18 +32,6 @@ import org.w3c.dom.Element;
  */
 public class RequestAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected RequestAbstractTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         RequestAbstractType request = (RequestAbstractType) samlElement;

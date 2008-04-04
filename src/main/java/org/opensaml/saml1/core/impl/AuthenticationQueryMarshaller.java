@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationQuery;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -27,21 +26,14 @@ import org.w3c.dom.Element;
  */
 public class AuthenticationQueryMarshaller extends SubjectQueryMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AuthenticationQueryMarshaller() {
-        super(SAMLConstants.SAML10P_NS, AuthenticationQuery.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AuthenticationQuery authenticationQuery = (AuthenticationQuery) samlObject;
 
         if (authenticationQuery.getAuthenticationMethod() != null) {
-            domElement.setAttributeNS(null, AuthenticationQuery.AUTHENTICATIONMETHOD_ATTRIB_NAME,
-                    authenticationQuery.getAuthenticationMethod());
+            domElement.setAttributeNS(null, AuthenticationQuery.AUTHENTICATIONMETHOD_ATTRIB_NAME, authenticationQuery
+                    .getAuthenticationMethod());
         }
     }
-    
+
 }

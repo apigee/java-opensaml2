@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Artifact;
 import org.opensaml.saml2.core.ArtifactResolve;
 import org.opensaml.xml.XMLObject;
@@ -30,25 +29,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ArtifactResolve}.
  */
 public class ArtifactResolveUnmarshaller extends RequestAbstractTypeUnmarshaller {
-
-    /**
-     * Constructor. 
-     */
-    public ArtifactResolveUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, ArtifactResolve.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected ArtifactResolveUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

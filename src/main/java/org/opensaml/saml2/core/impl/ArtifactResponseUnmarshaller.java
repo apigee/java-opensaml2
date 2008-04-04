@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.SAMLObject;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.core.ArtifactResponse;
 import org.opensaml.saml2.core.Issuer;
@@ -34,23 +33,6 @@ import org.opensaml.xml.signature.Signature;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ArtifactResponse}.
  */
 public class ArtifactResponseUnmarshaller extends StatusResponseTypeUnmarshaller {
-
-    /** Constructor. */
-    public ArtifactResponseUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, ArtifactResponse.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected ArtifactResponseUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

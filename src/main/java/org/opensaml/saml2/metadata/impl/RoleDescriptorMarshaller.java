@@ -42,21 +42,6 @@ public abstract class RoleDescriptorMarshaller extends AbstractSAMLObjectMarshal
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(RoleDescriptorMarshaller.class);
 
-    /** Constructor. */
-    protected RoleDescriptorMarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespaceURI of the SAMLObject this marshaller operates on
-     * @param targetLocalName the local name of the SAMLObject this marshaller operates on
-     */
-    protected RoleDescriptorMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         RoleDescriptor roleDescriptor = (RoleDescriptor) samlElement;

@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -32,23 +31,6 @@ import org.w3c.dom.Element;
  */
 public class AttributeConsumingServiceMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AttributeConsumingServiceMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected AttributeConsumingServiceMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         AttributeConsumingService service = (AttributeConsumingService) samlObject;
@@ -57,8 +39,8 @@ public class AttributeConsumingServiceMarshaller extends AbstractSAMLObjectMarsh
                 .getIndex()));
 
         if (service.isDefaultXSBoolean() != null) {
-            domElement.setAttributeNS(null, AttributeConsumingService.IS_DEFAULT_ATTRIB_NAME,
-                    service.isDefaultXSBoolean().toString());
+            domElement.setAttributeNS(null, AttributeConsumingService.IS_DEFAULT_ATTRIB_NAME, service
+                    .isDefaultXSBoolean().toString());
         }
     }
 }

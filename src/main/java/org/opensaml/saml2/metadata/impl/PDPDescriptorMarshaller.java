@@ -20,28 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.PDPDescriptor;
-
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.PDPDescriptor} objects.
  */
 public class PDPDescriptorMarshaller extends RoleDescriptorMarshaller {
 
-    /**
-     * Constructor
-     */
-    public PDPDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, PDPDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected PDPDescriptorMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

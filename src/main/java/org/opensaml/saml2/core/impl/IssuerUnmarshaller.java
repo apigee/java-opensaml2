@@ -16,28 +16,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Issuer;
-
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.Issuer}.
  */
 public class IssuerUnmarshaller extends AbstractNameIDTypeUnmarshaller {
 
-    /** Constructor. */
-    public IssuerUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, Issuer.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected IssuerUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

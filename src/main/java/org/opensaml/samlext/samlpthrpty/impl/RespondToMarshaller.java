@@ -16,17 +16,11 @@
 
 package org.opensaml.samlext.samlpthrpty.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.impl.AbstractNameIDTypeMarshaller;
-import org.opensaml.samlext.samlpthrpty.RespondTo;
 
 /**
- * Marshaller of {@link RespondTo} objects.
+ * Marshaller of {@link org.opensaml.samlext.samlpthrpty.RespondTo} objects.
  */
 public class RespondToMarshaller extends AbstractNameIDTypeMarshaller {
 
-    /** Constructor */
-    public RespondToMarshaller() {
-        super(SAMLConstants.SAML20PTHRPTY_NS, RespondTo.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 }

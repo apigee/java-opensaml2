@@ -16,18 +16,13 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.samlext.saml2mdquery.ActionNamespace;
 import org.opensaml.samlext.saml2mdquery.AuthzDecisionQueryDescriptorType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
+/** Unmarshaller for {@link AuthzDecisionQueryDescriptorType} objects. */
 public class AuthzDecisionQueryDescriptorTypeUnmarshaller extends QueryDescriptorTypeUnmarshaller {
-
-    /** Constructor */
-    public AuthzDecisionQueryDescriptorTypeUnmarshaller() {
-        super(SAMLConstants.SAML20MDQUERY_NS, AuthzDecisionQueryDescriptorType.TYPE_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

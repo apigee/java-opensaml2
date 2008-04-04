@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -28,13 +27,6 @@ import org.w3c.dom.Element;
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.Action} objects.
  */
 public class ActionMarshaller extends AbstractSAMLObjectMarshaller {
-
-    /**
-     * Constructor.
-     */
-    public ActionMarshaller() {
-        super(SAMLConstants.SAML1_NS, Action.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
@@ -51,7 +43,7 @@ public class ActionMarshaller extends AbstractSAMLObjectMarshaller {
         Action action = (Action) samlObject;
 
         if (action.getContents() != null) {
-            XMLHelper.appendTextContent(domElement,action.getContents());
+            XMLHelper.appendTextContent(domElement, action.getContents());
         }
     }
 }

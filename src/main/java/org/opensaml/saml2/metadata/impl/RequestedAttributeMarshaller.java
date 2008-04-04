@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.impl.AttributeMarshaller;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.xml.XMLObject;
@@ -32,30 +31,13 @@ import org.w3c.dom.Element;
  */
 public class RequestedAttributeMarshaller extends AttributeMarshaller {
 
-    /** Constructor */
-    public RequestedAttributeMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, RequestedAttribute.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws NullPointerException
-     */
-    protected RequestedAttributeMarshaller(String targetNamespaceURI, String targetLocalName)
-            throws NullPointerException {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         RequestedAttribute requestedAttribute = (RequestedAttribute) samlObject;
 
         if (requestedAttribute.isRequiredXSBoolean() != null) {
-            domElement.setAttributeNS(null, RequestedAttribute.IS_REQUIRED_ATTRIB_NAME,
-                    requestedAttribute.isRequiredXSBoolean().toString());
+            domElement.setAttributeNS(null, RequestedAttribute.IS_REQUIRED_ATTRIB_NAME, requestedAttribute
+                    .isRequiredXSBoolean().toString());
         }
 
         super.marshallAttributes(samlObject, domElement);

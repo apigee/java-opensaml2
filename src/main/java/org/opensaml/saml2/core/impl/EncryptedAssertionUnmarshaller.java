@@ -16,29 +16,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.EncryptedAssertion;
-
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.EncryptedAssertion}.
  */
 public class EncryptedAssertionUnmarshaller extends EncryptedElementTypeUnmarshaller {
-    
-    /** Constructor. */
-    public EncryptedAssertionUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, EncryptedAssertion.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected EncryptedAssertionUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
 }

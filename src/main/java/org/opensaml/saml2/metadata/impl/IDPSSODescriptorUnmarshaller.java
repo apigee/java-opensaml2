@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AttributeProfile;
@@ -36,23 +35,6 @@ import org.w3c.dom.Attr;
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.SSODescriptor} objects.
  */
 public class IDPSSODescriptorUnmarshaller extends SSODescriptorUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public IDPSSODescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, IDPSSODescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected IDPSSODescriptorUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {

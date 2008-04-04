@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorizationDecisionQuery;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -26,13 +25,6 @@ import org.w3c.dom.Element;
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.AuthorizationDecisionQuery} objects.
  */
 public class AuthorizationDecisionQueryMarshaller extends SubjectQueryMarshaller {
-
-    /**
-     * Constructor
-     */
-    public AuthorizationDecisionQueryMarshaller() {
-        super(SAMLConstants.SAML10P_NS, AuthorizationDecisionQuery.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {

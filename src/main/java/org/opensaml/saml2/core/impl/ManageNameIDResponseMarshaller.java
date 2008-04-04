@@ -20,32 +20,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.ManageNameIDResponse;
-
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.core.ManageNameIDResponse} objects.
  */
 public class ManageNameIDResponseMarshaller extends StatusResponseTypeMarshaller {
 
-    /**
-     * Constructor.
-     */
-    public ManageNameIDResponseMarshaller() {
-        super(SAMLConstants.SAML20P_NS, ManageNameIDResponse.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected ManageNameIDResponseMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
-    // no child attributes of our own to marshall
 }

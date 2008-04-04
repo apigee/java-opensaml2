@@ -31,23 +31,6 @@ import org.w3c.dom.Element;
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.ResponseAbstractType} objects.
  */
 public abstract class ResponseAbstractTypeMarshaller extends AbstractSAMLObjectMarshaller {
-    
-    /** Constructor. */
-    protected ResponseAbstractTypeMarshaller(){
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected ResponseAbstractTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {

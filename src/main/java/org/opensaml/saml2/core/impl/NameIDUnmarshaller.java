@@ -16,26 +16,10 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.NameID;
 
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.NameID} objects.
  */
 public class NameIDUnmarshaller extends AbstractNameIDTypeUnmarshaller {
 
-    /** Constructor. */
-    public NameIDUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI namespace uri
-     * @param elementLocalName element name
-     */
-    protected NameIDUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

@@ -16,16 +16,9 @@
 
 package org.opensaml.samlext.saml2mdquery.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.samlext.saml2mdquery.AttributeQueryDescriptorType;
-
 /**
- * Marshaller for {@link AttributeQueryDescriptorType} objects.
+ * Marshaller for {@link org.opensaml.samlext.saml2mdquery.AttributeQueryDescriptorType} objects.
  */
 public class AttributeQueryDescriptorTypeMarshaller extends QueryDescriptorTypeMarshaller {
 
-    /** Constructor */
-    public AttributeQueryDescriptorTypeMarshaller(){
-        super(SAMLConstants.SAML20MDQUERY_NS, AttributeQueryDescriptorType.TYPE_LOCAL_NAME);
-    }
 }

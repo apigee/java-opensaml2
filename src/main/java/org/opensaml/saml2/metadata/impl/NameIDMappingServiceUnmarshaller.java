@@ -20,28 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.NameIDMappingService;
-
 /**
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.NameIDMappingService} objects.
  */
 public class NameIDMappingServiceUnmarshaller extends EndpointUnmarshaller {
 
-    /**
-     * Constructor
-     */
-    public NameIDMappingServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, NameIDMappingService.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected NameIDMappingServiceUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

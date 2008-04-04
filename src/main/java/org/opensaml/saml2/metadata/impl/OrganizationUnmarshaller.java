@@ -23,7 +23,6 @@ package org.opensaml.saml2.metadata.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.OrganizationDisplayName;
@@ -38,23 +37,6 @@ import org.w3c.dom.Attr;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.Organization} objects.
  */
 public class OrganizationUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public OrganizationUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, Organization.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected OrganizationUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
@@ -73,16 +55,16 @@ public class OrganizationUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
-    
+
     /**
      * {@inheritDoc}
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Organization org = (Organization) samlObject;
-        
+
         QName attribQName = XMLHelper.getNodeQName(attribute);
         if (attribute.isId()) {
-           org.getUnknownAttributes().registerID(attribQName);
+            org.getUnknownAttributes().registerID(attribQName);
         }
         org.getUnknownAttributes().put(attribQName, attribute.getValue());
     }

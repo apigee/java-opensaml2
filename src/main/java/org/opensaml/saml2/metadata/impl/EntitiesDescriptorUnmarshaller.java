@@ -19,7 +19,6 @@ package org.opensaml.saml2.metadata.impl;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
@@ -36,23 +35,6 @@ import org.w3c.dom.Attr;
  * A thread safe Unmarshaller for {@link org.opensaml.saml2.metadata.EntitiesDescriptor} objects.
  */
 public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor.
-     */
-    public EntitiesDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, EntitiesDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected EntitiesDescriptorUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
@@ -79,7 +61,8 @@ public class EntitiesDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshall
         if (attribute.getLocalName().equals(EntitiesDescriptor.ID_ATTRIB_NAME)) {
             entitiesDescriptor.setID(attribute.getValue());
             attribute.getOwnerElement().setIdAttributeNode(attribute, true);
-        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME) && !DatatypeHelper.isEmpty(attribute.getValue())) {
+        } else if (attribute.getLocalName().equals(TimeBoundSAMLObject.VALID_UNTIL_ATTRIB_NAME)
+                && !DatatypeHelper.isEmpty(attribute.getValue())) {
             entitiesDescriptor.setValidUntil(new DateTime(attribute.getValue(), ISOChronology.getInstanceUTC()));
         } else if (attribute.getLocalName().equals(CacheableSAMLObject.CACHE_DURATION_ATTRIB_NAME)) {
             entitiesDescriptor.setCacheDuration(new Long(XMLHelper.durationToLong(attribute.getValue())));

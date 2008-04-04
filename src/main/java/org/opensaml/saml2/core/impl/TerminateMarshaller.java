@@ -21,30 +21,10 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Terminate;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.core.Terminate} objects.
  */
 public class TerminateMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor.
-     */
-    public TerminateMarshaller() {
-        super(SAMLConstants.SAML20P_NS, Terminate.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected TerminateMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

@@ -25,7 +25,6 @@ import java.util.Map.Entry;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.ContactPerson;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
@@ -35,27 +34,9 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /**
- * A thread safe marshaller for {@link org.opensaml.saml2.metadata.ContactPerson}
- * objects.
+ * A thread safe marshaller for {@link org.opensaml.saml2.metadata.ContactPerson} objects.
  */
 public class ContactPersonMarshaller extends AbstractSAMLObjectMarshaller {
-
-    /**
-     * Constructor
-     */
-    public ContactPersonMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected ContactPersonMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
@@ -64,13 +45,13 @@ public class ContactPersonMarshaller extends AbstractSAMLObjectMarshaller {
         if (person.getType() != null) {
             domElement.setAttributeNS(null, ContactPerson.CONTACT_TYPE_ATTRIB_NAME, person.getType().toString());
         }
-        
+
         Attr attribute;
-        for(Entry<QName, String> entry: person.getUnknownAttributes().entrySet()){
+        for (Entry<QName, String> entry : person.getUnknownAttributes().entrySet()) {
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNodeNS(attribute);
-            if (Configuration.isIDAttribute(entry.getKey()) 
+            if (Configuration.isIDAttribute(entry.getKey())
                     || person.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);
             }

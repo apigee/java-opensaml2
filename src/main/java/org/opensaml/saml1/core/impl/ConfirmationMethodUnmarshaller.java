@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
 import org.opensaml.xml.XMLObject;
 
@@ -25,13 +24,6 @@ import org.opensaml.xml.XMLObject;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.ConfirmationMethod} objects.
  */
 public class ConfirmationMethodUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public ConfirmationMethodUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, ConfirmationMethod.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {

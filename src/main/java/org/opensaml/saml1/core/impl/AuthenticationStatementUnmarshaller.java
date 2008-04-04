@@ -18,7 +18,6 @@ package org.opensaml.saml1.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthenticationStatement;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.saml1.core.SubjectLocality;
@@ -31,11 +30,6 @@ import org.w3c.dom.Attr;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AuthenticationStatement} objects.
  */
 public class AuthenticationStatementUnmarshaller extends SubjectStatementUnmarshaller {
-
-    /** Constructor. */
-    public AuthenticationStatementUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, AuthenticationStatement.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

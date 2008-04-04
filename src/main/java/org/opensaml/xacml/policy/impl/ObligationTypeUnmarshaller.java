@@ -29,11 +29,6 @@ import org.w3c.dom.Attr;
 /** UnMarshaller for {@link org.opensaml.xacml.policy.ObligationType}. */
 public class ObligationTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor. */
-    public ObligationTypeUnmarshaller() {
-        super();
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         ObligationType obligation = (ObligationType) parentObject;

@@ -16,28 +16,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.NameID;
-
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.core.NameID} objects.
  */
 public class NameIDMarshaller extends AbstractNameIDTypeMarshaller {
 
-    /** Constructor. */
-    public NameIDMarshaller() {
-        super(SAMLConstants.SAML20_NS, NameID.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected NameIDMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

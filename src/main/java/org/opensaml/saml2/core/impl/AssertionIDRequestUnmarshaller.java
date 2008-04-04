@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AssertionIDRef;
 import org.opensaml.saml2.core.AssertionIDRequest;
 import org.opensaml.xml.XMLObject;
@@ -30,25 +29,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thead-safe Unmarshaller for {@link org.opensaml.saml2.core.AssertionIDRequest}.
  */
 public class AssertionIDRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
-
-    /**
-     * Constructor.
-     */
-    public AssertionIDRequestUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, AssertionIDRequest.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected AssertionIDRequestUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

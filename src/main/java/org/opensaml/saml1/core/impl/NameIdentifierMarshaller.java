@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -29,21 +28,13 @@ import org.w3c.dom.Element;
  */
 public class NameIdentifierMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     * 
-     * @throws IllegalArgumentException
-     */
-    public NameIdentifierMarshaller() throws IllegalArgumentException {
-        super(SAMLConstants.SAML1_NS, NameIdentifier.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         NameIdentifier nameIdentifier = (NameIdentifier) samlElement;
 
         if (nameIdentifier.getNameQualifier() != null) {
-            domElement.setAttributeNS(null, NameIdentifier.NAMEQUALIFIER_ATTRIB_NAME, nameIdentifier.getNameQualifier());
+            domElement
+                    .setAttributeNS(null, NameIdentifier.NAMEQUALIFIER_ATTRIB_NAME, nameIdentifier.getNameQualifier());
         }
 
         if (nameIdentifier.getFormat() != null) {
@@ -56,7 +47,7 @@ public class NameIdentifierMarshaller extends AbstractSAMLObjectMarshaller {
         NameIdentifier nameIdentifier = (NameIdentifier) samlObject;
 
         if (nameIdentifier.getNameIdentifier() != null) {
-            XMLHelper.appendTextContent(domElement,nameIdentifier.getNameIdentifier());
+            XMLHelper.appendTextContent(domElement, nameIdentifier.getNameIdentifier());
         }
     }
 }

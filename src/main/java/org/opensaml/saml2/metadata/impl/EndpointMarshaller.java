@@ -24,7 +24,6 @@ import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -33,16 +32,6 @@ import org.w3c.dom.Element;
  * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.Endpoint} objects.
  */
 public class EndpointMarshaller extends AbstractSAMLObjectMarshaller {
-
-    /**
-     * 
-     * Constructor
-     * 
-     * @throws XMLParserException thrown when an JAXP DatatypeFactory can not be created
-     */
-    public EndpointMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /** {@inheritDoc} */
     public void marshallAttributes(XMLObject samlElement, Element domElement) {
@@ -59,13 +48,13 @@ public class EndpointMarshaller extends AbstractSAMLObjectMarshaller {
             domElement.setAttributeNS(null, Endpoint.RESPONSE_LOCATION_ATTRIB_NAME, endpoint.getResponseLocation()
                     .toString());
         }
-        
+
         Attr attribute;
-        for(Entry<QName, String> entry: endpoint.getUnknownAttributes().entrySet()){
+        for (Entry<QName, String> entry : endpoint.getUnknownAttributes().entrySet()) {
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());
             attribute.setValue(entry.getValue());
             domElement.setAttributeNodeNS(attribute);
-            if (Configuration.isIDAttribute(entry.getKey()) 
+            if (Configuration.isIDAttribute(entry.getKey())
                     || endpoint.getUnknownAttributes().isIDAttribute(entry.getKey())) {
                 attribute.getOwnerElement().setIdAttributeNode(attribute, true);
             }

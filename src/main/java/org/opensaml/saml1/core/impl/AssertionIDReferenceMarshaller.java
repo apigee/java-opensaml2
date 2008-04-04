@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -29,18 +28,11 @@ import org.w3c.dom.Element;
  */
 public class AssertionIDReferenceMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AssertionIDReferenceMarshaller() {
-        super(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         AssertionIDReference assertionIDReference = (AssertionIDReference) samlObject;
         if (assertionIDReference.getReference() != null) {
-            XMLHelper.appendTextContent(domElement,assertionIDReference.getReference());
+            XMLHelper.appendTextContent(domElement, assertionIDReference.getReference());
         }
     }
 }

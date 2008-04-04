@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Audience;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -29,17 +28,10 @@ import org.w3c.dom.Element;
  */
 public class AudienceMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AudienceMarshaller() {
-        super(SAMLConstants.SAML1_NS, Audience.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
         Audience audience = (Audience) samlObject;
 
-        XMLHelper.appendTextContent(domElement,audience.getUri());
+        XMLHelper.appendTextContent(domElement, audience.getUri());
     }
 }

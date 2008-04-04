@@ -30,23 +30,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class XACMLAuthzDecisionStatementTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor. */
-    public XACMLAuthzDecisionStatementTypeUnmarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected XACMLAuthzDecisionStatementTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         XACMLAuthzDecisionStatementType xacmlauthzdecisionstatement = (XACMLAuthzDecisionStatementType) parentObject;

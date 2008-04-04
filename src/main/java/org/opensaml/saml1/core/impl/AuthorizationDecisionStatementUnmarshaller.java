@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Action;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.DecisionTypeEnumeration;
@@ -34,13 +33,6 @@ public class AuthorizationDecisionStatementUnmarshaller extends SubjectStatement
 
     /** Logger. */
     private final Logger log = LoggerFactory.getLogger(AuthorizationDecisionStatementUnmarshaller.class);
-
-    /**
-     * Constructor
-     */
-    public AuthorizationDecisionStatementUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

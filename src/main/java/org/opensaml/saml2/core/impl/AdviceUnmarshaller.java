@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Advice;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -31,30 +30,12 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class AdviceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor. */
-    public AdviceUnmarshaller() {
-        super(SAMLConstants.SAML20_NS, Advice.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected AdviceUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         Advice advice = (Advice) parentObject;
-        
+
         // This is an unbounded choice over several unrelated elements, and the <any> wildcard element.
         advice.getChildren().add(childObject);
-        
 
     }
 }

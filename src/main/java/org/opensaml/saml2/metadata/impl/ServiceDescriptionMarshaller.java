@@ -35,23 +35,6 @@ import org.w3c.dom.Element;
 public class ServiceDescriptionMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
-     */
-    public ServiceDescriptionMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ServiceDescription.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected ServiceDescriptionMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
-    /**
      * {@inheritDoc}
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {

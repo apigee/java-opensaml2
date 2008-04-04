@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -27,13 +26,6 @@ import org.w3c.dom.Element;
  */
 public class AuthorizationDecisionStatementMarshaller extends SubjectStatementMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AuthorizationDecisionStatementMarshaller() {
-        super(SAMLConstants.SAML1_NS, AuthorizationDecisionStatement.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         AuthorizationDecisionStatement authorizationDecisionStatement;
@@ -41,13 +33,13 @@ public class AuthorizationDecisionStatementMarshaller extends SubjectStatementMa
         authorizationDecisionStatement = (AuthorizationDecisionStatement) samlElement;
 
         if (authorizationDecisionStatement.getResource() != null) {
-            domElement.setAttributeNS(null, AuthorizationDecisionStatement.RESOURCE_ATTRIB_NAME, authorizationDecisionStatement
-                    .getResource());
+            domElement.setAttributeNS(null, AuthorizationDecisionStatement.RESOURCE_ATTRIB_NAME,
+                    authorizationDecisionStatement.getResource());
         }
 
         if (authorizationDecisionStatement.getDecision() != null) {
-            domElement.setAttributeNS(null, AuthorizationDecisionStatement.DECISION_ATTRIB_NAME, authorizationDecisionStatement
-                    .getDecision().toString());
+            domElement.setAttributeNS(null, AuthorizationDecisionStatement.DECISION_ATTRIB_NAME,
+                    authorizationDecisionStatement.getDecision().toString());
         }
     }
 }

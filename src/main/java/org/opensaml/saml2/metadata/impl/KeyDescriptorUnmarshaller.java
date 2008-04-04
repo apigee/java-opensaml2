@@ -17,7 +17,6 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EncryptionMethod;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.xml.XMLObject;
@@ -30,23 +29,6 @@ import org.w3c.dom.Attr;
  * A thread-safe unmarshaller for {@link org.opensaml.saml2.metadata.KeyDescriptor}s.
  */
 public class KeyDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Constructor. */
-    public KeyDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, KeyDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected KeyDescriptorUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
@@ -68,7 +50,7 @@ public class KeyDescriptorUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (attribute.getName().equals(KeyDescriptor.USE_ATTRIB_NAME)) {
             try {
-                UsageType usageType =  UsageType.valueOf(UsageType.class, attribute.getValue().toUpperCase());
+                UsageType usageType = UsageType.valueOf(UsageType.class, attribute.getValue().toUpperCase());
                 // Only allow the enum values specified in the schema.
                 if (usageType != UsageType.SIGNING && usageType != UsageType.ENCRYPTION) {
                     throw new UnmarshallingException("Invalid key usage type: " + attribute.getValue());

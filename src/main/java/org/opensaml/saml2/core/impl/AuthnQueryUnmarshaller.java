@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnQuery;
 import org.opensaml.saml2.core.RequestedAuthnContext;
 import org.opensaml.xml.XMLObject;
@@ -31,25 +30,6 @@ import org.w3c.dom.Attr;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.AuthnQuery} objects.
  */
 public class AuthnQueryUnmarshaller extends SubjectQueryUnmarshaller {
-
-    /**
-     * Constructor.
-     */
-    public AuthnQueryUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, AuthnQuery.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected AuthnQueryUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {

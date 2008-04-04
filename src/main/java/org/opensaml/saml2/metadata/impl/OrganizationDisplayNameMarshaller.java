@@ -35,23 +35,6 @@ import org.w3c.dom.Element;
 public class OrganizationDisplayNameMarshaller extends AbstractSAMLObjectMarshaller {
 
     /**
-     * Constructor
-     */
-    public OrganizationDisplayNameMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, OrganizationDisplayName.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected OrganizationDisplayNameMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
-    /**
      * {@inheritDoc}
      */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {

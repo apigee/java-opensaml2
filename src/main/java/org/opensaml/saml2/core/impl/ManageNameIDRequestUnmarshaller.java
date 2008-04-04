@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.ManageNameIDRequest;
 import org.opensaml.saml2.core.NameID;
@@ -34,26 +33,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.ManageNameIDRequest} objects.
  */
 public class ManageNameIDRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
-
-    /**
-     * Constructor.
-     * 
-     */
-    public ManageNameIDRequestUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, ManageNameIDRequest.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected ManageNameIDRequestUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)

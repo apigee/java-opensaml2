@@ -18,7 +18,6 @@ package org.opensaml.saml2.core.impl;
 
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.BaseID;
 import org.opensaml.saml2.core.EncryptedID;
 import org.opensaml.saml2.core.LogoutRequest;
@@ -33,26 +32,6 @@ import org.w3c.dom.Attr;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.core.LogoutRequest} objects.
  */
 public class LogoutRequestUnmarshaller extends RequestAbstractTypeUnmarshaller {
-
-    /**
-     * Constructor.
-     * 
-     */
-    public LogoutRequestUnmarshaller() {
-        super(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected LogoutRequestUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {

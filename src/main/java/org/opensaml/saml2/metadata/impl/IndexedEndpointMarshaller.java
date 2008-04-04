@@ -29,16 +29,6 @@ import org.w3c.dom.Element;
  */
 public class IndexedEndpointMarshaller extends EndpointMarshaller {
 
-    /**
-     * Constructor
-     * 
-     * @param targetNamespaceURI the namespace URI for the element of the SAML object this marshalls
-     * @param targetLocalName the local name of the element of the SAML object this marshalls
-     */
-    public IndexedEndpointMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     public void marshallAttributes(XMLObject samlObject, Element domElement) {
         IndexedEndpoint iEndpoint = (IndexedEndpoint) samlObject;
@@ -48,7 +38,8 @@ public class IndexedEndpointMarshaller extends EndpointMarshaller {
         }
 
         if (iEndpoint.isDefaultXSBoolean() != null) {
-            domElement.setAttributeNS(null, IndexedEndpoint.IS_DEFAULT_ATTRIB_NAME, iEndpoint.isDefaultXSBoolean().toString());
+            domElement.setAttributeNS(null, IndexedEndpoint.IS_DEFAULT_ATTRIB_NAME, iEndpoint.isDefaultXSBoolean()
+                    .toString());
         }
 
         super.marshallAttributes(samlObject, domElement);

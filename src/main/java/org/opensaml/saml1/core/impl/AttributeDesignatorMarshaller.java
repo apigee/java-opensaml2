@@ -14,42 +14,16 @@
  * limitations under the License.
  */
 
-/**
- * 
- */
-
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeDesignator;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
-/**
- * 
- */
+/** Marshaller of {@link AttributeDesignator} objects. */
 public class AttributeDesignatorMarshaller extends AbstractSAMLObjectMarshaller {
-
-    /**
-     * Constructor
-     */
-    public AttributeDesignatorMarshaller() {
-        super(SAMLConstants.SAML1_NS, AttributeDesignator.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws NullPointerException
-     */
-    protected AttributeDesignatorMarshaller(String targetNamespaceURI, String targetLocalName)
-            throws NullPointerException {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {

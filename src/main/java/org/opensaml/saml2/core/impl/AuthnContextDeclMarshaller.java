@@ -25,7 +25,6 @@ import java.util.Map.Entry;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.AuthnContextDecl;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.XMLObject;
@@ -38,23 +37,6 @@ import org.w3c.dom.Element;
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.AuthnContextDecl}.
  */
 public class AuthnContextDeclMarshaller extends AbstractSAMLObjectMarshaller {
-
-    /** Constructor. */
-    public AuthnContextDeclMarshaller() {
-        super(SAMLConstants.SAML20_NS, AuthnContextDecl.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected AuthnContextDeclMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {

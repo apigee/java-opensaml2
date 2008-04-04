@@ -20,7 +20,6 @@ import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Conditions;
@@ -36,13 +35,6 @@ import org.w3c.dom.Element;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.Assertion} objects.
  */
 public class AssertionUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor.
-     */
-    public AssertionUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     public XMLObject unmarshall(Element domElement) throws UnmarshallingException {

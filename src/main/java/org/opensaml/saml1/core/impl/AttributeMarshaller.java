@@ -16,20 +16,9 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Attribute;
-
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.Attribute} objects.
  */
 public class AttributeMarshaller extends AttributeDesignatorMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AttributeMarshaller() {
-        super(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-    
- 
 }

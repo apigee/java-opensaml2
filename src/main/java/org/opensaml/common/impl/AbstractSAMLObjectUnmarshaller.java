@@ -26,23 +26,6 @@ import org.w3c.dom.Attr;
  * {@link org.opensaml.common.impl.AbstractSAMLObject}.
  */
 public abstract class AbstractSAMLObjectUnmarshaller extends AbstractXMLObjectUnmarshaller {
-    
-    /** Constructor. */
-    protected AbstractSAMLObjectUnmarshaller(){
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected AbstractSAMLObjectUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /**
      * {@inheritDoc}

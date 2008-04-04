@@ -21,7 +21,6 @@
 package org.opensaml.saml2.metadata.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.TelephoneNumber;
 import org.opensaml.xml.XMLObject;
 
@@ -29,23 +28,6 @@ import org.opensaml.xml.XMLObject;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.TelephoneNumber} objects.
  */
 public class TelephoneNumberUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public TelephoneNumberUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, TelephoneNumber.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected TelephoneNumberUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {

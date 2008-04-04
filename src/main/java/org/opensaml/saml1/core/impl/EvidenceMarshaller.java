@@ -17,18 +17,10 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.Evidence;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.Evidence} objects.
  */
 public class EvidenceMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor.
-     */
-    public EvidenceMarshaller() {
-        super(SAMLConstants.SAML1_NS, Evidence.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 }

@@ -17,18 +17,10 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.AudienceRestrictionCondition;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.AudienceRestrictionCondition} objects.
  */
 public class AudienceRestrictionConditionMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AudienceRestrictionConditionMarshaller() {
-        super(SAMLConstants.SAML1_NS, AudienceRestrictionCondition.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 }

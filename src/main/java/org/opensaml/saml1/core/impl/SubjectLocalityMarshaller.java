@@ -17,7 +17,6 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.SubjectLocality;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -27,13 +26,6 @@ import org.w3c.dom.Element;
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.SubjectLocality} objects.
  */
 public class SubjectLocalityMarshaller extends AbstractSAMLObjectMarshaller {
-
-    /**
-     * Constructor
-     */
-    public SubjectLocalityMarshaller() {
-        super(SAMLConstants.SAML1_NS, SubjectLocality.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     public void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {

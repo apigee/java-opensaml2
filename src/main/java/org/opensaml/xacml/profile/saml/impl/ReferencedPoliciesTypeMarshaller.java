@@ -17,29 +17,10 @@
 package org.opensaml.xacml.profile.saml.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.xacml.profile.saml.ReferencedPoliciesType;
 
 /**
- * Marshaller for {@link ReferencedPoliciesType}.
+ * Marshaller for {@link org.opensaml.xacml.profile.saml.ReferencedPoliciesType}.
  */
 public class ReferencedPoliciesTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor. */
-    public ReferencedPoliciesTypeMarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected ReferencedPoliciesTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
-    
 }

@@ -23,18 +23,4 @@ import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
  */
 public class EncryptedElementTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor.
-     *
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected EncryptedElementTypeMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-    
-    // no attributes or content to marshall
-
 }

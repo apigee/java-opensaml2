@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.impl.AttributeUnmarshaller;
 import org.opensaml.saml2.metadata.RequestedAttribute;
 import org.opensaml.xml.XMLObject;
@@ -32,22 +31,6 @@ import org.w3c.dom.Attr;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.RequestedAttribute} objects.
  */
 public class RequestedAttributeUnmarshaller extends AttributeUnmarshaller {
-
-    public RequestedAttributeUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, RequestedAttribute.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws IllegalArgumentException
-     */
-    protected RequestedAttributeUnmarshaller(String targetNamespaceURI, String targetLocalName)
-            throws IllegalArgumentException {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {

@@ -31,21 +31,6 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public abstract class SubjectStatementUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor. */
-    protected SubjectStatementUnmarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     */
-    protected SubjectStatementUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
             throws UnmarshallingException {

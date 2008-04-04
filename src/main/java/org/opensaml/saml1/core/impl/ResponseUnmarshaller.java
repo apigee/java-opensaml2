@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.Response;
 import org.opensaml.saml1.core.Status;
@@ -26,12 +25,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 /**
  * A thread-safe {@link org.opensaml.xml.io.Unmarshaller} for {@link org.opensaml.saml1.core.Response} objects.
  */
-public class ResponseUnmarshaller extends  ResponseAbstractTypeUnmarshaller {
-
-    /** Constructor */
-    public ResponseUnmarshaller() {
-        super(SAMLConstants.SAML10P_NS, Response.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
+public class ResponseUnmarshaller extends ResponseAbstractTypeUnmarshaller {
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
@@ -47,5 +41,5 @@ public class ResponseUnmarshaller extends  ResponseAbstractTypeUnmarshaller {
             super.processChildElement(parentSAMLObject, childSAMLObject);
         }
     }
- 
+
 }

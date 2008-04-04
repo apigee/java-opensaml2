@@ -17,21 +17,11 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AssertionIDReference;
 import org.opensaml.xml.XMLObject;
 
-/**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AssertionIDReference} Objects
- */
+/** A thread-safe Unmarshaller for {@link org.opensaml.saml1.core.AssertionIDReference} objects. */
 public class AssertionIDReferenceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public AssertionIDReferenceUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {

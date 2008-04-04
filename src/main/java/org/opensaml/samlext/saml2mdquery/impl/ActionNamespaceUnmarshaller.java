@@ -17,7 +17,6 @@
 package org.opensaml.samlext.saml2mdquery.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.samlext.saml2mdquery.ActionNamespace;
 import org.opensaml.xml.XMLObject;
 
@@ -26,15 +25,10 @@ import org.opensaml.xml.XMLObject;
  */
 public class ActionNamespaceUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /** Constructor */
-    public ActionNamespaceUnmarshaller() {
-        super(SAMLConstants.SAML20MDQUERY_NS, ActionNamespace.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-    
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         ActionNamespace actionNamespace = (ActionNamespace) samlObject;
-        
+
         actionNamespace.setValue(elementContent);
     }
 }

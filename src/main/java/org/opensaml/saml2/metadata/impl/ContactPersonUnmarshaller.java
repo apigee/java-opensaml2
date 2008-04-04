@@ -23,7 +23,6 @@ package org.opensaml.saml2.metadata.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.Company;
 import org.opensaml.saml2.metadata.ContactPerson;
@@ -41,23 +40,6 @@ import org.w3c.dom.Attr;
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.ContactPerson} objects.
  */
 public class ContactPersonUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public ContactPersonUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, ContactPerson.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected ContactPersonUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
@@ -102,7 +84,7 @@ public class ContactPersonUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else {
             QName attribQName = XMLHelper.getNodeQName(attribute);
             if (attribute.isId()) {
-               person.getUnknownAttributes().registerID(attribQName);
+                person.getUnknownAttributes().registerID(attribQName);
             }
             person.getUnknownAttributes().put(attribQName, attribute.getValue());
         }

@@ -26,7 +26,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.Configuration;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.common.CacheableSAMLObject;
 import org.opensaml.saml2.common.TimeBoundSAMLObject;
 import org.opensaml.saml2.metadata.AffiliationDescriptor;
@@ -45,25 +44,6 @@ public class AffiliationDescriptorMarshaller extends AbstractSAMLObjectMarshalle
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(AffiliationDescriptorMarshaller.class);
-
-    /**
-     * Constructor.
-     */
-    public AffiliationDescriptorMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AffiliationDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected AffiliationDescriptorMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {

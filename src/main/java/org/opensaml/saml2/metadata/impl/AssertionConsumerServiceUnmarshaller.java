@@ -20,28 +20,9 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.AssertionConsumerService;
-
 /**
  * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.AssertionConsumerService} objects.
  */
 public class AssertionConsumerServiceUnmarshaller extends IndexedEndpointUnmarshaller {
 
-    /**
-     * Constructor
-     */
-    public AssertionConsumerServiceUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected AssertionConsumerServiceUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

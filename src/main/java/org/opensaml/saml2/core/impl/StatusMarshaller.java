@@ -21,30 +21,10 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.Status;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.core.Status} objects.
  */
 public class StatusMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor.
-     */
-    public StatusMarshaller() {
-        super(SAMLConstants.SAML20P_NS, Status.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected StatusMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 }

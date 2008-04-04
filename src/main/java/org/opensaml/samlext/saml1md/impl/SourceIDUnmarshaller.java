@@ -17,7 +17,6 @@
 package org.opensaml.samlext.saml1md.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.samlext.saml1md.SourceID;
 import org.opensaml.xml.XMLObject;
 
@@ -25,11 +24,6 @@ import org.opensaml.xml.XMLObject;
  * Unmarshaller for {@link SourceID} objects.
  */
 public class SourceIDUnmarshaller extends AbstractSAMLObjectUnmarshaller {
-
-    /** Constructor */
-    public SourceIDUnmarshaller() {
-        super(SAMLConstants.SAML1MD_NS, SourceID.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject samlObject, String elementContent) {

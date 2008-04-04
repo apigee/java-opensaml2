@@ -18,7 +18,6 @@ package org.opensaml.saml1.core.impl;
 
 import org.joda.time.format.ISODateTimeFormat;
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -29,13 +28,6 @@ import org.w3c.dom.Element;
  */
 public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor.
-     */
-    public AssertionMarshaller() {
-        super(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
 
@@ -43,11 +35,11 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
 
         if (assertion.getID() != null) {
             domElement.setAttributeNS(null, Assertion.ID_ATTRIB_NAME, assertion.getID());
-            if (assertion.getMinorVersion() != 0){
+            if (assertion.getMinorVersion() != 0) {
                 domElement.setIdAttributeNS(null, Assertion.ID_ATTRIB_NAME, true);
             }
         }
-        
+
         if (assertion.getIssuer() != null) {
             domElement.setAttributeNS(null, Assertion.ISSUER_ATTRIB_NAME, assertion.getIssuer());
         }
@@ -58,9 +50,9 @@ public class AssertionMarshaller extends AbstractSAMLObjectMarshaller {
         }
 
         domElement.setAttributeNS(null, Assertion.MAJORVERSION_ATTRIB_NAME, "1");
-        if(assertion.getMinorVersion() == 0){
+        if (assertion.getMinorVersion() == 0) {
             domElement.setAttributeNS(null, Assertion.MINORVERSION_ATTRIB_NAME, "0");
-        }else{
+        } else {
             domElement.setAttributeNS(null, Assertion.MINORVERSION_ATTRIB_NAME, "1");
         }
     }

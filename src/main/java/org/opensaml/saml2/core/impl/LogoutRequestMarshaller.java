@@ -21,7 +21,6 @@
 package org.opensaml.saml2.core.impl;
 
 import org.opensaml.Configuration;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.LogoutRequest;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -32,30 +31,11 @@ import org.w3c.dom.Element;
  */
 public class LogoutRequestMarshaller extends RequestAbstractTypeMarshaller {
 
-    /**
-     * Constructor.
-     */
-    public LogoutRequestMarshaller() {
-        super(SAMLConstants.SAML20P_NS, LogoutRequest.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected LogoutRequestMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         LogoutRequest req = (LogoutRequest) samlObject;
 
-        if (req.getReason() != null){
+        if (req.getReason() != null) {
             domElement.setAttributeNS(null, LogoutRequest.REASON_ATTRIB_NAME, req.getReason());
         }
 

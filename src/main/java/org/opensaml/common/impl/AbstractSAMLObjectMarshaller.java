@@ -26,23 +26,6 @@ import org.w3c.dom.Element;
  * the boilerplate code for Marshallers.
  */
 public abstract class AbstractSAMLObjectMarshaller extends AbstractXMLObjectMarshaller {
-    
-    /** Constructor. */
-    protected AbstractSAMLObjectMarshaller(){
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected AbstractSAMLObjectMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
 
     /**
      * No-op method. Extending implementations should override this method if they have attributes to marshall into the

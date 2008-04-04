@@ -19,7 +19,6 @@ package org.opensaml.saml1.core.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AuthorityBinding;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -31,20 +30,14 @@ import org.w3c.dom.Element;
  */
 public class AuthorityBindingMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     */
-    public AuthorityBindingMarshaller() {
-        super(SAMLConstants.SAML1_NS, AuthorityBinding.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
     public void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         AuthorityBinding authorityBinding = (AuthorityBinding) samlElement;
 
         if (authorityBinding.getAuthorityKind() != null) {
             QName authKind = authorityBinding.getAuthorityKind();
-            domElement.setAttributeNS(null, AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, XMLHelper.qnameToContentString(authKind));
+            domElement.setAttributeNS(null, AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, XMLHelper
+                    .qnameToContentString(authKind));
         }
 
         if (authorityBinding.getBinding() != null) {

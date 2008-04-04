@@ -29,25 +29,6 @@ import org.w3c.dom.Element;
  */
 public abstract class AbstractNameIDTypeMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor. */
-    protected AbstractNameIDTypeMarshaller(){
-        super();
-    }
-    
-    /**
-     * Constructor.
-     * 
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * 
-     * @throws NullPointerException if any of the arguments are null (or empty in the case of String parameters)
-     */
-    protected AbstractNameIDTypeMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
         NameIDType nameID = (NameIDType) samlObject;

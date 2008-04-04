@@ -17,18 +17,10 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml1.core.SubjectConfirmation;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml1.core.SubjectConfirmation} objects.
  */
 public class SubjectConfirmationMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /**
-     * Constructor
-     */
-    public SubjectConfirmationMarshaller() {
-        super(SAMLConstants.SAML1_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 }

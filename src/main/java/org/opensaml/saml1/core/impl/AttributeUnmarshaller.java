@@ -28,20 +28,15 @@ import org.opensaml.xml.io.UnmarshallingException;
  */
 public class AttributeUnmarshaller extends AttributeDesignatorUnmarshaller {
 
-    /**
-     * Constructor
-     */
-    public AttributeUnmarshaller() {
-        super(SAMLConstants.SAML1_NS, Attribute.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject) throws UnmarshallingException {
+    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+            throws UnmarshallingException {
 
         Attribute attribute = (Attribute) parentSAMLObject;
 
         QName childQName = childSAMLObject.getElementQName();
-        if (childQName.getLocalPart().equals("AttributeValue") && childQName.getNamespaceURI().equals(SAMLConstants.SAML1_NS)) {
+        if (childQName.getLocalPart().equals("AttributeValue")
+                && childQName.getNamespaceURI().equals(SAMLConstants.SAML1_NS)) {
             attribute.getAttributeValues().add(childSAMLObject);
         } else {
             super.processChildElement(parentSAMLObject, childSAMLObject);

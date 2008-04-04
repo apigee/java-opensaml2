@@ -20,7 +20,6 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
 import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
@@ -31,27 +30,9 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread safe unmarshaller for
- * {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor}s.
+ * A thread safe unmarshaller for {@link org.opensaml.saml2.metadata.AttributeAuthorityDescriptor}s.
  */
 public class AttributeAuthorityDescriptorUnmarshaller extends RoleDescriptorUnmarshaller {
-
-    /**
-     * Constructor
-     */
-    public AttributeAuthorityDescriptorUnmarshaller() {
-        super(SAMLConstants.SAML20MD_NS, AttributeAuthorityDescriptor.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @param namespaceURI
-     * @param elementLocalName
-     */
-    protected AttributeAuthorityDescriptorUnmarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentElement, XMLObject childElement) throws UnmarshallingException {

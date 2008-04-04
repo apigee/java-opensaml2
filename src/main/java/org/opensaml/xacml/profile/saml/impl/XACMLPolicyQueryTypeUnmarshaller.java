@@ -28,23 +28,6 @@ import org.opensaml.xml.io.UnmarshallingException;
 /** Unmarshaller for {@link XACMLPolicyQueryType}. */
 public class XACMLPolicyQueryTypeUnmarshaller extends RequestAbstractTypeUnmarshaller {
 
-    /** Constructor. */
-    public XACMLPolicyQueryTypeUnmarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    protected XACMLPolicyQueryTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         XACMLPolicyQueryType xacmlpolicyquery = (XACMLPolicyQueryType) parentObject;

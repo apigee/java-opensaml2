@@ -16,16 +16,10 @@
 
 package org.opensaml.saml2.metadata.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.metadata.EncryptionMethod;
 
 /**
  * A thread safe Marshaller for {@link org.opensaml.saml2.metadata.EncryptionMethod} objects.
  */
 public class EncryptionMethodMarshaller extends org.opensaml.xml.encryption.impl.EncryptionMethodMarshaller {
-    
-    public EncryptionMethodMarshaller() {
-        super(SAMLConstants.SAML20MD_NS, EncryptionMethod.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
 
 }

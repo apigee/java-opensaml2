@@ -21,26 +21,10 @@
 package org.opensaml.saml1.core.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.saml1.core.SubjectStatement;
 
 /**
- * Marshaller for {@link SubjectStatement} XMLObjects.
+ * Marshaller for {@link org.opensaml.saml1.core.SubjectStatement} XMLObjects.
  */
 public abstract class SubjectStatementMarshaller extends AbstractSAMLObjectMarshaller {
 
-    /** Constructor. */
-    protected SubjectStatementMarshaller() {
-        super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     * @throws NullPointerException
-     */
-    protected SubjectStatementMarshaller(String targetNamespaceURI, String targetLocalName) throws NullPointerException {
-        super(targetNamespaceURI, targetLocalName);
-    }
 }

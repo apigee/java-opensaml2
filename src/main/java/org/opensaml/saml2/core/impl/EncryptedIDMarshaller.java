@@ -16,29 +16,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.EncryptedID;
-
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.EncryptedID}.
  */
 public class EncryptedIDMarshaller extends EncryptedElementTypeMarshaller {
-    
-    /** Constructor. */
-    public EncryptedIDMarshaller() {
-        super(SAMLConstants.SAML20_NS, EncryptedID.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected EncryptedIDMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
 }

@@ -16,29 +16,9 @@
 
 package org.opensaml.saml2.core.impl;
 
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.saml2.core.EncryptedAssertion;
-
 /**
  * A thread-safe Marshaller for {@link org.opensaml.saml2.core.EncryptedAssertion}.
  */
 public class EncryptedAssertionMarshaller extends EncryptedElementTypeMarshaller {
-    
-    /** Constructor. */
-    public EncryptedAssertionMarshaller() {
-        super(SAMLConstants.SAML20_NS, EncryptedAssertion.DEFAULT_ELEMENT_LOCAL_NAME);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param namespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param elementLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    protected EncryptedAssertionMarshaller(String namespaceURI, String elementLocalName) {
-        super(namespaceURI, elementLocalName);
-    }
 
 }

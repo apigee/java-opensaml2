@@ -30,20 +30,10 @@ import org.w3c.dom.Attr;
  */
 public class EndpointUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
-    /**
-     * Constructor
-     * 
-     * @param targetNamespaceURI
-     * @param targetLocalName
-     */
-    public EndpointUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
         Endpoint endpoint = (Endpoint) samlObject;
-        
+
         if (attribute.getLocalName().equals(Endpoint.BINDING_ATTRIB_NAME)) {
             endpoint.setBinding(attribute.getValue());
         } else if (attribute.getLocalName().equals(Endpoint.LOCATION_ATTRIB_NAME)) {
@@ -53,7 +43,7 @@ public class EndpointUnmarshaller extends AbstractSAMLObjectUnmarshaller {
         } else {
             QName attribQName = XMLHelper.getNodeQName(attribute);
             if (attribute.isId()) {
-               endpoint.getUnknownAttributes().registerID(attribQName);
+                endpoint.getUnknownAttributes().registerID(attribQName);
             }
             endpoint.getUnknownAttributes().put(attribQName, attribute.getValue());
         }
