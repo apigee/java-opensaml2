@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd"
- xmlns:xacml-samlp="urn:oasis:names:tc:xacml:1.1:profile:saml2.0:v2:schema:protocol"
- xmlns:xacml-saml="urn:oasis:names:tc:xacml:1.1:profile:saml2.0:v2:schema:assertion"
- xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
- xmlns="http://www.opensaml.org/xmltooling-config">
 
-         <ObjectProviders>
+<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xacml-samlp="urn:oasis:names:tc:xacml:1.1:profile:saml2.0:v2:schema:protocol"
+            xmlns:xacml-saml="urn:oasis:names:tc:xacml:1.1:profile:saml2.0:v2:schema:assertion"
+            xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+            xmlns="http://www.opensaml.org/xmltooling-config">
+
+    <!-- XACML 1.1 for SAML 2 Profile Object Providers -->
+    <ObjectProviders>
+    
 		<!-- ReferencedPoliciesType -->
         <ObjectProvider qualifiedName="xacml-saml:ReferencedPolicies">
             <BuilderClass className="org.opensaml.xacml.profile.saml.impl.ReferencedPoliciesTypeImplBuilder" />
@@ -74,5 +76,6 @@
             <UnmarshallingClass className="org.opensaml.xacml.profile.saml.impl.XACMLPolicyQueryTypeUnmarshaller" />
         </ObjectProvider>
         
-    </ObjectProviders> 
+    </ObjectProviders>
+    
  </XMLTooling>

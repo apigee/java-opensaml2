@@ -64,7 +64,7 @@ public class DefaultBootstrap {
         "/xacml3-saml2-profile-config.xml",    
     };
 
-    /** Constrcutor. */
+    /** Constructor. */
     protected DefaultBootstrap() {
 
     }

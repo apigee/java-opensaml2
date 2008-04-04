@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd"
- xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os"
- xmlns="http://www.opensaml.org/xmltooling-config">
 
-       <ObjectProviders>
+<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xacml-context="urn:oasis:names:tc:xacml:2.0:context:schema:os"
+            xmlns="http://www.opensaml.org/xmltooling-config">
+
+    <!-- XACML 2.0 Context Object Providers -->
+    <ObjectProviders>
+    
         <!-- ActionType -->
         <ObjectProvider qualifiedName="xacml-context:Action">
             <BuilderClass className="org.opensaml.xacml.ctx.impl.ActionTypeImplBuilder" />
@@ -215,5 +217,6 @@
             <UnmarshallingClass className="org.opensaml.xacml.ctx.impl.SubjectTypeUnmarshaller" />
         </ObjectProvider>     
        
-    </ObjectProviders>  
+    </ObjectProviders>
+    
  </XMLTooling>

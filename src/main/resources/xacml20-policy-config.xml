@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd"
- xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" 
- xmlns="http://www.opensaml.org/xmltooling-config">
 
-   <ObjectProviders>    
+<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:xacml="urn:oasis:names:tc:xacml:2.0:policy:schema:os" 
+            xmlns="http://www.opensaml.org/xmltooling-config">
+
+    <!-- XACML 2.0 Policy Object Providers -->
+    <ObjectProviders>    
      	
      	<!--ActionAttributeDesignator -->
         <ObjectProvider qualifiedName="xacml:ActionAttributeDesignator">
@@ -535,7 +536,7 @@
             <MarshallingClass className="org.opensaml.xacml.policy.impl.VariableReferenceTypeMarshaller" />
             <UnmarshallingClass className="org.opensaml.xacml.policy.impl.VariableReferenceTypeUnmarshaller" />
         </ObjectProvider> 
-          
 
-  </ObjectProviders>  
+    </ObjectProviders>
+    
  </XMLTooling>
