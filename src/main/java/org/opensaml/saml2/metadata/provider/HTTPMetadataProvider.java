@@ -68,7 +68,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
     /** URL scope that requires authentication. */
     private AuthScope authScope;
 
-    /** Maximum amount of time to keep metadata cached. */
+    /** Maximum amount of time, in seconds, to keep metadata cached. */
     private int maxCacheDuration;
 
     /** When the cached metadata becomes stale. */
@@ -95,7 +95,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
 
             // 24 hours
-            maxCacheDuration = 1000 * 60 * 60 * 24;
+            maxCacheDuration = 60 * 60 * 24;
         } catch (URISyntaxException e) {
             throw new MetadataProviderException("Illegal URL syntax", e);
         }
