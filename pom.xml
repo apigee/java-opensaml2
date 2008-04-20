@@ -23,6 +23,13 @@
             </snapshots>
         </repository>
     </repositories>
+    
+    <distributionManagement>
+        <repository>
+            <id>ssh-repository</id>
+            <url>scpexe://www.internet2.edu/home/htdocs/shibboleth.internet2.edu/downloads/maven2</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
         <!-- Compile dependencies -->
