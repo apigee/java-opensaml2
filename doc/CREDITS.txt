@@ -34,3 +34,5 @@ OpenSAML2 Java Stack Implementation Team
    University of Washington
    
 Additional Contributions by:
+
+   XACML code contributions by HŒkon Sagehaug and Yuri Demchenko, funded by the EGEE Collaboration
