@@ -1,0 +1,7 @@
+Changes in Release 1.2.0
+=============================================
+
+
+Changes in Release 1.1.0
+=============================================
+* Addition of contributed XACML code

@@ -29,12 +29,6 @@
     
     <fileSets>
         <fileSet>
-            <includes>
-                <include>RELEASE-NOTES*</include>
-                <include>LICENSE*</include>
-            </includes>
-        </fileSet>
-        <fileSet>
             <directory>target</directory>
             <outputDirectory></outputDirectory>
             <includes>
