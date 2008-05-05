@@ -202,6 +202,20 @@
             <MarshallingClass className="org.opensaml.xacml.ctx.impl.StatusTypeMarshaller" />
             <UnmarshallingClass className="org.opensaml.xacml.ctx.impl.StatusTypeUnmarshaller" />
         </ObjectProvider>
+        
+        <!-- XML Schema String -->
+        <ObjectProvider qualifiedName="xacml-context:StatusMessage">
+            <BuilderClass className="org.opensaml.xml.schema.impl.XSStringBuilder" />
+            <MarshallingClass className="org.opensaml.xml.schema.impl.XSStringMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xml.schema.impl.XSStringUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- MissingAttributeDetailType -->
+        <ObjectProvider qualifiedName="xacml-context:StatusMessage">
+            <BuilderClass className="org.opensaml.xacml.ctx.impl.StatusMessageTypeImplBuilder" />
+            <MarshallingClass className="org.opensaml.xacml.ctx.impl.StatusMessageTypeMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xacml.ctx.impl.StatusMessageTypeUnmarshaller" />
+        </ObjectProvider>
             
         <!-- SubjectType -->
         <ObjectProvider qualifiedName="xacml-context:Subject">

@@ -160,6 +160,19 @@
             <UnmarshallingClass className="org.opensaml.xacml.policy.impl.ConditionTypeUnmarshaller" />
         </ObjectProvider>
         
+        <!-- xacml:ConditionType -->
+        <ObjectProvider qualifiedName="xacml:Description">
+            <BuilderClass className="org.opensaml.xacml.policy.impl.DescriptionTypeImplBuilder" />
+            <MarshallingClass className="org.opensaml.xacml.policy.impl.DescriptionTypeMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xacml.policy.impl.DescriptionTypeUnmarshaller" />
+        </ObjectProvider>
+        
+         <ObjectProvider qualifiedName="xacml:DescriptionType">
+            <BuilderClass className="org.opensaml.xacml.policy.impl.DescriptionTypeImplBuilder" />
+            <MarshallingClass className="org.opensaml.xacml.policy.impl.DescriptionTypeMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xacml.policy.impl.DescriptionTypeUnmarshaller" />
+        </ObjectProvider>
+        
         <!--EnvironmentAttributeDesignator -->
         <ObjectProvider qualifiedName="xacml:EnvironmentAttributeDesignator">
             <BuilderClass className="org.opensaml.xacml.policy.impl.AttributeDesignatorTypeImplBuilder" />
@@ -389,7 +402,8 @@
             <BuilderClass className="org.opensaml.xacml.policy.impl.ResourceMatchTypeImplBuilder" />
             <MarshallingClass className="org.opensaml.xacml.policy.impl.ResourceMatchTypeMarshaller" />
             <UnmarshallingClass className="org.opensaml.xacml.policy.impl.ResourceMatchTypeUnmarshaller" />
-        </ObjectProvider>
+        </ObjectProvider>       
+         
 
 		<!-- xacml:ResourceMatchType -->
         <ObjectProvider qualifiedName="xacml:ResourceMatchType">
@@ -495,6 +509,22 @@
             <MarshallingClass className="org.opensaml.xacml.policy.impl.SubjectTypeMarshaller" />
             <UnmarshallingClass className="org.opensaml.xacml.policy.impl.SubjectTypeUnmarshaller" />
         </ObjectProvider>       
+        
+        <!-- xacml:SubjectMatchType -->
+        <ObjectProvider qualifiedName="xacml:SubjectMatchType">
+            <BuilderClass className="org.opensaml.xacml.policy.impl.SubjectMatchTypeImplBuilder" />
+            <MarshallingClass className="org.opensaml.xacml.policy.impl.SubjectMatchTypeMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xacml.policy.impl.SubjectMatchTypeUnmarshaller" />
+        </ObjectProvider>
+        
+        <!-- xacml:SubjectMatchType -->
+        <ObjectProvider qualifiedName="xacml:SubjectMatch">
+            <BuilderClass className="org.opensaml.xacml.policy.impl.SubjectMatchTypeImplBuilder" />
+            <MarshallingClass className="org.opensaml.xacml.policy.impl.SubjectMatchTypeMarshaller" />
+            <UnmarshallingClass className="org.opensaml.xacml.policy.impl.SubjectMatchTypeUnmarshaller" />
+        </ObjectProvider>
+        
+       
 
         <!-- xacml:TargetType -->
         <ObjectProvider qualifiedName="xacml:Target">
