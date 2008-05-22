@@ -20,13 +20,12 @@ package org.opensaml.xacml.policy.impl;
 
 import org.opensaml.xacml.policy.AttributeAssignmentType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /** Marshaller for {@link AttributeAssignmentType}. */
-public class AttributeAssignmentTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class AttributeAssignmentTypeMarshaller extends AttributeValueTypeMarshaller {
 
     /** Constructor. */
     public AttributeAssignmentTypeMarshaller() {
@@ -35,7 +34,7 @@ public class AttributeAssignmentTypeMarshaller extends AbstractXMLObjectMarshall
 
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
-
+    	super.marshallElementContent(samlObject, domElement);
     }
 
     /** {@inheritDoc} */
@@ -45,6 +44,9 @@ public class AttributeAssignmentTypeMarshaller extends AbstractXMLObjectMarshall
         if (!DatatypeHelper.isEmpty(attributeAssignment.getAttributeId())) {
             domElement.setAttributeNS(null, AttributeAssignmentType.ATTR_ID_ATTRIB_NAME, attributeAssignment
                     .getAttributeId());
+        }
+        if(!DatatypeHelper.isEmpty(attributeAssignment.getDataType())){
+        	super.marshallAttributes(samlElement, domElement);
         }
         
     }

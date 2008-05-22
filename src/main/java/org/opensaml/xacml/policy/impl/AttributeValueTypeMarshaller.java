@@ -22,10 +22,12 @@ import java.util.Map.Entry;
 import javax.xml.namespace.QName;
 
 import org.opensaml.Configuration;
+import org.opensaml.xacml.policy.AttributeAssignmentType;
 import org.opensaml.xacml.policy.AttributeValueType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
@@ -37,23 +39,15 @@ public class AttributeValueTypeMarshaller extends AbstractXMLObjectMarshaller {
     public AttributeValueTypeMarshaller() {
         super();
     }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            marshaller operates on
-     */
-    public AttributeValueTypeMarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
-
+    
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
         AttributeValueType attributeValue = (AttributeValueType) xmlObject;
 
+        if(!DatatypeHelper.isEmpty(attributeValue.getDataType())){
+        	domElement.setAttributeNS(null,AttributeAssignmentType.DATA_TYPE_ATTRIB_NAME, attributeValue.getDataType());
+        }
+        
         Attr attribute;
         for (Entry<QName, String> entry : attributeValue.getUnknownAttributes().entrySet()) {
             attribute = XMLHelper.constructAttribute(domElement.getOwnerDocument(), entry.getKey());

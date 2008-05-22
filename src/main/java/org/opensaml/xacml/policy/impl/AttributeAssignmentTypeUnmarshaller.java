@@ -45,7 +45,9 @@ public class AttributeAssignmentTypeUnmarshaller extends AttributeValueTypeUnmar
         if (attribute.getLocalName().equals(AttributeAssignmentType.ATTR_ID_ATTRIB_NAME)) {
             attrib.setAttributeId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
         }
-        super.processAttribute(samlObject, attribute);
+        else{        	
+        	super.processAttribute(samlObject, attribute);
+        }
     }
 
     /** {@inheritDoc} */

@@ -95,5 +95,12 @@ public interface AttributeSelectorType extends ExpressionType {
      * 
      * @param present whether the attribute to be selected must be present
      */
-    public void setMustBePresent(XSBooleanValue present);
+    public void setMustBePresent(boolean present);
+    
+    /**
+     * Sets whether the attribute to be selected must be present.
+     * 
+     * @param present whether the attribute to be selected must be present
+     */
+    public void setMustBePresentXSBoolean(XSBooleanValue present);
 }

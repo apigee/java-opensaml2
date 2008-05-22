@@ -35,11 +35,11 @@ public class AttributeSelectorTypeImpl extends AbstractValidatingXMLObject imple
     /**Issuer.*/
     private String requestContextPath;
     
-    /**Must be present.*/
-    private boolean mustBePresent;
+    /**Must be present.Default = false	*/
+    private boolean mustBePresent = false;
     
-    /**Must be present.*/
-    private XSBooleanValue mustBePresentXS;
+    /**Must be present.Default = false	*/
+    private XSBooleanValue mustBePresentXS = null;
     
     /**
      * Constructor.
@@ -49,7 +49,8 @@ public class AttributeSelectorTypeImpl extends AbstractValidatingXMLObject imple
      * @param namespacePrefix the prefix for the given namespace
      */
     protected AttributeSelectorTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);     
+        super(namespaceURI, elementLocalName, namespacePrefix);   
+        mustBePresentXS = XSBooleanValue.valueOf("false");
     }
     
     /** {@inheritDoc} */
@@ -78,9 +79,13 @@ public class AttributeSelectorTypeImpl extends AbstractValidatingXMLObject imple
     }
 
     /** {@inheritDoc} */
-    public void setMustBePresent(XSBooleanValue present) {
+    public void setMustBePresentXSBoolean(XSBooleanValue present) {
         mustBePresentXS = prepareForAssignment(this.mustBePresentXS,present);
-
+    }
+    
+    /** {@inheritDoc} */
+    public void setMustBePresent(boolean present) {
+    	mustBePresent = prepareForAssignment(this.mustBePresent,present);
     }
 
     /** {@inheritDoc} */

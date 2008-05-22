@@ -34,13 +34,13 @@ public class XACMLAuthzDecisionQueryTypeImpl extends RequestAbstractTypeImpl imp
     /** The xacml-context:Request. */
     private RequestType request;
 
-    /** InputContextOnly attribute value. */
+    /** InputContextOnly attribute value. Default = false. */
     private XSBooleanValue inputContextOnly;
 
-    /** ReturnContext attribute value. */
+    /** ReturnContext attribute value.Default = false. */
     private XSBooleanValue returnContext;
 
-    /** CombinePolicies attribute value. */
+    /** CombinePolicies attribute value. Default = true. */
     private XSBooleanValue combinePolicies;
 
     /**
@@ -52,7 +52,7 @@ public class XACMLAuthzDecisionQueryTypeImpl extends RequestAbstractTypeImpl imp
      */
     protected XACMLAuthzDecisionQueryTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        setElementNamespacePrefix(namespacePrefix);
+        setElementNamespacePrefix(namespacePrefix);       
     }
 
     /** {@inheritDoc} */

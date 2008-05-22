@@ -23,6 +23,7 @@ import org.opensaml.xacml.policy.AttributeValueType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
@@ -32,19 +33,7 @@ public class AttributeValueTypeUnmarshaller extends AbstractXMLObjectUnmarshalle
     /** Constructor. */
     public AttributeValueTypeUnmarshaller() {
         super();
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param targetNamespaceURI the namespace URI of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
-     *            unmarshaller operates on
-     */
-    public AttributeValueTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
-        super(targetNamespaceURI, targetLocalName);
-    }
+    }    
 
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
@@ -55,6 +44,10 @@ public class AttributeValueTypeUnmarshaller extends AbstractXMLObjectUnmarshalle
             attributeValue.getUnknownAttributes().registerID(attribQName);
         }
         attributeValue.getUnknownAttributes().put(attribQName, attribute.getValue());
+        
+        if(attribute.getLocalName().equals(AttributeValueType.DATA_TYPE_ATTRIB_NAME)){
+        	attributeValue.setDataType(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        }
     }
 
     /** {@inheritDoc} */

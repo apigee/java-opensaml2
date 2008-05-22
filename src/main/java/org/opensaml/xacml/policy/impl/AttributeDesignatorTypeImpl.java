@@ -38,11 +38,11 @@ public class AttributeDesignatorTypeImpl extends AbstractValidatingXMLObject imp
     /**Issuer.*/
     private String issuer;
     
-    /**Must be present.*/
-    private boolean mustBePresent;
+    /**Must be present. Dafault = false*/
+    private boolean mustBePresent = false;
     
     /**Must be present.*/
-    private XSBooleanValue mustBePresentXS;
+    private XSBooleanValue mustBePresentXS = null;
     
     /**
      * Constructor.
@@ -53,6 +53,7 @@ public class AttributeDesignatorTypeImpl extends AbstractValidatingXMLObject imp
      */
     protected AttributeDesignatorTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);     
+        mustBePresentXS = XSBooleanValue.valueOf("false");
     }
     
     /** {@inheritDoc} */
@@ -71,9 +72,8 @@ public class AttributeDesignatorTypeImpl extends AbstractValidatingXMLObject imp
     }
 
     /** {@inheritDoc} */
-    public boolean getMustBePresent() {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean getMustBePresent() {        
+        return mustBePresent;
     }
 
     /** {@inheritDoc} */

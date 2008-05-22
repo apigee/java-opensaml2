@@ -48,9 +48,9 @@ public class AttributeSelectorTypeUnmarshaller extends AbstractXMLObjectUnmarsha
         
         if(attribute.getLocalName().equals(AttributeSelectorType.MUST_BE_PRESENT_ATTRIB_NAME)){
             if(attribute.getValue().equals("True") || attribute.getValue().equals("true")){
-                attributeSelectorType.setMustBePresent(XSBooleanValue.valueOf("1"));
+                attributeSelectorType.setMustBePresentXSBoolean(XSBooleanValue.valueOf("1"));
             }else{
-                attributeSelectorType.setMustBePresent(XSBooleanValue.valueOf("0"));
+                attributeSelectorType.setMustBePresentXSBoolean(XSBooleanValue.valueOf("0"));
             }          
         }
 
