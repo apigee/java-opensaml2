@@ -27,76 +27,86 @@ import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 /**
  * Implementation {@link AttributeSelectorType}.
  */
-public class AttributeSelectorTypeImpl extends AbstractValidatingXMLObject implements AttributeSelectorType {
+public class AttributeSelectorTypeImpl extends AbstractValidatingXMLObject
+	implements AttributeSelectorType {
 
-    /**Datatype.*/
+    /** Datatype. */
     private String dataType;
-    
-    /**Issuer.*/
+
+    /** Issuer. */
     private String requestContextPath;
-    
-    /**Must be present.Default = false	*/
-    private boolean mustBePresent = false;
-    
-    /**Must be present.Default = false	*/
+
+    /** Must be present.Default = false */
     private XSBooleanValue mustBePresentXS = null;
-    
+
     /**
      * Constructor.
      * 
-     * @param namespaceURI the namespace the element is in
-     * @param elementLocalName the local name of the XML element this Object represents
-     * @param namespacePrefix the prefix for the given namespace
+     * @param namespaceURI
+     *                the namespace the element is in
+     * @param elementLocalName
+     *                the local name of the XML element this Object represents
+     * @param namespacePrefix
+     *                the prefix for the given namespace
      */
-    protected AttributeSelectorTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);   
-        mustBePresentXS = XSBooleanValue.valueOf("false");
-    }
-    
-    /** {@inheritDoc} */
-    public String getDataType() {
-        return dataType;
+    protected AttributeSelectorTypeImpl(String namespaceURI,
+	    String elementLocalName, String namespacePrefix) {
+	super(namespaceURI, elementLocalName, namespacePrefix);
+	mustBePresentXS = XSBooleanValue.valueOf("false");
     }
 
     /** {@inheritDoc} */
-    public boolean getMustBePresent() {
-        return false;
+    public String getDataType() {
+	return dataType;
+    }
+
+    /** {@inheritDoc} */
+    public Boolean getMustBePresent() {
+	if (mustBePresentXS != null) {
+	    return mustBePresentXS.getValue();
+	}
+	return Boolean.FALSE;
     }
 
     /** {@inheritDoc} */
     public XSBooleanValue getMustBePresentXSBoolean() {
-        return mustBePresentXS;
+	return mustBePresentXS;
     }
 
     /** {@inheritDoc} */
     public String getRequestContextPath() {
-        return requestContextPath;
+	return requestContextPath;
     }
 
     /** {@inheritDoc} */
     public void setDataType(String type) {
-       this.dataType = prepareForAssignment(this.dataType,type);
+	this.dataType = prepareForAssignment(this.dataType, type);
     }
 
     /** {@inheritDoc} */
     public void setMustBePresentXSBoolean(XSBooleanValue present) {
-        mustBePresentXS = prepareForAssignment(this.mustBePresentXS,present);
+	mustBePresentXS = prepareForAssignment(this.mustBePresentXS, present);
     }
-    
+
     /** {@inheritDoc} */
-    public void setMustBePresent(boolean present) {
-    	mustBePresent = prepareForAssignment(this.mustBePresent,present);
+    public void setMustBePresent(Boolean present) {
+	if (present != null) {
+	    mustBePresentXS = prepareForAssignment(mustBePresentXS,
+		    new XSBooleanValue(present, false));
+	} else {
+	    mustBePresentXS = prepareForAssignment(mustBePresentXS, null);
+	}
     }
 
     /** {@inheritDoc} */
     public void setRequestContextPath(String path) {
-        requestContextPath = prepareForAssignment(this.requestContextPath,path);
+	requestContextPath = prepareForAssignment(this.requestContextPath, path);
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
-        // TODO Auto-generated method stub
-        return null;
+	// TODO Auto-generated method stub
+	return null;
     }
 
 }

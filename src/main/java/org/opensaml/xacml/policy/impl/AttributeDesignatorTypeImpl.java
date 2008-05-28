@@ -25,86 +25,104 @@ import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
-* Implementation of {@link AttributeDesignatorType}.
-*/
-public class AttributeDesignatorTypeImpl extends AbstractValidatingXMLObject implements AttributeDesignatorType {
+ * Implementation of {@link AttributeDesignatorType}.
+ */
+public class AttributeDesignatorTypeImpl extends AbstractValidatingXMLObject
+	implements AttributeDesignatorType {
 
-    /**Attribute Id.*/
+    /** Attribute Id. */
     private String attributeId;
-        
-    /**Datatype.*/
+
+    /** Datatype. */
     private String dataType;
-    
-    /**Issuer.*/
+
+    /** Issuer. */
     private String issuer;
-    
-    /**Must be present. Dafault = false*/
-    private boolean mustBePresent = false;
-    
-    /**Must be present.*/
+
+    /** Must be present. */
     private XSBooleanValue mustBePresentXS = null;
-    
+
     /**
      * Constructor.
      * 
-     * @param namespaceURI the namespace the element is in
-     * @param elementLocalName the local name of the XML element this Object represents
-     * @param namespacePrefix the prefix for the given namespace
+     * @param namespaceURI
+     *                the namespace the element is in
+     * @param elementLocalName
+     *                the local name of the XML element this Object represents
+     * @param namespacePrefix
+     *                the prefix for the given namespace
      */
-    protected AttributeDesignatorTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);     
-        mustBePresentXS = XSBooleanValue.valueOf("false");
+    protected AttributeDesignatorTypeImpl(String namespaceURI,
+	    String elementLocalName, String namespacePrefix) {
+	super(namespaceURI, elementLocalName, namespacePrefix);
+	mustBePresentXS = XSBooleanValue.valueOf("false");
     }
-    
+
     /** {@inheritDoc} */
     public String getAttributeId() {
-        return attributeId;
+	return attributeId;
     }
 
     /** {@inheritDoc} */
     public String getDataType() {
-        return dataType;
+	return dataType;
     }
 
     /** {@inheritDoc} */
     public String getIssuer() {
-        return issuer;
-    }
-
-    /** {@inheritDoc} */
-    public boolean getMustBePresent() {        
-        return mustBePresent;
+	return issuer;
     }
 
     /** {@inheritDoc} */
     public XSBooleanValue getMustBePresentXSBoolean() {
-        return mustBePresentXS;
+	return mustBePresentXS;
+    }
+
+    /** {@inheritDoc} */
+    public Boolean getMustBePresent() {
+	if (mustBePresentXS != null) {
+	    return mustBePresentXS.getValue();
+	}
+	return Boolean.FALSE;
     }
 
     /** {@inheritDoc} */
     public void setAttribtueId(String id) {
-        this.attributeId = prepareForAssignment(this.attributeId,id);
+	this.attributeId = prepareForAssignment(this.attributeId, id);
     }
 
     /** {@inheritDoc} */
     public void setDataType(String type) {
-        this.dataType = prepareForAssignment(this.dataType,type);
+	this.dataType = prepareForAssignment(this.dataType, type);
     }
 
     /** {@inheritDoc} */
     public void setIssuer(String newIssuer) {
-        this.issuer = prepareForAssignment(this.issuer,newIssuer);
+	this.issuer = prepareForAssignment(this.issuer, newIssuer);
     }
 
     /** {@inheritDoc} */
-    public void setMustBePresent(XSBooleanValue present) {
-        this.mustBePresentXS = prepareForAssignment(this.mustBePresentXS,present);
+    public void setMustBePresentXSBoolean(XSBooleanValue present) {
+	this.mustBePresentXS = prepareForAssignment(this.mustBePresentXS,
+		present);
+    }
+
+    /** {@inheritDoc} */
+    public void setMustBePresent(Boolean present) {
+	if (present != null) {
+	    this.mustBePresentXS = prepareForAssignment(this.mustBePresentXS,
+		    new XSBooleanValue(present, false));
+	} else {
+	    this.mustBePresentXS = prepareForAssignment(this.mustBePresentXS,
+		    null);
+	}
+
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
-        // TODO Auto-generated method stub
-        return null;
+	// TODO Auto-generated method stub
+	return null;
     }
 
 }

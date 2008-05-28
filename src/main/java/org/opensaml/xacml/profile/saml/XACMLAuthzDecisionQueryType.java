@@ -26,45 +26,55 @@ import org.opensaml.xacml.ctx.RequestType;
 import org.opensaml.xml.schema.XSBooleanValue;
 
 /** A SAML XACML profile XACMLAuthzDecisionQuery schema type. */
-public interface XACMLAuthzDecisionQueryType extends RequestAbstractType, XACMLObject {
+public interface XACMLAuthzDecisionQueryType extends RequestAbstractType,
+	XACMLObject {
 
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "XACMLAuthzDecisionQuery";
 
     /** Default element name for XACML 1.0. */
-    public static final QName DEFAULT_ELEMENT_NAME_XACML10 = new QName(SAMLProfileConstants.SAML20XACML10P_NS,
-            DEFAULT_ELEMENT_LOCAL_NAME, SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
+    public static final QName DEFAULT_ELEMENT_NAME_XACML10 = new QName(
+	    SAMLProfileConstants.SAML20XACML10P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+	    SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
 
     /** Default element name for XACML 1.1. */
-    public static final QName DEFAULT_ELEMENT_NAME_XACML11 = new QName(SAMLProfileConstants.SAML20XACML1_1P_NS,
-            DEFAULT_ELEMENT_LOCAL_NAME, SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
+    public static final QName DEFAULT_ELEMENT_NAME_XACML11 = new QName(
+	    SAMLProfileConstants.SAML20XACML1_1P_NS,
+	    DEFAULT_ELEMENT_LOCAL_NAME,
+	    SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
 
     /** Default element name for XACML 2.0. */
-    public static final QName DEFAULT_ELEMENT_NAME_XACML20 = new QName(SAMLProfileConstants.SAML20XACML20P_NS,
-            DEFAULT_ELEMENT_LOCAL_NAME, SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
+    public static final QName DEFAULT_ELEMENT_NAME_XACML20 = new QName(
+	    SAMLProfileConstants.SAML20XACML20P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+	    SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
 
     /** Default element name for XACML 3.0. */
-    public static final QName DEFAULT_ELEMENT_NAME_XACML30 = new QName(SAMLProfileConstants.SAML20XACML30P_NS,
-            DEFAULT_ELEMENT_LOCAL_NAME, SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
+    public static final QName DEFAULT_ELEMENT_NAME_XACML30 = new QName(
+	    SAMLProfileConstants.SAML20XACML30P_NS, DEFAULT_ELEMENT_LOCAL_NAME,
+	    SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
 
     /** Local name of the XSI type. */
     public static final String TYPE_LOCAL_NAME = "XACMLAuthzDecisionQueryType";
 
     /** QName of the XSI type.XACML1.0. */
-    public static final QName TYPE_NAME_XACML10 = new QName(SAMLProfileConstants.SAML20XACML10P_NS, TYPE_LOCAL_NAME,
-            SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
+    public static final QName TYPE_NAME_XACML10 = new QName(
+	    SAMLProfileConstants.SAML20XACML10P_NS, TYPE_LOCAL_NAME,
+	    SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
 
     /** QName of the XSI type.XACML1.1. */
-    public static final QName TYPE_NAME_XACML11 = new QName(SAMLProfileConstants.SAML20XACML1_1P_NS, TYPE_LOCAL_NAME,
-            SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
+    public static final QName TYPE_NAME_XACML11 = new QName(
+	    SAMLProfileConstants.SAML20XACML1_1P_NS, TYPE_LOCAL_NAME,
+	    SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
 
     /** QName of the XSI type.XACML2.0. */
-    public static final QName TYPE_NAME_XACML20 = new QName(SAMLProfileConstants.SAML20XACML20P_NS, TYPE_LOCAL_NAME,
-            SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
+    public static final QName TYPE_NAME_XACML20 = new QName(
+	    SAMLProfileConstants.SAML20XACML20P_NS, TYPE_LOCAL_NAME,
+	    SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
 
     /** QName of the XSI type.XACML3.0. */
-    public static final QName TYPE_NAME_XACML30 = new QName(SAMLProfileConstants.SAML20XACML30P_NS, TYPE_LOCAL_NAME,
-            SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
+    public static final QName TYPE_NAME_XACML30 = new QName(
+	    SAMLProfileConstants.SAML20XACML30P_NS, TYPE_LOCAL_NAME,
+	    SAMLProfileConstants.SAML20XACMLPROTOCOL_PREFIX);
 
     /** InputContextOnly attribute name. */
     public static final String INPUTCONTEXTONLY_ATTRIB_NAME = "InputContextOnly";
@@ -76,16 +86,20 @@ public interface XACMLAuthzDecisionQueryType extends RequestAbstractType, XACMLO
     public static final String COMBINEPOLICIES_ATTRIB_NAME = "CombinePolicies";
 
     /**
-     * Returns if the PDP can combine policies from the query and local policies.
+     * Returns if the PDP can combine policies from the query and local
+     * policies.
      * 
-     * @return XSBooleanValue true if the PDP can combine policies from the query and locally
+     * @return XSBooleanValue true if the PDP can combine policies from the
+     *         query and locally
      */
     public XSBooleanValue getCombinePoliciesXSBooleanValue();
 
     /**
-     * True then use only information in the XACMLAuthzDecisionQuery, if false could use external XACML attributes.
+     * True then use only information in the XACMLAuthzDecisionQuery, if false
+     * could use external XACML attributes.
      * 
-     * @return if the use of just attributes in the XACMLAuthzDecisionQuery is allowed
+     * @return if the use of just attributes in the XACMLAuthzDecisionQuery is
+     *         allowed
      */
     public XSBooleanValue getInputContextOnlyXSBooleanValue();
 
@@ -97,60 +111,103 @@ public interface XACMLAuthzDecisionQueryType extends RequestAbstractType, XACMLO
     public RequestType getRequest();
 
     /**
-     * If true then include the {@link org.opensaml.xacml.ctx.RequestType} in the response.
+     * If true then include the {@link org.opensaml.xacml.ctx.RequestType} in
+     * the response.
      * 
-     * @return boolean true if the {@link org.opensaml.xacml.ctx.RequestType} should be included in the response
+     * @return boolean true if the {@link org.opensaml.xacml.ctx.RequestType}
+     *         should be included in the response
      */
     public XSBooleanValue getReturnContextXSBooleanValue();
 
     /**
-     * Returns if the PDP can combine policies from the query and local policies.
+     * Returns if the PDP can combine policies from the query and local
+     * policies.
      * 
      * @return true if the PDP can combine policies from the query and locally
      */
-    public boolean isCombinePolicies();
+    public Boolean isCombinePolicies();
 
     /**
-     * True then use only information in the XACMLAuthzDecisionQuery, if false could use external XACML attributes.
+     * True then use only information in the XACMLAuthzDecisionQuery, if false
+     * could use external XACML attributes.
      * 
-     * @return boolean true then use of just attributes in the XACMLAuthzDecisionQuery is allowed
+     * @return boolean true then use of just attributes in the
+     *         XACMLAuthzDecisionQuery is allowed
      */
-    public boolean isInputContextOnly();
+    public Boolean isInputContextOnly();
 
     /**
      * If true then include the {@link RequestType} in the response.
      * 
-     * @return boolean if the {@link RequestType} should be included in the response
+     * @return boolean if the {@link RequestType} should be included in the
+     *         response
      */
-    public boolean isReturnContext();
+    public Boolean isReturnContext();
 
     /**
      * Sets if the PDP can combine policies from this query and the one locally.
      * 
-     * @param combinePolicies If true then the PDP can combine policies from this query and the one locally
+     * @param combinePolicies
+     *                If true then the PDP can combine policies from this query
+     *                and the one locally
      */
     public void setCombinePolicies(XSBooleanValue combinePolicies);
 
     /**
-     * Sets if external attributes is allowed in the decision, true if it's allowed.
+     * Sets if the PDP can combine policies from this query and the one locally.
      * 
-     * @param inputContextOnly if external attributes is allowed in the decision, true if it's allowed.
+     * @param combinePolicies
+     *                If true then the PDP can combine policies from this query
+     *                and the one locally
+     */
+    public void setCombinePolicies(Boolean combinePolicies);
+
+    /**
+     * Sets if external attributes is allowed in the decision, true if it's
+     * allowed.
+     * 
+     * @param inputContextOnly
+     *                if external attributes is allowed in the decision, true if
+     *                it's allowed.
      */
     public void setInputContextOnly(XSBooleanValue inputContextOnly);
 
     /**
+     * Sets if external attributes is allowed in the decision, true if it's
+     * allowed.
+     * 
+     * @param inputContextOnly
+     *                if external attributes is allowed in the decision, true if
+     *                it's allowed.
+     */
+    public void setInputContextOnly(Boolean inputContextOnly);
+
+    /**
      * Set's the XACML Request.
      * 
-     * @param request The request of the decision query
+     * @param request
+     *                The request of the decision query
      */
     public void setRequest(RequestType request);
 
     /**
-     * Set's if the {@link RequestType} should be included inside the request message.
+     * Set's if the {@link RequestType} should be included inside the request
+     * message.
      * 
-     * @param returnContext is true if the {@link RequestType} should be included inside the
-     *            request message
+     * @param returnContext
+     *                is true if the {@link RequestType} should be included
+     *                inside the request message
      */
     public void setReturnContext(XSBooleanValue returnContext);
+
+    /**
+     * Set's if the {@link RequestType} should be included inside the request
+     * message.
+     * 
+     * @param returnContext
+     *                is true if the {@link RequestType} should be included
+     *                inside the request message
+     */
+    public void setReturnContext(Boolean returnContext);
 
 }

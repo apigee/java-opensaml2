@@ -20,86 +20,46 @@ import java.util.List;
 
 import org.opensaml.xacml.policy.SubjectAttributeDesignatorType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
  * Implementation of {@link SubjectAttributeDesignatorType}.
  */
-public class SubjectAttributeDesignatorTypeImpl extends AttributeDesignatorTypeImpl implements
-        SubjectAttributeDesignatorType {
+public class SubjectAttributeDesignatorTypeImpl extends
+	AttributeDesignatorTypeImpl implements SubjectAttributeDesignatorType {
 
-    /**Subject category.*/
+    /** Subject category. */
     private String subjectCategory;
-    
+
     /**
      * Constructor.
-     * @param namespaceURI the namespace the element is in
-     * @param elementLocalName the local name of the XML element this Object represents
-     * @param namespacePrefix the prefix for the given namespace
+     * 
+     * @param namespaceURI
+     *                the namespace the element is in
+     * @param elementLocalName
+     *                the local name of the XML element this Object represents
+     * @param namespacePrefix
+     *                the prefix for the given namespace
      */
-    protected SubjectAttributeDesignatorTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix){
-        super(namespaceURI,elementLocalName,namespacePrefix);
+    protected SubjectAttributeDesignatorTypeImpl(String namespaceURI,
+	    String elementLocalName, String namespacePrefix) {
+	super(namespaceURI, elementLocalName, namespacePrefix);
     }
-    
+
     /** {@inheritDoc} */
     public String getSubjectCategory() {
-        return subjectCategory;
+	return subjectCategory;
     }
 
     /** {@inheritDoc} */
     public void setSubjectCategory(String category) {
-        this.subjectCategory = prepareForAssignment(this.subjectCategory,category);
-    }
-
-    /** {@inheritDoc} */
-    public String getAttributeId() {
-       return super.getAttributeId();
-    }
-
-    /** {@inheritDoc} */
-    public String getDataType() {
-       return super.getDataType();
-    }
-
-    /** {@inheritDoc} */
-    public String getIssuer() {
-        return super.getIssuer();
-    }
-
-    /** {@inheritDoc} */
-    public boolean getMustBePresent() {
-      return super.getMustBePresent();
-    }
-
-    /** {@inheritDoc} */
-    public XSBooleanValue getMustBePresentXSBoolean() {
-       return super.getMustBePresentXSBoolean();
-    }
-
-    /** {@inheritDoc} */
-    public void setAttribtueId(String id) {
-        super.setAttribtueId(id);
-    }
-
-    /** {@inheritDoc} */
-    public void setDataType(String type) {
-        super.setDataType(type);
-    }
-
-    /** {@inheritDoc} */
-    public void setIssuer(String issuer) {
-        super.setIssuer(issuer);
-    }
-
-    /** {@inheritDoc} */
-    public void setMustBePresent(XSBooleanValue present) {
-        super.setMustBePresent(present);
+	this.subjectCategory = prepareForAssignment(this.subjectCategory,
+		category);
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
-        // TODO Auto-generated method stub
-        return null;
+	// TODO Auto-generated method stub
+	return null;
     }
 
 }

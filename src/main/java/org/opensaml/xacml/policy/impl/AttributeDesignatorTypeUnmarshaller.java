@@ -51,9 +51,9 @@ public class AttributeDesignatorTypeUnmarshaller extends AbstractXMLObjectUnmars
         }
         if(attribute.getLocalName().equals(AttributeDesignatorType.MUST_BE_PRESENT_ATTRIB_NAME)){
             if(attribute.getValue().equals("True") || attribute.getValue().equals("true")){
-                attributeDesignatorType.setMustBePresent(XSBooleanValue.valueOf("1"));
+                attributeDesignatorType.setMustBePresentXSBoolean(XSBooleanValue.valueOf("1"));
             }else{
-                attributeDesignatorType.setMustBePresent(XSBooleanValue.valueOf("0"));
+                attributeDesignatorType.setMustBePresentXSBoolean(XSBooleanValue.valueOf("0"));
             }          
         }
     }

@@ -29,7 +29,8 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSBooleanValue;
 
 /** A concrete implementation of {@link XACMLAuthzDecisionQueryType}. */
-public class XACMLAuthzDecisionQueryTypeImpl extends RequestAbstractTypeImpl implements XACMLAuthzDecisionQueryType {
+public class XACMLAuthzDecisionQueryTypeImpl extends RequestAbstractTypeImpl
+	implements XACMLAuthzDecisionQueryType {
 
     /** The xacml-context:Request. */
     private RequestType request;
@@ -46,92 +47,133 @@ public class XACMLAuthzDecisionQueryTypeImpl extends RequestAbstractTypeImpl imp
     /**
      * Constructor.
      * 
-     * @param namespaceURI the namespace the element is in
-     * @param elementLocalName the local name of the XML element this Object represents
-     * @param namespacePrefix the prefix for the given namespace
+     * @param namespaceURI
+     *                the namespace the element is in
+     * @param elementLocalName
+     *                the local name of the XML element this Object represents
+     * @param namespacePrefix
+     *                the prefix for the given namespace
      */
-    protected XACMLAuthzDecisionQueryTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
-        super(namespaceURI, elementLocalName, namespacePrefix);
-        setElementNamespacePrefix(namespacePrefix);       
+    protected XACMLAuthzDecisionQueryTypeImpl(String namespaceURI,
+	    String elementLocalName, String namespacePrefix) {
+	super(namespaceURI, elementLocalName, namespacePrefix);
+	setElementNamespacePrefix(namespacePrefix);
     }
 
     /** {@inheritDoc} */
     public XSBooleanValue getCombinePoliciesXSBooleanValue() {
-        return combinePolicies;
+	return combinePolicies;
     }
 
     /** {@inheritDoc} */
     public XSBooleanValue getInputContextOnlyXSBooleanValue() {
-        return inputContextOnly;
+	return inputContextOnly;
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
-        ArrayList<XMLObject> children = new ArrayList<XMLObject>();
+	ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (super.getOrderedChildren() != null) {
-            children.addAll(super.getOrderedChildren());
-        }
-        if (request != null) {
-            children.add(request);
-        }
-        return Collections.unmodifiableList(children);
+	if (super.getOrderedChildren() != null) {
+	    children.addAll(super.getOrderedChildren());
+	}
+	if (request != null) {
+	    children.add(request);
+	}
+	return Collections.unmodifiableList(children);
     }
 
     /** {@inheritDoc} */
     public RequestType getRequest() {
-        return request;
+	return request;
     }
 
     /** {@inheritDoc} */
     public XSBooleanValue getReturnContextXSBooleanValue() {
-        return returnContext;
+	return returnContext;
     }
 
     /** {@inheritDoc} */
-    public boolean isCombinePolicies() {
-        if (combinePolicies != null) {
-            return combinePolicies.getValue();
-        }
+    public Boolean isCombinePolicies() {
+	if (combinePolicies != null) {
+	    return combinePolicies.getValue();
+	}
 
-        return true;
+	return Boolean.TRUE;
     }
 
     /** {@inheritDoc} */
-    public boolean isInputContextOnly() {
-        if (inputContextOnly != null) {
-            return inputContextOnly.getValue();
-        }
+    public Boolean isInputContextOnly() {
+	if (inputContextOnly != null) {
+	    return inputContextOnly.getValue();
+	}
 
-        return false;
+	return Boolean.FALSE;
     }
 
     /** {@inheritDoc} */
-    public boolean isReturnContext() {
-        if (returnContext != null) {
-            return returnContext.getValue();
-        }
+    public Boolean isReturnContext() {
+	if (returnContext != null) {
+	    return returnContext.getValue();
+	}
 
-        return false;
+	return Boolean.FALSE;
     }
 
     /** {@inheritDoc} */
     public void setCombinePolicies(XSBooleanValue combinePolicies) {
-        this.combinePolicies = prepareForAssignment(this.combinePolicies, combinePolicies);
+	this.combinePolicies = prepareForAssignment(this.combinePolicies,
+		combinePolicies);
+    }
+
+    /** {@inheritDoc} */
+    public void setCombinePolicies(Boolean combinePolicies) {
+	if (combinePolicies != null) {
+	    this.combinePolicies = prepareForAssignment(this.combinePolicies,
+		    new XSBooleanValue(combinePolicies, false));
+	} else {
+	    this.combinePolicies = prepareForAssignment(this.combinePolicies,
+		    null);
+	}
+
     }
 
     /** {@inheritDoc} */
     public void setInputContextOnly(XSBooleanValue inputContextOnly) {
-        this.inputContextOnly = prepareForAssignment(this.inputContextOnly, inputContextOnly);
+	this.inputContextOnly = prepareForAssignment(this.inputContextOnly,
+		inputContextOnly);
+    }
+
+    /** {@inheritDoc} */
+    public void setInputContextOnly(Boolean inputContextOnly) {
+	if (inputContextOnly != null) {
+	    this.inputContextOnly = prepareForAssignment(this.inputContextOnly,
+		    new XSBooleanValue(inputContextOnly, false));
+	} else {
+	    this.inputContextOnly = prepareForAssignment(this.inputContextOnly,
+		    null);
+	}
     }
 
     /** {@inheritDoc} */
     public void setRequest(RequestType request) {
-        this.request = prepareForAssignment(this.request, request);
+	this.request = prepareForAssignment(this.request, request);
     }
 
     /** {@inheritDoc} */
     public void setReturnContext(XSBooleanValue returnContext) {
-        this.returnContext = prepareForAssignment(this.returnContext, returnContext);
+	this.returnContext = prepareForAssignment(this.returnContext,
+		returnContext);
+    }
+
+    /** {@inheritDoc} */
+    public void setReturnContext(Boolean returnContext) {
+
+	if (returnContext != null) {
+	    this.returnContext = prepareForAssignment(this.returnContext,
+		    new XSBooleanValue(returnContext, false));
+	} else {
+	    this.returnContext = prepareForAssignment(this.returnContext, null);
+	}
     }
 }

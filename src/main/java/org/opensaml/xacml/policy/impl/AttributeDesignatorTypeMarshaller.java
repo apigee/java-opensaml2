@@ -27,42 +27,45 @@ import org.w3c.dom.Element;
 /**
  * Marshaller for {@link AttributeDesignatorType}.
  */
-public class AttributeDesignatorTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class AttributeDesignatorTypeMarshaller extends
+	AbstractXMLObjectMarshaller {
 
     /** Constructor. */
     public AttributeDesignatorTypeMarshaller() {
-       super();        
+	super();
     }
-    
+
     /** {@inheritDoc} */
-    protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
-      AttributeDesignatorType attributeDesignatorType = (AttributeDesignatorType) xmlObject;
-      
-      if(!DatatypeHelper.isEmpty(attributeDesignatorType.getAttributeId())){
-          domElement.setAttribute(AttributeDesignatorType.ATTRIBUTE_ID_ATTRIB_NAME, 
-                  attributeDesignatorType.getAttributeId());
-      }
-      if(!DatatypeHelper.isEmpty(attributeDesignatorType.getDataType())){
-          domElement.setAttribute(AttributeDesignatorType.DATA_TYPE_ATTRIB_NAME, 
-                  attributeDesignatorType.getDataType());
-      }
-      if(!DatatypeHelper.isEmpty(attributeDesignatorType.getIssuer())){
-          domElement.setAttribute(AttributeDesignatorType.ISSUER_ATTRIB_NAME, 
-                  attributeDesignatorType.getIssuer());
-      }
-      if(attributeDesignatorType.getMustBePresentXSBoolean() != null){
-          domElement.setAttribute(AttributeDesignatorType.MUST_BE_PRESENT_ATTRIB_NAME, 
-                  Boolean.toString(attributeDesignatorType.getMustBePresentXSBoolean().getValue()));
-      }
-      if(!attributeDesignatorType.getMustBePresent()){
-          domElement.setAttribute(AttributeDesignatorType.MUST_BE_PRESENT_ATTRIB_NAME, 
-                  Boolean.toString(attributeDesignatorType.getMustBePresent()));
-      }
+    protected void marshallAttributes(XMLObject xmlObject, Element domElement)
+	    throws MarshallingException {
+	AttributeDesignatorType attributeDesignatorType = (AttributeDesignatorType) xmlObject;
+
+	if (!DatatypeHelper.isEmpty(attributeDesignatorType.getAttributeId())) {
+	    domElement.setAttribute(
+		    AttributeDesignatorType.ATTRIBUTE_ID_ATTRIB_NAME,
+		    attributeDesignatorType.getAttributeId());
+	}
+	if (!DatatypeHelper.isEmpty(attributeDesignatorType.getDataType())) {
+	    domElement.setAttribute(
+		    AttributeDesignatorType.DATA_TYPE_ATTRIB_NAME,
+		    attributeDesignatorType.getDataType());
+	}
+	if (!DatatypeHelper.isEmpty(attributeDesignatorType.getIssuer())) {
+	    domElement.setAttribute(AttributeDesignatorType.ISSUER_ATTRIB_NAME,
+		    attributeDesignatorType.getIssuer());
+	}
+	if (attributeDesignatorType.getMustBePresentXSBoolean() != null) {
+	    domElement.setAttribute(
+		    AttributeDesignatorType.MUST_BE_PRESENT_ATTRIB_NAME,
+		    Boolean.toString(attributeDesignatorType
+			    .getMustBePresentXSBoolean().getValue()));
+	}
 
     }
 
     /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
+    protected void marshallElementContent(XMLObject xmlObject,
+	    Element domElement) throws MarshallingException {
 
     }
 
