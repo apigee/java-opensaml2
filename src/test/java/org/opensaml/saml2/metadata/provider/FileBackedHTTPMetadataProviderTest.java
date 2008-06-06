@@ -24,7 +24,7 @@ import org.opensaml.saml2.metadata.EntitiesDescriptor;
 /**
  * Test case for {@link FileBackedHTTPMetadataProvider}.
  */
-public class FileBackedURLMetadataProviderTest extends BaseTestCase {
+public class FileBackedHTTPMetadataProviderTest extends BaseTestCase {
 
     private String inCommonMDURL;
 

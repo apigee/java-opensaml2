@@ -38,6 +38,9 @@ import org.w3c.dom.Element;
  * 
  * It is the responsibility of the caller to re-initialize, via {@link #initialize()}, if any properties of this
  * provider are changed.
+ * 
+ * @deprecated use {@link ResourceBackedMetadataProvider} with a
+ *             {@link org.opensaml.util.resource.FileBackedHttpResource} resource provider
  */
 public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
 

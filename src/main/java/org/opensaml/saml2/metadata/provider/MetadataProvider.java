@@ -26,7 +26,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 
 /**
- * A local store into which metadata can be loaded and queried. Specific implemenations may perform additional logic
+ * A local store into which metadata can be loaded and queried. Specific implementations may perform additional logic
  * such as caching (and refreshing) metadata and merging metadata, about a single entity, from multiple sources.
  */
 public interface MetadataProvider {

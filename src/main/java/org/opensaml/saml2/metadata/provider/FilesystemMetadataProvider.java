@@ -33,6 +33,8 @@ import org.slf4j.LoggerFactory;
  * 
  * It is the responsibility of the caller to re-initialize, via {@link #initialize()}, if any properties of this
  * provider are changed.
+ * 
+ * @deprecated use {@link ResourceBackedMetadataProvider} with a {@link org.opensaml.util.resource.FilesystemResource} resource provider
  */
 public class FilesystemMetadataProvider extends AbstractObservableMetadataProvider {
 
@@ -155,7 +157,7 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
             // (case where the file changed after the contents were read above, but before here).
             // To do this exactly correctly, we need to make use of OS filesystem-level file locking.
             lastUpdate = metadataFileLastModified;
-            
+
             emitChangeEvent();
         } catch (FileNotFoundException e) {
             String errorMsg = "Unable to read metadata file";
