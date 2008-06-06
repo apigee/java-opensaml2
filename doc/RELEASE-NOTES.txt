@@ -1,12 +1,12 @@
-Changes in Release 1.2.0
+Changes in Release 2.2.0
 =============================================
 * Add StatusMessage and Description XACML object implementations
-* Fix JOST-38
+* Fixed JOST-38, JOST-39, JOST-40
 * Correct how XML boolean values are dealt with in XACML objects
 * Deprecate FileBackedHTTP, Filesystem, and HTTP metadata providers in favor of new ResourceBacked metadata provider.
   This provides a uniform layer for going out and fetching remote resources.
 
 
-Changes in Release 1.1.0
+Changes in Release 2.1.0
 =============================================
 * Addition of contributed XACML code
