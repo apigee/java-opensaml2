@@ -21,6 +21,7 @@ package org.opensaml.xacml.profile.saml.impl;
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.PolicySetType;
 import org.opensaml.xacml.policy.PolicyType;
+import org.opensaml.xacml.profile.saml.ReferencedPoliciesType;
 import org.opensaml.xacml.profile.saml.XACMLPolicyStatementType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -38,6 +39,8 @@ public class XACMLPolicyStatementTypeUnmarshaller extends AbstractSAMLObjectUnma
             xacmlpolicystatement.getPolicies().add((PolicyType) childObject);
         } else if (childObject instanceof PolicySetType) {
             xacmlpolicystatement.getPolicySets().add((PolicySetType) childObject);
+        } else if (childObject instanceof ReferencedPoliciesType) {
+            xacmlpolicystatement.setReferencedPolicies((ReferencedPoliciesType) childObject);
         } else {
             super.processChildElement(parentObject, childObject);
         }

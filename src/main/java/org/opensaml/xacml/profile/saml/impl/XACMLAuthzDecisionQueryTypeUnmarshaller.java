@@ -20,6 +20,9 @@ package org.opensaml.xacml.profile.saml.impl;
 
 import org.opensaml.saml2.core.impl.RequestAbstractTypeUnmarshaller;
 import org.opensaml.xacml.ctx.RequestType;
+import org.opensaml.xacml.policy.PolicySetType;
+import org.opensaml.xacml.policy.PolicyType;
+import org.opensaml.xacml.profile.saml.ReferencedPoliciesType;
 import org.opensaml.xacml.profile.saml.XACMLAuthzDecisionQueryType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -37,6 +40,12 @@ public class XACMLAuthzDecisionQueryTypeUnmarshaller extends RequestAbstractType
 
         if (childObject instanceof RequestType) {
             xacmlauthzdecisionquery.setRequest((RequestType) childObject);
+        } else if (childObject instanceof PolicyType) {
+            xacmlauthzdecisionquery.getPolicies().add((PolicyType) childObject);
+        } else if (childObject instanceof PolicySetType) {
+            xacmlauthzdecisionquery.getPolicySets().add((PolicySetType) childObject);
+        } else if (childObject instanceof ReferencedPoliciesType) {
+            xacmlauthzdecisionquery.setReferencedPolicies((ReferencedPoliciesType) childObject);
         } else {
             super.processChildElement(parentObject, childObject);
         }

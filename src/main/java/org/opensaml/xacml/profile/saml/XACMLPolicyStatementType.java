@@ -81,4 +81,18 @@ public interface XACMLPolicyStatementType extends Statement, XACMLObject {
      * @return the PolicySet
      */
     public List<PolicySetType> getPolicySets();
+
+    /**
+     * Gets the referenced policies.
+     * 
+     * @return referenced policies
+     */
+    public ReferencedPoliciesType getReferencedPolicies();
+    
+    /**
+     * Sets the referenced policies.
+     * 
+     * @param policies the referenced policies
+     */
+    public void setReferencedPolicies(ReferencedPoliciesType policies);
 }

@@ -26,6 +26,7 @@ import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.xacml.XACMLObject;
 import org.opensaml.xacml.policy.PolicySetType;
 import org.opensaml.xacml.policy.PolicyType;
+import org.opensaml.xacml.profile.saml.ReferencedPoliciesType;
 import org.opensaml.xacml.profile.saml.XACMLPolicyStatementType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
@@ -35,6 +36,9 @@ public class XACMLPolicyStatementTypeImpl extends AbstractSAMLObject implements 
 
     /** Choice group in element. */
     private IndexedXMLObjectChildrenList<XACMLObject> choiceGroup;
+
+    /** ReferencedPolicie child. */
+    private ReferencedPoliciesType referencedPolicies;
 
     /**
      * Constructor.
@@ -54,6 +58,10 @@ public class XACMLPolicyStatementTypeImpl extends AbstractSAMLObject implements 
 
         children.addAll(choiceGroup);
 
+        if (referencedPolicies != null) {
+            children.add(referencedPolicies);
+        }
+
         return Collections.unmodifiableList(children);
     }
 
@@ -65,5 +73,15 @@ public class XACMLPolicyStatementTypeImpl extends AbstractSAMLObject implements 
     /** {@inheritDoc} */
     public List<PolicySetType> getPolicySets() {
         return (List<PolicySetType>) choiceGroup.subList(PolicySetType.DEFAULT_ELEMENT_NAME);
+    }
+
+    /** {@inheritDoc} */
+    public ReferencedPoliciesType getReferencedPolicies() {
+        return referencedPolicies;
+    }
+
+    /** {@inheritDoc} */
+    public void setReferencedPolicies(ReferencedPoliciesType policies) {
+        referencedPolicies = prepareForAssignment(referencedPolicies, policies);
     }
 }
