@@ -26,9 +26,9 @@ import org.opensaml.xacml.policy.PolicySetType;
 import org.opensaml.xacml.policy.PolicyType;
 
 /**
- * /** A SAML XACML profile ReferencedPoliciesType schema type. 
+ * /** A SAML XACML profile ReferencedPoliciesType schema type.
  */
-public interface ReferencedPoliciesType extends SAMLObject,XACMLObject {
+public interface ReferencedPoliciesType extends SAMLObject, XACMLObject {
 
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "ReferencedPolicies";
@@ -67,14 +67,17 @@ public interface ReferencedPoliciesType extends SAMLObject,XACMLObject {
     /** QName of the XSI type.XACML3.0 . */
     public static final QName TYPE_NAME_XACML30 = new QName(SAMLProfileConstants.SAML20XACML30_NS, TYPE_LOCAL_NAME,
             SAMLProfileConstants.SAML20XACMLASSERTION_PREFIX);
+
     /**
      * Gets the policieSets in this element.
+     * 
      * @return the policieSets in this element
      */
-    public List<PolicySetType> getPolicieSets();
-    
+    public List<PolicySetType> getPolicySets();
+
     /**
      * Gets the policies in this element.
+     * 
      * @return the policies in this element
      */
     public List<PolicyType> getPolicies();

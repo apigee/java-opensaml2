@@ -35,7 +35,7 @@ public class ReferencedPoliciesTypeUnmarshaller extends AbstractSAMLObjectUnmars
         if (childObject instanceof PolicyType) {
             referencedpoliciesType.getPolicies().add((PolicyType) childObject);
         } else if (childObject instanceof PolicySetType) {
-            referencedpoliciesType.getPolicieSets().add((PolicySetType) childObject);
+            referencedpoliciesType.getPolicySets().add((PolicySetType) childObject);
         }
     }
 }

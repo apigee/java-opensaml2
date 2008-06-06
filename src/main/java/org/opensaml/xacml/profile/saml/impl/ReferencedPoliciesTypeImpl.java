@@ -52,7 +52,7 @@ public class ReferencedPoliciesTypeImpl extends AbstractSAMLObject implements Re
     }
     
     /** {@inheritDoc} */
-    public List<PolicySetType> getPolicieSets() {
+    public List<PolicySetType> getPolicySets() {
         return policieSets;
     }
 
