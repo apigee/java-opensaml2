@@ -32,7 +32,7 @@ import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 public class ConditionTypeImpl extends AbstractValidatingXMLObject implements ConditionType {
 
     /**List of expressions.*/
-    private ExpressionType expressions;
+    private ExpressionType expression;
     
     /**
      * Constructor.
@@ -46,20 +46,20 @@ public class ConditionTypeImpl extends AbstractValidatingXMLObject implements Co
   
     /** {@inheritDoc} */
     public ExpressionType getExpression() {
-        return expressions;
+        return expression;
     }
     
     /** {@inheritDoc} */
     public void setExpression(ExpressionType expression){
-        this.expressions = prepareForAssignment(this.expressions,expressions);
+        this.expression = prepareForAssignment(this.expression, expression);
     }
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
                
-        if(expressions != null){
-            children.add(expressions);
+        if(expression != null){
+            children.add(expression);
         }       
         return Collections.unmodifiableList(children);
     }
