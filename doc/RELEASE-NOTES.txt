@@ -1,7 +1,13 @@
 Changes in Release 2.2.0
 =============================================
-* Add StatusMessage and Description XACML object implementations
-* Fixed JOST-38, JOST-39, JOST-40
+[JOST-38] - Marshalling problem for AttributeAssignmentType
+[JOST-39] - ReferencedPolicies not used correctly
+[JOST-40] - Misspelled method name in ReferencedPoliciesType
+[JOST-42] - Missing function for PolicySetType choice group
+[JOST-43] - Method setExpression() of class ExpressionType doesn't work
+[JOST-44] - Method getAttributeValues() of AttributeType should return List<AttributeValueType>
+[JOST-45] - Missing StatusMessage and Description XACML object implementations
+
 * Correct how XML boolean values are dealt with in XACML objects
 * Deprecate FileBackedHTTP, Filesystem, and HTTP metadata providers in favor of new ResourceBacked metadata provider.
   This provides a uniform layer for going out and fetching remote resources.
