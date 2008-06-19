@@ -23,6 +23,8 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.xacml.XACMLConstants;
 import org.opensaml.xacml.XACMLObject;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
 
 /** XACML PolicySet schema types. */
 public interface PolicySetType extends XACMLObject {
@@ -63,6 +65,19 @@ public interface PolicySetType extends XACMLObject {
      * @param description description for this policy set
      */
     public void setDescription(DescriptionType description);
+
+    /**
+     * Gets the backing object for the choice group containing the {@link PolicySetType}, {@link PolicyType},
+     * {@link IdReferenceType}, {@link CombinerParametersType}, {@link PolicyCombinerParametersType},
+     * {@link PolicySetCombinerParametersType}. The individual getter/setter methods should be preferred over this
+     * method, however this method may be used to fine tune the ordering of all of these objects if that should be
+     * necessary.
+     * 
+     * @return backing object for the choice group containing the {@link PolicySetType}, {@link PolicyType},
+     *         {@link IdReferenceType}, {@link CombinerParametersType}, {@link PolicyCombinerParametersType},
+     *         {@link PolicySetCombinerParametersType}
+     */
+    public IndexedXMLObjectChildrenList<XACMLObject> getPolicyChoiceGroup();
 
     /**
      * Gets the defaults for this policy set.

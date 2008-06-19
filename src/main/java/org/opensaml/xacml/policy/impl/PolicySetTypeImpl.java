@@ -204,4 +204,9 @@ public class PolicySetTypeImpl extends AbstractValidatingXMLObject implements Po
     public void setVersion(String newVersion) {
         this.version = prepareForAssignment(this.version, newVersion);
     }
+
+    /** {@inheritDoc} */
+    public IndexedXMLObjectChildrenList<XACMLObject> getPolicyChoiceGroup() {
+        return (IndexedXMLObjectChildrenList<XACMLObject>) choiceGroup;
+    }
 }
