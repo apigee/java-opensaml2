@@ -64,7 +64,7 @@ public interface AttributeType extends XACMLObject {
      * 
      * @return the list of values for this attribute
      */
-    public List<XMLObject> getAttributeValues();
+    public List<AttributeValueType> getAttributeValues();
 
     /**
      * Get the datatype of the attribute.

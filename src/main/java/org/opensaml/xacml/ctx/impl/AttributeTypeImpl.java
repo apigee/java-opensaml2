@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.opensaml.xacml.ctx.AttributeType;
+import org.opensaml.xacml.ctx.AttributeValueType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 import org.opensaml.xml.validation.AbstractValidatingXMLObject;
@@ -40,7 +41,7 @@ public class AttributeTypeImpl extends AbstractValidatingXMLObject implements At
     private String datatype;
 
     /** List of values for this attribute. */
-    private final XMLObjectChildrenList<XMLObject> attributeValues;
+    private final XMLObjectChildrenList<AttributeValueType> attributeValues;
 
     /**
      * Constructor.
@@ -51,7 +52,7 @@ public class AttributeTypeImpl extends AbstractValidatingXMLObject implements At
      */
     protected AttributeTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
-        attributeValues = new XMLObjectChildrenList<XMLObject>(this);
+        attributeValues = new XMLObjectChildrenList<AttributeValueType>(this);
     }
 
     /** {@inheritDoc} */
@@ -94,7 +95,7 @@ public class AttributeTypeImpl extends AbstractValidatingXMLObject implements At
     }
 
     /** {@inheritDoc} */
-    public List<XMLObject> getAttributeValues() {
+    public List<AttributeValueType> getAttributeValues() {
         return attributeValues;
     }
 }
