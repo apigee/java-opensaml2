@@ -23,7 +23,7 @@ import org.opensaml.common.SAMLException;
  */
 public class BindingException extends SAMLException{
 
-    /** Serial version UID */
+    /** Serial version UID. */
     private static final long serialVersionUID = 8759204244381246777L;
 
     /**

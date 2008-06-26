@@ -22,25 +22,25 @@ import org.opensaml.saml2.metadata.EncryptionMethod;
 import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.security.credential.CredentialContext;
-import org.opensaml.xml.signature.KeyInfo;
 
 /**
- * A credential context for credentials resolved from a {@link KeyInfo} that was found in SAML 2 metadata.
+ * A credential context for credentials resolved from a {@link org.opensaml.xml.signature.KeyInfo} that was found in
+ * SAML 2 metadata.
  */
 public class SAMLMDCredentialContext implements CredentialContext {
-    
+
     /** Key descriptor which contained the KeyInfo used. */
     private KeyDescriptor keyDescriptor;
 
     /** Role in which credential was resolved. */
     private RoleDescriptor role;
-    
+
     /** Encryption methods associated with the credential. */
     private List<EncryptionMethod> encMethods;
-    
+
     /**
      * Constructor.
-     *
+     * 
      * @param descriptor the KeyDescriptor context from which a credential was resolved
      */
     public SAMLMDCredentialContext(KeyDescriptor descriptor) {
@@ -52,7 +52,7 @@ public class SAMLMDCredentialContext implements CredentialContext {
             role = (RoleDescriptor) descriptor.getParent();
         }
     }
-    
+
     /**
      * Get the key descriptor context.
      * 
@@ -61,7 +61,7 @@ public class SAMLMDCredentialContext implements CredentialContext {
     public KeyDescriptor getKeyDescriptor() {
         return keyDescriptor;
     }
-    
+
     /**
      * Return the list of {@link EncryptionMethod}'s associated with credential context.
      * 
@@ -70,7 +70,7 @@ public class SAMLMDCredentialContext implements CredentialContext {
     public List<EncryptionMethod> getEncryptionMethod() {
         return encMethods;
     }
-    
+
     /**
      * Get the role descriptor context.
      * 
@@ -79,5 +79,5 @@ public class SAMLMDCredentialContext implements CredentialContext {
     public RoleDescriptor getRoleDescriptor() {
         return role;
     }
-    
+
 }

@@ -16,7 +16,6 @@
 
 package org.opensaml;
 
-import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -45,7 +44,7 @@ public class Configuration extends org.opensaml.xml.Configuration {
     private static SAML2ArtifactBuilderFactory saml2ArtifactBuilderFactory;
 
     /**
-     * Gets the date format used to string'ify SAML's {@link DateTime} objects.
+     * Gets the date format used to string'ify SAML's {@link org.joda.time.DateTime} objects.
      * 
      * @return date format used to string'ify date objects
      */
