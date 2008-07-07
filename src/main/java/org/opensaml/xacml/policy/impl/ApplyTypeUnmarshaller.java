@@ -18,6 +18,7 @@
 package org.opensaml.xacml.policy.impl;
 
 import org.opensaml.xacml.policy.ApplyType;
+import org.opensaml.xacml.policy.ExpressionType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -33,11 +34,11 @@ public class ApplyTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
     public ApplyTypeUnmarshaller() {
         super();
     }
-    
+
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-     
-        if(attribute.getLocalName().equals(ApplyType.FUNCTION_ID_ATTRIB_NAME)){
+
+        if (attribute.getLocalName().equals(ApplyType.FUNCTION_ID_ATTRIB_NAME)) {
             ApplyType applyType = (ApplyType) xmlObject;
             applyType.setFunctionId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
         }
@@ -47,11 +48,16 @@ public class ApplyTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
             throws UnmarshallingException {
+        ApplyType applayType = (ApplyType) parentXMLObject;
+        if (childXMLObject instanceof ExpressionType) {
+            ExpressionType expression = (ExpressionType) childXMLObject;
+            applayType.getExpressions().add(expression);
+        }
     }
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    
+
     }
 
 }
