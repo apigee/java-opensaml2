@@ -98,7 +98,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
 
             // 24 hours
-            maxCacheDuration = 1000 * 60 * 60 * 24;
+            maxCacheDuration = 60 * 60 * 24;
         } catch (URISyntaxException e) {
             throw new MetadataProviderException("Illegal URL syntax", e);
         }
@@ -228,7 +228,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             return;
         }
 
-        log.debug("Refreshing cache of metadata from URL {}, max cache duration set to {}ms", metadataURI,
+        log.debug("Refreshing cache of metadata from URL {}, max cache duration set to {} seconds", metadataURI,
                 maxCacheDuration);
         try {
             XMLObject metadata = fetchMetadata();
