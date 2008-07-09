@@ -76,9 +76,6 @@ public class SAML2Helper {
      */
     public static DateTime getEarliestExpiration(XMLObject xmlObject, DateTime earliestExpiration, DateTime now) {
 
-        // earliest time thus far
-        DateTime expirationTime = earliestExpiration;
-
         // expiration time for a specific element
         DateTime elementExpirationTime;
 
@@ -88,11 +85,11 @@ public class SAML2Helper {
 
             if (cacheInfo.getCacheDuration() != null && cacheInfo.getCacheDuration().longValue() > 0) {
                 elementExpirationTime = now.plus(cacheInfo.getCacheDuration().longValue());
-                if(expirationTime == null){
-                    expirationTime = elementExpirationTime;
+                if(earliestExpiration == null){
+                    earliestExpiration = elementExpirationTime;
                 }else{
-                    if (elementExpirationTime != null && elementExpirationTime.isBefore(expirationTime)) {
-                        expirationTime = elementExpirationTime;
+                    if (elementExpirationTime != null && elementExpirationTime.isBefore(earliestExpiration)) {
+                        earliestExpiration = elementExpirationTime;
                     }
                 }
             }
@@ -102,11 +99,11 @@ public class SAML2Helper {
         if (xmlObject instanceof TimeBoundSAMLObject) {
             TimeBoundSAMLObject timeBoundObject = (TimeBoundSAMLObject) xmlObject;
             elementExpirationTime = timeBoundObject.getValidUntil();
-            if(expirationTime == null){
-                expirationTime = elementExpirationTime;
+            if(earliestExpiration == null){
+                earliestExpiration = elementExpirationTime;
             }else{
-                if (elementExpirationTime != null && elementExpirationTime.isBefore(expirationTime)) {
-                    expirationTime = elementExpirationTime;
+                if (elementExpirationTime != null && elementExpirationTime.isBefore(earliestExpiration)) {
+                    earliestExpiration = elementExpirationTime;
                 } 
             }
         }
