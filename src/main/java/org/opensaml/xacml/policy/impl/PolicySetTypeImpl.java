@@ -115,7 +115,7 @@ public class PolicySetTypeImpl extends AbstractValidatingXMLObject implements Po
 
     /** {@inheritDoc} */
     public List<PolicyType> getPolicies() {
-        return (List<PolicyType>) choiceGroup.get(PolicyType.DEFAULT_ELEMENT_NAME);
+        return (List<PolicyType>) choiceGroup.subList(PolicyType.DEFAULT_ELEMENT_NAME);
     }
 
     /** {@inheritDoc} */
