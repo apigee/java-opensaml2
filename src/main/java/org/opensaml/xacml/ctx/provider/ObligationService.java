@@ -165,7 +165,8 @@ public class ObligationService {
         /** {@inheritDoc} */
         public int compare(BaseObligationHandler o1, BaseObligationHandler o2) {
             if (o1.getHandlerPrecedence() == o2.getHandlerPrecedence()) {
-                return 0;
+                // If they have the same precedence sort lexigraphically
+                return o1.getObligationId().compareTo(o2.getObligationId());
             }
 
             if (o1.getHandlerPrecedence() < o2.getHandlerPrecedence()) {
