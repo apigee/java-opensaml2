@@ -1,0 +1,23 @@
+<EntitiesDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+	
+	<EntityDescriptor entityID="urn:test:issuer:required">
+		<SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol" AuthnRequestsSigned="true" >
+			<AssertionConsumerService 
+				Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+				Location="https://sp1.example.org/Shibboleth.sso/SAML/POST" 
+				index="1"
+				isDefault="true" />
+		</SPSSODescriptor>
+	</EntityDescriptor>
+	
+	<EntityDescriptor entityID="urn:test:issuer:notrequired">
+		<SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+			<AssertionConsumerService 
+				Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+				Location="https://sp1.example.org/Shibboleth.sso/SAML/POST" 
+				index="1"
+				isDefault="true" />
+		</SPSSODescriptor>
+	</EntityDescriptor>
+
+</EntitiesDescriptor>
