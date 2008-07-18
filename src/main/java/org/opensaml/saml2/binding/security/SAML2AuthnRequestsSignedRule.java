@@ -77,7 +77,7 @@ public class SAML2AuthnRequestsSignedRule implements SecurityPolicyRule {
         }
         
         if (spssoRole == null) {
-            log.warn("SPSSODescriptor role metadata for entityID '{}' could not be resolved");
+            log.warn("SPSSODescriptor role metadata for entityID '{}' could not be resolved", messageIssuer);
             return;
         }
         
