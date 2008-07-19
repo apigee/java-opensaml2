@@ -18,8 +18,10 @@ package org.opensaml.saml2.metadata.provider;
 
 import java.util.Iterator;
 
+import org.opensaml.saml2.metadata.AffiliationDescriptor;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.security.SAMLSignatureProfileValidator;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.security.CriteriaSet;
@@ -103,7 +105,7 @@ public class SignatureValidationFilter implements MetadataFilter {
     }
 
     /**
-     * Gets whether incoming metadata is required to be signed.
+     * Gets whether incoming metadata's root element is required to be signed.
      * 
      * @return whether incoming metadata is required to be signed
      */
@@ -112,7 +114,7 @@ public class SignatureValidationFilter implements MetadataFilter {
     }
 
     /**
-     * Sets whether incoming metadata is required to be signed.
+     * Sets whether incoming metadata's root element is required to be signed.
      * 
      * @param require whether incoming metadata is required to be signed
      */
@@ -144,26 +146,79 @@ public class SignatureValidationFilter implements MetadataFilter {
 
         if (!signableMetadata.isSigned()){
             if (getRequireSignature()) {
-                throw new FilterException("Metadata was unsigned and signatures are required.");
-            } else {
-                if (signableMetadata instanceof EntityDescriptor) {
-                    log.trace("Root EntityDescriptor was not signed, filter processing terminated");
-                    return;
-                } else {
-                    log.trace("Root EntitiesDescriptor was not signed, continuing filter processing of children");
-                }
+                throw new FilterException("Metadata root element was unsigned and signatures are required.");
             }
         }
         
         if (signableMetadata instanceof EntityDescriptor) {
-            EntityDescriptor entityDescriptor = (EntityDescriptor) signableMetadata;
-            verifySignature(entityDescriptor, entityDescriptor.getEntityID(), false);
+            processEntityDescriptor((EntityDescriptor) signableMetadata);
         } else if (signableMetadata instanceof EntitiesDescriptor) {
             processEntityGroup((EntitiesDescriptor) signableMetadata);
         } else {
             log.error("Internal error, metadata object was of an unsupported type: {}", metadata.getClass().getName());
         }
     }
+    
+    /**
+     * Process the signatures on the specified EntityDescriptor and any signed children.
+     * 
+     * If signature verification fails on a child, it will be removed from the entity descriptor.
+     * 
+     * @param entityDescriptor the EntityDescriptor to be processed
+     * @throws FilterException thrown if an error occurs during the signature verification process
+     *                          on the root EntityDescriptor specified
+     */
+    protected void processEntityDescriptor(EntityDescriptor entityDescriptor) throws FilterException {
+        String entityID = entityDescriptor.getEntityID();
+        log.trace("Processing EntityDescriptor: {}", entityID);
+        
+        if (entityDescriptor.isSigned()) {
+            verifySignature(entityDescriptor, entityID, false);
+        }
+        
+        Iterator<RoleDescriptor> roleIter = entityDescriptor.getRoleDescriptors().iterator();
+        while (roleIter.hasNext()) {
+           RoleDescriptor roleChild = roleIter.next(); 
+            if (!roleChild.isSigned()) {
+                log.trace("RoleDescriptor member '{}' was not signed, skipping signature processing...",
+                        roleChild.getElementQName());
+                continue;
+            } else {
+                log.trace("Processing signed RoleDescriptor member: {}", roleChild.getElementQName());
+            }
+            
+            try {
+                String roleID = getRoleIDToken(entityID, roleChild);
+                verifySignature(roleChild, roleID, false);
+            } catch (FilterException e) {
+               log.error("RoleDescriptor '{}' subordinate to entity '{}' failed signature verification, " 
+                       + "removing from metadata provider", 
+                       roleChild.getElementQName(), entityID); 
+               roleIter.remove();
+            }
+        }
+        
+        if (entityDescriptor.getAffiliationDescriptor() != null) {
+            AffiliationDescriptor affiliationDescriptor = entityDescriptor.getAffiliationDescriptor();
+            if (!affiliationDescriptor.isSigned()) {
+                log.trace("AffiliationDescriptor member was not signed, skipping signature processing...");
+            } else {
+                log.trace("Processing signed AffiliationDescriptor member with owner ID: {}", 
+                        affiliationDescriptor.getOwnerID());
+                
+                try {
+                    verifySignature(affiliationDescriptor, affiliationDescriptor.getOwnerID(), false);
+                } catch (FilterException e) {
+                    log.error("AffiliationDescriptor with owner ID '{}' subordinate to entity '{}' " + 
+                            "failed signature verification, removing from metadata provider", 
+                            affiliationDescriptor.getOwnerID(), entityID); 
+                    entityDescriptor.setAffiliationDescriptor(null);
+                }
+                
+            }
+        }
+    }
+ 
     
     /**
      * Process the signatures on the specified EntitiesDescriptor and any signed children.
@@ -193,7 +248,7 @@ public class SignatureValidationFilter implements MetadataFilter {
             }
             
             try {
-                verifySignature(entityChild, entityChild.getEntityID(), false);
+                processEntityDescriptor(entityChild);
             } catch (FilterException e) {
                log.error("EntityDescriptor '{}' failed signature verification, removing from metadata provider", 
                        entityChild.getEntityID()); 
@@ -210,7 +265,7 @@ public class SignatureValidationFilter implements MetadataFilter {
             } catch (FilterException e) {
                log.error("EntitiesDescriptor '{}' failed signature verification, removing from metadata provider", 
                        entitiesChild.getName()); 
-               entityIter.remove();
+               entitiesIter.remove();
             }
         }
         
@@ -220,8 +275,12 @@ public class SignatureValidationFilter implements MetadataFilter {
      * Evaluate the signature on the signed metadata instance.
      * 
      * @param signedMetadata the metadata object whose signature is to be verified
-     * @param metadataEntryName the EntityDescriptor entityID or EntitiesDescriptor Name 
-     *                          of the signature being evaluated
+     * @param metadataEntryName the EntityDescriptor entityID, EntitiesDescriptor Name,
+     *                          AffiliationDescriptor affiliationOwnerID, 
+     *                          or RoleDescriptor {@link #getRoleIDToken(String, RoleDescriptor)}
+     *                          corresponding to the element whose signature is being evaluated.
+     *                          This is used exclusively for logging/debugging purposes and
+     *                          should not be used operationally (e.g. for building a criteria set).
      * @param isEntityGroup flag indicating whether the signed object is a metadata group (EntitiesDescriptor),
      *                      primarily useful for constructing a criteria set for the trust engine
      * @throws FilterException thrown if the metadata entry's signature can not be established as trusted,
@@ -263,8 +322,12 @@ public class SignatureValidationFilter implements MetadataFilter {
      * Perform pre-validation on the Signature token.
      * 
      * @param signature the signature to evaluate
-     * @param metadataEntryName the EntityDescriptor entityID or EntitiesDescriptor Name
-     *                          of the signature being evaluated
+     * @param metadataEntryName the EntityDescriptor entityID, EntitiesDescriptor Name,
+     *                          AffiliationDescriptor affiliationOwnerID, 
+     *                          or RoleDescriptor {@link #getRoleIDToken(String, RoleDescriptor)}
+     *                          corresponding to the element whose signature is being evaluated.
+     *                          This is used exclusively for logging/debugging purposes and
+     *                          should not be used operationally (e.g. for building a criteria set).
      * @throws FilterException thrown if the signature element fails pre-validation
      */
     protected void performPreValidation(Signature signature, String metadataEntryName) throws FilterException {
@@ -282,8 +345,12 @@ public class SignatureValidationFilter implements MetadataFilter {
      * Build the criteria set which will be used as input to the configured trust engine.
      * 
      * @param signedMetadata the metadata element whose signature is being verified
-     * @param metadataEntryName the EntityDescriptor entityID or EntitiesDescriptor Name 
-     *                          of the signature being evaluated
+     * @param metadataEntryName the EntityDescriptor entityID, EntitiesDescriptor Name,
+     *                          AffiliationDescriptor affiliationOwnerID, 
+     *                          or RoleDescriptor {@link #getRoleIDToken(String, RoleDescriptor)}
+     *                          corresponding to the element whose signature is being evaluated.
+     *                          This is used exclusively for logging/debugging purposes and
+     *                          should not be used operationally (e.g. for building the criteria set).
      * @param isEntityGroup flag indicating whether the signed object is a metadata group (EntitiesDescriptor)
      * @return the newly constructed criteria set
      */
@@ -296,12 +363,35 @@ public class SignatureValidationFilter implements MetadataFilter {
             newCriteriaSet.addAll( getDefaultCriteria() );
         }
         
-        //TODO how to handle adding dynamic entity ID (or other) criteria (if at all?),
-        
         if (!newCriteriaSet.contains(UsageCriteria.class)) {
             newCriteriaSet.add( new UsageCriteria(UsageType.SIGNING) );
         }
         
+        // TODO how to handle adding dynamic entity ID and/or other criteria for trust engine consumption?
+        //
+        // Have 4 signed metadata types:
+        // 1) EntitiesDescriptor
+        // 2) EntityDescriptor
+        // 3) RoleDescriptor
+        // 4) AffiliationDescriptor
+        //
+        // Logic will likely vary for how to specify criteria to trust engine for different types + specific use cases,
+        // e.g. for federation metadata publishers of EntitiesDescriptors vs. "self-signed" EntityDescriptors.
+        // May need to delegate to more specialized subclasses.
+        
         return newCriteriaSet;
+    }
+    
+    /**
+     * Get a string token for logging/debugging purposes that contains role information and containing entityID.
+     * 
+     * @param entityID the containing entityID
+     * @param role the role descriptor
+     * 
+     * @return the constructed role ID token.
+     */
+    protected String getRoleIDToken(String entityID, RoleDescriptor role) {
+        String roleName = role.getElementQName().getLocalPart();
+        return "[Role: " + entityID + "::" + roleName + "]";
     }
 }
