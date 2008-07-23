@@ -1,5 +1,8 @@
 Changes in Release 2.2.0
 =============================================
+[JOST-32] - MetadataSignatureFilter should verify signatures on RoleDescriptor and AffiliationDescriptor elements
+[JOST-35] - some XACML elements not correctly marshalled
+[JOST-37] - inline policies in XACML policy sets cannot be unmarshalled
 [JOST-38] - Marshalling problem for AttributeAssignmentType
 [JOST-39] - ReferencedPolicies not used correctly
 [JOST-40] - Misspelled method name in ReferencedPoliciesType
@@ -7,12 +10,15 @@ Changes in Release 2.2.0
 [JOST-43] - Method setExpression() of class ExpressionType doesn't work
 [JOST-44] - Method getAttributeValues() of AttributeType should return List<AttributeValueType>
 [JOST-45] - Missing StatusMessage and Description XACML object implementations
+[JOST-46] - Method getPolicies of PolicySetType returns null
+[JOST-48] - Add feature to require validUntil expiration on metadata
+[JOST-49] - cacheDuration and validUntil values in metadata are ignored
+[JOST-50] - Security policy rule which evaluates and enforces SAML 2 metadata SPSSODescriptor/@AuthnRequestsSigned
 [JOST-51] - Issue with multiple obligation handlers
+[JOST-53] - boolean values can not be nulled. Setters should take Boolean objects as in the SAML classes
 
-* Correct how XML boolean values are dealt with in XACML objects
 * Deprecate FileBackedHTTP, Filesystem, and HTTP metadata providers in favor of new ResourceBacked metadata provider.
   This provides a uniform layer for going out and fetching remote resources.
-
 
 Changes in Release 2.1.0
 =============================================
