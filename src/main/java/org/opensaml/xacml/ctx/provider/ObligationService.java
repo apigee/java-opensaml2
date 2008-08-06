@@ -17,6 +17,7 @@
 
 package org.opensaml.xacml.ctx.provider;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ import org.opensaml.xacml.policy.ObligationsType;
 
 /** A service for evaluating the obligations within a context. */
 public class ObligationService {
-    
+
     /** Read/write lock around the registered obligation handlers. */
     private ReentrantReadWriteLock rwLock;
 
@@ -46,16 +47,16 @@ public class ObligationService {
         rwLock = new ReentrantReadWriteLock(true);
         obligationHandlers = new TreeSet<BaseObligationHandler>(new ObligationHandlerComparator());
     }
-    
+
     /**
      * Gets the registered obligation handlers.
      * 
      * @return registered obligation handlers
      */
-    public Set<BaseObligationHandler> getObligationHandlers(){
+    public Set<BaseObligationHandler> getObligationHandlers() {
         return Collections.unmodifiableSet(obligationHandlers);
     }
-    
+
     /**
      * Adds an obligation handler to the list of registered handlers
      * 
@@ -63,20 +64,41 @@ public class ObligationService {
      * 
      * @param handler the handler to add to the list of registered handlers.
      */
-    public void addObligationhandler(BaseObligationHandler handler){
-        if(handler == null){
+    public void addObligationhandler(BaseObligationHandler handler) {
+        if (handler == null) {
             return;
         }
-        
-        Lock writeLock  = rwLock.writeLock();
+
+        Lock writeLock = rwLock.writeLock();
         writeLock.lock();
-        try{
+        try {
             obligationHandlers.add(handler);
-        }finally{
+        } finally {
             writeLock.unlock();
         }
     }
-    
+
+    /**
+     * Adds a collection of obligation handler to the list of registered handlers
+     * 
+     * This method waits until a write lock is obtained for the set of registered obligation handlers.
+     * 
+     * @param handlers the collection of handlers to add to the list of registered handlers.
+     */
+    public void addObligationhandler(Collection<BaseObligationHandler> handlers) {
+        if (handlers == null || handlers.isEmpty()) {
+            return;
+        }
+
+        Lock writeLock = rwLock.writeLock();
+        writeLock.lock();
+        try {
+            obligationHandlers.addAll(handlers);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
     /**
      * Removes an obligation handler from the list of registered handlers
      * 
@@ -84,16 +106,16 @@ public class ObligationService {
      * 
      * @param handler the handler to remove from the list of registered handlers.
      */
-    public void removeObligationHandler(BaseObligationHandler handler){
-        if(handler == null){
+    public void removeObligationHandler(BaseObligationHandler handler) {
+        if (handler == null) {
             return;
         }
-        
-        Lock writeLock  = rwLock.writeLock();
+
+        Lock writeLock = rwLock.writeLock();
         writeLock.lock();
-        try{
+        try {
             obligationHandlers.remove(handler);
-        }finally{
+        } finally {
             writeLock.unlock();
         }
     }
@@ -110,10 +132,10 @@ public class ObligationService {
     public void processObligations(ObligationProcessingContext context) throws ObligationProcessingException {
         Lock readLock = rwLock.readLock();
         readLock.lock();
-        try{
+        try {
             Iterator<BaseObligationHandler> handlerItr = obligationHandlers.iterator();
             Map<String, ObligationType> effectiveObligations = preprocessObligations(context);
-    
+
             BaseObligationHandler handler;
             while (handlerItr.hasNext()) {
                 handler = handlerItr.next();
@@ -121,7 +143,7 @@ public class ObligationService {
                     handler.evaluateObligation(context, effectiveObligations.get(handler.getObligationId()));
                 }
             }
-        }finally{
+        } finally {
             readLock.unlock();
         }
     }
