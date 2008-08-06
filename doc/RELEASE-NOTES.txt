@@ -16,6 +16,7 @@ Changes in Release 2.2.0
 [JOST-50] - Security policy rule which evaluates and enforces SAML 2 metadata SPSSODescriptor/@AuthnRequestsSigned
 [JOST-51] - Issue with multiple obligation handlers
 [JOST-53] - boolean values can not be nulled. Setters should take Boolean objects as in the SAML classes
+[JOST-54] - New addObligationhandlers method in ObligationService
 
 * Deprecate FileBackedHTTP, Filesystem, and HTTP metadata providers in favor of new ResourceBacked metadata provider.
   This provides a uniform layer for going out and fetching remote resources.
