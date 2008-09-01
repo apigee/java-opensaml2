@@ -26,7 +26,9 @@ import org.opensaml.util.storage.StorageService;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.io.Unmarshaller;
+import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.slf4j.Logger;
@@ -92,11 +94,24 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
 
     /** {@inheritDoc} */
     public SAMLArtifactMapEntry get(String artifact) {
-        SAMLArtifactMapEntry entry = artifactStore.get(partition, artifact);
+        BasicSAMLArtifactMapEntry entry = (BasicSAMLArtifactMapEntry) artifactStore.get(partition, artifact);
 
         if (entry.isExpired()) {
             remove(artifact);
             return null;
+        }
+
+        if (entry.getSamlMessage() == null) {
+            try {
+                Element samlMessageElem = parserPool.parse(new StringReader(entry.getSeralizedMessage()))
+                        .getDocumentElement();
+                Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlMessageElem);
+                entry.setSAMLMessage((SAMLObject) unmarshaller.unmarshall(samlMessageElem));
+            } catch (XMLParserException e) {
+                log.error("Unable to parse serialized SAML message", e);
+            } catch (UnmarshallingException e) {
+                log.error("Unable to unmarshall serialized SAML message", e);
+            }
         }
 
         return entry;
@@ -127,6 +142,9 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         /** Entity ID of the receiver of the artifact. */
         private String relyingParty;
 
+        /** SAML message mapped to the artifact. */
+        private transient SAMLObject message;
+
         /** Serialized SAML object mapped to the artifact. */
         private String serializedMessage;
 
@@ -150,6 +168,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
             this.issuer = issuer;
             this.relyingParty = relyingParty;
             expirationTime = new DateTime().plus(lifetime);
+            message = saml;
 
             StringWriter writer = new StringWriter();
             Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(saml);
@@ -174,14 +193,25 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
 
         /** {@inheritDoc} */
         public SAMLObject getSamlMessage() {
-            try {
-                Element messageElem = parserPool.parse(new StringReader(serializedMessage)).getDocumentElement();
-                Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(messageElem);
-                return (SAMLObject) unmarshaller.unmarshall(messageElem);
-            } catch (Exception e) {
-                log.error("Unable to deserialize and unmarshall SAML message associated with artifact " + artifact, e);
-                return null;
-            }
+            return message;
+        }
+
+        /**
+         * Sets the SAML message mapped to the artifact.
+         * 
+         * @param saml SAML message mapped to the artifact
+         */
+        protected void setSAMLMessage(SAMLObject saml) {
+            message = saml;
+        }
+
+        /**
+         * Gets the serialized form of the SAML message.
+         * 
+         * @return serialized form of the SAML message
+         */
+        protected String getSeralizedMessage() {
+            return serializedMessage;
         }
 
         /** {@inheritDoc} */
