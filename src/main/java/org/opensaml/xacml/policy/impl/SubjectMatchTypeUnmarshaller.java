@@ -51,7 +51,7 @@ public class SubjectMatchTypeUnmarshaller extends AbstractXMLObjectUnmarshaller 
         if (childXMLObject instanceof AttributeValueType) {
             matchType.setAttributeValue((AttributeValueType) childXMLObject);
         } else if (childXMLObject.getElementQName().equals(
-                AttributeDesignatorType.SUBJECT_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME)) {
+                AttributeDesignatorType.SUBJECT_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME)) {
             matchType.setSubjectAttributeDesignator((AttributeDesignatorType) childXMLObject);
         } else if (childXMLObject instanceof AttributeSelectorType) {
             matchType.setAttributeSelector((AttributeSelectorType) childXMLObject);
