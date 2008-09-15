@@ -32,8 +32,8 @@ import org.opensaml.saml2.core.RequestedAuthnContext;
  */
 public class RequestedAuthnContextSchemaTest extends BaseSAMLObjectValidatorTestCase {
     
-    private AuthnContextClassRef authnContextClassRef;
-    private AuthnContextDeclRef authnContextDeclRef;
+    private QName classRefName;
+    private QName  declRefName;
 
     /**
      * Constructor
@@ -44,8 +44,8 @@ public class RequestedAuthnContextSchemaTest extends BaseSAMLObjectValidatorTest
         targetQName = new QName(SAMLConstants.SAML20P_NS, RequestedAuthnContext.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
         validator = new RequestedAuthnContextSchemaValidator();
         
-        authnContextClassRef = (AuthnContextClassRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthnContextClassRef.DEFAULT_ELEMENT_LOCAL_NAME));
-        authnContextDeclRef = (AuthnContextDeclRef) buildXMLObject(new QName(SAMLConstants.SAML20_NS, AuthnContextDeclRef.DEFAULT_ELEMENT_LOCAL_NAME));
+        classRefName = AuthnContextClassRef.DEFAULT_ELEMENT_NAME;
+        declRefName  = AuthnContextDeclRef.DEFAULT_ELEMENT_NAME;
     }
 
     /** {@inheritDoc} */
@@ -53,7 +53,7 @@ public class RequestedAuthnContextSchemaTest extends BaseSAMLObjectValidatorTest
         super.populateRequiredData();
         RequestedAuthnContext rac = (RequestedAuthnContext) target;
         
-        rac.getAuthnContextClassRefs().add(authnContextClassRef);
+        rac.getAuthnContextClassRefs().add((AuthnContextClassRef) buildXMLObject(classRefName));
     }
     
     /**
@@ -62,7 +62,7 @@ public class RequestedAuthnContextSchemaTest extends BaseSAMLObjectValidatorTest
     public void testChildrenFailure() {
         RequestedAuthnContext rac = (RequestedAuthnContext) target;
         
-        rac.getAuthnContextDeclRefs().add(authnContextDeclRef);
+        rac.getAuthnContextDeclRefs().add((AuthnContextDeclRef) buildXMLObject(declRefName));
         assertValidationFail("Element had both AuthnContextClassRef and AuthnContextDeclRef children");
         
         rac.getAuthnContextClassRefs().clear();
