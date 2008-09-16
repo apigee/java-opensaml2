@@ -180,6 +180,60 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifestEntries>
+                            <Main-Class>org.opensaml.Version</Main-Class>
+                        </manifestEntries>
+                        <manifestSections>
+                            <manifestSection>
+                                <name>org/opensaml/</name>
+                                <manifestEntries>
+                                    <Implementation-Title>${pom.artifactId}</Implementation-Title>
+                                    <Implementation-Version>${pom.version}</Implementation-Version>
+                                    <Implementation-Vendor>www.opensaml.org</Implementation-Vendor>
+                                </manifestEntries>
+                            </manifestSection>
+                            <manifestSection>
+                                <name>org/opensaml/saml1/</name>
+                                <manifestEntries>
+                                    <Specification-Title>Assertions and Protocol for the OASIS Security Assertion Markup Language (SAML) V1.1</Specification-Title>
+                                    <Specification-Version>1.1</Specification-Version>
+                                    <Specification-Vendor>OASIS</Specification-Vendor>
+                                </manifestEntries>
+                            </manifestSection>
+                            <manifestSection>
+                                <name>org/opensaml/saml2/</name>
+                                <manifestEntries>
+                                    <Specification-Title>Assertions and Protocol for the OASIS Security Assertion Markup Language (SAML) V2.0</Specification-Title>
+                                    <Specification-Version>2.0</Specification-Version>
+                                    <Specification-Vendor>OASIS</Specification-Vendor>
+                                </manifestEntries>
+                            </manifestSection>
+                            <manifestSection>
+                                <name>org/opensaml/xacml/</name>
+                                <manifestEntries>
+                                    <Specification-Title>eXtensible Access Control Markup Language (XACML) Version 2.0</Specification-Title>
+                                    <Specification-Version>2.0</Specification-Version>
+                                    <Specification-Vendor>OASIS</Specification-Vendor>
+                                </manifestEntries>
+                            </manifestSection>
+                            <manifestSection>
+                                <name>org/opensaml/xacml/profile/saml/</name>
+                                <manifestEntries>
+                                    <Specification-Title>SAML 2.0 Profile of XACML, Version 2</Specification-Title>
+                                    <Specification-Version>Working Draft 5</Specification-Version>
+                                    <Specification-Vendor>OASIS</Specification-Vendor>
+                                </manifestEntries>
+                            </manifestSection>
+                        </manifestSections>
+                    </archive>
+                </configuration>                
+            </plugin>
         </plugins>
     </build>
 
