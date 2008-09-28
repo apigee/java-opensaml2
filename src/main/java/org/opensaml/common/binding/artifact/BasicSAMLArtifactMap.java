@@ -101,17 +101,15 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
             return null;
         }
 
-        if (entry.getSamlMessage() == null) {
-            try {
-                Element samlMessageElem = parserPool.parse(new StringReader(entry.getSeralizedMessage()))
-                        .getDocumentElement();
-                Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlMessageElem);
-                entry.setSAMLMessage((SAMLObject) unmarshaller.unmarshall(samlMessageElem));
-            } catch (XMLParserException e) {
-                log.error("Unable to parse serialized SAML message", e);
-            } catch (UnmarshallingException e) {
-                log.error("Unable to unmarshall serialized SAML message", e);
-            }
+        try {
+            Element samlMessageElem = parserPool.parse(new StringReader(entry.getSeralizedMessage()))
+                    .getDocumentElement();
+            Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlMessageElem);
+            entry.setSAMLMessage((SAMLObject) unmarshaller.unmarshall(samlMessageElem));
+        } catch (XMLParserException e) {
+            log.error("Unable to parse serialized SAML message", e);
+        } catch (UnmarshallingException e) {
+            log.error("Unable to unmarshall serialized SAML message", e);
         }
 
         return entry;
@@ -120,8 +118,12 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
     /** {@inheritDoc} */
     public void put(String artifact, String relyingPartyId, String issuerId, SAMLObject samlMessage)
             throws MarshallingException {
+        StringWriter writer = new StringWriter();
+        Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(samlMessage);
+        XMLHelper.writeNode(marshaller.marshall(samlMessage), writer);
+
         BasicSAMLArtifactMapEntry artifactEntry = new BasicSAMLArtifactMapEntry(artifact, issuerId, relyingPartyId,
-                samlMessage, artifactLifetime);
+                writer.toString(), artifactLifetime);
         artifactStore.put(partition, artifact, artifactEntry);
     }
 
@@ -157,23 +159,15 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
          * @param artifact artifact associated with the message
          * @param issuer issuer of the artifact
          * @param relyingParty receiver of the artifact
-         * @param saml SAML message mapped to the artifact
+         * @param saml serialized SAML message mapped to the artifact
          * @param lifetime lifetime of the artifact
-         * 
-         * @throws MarshallingException thrown if the SAML message can not be serialzed to a string
          */
-        public BasicSAMLArtifactMapEntry(String artifact, String issuer, String relyingParty, SAMLObject saml,
-                long lifetime) throws MarshallingException {
+        public BasicSAMLArtifactMapEntry(String artifact, String issuer, String relyingParty, String saml, long lifetime) {
             this.artifact = artifact;
             this.issuer = issuer;
             this.relyingParty = relyingParty;
+            serializedMessage = saml;
             expirationTime = new DateTime().plus(lifetime);
-            message = saml;
-
-            StringWriter writer = new StringWriter();
-            Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(saml);
-            XMLHelper.writeNode(marshaller.marshall(saml), writer);
-            serializedMessage = writer.toString();
         }
 
         /** {@inheritDoc} */
@@ -201,7 +195,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
          * 
          * @param saml SAML message mapped to the artifact
          */
-        protected void setSAMLMessage(SAMLObject saml) {
+        private void setSAMLMessage(SAMLObject saml) {
             message = saml;
         }
 
@@ -210,7 +204,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
          * 
          * @return serialized form of the SAML message
          */
-        protected String getSeralizedMessage() {
+        private String getSeralizedMessage() {
             return serializedMessage;
         }
 

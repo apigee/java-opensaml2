@@ -24,6 +24,11 @@ import org.opensaml.xml.io.MarshallingException;
  * Maps an artifact to a SAML message and back again.
  * 
  * Artifacts must be thread safe.
+ * 
+ * An implementation of this interface MUST ensure that the persisted SAML message is no longer tied to any 
+ * parent {@link org.opensaml.xml.XMLObject} that may have contained it.  This ensure it can be safely added 
+ * to another object once retrieved from the map.  The easiest way to do this is to serailize the message out
+ * in to a string and re-parse and unmarhsall it again once retrieved from the underlying data store.
  */
 public interface SAMLArtifactMap {
 
@@ -66,7 +71,7 @@ public interface SAMLArtifactMap {
     public void remove(String artifact);
 
     /**
-     * Represents a mapping between an artifact a SAML message with some associated metadata.
+     * Represents a mapping between an artifact a SAML message with some associated metadata. 
      */
     public interface SAMLArtifactMapEntry extends ExpiringObject {
 
