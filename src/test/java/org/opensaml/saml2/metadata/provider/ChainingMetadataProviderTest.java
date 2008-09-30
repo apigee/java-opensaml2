@@ -29,23 +29,18 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
 
     private ChainingMetadataProvider metadataProvider;
     private String entityID;
+    private String entityID2;
     private String supportedProtocol;
     
     /**{@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
-        
        
         entityID = "urn:mace:incommon:washington.edu";
+        entityID2 = "urn:mace:switch.ch:SWITCHaai:ethz.ch";
         supportedProtocol ="urn:oasis:names:tc:SAML:1.1:protocol";
         
         metadataProvider = new ChainingMetadataProvider();
-        
-        String inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
-        HTTPMetadataProvider urlProvider = new HTTPMetadataProvider(inCommonMDURL, 1000 * 5);
-        urlProvider.setParserPool(parser);
-        urlProvider.initialize();
-        metadataProvider.addMetadataProvider(urlProvider);
         
         URL mdURL = FilesystemMetadataProviderTest.class.getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
         File mdFile = new File(mdURL.toURI());
@@ -53,6 +48,13 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
         fileProvider.setParserPool(parser);
         fileProvider.initialize();
         metadataProvider.addMetadataProvider(fileProvider);
+        
+        URL mdURL2 = FilesystemMetadataProviderTest.class.getResource("/data/org/opensaml/saml2/metadata/metadata.switchaai_signed.xml");
+        File mdFile2 = new File(mdURL2.toURI());
+        FilesystemMetadataProvider fileProvider2 = new FilesystemMetadataProvider(mdFile2);
+        fileProvider2.setParserPool(parser);
+        fileProvider2.initialize();
+        metadataProvider.addMetadataProvider(fileProvider2);
     }
     
     /**
@@ -62,6 +64,10 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
         EntityDescriptor descriptor = metadataProvider.getEntityDescriptor(entityID);
         assertNotNull("Retrieved entity descriptor was null", descriptor);
         assertEquals("Entity's ID does not match requested ID", entityID, descriptor.getEntityID());
+        
+        EntityDescriptor descriptor2 = metadataProvider.getEntityDescriptor(entityID2);
+        assertNotNull("Retrieved entity descriptor was null", descriptor2);
+        assertEquals("Entity's ID does not match requested ID", entityID2, descriptor2.getEntityID());
     }
     
     /**
@@ -71,6 +77,10 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
         assertNotNull("Roles for entity descriptor was null", roles);
         assertEquals("Unexpected number of roles", 1, roles.size());
+        
+        List<RoleDescriptor> roles2 = metadataProvider.getRole(entityID2, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
+        assertNotNull("Roles for entity descriptor was null", roles2);
+        assertEquals("Unexpected number of roles", 1, roles2.size());
     }
     
     /**
@@ -79,5 +89,23 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
     public void testGetRoleWithSupportedProtocol() throws MetadataProviderException{
         RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
         assertNotNull("Roles for entity descriptor was null", role);
+        
+        RoleDescriptor role2 = metadataProvider.getRole(entityID2, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+        assertNotNull("Roles for entity descriptor was null", role2);
     }
+    
+    /**
+     * Tests that metadata filters are disallowed on the chaining provider.
+     */
+    public void testFilterDisallowed() {
+        try {
+            metadataProvider.setMetadataFilter( new SchemaValidationFilter(new String[]{}) );
+            fail("Should fail with an UnsupportedOperationException");
+        } catch (MetadataProviderException e) {
+            fail("Should fail with an UnsupportedOperationException");
+        } catch (UnsupportedOperationException e) {
+           // expected, do nothing
+        }
+    }
+    
 }

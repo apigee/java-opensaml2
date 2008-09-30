@@ -101,7 +101,6 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
     public void addMetadataProvider(MetadataProvider newProvider) throws MetadataProviderException {
         if (newProvider != null) {
             newProvider.setRequireValidMetadata(requireValidMetadata());
-            newProvider.setMetadataFilter(getMetadataFilter());
 
             if (newProvider instanceof ObservableMetadataProvider) {
                 ((ObservableMetadataProvider) newProvider).getObservers().add(new ContainedProviderObserver());
@@ -117,6 +116,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
      * @param provider provider to be removed
      */
     public void removeMetadataProvider(MetadataProvider provider) {
+        //TODO we should remove the ContainedProviderObserver from the member's observer list
         providers.remove(provider);
     }
 
@@ -133,20 +133,14 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
     }
 
     /** {@inheritDoc} */
-    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
-        super.setMetadataFilter(newFilter);
+    public MetadataFilter getMetadataFilter() {
+        log.warn("Attempt to access unsupported MetadataFilter property on ChainingMetadataProvider");
+        return null;
+    }
 
-        Lock writeLock = providerLock.writeLock();
-        writeLock.lock();
-        try {
-            for (MetadataProvider provider : providers) {
-                provider.setMetadataFilter(newFilter);
-            }
-        } catch (MetadataProviderException e) {
-            throw e;
-        } finally {
-            writeLock.unlock();
-        }
+    /** {@inheritDoc} */
+    public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
+        throw new UnsupportedOperationException("Metadata filter is not allowed on ChainingMetadataProvider");
     }
 
     /**
