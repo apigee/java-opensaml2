@@ -1,0 +1,38 @@
+<EntitiesDescriptor Name="cachetest-metadata" xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   
+   <EntityDescriptor entityID="http://sp.example.org/">
+      
+      <SPSSODescriptor protocolSupportEnumeration="PROTOCOL_FOO">
+         <KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+               <ds:X509Data>
+                  <!-- RSA cert -->
+                  <ds:X509Certificate>
+                     MIIC8DCCAdigAwIBAgIBNDANBgkqhkiG9w0BAQUFADAtMRIwEAYDVQQKEwlJbnRl
+                     cm5ldDIxFzAVBgNVBAMTDmNhLmV4YW1wbGUub3JnMB4XDTA3MDUyNTIwMzEwOFoX
+                     DTE3MDUyMjIwMzEwOFowGTEXMBUGA1UEAxMOc3AuZXhhbXBsZS5vcmcwgZ8wDQYJ
+                     KoZIhvcNAQEBBQADgY0AMIGJAoGBAKk7xVQ23rc51qieDAcj3CCsumTTpTiFCxGi
+                     qDA8lStdcBmoNX3v+lBFKkXtQKwebcwOF3YyHFyZ2kXFREfZrG76h/5QBFNQZa6y
+                     /rJskCl9bnz70HVDzBGizRc3qWVDKP1EQ6rRY2qkeGd33NKHkVUepGMPhHsv3kK+
+                     zVUR6/v/AgMBAAGjgbIwga8wCQYDVR0TBAIwADAsBglghkgBhvhCAQ0EHxYdT3Bl
+                     blNTTCBHZW5lcmF0ZWQgQ2VydGlmaWNhdGUwHQYDVR0OBBYEFOhBatBFJQgNeKiG
+                     1/Ro9W9zmO92MFUGA1UdIwROMEyAFNXuZVPeUdqHrULqQW7yr9buRpQLoTGkLzAt
+                     MRIwEAYDVQQKEwlJbnRlcm5ldDIxFzAVBgNVBAMTDmNhLmV4YW1wbGUub3JnggEB
+                     MA0GCSqGSIb3DQEBBQUAA4IBAQAhpFQ4+OOrtETiuSagUe9dSqm1hahcQuv3iWRf
+                     L7Pp6i2x1rR6hlk9zXUC58Oou/UOUOpPWZG/8cr3B50ViuT3zVisIYdaCGeUZ3ef
+                     EeeeaI77m73xpn/qNI4aIlr6Wmj9C0biJsF3hJvtK2VJu74GCUtxsXkEKyQ0fNx6
+                     bTd50RxUhM4uto7YqvMfKH6GDJPRcFmsR5YEajxOVihfRtOjvd1rTnOQLWYQRy1O
+                     ZQek1Z6M7aJmYanYEAjQhyzbKM+R2sqzMlgHbGnbeAADEBnQi8GSkTpgyieT6NC8
+                     6SvWhq47gNpBYySYhb9zKx/OcZMK4UBD48HhAatEgovrKCHH
+                  </ds:X509Certificate>
+               </ds:X509Data>
+            </ds:KeyInfo>
+         </KeyDescriptor>
+         <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post"
+            Location="https://sp.example.org/Shibboleth.sso/POST" index="0"/>
+      </SPSSODescriptor>
+      
+   </EntityDescriptor>
+
+</EntitiesDescriptor>
