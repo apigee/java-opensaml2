@@ -67,5 +67,10 @@ public class ResourceContentTypeMarshaller extends AbstractXMLObjectMarshaller {
 
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
+        ResourceContentType resourceContent = (ResourceContentType) xmlObject;
+        
+        if(resourceContent.getValue() != null){
+            XMLHelper.appendTextContent(domElement, resourceContent.getValue());
+        }
     }
 }

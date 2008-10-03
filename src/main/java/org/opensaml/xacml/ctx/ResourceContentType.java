@@ -40,4 +40,18 @@ public interface ResourceContentType extends XACMLObject, ElementExtensibleXMLOb
     /** QName of the XSI type. */
     public static final QName TYPE_NAME = new QName(XACMLConstants.XACML20CTX_NS, TYPE_LOCAL_NAME,
             XACMLConstants.XACMLCONTEXT_PREFIX);
+    
+    /**
+     * Gets the text value of this element.
+     * 
+     * @return text value of this element
+     */
+    public String getValue();
+    
+    /**
+     * Sets the text value of this element.
+     * 
+     * @param value text value of this element
+     */
+    public void setValue(String value);
 }

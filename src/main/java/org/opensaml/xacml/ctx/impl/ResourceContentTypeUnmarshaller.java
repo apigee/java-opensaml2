@@ -22,6 +22,7 @@ import org.opensaml.xacml.ctx.ResourceContentType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
@@ -65,5 +66,7 @@ public class ResourceContentTypeUnmarshaller extends AbstractXMLObjectUnmarshall
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject xmlObject, String elementContent) {
+        ResourceContentType resourceContent = (ResourceContentType) xmlObject;
+        resourceContent.setValue(DatatypeHelper.safeTrimOrNullString(elementContent));
     }
 }

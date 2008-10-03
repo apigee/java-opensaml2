@@ -36,6 +36,9 @@ public class ResourceContentTypeImpl extends AbstractValidatingXMLObject impleme
 
     /** "any" attributes. */
     private AttributeMap unknownAttributes;
+    
+    /** String value of the mixed content element. */
+    private String value;
 
     /**
      * Constructor.
@@ -72,5 +75,15 @@ public class ResourceContentTypeImpl extends AbstractValidatingXMLObject impleme
     /** {@inheritDoc} */
     public AttributeMap getUnknownAttributes() {
         return unknownAttributes;
+    }
+    
+    /** {@inheritDoc} */
+    public String getValue() {
+        return value;
+    }
+    
+    /** {@inheritDoc} */
+    public void setValue(String newValue) {
+        value = prepareForAssignment(value, newValue);
     }
 }
