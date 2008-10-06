@@ -16,6 +16,9 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.joda.time.DateTime;
 import org.opensaml.saml2.common.SAML2Helper;
 import org.opensaml.util.resource.Resource;
@@ -26,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A metadata provider that reads metadta from a {#link {@link Resource}.
+ * A metadata provider that reads metadata from a {#link {@link Resource}.
  * 
  * @since 2.2
  */
@@ -35,14 +38,20 @@ public class ResourceBackedMetadataProvider extends AbstractObservableMetadataPr
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(ResourceBackedMetadataProvider.class);
 
+    /** Timer used to execute metadata polling tasks. */
+    private Timer taskTimer;
+
+    /** Maximum amount of time metadata will be cached, in milliseconds. */
+    private long maxCacheDuration;
+
     /** Resource from which metadata is read. */
     private Resource metadataResource;
 
+    /** The last time the metadata was updated as reported by the resource. */
+    private DateTime lastMetadataUpdate;
+
     /** Whether cached metadata should be discarded if it expires and can't be refreshed. */
     private boolean maintainExpiredMetadata;
-
-    /** Last time the cached metadata was updated. */
-    private long lastUpdate;
 
     /** Cached metadata. */
     private XMLObject cachedMetadata;
@@ -51,11 +60,22 @@ public class ResourceBackedMetadataProvider extends AbstractObservableMetadataPr
      * Constructor.
      * 
      * @param resource resource from which to read the metadata file.
+     * @param timer task timer used to schedule metadata refresh tasks
+     * @param maxMetadataCacheDuration maximum amount of time, in milliseconds, that metadata may be cached before being
+     *            re-read
      * 
      * @throws MetadataProviderException thrown if there is a problem retrieving information about the resource
      */
-    public ResourceBackedMetadataProvider(Resource resource) throws MetadataProviderException {
+    public ResourceBackedMetadataProvider(Resource resource, Timer timer, long maxMetadataCacheDuration)
+            throws MetadataProviderException {
         super();
+
+        taskTimer = timer;
+
+        if (maxMetadataCacheDuration < 1) {
+            throw new IllegalArgumentException("Max cache duration must be a positive number");
+        }
+        maxCacheDuration = maxMetadataCacheDuration;
 
         try {
             if (!resource.exists()) {
@@ -63,7 +83,6 @@ public class ResourceBackedMetadataProvider extends AbstractObservableMetadataPr
             }
             metadataResource = resource;
             maintainExpiredMetadata = false;
-            lastUpdate = -1;
         } catch (ResourceException e) {
             throw new MetadataProviderException("Unable to read resource", e);
         }
@@ -98,56 +117,81 @@ public class ResourceBackedMetadataProvider extends AbstractObservableMetadataPr
 
     /** {@inheritDoc} */
     public XMLObject getMetadata() throws MetadataProviderException {
+        return cachedMetadata;
+    }
+
+    /**
+     * Retrieves, unmarshalls, and filters the metadata from the metadata resource.
+     * 
+     * @throws MetadataProviderException thrown if there is a problem reading, parsing, or validating the metadata
+     */
+    private void refreshMetadata() throws MetadataProviderException {
         try {
-            if (lastUpdate < metadataResource.getLastModifiedTime().getMillis()) {
-                refreshMetadata();
+            boolean metadataChanged = false;
+            
+            XMLObject metadata = getLatestMetadata();
+            if(metadata != cachedMetadata){
+                metadataChanged = true;
             }
 
-            return cachedMetadata;
+            // If the metadata has expired, and we're not configured to use expired metadata, discard it else use it
+            DateTime expirationTime = SAML2Helper.getEarliestExpiration(metadata);
+            if (expirationTime != null && !maintainExpiredMetadata() && expirationTime.isBeforeNow()) {
+                log.debug("Metadata from resource {} is expired and this provider is configured not to retain expired metadata.",
+                                metadataResource.getInputStream());
+                cachedMetadata = null;
+                metadataChanged = true;
+            } else {
+                cachedMetadata = metadata;
+            }
+
+            // Let everyone know metadata has changed
+            if (metadataChanged) {
+                emitChangeEvent();
+            }
+
+            // Determine the next time to check for a metadata change and schedule it
+            long nextUpdateDelay;
+            if (expirationTime != null && expirationTime.isBefore(System.currentTimeMillis() + maxCacheDuration)) {
+                nextUpdateDelay = expirationTime.getMillis() - System.currentTimeMillis();
+            } else {
+                nextUpdateDelay = maxCacheDuration;
+            }
+            log.debug("Next refresh of metadata from resource {} scheduled in {}ms", metadataResource.getLocation(),
+                    nextUpdateDelay);
+            taskTimer.schedule(new MetadataPollTask(), nextUpdateDelay);
         } catch (ResourceException e) {
-            log.error("Unable to determine last modified time of resource {}", new Object[] { metadataResource
-                    .getLocation(), }, e);
-            throw new MetadataProviderException("Unable to determine last modified time of resource", e);
+            String errorMsg = "Unable to read metadata file";
+            log.error(errorMsg, e);
+            throw new MetadataProviderException(errorMsg, e);
         }
     }
 
     /**
-     * Retrieves, unmarshalls, and filters the metadata from the metadata file.
+     * Gets the latest metadata from the resource if the resource reports a modification time after the last update,
+     * otherwise uses the currently cached metadata.
      * 
-     * @throws MetadataProviderException thrown if there is a problem reading, parsing, or validating the metadata
+     * @return latest metadata
+     * 
+     * @throws MetadataProviderException thrown if the metadata can not be loaded from the resource, unmarshalled, and
+     *             filtered
      */
-    private synchronized void refreshMetadata() throws MetadataProviderException {
-        try {
-            // Only read the resource last mod time once, store off for later use. See below.
-            long metadataFileLastModified = metadataResource.getLastModifiedTime().getMillis();
-            if (lastUpdate >= metadataFileLastModified) {
-                // In case other requests stacked up behind the synchronize lock
-                return;
-            }
+    private XMLObject getLatestMetadata() throws MetadataProviderException {
+        XMLObject metadata;
 
-            log.debug("Refreshing metadata from resource {}", metadataResource.getLocation());
-            XMLObject metadata = unmarshallMetadata(metadataResource.getInputStream());
-            DateTime expirationTime = SAML2Helper.getEarliestExpiration(metadata);
-            if (expirationTime != null && !maintainExpiredMetadata() && expirationTime.isBeforeNow()) {
-                log
-                        .debug(
-                                "Metadata from resource {} is expired and this provider is configured not to retain expired metadata.",
-                                metadataResource.getInputStream());
-                cachedMetadata = null;
-            } else {
+        try {
+            DateTime metadataUpdateTime = metadataResource.getLastModifiedTime();
+            if (lastMetadataUpdate == null || metadataUpdateTime.isAfter(lastMetadataUpdate)) {
+                lastMetadataUpdate = metadataUpdateTime;
+                log.debug("Refreshing metadata from resource {}", metadataResource.getLocation());
+                metadata = unmarshallMetadata(metadataResource.getInputStream());
                 filterMetadata(metadata);
                 releaseMetadataDOM(metadata);
-                cachedMetadata = metadata;
+            } else {
+                metadata = cachedMetadata;
             }
 
-            // Note: this doesn't really avoid re-reading the metadata file unnecessarily on later refreshes
-            // (case where file changed between reading/storing the last mod time above and when the contents
-            // were read above).
-            // It does however avoid the greater evil of *missing* a newer file on a subsequent refresh
-            // (case where the file changed after the contents were read above, but before here).
-            // To do this exactly correctly, we need to make use of OS filesystem-level file locking.
-            lastUpdate = metadataFileLastModified;
-            emitChangeEvent();
+            return metadata;
         } catch (ResourceException e) {
             String errorMsg = "Unable to read metadata file";
             log.error(errorMsg, e);
@@ -160,6 +204,20 @@ public class ResourceBackedMetadataProvider extends AbstractObservableMetadataPr
             String errorMsg = "Unable to filter metadata";
             log.error(errorMsg, e);
             throw new MetadataProviderException(errorMsg, e);
+        }
+    }
+
+    /** Timer task that periodically refreshes metadata. */
+    private class MetadataPollTask extends TimerTask {
+
+        /** {@inheritDoc} */
+        public void run() {
+            try {
+                log.debug("Checking if metadata from resource {} should be updated", metadataResource.getLocation());
+                refreshMetadata();
+            } catch (MetadataProviderException e) {
+                log.error("Unable to refresh metadata", e);
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ package org.opensaml.saml2.metadata.provider;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
+import java.util.Timer;
 
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -46,7 +47,7 @@ public class ResourceBackedMetadataProviderTest extends BaseTestCase {
                 .getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
         FilesystemResource mdResource = new FilesystemResource(new File(mdURL.toURI()).getAbsolutePath());
 
-        metadataProvider = new ResourceBackedMetadataProvider(mdResource);
+        metadataProvider = new ResourceBackedMetadataProvider(mdResource, new Timer(), 500000);
         metadataProvider.setParserPool(parser);
         metadataProvider.initialize();
     }

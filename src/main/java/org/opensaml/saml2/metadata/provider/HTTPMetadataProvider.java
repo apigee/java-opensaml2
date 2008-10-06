@@ -47,9 +47,6 @@ import org.slf4j.LoggerFactory;
  * 
  * It is the responsibility of the caller to re-initialize, via {@link #initialize()}, if any properties of this
  * provider are changed.
- * 
- *  * @deprecated use {@link ResourceBackedMetadataProvider} with a
- *             {@link org.opensaml.util.resource.HttpResource} resource provider
  */
 public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
 
