@@ -108,19 +108,11 @@ public class MetadataTest extends BaseTestCase {
         String switchMDFile = "/data/org/opensaml/saml2/metadata/ukfederation-metadata.xml";
 
         try {
-            long parseStart = System.currentTimeMillis();
             InputStream in = MetadataTest.class.getResourceAsStream(switchMDFile);
-            Document ukFedDoc = parser.parse(in);
-            long parseEnd = System.currentTimeMillis();
-            
-            long unmarshallStart = System.currentTimeMillis();
+            Document ukFedDoc = parser.parse(in);            
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(
                     ukFedDoc.getDocumentElement());
             XMLObject ukFedMD = unmarshaller.unmarshall(ukFedDoc.getDocumentElement());
-            long unmarshallEnd = System.currentTimeMillis();
-            
-            System.out.println("Parse time: " + (parseEnd - parseStart));
-            System.out.println("Unmarshall time: " + ( unmarshallEnd - unmarshallStart));
 
             assertEquals("First element of UK Federation data was not expected EntitiesDescriptor", "EntitiesDescriptor",
                     ukFedMD.getElementQName().getLocalPart());
