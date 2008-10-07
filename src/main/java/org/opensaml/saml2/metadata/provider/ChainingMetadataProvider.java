@@ -54,7 +54,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
     /** List of registered observers. */
     private ArrayList<Observer> observers;
 
-    /** Registred providers. */
+    /** Registered providers. */
     private ArrayList<MetadataProvider> providers;
 
     /** Lock used to block reads during write and vice versa. */
@@ -275,7 +275,6 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
 
         /** {@inheritDoc} */
         public void onEvent(MetadataProvider provider) {
-            providers.clear();
             emitChangeEvent();
         }
     }

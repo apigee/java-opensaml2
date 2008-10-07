@@ -65,16 +65,16 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             return getEntitiesDescriptorByName(name, descriptor);
         }
 
+        log.debug("Metadata document does not contain an EntitiesDescriptor with the ID {}", name);
         return null;
     }
 
     /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException {
-        log.debug("Getting descriptor for entity {}", entityID);
         XMLObject metadata = getMetadata();
         EntityDescriptor descriptor = getEntityDescriptorById(entityID, metadata);
         if (descriptor == null) {
-            log.debug("Metadata document does not contain an entity descriptor with the ID {}", entityID);
+            log.debug("Metadata document does not contain an EntityDescriptor with the ID {}", entityID);
             return null;
         }
 
@@ -205,9 +205,9 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
         log.debug("Searching for entity descriptor with an entity ID of {}", entityID);
         if (indexedDescriptors.containsKey(entityID)) {
-            log.debug("Entity descriptor for the ID {} was found in index cache, returning", entityID);
             descriptor = indexedDescriptors.get(entityID);
             if (isValid(descriptor)) {
+                log.trace("Entity descriptor for the ID {} was found in index cache, returning", entityID);
                 return descriptor;
             } else {
                 indexedDescriptors.remove(descriptor);
@@ -216,14 +216,19 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
         if (metadata != null) {
             if (metadata instanceof EntityDescriptor) {
-                log.debug("Metadata root is an entity descriptor, checking if it's the one we're looking for.");
+                log.trace("Metadata root is an entity descriptor, checking if it's the one we're looking for.");
                 descriptor = (EntityDescriptor) metadata;
-                if (!descriptor.getEntityID().equals(entityID) || !isValid(descriptor)) {
-                    log.debug("Entity descriptor does not have the correct entity ID or is not valid, returning null");
+                if (!descriptor.getEntityID().equals(entityID)) {
+                    // skip this one, it isn't what we're looking for
+                    descriptor = null;
+                }
+                if (!isValid(descriptor)) {
+                    log.trace("Found entity descriptor for entity with ID {} but it is no longer valid, skipping it.",
+                            entityID);
                     descriptor = null;
                 }
             } else {
-                log.debug("Metadata was an EntitiesDescriptor, checking if any of its descendant EntityDescriptor elements is the one we're looking for.");
+                log.trace("Metadata was an EntitiesDescriptor, checking if any of its descendant EntityDescriptor elements is the one we're looking for.");
                 if (metadata instanceof EntitiesDescriptor) {
                     descriptor = getEntityDescriptorById(entityID, (EntitiesDescriptor) metadata);
                 }
@@ -231,7 +236,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         }
 
         if (descriptor != null) {
-            log.debug("Located entity descriptor, creating an index to it for faster lookups");
+            log.trace("Located entity descriptor, creating an index to it for faster lookups");
             indexedDescriptors.put(entityID, descriptor);
         }
 
@@ -247,7 +252,8 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * @return the entity descriptor
      */
     protected EntityDescriptor getEntityDescriptorById(String entityID, EntitiesDescriptor descriptor) {
-        log.trace("Checking to see if any of the child entity descriptors of entities descriptor {} is the requested descriptor", descriptor.getName());
+        log.trace("Checking to see if any of the child entity descriptors of entities descriptor {} is the requested descriptor",
+                        descriptor.getName());
         List<EntityDescriptor> entityDescriptors = descriptor.getEntityDescriptors();
         if (entityDescriptors != null) {
             for (EntityDescriptor entityDescriptor : entityDescriptors) {
