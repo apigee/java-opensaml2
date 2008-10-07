@@ -19,9 +19,6 @@ Changes in Release 2.2.0
 [JOST-54] - New addObligationhandlers method in ObligationService
 [JOST-62] - Add version information in library JAR manifest and provide command line tool to view it
 
-* Deprecate FileBackedHTTP, Filesystem, and HTTP metadata providers in favor of new ResourceBacked metadata provider.
-  This provides a uniform layer for going out and fetching remote resources.
-
 Changes in Release 2.1.0
 =============================================
 * Addition of contributed XACML code
