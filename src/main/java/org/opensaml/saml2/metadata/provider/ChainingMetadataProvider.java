@@ -275,6 +275,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
 
         /** {@inheritDoc} */
         public void onEvent(MetadataProvider provider) {
+            providers.clear();
             emitChangeEvent();
         }
     }
