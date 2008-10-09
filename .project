@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>java-opensaml2</name>
+	<name>java-opensaml2-r2</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
-		<buildCommand>
-			<name>org.maven.ide.eclipse.maven2Builder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -20,10 +15,16 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>org.devzuz.q.maven.jdt.core.mavenIncrementalBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.maven.ide.eclipse.maven2Nature</nature>
-		<nature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</nature>
+		<nature>org.devzuz.q.maven.jdt.core.mavenNature</nature>
 	</natures>
 </projectDescription>
