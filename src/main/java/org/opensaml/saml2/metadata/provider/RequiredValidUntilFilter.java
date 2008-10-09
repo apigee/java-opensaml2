@@ -37,16 +37,12 @@ public class RequiredValidUntilFilter implements MetadataFilter {
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(RequiredValidUntilFilter.class);
 
-    /** The maximum interval, in seconds, between now and the <code>validUntil</code> date. */
+    /** The maximum interval, in milliseconds, between now and the <code>validUntil</code> date. */
     private long maxValidityInterval;
 
-    /**
-     * Constructor.
-     * 
-     * Requires that the maximum validity interval is no greater than 1 week.
-     */
+    /** Constructor. */
     public RequiredValidUntilFilter() {
-        maxValidityInterval = 60 * 60 * 24 * 7;
+        maxValidityInterval = 0;
     }
 
     /**
@@ -55,7 +51,7 @@ public class RequiredValidUntilFilter implements MetadataFilter {
      * @param maxValidityInterval maximum internal, in seconds, between now and the <code>validUntil</code> date
      */
     public RequiredValidUntilFilter(long maxValidityInterval) {
-        this.maxValidityInterval = maxValidityInterval;
+        this.maxValidityInterval = maxValidityInterval * 1000;
     }
 
     /**
@@ -86,10 +82,12 @@ public class RequiredValidUntilFilter implements MetadataFilter {
             throw new FilterException("Metadata did not include a validUntil attribute");
         }
 
-        long validityInterval = new Interval(new DateTime(), validUntil).toDurationMillis();
-        if (validityInterval > maxValidityInterval * 1000) {
-            throw new FilterException("Metadata's validity interval, " + validityInterval
-                    + "ms, is larger than is allowed, " + maxValidityInterval + "ms.");
+        if (maxValidityInterval > 0) {
+            long validityInterval = new Interval(new DateTime(), validUntil).toDurationMillis();
+            if (validityInterval > maxValidityInterval) {
+                throw new FilterException("Metadata's validity interval, " + validityInterval
+                        + "ms, is larger than is allowed, " + maxValidityInterval + "ms.");
+            }
         }
     }
 }
