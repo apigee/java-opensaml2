@@ -18,22 +18,29 @@ package org.opensaml.saml2.metadata.provider;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.common.SAMLObjectBuilder;
+import org.joda.time.DateTime;
+import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.xml.Configuration;
+import org.opensaml.xml.Namespace;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilderFactory;
+import org.opensaml.xml.signature.Signature;
+import org.opensaml.xml.util.IDIndex;
+import org.opensaml.xml.validation.ValidationException;
+import org.opensaml.xml.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Element;
 
 /**
  * A metadata provider that uses registered providers, in turn, to answer queries.
@@ -116,7 +123,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
      * @param provider provider to be removed
      */
     public void removeMetadataProvider(MetadataProvider provider) {
-        //TODO we should remove the ContainedProviderObserver from the member's observer list
+        // TODO we should remove the ContainedProviderObserver from the member's observer list
         providers.remove(provider);
     }
 
@@ -149,31 +156,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
      * {@inheritDoc}
      */
     public XMLObject getMetadata() throws MetadataProviderException {
-        XMLObjectBuilderFactory builderFactory = Configuration.getBuilderFactory();
-        SAMLObjectBuilder<EntitiesDescriptor> builder = (SAMLObjectBuilder<EntitiesDescriptor>) builderFactory
-                .getBuilder(EntitiesDescriptor.DEFAULT_ELEMENT_NAME);
-        EntitiesDescriptor metadataRoot = builder.buildObject();
-
-        Lock readLock = providerLock.readLock();
-        readLock.lock();
-
-        XMLObject providerMetadata;
-        try {
-            for (MetadataProvider provider : providers) {
-                providerMetadata = provider.getMetadata();
-                if (providerMetadata instanceof EntitiesDescriptor) {
-                    metadataRoot.getEntitiesDescriptors().add((EntitiesDescriptor) providerMetadata);
-                } else if (providerMetadata instanceof EntityDescriptor) {
-                    metadataRoot.getEntityDescriptors().add((EntityDescriptor) providerMetadata);
-                }
-            }
-        } catch (MetadataProviderException e) {
-            throw e;
-        } finally {
-            readLock.unlock();
-        }
-
-        return metadataRoot;
+        return new ChainingEntitiesDescriptor();
     }
 
     /** {@inheritDoc} */
@@ -277,5 +260,262 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
         public void onEvent(MetadataProvider provider) {
             emitChangeEvent();
         }
+    }
+
+    private class ChainingEntitiesDescriptor implements EntitiesDescriptor {
+
+        /** {@inheritDoc} */
+        public List<EntitiesDescriptor> getEntitiesDescriptors() {
+            XMLObject descriptor;
+            ArrayList<EntitiesDescriptor> descriptors = new ArrayList<EntitiesDescriptor>();
+            try {
+                for (MetadataProvider provider : providers) {
+                    descriptor = provider.getMetadata();
+                    if (descriptor instanceof EntitiesDescriptor) {
+                        descriptors.add((EntitiesDescriptor) descriptor);
+                    }
+                }
+            } catch (MetadataProviderException e) {
+                log.error("Unable to generate list of entities descriptors", e);
+            }
+
+            return descriptors;
+        }
+
+        /** {@inheritDoc} */
+        public List<EntityDescriptor> getEntityDescriptors() {
+            XMLObject descriptor;
+            ArrayList<EntityDescriptor> descriptors = new ArrayList<EntityDescriptor>();
+            try {
+                for (MetadataProvider provider : providers) {
+                    descriptor = provider.getMetadata();
+                    if (descriptor instanceof EntityDescriptor) {
+                        descriptors.add((EntityDescriptor) descriptor);
+                    }
+                }
+            } catch (MetadataProviderException e) {
+                log.error("Unable to generate list of entity descriptors", e);
+            }
+
+            return descriptors;
+        }
+
+        /** {@inheritDoc} */
+        public Extensions getExtensions() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public String getID() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public String getName() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public void setExtensions(Extensions extensions) throws IllegalArgumentException {
+
+        }
+
+        /** {@inheritDoc} */
+        public void setID(String newID) {
+
+        }
+
+        /** {@inheritDoc} */
+        public void setName(String name) {
+
+        }
+
+        /** {@inheritDoc} */
+        public String getSignatureReferenceID() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public Signature getSignature() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public boolean isSigned() {
+            return false;
+        }
+
+        /** {@inheritDoc} */
+        public void setSignature(Signature newSignature) {
+
+        }
+
+        /** {@inheritDoc} */
+        public void addNamespace(Namespace namespace) {
+
+        }
+
+        /** {@inheritDoc} */
+        public void detach() {
+
+        }
+
+        /** {@inheritDoc} */
+        public Element getDOM() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public QName getElementQName() {
+            return EntitiesDescriptor.DEFAULT_ELEMENT_NAME;
+        }
+
+        /** {@inheritDoc} */
+        public IDIndex getIDIndex() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public Set<Namespace> getNamespaces() {
+            return new HashSet<Namespace>();
+        }
+
+        /** {@inheritDoc} */
+        public String getNoNamespaceSchemaLocation() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public List<XMLObject> getOrderedChildren() {
+            ArrayList<XMLObject> descriptors = new ArrayList<XMLObject>();
+            try {
+                for (MetadataProvider provider : providers) {
+                    descriptors.add(provider.getMetadata());
+                }
+            } catch (MetadataProviderException e) {
+                log.error("Unable to generate list of child descriptors", e);
+            }
+
+            return descriptors;
+        }
+
+        /** {@inheritDoc} */
+        public XMLObject getParent() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public String getSchemaLocation() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public QName getSchemaType() {
+            return EntitiesDescriptor.TYPE_NAME;
+        }
+
+        /** {@inheritDoc} */
+        public boolean hasChildren() {
+            return !getOrderedChildren().isEmpty();
+        }
+
+        /** {@inheritDoc} */
+        public boolean hasParent() {
+            return false;
+        }
+
+        /** {@inheritDoc} */
+        public void releaseChildrenDOM(boolean propagateRelease) {
+
+        }
+
+        /** {@inheritDoc} */
+        public void releaseDOM() {
+
+        }
+
+        /** {@inheritDoc} */
+        public void releaseParentDOM(boolean propagateRelease) {
+
+        }
+
+        /** {@inheritDoc} */
+        public void removeNamespace(Namespace namespace) {
+
+        }
+
+        /** {@inheritDoc} */
+        public XMLObject resolveID(String id) {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public XMLObject resolveIDFromRoot(String id) {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public void setDOM(Element dom) {
+
+        }
+
+        /** {@inheritDoc} */
+        public void setNoNamespaceSchemaLocation(String location) {
+
+        }
+
+        /** {@inheritDoc} */
+        public void setParent(XMLObject parent) {
+
+        }
+
+        /** {@inheritDoc} */
+        public void setSchemaLocation(String location) {
+
+        }
+
+        /** {@inheritDoc} */
+        public void deregisterValidator(Validator validator) {
+
+        }
+
+        /** {@inheritDoc} */
+        public List<Validator> getValidators() {
+            return new ArrayList<Validator>();
+        }
+
+        /** {@inheritDoc} */
+        public void registerValidator(Validator validator) {
+        }
+
+        /** {@inheritDoc} */
+        public void validate(boolean validateDescendants) throws ValidationException {
+        }
+
+        /** {@inheritDoc} */
+        public DateTime getValidUntil() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public boolean isValid() {
+            return true;
+        }
+
+        /** {@inheritDoc} */
+        public void setValidUntil(DateTime validUntil) {
+
+        }
+
+        /** {@inheritDoc} */
+        public Long getCacheDuration() {
+            return null;
+        }
+
+        /** {@inheritDoc} */
+        public void setCacheDuration(Long duration) {
+
+        }
+
     }
 }

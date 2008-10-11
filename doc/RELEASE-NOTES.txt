@@ -1,3 +1,7 @@
+Changes in Release 2.2.1
+=============================================
+[JOST-64] - Multiple calls to ChainingMetadataProvider#getMetadata result in "EntitiesDescriptor is already the child of another XMLObject" exception
+
 Changes in Release 2.2.0
 =============================================
 [JOST-32] - MetadataSignatureFilter should verify signatures on RoleDescriptor and AffiliationDescriptor elements

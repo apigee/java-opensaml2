@@ -28,6 +28,12 @@ import org.opensaml.xml.XMLObject;
 /**
  * A local store into which metadata can be loaded and queried. Specific implementations may perform additional logic
  * such as caching (and refreshing) metadata and merging metadata, about a single entity, from multiple sources.
+ * 
+ * <strong>NOTE</strong>, developers should not try to marshall the metadata that comes from a metadata provider.  It 
+ * is possible that the a provider, or {@link MetadataFilter}, implementation may make changes to the retrieved metadata 
+ * that make unusable for marshalling.  For example, by removing elements required by the schema but not by the user of
+ * the provider as a way of saving on memory.  Or by remove elements and thus invalidating a signature that had be 
+ * present on the retrieved metadata.
  */
 public interface MetadataProvider {
 
