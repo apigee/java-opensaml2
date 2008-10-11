@@ -262,6 +262,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
         }
     }
 
+    /** Class that wraps the currently list of providers and exposes it as an EntitiesDescriptors. */
     private class ChainingEntitiesDescriptor implements EntitiesDescriptor {
 
         /** {@inheritDoc} */
