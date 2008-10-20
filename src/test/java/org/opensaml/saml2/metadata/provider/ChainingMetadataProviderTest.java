@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.List;
 
 import org.opensaml.common.BaseTestCase;
+import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
@@ -28,84 +29,94 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 public class ChainingMetadataProviderTest extends BaseTestCase {
 
     private ChainingMetadataProvider metadataProvider;
+
     private String entityID;
+
     private String entityID2;
+
     private String supportedProtocol;
-    
-    /**{@inheritDoc} */
+
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
-       
+
         entityID = "urn:mace:incommon:washington.edu";
         entityID2 = "urn:mace:switch.ch:SWITCHaai:ethz.ch";
-        supportedProtocol ="urn:oasis:names:tc:SAML:1.1:protocol";
-        
+        supportedProtocol = "urn:oasis:names:tc:SAML:1.1:protocol";
+
         metadataProvider = new ChainingMetadataProvider();
-        
-        URL mdURL = FilesystemMetadataProviderTest.class.getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
+
+        URL mdURL = FilesystemMetadataProviderTest.class
+                .getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
         File mdFile = new File(mdURL.toURI());
         FilesystemMetadataProvider fileProvider = new FilesystemMetadataProvider(mdFile);
         fileProvider.setParserPool(parser);
         fileProvider.initialize();
         metadataProvider.addMetadataProvider(fileProvider);
-        
-        URL mdURL2 = FilesystemMetadataProviderTest.class.getResource("/data/org/opensaml/saml2/metadata/metadata.switchaai_signed.xml");
+
+        URL mdURL2 = FilesystemMetadataProviderTest.class
+                .getResource("/data/org/opensaml/saml2/metadata/metadata.switchaai_signed.xml");
         File mdFile2 = new File(mdURL2.toURI());
         FilesystemMetadataProvider fileProvider2 = new FilesystemMetadataProvider(mdFile2);
         fileProvider2.setParserPool(parser);
         fileProvider2.initialize();
         metadataProvider.addMetadataProvider(fileProvider2);
     }
-    
-    /**
-     * Tests the {@link HTTPMetadataProvider#getEntityDescriptor(String)} method.
-     */
-    public void testGetEntityDescriptor() throws MetadataProviderException{
+
+    /** Test the {@link ChainingMetadataProvider#getMetadata()} method. */
+    public void testGetMetadata() throws MetadataProviderException {
+        EntitiesDescriptor descriptor1 = (EntitiesDescriptor) metadataProvider.getMetadata();
+        assertEquals(2, descriptor1.getEntitiesDescriptors().size());
+        assertEquals(0, descriptor1.getEntityDescriptors().size());
+
+        EntitiesDescriptor descriptor2 = (EntitiesDescriptor) metadataProvider.getMetadata();
+        assertEquals(2, descriptor2.getEntitiesDescriptors().size());
+        assertEquals(0, descriptor2.getEntityDescriptors().size());
+    }
+
+    /** Tests the {@link ChainingMetadataProvider#getEntityDescriptor(String)} method. */
+    public void testGetEntityDescriptor() throws MetadataProviderException {
         EntityDescriptor descriptor = metadataProvider.getEntityDescriptor(entityID);
         assertNotNull("Retrieved entity descriptor was null", descriptor);
         assertEquals("Entity's ID does not match requested ID", entityID, descriptor.getEntityID());
-        
+
         EntityDescriptor descriptor2 = metadataProvider.getEntityDescriptor(entityID2);
         assertNotNull("Retrieved entity descriptor was null", descriptor2);
         assertEquals("Entity's ID does not match requested ID", entityID2, descriptor2.getEntityID());
     }
-    
-    /**
-     * Tests the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName) method.
-     */
-    public void testGetRole() throws MetadataProviderException{
+
+    /** Tests the {@link ChainingMetadataProvider#getRole(String, javax.xml.namespace.QName) method.  */
+    public void testGetRole() throws MetadataProviderException {
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
         assertNotNull("Roles for entity descriptor was null", roles);
         assertEquals("Unexpected number of roles", 1, roles.size());
-        
+
         List<RoleDescriptor> roles2 = metadataProvider.getRole(entityID2, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
         assertNotNull("Roles for entity descriptor was null", roles2);
         assertEquals("Unexpected number of roles", 1, roles2.size());
     }
-    
-    /**
-     * Test the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
-     */
-    public void testGetRoleWithSupportedProtocol() throws MetadataProviderException{
-        RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+
+    /** Test the {@link ChainingMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.  */
+    public void testGetRoleWithSupportedProtocol() throws MetadataProviderException {
+        RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME,
+                supportedProtocol);
         assertNotNull("Roles for entity descriptor was null", role);
-        
-        RoleDescriptor role2 = metadataProvider.getRole(entityID2, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+
+        RoleDescriptor role2 = metadataProvider.getRole(entityID2, IDPSSODescriptor.DEFAULT_ELEMENT_NAME,
+                supportedProtocol);
         assertNotNull("Roles for entity descriptor was null", role2);
     }
-    
-    /**
-     * Tests that metadata filters are disallowed on the chaining provider.
-     */
+
+    /** Tests that metadata filters are disallowed on the chaining provider. */
     public void testFilterDisallowed() {
         try {
-            metadataProvider.setMetadataFilter( new SchemaValidationFilter(new String[]{}) );
+            metadataProvider.setMetadataFilter(new SchemaValidationFilter(new String[] {}));
             fail("Should fail with an UnsupportedOperationException");
         } catch (MetadataProviderException e) {
             fail("Should fail with an UnsupportedOperationException");
         } catch (UnsupportedOperationException e) {
-           // expected, do nothing
+            // expected, do nothing
         }
     }
-    
+
 }

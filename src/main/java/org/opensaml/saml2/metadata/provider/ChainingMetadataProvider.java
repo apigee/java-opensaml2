@@ -265,19 +265,33 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
     /** Class that wraps the currently list of providers and exposes it as an EntitiesDescriptors. */
     private class ChainingEntitiesDescriptor implements EntitiesDescriptor {
 
-        /** {@inheritDoc} */
-        public List<EntitiesDescriptor> getEntitiesDescriptors() {
-            XMLObject descriptor;
-            ArrayList<EntitiesDescriptor> descriptors = new ArrayList<EntitiesDescriptor>();
+        /** Metadata from the child metadata providers. */
+        private ArrayList<XMLObject> childDescriptors;
+
+        /** Constructor. */
+        public ChainingEntitiesDescriptor() {
+            childDescriptors = new ArrayList<XMLObject>();
+
+            Lock readLock = providerLock.readLock();
+            readLock.lock();
             try {
                 for (MetadataProvider provider : providers) {
-                    descriptor = provider.getMetadata();
-                    if (descriptor instanceof EntitiesDescriptor) {
-                        descriptors.add((EntitiesDescriptor) descriptor);
-                    }
+                    childDescriptors.add(provider.getMetadata());
                 }
             } catch (MetadataProviderException e) {
-                log.error("Unable to generate list of entities descriptors", e);
+                log.error("Unable to get metadata from child metadata provider", e);
+            } finally {
+                readLock.unlock();
+            }
+        }
+
+        /** {@inheritDoc} */
+        public List<EntitiesDescriptor> getEntitiesDescriptors() {
+            ArrayList<EntitiesDescriptor> descriptors = new ArrayList<EntitiesDescriptor>();
+            for (XMLObject descriptor : childDescriptors) {
+                if (descriptor instanceof EntitiesDescriptor) {
+                    descriptors.add((EntitiesDescriptor) descriptor);
+                }
             }
 
             return descriptors;
@@ -285,17 +299,11 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
 
         /** {@inheritDoc} */
         public List<EntityDescriptor> getEntityDescriptors() {
-            XMLObject descriptor;
             ArrayList<EntityDescriptor> descriptors = new ArrayList<EntityDescriptor>();
-            try {
-                for (MetadataProvider provider : providers) {
-                    descriptor = provider.getMetadata();
-                    if (descriptor instanceof EntityDescriptor) {
-                        descriptors.add((EntityDescriptor) descriptor);
-                    }
+            for (XMLObject descriptor : childDescriptors) {
+                if (descriptor instanceof EntityDescriptor) {
+                    descriptors.add((EntityDescriptor) descriptor);
                 }
-            } catch (MetadataProviderException e) {
-                log.error("Unable to generate list of entity descriptors", e);
             }
 
             return descriptors;
@@ -317,7 +325,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
         }
 
         /** {@inheritDoc} */
-        public void setExtensions(Extensions extensions) throws IllegalArgumentException {
+        public void setExtensions(Extensions extensions) {
 
         }
 
