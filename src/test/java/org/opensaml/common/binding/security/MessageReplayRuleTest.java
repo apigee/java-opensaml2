@@ -21,7 +21,7 @@ import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.util.storage.MapBasedStorageService;
 import org.opensaml.util.storage.ReplayCache;
-import org.opensaml.util.storage.ReplayCache.ReplayCacheEntry;
+import org.opensaml.util.storage.ReplayCacheEntry;
 
 /**
  * Testing SAML message replay security policy rule.

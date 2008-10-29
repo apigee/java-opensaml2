@@ -1,5 +1,5 @@
 /*
- * Copyright [2007] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2007 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package org.opensaml.common.binding.artifact;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.util.storage.StorageService;
@@ -130,97 +129,5 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
     /** {@inheritDoc} */
     public void remove(String artifact) {
         artifactStore.remove(partition, artifact);
-    }
-
-    /** Basic implementation of {@link SAMLArtifactMapEntry}. */
-    public class BasicSAMLArtifactMapEntry implements SAMLArtifactMapEntry {
-
-        /** SAML artifact being mapped. */
-        private String artifact;
-
-        /** Entity ID of the issuer of the artifact. */
-        private String issuer;
-
-        /** Entity ID of the receiver of the artifact. */
-        private String relyingParty;
-
-        /** SAML message mapped to the artifact. */
-        private transient SAMLObject message;
-
-        /** Serialized SAML object mapped to the artifact. */
-        private String serializedMessage;
-
-        /** Time this artifact entry expires. */
-        private DateTime expirationTime;
-
-        /**
-         * Constructor.
-         * 
-         * @param artifact artifact associated with the message
-         * @param issuer issuer of the artifact
-         * @param relyingParty receiver of the artifact
-         * @param saml serialized SAML message mapped to the artifact
-         * @param lifetime lifetime of the artifact
-         */
-        public BasicSAMLArtifactMapEntry(String artifact, String issuer, String relyingParty, String saml, long lifetime) {
-            this.artifact = artifact;
-            this.issuer = issuer;
-            this.relyingParty = relyingParty;
-            serializedMessage = saml;
-            expirationTime = new DateTime().plus(lifetime);
-        }
-
-        /** {@inheritDoc} */
-        public String getArtifact() {
-            return artifact;
-        }
-
-        /** {@inheritDoc} */
-        public String getIssuerId() {
-            return issuer;
-        }
-
-        /** {@inheritDoc} */
-        public String getRelyingPartyId() {
-            return relyingParty;
-        }
-
-        /** {@inheritDoc} */
-        public SAMLObject getSamlMessage() {
-            return message;
-        }
-
-        /**
-         * Sets the SAML message mapped to the artifact.
-         * 
-         * @param saml SAML message mapped to the artifact
-         */
-        private void setSAMLMessage(SAMLObject saml) {
-            message = saml;
-        }
-
-        /**
-         * Gets the serialized form of the SAML message.
-         * 
-         * @return serialized form of the SAML message
-         */
-        private String getSeralizedMessage() {
-            return serializedMessage;
-        }
-
-        /** {@inheritDoc} */
-        public DateTime getExpirationTime() {
-            return expirationTime;
-        }
-
-        /** {@inheritDoc} */
-        public boolean isExpired() {
-            return expirationTime.isBeforeNow();
-        }
-
-        /** {@inheritDoc} */
-        public void onExpire() {
-
-        }
     }
 }

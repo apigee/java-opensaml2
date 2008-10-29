@@ -1,3 +1,8 @@
+Changes in Release 2.2.2
+=============================================
+[JOST-66] Cleanup ArtifactMap related classes
+* Update logging libraries to grab some bug fixes
+
 Changes in Release 2.2.1
 =============================================
 [JOST-64] - Multiple calls to ChainingMetadataProvider#getMetadata result in "EntitiesDescriptor is already the child of another XMLObject" exception
