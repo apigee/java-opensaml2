@@ -242,7 +242,7 @@ public class HTTPRedirectDeflateDecoderTest extends BaseTestCase {
             ByteArrayOutputStream bytesOut = new ByteArrayOutputStream();
             Deflater deflater = new Deflater(Deflater.DEFLATED, true);
             DeflaterOutputStream deflaterStream = new DeflaterOutputStream(bytesOut, deflater);
-            deflaterStream.write(messageStr.getBytes());
+            deflaterStream.write(messageStr.getBytes("UTF-8"));
             deflaterStream.finish();
 
             return Base64.encodeBytes(bytesOut.toByteArray(), Base64.DONT_BREAK_LINES);

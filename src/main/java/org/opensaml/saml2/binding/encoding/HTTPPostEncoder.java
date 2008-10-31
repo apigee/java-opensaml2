@@ -17,6 +17,7 @@
 package org.opensaml.saml2.binding.encoding;
 
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 import org.apache.velocity.VelocityContext;
@@ -65,7 +66,7 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
     public String getBindingURI() {
         return SAMLConstants.SAML2_POST_BINDING_URI;
     }
-    
+
     /** {@inheritDoc} */
     public boolean providesMessageConfidentiality(MessageContext messageContext) throws MessageEncodingException {
         return false;
@@ -152,18 +153,23 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
         velocityContext.put("action", endpointURL);
 
         log.debug("Marshalling and Base64 encoding SAML message");
-        if(messageContext.getOutboundSAMLMessage().getDOM() == null){
+        if (messageContext.getOutboundSAMLMessage().getDOM() == null) {
             marshallMessage(messageContext.getOutboundSAMLMessage());
         }
-        String messageXML = XMLHelper.nodeToString(messageContext.getOutboundSAMLMessage().getDOM());
-        String encodedMessage = Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES);        
-        if (messageContext.getOutboundSAMLMessage() instanceof RequestAbstractType) {
-            velocityContext.put("SAMLRequest", encodedMessage);
-        } else if (messageContext.getOutboundSAMLMessage() instanceof StatusResponseType) {
-            velocityContext.put("SAMLResponse", encodedMessage);
-        } else {
-            throw new MessageEncodingException(
-                    "SAML message is neither a SAML RequestAbstractType or StatusResponseType");
+        try {
+            String messageXML = XMLHelper.nodeToString(messageContext.getOutboundSAMLMessage().getDOM());
+            String encodedMessage = Base64.encodeBytes(messageXML.getBytes("UTF-8"), Base64.DONT_BREAK_LINES);
+            if (messageContext.getOutboundSAMLMessage() instanceof RequestAbstractType) {
+                velocityContext.put("SAMLRequest", encodedMessage);
+            } else if (messageContext.getOutboundSAMLMessage() instanceof StatusResponseType) {
+                velocityContext.put("SAMLResponse", encodedMessage);
+            } else {
+                throw new MessageEncodingException(
+                        "SAML message is neither a SAML RequestAbstractType or StatusResponseType");
+            }
+        } catch (UnsupportedEncodingException e) {
+            log.error("UTF-8 encoding is not supported, this VM is not Java compliant.");
+            throw new MessageEncodingException("Unable to encode message, UTF-8 encoding is not supported");
         }
 
         String relayState = messageContext.getRelayState();

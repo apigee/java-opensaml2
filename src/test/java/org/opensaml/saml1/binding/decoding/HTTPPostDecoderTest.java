@@ -230,10 +230,10 @@ public class HTTPPostDecoderTest extends BaseTestCase {
         request.setQueryString(url.getQuery());
     }
     
-    protected String encodeMessage(SAMLObject message) throws MessageEncodingException, MarshallingException {
+    protected String encodeMessage(SAMLObject message) throws Exception {
         marshallerFactory.getMarshaller(message).marshall(message);
         String messageStr = XMLHelper.nodeToString(message.getDOM());
         
-        return Base64.encodeBytes(messageStr.getBytes(), Base64.DONT_BREAK_LINES);
+        return Base64.encodeBytes(messageStr.getBytes("UTF-8"), Base64.DONT_BREAK_LINES);
     }
 }

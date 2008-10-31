@@ -18,6 +18,7 @@ package org.opensaml.saml1.binding.encoding;
 
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 import org.apache.velocity.VelocityContext;
@@ -127,7 +128,7 @@ public class HTTPPostEncoder extends BaseSAML1MessageEncoder {
 
             log.debug("Marshalling and Base64 encoding SAML message");
             String messageXML = XMLHelper.nodeToString(marshallMessage(messageContext.getOutboundSAMLMessage()));
-            String encodedMessage = Base64.encodeBytes(messageXML.getBytes(), Base64.DONT_BREAK_LINES);
+            String encodedMessage = Base64.encodeBytes(messageXML.getBytes("UTF-8"), Base64.DONT_BREAK_LINES);
             context.put("SAMLResponse", encodedMessage);
 
             if (messageContext.getRelayState() != null) {
@@ -144,6 +145,9 @@ public class HTTPPostEncoder extends BaseSAML1MessageEncoder {
             Writer out = new OutputStreamWriter(transportOutStream, "UTF-8");
             velocityEngine.mergeTemplate(velocityTemplateId, "UTF-8", context, out);
             out.flush();
+        }catch(UnsupportedEncodingException e){
+            log.error("UTF-8 encoding is not supported, this VM is not Java compliant.");
+            throw new MessageEncodingException("Unable to encode message, UTF-8 encoding is not supported");
         } catch (Exception e) {
             log.error("Error invoking velocity template", e);
             throw new MessageEncodingException("Error creating output document", e);
