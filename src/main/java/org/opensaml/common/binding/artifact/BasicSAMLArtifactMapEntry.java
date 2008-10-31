@@ -18,6 +18,7 @@ package org.opensaml.common.binding.artifact;
 
 import org.joda.time.DateTime;
 import org.opensaml.common.SAMLObject;
+import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.util.storage.AbstractExpiringObject;
 
 /** Basic implementation of {@link SAMLArtifactMapEntry}. */
