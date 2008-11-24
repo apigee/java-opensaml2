@@ -15,7 +15,7 @@
         </ObjectProvider>
         
          <!-- ActionType -->
-        <ObjectProvider qualifiedName="xacml-context:Actiontype">
+        <ObjectProvider qualifiedName="xacml-context:ActionType">
             <BuilderClass className="org.opensaml.xacml.ctx.impl.ActionTypeImplBuilder" />
             <MarshallingClass className="org.opensaml.xacml.ctx.impl.ActionTypeMarshaller" />
             <UnmarshallingClass className="org.opensaml.xacml.ctx.impl.ActionTypeUnmarshaller" />

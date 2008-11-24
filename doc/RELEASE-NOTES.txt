@@ -1,5 +1,11 @@
 Changes in Release 2.2.2
 =============================================
+[JOST-70] - ActionType typo in xacml20-context-config.xml
+* Add various XACML constants
+
+
+Changes in Release 2.2.2
+=============================================
 [JOST-66] Cleanup ArtifactMap related classes
 [JOST-67] SAML 1 and 2 POST encoders rely on system encoding when providing the bytes for Base64 encoding
 * Update logging libraries to grab some bug fixes
