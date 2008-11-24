@@ -43,6 +43,18 @@ public interface StatusCodeType extends XACMLObject {
     /** Name of the Value attribute. */
     public static final String VALUE_ATTTRIB_NAME = "Value";
 
+    /** Missing attribute status code. */
+    public static final String SC_MISSING_ATTRIBUTE = "urn:oasis:names:tc:xacml:1.0:status:missing-attribute";
+
+    /** Ok status code. */
+    public static final String SC_OK = "urn:oasis:names:tc:xacml:1.0:status:ok";
+
+    /** Processing error status code. */
+    public static final String SC_PROCESSING_ERROR = "urn:oasis:names:tc:xacml:1.0:status:processing-error";
+
+    /** Syntax error status code. */
+    public static final String SC_SYNTAX_ERROR = "urn:oasis:names:tc:xacml:1.0:status:syntax-error";
+
     /**
      * Gets the status code.
      * 
