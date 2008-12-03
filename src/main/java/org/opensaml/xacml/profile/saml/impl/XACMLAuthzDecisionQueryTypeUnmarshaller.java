@@ -64,7 +64,7 @@ public class XACMLAuthzDecisionQueryTypeUnmarshaller extends RequestAbstractType
         }
 
         if (attribute.getLocalName().equals(XACMLAuthzDecisionQueryType.COMBINEPOLICIES_ATTRIB_NAME)) {
-            authzDS.setReturnContext(XSBooleanValue.valueOf(attribute.getValue()));
+            authzDS.setCombinePolicies(XSBooleanValue.valueOf(attribute.getValue()));
         }
 
         super.processAttribute(samlObject, attribute);

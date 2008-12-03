@@ -40,7 +40,7 @@ public class XACMLAuthzDecisionQueryTypeMarshaller extends RequestAbstractTypeMa
 
         if (query.getReturnContextXSBooleanValue() != null) {
             domElement.setAttributeNS(null, XACMLAuthzDecisionQueryType.RETURNCONTEXT_ATTRIB_NAME, query
-                    .getInputContextOnlyXSBooleanValue().toString());
+                    .getReturnContextXSBooleanValue().toString());
         }
 
         if (query.getCombinePoliciesXSBooleanValue() != null) {
