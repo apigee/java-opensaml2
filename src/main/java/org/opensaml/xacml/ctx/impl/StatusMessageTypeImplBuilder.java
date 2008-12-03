@@ -19,31 +19,29 @@ package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.XACMLConstants;
 import org.opensaml.xacml.ctx.StatusMessageType;
-import org.opensaml.xacml.policy.DescriptionType;
 import org.opensaml.xml.AbstractXMLObjectBuilder;
-
 
 /**
  * Builder for {@link org.opensaml.xacml.ctx.StatusMessageType}.
  */
 public class StatusMessageTypeImplBuilder extends AbstractXMLObjectBuilder {
-    
+
     /**
-     * Constructor. 
+     * Constructor.
      */
-    public StatusMessageTypeImplBuilder(){
-        
+    public StatusMessageTypeImplBuilder() {
+
     }
-    
+
     /** {@inheritDoc} */
     public StatusMessageType buildObject() {
-        return buildObject(XACMLConstants.XACML20CTX_NS, DescriptionType.DEFAULT_ELEMENT_LOCAL_NAME,
+        return buildObject(XACMLConstants.XACML20CTX_NS, StatusMessageType.DEFAULT_ELEMENT_LOCAL_NAME,
                 XACMLConstants.XACMLCONTEXT_PREFIX);
-    }   
-    
+    }
+
     /** {@inheritDoc} */
     public StatusMessageType buildObject(String namespaceURI, String localName, String namespacePrefix) {
-        return new StatusMessageTypeImpl(namespaceURI,localName,namespacePrefix);
+        return new StatusMessageTypeImpl(namespaceURI, localName, namespacePrefix);
     }
 
 }

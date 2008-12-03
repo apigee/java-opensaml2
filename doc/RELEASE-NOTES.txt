@@ -1,6 +1,7 @@
 Changes in Release 2.2.3
 =============================================
 [JOST-70] - ActionType typo in xacml20-context-config.xml
+[JOST-71] - Wrong localname in StatusMessageTypeImplBuilder 
 [JOST-72] - XACMLAuthzDecisionQuery : returncontext attribute not handled properly by marshaller
 * Add various XACML constants
 
