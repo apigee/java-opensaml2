@@ -36,6 +36,7 @@ import org.opensaml.xml.Namespace;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.IDIndex;
+import org.opensaml.xml.util.LazySet;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 import org.slf4j.Logger;
@@ -386,7 +387,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
 
         /** {@inheritDoc} */
         public Set<Namespace> getNamespaces() {
-            return new HashSet<Namespace>();
+            return new LazySet<Namespace>();
         }
 
         /** {@inheritDoc} */

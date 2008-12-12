@@ -240,7 +240,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
             throws SecurityException {
 
         log.debug("Attempting to retrieve credentials from metadata for entity: {}", entityID);
-        Collection<Credential> credentials = new HashSet<Credential>();
+        Collection<Credential> credentials = new HashSet<Credential>(3);
 
         List<RoleDescriptor> roleDescriptors = getRoleDescriptors(entityID, role, protocol);
         if(roleDescriptors == null || roleDescriptors.isEmpty()){
