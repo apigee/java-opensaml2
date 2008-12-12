@@ -1,5 +1,5 @@
 /*
- * Copyright [2005] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2005 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,11 +31,10 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.AttributeMap;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.LazyList;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
-/**
- * Concretate implementation of {@link org.opensaml.saml2.metadata.RoleDescriptor}
- */
+/** Concrete implementation of {@link org.opensaml.saml2.metadata.RoleDescriptor}. */
 public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject implements RoleDescriptor {
 
     /** ID attribute. */
@@ -48,7 +47,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     private Long cacheDuration;
 
     /** Set of supported protocols. */
-    private final ArrayList<String> supportedProtocols;
+    private final List<String> supportedProtocols;
 
     /** Error URL. */
     private String errorURL;
@@ -78,7 +77,7 @@ public abstract class RoleDescriptorImpl extends AbstractSignableSAMLObject impl
     protected RoleDescriptorImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
         unknownAttributes = new AttributeMap(this);
-        supportedProtocols = new ArrayList<String>();
+        supportedProtocols = new LazyList<String>();
         contactPersons = new XMLObjectChildrenList<ContactPerson>(this);
         keyDescriptors = new XMLObjectChildrenList<KeyDescriptor>(this);
     }
