@@ -16,7 +16,6 @@
 
 package org.opensaml.common.impl;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +34,7 @@ import org.opensaml.xml.security.SecurityConfiguration;
 import org.opensaml.xml.signature.ContentReference;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.LazyList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,7 +88,7 @@ public class SAMLObjectContentReference implements ContentReference {
      */
     public SAMLObjectContentReference(SignableSAMLObject newSignableObject) {
         signableObject = newSignableObject;
-        transforms = new ArrayList<String>();
+        transforms = new LazyList<String>();
         
         // Set defaults
         if (Configuration.getGlobalSecurityConfiguration() != null ) {

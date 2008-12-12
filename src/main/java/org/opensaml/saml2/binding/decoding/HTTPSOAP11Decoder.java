@@ -33,6 +33,7 @@ import org.opensaml.xml.AttributeExtensibleXMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.LazyList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,7 +63,7 @@ public class HTTPSOAP11Decoder extends BaseSAML2MessageDecoder {
      */
     public HTTPSOAP11Decoder(ParserPool pool) {
         super(pool);
-        understoodHeaders = new ArrayList<QName>();
+        understoodHeaders = new LazyList<QName>();
     }
 
     /** {@inheritDoc} */

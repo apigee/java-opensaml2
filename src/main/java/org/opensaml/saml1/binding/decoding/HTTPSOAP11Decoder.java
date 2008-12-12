@@ -16,7 +16,6 @@
 
 package org.opensaml.saml1.binding.decoding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -34,6 +33,7 @@ import org.opensaml.xml.AttributeExtensibleXMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.LazyList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +58,7 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
      */
     public HTTPSOAP11Decoder(SAMLArtifactMap map) {
         super(map);
-        understoodHeaders = new ArrayList<QName>();
+        understoodHeaders = new LazyList<QName>();
     }
 
     /**
@@ -69,7 +69,7 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
      */
     public HTTPSOAP11Decoder(SAMLArtifactMap map, ParserPool pool) {
         super(map, pool);
-        understoodHeaders = new ArrayList<QName>();
+        understoodHeaders = new LazyList<QName>();
     }
 
     /** {@inheritDoc} */

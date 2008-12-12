@@ -55,7 +55,7 @@ public abstract class AbstractEndpointSelector {
 
     /** Constructor. */
     public AbstractEndpointSelector() {
-        supportedIssuerBindings = new ArrayList<String>();
+        supportedIssuerBindings = new ArrayList<String>(5);
     }
 
     /**

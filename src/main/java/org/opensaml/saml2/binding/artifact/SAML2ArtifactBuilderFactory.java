@@ -16,10 +16,10 @@
 
 package org.opensaml.saml2.binding.artifact;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.opensaml.xml.util.Base64;
+import org.opensaml.xml.util.LazyMap;
 
 /**
  * Factory used to construct SAML 2 artifact builders.
@@ -31,7 +31,7 @@ public class SAML2ArtifactBuilderFactory {
 
     /** Constructor. */
     public SAML2ArtifactBuilderFactory() {
-        artifactBuilders = new HashMap<String, SAML2ArtifactBuilder>();
+        artifactBuilders = new LazyMap<String, SAML2ArtifactBuilder>();
         artifactBuilders.put(new String(SAML2ArtifactType0004.TYPE_CODE), new SAML2ArtifactType0004Builder());
     }
 
