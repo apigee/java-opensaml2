@@ -4,6 +4,8 @@ Changes in Release 2.2.3
 [JOST-71] - Wrong localname in StatusMessageTypeImplBuilder 
 [JOST-72] - XACMLAuthzDecisionQuery : returncontext attribute not handled properly by marshaller
 * Add various XACML constants
+* Major memory usage improvements
+* Pick up latest version of libs
 
 
 Changes in Release 2.2.2
