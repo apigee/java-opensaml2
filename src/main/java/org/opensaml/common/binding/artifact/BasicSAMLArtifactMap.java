@@ -95,6 +95,10 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
     public SAMLArtifactMapEntry get(String artifact) {
         BasicSAMLArtifactMapEntry entry = (BasicSAMLArtifactMapEntry) artifactStore.get(partition, artifact);
 
+        if(entry == null){
+            return null;
+        }
+        
         if (entry.isExpired()) {
             remove(artifact);
             return null;
