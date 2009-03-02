@@ -18,7 +18,6 @@ package org.opensaml.saml2.metadata.provider;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.locks.Lock;
@@ -243,11 +242,14 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
      * every registered Observer passing in this provider.
      */
     protected void emitChangeEvent() {
-        synchronized (observers) {
-            for (Observer observer : observers) {
-                if (observer != null) {
-                    observer.onEvent(this);
-                }
+        if (observers == null || observers.size() == 0) {
+            return;
+        }
+
+        List<Observer> tempObserverList = new ArrayList<Observer>(observers);
+        for (Observer observer : tempObserverList) {
+            if (observer != null) {
+                observer.onEvent(this);
             }
         }
     }
