@@ -80,11 +80,6 @@ public class HTTPArtifactDecoder extends BaseSAML2MessageDecoder {
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
         HTTPInTransport inTransport = (HTTPInTransport) samlMsgCtx.getInboundMessageTransport();
-        if (!inTransport.getHTTPMethod().equalsIgnoreCase("GET")
-                && !inTransport.getHTTPMethod().equalsIgnoreCase("POST")) {
-            throw new MessageDecodingException("This message deocoder only supports the HTTP GET and POST methods");
-        }
-
         String relayState = DatatypeHelper.safeTrim(inTransport.getParameterValue("RelayState"));
         samlMsgCtx.setRelayState(relayState);
         

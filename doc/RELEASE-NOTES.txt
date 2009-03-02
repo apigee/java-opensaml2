@@ -1,3 +1,7 @@
+Changes in Release 2.2.4
+=============================================
+[JOST-76] Relax requirement that HTTP requests be GETs when using Redirect and Artifact Binding
+
 Changes in Release 2.2.3
 =============================================
 [JOST-70] - ActionType typo in xacml20-context-config.xml
