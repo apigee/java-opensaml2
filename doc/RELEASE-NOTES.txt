@@ -4,6 +4,7 @@ Changes in Release 2.2.4
 [JOST-76] - Relax requirement that HTTP requests be GETs when using Redirect and Artifact Binding
 [JOST-77] - Metadata refresh causes ConcurrentModificationException and idp failure
 [JOST-78] - Update libs for 2.2.4 release
+[JOST-79] - StatusDetail builder is missing from saml2-protocol-config.properties file
 
 Changes in Release 2.2.3
 =============================================
