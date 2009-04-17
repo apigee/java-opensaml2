@@ -51,10 +51,28 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
     /** QName of SOAP mustUnderstand header attribute. */
     private final QName soapMustUnderstand = new QName(SAMLConstants.SOAP11ENV_NS, "mustUnderstand");
 
+    /** Constructor. */
+    public HTTPSOAP11Decoder() {
+        super();
+        understoodHeaders = new LazyList<QName>();
+    }
+
     /**
-     * Constructor. 
+     * Constructor.
+     * 
+     * @param pool parser pool used to deserialize messages
+     */
+    public HTTPSOAP11Decoder(ParserPool pool) {
+        super(pool);
+        understoodHeaders = new LazyList<QName>();
+    }
+
+    /**
+     * Constructor.
      * 
      * @param map Artifact to SAML map
+     * 
+     * @deprecated
      */
     public HTTPSOAP11Decoder(SAMLArtifactMap map) {
         super(map);
@@ -66,6 +84,8 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
      * 
      * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
+     * 
+     * @deprecated
      */
     public HTTPSOAP11Decoder(SAMLArtifactMap map, ParserPool pool) {
         super(map, pool);
@@ -76,7 +96,7 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
     public String getBindingURI() {
         return SAMLConstants.SAML1_SOAP11_BINDING_URI;
     }
-    
+
     /**
      * Gets the SOAP header names that are understood by the application.
      * 
@@ -122,9 +142,9 @@ public class HTTPSOAP11Decoder extends BaseSAML1MessageDecoder {
         log.debug("Unmarshalling SOAP message");
         Envelope soapMessage = (Envelope) unmarshallMessage(inTransport.getIncomingStream());
         samlMsgCtx.setInboundMessage(soapMessage);
-        
+
         Header messageHeader = soapMessage.getHeader();
-        if(messageHeader != null){
+        if (messageHeader != null) {
             checkUnderstoodSOAPHeaders(soapMessage.getHeader().getUnknownXMLObjects());
         }
 

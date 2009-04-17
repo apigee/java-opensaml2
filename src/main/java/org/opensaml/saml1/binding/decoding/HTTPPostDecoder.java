@@ -39,10 +39,26 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder {
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPPostDecoder.class);
 
+    /** Constructor. */
+    public HTTPPostDecoder() {
+        super();
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param pool parser pool used to deserialize messages
+     */
+    public HTTPPostDecoder(ParserPool pool) {
+        super(pool);
+    }
+
     /**
      * Constructor.
      * 
      * @param map Artifact to SAML map
+     * 
+     * @deprecated
      */
     public HTTPPostDecoder(SAMLArtifactMap map) {
         super(map);
@@ -53,6 +69,8 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder {
      * 
      * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
+     * 
+     * @deprecated
      */
     public HTTPPostDecoder(SAMLArtifactMap map, ParserPool pool) {
         super(map, pool);
@@ -90,11 +108,11 @@ public class HTTPPostDecoder extends BaseSAML1MessageDecoder {
 
         String base64Message = inTransport.getParameterValue("SAMLResponse");
         byte[] decodedBytes = Base64.decode(base64Message);
-        if(decodedBytes == null){
+        if (decodedBytes == null) {
             log.error("Unable to Base64 decode SAML message");
             throw new MessageDecodingException("Unable to Base64 decode SAML message");
         }
-        
+
         SAMLObject inboundMessage = (SAMLObject) unmarshallMessage(new ByteArrayInputStream(decodedBytes));
         samlMsgCtx.setInboundMessage(inboundMessage);
         samlMsgCtx.setInboundSAMLMessage(inboundMessage);

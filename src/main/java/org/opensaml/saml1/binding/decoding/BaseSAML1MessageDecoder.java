@@ -60,10 +60,28 @@ public abstract class BaseSAML1MessageDecoder extends BaseSAMLMessageDecoder {
     /** Whether to use the resource of an attribute query as the relying party entity ID. */
     private boolean useQueryResourceAsEntityId;
 
+    /** Constructor. */
+    public BaseSAML1MessageDecoder() {
+        super();
+        useQueryResourceAsEntityId = true;
+    }
+    
+    /**
+     * Constructor.
+     * 
+     * @param pool parser pool used to deserialize messages
+     */
+    public BaseSAML1MessageDecoder(ParserPool pool) {
+        super(pool);
+        useQueryResourceAsEntityId = true;
+    }
+    
     /**
      * Constructor.
      * 
      * @param map used to map artifacts to SAML
+     * 
+     * @deprecated
      */
     public BaseSAML1MessageDecoder(SAMLArtifactMap map) {
         super();
@@ -76,6 +94,8 @@ public abstract class BaseSAML1MessageDecoder extends BaseSAMLMessageDecoder {
      * 
      * @param map used to map artifacts to SAML
      * @param pool parser pool used to deserialize messages
+     * 
+     * @deprecated
      */
     public BaseSAML1MessageDecoder(SAMLArtifactMap map, ParserPool pool) {
         super(pool);
