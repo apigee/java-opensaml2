@@ -22,15 +22,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>shibboleth-snapshot</id>
-            <name>Internet2 Snapshots</name>
-            <layout>default</layout>
-            <url>http://shibboleth.internet2.edu/downloads/maven2snaps</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
     </repositories>
     
     <distributionManagement>
