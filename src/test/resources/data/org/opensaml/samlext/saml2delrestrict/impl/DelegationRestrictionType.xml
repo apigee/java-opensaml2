@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<saml:Condition xsi:type="del:DelegationRestrictionType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:del="urn:oasis:names:tc:SAML:2.0:conditions:delegation"></saml:Condition>

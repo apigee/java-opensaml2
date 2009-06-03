@@ -7,6 +7,7 @@ Changes in Release 2.2.4
 [JOST-77] - Metadata refresh causes ConcurrentModificationException and idp failure
 [JOST-78] - Update libs for 2.2.4 release
 [JOST-79] - StatusDetail builder is missing from saml2-protocol-config.properties file
+[JOST-83] - Add object provider support for Condition for Delegation Restriction extension schema
 
 Changes in Release 2.2.3
 =============================================

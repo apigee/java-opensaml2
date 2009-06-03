@@ -181,6 +181,15 @@ public class SAMLConstants extends XMLConstants{
     /** SAML 2.0 Enhanced Client/Proxy SSO Profile QName prefix. */
     public static final String SAML20ECP_PREFIX = "ecp";
     
+    /** SAML 2.0 Condition for Delegation Restriction schema Id. */
+    public static final String SAML20DEL_SCHEMA_LOCATION = SCHEMA_DIR + "sstc-saml-delegation.xsd";
+    
+    /** SAML 2.0 Condition for Delegation Restriction XML Namespace. */
+    public static final String SAML20DEL_NS = "urn:oasis:names:tc:SAML:2.0:conditions:delegation";
+    
+    /** SAML 2.0 Condition for Delegation Restriction QName prefix. */
+    public static final String SAML20DEL_PREFIX = "del";
+    
     /** SAML 2.0 DCE PAC Attribute Profile schema Id. */
     public static final String SAML20DCE_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-dce-2.0.xsd";
     
