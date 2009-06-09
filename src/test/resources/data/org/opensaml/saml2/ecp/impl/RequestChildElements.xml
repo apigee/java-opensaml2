@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecp:Request xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:saml2p="urn:oasis:names:tc:SAML:2.0:protocol"  xmlns:ecp="urn:oasis:names:tc:SAML:2.0:profiles:SSO:ecp" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" soap11:mustUnderstand="1" soap11:actor="https://soap11actor.example.org">
+    <saml2:Issuer></saml2:Issuer>
+    <saml2p:IDPList></saml2p:IDPList>
+</ecp:Request>

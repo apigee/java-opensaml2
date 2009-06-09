@@ -57,6 +57,7 @@ public class DefaultBootstrap {
         "/saml2-protocol-thirdparty-config.xml",
         "/saml2-metadata-query-config.xml", 
         "/saml2-assertion-delegation-restriction-config.xml",    
+        "/saml2-ecp-config.xml",
         "/xacml10-saml2-profile-config.xml",
         "/xacml11-saml2-profile-config.xml",
         "/xacml20-context-config.xml",
