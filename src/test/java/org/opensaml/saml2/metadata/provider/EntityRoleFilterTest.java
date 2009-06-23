@@ -20,14 +20,10 @@ import java.util.ArrayList;
 
 import javax.xml.namespace.QName;
 
-import org.opensaml.Configuration;
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.metadata.AttributeAuthorityDescriptor;
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
-import org.opensaml.xml.io.Marshaller;
-import org.opensaml.xml.util.XMLHelper;
 
 /**
  * Unit tests for {@link EntityRoleFilter}.
@@ -53,8 +49,7 @@ public class EntityRoleFilterTest extends BaseTestCase {
         metadataProvider.setMetadataFilter(new EntityRoleFilter(retainedRoles));
         metadataProvider.initialize();
 
-        EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
-        Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(descriptor);
+        metadataProvider.getMetadata();
     }
     
     public void testWhiteListIdPRoles() throws Exception {
@@ -67,8 +62,7 @@ public class EntityRoleFilterTest extends BaseTestCase {
         metadataProvider.setMetadataFilter(new EntityRoleFilter(retainedRoles));
         metadataProvider.initialize();
 
-        EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
-        Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(descriptor);
+        metadataProvider.getMetadata();
     }
     
     public void testWhiteListNoRole() throws Exception {
@@ -79,7 +73,6 @@ public class EntityRoleFilterTest extends BaseTestCase {
         metadataProvider.setMetadataFilter(new EntityRoleFilter(retainedRoles));
         metadataProvider.initialize();
 
-        EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
-        Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(descriptor);
+        metadataProvider.getMetadata();
     }
 }

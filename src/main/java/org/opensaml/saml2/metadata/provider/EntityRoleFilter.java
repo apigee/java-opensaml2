@@ -150,6 +150,7 @@ public class EntityRoleFilter implements MetadataFilter {
         // First we filter out any contained EntityDescriptors
         List<EntityDescriptor> entityDescriptors = descriptor.getEntityDescriptors();
         if (entityDescriptors != null && !entityDescriptors.isEmpty()) {
+            List<EntityDescriptor> emptyEntityDescriptors = new ArrayList<EntityDescriptor>();
             Iterator<EntityDescriptor> entityDescriptorsItr = entityDescriptors.iterator();
             EntityDescriptor entityDescriptor;
             List<RoleDescriptor> entityRoles;
@@ -161,15 +162,17 @@ public class EntityRoleFilter implements MetadataFilter {
                     if (entityRoles == null || entityRoles.isEmpty()) {
                         log.trace("Filtering out entity descriptor {} from entity group {}", entityDescriptor
                                 .getEntityID(), descriptor.getName());
-                        entityDescriptorsItr.remove();
+                        emptyEntityDescriptors.add(entityDescriptor);
                     }
                 }
             }
+            entityDescriptors.removeAll(emptyEntityDescriptors);
         }
 
         // Next, contained EntityDescriptors
         List<EntitiesDescriptor> entitiesDescriptors = descriptor.getEntitiesDescriptors();
         if (entitiesDescriptors != null && !entitiesDescriptors.isEmpty()) {
+            List<EntitiesDescriptor> emptyEntitiesDescriptors = new ArrayList<EntitiesDescriptor>();
             Iterator<EntitiesDescriptor> entitiesDescriptorsItr = entitiesDescriptors.iterator();
             EntitiesDescriptor entitiesDescriptor;
             while (entitiesDescriptorsItr.hasNext()) {
@@ -183,10 +186,11 @@ public class EntityRoleFilter implements MetadataFilter {
                                     .getEntitiesDescriptors().isEmpty())) {
                         log.trace("Filtering out entity descriptor {} from entity group {}", entitiesDescriptor
                                 .getName(), descriptor.getName());
-                        entitiesDescriptorsItr.remove();
+                        emptyEntitiesDescriptors.add(entitiesDescriptor);
                     }
                 }
             }
+            entitiesDescriptors.removeAll(emptyEntitiesDescriptors);
         }
     }
 
