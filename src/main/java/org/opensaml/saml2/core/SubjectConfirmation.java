@@ -42,6 +42,15 @@ public interface SubjectConfirmation extends SAMLObject {
 
     /** Method attribute name. */
     public static final String METHOD_ATTRIB_NAME = "Method";
+    
+    /** URI for the Holder of Key subject confirmation method, {@value}. */
+    public static final String METHOD_HOLDER_OF_KEY = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
+    
+    /** URI for the Sender Vouches subject confirmation method, {@value}. */
+    public static final String METHOD_SENDER_VOUCHES = "urn:oasis:names:tc:SAML:2.0:cm:sender-vouches";
+    
+    /** URI for the Bearer subject confirmation method, {@value}. */
+    public static final String METHOD_BEARER = "urn:oasis:names:tc:SAML:2.0:cm:bearer";
 
     /**
      * Get the method used to confirm this subject.
