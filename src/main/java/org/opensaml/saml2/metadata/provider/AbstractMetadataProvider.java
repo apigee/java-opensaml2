@@ -33,8 +33,10 @@ import org.opensaml.xml.io.Unmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.ParserPool;
 import org.opensaml.xml.util.DatatypeHelper;
+import org.opensaml.xml.util.XMLHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 import org.w3c.dom.Document;
 
 /**
@@ -153,6 +155,11 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
             log.trace("Unmarshalling and caching metdata DOM");
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(mdDocument.getDocumentElement());
+            if(unmarshaller == null){
+                String msg = MessageFormatter.format("No unmarshaller registered for document element {}", XMLHelper.getNodeQName(mdDocument.getDocumentElement()));
+                log.error(msg);
+                throw new UnmarshallingException(msg);
+            }
             XMLObject metadata = unmarshaller.unmarshall(mdDocument.getDocumentElement());
             return metadata;
         } catch (Exception e) {
