@@ -72,7 +72,7 @@ public class SAML2AuthnRequestsSignedRule implements SecurityPolicyRule {
             spssoRole = (SPSSODescriptor) metadataProvider
                 .getRole(messageIssuer, SPSSODescriptor.DEFAULT_ELEMENT_NAME, SAMLConstants.SAML20P_NS);
         } catch (MetadataProviderException e) {
-            log.error("Error resolving SPSSODescriptor metadata for entityID '{}': {}", messageIssuer, e.getMessage());
+            log.warn("Error resolving SPSSODescriptor metadata for entityID '{}': {}", messageIssuer, e.getMessage());
             throw new SecurityPolicyException("Error resolving metadata for entity ID", e);
         }
         

@@ -64,7 +64,7 @@ public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatu
 
         String constructed = buildSignedContentString(queryString);
         if (DatatypeHelper.isEmpty(constructed)) {
-            log.error("Could not extract signed content string from query string");
+            log.warn("Could not extract signed content string from query string");
             return null;
         }
         log.debug("Constructed signed content string for HTTP-Redirect DEFLATE {}", constructed);
@@ -90,7 +90,7 @@ public class SAML2HTTPRedirectDeflateSignatureRule extends BaseSAMLSimpleSignatu
         // One of these two is mandatory
         if (!appendParameter(builder, queryString, "SAMLRequest")) {
             if (!appendParameter(builder, queryString, "SAMLResponse")) {
-                log.error("Could not extract either a SAMLRequest or a SAMLResponse from the query string");
+                log.warn("Could not extract either a SAMLRequest or a SAMLResponse from the query string");
                 throw new SecurityPolicyException("Extract of SAMLRequest or SAMLResponse from query string failed");
             }
         }

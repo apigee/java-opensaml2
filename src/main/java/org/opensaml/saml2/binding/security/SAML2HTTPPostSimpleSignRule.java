@@ -90,7 +90,7 @@ public class SAML2HTTPPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurity
                 samlMsg = new String(Base64.decode(request.getParameter("SAMLResponse")), "UTF-8");
                 builder.append("SAMLResponse=" + samlMsg);
             } else {
-                log.error("Could not extract either a SAMLRequest or a SAMLResponse from the form control data");
+                log.warn("Could not extract either a SAMLRequest or a SAMLResponse from the form control data");
                 throw new SecurityPolicyException("Extract of SAMLRequest or SAMLResponse from form control data");
             }
         } catch (UnsupportedEncodingException e) {
@@ -105,7 +105,7 @@ public class SAML2HTTPPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurity
 
         String constructed = builder.toString();
         if (DatatypeHelper.isEmpty(constructed)) {
-            log.error("Could not construct signed content string from form control data");
+            log.warn("Could not construct signed content string from form control data");
             return null;
         }
         log.debug("Constructed signed content string for HTTP-Post-SimpleSign {}", constructed);
@@ -142,15 +142,15 @@ public class SAML2HTTPPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurity
             Document doc = parser.parse(is);
             keyInfo = (KeyInfo) unmarshaller.unmarshall(doc.getDocumentElement());
         } catch (XMLParserException e) {
-            log.error("Error parsing KeyInfo data", e);
+            log.warn("Error parsing KeyInfo data", e);
             throw new SecurityPolicyException("Error parsing KeyInfo data", e);
         } catch (UnmarshallingException e) {
-            log.error("Error unmarshalling KeyInfo data", e);
+            log.warn("Error unmarshalling KeyInfo data", e);
             throw new SecurityPolicyException("Error unmarshalling KeyInfo data", e);
         }
 
         if (keyInfo == null) {
-            log.error("Could not successfully extract KeyInfo object from the form control data");
+            log.warn("Could not successfully extract KeyInfo object from the form control data");
             return null;
         }
 
@@ -161,7 +161,7 @@ public class SAML2HTTPPostSimpleSignRule extends BaseSAMLSimpleSignatureSecurity
                 credentials.add(cred);
             }
         } catch (SecurityException e) {
-            log.error("Error resolving credentials from KeyInfo", e);
+            log.warn("Error resolving credentials from KeyInfo", e);
             throw new SecurityPolicyException("Error resolving credentials from KeyInfo", e);
         }
 

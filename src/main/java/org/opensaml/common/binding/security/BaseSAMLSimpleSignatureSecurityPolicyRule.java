@@ -89,13 +89,13 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
 
         String sigAlg = getSignatureAlgorithm(request);
         if (DatatypeHelper.isEmpty(sigAlg)) {
-            log.error("Signature algorithm could not be extracted from request, can not validate simple signature");
+            log.warn("Signature algorithm could not be extracted from request, can not validate simple signature");
             return;
         }
 
         byte[] signedContent = getSignedContent(request);
         if (signedContent == null || signedContent.length == 0) {
-            log.error("Signed content could not be extracted from HTTP request, can not validate");
+            log.warn("Signed content could not be extracted from HTTP request, can not validate");
             return;
         }
 
@@ -134,7 +134,7 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
                 }
                 return;
             } else {
-                log.error("Validation of request simple signature failed for context issuer: {}", contextIssuer);
+                log.warn("Validation of request simple signature failed for context issuer: {}", contextIssuer);
                 throw new SecurityPolicyException("Validation of request simple signature failed for context issuer");
             }
         }
@@ -154,12 +154,12 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
                 }
                 return;
             } else {
-                log.error("Validation of request simple signature failed for derived issuer: {}", derivedIssuer);
+                log.warn("Validation of request simple signature failed for derived issuer: {}", derivedIssuer);
                 throw new SecurityPolicyException("Validation of request simple signature failed for derived issuer");
             }
         }
         
-        log.error("Neither context nor derived issuer available, can not attempt SAML simple signature validation");
+        log.warn("Neither context nor derived issuer available, can not attempt SAML simple signature validation");
         throw new SecurityPolicyException("No message issuer available, can not attempt simple signature validation");
     }
 
@@ -191,7 +191,7 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
                     log.debug("Simple signature validation (with no request-derived credentials) was successful");
                     return true;
                 } else {
-                    log.error("Simple signature validation (with no request-derived credentials) failed");
+                    log.warn("Simple signature validation (with no request-derived credentials) failed");
                     return false;
                 }
             } else {
@@ -201,11 +201,11 @@ public abstract class BaseSAMLSimpleSignatureSecurityPolicyRule implements Secur
                         return true;
                     }
                 }
-                log.error("Signature validation using request-derived credentials failed");
+                log.warn("Signature validation using request-derived credentials failed");
                 return false;
             }
         } catch (SecurityException e) {
-            log.error("There was an error evaluating the request's simple signature using the trust engine", e);
+            log.warn("There was an error evaluating the request's simple signature using the trust engine", e);
             throw new SecurityPolicyException("Error during trust engine evaluation of the simple signature", e);
         }
     }

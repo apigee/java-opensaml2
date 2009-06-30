@@ -78,7 +78,7 @@ public class MessageReplayRule implements SecurityPolicyRule {
 
         String messageIsuer = DatatypeHelper.safeTrimOrNullString(samlMsgCtx.getInboundMessageIssuer());
         if (messageIsuer == null && requiredRule) {
-            log.error("Message contained no Issuer ID, replay check not possible");
+            log.warn("Message contained no Issuer ID, replay check not possible");
             throw new SecurityPolicyException("Message contained no Issuer ID, replay check not possible");
         }
 
@@ -89,7 +89,7 @@ public class MessageReplayRule implements SecurityPolicyRule {
         }
 
         if (replayCache.isReplay(messageIsuer, messageId)) {
-            log.error("Replay detected of message '" + messageId + "' from issuer " + messageIsuer);
+            log.warn("Replay detected of message '" + messageId + "' from issuer " + messageIsuer);
             throw new SecurityPolicyException("Rejecting replayed message ID '" + messageId + "' from issuer "
                     + messageIsuer);
         }

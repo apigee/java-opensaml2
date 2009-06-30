@@ -84,7 +84,7 @@ public class IssueInstantRule implements SecurityPolicyRule {
 
         if (samlMsgCtx.getInboundSAMLMessageIssueInstant() == null) {
             if(requiredRule){
-                log.error("Inbound SAML message issue instant not present in message context");
+                log.warn("Inbound SAML message issue instant not present in message context");
                 throw new SecurityPolicyException("Inbound SAML message issue instant not present in message context");
             }else{
                 return;
@@ -98,7 +98,7 @@ public class IssueInstantRule implements SecurityPolicyRule {
 
         // Check message wasn't issued in the future
         if (issueInstant.isAfter(latestValid)) {
-            log.error("Message was not yet valid: message time was {}, latest valid is: {}", issueInstant, latestValid);
+            log.warn("Message was not yet valid: message time was {}, latest valid is: {}", issueInstant, latestValid);
             throw new SecurityPolicyException("Message was rejected because was issued in the future");
         }
 

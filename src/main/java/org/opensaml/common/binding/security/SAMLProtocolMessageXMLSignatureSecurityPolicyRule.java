@@ -132,12 +132,12 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLX
                     samlMsgCtx.setInboundSAMLMessageAuthenticated(true);
                 }
             } else {
-                log.error("Validation of protocol message signature failed for context issuer '" + contextIssuer
+                log.warn("Validation of protocol message signature failed for context issuer '" + contextIssuer
                         + "', message type: " + msgType);
                 throw new SecurityPolicyException("Validation of protocol message signature failed");
             }
         } else {
-            log.error("Context issuer unavailable, can not attempt SAML protocol message signature validation");
+            log.warn("Context issuer unavailable, can not attempt SAML protocol message signature validation");
             throw new SecurityPolicyException("Context issuer unavailable, can not validate signature");
         }
     }
@@ -162,7 +162,7 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLX
             try {
                 getSignaturePrevalidator().validate(signature);
             } catch (ValidationException e) {
-                log.error("Protocol message signature failed signature pre-validation", e);
+                log.warn("Protocol message signature failed signature pre-validation", e);
                 throw new SecurityPolicyException("Protocol message signature failed signature pre-validation", e);
             }
         }
