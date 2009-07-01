@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2006 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,9 +39,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
 import org.w3c.dom.Document;
 
-/**
- * An abstract, base, implementation of a metadata provider.
- */
+/** An abstract, base, implementation of a metadata provider. */
 public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
     /** Class logger. */
@@ -61,30 +59,51 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
     /** {@inheritDoc} */
     public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException {
+        if (DatatypeHelper.isEmpty(name)) {
+            return null;
+        }
+
         XMLObject metadata = getMetadata();
+        if (metadata == null) {
+            log.debug("Metadata document was empty, unable to look for an EntitiesDescriptor with the name {}", name);
+            return null;
+        }
+
         if (metadata instanceof EntitiesDescriptor) {
             EntitiesDescriptor descriptor = (EntitiesDescriptor) metadata;
             return getEntitiesDescriptorByName(name, descriptor);
         }
 
-        log.debug("Metadata document does not contain an EntitiesDescriptor with the ID {}", name);
+        log.debug("Metadata document does not contain an EntitiesDescriptor with the name {}", name);
         return null;
     }
 
     /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException {
+        if (DatatypeHelper.isEmpty(entityID)) {
+            return null;
+        }
+
         XMLObject metadata = getMetadata();
+        if (metadata == null) {
+            log.debug("Metadata document was empty, unable to look for an EntityDescriptor with the ID {}", entityID);
+            return null;
+        }
+
         EntityDescriptor descriptor = getEntityDescriptorById(entityID, metadata);
         if (descriptor == null) {
             log.debug("Metadata document does not contain an EntityDescriptor with the ID {}", entityID);
             return null;
         }
-
         return descriptor;
     }
 
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException {
+        if (DatatypeHelper.isEmpty(entityID) || roleName == null) {
+            return null;
+        }
+
         EntityDescriptor entity = getEntityDescriptor(entityID);
         if (entity != null) {
             return entity.getRoleDescriptors(roleName);
@@ -96,8 +115,12 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     /** {@inheritDoc} */
     public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)
             throws MetadataProviderException {
+        if (DatatypeHelper.isEmpty(entityID) || roleName == null || DatatypeHelper.isEmpty(supportedProtocol)) {
+            return null;
+        }
+
         List<RoleDescriptor> roles = getRole(entityID, roleName);
-        if (roles == null) {
+        if (roles == null || roles.isEmpty()) {
             return null;
         }
 
@@ -105,7 +128,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         RoleDescriptor role;
         while (rolesItr.hasNext()) {
             role = rolesItr.next();
-            if (role.isSupportedProtocol(supportedProtocol)) {
+            if (role != null && role.isSupportedProtocol(supportedProtocol)) {
                 return role;
             }
         }
@@ -155,8 +178,9 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
             log.trace("Unmarshalling and caching metdata DOM");
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(mdDocument.getDocumentElement());
-            if(unmarshaller == null){
-                String msg = MessageFormatter.format("No unmarshaller registered for document element {}", XMLHelper.getNodeQName(mdDocument.getDocumentElement()));
+            if (unmarshaller == null) {
+                String msg = MessageFormatter.format("No unmarshaller registered for document element {}", XMLHelper
+                        .getNodeQName(mdDocument.getDocumentElement()));
                 log.error(msg);
                 throw new UnmarshallingException(msg);
             }
@@ -211,7 +235,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         EntityDescriptor descriptor = null;
 
         log.debug("Searching for entity descriptor with an entity ID of {}", entityID);
-        if (indexedDescriptors.containsKey(entityID)) {
+        if (entityID != null && indexedDescriptors.containsKey(entityID)) {
             descriptor = indexedDescriptors.get(entityID);
             if (isValid(descriptor)) {
                 log.trace("Entity descriptor for the ID {} was found in index cache, returning", entityID);
@@ -225,7 +249,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             if (metadata instanceof EntityDescriptor) {
                 log.trace("Metadata root is an entity descriptor, checking if it's the one we're looking for.");
                 descriptor = (EntityDescriptor) metadata;
-                if (!descriptor.getEntityID().equals(entityID)) {
+                if (!DatatypeHelper.safeEquals(descriptor.getEntityID(), entityID)) {
                     // skip this one, it isn't what we're looking for
                     descriptor = null;
                 }
@@ -235,7 +259,8 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
                     descriptor = null;
                 }
             } else {
-                log.trace("Metadata was an EntitiesDescriptor, checking if any of its descendant EntityDescriptor elements is the one we're looking for.");
+                log
+                        .trace("Metadata was an EntitiesDescriptor, checking if any of its descendant EntityDescriptor elements is the one we're looking for.");
                 if (metadata instanceof EntitiesDescriptor) {
                     descriptor = getEntityDescriptorById(entityID, (EntitiesDescriptor) metadata);
                 }
@@ -251,7 +276,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     }
 
     /**
-     * Gets the entity descriptor with the given ID that is a descedant of the given entities descriptor.
+     * Gets the entity descriptor with the given ID that is a descendant of the given entities descriptor.
      * 
      * @param entityID the ID of the entity whose descriptor is to be fetched
      * @param descriptor the entities descriptor
@@ -259,13 +284,12 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * @return the entity descriptor
      */
     protected EntityDescriptor getEntityDescriptorById(String entityID, EntitiesDescriptor descriptor) {
-        log.trace("Checking to see if any of the child entity descriptors of entities descriptor {} is the requested descriptor",
-                        descriptor.getName());
+        log.trace("Checking to see if EntitiesDescriptor {} contains the requested descriptor", descriptor.getName());
         List<EntityDescriptor> entityDescriptors = descriptor.getEntityDescriptors();
-        if (entityDescriptors != null) {
+        if (entityDescriptors != null && !entityDescriptors.isEmpty()) {
             for (EntityDescriptor entityDescriptor : entityDescriptors) {
                 log.trace("Checking entity descriptor with entity ID {}", entityDescriptor.getEntityID());
-                if (entityDescriptor.getEntityID().equals(entityID) && isValid(entityDescriptor)) {
+                if (DatatypeHelper.safeEquals(entityDescriptor.getEntityID(), entityID) && isValid(entityDescriptor)) {
                     return entityDescriptor;
                 }
             }
@@ -274,7 +298,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         log.trace("Checking to see if any of the child entities descriptors contains the entity descriptor requested");
         EntityDescriptor entityDescriptor;
         List<EntitiesDescriptor> entitiesDescriptors = descriptor.getEntitiesDescriptors();
-        if (entitiesDescriptors != null) {
+        if (entitiesDescriptors != null && !entitiesDescriptors.isEmpty()) {
             for (EntitiesDescriptor entitiesDescriptor : descriptor.getEntitiesDescriptors()) {
                 entityDescriptor = getEntityDescriptorById(entityID, entitiesDescriptor);
                 if (entityDescriptor != null) {
@@ -303,12 +327,13 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             descriptor = rootDescriptor;
         } else {
             List<EntitiesDescriptor> childDescriptors = rootDescriptor.getEntitiesDescriptors();
-            if (childDescriptors != null) {
-                for (EntitiesDescriptor childDescriptor : childDescriptors) {
-                    childDescriptor = getEntitiesDescriptorByName(name, childDescriptor);
-                    if (childDescriptor != null) {
-                        descriptor = childDescriptor;
-                    }
+            if (childDescriptors == null || childDescriptors.isEmpty()) {
+                return null;
+            }
+            for (EntitiesDescriptor childDescriptor : childDescriptors) {
+                childDescriptor = getEntitiesDescriptorByName(name, childDescriptor);
+                if (childDescriptor != null) {
+                    descriptor = childDescriptor;
                 }
             }
         }
@@ -324,6 +349,10 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      * @return true if valid metadata is not required or the given descriptor is valid, false otherwise
      */
     protected boolean isValid(XMLObject descriptor) {
+        if (descriptor == null) {
+            return false;
+        }
+
         if (!requireValidMetadata()) {
             return true;
         }

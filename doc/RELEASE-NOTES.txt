@@ -8,6 +8,7 @@ Changes in Release 2.2.4
 [JOST-78] - Update libs for 2.2.4 release
 [JOST-79] - StatusDetail builder is missing from saml2-protocol-config.properties file
 [JOST-83] - Add object provider support for Condition for Delegation Restriction extension schema
+[JOST-85] - metadata missing entityId causes NullPointerException
 * Add object provider support for SAML 2 ECP schema
 
 Changes in Release 2.2.3

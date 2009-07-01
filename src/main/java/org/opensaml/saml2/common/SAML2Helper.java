@@ -39,9 +39,12 @@ public class SAML2Helper {
             }
         }
 
-        for (XMLObject child : xmlObject.getOrderedChildren()) {
-            if (!isValid(child)) {
-                return false;
+        List<XMLObject> children = xmlObject.getOrderedChildren();
+        if (children != null && !children.isEmpty()) {
+            for (XMLObject child : children) {
+                if (!isValid(child)) {
+                    return false;
+                }
             }
         }
 
@@ -50,7 +53,7 @@ public class SAML2Helper {
 
     /**
      * Gets the earliest expiration instant for a XMLObject. This method traverses the tree of SAMLObject rooted at the
-     * given object and caculates the earliest expiration as the earliest of the following two items:
+     * given object and calculates the earliest expiration as the earliest of the following two items:
      * <ul>
      * <li>the earliest validUntil time on a {@link TimeBoundSAMLObject}</li>
      * <li>the shortest duration on a {@link CacheableSAMLObject} added to the current time</li>
@@ -85,9 +88,9 @@ public class SAML2Helper {
 
             if (cacheInfo.getCacheDuration() != null && cacheInfo.getCacheDuration().longValue() > 0) {
                 elementExpirationTime = now.plus(cacheInfo.getCacheDuration().longValue());
-                if(earliestExpiration == null){
+                if (earliestExpiration == null) {
                     earliestExpiration = elementExpirationTime;
-                }else{
+                } else {
                     if (elementExpirationTime != null && elementExpirationTime.isBefore(earliestExpiration)) {
                         earliestExpiration = elementExpirationTime;
                     }
@@ -99,12 +102,12 @@ public class SAML2Helper {
         if (xmlObject instanceof TimeBoundSAMLObject) {
             TimeBoundSAMLObject timeBoundObject = (TimeBoundSAMLObject) xmlObject;
             elementExpirationTime = timeBoundObject.getValidUntil();
-            if(earliestExpiration == null){
+            if (earliestExpiration == null) {
                 earliestExpiration = elementExpirationTime;
-            }else{
+            } else {
                 if (elementExpirationTime != null && elementExpirationTime.isBefore(earliestExpiration)) {
                     earliestExpiration = elementExpirationTime;
-                } 
+                }
             }
         }
 
@@ -112,7 +115,7 @@ public class SAML2Helper {
         List<XMLObject> children = xmlObject.getOrderedChildren();
         if (children != null) {
             for (XMLObject child : xmlObject.getOrderedChildren()) {
-                if(child != null){
+                if (child != null) {
                     earliestExpiration = getEarliestExpiration(child, earliestExpiration, now);
                 }
             }
