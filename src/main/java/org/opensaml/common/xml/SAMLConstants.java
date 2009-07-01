@@ -92,10 +92,10 @@ public class SAMLConstants extends XMLConstants{
     public static final String SAML11P_NS = "urn:oasis:names:tc:SAML:1.1:protocol";
     
     /** SAML 1.X Protocol QName prefix. */
-    public static final String SAML1P_PREFIX = "samlp";
+    public static final String SAML1P_PREFIX = "saml1p";
 
     /** SAML 1.X Assertion QName prefix. */
-    public static final String SAML1_PREFIX = "saml";
+    public static final String SAML1_PREFIX = "saml1";
     
     /** SAML 1 Metadata extension XML namespace. */
     public static final String SAML1MD_NS = "urn:oasis:names:tc:SAML:profiles:v1metadata";
@@ -125,7 +125,7 @@ public class SAMLConstants extends XMLConstants{
     public static final String SAML20_NS = "urn:oasis:names:tc:SAML:2.0:assertion";
     
     /** SAML 2.0 Assertion QName prefix. */
-    public static final String SAML20_PREFIX ="saml";
+    public static final String SAML20_PREFIX ="saml2";
     
     /** SAML 2.0 Protocol schema Id. */
     public static final String SAML20P_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-protocol-2.0.xsd";
@@ -134,7 +134,7 @@ public class SAMLConstants extends XMLConstants{
     public static final String SAML20P_NS = "urn:oasis:names:tc:SAML:2.0:protocol";
     
     /** SAML 2.0 Protocol QName prefix. */
-    public static final String SAML20P_PREFIX ="samlp";
+    public static final String SAML20P_PREFIX ="saml2p";
     
     /** SAML 2.0 Protocol Third-party extension schema Id. */
     public static final String SAML20PTHRPTY_SCHEMA_LOCATION = SCHEMA_DIR + "sstc-saml-protocol-ext-thirdparty.xsd";
