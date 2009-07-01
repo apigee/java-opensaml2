@@ -66,7 +66,9 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
                                 getEntityMetadata().getEntityID() });
                 endpoint = selectEndpointByACSIndex(request, (List<IndexedEndpoint>) endpoints);
             } else if (request.getAssertionConsumerServiceURL() != null) {
-                log.debug("Selecting endpoint by ACS URL '{}' and protocol binding '{}' for request '{}' from entity '{}'",
+                log
+                        .debug(
+                                "Selecting endpoint by ACS URL '{}' and protocol binding '{}' for request '{}' from entity '{}'",
                                 new Object[] { request.getAssertionConsumerServiceURL(), request.getProtocolBinding(),
                                         request.getID(), getEntityMetadata().getEntityID() });
                 endpoint = selectEndpointByACSURL(request, (List<IndexedEndpoint>) endpoints);
@@ -138,9 +140,10 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
         Integer acsIndex = request.getAssertionConsumerServiceIndex();
         for (IndexedEndpoint endpoint : endpoints) {
             if (endpoint == null || !getSupportedIssuerBindings().contains(endpoint.getBinding())) {
-                log.debug(
-                        "Endpoint '{}' with binding '{}' discarded because that is not a supported outbound binding.",
-                        endpoint.getLocation(), endpoint.getBinding());
+                log
+                        .debug(
+                                "Endpoint '{}' with binding '{}' discarded because it requires an unsupported outbound binding.",
+                                endpoint.getLocation(), endpoint.getBinding());
                 continue;
             }
 
@@ -152,6 +155,9 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
             }
         }
 
+        log.warn("Relying party '{}' requested the response to be returned to endpoint with ACS index '{}' "
+                + "however no endpoint, with that index and using a supported binding, can be found "
+                + " in the relying party's metadata ", getEntityMetadata().getID(), acsIndex);
         return null;
     }
 
@@ -193,6 +199,10 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
             }
         }
 
+        log.warn("Relying party '{}' requested the response to be returned to endpoint with ACS URL '{}' "
+                + " and binding '{}' however no endpoint, with that index and using a supported binding, "
+                + " can be found in the relying party's metadata ", new Object[] { getEntityMetadata().getID(),
+                request.getAssertionConsumerServiceURL(), (acsBinding == null) ? "any" : acsBinding });
         return null;
     }
 }
