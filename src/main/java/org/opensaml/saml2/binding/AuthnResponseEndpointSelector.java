@@ -1,5 +1,5 @@
 /*
- * Copyright [2007] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2007 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,9 +53,8 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
         }
 
         Endpoint endpoint = null;
-        if (getSamlRequest() != null) {
-            AuthnRequest request = (AuthnRequest) getSamlRequest();
-
+        AuthnRequest request = (AuthnRequest) getSamlRequest();
+        if (request != null) {
             endpoints = filterEndpointsByProtocolBinding(endpoints);
             if (endpoints == null || endpoints.isEmpty()) {
                 return null;
@@ -72,7 +71,8 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
             }
         }
 
-        if (endpoint == null) {
+        if (endpoint == null && request.getAssertionConsumerServiceIndex() == null
+                && request.getAssertionConsumerServiceURL() == null) {
             if (endpoints.get(0) instanceof IndexedEndpoint) {
                 endpoint = selectIndexedEndpoint((List<IndexedEndpoint>) endpoints);
             } else {
@@ -166,8 +166,10 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
             }
 
             if (endpoint.getBinding().equals(acsBinding)) {
-                if ((endpoint.getLocation() != null && endpoint.getLocation().equals(request.getAssertionConsumerServiceURL()))
-                        || (endpoint.getResponseLocation() != null && endpoint.getResponseLocation().equals(request.getAssertionConsumerServiceURL()))) {
+                if ((endpoint.getLocation() != null && endpoint.getLocation().equals(
+                        request.getAssertionConsumerServiceURL()))
+                        || (endpoint.getResponseLocation() != null && endpoint.getResponseLocation().equals(
+                                request.getAssertionConsumerServiceURL()))) {
                     return endpoint;
                 }
             }
