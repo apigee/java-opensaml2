@@ -60,7 +60,6 @@ public class MetadataCredentialResolverCachingTest extends BaseTestCase {
     private String mdFileNameCacheTestEncryption = "/data/org/opensaml/security/cachetest-metadata-encryption.xml";
     
     private File mdFileUnspec;
-    private File mdFileSigning;
     private File mdFileEncryption;
     private File mdFile;
     
@@ -79,7 +78,7 @@ public class MetadataCredentialResolverCachingTest extends BaseTestCase {
         criteriaSet.add(mdCriteria);
         
         mdFileUnspec = new File(this.getClass().getResource(mdFileNameCacheTestUnspecified).toURI());
-        mdFileSigning = new File(this.getClass().getResource(mdFileNameCacheTestSigning).toURI());
+        new File(this.getClass().getResource(mdFileNameCacheTestSigning).toURI());
         mdFileEncryption = new File(this.getClass().getResource(mdFileNameCacheTestEncryption).toURI());
         
         mdFile = new File( System.getProperty("java.io.tmpdir"), "cachetest-metadata-temp.xml");

@@ -29,7 +29,6 @@ import org.opensaml.saml2.metadata.ArtifactResolutionService;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.ContactPerson;
-import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.ManageNameIDService;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.Organization;

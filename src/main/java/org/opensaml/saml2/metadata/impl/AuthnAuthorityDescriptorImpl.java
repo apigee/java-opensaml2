@@ -23,7 +23,6 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.saml2.metadata.AssertionIDRequestService;
-import org.opensaml.saml2.metadata.AttributeService;
 import org.opensaml.saml2.metadata.AuthnAuthorityDescriptor;
 import org.opensaml.saml2.metadata.AuthnQueryService;
 import org.opensaml.saml2.metadata.Endpoint;

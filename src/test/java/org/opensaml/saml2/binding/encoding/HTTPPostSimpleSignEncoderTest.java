@@ -33,8 +33,6 @@ import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
 import org.opensaml.xml.security.SecurityHelper;
-import org.opensaml.xml.security.SecurityTestHelper;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
@@ -167,7 +165,7 @@ public class HTTPPostSimpleSignEncoderTest extends BaseTestCase {
         messageContext.setOutboundSAMLMessage(samlMessage);
         messageContext.setRelayState("relay");
         
-        KeyPair kp = SecurityTestHelper.generateKeyPair("RSA", 1024, null);
+        KeyPair kp = SecurityHelper.generateKeyPair("RSA", 1024, null);
         messageContext.setOutboundSAMLMessageSigningCredential(
                 SecurityHelper.getSimpleCredential(kp.getPublic(), kp.getPrivate()));
 

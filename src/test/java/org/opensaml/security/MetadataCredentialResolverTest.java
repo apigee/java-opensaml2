@@ -34,12 +34,11 @@ import org.opensaml.xml.security.BasicSecurityConfiguration;
 import org.opensaml.xml.security.CriteriaSet;
 import org.opensaml.xml.security.SecurityConfiguration;
 import org.opensaml.xml.security.SecurityException;
-import org.opensaml.xml.security.SecurityTestHelper;
+import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.credential.UsageType;
 import org.opensaml.xml.security.criteria.EntityIDCriteria;
 import org.opensaml.xml.security.criteria.UsageCriteria;
-import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
 import org.opensaml.xml.security.x509.X509Credential;
 import org.w3c.dom.Document;
 
@@ -100,7 +99,6 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         "Scb5iS4U/XUEbZylMUbbK57h9Bez8VVeO1jfwAniIBT0Ur9ksiYsAdyXYoXssGiF" +
         "bKW1K3QG1GA9wwGy5GvjyALuuXL4lEzFB0kMsGucNMfyyojX9A==";
     
-    private X509Certificate keyAuthorityCert;
     private String keyAuthorityCertBase64 = 
         "MIIDXTCCAkWgAwIBAgIBATANBgkqhkiG9w0BAQUFADAtMRIwEAYDVQQKEwlJbnRl" +
         "cm5ldDIxFzAVBgNVBAMTDmNhLmV4YW1wbGUub3JnMB4XDTA3MDQwOTA1NDcxMloX" +
@@ -139,8 +137,6 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
     
     private MetadataCredentialResolver mdResolver;
     
-    private KeyInfoCredentialResolver keyInfoResolver;
-    
     private EntityIDCriteria entityCriteria;
     
     private MetadataCriteria mdCriteria;
@@ -153,10 +149,10 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
-        idpRSAPubKey = SecurityTestHelper.buildJavaRSAPublicKey(idpRSAPubKeyBase64);
-        idpDSACert = SecurityTestHelper.buildJavaX509Cert(idpDSACertBase64);
-        idpRSACert = SecurityTestHelper.buildJavaX509Cert(idpRSACertBase64);
-        keyAuthorityCert = SecurityTestHelper.buildJavaX509Cert(keyAuthorityCertBase64);
+        idpRSAPubKey = SecurityHelper.buildJavaRSAPublicKey(idpRSAPubKeyBase64);
+        idpDSACert = SecurityHelper.buildJavaX509Cert(idpDSACertBase64);
+        idpRSACert = SecurityHelper.buildJavaX509Cert(idpRSACertBase64);
+        SecurityHelper.buildJavaX509Cert(keyAuthorityCertBase64);
         
         Document mdDoc = parser.parse(MetadataCredentialResolverTest.class.getResourceAsStream(mdFileName));
         
@@ -166,7 +162,7 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         //For testing, use default KeyInfo resolver from global security config, per metadata resolver constructor
         origGlobalSecurityConfig = Configuration.getGlobalSecurityConfiguration();
         BasicSecurityConfiguration newSecConfig = new BasicSecurityConfiguration();
-        newSecConfig.setDefaultKeyInfoCredentialResolver( SecurityTestHelper.buildBasicInlineKeyInfoResolver() );
+        newSecConfig.setDefaultKeyInfoCredentialResolver( SecurityHelper.buildBasicInlineKeyInfoResolver() );
         Configuration.setGlobalSecurityConfiguration(newSecConfig);
         
         mdResolver = new MetadataCredentialResolver(mdProvider);
@@ -387,7 +383,6 @@ public class MetadataCredentialResolverTest extends BaseTestCase {
         assertEquals("Incorrect number of credentials resolved", 1, resolved.size());
         
         for (Credential credential : resolved) {
-            X509Credential x509Cred;
             switch(credential.getUsageType()) {
                 case SIGNING:
                     fail("Credential was resolved from invalid protocol or usage");

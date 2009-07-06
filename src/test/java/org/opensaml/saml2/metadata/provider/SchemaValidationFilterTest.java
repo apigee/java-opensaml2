@@ -17,7 +17,6 @@
 package org.opensaml.saml2.metadata.provider;
 
 import org.opensaml.common.BaseTestCase;
-import org.opensaml.saml2.metadata.EntitiesDescriptor;
 
 /**
  * Unit tests for {@link SchemaValidationFilter}.
@@ -40,6 +39,6 @@ public class SchemaValidationFilterTest extends BaseTestCase {
         metadataProvider.setMetadataFilter(new SchemaValidationFilter(null));
         metadataProvider.initialize();
 
-        EntitiesDescriptor descriptor = (EntitiesDescriptor) metadataProvider.getMetadata();
+        metadataProvider.getMetadata();
     }
 }

@@ -20,8 +20,6 @@ import org.joda.time.DateTime;
 import org.opensaml.saml2.core.AttributeQuery;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Response;
-import org.opensaml.ws.message.BaseMessageContext;
-import org.opensaml.ws.security.SecurityPolicyException;
 
 /**
  * Testing SAML issue instant security policy rule.

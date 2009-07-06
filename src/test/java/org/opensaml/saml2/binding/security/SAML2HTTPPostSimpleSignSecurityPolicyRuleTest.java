@@ -31,9 +31,7 @@ import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.security.BaseSAMLSecurityPolicyRuleTestCase;
 import org.opensaml.saml2.binding.encoding.HTTPPostSimpleSignEncoder;
 import org.opensaml.saml2.core.AuthnRequest;
-import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.core.NameIDType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.Endpoint;
@@ -44,7 +42,7 @@ import org.opensaml.ws.transport.http.HTTPInTransport;
 import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
 import org.opensaml.xml.parse.XMLParserException;
-import org.opensaml.xml.security.SecurityTestHelper;
+import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.credential.CollectionCredentialResolver;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
@@ -158,15 +156,15 @@ public class SAML2HTTPPostSimpleSignSecurityPolicyRuleTest
     /** Constructor. 
      * @throws Exception */
     public SAML2HTTPPostSimpleSignSecurityPolicyRuleTest() throws Exception {
-        signingCert = SecurityTestHelper.buildJavaX509Cert(signingCertBase64);
-        signingPrivateKey = SecurityTestHelper.buildJavaRSAPrivateKey(signingPrivateKeyBase64);
+        signingCert = SecurityHelper.buildJavaX509Cert(signingCertBase64);
+        signingPrivateKey = SecurityHelper.buildJavaRSAPrivateKey(signingPrivateKeyBase64);
         
         signingX509Cred = new BasicX509Credential();
         signingX509Cred.setEntityCertificate(signingCert);
         signingX509Cred.setPrivateKey(signingPrivateKey);
         signingX509Cred.setEntityId(issuer);
         
-        otherCert1 = SecurityTestHelper.buildJavaX509Cert(otherCert1Base64);
+        otherCert1 = SecurityHelper.buildJavaX509Cert(otherCert1Base64);
         
         otherCred1 = new BasicX509Credential();
         otherCred1.setEntityCertificate(otherCert1);
@@ -195,7 +193,7 @@ public class SAML2HTTPPostSimpleSignSecurityPolicyRuleTest
         
         credResolver = new CollectionCredentialResolver(trustedCredentials);
         
-        KeyInfoCredentialResolver kiResolver = SecurityTestHelper.buildBasicInlineKeyInfoResolver();
+        KeyInfoCredentialResolver kiResolver = SecurityHelper.buildBasicInlineKeyInfoResolver();
         SignatureTrustEngine engine = new ExplicitKeySignatureTrustEngine(credResolver, kiResolver);
         
         rule = new SAML2HTTPPostSimpleSignRule(engine, parser, kiResolver);
@@ -282,18 +280,6 @@ public class SAML2HTTPPostSimpleSignSecurityPolicyRuleTest
         return request;
     }
     
-    /**
-     * Build an Issuer with entity format.
-     * 
-     * @return a new Issuer
-     */
-    private Issuer buildIssuer() {
-        Issuer issuerXO = (Issuer) buildXMLObject(Issuer.DEFAULT_ELEMENT_NAME);
-        issuerXO.setValue(issuer);
-        issuerXO.setFormat(NameIDType.ENTITY);
-        return  issuerXO;
-    }
-
     /** {@inheritDoc} */
     protected InTransport buildInTransport() {
         //

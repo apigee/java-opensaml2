@@ -26,7 +26,6 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.security.SecurityHelper;
-import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.StaticCredentialResolver;
 import org.opensaml.xml.security.x509.X509Credential;
 import org.opensaml.xml.signature.SignatureTrustEngine;
@@ -85,7 +84,7 @@ public class SignatureValidationFilterTest extends BaseTestCase {
         switchMDDocumentValid = parser.parse(SignatureValidationFilterTest.class.getResourceAsStream(switchMDFileValid));
         switchMDDocumentInvalid = parser.parse(SignatureValidationFilterTest.class.getResourceAsStream(switchMDFileInvalid));
         
-        X509Certificate switchCert = SecurityTestHelper.buildJavaX509Cert(switchMDCertBase64);
+        X509Certificate switchCert = SecurityHelper.buildJavaX509Cert(switchMDCertBase64);
         X509Credential switchCred = SecurityHelper.getSimpleCredential(switchCert, null);
         StaticCredentialResolver switchCredResolver = new StaticCredentialResolver(switchCred);
         switchSigTrustEngine = new ExplicitKeySignatureTrustEngine(switchCredResolver, 
@@ -118,7 +117,7 @@ public class SignatureValidationFilterTest extends BaseTestCase {
     }
     
     public void testEntityDescriptor() throws UnmarshallingException, CertificateException, XMLParserException {
-        X509Certificate cert = SecurityTestHelper.buildJavaX509Cert(openIDCertBase64);
+        X509Certificate cert = SecurityHelper.buildJavaX509Cert(openIDCertBase64);
         X509Credential cred = SecurityHelper.getSimpleCredential(cert, null);
         StaticCredentialResolver credResolver = new StaticCredentialResolver(cred);
         SignatureTrustEngine trustEngine = new ExplicitKeySignatureTrustEngine(credResolver, 
@@ -141,7 +140,7 @@ public class SignatureValidationFilterTest extends BaseTestCase {
     }
     
     public void testEntityDescriptorInvalid() throws UnmarshallingException, CertificateException, XMLParserException {
-        X509Certificate cert = SecurityTestHelper.buildJavaX509Cert(openIDCertBase64);
+        X509Certificate cert = SecurityHelper.buildJavaX509Cert(openIDCertBase64);
         X509Credential cred = SecurityHelper.getSimpleCredential(cert, null);
         StaticCredentialResolver credResolver = new StaticCredentialResolver(cred);
         SignatureTrustEngine trustEngine = new ExplicitKeySignatureTrustEngine(credResolver, 
@@ -165,7 +164,7 @@ public class SignatureValidationFilterTest extends BaseTestCase {
     }
     
     public void testEntityDescriptorWithProvider() throws CertificateException, XMLParserException, UnmarshallingException {
-        X509Certificate cert = SecurityTestHelper.buildJavaX509Cert(openIDCertBase64);
+        X509Certificate cert = SecurityHelper.buildJavaX509Cert(openIDCertBase64);
         X509Credential cred = SecurityHelper.getSimpleCredential(cert, null);
         StaticCredentialResolver credResolver = new StaticCredentialResolver(cred);
         SignatureTrustEngine trustEngine = new ExplicitKeySignatureTrustEngine(credResolver, 
@@ -191,7 +190,7 @@ public class SignatureValidationFilterTest extends BaseTestCase {
     }
     
     public void testInvalidEntityDescriptorWithProvider() throws CertificateException, XMLParserException, UnmarshallingException {
-        X509Certificate cert = SecurityTestHelper.buildJavaX509Cert(openIDCertBase64);
+        X509Certificate cert = SecurityHelper.buildJavaX509Cert(openIDCertBase64);
         X509Credential cred = SecurityHelper.getSimpleCredential(cert, null);
         StaticCredentialResolver credResolver = new StaticCredentialResolver(cred);
         SignatureTrustEngine trustEngine = new ExplicitKeySignatureTrustEngine(credResolver, 

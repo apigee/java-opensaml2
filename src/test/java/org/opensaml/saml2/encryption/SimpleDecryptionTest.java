@@ -37,7 +37,7 @@ import org.opensaml.xml.encryption.EncryptionConstants;
 import org.opensaml.xml.encryption.EncryptionException;
 import org.opensaml.xml.encryption.EncryptionParameters;
 import org.opensaml.xml.parse.XMLParserException;
-import org.opensaml.xml.security.SecurityTestHelper;
+import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.credential.BasicCredential;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
@@ -52,7 +52,6 @@ public class SimpleDecryptionTest extends BaseTestCase {
     private KeyInfoCredentialResolver keyResolver;
     
     private String encURI;
-    private Key encKey;
     private EncryptionParameters encParams;
     
     private Encrypter encrypter;
@@ -72,8 +71,8 @@ public class SimpleDecryptionTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        Credential encCred = SecurityTestHelper.generateKeyAndCredential(encURI);
-        encKey = encCred.getSecretKey();
+        Credential encCred = SecurityHelper.generateKeyAndCredential(encURI);
+        encCred.getSecretKey();
         keyResolver = new StaticKeyInfoCredentialResolver(encCred);
         encParams = new EncryptionParameters();
         encParams.setAlgorithm(encURI);
@@ -234,7 +233,7 @@ public class SimpleDecryptionTest extends BaseTestCase {
      */
     public void testErrorInvalidDataDecryptionKey() 
             throws XMLParserException, EncryptionException, NoSuchAlgorithmException, NoSuchProviderException {
-        Key badKey = SecurityTestHelper.generateKeyFromURI(encURI);
+        Key badKey = SecurityHelper.generateKeyFromURI(encURI);
         BasicCredential encCred = new BasicCredential();
         encCred.setSecretKey((SecretKey) badKey);
         KeyInfoCredentialResolver badEncResolver = new StaticKeyInfoCredentialResolver(encCred);
@@ -246,9 +245,8 @@ public class SimpleDecryptionTest extends BaseTestCase {
         
         Decrypter decrypter = new Decrypter(badEncResolver, null, null);
         
-        SAMLObject decryptedTarget = null;
         try {
-            decryptedTarget = decrypter.decrypt(encryptedTarget);
+            decrypter.decrypt(encryptedTarget);
             fail("Decryption should have failed due to bad decryption key");
         } catch (DecryptionException e) {
             // do nothing, should faile

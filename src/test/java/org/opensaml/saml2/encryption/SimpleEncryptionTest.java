@@ -33,7 +33,7 @@ import org.opensaml.xml.encryption.EncryptionConstants;
 import org.opensaml.xml.encryption.EncryptionException;
 import org.opensaml.xml.encryption.EncryptionParameters;
 import org.opensaml.xml.encryption.KeyEncryptionParameters;
-import org.opensaml.xml.security.SecurityTestHelper;
+import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.keyinfo.StaticKeyInfoGenerator;
 import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.KeyName;
@@ -55,8 +55,6 @@ public class SimpleEncryptionTest extends BaseTestCase {
     private String expectedKeyName;
     
     private String kekURIRSA;
-    private String kekExpectedKeyNameRSA;
-
     /**
      * Constructor.
      *
@@ -67,7 +65,6 @@ public class SimpleEncryptionTest extends BaseTestCase {
         expectedKeyName = "SuperSecretKey";
         algoURI = EncryptionConstants.ALGO_ID_BLOCKCIPHER_AES128;
         
-        kekExpectedKeyNameRSA = "RSAKeyEncryptionKey";
         kekURIRSA = EncryptionConstants.ALGO_ID_KEYTRANSPORT_RSA15;
     }
     
@@ -77,11 +74,11 @@ public class SimpleEncryptionTest extends BaseTestCase {
         
         encParams = new EncryptionParameters();
         encParams.setAlgorithm(algoURI);
-        encParams.setEncryptionCredential(SecurityTestHelper.generateKeyAndCredential(algoURI));
+        encParams.setEncryptionCredential(SecurityHelper.generateKeyAndCredential(algoURI));
         
         kekParamsRSA = new KeyEncryptionParameters();
         kekParamsRSA.setAlgorithm(kekURIRSA);
-        kekParamsRSA.setEncryptionCredential(SecurityTestHelper.generateKeyPairAndCredential(kekURIRSA, 1024, false));
+        kekParamsRSA.setEncryptionCredential(SecurityHelper.generateKeyPairAndCredential(kekURIRSA, 1024, false));
         
         kekParamsList = new ArrayList<KeyEncryptionParameters>();
         
@@ -367,9 +364,8 @@ public class SimpleEncryptionTest extends BaseTestCase {
         
         encrypter = new Encrypter(encParams, kekParamsList);
         
-        XMLObject encObject = null;
         try {
-            encObject = encrypter.encrypt(target);
+            encrypter.encrypt(target);
             fail("Object encryption should have failed: no KEK supplied with auto key generation for data encryption");
         } catch (EncryptionException e) {
             //do nothing, should fail

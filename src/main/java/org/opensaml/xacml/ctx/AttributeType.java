@@ -24,7 +24,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.xacml.XACMLConstants;
 import org.opensaml.xacml.XACMLObject;
-import org.opensaml.xml.XMLObject;
 
 /** XACML context Attribute schema type. */
 public interface AttributeType extends XACMLObject {

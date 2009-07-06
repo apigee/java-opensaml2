@@ -29,7 +29,6 @@ import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.SecurityHelper;
-import org.opensaml.xml.security.SecurityTestHelper;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.Signer;
@@ -182,7 +181,7 @@ public class HTTPPostDecoderTest extends BaseTestCase {
         samlResponse.setRecipient(null);
         
         Signature signature = (Signature) buildXMLObject(Signature.DEFAULT_ELEMENT_NAME);
-        KeyPair kp = SecurityTestHelper.generateKeyPair("RSA", 1024, null);
+        KeyPair kp = SecurityHelper.generateKeyPair("RSA", 1024, null);
         Credential signingCred = SecurityHelper.getSimpleCredential(kp.getPublic(), kp.getPrivate());
         signature.setSigningCredential(signingCred);
         samlResponse.setSignature(signature);

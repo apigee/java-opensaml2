@@ -23,12 +23,10 @@ import java.util.List;
 
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.saml2.core.AuthnRequest;
-import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
-import org.opensaml.saml2.core.NameIDType;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
-import org.opensaml.xml.security.SecurityTestHelper;
+import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.credential.CollectionCredentialResolver;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
@@ -69,34 +67,6 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRuleTest
         "+hcVyvCXs5XtFTFWDAVYvzQ6";
     
     private PrivateKey signingPrivateKey;
-    private String signingPrivateKeyBase64 = 
-        "MIIEogIBAAKCAQEAzVp5BZoctb2GuoDf8QUSpGcRct7FKtldC7GG+kN6XvUJW+vg" +
-        "c2jOQ6zfLiKqq6ARN1qdC7a4CrkE6Q6TRQXUtqeWn4lLTmC1gQ7Ys0zs7N2d+jBj" +
-        "IyD1GEOLNNyD98j4drnehCqQz4mKszW5EWoiMJmEorea/kTGL3en7ir0zp+oez2S" +
-        "OQA+0XWu1VoeTlUqGV5Ucd6sRYaPpmYVtKuH1H04uZVsH+BIZHwZc4MP5OYH+HDo" +
-        "uq6xqUUtc8Zm7V9UQIPiNtM+ndOINDdlrCubLbM4GCqCETiQol8I62mvP0qBXCC6" +
-        "JVkKbbVRwSFGJcg5ZvJiBZXmX+EXhaX5vp1GMQIDAQABAoIBAC1P4lZvHBiqGll6" +
-        "6G8pXGS0bXA4Ya9DyTk0UgFU9GKRlSAYWy18Gc9rDNAETD6Uklfxgae9CL0s+D1o" +
-        "vuxDDh3DuwO26sv/oO06Vmyx87GMcThshuOQeSSCeuwOIHyDdvfTqZrmPY/d3KIQ" +
-        "n6aNEcBBj7fL5cJncIe20nJGPkB9KuTAaGVnaKoOesxgWBr7SvjGq/SB7bRE1B3c" +
-        "QxwUDWHkF0LljSIkXaV9ehKJcgBY2fV0rc8pI53WsUXEXk5HoqYZnQ5QjAZ4Hf2s" +
-        "bRKevq+D2ENK+OuKNuCAS/oJbGSdS7q0/6jgHZ6cUGXi1r2qEEG7PIorCoSMkWQS" +
-        "M1wMX0ECgYEA9c6/s9lKDrjzyjO9rlxzufGVRDjffiUZ1o8F3RD3JltdPLVcd429" +
-        "CvGSNV730Yr/wSyRAum4vkGnmOR9tuQdi3PJHt3xGRsymTT5ym/5fnC4SvXVSR6v" +
-        "LFPUY80yj+D6/0lwIaGE7x4JOclMXnHjqcpRl14onOjY844WORhxgjkCgYEA1d5N" +
-        "Tqp938UbZYKX4Q9UvLf/pVR9xOFOCYnMywAFk0WnkUBPHmPoJuFgeNGeQ7gCmHi7" +
-        "JFzwBjkj6DcGMdbXKWiUij1BoRxf9Mof+fZBWVSKw+/yVLbJkyK951+nywyiq3HC" +
-        "NBti1eK/h/hXQd8t+dCBmDGj1ba1C2/3JZqLg7kCgYArxD1D85uJFYtq5F2Qryt3" +
-        "3zj5pbq9hjOcjWi43O10qe3nAk/NhbI0QaEL2bX8XGh/Z8UGJMFdNul1grGTn/hW" +
-        "vS4BTflAxCP1PYaAcgGVbtKRnkX0t/7uwJpfjsjC74chb10Ez/KQdOOlo17yrgqg" +
-        "T8LJVd2bWqZOb20ri1uimQKBgFfJYSg6OWLh0IYRXfBmz5yLVmdx0BJBfTvTEXn+" +
-        "L0utWsP3hsJttfxHpMbTHEilvoMBg6fAclHLoJ6P/33ztuvrXpWD4W2VbRnY4dlD" +
-        "qL1XQ4J7+pelVAaOSy8vB3wEWr1O+61R1HcBFSdl28NRLdkOKjPjpGF0Fsp0Ehmg" +
-        "X0YZAoGAXrM4+BUvcx2PLaeneTJoRdOi3GQbdAte03maDU6C474IdgR8IUygfspv" +
-        "3fiGue9Wmk5ybUBlv/D6sIWVhnnedWsg2zAgZPfZ78HLLNhWeEx33wPFiK0wV5MJ" +
-        "XQ224gQ5t9D3WXdZtmAxXIFoopj4zToCMBjXyep0u7zl3s7s00U=";
-    
-        
     private X509Certificate otherCert1;
     private String otherCert1Base64 = 
         "MIIECTCCAvGgAwIBAgIBMzANBgkqhkiG9w0BAQUFADAtMRIwEAYDVQQKEwlJbnRl" +
@@ -140,7 +110,7 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRuleTest
         
         issuer = "SomeCoolIssuer";
         
-        signingCert = SecurityTestHelper.buildJavaX509Cert(signingCertBase64);
+        signingCert = SecurityHelper.buildJavaX509Cert(signingCertBase64);
         //signingPrivateKey = SecurityTestHelper.buildJavaRSAPrivateKey(signingPrivateKeyBase64);
         
         signingX509Cred = new BasicX509Credential();
@@ -148,7 +118,7 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRuleTest
         signingX509Cred.setPrivateKey(signingPrivateKey);
         signingX509Cred.setEntityId(issuer);
         
-        otherCert1 = SecurityTestHelper.buildJavaX509Cert(otherCert1Base64);
+        otherCert1 = SecurityHelper.buildJavaX509Cert(otherCert1Base64);
         
         BasicX509Credential otherCred1 = new BasicX509Credential();
         otherCred1.setEntityCertificate(otherCert1);
@@ -161,7 +131,7 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRuleTest
         
         //KeyInfoCredentialResolver kiResolver = new StaticKeyInfoCredentialResolver(new ArrayList<Credential>());
         //Testing with inline cert
-        KeyInfoCredentialResolver kiResolver = SecurityTestHelper.buildBasicInlineKeyInfoResolver();
+        KeyInfoCredentialResolver kiResolver = SecurityHelper.buildBasicInlineKeyInfoResolver();
         TrustEngine<Signature> engine = new ExplicitKeySignatureTrustEngine(credResolver, kiResolver);
         
         rule = new SAMLProtocolMessageXMLSignatureSecurityPolicyRule(engine);
@@ -260,18 +230,6 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRuleTest
         
         return request;
         */
-    }
-    
-    /**
-     * Build an Issuer with entity format.
-     * 
-     * @return a new Issuer
-     */
-    private Issuer buildIssuer() {
-        Issuer issuerXO = (Issuer) buildXMLObject(Issuer.DEFAULT_ELEMENT_NAME);
-        issuerXO.setValue(issuer);
-        issuerXO.setFormat(NameIDType.ENTITY);
-        return  issuerXO;
     }
 
 }

@@ -33,10 +33,8 @@ import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.Organization;
 import org.opensaml.saml2.metadata.PDPDescriptor;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
-import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureConstants;
-import org.opensaml.xml.util.XMLHelper;
 
 /**
  * Test case for creating, marshalling, and unmarshalling {@link org.opensaml.saml2.metadata.impl.EntityDescriptorImpl}.

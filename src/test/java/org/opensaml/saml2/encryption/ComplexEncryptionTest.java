@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.encryption;
 
-import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ import org.opensaml.xml.encryption.EncryptionConstants;
 import org.opensaml.xml.encryption.EncryptionException;
 import org.opensaml.xml.encryption.EncryptionParameters;
 import org.opensaml.xml.encryption.KeyEncryptionParameters;
-import org.opensaml.xml.security.SecurityTestHelper;
+import org.opensaml.xml.security.SecurityHelper;
 import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.security.keyinfo.StaticKeyInfoGenerator;
 import org.opensaml.xml.signature.KeyInfo;
@@ -53,10 +52,10 @@ public class ComplexEncryptionTest extends BaseTestCase {
     private List<KeyEncryptionParameters> kekParamsList;
     private KeyEncryptionParameters kekParamsRSA, kekParamsAES;
     
-    private KeyInfo keyInfo, kekKeyInfoRSA, kekKeyInfoAES;
+    private KeyInfo keyInfo, kekKeyInfoRSA;
     
     private String algoURI, kekURIRSA, kekURIAES;
-    private String expectedKeyName, expectedKeyNameRSA, expectedKeyNameAES;
+    private String expectedKeyNameRSA;
     private String expectedRecipientRSA, expectedRecipientAES;
 
     /**
@@ -66,9 +65,7 @@ public class ComplexEncryptionTest extends BaseTestCase {
     public ComplexEncryptionTest() {
         super();
         
-        expectedKeyName = "SuperSecretKey";
         expectedKeyNameRSA = "RSAKeyWrapper";
-        expectedKeyNameAES = "AESKeyWrapper";
         expectedRecipientRSA = "RSARecipient";
         expectedRecipientAES = "AESRecipient";
         algoURI = EncryptionConstants.ALGO_ID_BLOCKCIPHER_AES128;
@@ -80,9 +77,9 @@ public class ComplexEncryptionTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        Credential encCred = SecurityTestHelper.generateKeyAndCredential(algoURI);
-        Credential kekCredAES = SecurityTestHelper.generateKeyAndCredential(kekURIAES);
-        Credential kekCredRSA = SecurityTestHelper.generateKeyPairAndCredential(kekURIRSA, 2048, false);
+        Credential encCred = SecurityHelper.generateKeyAndCredential(algoURI);
+        Credential kekCredAES = SecurityHelper.generateKeyAndCredential(kekURIAES);
+        Credential kekCredRSA = SecurityHelper.generateKeyPairAndCredential(kekURIRSA, 2048, false);
         
         encParams = new EncryptionParameters();
         encParams.setAlgorithm(algoURI);
@@ -100,7 +97,6 @@ public class ComplexEncryptionTest extends BaseTestCase {
         
         keyInfo = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
         kekKeyInfoRSA = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
-        kekKeyInfoAES = (KeyInfo) buildXMLObject(KeyInfo.DEFAULT_ELEMENT_NAME);
     }
 
     /**

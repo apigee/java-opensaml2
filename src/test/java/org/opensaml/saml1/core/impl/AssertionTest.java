@@ -25,7 +25,6 @@ import javax.xml.namespace.QName;
 import org.joda.time.DateTime;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AttributeStatement;
@@ -34,8 +33,6 @@ import org.opensaml.saml1.core.AuthorizationDecisionStatement;
 import org.opensaml.saml1.core.Conditions;
 import org.opensaml.saml1.core.Statement;
 import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.signature.Signature;
-import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
