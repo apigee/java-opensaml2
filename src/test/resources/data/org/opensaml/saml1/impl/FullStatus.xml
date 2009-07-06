@@ -1,1 +1,1 @@
-<saml1p:Status xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol" ><saml1p:StatusCode Value="saml1p:Success" /><samlp:StatusMessage  /></saml1p:Status>
+<saml1p:Status xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol" ><saml1p:StatusCode Value="saml1p:Success" /><saml1p:StatusMessage  /></saml1p:Status>
