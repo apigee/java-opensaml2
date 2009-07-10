@@ -231,4 +231,7 @@ public class SAMLConstants extends XMLConstants{
     
     /** URI for SAML 2 SOAP binding. */
     public static final String SAML2_SOAP11_BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:SOAP";
+    
+    /** URI for SAML 2 PAOS binding. */
+    public static final String SAML2_PAOS_BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:PAOS";
 }
