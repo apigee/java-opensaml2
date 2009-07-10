@@ -157,7 +157,7 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
 
         log.warn("Relying party '{}' requested the response to be returned to endpoint with ACS index '{}' "
                 + "however no endpoint, with that index and using a supported binding, can be found "
-                + " in the relying party's metadata ", getEntityMetadata().getID(), acsIndex);
+                + " in the relying party's metadata ", getEntityMetadata().getEntityID(), acsIndex);
         return null;
     }
 
@@ -201,7 +201,7 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
 
         log.warn("Relying party '{}' requested the response to be returned to endpoint with ACS URL '{}' "
                 + " and binding '{}' however no endpoint, with that index and using a supported binding, "
-                + " can be found in the relying party's metadata ", new Object[] { getEntityMetadata().getID(),
+                + " can be found in the relying party's metadata ", new Object[] { getEntityMetadata().getEntityID(),
                 request.getAssertionConsumerServiceURL(), (acsBinding == null) ? "any" : acsBinding });
         return null;
     }
