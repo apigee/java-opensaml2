@@ -59,6 +59,9 @@ public class BasicEndpointSelector extends AbstractEndpointSelector {
 
         Endpoint selectedEndpoint;
         endpoints = filterEndpointsByProtocolBinding(endpoints);
+        if (endpoints == null || endpoints.size() == 0) {
+            return null;
+        }
         if (endpoints.get(0) instanceof IndexedEndpoint) {
             selectedEndpoint = selectIndexedEndpoint((List<IndexedEndpoint>) endpoints);
         } else {

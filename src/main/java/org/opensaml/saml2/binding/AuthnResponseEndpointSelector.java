@@ -200,7 +200,7 @@ public class AuthnResponseEndpointSelector extends BasicEndpointSelector {
         }
 
         log.warn("Relying party '{}' requested the response to be returned to endpoint with ACS URL '{}' "
-                + " and binding '{}' however no endpoint, with that index and using a supported binding, "
+                + " and binding '{}' however no endpoint, with that URL and using a supported binding, "
                 + " can be found in the relying party's metadata ", new Object[] { getEntityMetadata().getEntityID(),
                 request.getAssertionConsumerServiceURL(), (acsBinding == null) ? "any" : acsBinding });
         return null;
