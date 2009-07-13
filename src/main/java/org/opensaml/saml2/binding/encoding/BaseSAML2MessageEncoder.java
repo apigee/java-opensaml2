@@ -21,7 +21,6 @@ import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
-import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.core.StatusResponseType;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.ws.message.encoder.BaseMessageEncoder;
@@ -48,7 +47,7 @@ public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder impleme
     private final Logger log = LoggerFactory.getLogger(BaseSAML2MessageEncoder.class);
 
     /**
-     * Gets the response URL from the relying party endpoint. If the SAML message is a {@link Response} and the relying
+     * Gets the response URL from the relying party endpoint. If the SAML message is a {@link StatusResponseType} and the relying
      * party endpoint contains a response location then that location is returned otherwise the normal endpoint location
      * is returned.
      * 
@@ -64,7 +63,7 @@ public abstract class BaseSAML2MessageEncoder extends BaseMessageEncoder impleme
             throw new MessageEncodingException("Endpoint for relying party was null.");
         }
 
-        if (messageContext.getOutboundMessage() instanceof Response
+        if (messageContext.getOutboundMessage() instanceof StatusResponseType
                 && !DatatypeHelper.isEmpty(endpoint.getResponseLocation())) {
             return endpoint.getResponseLocation();
         } else {
