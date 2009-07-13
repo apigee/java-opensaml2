@@ -10,6 +10,7 @@ Changes in Release 2.2.4
 [JOST-83] - Add object provider support for Condition for Delegation Restriction extension schema
 [JOST-85] - metadata missing entityId causes NullPointerException
 [JOST-86] - In absense of matching endpoint, IDP choose the first ACS in metadata.
+[JOST-87] - In org.opensaml.saml2.binding.encoding.BaseSAML2MessageEncoder OutboundMessage should be compared against StatusResponseType instead of Response
 * Add object provider support for SAML 2 ECP schema
 
 Changes in Release 2.2.3
