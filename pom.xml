@@ -29,10 +29,6 @@
             <id>release-repo</id>
             <url>${dist.release.url}</url>
         </repository>
-        <snapshotRepository>
-            <id>snapshot-repo</id>
-            <url>${dist.snapshot.url}</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <dependencies>
