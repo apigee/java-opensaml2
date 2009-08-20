@@ -1,6 +1,5 @@
-Changes in Release 2.2.4
+Changes in Release 2.3.0
 =============================================
-*** NOTE: All deprecated methods will be removed in OpenSAML 2.3.0
 [JOST-28] - BaseSAML1MessageDecoder and subclasses mistakenly take an ArtifactMap as a constructor arg
 [JOST-69] - BasicSAMLArtifactMap dereferences a pointer that might be null
 [JOST-76] - Relax requirement that HTTP requests be GETs when using Redirect and Artifact Binding
@@ -11,6 +10,7 @@ Changes in Release 2.2.4
 [JOST-85] - metadata missing entityId causes NullPointerException
 [JOST-86] - In absense of matching endpoint, IDP choose the first ACS in metadata.
 [JOST-87] - In org.opensaml.saml2.binding.encoding.BaseSAML2MessageEncoder OutboundMessage should be compared against StatusResponseType instead of Response
+[JOST-89] - Create XMLObject object provider for IdP Discovery Protocol endpoint
 * Add object provider support for SAML 2 ECP schema
 
 Changes in Release 2.2.3
