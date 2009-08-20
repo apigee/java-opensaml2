@@ -35,14 +35,10 @@ public class DescriptionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
     
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject arg0, Attr arg1) throws UnmarshallingException {
-        // TODO Auto-generated method stub
-
     }
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject arg0, XMLObject arg1) throws UnmarshallingException {
-        // TODO Auto-generated method stub
-
     }
 
     /** {@inheritDoc} */

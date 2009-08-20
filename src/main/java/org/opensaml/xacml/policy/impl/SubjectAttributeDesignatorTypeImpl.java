@@ -20,6 +20,7 @@ import java.util.List;
 
 import org.opensaml.xacml.policy.SubjectAttributeDesignatorType;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.LazyList;
 
 /**
  * Implementation of {@link SubjectAttributeDesignatorType}.
@@ -58,8 +59,7 @@ public class SubjectAttributeDesignatorTypeImpl extends
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
-	// TODO Auto-generated method stub
-	return null;
+        return new LazyList<XMLObject>();
     }
 
 }

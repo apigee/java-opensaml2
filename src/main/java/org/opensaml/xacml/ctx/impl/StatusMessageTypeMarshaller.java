@@ -31,7 +31,6 @@ public class StatusMessageTypeMarshaller extends AbstractXMLObjectMarshaller {
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject arg0, Element arg1) throws MarshallingException {
-        // TODO Auto-generated method stub
 
     }
 

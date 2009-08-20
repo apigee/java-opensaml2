@@ -55,7 +55,6 @@ public class RuleTypeMarshaller extends AbstractXMLObjectMarshaller {
 
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-        // TODO Auto-generated method stub
 
     }
 

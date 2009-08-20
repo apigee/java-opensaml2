@@ -22,6 +22,7 @@ import java.util.List;
 import org.opensaml.xacml.policy.AttributeSelectorType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSBooleanValue;
+import org.opensaml.xml.util.LazyList;
 import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
@@ -105,8 +106,7 @@ public class AttributeSelectorTypeImpl extends AbstractValidatingXMLObject
 
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
-	// TODO Auto-generated method stub
-	return null;
+        return new LazyList<XMLObject>();
     }
 
 }

@@ -59,14 +59,10 @@ public class AttributeSelectorTypeUnmarshaller extends AbstractXMLObjectUnmarsha
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
             throws UnmarshallingException {
-        // TODO Auto-generated method stub
-
     }
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject xmlObject, String elementContent) {
-        // TODO Auto-generated method stub
-
     }
 
 }

@@ -51,7 +51,6 @@ public class ConditionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject xmlObject, String elementContent) {
-        // TODO Auto-generated method stub
 
     }
 
