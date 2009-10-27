@@ -49,6 +49,10 @@ public class SAML2ArtifactType0004Builder implements SAML2ArtifactBuilder<SAML2A
     public SAML2ArtifactType0004 buildArtifact(SAMLMessageContext<SAMLObject, SAMLObject, NameID> requestContext) {
         try {
             IndexedEndpoint acsEndpoint = (IndexedEndpoint) getAcsEndpoint(requestContext);
+            if (acsEndpoint == null) {
+                return null;
+            }
+
             byte[] endpointIndex = DatatypeHelper.intToByteArray(acsEndpoint.getIndex());
             byte[] trimmedIndex = new byte[2];
             trimmedIndex[0] = endpointIndex[2];
@@ -87,7 +91,8 @@ public class SAML2ArtifactType0004Builder implements SAML2ArtifactBuilder<SAML2A
         Endpoint acsEndpoint = selector.selectEndpoint();
 
         if (acsEndpoint == null) {
-            log.error("Unable to select source location for artifact.  No artifact resolution service defined for issuer.");
+            log.error("No artifact resolution service endpoint defined for the entity "
+                    + requestContext.getOutboundMessageIssuer());
             return null;
         }
 
