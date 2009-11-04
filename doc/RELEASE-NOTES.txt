@@ -1,4 +1,4 @@
-Changes in Release 2.3.0
+Changes in Release 2.3.1
 =============================================
 [JOST-99] - Form generation vulnerable to XSS injection
 
