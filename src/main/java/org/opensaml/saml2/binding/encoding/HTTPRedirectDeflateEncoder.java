@@ -92,7 +92,7 @@ public class HTTPRedirectDeflateEncoder extends BaseSAML2MessageEncoder {
 
         SAMLMessageContext samlMsgCtx = (SAMLMessageContext) messageContext;
 
-        String endpointURL = getEndpointURL(samlMsgCtx);
+        String endpointURL = getEndpointURL(samlMsgCtx).buildURL();
 
         setResponseDestination(samlMsgCtx.getOutboundSAMLMessage(), endpointURL);
 

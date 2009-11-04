@@ -1,5 +1,5 @@
 /*
- * Copyright [2007] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2007 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,10 @@
 
 package org.opensaml.saml1.binding.encoding;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SignableSAMLObject;
@@ -23,6 +27,7 @@ import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.saml2.core.Response;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.encoder.BaseMessageEncoder;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.xml.XMLObjectBuilder;
@@ -45,6 +50,41 @@ public abstract class BaseSAML1MessageEncoder extends BaseMessageEncoder impleme
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(BaseSAML1MessageEncoder.class);
+    
+    /** The list of schemes allowed to appear in URLs related to the encoded message. Defaults to 'http' and 'https'. */
+    private List<String> allowedURLSchemes;
+
+    public BaseSAML1MessageEncoder() {
+        super();
+        setAllowedURLSchemes(new String[] { "http", "https" });
+    }
+
+    /**
+     * Gets the unmodifiable list of schemes allowed to appear in URLs related to the encoded message.
+     * 
+     * @return list of URL schemes allowed to appear in a message
+     */
+    public List<String> getAllowedURLSchemes() {
+        return allowedURLSchemes;
+    }
+
+    /**
+     * Sets the list of list of schemes allowed to appear in URLs related to the encoded message. Note, the appearance
+     * of schemes such as 'javascript' may open the system up to attacks (e.g. cross-site scripting attacks).
+     * 
+     * @param schemes URL schemes allowed to appear in a message
+     */
+    public void setAllowedURLSchemes(String[] schemes) {
+        if (schemes == null || schemes.length == 0) {
+            allowedURLSchemes = Collections.emptyList();
+        } else {
+            List<String> temp = new ArrayList<String>();
+            for (String scheme : schemes) {
+                temp.add(scheme);
+            }
+            allowedURLSchemes = Collections.unmodifiableList(temp);
+        }
+    }
 
     /**
      * Gets the response URL from the relying party endpoint. If the SAML message is a {@link Response} and the relying
@@ -57,21 +97,27 @@ public abstract class BaseSAML1MessageEncoder extends BaseMessageEncoder impleme
      * 
      * @throws MessageEncodingException throw if no relying party endpoint is available
      */
-    protected String getEndpointURL(SAMLMessageContext messageContext) throws MessageEncodingException {
+    protected URLBuilder getEndpointURL(SAMLMessageContext messageContext) throws MessageEncodingException {
         Endpoint endpoint = messageContext.getPeerEntityEndpoint();
         if (endpoint == null) {
             throw new MessageEncodingException("Endpoint for relying party was null.");
         }
 
+        URLBuilder urlBuilder;
         if (messageContext.getOutboundMessage() instanceof Response
                 && !DatatypeHelper.isEmpty(endpoint.getResponseLocation())) {
-            return endpoint.getResponseLocation();
+            urlBuilder = new URLBuilder(endpoint.getResponseLocation());
         } else {
             if (DatatypeHelper.isEmpty(endpoint.getLocation())) {
                 throw new MessageEncodingException("Relying party endpoint location was null or empty.");
             }
-            return endpoint.getLocation();
+            urlBuilder = new URLBuilder(endpoint.getLocation());
         }
+        
+        if(!getAllowedURLSchemes().contains(urlBuilder.getScheme())){
+           throw new MessageEncodingException("Relying party endpoint used the untrusted URL scheme " + urlBuilder.getScheme()); 
+        }
+        return urlBuilder;
     }
 
     /**

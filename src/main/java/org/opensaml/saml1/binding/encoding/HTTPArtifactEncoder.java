@@ -94,7 +94,7 @@ public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder {
         SAMLMessageContext<SAMLObject, Response, NameIdentifier> artifactContext = (SAMLMessageContext) messageContext;
         HTTPOutTransport outTransport = (HTTPOutTransport) artifactContext.getOutboundMessageTransport();
 
-        URLBuilder urlBuilder = new URLBuilder(getEndpointURL(artifactContext));
+        URLBuilder urlBuilder = getEndpointURL(artifactContext);
 
         List<Pair<String, String>> params = urlBuilder.getQueryParams();
 
@@ -113,6 +113,10 @@ public class HTTPArtifactEncoder extends BaseSAML1MessageEncoder {
         String artifactString;
         for (Assertion assertion : artifactContext.getOutboundSAMLMessage().getAssertions()) {
             artifact = artifactBuilder.buildArtifact(artifactContext, assertion);
+            if(artifact == null){
+                log.error("Unable to build artifact for message to relying party");
+                throw new MessageEncodingException("Unable to builder artifact for message to relying party");
+            }
 
             try {
                 artifactMap.put(artifact.base64Encode(), messageContext.getInboundMessageIssuer(), messageContext

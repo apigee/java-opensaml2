@@ -23,6 +23,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.opensaml.Configuration;
 import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.binding.artifact.AbstractSAMLArtifact;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.binding.artifact.AbstractSAML2Artifact;
@@ -178,11 +179,16 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
             throws MessageEncodingException {
         log.debug("Performing HTTP GET SAML 2 artifact encoding");
 
-        URLBuilder urlBuilder = new URLBuilder(getEndpointURL(artifactContext));
+        URLBuilder urlBuilder = getEndpointURL(artifactContext);
 
         List<Pair<String, String>> params = urlBuilder.getQueryParams();
 
-        params.add(new Pair<String, String>("SAMLart", buildArtifact(artifactContext).base64Encode()));
+        AbstractSAMLArtifact artifact = buildArtifact(artifactContext);
+        if(artifact == null){
+            log.error("Unable to build artifact for message to relying party");
+            throw new MessageEncodingException("Unable to builder artifact for message to relying party");
+        }
+        params.add(new Pair<String, String>("SAMLart", artifact.base64Encode()));
 
         if (checkRelayState(artifactContext.getRelayState())) {
             params.add(new Pair<String, String>("RelayState", artifactContext.getRelayState()));
@@ -212,6 +218,10 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
         }
 
         AbstractSAML2Artifact artifact = artifactBuilder.buildArtifact(artifactContext);
+        if(artifact == null){
+            log.error("Unable to build artifact for message to relying party");
+            throw new MessageEncodingException("Unable to builder artifact for message to relying party");
+        }
         String encodedArtifact = artifact.base64Encode();
         try {
             artifactMap.put(encodedArtifact, artifactContext.getInboundMessageIssuer(), artifactContext
