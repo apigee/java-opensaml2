@@ -1,5 +1,5 @@
 /*
- * Copyright [2005] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2005 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,10 +12,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-
-/**
- * 
  */
 
 package org.opensaml.saml2.metadata.validator;
@@ -36,18 +32,19 @@ public class SPSSODescriptorSchemaValidator extends SSODescriptorSchemaValidator
     /** {@inheritDoc} */
     public void validate(SPSSODescriptor spssoDescriptor) throws ValidationException {
         super.validate(spssoDescriptor);
-        validateAttributeConsumingServices(spssoDescriptor);
+        validateAssertionConsumerServices(spssoDescriptor);
     }
 
     /**
-     * Checks that at least one Attribute Consuming Service is present.
+     * Checks that at least one Assertion Consumer Service is present.
      * 
-     * @param spssoDescriptor
-     * @throws ValidationException
+     * @param spssoDescriptor descriptor to validate
+     * 
+     * @throws ValidationException thrown if there is no AssertionConsumerServer within the descriptor
      */
-    protected void validateAttributeConsumingServices(SPSSODescriptor spssoDescriptor) throws ValidationException {
-        if (spssoDescriptor.getAttributeConsumingServices() == null || spssoDescriptor.getAttributeConsumingServices().size() < 1) {
-            throw new ValidationException("Must have one or more AttributeConsumingServices.");
+    protected void validateAssertionConsumerServices(SPSSODescriptor spssoDescriptor) throws ValidationException {
+        if (spssoDescriptor.getAssertionConsumerServices() == null || spssoDescriptor.getAssertionConsumerServices().size() < 1) {
+            throw new ValidationException("Must have one or more AssertionConsumerService.");
         }
     }
 }
