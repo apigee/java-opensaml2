@@ -447,7 +447,7 @@ public class MetadataCredentialResolver extends AbstractCriteriaFilteringCredent
             log.trace("Write lock over cache acquired");
             try {
                 cache.clear();
-                log.info("Credential cache cleared");
+                log.debug("Credential cache cleared");
             } finally {
                 writeLock.unlock();
                 log.trace("Write lock over cache released"); 
