@@ -104,7 +104,7 @@ public class IssueInstantRule implements SecurityPolicyRule {
 
         // Check message has not expired
         if (expiration.isBefore(now)) {
-            log.error("Message was expired: message issue time was '" + issueInstant + "', message expired at: '"
+            log.warn("Message was expired: message issue time was '" + issueInstant + "', message expired at: '"
                     + expiration + "', current time: '" + now + "'");
             throw new SecurityPolicyException("Message was rejected due to issue instant expiration");
         }

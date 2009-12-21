@@ -1,3 +1,7 @@
+Changes in Release 2.3.2
+=============================================
+[JOST-101] - Expired message should be logged with WARN level instead of ERROR
+
 Changes in Release 2.3.1
 =============================================
 [JOST-99] - Form generation vulnerable to XSS injection
