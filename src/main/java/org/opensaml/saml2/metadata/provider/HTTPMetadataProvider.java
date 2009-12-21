@@ -92,6 +92,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             HttpClientParams clientParams = new HttpClientParams();
             clientParams.setSoTimeout(requestTimeout);
             httpClient = new HttpClient(clientParams);
+            httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(requestTimeout); 
             authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
 
             // 24 hours

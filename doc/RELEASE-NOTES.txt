@@ -1,7 +1,8 @@
 Changes in Release 2.3.2
 =============================================
-[JOST-103] - Wrong log level for "Credential cache cleared"
+[JOST-84] - FileBackedHTTPMetadataProvider takes inordinately long to time out
 [JOST-101] - Expired message should be logged with WARN level instead of ERROR
+[JOST-103] - Wrong log level for "Credential cache cleared"
 
 Changes in Release 2.3.1
 =============================================
