@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opensaml.xml.XMLObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A filter that allows the composition of {@link MetadataFilter}s. Filters will be executed on the given metadata
@@ -27,6 +29,9 @@ import org.opensaml.xml.XMLObject;
  */
 public class MetadataFilterChain implements MetadataFilter {
 
+    /** Class logger. */
+    private Logger log = LoggerFactory.getLogger(MetadataFilterChain.class);
+    
     /** Registered filters. */
     private ArrayList<MetadataFilter> filters;
 
@@ -40,7 +45,11 @@ public class MetadataFilterChain implements MetadataFilter {
     /** {@inheritDoc} */
     public final void doFilter(XMLObject xmlObject) throws FilterException {
         synchronized (filters) {
+            if(filters == null || filters.isEmpty()){
+                log.debug("No filters configured, nothing to do");
+            }
             for (MetadataFilter filter : filters) {
+                log.debug("Applying filter {}", filter.getClass().getName());
                 filter.doFilter(xmlObject);
             }
         }

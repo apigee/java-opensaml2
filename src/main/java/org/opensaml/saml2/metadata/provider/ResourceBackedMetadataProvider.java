@@ -151,12 +151,15 @@ public class ResourceBackedMetadataProvider extends AbstractObservableMetadataPr
             }
 
             // Determine the next time to check for a metadata change and schedule it
-            long nextUpdateDelay;
+            long nextUpdateDelay=0;
             if (expirationTime != null && expirationTime.isBefore(System.currentTimeMillis() + maxCacheDuration)) {
                 nextUpdateDelay = expirationTime.getMillis() - System.currentTimeMillis();
-            } else {
+            }
+            
+            if(nextUpdateDelay <= 0){
                 nextUpdateDelay = maxCacheDuration;
             }
+            
             log.debug("Next refresh of metadata from resource {} scheduled in {}ms", metadataResource.getLocation(),
                     nextUpdateDelay);
             taskTimer.schedule(new MetadataPollTask(), nextUpdateDelay);
