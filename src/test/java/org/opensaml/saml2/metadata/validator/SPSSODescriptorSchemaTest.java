@@ -19,8 +19,8 @@ package org.opensaml.saml2.metadata.validator;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
-import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
@@ -39,20 +39,20 @@ public class SPSSODescriptorSchemaTest extends SSODescriptorSchemaTestBase {
     protected void populateRequiredData() {
         super.populateRequiredData();
         SPSSODescriptor spssoDescriptor = (SPSSODescriptor) target;
-        AttributeConsumingService attributeConsumingService = (AttributeConsumingService) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
-                AttributeConsumingService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
-        spssoDescriptor.getAttributeConsumingServices().add(attributeConsumingService);
+        AssertionConsumerService assertionConsumerService = (AssertionConsumerService) buildXMLObject(new QName(SAMLConstants.SAML20MD_NS,
+                AssertionConsumerService.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20MD_PREFIX));
+        spssoDescriptor.getAssertionConsumerServices().add(assertionConsumerService);
     }
 
     /**
-     * Tests for AttributeConsumingService failure.
+     * Tests for AssertionConsumerService failure.
      * 
      * @throws ValidationException
      */
-    public void testAttributeConsumingServiceFailure() throws ValidationException {
+    public void testAssertionConsumerServiceFailure() throws ValidationException {
         SPSSODescriptor spssoDescriptor = (SPSSODescriptor) target;
 
-        spssoDescriptor.getAttributeConsumingServices().clear();
-        assertValidationFail("AttributeConsumingService list was empty, should raise a Validation Exception.");
+        spssoDescriptor.getAssertionConsumerServices().clear();
+        assertValidationFail("AssertionConsumerService list was empty, should raise a Validation Exception.");
     }
 }
