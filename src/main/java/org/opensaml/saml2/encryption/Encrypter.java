@@ -65,7 +65,7 @@ import org.w3c.dom.Document;
  * {@link EncryptedElementType}.
  * 
  * <p>
- * Overload methods are provided for encrypting various SAML 2 elements to their corresponding
+ * Overloaded methods are provided for encrypting various SAML 2 elements to their corresponding
  * encrypted element variant of {@link EncryptedElementType}.
  * </p>
  * 
@@ -77,7 +77,7 @@ import org.w3c.dom.Document;
  *   <li><code>PEER</code>: EncryptedKeys will be placed as peer elements of the EncryptedData inside the 
  *         EncryptedElementType element</li>
  * </ul>
- * The default placement is <code>INLINE</code>.
+ * The default placement is <code>PEER</code>.
  * </p>
  * 
  * <p>
