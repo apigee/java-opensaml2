@@ -16,9 +16,6 @@
 
 package org.opensaml.common.binding.decoding;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.opensaml.common.SAMLObject;
@@ -41,10 +38,14 @@ public abstract class BaseSAMLMessageDecoder extends BaseMessageDecoder implemen
     
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(BaseSAMLMessageDecoder.class);
+    
+    /** The URIComparator implementation to use. */
+    private URIComparator uriComparator;
 
     /** Constructor. */
     public BaseSAMLMessageDecoder() {
         super();
+        setURIComparator(new BasicURLComparator());
     }
 
     /**
@@ -54,6 +55,28 @@ public abstract class BaseSAMLMessageDecoder extends BaseMessageDecoder implemen
      */
     public BaseSAMLMessageDecoder(ParserPool pool) {
         super(pool);
+        setURIComparator(new BasicURLComparator());
+    }
+
+    /**
+     * Set the {@link URIComparator} to use in {@link #compareEndpointURIs(String, String)}.
+     * 
+     * @param comparator The uriComparator to set.
+     */
+    public void setURIComparator(URIComparator comparator) {
+        if (comparator == null) {
+            throw new IllegalArgumentException("URI comparator may not be null");
+        }
+        uriComparator = comparator;
+    }
+
+    /**
+     * Get the {@link URIComparator} to use in {@link #compareEndpointURIs(String, String)}.
+     * 
+     * @return Returns the uriComparator.
+     */
+    public URIComparator getURIComparator() {
+        return uriComparator;
     }
 
     /**
@@ -129,11 +152,14 @@ public abstract class BaseSAMLMessageDecoder extends BaseMessageDecoder implemen
     /**
      * Compare the message endpoint URI's specified.
      * 
-     * <p>This default implementation handles endpoint URI's that are URL's.  Comparison is handled
-     * via constructing {@link URL} instances and using that implementation's equals() method.</p>
+     * <p>The comparison is performed using the configured instance of {@link URIComparator}.
+     * By default, the URL subtype of URI is supported, and the default comparator implementation used 
+     * is {@link BasicURLComparator}. Other types of URI's may be supported by configuring a 
+     * different implementation of {@link URIComparator}.
+     * </p>
      * 
-     * <p>Subclasses should override if binding-specific behavior is required, or to support other
-     * types of URI's.  In this case, see also {@link #getActualReceiverEndpointURI(SAMLMessageContext)}.</p>
+     * <p>Subclasses should override if binding-specific behavior is required.
+     * In this case, see also {@link #getActualReceiverEndpointURI(SAMLMessageContext)}.</p>
      * 
      * @param messageDestination the intended message destination endpoint URI
      * @param receiverEndpoint the endpoint URI at which the message was received
@@ -143,23 +169,7 @@ public abstract class BaseSAMLMessageDecoder extends BaseMessageDecoder implemen
     protected boolean compareEndpointURIs(String messageDestination, String receiverEndpoint) 
             throws MessageDecodingException {
         
-        URL messageURL = null;
-        try {
-            messageURL = new URL(messageDestination);
-        } catch (MalformedURLException e) {
-            log.error("Message destination URL was malformed in destination check: {}", e.getMessage());
-            throw new MessageDecodingException("Message destination URL was malformed in destination check");
-        }
-        
-        URL endpointURL = null;
-        try {
-            endpointURL = new URL(receiverEndpoint);
-        } catch (MalformedURLException e) {
-            log.error("Recipient endpoint URL was malformed in destination check: {}", e.getMessage());
-            throw new MessageDecodingException("Recipient endpoint URL was malformed in destination check");
-        }
-        
-        return messageURL.equals(endpointURL);
+        return getURIComparator().compare(messageDestination, receiverEndpoint);
     }
     
     /**
@@ -194,7 +204,7 @@ public abstract class BaseSAMLMessageDecoder extends BaseMessageDecoder implemen
             }
         }
         
-        String receiverEndpoint = getActualReceiverEndpointURI(messageContext);
+        String receiverEndpoint = DatatypeHelper.safeTrimOrNullString(getActualReceiverEndpointURI(messageContext));
         
         log.debug("Intended message destination endpoint: {}", messageDestination);
         log.debug("Actual message receiver endpoint: {}", receiverEndpoint);

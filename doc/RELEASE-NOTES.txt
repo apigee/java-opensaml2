@@ -1,6 +1,7 @@
 Changes in Release 2.4.0
 =============================================
-[JOST-88] - Create an AttributeConsumingServiceSelector, similar in API to the existing Basic- and AuthnRequest Endpoint selectors
+[JOST-88]  - Create an AttributeConsumingServiceSelector, similar in API to the existing Basic- and AuthnRequest Endpoint selectors
+[JOST-100] - BaseMessageDecoder uses java.net.URL equals() for URI comparison
 
 Changes in Release 2.3.2
 =============================================
