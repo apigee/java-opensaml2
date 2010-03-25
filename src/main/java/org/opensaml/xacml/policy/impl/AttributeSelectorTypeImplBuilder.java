@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.AttributeSelectorType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  *Builder for {@link AttributeSelectorType}.
  */
-public class AttributeSelectorTypeImplBuilder extends AbstractXMLObjectBuilder<AttributeSelectorType> 
-implements XACMLObjectBuilder<AttributeSelectorType> {
+public class AttributeSelectorTypeImplBuilder extends AbstractXACMLObjectBuilder<AttributeSelectorType>  {
 
     /** {@inheritDoc} */
     public AttributeSelectorType buildObject(String namespaceURI, String localName, String namespacePrefix) {

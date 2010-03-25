@@ -17,10 +17,10 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.ExpressionType;
 import org.opensaml.xacml.policy.VariableReferenceType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
@@ -28,7 +28,7 @@ import org.w3c.dom.Attr;
 /**
  * Unmarshaller for {@link VariableReferenceType}.
  */
-public class VariableReferenceTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class VariableReferenceTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public VariableReferenceTypeUnmarshaller() {
@@ -41,6 +41,8 @@ public class VariableReferenceTypeUnmarshaller extends AbstractXMLObjectUnmarsha
         if(attribute.getLocalName().equals(VariableReferenceType.VARIABLE_ID_ATTRIB_NAME)){
             VariableReferenceType variableReferenceType = (VariableReferenceType) xmlObject;
             variableReferenceType.setVariableId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
 
     }
@@ -52,12 +54,9 @@ public class VariableReferenceTypeUnmarshaller extends AbstractXMLObjectUnmarsha
         if(childXMLObject instanceof ExpressionType){
             VariableReferenceType variableReferenceType = (VariableReferenceType) parentXMLObject;
             variableReferenceType.getExpressions().add((ExpressionType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
-
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
 
     }
 

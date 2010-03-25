@@ -17,13 +17,11 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.PolicySetType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /** Builder of {@link PolicySetType} objects. */
-public class PolicySetTypeImplBuilder extends AbstractXMLObjectBuilder<PolicySetType> implements
-        XACMLObjectBuilder<PolicySetType> {
+public class PolicySetTypeImplBuilder extends AbstractXACMLObjectBuilder<PolicySetType> {
 
     /** {@inheritDoc} */
     public PolicySetType buildObject() {

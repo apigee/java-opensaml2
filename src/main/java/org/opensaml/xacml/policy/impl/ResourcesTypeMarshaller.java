@@ -17,30 +17,17 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.ResourcesType;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /**
  * Marshaller for {@link ResourcesType}.
  */
-public class ResourcesTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class ResourcesTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public ResourcesTypeMarshaller() {
         super();
-    }
-    
-    /** {@inheritDoc} */
-    protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
-   
-    }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-   
     }
 
 }

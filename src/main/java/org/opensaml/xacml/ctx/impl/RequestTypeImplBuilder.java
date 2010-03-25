@@ -18,13 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.RequestType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link RequestType} objects. */
-public class RequestTypeImplBuilder extends AbstractXMLObjectBuilder<RequestType> implements
-        XACMLObjectBuilder<RequestType> {
+public class RequestTypeImplBuilder extends AbstractXACMLObjectBuilder<RequestType> {
 
     /** Constructor. */
     public RequestTypeImplBuilder() {

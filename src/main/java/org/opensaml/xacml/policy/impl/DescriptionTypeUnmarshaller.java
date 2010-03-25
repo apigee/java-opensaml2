@@ -17,28 +17,18 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.DescriptionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
-import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * Unmarshaller for {@link org.opensaml.xacml.policy.DescriptionType}.
  */
-public class DescriptionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class DescriptionTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public DescriptionTypeUnmarshaller() {
         super();
-    }
-    
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject arg0, Attr arg1) throws UnmarshallingException {
-    }
-
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject arg0, XMLObject arg1) throws UnmarshallingException {
     }
 
     /** {@inheritDoc} */

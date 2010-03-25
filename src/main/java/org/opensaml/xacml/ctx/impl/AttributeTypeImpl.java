@@ -24,12 +24,12 @@ import java.util.List;
 
 import org.opensaml.xacml.ctx.AttributeType;
 import org.opensaml.xacml.ctx.AttributeValueType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link AttributeType}. */
-public class AttributeTypeImpl extends AbstractValidatingXMLObject implements AttributeType {
+public class AttributeTypeImpl extends AbstractXACMLObject implements AttributeType {
 
     /** Issuer of the attribute. */
     private String issuer;

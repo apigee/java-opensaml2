@@ -18,25 +18,13 @@
 package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.StatusMessageType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
-import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  *Unmarshaller for {@link org.opensaml.xacml.ctx.StatusMessageType}.
  */
-public class StatusMessageTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
-
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject arg0, Attr arg1) throws UnmarshallingException {
-
-    }
-
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject arg0, XMLObject arg1) throws UnmarshallingException {
-
-    }
+public class StatusMessageTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** {@inheritDoc} */
     protected void processElementContent(XMLObject xmlObject, String content) {

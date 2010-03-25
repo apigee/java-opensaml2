@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.EnvironmentType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  *Builder for {@link EnvironmentType}.
  */
-public class EnvironmentTypeImplBuilder extends AbstractXMLObjectBuilder<EnvironmentType> 
-implements XACMLObjectBuilder<EnvironmentType> {
+public class EnvironmentTypeImplBuilder extends AbstractXACMLObjectBuilder<EnvironmentType>  {
 
 
     /** {@inheritDoc} */

@@ -23,11 +23,11 @@ import java.util.Collections;
 import java.util.List;
 
 import org.opensaml.xacml.ctx.StatusCodeType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link StatusCodeType}. */
-public class StatusCodeTypeImpl extends AbstractValidatingXMLObject implements StatusCodeType {
+public class StatusCodeTypeImpl extends AbstractXACMLObject implements StatusCodeType {
 
     /** Sub status code. */
     private StatusCodeType statusCode;

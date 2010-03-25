@@ -16,15 +16,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.ActionsType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link ActionsType}.
  */
-public class ActionsTypeImplBuilder extends AbstractXMLObjectBuilder<ActionsType>
-implements XACMLObjectBuilder<ActionsType> {
+public class ActionsTypeImplBuilder extends AbstractXACMLObjectBuilder<ActionsType> {
 
     /** {@inheritDoc} */
     public ActionsType buildObject() {

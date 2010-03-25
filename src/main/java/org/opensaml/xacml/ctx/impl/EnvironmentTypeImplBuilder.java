@@ -18,13 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.EnvironmentType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link EnvironmentType} objects. */
-public class EnvironmentTypeImplBuilder extends AbstractXMLObjectBuilder<EnvironmentType> implements
-        XACMLObjectBuilder<EnvironmentType> {
+public class EnvironmentTypeImplBuilder extends AbstractXACMLObjectBuilder<EnvironmentType> {
 
     /** Constructor. */
     public EnvironmentTypeImplBuilder() {

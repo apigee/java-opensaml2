@@ -16,13 +16,11 @@
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.MissingAttributeDetailType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link MissingAttributeDetailType} objects. */
-public class MissingAttributeDetailTypeImplBuilder extends AbstractXMLObjectBuilder<MissingAttributeDetailType>
-        implements XACMLObjectBuilder<MissingAttributeDetailType> {
+public class MissingAttributeDetailTypeImplBuilder extends AbstractXACMLObjectBuilder<MissingAttributeDetailType> {
 
     /** Constructor. */
     public MissingAttributeDetailTypeImplBuilder() {

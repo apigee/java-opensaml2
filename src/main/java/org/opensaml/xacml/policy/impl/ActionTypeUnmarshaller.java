@@ -16,27 +16,20 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.ActionMatchType;
 import org.opensaml.xacml.policy.ActionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  *Unmarshaller for {@link ActionType}.
  */
-public class ActionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class ActionTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public ActionTypeUnmarshaller() {
         super();
-    }
-
-    
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-    
     }
 
     /** {@inheritDoc} */
@@ -46,12 +39,9 @@ public class ActionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
         
         if(childXMLObject instanceof ActionMatchType){
             actionType.getActionMatches().add((ActionMatchType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    
     }
 
 }

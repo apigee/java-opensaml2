@@ -33,26 +33,15 @@ public class AttributeAssignmentTypeUnmarshaller extends AttributeValueTypeUnmar
     }
 
     /** {@inheritDoc} */
-    protected void processElementContent(XMLObject samlObject, String elementContent) {
-        super.processElementContent(samlObject, elementContent);
-    }
-
-    /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
 
         AttributeAssignmentType attrib = (AttributeAssignmentType) samlObject;
 
         if (attribute.getLocalName().equals(AttributeAssignmentType.ATTR_ID_ATTRIB_NAME)) {
             attrib.setAttributeId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
-        }
-        else{        	
+        } else{        	
         	super.processAttribute(samlObject, attribute);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
-            throws UnmarshallingException {
-        super.processChildElement(parentXMLObject, childXMLObject);
-    }
 }

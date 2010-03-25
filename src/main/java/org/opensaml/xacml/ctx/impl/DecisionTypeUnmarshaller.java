@@ -20,13 +20,11 @@ package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.DecisionType;
 import org.opensaml.xacml.ctx.DecisionType.DECISION;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
-import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link DecisionType} objects. */
-public class DecisionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class DecisionTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public DecisionTypeUnmarshaller() {
@@ -49,15 +47,6 @@ public class DecisionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
     protected void processElementContent(XMLObject samlObject, String elementContent) {
         DecisionType decision = (DecisionType) samlObject;
         decision.setDecision(DECISION.valueOf(elementContent));
-    }
-
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-    }
-    
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
-     
     }
 
 }

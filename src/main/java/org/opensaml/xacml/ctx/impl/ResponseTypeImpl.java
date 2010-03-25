@@ -25,11 +25,11 @@ import java.util.List;
 import org.opensaml.xacml.ctx.ResourceType;
 import org.opensaml.xacml.ctx.ResponseType;
 import org.opensaml.xacml.ctx.ResultType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link ResourceType}. */
-public class ResponseTypeImpl extends AbstractValidatingXMLObject implements ResponseType {
+public class ResponseTypeImpl extends AbstractXACMLObject implements ResponseType {
 
     /** The result of the response. */
     private ResultType result;

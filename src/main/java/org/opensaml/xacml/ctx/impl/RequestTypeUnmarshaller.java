@@ -23,13 +23,12 @@ import org.opensaml.xacml.ctx.EnvironmentType;
 import org.opensaml.xacml.ctx.RequestType;
 import org.opensaml.xacml.ctx.ResourceType;
 import org.opensaml.xacml.ctx.SubjectType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link EnvironmentType} objects. */
-public class RequestTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class RequestTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public RequestTypeUnmarshaller() {
@@ -49,26 +48,21 @@ public class RequestTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
     }
 
     /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childSAMLObject)
+    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
             throws UnmarshallingException {
-        RequestType request = (RequestType) parentSAMLObject;
+        RequestType request = (RequestType) parentXMLObject;
 
-        if (childSAMLObject instanceof ActionType) {
-            request.setAction((ActionType) childSAMLObject);
-        } else if (childSAMLObject instanceof EnvironmentType) {
-            request.setEnvironment((EnvironmentType) childSAMLObject);
-        } else if (childSAMLObject instanceof SubjectType) {
-            request.getSubjects().add((SubjectType) childSAMLObject);
-        } else if (childSAMLObject instanceof ResourceType) {
-            request.getResources().add((ResourceType) childSAMLObject);
+        if (childXMLObject instanceof ActionType) {
+            request.setAction((ActionType) childXMLObject);
+        } else if (childXMLObject instanceof EnvironmentType) {
+            request.setEnvironment((EnvironmentType) childXMLObject);
+        } else if (childXMLObject instanceof SubjectType) {
+            request.getSubjects().add((SubjectType) childXMLObject);
+        } else if (childXMLObject instanceof ResourceType) {
+            request.getResources().add((ResourceType) childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
 }

@@ -25,8 +25,8 @@ import org.opensaml.xml.util.LazyList;
 /**
  * Implementation of {@link SubjectAttributeDesignatorType}.
  */
-public class SubjectAttributeDesignatorTypeImpl extends
-	AttributeDesignatorTypeImpl implements SubjectAttributeDesignatorType {
+public class SubjectAttributeDesignatorTypeImpl extends AttributeDesignatorTypeImpl 
+        implements SubjectAttributeDesignatorType {
 
     /** Subject category. */
     private String subjectCategory;
@@ -41,20 +41,18 @@ public class SubjectAttributeDesignatorTypeImpl extends
      * @param namespacePrefix
      *                the prefix for the given namespace
      */
-    protected SubjectAttributeDesignatorTypeImpl(String namespaceURI,
-	    String elementLocalName, String namespacePrefix) {
-	super(namespaceURI, elementLocalName, namespacePrefix);
+    protected SubjectAttributeDesignatorTypeImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
+        super(namespaceURI, elementLocalName, namespacePrefix);
     }
 
     /** {@inheritDoc} */
     public String getSubjectCategory() {
-	return subjectCategory;
+        return subjectCategory;
     }
 
     /** {@inheritDoc} */
     public void setSubjectCategory(String category) {
-	this.subjectCategory = prepareForAssignment(this.subjectCategory,
-		category);
+        this.subjectCategory = prepareForAssignment(this.subjectCategory, category);
     }
 
     /** {@inheritDoc} */

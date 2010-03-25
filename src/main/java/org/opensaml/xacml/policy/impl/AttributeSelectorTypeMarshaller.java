@@ -17,10 +17,10 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.AttributeDesignatorType;
 import org.opensaml.xacml.policy.AttributeSelectorType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
@@ -28,7 +28,7 @@ import org.w3c.dom.Element;
 /**
  * Marshaller for {@link AttributeSelectorType}.
  */
-public class AttributeSelectorTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class AttributeSelectorTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public AttributeSelectorTypeMarshaller() {
@@ -55,11 +55,6 @@ public class AttributeSelectorTypeMarshaller extends AbstractXMLObjectMarshaller
             domElement.setAttribute(AttributeDesignatorType.MUST_BE_PRESENT_ATTRIB_NAME, 
                     Boolean.toString(attributeSelectorType.getMustBePresent()));
         }
-    }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-
     }
 
 }

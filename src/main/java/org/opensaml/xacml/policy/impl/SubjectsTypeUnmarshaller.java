@@ -17,17 +17,16 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.SubjectType;
 import org.opensaml.xacml.policy.SubjectsType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * Unmarshalle for {@link SubjectsType}.
  */
-public class SubjectsTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class SubjectsTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
 
     /** Constructor. */
@@ -37,21 +36,15 @@ public class SubjectsTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
     
     
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
- 
-    }
-    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
             throws UnmarshallingException {
         SubjectsType subjectsType = (SubjectsType) parentXMLObject;
         
         if(childXMLObject instanceof SubjectType){
             subjectsType.getSubjects().add((SubjectType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    
-    }
 }

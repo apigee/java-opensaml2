@@ -23,13 +23,13 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.xacml.ctx.ResourceContentType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.AttributeMap;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link ResourceContentType}. */
-public class ResourceContentTypeImpl extends AbstractValidatingXMLObject implements ResourceContentType {
+public class ResourceContentTypeImpl extends AbstractXACMLObject implements ResourceContentType {
 
     /** "any" elements. */
     private IndexedXMLObjectChildrenList<XMLObject> unknownElements;

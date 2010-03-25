@@ -17,13 +17,13 @@
 package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.MissingAttributeDetailType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /** Marshaller for {@link MissingAttributeDetailType} objects. */
-public class MissingAttributeDetailTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class MissingAttributeDetailTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public MissingAttributeDetailTypeMarshaller() {
@@ -58,8 +58,5 @@ public class MissingAttributeDetailTypeMarshaller extends AbstractXMLObjectMarsh
             domElement.setAttributeNS(null, MissingAttributeDetailType.ISSUER_ATTRIB_NAME, madt.getIssuer());
         }
     }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-    }
+ 
 }

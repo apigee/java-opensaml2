@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opensaml.xacml.ctx.DecisionType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link DecisionType}. */
-public class DecisionTypeImpl extends AbstractValidatingXMLObject implements DecisionType {
+public class DecisionTypeImpl extends AbstractXACMLObject implements DecisionType {
 
     /** Value for the decision. */
     private DECISION decision;

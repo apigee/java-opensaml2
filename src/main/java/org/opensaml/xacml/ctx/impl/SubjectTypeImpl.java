@@ -24,12 +24,12 @@ import java.util.List;
 
 import org.opensaml.xacml.ctx.AttributeType;
 import org.opensaml.xacml.ctx.SubjectType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link SubjectType}. */
-public class SubjectTypeImpl extends AbstractValidatingXMLObject implements SubjectType {
+public class SubjectTypeImpl extends AbstractXACMLObject implements SubjectType {
 
     /** Subject category of the Subject. */
     private String subjectCategory;

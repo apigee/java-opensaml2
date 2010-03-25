@@ -19,13 +19,13 @@ limitations under the License.
 package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.SubjectType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Element;
 
 /** Marshaller for {@link SubjectType} objects. */
-public class SubjectTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class SubjectTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public SubjectTypeMarshaller() {
@@ -52,7 +52,4 @@ public class SubjectTypeMarshaller extends AbstractXMLObjectMarshaller {
         }
     }
 
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-    }
 }

@@ -17,15 +17,15 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.PolicyType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /** Marshaller for {@link PolicyType} objects. */
-public class PolicyTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class PolicyTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public PolicyTypeMarshaller() {
@@ -49,8 +49,4 @@ public class PolicyTypeMarshaller extends AbstractXMLObjectMarshaller {
         }
     }
 
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-
-    }
 }

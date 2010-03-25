@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.opensaml.common.impl.AbstractSAMLObject;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.ActionsType;
 import org.opensaml.xacml.policy.EnvironmentsType;
 import org.opensaml.xacml.policy.ResourcesType;
@@ -33,7 +33,7 @@ import org.opensaml.xml.XMLObject;
 /**
  * Implementing {@link org.opensaml.xacml.policy.TargetType}.
  */
-public class TargetTypeImpl extends AbstractSAMLObject implements TargetType {
+public class TargetTypeImpl extends AbstractXACMLObject implements TargetType {
 
     /** The actions in the policy. */
     private ActionsType actions;

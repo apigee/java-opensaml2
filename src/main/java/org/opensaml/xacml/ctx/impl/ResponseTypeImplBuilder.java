@@ -19,13 +19,11 @@ limitations under the License.
 package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.XACMLConstants;
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.ResponseType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link ResponseType} objects. */
-public class ResponseTypeImplBuilder extends AbstractXMLObjectBuilder<ResponseType> implements
-        XACMLObjectBuilder<ResponseType> {
+public class ResponseTypeImplBuilder extends AbstractXACMLObjectBuilder<ResponseType> {
 
     /** Constructor. */
     public ResponseTypeImplBuilder() {

@@ -17,29 +17,22 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.SubjectMatchType;
 import org.opensaml.xacml.policy.SubjectType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * Unmarshaller for {@link SubjectType}.
  */
-public class SubjectTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class SubjectTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public SubjectTypeUnmarshaller() {
         super();
     }
     
-    
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
- 
-
-    }
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
             throws UnmarshallingException {
@@ -47,11 +40,9 @@ public class SubjectTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
         
         if(childXMLObject instanceof SubjectMatchType){
             subjectType.getSubjectMatches().add((SubjectMatchType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    
-    }
 }

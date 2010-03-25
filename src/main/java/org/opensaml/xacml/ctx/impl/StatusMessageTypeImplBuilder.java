@@ -19,12 +19,12 @@ package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.XACMLConstants;
 import org.opensaml.xacml.ctx.StatusMessageType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /**
  * Builder for {@link org.opensaml.xacml.ctx.StatusMessageType}.
  */
-public class StatusMessageTypeImplBuilder extends AbstractXMLObjectBuilder {
+public class StatusMessageTypeImplBuilder extends AbstractXACMLObjectBuilder<StatusMessageType> {
 
     /**
      * Constructor.

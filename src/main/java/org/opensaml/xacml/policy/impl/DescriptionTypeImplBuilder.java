@@ -18,13 +18,13 @@
 package org.opensaml.xacml.policy.impl;
 
 import org.opensaml.xacml.XACMLConstants;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.DescriptionType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link org.opensaml.xacml.policy.DescriptionType}.
  */
-public class DescriptionTypeImplBuilder extends AbstractXMLObjectBuilder<DescriptionType> {
+public class DescriptionTypeImplBuilder extends AbstractXACMLObjectBuilder<DescriptionType> {
 
     /**
      * Constructor.

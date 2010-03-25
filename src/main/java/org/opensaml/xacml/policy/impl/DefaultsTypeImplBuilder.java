@@ -17,13 +17,11 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.DefaultsType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /** Builder for {@link DefaultsType}. */
-public class DefaultsTypeImplBuilder extends AbstractXMLObjectBuilder<DefaultsType> implements
-        XACMLObjectBuilder<DefaultsType> {
+public class DefaultsTypeImplBuilder extends AbstractXACMLObjectBuilder<DefaultsType> {
 
     /** {@inheritDoc} */
     public DefaultsType buildObject(String namespaceURI, String localName, String namespacePrefix) {

@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.VariableReferenceType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link VariableReferenceType}.
  */
-public class VariableReferenceTypeImplBuilder extends AbstractXMLObjectBuilder<VariableReferenceType>
-implements XACMLObjectBuilder<VariableReferenceType> {
+public class VariableReferenceTypeImplBuilder extends AbstractXACMLObjectBuilder<VariableReferenceType> {
 
     /** {@inheritDoc} */
     public VariableReferenceType buildObject(String namespaceURI, String localName, String namespacePrefix) {

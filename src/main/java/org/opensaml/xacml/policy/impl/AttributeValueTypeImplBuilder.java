@@ -17,13 +17,11 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.AttributeValueType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /** Builder for {@link org.opensaml.xacml.policy.AttributeValueType}. */
-public class AttributeValueTypeImplBuilder extends AbstractXMLObjectBuilder<AttributeValueType> implements
-        XACMLObjectBuilder<AttributeValueType> {
+public class AttributeValueTypeImplBuilder extends AbstractXACMLObjectBuilder<AttributeValueType> {
 
     /** {@inheritDoc} */
     public AttributeValueType buildObject(String namespaceURI, String localName, String namespacePrefix) {

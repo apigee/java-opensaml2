@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.EnvironmentMatchType;
 import org.opensaml.xacml.policy.EnvironmentType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * Implementation for {@link EnvironmentType}.
  */
-public class EnvironmentTypeImpl extends AbstractValidatingXMLObject implements EnvironmentType {
+public class EnvironmentTypeImpl extends AbstractXACMLObject implements EnvironmentType {
     
     /**List of environment matches.*/
     private XMLObjectChildrenList<EnvironmentMatchType> environmentMatches;

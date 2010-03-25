@@ -20,13 +20,12 @@ package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.ActionType;
 import org.opensaml.xacml.ctx.AttributeType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link ActionType} objects. */
-public class ActionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class ActionTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public ActionTypeUnmarshaller() {
@@ -41,7 +40,7 @@ public class ActionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
      * @param targetLocalName the local name of either the schema type QName or element QName of the elements this
      *            unmarshaller operates on
      */
-    ActionTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
+    protected ActionTypeUnmarshaller(String targetNamespaceURI, String targetLocalName) {
         super(targetNamespaceURI, targetLocalName);
     }
 
@@ -51,14 +50,9 @@ public class ActionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
 
         if (childObject instanceof AttributeType) {
             action.getAttributes().add((AttributeType) childObject);
+        } else {
+            super.processChildElement(parentObject, childObject);
         }
     }
-
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
+    
 }

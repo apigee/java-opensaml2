@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.IdReferenceType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link IdReferenceType}.
  */
-public class IdReferenceTypeImplBuilder extends AbstractXMLObjectBuilder<IdReferenceType> 
-implements XACMLObjectBuilder<IdReferenceType> {
+public class IdReferenceTypeImplBuilder extends AbstractXACMLObjectBuilder<IdReferenceType>  {
 
     /** {@inheritDoc} */    
     public IdReferenceType buildObject() {

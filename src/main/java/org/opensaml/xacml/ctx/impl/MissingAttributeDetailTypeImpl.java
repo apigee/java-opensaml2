@@ -22,12 +22,12 @@ import java.util.List;
 
 import org.opensaml.xacml.ctx.AttributeValueType;
 import org.opensaml.xacml.ctx.MissingAttributeDetailType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link MissingAttributeDetailType}. */
-public class MissingAttributeDetailTypeImpl extends AbstractValidatingXMLObject implements MissingAttributeDetailType {
+public class MissingAttributeDetailTypeImpl extends AbstractXACMLObject implements MissingAttributeDetailType {
 
     /** Lists of the attribute values in details. */
     private XMLObjectChildrenList<AttributeValueType> attributeValues;

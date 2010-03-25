@@ -17,26 +17,20 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.ResourceType;
 import org.opensaml.xacml.policy.ResourcesType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * Unmarshaller for {@link ResourcesType}.
  */
-public class ResourcesTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class ResourcesTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public ResourcesTypeUnmarshaller() {
         super();
-    }
-    
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-    
     }
 
     /** {@inheritDoc} */
@@ -44,14 +38,11 @@ public class ResourcesTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
             throws UnmarshallingException {
         ResourcesType resourcesType = (ResourcesType) parentXMLObject;
         
-        if(childXMLObject instanceof ResourceType){
+        if (childXMLObject instanceof ResourceType){
             resourcesType.getResources().add((ResourceType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    
     }
 
 }

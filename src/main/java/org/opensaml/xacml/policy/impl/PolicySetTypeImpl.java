@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opensaml.xacml.XACMLObject;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.CombinerParametersType;
 import org.opensaml.xacml.policy.DefaultsType;
 import org.opensaml.xacml.policy.DescriptionType;
@@ -33,10 +34,9 @@ import org.opensaml.xacml.policy.PolicyType;
 import org.opensaml.xacml.policy.TargetType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link PolicySetType}. */
-public class PolicySetTypeImpl extends AbstractValidatingXMLObject implements PolicySetType {
+public class PolicySetTypeImpl extends AbstractXACMLObject implements PolicySetType {
 
     /** Policy set description. */
     private DescriptionType description;

@@ -18,14 +18,14 @@ package org.opensaml.xacml.policy.impl;
 
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.FunctionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * Implementation of {@link FunctionType}.
  */
-public class FunctionTypeImpl extends AbstractValidatingXMLObject implements FunctionType {
+public class FunctionTypeImpl extends AbstractXACMLObject implements FunctionType {
 
     /**Function Id.*/
     private String functionId;

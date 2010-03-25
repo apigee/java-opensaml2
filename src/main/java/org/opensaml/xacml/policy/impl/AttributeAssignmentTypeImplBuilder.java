@@ -18,13 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.AttributeAssignmentType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /** Builder for {@link AttributeAssignmentType}. */
-public class AttributeAssignmentTypeImplBuilder extends AbstractXMLObjectBuilder<AttributeAssignmentType> implements
-        XACMLObjectBuilder<AttributeAssignmentType> {
+public class AttributeAssignmentTypeImplBuilder extends AbstractXACMLObjectBuilder<AttributeAssignmentType> {
 
     /** {@inheritDoc} */
     public AttributeAssignmentType buildObject() {

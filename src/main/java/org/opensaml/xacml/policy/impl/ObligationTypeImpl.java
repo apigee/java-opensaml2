@@ -22,15 +22,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.AttributeAssignmentType;
 import org.opensaml.xacml.policy.EffectType;
 import org.opensaml.xacml.policy.ObligationType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Implementation for {@link ObligationType}. */
-public class ObligationTypeImpl extends AbstractValidatingXMLObject implements ObligationType {
+public class ObligationTypeImpl extends AbstractXACMLObject implements ObligationType {
 
     /** List of the atrributeAssignments in the obligation. */
     private XMLObjectChildrenList<AttributeAssignmentType> attributeAssignments;

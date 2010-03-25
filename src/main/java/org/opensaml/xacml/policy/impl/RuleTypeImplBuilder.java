@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.RuleType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link RuleType}.
  */
-public class RuleTypeImplBuilder extends AbstractXMLObjectBuilder<RuleType> 
-implements XACMLObjectBuilder <RuleType> {
+public class RuleTypeImplBuilder extends AbstractXACMLObjectBuilder<RuleType> {
 
     /** {@inheritDoc} */
     public RuleType buildObject() {

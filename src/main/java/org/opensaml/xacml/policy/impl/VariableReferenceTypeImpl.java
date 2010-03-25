@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.ExpressionType;
 import org.opensaml.xacml.policy.VariableReferenceType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * Implementation of {@link VariableReferenceType}.
  */
-public class VariableReferenceTypeImpl extends AbstractValidatingXMLObject implements VariableReferenceType {
+public class VariableReferenceTypeImpl extends AbstractXACMLObject implements VariableReferenceType {
 
     /**List or expressions.*/
     private XMLObjectChildrenList<ExpressionType> expressions;

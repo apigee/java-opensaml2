@@ -49,9 +49,5 @@ public class IdReferenceTypeMarshaller extends XSStringMarshaller {
                     idReferenceType.getVersion());
         }
     }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-           super.marshallElementContent(xmlObject, domElement);
-    }
+    
 }

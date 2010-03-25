@@ -17,9 +17,9 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.VariableDefinitionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
@@ -27,7 +27,7 @@ import org.w3c.dom.Attr;
 /**
  * Unmarshaller for {@link VariableDefinitionType}.
  */
-public class VariableDefinitionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class VariableDefinitionTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
 
     /** Constructor. */
@@ -41,18 +41,9 @@ public class VariableDefinitionTypeUnmarshaller extends AbstractXMLObjectUnmarsh
         if(attribute.getLocalName().equals(VariableDefinitionType.VARIABLE_ID_ATTRIB_NAME)){
             VariableDefinitionType variableDefinitionType = (VariableDefinitionType) xmlObject;
             variableDefinitionType.setVariableId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
-
-    }
-
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
-            throws UnmarshallingException {
-
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
 
     }
     

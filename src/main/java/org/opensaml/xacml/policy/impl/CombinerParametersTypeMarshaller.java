@@ -16,16 +16,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.CombinerParametersType;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /** 
  * Marshaller for {@link CombinerParametersType}.
  */
-public class CombinerParametersTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class CombinerParametersTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public CombinerParametersTypeMarshaller() {
@@ -44,14 +41,4 @@ public class CombinerParametersTypeMarshaller extends AbstractXMLObjectMarshalle
         super(targetNamespaceURI,targetLocalName);
     }
     
-    /** {@inheritDoc} */
-    protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
- 
-    }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
- 
-    }
-
 }

@@ -26,11 +26,11 @@ import org.opensaml.xacml.ctx.StatusCodeType;
 import org.opensaml.xacml.ctx.StatusDetailType;
 import org.opensaml.xacml.ctx.StatusMessageType;
 import org.opensaml.xacml.ctx.StatusType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link StatusType}. */
-public class StatusTypeImpl extends AbstractValidatingXMLObject implements StatusType {
+public class StatusTypeImpl extends AbstractXACMLObject implements StatusType {
 
     /** Status code. */
     private StatusCodeType statusCode;

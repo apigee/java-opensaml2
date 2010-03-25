@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.CombinerParametersType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link CombinerParametersType}.
  */
-public class CombinerParametersTypeImplBuilder extends AbstractXMLObjectBuilder<CombinerParametersType>
-implements XACMLObjectBuilder<CombinerParametersType> {
+public class CombinerParametersTypeImplBuilder extends AbstractXACMLObjectBuilder<CombinerParametersType> {
 
     /** {@inheritDoc} */
     public CombinerParametersType buildObject() {

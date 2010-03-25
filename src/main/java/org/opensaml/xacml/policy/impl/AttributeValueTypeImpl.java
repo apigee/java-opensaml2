@@ -23,14 +23,14 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.AttributeValueType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.AttributeMap;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Implementation of {@link AttributeValueType}. */
-public class AttributeValueTypeImpl extends AbstractValidatingXMLObject implements AttributeValueType {
+public class AttributeValueTypeImpl extends AbstractXACMLObject implements AttributeValueType {
 
     /** Data type. */
     private String dataType;

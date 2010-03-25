@@ -17,15 +17,15 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.ResourceMatchType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
 
 /** Marshaller of {@link ResourceMatchType} objects. */
-public class ResourceMatchTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class ResourceMatchTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public ResourceMatchTypeMarshaller() {
@@ -41,8 +41,4 @@ public class ResourceMatchTypeMarshaller extends AbstractXMLObjectMarshaller {
         }
     }
 
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-
-    }
 }

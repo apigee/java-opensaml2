@@ -18,32 +18,25 @@ limitations under the License.
 package org.opensaml.xacml.policy.impl;
 
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.ActionsType;
 import org.opensaml.xacml.policy.EnvironmentsType;
 import org.opensaml.xacml.policy.ResourcesType;
 import org.opensaml.xacml.policy.SubjectsType;
 import org.opensaml.xacml.policy.TargetType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * A unmarshaller for {@link TargetType}.
  */
-public class TargetTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class TargetTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public TargetTypeUnmarshaller() {
         super();
     }
     
-    
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-             
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
             throws UnmarshallingException {
@@ -51,20 +44,15 @@ public class TargetTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
         
         if(childXMLObject.getElementQName().equals(ActionsType.DEFAULT_ELEMENT_NAME)){
             targetType.setActions((ActionsType)childXMLObject);
-        }
-        if(childXMLObject.getElementQName().equals(EnvironmentsType.DEFAULT_ELEMENT_NAME)){
+        } else if(childXMLObject.getElementQName().equals(EnvironmentsType.DEFAULT_ELEMENT_NAME)){
             targetType.setEnvironments((EnvironmentsType)childXMLObject);
-        }
-        if(childXMLObject.getElementQName().equals(ResourcesType.DEFAULT_ELEMENT_NAME)){
+        } else  if(childXMLObject.getElementQName().equals(ResourcesType.DEFAULT_ELEMENT_NAME)){
             targetType.setResources((ResourcesType)childXMLObject);
-        }
-        if(childXMLObject.getElementQName().equals(SubjectsType.DEFAULT_ELEMENT_NAME)){
+        } else  if(childXMLObject.getElementQName().equals(SubjectsType.DEFAULT_ELEMENT_NAME)){
             targetType.setSubjects((SubjectsType)childXMLObject);
-        }        
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
+        }
     }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-
-    }
+    
 }

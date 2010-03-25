@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.ConditionType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link ConditionType}.
  */
-public class ConditionTypeImplBuilder extends AbstractXMLObjectBuilder<ConditionType>
-implements XACMLObjectBuilder<ConditionType> {
+public class ConditionTypeImplBuilder extends AbstractXACMLObjectBuilder<ConditionType> {
 
     /** {@inheritDoc} */
     public ConditionType buildObject(String namespaceURI, String localName, String namespacePrefix) {

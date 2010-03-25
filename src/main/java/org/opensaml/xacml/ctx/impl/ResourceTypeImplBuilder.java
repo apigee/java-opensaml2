@@ -18,13 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.ResourceType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link ResourceType} objects. */
-public class ResourceTypeImplBuilder extends AbstractXMLObjectBuilder<ResourceType> implements
-        XACMLObjectBuilder<ResourceType> {
+public class ResourceTypeImplBuilder extends AbstractXACMLObjectBuilder<ResourceType> {
 
     /** Constructor. */
     public ResourceTypeImplBuilder() {

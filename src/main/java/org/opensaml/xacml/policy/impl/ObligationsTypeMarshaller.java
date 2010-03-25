@@ -18,27 +18,15 @@ limitations under the License.
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.ObligationsType;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
 
 /** Marshaller for {@link ObligationsType}. */
-public class ObligationsTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class ObligationsTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public ObligationsTypeMarshaller() {
         super();
     }
-
-    /** {@inheritDoc} */
-    protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
-
-    }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-
-    }
+    
 }

@@ -17,16 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.PolicySetCombinerParametersType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link PolicySetCombinerParametersType}.
  */
-public class PolicySetCombinerParametersTypeImplBuilder 
-extends AbstractXMLObjectBuilder<PolicySetCombinerParametersType>
-implements XACMLObjectBuilder<PolicySetCombinerParametersType> {
+public class PolicySetCombinerParametersTypeImplBuilder  extends AbstractXACMLObjectBuilder<PolicySetCombinerParametersType> {
 
     /** {@inheritDoc} */
     public PolicySetCombinerParametersType buildObject(String namespaceURI, String localName, String namespacePrefix) {

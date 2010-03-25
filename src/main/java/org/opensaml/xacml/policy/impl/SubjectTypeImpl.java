@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.SubjectMatchType;
 import org.opensaml.xacml.policy.SubjectType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  *Implementation of {@link SubjectType}.
  */
-public class SubjectTypeImpl extends AbstractValidatingXMLObject implements SubjectType {
+public class SubjectTypeImpl extends AbstractXACMLObject implements SubjectType {
 
     /**List of subject matches.*/
     private XMLObjectChildrenList <SubjectMatchType> subjectMatch;

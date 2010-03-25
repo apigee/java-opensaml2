@@ -18,13 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.StatusType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link StatusType} objects. */
-public class StatusTypeImplBuilder extends AbstractXMLObjectBuilder<StatusType> implements
-        XACMLObjectBuilder<StatusType> {
+public class StatusTypeImplBuilder extends AbstractXACMLObjectBuilder<StatusType> {
 
     /** Constructor. */
     public StatusTypeImplBuilder() {

@@ -16,15 +16,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.SubjectAttributeDesignatorType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Bilder for {@link SubjectAttributeDesignatorType}.
  */
-public class SubjectAttributeDesignatorTypeImplBuilder extends AbstractXMLObjectBuilder<SubjectAttributeDesignatorType> 
-implements XACMLObjectBuilder<SubjectAttributeDesignatorType> {
+public class SubjectAttributeDesignatorTypeImplBuilder extends AbstractXACMLObjectBuilder<SubjectAttributeDesignatorType> {
 
     /** {@inheritDoc} */
     public SubjectAttributeDesignatorType buildObject(String namespaceURI, String localName, String namespacePrefix) {

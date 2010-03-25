@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.SubjectsType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  *Builder for {@link SubjectsType}.
  */
-public class SubjectsTypeImplBuilder extends AbstractXMLObjectBuilder<SubjectsType> 
-implements XACMLObjectBuilder<SubjectsType> {
+public class SubjectsTypeImplBuilder extends AbstractXACMLObjectBuilder<SubjectsType> {
 
 
     /** {@inheritDoc} */

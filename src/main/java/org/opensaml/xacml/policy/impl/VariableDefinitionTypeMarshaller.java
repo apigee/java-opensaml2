@@ -17,9 +17,9 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.VariableDefinitionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
@@ -27,7 +27,7 @@ import org.w3c.dom.Element;
 /**
  * Marshaller for {@link VariableDefinitionType}.
  */
-public class VariableDefinitionTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class VariableDefinitionTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public VariableDefinitionTypeMarshaller() {
@@ -42,11 +42,6 @@ public class VariableDefinitionTypeMarshaller extends AbstractXMLObjectMarshalle
             domElement.setAttribute(VariableDefinitionType.VARIABLE_ID_ATTRIB_NAME,
                     variableDefinitionType.getVariableId());
         }   
-    }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-
     }
 
 }

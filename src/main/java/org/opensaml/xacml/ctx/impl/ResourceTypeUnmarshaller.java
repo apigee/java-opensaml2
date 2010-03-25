@@ -21,13 +21,12 @@ package org.opensaml.xacml.ctx.impl;
 import org.opensaml.xacml.ctx.AttributeType;
 import org.opensaml.xacml.ctx.ResourceContentType;
 import org.opensaml.xacml.ctx.ResourceType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link ResourceType} objects. */
-public class ResourceTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class ResourceTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public ResourceTypeUnmarshaller() {
@@ -54,14 +53,9 @@ public class ResourceTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
             resource.setResourceContent((ResourceContentType) childObject);
         } else if (childObject instanceof AttributeType) {
             resource.getAttributes().add((AttributeType) childObject);
+        } else {
+            super.processChildElement(parentObject, childObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
 }

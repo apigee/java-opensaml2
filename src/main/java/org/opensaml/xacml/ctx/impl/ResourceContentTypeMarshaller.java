@@ -22,15 +22,15 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.Configuration;
 import org.opensaml.xacml.ctx.ResourceContentType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /** Marshaller for {@link ResourceContentType} objects. */
-public class ResourceContentTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class ResourceContentTypeMarshaller extends AbstractXACMLObjectMarshaller {
     
     /** Constructor. */
     public ResourceContentTypeMarshaller() {

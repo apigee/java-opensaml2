@@ -18,11 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 
 /**
  * A marshaller for the {@link org.opensaml.xacml.policy.TargetType}.
  */
-public class TargetTypeMarshaller extends AbstractSAMLObjectMarshaller {
+public class TargetTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
 }

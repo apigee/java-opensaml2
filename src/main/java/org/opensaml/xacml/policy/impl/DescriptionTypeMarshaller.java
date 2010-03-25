@@ -17,9 +17,9 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.DescriptionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
@@ -27,18 +27,13 @@ import org.w3c.dom.Element;
 /**
  *Marshaller for {@link org.opensaml.xacml.policy.DescriptionType}.
  */
-public class DescriptionTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class DescriptionTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public DescriptionTypeMarshaller() {
         super();
     }
     
-    /** {@inheritDoc} */
-    protected void marshallAttributes(XMLObject arg0, Element arg1) throws MarshallingException {
-
-    }
-
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject xmlobject, Element domElement) throws MarshallingException {
         DescriptionType message = (DescriptionType) xmlobject;

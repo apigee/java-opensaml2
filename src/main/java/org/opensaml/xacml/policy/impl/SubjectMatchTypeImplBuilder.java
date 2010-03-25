@@ -17,13 +17,11 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.SubjectMatchType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /** Builder of {@link SubjectMatchType} objects. */
-public class SubjectMatchTypeImplBuilder extends AbstractXMLObjectBuilder<SubjectMatchType> implements
-        XACMLObjectBuilder<SubjectMatchType> {
+public class SubjectMatchTypeImplBuilder extends AbstractXACMLObjectBuilder<SubjectMatchType> {
 
     /** {@inheritDoc} */
     public SubjectMatchType buildObject() {

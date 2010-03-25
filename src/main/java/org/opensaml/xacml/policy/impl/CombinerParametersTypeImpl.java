@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.CombinerParameterType;
 import org.opensaml.xacml.policy.CombinerParametersType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * Implementation of {@link CombinerParametersType}.
  */
-public class CombinerParametersTypeImpl extends AbstractValidatingXMLObject implements CombinerParametersType {
+public class CombinerParametersTypeImpl extends AbstractXACMLObject implements CombinerParametersType {
 
     /**List or the combiner parameters.*/
     private XMLObjectChildrenList<CombinerParameterType> combinerParameters;

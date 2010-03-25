@@ -26,12 +26,12 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.xacml.ctx.StatusCodeType;
 import org.opensaml.xacml.ctx.StatusDetailType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link StatusCodeType}. */
-public class StatusDetailTypeImpl extends AbstractValidatingXMLObject implements StatusDetailType {
+public class StatusDetailTypeImpl extends AbstractXACMLObject implements StatusDetailType {
 
     /** "any" children. */
     private IndexedXMLObjectChildrenList<XMLObject> unknownChildren;

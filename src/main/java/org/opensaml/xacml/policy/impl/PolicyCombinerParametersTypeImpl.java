@@ -21,15 +21,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.CombinerParameterType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** 
  * Implementation of {@link PolicyCombinerParametersTypeUnmarshaller}.
  */
-public class PolicyCombinerParametersTypeImpl extends AbstractValidatingXMLObject implements
+public class PolicyCombinerParametersTypeImpl extends AbstractXACMLObject implements
         org.opensaml.xacml.policy.PolicyCombinerParametersType {
 
     /**Policy indentity reference.*/

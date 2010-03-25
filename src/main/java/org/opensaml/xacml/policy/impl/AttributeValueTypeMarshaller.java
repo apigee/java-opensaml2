@@ -22,10 +22,10 @@ import java.util.Map.Entry;
 import javax.xml.namespace.QName;
 
 import org.opensaml.Configuration;
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.AttributeAssignmentType;
 import org.opensaml.xacml.policy.AttributeValueType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
@@ -33,7 +33,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /** Marshaller for {@link org.opensaml.xacml.policy.AttributeValueType}. */
-public class AttributeValueTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class AttributeValueTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public AttributeValueTypeMarshaller() {

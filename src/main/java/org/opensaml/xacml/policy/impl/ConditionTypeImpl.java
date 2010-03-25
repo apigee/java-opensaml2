@@ -21,15 +21,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.ConditionType;
 import org.opensaml.xacml.policy.ExpressionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  *Implementation of {@link ConditionType}.
  */
-public class ConditionTypeImpl extends AbstractValidatingXMLObject implements ConditionType {
+public class ConditionTypeImpl extends AbstractXACMLObject implements ConditionType {
 
     /**List of expressions.*/
     private ExpressionType expression;

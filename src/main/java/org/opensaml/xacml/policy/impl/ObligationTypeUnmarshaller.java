@@ -18,7 +18,7 @@ limitations under the License.
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.AttributeAssignmentType;
 import org.opensaml.xacml.policy.EffectType;
 import org.opensaml.xacml.policy.ObligationType;
@@ -27,7 +27,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /** UnMarshaller for {@link org.opensaml.xacml.policy.ObligationType}. */
-public class ObligationTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class ObligationTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
@@ -35,23 +35,27 @@ public class ObligationTypeUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 
         if (childObject instanceof AttributeAssignmentType) {
             obligation.getAttributeAssignments().add((AttributeAssignmentType) childObject);
+        } else {
+            super.processChildElement(parentObject, childObject);
         }
     }
 
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
+    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
 
-        ObligationType obligation = (ObligationType) samlObject;
+        ObligationType obligation = (ObligationType) xmlObject;
 
         if (attribute.getLocalName().equals(ObligationType.OBLIGATION_ID_ATTRIB_NAME)) {
             obligation.setObligationId(attribute.getValue());
-        }
-        if (attribute.getLocalName().equals(ObligationType.FULFILL_ON_ATTRIB_NAME)) {
+        } else  if (attribute.getLocalName().equals(ObligationType.FULFILL_ON_ATTRIB_NAME)) {
             if (attribute.getValue().equals(EffectType.Permit.toString())) {
                 obligation.setFulfillOn(EffectType.Permit);
             } else {
                 obligation.setFulfillOn(EffectType.Deny);
             }
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
+        
     }
 }

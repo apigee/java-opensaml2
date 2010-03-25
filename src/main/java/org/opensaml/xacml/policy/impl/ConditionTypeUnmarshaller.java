@@ -17,27 +17,20 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.ConditionType;
 import org.opensaml.xacml.policy.ExpressionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * Unmarshaller for {@link ConditionType}.
  */
-public class ConditionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class ConditionTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public ConditionTypeUnmarshaller() {
         super();
-    }
-
-    
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-
     }
 
     /** {@inheritDoc} */
@@ -46,12 +39,9 @@ public class ConditionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
         if(childXMLObject instanceof ExpressionType){
             ConditionType conditionType = (ConditionType)parentXMLObject;
             conditionType.setExpression((ExpressionType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-
     }
 
 }

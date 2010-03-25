@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.ResourcesType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link ResourcesType}.
  */
-public class ResourcesTypeImplBuilder extends AbstractXMLObjectBuilder<ResourcesType> 
-implements XACMLObjectBuilder<ResourcesType> {
+public class ResourcesTypeImplBuilder extends AbstractXACMLObjectBuilder<ResourcesType> {
 
     /** {@inheritDoc} */
     public ResourcesType buildObject() {

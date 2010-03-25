@@ -19,16 +19,16 @@ package org.opensaml.xacml.policy.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.ActionType;
 import org.opensaml.xacml.policy.ActionsType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * Implementation of {@link ActionsType}.
  */
-public class ActionsTypeImpl extends AbstractValidatingXMLObject implements ActionsType {
+public class ActionsTypeImpl extends AbstractXACMLObject implements ActionsType {
 
     /**List of action types.*/
     private XMLObjectChildrenList<ActionType> action;

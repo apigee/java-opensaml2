@@ -17,20 +17,14 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.DefaultsType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.schema.XSString;
-import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link DefaultsType}. */
-public class DefaultsTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
-
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-
-    }
+public class DefaultsTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
@@ -38,11 +32,9 @@ public class DefaultsTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
         if (childXMLObject instanceof XSString) {
             DefaultsType defaultType = (DefaultsType) parentXMLObject;
             defaultType.setXPathVersion((XSString) childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-
-    }
 }

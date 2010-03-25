@@ -17,17 +17,16 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.EnvironmentType;
 import org.opensaml.xacml.policy.EnvironmentsType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * Unmarshaller for {@link EnvironmentsType}.
  */
-public class EnvironmentsTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class EnvironmentsTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public EnvironmentsTypeUnmarshaller() {
@@ -35,23 +34,15 @@ public class EnvironmentsTypeUnmarshaller extends AbstractXMLObjectUnmarshaller 
     }
     
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-    
-    }
-
-    /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
             throws UnmarshallingException {
         EnvironmentsType environmentsType = (EnvironmentsType) parentXMLObject;
         
         if(childXMLObject instanceof EnvironmentType){
             environmentsType.getEnvrionments().add((EnvironmentType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    
     }
 
 }

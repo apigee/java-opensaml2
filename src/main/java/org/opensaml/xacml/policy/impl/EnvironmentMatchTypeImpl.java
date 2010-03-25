@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opensaml.xacml.XACMLObject;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.AttributeDesignatorType;
 import org.opensaml.xacml.policy.AttributeSelectorType;
 import org.opensaml.xacml.policy.AttributeValueType;
 import org.opensaml.xacml.policy.EnvironmentMatchType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link EnvironmentMatchType}. */
-public class EnvironmentMatchTypeImpl extends AbstractValidatingXMLObject implements EnvironmentMatchType {
+public class EnvironmentMatchTypeImpl extends AbstractXACMLObject implements EnvironmentMatchType {
 
     /** Match's attribute value. */
     private AttributeValueType attributeValue;

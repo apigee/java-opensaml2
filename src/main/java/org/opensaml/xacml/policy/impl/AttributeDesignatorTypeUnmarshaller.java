@@ -17,9 +17,9 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.AttributeDesignatorType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -28,7 +28,7 @@ import org.w3c.dom.Attr;
 /**
  * Unmarshaller for {@link AttributeDesignatorType}.
  */
-public class AttributeDesignatorTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class AttributeDesignatorTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public AttributeDesignatorTypeUnmarshaller() {
@@ -40,33 +40,21 @@ public class AttributeDesignatorTypeUnmarshaller extends AbstractXMLObjectUnmars
         
         AttributeDesignatorType attributeDesignatorType = (AttributeDesignatorType) xmlObject;
         
-        if(attribute.getLocalName().equals(AttributeDesignatorType.ATTRIBUTE_ID_ATTRIB_NAME)){
+        if (attribute.getLocalName().equals(AttributeDesignatorType.ATTRIBUTE_ID_ATTRIB_NAME)){
             attributeDesignatorType.setAttribtueId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
-        }
-        if(attribute.getLocalName().equals(AttributeDesignatorType.DATA_TYPE_ATTRIB_NAME)){
+        } else  if (attribute.getLocalName().equals(AttributeDesignatorType.DATA_TYPE_ATTRIB_NAME)){
             attributeDesignatorType.setDataType(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
-        }
-        if(attribute.getLocalName().equals(AttributeDesignatorType.ISSUER_ATTRIB_NAME)){
+        } else  if (attribute.getLocalName().equals(AttributeDesignatorType.ISSUER_ATTRIB_NAME)){
             attributeDesignatorType.setIssuer(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
-        }
-        if(attribute.getLocalName().equals(AttributeDesignatorType.MUST_BE_PRESENT_ATTRIB_NAME)){
-            if(attribute.getValue().equals("True") || attribute.getValue().equals("true")){
+        } else  if (attribute.getLocalName().equals(AttributeDesignatorType.MUST_BE_PRESENT_ATTRIB_NAME)){
+            if (attribute.getValue().equals("True") || attribute.getValue().equals("true")) {
                 attributeDesignatorType.setMustBePresentXSBoolean(XSBooleanValue.valueOf("1"));
-            }else{
+            } else {
                 attributeDesignatorType.setMustBePresentXSBoolean(XSBooleanValue.valueOf("0"));
             }          
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
-    }
-
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
-            throws UnmarshallingException {
-
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-
     }
 
 }

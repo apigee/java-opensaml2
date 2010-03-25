@@ -18,13 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.DecisionType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link DecisionType} objects. */
-public class DecisionTypeImplBuilder extends AbstractXMLObjectBuilder<DecisionType> implements
-        XACMLObjectBuilder<DecisionType> {
+public class DecisionTypeImplBuilder extends AbstractXACMLObjectBuilder<DecisionType> {
 
     /** Constructor. */
     public DecisionTypeImplBuilder() {

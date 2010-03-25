@@ -19,13 +19,13 @@ limitations under the License.
 package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.StatusCodeType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link StatusCodeType} objects. */
-public class StatusCodeTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class StatusCodeTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public StatusCodeTypeUnmarshaller() {
@@ -45,10 +45,12 @@ public class StatusCodeTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
     }
 
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-        StatusCodeType statusCode = (StatusCodeType) samlObject;
+    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
+        StatusCodeType statusCode = (StatusCodeType) xmlObject;
         if (attribute.getLocalName().equals(StatusCodeType.VALUE_ATTTRIB_NAME)) {
             statusCode.setValue(attribute.getValue());
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
     }
 
@@ -57,10 +59,9 @@ public class StatusCodeTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
         StatusCodeType statuscode = (StatusCodeType) parentObject;
         if (childObject instanceof StatusCodeType) {
             statuscode.setStatusCode((StatusCodeType) childObject);
+        } else {
+            super.processChildElement(parentObject, childObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
 }

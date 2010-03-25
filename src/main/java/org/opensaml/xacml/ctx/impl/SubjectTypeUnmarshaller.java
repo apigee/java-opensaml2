@@ -20,13 +20,13 @@ package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.AttributeType;
 import org.opensaml.xacml.ctx.SubjectType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link SubjectType} objects. */
-public class SubjectTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class SubjectTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public SubjectTypeUnmarshaller() {
@@ -46,10 +46,12 @@ public class SubjectTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
     }
 
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-        SubjectType attrib = (SubjectType) samlObject;
+    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
+        SubjectType attrib = (SubjectType) xmlObject;
         if (attribute.getLocalName().equals(SubjectType.SUBJECT_CATEGORY_ATTTRIB_NAME)) {
             attrib.setSubjectCategory(attribute.getValue());
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
     }
 
@@ -58,10 +60,9 @@ public class SubjectTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
         SubjectType subject = (SubjectType) parentObject;
         if (childObject instanceof AttributeType) {
             subject.getAttributes().add((AttributeType) childObject);
+        } else {
+            super.processChildElement(parentObject, childObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
 }

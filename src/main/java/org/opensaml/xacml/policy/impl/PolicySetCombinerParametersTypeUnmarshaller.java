@@ -41,19 +41,9 @@ public class PolicySetCombinerParametersTypeUnmarshaller extends CombinerParamet
                 (PolicySetCombinerParametersType)xmlObject;
             policySetCombinerParametersType.setPolicySetIdRef(
                     DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
-        super.processAttribute(xmlObject, attribute);
-
-    }
-
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
-            throws UnmarshallingException {
-        super.processChildElement(parentXMLObject, childXMLObject);
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
 
     }
 

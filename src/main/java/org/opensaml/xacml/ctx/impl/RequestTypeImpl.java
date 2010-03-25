@@ -27,12 +27,12 @@ import org.opensaml.xacml.ctx.EnvironmentType;
 import org.opensaml.xacml.ctx.RequestType;
 import org.opensaml.xacml.ctx.ResourceType;
 import org.opensaml.xacml.ctx.SubjectType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link RequestType}. */
-public class RequestTypeImpl extends AbstractValidatingXMLObject implements RequestType {
+public class RequestTypeImpl extends AbstractXACMLObject implements RequestType {
 
     /** The subjects of the request. */
     private XMLObjectChildrenList<SubjectType> subjects;

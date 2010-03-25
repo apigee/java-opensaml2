@@ -21,18 +21,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.ConditionType;
 import org.opensaml.xacml.policy.DescriptionType;
 import org.opensaml.xacml.policy.EffectType;
 import org.opensaml.xacml.policy.RuleType;
 import org.opensaml.xacml.policy.TargetType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  *Implementation for {@link RuleType}.
  */
-public class RuleTypeImpl extends AbstractValidatingXMLObject implements RuleType {
+public class RuleTypeImpl extends AbstractXACMLObject implements RuleType {
 
     /** Condition of the policy.*/
     private ConditionType condition;

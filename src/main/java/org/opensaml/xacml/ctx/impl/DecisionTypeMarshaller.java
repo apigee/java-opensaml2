@@ -19,14 +19,14 @@ limitations under the License.
 package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.DecisionType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /** Marshaller for {@link DecisionType} objects. */
-public class DecisionTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class DecisionTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public DecisionTypeMarshaller() {
@@ -51,7 +51,4 @@ public class DecisionTypeMarshaller extends AbstractXMLObjectMarshaller {
         XMLHelper.appendTextContent(domElement, decision.getDecision().toString());
     }
 
-    /** {@inheritDoc} */
-    protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
-    }
 }

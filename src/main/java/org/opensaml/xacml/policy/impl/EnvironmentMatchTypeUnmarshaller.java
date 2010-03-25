@@ -17,18 +17,18 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.AttributeDesignatorType;
 import org.opensaml.xacml.policy.AttributeSelectorType;
 import org.opensaml.xacml.policy.AttributeValueType;
 import org.opensaml.xacml.policy.EnvironmentMatchType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
 
 /** Unmarshaller of {@link EnvironmentMatchType} objects. */
-public class EnvironmentMatchTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class EnvironmentMatchTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public EnvironmentMatchTypeUnmarshaller() {
@@ -40,6 +40,8 @@ public class EnvironmentMatchTypeUnmarshaller extends AbstractXMLObjectUnmarshal
         if (attribute.getLocalName().equals(EnvironmentMatchType.MATCH_ID_ATTRIB_NAME)) {
             EnvironmentMatchType matchType = (EnvironmentMatchType) xmlObject;
             matchType.setMatchId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
     }
 
@@ -53,11 +55,9 @@ public class EnvironmentMatchTypeUnmarshaller extends AbstractXMLObjectUnmarshal
             matchType.setEnvironmentAttributeDesignator((AttributeDesignatorType) childXMLObject);
         } else if (childXMLObject instanceof AttributeSelectorType) {
             matchType.setAttributeSelector((AttributeSelectorType) childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-
-    }
 }

@@ -25,12 +25,12 @@ import java.util.List;
 import org.opensaml.xacml.ctx.DecisionType;
 import org.opensaml.xacml.ctx.ResultType;
 import org.opensaml.xacml.ctx.StatusType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.ObligationsType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link ResultType}. */
-public class ResultTypeImpl extends AbstractValidatingXMLObject implements ResultType {
+public class ResultTypeImpl extends AbstractXACMLObject implements ResultType {
 
     /** Attribute resource id. */
     private String resourceId;

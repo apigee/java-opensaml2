@@ -21,13 +21,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.DefaultsType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSString;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Implementation for {@link DefaultsType}. */
-public class DefaultsTypeImpl extends AbstractValidatingXMLObject implements DefaultsType {
+public class DefaultsTypeImpl extends AbstractXACMLObject implements DefaultsType {
 
     /** XPath version. */
     private XSString xPathVersion;

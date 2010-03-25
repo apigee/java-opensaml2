@@ -17,13 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.ConditionType;
 import org.opensaml.xacml.policy.DescriptionType;
 import org.opensaml.xacml.policy.EffectType;
 import org.opensaml.xacml.policy.RuleType;
 import org.opensaml.xacml.policy.TargetType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
@@ -31,7 +31,7 @@ import org.w3c.dom.Attr;
 /**
  * Unmarshaller for {@link RuleType}.
  */
-public class RuleTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class RuleTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public RuleTypeUnmarshaller() {
@@ -48,6 +48,8 @@ public class RuleTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
                     DatatypeHelper.safeTrimOrNullString(attribute.getValue())));                       
         } else if(attribute.getLocalName().equals(RuleType.RULE_ID_ATTRIB_NAME)){
             ruleType.setRuleId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
 
     }
@@ -63,11 +65,9 @@ public class RuleTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
             ruleType.setDescription((DescriptionType)childXMLObject);
         }else if(childXMLObject instanceof ConditionType){
             ruleType.setCondition((ConditionType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
     }
 
 }

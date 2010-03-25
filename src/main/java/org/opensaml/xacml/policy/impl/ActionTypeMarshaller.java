@@ -16,31 +16,16 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
-import org.opensaml.xml.io.MarshallingException;
-import org.w3c.dom.Element;
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 
 /**
  *Marshaller for {@link ActionType}.
  */
-public class ActionTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class ActionTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /**Constructor.*/
     public ActionTypeMarshaller(){
         super();
-    }
-    
-    /** {@inheritDoc} */
-    protected void marshallAttributes(XMLObject xmlObject, Element domElement) throws MarshallingException {
-        
-
-    }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-        
-
     }
 
 }

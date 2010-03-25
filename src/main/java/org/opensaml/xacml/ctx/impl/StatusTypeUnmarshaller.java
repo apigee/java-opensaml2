@@ -22,14 +22,12 @@ import org.opensaml.xacml.ctx.StatusCodeType;
 import org.opensaml.xacml.ctx.StatusDetailType;
 import org.opensaml.xacml.ctx.StatusMessageType;
 import org.opensaml.xacml.ctx.StatusType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.opensaml.xml.schema.XSString;
-import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link StatusType} objects. */
-public class StatusTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class StatusTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public StatusTypeUnmarshaller() {
@@ -54,20 +52,13 @@ public class StatusTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
 
         if (childObject instanceof StatusCodeType) {
             status.setStatusCode((StatusCodeType) childObject);
-        }
-        if (childObject instanceof XSString) {
+        } else  if (childObject instanceof StatusMessageType) {
             status.setStatusMessage((StatusMessageType) childObject);
-        }
-        if (childObject instanceof StatusDetailType) {
+        } else if (childObject instanceof StatusDetailType) {
             status.setStatusDetail((StatusDetailType) childObject);
+        } else {
+            super.processChildElement(parentObject, childObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
 }

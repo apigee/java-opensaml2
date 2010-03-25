@@ -43,9 +43,4 @@ public class PolicyCombinerParametersTypeMarshaller extends CombinerParametersTy
         super.marshallAttributes(xmlObject, domElement);
     }
 
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-        
-    }
-
 }

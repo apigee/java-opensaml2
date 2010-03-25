@@ -23,15 +23,15 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.Configuration;
 import org.opensaml.xacml.ctx.AttributeValueType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 
 /** Marshaller for {@link AttributeValueType} objects. */
-public class AttributeValueTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class AttributeValueTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public AttributeValueTypeMarshaller() {

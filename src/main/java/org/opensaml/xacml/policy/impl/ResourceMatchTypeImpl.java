@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.opensaml.xacml.XACMLObject;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.AttributeDesignatorType;
 import org.opensaml.xacml.policy.AttributeSelectorType;
 import org.opensaml.xacml.policy.AttributeValueType;
 import org.opensaml.xacml.policy.ResourceMatchType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.IndexedXMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link ResourceMatchType}. */
-public class ResourceMatchTypeImpl extends AbstractValidatingXMLObject implements ResourceMatchType {
+public class ResourceMatchTypeImpl extends AbstractXACMLObject implements ResourceMatchType {
 
     /** Match's attribute value. */
     private AttributeValueType attributeValue;

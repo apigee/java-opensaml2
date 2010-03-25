@@ -17,17 +17,16 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.CombinerParameterType;
 import org.opensaml.xacml.policy.CombinerParametersType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /**
  * Unmarshaller for {@link CombinerParametersType}.
  */
-public class CombinerParametersTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class CombinerParametersTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public CombinerParametersTypeUnmarshaller() {
@@ -46,12 +45,6 @@ public class CombinerParametersTypeUnmarshaller extends AbstractXMLObjectUnmarsh
         super(targetNamespaceURI,targetLocalName);
     }
 
-    
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-           
-    }
-
     /** {@inheritDoc} */
     protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
             throws UnmarshallingException {
@@ -59,10 +52,9 @@ public class CombinerParametersTypeUnmarshaller extends AbstractXMLObjectUnmarsh
         
         if(childXMLObject instanceof CombinerParameterType){
             combinerParametersType.getCombinerParameters().add((CombinerParameterType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
 }

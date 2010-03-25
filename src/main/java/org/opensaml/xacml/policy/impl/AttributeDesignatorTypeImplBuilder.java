@@ -18,15 +18,13 @@
 package org.opensaml.xacml.policy.impl;
 
 import org.opensaml.saml1.core.AttributeDesignator;
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.AttributeDesignatorType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link AttributeDesignatorType}.
  */
-public class AttributeDesignatorTypeImplBuilder extends AbstractXMLObjectBuilder<AttributeDesignatorType>
-implements XACMLObjectBuilder<AttributeDesignatorType> {
+public class AttributeDesignatorTypeImplBuilder extends AbstractXACMLObjectBuilder<AttributeDesignatorType> {
 
     /** {@inheritDoc} */
     public AttributeDesignatorType buildObject(String namespaceURI, String localName, String namespacePrefix) {

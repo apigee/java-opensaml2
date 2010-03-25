@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.ResourceType;
 import org.opensaml.xacml.policy.ResourcesType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * Implementation of {@link ResourcesType}.
  */
-public class ResourcesTypeImpl extends AbstractValidatingXMLObject implements ResourcesType {
+public class ResourcesTypeImpl extends AbstractXACMLObject implements ResourcesType {
 
     /**List of resource matches.*/
     private XMLObjectChildrenList <ResourceType> resource;

@@ -19,16 +19,16 @@ package org.opensaml.xacml.policy.impl;
 
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.DescriptionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  *
  * Concrete implementation of {@link org.opensaml.xacml.policy.DescriptionType}.
  *
  */
-public class DescriptionTypeImpl extends AbstractValidatingXMLObject implements DescriptionType {
+public class DescriptionTypeImpl extends AbstractXACMLObject implements DescriptionType {
 
     /**Value of the description.*/
     private String description;

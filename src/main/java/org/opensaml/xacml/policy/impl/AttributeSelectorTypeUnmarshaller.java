@@ -17,9 +17,9 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.AttributeSelectorType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.util.DatatypeHelper;
@@ -28,7 +28,7 @@ import org.w3c.dom.Attr;
 /**
  *Unmarshaller for {@link AttributeSelectorType}.
  */
-public class AttributeSelectorTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class AttributeSelectorTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public AttributeSelectorTypeUnmarshaller() {
@@ -39,30 +39,20 @@ public class AttributeSelectorTypeUnmarshaller extends AbstractXMLObjectUnmarsha
     protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
         AttributeSelectorType attributeSelectorType = (AttributeSelectorType) xmlObject;
         
-        if(attribute.getLocalName().equals(AttributeSelectorType.REQUEST_CONTEXT_PATH_ATTRIB_NAME)){
+        if (attribute.getLocalName().equals(AttributeSelectorType.REQUEST_CONTEXT_PATH_ATTRIB_NAME)){
             attributeSelectorType.setRequestContextPath(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
-        }
-        if(attribute.getLocalName().equals(AttributeSelectorType.DATA_TYPE_ATTRIB_NAME)){
+        } else  if (attribute.getLocalName().equals(AttributeSelectorType.DATA_TYPE_ATTRIB_NAME)){
             attributeSelectorType.setDataType(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
-        }
-        
-        if(attribute.getLocalName().equals(AttributeSelectorType.MUST_BE_PRESENT_ATTRIB_NAME)){
-            if(attribute.getValue().equals("True") || attribute.getValue().equals("true")){
+        } else  if (attribute.getLocalName().equals(AttributeSelectorType.MUST_BE_PRESENT_ATTRIB_NAME)){
+            if (attribute.getValue().equals("True") || attribute.getValue().equals("true")) {
                 attributeSelectorType.setMustBePresentXSBoolean(XSBooleanValue.valueOf("1"));
-            }else{
+            } else {
                 attributeSelectorType.setMustBePresentXSBoolean(XSBooleanValue.valueOf("0"));
             }          
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
 
-    }
-
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
-            throws UnmarshallingException {
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
     }
 
 }

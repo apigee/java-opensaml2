@@ -19,17 +19,16 @@ package org.opensaml.xacml.policy.impl;
 
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.AttributeSelectorType;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.util.LazyList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * Implementation {@link AttributeSelectorType}.
  */
-public class AttributeSelectorTypeImpl extends AbstractValidatingXMLObject
-	implements AttributeSelectorType {
+public class AttributeSelectorTypeImpl extends AbstractXACMLObject implements AttributeSelectorType {
 
     /** Datatype. */
     private String dataType;

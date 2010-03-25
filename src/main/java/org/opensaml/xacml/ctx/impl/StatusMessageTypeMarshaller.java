@@ -18,8 +18,8 @@
 package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.StatusMessageType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
@@ -27,12 +27,7 @@ import org.w3c.dom.Element;
 /**
  *Masrhaller for {@link org.opensaml.xacml.ctx.StatusMessageType}. 
  */
-public class StatusMessageTypeMarshaller extends AbstractXMLObjectMarshaller {
-
-    /** {@inheritDoc} */
-    protected void marshallAttributes(XMLObject arg0, Element arg1) throws MarshallingException {
-
-    }
+public class StatusMessageTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** {@inheritDoc} */
     protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {

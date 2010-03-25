@@ -18,6 +18,7 @@
 package org.opensaml.xacml.policy.impl;
 
 import org.opensaml.xacml.XACMLConstants;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.CombinerParametersType;
 import org.opensaml.xacml.policy.DefaultsType;
 import org.opensaml.xacml.policy.DescriptionType;
@@ -29,12 +30,11 @@ import org.opensaml.xacml.policy.PolicySetType;
 import org.opensaml.xacml.policy.PolicyType;
 import org.opensaml.xacml.policy.TargetType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link PolicySetType} objects. */
-public class PolicySetTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class PolicySetTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public PolicySetTypeUnmarshaller() {
@@ -51,6 +51,8 @@ public class PolicySetTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
             policySet.setVersion(attribute.getValue());
         } else if (attribute.getLocalName().equals(PolicySetType.POLICY_COMBINING_ALG_ID_ATTRIB_NAME)) {
             policySet.setPolicyCombiningAlgoId(attribute.getValue());
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
     }
 
@@ -81,11 +83,9 @@ public class PolicySetTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
             policySet.getPolicySetCombinerParameters().add((PolicySetCombinerParametersType) childXMLObject);
         } else if (childXMLObject instanceof ObligationsType) {
             policySet.setObligations((ObligationsType) childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-
-    }
 }

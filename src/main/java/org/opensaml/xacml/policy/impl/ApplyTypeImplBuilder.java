@@ -17,15 +17,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.ApplyType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link ApplyType}.
  */
-public class ApplyTypeImplBuilder extends AbstractXMLObjectBuilder<ApplyType> implements 
-XACMLObjectBuilder<ApplyType> {
+public class ApplyTypeImplBuilder extends AbstractXACMLObjectBuilder<ApplyType> {
 
     /** {@inheritDoc} */
     public ApplyType buildObject(String namespaceURI, String localName, String namespacePrefix) {

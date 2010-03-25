@@ -18,24 +18,18 @@ limitations under the License.
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.ObligationType;
 import org.opensaml.xacml.policy.ObligationsType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /** UnMarshaller for {@link ObligationsType}. */
-public class ObligationsTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class ObligationsTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public ObligationsTypeUnmarshaller() {
         super();
-    }
-
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-
     }
 
     /** {@inheritDoc} */
@@ -45,11 +39,9 @@ public class ObligationsTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
 
         if (childObject instanceof ObligationType) {
             obligations.getObligations().add((ObligationType) childObject);
+        } else {
+            super.processChildElement(parentObject, childObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-
-    }
 }

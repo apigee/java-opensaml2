@@ -24,12 +24,12 @@ import java.util.List;
 
 import org.opensaml.xacml.ctx.ActionType;
 import org.opensaml.xacml.ctx.AttributeType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link ActionType}. */
-public class ActionTypeImpl extends AbstractValidatingXMLObject implements ActionType {
+public class ActionTypeImpl extends AbstractXACMLObject implements ActionType {
 
     /** Lists of the attributes in the subject. */
     private XMLObjectChildrenList<AttributeType> attributes;

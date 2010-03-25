@@ -20,13 +20,13 @@ package org.opensaml.xacml.ctx.impl;
 import java.util.List;
 
 import org.opensaml.xacml.ctx.StatusMessageType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * Implementation of {@link org.opensaml.xacml.ctx.StatusMessageType}.
  */
-public class StatusMessageTypeImpl extends AbstractValidatingXMLObject implements StatusMessageType {
+public class StatusMessageTypeImpl extends AbstractXACMLObject implements StatusMessageType {
 
     /**Message.*/
     private String message;

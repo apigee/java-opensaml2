@@ -45,21 +45,9 @@ public class IdReferenceTypeUnmarshaller extends XSStringUnmarshaller {
             idReferenceType.setLatestVersion(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
         }else if(attribute.getLocalName().equals(IdReferenceType.VERSION_ATTRIB_NAME)){           
             idReferenceType.setVersion(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
-        super.processAttribute(xmlObject, attribute);
-    }
-
-
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
-            throws UnmarshallingException {
-        super.processChildElement(parentXMLObject, childXMLObject);
-
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-       super.processElementContent(xmlObject, elementContent);
     }
 
 }

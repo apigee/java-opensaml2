@@ -17,18 +17,18 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.AttributeDesignatorType;
 import org.opensaml.xacml.policy.AttributeSelectorType;
 import org.opensaml.xacml.policy.AttributeValueType;
 import org.opensaml.xacml.policy.ResourceMatchType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
 
 /** Unmarshaller of {@link ResourceMatchType} objects. */
-public class ResourceMatchTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class ResourceMatchTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public ResourceMatchTypeUnmarshaller() {
@@ -40,6 +40,8 @@ public class ResourceMatchTypeUnmarshaller extends AbstractXMLObjectUnmarshaller
         if (attribute.getLocalName().equals(ResourceMatchType.MATCH_ID_ATTRIB_NAME)) {
             ResourceMatchType matchType = (ResourceMatchType) xmlObject;
             matchType.setMatchId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
     }
 
@@ -50,16 +52,14 @@ public class ResourceMatchTypeUnmarshaller extends AbstractXMLObjectUnmarshaller
         
         if (childXMLObject instanceof AttributeValueType) {
             matchType.setAttributeValue((AttributeValueType) childXMLObject);
-        }  else if (childXMLObject instanceof AttributeSelectorType) {
+        } else if (childXMLObject instanceof AttributeSelectorType) {
             matchType.setAttributeSelector((AttributeSelectorType) childXMLObject);
-        }else if (childXMLObject.getElementQName().equals(
+        } else if (childXMLObject.getElementQName().equals(
                 AttributeDesignatorType.RESOURCE_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME)) {
             matchType.setResourceAttributeDesignator((AttributeDesignatorType) childXMLObject);
-        }       
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
+        }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-
-    }
 }

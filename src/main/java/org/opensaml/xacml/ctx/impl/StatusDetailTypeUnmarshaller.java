@@ -19,13 +19,12 @@ limitations under the License.
 package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.StatusDetailType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
-import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link StatusDetailType} objects. */
-public class StatusDetailTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class StatusDetailTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public StatusDetailTypeUnmarshaller() {
@@ -53,11 +52,4 @@ public class StatusDetailTypeUnmarshaller extends AbstractXMLObjectUnmarshaller 
         statusDetail.getUnknownXMLObjects().add(childSAMLObject);
     }
 
-    /** {@inheritDoc} */
-    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
 }

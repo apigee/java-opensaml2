@@ -16,9 +16,9 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.FunctionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
@@ -26,7 +26,7 @@ import org.w3c.dom.Attr;
 /**
  *Unmarshaller for {@link FunctionType}.
  */
-public class FunctionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class FunctionTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public FunctionTypeUnmarshaller() {
@@ -39,17 +39,9 @@ public class FunctionTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
         if(attribute.getLocalName().equals(FunctionType.FUNCTION_ID_ATTRIB_NAME)){
             FunctionType functionType = (FunctionType) xmlObject;
             functionType.setFunctionId(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
-
-    }
-
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
-            throws UnmarshallingException {
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
 
     }
 

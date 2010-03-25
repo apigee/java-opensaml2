@@ -16,13 +16,11 @@
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.ResourceContentType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link ResourceContentType} objects. */
-public class ResourceContentTypeImplBuilder extends AbstractXMLObjectBuilder<ResourceContentType> implements
-        XACMLObjectBuilder<ResourceContentType> {
+public class ResourceContentTypeImplBuilder extends AbstractXACMLObjectBuilder<ResourceContentType> {
 
     /** Constructor. */
     public ResourceContentTypeImplBuilder() {

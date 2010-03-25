@@ -20,13 +20,13 @@ package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.AttributeType;
 import org.opensaml.xacml.ctx.AttributeValueType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link AttributeType} objects. */
-public class AttributeTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class AttributeTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public AttributeTypeUnmarshaller() {
@@ -51,13 +51,15 @@ public class AttributeTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
      
         if (childObject instanceof AttributeValueType) {
             attribute.getAttributeValues().add((AttributeValueType)childObject);
+        } else {
+            super.processChildElement(parentObject, childObject);
         }
     }
 
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
+    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
 
-        AttributeType attrib = (AttributeType) samlObject;
+        AttributeType attrib = (AttributeType) xmlObject;
 
         if (attribute.getLocalName().equals(AttributeType.ATTRIBUTEID_ATTTRIB_NAME)) {
             attrib.setAttributeID(attribute.getValue());
@@ -65,11 +67,9 @@ public class AttributeTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
             attrib.setDataType(attribute.getValue());
         } else if (attribute.getLocalName().equals(AttributeType.ISSUER_ATTRIB_NAME)) {
             attrib.setIssuer(attribute.getValue());
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
     }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-
-    }
+    
 }

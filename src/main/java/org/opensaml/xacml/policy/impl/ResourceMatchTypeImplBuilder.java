@@ -17,13 +17,11 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.ResourceMatchType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /** Builder of {@link ResourceMatchType} objects. */
-public class ResourceMatchTypeImplBuilder extends AbstractXMLObjectBuilder<ResourceMatchType> implements
-        XACMLObjectBuilder<ResourceMatchType> {
+public class ResourceMatchTypeImplBuilder extends AbstractXACMLObjectBuilder<ResourceMatchType> {
 
     /** {@inheritDoc} */
     public ResourceMatchType buildObject() {

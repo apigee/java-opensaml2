@@ -16,9 +16,9 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.ApplyType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
@@ -26,7 +26,7 @@ import org.w3c.dom.Element;
 /**
  * Marshaller for {@link ApplyType}.
  */
-public class ApplyTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class ApplyTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public ApplyTypeMarshaller() {
@@ -42,11 +42,6 @@ public class ApplyTypeMarshaller extends AbstractXMLObjectMarshaller {
             domElement.setAttribute(ApplyType.FUNCTION_ID_ATTRIB_NAME, applyType.getFunctionId());
         }
 
-    }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-   
     }
 
 }

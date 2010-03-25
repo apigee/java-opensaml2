@@ -33,11 +33,6 @@ public class AttributeAssignmentTypeMarshaller extends AttributeValueTypeMarshal
     }
 
     /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject samlObject, Element domElement) throws MarshallingException {
-    	super.marshallElementContent(samlObject, domElement);
-    }
-
-    /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlElement, Element domElement) throws MarshallingException {
         AttributeAssignmentType attributeAssignment = (AttributeAssignmentType) samlElement;
 

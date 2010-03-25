@@ -24,12 +24,12 @@ import java.util.List;
 
 import org.opensaml.xacml.ctx.AttributeType;
 import org.opensaml.xacml.ctx.EnvironmentType;
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /** Concrete implementation of {@link EnvironmentType}. */
-public class EnvironmentTypeImpl extends AbstractValidatingXMLObject implements EnvironmentType {
+public class EnvironmentTypeImpl extends AbstractXACMLObject implements EnvironmentType {
 
     /** List of the values in the environment. */
     private XMLObjectChildrenList<AttributeType> attributes;

@@ -16,15 +16,13 @@
 
 package org.opensaml.xacml.policy.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 import org.opensaml.xacml.policy.FunctionType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
 
 /**
  * Builder for {@link FunctionType}.
  */
-public class FunctionTypeImplBuilder extends AbstractXMLObjectBuilder<FunctionType> 
-implements XACMLObjectBuilder<FunctionType> {
+public class FunctionTypeImplBuilder extends AbstractXACMLObjectBuilder<FunctionType>  {
 
     /** {@inheritDoc} */
     public FunctionType buildObject(String namespaceURI, String localName, String namespacePrefix) {

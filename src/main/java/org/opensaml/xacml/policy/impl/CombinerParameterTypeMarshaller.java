@@ -17,9 +17,9 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 import org.opensaml.xacml.policy.CombinerParameterType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Element;
@@ -27,7 +27,7 @@ import org.w3c.dom.Element;
 /**
  * Marshaller for {@link CombinerParameterType}.
  */
-public class CombinerParameterTypeMarshaller extends AbstractXMLObjectMarshaller {
+public class CombinerParameterTypeMarshaller extends AbstractXACMLObjectMarshaller {
 
     /** Constructor. */
     public CombinerParameterTypeMarshaller() {
@@ -42,11 +42,6 @@ public class CombinerParameterTypeMarshaller extends AbstractXMLObjectMarshaller
             domElement.setAttribute(CombinerParameterType.PARAMETER_NAMEATTRIB_NAME,
                     combinerParameterType.getParameterName());
         }      
-    }
-
-    /** {@inheritDoc} */
-    protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
-        
     }
 
 }

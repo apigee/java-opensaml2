@@ -16,10 +16,10 @@
 
 package org.opensaml.xacml.policy.impl;
 
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.CombinerParameterType;
 import org.opensaml.xacml.policy.RuleCombinerParametersType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.w3c.dom.Attr;
@@ -27,7 +27,7 @@ import org.w3c.dom.Attr;
 /**
  * Unmarshaller for {@link RuleCombinerParametersType}.
  */
-public class RuleCombinerParametersTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class RuleCombinerParametersTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public RuleCombinerParametersTypeUnmarshaller() {
@@ -41,6 +41,8 @@ public class RuleCombinerParametersTypeUnmarshaller extends AbstractXMLObjectUnm
         if(attribute.getLocalName().equals(RuleCombinerParametersType.RULE_ID_REF_ATTRIB_NAME)){
             RuleCombinerParametersType ruleCombinerParametersType = (RuleCombinerParametersType)xmlObject;
             ruleCombinerParametersType.setRuleIdRef(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
     }
 
@@ -51,12 +53,9 @@ public class RuleCombinerParametersTypeUnmarshaller extends AbstractXMLObjectUnm
         
         if(childXMLObject instanceof CombinerParameterType){
             ruleCombinerParametersType.getCombinerParameters().add((CombinerParameterType)childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
     }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
-
 
 }

@@ -21,15 +21,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.opensaml.xacml.impl.AbstractXACMLObject;
 import org.opensaml.xacml.policy.ExpressionType;
 import org.opensaml.xacml.policy.VariableDefinitionType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.validation.AbstractValidatingXMLObject;
 
 /**
  * Implementation {@link VariableDefinitionType}.
  */
-public class VariableDefinitionTypeImpl extends AbstractValidatingXMLObject implements VariableDefinitionType {
+public class VariableDefinitionTypeImpl extends AbstractXACMLObject implements VariableDefinitionType {
 
     /**Expression.*/
     private ExpressionType expression;

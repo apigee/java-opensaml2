@@ -21,14 +21,14 @@ package org.opensaml.xacml.ctx.impl;
 import org.opensaml.xacml.ctx.DecisionType;
 import org.opensaml.xacml.ctx.ResultType;
 import org.opensaml.xacml.ctx.StatusType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xacml.policy.ObligationsType;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link ResultType} objects. */
-public class ResultTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class ResultTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public ResultTypeUnmarshaller() {
@@ -48,10 +48,12 @@ public class ResultTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
     }
 
     /** {@inheritDoc} */
-    protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-        ResultType result = (ResultType) samlObject;
+    protected void processAttribute(XMLObject xmlObject, Attr attribute) throws UnmarshallingException {
+        ResultType result = (ResultType) xmlObject;
         if (attribute.getLocalName().equals(ResultType.RESOURCE_ID_ATTTRIB_NAME)) {
             result.setResourceId(attribute.getValue());
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
     }
 
@@ -61,16 +63,13 @@ public class ResultTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
 
         if (childObject instanceof ObligationsType) {
             result.setObligations((ObligationsType) childObject);
-        }
-        if (childObject instanceof StatusType) {
+        } else if (childObject instanceof StatusType) {
             result.setStatus((StatusType) childObject);
-        }
-        if (childObject instanceof DecisionType) {
+        } else if (childObject instanceof DecisionType) {
             result.setDecision((DecisionType) childObject);
+        } else {
+            super.processChildElement(parentObject, childObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
 }

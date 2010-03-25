@@ -19,15 +19,15 @@ package org.opensaml.xacml.ctx.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.xacml.ctx.ResourceContentType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link ResourceContentType} objects. */
-public class ResourceContentTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class ResourceContentTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public ResourceContentTypeUnmarshaller() {

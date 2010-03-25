@@ -18,13 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.AttributeValueType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link AttributeValueType} objects. */
-public class AttributeValueTypeImplBuilder extends AbstractXMLObjectBuilder<AttributeValueType> implements
-        XACMLObjectBuilder<AttributeValueType> {
+public class AttributeValueTypeImplBuilder extends AbstractXACMLObjectBuilder<AttributeValueType> {
 
     /** Constructor. */
     public AttributeValueTypeImplBuilder() {

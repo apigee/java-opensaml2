@@ -18,13 +18,13 @@ package org.opensaml.xacml.ctx.impl;
 
 import org.opensaml.xacml.ctx.AttributeValueType;
 import org.opensaml.xacml.ctx.MissingAttributeDetailType;
+import org.opensaml.xacml.impl.AbstractXACMLObjectUnmarshaller;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.AbstractXMLObjectUnmarshaller;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /** Unmarshaller for {@link MissingAttributeDetailType} objects. */
-public class MissingAttributeDetailTypeUnmarshaller extends AbstractXMLObjectUnmarshaller {
+public class MissingAttributeDetailTypeUnmarshaller extends AbstractXACMLObjectUnmarshaller {
 
     /** Constructor. */
     public MissingAttributeDetailTypeUnmarshaller() {
@@ -53,6 +53,8 @@ public class MissingAttributeDetailTypeUnmarshaller extends AbstractXMLObjectUnm
             madt.setDataType(attribute.getValue());
         } else if (attribute.getLocalName().equals(MissingAttributeDetailType.ISSUER_ATTRIB_NAME)) {
             madt.setIssuer(attribute.getValue());
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
     }
 
@@ -62,10 +64,9 @@ public class MissingAttributeDetailTypeUnmarshaller extends AbstractXMLObjectUnm
         MissingAttributeDetailType madt = (MissingAttributeDetailType) parentXMLObject;
         if (childXMLObject instanceof AttributeValueType) {
             madt.getAttributeValues().add((AttributeValueType) childXMLObject);
+        } else {
+            super.processChildElement(parentXMLObject, childXMLObject);
         }
     }
 
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
 }

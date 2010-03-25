@@ -18,13 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.ActionType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link ActionType} objects.*/
-public class ActionTypeImplBuilder extends AbstractXMLObjectBuilder<ActionType> implements
-        XACMLObjectBuilder<ActionType> {
+public class ActionTypeImplBuilder extends AbstractXACMLObjectBuilder<ActionType> {
 
     /** Constructor. */
     public ActionTypeImplBuilder() {

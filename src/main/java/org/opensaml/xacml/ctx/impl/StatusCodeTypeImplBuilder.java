@@ -18,13 +18,11 @@ limitations under the License.
 
 package org.opensaml.xacml.ctx.impl;
 
-import org.opensaml.xacml.XACMLObjectBuilder;
 import org.opensaml.xacml.ctx.StatusCodeType;
-import org.opensaml.xml.AbstractXMLObjectBuilder;
+import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
 
 /** Builder for {@link StatusCodeType} objects. */
-public class StatusCodeTypeImplBuilder extends AbstractXMLObjectBuilder<StatusCodeType> implements
-        XACMLObjectBuilder<StatusCodeType> {
+public class StatusCodeTypeImplBuilder extends AbstractXACMLObjectBuilder<StatusCodeType> {
 
     /** Constructor. */
     public StatusCodeTypeImplBuilder() {

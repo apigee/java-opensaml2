@@ -40,20 +40,9 @@ public class PolicyCombinerParametersTypeUnmarshaller extends CombinerParameters
         if(attribute.getLocalName().equals(PolicyCombinerParametersType.POLICY_ID_REF_ATTRIB_NAME)){
             PolicyCombinerParametersType policyCombinerParametersType = (PolicyCombinerParametersType)xmlObject;
             policyCombinerParametersType.setPolicyIdRef(DatatypeHelper.safeTrimOrNullString(attribute.getValue()));
+        } else {
+            super.processAttribute(xmlObject, attribute);
         }
-        super.processAttribute(xmlObject, attribute);
     }
-
-    /** {@inheritDoc} */
-    protected void processChildElement(XMLObject parentXMLObject, XMLObject childXMLObject)
-            throws UnmarshallingException {     
-        
-        super.processChildElement(parentXMLObject, childXMLObject);
-    }
-
-    /** {@inheritDoc} */
-    protected void processElementContent(XMLObject xmlObject, String elementContent) {
-    }
-
 
 }
