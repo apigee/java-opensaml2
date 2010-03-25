@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntitiesDescriptor Name="AttributeConsumingService test" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">
+
+    <md:EntityDescriptor  entityID="urn:test:entity:A">
+    
+        <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        
+            <md:AttributeConsumingService index="0" isDefault="true">
+                <md:ServiceName xml:lang="en-US">A-SP-0</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+            
+            <md:AttributeConsumingService index="1" isDefault="false">
+                <md:ServiceName xml:lang="en-US">A-SP-1</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+    
+        </md:SPSSODescriptor>
+    
+        <md:RoleDescriptor xsi:type="mdquery:AttributeQueryDescriptorType" xmlns:mdquery="urn:oasis:names:tc:SAML:metadata:ext:query"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+            protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+            
+            <md:AttributeConsumingService index="0" isDefault="false">
+                <md:ServiceName xml:lang="en-US">A-AQ-0</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+            
+            <md:AttributeConsumingService index="1" isDefault="true">
+                <md:ServiceName xml:lang="en-US">A-AQ-1</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+            
+        </md:RoleDescriptor>
+    
+    </md:EntityDescriptor>
+    
+    <md:EntityDescriptor  entityID="urn:test:entity:B">
+    
+        <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        
+            <md:AttributeConsumingService index="0" isDefault="false">
+                <md:ServiceName xml:lang="en-US">B-SP-0</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+            
+            <md:AttributeConsumingService index="1" isDefault="false">
+                <md:ServiceName xml:lang="en-US">B-SP-1</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+    
+            <md:AttributeConsumingService index="2">
+                <md:ServiceName xml:lang="en-US">B-SP-2</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+            
+        </md:SPSSODescriptor>
+        
+    </md:EntityDescriptor>
+
+    <md:EntityDescriptor  entityID="urn:test:entity:C">
+    
+        <md:SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        
+            <md:AttributeConsumingService index="0" isDefault="false">
+                <md:ServiceName xml:lang="en-US">C-SP-0</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+            
+            <md:AttributeConsumingService index="1" isDefault="false">
+                <md:ServiceName xml:lang="en-US">C-SP-1</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+    
+            <md:AttributeConsumingService index="2" isDefault="false">
+                <md:ServiceName xml:lang="en-US">C-SP-2</md:ServiceName>
+                <md:RequestedAttribute Name="Foo" />
+            </md:AttributeConsumingService>
+            
+        </md:SPSSODescriptor>
+        
+    </md:EntityDescriptor>
+
+</md:EntitiesDescriptor>
