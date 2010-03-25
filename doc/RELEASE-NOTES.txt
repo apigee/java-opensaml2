@@ -1,7 +1,10 @@
+Changes in Release 2.4.0
+=============================================
+[JOST-88] - Create an AttributeConsumingServiceSelector, similar in API to the existing Basic- and AuthnRequest Endpoint selectors
+
 Changes in Release 2.3.2
 =============================================
 [JOST-84] - FileBackedHTTPMetadataProvider takes inordinately long to time out
-[JOST-88] - Create an AttributeConsumingServiceSelector, similar in API to the existing Basic- and AuthnRequest Endpoint selectors
 [JOST-98] - AttributeConsumingServices in SPSSODescriptorSchemaValidator
 [JOST-101] - Expired message should be logged with WARN level instead of ERROR
 [JOST-103] - Wrong log level for "Credential cache cleared"
