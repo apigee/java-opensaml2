@@ -91,9 +91,21 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
     /**
      * Gets the serialized form of the SAML message.
      * 
+     * @deprecated replacement is: {@link #getSerializedMessage()}
+     * 
      * @return serialized form of the SAML message
+     * 
      */
     String getSeralizedMessage() {
+        return getSerializedMessage();
+    }
+    
+    /**
+     * Gets the serialized form of the SAML message.
+     * 
+     * @return serialized form of the SAML message
+     */
+    String getSerializedMessage() {
         return serializedMessage;
     }
 }
