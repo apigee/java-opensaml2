@@ -105,7 +105,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
         }
 
         try {
-            Element samlMessageElem = parserPool.parse(new StringReader(entry.getSeralizedMessage()))
+            Element samlMessageElem = parserPool.parse(new StringReader(entry.getSerializedMessage()))
                     .getDocumentElement();
             Unmarshaller unmarshaller = Configuration.getUnmarshallerFactory().getUnmarshaller(samlMessageElem);
             entry.setSAMLMessage((SAMLObject) unmarshaller.unmarshall(samlMessageElem));
@@ -127,6 +127,7 @@ public class BasicSAMLArtifactMap implements SAMLArtifactMap {
 
         BasicSAMLArtifactMapEntry artifactEntry = new BasicSAMLArtifactMapEntry(artifact, issuerId, relyingPartyId,
                 writer.toString(), artifactLifetime);
+        artifactEntry.setSAMLMessage(samlMessage);
         artifactStore.put(partition, artifact, artifactEntry);
     }
 
