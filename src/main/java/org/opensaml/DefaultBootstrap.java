@@ -23,6 +23,8 @@ import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
 import org.opensaml.saml2.binding.artifact.SAML2ArtifactBuilderFactory;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.XMLConfigurator;
+import org.opensaml.xml.parse.StaticBasicParserPool;
+import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.security.DefaultSecurityConfigurationBootstrap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,6 +92,37 @@ public class DefaultBootstrap {
         initializeArtifactBuilderFactories();
 
         initializeGlobalSecurityConfiguration();
+        
+        initializeParserPool();
+    }
+
+    /**
+     * Initializes the default global parser pool instance.
+     * 
+     * <p>
+     * The ParserPool configured by default here is an instance of
+     * {@link StaticBasicParserPool}, with a maxPoolSize property of 50 
+     * and all other properties with default values.
+     * </p>
+     * 
+     * <p>
+     * If a deployment wishes to use a different parser pool implementation,
+     * or one configured with different characteristics, they may either override this method,
+     * or simply configure a different ParserPool after bootstrapping via 
+     * {@link Configuration#setParserPool(org.opensaml.xml.parse.ParserPool)}.
+     * </p>
+     * 
+     * @throws ConfigurationException thrown if there is a problem initializing the parser pool
+     */
+    protected static void initializeParserPool() throws ConfigurationException {
+        StaticBasicParserPool pp = new StaticBasicParserPool();
+        pp.setMaxPoolSize(50);
+        try {
+            pp.initialize();
+        } catch (XMLParserException e) {
+            throw new ConfigurationException("Error initializing parser pool", e);
+        }
+        Configuration.setParserPool(pp);
     }
 
     /**

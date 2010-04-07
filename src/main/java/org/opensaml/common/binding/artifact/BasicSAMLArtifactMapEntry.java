@@ -16,16 +16,34 @@
 
 package org.opensaml.common.binding.artifact;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+
 import org.joda.time.DateTime;
+import org.opensaml.Configuration;
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.artifact.SAMLArtifactMap.SAMLArtifactMapEntry;
 import org.opensaml.util.storage.AbstractExpiringObject;
+import org.opensaml.xml.XMLRuntimeException;
+import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.util.XMLObjectHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Basic implementation of {@link SAMLArtifactMapEntry}. */
 public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements SAMLArtifactMapEntry {
-
+    
     /** Serial version UID. */
-    private static final long serialVersionUID = 4872905727625023964L;
+    private static final long serialVersionUID = 1577232740330721369L;
+
+    /** Class Logger. */
+    private Logger log = LoggerFactory.getLogger(BasicSAMLArtifactMapEntry.class);
 
     /** SAML artifact being mapped. */
     private String artifact;
@@ -45,18 +63,40 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
     /**
      * Constructor.
      * 
-     * @param artifact artifact associated with the message
-     * @param issuer issuer of the artifact
-     * @param relyingParty receiver of the artifact
-     * @param saml serialized SAML message mapped to the artifact
-     * @param lifetime lifetime of the artifact
+     * @deprecated replacement 
+     *      {@link BasicSAMLArtifactMapEntry#BasicSAMLArtifactMapEntry(String, String, String, SAMLObject, long)}
+     * 
+     * @param samlArtifact artifact associated with the message
+     * @param issuerId issuer of the artifact
+     * @param relyingPartyId receiver of the artifact
+     * @param serializedSAML serialized SAML message mapped to the artifact
+     * @param lifetime lifetime of the artifact in milliseconds
      */
-    public BasicSAMLArtifactMapEntry(String artifact, String issuer, String relyingParty, String saml, long lifetime) {
+    public BasicSAMLArtifactMapEntry(String samlArtifact, String issuerId, String relyingPartyId, 
+            String serializedSAML, long lifetime) {
         super(new DateTime().plus(lifetime));
-        this.artifact = artifact;
-        this.issuer = issuer;
-        this.relyingParty = relyingParty;
-        serializedMessage = saml;
+        artifact = samlArtifact;
+        issuer = issuerId;
+        relyingParty = relyingPartyId;
+        serializedMessage = serializedSAML;
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param samlArtifact artifact associated with the message
+     * @param issuerId issuer of the artifact
+     * @param relyingPartyId receiver of the artifact
+     * @param samlMessage SAML message mapped to the artifact
+     * @param lifetime lifetime of the artifact in milliseconds
+     */
+    public BasicSAMLArtifactMapEntry(String samlArtifact, String issuerId, String relyingPartyId, 
+            SAMLObject samlMessage, long lifetime) {
+        super(new DateTime().plus(lifetime));
+        artifact = samlArtifact;
+        issuer = issuerId;
+        relyingParty = relyingPartyId;
+        message = samlMessage;
     }
 
     /** {@inheritDoc} */
@@ -86,6 +126,8 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
      */
     void setSAMLMessage(SAMLObject saml) {
         message = saml;
+        // Clear the cached serialized version 
+        serializedMessage = null;
     }
 
     /**
@@ -107,5 +149,72 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
      */
     String getSerializedMessage() {
         return serializedMessage;
+    }
+    
+    /**
+     * Serialize the entry to the object output stream.
+     * 
+     * @param out the output stream to which to serialize
+     * @throws IOException if there is a problem serializing the entry
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        
+        if (log == null) {
+            log = LoggerFactory.getLogger(BasicSAMLArtifactMapEntry.class);
+        }
+        log.debug("Serializing object data to ObjectOutputStream");
+        
+        if (serializedMessage == null) {
+            log.debug("Serializing SAMLObject to a string");
+            StringWriter writer = new StringWriter();
+            try {
+                XMLObjectHelper.marshallToWriter(message, writer);
+            } catch (MarshallingException e) {
+                throw new XMLRuntimeException("Error marshalling the SAMLObject: " + e.getMessage());
+            }
+            
+            serializedMessage = writer.toString();
+            
+            if (log.isTraceEnabled()) {
+                log.trace("Serialized SAMLObject data was:");
+                log.trace(serializedMessage);
+            }
+        } else {
+            log.debug("SAMLObject was already serialized, skipping marshall and serialize step");
+        }
+        
+        out.defaultWriteObject();
+    }
+
+    /**
+     * Deserialize the entry from the input stream.
+     * 
+     * @param in the input stream from which to deserialize
+     * @throws IOException if the is a problem deserializing the object
+     * @throws ClassNotFoundException if there is a problem loading the class of the object
+     */
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        
+        if (log == null) {
+            log = LoggerFactory.getLogger(BasicSAMLArtifactMapEntry.class);
+        }
+        log.debug("Deserializing object data from ObjectInputStream");
+        
+        in.defaultReadObject();
+        
+        ParserPool parserPool = Configuration.getParserPool();
+        if (parserPool == null) {
+            throw new XMLRuntimeException("No ParserPool was available for parsing the deserialized artifact map entry");
+        }
+        StringReader reader = new StringReader(getSerializedMessage());
+        try {
+            SAMLObject samlObject = (SAMLObject) XMLObjectHelper.unmarshallFromReader(parserPool, reader);
+            setSAMLMessage(samlObject);
+        } catch (XMLParserException e) {
+            throw new IOException("Error parsing XML into DOM: " + e.getMessage());
+        } catch (UnmarshallingException e) {
+            throw new IOException("Error unmarshalling DOM into SAMLObject: " + e.getMessage());
+        }
+        
     }
 }

@@ -23,12 +23,17 @@ import org.opensaml.xml.io.MarshallingException;
 /**
  * Maps an artifact to a SAML message and back again.
  * 
- * Artifacts must be thread safe.
+ * <p>Artifacts must be thread safe.</p>
  * 
+ * <p>
  * An implementation of this interface MUST ensure that the persisted SAML message is no longer tied to any 
- * parent {@link org.opensaml.xml.XMLObject} that may have contained it.  This ensure it can be safely added 
- * to another object once retrieved from the map.  The easiest way to do this is to serailize the message out
- * in to a string and re-parse and unmarhsall it again once retrieved from the underlying data store.
+ * parent {@link org.opensaml.xml.XMLObject} that may have contained it.  This ensures that it can be safely added 
+ * to another object once retrieved from the map.  This might for example be achieved by: 
+ * 1) cloning the SAMLObject prior to storage, or 2) by serializing it to a string and re-parsing 
+ * and unmarhsalling it once retrieved from the underlying data store.
+ * This requirement may be handled by the SAMLArtifactMap directly, or by the use of of a specific 
+ * implementation of {@link SAMLArtifactMapEntryFactory}.
+ * </p>
  */
 public interface SAMLArtifactMap {
 
@@ -102,5 +107,26 @@ public interface SAMLArtifactMap {
          * @return SAML message the artifact maps to
          */
         public SAMLObject getSamlMessage();
+    }
+    
+    /**
+     * A factory for producing SAMLArtifactMapEntry instances based on standard inputs.
+     */
+    public interface SAMLArtifactMapEntryFactory {
+        
+        /**
+         * Factory method which produces a {@link SAMLArtifactMapEntry}.
+         * 
+         * @param artifact the artifact
+         * @param issuerId ID of the issuer of the artifact
+         * @param relyingPartyId ID of the party the artifact was sent to
+         * @param samlMessage the SAML message
+         * @param lifetime the lifetime of the artifact entry, in milliseconds
+         * 
+         * @return the new map entry instance
+         */
+        public SAMLArtifactMapEntry newEntry(String artifact, String issuerId,  String relyingPartyId, 
+                SAMLObject samlMessage, long lifetime);
+        
     }
 }
