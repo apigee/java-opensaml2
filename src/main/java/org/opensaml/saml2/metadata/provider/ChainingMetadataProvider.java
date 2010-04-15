@@ -33,6 +33,7 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.Namespace;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.IDIndex;
 import org.opensaml.xml.util.LazySet;
@@ -527,6 +528,26 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
         /** {@inheritDoc} */
         public void setCacheDuration(Long duration) {
 
+        }
+
+        /** {@inheritDoc} */
+        public Boolean isNil() {
+            return Boolean.FALSE;
+        }
+
+        /** {@inheritDoc} */
+        public XSBooleanValue isNilXSBoolean() {
+            return new XSBooleanValue(Boolean.FALSE, false);
+        }
+
+        /** {@inheritDoc} */
+        public void setNil(Boolean arg0) {
+            // do nothing
+        }
+
+        /** {@inheritDoc} */
+        public void setNil(XSBooleanValue arg0) {
+            // do nothing
         }
 
     }
