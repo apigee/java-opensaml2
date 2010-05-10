@@ -38,9 +38,10 @@ public class FileBackedHTTPMetadataProviderTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
+        //inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
+        inCommonMDURL="http://metadata.ukfederation.org.uk/ukfederation-metadata.xml";
         badMDURL = "http://www.google.com/";
-        backupFilePath = "metadata.xml";
+        backupFilePath = System.getProperty("java.io.tmpdir") + "metadata.xml";
         metadataProvider = new FileBackedHTTPMetadataProvider(inCommonMDURL, 1000 * 5, backupFilePath);
         metadataProvider.setParserPool(parser);
         metadataProvider.initialize();
@@ -67,7 +68,13 @@ public class FileBackedHTTPMetadataProviderTest extends BaseTestCase {
         FileBackedHTTPMetadataProvider badProvider = new FileBackedHTTPMetadataProvider(badMDURL, 1000 * 5,
                 backupFilePath);
         badProvider.setParserPool(parser);
-        badProvider.initialize();
-        assertNotNull(badProvider.getMetadata());
+        
+        try{
+            badProvider.initialize();
+            fail("metadata provider claims to have parsed known invalid data");
+        }catch(MetadataProviderException e){
+            //expected this
+        }
+        
     }
 }

@@ -16,16 +16,20 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.opensaml.Configuration;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -85,85 +89,29 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
         }
     }
 
-    /**
-     * Fetches the metadata from the remote server or from the local filesystem if it can not be retrieved remotely.
-     * 
-     * @return the unmarshalled metadata
-     * 
-     * @throws IOException thrown if the metadata can not be fetched from the remote server or local filesystems
-     * @throws UnmarshallingException thrown if the metadata can not be unmarshalled
-     */
-    protected XMLObject fetchMetadata() throws IOException, UnmarshallingException {
-        XMLObject metadata;
+    /** {@inheritDoc} */
+    protected byte[] getMetadataFromUrl() throws IOException {
         try {
-            metadata = super.fetchMetadata();
-        } catch (Exception e) {
-            log.warn("Unable to read metadata from " + getMetadataURI() + " attempting to read it from local backup", e);
-            return getLocalMetadata();
-        }
-
-        // If we read the metadata from the remote server then write it to disk
-        log.debug("Writting retrieved metadata to backup file {}", metadataBackupFile.getAbsolutePath());
-        try {
-            writeMetadataToFile(metadata);
-        } catch (Exception e) {
-            log.error("Unable to write metadata to backup file", e);
-            throw new IOException("Unable to write metadata to backup file: " + e.getMessage());
-        }
-
-        return metadata;
-    }
-
-    /**
-     * Reads filtered metadata from the backup file.
-     * 
-     * @return cached copy of the metadata read from disk
-     * 
-     * @throws IOException thrown if the metadata can not be read from disk
-     * @throws UnmarshallingException thrown if the metadata, read from disk, can not be unmarshalled
-     */
-    protected XMLObject getLocalMetadata() throws IOException, UnmarshallingException {
-        if (!(metadataBackupFile.exists() && metadataBackupFile.canRead())) {
-            throw new IOException("Unable to read metadata from backup file " + metadataBackupFile.getAbsolutePath());
-        }
-        return unmarshallMetadata(new FileInputStream(metadataBackupFile));
-    }
-
-    /**
-     * Writes the currently cached metadata to file.
-     * 
-     * @param metadata metadata to write to disk
-     * 
-     * @throws MetadataProviderException thrown if metadata can not be written to disk
-     */
-    protected void writeMetadataToFile(XMLObject metadata) throws MetadataProviderException {
-        if (!metadataBackupFile.canWrite()) {
-            throw new MetadataProviderException("Unable to write to metadata backup file "
-                    + metadataBackupFile.getAbsolutePath());
-        }
-
-        try {
-            Element metadataElement;
-
-            // The metadata object should still have its DOM
-            // but we'll create it if it doesn't
-            if (metadata.getDOM() != null) {
-                metadataElement = metadata.getDOM();
-            } else {
-                Marshaller marshaller = Configuration.getMarshallerFactory().getMarshaller(metadata);
-                metadataElement = marshaller.marshall(metadata);
-            }
-
-            if (log.isDebugEnabled()) {
-                log.debug("Converting DOM to a string");
-            }
-            XMLHelper.writeNode(metadataElement, new FileWriter(metadataBackupFile));
+            return super.getMetadataFromUrl();
         } catch (IOException e) {
-            log.error("Unable to write metadata to file " + metadataBackupFile.getAbsolutePath(), e);
-            throw new MetadataProviderException("Unable to write metadata to file");
-        } catch (MarshallingException e) {
-            log.error("Unable to marshall metadata in order to write it to file", e);
-            throw new MetadataProviderException("Unable to marshall metadata in order to write it to file");
+            if (metadataBackupFile.exists()) {
+                return DatatypeHelper.fileToByteArray(metadataBackupFile);
+            } else {
+                throw new IOException("Unable to read metadata from remote server and backup does not exist");
+            }
+        }
+    }
+
+    /** {@inheritDoc} */
+    protected void cacheMetadata(byte[] metadataBytes, XMLObject metadata) throws MetadataProviderException {
+        try {
+            FileOutputStream out = new FileOutputStream(metadataBackupFile);
+            out.write(metadataBytes);
+            out.flush();
+            out.close();
+            super.cacheMetadata(metadataBytes, metadata);
+        } catch (IOException e) {
+            // TODO
         }
     }
 }

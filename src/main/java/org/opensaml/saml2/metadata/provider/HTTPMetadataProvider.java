@@ -16,11 +16,20 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.InflaterInputStream;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -33,6 +42,7 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 
 /**
  * A metadata provider that pulls metadata using an HTTP GET. Metadata is cached until one of these criteria is met:
@@ -50,14 +60,20 @@ import org.slf4j.LoggerFactory;
  */
 public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
 
-    /** Cached, filtered, unmarshalled metadata. */
-    private XMLObject cachedMetadata;
-
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(HTTPMetadataProvider.class);
 
     /** URL to the Metadata. */
     private URI metadataURI;
+
+    /** Cached, filtered, unmarshalled metadata. */
+    private XMLObject cachedMetadata;
+
+    /** The ETag provided when the currently cached metadata was fetched. */
+    private String cachedMetadataETag;
+
+    /** The Last-Modified information provided when the currently cached metadata was fetched. */
+    private String cachedMetadataLastModified;
 
     /** Whether cached metadata should be discarded if it expires and can't be refreshed. */
     private boolean maintainExpiredMetadata;
@@ -92,7 +108,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             HttpClientParams clientParams = new HttpClientParams();
             clientParams.setSoTimeout(requestTimeout);
             httpClient = new HttpClient(clientParams);
-            httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(requestTimeout); 
+            httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(requestTimeout);
             authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
 
             // 24 hours
@@ -221,15 +237,23 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
      * @throws MetadataProviderException thrown if the metadata can not be read, unmarshalled, and filtered
      */
     protected synchronized void refreshMetadata() throws MetadataProviderException {
-        if (mdExpirationTime != null && !mdExpirationTime.isBeforeNow()) {
-            // In case other requests stacked up behind the synchronize lock
-            return;
-        }
+         if (mdExpirationTime != null && !mdExpirationTime.isBeforeNow()) {
+             // In case other requests stacked up behind the synchronize lock
+             return;
+         }
 
         log.debug("Refreshing cache of metadata from URL {}, max cache duration set to {} seconds", metadataURI,
                 maxCacheDuration);
         try {
-            XMLObject metadata = fetchMetadata();
+            byte[] metadataBytes = getMetadataFromUrl();
+            if (metadataBytes == null) {
+                return;
+            }
+            
+            log.debug("Unmarshalling metadata retrieved from '{}'", metadataURI);
+            XMLObject metadata = unmarshallMetadata(new ByteArrayInputStream(metadataBytes));
+            log.debug("Unmarshalled metadata from '{}'", metadataURI);
+                
 
             log.debug("Calculating expiration time");
             DateTime now = new DateTime();
@@ -241,7 +265,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             } else {
                 filterMetadata(metadata);
                 releaseMetadataDOM(metadata);
-                cachedMetadata = metadata;
+                cacheMetadata(metadataBytes, metadata);
             }
 
             emitChangeEvent();
@@ -263,27 +287,133 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
     /**
      * Fetches the metadata from the remote server and unmarshalls it.
      * 
-     * @return the unmarshalled metadata
+     * @return the unmarshalled metadata, or null if the metadata has not changed since its last retrieval
      * 
      * @throws IOException thrown if the metadata can not be fetched from the remote server
      * @throws UnmarshallingException thrown if the metadata can not be unmarshalled
      */
     protected XMLObject fetchMetadata() throws IOException, UnmarshallingException {
-        log.debug("Fetching metadata document from remote server");
+        byte[] metadtaBytes = getMetadataFromUrl();
+        if (metadtaBytes != null) {
+            log.debug("Unmarshalling metadata retrieved from '{}'", metadataURI);
+            XMLObject metadata = unmarshallMetadata(new ByteArrayInputStream(metadtaBytes));
+            log.debug("Unmarshalled metadata from '{}'", metadataURI);
+            return metadata;
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets the metadata document from the remote server.
+     * 
+     * @return the metadata from remote server, or null if the metadata document has not changed since the last
+     *         retrieval
+     * 
+     * @throws IOException thrown if there is a problem contacting the remote server
+     */
+    protected byte[] getMetadataFromUrl() throws IOException {
+        log.debug("Attempting to fetch metadata document from '{}'", metadataURI);
+        GetMethod getMethod = buildGetMethod();
+
+        log.debug("Fetching metadata document from '{}'", metadataURI);
+        httpClient.executeMethod(getMethod);
+        int httpStatus = getMethod.getStatusCode();
+
+        if (httpStatus == HttpStatus.SC_NOT_MODIFIED) {
+            log.debug("Metadata document from '{}' has not changed since last retrieval", getMetadataURI());
+            return null;
+        }
+
+        if (getMethod.getStatusCode() != HttpStatus.SC_OK) {
+            String errMsg = MessageFormatter.format(
+                    "Non-ok status code '{}' returned from remote metadata source '{}'", getMethod.getStatusCode(),
+                    metadataURI);
+            log.error(errMsg);
+            throw new IOException(errMsg);
+        }
+
+        Header httpHeader = getMethod.getResponseHeader("ETag");
+        if (httpHeader != null) {
+            cachedMetadataETag = httpHeader.getValue();
+        }
+
+        httpHeader = getMethod.getResponseHeader("Last-Modified");
+        if (httpHeader != null) {
+            cachedMetadataLastModified = httpHeader.getValue();
+        }
+        InputStream ins = getMethod.getResponseBodyAsStream();
+
+        httpHeader = getMethod.getResponseHeader("Content-Encoding");
+        if (httpHeader != null) {
+            String contentEncoding = httpHeader.getValue();
+            if ("deflate".equalsIgnoreCase(contentEncoding)) {
+                log.debug("Metadata document from '{}' was deflate compressed, decompressing it", metadataURI);
+                ins = new InflaterInputStream(ins);
+            }
+
+            if ("gzip".equalsIgnoreCase(contentEncoding)) {
+                log.debug("Metadata document from '{}' was GZip compressed, decompressing it", metadataURI);
+                ins = new GZIPInputStream(ins);
+            }
+        }
+
+        log.debug("Retrieved metadata document from '{}'", metadataURI);
+        return inputstreamToByteArray(ins);
+    }
+
+    /**
+     * Builds the HTTP GET method used to fetch the metadata. The returned method advertises support for GZIP and
+     * deflate compression, enables conditional GETs if the cached metadata came with either an ETag or Last-Modified
+     * information, and sets up basic authentication if such is configured.
+     * 
+     * @return the constructed GET method
+     */
+    protected GetMethod buildGetMethod() {
         GetMethod getMethod = new GetMethod(getMetadataURI());
+
+        getMethod.setRequestHeader("Accept-Encoding", "gzip,deflate");
+        if (cachedMetadataETag != null) {
+            getMethod.setRequestHeader("If-None-Match", cachedMetadataETag);
+        }
+        if (cachedMetadataLastModified != null) {
+            getMethod.setRequestHeader("If-Modified-Since", cachedMetadataLastModified);
+        }
+
         if (httpClient.getState().getCredentials(authScope) != null) {
-            log.debug("Using BASIC authentication when retrieving metadata");
+            log.debug("Using BASIC authentication when retrieving metadata from '{}", metadataURI);
             getMethod.setDoAuthentication(true);
         }
-        httpClient.executeMethod(getMethod);
 
-        if (log.isTraceEnabled()) {
-            log.trace("Retrieved the following metadata document\n{}", getMethod.getResponseBodyAsString());
+        return getMethod;
+    }
+    
+    /**
+     * Converts an InputStream into a byte array.
+     * 
+     * @param ins input stream to convert
+     * 
+     * @return resultant byte array
+     * 
+     * @throws IOException thrown if there is a problem reading the resultant byte array
+     */
+    private byte[] inputstreamToByteArray(InputStream ins) throws IOException {
+        // 1 MB read buffer
+        byte[] buffer = new byte[1024*1024];
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        
+        long count = 0;
+        int n = 0;
+        while (-1 != (n = ins.read(buffer))) {
+            output.write(buffer, 0, n);
+            count += n;
         }
-        XMLObject metadata = unmarshallMetadata(getMethod.getResponseBodyAsStream());
 
-        log.debug("Unmarshalled metadata from remote server");
-        return metadata;
-
+        ins.close();
+        return output.toByteArray();
+    }
+    
+    protected void cacheMetadata(byte[] metadataBytes, XMLObject metadata) throws MetadataProviderException {
+        cachedMetadata = metadata;
     }
 }

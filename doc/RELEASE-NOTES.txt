@@ -3,6 +3,9 @@ Changes in Release 2.4.0
 [JOST-36]  - XACML marshallers and unmarshallers should extend abstract superclasses
 [JOST-88]  - Create an AttributeConsumingServiceSelector, similar in API to the existing Basic- and AuthnRequest Endpoint selectors
 [JOST-100] - BaseMessageDecoder uses java.net.URL equals() for URI comparison
+[JOST-102] - don't download remote metadata if it hasn't changed
+[JOST-107] - cached metadata should include XML comments
+[JOST-109] - The IDP should verify that the fetched metadata is valid, even after filters, before overwriting the previous one
 [JOST-110] - Clean up Basic- artifact map and entry or add alternative implementations
 
 Changes in Release 2.3.2
