@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2006 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,6 @@ package org.opensaml.saml2.metadata.provider;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -99,6 +97,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
      * @throws MetadataProviderException thrown if the URL is not a valid URL or the metadata can not be retrieved from
      *             the URL
      */
+    @Deprecated
     public HTTPMetadataProvider(String metadataURL, int requestTimeout) throws MetadataProviderException {
         super();
         try {
@@ -117,13 +116,36 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
             throw new MetadataProviderException("Illegal URL syntax", e);
         }
     }
-
+    
     /**
-     * Initializes the provider and prepares it for use.
+     * Constructor.
+     *
+     * @param client HTTP client used to pull in remote metadata
+     * @param metadataURL URL to the remove remote metadata
      * 
-     * @throws MetadataProviderException thrown if there is a problem fetching, parsing, or processing the metadata
+     * @throws MetadataProviderException thrown if the HTTP client is null or the metadata URL provided is invalid
      */
-    public void initialize() throws MetadataProviderException {
+    public HTTPMetadataProvider(HttpClient client, String metadataURL) throws MetadataProviderException {
+        if(client == null){
+            throw new MetadataProviderException("HTTP client may not be null");
+        }
+        httpClient = client;
+        
+        try {
+            metadataURI = new URI(metadataURL);
+            maintainExpiredMetadata = true;
+        } catch (URISyntaxException e) {
+            throw new MetadataProviderException("Illegal URL syntax", e);
+        }
+        
+        authScope = new AuthScope(metadataURI.getHost(), metadataURI.getPort());
+
+        // 24 hours
+        maxCacheDuration = 60 * 60 * 24;
+    }
+
+    /** {@inheritDoc} */
+    protected void doInitialization() throws MetadataProviderException {
         refreshMetadata();
     }
 
@@ -186,6 +208,7 @@ public class HTTPMetadataProvider extends AbstractObservableMetadataProvider {
      * 
      * @param newSocketFactory the socket factory used to produce sockets used to connect to the server
      */
+    @Deprecated
     public void setSocketFactory(ProtocolSocketFactory newSocketFactory) {
         log.debug("Using the custom socket factory {} to connect to the HTTP server", newSocketFactory.getClass()
                 .getName());

@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2006 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public class MetadataFilterChain implements MetadataFilter {
 
     /** Class logger. */
     private Logger log = LoggerFactory.getLogger(MetadataFilterChain.class);
-    
+
     /** Registered filters. */
     private ArrayList<MetadataFilter> filters;
 
@@ -45,7 +45,7 @@ public class MetadataFilterChain implements MetadataFilter {
     /** {@inheritDoc} */
     public final void doFilter(XMLObject xmlObject) throws FilterException {
         synchronized (filters) {
-            if(filters == null || filters.isEmpty()){
+            if (filters == null || filters.isEmpty()) {
                 log.debug("No filters configured, nothing to do");
             }
             for (MetadataFilter filter : filters) {

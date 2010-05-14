@@ -1,5 +1,5 @@
 /*
- * Copyright [2007] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2007 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -191,7 +191,7 @@ public class SignatureValidationFilter implements MetadataFilter {
                 String roleID = getRoleIDToken(entityID, roleChild);
                 verifySignature(roleChild, roleID, false);
             } catch (FilterException e) {
-               log.error("RoleDescriptor '{}' subordinate to entity '{}' failed signature verification, " 
+                log.error("RoleDescriptor '{}' subordinate to entity '{}' failed signature verification, " 
                        + "removing from metadata provider", 
                        roleChild.getElementQName(), entityID); 
                roleIter.remove();

@@ -26,7 +26,7 @@ import org.opensaml.saml2.metadata.EntitiesDescriptor;
  */
 public class FileBackedHTTPMetadataProviderTest extends BaseTestCase {
 
-    private String inCommonMDURL;
+    private String mdUrl;
 
     private String badMDURL;
 
@@ -38,11 +38,11 @@ public class FileBackedHTTPMetadataProviderTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        //inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
-        inCommonMDURL="http://metadata.ukfederation.org.uk/ukfederation-metadata.xml";
+        //mdUrl = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
+        mdUrl="http://metadata.ukfederation.org.uk/ukfederation-metadata.xml";
         badMDURL = "http://www.google.com/";
         backupFilePath = System.getProperty("java.io.tmpdir") + "metadata.xml";
-        metadataProvider = new FileBackedHTTPMetadataProvider(inCommonMDURL, 1000 * 5, backupFilePath);
+        metadataProvider = new FileBackedHTTPMetadataProvider(mdUrl, 1000 * 5, backupFilePath);
         metadataProvider.setParserPool(parser);
         metadataProvider.initialize();
     }
@@ -76,5 +76,10 @@ public class FileBackedHTTPMetadataProviderTest extends BaseTestCase {
             //expected this
         }
         
+        badProvider = new FileBackedHTTPMetadataProvider(badMDURL, 1000 * 5,
+                backupFilePath);
+        badProvider.setParserPool(parser);
+        badProvider.setFailFastInitialization(false);
+        badProvider.initialize();
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2006 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,24 +16,16 @@
 
 package org.opensaml.saml2.metadata.provider;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.opensaml.Configuration;
+import org.apache.commons.httpclient.HttpClient;
 import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.Marshaller;
-import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.util.DatatypeHelper;
-import org.opensaml.xml.util.XMLHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Element;
+import org.slf4j.helpers.MessageFormatter;
 
 /**
  * A URL metadata provider that caches a copy of the retrieved metadata to disk so that, in the event that the metadata
@@ -61,9 +53,48 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
      * @throws MetadataProviderException thrown if the URL is not a valid URL, the metadata can not be retrieved from
      *             the URL, the given file can not be created or written to
      */
+    @Deprecated
     public FileBackedHTTPMetadataProvider(String metadataURL, int requestTimeout, String backingFilePath)
             throws MetadataProviderException {
         super(metadataURL, requestTimeout);
+
+        metadataBackupFile = new File(backingFilePath);
+        if (metadataBackupFile.exists()) {
+            if (metadataBackupFile.isDirectory()) {
+                throw new MetadataProviderException("Filepath " + backingFilePath
+                        + " is a directory and may not be used as a backing metadata file");
+            }
+            if (!metadataBackupFile.canRead()) {
+                throw new MetadataProviderException("Filepath " + backingFilePath
+                        + " exists but can not be read by this user");
+            }
+            if (!metadataBackupFile.canWrite()) {
+                throw new MetadataProviderException("Filepath " + backingFilePath
+                        + " exists but can not be written to by this user");
+            }
+        } else {
+            try {
+                metadataBackupFile.createNewFile();
+            } catch (IOException e) {
+                log.error("Unable to create backing file " + backingFilePath, e);
+                throw new MetadataProviderException("Unable to create backing file " + backingFilePath, e);
+            }
+        }
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param client HTTP client used to fetch remove metadata
+     * @param metadataURL the URL to fetch the metadata
+     * @param backingFilePath the file that will keep a backup copy of the metadata,
+     * 
+     * @throws MetadataProviderException thrown if the URL is not a valid URL, the metadata can not be retrieved from
+     *             the URL, the given file can not be created or written to
+     */
+    public FileBackedHTTPMetadataProvider(HttpClient client, String metadataURL, String backingFilePath)
+            throws MetadataProviderException {
+        super(client, metadataURL);
 
         metadataBackupFile = new File(backingFilePath);
         if (metadataBackupFile.exists()) {
@@ -97,6 +128,7 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
             if (metadataBackupFile.exists()) {
                 return DatatypeHelper.fileToByteArray(metadataBackupFile);
             } else {
+                log.error("Unable to read metadata from remote server and backup does not exist");
                 throw new IOException("Unable to read metadata from remote server and backup does not exist");
             }
         }
@@ -111,7 +143,10 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
             out.close();
             super.cacheMetadata(metadataBytes, metadata);
         } catch (IOException e) {
-            // TODO
+            String errMsg = MessageFormatter.format("Unable to write metadata to backup file {}", metadataBackupFile
+                    .getAbsolutePath());
+            log.error(errMsg);
+            throw new MetadataProviderException(errMsg, e);
         }
     }
 }

@@ -66,17 +66,7 @@ public class RequiredValidUntilFilter implements MetadataFilter {
 
     /** {@inheritDoc} */
     public void doFilter(XMLObject metadata) throws FilterException {
-        DateTime validUntil;
-
-        if (metadata instanceof EntitiesDescriptor) {
-            validUntil = ((EntitiesDescriptor) metadata).getValidUntil();
-        } else if (metadata instanceof EntityDescriptor) {
-            validUntil = ((EntityDescriptor) metadata).getValidUntil();
-        } else {
-            log.error("Metadata root element was not an EntitiesDescriptor or EntityDescriptor it was a {}", metadata
-                    .getElementQName());
-            throw new FilterException("Metadata root element was not an EntitiesDescriptor or EntityDescriptor");
-        }
+        DateTime validUntil = getValidUntil(metadata);
 
         if (validUntil == null) {
             throw new FilterException("Metadata did not include a validUntil attribute");
@@ -88,6 +78,28 @@ public class RequiredValidUntilFilter implements MetadataFilter {
                 throw new FilterException("Metadata's validity interval, " + validityInterval
                         + "ms, is larger than is allowed, " + maxValidityInterval + "ms.");
             }
+        }
+    }
+
+    /**
+     * Gets the validUntil time of the metadata, if present.
+     * 
+     * @param metadata metadata from which to get the validUntil instant
+     * 
+     * @return the valid until instant or null if it is not present
+     * 
+     * @throws FilterException thrown if the given XML object is not an {@link EntitiesDescriptor} or
+     *             {@link EntityDescriptor}
+     */
+    protected DateTime getValidUntil(XMLObject metadata) throws FilterException {
+        if (metadata instanceof EntitiesDescriptor) {
+            return ((EntitiesDescriptor) metadata).getValidUntil();
+        } else if (metadata instanceof EntityDescriptor) {
+            return ((EntityDescriptor) metadata).getValidUntil();
+        } else {
+            log.error("Metadata root element was not an EntitiesDescriptor or EntityDescriptor it was a {}", metadata
+                    .getElementQName());
+            throw new FilterException("Metadata root element was not an EntitiesDescriptor or EntityDescriptor");
         }
     }
 }

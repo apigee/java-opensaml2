@@ -45,6 +45,15 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(AbstractMetadataProvider.class);
 
+    /** Whether the metadata provider has been initialized. */
+    private boolean initialized;
+
+    /**
+     * Whether problems during initialization should cause the provider to fail or go on without metadata. The
+     * assumption being that in most cases a provider will recover at some point in the future. Default: true.
+     */
+    private boolean failFastInitialization;
+
     /** Cache of entity IDs to their descriptors. */
     private HashMap<String, EntityDescriptor> indexedDescriptors;
 
@@ -55,10 +64,16 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     public AbstractMetadataProvider() {
         super();
         indexedDescriptors = new HashMap<String, EntityDescriptor>();
+        failFastInitialization = true;
+        initialized = false;
     }
 
     /** {@inheritDoc} */
     public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException {
+        if (!initialized) {
+            throw new MetadataProviderException("Metadata provider has not been initialized");
+        }
+
         if (DatatypeHelper.isEmpty(name)) {
             return null;
         }
@@ -80,6 +95,10 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
     /** {@inheritDoc} */
     public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException {
+        if (!initialized) {
+            throw new MetadataProviderException("Metadata provider has not been initialized");
+        }
+
         if (DatatypeHelper.isEmpty(entityID)) {
             return null;
         }
@@ -135,6 +154,44 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
         return null;
     }
+    
+    /**
+     * Gets whether this provider is initialized.
+     * 
+     * @return whether this provider is initialized
+     */
+    public boolean isInitialized() {
+        return initialized;
+    }
+    
+    /**
+     * Sets whether this provider is initialized.
+     * 
+     * @param isInitialized whether this provider is initialized
+     */
+    protected void setInitialized(boolean isInitialized){
+        initialized = isInitialized;
+    }
+
+    /**
+     * Gets whether problems during initialization should cause the provider to fail or go on without metadata. The
+     * assumption being that in most cases a provider will recover at some point in the future.
+     * 
+     * @return whether problems during initialization should cause the provider to fail
+     */
+    public boolean isFailFastInitialization() {
+        return failFastInitialization;
+    }
+
+    /**
+     * Sets whether problems during initialization should cause the provider to fail or go on without metadata. The
+     * assumption being that in most cases a provider will recover at some point in the future.
+     * 
+     * @param failFast whether problems during initialization should cause the provider to fail
+     */
+    public void setFailFastInitialization(boolean failFast) {
+        failFastInitialization = failFast;
+    }
 
     /**
      * Gets the pool of parsers to use to parse XML.
@@ -152,6 +209,40 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
      */
     public void setParserPool(ParserPool pool) {
         parser = pool;
+    }
+
+    /**
+     * Initializes this metadata provider. If called after the metadata provider has already been initialized this
+     * method simply returns.
+     * 
+     * @throws MetadataProviderException thrown if there is a problem initializing the problem and fail fast
+     *             Initialization is enabled
+     */
+    public synchronized void initialize() throws MetadataProviderException {
+        if (initialized) {
+            return;
+        }
+
+        try {
+            doInitialization();
+            initialized = true;
+        } catch (MetadataProviderException e) {
+            if (failFastInitialization) {
+                log.error("Metadata provider failed to properly initializing, halting", e);
+                throw e;
+            } else {
+                log.error("Metadata provider failed to properly initializing, continuing on without metadata", e);
+            }
+        }
+    }
+
+    /**
+     * Subclasses should override this method to perform any initialization logic necessary.  Default implementation is a no-op.
+     * 
+     * @throws MetadataProviderException thrown if there is a problem initializing the provider
+     */
+    protected void doInitialization() throws MetadataProviderException {
+
     }
 
     /**

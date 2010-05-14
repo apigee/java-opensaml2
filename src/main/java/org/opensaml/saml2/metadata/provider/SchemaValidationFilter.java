@@ -43,7 +43,7 @@ public class SchemaValidationFilter implements MetadataFilter {
         if (extensionSchemas != null) {
             for (String extension : extensionSchemas) {
                 extension = DatatypeHelper.safeTrimOrNullString(extension);
-                if(extension != null){
+                if (extension != null) {
                     SAMLSchemaBuilder.addExtensionSchema(extension);
                 }
             }

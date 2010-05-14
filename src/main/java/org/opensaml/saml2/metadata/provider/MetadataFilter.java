@@ -1,5 +1,5 @@
 /*
- * Copyright [2005] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2005 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import org.opensaml.xml.XMLObject;
  * A metadata filter is used to process a metadata document after it has been unmarshalled into object.
  * 
  * Some example filters might remove everything but identity providers roles, decreasing the data a service provider
- * needs to work with, or a filter could be used to perform integrity checking on the retrieved metadata by verifying
- * a digital signature.
+ * needs to work with, or a filter could be used to perform integrity checking on the retrieved metadata by verifying a
+ * digital signature.
  */
 public interface MetadataFilter {
 

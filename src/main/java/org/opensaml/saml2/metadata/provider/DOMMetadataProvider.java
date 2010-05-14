@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2006 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,24 +55,9 @@ public class DOMMetadataProvider extends AbstractObservableMetadataProvider impl
     public XMLObject getMetadata() {
         return metadata;
     }
-
-    /**
-     * Initializes the provider and prepares it for use.
-     * 
-     * @throws MetadataProviderException thrown if the metadata element provided can not be read or is not valid
-     *             metadata
-     */
-    public synchronized void initialize() throws MetadataProviderException {
-        refreshMetadata();
-    }
-
-    /**
-     * Reads the metadata element and re-applies the registered metadata filter.
-     * 
-     * @throws MetadataProviderException thrown if the metadata element provided can not be read or is not valid
-     *             metadata
-     */
-    private synchronized void refreshMetadata() throws MetadataProviderException {
+    
+    /** {@inheritDoc} */
+    protected void doInitialization() throws MetadataProviderException {
         try {
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(metadataElement);
             XMLObject metadataTemp = unmarshaller.unmarshall(metadataElement);

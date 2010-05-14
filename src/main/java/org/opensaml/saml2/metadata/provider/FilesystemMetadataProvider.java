@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright  2006 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,13 +83,9 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
         maintainExpiredMetadata = true;
         lastUpdate = -1;
     }
-
-    /**
-     * Initializes the provider and prepares it for use.
-     * 
-     * @throws MetadataProviderException thrown if there is a problem reading, parsing, or validating the metadata
-     */
-    public void initialize() throws MetadataProviderException {
+    
+    /** {@inheritDoc} */
+    protected void doInitialization() throws MetadataProviderException {
         refreshMetadata();
     }
 
