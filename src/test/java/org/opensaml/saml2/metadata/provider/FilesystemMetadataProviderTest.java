@@ -24,6 +24,7 @@ import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
+import org.opensaml.saml2.metadata.provider.ObservableMetadataProvider.Observer;
 
 public class FilesystemMetadataProviderTest extends BaseTestCase {
 
@@ -70,5 +71,33 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
     public void testGetRoleWithSupportedProtocol() throws MetadataProviderException{
         RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
         assertNotNull("Roles for entity descriptor was null", role);
+    }
+    
+    public void testProviderRefresh() throws Exception{
+        URL mdURL = FilesystemMetadataProviderTest.class.getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
+        File mdFile = new File(mdURL.toURI());
+        
+        RefreshCountObserver counter = new RefreshCountObserver();
+        
+        metadataProvider = new FilesystemMetadataProvider(mdFile);
+        metadataProvider.setParserPool(parser);
+        metadataProvider.setMinRefreshDelay(1000);
+        metadataProvider.setMaxRefreshDelay(1000);
+        metadataProvider.getObservers().add(counter);
+        metadataProvider.initialize();
+
+        Thread.sleep(2500);
+        assertEquals(3, counter.reloadCount);
+    }
+    
+    private class RefreshCountObserver implements Observer {
+
+        public int reloadCount = 0;
+        
+        /** {@inheritDoc} */
+        public void onEvent(MetadataProvider provider) {
+            reloadCount++;
+        }
+        
     }
 }

@@ -85,8 +85,10 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         }
 
         if (metadata instanceof EntitiesDescriptor) {
-            EntitiesDescriptor descriptor = (EntitiesDescriptor) metadata;
-            return getEntitiesDescriptorByName(name, descriptor);
+            EntitiesDescriptor descriptor = getEntitiesDescriptorByName(name, (EntitiesDescriptor) metadata);
+            if(isValid(descriptor)){
+                return descriptor;
+            }
         }
 
         log.debug("Metadata document does not contain an EntitiesDescriptor with the name {}", name);
@@ -110,11 +112,12 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         }
 
         EntityDescriptor descriptor = getEntityDescriptorById(entityID, metadata);
-        if (descriptor == null) {
-            log.debug("Metadata document does not contain an EntityDescriptor with the ID {}", entityID);
-            return null;
+        if(isValid(descriptor)){
+            return descriptor;
         }
-        return descriptor;
+        
+        log.debug("Metadata document does not contain an EntityDescriptor with the ID {}", entityID);
+        return null;
     }
 
     /** {@inheritDoc} */
@@ -421,6 +424,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             if (childDescriptors == null || childDescriptors.isEmpty()) {
                 return null;
             }
+            
             for (EntitiesDescriptor childDescriptor : childDescriptors) {
                 childDescriptor = getEntitiesDescriptorByName(name, childDescriptor);
                 if (childDescriptor != null) {
@@ -428,7 +432,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
                 }
             }
         }
-
+        
         return descriptor;
     }
 

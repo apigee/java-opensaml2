@@ -1,5 +1,5 @@
 /*
- * Copyright  2006 University Corporation for Advanced Internet Development, Inc.
+ * Copyright 2006 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,40 +16,39 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Timer;
 
-import org.joda.time.DateTime;
-import org.opensaml.saml2.common.SAML2Helper;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.io.UnmarshallingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 
 /**
- * A metadata provider that pulls metadata from a file on the local filesystem. Metadata is cached and automatically
- * refreshed when the file changes.
+ * A metadata provider that pulls metadata from a file on the local filesystem.
  * 
- * It is the responsibility of the caller to re-initialize, via {@link #initialize()}, if any properties of this
- * provider are changed.
+ * This metadata provider periodically checks to see if the read metadata file has changed. The delay between each
+ * refresh interval is calculated as follows. If no validUntil or cacheDuration is present then the
+ * {@link #getMaxRefreshDelay()} value is used. Otherwise, the earliest refresh interval of the metadata file is checked
+ * by looking for the earliest of all the validUntil attributes and cacheDuration attributes. If that refresh interval
+ * is larger than the max refresh delay then {@link #getMaxRefreshDelay()} is used. If that number is smaller than the
+ * min refresh delay then {@link #getMinRefreshDelay()} is used. Otherwise the calculated refresh delay multiplied by
+ * {@link #getRefreshDelayFactor()} is used. By using this factor, the provider will attempt to be refresh before the
+ * cache actually expires, allowing a some room for error and recovery. Assuming the factor is not exceedingly close to
+ * 1.0 and a min refresh delay that is not overly large, this refresh will likely occur a few times before the cache
+ * expires.
+ * 
  */
-public class FilesystemMetadataProvider extends AbstractObservableMetadataProvider {
+public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvider {
 
     /** Class logger. */
     private final Logger log = LoggerFactory.getLogger(FilesystemMetadataProvider.class);
 
     /** The metadata file. */
     private File metadataFile;
-
-    /** Whether cached metadata should be discarded if it expires and can't be refreshed. */
-    private boolean maintainExpiredMetadata;
-
-    /** Last time the cached metadata was updated. */
-    private long lastUpdate;
-
-    /** Cached metadata. */
-    private XMLObject cachedMetadata;
 
     /**
      * Constructor.
@@ -61,110 +60,87 @@ public class FilesystemMetadataProvider extends AbstractObservableMetadataProvid
      */
     public FilesystemMetadataProvider(File metadata) throws MetadataProviderException {
         super();
-
-        if (metadata == null) {
-            throw new MetadataProviderException("Give metadata file may not be null");
-        }
-
-        if (!metadata.exists()) {
-            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath() + " does not exist");
-        }
-
-        if (!metadata.isFile()) {
-            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath() + " is not a file");
-        }
-
-        if (!metadata.canRead()) {
-            throw new MetadataProviderException("Give metadata file, " + metadata.getAbsolutePath()
-                    + " is not readable");
-        }
-
-        metadataFile = metadata;
-        maintainExpiredMetadata = true;
-        lastUpdate = -1;
-    }
-    
-    /** {@inheritDoc} */
-    protected void doInitialization() throws MetadataProviderException {
-        refreshMetadata();
+        setMetadataFile(metadata);
     }
 
     /**
-     * Gets whether cached metadata should be discarded if it expires and can not be refreshed.
+     * Constructor.
      * 
-     * @return whether cached metadata should be discarded if it expires and can not be refreshed
+     * @param metadata the metadata file
+     * @param backgroundTaskTimer timer used to refresh metadata in the background
+     * 
+     * @throws MetadataProviderException thrown if the given file path is null, does not exist, does not represent a
+     *             file, or if the metadata can not be parsed
      */
-    public boolean maintainExpiredMetadata() {
-        return maintainExpiredMetadata;
+    public FilesystemMetadataProvider(File metadata, Timer backgroundTaskTimer) throws MetadataProviderException {
+        super(backgroundTaskTimer);
+        setMetadataFile(metadata);
     }
 
     /**
-     * Sets whether cached metadata should be discarded if it expires and can not be refreshed.
+     * Sets the file from which metadata is read. The given file path is checked to see if it exists, is a file, and is
+     * readable.
      * 
-     * @param maintain whether cached metadata should be discarded if it expires and can not be refreshed
+     * @param file path to the metadata file
+     * 
+     * @throws MetadataProviderException thrown if the file does not exist or is not a readable file
      */
-    public void setMaintainExpiredMetadata(boolean maintain) {
-        maintainExpiredMetadata = maintain;
+    protected void setMetadataFile(File file) throws MetadataProviderException {
+
+        if (!file.exists()) {
+            throw new MetadataProviderException("Give metadata file, " + file.getAbsolutePath() + " does not exist");
+        }
+
+        if (!file.isFile()) {
+            throw new MetadataProviderException("Give metadata file, " + file.getAbsolutePath() + " is not a file");
+        }
+
+        if (!file.canRead()) {
+            throw new MetadataProviderException("Give metadata file, " + file.getAbsolutePath() + " is not readable");
+        }
+
+        metadataFile = file;
     }
 
     /** {@inheritDoc} */
-    public XMLObject getMetadata() throws MetadataProviderException {
-        if (lastUpdate < metadataFile.lastModified()) {
-            refreshMetadata();
-        }
-
-        return cachedMetadata;
+    protected String getMetadataIdentifier() {
+        return metadataFile.getAbsolutePath();
     }
 
-    /**
-     * Retrieves, unmarshalls, and filters the metadata from the metadata file.
-     * 
-     * @throws MetadataProviderException thrown if there is a problem reading, parsing, or validating the metadata
-     */
-    private synchronized void refreshMetadata() throws MetadataProviderException {
-        // Only read the file last mod time once, store off for later use. See below.
-        long metadataFileLastModified = metadataFile.lastModified();
-        if (lastUpdate >= metadataFileLastModified) {
-            // In case other requests stacked up behind the synchronize lock
-            return;
-        }
-
-        log.debug("Refreshing metadata from file {}", metadataFile);
+    /** {@inheritDoc} */
+    protected byte[] fetchMetadata() throws MetadataProviderException {
         try {
-            XMLObject metadata = unmarshallMetadata(new FileInputStream(metadataFile));
-            DateTime expirationTime = SAML2Helper.getEarliestExpiration(metadata);
-            if (expirationTime != null && !maintainExpiredMetadata() && expirationTime.isBeforeNow()) {
-                log.debug(
-                        "Metadata from file {} is expired and provider is configured not to retain expired metadata.",
-                        metadataFile);
-                cachedMetadata = null;
-            } else {
-                filterMetadata(metadata);
-                releaseMetadataDOM(metadata);
-                cachedMetadata = metadata;
-            }
-
-            // Note: this doesn't really avoid re-reading the metadata file unnecessarily on later refreshes
-            // (case where file changed between reading/storing the last mod time above and when the contents
-            // were read above).
-            // It does however avoid the greater evil of *missing* a newer file on a subsequent refresh
-            // (case where the file changed after the contents were read above, but before here).
-            // To do this exactly correctly, we need to make use of OS filesystem-level file locking.
-            lastUpdate = metadataFileLastModified;
-
-            emitChangeEvent();
-        } catch (FileNotFoundException e) {
-            String errorMsg = "Unable to read metadata file";
-            log.error(errorMsg, e);
-            throw new MetadataProviderException(errorMsg, e);
-        } catch (UnmarshallingException e) {
-            String errorMsg = "Unable to unmarshall metadata";
-            log.error(errorMsg, e);
-            throw new MetadataProviderException(errorMsg, e);
-        } catch (FilterException e) {
-            String errorMsg = "Unable to filter metadata";
-            log.error(errorMsg, e);
-            throw new MetadataProviderException(errorMsg, e);
+            return inputstreamToByteArray(new FileInputStream(metadataFile));
+        } catch (IOException e) {
+            String errMsg = MessageFormatter
+                    .format("Unable to read metadata file '{}'", metadataFile.getAbsolutePath());
+            log.error(errMsg, e);
+            throw new MetadataProviderException(errMsg, e);
         }
+    }
+
+    /**
+     * Converts an InputStream into a byte array.
+     * 
+     * @param ins input stream to convert
+     * 
+     * @return resultant byte array
+     * 
+     * @throws IOException thrown if there is a problem reading the resultant byte array
+     */
+    private byte[] inputstreamToByteArray(InputStream ins) throws IOException {
+        // 1 MB read buffer
+        byte[] buffer = new byte[1024 * 1024];
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+        long count = 0;
+        int n = 0;
+        while (-1 != (n = ins.read(buffer))) {
+            output.write(buffer, 0, n);
+            count += n;
+        }
+
+        ins.close();
+        return output.toByteArray();
     }
 }

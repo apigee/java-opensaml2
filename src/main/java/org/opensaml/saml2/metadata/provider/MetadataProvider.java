@@ -31,16 +31,15 @@ import org.opensaml.xml.XMLObject;
  * 
  * <strong>NOTE</strong>, developers should not try to marshall the metadata that comes from a metadata provider. It is
  * possible that the a provider, or {@link MetadataFilter}, implementation may make changes to the retrieved metadata
- * that make unusable for marshalling. For example, by removing elements required by the schema but not by the user of
- * the provider as a way of saving on memory. Or by remove elements and thus invalidating a signature that had be
- * present on the retrieved metadata.
+ * that make it unusable for marshalling. For example, by removing elements required by the schema but not by the user
+ * of the provider as a way of saving on memory.
  */
 public interface MetadataProvider {
 
     /**
      * Gets whether the metadata returned by queries must be valid. At a minimum, metadata is valid only if the date
-     * expressed in entity's validUntil attribute has not passed. Specific implementations may add additional
-     * constraints.
+     * expressed in the element, and all its child element's, validUntil attribute has not passed. Specific
+     * implementations may add additional constraints.
      * 
      * @return whether the metadata returned by queries must be valid
      */
