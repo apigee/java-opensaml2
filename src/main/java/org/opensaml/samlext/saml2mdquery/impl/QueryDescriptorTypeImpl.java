@@ -88,6 +88,7 @@ public abstract class QueryDescriptorTypeImpl extends RoleDescriptorImpl impleme
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
         
+        children.addAll(super.getOrderedChildren());
         children.addAll(nameIDFormats);
         
         return Collections.unmodifiableList(children);
