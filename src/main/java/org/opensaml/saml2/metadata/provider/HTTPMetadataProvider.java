@@ -107,7 +107,7 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
      * 
      * @throws MetadataProviderException thrown if the HTTP client is null or the metadata URL provided is invalid
      */
-    public HTTPMetadataProvider(HttpClient client, Timer backgroundTaskTimer, String metadataURL)
+    public HTTPMetadataProvider(Timer backgroundTaskTimer, HttpClient client, String metadataURL)
             throws MetadataProviderException {
         super(backgroundTaskTimer);
 

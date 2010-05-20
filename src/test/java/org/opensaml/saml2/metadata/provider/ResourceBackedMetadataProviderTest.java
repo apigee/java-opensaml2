@@ -47,8 +47,9 @@ public class ResourceBackedMetadataProviderTest extends BaseTestCase {
                 .getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
         FilesystemResource mdResource = new FilesystemResource(new File(mdURL.toURI()).getAbsolutePath());
 
-        metadataProvider = new ResourceBackedMetadataProvider(mdResource, new Timer(), 500000);
+        metadataProvider = new ResourceBackedMetadataProvider(new Timer(), mdResource);
         metadataProvider.setParserPool(parser);
+        metadataProvider.setMaxRefreshDelay(500000);
         metadataProvider.initialize();
     }
 

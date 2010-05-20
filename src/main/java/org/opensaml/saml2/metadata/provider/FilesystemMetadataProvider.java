@@ -70,7 +70,7 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
      * @throws MetadataProviderException thrown if the given file path is null, does not exist, does not represent a
      *             file, or if the metadata can not be parsed
      */
-    public FilesystemMetadataProvider(File metadata, Timer backgroundTaskTimer) throws MetadataProviderException {
+    public FilesystemMetadataProvider(Timer backgroundTaskTimer, File metadata) throws MetadataProviderException {
         super(backgroundTaskTimer);
         setMetadataFile(metadata);
     }

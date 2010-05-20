@@ -48,10 +48,33 @@ public class ResourceBackedMetadataProvider extends AbstractReloadingMetadataPro
      * @param maxMetadataCacheDuration maximum amount of time, in milliseconds, that metadata may be cached before being
      *            re-read
      * 
-     * @throws MetadataProviderException thrown if there is a problem retrieving information about the resource
+     * @throws MetadataProviderException thrown if there is a problem retrieving information about the resource 
+     * 
+     * @deprecated
      */
     public ResourceBackedMetadataProvider(Resource resource, Timer timer, long maxMetadataCacheDuration)
             throws MetadataProviderException {
+        super(timer);
+
+        try {
+            if (!resource.exists()) {
+                throw new MetadataProviderException("Resource " + resource.getLocation() + " does not exist.");
+            }
+            metadataResource = resource;
+        } catch (ResourceException e) {
+            throw new MetadataProviderException("Unable to read resource", e);
+        }
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param resource resource from which to read the metadata file.
+     * @param timer task timer used to schedule metadata refresh tasks
+     * 
+     * @throws MetadataProviderException thrown if there is a problem retrieving information about the resource
+     */
+    public ResourceBackedMetadataProvider(Timer timer, Resource resource) throws MetadataProviderException {
         super(timer);
 
         try {

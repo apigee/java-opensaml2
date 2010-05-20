@@ -73,9 +73,9 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
      * @throws MetadataProviderException thrown if the URL is not a valid URL, the metadata can not be retrieved from
      *             the URL, the given file can not be created or written to
      */
-    public FileBackedHTTPMetadataProvider(HttpClient client, Timer backgroundTaskTimer, String metadataURL,
+    public FileBackedHTTPMetadataProvider(Timer backgroundTaskTimer, HttpClient client, String metadataURL,
             String backupFilePath) throws MetadataProviderException {
-        super(client, backgroundTaskTimer, metadataURL);
+        super(backgroundTaskTimer, client, metadataURL);
         setBackupFile(backupFilePath);
     }
 
