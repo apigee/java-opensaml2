@@ -52,7 +52,7 @@ public class DOMMetadataProvider extends AbstractObservableMetadataProvider impl
     }
 
     /** {@inheritDoc} */
-    public XMLObject getMetadata() {
+    protected XMLObject doGetMetadata() throws MetadataProviderException {
         return metadata;
     }
     

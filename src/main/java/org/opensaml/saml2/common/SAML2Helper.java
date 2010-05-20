@@ -24,8 +24,8 @@ import org.opensaml.xml.XMLObject;
 public class SAML2Helper {
 
     /**
-     * Checks to see if the given XMLObject is still valid. An XMLObject is valid if, and only if, every descendant
-     * {@link TimeBoundSAMLObject} is valid.
+     * Checks to see if the given XMLObject is still valid. An XMLObject is valid if, and only if, itself and every
+     * ancestral {@link TimeBoundSAMLObject} is valid.
      * 
      * @param xmlObject the XML object tree to check
      * 
@@ -39,13 +39,9 @@ public class SAML2Helper {
             }
         }
 
-        List<XMLObject> children = xmlObject.getOrderedChildren();
-        if (children != null && !children.isEmpty()) {
-            for (XMLObject child : children) {
-                if (!isValid(child)) {
-                    return false;
-                }
-            }
+        XMLObject parent = xmlObject.getParent();
+        if (parent != null) {
+            return isValid(parent);
         }
 
         return true;

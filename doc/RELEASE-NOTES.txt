@@ -5,6 +5,7 @@ Changes in Release 2.4.0
 [JOST-88]  - Create an AttributeConsumingServiceSelector, similar in API to the existing Basic- and AuthnRequest Endpoint selectors
 [JOST-100] - BaseMessageDecoder uses java.net.URL equals() for URI comparison
 [JOST-102] - don't download remote metadata if it hasn't changed
+[JOST-106] - Improved logging when configuration / metadata reloaded
 [JOST-107] - cached metadata should include XML comments
 [JOST-108] - Metadata provider should ignore SSL server cert (at least optionally)
 [JOST-109] - The IDP should verify that the fetched metadata is valid, even after filters, before overwriting the previous one

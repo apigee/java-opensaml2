@@ -17,6 +17,9 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -207,7 +210,7 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
     }
 
     /** {@inheritDoc} */
-    public XMLObject getMetadata() throws MetadataProviderException {
+    protected XMLObject doGetMetadata() throws MetadataProviderException {
         return cachedMetadata;
     }
 
@@ -237,8 +240,10 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
             }
 
             lastRefresh = now;
+            log.info("Loaded new metadata from {}", getMetadataIdentifier());
         } catch (MetadataProviderException e) {
-            log.debug("Error occurred while attempting metadata refresh, next refresh for metadata from '{}' will occur in approximately {}ms", mdId, minRefreshDelay);
+            log.debug("Error occurred while attempting metadata refresh, next refresh for metadata from '{}' will occur in approximately {}ms",
+                            mdId, minRefreshDelay);
             taskTimer.schedule(new RefreshMetadataTask(), minRefreshDelay);
             throw e;
         }
@@ -392,6 +397,35 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         }
 
         return refreshDelay;
+    }
+
+    /**
+     * Converts an InputStream into a byte array.
+     * 
+     * @param ins input stream to convert
+     * 
+     * @return resultant byte array
+     * 
+     * @throws MetadataProviderException thrown if there is a problem reading the resultant byte array
+     */
+    protected byte[] inputstreamToByteArray(InputStream ins) throws MetadataProviderException {
+        try {
+            // 1 MB read buffer
+            byte[] buffer = new byte[1024 * 1024];
+            ByteArrayOutputStream output = new ByteArrayOutputStream();
+
+            long count = 0;
+            int n = 0;
+            while (-1 != (n = ins.read(buffer))) {
+                output.write(buffer, 0, n);
+                count += n;
+            }
+
+            ins.close();
+            return output.toByteArray();
+        } catch (IOException e) {
+            throw new MetadataProviderException(e);
+        }
     }
 
     /** Background task that refreshes metadata. */

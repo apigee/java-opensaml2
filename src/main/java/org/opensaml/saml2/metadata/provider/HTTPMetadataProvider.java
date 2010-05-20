@@ -297,29 +297,4 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
             throw new MetadataProviderException("Unable to read response", e);
         }
     }
-
-    /**
-     * Converts an InputStream into a byte array.
-     * 
-     * @param ins input stream to convert
-     * 
-     * @return resultant byte array
-     * 
-     * @throws IOException thrown if there is a problem reading the resultant byte array
-     */
-    private byte[] inputstreamToByteArray(InputStream ins) throws IOException {
-        // 1 MB read buffer
-        byte[] buffer = new byte[1024 * 1024];
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-        long count = 0;
-        int n = 0;
-        while (-1 != (n = ins.read(buffer))) {
-            output.write(buffer, 0, n);
-            count += n;
-        }
-
-        ins.close();
-        return output.toByteArray();
-    }
 }

@@ -27,7 +27,7 @@ import org.opensaml.saml2.metadata.RoleDescriptor;
 /**
  * Unit tests for {@link HTTPMetadataProvider}.
  */
-public class URLMetadataProviderTest extends BaseTestCase {
+public class HTTPMetadataProviderTest extends BaseTestCase {
 
     private String inCommonMDURL;
     private String entitiesDescriptorName;

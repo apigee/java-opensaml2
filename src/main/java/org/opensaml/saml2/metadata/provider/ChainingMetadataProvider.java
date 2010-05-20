@@ -169,13 +169,17 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
         try {
             for (MetadataProvider provider : providers) {
                 log.debug("Checking child metadata provider for entities descriptor with name: {}", name);
-                descriptor = provider.getEntitiesDescriptor(name);
-                if (descriptor != null) {
-                    break;
+                try {
+                    descriptor = provider.getEntitiesDescriptor(name);
+                    if (descriptor != null) {
+                        break;
+                    }
+                } catch (MetadataProviderException e) {
+                    log.warn("Error retrieving metadata from provider of type {}, proceeding to next provider",
+                            provider.getClass().getName(), e);
+                    continue;
                 }
             }
-        } catch (MetadataProviderException e) {
-            throw e;
         } finally {
             readLock.unlock();
         }
@@ -192,13 +196,17 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
         try {
             for (MetadataProvider provider : providers) {
                 log.debug("Checking child metadata provider for entity descriptor with entity ID: {}", entityID);
-                descriptor = provider.getEntityDescriptor(entityID);
-                if (descriptor != null) {
-                    break;
+                try {
+                    descriptor = provider.getEntityDescriptor(entityID);
+                    if (descriptor != null) {
+                        break;
+                    }
+                } catch (MetadataProviderException e) {
+                    log.warn("Error retrieving metadata from provider of type {}, proceeding to next provider",
+                            provider.getClass().getName(), e);
+                    continue;
                 }
             }
-        } catch (MetadataProviderException e) {
-            throw e;
         } finally {
             readLock.unlock();
         }
@@ -208,28 +216,57 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
 
     /** {@inheritDoc} */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException {
-        EntityDescriptor entityMetadata = getEntityDescriptor(entityID);
-        if (entityMetadata == null) {
-            return null;
+        Lock readLock = providerLock.readLock();
+        readLock.lock();
+
+        List<RoleDescriptor> roleDescriptors = null;
+        try {
+            for (MetadataProvider provider : providers) {
+                log.debug("Checking child metadata provider for entity descriptor with entity ID: {}", entityID);
+                try {
+                    roleDescriptors = provider.getRole(entityID, roleName);
+                    if (roleDescriptors != null && !roleDescriptors.isEmpty()) {
+                        break;
+                    }
+                } catch (MetadataProviderException e) {
+                    log.warn("Error retrieving metadata from provider of type {}, proceeding to next provider",
+                            provider.getClass().getName(), e);
+                    continue;
+                }
+            }
+        } finally {
+            readLock.unlock();
         }
 
-        return entityMetadata.getRoleDescriptors(roleName);
+        return roleDescriptors;
     }
 
     /** {@inheritDoc} */
     public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)
             throws MetadataProviderException {
-        EntityDescriptor entityMetadata = getEntityDescriptor(entityID);
-        if (entityMetadata == null) {
-            return null;
+        Lock readLock = providerLock.readLock();
+        readLock.lock();
+
+        RoleDescriptor roleDescriptor = null;
+        try {
+            for (MetadataProvider provider : providers) {
+                log.debug("Checking child metadata provider for entity descriptor with entity ID: {}", entityID);
+                try {
+                    roleDescriptor = provider.getRole(entityID, roleName, supportedProtocol);
+                    if (roleDescriptor != null) {
+                        break;
+                    }
+                } catch (MetadataProviderException e) {
+                    log.warn("Error retrieving metadata from provider of type {}, proceeding to next provider",
+                            provider.getClass().getName(), e);
+                    continue;
+                }
+            }
+        } finally {
+            readLock.unlock();
         }
 
-        List<RoleDescriptor> roles = entityMetadata.getRoleDescriptors(roleName, supportedProtocol);
-        if (roles != null && !roles.isEmpty()) {
-            return roles.get(0);
-        }
-
-        return null;
+        return roleDescriptor;
     }
 
     /** {@inheritDoc} */

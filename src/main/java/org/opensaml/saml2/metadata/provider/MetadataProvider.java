@@ -38,7 +38,7 @@ public interface MetadataProvider {
 
     /**
      * Gets whether the metadata returned by queries must be valid. At a minimum, metadata is valid only if the date
-     * expressed in the element, and all its child element's, validUntil attribute has not passed. Specific
+     * expressed in the element, and all its ancestral element's, validUntil attribute has not passed. Specific
      * implementations may add additional constraints.
      * 
      * @return whether the metadata returned by queries must be valid
@@ -69,58 +69,63 @@ public interface MetadataProvider {
     public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException;
 
     /**
-     * Gets the entire metadata tree, after the registered filter has been applied.
+     * Gets the valid metadata tree, after the registered filter has been applied.
      * 
      * @return the entire metadata tree
      * 
-     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata, must not be thrown simply if
+     *             there is no metadata to fetch
      */
     public XMLObject getMetadata() throws MetadataProviderException;
 
     /**
-     * Gets a named EntitiesDescriptor from the metadata.
+     * Gets a valid named EntitiesDescriptor from the metadata.
      * 
      * @param name the name of the EntitiesDescriptor
      * 
      * @return the EntitiesDescriptor or null
      * 
-     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata, must not be thrown if there
+     *             is simply no EntitiesDescriptor with the given name
      */
     public EntitiesDescriptor getEntitiesDescriptor(String name) throws MetadataProviderException;
 
     /**
-     * Gets the metadata for a given entity if the metadata is valid.
+     * Gets the valid metadata for a given entity.
      * 
      * @param entityID the ID of the entity
      * 
      * @return the entity's metadata or null if there is no metadata or no valid metadata
      * 
-     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata, must not be thrown if there
+     *             is simply no EntityDescriptor with the given ID
      */
     public EntityDescriptor getEntityDescriptor(String entityID) throws MetadataProviderException;
 
     /**
-     * Gets the role descriptors of a given type for a given entity from valid metadata.
+     * Gets the valid role descriptors of a given type for a given entity.
      * 
      * @param entityID the ID of the entity
      * @param roleName the role type
      * 
-     * @return the role descriptors
+     * @return the modifiable list of role descriptors
      * 
-     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata, must not be thrown if there
+     *             is simply no such entity with the given roles
      */
     public List<RoleDescriptor> getRole(String entityID, QName roleName) throws MetadataProviderException;
 
     /**
-     * Gets the role descriptors of a given type for a given entity that support the given protocol from valid metadata.
+     * Gets the valid role descriptors of a given type for a given entity that support the given protocol.
      * 
      * @param entityID the ID of the entity
      * @param roleName the role type
      * @param supportedProtocol the protocol supported by the role
      * 
-     * @return the role descriptors
+     * @return the role descriptor
      * 
-     * @throws MetadataProviderException thrown if the provider can not fetch the metadata
+     * @throws MetadataProviderException thrown if the provider can not fetch the metadata, must not be thrown if there
+     *             is simply no such entity with the given role supporting the given protocol
      */
     public RoleDescriptor getRole(String entityID, QName roleName, String supportedProtocol)
             throws MetadataProviderException;
