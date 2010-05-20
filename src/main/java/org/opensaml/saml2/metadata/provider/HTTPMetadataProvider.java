@@ -165,13 +165,58 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
      * @see <a href="http://jakarta.apache.org/commons/httpclient/sslguide.html">HTTPClient SSL guide</a>
      * 
      * @param newSocketFactory the socket factory used to produce sockets used to connect to the server
+     * 
+     * @deprecated set this information on HTTP client used by provider
      */
-    @Deprecated
     public void setSocketFactory(ProtocolSocketFactory newSocketFactory) {
         log.debug("Using the custom socket factory {} to connect to the HTTP server", newSocketFactory.getClass()
                 .getName());
         Protocol protocol = new Protocol(metadataURI.getScheme(), newSocketFactory, metadataURI.getPort());
         httpClient.getHostConfiguration().setHost(metadataURI.getHost(), metadataURI.getPort(), protocol);
+    }
+    
+    /**
+     * Gets the maximum amount of time, in seconds, metadata will be cached for. 
+     * 
+     * @return maximum amount of time, in seconds, metadata will be cached for
+     * 
+     *  @deprecated use {@link #getMaxRefreshDelay()} instead
+     */
+    public int getMaxCacheDuration(){
+        return (int) getMaxRefreshDelay();
+    }
+    
+    /**
+     * Sets the maximum amount of time, in seconds, metadata will be cached for. 
+     * 
+     * @param newDuration maximum amount of time, in seconds, metadata will be cached for
+     * 
+     * @deprecated use {@link #setMaxRefreshDelay(long)} instead
+     */
+    public void setMaxCacheDuration(int newDuration){
+        setMaxRefreshDelay(newDuration * 1000);
+    }
+    
+    /**
+     * Gets whether cached metadata should be discarded if it expires and can not be refreshed.
+     * 
+     * @return whether cached metadata should be discarded if it expires and can not be refreshed. 
+     * 
+     * @deprecated use {@link #requireValidMetadata()} instead
+     */
+    public boolean maintainExpiredMetadata(){
+        return !requireValidMetadata();
+    }
+    
+    /**
+     * Sets whether cached metadata should be discarded if it expires and can not be refreshed.
+     * 
+     * @param maintain whether cached metadata should be discarded if it expires and can not be refreshed.
+     * 
+     *  @deprecated use {@link #setRequireValidMetadata(boolean)} instead
+     */
+    public void setMaintainExpiredMetadata(boolean maintain){
+        setRequireValidMetadata(!maintain);
     }
 
     /** {@inheritDoc} */

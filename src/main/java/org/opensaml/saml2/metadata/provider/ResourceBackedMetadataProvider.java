@@ -86,6 +86,28 @@ public class ResourceBackedMetadataProvider extends AbstractReloadingMetadataPro
             throw new MetadataProviderException("Unable to read resource", e);
         }
     }
+    
+    /**
+     * Gets whether cached metadata should be discarded if it expires and can not be refreshed.
+     * 
+     * @return whether cached metadata should be discarded if it expires and can not be refreshed. 
+     * 
+     * @deprecated use {@link #requireValidMetadata()} instead
+     */
+    public boolean maintainExpiredMetadata(){
+        return !requireValidMetadata();
+    }
+    
+    /**
+     * Sets whether cached metadata should be discarded if it expires and can not be refreshed.
+     * 
+     * @param maintain whether cached metadata should be discarded if it expires and can not be refreshed.
+     * 
+     *  @deprecated use {@link #setRequireValidMetadata(boolean)} instead
+     */
+    public void setMaintainExpiredMetadata(boolean maintain){
+        setRequireValidMetadata(!maintain);
+    }
 
     /** {@inheritDoc} */
     protected String getMetadataIdentifier() {
