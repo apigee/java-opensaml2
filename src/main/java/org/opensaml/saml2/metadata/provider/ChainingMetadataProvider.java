@@ -32,6 +32,7 @@ import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 import org.opensaml.xml.Namespace;
+import org.opensaml.xml.NamespaceManager;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.signature.Signature;
@@ -422,6 +423,11 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
 
         /** {@inheritDoc} */
         public IDIndex getIDIndex() {
+            return null;
+        }
+        
+        /** {@inheritDoc} */
+        public NamespaceManager getNamespaceManager() {
             return null;
         }
 
