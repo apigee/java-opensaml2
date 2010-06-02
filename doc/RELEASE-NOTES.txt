@@ -12,6 +12,7 @@ Changes in Release 2.4.0
 [JOST-110] - Clean up Basic- artifact map and entry or add alternative implementations
 [JOST-111] - control metadata load with a scheduled job rather than on demand
 [JOST-116] - QueryDescriptorTypeImpl.getOrderedChildren() does not include children from superclass
+[JOST-118] - Configure Apache XML Security library to not emit line breaks by default
 
 Changes in Release 2.3.2
 =============================================

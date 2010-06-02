@@ -41,9 +41,15 @@ import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
 import org.opensaml.xml.signature.impl.ExplicitKeySignatureTrustEngine;
 import org.opensaml.xml.signature.impl.SignatureBuilder;
+import org.opensaml.xml.util.XMLHelper;
 import org.opensaml.xml.validation.ValidationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SignedAssertionTest extends BaseTestCase {
+    
+    /** Class logger. */
+    private final Logger log = LoggerFactory.getLogger(SignedAssertionTest.class);
     
     /** Credential used for signing. */
     private BasicCredential goodCredential;
@@ -117,6 +123,9 @@ public class SignedAssertionTest extends BaseTestCase {
         marshaller.marshall(assertion);
         Signer.signObject(signature);
         
+        if (log.isDebugEnabled()) {
+            log.debug("Marshalled signed assertion: \n" + XMLHelper.nodeToString(assertion.getDOM()));
+        }
         
         // Unmarshall new tree around DOM to avoid side effects and Apache xmlsec bug.
         Assertion signedAssertion = 

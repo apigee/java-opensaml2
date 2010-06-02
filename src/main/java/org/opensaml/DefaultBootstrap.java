@@ -138,6 +138,11 @@ public class DefaultBootstrap {
      * @throws ConfigurationException thrown is there is a problem initializing the library
      */
     protected static void initializeXMLSecurity() throws ConfigurationException {
+        String lineBreakPropName = "org.apache.xml.security.ignoreLineBreaks";
+        // Don't override if it was set explicitly
+        if (System.getProperty(lineBreakPropName) == null) {
+            System.setProperty(lineBreakPropName, "true");
+        }
         if (!Init.isInitialized()) {
             log.debug("Initializing Apache XMLSecurity library");
             Init.init();
