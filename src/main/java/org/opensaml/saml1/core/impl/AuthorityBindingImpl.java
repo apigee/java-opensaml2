@@ -56,7 +56,8 @@ public class AuthorityBindingImpl extends AbstractSAMLObject implements Authorit
 
     /** {@inheritDoc} */
     public void setAuthorityKind(QName authorityKind) {
-        this.authorityKind = prepareForAssignment(this.authorityKind, authorityKind);
+        this.authorityKind = prepareAttributeValueForAssignment(AuthorityBinding.AUTHORITYKIND_ATTRIB_NAME, 
+                this.authorityKind, authorityKind);
     }
 
     /** {@inheritDoc} */

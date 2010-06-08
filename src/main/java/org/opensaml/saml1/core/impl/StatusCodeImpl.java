@@ -24,7 +24,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml1.core.StatusCode;
-import org.opensaml.xml.Namespace;
 import org.opensaml.xml.XMLObject;
 
 /**
@@ -56,10 +55,7 @@ public class StatusCodeImpl extends AbstractSAMLObject implements StatusCode {
 
     /** {@inheritDoc} */
     public void setValue(QName newValue) {
-        this.value = prepareForAssignment(this.value, newValue);
-        if(value != null){
-            addNamespace(new Namespace(value.getNamespaceURI(), value.getPrefix()));
-        }
+        this.value = prepareAttributeValueForAssignment(StatusCode.VALUE_ATTRIB_NAME, this.value, newValue);
     }
 
     /** {@inheritDoc} */
