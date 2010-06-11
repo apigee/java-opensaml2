@@ -16,7 +16,6 @@
 
 package org.opensaml.common.impl;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,12 +28,14 @@ import org.apache.xml.security.transforms.params.InclusiveNamespaces;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.xml.Configuration;
 import org.opensaml.xml.Namespace;
+import org.opensaml.xml.NamespaceManager;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.security.SecurityConfiguration;
 import org.opensaml.xml.signature.ContentReference;
 import org.opensaml.xml.signature.SignatureConstants;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.LazyList;
+import org.opensaml.xml.util.LazySet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -170,7 +171,7 @@ public class SAMLObjectContentReference implements ContentReference {
         // be stripped out by exclusive canonicalization. Need to make sure they aren't by explicitly
         // telling the transformer about them.
         log.debug("Adding list of inclusive namespaces for signature exclusive canonicalization transform");
-        HashSet<String> inclusiveNamespacePrefixes = new HashSet<String>();
+        LazySet<String> inclusiveNamespacePrefixes = new LazySet<String>();
         populateNamespacePrefixes(inclusiveNamespacePrefixes, signableObject);
         
         if (inclusiveNamespacePrefixes != null && inclusiveNamespacePrefixes.size() > 0) {
@@ -181,31 +182,22 @@ public class SAMLObjectContentReference implements ContentReference {
     }
 
     /**
-     * Populates the given set with all the namespaces used by the given XMLObject and all of its descendants.
+     * Populates the given set with the non-visibly used namespace prefixes used by the given XMLObject 
+     * and all of its descendants, as determined by the signature content object's namespace manager.
      * 
      * @param namespacePrefixes the namespace prefix set to be populated
      * @param signatureContent the XMLObject whose namespace prefixes will be used to populate the set
      */
     private void populateNamespacePrefixes(Set<String> namespacePrefixes, XMLObject signatureContent) {
-        if (signatureContent.getNamespaces() != null) {
-            for (Namespace namespace : signatureContent.getNamespaces()) {
-                if (namespace != null) {
-                    String namespacePrefix = namespace.getNamespacePrefix();
-                    // For the default namespace prefix, exclusive c14n uses the special token "#default".
-                    // Apache xmlsec requires this to be represented in the set with the
-                    // (completely undocumented) string "xmlns".
-                    if (namespacePrefix == null) {
-                        namespacePrefix = "xmlns";
-                    }
-                    namespacePrefixes.add(namespacePrefix);
-                }
-            }
-        }
-
-        if (signatureContent.getOrderedChildren() != null) {
-            for (XMLObject xmlObject : signatureContent.getOrderedChildren()) {
-                if (xmlObject != null) {
-                    populateNamespacePrefixes(namespacePrefixes, xmlObject);
+        for (String prefix: signatureContent.getNamespaceManager().getNonVisibleNamespacePrefixes()) {
+            if (prefix != null) {
+                // For the default namespace prefix, exclusive c14n uses the special token "#default".
+                // Apache xmlsec requires this to be represented in the set with the
+                // (completely undocumented) string "xmlns".
+                if (NamespaceManager.DEFAULT_NS_TOKEN.equals(prefix)) {
+                    namespacePrefixes.add("xmlns");
+                } else {
+                    namespacePrefixes.add(prefix);
                 }
             }
         }
