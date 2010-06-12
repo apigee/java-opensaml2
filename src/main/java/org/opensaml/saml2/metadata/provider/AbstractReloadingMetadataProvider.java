@@ -240,7 +240,7 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
             }
 
             lastRefresh = now;
-            log.info("Loaded new metadata from {}", getMetadataIdentifier());
+            log.info("Loaded new metadata from {}, next refresh will occur at approximately {}", getMetadataIdentifier(), nextRefresh);
         } catch (MetadataProviderException e) {
             log.debug("Error occurred while attempting metadata refresh, next refresh for metadata from '{}' will occur in approximately {}ms",
                             mdId, minRefreshDelay);
@@ -348,9 +348,8 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         expirationTime = metadatedExpirationTime;
 
         long nextRefreshDelay = computeNextRefreshDelay(expirationTime);
-        log.debug("Next refresh for metadata from '{}' will occur in approximately {}ms", metadataIdentifier,
-                nextRefresh);
         taskTimer.schedule(new RefreshMetadataTask(), nextRefreshDelay);
+        nextRefresh = new DateTime(ISOChronology.getInstanceUTC()).plus(nextRefreshDelay);
 
         emitChangeEvent();
     }

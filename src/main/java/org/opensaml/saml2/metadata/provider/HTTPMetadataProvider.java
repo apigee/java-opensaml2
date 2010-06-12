@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.metadata.provider;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
