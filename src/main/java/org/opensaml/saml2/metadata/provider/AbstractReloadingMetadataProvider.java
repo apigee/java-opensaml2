@@ -234,13 +234,14 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
             if (mdBytes == null) {
                 log.debug("Metadata from '{}' has not changed since last refresh", mdId);
                 processCachedMetadata(mdId, now);
+                log.info("No new metadata available from {}, next refresh will occur at approximately {}", getMetadataIdentifier(), nextRefresh);
             } else {
                 log.debug("New metadata from '{}' available, processing it", mdId);
                 processNewMetadata(mdId, now, mdBytes);
+                log.info("New metadata loaded from {}, next refresh will occur at approximately {}", getMetadataIdentifier(), nextRefresh);
             }
 
             lastRefresh = now;
-            log.info("Loaded new metadata from {}, next refresh will occur at approximately {}", getMetadataIdentifier(), nextRefresh);
         } catch (MetadataProviderException e) {
             log.debug("Error occurred while attempting metadata refresh, next refresh for metadata from '{}' will occur in approximately {}ms",
                             mdId, minRefreshDelay);
