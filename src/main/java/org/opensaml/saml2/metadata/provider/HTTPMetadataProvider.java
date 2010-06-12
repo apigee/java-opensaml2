@@ -173,48 +173,48 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
         Protocol protocol = new Protocol(metadataURI.getScheme(), newSocketFactory, metadataURI.getPort());
         httpClient.getHostConfiguration().setHost(metadataURI.getHost(), metadataURI.getPort(), protocol);
     }
-    
+
     /**
-     * Gets the maximum amount of time, in seconds, metadata will be cached for. 
+     * Gets the maximum amount of time, in seconds, metadata will be cached for.
      * 
      * @return maximum amount of time, in seconds, metadata will be cached for
      * 
-     *  @deprecated use {@link #getMaxRefreshDelay()} instead
+     * @deprecated use {@link #getMaxRefreshDelay()} instead
      */
-    public int getMaxCacheDuration(){
+    public int getMaxCacheDuration() {
         return (int) getMaxRefreshDelay();
     }
-    
+
     /**
-     * Sets the maximum amount of time, in seconds, metadata will be cached for. 
+     * Sets the maximum amount of time, in seconds, metadata will be cached for.
      * 
      * @param newDuration maximum amount of time, in seconds, metadata will be cached for
      * 
      * @deprecated use {@link #setMaxRefreshDelay(long)} instead
      */
-    public void setMaxCacheDuration(int newDuration){
+    public void setMaxCacheDuration(int newDuration) {
         setMaxRefreshDelay(newDuration * 1000);
     }
-    
+
     /**
      * Gets whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
-     * @return whether cached metadata should be discarded if it expires and can not be refreshed. 
+     * @return whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
      * @deprecated use {@link #requireValidMetadata()} instead
      */
-    public boolean maintainExpiredMetadata(){
+    public boolean maintainExpiredMetadata() {
         return !requireValidMetadata();
     }
-    
+
     /**
      * Sets whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
      * @param maintain whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
-     *  @deprecated use {@link #setRequireValidMetadata(boolean)} instead
+     * @deprecated use {@link #setRequireValidMetadata(boolean)} instead
      */
-    public void setMaintainExpiredMetadata(boolean maintain){
+    public void setMaintainExpiredMetadata(boolean maintain) {
         setRequireValidMetadata(!maintain);
     }
 
@@ -232,11 +232,10 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
      * @throws MetadataProviderException thrown if there is a problem retrieving the metadata from the remote server
      */
     protected byte[] fetchMetadata() throws MetadataProviderException {
-        log.debug("Attempting to fetch metadata document from '{}'", metadataURI);
         GetMethod getMethod = buildGetMethod();
 
         try {
-            log.debug("Fetching metadata document from '{}'", metadataURI);
+            log.debug("Attempting to fetch metadata document from '{}'", metadataURI);
             httpClient.executeMethod(getMethod);
             int httpStatus = getMethod.getStatusCode();
 
@@ -255,8 +254,10 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
 
             processConditionalRetrievalHeaders(getMethod);
 
-            return getMetadataBytesFromResponse(getMethod);
+            byte[] rawMetadata = getMetadataBytesFromResponse(getMethod);
+            log.debug("Successfully fetched {}bytes of metadata from {}", rawMetadata.length, getMetadataURI());
 
+            return rawMetadata;
         } catch (IOException e) {
             String errMsg = MessageFormatter.format("Error retrieving metadata from '{}'", metadataURI);
             log.error(errMsg, e);
@@ -317,6 +318,7 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
      * @throws MetadataProviderException thrown if there is a problem getting the raw metadata bytes from the response
      */
     protected byte[] getMetadataBytesFromResponse(GetMethod getMethod) throws MetadataProviderException {
+        log.debug("Attempting to extract metadata from response to request for metadata from '{}'", getMetadataURI());
         try {
             InputStream ins = getMethod.getResponseBodyAsStream();
 
@@ -334,7 +336,6 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
                 }
             }
 
-            log.debug("Retrieved metadata document from '{}'", metadataURI);
             return inputstreamToByteArray(ins);
         } catch (IOException e) {
             log.error("Unable to read response", e);

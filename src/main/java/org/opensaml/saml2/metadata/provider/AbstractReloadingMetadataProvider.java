@@ -234,19 +234,22 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
             if (mdBytes == null) {
                 log.debug("Metadata from '{}' has not changed since last refresh", mdId);
                 processCachedMetadata(mdId, now);
-                log.info("No new metadata available from {}, next refresh will occur at approximately {}", getMetadataIdentifier(), nextRefresh);
+                log.info(
+                        "Metadata from '{}' unchanged since last refresh, next refresh will occur at approximately {}",
+                        getMetadataIdentifier(), nextRefresh);
             } else {
-                log.debug("New metadata from '{}' available, processing it", mdId);
+                log.debug("Processing new metadata from '{}'", mdId);
                 processNewMetadata(mdId, now, mdBytes);
-                log.info("New metadata loaded from {}, next refresh will occur at approximately {}", getMetadataIdentifier(), nextRefresh);
+                log.info("New metadata loaded from '{}', next refresh will occur at approximately {}",
+                        getMetadataIdentifier(), nextRefresh);
             }
-
-            lastRefresh = now;
         } catch (MetadataProviderException e) {
-            log.debug("Error occurred while attempting metadata refresh, next refresh for metadata from '{}' will occur in approximately {}ms",
-                            mdId, minRefreshDelay);
+            log.debug("Error occurred while attempting to refresh metadata from '{}', "
+                    + "next refresh for metadata from '{}' will occur in approximately {}ms", mdId, minRefreshDelay);
             taskTimer.schedule(new RefreshMetadataTask(), minRefreshDelay);
             throw e;
+        } finally {
+            lastRefresh = now;
         }
     }
 
@@ -298,12 +301,10 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         log.debug("Computing new expiration time for cached metadata from '{}", metadataIdentifier);
         DateTime metadatedExpirationTime = SAML2Helper.getEarliestExpiration(cachedMetadata, refreshStart
                 .plus(getMaxRefreshDelay()), refreshStart);
-        log.debug("Expiration of cached metadata from '{}' will occur at '{}", metadataIdentifier,
+        log.debug("Expiration of cached metadata from '{}' will occur at {}", metadataIdentifier,
                 metadatedExpirationTime.toString());
 
         long nextRefreshDelay = computeNextRefreshDelay(expirationTime);
-        log.debug("Next refresh for cached metadata from '{}' will occur in approximately {}ms", metadataIdentifier,
-                nextRefresh);
         taskTimer.schedule(new RefreshMetadataTask(), nextRefreshDelay);
     }
 
@@ -332,16 +333,16 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
             throw new MetadataProviderException(errMsg, e);
         }
 
-        log.debug("Release DOM for metadata from '{}'", metadataIdentifier);
+        log.debug("Releasing cached DOM for metadata from '{}'", metadataIdentifier);
         releaseMetadataDOM(metadata);
 
         log.debug("Post-processing metadata from '{}'", metadataIdentifier);
         postProcessMetadata(metadataBytes, metadataDom, metadata);
 
-        log.debug("Computing expiration time for metadata from '{}", metadataIdentifier);
+        log.debug("Computing expiration time for metadata from '{}'", metadataIdentifier);
         DateTime metadatedExpirationTime = SAML2Helper.getEarliestExpiration(metadata, refreshStart
                 .plus(getMaxRefreshDelay()), refreshStart);
-        log.debug("Expiration of metadata from '{}' will occur at '{}", metadataIdentifier, metadatedExpirationTime
+        log.debug("Expiration of metadata from '{}' will occur at {}", metadataIdentifier, metadatedExpirationTime
                 .toString());
 
         cachedMetadata = metadata;
