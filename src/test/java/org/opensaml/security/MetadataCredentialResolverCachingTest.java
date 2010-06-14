@@ -116,6 +116,8 @@ public class MetadataCredentialResolverCachingTest extends BaseTestCase {
         
         FilesystemMetadataProvider fsProvider = new FilesystemMetadataProvider(mdFile);
         fsProvider.setParserPool(parser);
+        fsProvider.setMinRefreshDelay(1);
+        fsProvider.setMaxRefreshDelay(2000);
         fsProvider.initialize();
         
         mdResolver = new MetadataCredentialResolver(fsProvider);
@@ -161,6 +163,8 @@ public class MetadataCredentialResolverCachingTest extends BaseTestCase {
         
         FilesystemMetadataProvider fsProvider = new FilesystemMetadataProvider(mdFile);
         fsProvider.setParserPool(parser);
+        fsProvider.setMinRefreshDelay(1);
+        fsProvider.setMaxRefreshDelay(2000);
         fsProvider.initialize();
         
         mdResolver = new MetadataCredentialResolver(fsProvider);
