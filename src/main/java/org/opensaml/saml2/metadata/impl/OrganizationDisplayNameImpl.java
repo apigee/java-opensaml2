@@ -25,7 +25,9 @@ import java.util.List;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationDisplayName;
+import org.opensaml.xml.LangBearing;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.OrganizationDisplayName}
@@ -54,6 +56,11 @@ public class OrganizationDisplayNameImpl extends AbstractSAMLObject implements O
     /** {@inheritDoc} */
     public void setName(LocalizedString newName) {
         name = prepareForAssignment(name, newName);
+        boolean hasXMLLang = false;
+        if (name != null && !DatatypeHelper.isEmpty(name.getLanguage())) {
+            hasXMLLang = true;
+        }
+        manageQualifiedAttributeNamespace(LangBearing.XML_LANG_ATTR_NAME, hasXMLLang);
     }
 
     /** {@inheritDoc} */

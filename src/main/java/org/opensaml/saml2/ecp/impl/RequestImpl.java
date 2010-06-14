@@ -24,6 +24,8 @@ import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.core.IDPList;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.ecp.Request;
+import org.opensaml.ws.soap.soap11.ActorBearing;
+import org.opensaml.ws.soap.soap11.MustUnderstandBearing;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSBooleanValue;
 
@@ -140,11 +142,15 @@ public class RequestImpl extends AbstractSAMLObject implements Request {
         } else {
             soap11MustUnderstand = prepareForAssignment(soap11MustUnderstand, null);
         }
+        manageQualifiedAttributeNamespace(MustUnderstandBearing.SOAP11_MUST_UNDERSTAND_ATTR_NAME, 
+                soap11MustUnderstand != null);
     }
 
     /** {@inheritDoc} */
     public void setSOAP11MustUnderstand(XSBooleanValue newMustUnderstand) {
             soap11MustUnderstand = prepareForAssignment(soap11MustUnderstand, newMustUnderstand);
+            manageQualifiedAttributeNamespace(MustUnderstandBearing.SOAP11_MUST_UNDERSTAND_ATTR_NAME, 
+                    soap11MustUnderstand != null);
     }
 
     /** {@inheritDoc} */
@@ -155,6 +161,7 @@ public class RequestImpl extends AbstractSAMLObject implements Request {
     /** {@inheritDoc} */
     public void setSOAP11Actor(String newActor) {
         soap11Actor = prepareForAssignment(soap11Actor, newActor);
+        manageQualifiedAttributeNamespace(ActorBearing.SOAP11_ACTOR_ATTR_NAME, soap11Actor != null);
     }
 
     /** {@inheritDoc} */

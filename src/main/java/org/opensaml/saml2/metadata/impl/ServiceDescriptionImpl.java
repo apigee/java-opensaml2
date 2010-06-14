@@ -25,7 +25,9 @@ import java.util.List;
 import org.opensaml.common.impl.AbstractSAMLObject;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.ServiceDescription;
+import org.opensaml.xml.LangBearing;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 
 /**
  * Concrete implementation of {@link org.opensaml.saml2.metadata.ServiceDescription}.
@@ -54,6 +56,11 @@ public class ServiceDescriptionImpl extends AbstractSAMLObject implements Servic
     /** {@inheritDoc} */
     public void setDescription(LocalizedString newDescription) {
         description = prepareForAssignment(description, newDescription);
+        boolean hasXMLLang = false;
+        if (description != null && !DatatypeHelper.isEmpty(description.getLanguage())) {
+            hasXMLLang = true;
+        }
+        manageQualifiedAttributeNamespace(LangBearing.XML_LANG_ATTR_NAME, hasXMLLang);
     }
 
     /** {@inheritDoc} */
