@@ -14,6 +14,7 @@ Changes in Release 2.4.0
 [JOST-112] - Overuse of InclusivePrefixes list when signing
 [JOST-116] - QueryDescriptorTypeImpl.getOrderedChildren() does not include children from superclass
 [JOST-118] - Configure Apache XML Security library to not emit line breaks by default
+[JOST-122] - Consent value mismatch
 
 Changes in Release 2.3.2
 =============================================

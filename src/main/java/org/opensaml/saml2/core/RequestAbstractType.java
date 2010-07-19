@@ -61,10 +61,10 @@ public interface RequestAbstractType extends SignableSAMLObject {
     public static final String PRIOR_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:prior";
 
     /** Implicit consent URI. */
-    public static final String IMPLICIT_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:implicit";
+    public static final String IMPLICIT_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:current-implicit";
 
     /** Explicit consent URI. */
-    public static final String EXPLICIT_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:explicit";
+    public static final String EXPLICIT_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:current-explicit";
 
     /** Unavailable consent URI. */
     public static final String UNAVAILABLE_CONSENT = "urn:oasis:names:tc:SAML:2.0:consent:unavailable";
