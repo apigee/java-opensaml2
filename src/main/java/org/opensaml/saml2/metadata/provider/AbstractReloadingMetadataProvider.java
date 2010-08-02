@@ -240,8 +240,6 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
             } else {
                 log.debug("Processing new metadata from '{}'", mdId);
                 processNewMetadata(mdId, now, mdBytes);
-                log.info("New metadata loaded from '{}', next refresh will occur at approximately {}",
-                        getMetadataIdentifier(), nextRefresh);
             }
         } catch (MetadataProviderException e) {
             log.debug("Error occurred while attempting to refresh metadata from '{}', "
@@ -322,6 +320,46 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
             throws MetadataProviderException {
         log.debug("Unmarshalling metadata from '{}'", metadataIdentifier);
         XMLObject metadata = unmarshallMetadata(metadataBytes);
+
+        if (!isValid(metadata)) {
+            processPreExpiredMetadata(metadataIdentifier, refreshStart, metadataBytes, metadata);
+        } else {
+            processNonExpiredMetadata(metadataIdentifier, refreshStart, metadataBytes, metadata);
+        }
+    }
+
+    /**
+     * Processes metadata that has been determined to be invalid (usually because it's already expired) at the time it
+     * was fetched. A metadata document is considered be invalid if its root element returns false when passed to the
+     * {@link #isValid(XMLObject)} method.
+     * 
+     * @param metadataIdentifier identifier of the metadata source
+     * @param refreshStart when the current refresh cycle started
+     * @param metadataBytes raw bytes of the new metadata document
+     * @param metadata new metadata document unmarshalled
+     */
+    protected void processPreExpiredMetadata(String metadataIdentifier, DateTime refreshStart, byte[] metadataBytes,
+            XMLObject metadata) {
+        log.warn("Entire metadata document from '{}' was expired at time of loading", metadataIdentifier);
+        
+        lastUpdate = refreshStart;
+        taskTimer.schedule(new RefreshMetadataTask(), getMinRefreshDelay());
+        nextRefresh = new DateTime(ISOChronology.getInstanceUTC()).plus(getMinRefreshDelay());
+        log.info("Existing metadata retained, next refresh from '{}' will occur at approximately {}",
+                getMetadataIdentifier(), nextRefresh);
+    }
+
+    /**
+     * Processes metadata that has been determined to be valid at the time it was fetched. A metadata document is
+     * considered be valid if its root element returns true when passed to the {@link #isValid(XMLObject)} method.
+     * 
+     * @param metadataIdentifier identifier of the metadata source
+     * @param refreshStart when the current refresh cycle started
+     * @param metadataBytes raw bytes of the new metadata document
+     * @param metadata new metadata document unmarshalled
+     */
+    protected void processNonExpiredMetadata(String metadataIdentifier, DateTime refreshStart, byte[] metadataBytes,
+            XMLObject metadata) throws MetadataProviderException {
         Document metadataDom = metadata.getDOM().getOwnerDocument();
 
         log.debug("Filtering metadata from '{}'", metadataIdentifier);
@@ -354,6 +392,8 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         nextRefresh = new DateTime(ISOChronology.getInstanceUTC()).plus(nextRefreshDelay);
 
         emitChangeEvent();
+        log.info("New metadata loaded from '{}', next refresh will occur at approximately {}",
+                getMetadataIdentifier(), nextRefresh);
     }
 
     /**
@@ -394,7 +434,7 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         // if the expiration time was null or the calculated refresh delay was less than the floor
         // use the floor
         if (refreshDelay < getMinRefreshDelay()) {
-            refreshDelay = getMaxRefreshDelay();
+            refreshDelay = getMinRefreshDelay();
         }
 
         return refreshDelay;
