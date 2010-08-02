@@ -15,6 +15,8 @@ Changes in Release 2.4.0
 [JOST-116] - QueryDescriptorTypeImpl.getOrderedChildren() does not include children from superclass
 [JOST-118] - Configure Apache XML Security library to not emit line breaks by default
 [JOST-122] - Consent value mismatch
+[JOST-123] - Use of invalide metadata results in strange error from RequiredValidUntil filter
+[JOST-124] - Metadata providers could log a warning if the initial metadata they get is expired
 
 Changes in Release 2.3.2
 =============================================

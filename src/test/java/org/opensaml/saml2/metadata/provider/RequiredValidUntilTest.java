@@ -19,7 +19,13 @@ package org.opensaml.saml2.metadata.provider;
 import java.io.File;
 import java.net.URL;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
+import org.opensaml.Configuration;
 import org.opensaml.common.BaseTestCase;
+import org.opensaml.common.SAMLObjectBuilder;
+import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.xml.XMLObjectBuilder;
 
 /** Unit test for {@link RequiredValidUntilFilter}. */
 public class RequiredValidUntilTest extends BaseTestCase {
@@ -57,11 +63,22 @@ public class RequiredValidUntilTest extends BaseTestCase {
 
         try {
             metadataProvider.initialize();
+            fail("Filter accepted metadata with longer than allowed validity period.");
         } catch (MetadataProviderException e) {
             // we expect this
             return;
         }
+    }
+    
+    public void testRequiredValidUntilAlreadyPast() throws Exception {
+        SAMLObjectBuilder<EntitiesDescriptor> entitiesDescriptorBuilder = (SAMLObjectBuilder<EntitiesDescriptor>) Configuration.getBuilderFactory().getBuilder(EntitiesDescriptor.TYPE_NAME);
+        EntitiesDescriptor descriptor = entitiesDescriptorBuilder.buildObject();
+        descriptor.setValidUntil(new DateTime(ISOChronology.getInstanceUTC()).minus(10000));
 
-        fail("Filter accepted metadata with longer than allowed validity period.");
+        RequiredValidUntilFilter filter = new RequiredValidUntilFilter(-1);
+        filter.doFilter(descriptor);
+        
+        filter = new RequiredValidUntilFilter();
+        filter.doFilter(descriptor);
     }
 }
