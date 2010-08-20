@@ -16,9 +16,12 @@
 
 package org.opensaml.common.impl;
 
+import org.opensaml.common.SAMLObjectHelper;
+import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.AbstractXMLObjectMarshaller;
 import org.opensaml.xml.io.MarshallingException;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -46,4 +49,22 @@ public abstract class AbstractSAMLObjectMarshaller extends AbstractXMLObjectMars
     protected void marshallElementContent(XMLObject xmlObject, Element domElement) throws MarshallingException {
 
     }
+
+    /** {@inheritDoc} */
+    public Element marshall(XMLObject xmlObject, Document document) throws MarshallingException {
+        if (xmlObject instanceof SignableSAMLObject) {
+            SAMLObjectHelper.declareNonVisibleNamespaces((SignableSAMLObject) xmlObject);
+        }
+        return super.marshall(xmlObject, document);
+    }
+
+    /** {@inheritDoc} */
+    public Element marshall(XMLObject xmlObject, Element parentElement) throws MarshallingException {
+        if (xmlObject instanceof SignableSAMLObject) {
+            SAMLObjectHelper.declareNonVisibleNamespaces((SignableSAMLObject) xmlObject);
+        }
+        return super.marshall(xmlObject, parentElement);
+    }
+    
+    
 }

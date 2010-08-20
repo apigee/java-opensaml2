@@ -17,6 +17,7 @@ Changes in Release 2.4.0
 [JOST-122] - Consent value mismatch
 [JOST-123] - Use of invalide metadata results in strange error from RequiredValidUntil filter
 [JOST-124] - Metadata providers could log a warning if the initial metadata they get is expired
+[JOST-126] - Declare all non-visibly used namespaces on a signed SignableSAMLObject
 
 Changes in Release 2.3.2
 =============================================
