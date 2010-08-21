@@ -42,8 +42,8 @@ public final class SAMLObjectHelper {
      * before marshalling and signing, and if required, performs the declarations.
      * 
      * <p>
-     * If the object has a signature attached, and the signature
-     * contains a {@link SAMLObjectContentReference} with a transform of either 
+     * If the object does not already have a cached DOM, does have a signature attached,
+     * and the signature contains a {@link SAMLObjectContentReference} with a transform of either 
      * {@link SignatureConstants#TRANSFORM_C14N_EXCL_OMIT_COMMENTS}
      * or {@link SignatureConstants#TRANSFORM_C14N_EXCL_WITH_COMMENTS}, 
      * it declares on the object all non-visible namespaces
@@ -53,7 +53,7 @@ public final class SAMLObjectHelper {
      * @param signableObject the signable SAML object to evaluate
      */
     public static void declareNonVisibleNamespaces(SignableSAMLObject signableObject) {
-        if (signableObject.getSignature() != null) {
+        if (signableObject.getDOM() == null && signableObject.getSignature() != null) {
             LOG.debug("Examing signed object for content references with exclusive canonicalization transform");
             boolean sawExclusive = false;
             for (ContentReference cr : signableObject.getSignature().getContentReferences()) {
