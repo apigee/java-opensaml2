@@ -35,7 +35,6 @@ import org.apache.commons.httpclient.protocol.Protocol;
 import org.apache.commons.httpclient.protocol.ProtocolSocketFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.MessageFormatter;
 
 /**
  * A metadata provider that pulls metadata using an HTTP GET. Metadata is cached until one of these criteria is met:
@@ -245,9 +244,8 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
             }
 
             if (getMethod.getStatusCode() != HttpStatus.SC_OK) {
-                String errMsg = MessageFormatter.format(
-                        "Non-ok status code '{}' returned from remote metadata source '{}'", getMethod.getStatusCode(),
-                        metadataURI);
+                String errMsg = "Non-ok status code " + getMethod.getStatusCode()
+                        + " returned from remote metadata source " + metadataURI;
                 log.error(errMsg);
                 throw new MetadataProviderException(errMsg);
             }
@@ -259,7 +257,7 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
 
             return rawMetadata;
         } catch (IOException e) {
-            String errMsg = MessageFormatter.format("Error retrieving metadata from '{}'", metadataURI);
+            String errMsg = "Error retrieving metadata from " + metadataURI;
             log.error(errMsg, e);
             throw new MetadataProviderException(errMsg, e);
         }

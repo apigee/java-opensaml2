@@ -26,7 +26,6 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.DatatypeHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.MessageFormatter;
 import org.w3c.dom.Document;
 
 /**
@@ -125,8 +124,8 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
                 try {
                     return DatatypeHelper.fileToByteArray(metadataBackupFile);
                 } catch (IOException ioe) {
-                    String errMsg = MessageFormatter.format("Unable to retrieve metadata from backup file",
-                            metadataBackupFile.getAbsolutePath());
+                    String errMsg = "Unable to retrieve metadata from backup file "
+                            + metadataBackupFile.getAbsolutePath();
                     log.error(errMsg, ioe);
                     throw new MetadataProviderException(errMsg, ioe);
                 }
@@ -148,8 +147,7 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
             out.close();
             super.postProcessMetadata(metadataBytes, metadataDom, metadata);
         } catch (IOException e) {
-            String errMsg = MessageFormatter.format("Unable to write metadata to backup file {}", metadataBackupFile
-                    .getAbsolutePath());
+            String errMsg = "Unable to write metadata to backup file " + metadataBackupFile.getAbsolutePath();
             log.error(errMsg);
             throw new MetadataProviderException(errMsg, e);
         }

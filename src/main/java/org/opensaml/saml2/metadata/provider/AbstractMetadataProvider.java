@@ -38,7 +38,6 @@ import org.opensaml.xml.util.DatatypeHelper;
 import org.opensaml.xml.util.XMLHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.MessageFormatter;
 import org.w3c.dom.Document;
 
 /** An abstract, base, implementation of a metadata provider. */
@@ -452,8 +451,8 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             log.trace("Unmarshalling and caching metdata DOM");
             Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(mdDocument.getDocumentElement());
             if (unmarshaller == null) {
-                String msg = MessageFormatter.format("No unmarshaller registered for document element {}", XMLHelper
-                        .getNodeQName(mdDocument.getDocumentElement()));
+                String msg ="No unmarshaller registered for document element " + XMLHelper
+                        .getNodeQName(mdDocument.getDocumentElement());
                 log.error(msg);
                 throw new UnmarshallingException(msg);
             }

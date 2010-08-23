@@ -30,7 +30,6 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.MessageFormatter;
 import org.w3c.dom.Document;
 
 /**
@@ -341,7 +340,7 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
     protected void processPreExpiredMetadata(String metadataIdentifier, DateTime refreshStart, byte[] metadataBytes,
             XMLObject metadata) {
         log.warn("Entire metadata document from '{}' was expired at time of loading", metadataIdentifier);
-        
+
         lastUpdate = refreshStart;
         taskTimer.schedule(new RefreshMetadataTask(), getMinRefreshDelay());
         nextRefresh = new DateTime(ISOChronology.getInstanceUTC()).plus(getMinRefreshDelay());
@@ -357,6 +356,8 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
      * @param refreshStart when the current refresh cycle started
      * @param metadataBytes raw bytes of the new metadata document
      * @param metadata new metadata document unmarshalled
+     * 
+     * @throws MetadataProviderException thrown if there s a problem processing the metadata
      */
     protected void processNonExpiredMetadata(String metadataIdentifier, DateTime refreshStart, byte[] metadataBytes,
             XMLObject metadata) throws MetadataProviderException {
@@ -366,7 +367,7 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         try {
             filterMetadata(metadata);
         } catch (FilterException e) {
-            String errMsg = MessageFormatter.format("Error filtering metadata from '{}'", metadataIdentifier);
+            String errMsg = "Error filtering metadata from " + metadataIdentifier;
             log.error(errMsg, e);
             throw new MetadataProviderException(errMsg, e);
         }
@@ -392,8 +393,8 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         nextRefresh = new DateTime(ISOChronology.getInstanceUTC()).plus(nextRefreshDelay);
 
         emitChangeEvent();
-        log.info("New metadata loaded from '{}', next refresh will occur at approximately {}",
-                getMetadataIdentifier(), nextRefresh);
+        log.info("New metadata loaded from '{}', next refresh will occur at approximately {}", getMetadataIdentifier(),
+                nextRefresh);
     }
 
     /**

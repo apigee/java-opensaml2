@@ -23,7 +23,6 @@ import java.util.Timer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.helpers.MessageFormatter;
 
 /**
  * A metadata provider that pulls metadata from a file on the local filesystem.
@@ -132,8 +131,7 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
         try {
             return inputstreamToByteArray(new FileInputStream(metadataFile));
         } catch (IOException e) {
-            String errMsg = MessageFormatter
-                    .format("Unable to read metadata file '{}'", metadataFile.getAbsolutePath());
+            String errMsg = "Unable to read metadata file " + metadataFile.getAbsolutePath();
             log.error(errMsg, e);
             throw new MetadataProviderException(errMsg, e);
         }
