@@ -13,6 +13,12 @@
         (SAML).
     </description>
     
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <xerces.groupId>org.apache.xerces</xerces.groupId>
+        <xerces.version>2.10.0</xerces.version>
+    </properties>
+    
     <repositories>
         <repository>
             <id>shibboleth-release</id>
@@ -95,27 +101,27 @@
         
         <!-- Runtime dependencies -->
         <dependency>
-            <groupId>org.apache.xerces</groupId>
+            <groupId>${xerces.groupId}</groupId>
             <artifactId>xml-apis</artifactId>
-            <version>2.9.1</version>
+            <version>${xerces.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.xerces</groupId>
+            <groupId>${xerces.groupId}</groupId>
             <artifactId>xercesImpl</artifactId>
-            <version>2.9.1</version>
+            <version>${xerces.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.xerces</groupId>
+            <groupId>${xerces.groupId}</groupId>
             <artifactId>resolver</artifactId>
-            <version>2.9.1</version>
+            <version>${xerces.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.xerces</groupId>
+            <groupId>${xerces.groupId}</groupId>
             <artifactId>serializer</artifactId>
-            <version>2.9.1</version>
+            <version>${xerces.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -141,7 +147,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>0.9.18</version>
+            <version>0.9.24</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

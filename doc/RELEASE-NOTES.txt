@@ -18,6 +18,7 @@ Changes in Release 2.4.0
 [JOST-123] - Use of invalide metadata results in strange error from RequiredValidUntil filter
 [JOST-124] - Metadata providers could log a warning if the initial metadata they get is expired
 [JOST-126] - Declare all non-visibly used namespaces on a signed SignableSAMLObject
+[JOST-127] - Update 3rd party libraries for 2.4.0 release
 
 Changes in Release 2.3.2
 =============================================
