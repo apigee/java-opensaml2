@@ -17,7 +17,6 @@
 package org.opensaml.saml2.metadata.provider;
 
 import org.joda.time.DateTime;
-import org.joda.time.Interval;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -49,10 +48,10 @@ public class RequiredValidUntilFilter implements MetadataFilter {
     /**
      * Constructor.
      * 
-     * @param maxValidityInterval maximum internal, in seconds, between now and the <code>validUntil</code> date
+     * @param maxValidity maximum internal, in seconds, between now and the <code>validUntil</code> date
      */
-    public RequiredValidUntilFilter(long maxValidityInterval) {
-        this.maxValidityInterval = maxValidityInterval * 1000;
+    public RequiredValidUntilFilter(long maxValidity) {
+        this.maxValidityInterval = maxValidity * 1000;
     }
 
     /**
@@ -75,7 +74,7 @@ public class RequiredValidUntilFilter implements MetadataFilter {
 
         DateTime now = new DateTime(ISOChronology.getInstanceUTC());
         if (maxValidityInterval > 0 && validUntil.isAfter(now)) {
-            long validityInterval = new Interval(now, validUntil).toDurationMillis();
+            long validityInterval = now.getMillis() - validUntil.getMillis();
             if (validityInterval > maxValidityInterval) {
                 throw new FilterException("Metadata's validity interval, " + validityInterval
                         + "ms, is larger than is allowed, " + maxValidityInterval + "ms.");
