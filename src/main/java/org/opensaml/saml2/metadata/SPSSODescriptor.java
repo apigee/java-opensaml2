@@ -118,9 +118,9 @@ public interface SPSSODescriptor extends SSODescriptor {
     public AssertionConsumerService getDefaultAssertionConsumerService();
 
     /**
-     * Gets an list of attribute consuming service {@link Endpoint}s for this service.
+     * Gets an list of attribute consuming service descriptors for this service.
      * 
-     * @return list of attribute consuming service {@link Endpoint}s for this service
+     * @return list of attribute consuming service descriptors for this service
      */
     public List<AttributeConsumingService> getAttributeConsumingServices();
     
