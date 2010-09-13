@@ -30,6 +30,8 @@ public final class SAML2MetadataHelper {
     /** Class logger. */
     private static final Logger LOG = LoggerFactory.getLogger(SAML2MetadataHelper.class);
     
+    /** Constructor. */
+    private SAML2MetadataHelper() { }
 
     /**
      * Select the default {@link IndexedEndpoint} from a list of candidates.
