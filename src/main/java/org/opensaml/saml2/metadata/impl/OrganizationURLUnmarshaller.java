@@ -20,12 +20,15 @@
 
 package org.opensaml.saml2.metadata.impl;
 
+import javax.xml.namespace.QName;
+
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.saml2.metadata.OrganizationURL;
+import org.opensaml.xml.LangBearing;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
@@ -37,8 +40,8 @@ public class OrganizationURLUnmarshaller extends AbstractSAMLObjectUnmarshaller 
      * {@inheritDoc}
      */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-        if (attribute.getLocalName().equals(OrganizationURL.LANG_ATTRIB_NAME)
-                && attribute.getNamespaceURI().equals(SAMLConstants.XML_NS)) {
+        QName attribName = XMLHelper.getNodeQName(attribute);
+        if (LangBearing.XML_LANG_ATTR_NAME.equals(attribName)) {
             OrganizationURL url = (OrganizationURL) samlObject;
 
             LocalizedString urlStr = url.getURL();
