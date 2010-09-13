@@ -74,8 +74,13 @@ public abstract class SSODescriptorImpl extends RoleDescriptorImpl implements SS
     }
     
     /** {@inheritDoc} */
-    public ArtifactResolutionService getDefaultArtificateResolutionService(){
+    public ArtifactResolutionService getDefaultArtifactResolutionService(){
         return SAML2MetadataHelper.getDefaultIndexedEndpoint(artifactResolutionServices);
+    }
+    
+    /** {@inheritDoc} */
+    public ArtifactResolutionService getDefaultArtificateResolutionService(){
+        return getDefaultArtifactResolutionService();
     }
 
     /** {@inheritDoc} */

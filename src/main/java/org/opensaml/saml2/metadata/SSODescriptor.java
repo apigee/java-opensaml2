@@ -61,6 +61,25 @@ public interface SSODescriptor extends RoleDescriptor {
      * </p>
      * 
      * @return default artifact resolution service (or null if there are no artifact resolution services defined)
+     * 
+     */
+    public ArtifactResolutionService getDefaultArtifactResolutionService();
+    
+    /**
+     * Gets the default artifact resolution service.
+     * 
+     * <p>
+     * The selection algorithm used is:
+     * <ol>
+     * <li>Select the first service with an explicit <code>isDefault=true</code></li>
+     * <li>Select the first service with no explicit <code>isDefault</code></li>
+     * <li>Select the first service</li>
+     * </ol>
+     * </p>
+     * 
+     * @return default artifact resolution service (or null if there are no artifact resolution services defined)
+     * 
+     * @deprecated replacement {@link #getDefaultArtifactResolutionService()}
      */
     public ArtifactResolutionService getDefaultArtificateResolutionService();
 
