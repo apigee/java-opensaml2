@@ -32,6 +32,7 @@ import org.opensaml.saml2.metadata.ManageNameIDService;
 import org.opensaml.saml2.metadata.NameIDFormat;
 import org.opensaml.saml2.metadata.SSODescriptor;
 import org.opensaml.saml2.metadata.SingleLogoutService;
+import org.opensaml.saml2.metadata.support.SAML2MetadataHelper;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
@@ -74,13 +75,7 @@ public abstract class SSODescriptorImpl extends RoleDescriptorImpl implements SS
     
     /** {@inheritDoc} */
     public ArtifactResolutionService getDefaultArtificateResolutionService(){
-        for(ArtifactResolutionService service : artifactResolutionServices){
-            if(service.isDefault()){
-                return service;
-            }
-        }
-        
-        return null;
+        return SAML2MetadataHelper.getDefaultIndexedEndpoint(artifactResolutionServices);
     }
 
     /** {@inheritDoc} */

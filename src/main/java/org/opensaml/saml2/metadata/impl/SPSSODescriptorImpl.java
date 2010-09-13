@@ -30,6 +30,8 @@ import org.opensaml.saml2.metadata.AssertionConsumerService;
 import org.opensaml.saml2.metadata.AttributeConsumingService;
 import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
+import org.opensaml.saml2.metadata.support.AttributeConsumingServiceSelector;
+import org.opensaml.saml2.metadata.support.SAML2MetadataHelper;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.util.XMLObjectChildrenList;
@@ -125,19 +127,7 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     
     /** {@inheritDoc} */
     public AssertionConsumerService getDefaultAssertionConsumerService() {
-        for (AssertionConsumerService service : assertionConsumerServices) {
-            if (service.isDefault()) {
-                return service;
-            }
-        }
-
-        if (assertionConsumerServices.size() > 0) {
-            return assertionConsumerServices.get(0);
-        } else {
-            System.err.println("FOOBAR");
-        }
-
-        return null;
+        return SAML2MetadataHelper.getDefaultIndexedEndpoint(assertionConsumerServices);
     }
 
     /** {@inheritDoc} */
@@ -147,13 +137,9 @@ public class SPSSODescriptorImpl extends SSODescriptorImpl implements SPSSODescr
     
     /** {@inheritDoc} */
     public AttributeConsumingService getDefaultAttributeConsumingService(){
-        for(AttributeConsumingService service : attributeConsumingServices){
-            if(service.isDefault()){
-                return service;
-            }
-        }
-        
-        return null;
+        AttributeConsumingServiceSelector selector = new AttributeConsumingServiceSelector();
+        selector.setRoleDescriptor(this);
+        return selector.selectService();
     }
     
     /** {@inheritDoc} */

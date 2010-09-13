@@ -21,6 +21,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.support.SAML2MetadataHelper;
 
 
 /**
@@ -48,9 +49,18 @@ public interface SSODescriptor extends RoleDescriptor {
 	public List<ArtifactResolutionService> getArtifactResolutionServices();
     
     /**
-     * Gets the default artifact resolution service or null if no service is marked as the default.
+     * Gets the default artifact resolution service.
      * 
-     * @return default artifact resolution service or null if no service is marked as the default
+     * <p>
+     * The selection algorithm used is:
+     * <ol>
+     * <li>Select the first service with an explicit <code>isDefault=true</code></li>
+     * <li>Select the first service with no explicit <code>isDefault</code></li>
+     * <li>Select the first service</li>
+     * </ol>
+     * </p>
+     * 
+     * @return default artifact resolution service (or null if there are no artifact resolution services defined)
      */
     public ArtifactResolutionService getDefaultArtificateResolutionService();
 

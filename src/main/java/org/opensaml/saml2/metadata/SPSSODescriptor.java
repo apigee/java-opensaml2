@@ -21,6 +21,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.support.SAML2MetadataHelper;
 import org.opensaml.xml.schema.XSBooleanValue;
 
 /**
@@ -111,9 +112,18 @@ public interface SPSSODescriptor extends SSODescriptor {
     public List<AssertionConsumerService> getAssertionConsumerServices();
     
     /**
-     * Gets the default assertion consumer service or null if no service is marked as the default.
+     * Gets the default assertion consumer service.
      * 
-     * @return default assertion consumer service or null if no service is marked as the default
+     * <p>
+     * The selection algorithm used is:
+     * <ol>
+     * <li>Select the first service with an explicit <code>isDefault=true</code></li>
+     * <li>Select the first service with no explicit <code>isDefault</code></li>
+     * <li>Select the first service</li>
+     * </ol>
+     * </p>
+     * 
+     * @return default assertion consumer service (or null if there are no assertion consumer services defined)
      */
     public AssertionConsumerService getDefaultAssertionConsumerService();
 
@@ -125,9 +135,18 @@ public interface SPSSODescriptor extends SSODescriptor {
     public List<AttributeConsumingService> getAttributeConsumingServices();
     
     /**
-     * Gets the default attribute consumer service or null if no service is marked as the default.
+     * Gets the default attribute consuming service.
      * 
-     * @return default attribute consumer service or null if no service is marked as the default
+     * <p>
+     * The selection algorithm used is:
+     * <ol>
+     * <li>Select the first service with an explicit <code>isDefault=true</code></li>
+     * <li>Select the first service with no explicit <code>isDefault</code></li>
+     * <li>Select the first service</li>
+     * </ol>
+     * </p>
+     * 
+     * @return default attribute consuming service (or null if there are no attribute consuming services defined) 
      */
     public AttributeConsumingService getDefaultAttributeConsumingService();
 }

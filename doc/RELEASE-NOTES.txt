@@ -20,6 +20,7 @@ Changes in Release 2.4.0
 [JOST-125] - FileBackedHTTPMetadataProvider stops reloading metadata under certain conditions
 [JOST-126] - Declare all non-visibly used namespaces on a signed SignableSAMLObject
 [JOST-127] - Update 3rd party libraries for 2.4.0 release
+[JOST-128] - Defaulting of various metadata collections may be incorrect
 
 Changes in Release 2.3.2
 =============================================
