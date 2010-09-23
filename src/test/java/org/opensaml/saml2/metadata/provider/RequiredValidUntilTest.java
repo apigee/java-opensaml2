@@ -25,6 +25,7 @@ import org.opensaml.Configuration;
 import org.opensaml.common.BaseTestCase;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.XMLObjectBuilder;
 
 /** Unit test for {@link RequiredValidUntilFilter}. */
