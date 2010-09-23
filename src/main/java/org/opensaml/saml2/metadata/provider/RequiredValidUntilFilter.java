@@ -74,7 +74,7 @@ public class RequiredValidUntilFilter implements MetadataFilter {
 
         DateTime now = new DateTime(ISOChronology.getInstanceUTC());
         if (maxValidityInterval > 0 && validUntil.isAfter(now)) {
-            long validityInterval = now.getMillis() - validUntil.getMillis();
+            long validityInterval = validUntil.getMillis() - now.getMillis();
             if (validityInterval > maxValidityInterval) {
                 throw new FilterException("Metadata's validity interval, " + validityInterval
                         + "ms, is larger than is allowed, " + maxValidityInterval + "ms.");
