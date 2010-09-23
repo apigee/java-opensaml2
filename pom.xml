@@ -281,17 +281,6 @@
                     <javadocDir>${project.reporting.outputDirectory}/apidocs</javadocDir>                    
                 </configuration>
             </plugin>
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <outputDirectory>${project.reporting.outputDirectory}/style</outputDirectory>
-                    <enableRSS>false</enableRSS>
-                </configuration>
-            </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
@@ -333,19 +322,6 @@
                                 <phase>package</phase>
                                 <goals>
                                     <goal>jxr</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>release-checkstyle</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>checkstyle</goal>
                                 </goals>
                             </execution>
                         </executions>
