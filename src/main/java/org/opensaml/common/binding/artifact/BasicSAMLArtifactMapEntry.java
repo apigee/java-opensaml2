@@ -206,6 +206,13 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
         if (parserPool == null) {
             throw new XMLRuntimeException("No ParserPool was available for parsing the deserialized artifact map entry");
         }
+        
+        log.debug("Deserializing SAMLObject from a string");
+        if (log.isTraceEnabled()) {
+            log.trace("Serialized SAMLObject data was:");
+            log.trace(getSerializedMessage());
+        }
+        
         StringReader reader = new StringReader(getSerializedMessage());
         try {
             SAMLObject samlObject = (SAMLObject) XMLObjectHelper.unmarshallFromReader(parserPool, reader);
