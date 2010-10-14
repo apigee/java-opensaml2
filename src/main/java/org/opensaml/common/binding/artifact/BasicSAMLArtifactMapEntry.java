@@ -116,6 +116,13 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
 
     /** {@inheritDoc} */
     public SAMLObject getSamlMessage() {
+        if (message == null) {
+            try {
+                deserializeMessage();
+            } catch (IOException e) {
+                throw new XMLRuntimeException("Error deserializaing SAML message data", e);
+            }
+        }
         return message;
     }
 
@@ -125,6 +132,9 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
      * @param saml SAML message mapped to the artifact
      */
     void setSAMLMessage(SAMLObject saml) {
+        if (saml == null) {
+            throw new IllegalArgumentException("SAMLObject message may not be null");
+        }
         message = saml;
         // Clear the cached serialized version 
         serializedMessage = null;
@@ -150,19 +160,17 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
     String getSerializedMessage() {
         return serializedMessage;
     }
-    
+     
     /**
-     * Serialize the entry to the object output stream.
-     * 
-     * @param out the output stream to which to serialize
-     * @throws IOException if there is a problem serializing the entry
+     *  Serialize the SAMLObject held by the entry and store in the class.
+     *  
+     *  <p>This option is provided where explicit pre-serialization of the data 
+     *  is either necessary or desirable.</p>
      */
-    private void writeObject(ObjectOutputStream out) throws IOException {
-        
+    void serializeMessage() {
         if (log == null) {
             log = LoggerFactory.getLogger(BasicSAMLArtifactMapEntry.class);
         }
-        log.debug("Serializing object data to ObjectOutputStream");
         
         if (serializedMessage == null) {
             log.debug("Serializing SAMLObject to a string");
@@ -182,9 +190,66 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
         } else {
             log.debug("SAMLObject was already serialized, skipping marshall and serialize step");
         }
+    }
+    
+    /**
+     *  Deserialize the serialized message data held by the entry so that it is available
+     *  as the SAMLObject samleMessage property.
+     *  
+     *  <p>This option is provided where explicit deserialization of the data 
+     *  is either necessary or desirable.</p>
+     *  
+     *  @throws IOException if there is a problem parsing or unmarshalling the serialized message
+     */
+    void deserializeMessage() throws IOException {
+        if (log == null) {
+            log = LoggerFactory.getLogger(BasicSAMLArtifactMapEntry.class);
+        }
+        
+        if (message == null) {
+            if (getSerializedMessage() == null) {
+                throw new XMLRuntimeException("Serialized SAML message data was not available for deserialization");
+            }
+            
+            ParserPool parserPool = Configuration.getParserPool();
+            if (parserPool == null) {
+                throw new XMLRuntimeException(
+                        "No ParserPool was available for parsing the deserialized artifact map entry");
+            }
+            log.debug("Deserializing SAMLObject from a string");
+            if (log.isTraceEnabled()) {
+                log.trace("Serialized SAMLObject data was:");
+                log.trace(getSerializedMessage());
+            }
+            StringReader reader = new StringReader(getSerializedMessage());
+            try {
+                SAMLObject samlObject = (SAMLObject) XMLObjectHelper.unmarshallFromReader(parserPool, reader);
+                message = samlObject;
+            } catch (XMLParserException e) {
+                throw new IOException("Error parsing XML into DOM: " + e.getMessage());
+            } catch (UnmarshallingException e) {
+                throw new IOException("Error unmarshalling DOM into SAMLObject: " + e.getMessage());
+            }
+        }
+    }
+    
+    /**
+     * Serialize the entry to the object output stream.
+     * 
+     * @param out the output stream to which to serialize
+     * @throws IOException if there is a problem serializing the entry
+     */
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        if (log == null) {
+            log = LoggerFactory.getLogger(BasicSAMLArtifactMapEntry.class);
+        }
+        log.debug("Serializing object data to ObjectOutputStream");
+        
+        serializeMessage();
         
         out.defaultWriteObject();
     }
+
 
     /**
      * Deserialize the entry from the input stream.
@@ -194,7 +259,6 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
      * @throws ClassNotFoundException if there is a problem loading the class of the object
      */
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-        
         if (log == null) {
             log = LoggerFactory.getLogger(BasicSAMLArtifactMapEntry.class);
         }
@@ -202,26 +266,7 @@ public class BasicSAMLArtifactMapEntry extends AbstractExpiringObject implements
         
         in.defaultReadObject();
         
-        ParserPool parserPool = Configuration.getParserPool();
-        if (parserPool == null) {
-            throw new XMLRuntimeException("No ParserPool was available for parsing the deserialized artifact map entry");
-        }
-        
-        log.debug("Deserializing SAMLObject from a string");
-        if (log.isTraceEnabled()) {
-            log.trace("Serialized SAMLObject data was:");
-            log.trace(getSerializedMessage());
-        }
-        
-        StringReader reader = new StringReader(getSerializedMessage());
-        try {
-            SAMLObject samlObject = (SAMLObject) XMLObjectHelper.unmarshallFromReader(parserPool, reader);
-            setSAMLMessage(samlObject);
-        } catch (XMLParserException e) {
-            throw new IOException("Error parsing XML into DOM: " + e.getMessage());
-        } catch (UnmarshallingException e) {
-            throw new IOException("Error unmarshalling DOM into SAMLObject: " + e.getMessage());
-        }
-        
+        deserializeMessage();
     }
+
 }

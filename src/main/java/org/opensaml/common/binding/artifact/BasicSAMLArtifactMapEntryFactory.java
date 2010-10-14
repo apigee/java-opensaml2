@@ -32,8 +32,38 @@ import org.opensaml.xml.util.XMLObjectHelper;
  * then it will be stored as-is.  If it does have a parent, it will first be cloned,
  * with its cloned and cached DOM rooted in a new Document.
  * </p>
+ * 
+ * <p>
+ * If the <code>serializeMessage</code> property is true, then the SAMLObject held by the
+ * entry will be internally serialized within the entry before it is returned.
+ * This option defaults to false.
+ * </p>
  */
 public class BasicSAMLArtifactMapEntryFactory implements SAMLArtifactMapEntryFactory {
+    
+    /** Flag determining whether the SAMLObject message should be explicitly serialized
+     * on creation of the new artifact map entry. */
+    private boolean serializeMessage;
+
+    /** 
+     * Set the flag determining whether the SAMLObject message should be explicitly serialized
+     * on creation of the new artifact map entry. Defaults to false.
+     * 
+     * @param newSerializeMessage the new flag value 
+     */
+    public void setSerializeMessage(boolean newSerializeMessage) {
+        serializeMessage = newSerializeMessage;
+    }
+
+    /**
+     * Get the flag determining whether the SAMLObject message should be explicitly serialized
+     * on creation of the new artifact map entry. Defaults to false.
+     * 
+     * @return the current flag value
+     */
+    public boolean isSerializeMessage() {
+        return serializeMessage;
+    }
 
     /** {@inheritDoc} */
     public SAMLArtifactMapEntry newEntry(String artifact, String issuerId, String relyingPartyId,
@@ -41,7 +71,13 @@ public class BasicSAMLArtifactMapEntryFactory implements SAMLArtifactMapEntryFac
         
         SAMLObject newSAMLMessage = getStorableSAMLMessage(samlMessage);
         
-        return new BasicSAMLArtifactMapEntry(artifact, issuerId, relyingPartyId, newSAMLMessage , lifetime);
+        BasicSAMLArtifactMapEntry  entry = 
+            new BasicSAMLArtifactMapEntry(artifact, issuerId, relyingPartyId, newSAMLMessage , lifetime);
+        
+        if (serializeMessage) {
+            entry.serializeMessage();
+        }
+        return entry;
     }
 
     /**

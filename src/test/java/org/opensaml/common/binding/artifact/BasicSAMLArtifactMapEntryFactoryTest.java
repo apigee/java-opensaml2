@@ -55,5 +55,19 @@ public class BasicSAMLArtifactMapEntryFactoryTest extends BaseTestCase {
         assertFalse("Parent-ed SAMLObject resulted in the same object in entry", 
                 samlObject == entry.getSamlMessage());
     }
+    
+    public void testNoSerialization() {
+        factory.setSerializeMessage(false);
+        SAMLArtifactMapEntry entry = factory.newEntry("the-artifact", "the-issuer", "the-rp", samlObject, 60*60*1000);
+        BasicSAMLArtifactMapEntry basicEntry = (BasicSAMLArtifactMapEntry) entry;
+        assertNull("Serialized data was not null", basicEntry.getSerializedMessage());
+    }
+    
+    public void testWithSerialization() {
+        factory.setSerializeMessage(true);
+        SAMLArtifactMapEntry entry = factory.newEntry("the-artifact", "the-issuer", "the-rp", samlObject, 60*60*1000);
+        BasicSAMLArtifactMapEntry basicEntry = (BasicSAMLArtifactMapEntry) entry;
+        assertNotNull("Serialized data was null", basicEntry.getSerializedMessage());
+    }
 
 }

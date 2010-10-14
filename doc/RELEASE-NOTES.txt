@@ -1,3 +1,7 @@
+Changes in Release 2.4.1
+=============================================
+[JOST-137] - Option for BasicSAMLArtifactMapEntryFactory to explicitly serialize the SAML message in the newly created entry
+
 Changes in Release 2.4.0
 =============================================
 [JOST-36]  - XACML marshallers and unmarshallers should extend abstract superclasses

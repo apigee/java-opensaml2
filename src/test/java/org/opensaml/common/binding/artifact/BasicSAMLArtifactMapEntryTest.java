@@ -78,6 +78,17 @@ public class BasicSAMLArtifactMapEntryTest extends BaseTestCase {
         assertXMLEqual(origDocument, newDocument);
 
     }
+    
+    public void testMessageSerialization() {
+        BasicSAMLArtifactMapEntry entry = 
+            new BasicSAMLArtifactMapEntry(artifact, issuerId, rpId, samlObject, lifetime);
+        
+        assertNull(entry.getSerializedMessage());
+        
+        entry.serializeMessage();
+        
+        assertNotNull(entry.getSerializedMessage());
+    }
 
     protected Object serializeAndDeserialize(Object origObject) throws IOException, ClassNotFoundException {
         File dataFile = new File("artifact-entry-serialization-test.ser");
