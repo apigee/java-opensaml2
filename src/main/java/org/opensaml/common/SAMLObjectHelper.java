@@ -31,9 +31,6 @@ import org.slf4j.LoggerFactory;
  */
 public final class SAMLObjectHelper {
     
-    /** Class logger. */
-    private static final Logger LOG = LoggerFactory.getLogger(SAMLObjectHelper.class);
-
     /** Constructor. */
     private SAMLObjectHelper() { }
     
@@ -53,8 +50,9 @@ public final class SAMLObjectHelper {
      * @param signableObject the signable SAML object to evaluate
      */
     public static void declareNonVisibleNamespaces(SignableSAMLObject signableObject) {
+        Logger log = getLogger();
         if (signableObject.getDOM() == null && signableObject.getSignature() != null) {
-            LOG.debug("Examing signed object for content references with exclusive canonicalization transform");
+            log.debug("Examing signed object for content references with exclusive canonicalization transform");
             boolean sawExclusive = false;
             for (ContentReference cr : signableObject.getSignature().getContentReferences()) {
                 if (cr instanceof SAMLObjectContentReference) {
@@ -68,12 +66,21 @@ public final class SAMLObjectHelper {
             }
             
             if (sawExclusive) {
-                LOG.debug("Saw exclusive transform, declaring non-visible namespaces on signed object");
+                log.debug("Saw exclusive transform, declaring non-visible namespaces on signed object");
                 for (Namespace ns : signableObject.getNamespaceManager().getNonVisibleNamespaces()) {
                     signableObject.getNamespaceManager().registerNamespaceDeclaration(ns);
                 }
             }
         }
+    }
+    
+    /**
+     * Get an SLF4J Logger.
+     * 
+     * @return a Logger instance
+     */
+    private static Logger getLogger() {
+        return LoggerFactory.getLogger(SAMLObjectHelper.class);
     }
 
 }

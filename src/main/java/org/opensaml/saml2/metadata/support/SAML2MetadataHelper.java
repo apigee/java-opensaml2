@@ -18,6 +18,7 @@ package org.opensaml.saml2.metadata.support;
 
 import java.util.List;
 
+
 import org.opensaml.saml2.metadata.IndexedEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +27,6 @@ import org.slf4j.LoggerFactory;
  * Utility helper class for SAML 2 metadata objects.
  */
 public final class SAML2MetadataHelper {
-    
-    /** Class logger. */
-    private static final Logger LOG = LoggerFactory.getLogger(SAML2MetadataHelper.class);
     
     /** Constructor. */
     private SAML2MetadataHelper() { }
@@ -53,17 +51,18 @@ public final class SAML2MetadataHelper {
      * 
      */
     public static <T extends IndexedEndpoint> T getDefaultIndexedEndpoint(List<T> candidates) {
-        LOG.debug("Selecting default IndexedEndpoint");
+        Logger log = getLogger();
+        log.debug("Selecting default IndexedEndpoint");
         
         if (candidates == null || candidates.isEmpty()) {
-            LOG.debug("IndexedEndpoint list was null or empty, returning null");
+            log.debug("IndexedEndpoint list was null or empty, returning null");
             return null;
         }
         
         T firstNoDefault = null;
         for (T endpoint : candidates) {
             if (endpoint.isDefault()) {
-                LOG.debug("Selected IndexedEndpoint with explicit isDefault of true");
+                log.debug("Selected IndexedEndpoint with explicit isDefault of true");
                 return endpoint;
             }
             
@@ -74,12 +73,21 @@ public final class SAML2MetadataHelper {
         }
         
         if (firstNoDefault != null) {
-            LOG.debug("Selected first IndexedEndpoint with no explicit isDefault");
+            log.debug("Selected first IndexedEndpoint with no explicit isDefault");
             return firstNoDefault;
         } else  {
-            LOG.debug("Selected first IndexedEndpoint with explicit isDefault of false");
+            log.debug("Selected first IndexedEndpoint with explicit isDefault of false");
             return candidates.get(0);
         }
         
+    }
+    
+    /**
+     * Get an SLF4J Logger.
+     * 
+     * @return a Logger instance
+     */
+    private static Logger getLogger() {
+        return LoggerFactory.getLogger(SAML2MetadataHelper.class);
     }
 }

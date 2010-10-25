@@ -34,9 +34,6 @@ import org.slf4j.LoggerFactory;
  */
 public class DefaultBootstrap {
 
-    /** Class logger. */
-    private static Logger log = LoggerFactory.getLogger(DefaultBootstrap.class);
-
     /** List of default XMLTooling configuration files. */
     private static String[] xmlToolingConfigs = { 
         "/default-config.xml", 
@@ -138,6 +135,7 @@ public class DefaultBootstrap {
      * @throws ConfigurationException thrown is there is a problem initializing the library
      */
     protected static void initializeXMLSecurity() throws ConfigurationException {
+        Logger log = getLogger();
         String lineBreakPropName = "org.apache.xml.security.ignoreLineBreaks";
         // Don't override if it was set explicitly
         if (System.getProperty(lineBreakPropName) == null) {
@@ -155,6 +153,7 @@ public class DefaultBootstrap {
      * @throws ConfigurationException thrown if there is a problem initializing Velocity
      */
     protected static void initializeVelocity() throws ConfigurationException {
+        Logger log = getLogger();
         try {
             log.debug("Initializing Velocity template engine");
             Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
@@ -178,6 +177,7 @@ public class DefaultBootstrap {
      * @throws ConfigurationException thrown if there is a problem loading the configuration files
      */
     protected static void initializeXMLTooling(String[] providerConfigs) throws ConfigurationException {
+        Logger log = getLogger();
         Class clazz = Configuration.class;
         XMLConfigurator configurator = new XMLConfigurator();
 
@@ -193,8 +193,18 @@ public class DefaultBootstrap {
      * @throws ConfigurationException thrown if there is a problem initializing the artifact factory
      */
     protected static void initializeArtifactBuilderFactories() throws ConfigurationException {
+        Logger log = getLogger();
         log.debug("Initializing SAML Artifact builder factories");
         Configuration.setSAML1ArtifactBuilderFactory(new SAML1ArtifactBuilderFactory());
         Configuration.setSAML2ArtifactBuilderFactory(new SAML2ArtifactBuilderFactory());
+    }
+    
+    /**
+     * Get an SLF4J Logger.
+     * 
+     * @return a Logger instance
+     */
+    protected static Logger getLogger() {
+        return LoggerFactory.getLogger(DefaultBootstrap.class);
     }
 }
