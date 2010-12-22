@@ -55,10 +55,10 @@ public class RequiredValidUntilFilter implements MetadataFilter {
     }
 
     /**
-     * Gets the maximum internal, in seconds, between now and the <code>validUntil</code> date. A value of less than 1
+     * Gets the maximum internal, in milliseconds, between now and the <code>validUntil</code> date. A value of less than 1
      * indicates that there is no restriction.
      * 
-     * @return maximum internal, in seconds, between now and the <code>validUntil</code> date
+     * @return maximum internal, in milliseconds, between now and the <code>validUntil</code> date
      */
     public long getMaxValidityInterval() {
         return maxValidityInterval;
