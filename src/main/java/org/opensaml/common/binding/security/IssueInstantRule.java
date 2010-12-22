@@ -47,8 +47,8 @@ public class IssueInstantRule implements SecurityPolicyRule {
     /**
      * Constructor.
      * 
-     * @param newClockSkew the new clock skew value
-     * @param newExpires the new expiration value
+     * @param newClockSkew the new clock skew value (seconds)
+     * @param newExpires the new expiration value (seconds)
      */
     public IssueInstantRule(int newClockSkew, int newExpires) {
         clockSkew = newClockSkew;
