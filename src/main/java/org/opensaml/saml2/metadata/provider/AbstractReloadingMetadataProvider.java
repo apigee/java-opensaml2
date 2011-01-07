@@ -296,10 +296,10 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
     protected void processCachedMetadata(String metadataIdentifier, DateTime refreshStart)
             throws MetadataProviderException {
         log.debug("Computing new expiration time for cached metadata from '{}", metadataIdentifier);
-        DateTime metadatedExpirationTime = SAML2Helper.getEarliestExpiration(cachedMetadata, refreshStart
+        DateTime metadataExpirationTime = SAML2Helper.getEarliestExpiration(cachedMetadata, refreshStart
                 .plus(getMaxRefreshDelay()), refreshStart);
         log.debug("Expiration of cached metadata from '{}' will occur at {}", metadataIdentifier,
-                metadatedExpirationTime.toString());
+                metadataExpirationTime.toString());
 
         long nextRefreshDelay = computeNextRefreshDelay(expirationTime);
         taskTimer.schedule(new RefreshMetadataTask(), nextRefreshDelay);
@@ -379,20 +379,20 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         postProcessMetadata(metadataBytes, metadataDom, metadata);
 
         log.debug("Computing expiration time for metadata from '{}'", metadataIdentifier);
-        DateTime metadatedExpirationTime = SAML2Helper.getEarliestExpiration(metadata, refreshStart
+        DateTime metadataExpirationTime = SAML2Helper.getEarliestExpiration(metadata, refreshStart
                 .plus(getMaxRefreshDelay()), refreshStart);
-        log.debug("Expiration of metadata from '{}' will occur at {}", metadataIdentifier, metadatedExpirationTime
+        log.debug("Expiration of metadata from '{}' will occur at {}", metadataIdentifier, metadataExpirationTime
                 .toString());
 
         cachedMetadata = metadata;
         lastUpdate = refreshStart;
         
         long nextRefreshDelay;
-        if(metadatedExpirationTime.isBeforeNow()){
+        if(metadataExpirationTime.isBeforeNow()){
             expirationTime = new DateTime(ISOChronology.getInstanceUTC()).plus(getMinRefreshDelay());
             nextRefreshDelay = getMaxRefreshDelay();
         }else{
-            expirationTime = metadatedExpirationTime;
+            expirationTime = metadataExpirationTime;
             nextRefreshDelay = computeNextRefreshDelay(expirationTime);
         }
         taskTimer.schedule(new RefreshMetadataTask(), nextRefreshDelay);
