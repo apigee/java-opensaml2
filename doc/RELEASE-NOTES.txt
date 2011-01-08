@@ -3,6 +3,7 @@ Changes in Release 2.4.1
 [JOST-134] - Static helper classes should not use static Loggers
 [JOST-137] - Option for BasicSAMLArtifactMapEntryFactory to explicitly serialize the SAML message in the newly created entry
 [JOST-139] - Update libs for 2.4.1
+[JOST-140] - understoodHeaders fields not initialized in HTTPSOAP11Decoder no args constructor
 [JOST-142] - Replay rule passes "null" into replay check if requiredRule not set
 
 Changes in Release 2.4.0

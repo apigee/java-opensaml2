@@ -1,5 +1,5 @@
 /*
- * Copyright [2006] [University Corporation for Advanced Internet Development, Inc.]
+ * Copyright 2006 University Corporation for Advanced Internet Development, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package org.opensaml.saml2.binding.decoding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -54,6 +53,7 @@ public class HTTPSOAP11Decoder extends BaseSAML2MessageDecoder {
     /** Constructor. */
     public HTTPSOAP11Decoder() {
         super();
+        understoodHeaders = new LazyList<QName>();
     }
 
     /**
