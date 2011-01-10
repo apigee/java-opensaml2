@@ -301,7 +301,9 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         log.debug("Expiration of cached metadata from '{}' will occur at {}", metadataIdentifier,
                 metadataExpirationTime.toString());
 
+        expirationTime = metadataExpirationTime;
         long nextRefreshDelay = computeNextRefreshDelay(expirationTime);
+        nextRefresh = new DateTime(ISOChronology.getInstanceUTC()).plus(nextRefreshDelay);
         taskTimer.schedule(new RefreshMetadataTask(), nextRefreshDelay);
     }
 
