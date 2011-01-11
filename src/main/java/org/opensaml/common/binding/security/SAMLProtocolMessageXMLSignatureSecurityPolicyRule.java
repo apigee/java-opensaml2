@@ -127,17 +127,17 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLX
             if (evaluate(signature, contextIssuer, samlMsgCtx)) {
                 log.info("Validation of protocol message signature succeeded, message type: {}", msgType);
                 if (!samlMsgCtx.isInboundSAMLMessageAuthenticated()) {
-                    log.info("Authentication via protocol message signature succeeded for context issuer entity ID {}",
+                    log.debug("Authentication via protocol message signature succeeded for context issuer entity ID {}",
                             contextIssuer);
                     samlMsgCtx.setInboundSAMLMessageAuthenticated(true);
                 }
             } else {
-                log.warn("Validation of protocol message signature failed for context issuer '" + contextIssuer
+                log.debug("Validation of protocol message signature failed for context issuer '" + contextIssuer
                         + "', message type: " + msgType);
                 throw new SecurityPolicyException("Validation of protocol message signature failed");
             }
         } else {
-            log.warn("Context issuer unavailable, can not attempt SAML protocol message signature validation");
+            log.debug("Context issuer unavailable, can not attempt SAML protocol message signature validation");
             throw new SecurityPolicyException("Context issuer unavailable, can not validate signature");
         }
     }
@@ -162,7 +162,7 @@ public class SAMLProtocolMessageXMLSignatureSecurityPolicyRule extends BaseSAMLX
             try {
                 getSignaturePrevalidator().validate(signature);
             } catch (ValidationException e) {
-                log.warn("Protocol message signature failed signature pre-validation", e);
+                log.debug("Protocol message signature failed signature pre-validation", e);
                 throw new SecurityPolicyException("Protocol message signature failed signature pre-validation", e);
             }
         }
