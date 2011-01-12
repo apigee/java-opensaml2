@@ -24,6 +24,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.chrono.ISOChronology;
 import org.opensaml.saml2.common.SAML2Helper;
 import org.opensaml.xml.XMLObject;
@@ -402,7 +403,7 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
 
         emitChangeEvent();
         log.info("New metadata loaded from '{}', next refresh will occur at approximately {}", getMetadataIdentifier(),
-                nextRefresh);
+                nextRefresh.toDateTime(DateTimeZone.getDefault()));
     }
 
     /**
