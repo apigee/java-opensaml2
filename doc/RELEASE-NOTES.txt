@@ -6,6 +6,7 @@ Changes in Release 2.4.1
 [JOST-140] - understoodHeaders fields not initialized in HTTPSOAP11Decoder no args constructor
 [JOST-142] - Replay rule passes "null" into replay check if requiredRule not set
 [JOST-143] - Metadata refresh occuring every 5 minutes
+[JOST-144] - ResourcedBacked metadata provider with local files reloads too often
 
 Changes in Release 2.4.0
 =============================================
