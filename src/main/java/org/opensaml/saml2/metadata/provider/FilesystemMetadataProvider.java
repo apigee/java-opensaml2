@@ -21,6 +21,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Timer;
 
+import org.joda.time.DateTime;
+import org.joda.time.chrono.ISOChronology;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,26 +100,26 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
 
         metadataFile = file;
     }
-    
+
     /**
      * Gets whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
-     * @return whether cached metadata should be discarded if it expires and can not be refreshed. 
+     * @return whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
      * @deprecated use {@link #requireValidMetadata()} instead
      */
-    public boolean maintainExpiredMetadata(){
+    public boolean maintainExpiredMetadata() {
         return !requireValidMetadata();
     }
-    
+
     /**
      * Sets whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
      * @param maintain whether cached metadata should be discarded if it expires and can not be refreshed.
      * 
-     *  @deprecated use {@link #setRequireValidMetadata(boolean)} instead
+     * @deprecated use {@link #setRequireValidMetadata(boolean)} instead
      */
-    public void setMaintainExpiredMetadata(boolean maintain){
+    public void setMaintainExpiredMetadata(boolean maintain) {
         setRequireValidMetadata(!maintain);
     }
 
@@ -129,7 +131,12 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
     /** {@inheritDoc} */
     protected byte[] fetchMetadata() throws MetadataProviderException {
         try {
-            return inputstreamToByteArray(new FileInputStream(metadataFile));
+            DateTime metadataUpdateTime = new DateTime(metadataFile.lastModified(), ISOChronology.getInstanceUTC());
+            if (getLastRefresh() == null || metadataUpdateTime.isAfter(getLastRefresh())) {
+                return inputstreamToByteArray(new FileInputStream(metadataFile));
+            }
+
+            return null;
         } catch (IOException e) {
             String errMsg = "Unable to read metadata file " + metadataFile.getAbsolutePath();
             log.error(errMsg, e);
