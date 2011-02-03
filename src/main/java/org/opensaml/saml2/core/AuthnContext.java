@@ -158,7 +158,7 @@ public interface AuthnContext extends SAMLObject {
     public void setAuthnContextDeclRef(AuthnContextDeclRef newAuthnContextDeclRef);
 
     /**
-     * Gets the Authenticating Athorities of this Authentication Context.
+     * Gets the Authenticating Authorities of this Authentication Context.
      * 
      * @return AuthnContext AuthenticatingAuthorities
      */
