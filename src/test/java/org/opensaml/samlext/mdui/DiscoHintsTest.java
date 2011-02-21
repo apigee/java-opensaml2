@@ -35,10 +35,10 @@ import org.opensaml.samlext.saml2mdui.UIInfo;
 public class DiscoHintsTest extends BaseSAMLObjectProviderTestCase {
     
     /** Expected count of &lt;IPHint/&gt;. */
-    private final int expectedIPHintCount = 3;
+    private final int expectedIPHintCount = 2;
     
     /** Expected count of &lt;DomainHint/&gt;. */
-    private final int expectedDomainHintsCount = 2;
+    private final int expectedDomainHintsCount = 3;
     
     /** Expected count of &lt;GeolocationHint/&gt;. */
     private final int expectedGeolocationHintsCount = 1;
