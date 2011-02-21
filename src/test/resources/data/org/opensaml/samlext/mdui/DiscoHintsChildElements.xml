@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdui:DiscoHints xmlns:mdui="urn:oasis:names:tc:SAML:metadata:ui">
+    <mdui:DomainHint />
+    <mdui:IPHint />
+    <mdui:GeolocationHint />
+    <mdui:DomainHint />
+    <mdui:IPHint />
+    <mdui:DomainHint />
+</mdui:DiscoHints>
