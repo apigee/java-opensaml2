@@ -113,9 +113,8 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         EntitiesDescriptor descriptor = doGetEntitiesDescriptor(name);
         if (descriptor == null) {
             log.debug("Metadata document does not contain an EntitiesDescriptor with the name {}", name);
-        }
-
-        if (!isValid(descriptor)) {
+            return null;
+        } else if (!isValid(descriptor)) {
             log.debug("Metadata document contained an EntitiesDescriptor with the name {}, but it was no longer valid",
                     name);
             return null;
@@ -164,9 +163,8 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
         EntityDescriptor descriptor = doGetEntityDescriptor(entityID);
         if (descriptor == null) {
             log.debug("Metadata document does not contain an EntityDescriptor with the ID {}", entityID);
-        }
-
-        if (!isValid(descriptor)) {
+            return null;
+        } else if (!isValid(descriptor)) {
             log.debug("Metadata document contained an EntityDescriptor with the ID {}, but it was no longer valid",
                     entityID);
             return null;
