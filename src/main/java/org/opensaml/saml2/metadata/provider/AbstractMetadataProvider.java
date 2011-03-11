@@ -212,21 +212,21 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
 
         List<RoleDescriptor> roleDescriptors = doGetRole(entityID, roleName);
         if (roleDescriptors == null || roleDescriptors.isEmpty()) {
-            log.debug("Entity descriptor {} did not contain any {} roles", entityID, roleDescriptors);
+            log.debug("Entity descriptor {} did not contain any {} roles", entityID, roleName);
             return null;
         }
 
         Iterator<RoleDescriptor> roleDescItr = roleDescriptors.iterator();
         while (roleDescItr.hasNext()) {
             if (!isValid(roleDescItr.next())) {
-                log.debug("Metadata document contained a role of type {} for entity {}, but it was invalid", entityID,
-                        roleName);
+                log.debug("Metadata document contained a role of type {} for entity {}, but it was invalid", roleName,
+                        entityID);
                 roleDescItr.remove();
             }
         }
 
         if (roleDescriptors.isEmpty()) {
-            log.debug("Entity descriptor {} did not contain any valid {} roles", entityID, roleDescriptors);
+            log.debug("Entity descriptor {} did not contain any valid {} roles", entityID, roleName);
         }
         return roleDescriptors;
     }
