@@ -29,45 +29,36 @@ public interface AttributeDesignatorType extends ExpressionType {
     public static final String SUBJECT_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME = "SubjectAttributeDesignator";
 
     /** QName of the element SubjectAttributeDesignator. */
-    public static final QName SUBJECT_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME = new QName(
-	    XACMLConstants.XACML20_NS,
-	    SUBJECT_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME,
-	    XACMLConstants.XACML_PREFIX);
+    public static final QName SUBJECT_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME = new QName(XACMLConstants.XACML20_NS,
+            SUBJECT_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME, XACMLConstants.XACML_PREFIX);
 
     /** Local name of the element ResourceAttributeDesignator. */
     public static final String RESOURCE_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME = "ResourceAttributeDesignator";
 
     /** QName of the element ResourceAttributeDesignator. */
-    public static final QName RESOURCE_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME = new QName(
-	    XACMLConstants.XACML20_NS,
-	    RESOURCE_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME,
-	    XACMLConstants.XACML_PREFIX);
+    public static final QName RESOURCE_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME = new QName(XACMLConstants.XACML20_NS,
+            RESOURCE_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME, XACMLConstants.XACML_PREFIX);
 
     /** Local name of the element ActionAttributeDesignator. */
     public static final String ACTION_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME = "ActionAttributeDesignator";
 
     /** QName of the element ActionAttributeDesignator. */
-    public static final QName ACTION_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME = new QName(
-	    XACMLConstants.XACML20_NS,
-	    ACTION_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME,
-	    XACMLConstants.XACML_PREFIX);
+    public static final QName ACTION_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME = new QName(XACMLConstants.XACML20_NS,
+            ACTION_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME, XACMLConstants.XACML_PREFIX);
 
     /** Local name of the element EnvironmentAttribtueDesignator. */
-    public static final String ENVIRONMENT_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME = "EnvironmentAttribtueDesignator";
+    public static final String ENVIRONMENT_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME = "EnvironmentAttributeDesignator";
 
     /** QName of the element EnvironmentAttribtueDesignator. */
-    public static final QName ENVIRONMENT_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME = new QName(
-	    XACMLConstants.XACML20_NS,
-	    ENVIRONMENT_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME,
-	    XACMLConstants.XACML_PREFIX);
+    public static final QName ENVIRONMENT_ATTRIBUTE_DESIGNATOR_ELEMENT_NAME = new QName(XACMLConstants.XACML20_NS,
+            ENVIRONMENT_ATTRIBUTE_DESIGNATOR_ELEMENT_LOCAL_NAME, XACMLConstants.XACML_PREFIX);
 
     /** Local name of the XSI type. */
     public static final String SCHEMA_TYPE_LOCAL_NAME = "AttributeDesignatorType";
 
     /** QName of the XSI type. */
-    public static final QName SCHEMA_TYPE_NAME = new QName(
-	    XACMLConstants.XACML20_NS, SCHEMA_TYPE_LOCAL_NAME,
-	    XACMLConstants.XACML_PREFIX);
+    public static final QName SCHEMA_TYPE_NAME = new QName(XACMLConstants.XACML20_NS, SCHEMA_TYPE_LOCAL_NAME,
+            XACMLConstants.XACML_PREFIX);
 
     /** AttribtueId attribute name. */
     public static final String ATTRIBUTE_ID_ATTRIB_NAME = "AttributeId";
@@ -91,8 +82,7 @@ public interface AttributeDesignatorType extends ExpressionType {
     /**
      * Sets the ID of the designated attribute.
      * 
-     * @param id
-     *                ID of the designated attribute
+     * @param id ID of the designated attribute
      */
     public void setAttribtueId(String id);
 
@@ -106,8 +96,7 @@ public interface AttributeDesignatorType extends ExpressionType {
     /**
      * Sets the data type of the designated attribute.
      * 
-     * @param type
-     *                data type of the designated attribute
+     * @param type data type of the designated attribute
      */
     public void setDataType(String type);
 
@@ -121,8 +110,7 @@ public interface AttributeDesignatorType extends ExpressionType {
     /**
      * Sets the issuer of the designated attribute.
      * 
-     * @param issuer
-     *                issuer of the designated attribute
+     * @param issuer issuer of the designated attribute
      */
     public void setIssuer(String issuer);
 
@@ -136,16 +124,14 @@ public interface AttributeDesignatorType extends ExpressionType {
     /**
      * Sets whether the designated attribute must be present.
      * 
-     * @param present
-     *                whether the designated attribute must be present
+     * @param present whether the designated attribute must be present
      */
     public void setMustBePresentXSBoolean(XSBooleanValue present);
 
     /**
      * Sets whether the designated attribute must be present.
      * 
-     * @param present
-     *                whether the designated attribute must be present
+     * @param present whether the designated attribute must be present
      */
     public void setMustBePresent(Boolean present);
 

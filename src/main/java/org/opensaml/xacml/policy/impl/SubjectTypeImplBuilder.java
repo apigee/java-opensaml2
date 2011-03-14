@@ -18,21 +18,20 @@
 package org.opensaml.xacml.policy.impl;
 
 import org.opensaml.xacml.impl.AbstractXACMLObjectBuilder;
-import org.opensaml.xacml.policy.ActionType;
 import org.opensaml.xacml.policy.SubjectType;
 
 /**
- *Builder for {@link SubjectType}.
+ * Builder for {@link SubjectType}.
  */
 public class SubjectTypeImplBuilder extends AbstractXACMLObjectBuilder<SubjectType> {
 
     /** {@inheritDoc} */
     public SubjectType buildObject() {
-        return buildObject(ActionType.DEFAULT_ELEMENT_NAME);
+        return buildObject(SubjectType.DEFAULT_ELEMENT_NAME);
     }
-    
+
     /** {@inheritDoc} */
     public SubjectType buildObject(String namespaceURI, String localName, String namespacePrefix) {
-        return new SubjectTypeImpl(namespaceURI,localName,namespacePrefix);
+        return new SubjectTypeImpl(namespaceURI, localName, namespacePrefix);
     }
 }
