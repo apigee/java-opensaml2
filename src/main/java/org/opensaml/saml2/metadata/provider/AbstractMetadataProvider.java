@@ -20,9 +20,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.namespace.QName;
 
@@ -56,7 +57,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     private boolean failFastInitialization;
 
     /** Cache of entity IDs to their descriptors. */
-    private HashMap<String, EntityDescriptor> indexedDescriptors;
+    private Map<String, EntityDescriptor> indexedDescriptors;
 
     /** Pool of parsers used to process XML. */
     private ParserPool parser;
@@ -64,7 +65,7 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
     /** Constructor. */
     public AbstractMetadataProvider() {
         super();
-        indexedDescriptors = new HashMap<String, EntityDescriptor>();
+        indexedDescriptors = new ConcurrentHashMap<String, EntityDescriptor>();
         failFastInitialization = true;
         initialized = false;
     }

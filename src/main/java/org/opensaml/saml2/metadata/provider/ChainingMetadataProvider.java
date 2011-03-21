@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -61,10 +62,10 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
     private final Logger log = LoggerFactory.getLogger(ChainingMetadataProvider.class);
 
     /** List of registered observers. */
-    private ArrayList<Observer> observers;
+    private List<Observer> observers;
 
     /** Registered providers. */
-    private ArrayList<MetadataProvider> providers;
+    private List<MetadataProvider> providers;
 
     /** Lock used to block reads during write and vice versa. */
     private ReadWriteLock providerLock;
@@ -72,8 +73,8 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
     /** Constructor. */
     public ChainingMetadataProvider() {
         super();
-        observers = new ArrayList<Observer>();
-        providers = new ArrayList<MetadataProvider>();
+        observers = new CopyOnWriteArrayList<Observer>();
+        providers = Collections.EMPTY_LIST;
         providerLock = new ReentrantReadWriteLock(true);
     }
 
@@ -83,7 +84,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
      * @return list of currently registered providers
      */
     public List<MetadataProvider> getProviders() {
-        return Collections.unmodifiableList(providers);
+        return providers;
     }
 
     /**
@@ -94,9 +95,22 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
      * @throws MetadataProviderException thrown if there is a problem adding the metadata provider
      */
     public void setProviders(List<MetadataProvider> newProviders) throws MetadataProviderException {
-        providers.clear();
-        for (MetadataProvider provider : newProviders) {
-            addMetadataProvider(provider);
+        Lock writeLock = providerLock.writeLock();
+        writeLock.lock();
+
+        try {
+            if (newProviders == null || newProviders.isEmpty()) {
+                providers.clear();
+                return;
+            }
+
+            ArrayList<MetadataProvider> checkedProviders = new ArrayList<MetadataProvider>();
+            for (MetadataProvider provider : newProviders) {
+                doAddMetadataProvider(provider, checkedProviders);
+            }
+            providers = Collections.unmodifiableList(checkedProviders);
+        } finally {
+            writeLock.unlock();
         }
     }
 
@@ -108,14 +122,36 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
      * @throws MetadataProviderException thrown if there is a problem adding the metadata provider
      */
     public void addMetadataProvider(MetadataProvider newProvider) throws MetadataProviderException {
-        if (newProvider != null) {
-            newProvider.setRequireValidMetadata(requireValidMetadata());
+        Lock writeLock = providerLock.writeLock();
+        writeLock.lock();
 
-            if (newProvider instanceof ObservableMetadataProvider) {
-                ((ObservableMetadataProvider) newProvider).getObservers().add(new ContainedProviderObserver());
+        try {
+            ArrayList<MetadataProvider> checkedProviders = new ArrayList<MetadataProvider>(providers);
+            doAddMetadataProvider(newProvider, checkedProviders);
+            providers = Collections.unmodifiableList(checkedProviders);
+        } finally {
+            writeLock.unlock();
+        }
+    }
+
+    /**
+     * Adds a metadata provider to the given collection. The new provider is checked to see if it is null, if not the
+     * providers {@link MetadataProvider#requireValidMetadata()} property is set to the value of this metadata
+     * provider's property. If the given metadata provider is an instance of {@link ObservableMetadataProvider} then a
+     * {@link ContainedProviderObserver} is added to it as well.
+     * 
+     * @param provider provider to be added to the collection
+     * @param providerList collection to which the provider is added
+     */
+    protected void doAddMetadataProvider(MetadataProvider provider, List<MetadataProvider> providerList) {
+        if (provider != null) {
+            provider.setRequireValidMetadata(requireValidMetadata());
+
+            if (provider instanceof ObservableMetadataProvider) {
+                ((ObservableMetadataProvider) provider).getObservers().add(new ContainedProviderObserver());
             }
 
-            providers.add(newProvider);
+            providerList.add(provider);
         }
     }
 
@@ -125,8 +161,22 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
      * @param provider provider to be removed
      */
     public void removeMetadataProvider(MetadataProvider provider) {
-        // TODO we should remove the ContainedProviderObserver from the member's observer list
-        providers.remove(provider);
+        Lock writeLock = providerLock.writeLock();
+        writeLock.lock();
+
+        ObservableMetadataProvider observableProvider;
+        try {
+            if (providers.remove(provider) && provider instanceof ObservableMetadataProvider) {
+                observableProvider = (ObservableMetadataProvider) provider;
+                for (Observer observer : observableProvider.getObservers()) {
+                    if (observer instanceof ContainedProviderObserver) {
+                        observableProvider.getObservers().remove(observer);
+                    }
+                }
+            }
+        } finally {
+            writeLock.unlock();
+        }
     }
 
     /** {@inheritDoc} */
@@ -135,10 +185,13 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
 
         Lock writeLock = providerLock.writeLock();
         writeLock.lock();
-        for (MetadataProvider provider : providers) {
-            provider.setRequireValidMetadata(requireValidMetadata);
+        try {
+            for (MetadataProvider provider : providers) {
+                provider.setRequireValidMetadata(requireValidMetadata);
+            }
+        } finally {
+            writeLock.unlock();
         }
-        writeLock.unlock();
     }
 
     /** {@inheritDoc} */
@@ -149,7 +202,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
 
     /** {@inheritDoc} */
     public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
-        throw new UnsupportedOperationException("Metadata filter is not allowed on ChainingMetadataProvider");
+        throw new UnsupportedOperationException("Metadata filters are not supported on ChainingMetadataProviders");
     }
 
     /**
@@ -425,7 +478,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
         public IDIndex getIDIndex() {
             return null;
         }
-        
+
         /** {@inheritDoc} */
         public NamespaceManager getNamespaceManager() {
             return null;

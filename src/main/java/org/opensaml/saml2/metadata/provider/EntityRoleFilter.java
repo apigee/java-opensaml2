@@ -72,6 +72,7 @@ public class EntityRoleFilter implements MetadataFilter {
         if (keptRoles != null) {
             roleWhiteList.addAll(keptRoles);
         }
+        roleWhiteList = Collections.unmodifiableList(roleWhiteList);
 
         removeRolelessEntityDescriptors = true;
         removeEmptyEntitiesDescriptors = true;
@@ -83,7 +84,7 @@ public class EntityRoleFilter implements MetadataFilter {
      * @return unmodifiable list of roles that are NOT removed by this filter
      */
     public List<QName> getRoleWhiteList() {
-        return Collections.unmodifiableList(roleWhiteList);
+        return roleWhiteList;
     }
 
     /**

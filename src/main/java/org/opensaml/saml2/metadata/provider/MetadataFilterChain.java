@@ -17,6 +17,7 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.opensaml.xml.XMLObject;
@@ -33,13 +34,13 @@ public class MetadataFilterChain implements MetadataFilter {
     private Logger log = LoggerFactory.getLogger(MetadataFilterChain.class);
 
     /** Registered filters. */
-    private ArrayList<MetadataFilter> filters;
+    private List<MetadataFilter> filters;
 
     /**
      * Constructor.
      */
     public MetadataFilterChain() {
-        filters = new ArrayList<MetadataFilter>();
+        filters = Collections.emptyList();
     }
 
     /** {@inheritDoc} */
@@ -70,10 +71,17 @@ public class MetadataFilterChain implements MetadataFilter {
      * @param newFilters list of {@link MetadataFilter}s that make up this chain
      */
     public void setFilters(List<MetadataFilter> newFilters) {
-        filters.clear();
-
-        if (newFilters != null) {
-            filters.addAll(newFilters);
+        if (newFilters == null || newFilters.isEmpty()) {
+            filters.clear();
         }
+
+        ArrayList<MetadataFilter> checkedFilters = new ArrayList<MetadataFilter>();
+        for (MetadataFilter filter : newFilters) {
+            if (filter != null) {
+                checkedFilters.add(filter);
+            }
+        }
+
+        filters = checkedFilters;
     }
 }
