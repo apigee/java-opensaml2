@@ -18,7 +18,7 @@ package org.opensaml.samlext.idpdisco;
 
 import org.opensaml.saml2.metadata.impl.IndexedEndpointUnmarshaller;
 
-/** A thread-safe Unmarshaller for {@link org.opensaml.samlext.samlidpdisco.DiscoveryRespons} objects. */
+/** A thread-safe Unmarshaller for {@link org.opensaml.samlext.idpdisco.DiscoveryResponse} objects. */
 public class DiscoveryResponseUnmarshaller extends IndexedEndpointUnmarshaller {
 
 }

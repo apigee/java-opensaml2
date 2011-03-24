@@ -138,7 +138,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
      * Adds a metadata provider to the given collection. The new provider is checked to see if it is null, if not the
      * providers {@link MetadataProvider#requireValidMetadata()} property is set to the value of this metadata
      * provider's property. If the given metadata provider is an instance of {@link ObservableMetadataProvider} then a
-     * {@link ContainedProviderObserver} is added to it as well.
+     * ContainedProviderObserver is added to it as well.
      * 
      * @param provider provider to be added to the collection
      * @param providerList collection to which the provider is added

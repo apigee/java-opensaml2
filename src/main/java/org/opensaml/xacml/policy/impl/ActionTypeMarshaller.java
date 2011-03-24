@@ -19,7 +19,7 @@ package org.opensaml.xacml.policy.impl;
 import org.opensaml.xacml.impl.AbstractXACMLObjectMarshaller;
 
 /**
- *Marshaller for {@link ActionType}.
+ * Marshaller for {@link org.opensaml.xacml.policy.ActionType}.
  */
 public class ActionTypeMarshaller extends AbstractXACMLObjectMarshaller {
 

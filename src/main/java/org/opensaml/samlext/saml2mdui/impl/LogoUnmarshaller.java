@@ -25,7 +25,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.Logo} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.samlext.saml2mdui.Logo} objects.
  */
 public class LogoUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

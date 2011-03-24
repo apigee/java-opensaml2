@@ -27,29 +27,25 @@ import org.opensaml.samlext.saml2mdui.IPHint;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.util.XMLObjectChildrenList;
 
-/**
- *  Concrete implementation of {@link org.opensaml.samlext.saml2mdui.DiscHints}.
- * @author Rod Widdowson
- *
- */
+/** Concrete implementation of {@link org.opensaml.samlext.saml2mdui.DiscoHints}. */
 public class DiscoHintsImpl extends AbstractSAMLObject implements DiscoHints {
 
     /** DNS Domain hints. */
     private final XMLObjectChildrenList<DomainHint> domainHints;
-    
+
     /** IP Address hints. */
     private final XMLObjectChildrenList<IPHint> iPHints;
 
     /** GeoLocation hints. */
     private final XMLObjectChildrenList<GeolocationHint> geoHints;
-    
+
     /**
      * Constructor.
+     * 
      * @param namespaceURI namespaceURI
      * @param elementLocalName elementLocalName
      * @param namespacePrefix namespacePrefix
      */
-    
     protected DiscoHintsImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
         domainHints = new XMLObjectChildrenList<DomainHint>(this);
@@ -75,7 +71,7 @@ public class DiscoHintsImpl extends AbstractSAMLObject implements DiscoHints {
     /** {@inheritDoc} */
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
-        
+
         children.addAll(domainHints);
         children.addAll(iPHints);
         children.addAll(geoHints);

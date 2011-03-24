@@ -5,6 +5,8 @@ Changes in Release 2.5.0
 [JOST-147] - Add support for MDUI extensions into OpenSAML2
 [JOST-149] - SubjectTypeImplBuilder typo causes invalid documents to be built
 [JOST-151] - Fix up some potential concurrency issues with metadata provders and filters
+[JOST-152] - Some pom changes for Opensaml2
+[JOST-153] - Javadoc fixes
 
 Changes in Release 2.4.1
 =============================================

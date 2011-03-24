@@ -28,7 +28,7 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.UIInfo} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.samlext.saml2mdui.UIInfo} objects.
  */
 public class UIInfoUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

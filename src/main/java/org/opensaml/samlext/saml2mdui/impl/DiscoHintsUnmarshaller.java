@@ -25,7 +25,7 @@ import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
 
 /**
- * A thread-safe Unmarshaller for {@link org.opensaml.saml2.metadata.DiscoHintsTest} objects.
+ * A thread-safe Unmarshaller for {@link org.opensaml.samlext.saml2mdui.DiscoHints} objects.
  */
 public class DiscoHintsUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

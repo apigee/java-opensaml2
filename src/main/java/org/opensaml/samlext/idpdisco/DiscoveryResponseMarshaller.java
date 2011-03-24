@@ -18,7 +18,7 @@ package org.opensaml.samlext.idpdisco;
 
 import org.opensaml.saml2.metadata.impl.IndexedEndpointMarshaller;
 
-/** A thread-safe Marshaller for {@link org.opensaml.samlext.samlidpdisco.DiscoveryRespons} objects. */
+/** A thread-safe Marshaller for {@link org.opensaml.samlext.idpdisco.DiscoveryResponse} objects. */
 public class DiscoveryResponseMarshaller extends IndexedEndpointMarshaller {
 
 }

@@ -26,7 +26,7 @@ import org.opensaml.xml.io.UnmarshallingException;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe unmarshaller for {@link org.opensaml.samlext.saml2mdui.LocalURI} objects.
+ * A thread-safe unmarshaller for {@link org.opensaml.samlext.saml2mdui.LocalizedURI} objects.
  */
 public class LocalizedURIUnmarshaller extends AbstractSAMLObjectUnmarshaller {
 

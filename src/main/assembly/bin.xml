@@ -10,9 +10,11 @@
         <dependencySet>
             <outputDirectory>/lib</outputDirectory>
             <excludes>
-                <exclude>org.apache.xerces:*</exclude>
-                <exclude>org.apache.xalan:*</exclude>
                 <exclude>org.opensaml:opensaml:*</exclude>
+                <exclude>org.apache.xerces:*</exclude>
+                <exclude>xalan:*</exclude>
+                <exclude>xml-resolver:*</exclude>
+                <exclude>xml-apis:*</exclude>
             </excludes>
             <includes>
                 <include>*:jar:*</include>
@@ -22,7 +24,8 @@
             <outputDirectory>/endorsed</outputDirectory>
             <includes>
                 <include>org.apache.xerces:*</include>
-                <include>org.apache.xalan:*</include>
+                <include>xalan:*</include>
+                <include>xml-resolver:*</include>
             </includes>
         </dependencySet>
     </dependencySets>

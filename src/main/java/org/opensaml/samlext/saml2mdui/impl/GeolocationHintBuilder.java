@@ -21,7 +21,7 @@ import org.opensaml.samlext.saml2mdui.DiscoHints;
 import org.opensaml.samlext.saml2mdui.GeolocationHint;
 
 /**
- * Builder of {@link  .GeolocationHint} objects.
+ * Builder of {@link GeolocationHint} objects.
  */
 public class GeolocationHintBuilder extends AbstractSAMLObjectBuilder<GeolocationHint> {
 
