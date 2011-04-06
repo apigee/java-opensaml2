@@ -169,9 +169,9 @@ public class HTTPSOAP11Decoder extends BaseSAML2MessageDecoder {
                 attribExtensObject = (AttributeExtensibleXMLObject) header;
                 if (DatatypeHelper.safeEquals("1", attribExtensObject.getUnknownAttributes().get(soapMustUnderstand))) {
                     if (!understoodHeaders.contains(header.getElementQName())) {
-                        throw new MessageDecodingException("SOAP decoder encountered a  header, "
+                        throw new MessageDecodingException("SOAP decoder encountered a header, "
                                 + header.getElementQName()
-                                + ", that requires undestanding however this decoder does not understand that header");
+                                + ", that requires understanding however this decoder does not understand that header");
                     }
                 }
             }
