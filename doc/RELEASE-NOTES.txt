@@ -8,6 +8,7 @@ Changes in Release 2.5.0
 [JOST-151] - Fix up some potential concurrency issues with metadata provders and filters
 [JOST-152] - Some pom changes for Opensaml2
 [JOST-153] - Javadoc fixes
+[JOST-158] - Update POM for Shib.net Repo and attach generate Javadocs
 
 Changes in Release 2.4.1
 =============================================

@@ -21,22 +21,20 @@
     
     <repositories>
         <repository>
-            <id>shibboleth-release</id>
-            <name>Internet2 Releases</name>
-            <layout>default</layout>
-            <url>http://shibboleth.internet2.edu/downloads/maven2</url>
+            <id>shib-release</id>
+            <url>https://shibboleth.net/nexus/content/groups/public</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-    </repositories>
-    
-    <distributionManagement>
         <repository>
-            <id>release-repo</id>
-            <url>${dist.release.url}</url>
+            <id>shib-snapshot</id>
+            <url>https://shibboleth.net/nexus/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
         </repository>
-    </distributionManagement>
+    </repositories>
 
     <dependencies>
         <!-- Compile dependencies -->
@@ -145,17 +143,20 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    
+    <distributionManagement>
+        <repository>
+            <id>release</id>
+            <url>https://shibboleth.net/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshot</id>
+            <url>https://shibboleth.net/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.5</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -262,6 +263,22 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.7</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <quiet>true</quiet>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -311,9 +328,6 @@
             <id>release</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
@@ -450,13 +464,13 @@
         <developer>
             <id>lajoie</id>
             <name>Chad La Joie</name>
-            <organization>SWITCH</organization>
-            <organizationUrl>http://www.switch.ch/</organizationUrl>
+            <organization>Itumi, LLC</organization>
+            <organizationUrl>http://itumi.biz</organizationUrl>
             <roles>
                 <role>developer</role>
                 <role>documentation</role>
             </roles>
-            <timezone>+1</timezone>
+            <timezone>-5</timezone>
         </developer>
         <developer>
             <id>putmanb</id>
