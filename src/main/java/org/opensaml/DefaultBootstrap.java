@@ -26,6 +26,7 @@ import org.opensaml.xml.XMLConfigurator;
 import org.opensaml.xml.parse.StaticBasicParserPool;
 import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.security.DefaultSecurityConfigurationBootstrap;
+import org.owasp.esapi.ESAPI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,6 +93,15 @@ public class DefaultBootstrap {
         initializeGlobalSecurityConfiguration();
         
         initializeParserPool();
+        
+        initializeESAPI();
+    }
+
+    /**
+     * Initializes the OWASPI ESAPI library.
+     */
+    protected static void initializeESAPI() {
+        ESAPI.initialize("org.opensaml.ESAPISecurityConfig");
     }
 
     /**
