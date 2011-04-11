@@ -8,6 +8,9 @@ Changes in Release 2.5.0
 [JOST-151] - Fix up some potential concurrency issues with metadata provders and filters
 [JOST-152] - Some pom changes for Opensaml2
 [JOST-153] - Javadoc fixes
+[JOST-154] - FilesystemMetadataProviderTest failed
+[JOST-155] - MetadataCredentialResolverCachingTest.testSigning_UnspecToEncryption failed
+[JOST-156] - MetadataCredentialResolverCachingTest.testSigning_EncryptionToUnspec failed
 [JOST-157] - references to spaces.internet.edu may need changed to wiki.shibboleth.net
 [JOST-158] - Update POM for Shib.net Repo and attach generate Javadocs
 

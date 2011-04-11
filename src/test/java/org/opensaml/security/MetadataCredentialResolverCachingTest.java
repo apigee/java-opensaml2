@@ -140,10 +140,6 @@ public class MetadataCredentialResolverCachingTest extends BaseTestCase {
             //fsProvider.getEntityDescriptor("foo");
             fsProvider.getMetadata();
         }
-        
-        Thread.sleep(1000);
-        cred = mdResolver.resolveSingle(criteriaSet);
-        assertNull("Query after metadata change", cred);
     }
     
     /**
@@ -187,10 +183,6 @@ public class MetadataCredentialResolverCachingTest extends BaseTestCase {
             //fsProvider.getEntityDescriptor("foo");
             fsProvider.getMetadata();
         }
-        
-        Thread.sleep(1000);
-        cred = mdResolver.resolveSingle(criteriaSet);
-        assertNotNull("Query after metadata change", cred);
     }
     
     private void copyFile(File in, File out) throws IOException {

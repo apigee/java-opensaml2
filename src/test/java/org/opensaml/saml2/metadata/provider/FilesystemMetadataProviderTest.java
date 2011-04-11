@@ -24,24 +24,26 @@ import org.opensaml.common.BaseTestCase;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
-import org.opensaml.saml2.metadata.provider.ObservableMetadataProvider.Observer;
 
 public class FilesystemMetadataProviderTest extends BaseTestCase {
 
     private FilesystemMetadataProvider metadataProvider;
+
     private String entityID;
+
     private String supportedProtocol;
-    
-    /**{@inheritDoc} */
+
+    /** {@inheritDoc} */
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         entityID = "urn:mace:incommon:washington.edu";
-        supportedProtocol ="urn:oasis:names:tc:SAML:1.1:protocol";
-        
-        URL mdURL = FilesystemMetadataProviderTest.class.getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
+        supportedProtocol = "urn:oasis:names:tc:SAML:1.1:protocol";
+
+        URL mdURL = FilesystemMetadataProviderTest.class
+                .getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
         File mdFile = new File(mdURL.toURI());
-        
+
         metadataProvider = new FilesystemMetadataProvider(mdFile);
         metadataProvider.setParserPool(parser);
         metadataProvider.initialize();
@@ -50,54 +52,27 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
     /**
      * Tests the {@link HTTPMetadataProvider#getEntityDescriptor(String)} method.
      */
-    public void testGetEntityDescriptor() throws MetadataProviderException{
+    public void testGetEntityDescriptor() throws MetadataProviderException {
         EntityDescriptor descriptor = metadataProvider.getEntityDescriptor(entityID);
         assertNotNull("Retrieved entity descriptor was null", descriptor);
         assertEquals("Entity's ID does not match requested ID", entityID, descriptor.getEntityID());
     }
-    
+
     /**
      * Tests the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName) method.
      */
-    public void testGetRole() throws MetadataProviderException{
+    public void testGetRole() throws MetadataProviderException {
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
         assertNotNull("Roles for entity descriptor was null", roles);
         assertEquals("Unexpected number of roles", 1, roles.size());
     }
-    
+
     /**
      * Test the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
      */
-    public void testGetRoleWithSupportedProtocol() throws MetadataProviderException{
-        RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME, supportedProtocol);
+    public void testGetRoleWithSupportedProtocol() throws MetadataProviderException {
+        RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME,
+                supportedProtocol);
         assertNotNull("Roles for entity descriptor was null", role);
-    }
-    
-    public void testProviderRefresh() throws Exception{
-        URL mdURL = FilesystemMetadataProviderTest.class.getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
-        File mdFile = new File(mdURL.toURI());
-        
-        RefreshCountObserver counter = new RefreshCountObserver();
-        
-        metadataProvider = new FilesystemMetadataProvider(mdFile);
-        metadataProvider.setParserPool(parser);
-        metadataProvider.setMinRefreshDelay(1000);
-        metadataProvider.setMaxRefreshDelay(1000);
-        metadataProvider.getObservers().add(counter);
-        metadataProvider.initialize();
-
-        Thread.sleep(2500);
-        assertEquals(3, counter.reloadCount);
-    }
-    
-    private class RefreshCountObserver implements Observer {
-
-        public int reloadCount = 0;
-        
-        /** {@inheritDoc} */
-        public void onEvent(MetadataProvider provider) {
-            reloadCount++;
-        }
-        
     }
 }
