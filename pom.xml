@@ -423,13 +423,10 @@
     <mailingLists>
         <mailingList>
             <name>OpenSAML Users</name>
-            <subscribe>https://spaces.internet2.edu/display/OpenSAML/MailingList</subscribe>
-            <unsubscribe>https://spaces.internet2.edu/display/OpenSAML/MailingList</unsubscribe>
+            <subscribe>https://wiki.shibboleth.net/confluence/display/OpenSAML/MailingList</subscribe>
+            <unsubscribe>https://wiki.shibboleth.net/confluence/display/OpenSAML/MailingList</unsubscribe>
             <post>mace-opensaml-users@internet2.edu</post>
-            <archive>https://mail.internet2.edu/wws/arc/mace-opensaml-users</archive>
-            <otherArchives>
-                <otherArchive>http://groups.google.com/group/opensaml-users</otherArchive>
-            </otherArchives>
+            <archive>http://groups.google.com/group/opensaml-users</archive>
         </mailingList>
     </mailingLists>
     

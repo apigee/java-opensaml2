@@ -14,7 +14,7 @@ OpenSAML-J is licensed under the Apache License, version 2.
 Feedback
 --------
 Feedback may be provided through the OpenSAML mailing list.
-https://spaces.internet2.edu/display/OpenSAML/MailingList
+https://wiki.shibboleth.net/confluence/display/OpenSAML/MailingList
 
 Issues, Suggestions
 --------
