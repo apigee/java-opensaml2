@@ -33,6 +33,8 @@ import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.util.Base64;
 import org.opensaml.xml.util.XMLHelper;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -132,8 +134,10 @@ public class HTTPPostEncoder extends BaseSAML1MessageEncoder {
             context.put("SAMLResponse", encodedMessage);
 
             if (messageContext.getRelayState() != null) {
-                log.debug("Setting TARGET parameter to: {}", messageContext.getRelayState());
-                context.put("TARGET", messageContext.getRelayState());
+                Encoder esapiEncoder = ESAPI.encoder();
+                String encodedRelayState = esapiEncoder.encodeForHTMLAttribute(messageContext.getRelayState());
+                log.debug("Setting TARGET parameter to: '{}', encoded as '{}'", messageContext.getRelayState(), encodedRelayState);
+                context.put("TARGET", encodedRelayState);
             }
 
             HTTPOutTransport outTransport = (HTTPOutTransport) messageContext.getOutboundMessageTransport();

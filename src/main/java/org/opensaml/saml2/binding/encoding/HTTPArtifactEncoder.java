@@ -36,6 +36,8 @@ import org.opensaml.ws.transport.http.HTTPOutTransport;
 import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.Pair;
+import org.owasp.esapi.ESAPI;
+import org.owasp.esapi.Encoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -154,7 +156,10 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
         context.put("SAMLArt", buildArtifact(artifactContext).base64Encode());
 
         if (checkRelayState(artifactContext.getRelayState())) {
-            context.put("RelayState", HTTPTransportUtils.urlEncode(artifactContext.getRelayState()));
+            Encoder esapiEncoder = ESAPI.encoder();
+            String encodedRelayState = esapiEncoder.encodeForHTMLAttribute(artifactContext.getRelayState());
+            log.debug("Setting RelayState parameter to: '{}', encoded as '{}'", artifactContext.getRelayState(), encodedRelayState);
+            context.put("RelayState", encodedRelayState);
         }
 
         try {
