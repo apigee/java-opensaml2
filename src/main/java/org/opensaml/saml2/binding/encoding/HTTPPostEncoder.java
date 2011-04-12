@@ -150,9 +150,12 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
      */
     protected void populateVelocityContext(VelocityContext velocityContext, SAMLMessageContext messageContext,
             String endpointURL) throws MessageEncodingException {
+        
+        Encoder esapiEncoder = ESAPI.encoder();
 
-        log.debug("Encoding action url of: {}", endpointURL);
-        velocityContext.put("action", endpointURL);
+        String encodedEndpointURL = esapiEncoder.encodeForHTMLAttribute(endpointURL);
+        log.debug("Encoding action url of '{}' with encoded value '{}'", endpointURL, encodedEndpointURL);
+        velocityContext.put("action", encodedEndpointURL);
 
         log.debug("Marshalling and Base64 encoding SAML message");
         if (messageContext.getOutboundSAMLMessage().getDOM() == null) {
@@ -176,7 +179,6 @@ public class HTTPPostEncoder extends BaseSAML2MessageEncoder {
 
         String relayState = messageContext.getRelayState();
         if (checkRelayState(relayState)) {
-            Encoder esapiEncoder = ESAPI.encoder();
             String encodedRelayState = esapiEncoder.encodeForHTMLAttribute(relayState);
             log.debug("Setting RelayState parameter to: '{}', encoded as '{}'", relayState, encodedRelayState);
             velocityContext.put("RelayState", encodedRelayState);

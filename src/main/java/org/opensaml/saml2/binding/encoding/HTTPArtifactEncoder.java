@@ -33,7 +33,6 @@ import org.opensaml.util.URLBuilder;
 import org.opensaml.ws.message.MessageContext;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.transport.http.HTTPOutTransport;
-import org.opensaml.ws.transport.http.HTTPTransportUtils;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.util.Pair;
 import org.owasp.esapi.ESAPI;
@@ -152,11 +151,14 @@ public class HTTPArtifactEncoder extends BaseSAML2MessageEncoder {
 
         log.debug("Creating velocity context");
         VelocityContext context = new VelocityContext();
-        context.put("action", getEndpointURL(artifactContext));
+        Encoder esapiEncoder = ESAPI.encoder();
+        String endpointURL = getEndpointURL(artifactContext).toString();
+        String encodedEndpointURL = esapiEncoder.encodeForHTMLAttribute(endpointURL);
+        log.debug("Setting action parameter to: '{}', encoded as '{}'", endpointURL, encodedEndpointURL);
+        context.put("action", encodedEndpointURL);
         context.put("SAMLArt", buildArtifact(artifactContext).base64Encode());
 
         if (checkRelayState(artifactContext.getRelayState())) {
-            Encoder esapiEncoder = ESAPI.encoder();
             String encodedRelayState = esapiEncoder.encodeForHTMLAttribute(artifactContext.getRelayState());
             log.debug("Setting RelayState parameter to: '{}', encoded as '{}'", artifactContext.getRelayState(), encodedRelayState);
             context.put("RelayState", encodedRelayState);
