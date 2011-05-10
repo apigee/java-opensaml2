@@ -190,6 +190,15 @@ public class SAMLConstants extends XMLConstants{
     /** SAML 2.0 Condition for Delegation Restriction QName prefix. */
     public static final String SAML20DEL_PREFIX = "del";
     
+    /** SAML V2.0 Metadata Extension for Entity Attributes schema ID . */
+    public static final String SAML20MDATTR_SCHEMA_LOCATION = SCHEMA_DIR + "sstc-metadata-attr.xsd";
+    
+    /** SAML V2.0 Metadata Extension for Entity Attributes XML Namespace. */
+    public static final String SAML20MDATTR_NS = "urn:oasis:names:tc:SAML:metadata:attribute";
+    
+    /** SAML V2.0 Metadata Extension for Entity Attributes QName prefix. */
+    public static final String SAML20MDATTR_PREFIX = "mdattr";
+    
     /** SAML 2.0 DCE PAC Attribute Profile schema Id. */
     public static final String SAML20DCE_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-dce-2.0.xsd";
     

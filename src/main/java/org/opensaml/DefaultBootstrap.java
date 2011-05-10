@@ -54,6 +54,7 @@ public class DefaultBootstrap {
         "/saml1-metadata-config.xml", 
         "/saml2-metadata-config.xml",
         "/saml2-metadata-validation-config.xml", 
+        "/saml2-metadata-attr-config.xml",
         "/saml2-metadata-idp-discovery-config.xml",
         "/saml2-metadata-ui-config.xml",
         "/saml2-protocol-thirdparty-config.xml",

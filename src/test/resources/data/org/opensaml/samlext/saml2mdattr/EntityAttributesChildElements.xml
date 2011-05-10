@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mdattr:EntityAttributes xmlns:mdattr="urn:oasis:names:tc:SAML:metadata:attribute">
+    <saml:Assertion IssueInstant="1984-08-26T10:01:30.000Z" Version="2.0" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"/>
+    <saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" Name="attrib1" />
+    <saml:Assertion IssueInstant="1984-08-26T10:01:30.000Z" Version="2.0" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"/>
+    <saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" Name="attrib2" />
+    <saml2:Attribute xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" Name="attrib3" />
+</mdattr:EntityAttributes>
