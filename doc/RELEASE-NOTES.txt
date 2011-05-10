@@ -14,6 +14,7 @@ Changes in Release 2.5.0
 [JOST-156] - MetadataCredentialResolverCachingTest.testSigning_EncryptionToUnspec failed
 [JOST-157] - references to spaces.internet.edu may need changed to wiki.shibboleth.net
 [JOST-158] - Update POM for Shib.net Repo and attach generate Javadocs
+[JOST-159] - Support EntityAttributes metadata extension
 
 Changes in Release 2.4.1
 =============================================
