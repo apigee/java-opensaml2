@@ -45,11 +45,6 @@ public class ESAPISecurityConfig implements SecurityConfiguration {
     }
 
     /** {@inheritDoc} */
-    public boolean getAllowMultipleEncoding() {
-        return false;
-    }
-
-    /** {@inheritDoc} */
     public List getAllowedExecutables() {
         return null;
     }
@@ -67,6 +62,16 @@ public class ESAPISecurityConfig implements SecurityConfiguration {
     /** {@inheritDoc} */
     public int getAllowedLoginAttempts() {
         return 0;
+    }
+
+    /** {@inheritDoc} */
+    public boolean getAllowMixedEncoding() {
+        return false;
+    }
+
+    /** {@inheritDoc} */
+    public boolean getAllowMultipleEncoding() {
+        return false;
     }
 
     /** {@inheritDoc} */
@@ -165,11 +170,6 @@ public class ESAPISecurityConfig implements SecurityConfiguration {
     }
 
     /** {@inheritDoc} */
-    public String getHTTPUtilitiesImplementation() {
-        return null;
-    }
-
-    /** {@inheritDoc} */
     public String getHashAlgorithm() {
         return null;
     }
@@ -180,13 +180,33 @@ public class ESAPISecurityConfig implements SecurityConfiguration {
     }
 
     /** {@inheritDoc} */
-    public String getIVType() {
+    public String getHttpSessionIdName() {
+        return null;
+    }
+
+    /** {@inheritDoc} */
+    public String getHTTPUtilitiesImplementation() {
         return null;
     }
 
     /** {@inheritDoc} */
     public String getIntrusionDetectionImplementation() {
         return null;
+    }
+
+    /** {@inheritDoc} */
+    public String getIVType() {
+        return null;
+    }
+
+    /** {@inheritDoc} */
+    public String getKDFPseudoRandomFunction() {
+        return null;
+    }
+
+    /** {@inheritDoc} */
+    public boolean getLenientDatesAccepted() {
+        return false;
     }
 
     /** {@inheritDoc} */
