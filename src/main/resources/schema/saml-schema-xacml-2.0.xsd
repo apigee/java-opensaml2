@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<schema targetNamespace="urn:oasis:names:tc:SAML:2.0:profiles:attribute:XACML"
-        xmlns="http://www.w3.org/2001/XMLSchema"
-        elementFormDefault="unqualified"
-        attributeFormDefault="unqualified"
-        blockDefault="substitution"
-        version="2.0">
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:oasis:names:tc:SAML:2.0:profiles:attribute:XACML" elementFormDefault="unqualified" attributeFormDefault="unqualified" blockDefault="substitution" version="2.0">
 
     <annotation>
         <documentation>
@@ -14,6 +8,6 @@
         </documentation>
     </annotation>
 
-    <attribute name="DataType" type="anyURI" />
+    <attribute name="DataType" type="anyURI"/>
 
 </schema>

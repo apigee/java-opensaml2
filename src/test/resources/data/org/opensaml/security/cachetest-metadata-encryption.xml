@@ -1,5 +1,5 @@
-<EntitiesDescriptor Name="cachetest-metadata" xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitiesDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="cachetest-metadata">
    
    <EntityDescriptor entityID="http://sp.example.org/">
       
@@ -29,10 +29,9 @@
                </ds:X509Data>
             </ds:KeyInfo>
          </KeyDescriptor>
-         <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post"
-            Location="https://sp.example.org/Shibboleth.sso/POST" index="0"/>
+         <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sp.example.org/Shibboleth.sso/POST" index="0"/>
       </SPSSODescriptor>
       
    </EntityDescriptor>
 
-</EntitiesDescriptor>
+</EntitiesDescriptor>

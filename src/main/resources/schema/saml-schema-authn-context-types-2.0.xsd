@@ -39,15 +39,15 @@
             <xs:attribute name="credentialLevel">
                 <xs:simpleType>
                     <xs:restriction base="xs:NMTOKEN">
-                        <xs:enumeration value="primary" />
-                        <xs:enumeration value="secondary" />
+                        <xs:enumeration value="primary"/>
+                        <xs:enumeration value="secondary"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="WrittenConsent" type="ExtensionOnlyType" />
+    <xs:element name="WrittenConsent" type="ExtensionOnlyType"/>
 
     <xs:element name="TechnicalProtection" type="TechnicalProtectionBaseType">
         <xs:annotation>
@@ -100,8 +100,8 @@
         </xs:annotation>
     </xs:element>
 
-    <xs:element name="SubscriberLineNumber" type="ExtensionOnlyType" />
-    <xs:element name="UserSuffix" type="ExtensionOnlyType" />
+    <xs:element name="SubscriberLineNumber" type="ExtensionOnlyType"/>
+    <xs:element name="UserSuffix" type="ExtensionOnlyType"/>
 
     <xs:element name="Password" type="PasswordType">
         <xs:annotation>
@@ -185,8 +185,8 @@
             <xs:attribute name="mechanism" use="required">
                 <xs:simpleType>
                     <xs:restriction base="xs:NMTOKEN">
-                        <xs:enumeration value="principalchosen" />
-                        <xs:enumeration value="automatic" />
+                        <xs:enumeration value="principalchosen"/>
+                        <xs:enumeration value="automatic"/>
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
@@ -255,7 +255,7 @@
         </xs:annotation>
     </xs:element>
 
-    <xs:element name="SharedSecretChallengeResponse" type="SharedSecretChallengeResponseType" />
+    <xs:element name="SharedSecretChallengeResponse" type="SharedSecretChallengeResponseType"/>
 
     <xs:complexType name="SharedSecretChallengeResponseType">
         <xs:annotation>
@@ -265,9 +265,9 @@
             </xs:documentation>
         </xs:annotation>
         <xs:sequence>
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="method" type="xs:anyURI" use="optional" />
+        <xs:attribute name="method" type="xs:anyURI" use="optional"/>
     </xs:complexType>
 
     <xs:element name="DigSig" type="PublicKeyType">
@@ -300,9 +300,9 @@
 
     <xs:complexType name="PublicKeyType">
         <xs:sequence>
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="keyValidation" use="optional" />
+        <xs:attribute name="keyValidation" use="optional"/>
     </xs:complexType>
 
     <xs:element name="IPAddress" type="ExtensionOnlyType">
@@ -368,8 +368,8 @@
         </xs:annotation>
     </xs:element>
 
-    <xs:element name="MobileNetworkRadioEncryption" type="ExtensionOnlyType" />
-    <xs:element name="MobileNetworkEndToEndEncryption" type="ExtensionOnlyType" />
+    <xs:element name="MobileNetworkRadioEncryption" type="ExtensionOnlyType"/>
+    <xs:element name="MobileNetworkEndToEndEncryption" type="ExtensionOnlyType"/>
 
     <xs:element name="SSL" type="ExtensionOnlyType">
         <xs:annotation>
@@ -380,9 +380,9 @@
         </xs:annotation>
     </xs:element>
 
-    <xs:element name="PSTN" type="ExtensionOnlyType" />
-    <xs:element name="ISDN" type="ExtensionOnlyType" />
-    <xs:element name="ADSL" type="ExtensionOnlyType" />
+    <xs:element name="PSTN" type="ExtensionOnlyType"/>
+    <xs:element name="ISDN" type="ExtensionOnlyType"/>
+    <xs:element name="ADSL" type="ExtensionOnlyType"/>
 
     <xs:element name="OperationalProtection" type="OperationalProtectionType">
         <xs:annotation>
@@ -393,9 +393,9 @@
         </xs:annotation>
     </xs:element>
 
-    <xs:element name="SecurityAudit" type="SecurityAuditType" />
-    <xs:element name="SwitchAudit" type="ExtensionOnlyType" />
-    <xs:element name="DeactivationCallCenter" type="ExtensionOnlyType" />
+    <xs:element name="SecurityAudit" type="SecurityAuditType"/>
+    <xs:element name="SwitchAudit" type="ExtensionOnlyType"/>
+    <xs:element name="DeactivationCallCenter" type="ExtensionOnlyType"/>
 
     <xs:element name="GoverningAgreements" type="GoverningAgreementsType">
         <xs:annotation>
@@ -406,34 +406,34 @@
         </xs:annotation>
     </xs:element>
 
-    <xs:element name="GoverningAgreementRef" type="GoverningAgreementRefType" />
+    <xs:element name="GoverningAgreementRef" type="GoverningAgreementRefType"/>
 
     <xs:simpleType name="nymType">
         <xs:restriction base="xs:NMTOKEN">
-            <xs:enumeration value="anonymity" />
-            <xs:enumeration value="verinymity" />
-            <xs:enumeration value="pseudonymity" />
+            <xs:enumeration value="anonymity"/>
+            <xs:enumeration value="verinymity"/>
+            <xs:enumeration value="pseudonymity"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:complexType name="AuthnContextDeclarationBaseType">
         <xs:sequence>
-            <xs:element ref="Identification" minOccurs="0" />
-            <xs:element ref="TechnicalProtection" minOccurs="0" />
-            <xs:element ref="OperationalProtection" minOccurs="0" />
-            <xs:element ref="AuthnMethod" minOccurs="0" />
-            <xs:element ref="GoverningAgreements" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Identification" minOccurs="0"/>
+            <xs:element ref="TechnicalProtection" minOccurs="0"/>
+            <xs:element ref="OperationalProtection" minOccurs="0"/>
+            <xs:element ref="AuthnMethod" minOccurs="0"/>
+            <xs:element ref="GoverningAgreements" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="ID" type="xs:ID" use="optional" />
+        <xs:attribute name="ID" type="xs:ID" use="optional"/>
     </xs:complexType>
 
     <xs:complexType name="IdentificationType">
         <xs:sequence>
-            <xs:element ref="PhysicalVerification" minOccurs="0" />
-            <xs:element ref="WrittenConsent" minOccurs="0" />
-            <xs:element ref="GoverningAgreements" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="PhysicalVerification" minOccurs="0"/>
+            <xs:element ref="WrittenConsent" minOccurs="0"/>
+            <xs:element ref="GoverningAgreements" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
         <xs:attribute name="nym" type="nymType">
             <xs:annotation>
@@ -448,163 +448,163 @@
     <xs:complexType name="TechnicalProtectionBaseType">
         <xs:sequence>
             <xs:choice minOccurs="0">
-                <xs:element ref="PrivateKeyProtection" />
-                <xs:element ref="SecretKeyProtection" />
+                <xs:element ref="PrivateKeyProtection"/>
+                <xs:element ref="SecretKeyProtection"/>
             </xs:choice>
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="OperationalProtectionType">
         <xs:sequence>
-            <xs:element ref="SecurityAudit" minOccurs="0" />
-            <xs:element ref="DeactivationCallCenter" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="SecurityAudit" minOccurs="0"/>
+            <xs:element ref="DeactivationCallCenter" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="AuthnMethodBaseType">
         <xs:sequence>
-            <xs:element ref="PrincipalAuthenticationMechanism" minOccurs="0" />
-            <xs:element ref="Authenticator" minOccurs="0" />
-            <xs:element ref="AuthenticatorTransportProtocol" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="PrincipalAuthenticationMechanism" minOccurs="0"/>
+            <xs:element ref="Authenticator" minOccurs="0"/>
+            <xs:element ref="AuthenticatorTransportProtocol" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="GoverningAgreementsType">
         <xs:sequence>
-            <xs:element ref="GoverningAgreementRef" maxOccurs="unbounded" />
+            <xs:element ref="GoverningAgreementRef" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="GoverningAgreementRefType">
-        <xs:attribute name="governingAgreementRef" type="xs:anyURI" use="required" />
+        <xs:attribute name="governingAgreementRef" type="xs:anyURI" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="PrincipalAuthenticationMechanismType">
         <xs:sequence>
-            <xs:element ref="Password" minOccurs="0" />
-            <xs:element ref="RestrictedPassword" minOccurs="0" />
-            <xs:element ref="Token" minOccurs="0" />
-            <xs:element ref="Smartcard" minOccurs="0" />
-            <xs:element ref="ActivationPin" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Password" minOccurs="0"/>
+            <xs:element ref="RestrictedPassword" minOccurs="0"/>
+            <xs:element ref="Token" minOccurs="0"/>
+            <xs:element ref="Smartcard" minOccurs="0"/>
+            <xs:element ref="ActivationPin" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="preauth" type="xs:integer" use="optional" />
+        <xs:attribute name="preauth" type="xs:integer" use="optional"/>
     </xs:complexType>
 
     <xs:group name="AuthenticatorChoiceGroup">
         <xs:choice>
-            <xs:element ref="PreviousSession" />
-            <xs:element ref="ResumeSession" />
-            <xs:element ref="DigSig" />
-            <xs:element ref="Password" />
-            <xs:element ref="RestrictedPassword" />
-            <xs:element ref="ZeroKnowledge" />
-            <xs:element ref="SharedSecretChallengeResponse" />
-            <xs:element ref="SharedSecretDynamicPlaintext" />
-            <xs:element ref="IPAddress" />
-            <xs:element ref="AsymmetricDecryption" />
-            <xs:element ref="AsymmetricKeyAgreement" />
-            <xs:element ref="SubscriberLineNumber" />
-            <xs:element ref="UserSuffix" />
-            <xs:element ref="ComplexAuthenticator" />
+            <xs:element ref="PreviousSession"/>
+            <xs:element ref="ResumeSession"/>
+            <xs:element ref="DigSig"/>
+            <xs:element ref="Password"/>
+            <xs:element ref="RestrictedPassword"/>
+            <xs:element ref="ZeroKnowledge"/>
+            <xs:element ref="SharedSecretChallengeResponse"/>
+            <xs:element ref="SharedSecretDynamicPlaintext"/>
+            <xs:element ref="IPAddress"/>
+            <xs:element ref="AsymmetricDecryption"/>
+            <xs:element ref="AsymmetricKeyAgreement"/>
+            <xs:element ref="SubscriberLineNumber"/>
+            <xs:element ref="UserSuffix"/>
+            <xs:element ref="ComplexAuthenticator"/>
         </xs:choice>
     </xs:group>
 
     <xs:group name="AuthenticatorSequenceGroup">
         <xs:sequence>
-            <xs:element ref="PreviousSession" minOccurs="0" />
-            <xs:element ref="ResumeSession" minOccurs="0" />
-            <xs:element ref="DigSig" minOccurs="0" />
-            <xs:element ref="Password" minOccurs="0" />
-            <xs:element ref="RestrictedPassword" minOccurs="0" />
-            <xs:element ref="ZeroKnowledge" minOccurs="0" />
-            <xs:element ref="SharedSecretChallengeResponse" minOccurs="0" />
-            <xs:element ref="SharedSecretDynamicPlaintext" minOccurs="0" />
-            <xs:element ref="IPAddress" minOccurs="0" />
-            <xs:element ref="AsymmetricDecryption" minOccurs="0" />
-            <xs:element ref="AsymmetricKeyAgreement" minOccurs="0" />
-            <xs:element ref="SubscriberLineNumber" minOccurs="0" />
-            <xs:element ref="UserSuffix" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="PreviousSession" minOccurs="0"/>
+            <xs:element ref="ResumeSession" minOccurs="0"/>
+            <xs:element ref="DigSig" minOccurs="0"/>
+            <xs:element ref="Password" minOccurs="0"/>
+            <xs:element ref="RestrictedPassword" minOccurs="0"/>
+            <xs:element ref="ZeroKnowledge" minOccurs="0"/>
+            <xs:element ref="SharedSecretChallengeResponse" minOccurs="0"/>
+            <xs:element ref="SharedSecretDynamicPlaintext" minOccurs="0"/>
+            <xs:element ref="IPAddress" minOccurs="0"/>
+            <xs:element ref="AsymmetricDecryption" minOccurs="0"/>
+            <xs:element ref="AsymmetricKeyAgreement" minOccurs="0"/>
+            <xs:element ref="SubscriberLineNumber" minOccurs="0"/>
+            <xs:element ref="UserSuffix" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:group>
 
     <xs:complexType name="AuthenticatorBaseType">
         <xs:sequence>
-            <xs:group ref="AuthenticatorChoiceGroup" />
-            <xs:group ref="AuthenticatorSequenceGroup" />
+            <xs:group ref="AuthenticatorChoiceGroup"/>
+            <xs:group ref="AuthenticatorSequenceGroup"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="ComplexAuthenticatorType">
         <xs:sequence>
-            <xs:group ref="AuthenticatorChoiceGroup" />
-            <xs:group ref="AuthenticatorSequenceGroup" />
+            <xs:group ref="AuthenticatorChoiceGroup"/>
+            <xs:group ref="AuthenticatorSequenceGroup"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="AuthenticatorTransportProtocolType">
         <xs:sequence>
             <xs:choice minOccurs="0">
-                <xs:element ref="HTTP" />
-                <xs:element ref="SSL" />
-                <xs:element ref="MobileNetworkNoEncryption" />
-                <xs:element ref="MobileNetworkRadioEncryption" />
-                <xs:element ref="MobileNetworkEndToEndEncryption" />
-                <xs:element ref="WTLS" />
-                <xs:element ref="IPSec" />
-                <xs:element ref="PSTN" />
-                <xs:element ref="ISDN" />
-                <xs:element ref="ADSL" />
+                <xs:element ref="HTTP"/>
+                <xs:element ref="SSL"/>
+                <xs:element ref="MobileNetworkNoEncryption"/>
+                <xs:element ref="MobileNetworkRadioEncryption"/>
+                <xs:element ref="MobileNetworkEndToEndEncryption"/>
+                <xs:element ref="WTLS"/>
+                <xs:element ref="IPSec"/>
+                <xs:element ref="PSTN"/>
+                <xs:element ref="ISDN"/>
+                <xs:element ref="ADSL"/>
             </xs:choice>
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="KeyActivationType">
         <xs:sequence>
-            <xs:element ref="ActivationPin" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="ActivationPin" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="KeySharingType">
-        <xs:attribute name="sharing" type="xs:boolean" use="required" />
+        <xs:attribute name="sharing" type="xs:boolean" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="PrivateKeyProtectionType">
         <xs:sequence>
-            <xs:element ref="KeyActivation" minOccurs="0" />
-            <xs:element ref="KeyStorage" minOccurs="0" />
-            <xs:element ref="KeySharing" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="KeyActivation" minOccurs="0"/>
+            <xs:element ref="KeyStorage" minOccurs="0"/>
+            <xs:element ref="KeySharing" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="PasswordType">
         <xs:sequence>
-            <xs:element ref="Length" minOccurs="0" />
-            <xs:element ref="Alphabet" minOccurs="0" />
-            <xs:element ref="Generation" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Length" minOccurs="0"/>
+            <xs:element ref="Alphabet" minOccurs="0"/>
+            <xs:element ref="Generation" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
-        <xs:attribute name="ExternalVerification" type="xs:anyURI" use="optional" />
+        <xs:attribute name="ExternalVerification" type="xs:anyURI" use="optional"/>
     </xs:complexType>
 
-    <xs:element name="RestrictedPassword" type="RestrictedPasswordType" />
+    <xs:element name="RestrictedPassword" type="RestrictedPasswordType"/>
 
     <xs:complexType name="RestrictedPasswordType">
         <xs:complexContent>
             <xs:restriction base="PasswordType">
                 <xs:sequence>
-                    <xs:element name="Length" type="RestrictedLengthType" minOccurs="1" />
-                    <xs:element ref="Generation" minOccurs="0" />
-                    <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+                    <xs:element name="Length" type="RestrictedLengthType" minOccurs="1"/>
+                    <xs:element ref="Generation" minOccurs="0"/>
+                    <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
                 </xs:sequence>
-                <xs:attribute name="ExternalVerification" type="xs:anyURI" use="optional" />
+                <xs:attribute name="ExternalVerification" type="xs:anyURI" use="optional"/>
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>
@@ -615,64 +615,64 @@
                 <xs:attribute name="min" use="required">
                     <xs:simpleType>
                         <xs:restriction base="xs:integer">
-                            <xs:minInclusive value="3" />
+                            <xs:minInclusive value="3"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:attribute>
-                <xs:attribute name="max" type="xs:integer" use="optional" />
+                <xs:attribute name="max" type="xs:integer" use="optional"/>
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>
 
     <xs:complexType name="ActivationPinType">
         <xs:sequence>
-            <xs:element ref="Length" minOccurs="0" />
-            <xs:element ref="Alphabet" minOccurs="0" />
-            <xs:element ref="Generation" minOccurs="0" />
-            <xs:element ref="ActivationLimit" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Length" minOccurs="0"/>
+            <xs:element ref="Alphabet" minOccurs="0"/>
+            <xs:element ref="Generation" minOccurs="0"/>
+            <xs:element ref="ActivationLimit" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:element name="Alphabet" type="AlphabetType" />
+    <xs:element name="Alphabet" type="AlphabetType"/>
     <xs:complexType name="AlphabetType">
-        <xs:attribute name="requiredChars" type="xs:string" use="required" />
-        <xs:attribute name="excludedChars" type="xs:string" use="optional" />
-        <xs:attribute name="case" type="xs:string" use="optional" />
+        <xs:attribute name="requiredChars" type="xs:string" use="required"/>
+        <xs:attribute name="excludedChars" type="xs:string" use="optional"/>
+        <xs:attribute name="case" type="xs:string" use="optional"/>
     </xs:complexType>
 
     <xs:complexType name="TokenType">
         <xs:sequence>
-            <xs:element ref="TimeSyncToken" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="TimeSyncToken"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:simpleType name="DeviceTypeType">
         <xs:restriction base="xs:NMTOKEN">
-            <xs:enumeration value="hardware" />
-            <xs:enumeration value="software" />
+            <xs:enumeration value="hardware"/>
+            <xs:enumeration value="software"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:simpleType name="booleanType">
         <xs:restriction base="xs:NMTOKEN">
-            <xs:enumeration value="true" />
-            <xs:enumeration value="false" />
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:complexType name="TimeSyncTokenType">
-        <xs:attribute name="DeviceType" type="DeviceTypeType" use="required" />
-        <xs:attribute name="SeedLength" type="xs:integer" use="required" />
-        <xs:attribute name="DeviceInHand" type="booleanType" use="required" />
+        <xs:attribute name="DeviceType" type="DeviceTypeType" use="required"/>
+        <xs:attribute name="SeedLength" type="xs:integer" use="required"/>
+        <xs:attribute name="DeviceInHand" type="booleanType" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="ActivationLimitType">
         <xs:choice>
-            <xs:element ref="ActivationLimitDuration" />
-            <xs:element ref="ActivationLimitUsages" />
-            <xs:element ref="ActivationLimitSession" />
+            <xs:element ref="ActivationLimitDuration"/>
+            <xs:element ref="ActivationLimitUsages"/>
+            <xs:element ref="ActivationLimitSession"/>
         </xs:choice>
     </xs:complexType>
 
@@ -699,60 +699,60 @@
     </xs:element>
 
     <xs:complexType name="ActivationLimitDurationType">
-        <xs:attribute name="duration" type="xs:duration" use="required" />
+        <xs:attribute name="duration" type="xs:duration" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="ActivationLimitUsagesType">
-        <xs:attribute name="number" type="xs:integer" use="required" />
+        <xs:attribute name="number" type="xs:integer" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="ActivationLimitSessionType" />
+    <xs:complexType name="ActivationLimitSessionType"/>
 
     <xs:complexType name="LengthType">
-        <xs:attribute name="min" type="xs:integer" use="required" />
-        <xs:attribute name="max" type="xs:integer" use="optional" />
+        <xs:attribute name="min" type="xs:integer" use="required"/>
+        <xs:attribute name="max" type="xs:integer" use="optional"/>
     </xs:complexType>
 
     <xs:simpleType name="mediumType">
         <xs:restriction base="xs:NMTOKEN">
-            <xs:enumeration value="memory" />
-            <xs:enumeration value="smartcard" />
-            <xs:enumeration value="token" />
-            <xs:enumeration value="MobileDevice" />
-            <xs:enumeration value="MobileAuthCard" />
+            <xs:enumeration value="memory"/>
+            <xs:enumeration value="smartcard"/>
+            <xs:enumeration value="token"/>
+            <xs:enumeration value="MobileDevice"/>
+            <xs:enumeration value="MobileAuthCard"/>
         </xs:restriction>
     </xs:simpleType>
 
     <xs:complexType name="KeyStorageType">
-        <xs:attribute name="medium" type="mediumType" use="required" />
+        <xs:attribute name="medium" type="mediumType" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="SecretKeyProtectionType">
         <xs:sequence>
-            <xs:element ref="KeyActivation" minOccurs="0" />
-            <xs:element ref="KeyStorage" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="KeyActivation" minOccurs="0"/>
+            <xs:element ref="KeyStorage" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="SecurityAuditType">
         <xs:sequence>
-            <xs:element ref="SwitchAudit" minOccurs="0" />
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="SwitchAudit" minOccurs="0"/>
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
     <xs:complexType name="ExtensionOnlyType">
         <xs:sequence>
-            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 
-    <xs:element name="Extension" type="ExtensionType" />
+    <xs:element name="Extension" type="ExtensionType"/>
 
     <xs:complexType name="ExtensionType">
         <xs:sequence>
-            <xs:any namespace="##other" processContents="lax" maxOccurs="unbounded" />
+            <xs:any namespace="##other" processContents="lax" maxOccurs="unbounded"/>
         </xs:sequence>
     </xs:complexType>
 

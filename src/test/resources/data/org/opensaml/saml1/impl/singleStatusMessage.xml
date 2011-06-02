@@ -1,1 +1,2 @@
-<samlp:StatusMessage xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" />
+<?xml version="1.0" encoding="UTF-8"?>
+<samlp:StatusMessage xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol"/>

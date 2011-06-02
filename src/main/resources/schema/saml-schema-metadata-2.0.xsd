@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema
-    targetNamespace="urn:oasis:names:tc:SAML:2.0:metadata"
-    xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
-    xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
-    xmlns:xenc="http://www.w3.org/2001/04/xmlenc#"
-    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
-    xmlns="http://www.w3.org/2001/XMLSchema"
-    elementFormDefault="unqualified"
-    attributeFormDefault="unqualified"
-    blockDefault="substitution"
-    version="2.0">
-    <import namespace="http://www.w3.org/2000/09/xmldsig#"
-        schemaLocation="classpath:/schema/xmldsig-core-schema.xsd"/>
-    <import namespace="http://www.w3.org/2001/04/xmlenc#"
-        schemaLocation="classpath:/schema/xenc-schema.xsd"/>
-    <import namespace="urn:oasis:names:tc:SAML:2.0:assertion"
-        schemaLocation="classpath:/schema/saml-schema-assertion-2.0.xsd"/>
-    <import namespace="http://www.w3.org/XML/1998/namespace"
-        schemaLocation="classpath:/schema/xml.xsd"/>
+<schema xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:oasis:names:tc:SAML:2.0:metadata" elementFormDefault="unqualified" attributeFormDefault="unqualified" blockDefault="substitution" version="2.0">
+    <import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="classpath:/schema/xmldsig-core-schema.xsd"/>
+    <import namespace="http://www.w3.org/2001/04/xmlenc#" schemaLocation="classpath:/schema/xenc-schema.xsd"/>
+    <import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="classpath:/schema/saml-schema-assertion-2.0.xsd"/>
+    <import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="classpath:/schema/xml.xsd"/>
     <annotation>
         <documentation>
             Document identifier: saml-schema-metadata-2.0

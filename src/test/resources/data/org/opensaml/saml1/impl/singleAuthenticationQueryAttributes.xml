@@ -1,3 +1,2 @@
-<samlp:AuthenticationQuery xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" 
-AuthenticationMethod="Trust Me"
-/>
+<?xml version="1.0" encoding="UTF-8"?>
+<samlp:AuthenticationQuery xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol" AuthenticationMethod="Trust Me"/>

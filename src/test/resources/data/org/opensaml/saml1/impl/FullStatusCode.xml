@@ -1,1 +1,2 @@
-<saml1p:StatusCode xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol" Value="saml1p:Requester"><saml1p:StatusCode Value="saml1p:VersionMismatch" /></saml1p:StatusCode>
+<?xml version="1.0" encoding="UTF-8"?>
+<saml1p:StatusCode xmlns:saml1p="urn:oasis:names:tc:SAML:1.0:protocol" Value="saml1p:Requester"><saml1p:StatusCode Value="saml1p:VersionMismatch"/></saml1p:StatusCode>

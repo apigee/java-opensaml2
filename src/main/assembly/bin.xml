@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Binary distribution, along with dependency jar files -->
 <assembly>
     <id>bin</id>
@@ -33,7 +34,7 @@
     <fileSets>
         <fileSet>
             <directory>target</directory>
-            <outputDirectory></outputDirectory>
+            <outputDirectory/>
             <includes>
                 <include>*.jar</include>
             </includes>

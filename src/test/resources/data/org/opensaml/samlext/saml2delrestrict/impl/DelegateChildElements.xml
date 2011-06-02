@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <del:Delegate xmlns:del="urn:oasis:names:tc:SAML:2.0:conditions:delegation">
-    <saml:NameID xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"></saml:NameID>
+    <saml:NameID xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"/>
 </del:Delegate>

@@ -1,13 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <EntitiesDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="urn:mace:switch.ch:aaitest" validUntil="2010-01-01T00:00:00Z" xsi:schemaLocation="urn:oasis:names:tc:SAML:2.0:metadata saml-schema-metadata-2.0.xsd urn:mace:shibboleth:metadata:1.0 shibboleth-metadata-1.0.xsd http://www.w3.org/2000/09/xmldsig# xmldsig-core-schema.xsd"><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
 <ds:SignedInfo>
-<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#WithComments"></ds:CanonicalizationMethod>
-<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#WithComments"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
 <ds:Reference URI="">
 <ds:Transforms>
-<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
-<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#WithComments"></ds:Transform>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#WithComments"/>
 </ds:Transforms>
-<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
 <ds:DigestValue>b94jC4YhJnx+0Uj/9tQ/xkZz+hs=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
@@ -578,7 +579,7 @@ AaRthg==
 				</ds:KeyInfo>
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://siufaaihs.unifr.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://siufaaihs.unifr.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -591,13 +592,13 @@ AaRthg==
 					<ds:KeyName>siufaaiaa.unifr.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://siufaaiaa.unifr.ch/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://siufaaiaa.unifr.ch/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">Université de Fribourg Test Home Organization</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">Université de Fribourg Test Home Organization</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 		<ContactPerson contactType="technical">
@@ -628,10 +629,10 @@ AaRthg==
 					<ds:KeyName>dukono.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://dukono.switch.ch:8443/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://dukono.switch.ch:8443/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://dukono.switch.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://dukono.switch.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -644,7 +645,7 @@ AaRthg==
 					<ds:KeyName>dukono.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://dukono.switch.ch:8443/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://dukono.switch.ch:8443/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -673,10 +674,10 @@ AaRthg==
 					<ds:KeyName>aai2.phbern.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aai2-aa.phbern.ch/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aai2-aa.phbern.ch/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aai2.phbern.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aai2.phbern.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -689,13 +690,13 @@ AaRthg==
 					<ds:KeyName>aai2-aa.phbern.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aai2-aa.phbern.ch/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aai2-aa.phbern.ch/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">PHBern - Pädagogische Hochschule Bern</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">PHBern - Pädagogische Hochschule Bern</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 		<ContactPerson contactType="technical">
@@ -726,10 +727,10 @@ AaRthg==
 					<ds:KeyName>thor.aai.dfn.de</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://thor.aai.dfn.de/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://thor.aai.dfn.de/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://thor.aai.dfn.de/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://thor.aai.dfn.de/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -742,13 +743,13 @@ AaRthg==
 					<ds:KeyName>thor.aai.dfn.de</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://thor.aai.dfn.de/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://thor.aai.dfn.de/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">DFN-Verein</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">DFN-Verein</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 		<ContactPerson contactType="technical">
@@ -779,10 +780,10 @@ AaRthg==
 					<ds:KeyName>CN=kaba.switch.ch, O=Switch - Teleinformatikdienste fuer Lehre und Forschung, C=CH</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://kaba.switch.ch/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://kaba.switch.ch/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://kaba.switch.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://kaba.switch.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -795,7 +796,7 @@ AaRthg==
 					<ds:KeyName>CN=kaba.switch.ch, O=Switch - Teleinformatikdienste fuer Lehre und Forschung, C=CH</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://kaba.switch.ch:8443/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://kaba.switch.ch:8443/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -824,10 +825,10 @@ AaRthg==
 					<ds:KeyName>aselect-test.surfnet.nl</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aselect-test.surfnet.nl:8443/aselectserver/server/artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aselect-test.surfnet.nl:8443/aselectserver/server/artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aselect-test.surfnet.nl:8443/aselectserver/server/shib-idp"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aselect-test.surfnet.nl:8443/aselectserver/server/shib-idp"/>
 		</IDPSSODescriptor>
 		
 		
@@ -840,13 +841,13 @@ AaRthg==
 					<ds:KeyName>aselect-test.surfnet.nl</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aselect-test.surfnet.nl:8443/aselectserver/server/query"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aselect-test.surfnet.nl:8443/aselectserver/server/query"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">SURFnet Test Home Organization</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">SURFnet Test Home Organization</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 		<ContactPerson contactType="support">
@@ -877,10 +878,10 @@ AaRthg==
 					<ds:KeyName>tlogin.unisi.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tlogin.unisi.ch:8443/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tlogin.unisi.ch:8443/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://tlogin.unisi.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://tlogin.unisi.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -893,13 +894,13 @@ AaRthg==
 					<ds:KeyName>tlogin.unisi.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tlogin.unisi.ch:8443/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tlogin.unisi.ch:8443/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">Universita della Svizzera Italiana</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">Universita della Svizzera Italiana</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 		<ContactPerson contactType="technical">
@@ -930,10 +931,10 @@ AaRthg==
 					<ds:KeyName>tengger.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tengger.switch.ch/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tengger.switch.ch/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://tengger.switch.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://tengger.switch.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -946,7 +947,7 @@ AaRthg==
 					<ds:KeyName>tengger.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tengger.switch.ch/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tengger.switch.ch/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -983,10 +984,10 @@ AaRthg==
 					<ds:KeyName>ssl.casus.net</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://ssl.casus.net/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://ssl.casus.net/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://ssl.casus.net/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://ssl.casus.net/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -999,13 +1000,13 @@ AaRthg==
 					<ds:KeyName>ssl.casus.net</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://ssl.casus.net/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://ssl.casus.net/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">INSTRUCT AG</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">INSTRUCT AG</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 		<ContactPerson contactType="technical">
@@ -1036,10 +1037,10 @@ AaRthg==
 					<ds:KeyName>edugain-login.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://edugain-login.switch.ch/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://edugain-login.switch.ch/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://edugain-login.switch.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://edugain-login.switch.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1052,7 +1053,7 @@ AaRthg==
 					<ds:KeyName>edugain-login.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://edugain-login.switch.ch/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://edugain-login.switch.ch/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -1090,7 +1091,7 @@ AaRthg==
 				</ds:KeyInfo>
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aaa-idp.unibe.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aaa-idp.unibe.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1103,13 +1104,13 @@ AaRthg==
 					<ds:KeyName>aaa-idp.unibe.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aaa-idp.unibe.ch:8443/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aaa-idp.unibe.ch:8443/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">AAA Test Home Organization - Universität Bern</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">AAA Test Home Organization - Universität Bern</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 		<ContactPerson contactType="technical">
@@ -1140,10 +1141,10 @@ AaRthg==
 					<ds:KeyName>maunaloa.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://maunaloa.switch.ch:8443/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://maunaloa.switch.ch:8443/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://maunaloa.switch.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://maunaloa.switch.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1156,7 +1157,7 @@ AaRthg==
 					<ds:KeyName>maunaloa.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://maunaloa.switch.ch:8443/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://maunaloa.switch.ch:8443/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -1189,10 +1190,10 @@ AaRthg==
 					<ds:KeyName>shibidp.rediris.es</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://shibidp.rediris.es:8443/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://shibidp.rediris.es:8443/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://shibidp.rediris.es/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://shibidp.rediris.es/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1205,13 +1206,13 @@ AaRthg==
 					<ds:KeyName>shibidp.rediris.es</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://shibidp.rediris.es:8443/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://shibidp.rediris.es:8443/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">RedIRIS - the Spanish NREN</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">RedIRIS - the Spanish NREN</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 	</EntityDescriptor>
@@ -1230,10 +1231,10 @@ AaRthg==
 					<ds:KeyName>odin.aai.dfn.de</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://odin.aai.dfn.de/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://odin.aai.dfn.de/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://odin.aai.dfn.de/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://odin.aai.dfn.de/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1246,7 +1247,7 @@ AaRthg==
 					<ds:KeyName>odin.aai.dfn.de</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://odin.aai.dfn.de/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://odin.aai.dfn.de/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -1283,10 +1284,10 @@ AaRthg==
 					<ds:KeyName>srv2.ams.nl.geant2.net</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://srv2.ams.nl.geant2.net:8443/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://srv2.ams.nl.geant2.net:8443/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://srv2.ams.nl.geant2.net/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://srv2.ams.nl.geant2.net/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1299,7 +1300,7 @@ AaRthg==
 					<ds:KeyName>srv2.ams.nl.geant2.net</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://srv2.ams.nl.geant2.net:8443/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://srv2.ams.nl.geant2.net:8443/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -1336,10 +1337,10 @@ AaRthg==
 					<ds:KeyName>aai-test.vho-switchaai.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tobaru.switch.ch/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tobaru.switch.ch/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aai-test.vho-switchaai.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aai-test.vho-switchaai.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1352,7 +1353,7 @@ AaRthg==
 					<ds:KeyName>tobaru.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tobaru.switch.ch/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://tobaru.switch.ch/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -1382,7 +1383,7 @@ AaRthg==
 				</ds:KeyInfo>
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="http://schnurz.dfn.de/shib13/idp/SSOService.php"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="http://schnurz.dfn.de/shib13/idp/SSOService.php"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1395,13 +1396,13 @@ AaRthg==
 					<ds:KeyName>schnurz.dfn.de</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="http://schnurz.dfn.de/shib13/idp/AAService.php"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="http://schnurz.dfn.de/shib13/idp/AAService.php"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">SimpleSAML Test IdP</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">SimpleSAML Test IdP</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 		<ContactPerson contactType="technical">
@@ -1432,10 +1433,10 @@ AaRthg==
 					<ds:KeyName>blupblup.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://blupblup.switch.ch:8443/idp/profile/SAML1/SOAP/ArtifactResolution" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://blupblup.switch.ch:8443/idp/profile/SAML1/SOAP/ArtifactResolution" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://blupblup.switch.ch/idp/profile/Shibboleth/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://blupblup.switch.ch/idp/profile/Shibboleth/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1448,7 +1449,7 @@ AaRthg==
 					<ds:KeyName>blupblup.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://blupblup.switch.ch:8443/idp/profile/SAML1/SOAP/AttributeQuery"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://blupblup.switch.ch:8443/idp/profile/SAML1/SOAP/AttributeQuery"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -1478,7 +1479,7 @@ AaRthg==
 				</ds:KeyInfo>
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://ebulobo.switch.ch/simplesaml/shib13/idp/SSOService.php"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://ebulobo.switch.ch/simplesaml/shib13/idp/SSOService.php"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1491,7 +1492,7 @@ AaRthg==
 					<ds:KeyName>ebulobo.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://ebulobo.switch.ch/simplesaml/shib13/idp/AAService.php"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://ebulobo.switch.ch/simplesaml/shib13/idp/AAService.php"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
@@ -1529,7 +1530,7 @@ AaRthg==
 				</ds:KeyInfo>
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://hualalai.switch.ch/idp-trunk/profile/Shibboleth/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://hualalai.switch.ch/idp-trunk/profile/Shibboleth/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1542,13 +1543,13 @@ AaRthg==
 					<ds:KeyName>hualalai.switch.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://hualalai.switch.ch/push_is_used.html"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://hualalai.switch.ch/push_is_used.html"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">Shib 2 Test-Idp</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">Shib 2 Test-Idp</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 		<ContactPerson contactType="technical">
@@ -1579,10 +1580,10 @@ AaRthg==
 					<ds:KeyName>aai-logon.imd.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aai-aa.imd.ch/shibboleth-idp/Artifact" index="1"></ArtifactResolutionService>
+			<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aai-aa.imd.ch/shibboleth-idp/Artifact" index="1"/>
 			
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aai-logon.imd.ch/shibboleth-idp/SSO"></SingleSignOnService>
+			<SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://aai-logon.imd.ch/shibboleth-idp/SSO"/>
 		</IDPSSODescriptor>
 		
 		
@@ -1595,13 +1596,13 @@ AaRthg==
 					<ds:KeyName>aai-aa.imd.ch</ds:KeyName>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aai-aa.imd.ch/shibboleth-idp/AA"></AttributeService>
+			<AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://aai-aa.imd.ch/shibboleth-idp/AA"/>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 		</AttributeAuthorityDescriptor>
 		<Organization>
 			<OrganizationName xml:lang="en">IMD Lausanne</OrganizationName>
 			<OrganizationDisplayName xml:lang="en">IMD Lausanne</OrganizationDisplayName>
-			<OrganizationURL xml:lang="en"></OrganizationURL>
+			<OrganizationURL xml:lang="en"/>
 		</Organization>
 		
 	</EntityDescriptor>
@@ -1622,9 +1623,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://kohala.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://kohala.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://aaitest-sp.switch.ch/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://aaitest-sp.switch.ch/Shibboleth.sso/SAML/POST" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -1656,7 +1657,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://guenter.canoo.com/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://guenter.canoo.com/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -1688,11 +1689,11 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://kelimutu.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://kelimutu.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://kelimutu.switch.ch/bscw/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://kelimutu.switch.ch/bscw/Shibboleth.sso/SAML/POST" index="2"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://kelimutu.switch.ch/Shibboleth.sso/SAML/Artifact" index="3"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://kelimutu.switch.ch/Shibboleth.sso/SAML/Artifact" index="3"/>
 			
 		</SPSSODescriptor>
 		
@@ -1724,11 +1725,11 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://ebulobo.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://ebulobo.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://ebulobo.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://ebulobo.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://ebulobo.switch.ch/simplesaml/shib13/sp/AssertionConsumerService.php" index="3"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://ebulobo.switch.ch/simplesaml/shib13/sp/AssertionConsumerService.php" index="3"/>
 			
 		</SPSSODescriptor>
 		
@@ -1760,7 +1761,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://rinjani.switch.ch/Shibboleth.shire" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://rinjani.switch.ch/Shibboleth.shire" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -1792,7 +1793,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai.blogug.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai.blogug.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -1824,7 +1825,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://siufaaisp.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://siufaaisp.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -1856,29 +1857,29 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sdauth.sciencedirect.com/SHIRE" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sdauth.sciencedirect.com/SHIRE" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1746.sciencedirect.com:25007/SHIRE" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1746.sciencedirect.com:25007/SHIRE" index="2"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1747.sciencedirect.com:25007/SHIRE" index="3"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1747.sciencedirect.com:25007/SHIRE" index="3"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1748.sciencedirect.com:25007/SHIRE" index="4"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1748.sciencedirect.com:25007/SHIRE" index="4"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1749.sciencedirect.com:25007/SHIRE" index="5"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1749.sciencedirect.com:25007/SHIRE" index="5"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1764.sciencedirect.com:25007/SHIRE" index="6"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1764.sciencedirect.com:25007/SHIRE" index="6"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1765.sciencedirect.com:25007/SHIRE" index="7"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://cpc1765.sciencedirect.com:25007/SHIRE" index="7"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://dvc7411.lexisnexis.com:25007/SHIRE" index="8"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://dvc7411.lexisnexis.com:25007/SHIRE" index="8"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://tpc1770.sciencedirect.com:25007/SHIRE" index="9"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://tpc1770.sciencedirect.com:25007/SHIRE" index="9"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://tpc1771.sciencedirect.com:25007/SHIRE" index="10"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://tpc1771.sciencedirect.com:25007/SHIRE" index="10"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sdauth-cert3.sciencedirect.com/SHIRE" index="11"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sdauth-cert3.sciencedirect.com/SHIRE" index="11"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sdauth-cert4.sciencedirect.com/SHIRE" index="12"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sdauth-cert4.sciencedirect.com/SHIRE" index="12"/>
 			
 		</SPSSODescriptor>
 		
@@ -1910,9 +1911,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macps.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macps.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://macps.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://macps.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -1944,9 +1945,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macha.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macha.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macha.switch.localhost/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macha.switch.localhost/Shibboleth.sso/SAML/POST" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -1978,9 +1979,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai-rr.switch.ch/aaitest/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai-rr.switch.ch/aaitest/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://maunakea.switch.ch/aaitest/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://maunakea.switch.ch/aaitest/Shibboleth.sso/SAML/POST" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -2012,7 +2013,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://siufsypc18.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://siufsypc18.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2044,7 +2045,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macvt.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macvt.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2076,7 +2077,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://demo.aaiportal.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://demo.aaiportal.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2108,7 +2109,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://shibbo-eva.urz.unibas.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://shibbo-eva.urz.unibas.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2140,7 +2141,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://siufsrv09qua.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://siufsrv09qua.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2172,7 +2173,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai2-sp.phbern.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai2-sp.phbern.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2209,7 +2210,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://moodle2.phbern.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://moodle2.phbern.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2241,7 +2242,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://dev1.phbern.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://dev1.phbern.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2273,7 +2274,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://mahawu.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://mahawu.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2305,7 +2306,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://caldera.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://caldera.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2337,7 +2338,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://bscw2.phbern.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://bscw2.phbern.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2369,7 +2370,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://siufsrv09qui.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://siufsrv09qui.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2401,7 +2402,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://edugain-login.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://edugain-login.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2433,7 +2434,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://tengger.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://tengger.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2465,7 +2466,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://vmelab03.unisi.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://vmelab03.unisi.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2497,7 +2498,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://www.unilu-ikk.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://www.unilu-ikk.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2529,7 +2530,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://shibboleth02.e-academy.com/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://shibboleth02.e-academy.com/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2561,7 +2562,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macdm.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://macdm.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2593,9 +2594,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sumbing.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sumbing.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://sumbing.switch.ch/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://sumbing.switch.ch/Shibboleth.sso/SAML/POST" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -2627,7 +2628,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aaa-sp-1.unibe.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aaa-sp-1.unibe.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2659,9 +2660,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://volcanus.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://volcanus.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://volcanus.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://volcanus.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -2693,7 +2694,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://www.dermacvonnick.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://www.dermacvonnick.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2725,13 +2726,13 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://GDP-WIN-231-230.as16215.net/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://GDP-WIN-231-230.as16215.net/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://82.195.231.230/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://82.195.231.230/Shibboleth.sso/SAML/POST" index="2"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://GDP-WIN-231-230.as16215.net/Shibboleth.sso/SAML/POST" index="3"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://GDP-WIN-231-230.as16215.net/Shibboleth.sso/SAML/POST" index="3"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://82.195.231.230/Shibboleth.sso/SAML/POST" index="4"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://82.195.231.230/Shibboleth.sso/SAML/POST" index="4"/>
 			
 		</SPSSODescriptor>
 		
@@ -2763,9 +2764,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://www3.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://www3.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://www3.unifr.ch/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://www3.unifr.ch/Shibboleth.sso/SAML/POST" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -2797,7 +2798,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://claro-test.unine.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://claro-test.unine.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2829,7 +2830,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://acad-test.unine.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://acad-test.unine.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2861,13 +2862,13 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://www3.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://www3.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://moodle-test.unifr.ch/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://moodle-test.unifr.ch/Shibboleth.sso/SAML/POST" index="2"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://www3.unifr.ch/Shibboleth.sso/SAML/POST" index="3"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://www3.unifr.ch/Shibboleth.sso/SAML/POST" index="3"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://moodle-test.unifr.ch/Shibboleth.sso/SAML/POST" index="4"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://moodle-test.unifr.ch/Shibboleth.sso/SAML/POST" index="4"/>
 			
 		</SPSSODescriptor>
 		
@@ -2899,7 +2900,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://bayamo.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://bayamo.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2931,7 +2932,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://odin.aai.dfn.de/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://odin.aai.dfn.de/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -2963,9 +2964,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://tandikat.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://tandikat.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="http://tandikat.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="http://tandikat.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -2997,17 +2998,17 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai.halimedia.com/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai.halimedia.com/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://aai.halimedia.com/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://aai.halimedia.com/Shibboleth.sso/SAML/POST" index="2"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://localhost/Shibboleth.sso/SAML/POST" index="3"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://localhost/Shibboleth.sso/SAML/POST" index="3"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://vsl-standby.unil.ch/Shibboleth.sso/SAML/POST" index="4"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://vsl-standby.unil.ch/Shibboleth.sso/SAML/POST" index="4"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://localhost/Shibboleth.sso/SAML/POST" index="5"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://localhost/Shibboleth.sso/SAML/POST" index="5"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://vsl-standby.unil.ch/Shibboleth.sso/SAML/POST" index="6"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://vsl-standby.unil.ch/Shibboleth.sso/SAML/POST" index="6"/>
 			
 		</SPSSODescriptor>
 		
@@ -3039,7 +3040,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://venus.kos.li/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://venus.kos.li/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3071,9 +3072,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://egon.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://egon.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="http://egon.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="http://egon.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -3105,7 +3106,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://slamet.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://slamet.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3137,9 +3138,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://orbigate.orbiteam.de/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://orbigate.orbiteam.de/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://orbigate.orbiteam.de/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://orbigate.orbiteam.de/Shibboleth.sso/SAML/POST" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -3171,9 +3172,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://teon.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://teon.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://teon.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://teon.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -3205,7 +3206,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://atbash.hospvd.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://atbash.hospvd.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3237,7 +3238,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://thor.aai.dfn.de/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://thor.aai.dfn.de/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3269,7 +3270,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://sr-svx-92.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://sr-svx-92.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3301,7 +3302,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://vmelab03.unisi.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://vmelab03.unisi.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3333,7 +3334,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai2.cyberderm.net/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai2.cyberderm.net/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3365,7 +3366,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://srv2.ams.nl.geant2.net/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://srv2.ams.nl.geant2.net/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3397,9 +3398,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://feide.erlang.no/shibbolethsp/AssertionConsumerService.php" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://feide.erlang.no/shibbolethsp/AssertionConsumerService.php" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://feide.erlang.no/shibbolethsp/AssertionConsumerService.php" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://feide.erlang.no/shibbolethsp/AssertionConsumerService.php" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -3431,9 +3432,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://www.itka.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://www.itka.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="http://www.itka.ch/Shibboleth.sso/SAML/Artifact" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="http://www.itka.ch/Shibboleth.sso/SAML/Artifact" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -3465,9 +3466,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://vvv.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://vvv.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://vvv.unifr.ch/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://vvv.unifr.ch/Shibboleth.sso/SAML/POST" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -3499,7 +3500,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://nero.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://nero.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3531,7 +3532,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://hualalai.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://hualalai.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3563,7 +3564,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://dev.andreas.feide.no/shib13/sp/AssertionConsumerService.php" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://dev.andreas.feide.no/shib13/sp/AssertionConsumerService.php" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3595,9 +3596,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://tools-test.vho-switchaai.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://tools-test.vho-switchaai.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://tools-dev.vho-switchaai.ch/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://tools-dev.vho-switchaai.ch/Shibboleth.sso/SAML/POST" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -3629,7 +3630,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai-appl.fhnw.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai-appl.fhnw.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3661,7 +3662,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://zeus.dfn.de/shib13/sp/AssertionConsumerService.php" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://zeus.dfn.de/shib13/sp/AssertionConsumerService.php" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3693,9 +3694,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://moti.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://moti.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://moti.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://moti.switch.ch/Shibboleth.sso/SAML/Artifact" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -3727,9 +3728,9 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://commonweb.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="http://commonweb.unifr.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://commonweb.unifr.ch/Shibboleth.sso/SAML/POST" index="2"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://commonweb.unifr.ch/Shibboleth.sso/SAML/POST" index="2"/>
 			
 		</SPSSODescriptor>
 		
@@ -3761,7 +3762,7 @@ AaRthg==
 			</KeyDescriptor>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 			
-		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai-demo.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+		<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://aai-demo.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 			
 		</SPSSODescriptor>
 		
@@ -3792,7 +3793,7 @@ AaRthg==
 
   <SPSSODescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol urn:oasis:names:tc:SAML:1.1:protocol urn:oasis:names:tc:SAML:1.0:protocol">
     <Extensions>
-      <DiscoveryResponse xmlns="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol" Location="https://dieng.switch.ch/Shibboleth.sso/DS" index="1"></DiscoveryResponse>
+      <DiscoveryResponse xmlns="urn:oasis:names:tc:SAML:profiles:SSO:idp-discovery-protocol" Location="https://dieng.switch.ch/Shibboleth.sso/DS" index="1"/>
     </Extensions>
     <KeyDescriptor use="signing">
       <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
@@ -4002,20 +4003,20 @@ VWlZCcGkWqUUVhiF
         </ds:X509Data>
       </ds:KeyInfo>
     </KeyDescriptor>
-    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://dieng.switch.ch/Shibboleth.sso/SLO/SOAP"></SingleLogoutService>
-    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://dieng.switch.ch/Shibboleth.sso/SLO/Redirect"></SingleLogoutService>
-    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://dieng.switch.ch/Shibboleth.sso/SLO/POST"></SingleLogoutService>
-    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://dieng.switch.ch/Shibboleth.sso/SLO/Artifact"></SingleLogoutService>
-    <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://dieng.switch.ch/Shibboleth.sso/NIM/SOAP"></ManageNameIDService>
-    <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://dieng.switch.ch/Shibboleth.sso/NIM/Redirect"></ManageNameIDService>
-    <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://dieng.switch.ch/Shibboleth.sso/NIM/POST"></ManageNameIDService>
-    <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://dieng.switch.ch/Shibboleth.sso/NIM/Artifact"></ManageNameIDService>
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://dieng.switch.ch/Shibboleth.sso/SAML2/POST" index="1"></AssertionConsumerService>
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://dieng.switch.ch/Shibboleth.sso/SAML2/POST-SimpleSign" index="2"></AssertionConsumerService>
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://dieng.switch.ch/Shibboleth.sso/SAML2/Artifact" index="3"></AssertionConsumerService>
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS" Location="https://dieng.switch.ch/Shibboleth.sso/SAML2/ECP" index="4"></AssertionConsumerService>
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://dieng.switch.ch/Shibboleth.sso/SAML/POST" index="5"></AssertionConsumerService>
-    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://dieng.switch.ch/Shibboleth.sso/SAML/Artifact" index="6"></AssertionConsumerService>
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://dieng.switch.ch/Shibboleth.sso/SLO/SOAP"/>
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://dieng.switch.ch/Shibboleth.sso/SLO/Redirect"/>
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://dieng.switch.ch/Shibboleth.sso/SLO/POST"/>
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://dieng.switch.ch/Shibboleth.sso/SLO/Artifact"/>
+    <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://dieng.switch.ch/Shibboleth.sso/NIM/SOAP"/>
+    <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://dieng.switch.ch/Shibboleth.sso/NIM/Redirect"/>
+    <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://dieng.switch.ch/Shibboleth.sso/NIM/POST"/>
+    <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://dieng.switch.ch/Shibboleth.sso/NIM/Artifact"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://dieng.switch.ch/Shibboleth.sso/SAML2/POST" index="1"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://dieng.switch.ch/Shibboleth.sso/SAML2/POST-SimpleSign" index="2"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://dieng.switch.ch/Shibboleth.sso/SAML2/Artifact" index="3"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:PAOS" Location="https://dieng.switch.ch/Shibboleth.sso/SAML2/ECP" index="4"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://dieng.switch.ch/Shibboleth.sso/SAML/POST" index="5"/>
+    <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://dieng.switch.ch/Shibboleth.sso/SAML/Artifact" index="6"/>
   </SPSSODescriptor>
 			<ContactPerson contactType="technical">
 				<SurName>AAI Team</SurName>
@@ -4077,11 +4078,11 @@ gyH6EZcug8nZ0x0gtr+Y
 							</ds:KeyInfo>
 					</KeyDescriptor>
 				   
-					<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP-binding" Location="https://lewotolo.switch.ch:8443/idp-trunk/profile/SAML2/SOAP/ArtifactResolution" index="2"></ArtifactResolutionService>
+					<ArtifactResolutionService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP-binding" Location="https://lewotolo.switch.ch:8443/idp-trunk/profile/SAML2/SOAP/ArtifactResolution" index="2"/>
 					<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 					<NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
-					<SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://lewotolo.switch.ch/idp-trunk/profile/SAML2/Redirect/SSO"></SingleSignOnService>
-					<SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://lewotolo.switch.ch/idp-trunk/profile/SAML2/POST/SSO"></SingleSignOnService>
+					<SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://lewotolo.switch.ch/idp-trunk/profile/SAML2/Redirect/SSO"/>
+					<SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://lewotolo.switch.ch/idp-trunk/profile/SAML2/POST/SSO"/>
 			</IDPSSODescriptor>
 			
 			
@@ -4123,7 +4124,7 @@ gyH6EZcug8nZ0x0gtr+Y
 			</ds:X509Data>
 </ds:KeyInfo>
 					</KeyDescriptor>
-					<AttributeService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://lewotolo.switch.ch:8443/idp-trunk/profile/SAML2/SOAP/AttributeQuery"></AttributeService>
+					<AttributeService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://lewotolo.switch.ch:8443/idp-trunk/profile/SAML2/SOAP/AttributeQuery"/>
 					<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 					<NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
 			</AttributeAuthorityDescriptor>
@@ -4154,7 +4155,7 @@ gyH6EZcug8nZ0x0gtr+Y
 				</KeyDescriptor>
 				<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
 				
-			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://maclh.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"></AssertionConsumerService>
+			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://maclh.switch.ch/Shibboleth.sso/SAML/POST" index="1" isDefault="true"/>
 				
 			</SPSSODescriptor>
 			

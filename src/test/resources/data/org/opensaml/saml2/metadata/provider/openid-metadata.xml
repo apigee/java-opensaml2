@@ -1,4 +1,5 @@
-<md:EntityDescriptor entityID="http://rapattoni.trustbearer.com/" ID="Eu-1UPjw5CWwQZYB0zJqvgHkGo2" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" entityID="http://rapattoni.trustbearer.com/" ID="Eu-1UPjw5CWwQZYB0zJqvgHkGo2"><ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
 <ds:SignedInfo>
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>

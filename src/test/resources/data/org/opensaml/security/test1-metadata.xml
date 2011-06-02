@@ -1,5 +1,5 @@
-<EntitiesDescriptor Name="test1-metadata" xmlns="urn:oasis:names:tc:SAML:2.0:metadata"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?>
+<EntitiesDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="test1-metadata">
 
    <Extensions>
       <shibmd:KeyAuthority xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" VerifyDepth="5">
@@ -81,8 +81,7 @@
                </ds:X509Data>
             </ds:KeyInfo>
          </KeyDescriptor>
-         <SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest"
-            Location="https://idp.example.org/shibboleth/SSO_FOO"/>
+         <SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://idp.example.org/shibboleth/SSO_FOO"/>
       </IDPSSODescriptor>
       
       <!-- Protocol BAR -->
@@ -113,17 +112,15 @@
                </ds:X509Data>
             </ds:KeyInfo>
          </KeyDescriptor>
-         <SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest"
-            Location="https://idp.example.org/shibboleth/SSO_BAR"/>
+         <SingleSignOnService Binding="urn:mace:shibboleth:1.0:profiles:AuthnRequest" Location="https://idp.example.org/shibboleth/SSO_BAR"/>
       </IDPSSODescriptor>
       
       <AttributeAuthorityDescriptor protocolSupportEnumeration="urn:oasis:names:tc:SAML:1.1:protocol">
          <KeyDescriptor use="signing">
             <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
                <ds:KeyName>idp.example.org</ds:KeyName>
-            </ds:KeyInfo>> </KeyDescriptor>
-         <AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding"
-            Location="https://idp.example.org:8443/shibboleth/AA"/>
+            </ds:KeyInfo>&gt; </KeyDescriptor>
+         <AttributeService Binding="urn:oasis:names:tc:SAML:1.0:bindings:SOAP-binding" Location="https://idp.example.org:8443/shibboleth/AA"/>
       </AttributeAuthorityDescriptor>
       
    </EntityDescriptor>
@@ -158,10 +155,9 @@
                </ds:X509Data>
             </ds:KeyInfo>
          </KeyDescriptor>
-         <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post"
-            Location="https://sp.example.org/Shibboleth.sso/POST" index="0"/>
+         <AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://sp.example.org/Shibboleth.sso/POST" index="0"/>
       </SPSSODescriptor>
       
    </EntityDescriptor>
 
-</EntitiesDescriptor>
+</EntitiesDescriptor>

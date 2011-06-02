@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<xs:schema targetNamespace="urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns="urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession"
-           finalDefault="extension"
-           blockDefault="substitution"
-           version="2.0">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession" targetNamespace="urn:oasis:names:tc:SAML:2.0:ac:classes:PreviousSession" finalDefault="extension" blockDefault="substitution" version="2.0">
 
     <xs:redefine schemaLocation="classpath:/schema/saml-schema-authn-context-types-2.0.xsd">
 
@@ -21,14 +15,14 @@
             <xs:complexContent>
                 <xs:restriction base="AuthnContextDeclarationBaseType">
                     <xs:sequence>
-                        <xs:element ref="Identification" minOccurs="0" />
-                        <xs:element ref="TechnicalProtection" minOccurs="0" />
-                        <xs:element ref="OperationalProtection" minOccurs="0" />
-                        <xs:element ref="AuthnMethod" />
-                        <xs:element ref="GoverningAgreements" minOccurs="0" />
-                        <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element ref="Identification" minOccurs="0"/>
+                        <xs:element ref="TechnicalProtection" minOccurs="0"/>
+                        <xs:element ref="OperationalProtection" minOccurs="0"/>
+                        <xs:element ref="AuthnMethod"/>
+                        <xs:element ref="GoverningAgreements" minOccurs="0"/>
+                        <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
                     </xs:sequence>
-                    <xs:attribute name="ID" type="xs:ID" use="optional" />
+                    <xs:attribute name="ID" type="xs:ID" use="optional"/>
                 </xs:restriction>
             </xs:complexContent>
         </xs:complexType>
@@ -37,10 +31,10 @@
             <xs:complexContent>
                 <xs:restriction base="AuthnMethodBaseType">
                     <xs:sequence>
-                        <xs:element ref="PrincipalAuthenticationMechanism" minOccurs="0" />
-                        <xs:element ref="Authenticator" />
-                        <xs:element ref="AuthenticatorTransportProtocol" minOccurs="0" />
-                        <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded" />
+                        <xs:element ref="PrincipalAuthenticationMechanism" minOccurs="0"/>
+                        <xs:element ref="Authenticator"/>
+                        <xs:element ref="AuthenticatorTransportProtocol" minOccurs="0"/>
+                        <xs:element ref="Extension" minOccurs="0" maxOccurs="unbounded"/>
                     </xs:sequence>
                 </xs:restriction>
             </xs:complexContent>
@@ -50,7 +44,7 @@
             <xs:complexContent>
                 <xs:restriction base="AuthenticatorBaseType">
                     <xs:sequence>
-                        <xs:element ref="PreviousSession" />
+                        <xs:element ref="PreviousSession"/>
                     </xs:sequence>
                 </xs:restriction>
             </xs:complexContent>
