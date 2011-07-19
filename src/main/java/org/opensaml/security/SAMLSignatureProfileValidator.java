@@ -23,6 +23,7 @@ import org.apache.xml.security.signature.XMLSignature;
 import org.apache.xml.security.transforms.Transform;
 import org.apache.xml.security.transforms.TransformationException;
 import org.apache.xml.security.transforms.Transforms;
+import org.apache.xml.security.utils.IdResolver;
 import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.impl.SignatureImpl;
@@ -31,6 +32,8 @@ import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * A validator for instances of {@link Signature}, which validates that the signature meets security-related
@@ -77,9 +80,8 @@ public class SAMLSignatureProfileValidator implements Validator<Signature> {
         Reference ref = validateReference(apacheSig);
 
         String uri = ref.getURI();
-        String id = signableObject.getSignatureReferenceID();
-
-        validateReferenceURI(uri, id);
+        
+        validateReferenceURI(uri, signableObject);
 
         validateTransforms(ref);
     }
@@ -113,6 +115,44 @@ public class SAMLSignatureProfileValidator implements Validator<Signature> {
             throw new ValidationException("Signature Reference was null");
         }
         return ref;
+    }
+    
+    /**
+     * Validate the Signature's Reference URI.
+     * 
+     * First validate the Reference URI against the parent's ID itself.  Then validate that the 
+     * URI (if non-empty) resolves to the same Element node as is cached by the SignableSAMLObject.
+     * 
+     * 
+     * @param uri the Signature Reference URI attribute value
+     * @param signableObject the SignableSAMLObject whose signature is being validated
+     * @throws ValidationException  if the URI is invalid or doesn't resolve to the expected DOM node
+     */
+    protected void validateReferenceURI(String uri, SignableSAMLObject signableObject) throws ValidationException {
+        String id = signableObject.getSignatureReferenceID();
+        validateReferenceURI(uri, id);
+        
+        if (DatatypeHelper.isEmpty(uri)) {
+            return;
+        }
+        
+        String uriID = uri.substring(1);
+        
+        Element expected = signableObject.getDOM();
+        if (expected == null) {
+            throw new ValidationException("SignableSAMLObject does not have a cached DOM Element.");
+        }
+        Document doc = expected.getOwnerDocument();
+        
+        Element resolved = IdResolver.getElementById(doc, uriID);
+        if (resolved == null) {
+            throw new ValidationException("Apache xmlsec IdResolver could not resolve the Element for id reference: "
+                    +  uriID);
+        }
+        
+        if (!expected.isSameNode(resolved)) {
+            throw new ValidationException("Signature Reference URI did not resolve to the expected Node");
+        }
     }
 
     /**
