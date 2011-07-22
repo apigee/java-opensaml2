@@ -84,6 +84,8 @@ public class SAMLSignatureProfileValidator implements Validator<Signature> {
         validateReferenceURI(uri, signableObject);
 
         validateTransforms(ref);
+        
+        validateObjectChildren(apacheSig);
     }
 
     /**
@@ -140,17 +142,20 @@ public class SAMLSignatureProfileValidator implements Validator<Signature> {
         
         Element expected = signableObject.getDOM();
         if (expected == null) {
+            log.error("SignableSAMLObject does not have a cached DOM Element.");
             throw new ValidationException("SignableSAMLObject does not have a cached DOM Element.");
         }
         Document doc = expected.getOwnerDocument();
         
         Element resolved = IdResolver.getElementById(doc, uriID);
         if (resolved == null) {
+            log.error("Apache xmlsec IdResolver could not resolve the Element for id reference: {}", uriID);
             throw new ValidationException("Apache xmlsec IdResolver could not resolve the Element for id reference: "
                     +  uriID);
         }
         
         if (!expected.isSameNode(resolved)) {
+            log.error("Signature Reference URI did not resolve to the expected Node");
             throw new ValidationException("Signature Reference URI did not resolve to the expected Node");
         }
     }
@@ -237,6 +242,19 @@ public class SAMLSignatureProfileValidator implements Validator<Signature> {
         if (!sawEnveloped) {
             log.error("Signature was missing the required Enveloped signature transform");
             throw new ValidationException("Transforms did not contain the required enveloped transform");
+        }
+    }
+
+    /**
+     * Validate that the Signature instance does not contain any ds:Object children.
+     * 
+     * @param apacheSig the Apache XML Signature instance
+     * @throws ValidationException if the signature contains ds:Object children
+     */
+    protected void validateObjectChildren(XMLSignature apacheSig) throws ValidationException {
+        if (apacheSig.getObjectLength() > 0) {
+            log.error("Signature contained {} ds:Object child element(s)", apacheSig.getObjectLength());
+            throw new ValidationException("Signature contained illegal ds:Object children");
         }
     }
 
