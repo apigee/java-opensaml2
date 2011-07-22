@@ -155,8 +155,8 @@ public class SAMLSignatureProfileValidator implements Validator<Signature> {
         }
         
         if (!expected.isSameNode(resolved)) {
-            log.error("Signature Reference URI did not resolve to the expected Node");
-            throw new ValidationException("Signature Reference URI did not resolve to the expected Node");
+            log.error("Signature Reference URI '{}' did not resolve to the expected parent Element", uri);
+            throw new ValidationException("Signature Reference URI did not resolve to the expected parent Element");
         }
     }
 
@@ -179,9 +179,7 @@ public class SAMLSignatureProfileValidator implements Validator<Signature> {
                 log.error("SignableSAMLObject did not contain an ID attribute");
                 throw new ValidationException("SignableSAMLObject did not contain an ID attribute");
             } else if (uri.length() < 2 || !id.equals(uri.substring(1))) {
-                log
-                        .error(String.format("Reference URI '%s' did not point to SignableSAMLObject with ID '%s'",
-                                uri, id));
+                log.error("Reference URI '{}' did not point to SignableSAMLObject with ID '{}'", uri, id);
                 throw new ValidationException("Reference URI did not point to parent ID");
             }
         }
