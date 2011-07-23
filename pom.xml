@@ -467,7 +467,7 @@
             <name>OpenSAML Users</name>
             <subscribe>https://wiki.shibboleth.net/confluence/display/OpenSAML/MailingList</subscribe>
             <unsubscribe>https://wiki.shibboleth.net/confluence/display/OpenSAML/MailingList</unsubscribe>
-            <post>mace-opensaml-users@internet2.edu</post>
+            <post>dev@shibboleth.net</post>
             <archive>http://groups.google.com/group/opensaml-users</archive>
         </mailingList>
     </mailingLists>
