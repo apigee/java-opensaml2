@@ -156,10 +156,6 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         if (delay < 0) {
             throw new IllegalArgumentException("Maximum refresh delay must be greater than 0");
         }
-        if (delay < minRefreshDelay) {
-            throw new IllegalArgumentException(
-                    "Maximum refresh delay must be greater than or equal to minimum refresh delay");
-        }
         maxRefreshDelay = delay;
     }
 
@@ -203,10 +199,6 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         if (delay < 0) {
             throw new IllegalArgumentException("Minimum refresh delay must be greater than 0");
         }
-        if (delay > maxRefreshDelay) {
-            throw new IllegalArgumentException(
-                    "Minimum refresh delay must be less than or equal to maximum refresh delay");
-        }
         minRefreshDelay = delay;
     }
 
@@ -218,6 +210,11 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
     /** {@inheritDoc} */
     protected void doInitialization() throws MetadataProviderException {
         refresh();
+
+        if (minRefreshDelay > maxRefreshDelay) {
+            throw new MetadataProviderException("Minimum refresh delay " + minRefreshDelay
+                    + " is greater than maximum refresh delay " + maxRefreshDelay);
+        }
     }
 
     /**
@@ -298,8 +295,9 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
     protected void processCachedMetadata(String metadataIdentifier, DateTime refreshStart)
             throws MetadataProviderException {
         log.debug("Computing new expiration time for cached metadata from '{}", metadataIdentifier);
-        DateTime metadataExpirationTime = SAML2Helper.getEarliestExpiration(cachedMetadata, refreshStart
-                .plus(getMaxRefreshDelay()), refreshStart);
+        DateTime metadataExpirationTime =
+                SAML2Helper
+                        .getEarliestExpiration(cachedMetadata, refreshStart.plus(getMaxRefreshDelay()), refreshStart);
         log.debug("Expiration of cached metadata from '{}' will occur at {}", metadataIdentifier,
                 metadataExpirationTime.toString());
 
@@ -383,19 +381,19 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         postProcessMetadata(metadataBytes, metadataDom, metadata);
 
         log.debug("Computing expiration time for metadata from '{}'", metadataIdentifier);
-        DateTime metadataExpirationTime = SAML2Helper.getEarliestExpiration(metadata, refreshStart
-                .plus(getMaxRefreshDelay()), refreshStart);
-        log.debug("Expiration of metadata from '{}' will occur at {}", metadataIdentifier, metadataExpirationTime
-                .toString());
+        DateTime metadataExpirationTime =
+                SAML2Helper.getEarliestExpiration(metadata, refreshStart.plus(getMaxRefreshDelay()), refreshStart);
+        log.debug("Expiration of metadata from '{}' will occur at {}", metadataIdentifier,
+                metadataExpirationTime.toString());
 
         cachedMetadata = metadata;
         lastUpdate = refreshStart;
-        
+
         long nextRefreshDelay;
-        if(metadataExpirationTime.isBeforeNow()){
+        if (metadataExpirationTime.isBeforeNow()) {
             expirationTime = new DateTime(ISOChronology.getInstanceUTC()).plus(getMinRefreshDelay());
             nextRefreshDelay = getMaxRefreshDelay();
-        }else{
+        } else {
             expirationTime = metadataExpirationTime;
             nextRefreshDelay = computeNextRefreshDelay(expirationTime);
         }

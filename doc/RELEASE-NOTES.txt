@@ -1,3 +1,11 @@
+Changes in Release 2.5.2
+=============================================
+[JOST-164] - MetadataProvider minRefreshDelay cannot be set greater than 4 hours
+
+Changes in Release 2.5.1
+=============================================
+ - Addressed a signature wrapping attack
+
 Changes in Release 2.5.0
 =============================================
 [JOST-119] - change pom to create attached -sources jar
