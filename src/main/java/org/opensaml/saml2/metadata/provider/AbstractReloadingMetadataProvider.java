@@ -241,7 +241,7 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
             }
         } catch (Exception e) {
             log.debug("Error occurred while attempting to refresh metadata from '{}', "
-                    + "next refresh for metadata from '{}' will occur in approximately {}ms", mdId, minRefreshDelay);
+                    + "next refresh will occur in approximately {} ms", mdId, minRefreshDelay);
             taskTimer.schedule(new RefreshMetadataTask(), minRefreshDelay);
             throw new MetadataProviderException(e);
         } finally {
