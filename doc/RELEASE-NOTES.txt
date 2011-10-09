@@ -1,5 +1,6 @@
 Changes in Release 2.5.2
 =============================================
+[JOST-160] - Not all times in logging normalized to Zulu
 [JOST-163] - No way to stop AbstractReloadingMetadataProvider threads
 [JOST-164] - MetadataProvider minRefreshDelay cannot be set greater than 4 hours
 [JOST-165] - Update 3rd party runtime library dependencies
