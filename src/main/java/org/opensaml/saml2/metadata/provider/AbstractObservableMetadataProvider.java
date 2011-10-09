@@ -17,6 +17,7 @@
 
 package org.opensaml.saml2.metadata.provider;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -40,6 +41,13 @@ public abstract class AbstractObservableMetadataProvider extends AbstractMetadat
     /** {@inheritDoc} */
     public List<Observer> getObservers() {
         return observers;
+    }
+    
+    /** {@inheritDoc} */
+    public synchronized void destroy() {
+        observers = Collections.emptyList();
+
+        super.destroy();        
     }
 
     /**

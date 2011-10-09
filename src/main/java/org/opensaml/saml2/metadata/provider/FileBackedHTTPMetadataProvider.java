@@ -78,6 +78,13 @@ public class FileBackedHTTPMetadataProvider extends HTTPMetadataProvider {
         super(backgroundTaskTimer, client, metadataURL);
         setBackupFile(backupFilePath);
     }
+    
+    /** {@inheritDoc} */
+    public synchronized void destroy() {
+        metadataBackupFile = null;
+        
+        super.destroy();
+    }
 
     /**
      * Sets the file used to backup metadata. The given file path is checked to see if it is a read/writable file if it

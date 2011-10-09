@@ -415,6 +415,15 @@ public abstract class AbstractMetadataProvider extends BaseMetadataProvider {
             }
         }
     }
+    
+    /** {@inheritDoc} */
+    public synchronized void destroy() {
+        initialized = false;
+        indexedDescriptors = Collections.emptyMap();
+        parser = null;
+
+        super.destroy();        
+    }
 
     /**
      * Subclasses should override this method to perform any initialization logic necessary. Default implementation is a

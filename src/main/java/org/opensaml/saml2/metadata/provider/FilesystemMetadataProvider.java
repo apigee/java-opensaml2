@@ -123,6 +123,13 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
     public void setMaintainExpiredMetadata(boolean maintain) {
         setRequireValidMetadata(!maintain);
     }
+    
+    /** {@inheritDoc} */
+    public synchronized void destroy() {
+        metadataFile = null;
+        
+        super.destroy();
+    }
 
     /** {@inheritDoc} */
     protected String getMetadataIdentifier() {

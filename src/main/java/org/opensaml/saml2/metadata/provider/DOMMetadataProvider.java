@@ -51,6 +51,14 @@ public class DOMMetadataProvider extends AbstractObservableMetadataProvider impl
         super();
         metadataElement = mdElement;
     }
+    
+    /** {@inheritDoc} */
+    public synchronized void destroy() {
+        metadata = null;
+        metadataElement = null;
+        
+        super.destroy();
+    }
 
     /** {@inheritDoc} */
     protected XMLObject doGetMetadata() throws MetadataProviderException {

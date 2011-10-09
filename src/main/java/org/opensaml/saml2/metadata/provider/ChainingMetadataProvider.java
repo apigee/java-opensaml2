@@ -328,6 +328,20 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
     public List<Observer> getObservers() {
         return observers;
     }
+    
+    /** {@inheritDoc} */
+    public synchronized void destroy() {
+        super.destroy();
+        
+        for(MetadataProvider provider : providers){
+            if(provider instanceof BaseMetadataProvider){
+                ((BaseMetadataProvider)provider).destroy();
+            }
+        }
+        
+        providers = Collections.emptyList();
+        observers = Collections.emptyList();
+    }
 
     /**
      * Convenience method for calling

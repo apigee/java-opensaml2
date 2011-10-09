@@ -55,6 +55,12 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
 
     /** Timer used to schedule background metadata update tasks. */
     private Timer taskTimer;
+    
+    /** Whether we created our own task timer during object construction.*/
+    private boolean createdOwnTaskTimer;
+    
+    /** Current task to refresh metadata. */
+    private RefreshMetadataTask refresMetadataTask;
 
     /** Factor used to compute when the next refresh interval will occur. Default value: {@value} */
     private float refreshDelayFactor = 0.75f;
@@ -86,6 +92,7 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
     /** Constructor. */
     protected AbstractReloadingMetadataProvider() {
         taskTimer = new Timer(true);
+        createdOwnTaskTimer = true;
     }
 
     /**
@@ -203,6 +210,23 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
     }
 
     /** {@inheritDoc} */
+    public synchronized void destroy() {
+        refresMetadataTask.cancel();
+        
+        if(createdOwnTaskTimer){
+            taskTimer.cancel();
+        }
+        
+        expirationTime = null;
+        lastRefresh = null;
+        lastUpdate = null;
+        nextRefresh = null;
+        cachedMetadata = null;
+        
+        super.destroy();
+    }
+    
+    /** {@inheritDoc} */
     protected XMLObject doGetMetadata() throws MetadataProviderException {
         return cachedMetadata;
     }
@@ -242,7 +266,8 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         } catch (Exception e) {
             log.debug("Error occurred while attempting to refresh metadata from '{}', "
                     + "next refresh will occur in approximately {} ms", mdId, minRefreshDelay);
-            taskTimer.schedule(new RefreshMetadataTask(), minRefreshDelay);
+            refresMetadataTask = new RefreshMetadataTask();
+            taskTimer.schedule(refresMetadataTask, minRefreshDelay);
             throw new MetadataProviderException(e);
         } finally {
             lastRefresh = now;
@@ -464,11 +489,9 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
             byte[] buffer = new byte[1024 * 1024];
             ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-            long count = 0;
             int n = 0;
             while (-1 != (n = ins.read(buffer))) {
                 output.write(buffer, 0, n);
-                count += n;
             }
 
             ins.close();
@@ -484,6 +507,11 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
         /** {@inheritDoc} */
         public void run() {
             try {
+                if(!isInitialized()){
+                    // just in case the metadata provider was destroyed before this task runs
+                    return;
+                }
+                
                 refresh();
             } catch (MetadataProviderException e) {
                 // nothing to do, error message already logged by refreshMetadata()

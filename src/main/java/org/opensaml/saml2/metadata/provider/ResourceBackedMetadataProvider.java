@@ -109,6 +109,14 @@ public class ResourceBackedMetadataProvider extends AbstractReloadingMetadataPro
     public void setMaintainExpiredMetadata(boolean maintain){
         setRequireValidMetadata(!maintain);
     }
+    
+    /** {@inheritDoc} */
+    public synchronized void destroy() {
+        metadataResource = null;
+        lastResourceUpdate = null;
+        
+        super.destroy();
+    }
 
     /** {@inheritDoc} */
     protected String getMetadataIdentifier() {

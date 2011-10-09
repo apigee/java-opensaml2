@@ -25,11 +25,11 @@ import org.opensaml.xml.io.UnmarshallerFactory;
  */
 public abstract class BaseMetadataProvider implements MetadataProvider {
 
-    /** Whether metadata is required to be valid. */
-    private boolean requireValidMetadata;
-
     /** Unmarshaller factory used to get an unmarshaller for the metadata DOM. */
     protected UnmarshallerFactory unmarshallerFactory;
+
+    /** Whether metadata is required to be valid. */
+    private boolean requireValidMetadata;
 
     /** Filter applied to all metadata. */
     private MetadataFilter mdFilter;
@@ -58,5 +58,10 @@ public abstract class BaseMetadataProvider implements MetadataProvider {
     /** {@inheritDoc} */
     public void setMetadataFilter(MetadataFilter newFilter) throws MetadataProviderException {
         mdFilter = newFilter;
+    }
+    
+    /** Destroys the metadata provider and frees any resources current held by it.  Default method is a no-op. */
+    public synchronized void destroy(){
+        //no-op
     }
 }

@@ -219,6 +219,17 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
     }
 
     /** {@inheritDoc} */
+    public synchronized void destroy() {
+        httpClient = null;
+        metadataURI = null;
+        cachedMetadataETag = null;
+        cachedMetadataLastModified = null;
+        authScope = null;
+        
+        super.destroy();
+    }
+    
+    /** {@inheritDoc} */
     protected String getMetadataIdentifier() {
         return metadataURI.toString();
     }
