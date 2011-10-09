@@ -7,12 +7,12 @@
     <parent>
         <groupId>net.shibboleth</groupId>
         <artifactId>parent</artifactId>
-        <version>1</version>
+        <version>2</version>
     </parent>
     
     <groupId>org.opensaml</groupId>
     <artifactId>opensaml</artifactId>
-    <version>2.5.1</version>
+    <version>2.5.2</version>
     <packaging>jar</packaging>
 
     <name>OpenSAML-J</name>
@@ -47,17 +47,17 @@
         <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>openws</artifactId>
-            <version>1.4.2</version>
+            <version>1.4.3</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
-            <version>3.1</version>
+            <version>3.2.1</version>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.1</version>
+            <version>2.6</version>
         </dependency>
         <dependency>
             <groupId>velocity</groupId>
@@ -73,7 +73,7 @@
         <dependency>
             <groupId>org.owasp.esapi</groupId>
             <artifactId>esapi</artifactId>
-            <version>2.0GA</version>
+            <version>2.0.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-configuration</groupId>
@@ -112,7 +112,7 @@
                     <artifactId>antisamy</artifactId>
                 </exclusion>
             </exclusions>
-    </dependency>
+        </dependency>
 
         <!-- Provided dependencies -->
         <dependency>

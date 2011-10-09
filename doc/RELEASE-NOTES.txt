@@ -1,6 +1,7 @@
 Changes in Release 2.5.2
 =============================================
 [JOST-164] - MetadataProvider minRefreshDelay cannot be set greater than 4 hours
+[JOST-165] - Update 3rd party runtime library dependencies
 [JOST-171] - org.opensaml.saml2.metadata.provider.AbstractReloadingMetadataProvider:246 missing param in logging statement
 
 Changes in Release 2.5.1
