@@ -70,7 +70,7 @@ public class ComplexEncryptionTest extends BaseTestCase {
         expectedRecipientRSA = "RSARecipient";
         expectedRecipientAES = "AESRecipient";
         algoURI = EncryptionConstants.ALGO_ID_BLOCKCIPHER_AES128;
-        kekURIRSA = EncryptionConstants.ALGO_ID_KEYTRANSPORT_RSA15;
+        kekURIRSA = EncryptionConstants.ALGO_ID_KEYTRANSPORT_RSAOAEP;
         kekURIAES = EncryptionConstants.ALGO_ID_KEYWRAP_AES128;
     }
     

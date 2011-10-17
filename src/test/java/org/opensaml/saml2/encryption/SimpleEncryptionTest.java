@@ -66,7 +66,7 @@ public class SimpleEncryptionTest extends BaseTestCase {
         expectedKeyName = "SuperSecretKey";
         algoURI = EncryptionConstants.ALGO_ID_BLOCKCIPHER_AES128;
         
-        kekURIRSA = EncryptionConstants.ALGO_ID_KEYTRANSPORT_RSA15;
+        kekURIRSA = EncryptionConstants.ALGO_ID_KEYTRANSPORT_RSAOAEP;
     }
     
     /** {@inheritDoc} */
