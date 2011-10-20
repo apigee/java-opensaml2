@@ -3,7 +3,7 @@
 <fileset-config file-format-version="1.2.0" simple-config="false" sync-formatter="false">
 
    <local-check-config name="Shibboleth Checkstyle" type="remote" description="" 
-                       location="https://svn.shibboleth.net/java-parent-project/tags/1/resources/checkstyle/checkstyle.xml" >
+                       location="https://svn.shibboleth.net/java-parent-project/trunk/resources/checkstyle/checkstyle.xml" >
     <additional-data name="cache-file" value="true"/>
     <additional-data name="cache-props-file-location" value="null_1312636288299_cache.properties"/>
     <additional-data name="cache-file-location" value="null_1312636288299_cache.xml"/>
