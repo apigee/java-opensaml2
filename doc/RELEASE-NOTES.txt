@@ -6,6 +6,7 @@ Changes in Release 2.5.2
 [JOST-165] - Update 3rd party runtime library dependencies
 [JOST-171] - org.opensaml.saml2.metadata.provider.AbstractReloadingMetadataProvider:246 missing param in logging statement
 [JOST-173] - Wrong Treatment of ResponseLocation and Location in Metadata
+[JOST-174] - ChainingMetadataProvider calls clear() on unmodifiable list
 
 Changes in Release 2.5.1
 =============================================

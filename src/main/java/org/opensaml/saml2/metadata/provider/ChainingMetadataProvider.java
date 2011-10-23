@@ -101,7 +101,7 @@ public class ChainingMetadataProvider extends BaseMetadataProvider implements Ob
 
         try {
             if (newProviders == null || newProviders.isEmpty()) {
-                providers.clear();
+                providers = Collections.emptyList();
                 return;
             }
 
