@@ -272,6 +272,8 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
             String errMsg = "Error retrieving metadata from " + metadataURI;
             log.error(errMsg, e);
             throw new MetadataProviderException(errMsg, e);
+        }finally{
+            getMethod.releaseConnection();
         }
     }
 

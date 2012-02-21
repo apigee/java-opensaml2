@@ -1,3 +1,8 @@
+Changes in Release 2.5.3
+=============================================
+[JOST-179] - FileBackedHTTPMetadataProvider does not properly release HTTP connections
+[JOST-180] - Update openws library version
+
 Changes in Release 2.5.2
 =============================================
 [JOST-160] - Not all times in logging normalized to Zulu
