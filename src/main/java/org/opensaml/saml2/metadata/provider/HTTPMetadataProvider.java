@@ -286,6 +286,7 @@ public class HTTPMetadataProvider extends AbstractReloadingMetadataProvider {
      */
     protected GetMethod buildGetMethod() {
         GetMethod getMethod = new GetMethod(getMetadataURI());
+        getMethod.addRequestHeader("Connection", "close");
 
         getMethod.setRequestHeader("Accept-Encoding", "gzip,deflate");
         if (cachedMetadataETag != null) {
