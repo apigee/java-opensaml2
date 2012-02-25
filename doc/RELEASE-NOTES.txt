@@ -2,7 +2,7 @@ Changes in Release 2.5.3
 =============================================
 [JOST-176] - SubjectConfirmationUnmarshaller processChildElement misplaces KeyInfo
 [JOST-179] - FileBackedHTTPMetadataProvider does not properly release HTTP connections
-[JOST-180] - Update openws library version
+[JOST-180] - Update dependencies
 [JOST-181] - Bug in marshalling an XACML Policy AttributeDesignatorType
 
 Changes in Release 2.5.2
