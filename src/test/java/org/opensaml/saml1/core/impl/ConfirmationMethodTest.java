@@ -26,9 +26,7 @@ import org.opensaml.common.BaseSAMLObjectProviderTestCase;
 import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.ConfirmationMethod;
 
-/**
- * test for {@link org.opensaml.saml1.core.impl.ConfirmationMethod}
- */
+/** Test for {@link ConfirmationMethod}. */
 public class ConfirmationMethodTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */

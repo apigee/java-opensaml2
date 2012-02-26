@@ -31,9 +31,7 @@ import org.opensaml.saml1.core.SubjectConfirmationData;
 import org.opensaml.xml.schema.impl.XSAnyBuilder;
 import org.w3c.dom.Document;
 
-/**
- * Test for {@link org.opensaml.saml1.core.impl.Subject}
- */
+/** Test for {@link SubjectConfirmation}. */
 public class SubjectConfirmationTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */

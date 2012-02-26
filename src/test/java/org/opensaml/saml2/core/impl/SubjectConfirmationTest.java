@@ -101,7 +101,6 @@ public class SubjectConfirmationTest extends BaseSAMLObjectProviderTestCase {
         assertEquals(expectedChildElementsDOM, subjectConfirmation);
     }
     
-    /** {@inheritDoc} */
     public void testChildElementsWithEncryptedIDUnmarshall() {
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) unmarshallElement(childElementsWithEncryptedIDFile);
 
@@ -111,8 +110,6 @@ public class SubjectConfirmationTest extends BaseSAMLObjectProviderTestCase {
         assertNotNull("SubjectConfirmationData element not present", subjectConfirmation.getSubjectConfirmationData());
     }
 
-    /** {@inheritDoc} 
-     * @throws XMLParserException */
     public void testChildElementsWithEncryptedIDMarshall() throws XMLParserException {
         QName qname = new QName(SAMLConstants.SAML20_NS, SubjectConfirmation.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20_PREFIX);
         SubjectConfirmation subjectConfirmation = (SubjectConfirmation) buildXMLObject(qname);

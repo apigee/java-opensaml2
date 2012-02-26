@@ -20,9 +20,7 @@ package org.opensaml.saml2.metadata.validator;
 import org.opensaml.saml2.metadata.IndexedEndpoint;
 import org.opensaml.xml.validation.ValidationException;
 
-/**
- * Test case for {@link org.opensaml.saml2.metadata.AddtionalMetadataLocation}.
- */
+/** Test case for {@link IndexedEndpointSchemaValidator}. */
 public abstract class IndexedEndpointSchemaTestBase extends EndpointSchemaTestBase {
 
     /** Constructor */

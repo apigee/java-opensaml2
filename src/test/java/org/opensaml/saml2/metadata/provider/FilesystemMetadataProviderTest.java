@@ -60,7 +60,7 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
     }
 
     /**
-     * Tests the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName) method.
+     * Tests the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName)} method.
      */
     public void testGetRole() throws MetadataProviderException {
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
@@ -69,7 +69,7 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
     }
 
     /**
-     * Test the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.
+     * Test the {@link HTTPMetadataProvider#getRole(String, javax.xml.namespace.QName, String)} method.
      */
     public void testGetRoleWithSupportedProtocol() throws MetadataProviderException {
         RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME,

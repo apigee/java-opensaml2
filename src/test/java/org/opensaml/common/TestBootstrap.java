@@ -29,7 +29,6 @@ public class TestBootstrap extends DefaultBootstrap {
     /** List of XMLTooling configuration files with any needed test configuration. */
     private static String[] testConfigs = {  };
     
-    /** {@inheritDoc} */
     public static synchronized void bootstrap() throws ConfigurationException {
         DefaultBootstrap.bootstrap();
         

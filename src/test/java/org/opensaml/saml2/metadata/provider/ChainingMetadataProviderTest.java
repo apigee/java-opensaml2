@@ -86,7 +86,7 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
         assertEquals("Entity's ID does not match requested ID", entityID2, descriptor2.getEntityID());
     }
 
-    /** Tests the {@link ChainingMetadataProvider#getRole(String, javax.xml.namespace.QName) method.  */
+    /** Tests the {@link ChainingMetadataProvider#getRole(String, javax.xml.namespace.QName)} method.  */
     public void testGetRole() throws MetadataProviderException {
         List<RoleDescriptor> roles = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
         assertNotNull("Roles for entity descriptor was null", roles);
@@ -97,7 +97,7 @@ public class ChainingMetadataProviderTest extends BaseTestCase {
         assertEquals("Unexpected number of roles", 1, roles2.size());
     }
 
-    /** Test the {@link ChainingMetadataProvider#getRole(String, javax.xml.namespace.QName, String) method.  */
+    /** Test the {@link ChainingMetadataProvider#getRole(String, javax.xml.namespace.QName, String)} method.  */
     public void testGetRoleWithSupportedProtocol() throws MetadataProviderException {
         RoleDescriptor role = metadataProvider.getRole(entityID, IDPSSODescriptor.DEFAULT_ELEMENT_NAME,
                 supportedProtocol);

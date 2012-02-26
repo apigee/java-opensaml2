@@ -37,9 +37,7 @@ import org.opensaml.xml.io.MarshallingException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-/**
- * Test for {@link org.opensaml.saml1.core.impl.Assertion}
- */
+/** Test for {@link Assertion}. */
 public class AssertionTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */

@@ -146,7 +146,6 @@ public class KeyInfoConfirmationDataTypeTest extends BaseSAMLObjectProviderTestC
         assertEquals(expectedChildElementsDOM, kicd);
     }
     
-    /** {@inheritDoc} */
     public KeyInfoConfirmationDataType buildXMLObject() {
         SAMLObjectBuilder builder = 
             (SAMLObjectBuilder) Configuration.getBuilderFactory().getBuilder(KeyInfoConfirmationDataType.TYPE_NAME);

@@ -24,9 +24,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.AdditionalMetadataLocation;
 import org.opensaml.xml.validation.ValidationException;
 
-/**
- * Test case for {@link org.opensaml.saml2.metadata.AddtionalMetadataLocation}.
- */
+/** Test case for {@link AdditionalMetadataLocationSchemaValidator}. */
 public class AdditionalMetadataLocationSchemaTest extends BaseSAMLObjectValidatorTestCase {
 
     /** Constructor */

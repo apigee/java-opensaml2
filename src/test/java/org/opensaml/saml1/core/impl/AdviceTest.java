@@ -29,9 +29,7 @@ import org.opensaml.saml1.core.Advice;
 import org.opensaml.saml1.core.Assertion;
 import org.opensaml.saml1.core.AssertionIDReference;
 
-/**
- * Test for {@link org.opensaml.saml1.core.impl.Advice}
- */
+/** Test for {@link Advice}. */
 public class AdviceTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
@@ -75,12 +73,15 @@ public class AdviceTest extends BaseSAMLObjectProviderTestCase {
 
     public void testChildElementsMarshall() {
         Advice advice = (Advice) buildXMLObject(qname);
-        
-        QName assertionIDRefQname = new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        QName assertionQname = new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
-        
+
+        QName assertionIDRefQname =
+                new QName(SAMLConstants.SAML1_NS, AssertionIDReference.DEFAULT_ELEMENT_LOCAL_NAME,
+                        SAMLConstants.SAML1_PREFIX);
+        QName assertionQname =
+                new QName(SAMLConstants.SAML1_NS, Assertion.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML1_PREFIX);
+
         advice.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(assertionIDRefQname));
-        advice.getAssertions().add((Assertion) buildXMLObject(assertionQname) );
+        advice.getAssertions().add((Assertion) buildXMLObject(assertionQname));
         advice.getAssertionIDReferences().add((AssertionIDReference) buildXMLObject(assertionIDRefQname));
 
         assertEquals(expectedChildElementsDOM, advice);

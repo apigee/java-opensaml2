@@ -27,9 +27,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml1.core.AttributeQuery;
 import org.opensaml.saml1.core.AuthorityBinding;
 
-/**
- *  Test for {@link org.opensaml.saml1.core.impl.AuthorityBinding}
- */
+/** Test for {@link AuthorityBinding}. */
 public class AuthorityBindingTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */

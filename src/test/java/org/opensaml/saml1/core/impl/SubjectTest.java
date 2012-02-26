@@ -29,9 +29,7 @@ import org.opensaml.saml1.core.NameIdentifier;
 import org.opensaml.saml1.core.Subject;
 import org.opensaml.saml1.core.SubjectConfirmation;
 
-/**
- * Test for {@link org.opensaml.saml1.core.impl.Subject}
- */
+/** Test for {@link Subject}. */
 public class SubjectTest extends BaseSAMLObjectProviderTestCase {
 
     /** name used to generate objects */
