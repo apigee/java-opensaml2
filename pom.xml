@@ -23,7 +23,6 @@
     
     <properties>
         <svn.relative.location>java-opensaml2</svn.relative.location>
-        <openws.version>1.4.4</openws.version>
     </properties>
 
     <repositories>
@@ -48,7 +47,7 @@
         <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>openws</artifactId>
-            <version>${openws.version}</version>
+            <version>1.4.4</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -269,8 +268,8 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
                             <links>
-                                <link>https://shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/xmltooling/${xmltooling.version}/xmltooling-${xmltooling.version}-javadoc.jar/!/</link>
-                                <link>https://shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/openws/${openws.version}/openws-${openws.version}-javadoc.jar/!/</link>
+                                <link>https://shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/xmltooling/1.3.4/xmltooling-1.3.4-javadoc.jar/!/</link>
+                                <link>https://shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/openws/1.4.4/openws-1.4.4-javadoc.jar/!/</link>
                             </links>
                         </configuration>
                     </plugin>

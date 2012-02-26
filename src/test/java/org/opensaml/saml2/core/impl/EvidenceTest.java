@@ -104,8 +104,8 @@ public class EvidenceTest extends BaseSAMLObjectProviderTestCase {
             .add((EncryptedAssertion) buildXMLObject(EncryptedAssertion.DEFAULT_ELEMENT_NAME));
         evidence.getEncryptedAssertions()
             .add((EncryptedAssertion) buildXMLObject(EncryptedAssertion.DEFAULT_ELEMENT_NAME));
-        evidence.getAssertionURIReferences()
-            .add((AssertionURIRef) buildXMLObject(AssertionURIRef.DEFAULT_ELEMENT_NAME));
+        evidence.getAssertions()
+            .add((Assertion) buildXMLObject(Assertion.DEFAULT_ELEMENT_NAME));
         
         assertEquals(expectedChildElementsDOM, evidence);
     }
