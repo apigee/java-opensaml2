@@ -23,6 +23,7 @@
     
     <properties>
         <svn.relative.location>java-opensaml2</svn.relative.location>
+        <openws.version>1.4.4</openws.version>
     </properties>
 
     <repositories>
@@ -47,7 +48,7 @@
         <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>openws</artifactId>
-            <version>1.4.4</version>
+            <version>${openws.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -126,50 +127,11 @@
 
         <!-- Provided dependencies -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>2.0.8</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-mock</artifactId>
-            <version>2.0.8</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        
-        <!-- Runtime dependencies -->
-
-        <!-- Test dependencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <!-- Managed Dependencies -->
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
         </dependency>
+        
+        <!-- Runtime dependencies -->
         <dependency>
             <groupId>${xerces.groupId}</groupId>
             <artifactId>xml-apis</artifactId>
@@ -189,6 +151,43 @@
         <dependency>
             <groupId>${xalan.groupId}</groupId>
             <artifactId>xalan</artifactId>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>2.0.8</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-mock</artifactId>
+            <version>2.0.8</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -263,6 +262,16 @@
                             <descriptors>
                                 <descriptor>src/main/assembly/bin.xml</descriptor>
                             </descriptors>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <links>
+                                <link>https://shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/xmltooling/${xmltooling.version}/xmltooling-${xmltooling.version}-javadoc.jar/!/</link>
+                                <link>https://shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/openws/${openws.version}/openws-${openws.version}-javadoc.jar/!/</link>
+                            </links>
                         </configuration>
                     </plugin>
                 </plugins>

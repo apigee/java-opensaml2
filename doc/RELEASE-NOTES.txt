@@ -4,6 +4,7 @@ Changes in Release 2.5.3
 [JOST-179] - FileBackedHTTPMetadataProvider does not properly release HTTP connections
 [JOST-180] - Update dependencies
 [JOST-181] - Bug in marshalling an XACML Policy AttributeDesignatorType
+[JOST-182] - Clean up maven assembly description
 
 Changes in Release 2.5.2
 =============================================

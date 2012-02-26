@@ -13,11 +13,11 @@ OpenSAML-J is licensed under the Apache License, version 2.
 
 Feedback
 --------
-Feedback may be provided through the OpenSAML mailing list.
-https://wiki.shibboleth.net/confluence/display/OpenSAML/MailingList
+Feedback may be provided through the Shibboleth development mailing list.
+http://shibboleth.internet2.edu/lists.html
 
 Issues, Suggestions
 --------
 Issues or suggestions for improvement may submitted to the OpenWS - Java
 project at:
-http://bugs.internet2.edu/jira
+https://issues.shibboleth.net/jira/browse/JOST
