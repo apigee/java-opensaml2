@@ -70,6 +70,8 @@ public class DefaultBootstrap {
         "/xacml3-saml2-profile-config.xml",    
         "/wsaddressing-config.xml",
         "/wssecurity-config.xml",
+        "/wstrust-config.xml",
+        "/wspolicy-config.xml",
     };
 
     /** Constructor. */
