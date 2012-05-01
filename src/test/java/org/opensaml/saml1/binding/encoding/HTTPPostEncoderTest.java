@@ -44,7 +44,7 @@ public class HTTPPostEncoderTest extends BaseTestCase {
         super.setUp();
 
         velocityEngine = new VelocityEngine();
-        velocityEngine.setProperty(RuntimeConstants.ENCODING_DEFAULT, "UTF-8");
+        velocityEngine.setProperty(RuntimeConstants.INPUT_ENCODING, "UTF-8");
         velocityEngine.setProperty(RuntimeConstants.OUTPUT_ENCODING, "UTF-8");
         velocityEngine.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
         velocityEngine.setProperty("classpath.resource.loader.class",

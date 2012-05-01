@@ -173,7 +173,7 @@ public class DefaultBootstrap {
             log.debug("Initializing Velocity template engine");
             Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
                     "org.apache.velocity.runtime.log.NullLogChute");
-            Velocity.setProperty(RuntimeConstants.ENCODING_DEFAULT, "UTF-8");
+            Velocity.setProperty(RuntimeConstants.INPUT_ENCODING, "UTF-8");
             Velocity.setProperty(RuntimeConstants.OUTPUT_ENCODING, "UTF-8");
             Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
             Velocity.setProperty("classpath.resource.loader.class",
