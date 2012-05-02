@@ -2,6 +2,7 @@ Changes in Release 2.5.4
 =============================================
 [JOST-185] - Defaultbootstrap does not initialize the providers from the WS-Trust and WS-Policy schemas in openws
 [JOST-187] - Velocity initialization code uses an invalid key for the configuration properties set
+[JOST-188] - DefaultBootstrap is unnecessarily calling Velocity singleton initialization
 
 Changes in Release 2.5.3
 =============================================

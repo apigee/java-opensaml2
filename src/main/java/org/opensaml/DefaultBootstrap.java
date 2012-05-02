@@ -17,8 +17,6 @@
 
 package org.opensaml;
 
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.xml.security.Init;
 import org.opensaml.saml1.binding.artifact.SAML1ArtifactBuilderFactory;
 import org.opensaml.saml2.binding.artifact.SAML2ArtifactBuilderFactory;
@@ -87,8 +85,6 @@ public class DefaultBootstrap {
     public static synchronized void bootstrap() throws ConfigurationException {
 
         initializeXMLSecurity();
-
-        initializeVelocity();
 
         initializeXMLTooling(xmlToolingConfigs);
 
@@ -159,28 +155,6 @@ public class DefaultBootstrap {
         if (!Init.isInitialized()) {
             log.debug("Initializing Apache XMLSecurity library");
             Init.init();
-        }
-    }
-
-    /**
-     * Intializes the Apache Velocity template engine.
-     * 
-     * @throws ConfigurationException thrown if there is a problem initializing Velocity
-     */
-    protected static void initializeVelocity() throws ConfigurationException {
-        Logger log = getLogger();
-        try {
-            log.debug("Initializing Velocity template engine");
-            Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS,
-                    "org.apache.velocity.runtime.log.NullLogChute");
-            Velocity.setProperty(RuntimeConstants.INPUT_ENCODING, "UTF-8");
-            Velocity.setProperty(RuntimeConstants.OUTPUT_ENCODING, "UTF-8");
-            Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-            Velocity.setProperty("classpath.resource.loader.class",
-                    "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-            Velocity.init();
-        } catch (Exception e) {
-            throw new ConfigurationException("Unable to initialize Velocity template engine", e);
         }
     }
 
