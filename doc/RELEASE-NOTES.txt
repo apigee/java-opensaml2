@@ -1,3 +1,5 @@
+[JOST-190] - Backport some bugfixes from OpenSAML3
+
 Changes in Release 2.5.4
 =============================================
 [JOST-185] - Defaultbootstrap does not initialize the providers from the WS-Trust and WS-Policy schemas in openws
