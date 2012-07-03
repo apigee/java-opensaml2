@@ -563,6 +563,20 @@
             <MarshallingClass className="org.opensaml.xacml.policy.impl.VariableReferenceTypeMarshaller"/>
             <UnmarshallingClass className="org.opensaml.xacml.policy.impl.VariableReferenceTypeUnmarshaller"/>
         </ObjectProvider> 
+        
+        <!-- xacml:XPathVersion -->
+        <ObjectProvider qualifiedName="xacml:XPathVersion">
+            <BuilderClass className="org.opensaml.core.xml.schema.impl.XSStringBuilder"/>
+            <MarshallingClass className="org.opensaml.core.xml.schema.impl.XSStringMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.core.xml.schema.impl.XSStringUnmarshaller"/>
+        </ObjectProvider> 
+        <!-- xacml:XPathVersionType -->
+        <ObjectProvider qualifiedName="xacml:XPathVersionType">
+            <BuilderClass className="org.opensaml.core.xml.schema.impl.XSStringBuilder"/>
+            <MarshallingClass className="org.opensaml.core.xml.schema.impl.XSStringMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.core.xml.schema.impl.XSStringUnmarshaller"/>
+        </ObjectProvider> 
+        
 
     </ObjectProviders>
     
