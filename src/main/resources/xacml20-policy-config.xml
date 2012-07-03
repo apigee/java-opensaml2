@@ -467,16 +467,16 @@
                
         <!--SubjectAttributeDesignator -->
         <ObjectProvider qualifiedName="xacml:SubjectAttributeDesignator">
-            <BuilderClass className="org.opensaml.xacml.policy.impl.AttributeDesignatorTypeImplBuilder"/>
-            <MarshallingClass className="org.opensaml.xacml.policy.impl.AttributeDesignatorTypeMarshaller"/>
-            <UnmarshallingClass className="org.opensaml.xacml.policy.impl.AttributeDesignatorTypeUnmarshaller"/>
+            <BuilderClass className="org.opensaml.xacml.policy.impl.SubjectAttributeDesignatorTypeImplBuilder"/>
+            <MarshallingClass className="org.opensaml.xacml.policy.impl.SubjectAttributeDesignatorTypeMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.xacml.policy.impl.SubjectAttributeDesignatorTypeUnmarshaller"/>
         </ObjectProvider>
 
 		<!-- SubjectAttributeDesignator -->
         <ObjectProvider qualifiedName="xacml:SubjectAttributeDesignatorType">
-            <BuilderClass className="org.opensaml.xacml.policy.impl.AttributeDesignatorTypeImplBuilder"/>
-            <MarshallingClass className="org.opensaml.xacml.policy.impl.AttributeDesignatorTypeMarshaller"/>
-            <UnmarshallingClass className="org.opensaml.xacml.policy.impl.AttributeDesignatorTypeUnmarshaller"/>
+            <BuilderClass className="org.opensaml.xacml.policy.impl.SubjectAttributeDesignatorTypeImplBuilder"/>
+            <MarshallingClass className="org.opensaml.xacml.policy.impl.SubjectAttributeDesignatorTypeMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.xacml.policy.impl.SubjectAttributeDesignatorTypeUnmarshaller"/>
         </ObjectProvider>
 
         <!-- xacml:SubjectsType -->
