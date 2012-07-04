@@ -1,6 +1,6 @@
 Changes in Release 2.5.4
 =============================================
-[JOST-191] - XACML code does not handle <SubjectAttributeDesignator/> or <XPathVersion/> Correctly
+[JOST-191] - Further Bugfixes to XACML\policy
 [JOST-190] - Backport some bugfixes from OpenSAML3
 [JOST-185] - Defaultbootstrap does not initialize the providers from the WS-Trust and WS-Policy schemas in openws
 [JOST-187] - Velocity initialization code uses an invalid key for the configuration properties set
