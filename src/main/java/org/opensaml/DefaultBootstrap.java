@@ -86,7 +86,7 @@ public class DefaultBootstrap {
 
         initializeXMLSecurity();
 
-        initializeXMLTooling(xmlToolingConfigs);
+        initializeXMLTooling();
 
         initializeArtifactBuilderFactories();
 
@@ -157,9 +157,18 @@ public class DefaultBootstrap {
             Init.init();
         }
     }
-
+    
     /**
      * Initializes the XMLTooling library with a default set of object providers.
+     * 
+     * @throws ConfigurationException thrown if there is a problem loading the configuration files
+     */
+    protected static void initializeXMLTooling() throws ConfigurationException {
+        initializeXMLTooling(xmlToolingConfigs);
+    }
+
+    /**
+     * Initializes the XMLTooling library with an explicitly supplied set of object providers.
      * 
      * @param providerConfigs list of provider configuration files located on the classpath
      * 
