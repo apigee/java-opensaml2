@@ -103,7 +103,7 @@ public class ESAPISecurityConfig implements SecurityConfiguration {
 
     /** {@inheritDoc} */
     public String getCharacterEncoding() {
-        return null;
+        return "UTF-8";
     }
 
     /** {@inheritDoc} */
