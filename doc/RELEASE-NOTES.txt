@@ -8,6 +8,7 @@ Changes in Release 2.5.4
 [JOST-191] - Further Bugfixes to XACML\policy
 [JOST-193] - Make the implementation of custom bootstrap code easier, without relying on private data from DefaultBootstrap
 [JOST-194] - org.opensaml.ESAPISecurityConfig should use singleton pattern like the default ESAPI reference class
+[JOST-195] - Use system property-based override for our custom ESAPI config rather than ESAPI locator class call 
 
 Changes in Release 2.5.3
 =============================================

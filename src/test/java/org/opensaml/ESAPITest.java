@@ -27,6 +27,9 @@ import junit.framework.TestCase;
  * Test that OWASPI ESAPI is initialized properly by the default bootstrap process.
  */
 public class ESAPITest extends TestCase {
+    
+    private String systemPropertyKey = "org.owasp.esapi.SecurityConfiguration";
+    private String opensamlConfigImpl = ESAPISecurityConfig.class.getName();
 
     /** {@inheritDoc} */
     protected void setUp() throws Exception {
@@ -38,8 +41,12 @@ public class ESAPITest extends TestCase {
      *  Tests that basic initialization has happened.
      */
     public void testInit() {
+        assertEquals(opensamlConfigImpl, System.getProperty(systemPropertyKey));
+        
         SecurityConfiguration sc = ESAPI.securityConfiguration();
         assertNotNull("ESAPI SecurityConfiguration was null", sc);
+        
+        assertTrue(sc instanceof ESAPISecurityConfig);
         
         Encoder encoder = ESAPI.encoder();
         assertNotNull("ESAPI Encoder was null", encoder);

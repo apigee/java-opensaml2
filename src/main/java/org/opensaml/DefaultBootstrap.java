@@ -101,7 +101,23 @@ public class DefaultBootstrap {
      * Initializes the OWASPI ESAPI library.
      */
     protected static void initializeESAPI() {
-        ESAPI.initialize("org.opensaml.ESAPISecurityConfig");
+        Logger log = getLogger();
+        String systemPropertyKey = "org.owasp.esapi.SecurityConfiguration";
+        String opensamlConfigImpl = ESAPISecurityConfig.class.getName();
+        
+        String currentValue = System.getProperty(systemPropertyKey);
+        if (currentValue == null || currentValue.isEmpty()) {
+            log.debug("Setting ESAPI SecurityConfiguration impl to OpenSAML internal class: {}", opensamlConfigImpl);
+            System.setProperty(systemPropertyKey, opensamlConfigImpl);
+            // We still need to call ESAPI.initialize() despite setting the system property, b/c within the ESAPI class
+            // the property is only evaluated once in a static initializer and stored. The initialize method however
+            // does overwrite the statically-set value from the system property. But still set the system property for 
+            // consistency, so other callers can see what has been set.
+            ESAPI.initialize(opensamlConfigImpl);
+        } else {
+            log.debug("ESAPI SecurityConfiguration impl was already set non-null and non-empty via system property, leaving existing value in place: {}",
+                    currentValue);
+        }
     }
 
     /**
