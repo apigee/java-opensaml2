@@ -6,6 +6,7 @@ Changes in Release 2.5.4
 [JOST-188] - DefaultBootstrap is unnecessarily calling Velocity singleton initialization
 [JOST-190] - Backport some bugfixes from OpenSAML3
 [JOST-191] - Further Bugfixes to XACML\policy
+[JOST-192] - org.opensaml.saml2.metadata.provider.SignatureValidationFilter => java.lang.UnsupportedOperationException
 [JOST-193] - Make the implementation of custom bootstrap code easier, without relying on private data from DefaultBootstrap
 [JOST-194] - org.opensaml.ESAPISecurityConfig should use singleton pattern like the default ESAPI reference class
 [JOST-195] - Use system property-based override for our custom ESAPI config rather than ESAPI locator class call 
