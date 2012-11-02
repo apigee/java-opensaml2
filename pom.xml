@@ -47,12 +47,11 @@
         <dependency>
             <groupId>org.opensaml</groupId>
             <artifactId>openws</artifactId>
-            <version>1.4.4</version>
+            <version>1.5.0</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.3</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -78,7 +77,6 @@
         <dependency>
             <groupId>org.owasp.esapi</groupId>
             <artifactId>esapi</artifactId>
-            <version>2.0.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-configuration</groupId>
@@ -121,8 +119,7 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>1.6.2</version>
-        </dependency>
+            </dependency>
 
         <!-- Provided dependencies -->
         <dependency>
