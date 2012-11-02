@@ -265,8 +265,8 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
                             <links>
-                                <link>https://shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/xmltooling/1.3.4/xmltooling-1.3.4-javadoc.jar/!/</link>
-                                <link>https://shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/openws/1.4.4/openws-1.4.4-javadoc.jar/!/</link>
+                                <link>https://build.shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/xmltooling/1.4.0/xmltooling-1.4.0-javadoc.jar/!/</link>
+                                <link>https://build.shibboleth.net/nexus/service/local/repositories/releases/archive/org/opensaml/openws/1.5.0/openws-1.5.0-javadoc.jar/!/</link>
                             </links>
                         </configuration>
                     </plugin>
