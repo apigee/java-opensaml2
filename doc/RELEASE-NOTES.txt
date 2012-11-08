@@ -11,6 +11,7 @@ Changes in Release 2.6.0
 [JOST-194] - org.opensaml.ESAPISecurityConfig should use singleton pattern like the default ESAPI reference class
 [JOST-195] - Use system property-based override for our custom ESAPI config rather than ESAPI locator class call 
 [JOST-196] - On MetadataProviderCredentialResolver, expose the MetadataProvider used to construct the resolver
+[JOST-197] - XML providers for Async Logout extensions
 
 Changes in Release 2.5.3
 =============================================

@@ -47,8 +47,14 @@ public class SAMLConstants extends XMLConstants{
     /**  XML Signature schema Id. */
     public static final String XMLSIG_SCHEMA_LOCATION = SCHEMA_DIR + "xmldsig-core-schema.xsd";
     
+    /**  XML Signature 1.1 schema Id. */
+    public static final String XMLSIG11_SCHEMA_LOCATION = SCHEMA_DIR + "xmldsig11-schema.xsd";
+    
     /** XML Encryption schema Id. */
     public static final String XMLENC_SCHEMA_LOCATION = SCHEMA_DIR + "xenc-schema.xsd";
+    
+    /** XML Encryption 1.1 schema Id. */
+    public static final String XMLENC11_SCHEMA_LOCATION = SCHEMA_DIR + "xenc11-schema.xsd";
 
     //****************************
     //    SOAP
@@ -140,11 +146,20 @@ public class SAMLConstants extends XMLConstants{
     /** SAML 2.0 Protocol Third-party extension schema Id. */
     public static final String SAML20PTHRPTY_SCHEMA_LOCATION = SCHEMA_DIR + "sstc-saml-protocol-ext-thirdparty.xsd";
     
-    /** SAML 2.0 Protocol XML Namespace. */
+    /** SAML 2.0 Protocol Third-party extension XML Namespace. */
     public static final String SAML20PTHRPTY_NS = "urn:oasis:names:tc:SAML:protocol:ext:third-party";
     
-    /** SAML 2.0 Protocol QName prefix. */
+    /** SAML 2.0 Protocol Third-party extension QName prefix. */
     public static final String SAML20PTHRPTY_PREFIX ="thrpty";
+
+    /** SAML 2.0 Protocol Async Logout extension schema Id. */
+    public static final String SAML20PASLO_SCHEMA_LOCATION = SCHEMA_DIR + "saml-async-slo-v1.0.xsd";
+    
+    /** SAML 2.0 Protocol Async Logout extension XML Namespace. */
+    public static final String SAML20PASLO_NS = "urn:oasis:names:tc:SAML:2.0:protocol:ext:async-slo";
+    
+    /** SAML 2.0 Protocol Async Logout extension QName prefix. */
+    public static final String SAML20PASLO_PREFIX ="aslo";
     
     /** SAML 2.0 Metadata schema Id. */
     public static final String SAML20MD_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-metadata-2.0.xsd";

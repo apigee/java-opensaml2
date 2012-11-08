@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aslo="urn:oasis:names:tc:SAML:2.0:protocol:ext:async-slo" xmlns="http://www.opensaml.org/xmltooling-config" xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd">
+
+	<!-- SAML 2.0 Protocol Async Logout Object providers -->
+	<ObjectProviders>
+
+		<!-- Asynchronous provider -->
+		<ObjectProvider qualifiedName="aslo:Asynchronous">
+			<BuilderClass className="org.opensaml.samlext.saml2aslo.impl.AsynchronousBuilder"/>
+			<MarshallingClass className="org.opensaml.samlext.saml2aslo.impl.AsynchronousMarshaller"/>
+			<UnmarshallingClass className="org.opensaml.samlext.saml2aslo.impl.AsynchronousUnmarshaller"/>
+		</ObjectProvider>
+
+        <!-- AsynchronousType provider -->
+        <ObjectProvider qualifiedName="aslo:AsynchronousType">
+            <BuilderClass className="org.opensaml.samlext.saml2aslo.impl.AsynchronousBuilder"/>
+            <MarshallingClass className="org.opensaml.samlext.saml2aslo.impl.AsynchronousMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.samlext.saml2aslo.impl.AsynchronousUnmarshaller"/>
+        </ObjectProvider>
+
+	</ObjectProviders>
+</XMLTooling>
