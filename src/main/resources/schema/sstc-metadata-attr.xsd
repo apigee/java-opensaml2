@@ -12,7 +12,7 @@
     </documentation>
   </annotation>
 
-  <import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="saml-schema-assertion-2.0.xsd"/>
+  <import namespace="urn:oasis:names:tc:SAML:2.0:assertion" schemaLocation="classpath:/schema/saml-schema-assertion-2.0.xsd"/>
 
   <element name="EntityAttributes" type="mdattr:EntityAttributesType"/>
   <complexType name="EntityAttributesType">
