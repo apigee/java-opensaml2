@@ -23,7 +23,6 @@ package org.opensaml.samlext.mdui;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
-import org.opensaml.saml2.metadata.LocalizedString;
 import org.opensaml.samlext.saml2mdui.Logo;
 import org.opensaml.samlext.saml2mdui.UIInfo;
 

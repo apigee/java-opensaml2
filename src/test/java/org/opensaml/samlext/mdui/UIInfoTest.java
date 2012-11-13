@@ -70,7 +70,7 @@ public class UIInfoTest extends BaseSAMLObjectProviderTestCase {
 
     /** {@inheritDoc} */
     public void testSingleElementUnmarshall() {
-        UIInfo uiinfo = (UIInfo) unmarshallElement(singleElementFile);
+        unmarshallElement(singleElementFile);
         //
         // No contents sanity to check
         //
