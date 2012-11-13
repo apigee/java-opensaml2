@@ -10,6 +10,12 @@
             <MarshallingClass className="org.opensaml.saml2.ecp.impl.RequestMarshaller"/>
             <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.RequestUnmarshaller"/>
         </ObjectProvider>
+
+        <ObjectProvider qualifiedName="ecp:RequestType">
+            <BuilderClass className="org.opensaml.saml2.ecp.impl.RequestBuilder"/>
+            <MarshallingClass className="org.opensaml.saml2.ecp.impl.RequestMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.RequestUnmarshaller"/>
+        </ObjectProvider>
         
         <!-- Response -->
         <ObjectProvider qualifiedName="ecp:Response">
@@ -17,9 +23,21 @@
             <MarshallingClass className="org.opensaml.saml2.ecp.impl.ResponseMarshaller"/>
             <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.ResponseUnmarshaller"/>
         </ObjectProvider>
+
+        <ObjectProvider qualifiedName="ecp:ResponseType">
+            <BuilderClass className="org.opensaml.saml2.ecp.impl.ResponseBuilder"/>
+            <MarshallingClass className="org.opensaml.saml2.ecp.impl.ResponseMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.ResponseUnmarshaller"/>
+        </ObjectProvider>
         
         <!-- RelayState -->
         <ObjectProvider qualifiedName="ecp:RelayState">
+            <BuilderClass className="org.opensaml.saml2.ecp.impl.RelayStateBuilder"/>
+            <MarshallingClass className="org.opensaml.saml2.ecp.impl.RelayStateMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.RelayStateUnmarshaller"/>
+        </ObjectProvider>
+
+        <ObjectProvider qualifiedName="ecp:RelayStateType">
             <BuilderClass className="org.opensaml.saml2.ecp.impl.RelayStateBuilder"/>
             <MarshallingClass className="org.opensaml.saml2.ecp.impl.RelayStateMarshaller"/>
             <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.RelayStateUnmarshaller"/>

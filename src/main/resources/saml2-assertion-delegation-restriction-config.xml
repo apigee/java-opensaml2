@@ -10,6 +10,12 @@
 			<MarshallingClass className="org.opensaml.samlext.saml2delrestrict.impl.DelegateMarshaller"/>
 			<UnmarshallingClass className="org.opensaml.samlext.saml2delrestrict.impl.DelegateUnmarshaller"/>
 		</ObjectProvider>
+
+        <ObjectProvider qualifiedName="del:DelegateType">
+            <BuilderClass className="org.opensaml.samlext.saml2delrestrict.impl.DelegateBuilder"/>
+            <MarshallingClass className="org.opensaml.samlext.saml2delrestrict.impl.DelegateMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.samlext.saml2delrestrict.impl.DelegateUnmarshaller"/>
+        </ObjectProvider>
 		
 		<!-- DelegationRestrictionType provider -->
 		<ObjectProvider qualifiedName="del:DelegationRestrictionType">

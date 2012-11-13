@@ -4,8 +4,14 @@
     <!-- SAML V2.0 Metadata Extension for Entity Attributes Object providers -->
     <ObjectProviders>
 
-        <!-- Description provider -->
+        <!-- EntityAttributes -->
         <ObjectProvider qualifiedName="mdattr:EntityAttributes">
+            <BuilderClass className="org.opensaml.samlext.saml2mdattr.impl.EntityAttributesBuilder"/>
+            <MarshallingClass className="org.opensaml.samlext.saml2mdattr.impl.EntityAttributesMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.samlext.saml2mdattr.impl.EntityAttributesUnmarshaller"/>
+        </ObjectProvider>
+
+        <ObjectProvider qualifiedName="mdattr:EntityAttributesType">
             <BuilderClass className="org.opensaml.samlext.saml2mdattr.impl.EntityAttributesBuilder"/>
             <MarshallingClass className="org.opensaml.samlext.saml2mdattr.impl.EntityAttributesMarshaller"/>
             <UnmarshallingClass className="org.opensaml.samlext.saml2mdattr.impl.EntityAttributesUnmarshaller"/>
