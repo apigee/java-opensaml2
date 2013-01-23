@@ -38,7 +38,8 @@ public class EntityRoleFilterTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
+        inCommonMDURL = "https://svn.shibboleth.net/java-opensaml2"
+                + "/branches/REL_2/src/test/resources/data/org/opensaml/saml2/metadata/InCommon-metadata.xml";
     }
 
     public void testWhiteListSPRole() throws Exception {

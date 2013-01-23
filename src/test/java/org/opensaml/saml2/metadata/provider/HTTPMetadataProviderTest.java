@@ -40,7 +40,8 @@ public class HTTPMetadataProviderTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        inCommonMDURL = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
+        inCommonMDURL = "https://svn.shibboleth.net/java-opensaml2"
+                + "/branches/REL_2/src/test/resources/data/org/opensaml/saml2/metadata/InCommon-metadata.xml";
         entitiesDescriptorName = "urn:mace:incommon";
         entityID = "urn:mace:incommon:washington.edu";
         supportedProtocol ="urn:oasis:names:tc:SAML:1.1:protocol";

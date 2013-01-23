@@ -39,8 +39,8 @@ public class FileBackedHTTPMetadataProviderTest extends BaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        //mdUrl = "http://wayf.incommonfederation.org/InCommon/InCommon-metadata.xml";
-        mdUrl="http://metadata.ukfederation.org.uk/ukfederation-metadata.xml";
+        mdUrl = "https://svn.shibboleth.net/java-opensaml2"
+                + "/branches/REL_2/src/test/resources/data/org/opensaml/saml2/metadata/ukfederation-metadata.xml";
         badMDURL = "http://www.google.com/";
         backupFilePath = System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") + "metadata.xml";
         metadataProvider = new FileBackedHTTPMetadataProvider(mdUrl, 1000 * 5, backupFilePath);
