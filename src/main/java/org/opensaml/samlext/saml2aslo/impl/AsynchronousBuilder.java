@@ -39,7 +39,8 @@ public class AsynchronousBuilder extends AbstractSAMLObjectBuilder<Asynchronous>
 
     /** {@inheritDoc} */
     public Asynchronous buildObject() {
-        return buildObject(SAMLConstants.SAML20P_NS, Asynchronous.DEFAULT_ELEMENT_LOCAL_NAME, SAMLConstants.SAML20P_PREFIX);
+        return buildObject(SAMLConstants.SAML20PASLO_NS, Asynchronous.DEFAULT_ELEMENT_LOCAL_NAME,
+                SAMLConstants.SAML20PASLO_PREFIX);
     }
 
     /** {@inheritDoc} */
