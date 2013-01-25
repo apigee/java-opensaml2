@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema 
+  targetNamespace="urn:oasis:names:tc:SAML:protocol:ext:channel-binding"
+  xmlns:cb="urn:oasis:names:tc:SAML:protocol:ext:channel-binding"
+  xmlns:S="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="unqualified"
+  attributeFormDefault="unqualified"
+  blockDefault="substitution"
+  version="1.0">
+
+  <annotation>
+    <documentation>
+      Document title: SAML V2.0 Channel Binding Extensions Version 1.0
+      Document identifier: sstc-saml-channel-binding-ext-v1.0.xsd
+      Location: http://www.oasis-open.org/committees/documents.php?wg_abbrev=security
+      Revision history:
+      (August 2011):
+        Make Type attribute optional.
+      (November 2010):
+        Update filename. 
+      (September 2010):
+        Initial version.
+    </documentation>
+  </annotation>
+
+  <import namespace="http://schemas.xmlsoap.org/soap/envelope/"
+      schemaLocation="http://schemas.xmlsoap.org/soap/envelope/"/>
+
+  <element name="ChannelBindings" type="cb:ChannelBindingsType"/>
+  <complexType name="ChannelBindingsType">
+    <simpleContent>
+      <extension base="base64Binary">
+        <attribute name="Type" type="string"/>
+        <attribute ref="S:actor"/>
+        <attribute ref="S:mustUnderstand"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+  <attribute name="supportsChannelBindings">
+    <simpleType>
+      <list itemType="string"/>
+    </simpleType>
+  </attribute>
+
+</schema>

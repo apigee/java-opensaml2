@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLTooling xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cb="urn:oasis:names:tc:SAML:protocol:ext:channel-binding" xmlns="http://www.opensaml.org/xmltooling-config" xsi:schemaLocation="http://www.opensaml.org/xmltooling-config ../../src/schema/xmltooling-config.xsd">
+
+	<!-- SAML 2.0 Channel Bindings Extensions Object providers -->
+	<ObjectProviders>
+
+		<!-- ChannelBindings provider -->
+		<ObjectProvider qualifiedName="cb:ChannelBindings">
+			<BuilderClass className="org.opensaml.samlext.saml2cb.impl.ChannelBindingsBuilder"/>
+			<MarshallingClass className="org.opensaml.samlext.saml2cb.impl.ChannelBindingsMarshaller"/>
+			<UnmarshallingClass className="org.opensaml.samlext.saml2cb.impl.ChannelBindingsUnmarshaller"/>
+		</ObjectProvider>
+
+        <!-- ChannelBindingsType provider -->
+        <ObjectProvider qualifiedName="cb:ChannelBindingsType">
+            <BuilderClass className="org.opensaml.samlext.saml2cb.impl.ChannelBindingsBuilder"/>
+            <MarshallingClass className="org.opensaml.samlext.saml2cb.impl.ChannelBindingsMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.samlext.saml2cb.impl.ChannelBindingsUnmarshaller"/>
+        </ObjectProvider>
+
+	</ObjectProviders>
+</XMLTooling>

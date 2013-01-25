@@ -214,6 +214,15 @@ public class SAMLConstants extends XMLConstants{
     
     /** SAML V2.0 Metadata Extension for Entity Attributes QName prefix. */
     public static final String SAML20MDATTR_PREFIX = "mdattr";
+
+    /** SAML 2.0 Channel Binding Extensions schema Id. */
+    public static final String SAML20CB_SCHEMA_LOCATION = SCHEMA_DIR + "sstc-saml-channel-binding-ext-v1.0.xsd";
+    
+    /** SAML 2.0 Channel Binding Extensions XML Namespace. */
+    public static final String SAML20CB_NS = "urn:oasis:names:tc:SAML:protocol:ext:channel-binding";
+    
+    /** SAML 2.0 Channel Binding Extensions QName prefix. */
+    public static final String SAML20CB_PREFIX = "cb";
     
     /** SAML 2.0 DCE PAC Attribute Profile schema Id. */
     public static final String SAML20DCE_SCHEMA_LOCATION = SCHEMA_DIR + "saml-schema-dce-2.0.xsd";

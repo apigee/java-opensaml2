@@ -111,7 +111,6 @@ public final class SAMLSchemaBuilder {
         "/schema/saml-schema-protocol-2.0.xsd",
         "/schema/saml-schema-x500-2.0.xsd",
         "/schema/saml-schema-xacml-2.0.xsd",
-        "/schema/sstc-saml-delegation.xsd",
     };
 
     /** Classpath relative location of SAML extension schemas. */
@@ -125,6 +124,8 @@ public final class SAMLSchemaBuilder {
         "/schema/sstc-metadata-attr.xsd",
         "/schema/sstc-saml-delegation.xsd",
         "/schema/saml-metadata-rpi-v1.0.xsd",
+        "/schema/sstc-saml-delegation.xsd",
+        "/schema/sstc-saml-channel-binding-ext-v1.0.xsd",
         "/schema/saml-async-slo-v1.0.xsd",
     };
 
@@ -167,9 +168,9 @@ public final class SAMLSchemaBuilder {
     }
 
     /**
-     * Gets an unmodifiable list of currently registered schema extension.
+     * Gets an unmodifiable list of currently registered schema extensions.
      * 
-     * @return unmodifiable list of currently registered schema extension
+     * @return unmodifiable list of currently registered schema extensions
      */
     public static List<String> getExtensionSchema() {
         return Collections.unmodifiableList(extensionSchema);
