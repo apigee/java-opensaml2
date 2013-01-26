@@ -43,5 +43,31 @@
             <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.RelayStateUnmarshaller"/>
         </ObjectProvider>
  
+         <!-- RequestAuthenticated -->
+        <ObjectProvider qualifiedName="ecp:RequestAuthenticated">
+            <BuilderClass className="org.opensaml.saml2.ecp.impl.RequestAuthenticatedBuilder"/>
+            <MarshallingClass className="org.opensaml.saml2.ecp.impl.RequestAuthenticatedMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.RequestAuthenticatedUnmarshaller"/>
+        </ObjectProvider>
+
+        <ObjectProvider qualifiedName="ecp:RequestAuthenticatedType">
+            <BuilderClass className="org.opensaml.saml2.ecp.impl.RequestAuthenticatedBuilder"/>
+            <MarshallingClass className="org.opensaml.saml2.ecp.impl.RequestAuthenticatedMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.RequestAuthenticatedUnmarshaller"/>
+        </ObjectProvider>
+
+        <!-- SubjectConfirmation -->
+        <ObjectProvider qualifiedName="ecp:SubjectConfirmation">
+            <BuilderClass className="org.opensaml.saml2.ecp.impl.SubjectConfirmationBuilder"/>
+            <MarshallingClass className="org.opensaml.saml2.ecp.impl.SubjectConfirmationMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.SubjectConfirmationUnmarshaller"/>
+        </ObjectProvider>
+
+        <ObjectProvider qualifiedName="ecp:SubjectConfirmationType">
+            <BuilderClass className="org.opensaml.saml2.ecp.impl.SubjectConfirmationBuilder"/>
+            <MarshallingClass className="org.opensaml.saml2.ecp.impl.SubjectConfirmationMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.saml2.ecp.impl.SubjectConfirmationUnmarshaller"/>
+        </ObjectProvider>
+ 
     </ObjectProviders>
  </XMLTooling>

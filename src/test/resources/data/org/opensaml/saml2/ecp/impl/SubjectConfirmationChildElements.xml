@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecp:SubjectConfirmation xmlns:ecp="urn:oasis:names:tc:SAML:2.0:profiles:SSO:ecp" xmlns:saml2="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" soap11:mustUnderstand="1" soap11:actor="https://soap11actor.example.org" Method="conf method"><saml2:SubjectConfirmationData/></ecp:SubjectConfirmation>
