@@ -105,7 +105,7 @@ public class HTTPPostSimpleSignEncoderTest extends BaseTestCase {
         assertEquals("Unexpected content type", "text/html", response.getContentType());
         assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
         assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-        assertEquals(637875160, response.getContentAsString().hashCode());
+        assertEquals(742802882, response.getContentAsString().hashCode());
     }
 
     @SuppressWarnings("unchecked")

@@ -82,6 +82,6 @@ public class HTTPPostEncoderTest extends BaseTestCase {
         assertEquals("Unexpected content type", "text/html", response.getContentType());
         assertEquals("Unexpected character encoding", response.getCharacterEncoding(), "UTF-8");
         assertEquals("Unexpected cache controls", "no-cache, no-store", response.getHeader("Cache-control"));
-        assertEquals(212339730, response.getContentAsString().hashCode());
+        assertEquals(833805436, response.getContentAsString().hashCode());
     }
 }

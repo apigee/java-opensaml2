@@ -15,6 +15,7 @@ Changes in Release 2.6.0
 [JOST-198] - Configuration files for XMLObject providers often missing Type registrations
 [JOST-199] - SAML SOAP encoders should use the supplied outbound SOAP Envelope from the message context, if it exists 
 [JOST-200] - Reduce memory usage of unit tests
+[JOST-201] - SAML1 and 2 base message encoders have incorrect selection logic in getEndpointURL() 
 
 Changes in Release 2.5.3
 =============================================
