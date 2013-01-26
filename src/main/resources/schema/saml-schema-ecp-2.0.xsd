@@ -10,12 +10,14 @@
     attributeFormDefault="unqualified"
     blockDefault="substitution"
     version="2.0-v2.0">
+
     <import namespace="urn:oasis:names:tc:SAML:2.0:protocol"
-        schemaLocation="saml-schema-protocol-2.0.xsd"/>
+        schemaLocation="classpath:/schema/saml-schema-protocol-2.0.xsd"/>
     <import namespace="urn:oasis:names:tc:SAML:2.0:assertion"
-        schemaLocation="saml-schema-assertion-2.0.xsd"/>
+        schemaLocation="classpath:/schema/saml-schema-assertion-2.0.xsd"/>
     <import namespace="http://schemas.xmlsoap.org/soap/envelope/"
-        schemaLocation="http://schemas.xmlsoap.org/soap/envelope/"/>
+        schemaLocation="classpath:/schema/soap-envelope.xsd"/>
+
     <annotation>
         <documentation>
             Document identifier: saml-schema-ecp-2.0
