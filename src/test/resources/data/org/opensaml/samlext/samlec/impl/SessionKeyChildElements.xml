@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<samlec:SessionKey xmlns:samlec="urn:ietf:params:xml:ns:samlec" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" soap11:mustUnderstand="1" soap11:actor="https://soap11actor.example.org" EncType="des-cbc-crc">
+    <samlec:GeneratedKey/>
+</samlec:SessionKey>

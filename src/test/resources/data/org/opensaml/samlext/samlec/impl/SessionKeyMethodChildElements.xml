@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<samlec:SessionKeyMethod xmlns:samlec="urn:ietf:params:xml:ns:samlec">
+    <samlec:EncType/>
+    <samlec:EncType/>
+</samlec:SessionKeyMethod>

@@ -127,6 +127,7 @@ public final class SAMLSchemaBuilder {
         "/schema/sstc-saml-delegation.xsd",
         "/schema/sstc-saml-channel-binding-ext-v1.0.xsd",
         "/schema/saml-async-slo-v1.0.xsd",
+        "/schema/ietf-kitten-sasl-saml-ec.xsd",
     };
 
     /** Additional schema locations relative to classpath. */

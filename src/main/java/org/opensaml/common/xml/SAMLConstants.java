@@ -250,6 +250,15 @@ public class SAMLConstants extends XMLConstants{
     
     /** SAML 2.0 XACML Attribute Profile QName prefix. */
     public static final String SAML20XACML_PREFIX = "xacmlprof";
+
+    /** SAML 2.0 Enhanced Client GSS-API schema Id. */
+    public static final String SAMLEC_GSS_SCHEMA_LOCATION = SCHEMA_DIR + "ietf-kitten-sasl-saml-ec.xsd";
+    
+    /** SAML 2.0 Enhanced Client GSS-API XML Namespace. */
+    public static final String SAMLEC_GSS_NS = "urn:ietf:params:xml:ns:samlec";
+    
+    /** SAML 2.0 Enhanced Client GSS-API QName prefix. */
+    public static final String SAMLEC_GSS_PREFIX = "samlec";
     
     /** URI for SAML 2 Artifact binding. */
     public static final String SAML2_ARTIFACT_BINDING_URI = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact";
