@@ -22,7 +22,6 @@
 package org.opensaml.saml2.ecp.impl;
 
 import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.saml2.ecp.RequestAuthenticated;
 import org.opensaml.saml2.ecp.SubjectConfirmation;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
@@ -39,12 +38,12 @@ public class SubjectConfirmationMarshaller extends AbstractSAMLObjectMarshaller 
         SubjectConfirmation sc = (SubjectConfirmation) samlObject;
 
         if (sc.isSOAP11MustUnderstandXSBoolean() != null) {
-            XMLHelper.marshallAttribute(RequestAuthenticated.SOAP11_MUST_UNDERSTAND_ATTR_NAME, 
+            XMLHelper.marshallAttribute(SubjectConfirmation.SOAP11_MUST_UNDERSTAND_ATTR_NAME, 
                     sc.isSOAP11MustUnderstandXSBoolean().toString(), domElement, false);
         }
         
         if (sc.getSOAP11Actor() != null) {
-            XMLHelper.marshallAttribute(RequestAuthenticated.SOAP11_ACTOR_ATTR_NAME, 
+            XMLHelper.marshallAttribute(SubjectConfirmation.SOAP11_ACTOR_ATTR_NAME, 
                     sc.getSOAP11Actor(), domElement, false);
         }
         

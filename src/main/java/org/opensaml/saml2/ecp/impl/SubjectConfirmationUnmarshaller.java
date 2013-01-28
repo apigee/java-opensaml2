@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
 import org.opensaml.saml2.core.SubjectConfirmationData;
-import org.opensaml.saml2.ecp.RequestAuthenticated;
 import org.opensaml.saml2.ecp.SubjectConfirmation;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -50,9 +49,9 @@ public class SubjectConfirmationUnmarshaller extends AbstractSAMLObjectUnmarshal
         SubjectConfirmation sc = (SubjectConfirmation) samlObject;
 
         QName attrName = XMLHelper.getNodeQName(attribute);
-        if (RequestAuthenticated.SOAP11_MUST_UNDERSTAND_ATTR_NAME.equals(attrName)) {
+        if (SubjectConfirmation.SOAP11_MUST_UNDERSTAND_ATTR_NAME.equals(attrName)) {
             sc.setSOAP11MustUnderstand(XSBooleanValue.valueOf(attribute.getValue()));
-        } else if (RequestAuthenticated.SOAP11_ACTOR_ATTR_NAME.equals(attrName)) {
+        } else if (SubjectConfirmation.SOAP11_ACTOR_ATTR_NAME.equals(attrName)) {
             sc.setSOAP11Actor(attribute.getValue()); 
         } else if (attribute.getLocalName().equals(SubjectConfirmation.METHOD_ATTRIB_NAME)) {
             sc.setMethod(attribute.getValue());
