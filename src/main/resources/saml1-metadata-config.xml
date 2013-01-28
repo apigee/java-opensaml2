@@ -7,8 +7,8 @@
 		<!-- SourceID provider -->
 		<ObjectProvider qualifiedName="saml1md:SourceID">
 			<BuilderClass className="org.opensaml.samlext.saml1md.impl.SourceIDBuilder"/>
-			<MarshallingClass className="org.opensaml.samlext.saml1md.impl.SourceIDMarshaller"/>
-			<UnmarshallingClass className="org.opensaml.samlext.saml1md.impl.SourceIDUnmarshaller"/>
+			<MarshallingClass className="org.opensaml.xml.schema.impl.XSStringMarshaller"/>
+			<UnmarshallingClass className="org.opensaml.xml.schema.impl.XSStringUnmarshaller"/>
 		</ObjectProvider>
 
 	</ObjectProviders>
