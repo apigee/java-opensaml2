@@ -25,12 +25,14 @@ import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.ws.soap.soap11.ActorBearing;
+import org.opensaml.ws.soap.soap11.MustUnderstandBearing;
 import org.opensaml.xml.schema.XSBase64Binary;
 
 /**
  * SAML-EC GSS-API GeneratedKey element.
  */
-public interface GeneratedKey extends XSBase64Binary, SAMLObject {
+public interface GeneratedKey extends XSBase64Binary, SAMLObject, MustUnderstandBearing, ActorBearing {
 
     /** Element local name. */
     public static final String DEFAULT_ELEMENT_LOCAL_NAME = "GeneratedKey";
@@ -39,4 +41,10 @@ public interface GeneratedKey extends XSBase64Binary, SAMLObject {
     public static final QName DEFAULT_ELEMENT_NAME = new QName(SAMLConstants.SAMLEC_GSS_NS, DEFAULT_ELEMENT_LOCAL_NAME,
             SAMLConstants.SAMLEC_GSS_PREFIX);
 
+    /** Local name of the XSI type. */
+    public static final String TYPE_LOCAL_NAME = "GeneratedKeyType";
+
+    /** QName of the XSI type. */
+    public static final QName TYPE_NAME = new QName(SAMLConstants.SAMLEC_GSS_NS, TYPE_LOCAL_NAME,
+            SAMLConstants.SAMLEC_GSS_PREFIX);
 }

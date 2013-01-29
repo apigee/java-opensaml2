@@ -22,13 +22,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.opensaml.common.impl.AbstractSAMLObject;
-import org.opensaml.samlext.samlec.GeneratedKey;
+import org.opensaml.samlext.samlec.EncType;
 import org.opensaml.samlext.samlec.SessionKey;
 import org.opensaml.ws.soap.soap11.ActorBearing;
 import org.opensaml.ws.soap.soap11.MustUnderstandBearing;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.signature.KeyInfo;
+import org.opensaml.xml.util.XMLObjectChildrenList;
 
 /**
  * Concrete implementation of {@link SessionKey}.
@@ -41,11 +42,11 @@ public class SessionKeyImpl extends AbstractSAMLObject implements SessionKey {
     /** soap11:mustUnderstand. */
     private XSBooleanValue soap11MustUnderstand;
 
-    /** Key enc-type. */
-    private String enctype;
-
-    /** GeneratedKey child. */
-    private GeneratedKey generatedKey;
+    /** Algorithm attribute. */
+    private String algorithm;
+    
+    /** EncType children. */
+    private XMLObjectChildrenList<EncType> encTypes;
 
     /** KeyInfo child. */
     private KeyInfo keyInfo;
@@ -59,6 +60,8 @@ public class SessionKeyImpl extends AbstractSAMLObject implements SessionKey {
      */
     protected SessionKeyImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+        
+        encTypes = new XMLObjectChildrenList<EncType>(this);
     }
 
     /** {@inheritDoc} */
@@ -105,25 +108,20 @@ public class SessionKeyImpl extends AbstractSAMLObject implements SessionKey {
     }
     
     /** {@inheritDoc} */
-    public String getEncType() {
-        return enctype;
+    public String getAlgorithm() {
+        return algorithm;
     }
 
     /** {@inheritDoc} */
-    public void setEncType(String newEncType) {
-        enctype = prepareForAssignment(enctype, newEncType);
+    public void setAlgorithm(String newAlgorithm) {
+        algorithm = prepareForAssignment(algorithm, newAlgorithm);
     }
 
     /** {@inheritDoc} */
-    public GeneratedKey getGeneratedKey() {
-        return generatedKey;
+    public List<EncType> getEncTypes() {
+        return encTypes;
     }
-
-    /** {@inheritDoc} */
-    public void setGeneratedKey(GeneratedKey newKey) {
-        generatedKey = prepareForAssignment(generatedKey, newKey);
-    }
-
+    
     /** {@inheritDoc} */
     public KeyInfo getKeyInfo() {
         return keyInfo;
@@ -138,9 +136,7 @@ public class SessionKeyImpl extends AbstractSAMLObject implements SessionKey {
     public List<XMLObject> getOrderedChildren() {
         ArrayList<XMLObject> children = new ArrayList<XMLObject>();
 
-        if (generatedKey != null) {
-            children.add(generatedKey);
-        }
+        children.addAll(encTypes);
         
         if (keyInfo != null) {
             children.add(keyInfo);

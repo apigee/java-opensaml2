@@ -15,27 +15,27 @@
     <import namespace="http://schemas.xmlsoap.org/soap/envelope/"
         schemaLocation="classpath:/schema/soap-envelope.xsd"/>
 
-   <element name="SessionKey" type="samlec:SessionKeyType"/>
-   <complexType name="SessionKeyType">
-     <choice>
-       <element ref="samlec:GeneratedKey"/>
-       <element ref="ds:KeyInfo"/>
-     </choice>
-     <attribute name="EncType" type="string" use="required"/>
-     <attribute ref="S:mustUnderstand"/>
-     <attribute ref="S:actor"/>
-   </complexType>
+  <element name="SessionKey" type="samlec:SessionKeyType"/>
+  <complexType name="SessionKeyType">
+    <sequence>
+      <element ref="samlec:EncType" maxOccurs="unbounded"/>
+      <element ref="ds:KeyInfo" minOccurs="0"/>
+    </sequence>
+    <attribute ref="S:mustUnderstand" use="required"/>
+    <attribute ref="S:actor" use="required"/>
+    <attribute name="Algorithm"/>
+  </complexType>
 
-   <element name="GeneratedKey" type="base64Binary"/>
+  <element name="EncType" type="string"/>
 
-   <element name="SessionKeyMethod" type="samlec:SessionKeyMethodType"/>
-   <complexType name="SessionKeyMethodType">
-     <sequence>
-       <element ref="samlec:EncType" minOccurs="0" maxOccurs="unbounded"/>
-       <any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-     </sequence>
-     <attribute name="Algorithm" type="anyURI"/>
-   </complexType>
-   
-   <element name="EncType" type="string"/>
+  <element name="GeneratedKey" type="samlec:GeneratedKeyType"/>
+  <complexType name="GeneratedKeyType">
+    <simpleContent>
+      <extension base="base64Binary">
+        <attribute ref="S:mustUnderstand"/>
+        <attribute ref="S:actor"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
  </schema>

@@ -20,7 +20,7 @@ package org.opensaml.samlext.samlec.impl;
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.samlext.samlec.GeneratedKey;
+import org.opensaml.samlext.samlec.EncType;
 import org.opensaml.samlext.samlec.SessionKey;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
@@ -38,8 +38,8 @@ public class SessionKeyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
     protected void processChildElement(XMLObject parentObject, XMLObject childObject) throws UnmarshallingException {
         SessionKey key = (SessionKey) parentObject;
 
-        if (childObject instanceof GeneratedKey) {
-            key.setGeneratedKey((GeneratedKey) childObject);
+        if (childObject instanceof EncType) {
+            key.getEncTypes().add((EncType) childObject);
         } else if (childObject instanceof KeyInfo) {
             key.setKeyInfo((KeyInfo) childObject);
         } else {
@@ -56,8 +56,8 @@ public class SessionKeyUnmarshaller extends AbstractSAMLObjectUnmarshaller {
             key.setSOAP11MustUnderstand(XSBooleanValue.valueOf(attribute.getValue()));
         } else if (SessionKey.SOAP11_ACTOR_ATTR_NAME.equals(attrName)) {
             key.setSOAP11Actor(attribute.getValue()); 
-        } else if (attribute.getLocalName().equals(SessionKey.ENCTYPE_ATTRIB_NAME)) {
-            key.setEncType(attribute.getValue());
+        } else if (attribute.getLocalName().equals(SessionKey.ALGORITHM_ATTRIB_NAME)) {
+            key.setAlgorithm(attribute.getValue());
         } else {
             super.processAttribute(samlObject, attribute);
         }

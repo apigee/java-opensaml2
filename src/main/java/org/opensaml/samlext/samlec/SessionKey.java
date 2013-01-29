@@ -17,6 +17,8 @@
 
 package org.opensaml.samlext.samlec;
 
+import java.util.List;
+
 import javax.xml.namespace.QName;
 
 import org.opensaml.common.SAMLObject;
@@ -44,36 +46,29 @@ public interface SessionKey extends SAMLObject, MustUnderstandBearing, ActorBear
     public static final QName TYPE_NAME = new QName(SAMLConstants.SAMLEC_GSS_NS, TYPE_LOCAL_NAME,
             SAMLConstants.SAMLEC_GSS_PREFIX);
 
-    /** EncType attribute name. */
-    public static final String ENCTYPE_ATTRIB_NAME = "EncType";
+    /** Algorithm attribute name. */
+    public static final String ALGORITHM_ATTRIB_NAME = "Algorithm";
     
     /**
-     * Get the session key encryption type.
+     * Get the session key derivation algorithm.
      * 
-     * @return the encryption type of the session key
+     * @return the algorithm used to derive the session key
      */
-    public String getEncType();
+    public String getAlgorithm();
 
     /**
-     * Set the session key encryption type.
+     * Set the session key derivation algorithm.
      * 
-     * @param newEncType the encryption type of the session key
+     * @param newAlgorithm the algorithm used to derive the session key
      */
-    public void setEncType(String newEncType);
-
+    public void setAlgorithm(String newAlgorithm);
+    
     /**
-     * Get the generated session key.
+     * Get the session key encryption typed.
      * 
-     * @return the generated session key
+     * @return the encryption types of the session key
      */
-    public GeneratedKey getGeneratedKey();
-
-    /**
-     * Set the generated session key.
-     * 
-     * @param newGeneratedKey the generated session key
-     */
-    public void setGeneratedKey(GeneratedKey newGeneratedKey);
+    public List<EncType> getEncTypes();
 
     /**
      * Get the KeyInfo object that describes the session key.

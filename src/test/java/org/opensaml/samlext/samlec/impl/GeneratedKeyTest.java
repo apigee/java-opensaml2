@@ -25,9 +25,12 @@ import org.opensaml.samlext.samlec.GeneratedKey;
  */
 public class GeneratedKeyTest extends BaseSAMLObjectProviderTestCase {
 
-    /** Expected source ID value */
     private String expectedValue;
 
+    private String expectedSOAP11Actor;
+    
+    private Boolean expectedSOAP11MustUnderstand;
+    
     /** Constructor */
     public GeneratedKeyTest() {
         super();
@@ -39,6 +42,8 @@ public class GeneratedKeyTest extends BaseSAMLObjectProviderTestCase {
         super.setUp();
 
         expectedValue = "AGeneratedKey";
+        expectedSOAP11Actor = "https://soap11actor.example.org";
+        expectedSOAP11MustUnderstand = true;
     }
 
     /** {@inheritDoc} */
@@ -46,6 +51,8 @@ public class GeneratedKeyTest extends BaseSAMLObjectProviderTestCase {
         GeneratedKeyBuilder builder = (GeneratedKeyBuilder) builderFactory.getBuilder(GeneratedKey.DEFAULT_ELEMENT_NAME);
 
         GeneratedKey key = builder.buildObject();
+        key.setSOAP11Actor(expectedSOAP11Actor);
+        key.setSOAP11MustUnderstand(expectedSOAP11MustUnderstand);
         key.setValue(expectedValue);
 
         assertEquals(expectedDOM, key);
@@ -57,5 +64,7 @@ public class GeneratedKeyTest extends BaseSAMLObjectProviderTestCase {
 
         assertNotNull(key);
         assertEquals(expectedValue, key.getValue());
+        assertEquals("SOAP mustUnderstand had unxpected value", expectedSOAP11MustUnderstand, key.isSOAP11MustUnderstand());
+        assertEquals("SOAP actor had unxpected value", expectedSOAP11Actor, key.getSOAP11Actor());
     }
 }

@@ -18,7 +18,7 @@
 package org.opensaml.samlext.samlec.impl;
 
 import org.opensaml.common.BaseSAMLObjectProviderTestCase;
-import org.opensaml.samlext.samlec.GeneratedKey;
+import org.opensaml.samlext.samlec.EncType;
 import org.opensaml.samlext.samlec.SessionKey;
 
 /**
@@ -26,7 +26,7 @@ import org.opensaml.samlext.samlec.SessionKey;
  */
 public class SessionKeyTest extends BaseSAMLObjectProviderTestCase {
     
-    private String expectedEncType;
+    private String expectedAlg;
     
     private String expectedSOAP11Actor;
     
@@ -41,7 +41,7 @@ public class SessionKeyTest extends BaseSAMLObjectProviderTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         
-        expectedEncType = "des-cbc-crc";
+        expectedAlg = "http://myalgorithm.example.com";
         expectedSOAP11Actor = "https://soap11actor.example.org";
         expectedSOAP11MustUnderstand = true;
     }
@@ -54,7 +54,7 @@ public class SessionKeyTest extends BaseSAMLObjectProviderTestCase {
         
         assertEquals("SOAP mustUnderstand had unxpected value", expectedSOAP11MustUnderstand, key.isSOAP11MustUnderstand());
         assertEquals("SOAP actor had unxpected value", expectedSOAP11Actor, key.getSOAP11Actor());
-        assertEquals("EncType had unexpected value", expectedEncType, key.getEncType());
+        assertEquals("Algorithm had unexpected value", expectedAlg, key.getAlgorithm());
     }
  
     /** {@inheritDoc} */
@@ -65,9 +65,8 @@ public class SessionKeyTest extends BaseSAMLObjectProviderTestCase {
         
         assertEquals("SOAP mustUnderstand had unxpected value", expectedSOAP11MustUnderstand, key.isSOAP11MustUnderstand());
         assertEquals("SOAP actor had unxpected value", expectedSOAP11Actor, key.getSOAP11Actor());
-        assertEquals("EncType had unexpected value", expectedEncType, key.getEncType());
         
-        assertNotNull("GeneratedKey was null", key.getGeneratedKey());
+        assertEquals("Wrong number of EncTypes", 2, key.getEncTypes().size());
     }
     
     /** {@inheritDoc} */
@@ -76,7 +75,7 @@ public class SessionKeyTest extends BaseSAMLObjectProviderTestCase {
         
         key.setSOAP11Actor(expectedSOAP11Actor);
         key.setSOAP11MustUnderstand(expectedSOAP11MustUnderstand);
-        key.setEncType(expectedEncType);
+        key.setAlgorithm(expectedAlg);
         
         assertEquals(expectedDOM, key);
     }
@@ -87,9 +86,9 @@ public class SessionKeyTest extends BaseSAMLObjectProviderTestCase {
         
         key.setSOAP11Actor(expectedSOAP11Actor);
         key.setSOAP11MustUnderstand(expectedSOAP11MustUnderstand);
-        key.setEncType(expectedEncType);
         
-        key.setGeneratedKey((GeneratedKey) buildXMLObject(GeneratedKey.DEFAULT_ELEMENT_NAME));
+        key.getEncTypes().add((EncType) buildXMLObject(EncType.DEFAULT_ELEMENT_NAME));
+        key.getEncTypes().add((EncType) buildXMLObject(EncType.DEFAULT_ELEMENT_NAME));
         
         assertEquals(expectedChildElementsDOM, key);
     }

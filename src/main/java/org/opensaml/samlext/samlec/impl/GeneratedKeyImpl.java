@@ -18,6 +18,9 @@
 package org.opensaml.samlext.samlec.impl;
 
 import org.opensaml.samlext.samlec.GeneratedKey;
+import org.opensaml.ws.soap.soap11.ActorBearing;
+import org.opensaml.ws.soap.soap11.MustUnderstandBearing;
+import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.schema.impl.XSBase64BinaryImpl;
 
 /**
@@ -25,6 +28,12 @@ import org.opensaml.xml.schema.impl.XSBase64BinaryImpl;
  */
 public class GeneratedKeyImpl extends XSBase64BinaryImpl implements GeneratedKey {
 
+    /** soap11:actor attribute. */
+    private String soap11Actor;
+    
+    /** soap11:mustUnderstand. */
+    private XSBooleanValue soap11MustUnderstand;
+    
     /**
      * Constructor.
      * 
@@ -34,5 +43,48 @@ public class GeneratedKeyImpl extends XSBase64BinaryImpl implements GeneratedKey
      */
     protected GeneratedKeyImpl(String namespaceURI, String elementLocalName, String namespacePrefix) {
         super(namespaceURI, elementLocalName, namespacePrefix);
+    }
+
+    /** {@inheritDoc} */
+    public Boolean isSOAP11MustUnderstand() {
+        if (soap11MustUnderstand != null) {
+            return soap11MustUnderstand.getValue();
+        }
+        return Boolean.FALSE;
+    }
+
+    /** {@inheritDoc} */
+    public XSBooleanValue isSOAP11MustUnderstandXSBoolean() {
+        return soap11MustUnderstand;
+    }
+
+    /** {@inheritDoc} */
+    public void setSOAP11MustUnderstand(Boolean newMustUnderstand) {
+        if (newMustUnderstand != null) {
+            soap11MustUnderstand = prepareForAssignment(soap11MustUnderstand, 
+                    new XSBooleanValue(newMustUnderstand, true));
+        } else {
+            soap11MustUnderstand = prepareForAssignment(soap11MustUnderstand, null);
+        }
+        manageQualifiedAttributeNamespace(MustUnderstandBearing.SOAP11_MUST_UNDERSTAND_ATTR_NAME, 
+                soap11MustUnderstand != null);
+    }
+
+    /** {@inheritDoc} */
+    public void setSOAP11MustUnderstand(XSBooleanValue newMustUnderstand) {
+            soap11MustUnderstand = prepareForAssignment(soap11MustUnderstand, newMustUnderstand);
+            manageQualifiedAttributeNamespace(MustUnderstandBearing.SOAP11_MUST_UNDERSTAND_ATTR_NAME, 
+                    soap11MustUnderstand != null);
+    }
+
+    /** {@inheritDoc} */
+    public String getSOAP11Actor() {
+        return soap11Actor;
+    }
+
+    /** {@inheritDoc} */
+    public void setSOAP11Actor(String newActor) {
+        soap11Actor = prepareForAssignment(soap11Actor, newActor);
+        manageQualifiedAttributeNamespace(ActorBearing.SOAP11_ACTOR_ATTR_NAME, soap11Actor != null);
     }
 }

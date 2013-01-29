@@ -14,8 +14,14 @@
         <!-- GeneratedKey -->
         <ObjectProvider qualifiedName="samlec:GeneratedKey">
             <BuilderClass className="org.opensaml.samlext.samlec.impl.GeneratedKeyBuilder"/>
-            <MarshallingClass className="org.opensaml.xml.schema.impl.XSBase64BinaryMarshaller"/>
-            <UnmarshallingClass className="org.opensaml.xml.schema.impl.XSBase64BinaryUnmarshaller"/>
+            <MarshallingClass className="org.opensaml.samlext.samlec.impl.GeneratedKeyMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.samlext.samlec.impl.GeneratedKeyUnmarshaller"/>
+        </ObjectProvider>
+
+        <ObjectProvider qualifiedName="samlec:GeneratedKeyType">
+            <BuilderClass className="org.opensaml.samlext.samlec.impl.GeneratedKeyBuilder"/>
+            <MarshallingClass className="org.opensaml.samlext.samlec.impl.GeneratedKeyMarshaller"/>
+            <UnmarshallingClass className="org.opensaml.samlext.samlec.impl.GeneratedKeyUnmarshaller"/>
         </ObjectProvider>
 
         <!-- SessionKey -->
@@ -29,19 +35,6 @@
             <BuilderClass className="org.opensaml.samlext.samlec.impl.SessionKeyBuilder"/>
             <MarshallingClass className="org.opensaml.samlext.samlec.impl.SessionKeyMarshaller"/>
             <UnmarshallingClass className="org.opensaml.samlext.samlec.impl.SessionKeyUnmarshaller"/>
-        </ObjectProvider>
-
-        <!-- SessionKeyMethod -->
-        <ObjectProvider qualifiedName="samlec:SessionKeyMethod">
-            <BuilderClass className="org.opensaml.samlext.samlec.impl.SessionKeyMethodBuilder"/>
-            <MarshallingClass className="org.opensaml.samlext.samlec.impl.SessionKeyMethodMarshaller"/>
-            <UnmarshallingClass className="org.opensaml.samlext.samlec.impl.SessionKeyMethodUnmarshaller"/>
-        </ObjectProvider>
-
-        <ObjectProvider qualifiedName="samlec:SessionKeyMethodType">
-            <BuilderClass className="org.opensaml.samlext.samlec.impl.SessionKeyMethodBuilder"/>
-            <MarshallingClass className="org.opensaml.samlext.samlec.impl.SessionKeyMethodMarshaller"/>
-            <UnmarshallingClass className="org.opensaml.samlext.samlec.impl.SessionKeyMethodUnmarshaller"/>
         </ObjectProvider>
 
     </ObjectProviders>

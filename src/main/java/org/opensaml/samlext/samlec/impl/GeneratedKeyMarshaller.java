@@ -21,34 +21,30 @@
 
 package org.opensaml.samlext.samlec.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectMarshaller;
-import org.opensaml.samlext.samlec.SessionKey;
+import org.opensaml.samlext.samlec.GeneratedKey;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.schema.impl.XSBase64BinaryMarshaller;
 import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Element;
 
 /**
- * A thread-safe Marshaller for {@link SessionKey} objects.
+ * A thread-safe Marshaller for {@link GeneratedKey} objects.
  */
-public class SessionKeyMarshaller extends AbstractSAMLObjectMarshaller {
+public class GeneratedKeyMarshaller extends XSBase64BinaryMarshaller {
 
     /** {@inheritDoc} */
     protected void marshallAttributes(XMLObject samlObject, Element domElement) throws MarshallingException {
-        SessionKey key = (SessionKey) samlObject;
+        GeneratedKey key = (GeneratedKey) samlObject;
 
         if (key.isSOAP11MustUnderstandXSBoolean() != null) {
-            XMLHelper.marshallAttribute(SessionKey.SOAP11_MUST_UNDERSTAND_ATTR_NAME, 
+            XMLHelper.marshallAttribute(GeneratedKey.SOAP11_MUST_UNDERSTAND_ATTR_NAME, 
                     key.isSOAP11MustUnderstandXSBoolean().toString(), domElement, false);
         }
         
         if (key.getSOAP11Actor() != null) {
-            XMLHelper.marshallAttribute(SessionKey.SOAP11_ACTOR_ATTR_NAME, 
+            XMLHelper.marshallAttribute(GeneratedKey.SOAP11_ACTOR_ATTR_NAME, 
                     key.getSOAP11Actor(), domElement, false);
-        }
-        
-        if (key.getAlgorithm() != null) {
-            domElement.setAttributeNS(null, SessionKey.ALGORITHM_ATTRIB_NAME, key.getAlgorithm());
         }
     }
 }

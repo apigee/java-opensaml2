@@ -17,43 +17,33 @@
 
 package org.opensaml.samlext.samlec.impl;
 
-import org.opensaml.common.impl.AbstractSAMLObjectUnmarshaller;
-import org.opensaml.common.xml.SAMLConstants;
-import org.opensaml.samlext.samlec.EncType;
-import org.opensaml.samlext.samlec.SessionKeyMethod;
+import javax.xml.namespace.QName;
+
+import org.opensaml.samlext.samlec.GeneratedKey;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.schema.XSBooleanValue;
+import org.opensaml.xml.schema.impl.XSBase64BinaryUnmarshaller;
+import org.opensaml.xml.util.XMLHelper;
 import org.w3c.dom.Attr;
 
 /**
- * A thread-safe unmarshaller for {@link SessionKeyMethod} objects.
+ * A thread-safe Unmarshaller for {@link GeneratedKey} objects.
  */
-public class SessionKeyMethodUnmarshaller extends AbstractSAMLObjectUnmarshaller {
+public class GeneratedKeyUnmarshaller extends XSBase64BinaryUnmarshaller {
 
     /** {@inheritDoc} */
     protected void processAttribute(XMLObject samlObject, Attr attribute) throws UnmarshallingException {
-        SessionKeyMethod key = (SessionKeyMethod) samlObject;
+        GeneratedKey key = (GeneratedKey) samlObject;
 
-        if (attribute.getLocalName().equals(SessionKeyMethod.ALGORITHM_ATTRIB_NAME)) {
-            key.setAlgorithm(attribute.getValue());
+        QName attrName = XMLHelper.getNodeQName(attribute);
+        if (GeneratedKey.SOAP11_MUST_UNDERSTAND_ATTR_NAME.equals(attrName)) {
+            key.setSOAP11MustUnderstand(XSBooleanValue.valueOf(attribute.getValue()));
+        } else if (GeneratedKey.SOAP11_ACTOR_ATTR_NAME.equals(attrName)) {
+            key.setSOAP11Actor(attribute.getValue()); 
         } else {
             super.processAttribute(samlObject, attribute);
         }
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void processChildElement(XMLObject parentSAMLObject, XMLObject childObject)
-            throws UnmarshallingException {
-        SessionKeyMethod key = (SessionKeyMethod) parentSAMLObject;
-
-        if (childObject instanceof EncType) {
-            key.getEncTypes().add((EncType) childObject);
-        } else if (!childObject.getElementQName().getNamespaceURI().equals(SAMLConstants.SAMLEC_GSS_NS)) {
-            key.getUnknownXMLObjects().add(childObject);
-        } else {
-            super.processChildElement(parentSAMLObject, childObject);
-        }
-    }
+    
 }
