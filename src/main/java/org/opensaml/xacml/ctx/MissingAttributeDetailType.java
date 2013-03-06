@@ -38,8 +38,8 @@ public interface MissingAttributeDetailType extends XACMLObject {
     public static final String SCHEMA_TYPE_LOCAL_NAME = "MissingAttributeDetailType";
 
     /** QName of the XSI type. */
-    public static final QName SCHEMA_TYPE_NAME = new QName(XACMLConstants.XACML20_NS, SCHEMA_TYPE_LOCAL_NAME,
-            XACMLConstants.XACML_PREFIX);
+    public static final QName SCHEMA_TYPE_NAME = new QName(XACMLConstants.XACML20CTX_NS, SCHEMA_TYPE_LOCAL_NAME,
+            XACMLConstants.XACMLCONTEXT_PREFIX);
 
     /** AttributeId attribute name. */
     public static final String ATTRIBUTE_ID_ATTRIB_NAME = "AttributeId";
