@@ -119,7 +119,6 @@ public final class SAMLSchemaBuilder {
         "/schema/sstc-saml-idp-discovery.xsd",
         "/schema/sstc-saml-protocol-ext-thirdparty.xsd",
         "/schema/sstc-saml-metadata-ext-query.xsd",
-        "/schema/sstc-saml1x-metadata.xsd",
         "/schema/sstc-saml-metadata-ui-v1.0.xsd",
         "/schema/sstc-metadata-attr.xsd",
         "/schema/sstc-saml-delegation.xsd",
