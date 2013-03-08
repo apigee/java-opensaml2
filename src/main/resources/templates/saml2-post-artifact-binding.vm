@@ -3,6 +3,7 @@
 ##
 ## Velocity context may contain the following properties
 ## action - String - the action URL for the form
+## binding - String - the SAML binding type in use
 ## RelayState - String - the relay state for the message
 ## SAMLArt - String - SAML 2 artifact
 
@@ -10,7 +11,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
+    <head>
+    #parse ( "/templates/add-html-head-content.vm" )
+    </head>
     <body onload="document.forms[0].submit()">
         <noscript>
             <p>
@@ -33,5 +36,6 @@
                 </div>
             </noscript>
         </form>
+        #parse ( "/templates/add-html-body-content.vm" )
     </body>
 </html>

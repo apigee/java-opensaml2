@@ -3,10 +3,15 @@
 ##
 ## Velocity context may contain the following properties
 ## action - String - the action URL for the form
+## binding - String - the SAML binding type in use
 ## TARGET - String - the relay state for the message
 ## SAMLResponse - String - the Base64 encoded SAML Response
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+    <head>
+    #parse ( "/templates/add-html-head-content.vm" )
+    </head>
 
     <body onload="document.forms[0].submit()">
         <noscript>
@@ -29,6 +34,8 @@
                 </div>
             </noscript>
         </form>
+
+        #parse ( "/templates/add-html-body-content.vm" )
         
     </body>
 </html>
