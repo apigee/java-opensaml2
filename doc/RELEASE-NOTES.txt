@@ -1,5 +1,6 @@
 Changes in Release 2.6.0
 =============================================
+[JOST-169] - Update Velocity Dependency
 [JOST-184] - It would be nice if ESAPI.encodeForURL could be made to work
 [JOST-185] - Defaultbootstrap does not initialize the providers from the WS-Trust and WS-Policy schemas in openws
 [JOST-187] - Velocity initialization code uses an invalid key for the configuration properties set
