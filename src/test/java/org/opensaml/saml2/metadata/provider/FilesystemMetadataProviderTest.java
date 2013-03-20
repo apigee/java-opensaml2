@@ -18,6 +18,7 @@
 package org.opensaml.saml2.metadata.provider;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -26,9 +27,13 @@ import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.RoleDescriptor;
 
+import com.google.common.io.Files;
+
 public class FilesystemMetadataProviderTest extends BaseTestCase {
 
     private FilesystemMetadataProvider metadataProvider;
+    
+    private File mdFile;
 
     private String entityID;
 
@@ -43,7 +48,7 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
 
         URL mdURL = FilesystemMetadataProviderTest.class
                 .getResource("/data/org/opensaml/saml2/metadata/InCommon-metadata.xml");
-        File mdFile = new File(mdURL.toURI());
+        mdFile = new File(mdURL.toURI());
 
         metadataProvider = new FilesystemMetadataProvider(mdFile);
         metadataProvider.setParserPool(parser);
@@ -76,4 +81,97 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
                 supportedProtocol);
         assertNotNull("Roles for entity descriptor was null", role);
     }
+    
+    /**
+     * Tests failure mode of an invalid metadata file that does not exist.
+     */
+    public void testNonexistentMetadataFile() {
+        try {
+            metadataProvider = new FilesystemMetadataProvider(new File("I-Dont-Exist.xml"));
+            fail("Specified metadata file does not exist");
+        } catch (MetadataProviderException e) {
+            // expected, do nothing
+        }
+    }
+    
+    /**
+     * Tests failure mode of an invalid metadata file that is actually a directory.
+     * 
+     * @throws IOException 
+     */
+    public void testInvalidMetadataFile() throws IOException {
+        File targetFile = new File(System.getProperty("java.io.tmpdir"), "filesystem-md-provider-test");
+        if (targetFile.exists()) {
+            assertTrue(targetFile.delete());
+        }
+        assertTrue(targetFile.mkdir());
+        assertTrue(targetFile.exists());
+        assertTrue(targetFile.isDirectory());
+        
+        try {
+            metadataProvider = new FilesystemMetadataProvider(targetFile);
+            fail("Specified metadata file is actually a directory");
+        } catch (MetadataProviderException e) {
+            // expected, do nothing
+        } finally {
+            targetFile.delete();
+        }
+    }
+    
+    /**
+     * Tests failure mode of an invalid metadata file that is unreadable.
+     * 
+     * @throws IOException 
+     */
+    public void testUnreadableMetadataFile() throws IOException {
+        File targetFile = File.createTempFile("filesystem-md-provider-test", "xml");
+        assertTrue(targetFile.exists());
+        assertTrue(targetFile.isFile());
+        assertTrue(targetFile.canRead());
+        
+        targetFile.setReadable(false);
+        assertFalse(targetFile.canRead());
+        
+        try {
+            metadataProvider = new FilesystemMetadataProvider(targetFile);
+            fail("Specified metadata file is unreadable");
+        } catch (MetadataProviderException e) {
+            // expected, do nothing
+        } finally {
+            targetFile.delete();
+        }
+    }
+    
+    /**
+     * Tests failure mode of a metadata file which disappears after initial creation of the provider.
+     * 
+     * @throws IOException 
+     */
+    public void testDisappearingMetadataFile() throws IOException {
+        File targetFile = new File(System.getProperty("java.io.tmpdir"), "filesystem-md-provider-test.xml");
+        if (targetFile.exists()) {
+            assertTrue(targetFile.delete());
+        }
+        Files.copy(mdFile, targetFile);
+        assertTrue(targetFile.exists());
+        assertTrue(targetFile.canRead());
+        
+        try {
+            metadataProvider = new FilesystemMetadataProvider(targetFile);
+            metadataProvider.setParserPool(parser);
+            metadataProvider.initialize();
+        } catch (MetadataProviderException e) {
+            fail("Filesystem metadata provider constructor failed with file: " + targetFile.getAbsolutePath());
+        }
+        
+        assertTrue(targetFile.delete());
+        
+        try {
+            metadataProvider.refresh();
+            fail("Specified metadata file was removed after creation");
+        } catch (MetadataProviderException e) {
+            // expected, do nothing
+        }
+    }
+    
 }

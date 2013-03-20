@@ -87,17 +87,7 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
      */
     protected void setMetadataFile(File file) throws MetadataProviderException {
 
-        if (!file.exists()) {
-            throw new MetadataProviderException("Give metadata file, " + file.getAbsolutePath() + " does not exist");
-        }
-
-        if (!file.isFile()) {
-            throw new MetadataProviderException("Give metadata file, " + file.getAbsolutePath() + " is not a file");
-        }
-
-        if (!file.canRead()) {
-            throw new MetadataProviderException("Give metadata file, " + file.getAbsolutePath() + " is not readable");
-        }
+        validateMetadataFile(file);
 
         metadataFile = file;
     }
@@ -139,6 +129,7 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
     /** {@inheritDoc} */
     protected byte[] fetchMetadata() throws MetadataProviderException {
         try {
+            validateMetadataFile(metadataFile);
             DateTime metadataUpdateTime = new DateTime(metadataFile.lastModified(), ISOChronology.getInstanceUTC());
             if (getLastRefresh() == null || metadataUpdateTime.isAfter(getLastRefresh())) {
                 return inputstreamToByteArray(new FileInputStream(metadataFile));
@@ -151,4 +142,26 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
             throw new MetadataProviderException(errMsg, e);
         }
     }
+    
+    /**
+     * Validate the basic properties of the specified metadata file, for example that it exists; 
+     * that it is a file; and that it is readable.
+     *
+     * @param file the file to evaluate
+     * @throws MetadataProviderException if file does not pass basic properties required of a metadata file
+     */
+    protected void validateMetadataFile(File file) throws MetadataProviderException {
+        if (!file.exists()) {
+            throw new MetadataProviderException("Metadata file '" + file.getAbsolutePath() + "' does not exist");
+        }
+
+        if (!file.isFile()) {
+            throw new MetadataProviderException("Metadata file '" + file.getAbsolutePath() + "' is not a file");
+        }
+
+        if (!file.canRead()) {
+            throw new MetadataProviderException("Metadata file '" + file.getAbsolutePath() + "' is not readable");
+        }
+    }
+
 }
