@@ -19,6 +19,7 @@ Changes in Release 2.6.0
 [JOST-201] - SAML1 and 2 base message encoders have incorrect selection logic in getEndpointURL()
 [JOST-203] - Head/body template injection for SAML binding templates
 [JOST-205] - MetadataProvider doesn't report error during refresh if the metadata file doesn't exist any more
+[JOST-206] - Setting failFastInitialization=false has no effect
 
 Changes in Release 2.5.3
 =============================================

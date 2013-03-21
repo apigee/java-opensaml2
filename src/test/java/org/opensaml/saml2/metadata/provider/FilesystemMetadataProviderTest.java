@@ -88,6 +88,8 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
     public void testNonexistentMetadataFile() {
         try {
             metadataProvider = new FilesystemMetadataProvider(new File("I-Dont-Exist.xml"));
+            metadataProvider.setParserPool(parser);
+            metadataProvider.initialize();
             fail("Specified metadata file does not exist");
         } catch (MetadataProviderException e) {
             // expected, do nothing
@@ -110,6 +112,8 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
         
         try {
             metadataProvider = new FilesystemMetadataProvider(targetFile);
+            metadataProvider.setParserPool(parser);
+            metadataProvider.initialize();
             fail("Specified metadata file is actually a directory");
         } catch (MetadataProviderException e) {
             // expected, do nothing
@@ -134,6 +138,8 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
         
         try {
             metadataProvider = new FilesystemMetadataProvider(targetFile);
+            metadataProvider.setParserPool(parser);
+            metadataProvider.initialize();
             fail("Specified metadata file is unreadable");
         } catch (MetadataProviderException e) {
             // expected, do nothing
@@ -161,7 +167,7 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
             metadataProvider.setParserPool(parser);
             metadataProvider.initialize();
         } catch (MetadataProviderException e) {
-            fail("Filesystem metadata provider constructor failed with file: " + targetFile.getAbsolutePath());
+            fail("Filesystem metadata provider init failed with file: " + targetFile.getAbsolutePath());
         }
         
         assertTrue(targetFile.delete());
@@ -171,6 +177,46 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
             fail("Specified metadata file was removed after creation");
         } catch (MetadataProviderException e) {
             // expected, do nothing
+        }
+    }
+    
+    /**
+     * Tests failfast init of false, with graceful recovery when file later appears.
+     * 
+     * @throws IOException 
+     * @throws InterruptedException 
+     */
+    public void testRecoveryFromNoFailFast() throws IOException, InterruptedException {
+        File targetFile = new File(System.getProperty("java.io.tmpdir"), "filesystem-md-provider-test.xml");
+        if (targetFile.exists()) {
+            assertTrue(targetFile.delete());
+        }
+        
+        try {
+            metadataProvider = new FilesystemMetadataProvider(targetFile);
+            metadataProvider.setFailFastInitialization(false);
+            metadataProvider.setParserPool(parser);
+            metadataProvider.initialize();
+        } catch (MetadataProviderException e) {
+            fail("Filesystem metadata provider init failed with non-existent file and fail fast = false");
+        }
+        
+        // Filesystem timestamp may only have 1-second precision, so need to sleep for a couple of seconds just 
+        // to make sure that the new copied file's timestamp is later than the Jodatime lastRefresh time
+        // in the metadata provider.
+        Thread.sleep(2000);
+        
+        Files.copy(mdFile, targetFile);
+        assertTrue(targetFile.exists());
+        assertTrue(targetFile.canRead());
+        
+        try {
+            metadataProvider.refresh();
+            assertNotNull(metadataProvider.getMetadata());
+            EntityDescriptor descriptor = metadataProvider.getEntityDescriptor(entityID);
+            assertNotNull("Retrieved entity descriptor was null", descriptor);
+        } catch (MetadataProviderException e) {
+            fail("Filesystem metadata provider refresh failed recovery from initial init failure");
         }
     }
     

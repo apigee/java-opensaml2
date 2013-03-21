@@ -55,8 +55,7 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
      * 
      * @param metadata the metadata file
      * 
-     * @throws MetadataProviderException thrown if the given file path is null, does not exist, does not represent a
-     *             file, or if the metadata can not be parsed
+     * @throws MetadataProviderException  this exception is no longer thrown
      */
     public FilesystemMetadataProvider(File metadata) throws MetadataProviderException {
         super();
@@ -69,8 +68,7 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
      * @param metadata the metadata file
      * @param backgroundTaskTimer timer used to refresh metadata in the background
      * 
-     * @throws MetadataProviderException thrown if the given file path is null, does not exist, does not represent a
-     *             file, or if the metadata can not be parsed
+     * @throws MetadataProviderException  this exception is no longer thrown
      */
     public FilesystemMetadataProvider(Timer backgroundTaskTimer, File metadata) throws MetadataProviderException {
         super(backgroundTaskTimer);
@@ -78,17 +76,13 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
     }
 
     /**
-     * Sets the file from which metadata is read. The given file path is checked to see if it exists, is a file, and is
-     * readable.
+     * Sets the file from which metadata is read.
      * 
      * @param file path to the metadata file
      * 
-     * @throws MetadataProviderException thrown if the file does not exist or is not a readable file
+     * @throws MetadataProviderException this exception is no longer thrown
      */
     protected void setMetadataFile(File file) throws MetadataProviderException {
-
-        validateMetadataFile(file);
-
         metadataFile = file;
     }
 
