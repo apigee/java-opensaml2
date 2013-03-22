@@ -21,6 +21,7 @@ Changes in Release 2.6.0
 [JOST-205] - MetadataProvider doesn't report error during refresh if the metadata file doesn't exist any more
 [JOST-206] - Setting failFastInitialization=false has no effect
 [JOST-208] - FileBackedHTTPMetadataProvider constructor doesn't behave correctly vis-a-vis fail-fast setting if the backing file path has problems 
+[JOST-209] - Add tests for fail-fast in HTTPMetadataProvider 
 
 Changes in Release 2.5.3
 =============================================
