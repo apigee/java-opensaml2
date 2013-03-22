@@ -213,7 +213,7 @@ public class FilesystemMetadataProviderTest extends BaseTestCase {
         // Filesystem timestamp may only have 1-second precision, so need to sleep for a couple of seconds just 
         // to make sure that the new copied file's timestamp is later than the Jodatime lastRefresh time
         // in the metadata provider.
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
         
         Files.copy(mdFile, targetFile);
         assertTrue(targetFile.exists());

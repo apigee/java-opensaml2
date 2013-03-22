@@ -125,7 +125,7 @@ public class FilesystemMetadataProvider extends AbstractReloadingMetadataProvide
         try {
             validateMetadataFile(metadataFile);
             DateTime metadataUpdateTime = new DateTime(metadataFile.lastModified(), ISOChronology.getInstanceUTC());
-            if (getLastRefresh() == null || metadataUpdateTime.isAfter(getLastRefresh())) {
+            if (getLastRefresh() == null || getLastUpdate() == null || metadataUpdateTime.isAfter(getLastRefresh())) {
                 return inputstreamToByteArray(new FileInputStream(metadataFile));
             }
 
