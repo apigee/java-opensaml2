@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<saml1:Attribute xmlns:saml1="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<saml1:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"/>
-	<saml1:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"/>
-	<saml1:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"/>
-	<saml1:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"/>
-</saml1:Attribute>
+<saml:Attribute xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"/>
+	<saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"/>
+	<saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"/>
+	<saml:AttributeValue xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string"/>
+</saml:Attribute>
