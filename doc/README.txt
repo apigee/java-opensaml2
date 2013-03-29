@@ -4,20 +4,22 @@ OpenSAML-J
 OpenSAML-J is a low-level library that allow developers to work with XML in a
 Java beans manner.
 
-OpenSAML-J requires working JAXP 1.3 and DOM Level 3 compliant parsers, 
-which means if you are using Sun's JRE you will need to endorse JAXP compliant
-libraries such as Xerces and Xalan.  OpenSAML, to date, has only been tested
-on JDK 1.5 but support for 1.4 is planned for the final 1.0 release.
+OpenSAML-J requires working JAXP 1.3 and DOM Level 3 compliant parsers,
+and this library requires the use of Xerces and Xalan for historical reasons.
+We recommend those libraries be endorsed using the endorsement override
+mechanism in the JVM to ensure their use.
+
+The use of JDK 1.6 or higher is required. Older Java versions are not
+supported.
 
 OpenSAML-J is licensed under the Apache License, version 2.
 
-Feedback
+Support
 --------
-Feedback may be provided through the Shibboleth development mailing list.
-http://shibboleth.internet2.edu/lists.html
+Informal support is provided through the Shibboleth development mailing list:
+http://shibboleth.net/community/lists.html
 
-Issues, Suggestions
+Issues
 --------
-Issues or suggestions for improvement may submitted to the OpenWS - Java
-project at:
+Issues or suggestions for improvement may submitted to the our project tracker:
 https://issues.shibboleth.net/jira/browse/JOST
