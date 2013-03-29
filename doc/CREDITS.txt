@@ -1,38 +1,62 @@
-OpenSAML2 Java Stack Implementation Team
+ Current Development Team
 
- Documentation
-------------------------------
-   Nate Klingenstein
-   Internet2
-   
-   Chad La Joie
-   SWITCH
-
- Software Development
------------------------------- 
    Scott Cantor
    The Ohio State University
-      
-   Chad La Joie
-   SWITCH
-     
+
+   Daniel Fisher
+   Virginia Tech
+   
    Brent Putman
    Georgetown University
    
    Rod Widdowson
-   University of Edinburgh
+   Steading System Software LLP
 
- Project Management
-------------------------------
+   Ian Young
+   Independent
+
+   Tom Zeller
+   Dragonacea, LLC
+      
+  
+ Emeritus Developers
+
+   Derek Atkins
+
+   Jim Fox
+
+   Walter Hoehn
+
+   Chad LaJoie
+
+   Derek Morr
+
+   Will Norris
+  
+ Emeritus Contributors
+
    Steven Carmody
    Brown University
-   
+
    Ken Klingenstein
    Internet2
-   
+
+   Nate Klingenstein
+   Internet2
+
+   Nicole Harris
+   TERENA
+
    RL "Bob" Morgan
    University of Washington
-   
-Additional Contributions by:
+   http://shibboleth.net/community/news/20120717.html
 
-   XACML code contributions by HŒkon Sagehaug and Yuri Demchenko, funded by the EGEE Collaboration
+   Many others!
+   
+Additional thanks to:
+
+    Internet2
+
+    The National Science Foundation
+    
+    Hï¿½kon Sagehaug and Yuri Demchenko for XACML code contributions
