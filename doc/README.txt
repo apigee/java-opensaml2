@@ -4,10 +4,10 @@ OpenSAML-J
 OpenSAML-J is a low-level library that allow developers to work with XML in a
 Java beans manner.
 
-OpenSAML-J requires working JAXP 1.3 and DOM Level 3 compliant parsers,
-and this library requires the use of Xerces and Xalan for historical reasons.
-We recommend those libraries be endorsed using the endorsement override
-mechanism in the JVM to ensure their use.
+OpenSAML-J requires a JAXP 1.3 and DOM Level 3 compliant parser, and this
+library assumes the use of Xerces and Xalan for historical reasons. You
+may choose to use the built-in parser and transform engine at your own
+risk.
 
 The use of JDK 1.6 or higher is required. Older Java versions are not
 supported.
