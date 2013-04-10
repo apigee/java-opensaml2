@@ -1,13 +1,15 @@
 Changes in Release 2.6.0
 =============================================
-[JOST-191] - Merge back misc XACML fixes from OpenSAML3
+[JOST-135] - Opensaml prunes empty xml namespaces, that are required for correct encryption 
+[JOST-162] - Globally enabling schema validation breaks the Signature metadata filter 
 [JOST-169] - Update Velocity Dependency
+[JOST-183] - AbstractReloadingMetadataProvider code for maxRefreshDelay doesn't match documentation
 [JOST-184] - It would be nice if ESAPI.encodeForURL could be made to work
 [JOST-185] - Defaultbootstrap does not initialize the providers from the WS-Trust and WS-Policy schemas in openws
 [JOST-187] - Velocity initialization code uses an invalid key for the configuration properties set
 [JOST-188] - DefaultBootstrap is unnecessarily calling Velocity singleton initialization
 [JOST-190] - Backport some bugfixes from OpenSAML3
-[JOST-191] - Further Bugfixes to XACML\policy
+[JOST-191] - Merge back misc XACML fixes from OpenSAML3
 [JOST-192] - org.opensaml.saml2.metadata.provider.SignatureValidationFilter => java.lang.UnsupportedOperationException
 [JOST-193] - Make the implementation of custom bootstrap code easier, without relying on private data from DefaultBootstrap
 [JOST-194] - org.opensaml.ESAPISecurityConfig should use singleton pattern like the default ESAPI reference class
