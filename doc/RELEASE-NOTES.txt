@@ -1,3 +1,7 @@
+Changes in Release 2.6.1
+=============================================
+[JOST-210] - AbstractSAMLObject should not override equals but not hashCode
+
 Changes in Release 2.6.0
 =============================================
 [JOST-135] - Opensaml prunes empty xml namespaces, that are required for correct encryption 
