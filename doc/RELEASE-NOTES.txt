@@ -1,6 +1,7 @@
 Changes in Release 2.6.1
 =============================================
 [JOST-210] - AbstractSAMLObject should not override equals but not hashCode
+[JOST-213] - Scoping class has incorrect xsi:type 
 
 Changes in Release 2.6.0
 =============================================
