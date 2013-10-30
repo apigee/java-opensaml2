@@ -3,6 +3,7 @@ Changes in Release 2.6.1
 [JOST-210] - AbstractSAMLObject should not override equals but not hashCode
 [JOST-213] - Scoping class has incorrect xsi:type 
 [JOST-215] - Opensaml1 failed to pass veracode due Use of Wrong Operator in String Comparison (CWE ID 597) 
+[JOST-218] - AbstractMetadataProvider is incorrectly performing an unnecessary validity check and erroneous TRACE message
 
 Changes in Release 2.6.0
 =============================================
