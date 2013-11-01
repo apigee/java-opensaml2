@@ -246,7 +246,7 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
      * 
      * @throws MetadataProviderException thrown is there is a problem retrieving and processing the metadata
      */
-    public void refresh() throws MetadataProviderException {
+    public synchronized void refresh() throws MetadataProviderException {
         DateTime now = new DateTime(ISOChronology.getInstanceUTC());
         String mdId = getMetadataIdentifier();
 
