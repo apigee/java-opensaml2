@@ -260,10 +260,15 @@ public abstract class AbstractReloadingMetadataProvider extends AbstractObservab
                 log.debug("Processing new metadata from '{}'", mdId);
                 processNewMetadata(mdId, now, mdBytes);
             }
-        } catch (Exception e) {
-            log.debug("Error occurred while attempting to refresh metadata from '" + mdId + "'", e);
+        } catch (Throwable t) {
+            log.debug("Error occurred while attempting to refresh metadata from '" + mdId + "'", t);
             nextRefresh = new DateTime(ISOChronology.getInstanceUTC()).plus(minRefreshDelay);
-            throw new MetadataProviderException(e);
+            if (t instanceof Exception) {
+                throw new MetadataProviderException((Exception) t);
+            } else {
+                throw new MetadataProviderException(String.format("Saw an error of type '%s' with message '%s'", 
+                        t.getClass().getName(), t.getMessage()));
+            }
         } finally {
             refresMetadataTask = new RefreshMetadataTask();
             long nextRefreshDelay = nextRefresh.getMillis() - System.currentTimeMillis();

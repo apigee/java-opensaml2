@@ -5,6 +5,7 @@ Changes in Release 2.6.1
 [JOST-215] - Opensaml1 failed to pass veracode due Use of Wrong Operator in String Comparison (CWE ID 597) 
 [JOST-218] - AbstractMetadataProvider is incorrectly performing an unnecessary validity check and erroneous TRACE message
 [JOST-219] - AbstractReloadingMetadataProvider refresh() is public, should be synchronized for concurrent access
+[JOST-220] - IdP stopping metadata retrieval
 
 Changes in Release 2.6.0
 =============================================
