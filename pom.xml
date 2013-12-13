@@ -113,6 +113,12 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
+        <!-- TODO: overrides parent POM managed version.  Remove when appropriate. -->
+        <dependency>
+            <groupId>org.apache.santuario</groupId>
+            <artifactId>xmlsec</artifactId>
+            <version>1.5.6</version>
+        </dependency>
 
         <!-- Provided dependencies -->
         <dependency>

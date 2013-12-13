@@ -7,6 +7,9 @@ Changes in Release 2.6.1
 [JOST-219] - AbstractReloadingMetadataProvider refresh() is public, should be synchronized for concurrent access
 [JOST-220] - IdP stopping metadata retrieval
 
+Also, updating POM to implement:
+[JXT-106] - Update Apache Santuario (xmlsec) to 1.5.6
+
 Changes in Release 2.6.0
 =============================================
 [JOST-135] - Opensaml prunes empty xml namespaces, that are required for correct encryption 
