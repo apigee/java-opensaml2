@@ -1,3 +1,7 @@
+Changes in Release 2.6.2
+=============================================
+[JOST-223] - Misspelled error constant in SAML 1 StatusCode interface
+
 Changes in Release 2.6.1
 =============================================
 [JOST-210] - AbstractSAMLObject should not override equals but not hashCode
