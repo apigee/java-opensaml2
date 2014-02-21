@@ -1,6 +1,7 @@
 Changes in Release 2.6.2
 =============================================
 [JOST-223] - Misspelled error constant in SAML 1 StatusCode interface
+[JOST-224] - Superfluous/wrong type constants in SAML 1 and SAML 2 interfaces
 
 Changes in Release 2.6.1
 =============================================
