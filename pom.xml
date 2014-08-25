@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>net.shibboleth</groupId>
-        <artifactId>parent-v2</artifactId>
+        <groupId>io.apigee.opensaml</groupId>
+        <artifactId>opensaml-parent</artifactId>
         <version>1</version>
     </parent>
     
@@ -265,5 +265,11 @@
             </build>
         </profile>
     </profiles>
+
+  <scm>
+        <url>git@github.com:apigee/java-opensaml.git</url>
+        <connection>scm:git:https://github.com/apigee/java-opensaml.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/apigee/java-opensaml.git</developerConnection>
+  </scm>
     
 </project>
