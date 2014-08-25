@@ -267,9 +267,9 @@
     </profiles>
 
   <scm>
-        <url>git@github.com:apigee/java-opensaml.git</url>
-        <connection>scm:git:https://github.com/apigee/java-opensaml.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/apigee/java-opensaml.git</developerConnection>
+        <url>git@github.com:apigee/java-opensaml2.git</url>
+        <connection>scm:git:https://github.com/apigee/java-opensaml2.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/apigee/java-opensaml2.git</developerConnection>
   </scm>
     
 </project>
