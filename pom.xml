@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>net.shibboleth</groupId>
-        <artifactId>parent-v2</artifactId>
-        <version>1</version>
+        <groupId>io.apigee.opensaml</groupId>
+        <artifactId>opensaml-parent</artifactId>
+        <version>1.1</version>
     </parent>
     
-    <groupId>org.opensaml</groupId>
+    <groupId>io.apigee.opensaml</groupId>
     <artifactId>opensaml</artifactId>
     <version>2.6.0</version>
     <packaging>jar</packaging>
@@ -45,7 +45,7 @@
     <dependencies>
         <!-- Compile dependencies -->
         <dependency>
-            <groupId>org.opensaml</groupId>
+            <groupId>io.apigee.opensaml</groupId>
             <artifactId>openws</artifactId>
             <version>1.5.0</version>
         </dependency>
@@ -123,15 +123,7 @@
         <!-- Runtime dependencies -->
         <dependency>
             <groupId>${xerces.groupId}</groupId>
-            <artifactId>xml-apis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${xerces.groupId}</groupId>
             <artifactId>xercesImpl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>${xerces.groupId}</groupId>
-            <artifactId>serializer</artifactId>
         </dependency>
         <dependency>
             <groupId>xml-resolver</groupId>
@@ -267,5 +259,11 @@
             </build>
         </profile>
     </profiles>
-    
+
+  <scm>
+        <url>git@github.com:apigee/java-opensaml2.git</url>
+        <connection>scm:git:https://github.com/apigee/java-opensaml2.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/apigee/java-opensaml2.git</developerConnection>
+  </scm>
+
 </project>
